@@ -1,0 +1,1940 @@
+@charset "utf-8";
+
+/************************************************************
+ * 初期化
+ ************************************************************/
+body, form, img, div, p, ul, li, dl, dt, dd, h1, h2, h3, table,td ,select {
+	margin: 0;
+	padding: 0;
+	-webkit-text-size-adjust:none;
+}
+ul	{ list-style: none; }
+img		{ border: none; vertical-align: bottom; }
+table	{ border-spacing: 0; }
+/* clearfix */
+.cFix:after {
+	content: "";
+	display: block;
+	clear: both;
+	height: 0;
+	visibility: hidden;
+}
+.cFix	{ min-height: 1px; _height: 1px; }
+
+/************************************************************
+ * アンカー
+ ************************************************************/
+
+a:link			{ color: #4c4c80; }
+a:visited		{ color: #896958; }
+a:hover,
+a:active		{ color: #7878CC; text-decoration: none; }
+
+a.fgBGray:link	{ color: #435b67; }
+
+ /*
+a .imgFrame {
+	-webkit-transition: border .2s linear;
+	-moz-transition: border .2s linear;
+	-ms-transition: border .2s linear;
+	-o-transition: border .2s linear;
+	transition: border .2s linear;
+}
+
+a:hover .imgFrame {
+	border: 1px solid #999999;
+	-webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, .05);
+}
+.imgFrame {
+	border: 1px solid #EEEEEE;
+	padding: 1px;
+}
+*/
+
+/************************************************************
+ * フォント
+ ************************************************************/
+
+body, input, select, table, td, li ,a {
+	font-family: 'Microsoft YaHei', Arial, Helvetica, MS PGothic, sans-serif; 
+}
+body, input, select, table {
+	color: #333333;
+	font-size: 12px;
+	line-height: 1.5;
+}
+h1, h2 {
+	font-size: 12px;
+}
+
+/************************************************************
+ * IDS
+ ************************************************************/
+
+
+/* ヘッダー */
+#headerWrapper {
+	border-bottom: 2px solid #998a8a;
+	border-top:    16px solid #BFB4AB;
+	zoom: 1;
+}
+#header {
+	width: 1000px;
+	margin: 0 auto -2px;
+	position: relative;
+	border-bottom: 2px solid #998a8a;
+}
+#headSummary {
+	font-size: 10px;
+	font-weight: normal;
+	color: #FFFFFF;
+	padding-left: 18px;
+	margin-top: -16px;
+	position: absolute;
+}
+#logoNavi {
+	height: 68px;
+	position: relative;
+	z-index: 0;
+}
+#logo {
+	position: absolute;
+	top: 9px;
+	left: 12px;
+	z-index: 0;
+}
+.user {
+	position: absolute;
+	top: 0;
+	right: 20px;
+	line-height: 33px;
+	z-index: 1;
+}
+.user .arrowR {
+	display: inline-block;
+	background-position: -196px -234px;
+	background-repeat: no-repeat;
+}
+.move {
+	position: absolute;
+	bottom: -2px;
+	_bottom: -3px;
+	right: 20px;
+	z-index: 3;
+}
+
+/* ラッパー */
+#wrapper {
+	width: 1000px;
+	margin: 0 auto;
+	position: relative;
+}
+
+/* プレコンテンツ */
+#preContents {
+	padding: 0 20px;
+}
+/* コンテンツ */
+#contents {
+	margin-top: 8px;
+	padding: 0 20px;
+	min-height: 300px;
+	_height: 300px;
+}
+#mainContents {
+	float: left;
+	width: 960px;
+}
+
+.maincatch{
+	height: 50px;
+	position: relative;
+	z-index: 0;
+}
+
+.maincatchLink{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	z-index: 1;
+}
+
+.mainLink{
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	z-index: 1;
+}
+
+.mainSubtilte{
+	position: absolute;
+	bottom: 0px;
+	leftt: 0px;
+	z-index: 1;
+}
+
+#sideContents {
+	float: right;
+	width: 180px;
+}
+
+/* マイエリア */
+#myMenu			{ background-position: -5430px 0; background-repeat: repeat-y; }
+#myMenuHead		{ background-position: -5070px top; background-repeat: no-repeat; }
+#myMenuBottom {
+	background-position: -5250px bottom;
+	background-repeat: no-repeat;
+	padding: 4px 4px 7px;
+	zoom: 1;
+}
+
+/* フッター */
+
+.footerwrapper {
+	background:#f6f4f3 url("/CSP/img/top/bg_footerwrapper.gif") top;
+	background-repeat: repeat-x;
+}
+
+.footercontents {
+	background:#FFFFFF;
+	border-top: 1px solid #DDDDDD;
+	margin: 20px auto 0;
+	}
+
+
+#footer {
+	width:1000px;
+	margin: 0 auto;
+	height: 60px;
+	padding-top: 10px;
+	position: relative;
+}
+#copyright {
+	position: absolute;
+	top: 10px;
+	left: 30px;
+}
+#footerLinks {
+	font-size: 10px;
+	overflow: hidden;
+	position: absolute;
+	top: 20px;
+	right: 30px;
+}
+#footerLinks li {
+	float: left;
+	border-right: 1px solid #DDD;
+	padding-right: 15px;
+	*padding-right: 16px;
+	margin-left: 15px;
+	margin-right: -1px;
+}
+
+#copyrightnew {
+	float:left;
+	margin : 0 10px ;
+}
+#copyrightnew p a {
+	font-size: 10px;
+	font-weight: bold;
+	font-family: 'Microsoft YaHei', Arial, Helvetica, MS PGothic, sans-serif;
+	line-height: 2;
+	color: #435B67 !important;
+	text-decoration: underline !important;
+}
+
+.postSalonInfo {
+	position: absolute;
+	top: 20px;
+	left: 320px;
+	background: url("/assets/images/icon_postsalon.png") no-repeat left top;
+	padding-left: 20px;
+	line-height: 16px;
+	font-weight: bold;
+}
+.postSalonInfo a {
+	margin-left: 5px;
+	font-weight: normal;
+}
+
+/************************************************************
+ * CLASSES(コンポーネント)
+ ************************************************************/
+
+/* メインコンテンツフッター */
+.mainContentsFooter {
+	width:1000px;
+	margin: 0 auto;
+}
+
+/* メインコンテンツフッターリンク */
+.mainContentsFooterLinks {
+	padding-top:27px;
+	margin:0px 20px;
+}
+
+.mainContentsFooterLinks2 {
+	padding-top:12px;
+	margin:35px 20px 0px;
+	background:  url("/CSP/img/top/all_companies_border.gif");
+	background-repeat: repeat-x;
+	background-position:top;
+}
+
+.mainContentsFooterLinks li:first-child {
+	display: block;
+	font-weight:bold;
+	font-size: 12px;
+	color: #CCCCCC;
+	margin:2px 0px;
+}
+
+.mainContentsFooterLinks li {
+	display: inline;
+	font-size: 10px;
+	color: #4c4c80;
+	line-height:20px;
+}
+
+.mainContentsFooterLinks2 li {
+	display: inline;
+	font-size: 10px;
+	color: #4c4c80;
+	line-height:18px;
+}
+/* メインコンテンツフッターバナー */
+.mainContentsFooterBanners {
+	margin-top: 20px;
+}
+.mainContentsFooterBanners li {
+	float: left;
+	margin-top: 10px;
+	margin-right: 10px;
+}
+
+/* ジャンルボックス */
+.topGenreBox {
+	background:  url("/CSP/img/bt/map/bg/bg_topGenereBox.gif");
+	background-repeat: repeat-y;
+}
+.topGenreBoxHead	{ background:  url("/CSP/img/bt/map/bg/bg_topGenereBoxHead.gif") top no-repeat; }
+.topGenreBoxBottom	{ background:  url("/CSP/img/bt/map/bg/bg_topGenereBoxBottom.gif")  bottom no-repeat; padding: 7px; overflow: hidden; position: relative; z-index: 10; zoom:1; }
+
+/* マイエリア */
+.myMenuTop {
+	background-position: -900px -20px;
+}
+.myMenuTopTitle {
+	height: 29px;
+	margin: 0 4px;
+}
+.txtMypage				{ background-position: -1100px -20px; width: 73px; height: 13px; }
+.myMenuTopBody {
+	padding: 0 5px;
+	text-align: center;
+}
+.myMenuTitle {
+	margin: 10px 5px 0;
+}
+.txtPoint				{ background-position: -1100px -20px; background-repeat: no-repeat; width: 49px; height: 13px; }
+.txtLastReservedSalon	{ background-position: -1100px -40px; background-repeat: no-repeat; width: 116px; height: 13px; }
+.txtLastViewedSalon		{ background-position: -1100px -60px; background-repeat: no-repeat; width: 90px; height: 13px; }
+.txtMyMenu				{ background-position: -1100px -80px; background-repeat: no-repeat; width: 77px; height: 12px; }
+.txtInformation			{ background-position: -1100px -100px; background-repeat: no-repeat; width: 49px; height: 13px; }
+
+.myMenuBodyUnlogined {
+	background-position: -7240px 0;
+	background-repeat: repeat-y;
+	margin-top: 10px;
+}
+.myMenuBodyHeadUnlogined	{ background-position: -7412px top; background-repeat: no-repeat; }
+.myMenuBodyBottomUnlogined	{ background-position: -7584px bottom; background-repeat: no-repeat; padding: 7px 8px; overflow: hidden; position: relative; z-index: 10; zoom:1; }
+.myMenuBodyUnlogined .arrowR {
+	background-position: -196px -3506px !important;
+}
+
+.myMenuBody {
+	background-position: -5954px 0;
+	background-repeat: repeat-y;
+	margin-top: 10px;
+}
+.myMenuBodyHead			{ background-position: -5610px top; background-repeat: no-repeat; }
+.myMenuBodyBottom		{ background-position: -5782px bottom; background-repeat: no-repeat; padding: 7px 8px; overflow: hidden; position: relative; z-index: 10; zoom:1; }
+.myMenuMainBox {
+	background-position: -5782px bottom;
+	background-repeat: no-repeat;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 10px;
+	overflow: hidden;
+	position: relative;
+	z-index: 10;
+	zoom:1;
+}
+.myMenuList {
+	margin-top: -13px;
+	zoom:1;
+}
+.myMenuListCassette {
+	padding-top: 5px;
+	margin-top: 5px;
+	border-top: 1px dotted #999999;
+	position: relative;
+	zoom: 1;
+	z-index: 0;
+}
+.myMenuItems {
+	margin-top: -10px;
+	zoom: 1;
+}
+
+.myMenuItemsCassette {
+	padding-bottom: 10px;
+	position: relative;
+	zoom: 1;
+	z-index: 0;
+}
+.myMenuListBottom {
+	margin-top: 5px;
+	padding-top: 5px;
+	border-top: 2px solid #D9D9D9;
+}
+
+.iconReserve {
+	color: #FFF;
+	background-color: #CC0000;
+	font-size: 9px;
+	padding: 1px 4px;
+	margin-right: 5px;
+}
+.iconBrown {
+	background-color: #AA3355;
+	color: #FFF;
+	text-align: center;
+	font-size: 10px;
+	margin-right: 5px;
+}
+.iconPurple {
+	background-color:DarkMagenta;
+	color: #FFF;
+	text-align: center;
+	font-size: 10px;
+	margin-right: 5px;
+}
+
+.myPointBody a{
+	text-decoration: none;
+	color: #4c4c80;
+}
+
+.myPointBody a:hover{
+	color: #7878CC;
+	text-decoration: underline;
+}
+
+.grayPointBody p{
+	color:#FFF;
+	font-weight: bold;
+	line-height: 120%;
+	font-size: 10px;
+	font-family: 'Microsoft YaHei', Arial, Helvetica, MS PGothic, sans-serif; 
+}
+
+.grayPointBody p span,
+.usePointBody p span{
+	font-size:16px;
+	line-height: 110%
+}
+
+.alertRed,
+.usePointBody p a.alertRed{
+	color:#DD0000;
+}
+
+.usePointBody p a{
+	font-weight: bold;
+	text-decoration: none;
+	color: #4c4c80;
+}
+
+.usePointBody p a:hover{
+	ccolor: #4c4c80;
+	text-decoration: underline;
+}
+
+
+/* 検索ボックス */
+.searchBox {
+	float: right;
+	width: 364px;
+	height: 31px;
+	padding: 0;
+	background-position: 0 -260px;
+}
+.findBySalon		{ background-position: -400px -260px; width: 88px; height: 11px; }
+.inputSalonName 	{ width: 213px; font-size: 18px; line-height: 1; height: 20px; padding-top: 1px; *margin-top: -1px; }
+.searchButton		{ background-position: -300px -1280px; width:73px; height:24px; }
+.searchButton:hover	{ background-position: -300px -1304px; }
+
+/* ショートカットリンク */
+.sideShortcutSearchBox {
+	margin-top: -1px;
+}
+.sideShortcutSearchCassette {
+	border-top: 1px dotted #CCCCCC;
+	padding-top: 10px;
+	margin-bottom: 10px;
+}
+
+/* プライバシーマーク */
+.privacyMarkCaption {
+	width: 105px;
+	font-size: 10px;
+}
+
+/* 白背景画像用ボーダー */
+.bdImgGray	{ border: 1px solid #EEE; }
+/*a:hover .bdImgGray	{ border: 2px solid #F47892; }*/
+
+/* インフォメーション */
+.infoList {
+	margin-top: -1px;
+}
+.infoListCassette {
+	padding: 20px 20px 0;
+}
+
+/* フォーム系 */
+.tfF {
+	border-top: 1px solid #8E8E8E;
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #8E8E8E;
+}
+.taF {
+	border-top: 1px solid #8E8E8E;
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #8E8E8E;
+}
+.pdF {
+	border-top: 1px solid #8E8E8E;
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #8E8E8E;
+}
+.cbF {
+	*width: 1.5em;
+	height: 1.5em;
+	vertical-align: middle;
+	margin: 0 5px 0 5px;
+	*margin: 0 2px 0 3px;
+	padding: 0;
+}
+.sbmF {
+	cursor: pointer;
+}
+
+/* 見出し */
+.boxTitle {
+	color: #88796B;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 1;
+}
+.boxTitle h2 {
+	font-size: 14px;
+}
+.boxTitle a {
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 1.5;
+}
+
+.skinHeadingWrapper {
+	height: 12px;
+	border-bottom: 1px solid #959595;
+	background: url(/assets/images/img/bt/icons/icon_heading_bt.png) no-repeat 0 0;
+	padding-left: 24px;
+	padding-bottom: 9px;
+	line-height: 18px;
+}
+
+/* ↓総合トップ、ヘア型兼用差し込みパーツ↓ */
+.skinHeadingWrapper1 {
+	height: 12px;
+	border-bottom: 1px solid #959595;
+	background: url(/assets/images/img/bt/icons/icon_heading_bt.png) no-repeat 0 0;
+	padding-left: 24px;
+	padding-bottom: 9px;
+	line-height: 16px;
+	/*display:none;*/    /*ヘアカタログサイト時使用*/
+}
+
+div.skinHeadingWrapper2 {
+	height: 12px;
+	border-bottom: 1px solid #959595;
+	background: url(/CSP/img/top/icons/icon_heading.png) no-repeat 0 0;
+	padding-left: 24px;
+	padding-bottom: 9px;
+	line-height: 18px;
+	position: static;
+	display: block !important;
+}
+
+.skinHeadingCaption {
+	display: none;
+}
+
+.headingLength {
+	width: 172px;
+	height: 17px;
+}
+
+.skinHeading2 {
+	line-height: 18px;
+}
+
+
+/* ↑総合トップ、ヘア型兼用差し込みパーツ↑ */
+
+
+.skinHeadingWrapper h3,
+.skinHeadingWrapper1 h3,
+.skinHeadingWrapper2 h3 {
+	font-size:13px;
+	color:#444444;
+	font-family: 'Microsoft YaHei', Arial, Helvetica, MS PGothic, sans-serif; 
+	}
+
+/* 見出しの画像テキスト */
+
+/*========index用=========*/
+
+.mainImage_navi{width:960px; height:397px; margin:0 auto;}
+.mainImage_navi a{ text-indent: -9999px; text-decoration: none; display: block; width: 230px; background-repeat: no-repeat;
+}
+.mainImage_navi a:hover { text-indent: -9999px; text-decoration: none; display: block; width: 230px; background-repeat: no-repeat;
+}
+.mainImage{    width:730px; height:397px; float:left;}
+
+/* index4.html */
+.imgNaviWrapper	{
+	width: 230px;
+	float: left;
+	position: relative;
+}
+.naviBar	{
+	position: absolute;
+	width: 10px;
+	height: 100px;
+	background-color: #393021;
+}
+.mainImage	{
+	position: relative;
+}
+.mainImage li	{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 98;
+}
+.mainImage li.current	{
+	z-index: 100;
+}
+.mainImage li.prevCurrent	{
+	z-index: 99;
+}
+.mainImage_navi	{
+	width: auto;
+}
+
+.hair_reserve{ width:230px; height:99px; float:left;}
+.nail_reserve{ width:230px; height:99px; float:left;}
+.relax_reserve{width:230px; height:99px; float:left;}
+.esthe_reserve{width:230px; height:100px; float:left;}
+
+.hair_reserve a {
+	background: url(/assets/images/mainImg_Btn.png) 0 0 no-repeat;
+	width: 230px;
+	height: 99px;
+}
+.hair_reserve a:hover {
+	background-position: 0 -100px;
+}
+.nail_reserve a {
+	background: url(/assets/images/mainImg_Btn.png) -230px 0 no-repeat;
+	width: 230px;
+	height: 99px;
+}
+.nail_reserve a:hover {
+	background-position: -230px -100px;
+}
+.relax_reserve a {
+	background: url(/assets/images/mainImg_Btn.png) -460px 0 no-repeat;
+	width: 230px;
+	height: 99px;
+}
+.relax_reserve a:hover {
+	background-position: -460px -100px;
+}
+.esthe_reserve a {
+	background: url(/assets/images/mainImg_Btn.png) -690px 0 no-repeat;
+	width: 230px;
+	height: 100px;
+}
+.esthe_reserve a:hover {
+	background-position: -690px -100px;
+}
+
+.sliderBar {
+	position: absolute;
+	top: 0;
+	right: 220px;
+	width: 10px;
+	height: 100px;
+	background-color: #393021;
+}
+
+.plugWrapper {
+	margin-top:-1px;
+	font-size:0;     /* cFixによる空白解除用 */
+	display: block;  /* cFixによる空白解除用 */
+}
+.plugWrapper div.w421{
+	margin-top:21px;
+	font-size:12px;
+}
+
+/* ヘッダー */
+.logo			{ background-position: 4px 0px; display: block; width: 512px; height: 52px; text-indent: -9999px; overflow: hidden; }
+.salon			{ background-position: -20px -72px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
+.salon:hover	{ background-position: -20px -107px; }
+.salonCurrent	{ background-position: -20px -142px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
+.catalog		{ background-position: -184px -72px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
+.catalog:hover	{ background-position: -184px -107px; }
+.catalogCurrent	{ background-position: -184px -142px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
+.nail			{ background-position: -348px -72px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
+.nail:hover		{ background-position: -348px -107px; }
+.nailCurrent	{ background-position: -348px -142px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
+.nailCatalog			{ background-position: -512px -72px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
+.nailCatalog:hover		{ background-position: -512px -107px; }
+.nailCatalogCurrent	{ background-position: -512px -142px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
+.relax			{ background-position: -676px -72px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
+.relax:hover	{ background-position: -676px -107px; }
+.relaxCurrent	{ background-position: -676px -142px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
+.esthe			{ background-position: -840px -72px; display: block; width: 134px; height: 35px; margin-right: 6px; text-indent: -9999px; overflow: hidden; }
+.esthe:hover	{ background-position: -840px -107px; }
+.estheCurrent	{ background-position: -840px -142px; display: block; width: 134px; height: 35px; margin-right: 6px; text-indent: -9999px; overflow: hidden; }
+
+/* 背景 */
+.insertArea				{ background-position: -900px -340px; display: block; width:190px; height:300px; }
+
+.ranking1Small	{ background-position: 0 -320px; width: 46px; height: 16px; }
+.ranking2Small	{ background-position: -60px -320px; width: 46px; height: 16px; }
+.ranking3Small	{ background-position: -120px -320px; width: 46px; height: 16px; }
+.ranking4Small	{ background-position: -180px -320px; width: 46px; height: 16px; }
+.ranking5Small	{ background-position: -240px -320px; width: 46px; height: 16px; }
+
+.present		{ background-position: 0 -380px; width:81px; height:19px; }
+.scoop			{ background-position: -100px -380px; width:81px; height:19px; }
+.erucaLogo		{ background-position: -200px -380px; width:81px; height:19px; }
+.affiliate		{ background-position: -300px -380px; width:81px; height:19px; }
+.words			{ background-position: -400px -380px; width:81px; height:19px; }
+
+/* アイコン（単体） */
+.new			{ background-position: -1186px -160px; width: 30px; height: 13px; margin-left: 5px; }
+.newS			{ background-position: -1194px -140px; width:22px; height:11px; margin-left: 5px; }
+
+.serviceHairSalonN{ background-position: -1164px -201px; width: 52px; height: 14px; }
+.serviceRelaxN	{ background-position: -1164px -240px; width: 52px; height: 14px; }
+.serviceSeitaiN	{ background-position: -1164px -280px; width: 52px; height: 14px; }
+.serviceRefleshN{ background-position: -1164px -320px; width: 52px; height: 14px; }
+.serviceNailN	{ background-position: -1164px -360px; width: 52px; height: 14px; }
+.serviceEyeMakeN{ background-position: -1167px -400px; width: 52px; height: 14px; }
+.serviceEsuteN	{ background-position: -1164px -440px; width: 52px; height: 14px; }
+
+/* アイコン（左付） */
+/* アイコン（右付） */
+
+/* ボタン */
+.shindanStart					{ background-position: -540px -1200px; display: block; width:166px; height:27px; }
+.shindanStart:hover				{ background-position: -540px -1227px; display: block; width:166px; height:27px; }
+
+.forSalonWishToLink				{ background-position: -900px -660px; display: block; width:180px; height:45px; }
+.forSalonWishToPost				{ background-position: -900px -720px; display: block; width:180px; height:45px; }
+.forFooMoo						{ background-position: -900px -780px; display: block; width:180px; height:45px; }
+
+.searchThisTerms				{ background-position: -380px -1200px; display: block; width:131px; height:30px; }
+.searchThisTerms:hover			{ background-position: -380px -1230px; }
+
+.login							{ background-position: -280px -1200px; display: block; width:69px; height:24px; }
+.login:hover					{ background-position: -280px -1224px; }
+
+.viewDetailReservation			{ background-position: -480px -1280px; display: block; width:115px; height:24px; }
+.viewDetailReservation:hover	{ background-position: -480px -1304px; }
+.reserveW69H24					{ background-position: -220px -1280px; display: block; width:69px; height:24px; }
+.reserveW69H24:hover			{ background-position: -220px -1304px; }
+
+/*予約ボタン*/
+.salonReserve				{ background-position: -339px -480px; display: block; width: 42px; height: 16px; }
+.salonReserve:hover			{ background-position: -339px -496px; }
+
+/* 地図 */
+.hairSalonMap			{ background-position: 0 -420px; height:206px; }
+
+/* ▼ここから削除予定▼ */
+.hokkaido1				{ background: url("/CSP/img/bt/map/button/btn_hokkaido1.gif") no-repeat -3px -1px; display: block; width:76px; height:47px; top: -159px; left: 264px; }
+.hokkaido1:hover		{ background-position: -3px -54px; }
+.touhoku1				{ background: url("/CSP/img/bt/map/button/btn_touhoku1.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 254px;  }
+.touhoku1:hover			{ background-position: -3px -44px; }
+.hokushin1				{ background: url("/CSP/img/bt/map/button/btn_hokushin1.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 163px;  }
+.hokushin1:hover		{ background-position: -3px -44px; }
+.chugoku1				{ background: url("/CSP/img/bt/map/button/btn_chugoku1.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 72px;  }
+.chugoku1:hover			{ background-position: -3px -44px; }
+.kanto1					{ background: url("/CSP/img/bt/map/button/btn_kanto1.gif") no-repeat -3px -1px; display: block; width:61px; height:37px; top: -57px; left: 278px;  }
+.kanto1:hover			{ background-position: -3px -44px; }
+.toukai1				{ background: url("/CSP/img/bt/map/button/btn_toukai1.gif") no-repeat -3px -1px; display: block; width:61px; height:37px; top: -57px; left: 210px;  }
+.toukai1:hover			{ background-position: -3px -44px; }
+.kansai1				{ background: url("/CSP/img/bt/map/button/btn_kansai1.gif") no-repeat -3px -1px; block; width:61px; height:37px; top: -57px; left: 143px;  }
+.kansai1:hover			{ background-position: -3px -44px; }
+.shikoku1				{ background: url("/CSP/img/bt/map/button/btn_shikoku1.gif") no-repeat -3px -1px; display: block; width:59px; height:31px; top: -52px; left: 72px;  }
+.shikoku1:hover			{ background-position: -3px -38px; }
+.kyushu1				{ background: url("/CSP/img/bt/map/button/btn_kyushu1.gif") no-repeat -3px -1px; display: block; width:37px; height:80px; top: -90px; left: 25px;  }
+.kyushu1:hover			{ background-position: -3px -87px; }
+/* ▲ここまで削除予定▲ */
+
+/* ▼ここから追加▼ */
+.hokkaido1_2			{ background: url("/CSP/img/bt/map/button/btn_hokkaido1.gif") no-repeat -3px -1px; display: block; width:76px; height:47px; top: -159px; left: 266px; }
+.hokkaido1_2:hover		{ background-position: -3px -54px; }
+.touhoku1_2				{ background: url("/CSP/img/bt/map/button/btn_touhoku1.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 256px;  }
+.touhoku1_2:hover		{ background-position: -3px -44px; }
+.hokushin1_2			{ background: url("/CSP/img/bt/map/button/btn_hokushin1.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 165px;  }
+.hokushin1_2:hover		{ background-position: -3px -44px; }
+.chugoku1_2				{ background: url("/CSP/img/bt/map/button/btn_chugoku1.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 74px;  }
+.chugoku1_2:hover		{ background-position: -3px -44px; }
+.kanto1_2				{ background: url("/CSP/img/bt/map/button/btn_kanto1.gif") no-repeat -3px -1px; display: block; width:61px; height:37px; top: -57px; left: 280px;  }
+.kanto1_2:hover			{ background-position: -3px -44px; }
+.toukai1_2				{ background: url("/CSP/img/bt/map/button/btn_toukai1.gif") no-repeat -3px -1px; display: block; width:61px; height:37px; top: -57px; left: 212px;  }
+.toukai1_2:hover		{ background-position: -3px -44px; }
+.kansai1_2				{ background: url("/CSP/img/bt/map/button/btn_kansai1.gif") no-repeat -3px -1px; block; width:61px; height:37px; top: -57px; left: 145px;  }
+.kansai1_2:hover		{ background-position: -3px -44px; }
+.shikoku1_2				{ background: url("/CSP/img/bt/map/button/btn_shikoku1.gif") no-repeat -3px -1px; display: block; width:59px; height:31px; top: -52px; left: 74px;  }
+.shikoku1_2:hover		{ background-position: -3px -38px; }
+.kyushu1_2				{ background: url("/CSP/img/bt/map/button/btn_kyushu1_2.gif") no-repeat -3px -1px; display: block; width:37px; height:80px; top: -90px; left: 27px;  }
+.kyushu1_2:hover		{ background-position: -3px -87px; }
+/* ▲ここまで追加▲ */
+
+
+.relaxBeautySalonMap	{ background-position: 0 -660px; height:206px; }
+
+/* ▼ここから削除予定▼ */
+.hokkaido2				{ background: url("/CSP/img/bt/map/button/btn_hokkaido2.gif") no-repeat -3px -1px; display: block; width:76px; height:47px; top: -159px; left: 271px; }
+.hokkaido2:hover		{ background-position: -3px -54px; }
+.touhoku2				{ background: url("/CSP/img/bt/map/button/btn_touhoku2.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 261px;  }
+.touhoku2:hover			{ background-position: -3px -44px; }
+.hokushin2				{ background: url("/CSP/img/bt/map/button/btn_hokushin2.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 170px;  }
+.hokushin2:hover		{ background-position: -3px -44px; }
+.chugoku2				{ background: url("/CSP/img/bt/map/button/btn_chugoku2.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 79px;  }
+.chugoku2:hover			{ background-position: -3px -44px; }
+.kanto2					{ background: url("/CSP/img/bt/map/button/btn_kanto2.gif") no-repeat -3px -1px; display: block; width:61px; height:37px; top: -57px; left: 285px;  }
+.kanto2:hover			{ background-position: -3px -44px; }
+.toukai2				{ background: url("/CSP/img/bt/map/button/btn_toukai2.gif") no-repeat -3px -1px; display: block; width:61px; height:37px; top: -57px; left: 217px;  }
+.toukai2:hover			{ background-position: -3px -44px; }
+.kansai2				{ background: url("/CSP/img/bt/map/button/btn_kansai2.gif") no-repeat -3px -1px; display: block; width:61px; height:37px; top: -57px; left: 150px;  }
+.kansai2:hover			{ background-position: -3px -44px; }
+.shikoku2				{ background: url("/CSP/img/bt/map/button/btn_shikoku2.gif") no-repeat -5px -1px; display: block; width:59px; height:31px; top: -52px; left: 79px;  }
+.shikoku2:hover			{ background-position: -5px -38px; }
+.kyushu2				{ background: url("/CSP/img/bt/map/button/btn_kyushu2.gif") no-repeat -3px -1px; display: block; width:37px; height:80px; top: -90px; left: 32px;  }
+.kyushu2:hover			{ background-position: -3px -87px; }
+/* ▲ここまで削除予定▲ */
+
+/* ▼ここから追加▼ */
+.hokkaido2_2			{ background: url("/CSP/img/bt/map/button/btn_hokkaido2.gif") no-repeat -3px -1px; display: block; width:76px; height:47px; top: -159px; left: 267px; }
+.hokkaido2_2:hover		{ background-position: -3px -54px; }
+.touhoku2_2				{ background: url("/CSP/img/bt/map/button/btn_touhoku2.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 257px;  }
+.touhoku2_2:hover		{ background-position: -3px -44px; }
+.hokushin2_2			{ background: url("/CSP/img/bt/map/button/btn_hokushin2.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 164px;  }
+.hokushin2_2:hover		{ background-position: -3px -44px; }
+.chugoku2_2				{ background: url("/CSP/img/bt/map/button/btn_chugoku2.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 75px;  }
+.chugoku2_2:hover		{ background-position: -3px -44px; }
+.kanto2_2				{ background: url("/CSP/img/bt/map/button/btn_kanto2.gif") no-repeat -3px -1px; display: block; width:61px; height:37px; top: -57px; left: 281px;  }
+.kanto2_2:hover			{ background-position: -3px -44px; }
+.toukai2_2				{ background: url("/CSP/img/bt/map/button/btn_toukai2.gif") no-repeat -3px -1px; display: block; width:61px; height:37px; top: -57px; left: 213px;  }
+.toukai2_2:hover		{ background-position: -3px -44px; }
+.kansai2_2				{ background: url("/CSP/img/bt/map/button/btn_kansai2.gif") no-repeat -3px -1px; display: block; width:61px; height:37px; top: -57px; left: 146px;  }
+.kansai2_2:hover		{ background-position: -3px -44px; }
+.shikoku2_2				{ background: url("/CSP/img/bt/map/button/btn_shikoku2.gif") no-repeat -5px -1px; display: block; width:59px; height:31px; top: -52px; left: 75px;  }
+.shikoku2_2:hover		{ background-position: -5px -38px; }
+.kyushu2_2				{ background: url("/CSP/img/bt/map/button/btn_kyushu2_2.gif") no-repeat -3px -1px; display: block; width:37px; height:80px; top: -90px; left: 28px;  }
+.kyushu2_2:hover		{ background-position: -3px -87px; }
+/* ▲ここまで追加▲ */
+
+/* キレイ分割 */
+.hokkaido1_3			{ background: url("/CSP/img/bt/map/button/btn_hokkaido1.gif") no-repeat -3px -1px; display: block; width:76px; height:47px; top: -168px; left: 268px; }
+.hokkaido1_3:hover		{ background-position: -3px -54px; }
+.touhoku1_3				{ background: url("/CSP/img/bt/map/button/btn_touhoku1.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -110px; left: 258px;  }
+.touhoku1_3:hover		{ background-position: -3px -44px; }
+.hokushin1_3			{ background: url("/CSP/img/bt/map/button/btn_hokushin1.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -110px; left: 167px;  }
+.hokushin1_3:hover		{ background-position: -3px -44px; }
+.chugoku1_3				{ background: url("/CSP/img/bt/map/button/btn_chugoku1.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -110px; left: 76px;  }
+.chugoku1_3:hover		{ background-position: -3px -44px; }
+.kanto1_3				{ background: url("/CSP/img/bt/map/button/btn_kanto1.gif") no-repeat -3px -1px; display: block; width:61px; height:37px; top: -66px; left: 282px;  }
+.kanto1_3:hover			{ background-position: -3px -44px; }
+.toukai1_3				{ background: url("/CSP/img/bt/map/button/btn_toukai1.gif") no-repeat -3px -1px; display: block; width:61px; height:37px; top: -66px; left: 214px;  }
+.toukai1_3:hover		{ background-position: -3px -44px; }
+.kansai1_3				{ background: url("/CSP/img/bt/map/button/btn_kansai1.gif") no-repeat -3px -1px; block; width:61px; height:37px; top: -66px; left: 147px;  }
+.kansai1_3:hover		{ background-position: -3px -44px; }
+.shikoku1_3				{ background: url("/CSP/img/bt/map/button/btn_shikoku1.gif") no-repeat -3px -1px; display: block; width:59px; height:31px; top: -62px; left: 76px;  }
+.shikoku1_3:hover		{ background-position: -3px -38px; }
+.kyushu1_3				{ background: url("/CSP/img/bt/map/button/btn_kyushu1_2.gif") no-repeat -3px -1px; display: block; width:37px; height:80px; top: -100px; left: 29px;  }
+.kyushu1_3:hover		{ background-position: -3px -87px; }
+
+/* 地図内bg */
+.bgTopBoxTitle			{ background: url("/CSP/img/bt/map/bg/bg_topgenreboxtitle.gif") no-repeat; display: block; width: 750px; height: 36px; }
+
+
+/* ▼ここから追加▼ */
+.bgSalonMap2			{ background: url("/CSP/img/bt/map/bg/bg_hairsalonmap2.gif") no-repeat; display: block; width: 371px; height: 206px; }
+.bgRelaxMap2			{ background: url("/CSP/img/bt/map/bg/bg_relaxbeautysalonmap2.gif") no-repeat; display: block; width: 371px; height: 206px; }
+/* ▲ここまで追加▲ */
+
+
+.bgSalonMap			{ background: url("/CSP/img/bt/map_new/bg_hairsalonmap.gif") no-repeat; display: block; width: 421px; height: 358px; position: relative;}
+
+
+
+/* キレイ分割 */
+.bgSalonMap3			{ background: url("/CSP/img/bt/map/bg/bg_hairsalonmap3.gif") no-repeat; display: block; width: 374px; height: 228px; }
+.bgRelaxMap3			{ background: url("/CSP/img/bt/map/bg/bg_relaxalonmap3.gif") no-repeat; display: block; width: 374px; height: 228px; }
+.bgEstheMap				{ background: url(/CSP/img/bt/map/bg/bg_esthesalonmap.gif) no-repeat; display: block; width: 374px; height: 228px; }
+.bgNailMap				{ background: url(/CSP/img/bt/map/bg/bg_nailsalonmap.gif) no-repeat; display: block; width: 374px; height: 228px; }
+
+/* マイメニューアイコン */
+.myMenuDecision	{ background-position: -1151px -680px; width:65px; height:18px;}
+.myMenuTemporary{ background-position: -1151px -700px; width:65px; height:18px;}
+.myMenuVisitted	{ background-position: -1151px -720px; width:65px; height:18px;}
+.myMenuFailure	{ background-position: -1151px -740px; width:65px; height:18px;}
+.myMenuCancel	{ background-position: -1151px -760px; width:65px; height:18px;}
+
+/* ヘアカタログタブ */
+.hairStyleTab li {
+	float: left;
+	width: 8em;
+}
+.hairStyleTab {
+	padding-left: 10px;
+	border-bottom: 1px solid #aa3355;
+}
+.hairStyleTabLinks {
+	min-height: 57px !important;
+	_height: 57px !important;
+}
+.hairStyleTabLinks2 {
+	min-height: 28px !important;
+	_height: 28px !important;
+}
+.tabSliderWrapper	{ overflow-x: hidden; overflow-y: hidden; position: relative; zoom: 1 !important; width: 556px; }
+.tabSlider	{ position: relative; left: 0; width: 1136px; }
+.tabContent		{ width: 547px; }
+
+/************************************************************
+ * スプライト画像 - 横長画像（y.png）
+ ************************************************************/
+
+.yS		{ background-image: url(/assets/images/y.png); }
+
+/* 見出し */
+.mainContentsTitleNHOuter		{ background-position: -6126px top; background-repeat: no-repeat; background-color: #AA3355; }
+.mainContentsTitleNHInner		{ background-position: -6683px bottom; background-repeat: no-repeat; color: #FFFFFF; font-size: 16px; padding: 8px 10px; }
+.mainContentsTitleNHInner h2	{ font-size: 16px; }
+.mainContentsTitleNHInner h3	{ font-size: 16px; }
+
+.mainContentsTitleNOuter		{ background-position: -6126px top; background-repeat: no-repeat; background-color: #AA3355; }
+.mainContentsTitleNInner		{ background-position: -6683px bottom; background-repeat: no-repeat; color: #FFFFFF; font-size: 14px; padding: 6px 10px; }
+.mainContentsTitleNInner h2		{ font-size: 16px; }
+
+/************************************************************
+ * スプライト画像 - 横長画像（y2.png）
+ ************************************************************/
+
+.y2S		{ background-image: url(/assets/images/y2.png); }
+
+/* ランキングボックス */
+.rankingBox {
+	background-position: -5262px 0;
+	background-repeat: repeat-y;
+}
+.rankingBoxHead			{ background-position: -5368px top; background-repeat: no-repeat; }
+.rankingBoxBottom		{ background-position: -5474px bottom; background-repeat: no-repeat; padding: 7px; overflow: hidden; position: relative; z-index: 10; zoom:1; }
+
+/************************************************************
+ * スプライト画像 - 横長画像（y3.png）
+ ************************************************************/
+
+.y3S		{ background-image: url(/assets/images/y3.png); background-color: transparent;}
+
+.otherGenreAreaBT	{ background-position: -657px 0; background-repeat: repeat-y; overflow: hidden; height: 65px; }
+.otherGenreAreaTopBT	{ background-position: -1034px top; background-repeat: no-repeat; }
+.otherGenreAreaBottomBT	{
+	background-position: -1411px bottom;
+	background-repeat: no-repeat;
+	padding-left: 15px;
+	padding-right: 5px;
+	padding-top: 8px;
+}
+
+.otherGenreAreaKR	{ background-position: -1788px 0; background-repeat: repeat-y; overflow: hidden; height: 65px; }
+.otherGenreAreaTopKR	{ background-position: -2165px top; background-repeat: no-repeat; }
+.otherGenreAreaBottomKR	{
+	background-position: -2542px bottom;
+	background-repeat: no-repeat;
+	padding-left: 15px;
+	padding-right: 5px;
+	padding-top: 8px;
+}
+
+
+/************************************************************
+ * スプライト画像 - 横長画像（y4.png）
+ ************************************************************/
+
+.y4S		{ background-image: url(/assets/images/y4.png);}
+
+.grayPointBodyHead {background-position: -324px top; background-repeat: no-repeat; padding-top: 6px;}
+.grayPointBodyBox {background-position: -648px bottom; background-repeat: no-repeat; padding-bottom: 6px;}
+.grayPointBody{
+	background-position: -486px 0;
+	background-repeat: repeat-y;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 1px;
+}
+
+.usePointBodyBox {background-position: -162px bottom; background-repeat: no-repeat; padding-bottom: 6px;}
+.usePointBody{
+	background-position: 0 0;
+	background-repeat: repeat-y;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 7px;
+}
+
+
+/************************************************************
+ * CLASSES(プロパティ)
+ ************************************************************/
+
+/* WIDTH */
+.wFull	{ width: 100%; }
+.wHalf	{ width: 49.9%; _width: 49.9%; }
+.w81	{ width: 81px; }
+.w89	{ width: 89px; }
+.w94	{ width: 94px; }
+.w98	{ width: 98px; }
+.w100	{ width: 100px; }
+.w106	{ width: 106px; }
+.w130	{ width: 130px; }
+.w141	{ width: 141px; }
+.w150	{ width: 150px; }
+.w158	{ width: 158px; }
+.w159	{ width: 159px; }
+.w160	{ width: 160px; }
+.w172	{ width: 172px; }
+.w172	{ width: 178px; }
+.w180	{ width: 180px; }
+.w183	{ width: 183px; }
+.w185	{ width: 185px; }
+.w188	{ width: 188px; }
+.w191	{ width: 191px; }
+.w200	{ width: 200px; }
+.w250	{ width: 250px; }
+.w260	{ width: 260px; }
+.w273	{ width: 273px; }
+.w328	{ width: 328px; }
+.w343	{ width: 343px; }
+.w358	{ width: 358px; }
+.w360	{ width: 360px; }
+.w371	{ width: 371px; }
+.w377	{ width: 377px; }
+.w382	{ width: 382px; }
+.w383	{ width: 383px; }
+.w385	{ width: 385px; }
+.w421	{ width: 421px; }
+.w422	{ width: 422px; }
+.w454	{ width: 454px; }
+.w460	{ width: 460px; }
+.w470	{ width: 470px; }
+.w480	{ width: 480px; }
+.w550	{ width: 550px; }
+.w557	{ width: 557px; }
+.w558	{ width: 558px; }
+.w749	{ width: 749px; }
+
+/* HEIGHT */
+.h50	{ height: 50px; }
+.h135	{ height: 135px; }
+.h178	{ height: 178px; }
+.h180	{ height: 180px; }
+.h200	{ height: 200px; }
+
+/* LINE-HEIGHT */
+.lhDe	{ line-height: 1; }
+.lh14	{ line-height: 14px; }
+.lh16	{ line-height: 16px; }
+.lh18	{ line-height: 18px; }
+.lh19	{ line-height: 19px; }
+.lh24	{ line-height: 24px; }
+.lh130	{ line-height: 130%; }
+
+/* MARGIN */
+.mTN1	{ margin-top: -1px; }
+.mTN20	{ margin-top: -20px; }
+.mT2	{ margin-top: 2px; }
+.mT3	{ margin-top: 3px; }
+.mT4	{ margin-top: 4px; }
+.mT5	{ margin-top: 5px; }
+.mT7	{ margin-top: 7px; }
+.mT8	{ margin-top: 8px; }
+.mT10	{ margin-top: 10px; }
+.mT11	{ margin-top: 11px; }
+.mT12	{ margin-top: 12px; }
+.mT13	{ margin-top: 13px; }
+.mT14	{ margin-top: 14px; }
+.mT15	{ margin-top: 15px; }
+.mT20	{ margin-top: 20px; }
+.mT25	{ margin-top: 25px; }
+.mT30	{ margin-top: 30px; }
+.mT34	{ margin-top: 34px; }
+.mT40	{ margin-top: 40px; }
+.mT0	{ margin-top: 0px !important;}
+
+.mR1	{ margin-right: 1px; }
+.mR2	{ margin-right: 2px; }
+.mR5	{ margin-right: 5px; }
+.mR9	{ margin-right: 9px; }
+.mR10	{ margin-right: 10px; }
+.mR15	{ margin-right: 15px; }
+.mR20	{ margin-right: 20px; }
+.mR30	{ margin-right: 30px; }
+.mR40	{ margin-right: 40px; }
+
+.mLN4	{ margin-left: -4px; }
+.mL3	{ margin-left: 3px; }
+.mL4	{ margin-left: 4px; }
+.mL5	{ margin-left: 5px; }
+.mL10	{ margin-left: 10px; }
+.mL15	{ margin-left: 15px; }
+.mL20	{ margin-left: 20px; }
+.mL25	{ margin-left: 25px; }
+.mL30	{ margin-left: 30px; }
+.mL90	{ margin-left: 90px; }
+
+.mBN20	{ margin-bottom: -20px; }
+.mB3	{ margin-bottom: 3px; }
+.mB5	{ margin-bottom: 5px; }
+.mBN6	{ margin-bottom: -6px; }
+.mB10	{ margin-bottom: 10px; }
+.mB15	{ margin-bottom: 15px; }
+.mB20	{ margin-bottom: 20px; }
+.mB30	{ margin-bottom: 30px; }
+
+.mHA	{ margin-left: auto; margin-right: auto; }
+
+/* PADDING */
+.pT3	{ padding-top: 3px; }
+.pT5	{ padding-top: 5px; }
+.pT7	{ padding-top: 7px; }
+.pT8	{ padding-top: 8px; }
+.pT10	{ padding-top: 10px; }
+.pT15	{ padding-top: 15px; }
+.pT20	{ padding-top: 20px; }
+.pT30	{ padding-top: 30px; }
+
+.pR2	{ padding-right: 2px; }
+.pR5	{ padding-right: 5px; }
+.pR10	{ padding-right: 10px; }
+.pR15	{ padding-right: 15px; }
+.pR20	{ padding-right: 20px; }
+.pR30	{ padding-right: 30px; }
+
+.pB5	{ padding-bottom: 5px; }
+.pB10	{ padding-bottom: 10px; }
+.pB15	{ padding-bottom: 15px; }
+.pB20	{ padding-bottom: 20px; }
+.pB30	{ padding-bottom: 30px; }
+.pB40	{ padding-bottom: 40px; }
+
+.pL5	{ padding-left: 5px; }
+.pL10	{ padding-left: 10px; }
+.pL15	{ padding-left: 15px; }
+.pL20	{ padding-left: 20px; }
+.pL22   { padding-left: 22px; }
+.pL30	{ padding-left: 30px; }
+
+.pV5	{ padding-top: 5px; padding-bottom: 5px; }
+.pV10	{ padding-top: 10px; padding-bottom: 10px; }
+.pV15	{ padding-top: 15px; padding-bottom: 15px; }
+.pV20	{ padding-top: 20px; padding-bottom: 20px; }
+
+.pH5	{ padding-left: 5px; padding-right: 5px; }
+.pH10	{ padding-left: 10px; padding-right: 10px; }
+.pH15	{ padding-left: 15px; padding-right: 15px; }
+.pH20	{ padding-left: 20px; padding-right: 20px; }
+
+.p3		{ padding: 3px; }
+.p5		{ padding: 5px; }
+.p8		{ padding: 8px; }
+.p10	{ padding: 10px; }
+.p15	{ padding: 15px; }
+.p20	{ padding: 20px; }
+.p30	{ padding: 30px; }
+
+.pClear	{ padding: 0 !important; }
+
+/* DISPLAY */
+.dn		{ display: none !important; }
+.db		{ display: block; }
+.di		{ display: inline; }
+.dib	{ display: inline-block !important; }
+.dibBL	{ display: inline-block !important; *display: inline !important; zoom: 1; }
+.offL	{ text-indent: -9999px; overflow: hidden; }
+.fgClear{ font-size: 0; line-height: 0; }
+.oh		{ overflow: hidden; }
+.zoom1	{ zoom: 1; }
+.nowrap	{ white-space: nowrap; }
+.wwbw	{ word-wrap: break-word; }
+.tdn{text-decoration: none !important;}
+
+
+/* POSITION */
+.fl		{ float: left; }
+.fr		{ float: right; }
+.taL	{ text-align: left !important; }
+.taR	{ text-align: right !important; }
+.taC	{ text-align: center !important; }
+.vaT	{ vertical-align: top; }
+.vaM	{ vertical-align: middle; }
+
+.pr			{ position: relative; }
+.pa			{ position: absolute; }
+.top0		{ top: 0; }
+.top5		{ top: 5px; }
+.top8		{ top: 8px; }
+.top10		{ top: 10px; }
+.top15		{ top: 15px; }
+.top20		{ top: 20px; }
+.topN20		{ top: -20px; }
+.topHalf	{ top: 50%; margin-top: -8px; }
+.topHalfH24	{ top: 50%; margin-top: -12px; }
+.left0		{ left: 0; }
+.left5		{ left: 5px; }
+.left10		{ left: 10px; }
+.left15		{ left: 15px; }
+.left20		{ left: 20px; }
+.left210	{ left: 210px; }
+.right0		{ right: 0; }
+.right5		{ right: 5px; }
+.right8		{ right: 8px; }
+.right10	{ right: 10px; }
+.right15	{ right: 15px; }
+.right20	{ right: 20px; }
+.bottom0	{ bottom: 0; }
+.bottom5	{ bottom: 5px; }
+.bottom10	{ bottom: 10px; }
+.bottom15	{ bottom: 15px; }
+.bottom20	{ bottom: 20px; }
+
+.zi0		{ z-index: 0; }
+.zi1		{ z-index: 1; }
+
+/* FOREGROUNG */
+.fgRed	{ color: #FF0000; }
+.fgWRed	{ color: #A5184B; }
+.fgPink	{ color: #CC4466; }
+.fgGray { color: #817162; }
+.fgDGray { color: #333333; }
+.fgLGray{ color: #999999; }
+.fgLLGray{ color: #595959; }
+.fgBlack{ color: #555555; }
+.fgWhite{ color: #FFFFFF; }
+.b		{ font-weight: bold !important; }
+.n		{ font-weight: normal !important; }
+.fs10	{ font-size: 10px; }
+.fs12	{ font-size: 12px; }
+.fs14	{ font-size: 14px; }
+.fs16	{ font-size: 16px; }
+
+/* BACKGROUNG */
+.bgGray	{ background-color: #FAF9F1; }
+.bgGray2{ background-color: #D9D9D9; }
+.bgLGray5	{ background-color: #DDDDDD; }
+.bgPink3{ background-color: #FFE6E6; }
+.bgWRed	{ background-color: #AA3355; }
+
+/* BORDER */
+.sp {
+	border-right: 1px solid #CCC;
+	margin-right: 10px;
+	padding-right: 10px;
+}
+
+.sp_l {
+    border-left: 1px solid #CCC;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+
+.bdGray		{ border: 1px solid #DDDDDD; }
+.bdGrayT	{ border-top: 1px solid #999999; }
+.bdDotGrayT	{ border-top: 1px dotted #999999; }
+.bdDotGrayB	{ border-bottom: 1px dotted #999999; }
+.bdGrayR	{ border-right: 1px solid #DDDDDD; }
+.bdPink		{ border: 1px solid #FF7799; }
+.bdDPink	{ border: 1px solid #E6BBBB; }
+.bdDPinkB	{ border-bottom: 1px solid #E6BBBB; }
+.bdDotPinkB	{ border-bottom: 1px dotted #E6BBBB; }
+.bdDotPurpleB	{ border-bottom: 1px dotted #A36FA2; }
+
+
+/****** 追加 ********************************************************/
+.iS		{ background-image: url(/assets/images/i.png) !important; background-repeat: no-repeat; }
+.newS	{ background-position: -178px -1540px; width: 22px; height: 11px; margin-left: 5px; }
+.arrowR	{ background-position: -196px -240px; display: inline-block; padding-left: 8px; }
+.arrowT	{ background-position: -193px -4px; padding-left: 10px; }
+.arrowROff	{ background-position: -196px -460px; display: inline-block; padding-left: 8px; }
+.pcweb		{ background-position: -183px -4880px; }
+.balloon{ background-position: -183px -4982px; }
+.point	{ background-position: -183px -4932px; }
+.rPoint{background-position: -187px -5200px; padding-left: 17px; height: 13px;}
+.alertIcon{background-position: -185px -5236px; padding-left: 18px; height: 14px; display: inline-block;}
+
+
+/* WIDTH */
+.w118	{ width: 118px; }
+.w100m	{ min-width: 100px; _width: 100px; }
+.w300	{ width: 300px; }
+
+/* BACKGROUNG */
+.bgWhite2	{ background-color: #F6F3E3; }
+
+/* BORDER */
+.bdPink3	{ border: 1px solid #E6BBBB; }
+
+
+#bottomSummary {
+color:#666666;
+text-align:right;
+}
+
+/* ページトップリンク */
+.pageTopLink {
+	margin-top: 20px;
+	text-align: right;
+}
+
+.inService		{ background: url("/CSP/img/common/hed_service_new.gif") no-repeat; display: block; width:140px; height:22px; }
+.recruitSite	{ background: url("/CSP/img/bt/icons_buttons/hed_recruitsite.gif") no-repeat; display: block; width:114px; height:22px; }
+
+.aboutHPB		{ width:620px; font-weight: bold; }
+
+/************************************************************
+ * スプライト画像 - 共通（c.png）
+ ************************************************************/
+
+.cS		{ background-image: url(/assets/images/c.png) !important; background-repeat: no-repeat; border: 0; }
+
+.viewDetailReservation		{ background-position: -300px -560px; background-repeat: no-repeat; display: block; width: 115px; height: 24px; }
+.viewDetailReservation:hover{ background-position: -300px -584px; }
+.tradePoint			{ background-position: -20px -480px; display: block; width: 142px; height: 30px; }
+.tradePoint:hover	{ background-position: -20px -510px; }
+.regist						{ background-position: -393px -480px; display: block; width:146px; height:24px; display: block; margin: 0 auto; }
+.regist:hover				{ background-position: -393px -504px; }
+.login						{ background-position: -260px -480px; display: block; width:69px; height:24px; }
+.login:hover				{ background-position: -260px -504px; }
+
+.tabLadies					{ background-position: -19px -240px; display: block; background-repeat: no-repeat; margin-bottom: -1px; width: 90px; height: 25px; position:relative;}
+.tabLadies:hover			{ background-position: -19px -265px; display: block; background-repeat: no-repeat; margin-bottom: -1px; width: 90px; height: 25px; position:relative; }
+.tabLadies span.selected	{ background-position: -19px -265px; display: block; background-repeat: no-repeat; margin-bottom: -1px; width: 90px; height: 25px; position:relative; }
+.tabMans					{ background-position: -121px -240px; display: block; background-repeat: no-repeat; margin-bottom: -1px; width: 90px; height: 25px; position:relative; }
+.tabMans:hover				{ background-position: -121px -265px; display: block; background-repeat: no-repeat; margin-bottom: -1px; width: 90px; height: 25px; position:relative; }
+.tabMans span.selected		{ background-position: -121px -265px; display: block; background-repeat: no-repeat; margin-bottom: -1px; width: 90px; height: 25px; position:relative; }
+
+/************************************************************
+ * スプライト画像 - 横長画像（b.png）
+ ************************************************************/
+
+.bS		{ background-image: url(/assets/images/b.png); background-repeat: no-repeat; background-color: transparent; border: 0; }
+
+.viewMore		{ background-position: 0 -60px; display: block; width: 79px; height: 24px; }
+.viewMore:hover		{ background-position: 0 -84px; }
+
+.reserveMenu				{ background-position: -1460px -520px; width: 190px; height: 32px; }
+.reserveMenu:hover			{ background-position: -1460px -552px; }
+
+
+/* area search */
+.searchHairSalon	{
+	background-image: url(/CSP/img/bt/text/search_hair.png);
+	background-repeat: no-repeat;
+	width: 95px;
+	height: 15px;
+}
+.searchNailSalon	{
+	background-image: url(/CSP/img/bt/text/search_nail.png);
+	background-repeat: no-repeat;
+	width: 203px;
+	height: 13px;
+}
+.searchRelaxSalon	{
+	background-image: url(/CSP/img/bt/text/search_relax.png);
+	background-repeat: no-repeat;
+	width: 340px;
+	height: 13px;
+}
+.searchEstheSalon	{
+	background-image: url(/CSP/img/bt/text/search_esthe.png);
+	background-repeat: no-repeat;
+	width: 155px;
+	height: 13px;
+}
+
+.regionList {
+	padding-bottom: 13px;
+}
+.regionList li {
+	display: inline;
+}
+
+.split	{
+	border-left: 1px solid #1B86E1;
+	margin-left: 4px;
+	padding-left: 4px;
+}
+
+
+/************************************************************
+* buttons
+************************************************************/
+/* ボタン */
+
+.btn {
+	display: block;
+	border: 0;
+	padding-left: 4px;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+}
+.btn > span {
+	padding-right: 4px;
+	display: block;
+}
+.btn > span > input,
+.btn > span > span {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: none;
+	font-family: 'Microsoft YaHei', Arial, Helvetica, MS PGothic, sans-serif; 
+	font-weight: bold;
+	cursor: pointer;
+}
+
+/* btn1 */
+.btn1H30 {
+	background: url('/assets/images/btn2.png') no-repeat left -1734px;
+	line-height: 30px;
+}
+.btn1H30 > span {
+	background: url('/assets/images/btn2.png') no-repeat right -1794px;
+}
+.btn1H30 > span > span {
+	background: url('/assets/images/btn2.png') repeat-x 0 -1854px;
+	color: #FFF;
+}
+.btn1H30:hover {
+	background: url('/assets/images/btn2.png') no-repeat left -1764px;
+}
+.btn1H30:hover > span {
+	background: url('/assets/images/btn2.png') no-repeat right -1824px;
+}
+.btn1H30:hover > span > span {
+	background-position: 0 -1884px;
+	color: #FFF;
+}
+.btn1H60 {
+	background: url('/assets/images/btn2.png') no-repeat left -1374px;
+	line-height: 60px;
+}
+.btn1H60 > span {
+	background: url('/assets/images/btn2.png') no-repeat right -1494px;
+}
+.btn1H60 > span > span {
+	background: url('/assets/images/btn2.png') repeat-x 0 -1614px;
+	color: #FFF;
+	font-size: 15px;
+}
+.btn1H60:hover {
+	background: url('/assets/images/btn2.png') no-repeat left -1434px;
+}
+.btn1H60:hover > span {
+	background: url('/assets/images/btn2.png') no-repeat right -1554px;
+}
+.btn1H60:hover > span > span {
+	background-position: 0 -1674px;
+	color: #FFF;
+}
+
+/* btn2 */
+.btn2H24 {
+	background: url('/assets/images/btn2.png') no-repeat left -1230px;
+	line-height: 24px;
+}
+.btn2H24 > span {
+	background: url('/assets/images/btn2.png') no-repeat right -1278px;
+}
+.btn2H24 > span > span {
+	background: url('/assets/images/btn2.png') repeat-x 0 -1326px;
+	color: #E53B4E;
+}
+.btn2H24:hover {
+	background-position: 0 -1254px;
+}
+.btn2H24:hover > span {
+	background-position: right -1302px;
+}
+.btn2H24:hover > span > span {
+	background-position: 0 -1350px;
+	color: #F26F7E;
+}
+.btn2H30 {
+	background: url('/assets/images/btn2.png') no-repeat left -1914px;
+	line-height: 30px;
+}
+.btn2H30 > span {
+	background: url('/assets/images/btn2.png') no-repeat right -1974px;
+}
+.btn2H30 > span > span {
+	background: url('/assets/images/btn2.png') repeat-x 0 -2034px;
+	color: #e74557;
+	font-weight:normal;
+}
+.btn2H30:hover {
+	background: url('/assets/images/btn2.png') no-repeat left -1944px;
+}
+.btn2H30:hover > span {
+	background: url('/assets/images/btn2.png') no-repeat right -2004px;
+}
+.btn2H30:hover > span > span {
+	background-position: 0 -2064px;
+	color: #ee7d8a;
+}
+.btn2H32 {
+	background: url('/CSP/img/my/sprites/btn2.png') no-repeat left -300px;
+	line-height: 32px;
+}
+.btn2H32 > span {
+	background: url('/CSP/img/my/sprites/btn2.png') no-repeat right -364px;
+}
+.btn2H32 > span > input,
+.btn2H32 > span > span {
+	background: url('/CSP/img/my/sprites/btn2.png') repeat-x 0 -428px;
+	color: #E53B4E;
+}
+.btn2H32 > span > input {
+	height: 32px;
+}
+.btn2H32:hover {
+	background-position: left -332px;
+}
+.btn2H32:hover > span {
+	background-position: right -396px;
+}
+.btn2H32:hover > span > input,
+.btn2H32:hover > span > span {
+	background-position: left -460px;
+	color: #F26F7E;
+}
+.btn2H50 {
+	background: url('/CSP/img/my/sprites/btn2.png') no-repeat 0 0;
+	line-height: 50px;
+}
+.btn2H50 > span {
+	background: url('/CSP/img/my/sprites/btn2.png') no-repeat right -100px;
+}
+.btn2H50 > span > input,
+.btn2H50 > span > span {
+	background: url('/CSP/img/my/sprites/btn2.png') repeat-x 0 -200px;
+	color: #E53B4E;
+	font-size: 13px;
+}
+.btn2H50 > span > input {
+	height: 50px;
+}
+.btn2H50:hover {
+	background-position: 0 -50px;
+}
+.btn2H50:hover > span {
+	background-position: right -150px;
+}
+.btn2H50:hover > span > input,
+.btn2H50:hover > span > span {
+	background-position: 0 -250px;
+	color: #F26F7E;
+}
+.btn2H50.btnWlines {
+	line-height: 18px;
+}
+.btn2H50.btnWlines > span > span {
+	padding: 7px 0;
+}
+
+/* btn3 */
+.btn3H24 {
+	background: url('/assets/images/btn2.png') no-repeat left -606px;
+	line-height: 24px;
+}
+.btn3H24 > span {
+	background: url('/assets/images/btn2.png') no-repeat right -654px;
+}
+.btn3H24 > span > span {
+	background: url('/assets/images/btn2.png') repeat-x 0 -702px;
+	color: #666666;
+}
+.btn3H24:hover {
+	background-position: left -630px;
+}
+.btn3H24:hover > span {
+	background-position: right -678px;
+}
+.btn3H24:hover > span > span {
+	background-position: left -726px;
+	color: #A3A3A3;
+}
+
+/* サロンダイレクト */
+/* height30px */
+.btn3H30SD {
+	background: url('/assets/images/btn2.png') no-repeat left -1050px;
+	line-height: 30px;
+}
+.btn3H30SD > span {
+	background: url('/assets/images/btn2.png') no-repeat right -1110px;
+}
+.btn3H30SD > span > input {
+	height: 30px;
+}
+.btn3H30SD > span > input,
+.btn3H30SD > span > span {
+	background: url('/assets/images/btn2.png') repeat-x 0 -1170px;
+	color: #666666;
+}
+.btn3H30SD:hover {
+	background-position: 0 -1080px;
+}
+.btn3H30SD:hover > span {
+	background-position: right -1140px;
+}
+.btn3H30SD:hover > span > input,
+.btn3H30SD:hover > span > span {
+	background-position: 0 -1200px;
+	color: #A3A3A3;
+}
+/* height50px */
+.btn3H50SD {
+	background: url('/assets/images/btn2.png') no-repeat left -750px;
+	line-height: 50px;
+}
+.btn3H50SD > span {
+	background: url('/assets/images/btn2.png') no-repeat right -850px;
+}
+.btn3H50SD > span > span {
+	background: url('/assets/images/btn2.png') repeat-x 0 -950px;
+	color: #666666;
+}
+.btn3H50SD:hover {
+	background-position: 0 -800px;
+}
+.btn3H50SD:hover > span {
+	background-position: right -900px;
+}
+.btn3H50SD:hover > span > span {
+	background-position: 0 -1000px;
+	color: #A3A3A3;
+}
+
+/*
+ * add by jie-zhang@2014/03/05.
+ * for salon index page. 
+*/
+.mapArea {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index:1;
+}
+
+.copyHeadline {
+	position: absolute;
+	top: 11px;
+	left: 13px;
+	z-index:2;
+	font-weight:bold;
+	color: #463413;
+	font-family: 'メイリオ',Meiryo,'ヒラギノ角ゴ Pro W3','ＭＳ Ｐゴシック',MS PGothic,sans-serif;
+}
+
+.copyList {
+	position: absolute;
+	top: 37px;
+	left: 13px;
+	z-index:2;
+
+}
+
+.copyList li {
+	line-height:24px;
+}
+
+/* プレコンテンツ */
+.pankuzuShort {
+width: 568px;
+}
+
+.pankuzu {
+	float: left;
+	font-size: 10px;
+	padding: 0;
+}
+
+.pankuzu li {
+	display: inline;
+}
+
+.pankuzu strong {
+	font-weight: normal;
+}
+
+.subtitle {
+	width: 765px;
+	height: 30px;
+	color: #444;
+	font-family: 'メイリオ',Meiryo,'ヒラギノ角ゴ Pro W3','ＭＳ Ｐゴシック',MS PGothic,sans-serif;
+	border-bottom: solid 2px #CDCABF;
+}
+
+.searchBox input[type="text"] {
+	padding: 0 5px;
+	margin: 2px 3px 0 0;
+	border: 0;
+}
+
+.searchBoxbg {
+	background-position: -815px -756px;
+	width: 227px;
+	height: 24px;
+}
+
+.searchButton {
+	background-position: -200px -560px;
+	width: 62px;
+	height: 24px;
+}
+
+.searchButton:hover {
+	background-position: -200px -584px;
+}
+
+.tabBody {
+background-color: #FDFDF5;
+width: 392px;
+padding: 0px 15px;
+border: 1px solid #BFB4AB;
+}
+
+
+/* for rightColumn menu. */
+dl {
+display: block;
+-webkit-margin-before: 1em;
+-webkit-margin-after: 1em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+}
+
+
+/* add by jie-zhang@2014/03/08
+ * for Salon Page.
+ *
+ *
+ */
+#salonMainContents {
+float: left;
+width: 765px;
+}
+
+
+.detailHeader {
+	margin-bottom: 20px;
+	background-color: #F7F6EA;
+}
+.reserveBtnArea { background-color: #F0ECE5; }
+.headerLogoInner {
+	background: url(/CSP/img/common/logo/b_logo_GR.png?switch=20140227) no-repeat 0 0;
+	width: 88px;
+	height: 30px;
+	text-indent: -9999px;
+	display: block;
+}
+
+.pr {
+position: relative;
+zoom: 1;
+}
+
+.cFix {
+min-height: 1px;
+_height: 1px;
+}
+
+
+.salonMainContentsFooter {
+margin-top: 20px;
+}
+
+#salonBottomSummary {
+color: #666666;
+text-align: right;
+}
+
+
+.listImmediately {
+background-position: -140px -3240px;
+width: 60px;
+height: 15px;
+}
+
+
+.listNominate {
+background-position: -140px -3280px;
+width: 60px;
+height: 15px;
+}
+
+.listPoint {
+background-position: -132px -3400px;
+width: 68px;
+height: 15px;
+}
+
+.listMensOK {
+background-position: -133px -3470px;
+width: 67px;
+height: 15px;
+}
+
+.fgLGray2 {
+color: #7F7F7F;
+}
+
+.menuBG {
+padding: 0 11px 0 10px;
+background-position: 0 -940px;
+height: 37px;
+}
+
+
+.salonInformation {
+background-position: 0 -750px;
+width: 140px;
+height: 35px;
+}
+
+.couponAndMenu {
+background-position: -140px -750px;
+width: 140px;
+height: 35px;
+}
+
+.stylist {
+background-position: -280px -750px;
+width: 85px;
+height: 35px;
+}
+
+.style {
+background-position: -365px -750px;
+width: 85px;
+height: 35px;
+}
+
+.blog {
+background-position: -450px -750px;
+width: 85px;
+height: 35px;
+}
+
+.accessMap {
+background-position: -535px -750px;
+width: 85px;
+height: 35px;
+}
+
+.kuchikomi {
+background-position: -620px -750px;
+width: 90px;
+height: 35px;
+}
+
+
+.salonInformationCurrent {
+background-position: 0 -870px;
+width: 140px;
+height: 37px;
+}
+
+.couponAndMenuCurrent {
+background-position: -140px -870px;
+width: 140px;
+height: 37px;
+}
+
+.stylistCurrent {
+background-position: -280px -870px;
+width: 85px;
+height: 37px;
+}
+
+.styleCurrent {
+background-position: -365px -870px;
+width: 85px;
+height: 37px;
+}
+
+.blogCurrent {
+background-position: -450px -870px;
+width: 85px;
+height: 37px;
+}
+
+.accessMapCurrent {
+background-position: -535px -870px;
+width: 85px;
+height: 37px;
+}
+
+.kuchikomiCurrent {
+background-position: -620px -870px;
+width: 90px;
+height: 37px;
+}
+
+
+.w156 {
+width: 156px;
+}
+
+.mT50 {
+margin-top: 50px;
+}

@@ -1,0 +1,50 @@
+@(comment: Comment)
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comment/comment_2.css")">
+
+<div class="mT20">
+						@if(comment.commentedType == 1) {
+						<ul class="reportWrapper">
+							<li class="reportDetailCassette mT30">
+											<div class="reportHeaderPickup">
+												<p class="titlePickup">pick up</p>
+												<div class="shopInfo reportPickupTitle cFix">
+													<p class="fl w580 pL25"><span class="b">(评论人)@comment.userId</span><span class="mL5 fs10 fgGray">（评论人的基本信息）（女性/30代前半/会社員）</span></p>
+													<div class="fr mT2">
+														<p class="fs10 fgGray">[投稿日] （发表评论的日期）@comment.time.toLocaleString</p>
+													</div>
+												</div>
+												@*这边需要各种评分吗？*@
+												<ul class="judgeList cFix">
+													<li class="bdN fgGray b">総合<span class="mL5 mR10 fgPink">5</span><span class="iconStarOn">★</span><span class="iconStarOn">★</span><span class="iconStarOn">★</span><span class="iconStarOn">★</span><span class="iconStarOn">★</span></li>
+													<li><span class="fgGray">雰囲気</span><span class="mL10 fgPink b">5</span></li>
+													<li><span class="fgGray">接客サービス</span><span class="mL10 fgPink b">5</span></li>
+													<li><span class="fgGray">技術・仕上がり</span><span class="mL10 fgPink b">5</span></li>
+													<li class="bdN"><span class="fgGray">メニュー・料金</span><span class="mL10 fgPink b">5</span></li>
+												</ul>
+											</div>
+											
+											<div class="mT10 pH10">
+												<p class="mT10 wwbw">（数据库中取）@comment.content</p>
+												<dl class="mT25">
+													<dt class="couponMenuTitle fl">予約時のクーポン・メニュー</dt>
+													<dd class="oh zoom1">
+														<p>
+															[Freres☆No.１人気]カット+低刺激カラー+アロマヘッドマッサージ　\9800</p>
+														<p class="fs10">[施術メニュー]
+															カット、カラー、トリートメント、その他</p>
+														</dd>
+												</dl>
+											</div>
+							}else {
+											<div class="mT20 mH10 pV5 pH9 bdGray">
+													<div class="bdDotGrayB pB5 cFix">
+														<p class="fl fgPink b">Freres　フレールからの返信コメント（店家回复评论）</p>
+														<div class="fr">
+															</div>
+													</div>
+													<p class="mT10 wwbw">@comment.content    <br /><br />        回复人@comment.userId</p>
+											</div>
+											}
+							</li>
+						</ul>
+</div>

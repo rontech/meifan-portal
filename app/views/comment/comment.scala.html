@@ -1,0 +1,60 @@
+@(username : String, userId : ObjectId, comments: List[Comment])
+
+@main("Comment") {
+	
+	
+
+    <body>
+		<form>
+		<p>你好，评论的就是你@username</p>
+		<a href = "@routes.Blogs.newBlog(userId)"><input type="button" value="发表blog" ></a>
+		
+			<table border = 1>
+			  <tr>
+			 		<td>用户id</td>
+			 		<td>评论的内容</td>
+			 		<td>评论的时间</td>
+			 		<td>评论的对象id</td>
+			 		<td>相关用户的id</td>
+			 		<td>该评论的状态</td>
+			 		<td>评论对象的类型</td>
+			 		<td>评论id</td>
+			 	</tr>
+			 @comments.map { comment =>
+			 	
+			 	
+			 	@if(comment.status == 0) {
+				<tr>
+				
+					
+					<td>@comment.userId</td>
+					<td>@comment.content</td>
+					<td>@comment.time</td>
+					<td>@comment.commentedId</td>
+					<td>相关用户的id</td>
+					<td>该评论的状态</td>
+					<td>评论对象的类型</td>
+					<td>@comment.id</td>
+					<td><a href = "@routes.Comments.answer(comment.id, comment.commentedId)"><input type="button" value="（店铺向用户）解释，回复" ></a></td>
+					<td><a href = "@routes.Comments.complaint(comment.id)"><input type="button" value="（店铺向后台进行）申诉" ></a></td>
+					<td><a href = "@controllers.Comments.delete(comment.id, comment.commentedId)"><input type="button" value="（管理员有“删除”的功能，改状态）删除" ></a></td>
+				</tr>
+				}
+				
+				
+			}
+			</table>
+		
+			
+			@*<a href = "@routes.Comment.addComment"><input type="button" value="addComment" ></a>*@
+		</form>
+		<!-- ShareTo Button BEGIN -->
+		<!--<a class="shareto_button" href="http://shareto.com.cn/share.html"><img src="http://s.shareto.com.cn/btn/lg-share-cn.gif" width="125" height="21" alt="陋ｻ�ｽ�ｺ�ｫ鬩包ｿｽ style="border:0"/></a>
+		<script type="text/javascript" src="http://s.shareto.com.cn/js/shareto_button.js" charset="utf-8"></script>
+		ShareTo Button END -->
+		
+		
+	
+	</body>
+
+}

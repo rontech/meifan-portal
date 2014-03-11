@@ -1,0 +1,47 @@
+@(stylist: Stylist)
+
+
+    <table cellspacing="0" class="wFull bgThNml bdCell pCell10">
+        <tbody>
+            <tr>
+                <th class="w100">
+                    スタイリスト歴
+                </th>
+                <td>
+                    @stylist.workYears
+                    年
+                </td>
+            </tr>
+            <tr>
+                <th class="w100">
+                    得意なイメージ
+                </th>
+                <td>
+                  @stylist.stylistStyle.map{sty=>
+                  	@sty
+                  	*
+                  	
+                  }
+                </td>
+            </tr>
+            <tr>
+                <th class="w100">
+                    得意な技術
+                </th>
+                <td>
+                    ハネても気にならない無造作スタイル。くせ毛を生かしたカット、<br />
+                    カラーリング、メンズカット。自由が丘カジュアルならおまかせ！<br />
+                    骨格・髪質に合わせて提案します。乾かし方やスタイリングの仕方<br />
+                    も丁寧に教えます☆
+                </td>
+            </tr>
+            <tr>
+                <th class="w100">
+                    趣味・マイブーム
+                </th>
+                <td>
+                  @stylist.description
+                </td>
+            </tr>
+        </tbody>
+    </table>

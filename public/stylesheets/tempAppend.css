@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+
+.bdCell {
+border-top: 1px solid #CCCCCC;
+border-left: 1px solid #CCCCCC;
+}
+
+.bdCell tr {
+display: table-row;
+vertical-align: inherit;
+border-color: inherit;
+}
+
+.bgThNml th {
+background-color: #eeebe4;
+}
+.bdCell th, .bdCell td {
+border-right: 1px solid #CCCCCC;
+border-bottom: 1px solid #CCCCCC;
+border-left: 1px solid #FFFFFF;
+border-top: 1px solid #FFFFFF;
+}
+.pCell10 th, .pCell10 td {
+padding: 5px;
+}
+.pr {
+position: relative;
+zoom: 1;
+}
+.fr {
+float: left;
+}
+.hMin119 {
+min-height: 119px;
+_height: 119px;
+}
+.w501 {
+width: 501px;
+}
+.w151 {
+width: 151px;
+}

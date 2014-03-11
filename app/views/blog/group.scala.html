@@ -1,0 +1,12 @@
+@(blogs: Seq[Blog] = Nil)
+
+<ul>
+@for(blog <- blogs) {
+    <li>
+        @views.html.blog.item(blog)
+    </li>
+}
+</ul>
+
+    
+

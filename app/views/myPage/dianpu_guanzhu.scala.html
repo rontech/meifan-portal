@@ -1,0 +1,62 @@
+@(message: String)
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("message"){
+		<div class="content-link">
+			<p><a href = "my_salon.html" target = "salon_main">修改资料</a></p>
+			<p><a href = "@controllers.routes.MyPages.myPageMain">我的关注</a></p>
+			<ul>
+			  <li><a href = "@controllers.routes.MyPages.dianpu_guanzhu">关注的店铺</a></li>
+			  <li><a href = "@controllers.routes.MyPages.stylist_guanzhu">关注的理发师</a></li>
+			</ul>
+			
+			@*<p><a href="@controllers.record.routes.Records.recordmain">我的预约</a></p>*@
+			@*<p><a href = "@controllers.routes.Comment.find" target = "salon_main">我的blog</a></p>*@
+			<p><a href = "service_control.html" target = "salon_main">我的消息</a></p>
+			<p><a href = "service_control.html" target = "salon_main">浏览历史</a></p>
+			<p><a href = "service_control.html" target = "salon_main">我的粉丝</a></p>
+			<p><a href = "#" target = "salon_main"></a></p>
+			<p><a href = "trend_control.html" target = "salon_main"></a></p>
+			<p><a href = "#" target = "salon_main"></a></p>
+		</div>
+		<body>
+		<form>
+			<table border = 1>
+				<tr>
+					<td><a href = "">店铺的名字</a></td>				
+					<td rowspan = 2, colspan = 2><a href = "">マイサロンから削除する</a></td>					
+				</tr>			
+				<tr>
+					<td>地址</td>
+				</tr>
+				<tr>
+					<td rowspan = 4><a href = "">店铺图像logo</a></td>
+					<td colspan = 2><a href = "">店铺情况说明</a></td>	
+				</tr>
+				<tr>					
+					<td colspan = 2>カット料金</td>	
+				</tr>
+				<tr>					
+					<td colspan = 2>席数</td>	
+				</tr>
+				<tr>					
+					<td><a href = "">ブログ</a></td>	
+					<td><a href = "">口コミ</a></td>	
+				</tr>
+				<tr>
+					<td colspan = 3><a href = ""><input type="button" value="予約する" ></a></td>				
+				</tr>
+				<tr>
+					<td rowspan = 7><a href = "">店铺有名理发师的头像</a></td>
+					<td colspan = 2>XXX店铺优惠券</td>	
+				</tr>
+				<tr>					
+					<td colspan = 2><a href = "">优惠券的信息</a></td>	
+				</tr>
+			</table>
+		</form>		
+	</body>
+		
+	
+}

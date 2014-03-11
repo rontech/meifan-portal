@@ -1,0 +1,26 @@
+@(userId: ObjectId)
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("mypage"){
+		<div class="content-link">
+			<p><a href = "my_salon.html" target = "salon_main">修改资料</a></p>
+			<p><a href = "@controllers.routes.MyPages.myPageMain">我的关注</a></p>
+			<ul>
+			  <li><a href = "@controllers.routes.MyPages.dianpu_guanzhu">关注的店铺</a></li>
+			  <li><a href = "@controllers.routes.MyPages.stylist_guanzhu">关注的理发师</a></li>
+			</ul>
+		
+			@*<p><a href="@controllers.record.routes.Records.recordmain">我的预约</a></p>*@
+			<p><a href = "@controllers.routes.Blogs.showBlog(userId)" target = "salon_main">我的blog</a></p>
+			<p><a href = "service_control.html" target = "salon_main">我的消息</a></p>
+			<p><a href = "service_control.html" target = "salon_main">浏览历史</a></p>
+			<p><a href = "service_control.html" target = "salon_main">我的粉丝</a></p>
+			
+			<p><a href = "#" target = "salon_main"></a></p>
+			<p><a href = "trend_control.html" target = "salon_main"></a></p>
+			<p><a href = "#" target = "salon_main"></a></p>
+		</div>
+		
+	
+}

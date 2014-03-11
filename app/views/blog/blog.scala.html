@@ -1,0 +1,22 @@
+@(userId : ObjectId, formBlog: Form[(String,String,String,String)], list : List[String])
+
+    @import helper._
+
+    @main("New a blog") {
+        @form(action = routes.Blogs.writeBlog(userId)) {
+          <fieldset>
+            @inputText(formBlog("title"),'_label -> "标题")
+			@textarea(formBlog("content"),'_label -> "内容")
+			@select(
+            field = formBlog("blogTyp"), 
+            options = options(list),
+            '_label -> "博客类型"
+            )	
+            
+            <a href = "@routes.BlogCatagories.newBlogCatagory(userId)">创建一个新的分类</a>	
+			@inputText(formBlog("tags"), args = '_label -> "标签")
+		  </fieldset>
+		  
+            <input type="submit" class = "buttons" value="发博文" >
+           }
+    }

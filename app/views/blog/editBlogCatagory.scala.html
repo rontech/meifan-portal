@@ -1,0 +1,35 @@
+@(userId : ObjectId, blogCatagories : List[String])
+@import helper._
+@main("BlogCatagory") {
+    <body>
+		<form>
+			<table border = 1>
+			  <tr>
+			 		<td>分类</td>
+			 		
+			 	</tr>
+			 @blogCatagories.map { blogCatagory =>
+			 	
+				<tr>
+					
+					<td>@blogCatagory</td>
+					
+					<td><a href = "@routes.BlogCatagories.modBlogCatarory(userId, blogCatagory)"><input type="button" value="编辑" ></a></td>
+					<td><a href = "@routes.BlogCatagories.delBlogCatarory(userId, blogCatagory)"><input type="button" value="删除" ></a></td>
+				</tr>
+				}
+				
+				
+			</table>
+
+		</form>
+		<!-- ShareTo Button BEGIN -->
+		<!--<a class="shareto_button" href="http://shareto.com.cn/share.html"><img src="http://s.shareto.com.cn/btn/lg-share-cn.gif" width="125" height="21" alt="陋ｻ�ｽ�ｺ�ｫ鬩包ｿｽ style="border:0"/></a>
+		<script type="text/javascript" src="http://s.shareto.com.cn/js/shareto_button.js" charset="utf-8"></script>
+		ShareTo Button END -->
+		
+		
+	
+	</body>
+
+}

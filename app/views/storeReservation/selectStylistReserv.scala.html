@@ -1,0 +1,33 @@
+@(message: String)
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("message"){
+		<div class="content-link">
+			@views.html.storeReservation.reservNav()
+		</div>
+		<div class="content-core">
+			<h1>我的技师页面</h1>
+			技师ID<input name="designerId"/>&nbsp;&nbsp;&nbsp;<input type="button" value="搜索">
+			<table cellspacing="0">
+				<tr>
+				@for(i<- 1 to 3){
+					<td>
+						<div>
+							<div>
+								<a href="@routes.Stylists.checkStylist"><img src="http://imgbp.hotp.jp/CSP/IMG_SRC/05/32/B002740532/B002740532_164-219.jpg"/></a>
+							</div>
+							<p><a href="#">島崎 修</a></p>
+							<div ><span>代表</span>（歴8年）</div>
+							<div>10年後20年後も綺麗でいてもらうために☆</div>
+							<p><input type="button" value="解除绑定"></p>
+						</div>
+					</td>
+					}
+				</tr>
+			</table>
+			
+		</div>
+		
+	
+}

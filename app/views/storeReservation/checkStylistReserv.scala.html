@@ -1,0 +1,100 @@
+@(dates:List[java.util.Date])
+
+@import helper._
+@import helper.twitterBootstrap._
+@main("s"){
+	<div class="content-link">
+			@views.html.storeReservation.reservNav()	
+	</div>
+	<div class="scontent-core">
+	<div>
+		<div>
+			<p style="float: left;">
+				<img
+					src="@routes.Assets.at("images/stylist/stylelist01.jpg")"
+					oncontextmenu="return false;" />
+			</p>
+			<div style="float: left;">
+				<p>選択中のスタイリスト</p>
+				<p>
+					造型王</span>可预约的日程
+				</p>
+				<p>
+					<a href="@routes.Records.selectStylistReserv">其它技师日程查看</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<table cellpadding="0" cellspacing="0" width="750px"
+		border="1px solid gray">
+		<tr>
+			<th rowspan="2"><a href="#">《</a></th>
+			<th colspan="8">2014年02月</th>
+			<th colspan="4">2014年03月</th>
+			<th rowspan="2"><a href="#">》</a></th>
+		</tr>
+		<tr>
+			<th class="dayCell">21<br />周五
+			</th>
+			<th class="sat">22<br />周六
+			</th>
+			<th class="sun">23<br />周末
+			</th>
+			<th class="dayCell">24<br />周一
+			</th>
+			<th class="dayCell">25<br />周二
+			</th>
+			<th class="dayCell">26<br />周三
+			</th>
+			<th class="dayCell">27<br />周四
+			</th>
+			<th class="dayCell">28<br />周五
+			</th>
+			<th class="sat">01<br />周六
+			</th>
+			<th class="sun">02<br />周末
+			</th>
+			<th class="dayCell">03<br />周一
+			</th>
+			<th class="dayCell">04<br />周二
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<table cellpadding="0" cellspacing="0" width="100%"
+					border="1px solid gray">
+
+				</table>
+			</th>
+			<th colspan="12">
+				<table cellpadding="0" cellspacing="0" width="100%" height="1080px"
+					class="designerTask">
+					@for(i <- 0 until 25){
+					<tr>
+						<th><a href="#"><span>×</span></a></th>
+						<th><a href="#"><span>×</span></a></th>
+						<th><a href="#"><span>◎</span></a></th>
+						<th><a href="#"><span>◎</span></a></th>
+						<th><a href="#"><span>×</span></a></th>
+						<th><a href="#"><span>◎</span></a></th>
+						<th><a href="#"><span>×</span></a></th>
+						<th><a href="#"><span>×</span></a></th>
+						<th><a href="#"><span>◎</span></a></th>
+						<th><a href="#"><span>◎</span></a></th>
+						<th><a href="#"><span>◎</span></a></th>
+						<th><a href="#"><span>×</span></a></th>
+					</tr>
+					}
+				</table>
+			</th>
+			<th>
+				<table cellpadding="0" cellspacing="0" width="100%"
+					border="1px solid gray">
+
+				</table>
+			</th>
+		</tr>
+	</table>
+	</div>
+
+}

@@ -1,0 +1,175 @@
+@(name : String, blogs: List[Blog])
+@main("") {
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comment/comment_1.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comment/comment_2.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comment/comment_3.css")">
+
+<div class="detailHeader cFix pr">
+				<div class="detailHeaderShopInfo detail2S cFix">
+					<div class="fl pL10 pT10">
+							<a href="http://beauty.hotpepper.jp/slnH000231733/">
+								<img src="http://imgbp.hotp.jp/CSP/IMG_SRC/05/00/B002710500/B002710500_100-100.jpg" alt="フレール　Freresのお店ロゴ"></a>
+						</div>
+					<div class="fr sprtHeaderInnerR pa right0 w180">
+						<ul class="p10">
+							<li class="pa top10 left10">
+									<a href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733" class="btn btn1H60 w156"><span><span>空席確認・予約する</span></span></a>
+								</li>
+							<li class="mT50 pT15">
+								<p><span class="btnSlnSaveToMySalonDone bS offL" style="display: block;">マイサロンに保存済</span></p>
+								</li>
+							<li class="mT5"><a href="https://beauty.hotpepper.jp/CSP/bt/salonSendMobile/?storeId=H000231733" class="bS db sendToMobile offL salonSendMobileP">携帯に送る</a></li>
+						</ul>
+					</div>
+					<div class="pL10 oh">
+						<div class="sprtHeaderOuter">
+							<div class="sprtHeaderInner pV10 pR10 ">
+								<p class="detailTitle"><a href="http://beauty.hotpepper.jp/slnH000231733/">Freres　フレール</a></p>
+								<p class="fs10 fgGray">フレール</p>
+								<dl class="cFix pV5 pL10">
+									<dt class="fl fs10 fgLGray2 b mR5">ネット予約OK</dt>
+											<dd class="fl iS offL listImmediately mR5">即時予約OK</dd>
+											<dd class="fl iS offL listNominate mR5">指名予約OK</dd>
+											<dd class="fl iS offL listTheDay mR5">当日OK</dd>
+												<dd class="fl iS offL listPoint mR5">ポイント加盟店</dd>
+											<dd class="fl iS offL listMensOK mR5">メンズ利用OK</dd>
+									</dl>
+								<div class="cFix mT5 pT5 bdDotT">
+									<div class="fr cFix qrcode">
+										<ul>
+											<li><img src="/CSP/qrCode/?storeId=H000231733&amp;cellsize=1&amp;margine=5&amp;vos=hbt1082" alt="フレール　Freresの2次元バーコード"></li>
+										</ul>
+									</div>
+									<ul class="fs10">
+										<li>東京都渋谷区神宮前３－２７－１５　２F</li>
+										<li>明治神宮前駅　５番出口　徒歩５分</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<ul class="bS menuBG cFix">
+				<li class="fl">
+							<a href="http://beauty.hotpepper.jp/slnH000231733/" class="bS db salonInformation offL">サロン情報</a>
+								</li>
+					<li class="fl">
+							<a href="http://beauty.hotpepper.jp/slnH000231733/coupon/" class="bS db couponAndMenu offL">クーポン・メニュー</a>
+								</li>
+					<li class="fl">
+							<a href="http://beauty.hotpepper.jp/slnH000231733/stylist/" class="bS db stylist offL">スタイリスト</a>
+								</li>
+					<li class="fl">
+							<a href="http://beauty.hotpepper.jp/slnH000231733/style/" class="bS db style offL">スタイル</a>
+								</li>
+					<li class="fl">
+							<a href="http://beauty.hotpepper.jp/slnH000231733/blog/" class="bS db blogCurrent offL">ブログ</a>
+								</li>
+					<li class="fl">
+							<a href="http://beauty.hotpepper.jp/slnH000231733/map/" class="bS db accessMap offL">地図</a>
+								</li>
+					<li class="fr">
+							<a href="http://beauty.hotpepper.jp/slnH000231733/review/" class="bS db kuchikomi offL">口コミ</a>
+								</li>
+					</ul></div>
+</div>
+
+<div class="mT30">
+					<div class="yS mainContentsSecondTitleOuter">
+						<h2 class="yS mainContentsSecondTitleInner">フレール　Freresのブログ</h2>
+					</div>
+</div>
+
+<div class="mT20 cFix">
+					<div class="leftContents w557 fl">
+						<div class="pH10"><h3 class="fs18 b">最新的blog一览</h3></div>
+						<div class="preList">
+							<div class="preListHead">
+								<div class="pr">
+									<p>有<span class="numberOfResult">（blog件数）@blogs.size</span>条blog</p>
+									<p class="pa bottom0 right0">
+										1/14(从数据库中取)ページ
+										<a href="/slnH000231733/blog/PN2.html" class="iS arrowPagingR">次へ</a>
+										</p>
+								</div>
+							</div>
+							</div>
+						<ul id="listWrapper">
+						
+						@blogs.map { blog =>
+						
+						<li class="listCassette cFix">
+								@*<div class="fl w150 taC">
+										<a href="http://beauty.hotpepper.jp/slnH000231733/blog/bidA003244007.html"><img src="http://imgbp.hotp.jp/CSP/IMG_BLOG/48/93/I003264893/I003264893_119-89.jpg" alt="腸内環境を整える(^O^)"></a>
+									</div>*@
+									<div class="fr w397">
+								<div class="cFix">
+										<div class="fl blogS blogCategoryBL10 mT5 hMin19 offL pR10">（blog的类型）@blog.blogTyp</div>
+										<div class="fl">
+											<dl class="cFix">
+												<dt class="fl">投稿日：</dt>
+												<dd class="fl">(创建时间)@blog.createdTime.toLocaleString</dd>
+											</dl>
+											<dl class="cFix">
+												<dt class="fl">投稿者：</dt>
+												<dd class="fl">
+												<a href="http://beauty.hotpepper.jp/slnH000231733/stylist/T000188298/">（blog作者）@name</a>
+												</dd>
+											</dl>
+										</div>
+									</div>
+									<div class="mT10">
+										<div class="cFix">
+											<div class="fs14 b wwbw">
+												<a href=@routes.Blogs.showBlogById(blog.id)>（blog的标题）@blog.title</a>
+											</div>
+										</div>
+										<div class="mT5 wwbw">（blog内容）@blog.content<a href="http://beauty.hotpepper.jp/slnH000231733/blog/bidA003244007.html">続きを見る</a></div>
+									</div>
+								</div>
+						</li>
+						}
+		
+						</ul>
+						<div class="postList">
+                    <ul class="paging">
+            			<li><span>1</span></li><li><a href="/slnH000231733/blog/PN2.html">2</a></li><li><a href="/slnH000231733/blog/PN3.html">3</a></li><li><a href="/slnH000231733/blog/PN4.html">4</a></li><li><a href="/slnH000231733/blog/PN5.html">5</a></li><li><a href="/slnH000231733/blog/PN6.html">6</a></li><li><a href="/slnH000231733/blog/PN7.html">7</a></li><li><a href="/slnH000231733/blog/PN8.html">8</a></li><li><a href="/slnH000231733/blog/PN9.html">9</a></li><li><a href="/slnH000231733/blog/PN10.html">10</a></li><li><a href="/slnH000231733/blog/PN11.html">...</a></li></ul>
+                    <p class="pageControl">
+                        1/14ページ（数据库的值）
+                        <a href="/slnH000231733/blog/PN2.html" class="iS arrowPagingR">次へ</a>
+                        </p>
+                </div>
+            </div>
+					<dl class="rightContents fr w187">
+					<dt class="titleBlog">スタッフ</dt>
+						<dd class="list p10">
+						<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/T000164185/">(店铺的理发师的名字)（从数据库中的取该发型师的blog的数量）</a></p>
+						<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/T000188298/">坂本 隆文（58）</a></p>
+						<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/T000194291/">松原 光輝（28）</a></p>
+						</dd>
+					<dt class="titleBlog">過去の記事</dt>
+						<dd class="list p10">
+						<p>2014年3月分（0）</p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201402/">2014年2月分（3）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201401/">2014年1月分（1）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201312/">2013年12月分（5）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201311/">2013年11月分（2）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201310/">2013年10月分（3）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201309/">2013年9月分（7）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201308/">2013年8月分（2）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201307/">2013年7月分（8）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201306/">2013年6月分（20）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201305/">2013年5月分（27）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201304/">2013年4月分（8）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201303/">2013年3月分（5）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201302/">2013年2月分（4）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201301/">2013年1月分（1）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201212/">2012年12月分（3）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201211/">2012年11月分（3）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201210/">2012年10月分（3）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201209/">2012年9月分（5）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201208/">2012年8月分（24）</a></p>
+								<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201207/">2012年7月分（2）</a></p>
+					</dd>
+					</dl>
+</div>
+}

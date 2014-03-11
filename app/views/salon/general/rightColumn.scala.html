@@ -1,0 +1,20 @@
+@(user: Option[User])
+
+
+
+<div id="sideContents">
+
+    <!-- ↓login module -->
+    @views.html.common.loginModule(user)
+    <!-- ↑login module -->
+
+    <!-- ↓questions module -->
+    @views.html.common.questionsModule()
+    <!-- ↑questions module -->
+
+    <!-- ↓advertisement module -->
+    @views.html.advert.advertModule()
+    <!-- ↑advertisement module -->
+
+
+</div>

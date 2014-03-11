@@ -1,0 +1,57 @@
+@(style: Style)
+
+<div>
+    <p>@style.label</p>
+    <p><a href="@routes.Salons.getSalon(style.salonId)">Check This Salon: @style.salonId</a></p>
+    <p><a href="@routes.Stylists.findById(style.stylistId)">Check this stylist:@style.stylistId</a></p>
+</div>
+
+
+<div class="">
+	<table summary="summary" cellspacing="1" class="">
+    <tbody>
+        <tr>
+            <td class="">新<br>規</td>
+            <td class="">
+                <div class="">
+                    <div class="">
+                        <div class="">
+                            <ul class="">
+                                <li class="">カット</li>
+                                    <li class="">カラー</li>
+                                    <li class="">トリートメント</li>
+                                    <li class="">その他</li>
+                            </ul>
+                        </div>
+                        <div class="">
+                            <p class="">[Freres☆No.１人気]カット+低刺激カラー+アロマヘッドマッサージ　¥11340</p>
+                            <p class="">¥11,340</span></p>
+                        </div>
+                    </div>
+                    <p class="">◆肌の色、瞳の色、ファッションから一人ひとりに１番似合う最旬ツヤカラーを☆◆敏感肌の方や、日焼け後で肌への刺激が心配な方も相談して♪◆ロング料金なし</p>
+                    <dl class="">
+                        <dt class="">予約時</dd>
+                        <dt class="">HOTPEPPER　Beauty　を見たとひとこと♪</dd>
+                        <dt class="">2014年02月28日まで</dd>
+                    </dl>
+                </div>
+            </td>
+            <td class="">
+	            <div class="">
+	                    <div>
+	                    	<form name="bt_reserveActionForm" method="post" action="/CSP/bt/reserve/afterCoupon">
+	                    		<input type="submit" name="afterCoupon" value="Submit" class="">
+	                    		<input type="hidden" name="couponId" value="CP00000003391859">
+	                    		<input type="hidden" name="addMenu" value="0">
+	                    		<input type="hidden" name="rootCd" value="10">
+	                    	</form>
+	                    </div>
+	                    <div class="">
+	                    	<a href="#" class="">メニューを追加して予約する</a>
+	                    </div>
+	            </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>

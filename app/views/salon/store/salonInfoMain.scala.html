@@ -1,0 +1,48 @@
+@(navInSalon: String = "salon-basic", salon: Salon)(content: Html)
+
+
+<!-- the main page of salon.
+     plan to use this as the main frame of the pages as below:
+     1. a salon.
+     2. a style. /style list of a salon.
+     3. a stylist. /stylist list of a salon.
+     4. a blog. /blog list of a salon's stylists.
+     5. a comment?. /comments to the work of stylists belongs to a salon, and the salon's environment. 
+     6. the map of a salon.
+
+TODO
+    1. blog, comment type should be type of Option[Blog], Option[Comment]
+
+  -->
+
+
+@main("todo", "hair-salon") {
+
+<!-- 竊田ontents -->
+
+        <!-- 竊杜ainContents -->
+        <div id="salonMainContents">
+
+	    <!-- 竊都alonInfoHeader -->
+	    @views.html.salon.store.salonInfoHeader(navInSalon, salon)
+	    <!-- 竊都alonInfoHeader -->
+
+            <!-- 竊都alonInfoBody -->
+            <!-- show different body contents according to the NAV tab. -->
+            @content
+            <!-- 竊壮alonInfoBody -->  
+
+            <!-- 竊都alonInfoFooter  -->
+            @views.html.salon.store.salonInfoFooter(navInSalon, salon)
+            <!-- 竊壮alonInfoFooter  -->  
+
+        </div>
+        <!-- 竊僧ainContents -->
+
+        <!-- 竊都ideContents -->
+        @views.html.salon.store.rightColumn(None)
+        <!-- 竊壮ideContents -->
+
+<!-- 竊祖ontents -->
+
+}

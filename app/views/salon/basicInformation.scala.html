@@ -1,0 +1,42 @@
+@(basicInformation:Form[BasicInformation])
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("basicInformation"){
+<div class="basicInformation-content">
+	<div class="basicInformation">
+		<h2>店铺基本信息管理</h2>
+  
+		@form(routes.BasicInformations.storeUpd(basicInformation.get.id), 'id -> "basicInformation"){
+		 <fieldset >
+			@inputText(basicInformation("image"), '_label -> "image")		         
+            @inputText(basicInformation("storeId"),'_label -> "注册ID", 'readonly -> "true" )           
+            @inputText(basicInformation("storeNm"),'_label -> "店铺名")			
+			@inputText(basicInformation("homePage"),'_label -> "店铺主页")
+		 	@inputDate(basicInformation("establishDate"), '_label -> "成立日期")			
+			@inputText(basicInformation("addProvince"), '_label -> "省")
+			@inputText(basicInformation("addCity"), '_label -> "市")
+			@inputText(basicInformation("addArea"), '_label -> "区")
+			@inputText(basicInformation("addTown"), '_label -> "镇")		
+			@inputText(basicInformation("add"), '_label -> "其他")		
+			@select(
+            field = basicInformation("storeTyp"), 
+            options = options(
+                "美容美发" -> "美容美发",
+                "美甲" -> "美甲",
+                "瘦身健美" -> "瘦身健美"
+            ),
+            args = '_label -> "店铺种类	"
+        )			
+			@inputDate(basicInformation("registerTime"), '_label -> "注册时间")			
+			@inputText(basicInformation("email"), '_label -> "email")
+			@inputText(basicInformation("qq"), '_label -> "qq")
+			@inputText(basicInformation("North"), '_label -> "北纬")
+			@inputText(basicInformation("West"), '_label -> "东经")	
+		  </fieldset>            
+            <input type = "submit" class = "buttons" value="更新">
+			<input type="reset" value="重 置"/><a href = "/  "><input type="button" value="返回" ></a>                     
+		}
+		</div>
+</div>
+}

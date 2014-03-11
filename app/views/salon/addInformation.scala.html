@@ -1,0 +1,37 @@
+@(message: String)
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("basicInformation"){
+<div class="basicInformation-content">
+	<div class="basicInformation">
+		<h2>店铺基本信息管理</h2>
+		
+		@form(routes.BasicInformations.storeRegister){
+		<table>
+			<tr>
+				<td>注册ID</td>
+				<td><input type = "text" name = "storeId" maxlength = "60"></td>
+			</tr>
+			<tr>
+				<td>店铺主页</td>
+				<td>               
+					<p><input type = "text" name = "homePage" maxlength = "60"></p>
+				</td>
+			</tr>
+			<tr>
+				<td>店铺名称</td>
+				<td><input type = "text" name = "storeNm" maxlength = "60" ></td>
+			</tr>
+			<tr>
+				<td><input type = "submit" value  = "注册"></td>
+				<td><input type = "reset" value  = "重置"></td>
+			</tr>
+	</table>
+		<div class="otheruser">
+			
+		</div>
+		}
+		</div>
+</div>
+}

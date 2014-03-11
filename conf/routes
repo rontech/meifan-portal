@@ -1,0 +1,126 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                               controllers.Application.index
+
+#get photo
+
+GET		/getPhoto/:name					controllers.Application.getPhoto(name: String)
+
+# User Management
+GET     /login                          controllers.Application.login()
+GET     /register                       controllers.Application.register()
+POST    /login                          controllers.Users.login
+POST    /register                       controllers.Users.register
+POST    /update/:id                     controllers.Users.update(id: ObjectId)
+GET     /show/:userId                   controllers.Users.show(userId)
+GET     /myPage/:userId                 controllers.Users.myPage(userId)
+GET     /myPage/myReservation/:id		controllers.Users.myReservation(id: ObjectId)
+GET     /myPage/mySaveCoupon/:id		controllers.Users.mySaveCoupon(id: ObjectId)
+GET     /myPage/mySaveBlog/:id		 	controllers.Users.mySaveBlog(id: ObjectId)
+GET     /myPage/mySaveStyle/:id		 	controllers.Users.mySaveStyle(id: ObjectId)
+GET     /myPage/mySaveSalonActi/:id		controllers.Users.mySaveSalonActi(id: ObjectId)
+
+
+# Salon 
+GET     /salon                          controllers.Salons.index
+GET     /salon/:id                      controllers.Salons.getSalon(id: ObjectId)
+GET     /basicRegister					controllers.BasicInformations.store
+GET     /storeInformation/:storeId      controllers.BasicInformations.storeInfo(storeId)
+GET     /storeInformationD/:storeId     controllers.BasicInformations.detailedInfo(storeId)
+GET     /storeUpdateB/:id               controllers.BasicInformations.storeUpd(id :ObjectId)
+GET     /storeUpdateD/:id               controllers.BasicInformations.storeUpdDet(id :ObjectId)
+GET     /storeRegister              	controllers.BasicInformations.storeRegister
+
+# Style
+GET     /style                          controllers.Styles.index
+GET     /style/:id                      controllers.Styles.findById(id: ObjectId)
+GET     /salon/:salonId/styles          controllers.Styles.findBySalon(salonId: ObjectId)
+GET     /salon/:slnId/style/:styId      controllers.Styles.getStyleInfoOfSalon(slnId: ObjectId, styId: ObjectId)
+
+
+# Stylist
+GET		/stylistViews/:id				controllers.Stylists.findStylistById(id: ObjectId)
+GET     /stylist/:id                    controllers.Stylists.findById(id: ObjectId)
+GET     /salon/:salonId/stylists        controllers.Stylists.findBySalon(salonId: ObjectId)
+GET     /findStylist                    controllers.Stylists.findStylist
+GET     /checkStylist                   controllers.Stylists.checkStylist
+
+
+# Reservations Management
+GET     /findReserv/:page               controllers.Records.findReserv(page:Int) 
+GET     /cancelRecord/:id               controllers.Records.cancelRecord(id: ObjectId)
+GET     /checkReservInfo/:id            controllers.Records.checkReservInfo(id: ObjectId)
+GET     /selectStylistReserv            controllers.Records.selectStylistReserv
+GET     /overdateRecord/:id             controllers.Records.overdateRecord(id: ObjectId)
+GET     /finishRecord/:id               controllers.Records.finishRecord(id: ObjectId)
+GET     /findRecordByCondition          controllers.Records.findRecordByCondition
+
+#add reservation
+GET     /reservHairView/:id             controllers.Reservations.reservHairView(id: ObjectId)
+GET     /reservSelectDate               controllers.Reservations.reservSelectDate
+GET     /reservSelectStylist            controllers.Reservations.reservSelectStylist
+POST    /reservConfirmPwd               controllers.Reservations.reservConfirmPwd
+GET     /reservFinish                   controllers.Reservations.reservFinish
+GET     /reservConfirmInfo              controllers.Reservations.reservConfirmInfo
+
+
+# Salon Service 
+GET     /addServiceType                  controllers.ServiceTypes.addServiceType
+GET     /serviceTypeMain                 controllers.ServiceTypes.serviceTypeMain
+GET     /serviceMain                     controllers.Services.serviceMain
+GET     /showAllServices                 controllers.Services.servicesList
+GET     /addService                      controllers.Services.addService
+GET     /showAllServices/:id             controllers.Services.deleteService(id: ObjectId)
+GET     /showService                     controllers.Services.showService(id: ObjectId)
+GET     /showService/:id                 controllers.Services.updateService(id: ObjectId)
+
+#----------------------------------------------------------------------------------------------
+#add MyPage by wu start
+GET     /myPageMain                      controllers.MyPages.myPageMain
+GET     /dianpu_guanzhu                  controllers.MyPages.dianpu_guanzhu
+GET     /stylist                         controllers.MyPages.stylist_guanzhu
+
+
+#add Comment
+GET     /addComment/:id                  controllers.Comments.addComment(id : ObjectId)
+GET     /comment/:commentedId            controllers.Comments.find(commentedId : ObjectId)
+GET     /answer/:id/:commentedId         controllers.Comments.answer(id : ObjectId, commentedId : ObjectId)
+GET     /huifu/:id/:commentedId          controllers.Comments.huifu(id : ObjectId, commentedId : ObjectId)
+GET     /delete/:id/:commentedId         controllers.Comments.delete(id : ObjectId, commentedId : ObjectId)
+GET     /complaint/:cmId                 controllers.Comments.complaint(cmId : ObjectId)
+GET     /testComment                     controllers.Comments.test
+POST     /addC/:commentedId              controllers.Comments.addC(commentedId : ObjectId)
+
+GET    /salon/:salonId/comments          controllers.Comments.findBySalon(salonId: ObjectId)
+
+
+# add Blog
+GET     /newBlog/:id                     controllers.Blogs.newBlog(id : ObjectId)
+GET     /testBlog                        controllers.Blogs.test
+GET     /deleteBlog/:id                  controllers.Blogs.deleteBlog(id : ObjectId)
+GET     /showBlog/:id                    controllers.Blogs.showBlog(id : ObjectId)
+GET     /showBlogById/:id                controllers.Blogs.showBlogById(id : ObjectId)
+POST    /writeBlog/:id/                  controllers.Blogs.writeBlog(id : ObjectId)
+GET     /newBlogCatagory/:userId         controllers.BlogCatagories.newBlogCatagory(userId : ObjectId)
+GET     /editBlogCatagory/:userId        controllers.BlogCatagories.editBlogCatagory(userId : ObjectId)
+GET     /writeBlogCatagory/:userId       controllers.BlogCatagories.writeBlogCatagory(userId : ObjectId)
+GET     /delBlogCatarory/:userId/:blogCatagory    controllers.BlogCatagories.delBlogCatarory(userId : ObjectId, blogCatagory : String)
+GET     /modBlogCatarory/:userId/:blogCatagory    controllers.BlogCatagories.modBlogCatarory(userId : ObjectId, blogCatagory : String)
+GET     /modCatagory/:userId/:blogCatagory        controllers.BlogCatagories.modCatagory(userId : ObjectId, blogCatagory : String)
+
+
+
+GET     /salon/:slnId/blog/:blogId      controllers.Blogs.getBlogInfoOfSalon(slnId: ObjectId, blogId: ObjectId)
+
+GET     /salon/:salonId/blogs          controllers.Blogs.findBySalon(salonId: ObjectId)
+
+
+#add by wu end 
+#-------------------------------------------------------------------------------------------
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file                    controllers.Assets.at(path="/public", file)

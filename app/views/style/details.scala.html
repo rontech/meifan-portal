@@ -1,0 +1,8 @@
+@(styles: Seq[Style])
+
+@main(Messages("hair.style"), nav = "hair-salon") {
+        
+    <!-- Get All the Salons with all the styles.  -->
+    @views.html.style.group(styles)
+
+}

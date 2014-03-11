@@ -1,0 +1,37 @@
+@(userId : ObjectId, blogs: List[Blog])
+
+@main("Blog") {
+    <body>
+		<form>
+			<table border = 1>
+			  <tr>
+			 		<td>博客的title</td>
+			 		<td>博客的content</td>
+			 		<td>博客的type</td>
+			 		<td>博客的tags</td>
+			 	</tr>
+			 @blogs.map { blog =>
+				<tr>
+					<td>@blog.title</td>
+					<td>@blog.content</td>
+					<td>@blog.blogTyp</td>
+					<td>@blog.tags</td>
+					<td><a href = "@routes.Comments.addComment(blog.id)"><input type="button" value="addComment" ></a></td>
+					<td><a href = "@routes.Blogs.deleteBlog(blog.id)"><input type="button" value="deleteBlog" ></a></td>
+				</tr>
+				}
+			</table>
+			<a href = "@routes.Blogs.newBlog(userId)"><input type="button" value="newBlog" ></a>
+			<a href = "@routes.BlogCatagories.editBlogCatagory(userId)"><input type="button" value="editBlogCatagory" ></a>
+			
+		</form>
+		<!-- ShareTo Button BEGIN -->
+		<!--<a class="shareto_button" href="http://shareto.com.cn/share.html"><img src="http://s.shareto.com.cn/btn/lg-share-cn.gif" width="125" height="21" alt="陋ｻ�ｽ�ｺ�ｫ鬩包ｿｽ style="border:0"/></a>
+		<script type="text/javascript" src="http://s.shareto.com.cn/js/shareto_button.js" charset="utf-8"></script>
+		ShareTo Button END -->
+		
+		
+	
+	</body>
+
+}

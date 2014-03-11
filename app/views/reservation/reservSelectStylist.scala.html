@@ -1,0 +1,35 @@
+@(message:String) 
+
+@import helper._ 
+@import helper.twitterBootstrap._
+
+@main(""){
+<div class="reservation-store-head">
+	<div>
+		@views.html.reservation.reservStoreHead()
+		<div class="content-core">
+			<h1 style="font-size:16px;">可指定的技师</h1>
+			<table cellspacing="0">
+				<tr>
+					@for(i<- 1 to 3){
+					<td width="30%">
+						<div>
+							<div>
+								<a href="@routes.Stylists.checkStylist"><img
+									src="http://imgbp.hotp.jp/CSP/IMG_SRC/05/32/B002740532/B002740532_164-219.jpg" /></a>
+							</div>
+							<p>
+								<a href="#">島崎 修</a>
+								<span>代表</span>（歴8年）
+							</p>
+							<p>
+								<a href="@routes.Reservations.reservSelectDate">指定 技师</a>
+							</p>
+						</div>
+					</td>
+					 }
+				</tr>
+			</table>
+
+		</div>
+		}

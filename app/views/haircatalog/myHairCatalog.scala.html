@@ -1,0 +1,25 @@
+@(message: String)
+@import helper._
+@import helper.twitterBootstrap._
+
+@main(""){
+	<div class="hair-catalog">
+		
+		@for(i<-1 to 10){
+		<div class="hair-catalog-img01">
+			<div>
+				<p><a href="#"><img src="@routes.Assets.at("images/haircatalog/hair-showmain.jpg")"/></a></p>
+				<p><a href="#">マイスタイルへ保存</a><a href="#"><span><span>マイスタイル</span>に保存済</span></a></p>
+				<p class="taC mT10"><a href="#">詳細を見る</a></p>
+			</div>
+			<div class="mT2">
+				<a href="#"></a>
+				<p><span class="photoCaption">モードな大人ベリーショート</span></p>
+				<div class="mT2">
+					<p>Ａｓｈ 池袋店</p>
+				</div>
+			</div>
+		</div>
+		}
+	</div>
+}

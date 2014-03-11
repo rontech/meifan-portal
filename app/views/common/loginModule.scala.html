@@ -1,0 +1,84 @@
+@(user: Option[User])
+
+<!-- login module usually on the rigth column of a page to 
+    let user to sign in or sign up or show the basice info of a user who is in the state of login.
+
+TODO
+    1. parameters is passed by controll files with data come form controll files.
+    2. show different info according to the user parameter.
+-->
+
+
+<div id="myMenu" class="yS zoom1">
+    <div id="myMenuHead" class="yS">
+        <div id="myMenuBottom" class="yS">
+            <dd class="myMenuBody myPointBody yS mT0">
+                <div class="myMenuBodyHead yS">
+                    <div class="myMenuMainBox pointBox yS">
+                        <ul class="myMenuItems">
+                            <li class="myMenuItemsCassette">
+                                <div class="mT11 taC">
+                                    <img src="@routes.Assets.at("images/recruit_point_155.gif")" width="155"
+                                    alt="リクルートポイント（旧じゃらん×HOT PEPPER）" title="リクルートポイント（旧じゃらん×HOT PEPPER）">
+                                </div>
+                                <div class="grayPointBodyHead y4S mT8">
+                                    <div class="grayPointBodyBox y4S">
+                                        <div class="grayPointBody y4S taC">
+                                            <p>
+                                                ホットペッパービューティー
+                                                <br>
+                                                なら
+                                                <span>
+                                                    &nbsp;2%&nbsp;
+                                                </span>
+                                                貯まる
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="loginArea mT7 taC">
+                                    <p>
+                                        ようこそ、ゲストさん。
+                                    </p>
+                                    <a href="@routes.Users.login" class="btn btn2H30 mT3 tdn">
+                                        <span>
+                                            <span class="b">
+                                                ログインする
+                                            </span>
+                                        </span>
+                                    </a>
+                                    <p class="mT5">
+                                        <a href="@routes.Users.login" />
+                                        会員登録する（無料）
+                                        </a>
+                                    </p>
+                                    <ul class="taL mT7">
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="window.open('http://point.recruit.co.jp/');"
+                                            class="iS rPoint">
+                                                リクルートポイントとは
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="window.open('http://point.recruit.co.jp/?tab=pointUseServise');"
+                                            class="iS rPoint">
+                                                参画サービス一覧
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <p class="mT10">
+                                    <a class="iS arrowR" title="2億円ポイント山分けキャンペーン実施中！" href="/doc/cp/2oku/"
+                                    target="_blank">
+                                        2億円ポイント山分けキャンペーン実施中！
+                                    </a>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </dd>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,51 @@
+@(userForm: Form[User])
+
+    @import helper._
+
+    @main(Messages("site.title")) {
+
+        <h2 align = "center">新用户</h2>
+       
+        @form(routes.Users.register(), 'id -> "userForm") {
+          <fieldset>
+            @inputText(userForm("userId"),'_label -> "用户名",
+            	'_error -> userForm("userId").error.map(_.withMessage("请输入用户名!")))
+
+			@inputPassword(userForm("password.main"),'_label -> "密码")
+			
+			@inputPassword(userForm("password.confirm"),'_label -> "确认密码",'_error -> userForm.error("password"))
+
+            @inputText(userForm("nickNm"),'_label -> "昵称")
+
+            @inputDate(userForm("birthDay"), '_label -> "出生日期")
+
+			@inputRadioGroup(userForm("sex"),options = options("M" -> "男", "F" -> "女") , '_label -> "性别",
+				'_error -> userForm("sex").error.map(_.withMessage("请选择性别!")))
+            @inputText(userForm("city"),'_label -> "城市")
+
+            @inputText(userForm("job"),'_label -> "职业")
+
+              @inputText(userForm("email"), '_label -> "电子邮箱")
+
+              @inputText(userForm("tel"), '_label -> "联系电话")
+
+              @inputText(userForm("qq"), '_label -> "QQ")
+
+              @inputText(userForm("msn"), '_label -> "MSN")
+
+              @inputText(userForm("weChat"),'_label -> "微信")
+
+			@checkbox(userForm("accept"), '_label -> None, '_text -> "I agree to the Terms and conditions",
+				'_error -> userForm("accept").error.map(_.withMessage("必须同意!")))
+	
+		  </fieldset>
+		  
+            <input type="submit" class = "buttons" value="新建用户">
+            
+            <a href="login"><input type = "button" class = "buttons" value="登录"></a>
+            
+            <input type = "reset" class = "buttons" value="重置">
+           
+        }
+
+    }

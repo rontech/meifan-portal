@@ -1,0 +1,12 @@
+@(styles: Seq[Style] = Nil)
+
+<ol>
+@for(style <- styles) {
+    <li>
+        @views.html.style.item(style)
+    </li>
+}
+</ol>
+
+    
+

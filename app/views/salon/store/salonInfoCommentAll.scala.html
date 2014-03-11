@@ -1,0 +1,8 @@
+@(salon: Salon, comments: Seq[Comment])
+
+@salonInfoMain(navInSalon = "salon-comment", salon) {
+
+    <!-- Get All the Salons with all the styles.  -->
+    @views.html.comment.group(comments)
+
+}

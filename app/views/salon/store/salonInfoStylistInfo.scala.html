@@ -1,0 +1,40 @@
+@(salon: Salon, stylist: Stylist, style:List[Style])
+
+@salonInfoMain(navInSalon = "salon-stylist", salon){
+	<div id="mainContents">
+		<div class="mT30">
+			<div class="stylePageTileOuter">
+			<div class="fgPink b fs10">代表</div>
+				<h2 class="fs16 dibBL">@stylist.label</h2>
+				<span class="fs10 mL5">@stylist.stylistStyle.map{sty=>
+					@sty
+				&nbsp;
+				}</span>
+			</div>
+			<div claa="cFix mT30 pH10"></div>
+				<div class="fl w224 taC">
+			    	<div>
+				        <img src="@routes.Application.getPhoto(stylist.pictureName)">
+			    	</div>
+			    	<div class="mT20 pT10">
+				        <a href="#">
+			            	指名して予約する
+			        	</a>
+			    	</div>
+				    <div class="mT20 pT10">
+				        <a href="https://beauty.hotpepper.jp/CSP/my/myStylist/doSet/?stylistId=T000194129&amp;org.apache.struts.taglib.html.TOKEN=95be479e277c1ec03f427a30a4a8d065"
+				        class="bS db addIntoMyStylist offL mHA">
+				            マイスタイリストに保存
+				        </a>
+				    </div>
+				</div>
+				<div class="fr w501">
+					@views.html.stylist.styleGroup(style)
+					
+						@views.html.stylist.infoTableItem(stylist)
+					
+				</div>
+		</div>
+	</div>	
+		
+}

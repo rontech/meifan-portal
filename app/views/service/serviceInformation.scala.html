@@ -1,0 +1,30 @@
+@(serviceShowForm: Form[Service], service: Service)
+
+@import helper._
+
+    @main(title = Messages("service.update")) {
+
+		<head>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/service/service.css")">
+		</head>
+		<body>
+        @form(routes.Services.updateService(service.id), 'id -> "serviceForm") {
+          <fieldset>
+        	@inputText(serviceShowForm("serviceName"),'_label -> Messages("service.name"), 'readonly ->"true")
+        	
+            @inputText(serviceShowForm("serviceType"),'_label -> Messages("service.type"), 'readonly ->"true")
+             
+            @inputText(serviceShowForm("serviceTsCost"),'_label -> Messages("service.tsCost"))
+             
+            @inputText(serviceShowForm("servicePrice"),'_label -> Messages("service.price"))
+	
+		  </fieldset>
+		  
+            <input type="submit" class = "buttons" value="@Messages("service.update")">
+            
+            <input type = "button" class = "buttons" value="@Messages("service.back")" onclick="history.go(-1)">
+        }
+        
+        </body>
+
+    }

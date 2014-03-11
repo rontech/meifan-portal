@@ -1,0 +1,30 @@
+@(detailedInformation:Form[DetailedInformation])
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("detailedInformation"){
+<div class="detailedInformation-content">
+	<div class="detailedInformation">
+		<h2>店铺详细信息管理</h2>
+  
+		@form(routes.BasicInformations.storeUpdDet(detailedInformation.get.id), 'id -> "detailedInformation"){
+		 <fieldset >	         
+            @inputText(detailedInformation("storeId"),'_label -> "注册ID", 'readonly -> "true" )           
+            @inputText(detailedInformation("tel"),'_label -> "联系电话")			
+			@inputText(detailedInformation("contact"),'_label -> "联系人")
+		 	@inputText(detailedInformation("trafficDescribe"), '_label -> "交通描述")			
+			@inputText(detailedInformation("openTime"), '_label -> "营业开始")
+			@inputText(detailedInformation("closeTime"), '_label -> "营业结束")
+			@inputDate(detailedInformation("restDate"), '_label -> "休息日")
+			@inputText(detailedInformation("seatNum"), '_label -> "席位")		
+<label><input type="checkbox" name="onlineOrd" value="@detailedInformation("onlineOrd").value" id="nature"><label for="nature">网上预约</label>
+<label><input type="checkbox" name="immediatelyOrd" value="@detailedInformation("immediatelyOrd").value" id="nature2"><label for="nature2">即时预约</label>
+<label><input type="checkbox" name="appointOrd" value="@detailedInformation("appointOrd").value" id="nature3"><label for="nature3">指名预约</label>
+		
+		  </fieldset>            
+            <input type = "submit" class = "buttons" value="更新">  
+            <input type="reset" value="重 置"/><a href = "/storeInformation  "><input type="button" value="返回" ></a>                                     
+		}
+		</div>
+</div>
+}

@@ -1,0 +1,144 @@
+@(message:String) 
+@import helper._
+@import helper.twitterBootstrap._
+
+@main(""){
+
+<div id="reserveContents">
+
+	@views.html.reservation.reservStoreHead()
+	<form name="bt_reserveActionForm" method="post"
+		action="/reservConfirmPwd">
+		<div class="yS reserveTitleOuter mT20">
+			<h3 class="yS reserveTitleInner pL10">使用点卷设定</h3>
+		</div>
+
+		<table cellspacing="0" class="wFull bdCell fgThNml pCellV5H5 mT10">
+			<tbody>
+				<tr>
+					<th class="w170 bgLGray b">使用优惠劵</th>
+					<td class="w478">
+						<ul class="couponMenuIcons mT5 fs10 cFix">
+							<li class="couponMenuIcon mB5">剪发</li>
+							<li class="couponMenuIcon mB5">护理</li>
+							<li class="couponMenuIcon mB5">其它</li>
+						</ul>
+					</td>
+					<td class="w80">
+						<div class="dibBL vaM w80">¥5,250</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="w170 bgLGray b">总额</th>
+					<td class="lh18" colspan="2">
+						<div class="dibBL vaM w295">
+							¥<span id="rsvTotalPrice">5,250</span>
+						</div>
+						<div class="fgOrange dibBL vaM fs10 pR5 pL1e txt1e w256">※使用优惠劵后总计金额。</div>
+					</td>
+				</tr>
+
+				<tr>
+					<th class="w170 bgLGray b">可使用的点劵</th>
+					<td class="lh18" colspan="2">
+						<div class="dibBL vaM w295 ">
+							<span class="b">1,000</span><span class="mL5">点劵</span>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<th class="w170 bgLGray b">使用点劵</th>
+					<td class="lh18" colspan="2">
+						<div class="dibBL vaM w295">
+							<select name="usePoint" id="usePoint" class="pdF"><option
+									value="0" selected="selected">使用</option>
+								<option value="100">100</option>
+							</select>
+						</div>
+						<div class="fgOrange dibBL vaM fs10 pR5 pL1e txt1e w256">※1、
+							※2</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="w170 bgLGray b">支付金额<br>
+					<span class="n">（总金额-使用的点劵）</span></th>
+					<td class="lh18" colspan="2">
+						<div class="dibBL vaM w295">
+							<span class="b" id="paymentAmount">¥5,250</span>
+						</div>
+						<div class="fgOrange dibBL vaM fs10 pR5 pL1e txt1e w256">※预约时服务组合可根据实际来店喜好进行变更。</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="yS reserveTitleOuter mT20">
+			<h3 class="yS reserveTitleInner pL10 b">会员置留给商家信息</h3>
+		</div>
+		<table cellspacing="0" class="wFull bdCell fgThNml pCellV5H5 mT10">
+			<tbody>
+				<tr>
+					<th class="w170 bgLGray b">
+						<div class="dibBL vaM n iconMustEmpty mR10">&nbsp;</div>
+						<div class="dibBL vaM w105">预约人真实姓名</div>
+					</th>
+					<td class="vaThT">
+						<div class="mT5 b">大郎</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="w170 bgLGray3">
+						<div class="dibBL vaM w105">
+							联系电话<br>号码
+						</div>
+					</th>
+					<td class="vaThT">
+						<div class="mT5">
+							<input type="text" name="rsvCustomerTel" maxlength="17"
+								value="0345878910" id="rsvCustomerTel" class="tfFR w110 imeOff"><span
+								class="mL5">（例）030000000</span>
+							<p class="fs10 mT2">※此方式便于商家联系，确认预约相关信息。</p>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="w170 bgLGray3">
+						
+						<div class="dibBL vaM w105">是否第一次预约该店服务？</div>
+					</th>
+					<td class="vaM">
+						<ul class="cFix">
+							<li class="fl mR10 nowrap"><input type="radio"
+								name="visitKbn" value="01" id="noVisit" class="cbF"><label
+								for="noVisit">是</label></li>
+							<li class="fl mR10 nowrap"><input type="radio"
+								name="visitKbn" value="02" id="visit" class="cbF"><label
+								for="visit">否</label></li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th class="w170 bgLGray b"><div
+							class="dibBL vaM n iconMustEmpty mR10">&nbsp;</div>
+						<div class="dibBL vaM">是否接受该salon消息</div></th>
+					<td class="lh18">
+						<div class="dibBL vaM w295">
+							<input type="checkbox" name="rsvCmReceive" value="1"
+								checked="checked" id="forRsvcmReceive" class="cbF"><label
+								for="forRsvcmReceive">接受</label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="w170 bgLGray b"></th>
+					<td>
+					<input type="submit" name="confirm" value="确认预约"
+					class="confirmL">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</div>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/hairReservation.css")">
+}

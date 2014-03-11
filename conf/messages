@@ -1,0 +1,84 @@
+# General
+site.welcome=悦美月容网，欢迎您！
+site.intro=宇宙首家动漫人物美发美容沙龙检索预约平台
+site.powerby=苏州隆泰信息技术有限公司
+site.title=中国首家美发美容查询&预约网站｜美范网
+site.description=美容院・美容室・ヘアサロン・ネイルサロン・エステサロン・リラクゼーションサロンが見つか中国国最大級の美容・キレイ総合情報サイト、......。スタイル、ブログ、口コミをチェックして、気になるサロンへ２４時間いつでもネット予約OK。美容・キレイサロンを検索・予約するなら......。
+site.keywords=美容,キレイ,美容院,美容室,ヘアサロン,ネイルサロン,まつげサロン,リラクサロン,エステサロン,ヘアカタログ,ネイルカタログ
+site.copyright=Copyright &copy; RONTECH Co., Ltd. All rights reserved.
+
+
+# Index page
+index.reserve=24小时网上预约&空席确认
+index.pointPolicy=5%的积分制度
+index.appeal=国内首家P2C美容平台
+index.appeal2=全国美容美发保健沙龙检索・预约
+index.hairSalonRsv=美发沙龙预约
+index.nailSalonRsv=美甲沙龙预约
+index.cosmSalonRsv=美容院预约
+index.massageSalonRsv=按摩院预约
+
+# Main Page Framework
+main.headSummary=中国首家美容美发沙龙・整形按摩院检索・预约平台
+main.hairSalon=美发沙龙
+main.hairCatalog=美发目录
+main.nailSalon=美甲沙龙
+main.nailCatalog=美甲目录
+main.cosmSalon=美容整形院
+main.estheSalon=按摩保健院
+main.idUsePolicy=ID利用约定
+main.usePolicy=使用须知
+main.securityPolicy=个人情报保护方针
+main.userGuide=使用指南
+main.wantToJoin=您想登录贵沙龙的信息?
+main.toSalonOwners=致沙龙
+main.help=常见问题
+main.myPage=我的主页
+
+
+# Salon
+salon.show=展示所有沙龙
+
+
+
+
+# Hair
+hair.salon=美发沙龙
+hair.style=发型
+hair.stylist=发型师
+hair.impression=风格
+hair.styleQuality=发质
+hair.styleAmount=发量
+hair.faceType=脸型
+hair.color=颜色
+hair.styleLength=长度
+hair.serviceItem=菜单内容
+
+# Cosmetic
+cosmetic.salon=美容沙龙
+cosmetic.style=脸型
+hair.stylist=美容师
+
+#
+reserve.name=预约
+reserve.finish=预约完成
+reserve.information=详情查看
+
+
+# Service
+service.addService=添加服务
+service.name=服务技术
+service.type=技术类别
+service.price=服务费用（单位：元）
+service.tsCost=服务耗时（单位：分钟）
+service.addErrorMsg=请输入服务技术名！
+service.addBton=添加
+service.resetBton=重置
+service.addServiceType=添加服务类别
+service.serviceList=服务列表
+service.operate=操作
+service.delete=删除
+service.back=返回
+service.update=更新
+
+ 

@@ -1,0 +1,12 @@
+@(comments: Seq[Comment] = Nil)
+
+<ul>
+@for(comment <- comments) {
+    <li>
+        @views.html.comment.item(comment)
+    </li>
+}
+</ul>
+
+    
+

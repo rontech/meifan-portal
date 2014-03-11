@@ -1,0 +1,56 @@
+@(message: String)
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("message"){
+@views.html.reservation.reservStoreHead()
+<div class="middleContentsInnerBottom ympS">
+	<div class="mL20 mT10">
+		<div class="mT5 mB5">
+			<img src="@routes.Assets.at("images/store/store-logo.jpg")" 
+				align="middle">
+			リクルートカード新規入会&amp;初回利用で、今ならもれなく7,000pt♪ポイント還元率1.2%で年会費無料！<a
+				href="#"
+				target="blank">@Messages("reserve.information")</a>
+		</div>
+
+	</div>
+	<div class="shopContentsWrapper">
+		<div class="mT30">
+			<div class="skinHeadingWrapper">
+				<h3>@Messages("reserve.finish")</h3>
+			</div>
+			<div class="mT20">
+				<div class="categoryHeading mL130">@Messages("main.hairSalon")</div>
+				<div class="jscListWrapper">
+					<div class="mT20 cFix">
+						<div class="fl mR15">
+							<span class="w20 db">&nbsp;</span>
+						</div>
+
+						<div class="fl listShopImgWrapper" style="height: 231px;">
+							<ol id="jsiListShopImg1" class="listShopImg"
+								style="width: 225px;">
+								<li class="jscPinSlnIdH000054390-01" style="left: 0px;">
+									<p class="jscShopImg shopImg">
+										<a
+											href="#"><img
+											src="@routes.Assets.at("images/store/store-logo.jpg")"
+											class="w200 h150"></a>
+									</p>
+									<p>从大理出发约4分 &nbsp; ★步行约１分</p>
+								</li>
+							</ol>
+						</div>
+
+						<div class="fr">
+							<span class="w20 db">&nbsp;</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/hairReservation.css")">
+}

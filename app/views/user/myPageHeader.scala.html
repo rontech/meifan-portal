@@ -1,0 +1,32 @@
+@(navInMyPage:String = "my-reservation", user :User)
+
+	<!-- ↓mainContents -->
+    	<ul class="bS menuBG cFix">
+		<li class="fl">
+		    <a href="/myPage/myReservation/@user.id">
+				&nbsp&nbsp&nbsp&nbsp&nbsp我的预约&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+		<li class="fl">
+		    <a href="/myPage/mySaveCoupon/@user.id">
+				&nbsp&nbsp&nbsp&nbsp&nbsp收藏の优惠劵&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+		<li class="fl">
+		    <a href="/myPage/mySaveBlog/@user.id">
+				&nbsp&nbsp&nbsp&nbsp&nbsp收藏の博客&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+		<li class="fl">
+		    <a href="/myPage/mySaveStyle/@user.id">
+				&nbsp&nbsp&nbsp&nbsp&nbsp收藏の风格&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+		<li class="fl">
+		    <a href="/myPage/mySaveSalonActi/@user.id">
+				&nbsp&nbsp&nbsp&nbsp&nbsp店铺の动态&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+  			
+  		</ul>
+	<!-- ↑mainContents -->

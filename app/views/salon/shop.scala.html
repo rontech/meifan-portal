@@ -1,0 +1,11 @@
+@(salon: Salon)
+
+<li>
+	<p>
+		@salon.id
+		<a href="@routes.Styles.findBySalon(salon.id)">Check All styles of this Salon.</a>
+	</p>
+	<p>@salon.label</p>
+	<p></p>
+</li>
+    

@@ -1,0 +1,56 @@
+@* UserInfomation Template File *@
+@(userForm: Form[User])
+ @import helper._
+ 
+    @main(Messages("site.title")) {
+
+        <h2 align = "center">用户信息</h2>
+       
+        @form(routes.Users.update(userForm.get.id), 'id -> "userForm") {
+          <fieldset>
+           	
+                  @inputText(userForm("userId"),'_label -> "用户名", 'readonly -> "true")
+
+                  <input type="hidden" name="password" value="@userForm.get.password">
+
+                  @inputText(userForm("nickNm"),'_label -> "昵称")
+
+                  @inputDate(userForm("birthDay"), '_label -> "出生日期")
+
+                  @inputRadioGroup(userForm("sex"),options = options("M" -> "男", "F" -> "女") , '_label -> "性别",
+                  '_error -> userForm("sex").error.map(_.withMessage("请选择性别!")))
+
+                  @inputText(userForm("city"),'_label -> "城市")
+
+                  @inputText(userForm("job"),'_label -> "职业")
+
+                  @inputText(userForm("email"), '_label -> "电子邮箱")
+
+                  @inputText(userForm("tel"), '_label -> "联系电话")
+
+                  @inputText(userForm("qq"), '_label -> "QQ")
+
+                  @inputText(userForm("msn"), '_label -> "MSN")
+
+                  @inputText(userForm("weChat"),'_label -> "微信")
+
+                  @inputText(userForm("userTyp"),'_label -> "用户类别")
+
+                  @inputText(userForm("userBehaviorLevel"),'_label -> "用户行为等级")
+
+                  @inputText(userForm("point"),'_label -> "积分")
+
+                  @inputDate(userForm("added"),'_label -> "注册时间")
+
+                  @inputText(userForm("status"),'_label -> "状态")
+
+			
+		  </fieldset>            
+
+            <input type = "submit" class = "buttons" value="更新">
+            
+            <a herf = "@routes.Users.show(userForm("userId").toString)"><input type = "button"value="取消"></a>
+           
+        }
+
+    }

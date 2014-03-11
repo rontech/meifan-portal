@@ -1,0 +1,8 @@
+@(salon: Salon, blog: Blog)
+
+@salonInfoMain(navInSalon = "salon-blog", salon) {
+
+    <!-- Get All the Salons with all the styles.  -->
+    @views.html.blog.blogDetail(blog.id, List(blog))
+
+}

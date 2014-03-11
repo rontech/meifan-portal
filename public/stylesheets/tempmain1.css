@@ -1,0 +1,60 @@
+.loginForm{
+ width:600px;
+ height:305px;
+ border-radius:2px;
+ margin-left:150px;
+ margin-top:90px;
+ background-color:rgb(229,229,229);
+ }
+.registerForm{
+ width:600px;
+ height:750px;
+ border-radius:2px;
+ margin-left:150px;
+ margin-top:90px;
+ background-color:rgb(229,229,229);
+}
+
+.loginForm label,.registerForm label{
+	font-size:18px;
+	font-family: 'Microsoft YaHei', Arial, Helvetica, sans-serif;
+}
+.base-input{
+	width:180px;
+	height:24px;
+}
+.imagecode{
+	width:60px;
+	height:24px;
+}
+#nameLogin,#emailLogin{
+	margin-left:0px;
+	width:128px;
+	height:40px;
+}
+.loginForm table{
+	margin-top:15px;
+	height:200px;
+	
+}
+.registerForm table{
+	margin:15px 20px 30px 30px;
+	height:570px;
+}
+.submit{
+	margin-left:95px;
+	height:28px;
+	width:80px;
+}
+table label{
+	text-align:right;
+}
+#label{
+	align:right;
+}
+.errorMsg{
+	color:red;
+}
+.trueMsg{
+	color:green;
+}

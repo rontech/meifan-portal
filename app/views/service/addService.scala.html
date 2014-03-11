@@ -1,0 +1,39 @@
+@(serviceForm: Form[Service], serviceType: List[String])
+
+@import helper._
+
+    @main(title = Messages("service.addService")) {
+
+		<head>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/service/service.css")">
+		</head>
+		<body>
+        @form(routes.Services.addService, 'id -> "serviceForm") {
+          <fieldset>
+            @inputText(serviceForm("serviceName"),'_label -> Messages("service.name"),
+            	'_error -> serviceForm("serviceName").error.map(_.withMessage(Messages("service.addErrorMsg")))
+            	,'_error -> serviceForm.globalError
+            	)
+        
+             @select(
+             	serviceForm("serviceType"),
+             	options = options(serviceType),
+             	'_label -> Messages("service.type")
+             )
+             
+             @inputText(serviceForm("serviceTsCost"),'_label -> Messages("service.tsCost"))
+             
+             @inputText(serviceForm("servicePrice"),'_label -> Messages("service.price"))
+	
+		  </fieldset>
+		  
+            <input type="submit" class = "buttons" value="@Messages("service.addBton")">
+            
+            <input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+            
+            <input type = "button" class = "buttons" value="@Messages("service.back")" onclick="history.go(-1)">
+        }
+        
+        </body>
+
+    }

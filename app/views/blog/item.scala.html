@@ -1,0 +1,33 @@
+@(blog: Blog)
+
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comment/comment_4.css")">
+
+
+<div class="fr w397">
+								<div class="cFix">
+										<div class="fl blogS blogCategoryBL10 mT5 hMin19 offL pR10">ビューティー</div>
+										<div class="fl">
+											<dl class="cFix">
+												<dt class="fl">投稿日：</dt>
+												<dd class="fl">@blog.createdTime.toLocaleString</dd>
+											</dl>
+											<dl class="cFix">
+												<dt class="fl">投稿者：</dt>
+												<dd class="fl">
+												<a href="@routes.Stylists.findById(blog.userId)">@blog.userId</a>
+												</dd>
+											</dl>
+										</div>
+									</div>
+									<div class="mT10">
+										<div class="cFix">
+											<div class="fs14 b wwbw">
+												<!-- <a href="salon/530d7288d7f2861457771bdd/blog/@blog.id">@blog.title</a> -->
+												<span class="iS upLately offL dib vaM">UP</span>
+												</div>
+										</div>
+										<div class="mT5 wwbw">@blog.content
+										</div>
+									</div>
+									<hr><!-- test -->
+</div>

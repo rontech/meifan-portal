@@ -1,0 +1,24 @@
+@(message: String)
+
+@main(Messages("site.title"), nav = "hair-salon") {
+
+	<div id="generalContents">
+
+	    <div class="pT15 cFix">
+		<div class="cFix">
+		    <!-- ↓generalContentLeftColumn -->
+		    @views.html.salon.general.leftColumn()
+	            <!-- ↑generalContentLeftColumn -->
+
+	            <!-- ↓generalContentMiddleColumn -->
+		    @views.html.salon.general.middleColumn()
+	            <!-- ↑generalContentMiddleColumn -->
+
+		    <!-- ↓generalContentRightColumn -->
+		    @views.html.salon.general.rightColumn(None)
+		    <!-- ↑generalContentRightColumn -->
+		</div>
+	    </div>
+	</div>
+
+}

@@ -1,0 +1,17 @@
+@(formBlogCatagory : Form[(String)], blogCatagory : String, userId : ObjectId)
+
+    @import helper._
+
+    @main("mod the catagory") {
+        @form(action = routes.BlogCatagories.modCatagory(userId, blogCatagory)) {
+          <fieldset>
+            @inputText(formBlogCatagory("catagory"),'_label -> "博客类型" ,'placeholder -> blogCatagory)
+            
+            @*{
+            	(blogCatagory,_) => <input type="text" value = blogCatagory "label" =  "博客类型">
+            }*@
+		  </fieldset>
+		  
+            <input type="submit" class = "buttons" value="确认修改" >
+           }
+    }

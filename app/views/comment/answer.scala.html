@@ -1,0 +1,21 @@
+@(id : ObjectId, commentedId : ObjectId, formHuifuComment: Form[String])
+
+
+@import helper._
+
+@main("Answer") {
+	
+	
+
+  @form(routes.Comments.huifu(id, commentedId)){
+       
+      
+       @inputText(formHuifuComment("content"), '_label -> "回复内容") 
+       
+       
+      
+       <input type="submit" value="提交" >
+   }
+
+
+}

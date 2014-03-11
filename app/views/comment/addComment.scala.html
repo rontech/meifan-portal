@@ -1,0 +1,25 @@
+@(commentedId : ObjectId, formAddComment: Form[(String)])
+
+@import helper._
+
+@main("add评论") {
+  
+   
+   
+   @form(routes.Comments.addC(commentedId)){
+       
+       @*@inputText(formAddComment("cmUsername"), '_label -> "用户名") 
+       
+       @inputText(formAddComment("cmTime"), '_label -> "提交时间") *@
+       @inputText(formAddComment("content"), '_label -> "评论内容") 
+       
+       @*
+       @inputText(formAddComment("cmService"), '_label -> "所评论的服务") 
+       @inputText(formAddComment("cmAddContent"), '_label -> "增加评论") *@
+       @* 生成用于提交的按钮 *@
+       <input type="submit" value="提交" >
+   }
+
+}
+
+

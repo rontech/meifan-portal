@@ -1,0 +1,19 @@
+@(salons: Seq[Salon])
+
+@main(title = Messages("hair.salon"), nav = "hair-salon") {
+    
+    <div>
+		<dl>
+			<dt>@Messages("salon.show")</dt>
+			<dd>
+				<ol>
+			    	@salons.map { salon =>
+			            @views.html.salon.shop(salon)
+			    	}
+		    	</ol>
+	    	</dd>
+    	</dl>
+    <div>
+
+    
+}

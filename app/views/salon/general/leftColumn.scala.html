@@ -1,0 +1,86 @@
+<!--<div class="fl">-->
+    <div class="subtitle cFix">
+        <p class="fs16 b fl w371 mT3">
+            全国の美容院・美容室・ヘアサロン検索・予約
+        </p>
+        <div class="fr taR h31 w300">
+            <form name="bt_freewordSearchActionForm" method="get" action="/CSP/bt/freewordSearch/">
+                <dl class="searchBox cFix h24 w300">
+                    <dt class="dibBL vaT pR5">
+                        <div class="cS searchBoxbg">
+                            <input type="text" name="freeword" maxlength="63" value="" id="freeWordSearch1"
+                            class="inputSalonName">
+                        </div>
+                    </dt>
+                    <dd class="dibBL vaT">
+                        <input type="submit" name="searchT" value="検索する" class="searchButton cS sbmF fgClear">
+                    </dd>
+                </dl>
+            </form>
+        </div>
+    </div>
+    <div class="w421 fl mR15">
+        <div class="bgSalonMap mT10 pB20">
+            <h2 class="mapArea">
+                <img src="http://imgbp.hotp.jp/CSP/img/bt/map/bg/bg_hairsalonmap_0.gif"
+                width="421" height="358" alt="エリアからヘアサロンを探す" usemap="#Map" id="jsiImgmap">
+            </h2>
+            <p class="copyHeadline">
+                <span class="fs16">
+                    エリア
+                </span>
+                からヘアサロンを探す
+            </p>
+            <ul class="copyList">
+                <li class="b fgHGray">
+                    &nbsp;
+                </li>
+                <li class="iS pcweb pL22">
+                    ２４時間ネット予約・空席確認
+                </li>
+                <li class="iS point pL22">
+                    ポイント２%が貯まる
+                </li>
+                <li class="iS balloon pL22">
+                    口コミ数 国内最大級
+                </li>
+            </ul>
+            <!-- ↓MAP -->
+	    @views.html.salon.general.map()
+            <!-- ↑MAP -->
+        </div>
+        <div class="mT20">
+            <div class="skinHeadingWrapper1">
+                <h3>
+                    ヘアスタイルから探す
+                </h3>
+            </div>
+        </div>
+        <div class="w422 mT15">
+            <div>
+                <div>
+                    <ul class="cFix tabGender" id="jsiGendarTab">
+                        <li class="fl mR10 current">
+                            <a href="javascript: void(0);" onclick="clickLadys();" class="offL tabGenderLadys">
+                                レディース
+                            </a>
+                        </li>
+                        <li class="fl mR10 ">
+                            <a href="javascript: void(0);" onclick="clickMens();" class="offL tabGenderMens">
+                                メンズ
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- ↓tabBody -->
+		@views.html.salon.general.tabBody()
+                <!-- ↑tabBody -->
+            </div>
+        </div>
+
+        <!-- ↓useful contents -->
+	@views.html.content.usefulContents()
+        <!-- ↑useful contents -->
+    </div>
+<!--</div>-->

@@ -1,0 +1,35 @@
+@(id : ObjectId, blogs: List[Blog])
+
+
+
+@blogs.map { blog =>
+<div class="mT20 cFix">
+						<div class="leftContents w557 fl">
+							<div class="cFix">
+								<div class="fl blogS blogCategoryLargeBL10 offL">（blog的类型）@blog.blogTyp</div>
+								<div class="fr fs10">投稿日：（blog的时间）@blog.createdTime</div>
+							</div>
+							<div class="mT20">
+								<dl>
+									<dt class="fgPink b fs14">(blog的标题)@blog.title</dt>						
+									<dd class="mT10 wwbw">
+										<br>（blog的内容）@blog.content<br>
+										<!-- <br><input type = "textarea" ><br> -->
+										<br><a href = "@routes.Comments.addComment(id)"><input type = "button" value = "评论"></a><br>
+										</dd>
+								</dl>
+							</div>
+						}	
+							<div class="cFix mT30 mB75">
+								<div class="bookmark">
+									<span class="bookmarkInd">分享该blog</span>
+									<ul class="socialButton">
+										<a class="shareto_button" href="http://shareto.com.cn/share.html"><img src="http://s.shareto.com.cn/btn/lg-share-cn.gif" width="125" height="21" alt="陋ｻ�ｽ�ｺ�ｫ鬩包ｿｽ style="border:0"/></a>
+										<script type="text/javascript" src="http://s.shareto.com.cn/js/shareto_button.js" charset="utf-8"></script>
+									</ul>
+								</div>
+							</div>
+
+
+					</div>
+</div>

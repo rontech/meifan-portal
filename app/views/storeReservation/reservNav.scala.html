@@ -1,0 +1,15 @@
+@()
+
+			<p><a href = "my_salon.html" target = "salon_main">我的店铺</a></p>
+			<p><a href = "basic_info_control.html" target = "salon_main">基本信息管理</a></p>
+			<p><a href="@routes.Stylists.findStylist">技师管理</a></p>
+			<p>预约管理</p>
+				<ul>
+					<li><a href="@routes.Records.findReserv(1)">预约查看</a></li>
+					<li><a href="@routes.Records.selectStylistReserv">技师日程查看</a></li>
+				</ul>
+			<p><a href = "#" target = "salon_main">评论管理</a></p>
+			<p><a href = "service_control.html" target = "salon_main">服务管理</a></p>
+			<p><a href = "#" target = "salon_main">优惠劵管理</a></p>
+			<p><a href = "trend_control.html" target = "salon_main">动态管理</a></p>
+			<p><a href = "#" target = "salon_main">店铺装修</a></p>

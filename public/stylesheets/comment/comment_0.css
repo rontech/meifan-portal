@@ -1,0 +1,610 @@
+@charset "utf-8";
+
+/************************************************************
+ * CLASSES(コンポーネント)
+ ************************************************************/
+
+/* 販売店情報ヘッダ */
+.detailHeader {
+	margin-bottom: 20px;
+	background-color: #f9f7ed;
+}
+.detailHeaderShopInfo {
+	background-position: 0 -940px;
+}
+.detailHeaderShopInfoPrint {
+	padding: 5px;
+	background-color: #E8E8E2;
+	border: 1px solid #999999;
+}
+.detailTitle,
+.detailTitle a {
+	font-size: 18px;
+	font-weight: bold;
+	color: #333333 !important;
+	text-decoration: none !important;
+}
+.bookmarks {
+	color: #999999;
+	font-size: 10px;
+	position: absolute;
+	right: 0;
+	bottom: -25px;
+}
+.bookmarks li {
+	float: left;
+	margin-right: 6px;
+}
+.bookmarksIcon {
+	color: #999999;
+	font-size: 10px;
+	position: absolute;
+	left: 0px;
+	margin-top:8px;
+	/* SBMのズレの微調整 */
+	height: 20px;
+}
+.bookmarksIcon li {
+	float: left;
+	margin-right: 6px;
+}
+
+.bookmark {
+	width:349px;
+	float: left;
+	position: absolute;
+}
+.bookmarkInd {
+	border-left:5px solid #817162;
+	padding-left:10px;
+	font-weight:bold;
+}
+.bookmark ul.socialButton {
+	width:369px;
+	color: #999999;
+	font-size: 10px;
+	right: 0;
+	margin-top:5px;
+	/* SBMのズレの微調整 */
+	height: 20px;
+}
+.bookmark ul.socialButton li {
+	float: left;
+	margin-right: 6px;
+}
+
+.qrAndRSS {
+	float: right;
+	width: 88px;
+}
+.rss {
+	margin-top: 5px;
+}
+.rss li {
+	float: left;
+	padding-left: 5px;
+}
+.rss img {
+	vertical-align: top;
+}
+
+.sprtHeaderOuter {
+	margin-right: 180px;
+}
+
+.bdSprtSBM {
+	margin-right: 10px !important;
+	padding-right: 10px !important;
+	border-right: 1px solid #CCCCCC;
+}
+.bdSprtSBM_l {
+	margin-left: 4px !important;
+	padding-left: 10px !important;
+	border-left: 1px solid #CCCCCC;
+}
+
+
+/* 販売店情報ナビ */
+.menuBG {
+	padding: 0 11px 0 10px;
+	background-position: 0 -940px;
+	height: 37px;
+}
+.menuBG .fl {
+	margin-right: 2px;
+}
+.salonInformation			{ background-position: 0 -750px; width: 140px; height: 35px; }
+.salonInformation:hover		{ background-position: 0 -810px; }
+.salonInformationCurrent	{ background-position: 0 -870px; width: 140px; height: 37px; }
+.couponAndMenu				{ background-position: -140px -750px; width: 140px; height: 35px; }
+.couponAndMenu:hover		{ background-position: -140px -810px; }
+.couponAndMenuCurrent		{ background-position: -140px -870px; width: 140px; height: 37px; }
+.stylist					{ background-position: -280px -750px; width: 85px; height: 35px; }
+.stylist:hover				{ background-position: -280px -810px; }
+.stylistCurrent				{ background-position: -280px -870px; width: 85px; height: 37px; }
+.style						{ background-position: -365px -750px; width: 85px; height: 35px; }
+.style:hover				{ background-position: -365px -810px; }
+.styleCurrent				{ background-position: -365px -870px; width: 85px; height: 37px; }
+.blog						{ background-position: -450px -750px; width: 85px; height: 35px; }
+.blog:hover					{ background-position: -450px -810px; }
+.blogCurrent				{ background-position: -450px -870px; width: 85px; height: 37px; }
+.accessMap					{ background-position: -535px -750px; width: 85px; height: 35px; }
+.accessMap:hover			{ background-position: -535px -810px; }
+.accessMapCurrent			{ background-position: -535px -870px; width: 85px; height: 37px; }
+.kuchikomi					{ background-position: -620px -750px; width: 90px; height: 35px; }
+.kuchikomi:hover			{ background-position: -620px -810px; }
+.kuchikomiCurrent			{ background-position: -620px -870px; width: 90px; height: 37px; }
+.salonMenu					{ background-position: -710px -750px; width: 90px; height: 35px; }
+.salonMenu:hover			{ background-position: -710px -810px; }
+.salonMenuCurrent			{ background-position: -710px -870px; width: 90px; height: 37px; }
+
+/* クーポン */
+.couponList {
+	font-size: 10px;
+	border-top: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+}
+.couponListCassete {
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	zoom: 1;
+	padding: 5px;
+}
+#popUpContents .couponListCassete > dl {
+	margin-bottom: 5px;
+}
+#popUpContents .couponListCassete > dl > dt {
+	margin-top: 5px;
+}
+.couponListHead {
+	margin-top: 10px;
+}
+.couponMenuIcons li {
+	float: left;
+	margin-right: 5px;
+	padding: 1px 10px;
+	color: #FFF;
+	text-align: center;
+	white-space: nowrap
+}
+#popUpContents .couponMenuIcons li {
+	margin-top: 5px;
+}
+.couponMenuIcon			{ background-color: #FF8A90; }
+.couponMenuIconOff		{ background-color: #ADADAD !important; }
+
+.couponTable {
+	border-spacing: 1px;
+	vertical-align: top;
+}
+
+.list p {
+	margin-top:5px;
+}
+
+/* 見出し */
+.titleBlog {
+	text-align: center;
+	font-weight: bold;
+	color: #665555;
+	background-color: #E4E0D9;
+	padding: 3px;
+}
+.titleBlogPublisher {
+	text-align: center;
+	font-weight: bold;
+	color: #CC4466;
+	background-color: #E4E0D9;
+	padding: 3px;
+}
+.stylePageTileOuter {
+	border-bottom:3px solid #E4E0D9;
+	padding: 0 0 8px 10px;
+}
+.titleStyle {
+	font-weight: bold;
+	color: #665555;
+	background-color: #E4E0D9;
+	padding: 3px 8px;
+}
+
+.reportHeader {
+	position: relative;
+	background: #f7f5ec;
+	border: 1px solid #DFDFDF;
+	zoom: 1;
+}
+
+.reportHeaderPickup {
+	position: relative;
+	background: #FFEEC8;
+	border: 1px solid #DFDFDF;
+	zoom: 1;
+}
+
+.titlePickup {
+	position: absolute;
+	top: -6px;
+	left: 22px;
+	width: 45px;
+	height: 18px;
+	background: url("/CSP/img/bt/kuchikomi/icon_pickup_title.gif?switch=20140227") no-repeat;
+	overflow: hidden;
+	text-indent: -9999px;
+}
+
+.shopInfo {
+	padding: 11px 10px 9px;
+	border-bottom: 2px solid #CE5075;
+}
+
+.reportTitle {
+	background: url("/CSP/img/bt/kuchikomi/icon_report.gif?switch=20140227") no-repeat 10px 5px;
+}
+
+.reportPickupTitle {
+	background: url("/CSP/img/bt/kuchikomi/icon_report_pickup.gif?switch=20140227") no-repeat 5px 5px;
+}
+
+.judgeList{
+	padding: 5px 10px 3px;
+}
+
+.judgeList li {
+	display: inline;
+	margin-right: 10px;
+	padding-top: 2px;
+	padding-right: 10px;
+	border-right: 1px solid #666666;
+}
+
+.iconStarOn,
+.iconStarOff {
+	display: inline-block;
+	width: 15px;
+	height: 16px;
+	margin-top: -4px;
+	background-repeat: no-repeat;
+	background-position: center top;
+	vertical-align: middle;
+	overflow: hidden;
+	text-indent: -9999px;
+}
+
+.iconStarOn	{ background-image: url("/CSP/img/bt/kuchikomi/icon_star_on.gif?switch=20140227"); }
+.iconStarOff{ background-image: url("/CSP/img/bt/kuchikomi/icon_star_off.gif?switch=20140227"); }
+
+.couponMenuTitle {
+	margin-right: 30px;
+	padding: 4px 10px;
+	background: #989898;
+	font-size: 10px;
+	color: #FFFFFF;
+	line-height: 1;
+}
+
+.reportOldHeader{
+	padding: 5px;
+	background: #FFF8EB;
+	border-bottom: 2px solid #CE5075;
+}
+
+.pickupPoint {
+	padding: 3px;
+	background: #CE5075;
+	font-size: 10px;
+	color: #FFFFFF;
+	line-height: 1;
+}
+
+.secondHeading {
+	color: #817162;
+	font-size: 14px;
+	font-weight: bold;
+	border-bottom: 1px dotted #2a2723;
+	font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'ＭＳ Ｐゴシック', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
+}
+.singleMenuHead{
+	color: #444444;
+	background-color: #F0EDDD;
+	font-weight: bold;
+	font-size: 14px;
+	padding:3px;
+	font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'ＭＳ Ｐゴシック', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
+}
+.titleCouponMenu {
+	font-weight: bold;
+	color: #CC4466;
+	background-color: #E4E0D9;
+	padding: 3px 8px;
+}
+
+.narrowDownPanelArrow {
+	position: absolute;
+	bottom: -0.5em;
+	left: 50%;
+	margin-left: -0.5em;
+	line-height: 1;
+	font-size: 40px;
+	color: #CCCCCC;
+	z-index: -1;
+}
+
+.contentsTitleWrapper {
+	height: 40px;
+}
+
+.contentsTitleInner {
+	height: 18px;
+	border-bottom: 1px solid #666666;
+	background: url(/CSP/img/bt/icons/icon_heading.png?switch=20140227) no-repeat 0 5px;
+	padding-left: 25px;
+	padding-bottom: 7px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #444444;
+}
+.latestBlogtitle {
+	color: #665555;
+	background-color: #E4E0D9;
+	font-weight: bold;
+	padding: 5px 8px;
+}
+
+/* 一覧 */
+.preList {
+	margin-top: 15px;
+	background-color: #FFF;
+	position: relative;
+	z-index: 1;
+}
+.preListHead {
+	padding: 0 10px 5px;
+	border-bottom: 2px solid #D9D9D9;
+	position: relative;
+}
+.preListBottom {
+	padding: 10px 10px 0;
+	font-size: 10px;
+}
+.postList {
+	margin-top: 20px;
+	border-top: 2px solid #D9D9D9;
+	padding: 10px 10px 0;
+	position: relative;
+	overflow: hidden;
+	zoom: 1;
+}
+
+#listWrapper {
+	margin-top: -30px;
+	position: relative;
+	z-index: 0;
+	zoom: 1;
+}
+.listCassette {
+	margin-top: 20px;
+	padding-top: 20px;
+	border-top: 1px dotted #999;
+}
+
+.listTitleHeading {
+	font-size: 14.4px;
+	line-height: 27px;
+}
+.listData {
+	line-height: 1.7;
+}
+.titleStylist {
+	text-align: center;
+	font-weight: bold;
+	color: #CC4466;
+	background-color: #E4E0D9;
+	padding: 3px;
+}
+
+/* 特集バラ売り */
+.tokusyuList li {
+	margin-top: 20px;
+}
+.bgTokusyu		{
+	width: 765px;
+	margin-left: -10px;
+	background: url("/CSP/img/bt/icons_buttons/bgTokusyuBody.png?switch=20140227") repeat-y;
+}
+.bgTokusyuTop	{ background: url("/CSP/img/bt/icons_buttons/bgTokusyuTop.png?switch=20140227") no-repeat top; }
+.bgTokusyuBottom{
+	padding: 20px 40px;
+	background: url("/CSP/img/bt/icons_buttons/bgTokusyuBottom.png?switch=20140227") no-repeat bottom;
+}
+.h205{ height: 205px; _height: 205px; }
+
+#popUpTitle {
+	background-color: #E8E8E2;
+	border: 1px solid #999999;
+	margin-bottom: 12px;
+	padding: 8px 11px;
+}
+
+.popAdd {
+	background: url("/CSP/img/common/logo/lin_s_tenpo.gif?switch=20140227") no-repeat left top;
+	margin-top: 7px;
+	padding-top: 8px;
+}
+
+.attention {
+	text-indent:-1em;
+	padding-left:1em;
+}
+
+.attentionHalf {
+	text-indent:-0.5em;
+	padding-left:0.5em;
+}
+
+.titleLine {
+	border-bottom: 3px solid #e4e0d9;
+	padding: 5px 9px 6px;
+	margin-bottom: 17px;
+}
+
+.separateSpace {
+	height: 45px;
+}
+.separateLine {
+	border-top: 1px solid #DDDDDD;
+	height: 1px;
+	overflow: hidden;
+	margin: 30px 0;
+}
+
+/* プレコンテンツ */
+#postContents {
+	margin-top: 30px;
+	padding: 0px 20px;
+}
+
+/* 表下部ボタンエリア*/
+.submitArea {
+	background-color: #F5F3EF;
+	padding: 10px;
+}
+
+/* 完了画面 */
+.completeContents {
+	min-height: 200px;
+	_height: 200px;
+}
+
+/* ボタン */
+.bt {
+	display: block;
+	border: 0;
+	background: 0;
+}
+.btTop {
+	background-image: url(/CSP/img/common/btn_top.gif?switch=20140227);
+	background-position: 0 0;
+	width: 165px;
+	height: 45px;
+}
+.btTop:hover {
+	background-position: 0 -45px;
+}
+
+/* 印刷時のロゴ */
+.popUpLogoImg {
+	display: none;
+}
+
+/* 最寄駅検索 */
+.map_moyori {
+	border: 1px solid #C0C0C0;
+	line-height: 1.2em;
+	margin-top: 10px;
+	padding: 3px;
+}
+
+.map_moyori_td {
+	padding: 3px;
+}
+
+.map_moyori_td div {
+	line-height: 1.3em;
+}
+
+/************************************************************
+ * スプライト画像 - 詳細画面固有スプライト画像（detail.png）
+ ************************************************************/
+
+/* 見出し */
+.stylistCommentTitle	{ background-position: -1040px -200px; height: 24px; display:block; }
+.styleDataTitle			{ background-position: -1500px -200px; height: 24px; display:block; }
+.recommendTitle			{ background-position: -1960px -200px; height: 24px; display:block; }
+.blogTitle				{ background-position: -2420px -200px; width: 501px; height: 24px; display:block; background-color: #E4E0D9; }
+.waitTitle				{ background-position: -1040px -260px; width: 635px; height: 24px; display:block; }
+.arrangePointTitle		{ background-position: -1040px -320px; height: 11px; }
+
+/************************************************************
+ * MyStyleSave Style
+ ************************************************************/
+
+/* border-radius */
+.jscRadius3px {
+	border-radius: 3px;
+}
+
+.btnSaveToMyStyleDone {
+	display: none;
+	width: 145px;
+	height: 32px;
+	background-color: #BFB4AB;
+	color: #333333 !important;
+	text-decoration: none !important;
+	padding: 1px;
+	margin-right: auto;
+	margin-left: auto;
+	text-indent: 0px;
+	cursor: pointer;
+}
+.btnSaveToMyStyleDoneInner {
+	display: block;
+	background-color: #BFB4AB;
+	font-size: 10px;
+	text-align: center;
+	line-height: 32px;
+}
+.btnSaveToMyStyleDoneInnerLinkText {
+	display: inline-block;
+	color: #161697 !important;
+	text-decoration: underline !important;
+}
+.btnSaveToMyStyleDone:hover .btnSaveToMyStyleDoneInnerLinkText {
+	text-decoration: none !important;
+}
+
+/************************************************************
+ * Thickbox Style
+ ************************************************************/
+
+.tbWrapper {
+	width: 926px;
+}
+.tbHeader {
+	font-size: 16px;
+	margin-bottom: 15px;
+}
+.tbClose {
+	color: #BFB4AB !important;
+	font-weight: bold;
+	text-decoration: none !important;
+	background: url(/CSP/img/hc/icons/icon_tb_close.png?switch=20140227) no-repeat left center;
+	padding-left: 20px;
+	font-size: 14px;
+}
+
+#jsViewer {
+	margin: 0 auto;
+	width: 349px;
+	height: 262px;
+	text-align: left;
+	overflow: hidden;
+	position: relative;
+}
+
+#jsViewer img {
+	top: 0;
+	left: 0;
+	position: absolute;
+}
+
+
+.iSBT	 { background-image: url(/CSP/img/bt/sprites/i.png?switch=20140227); background-repeat: no-repeat; }
+.arrowR	{ background-position: -196px -241px; display: inline-block; padding-left: 8px; }
+
+/************************************************************
+ * CLASSES(プロパティ)
+ ************************************************************/
+
+/* BACKGROUND */
+.bgLGray3	{ background-color: #988F8F; }

@@ -1,0 +1,223 @@
+@(message:String) 
+@import helper._
+@import helper.twitterBootstrap._
+
+@main(""){
+@views.html.reservation.reservStoreHead()
+  		<div id="mainContents">
+			<div class="mT30" id="jsiHoverAlphaLayerScope">
+				<div class="stylePageTileOuter cFix">
+					<h2 class="fs16 fl">☆全能鲍勃可爱成年人☆</h2>
+				</div>
+				<div class="cFix mT30 pH10">
+					<div class="fl w273">
+						<div class="pr">
+							<img src="@routes.Assets.at("images/haircatalog/hair-showmain.jpg")" name="main" class="bdImgGray" oncontextmenu="return false;">
+						</div>
+						<ul class="cFix mT10">
+							<li class="fl w91">
+								<span id="scc1"><img src="@routes.Assets.at("images/haircatalog/hair-show01.jpg")" class="bdImgGray" oncontextmenu="return false;"></span>
+								<div class="iS SV01 offL mHA mT5"></div>
+							</li>
+							<li class="fl w91">
+								<span id="scc2"><img src="@routes.Assets.at("images/haircatalog/hair-show02.jpg")" class="bdImgGray" oncontextmenu="return false;"></span>
+								<div class="iS SV02 offL mHA mT5"></div>
+							</li>
+							<li class="fl w91">
+								<span id="scc3"><img src="@routes.Assets.at("images/haircatalog/hair-show03.jpg")" class="bdImgGray" oncontextmenu="return false;"></span>
+								<div class="iS SV03 offL mHA mT5"></div>
+							</li>
+						</ul>
+						<div class="mT20 pT10 bdDotT" align="center">
+							<div class="jscHoverTarget">
+								<div class="jscLayer">
+									<p id="mysId02L000716075" style="position: relative; zoom: 1;">
+										<a id="mysIdh02L000716075" href="javascript:void(0);" class="bS db addIntoMyStylePink offL mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">保存</a>
+										<a href="#" class="btnSaveToMyStyleDone jscRadius3px">
+											<span class="btnSaveToMyStyleDoneInner jscRadius3px">
+												<span class="btnSaveToMyStyleDoneInnerLinkText b">保存</span>
+												至我的风格
+											</span>
+										</a>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="cFix mT20 mB80">
+							<div class="bookmark">
+								<span class="bookmarkInd">一键分享</span>
+								
+								<ul class="socialButton">
+									<li>
+										<div id="___plusone_0">
+											<img src="@routes.Assets.at("images/haircatalog/weixin.jpg")" style="width:35px;"></img>
+										</div>
+									</li>
+								</ul>
+								<script type="text/javascript" src="http://static.mixi.jp/js/share.js"></script>
+									<script>
+										!function(d, s, id) {
+											var js, fjs = d.getElementsByTagName(s)[0];
+											if (!d.getElementById(id)) {
+												js = d.createElement(s);
+												js.id = id;
+												js.src = "//platform.twitter.com/widgets.js";
+												fjs.parentNode.insertBefore(js, fjs);
+											}
+										}(document, "script", "twitter-wjs");
+									</script>
+									<script type="text/javascript">
+										window.___gcfg = {
+											lang : 'ja'
+										};
+										(function() {
+											var po = document.createElement('script');
+											po.type = 'text/javascript';
+											po.async = true;
+											po.src = 'https://apis.google.com/js/plusone.js';
+											var s = document.getElementsByTagName('script')[0];
+											s.parentNode.insertBefore(po, s);
+										})();
+									</script>
+							</div>
+						</div>
+					</div>
+					<div class="fr w427">
+						<div>
+							<div class="titleStyle">评论设计师</div>
+							<div class="cFix mT10">
+								<div class="fl w99">
+									<a href="#">
+										<img src="@routes.Assets.at("images/stylist/stylist01.jpg")">
+									</a>
+								</div>
+								<div class="fr w318">其他米色棕色★，♪<br />色彩风格可爱的成人落下一点点风格<br />全能前甚至什么颜色我什至可以黑发<br />让Wankaru轻轻易于打理造型的头发☆天然猪鬃！</div>
+							</div>
+									<div class="cFix mT10 pT10 bdDotT">
+										<div class="fl">
+											<a href="#">百变王小二</a>
+										</div>
+										
+									</div>
+								</div>
+								<div class="mT30">
+									<div class="titleStyle">@Messages("hair.style")</div>
+									<dl class="cFix mT10">
+										<dt class="fl w8em fgPink">@Messages("hair.styleLength")</dt>
+										<dd class="fl">中</dd>
+									</dl>
+									<dl class="cFix bdDotT mT5 pT5">
+										<dt class="fl w8em fgPink">@Messages("hair.color")</dt>
+										<dd class="fl">棕色米色</dd>
+									</dl>
+									<dl class="cFix bdDotT mT5 pT5">
+										<dt class="fl w8em fgPink">@Messages("hair.impression")</dt>
+										<dd class="fl">自然</dd>
+									</dl>
+									<dl class="cFix bdDotT mT5 pT5">
+										<dt class="fl w8em fgPink">@Messages("hair.serviceItem")</dt>
+										<dd class="fl w318">烫发<br>下调（彩色＆烫发），如果该汇率钢烫发也☆</dd>
+									</dl>
+								</div>
+								<div class="mT30">
+									<div class="titleStyle">推荐</div>
+									<div class="cFix p10 bgLGray">
+										<div class="fl w190">
+											<dl class="cFix">
+												<dt class="fl fgPink w2em">@Messages("hair.styleAmount")</dt>
+												<dd class="fl"><span class="detail2S hairLittleOn mL5">小</span></dd>
+												<dd class="fl"><span class="detail2S hairNormalOn mL5">中等</span></dd>
+												<dd class="fl"><span class="detail2S hairMuchOn mL5">许多</span></dd>
+											</dl>
+											<dl class="cFix mT5">
+												<dt class="fl fgPink w2em">@Messages("hair.styleQuality")</dt>
+												<dd class="fl"><span class="detail2S hairSoftOn mL5">软</span></dd>
+												<dd class="fl"><span class="detail2S hairNormalOn mL5">平时</span></dd>
+												<dd class="fl"><span class="detail2S hairHardOn mL5">硬</span></dd>
+											</dl>
+											<dl class="cFix mT5">
+												<dt class="fl fgPink w2em">@Messages("hair.styleAmount")</dt>
+												<dd class="fl"><span class="detail2S  hairNarrowOn mL5">薄</span></dd>
+												<dd class="fl"><span class="detail2S hairNormalOn mL5">平时</span></dd>
+												<dd class="fl"><span class="detail2S hairFatOn mL5">厚</span></dd>
+											</dl>
+											<dl class="fr w190 bdGrayL pL15">
+												<dt class="fl fgPink w2em h106">@Messages("hair.faceType")</dt>
+												<dd class="fl"><span class="detail2S recommendTypeCircleOn mL5">圆形</span></dd>
+												<dd class="fl"><span class="detail2S recommendTypeEggOn mL5">蛋形</span></dd>
+												<dd class="fl"><span class="detail2S recommendTypeSquareOn mL5">方</span></dd>
+											</dl>
+										</div>
+										
+									</div>
+								</div>
+								<div class="mT30 p15 bdGray">
+									<dl>
+										<dt class="fgPink b">店铺推荐</dt>
+										<dd class="mT5">向下直也不错的风格，我们将响应过^ ^中心部分，厚实的一声，如倾斜的一声，任刘海可爱的印象冷却微卷发型福娃宽松的款式，如果耳朵，如果我绑定到随机的。</dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+						<!-- ↓carousel -->
+						<div class="w785 mT30">
+							<div class="yS mainContentsSecondTitleOuter" id="jsiCarouselPaging" style="position: relative;">
+								<h2 class="yS mainContentsSecondTitleInner">这个其他设计师的发型</h2>
+								<div style="position: absolute; top: 6px; right: 20px; color: rgb(255, 255, 255); font-size: 14px;">1/7</div>
+							</div>
+							<div class="mT20 carouselWrapper" id="jsiCarouselWrapper">
+								<div class="carouselInnerWrapper" id="jsiCarouselInnerWrapper">
+									<ul class="carousel" id="jsiCarousel">
+									
+										@for(i <- 1 to 8){
+											 <li><a href="#" class="db pr"><img src="@routes.Assets.at("images/stylist/stylist-catalog.jpg")" class="bdImgGray" oncontextmenu="return false;"></a></li>
+										}
+									
+									</ul>
+								</div>
+								<p class="carouselPrev disabled"><a href="javascript: void(0);" class="db bS btnCarouselPrev offL" id="jsiBtnCarouselPrev" style="opacity: 0.5; cursor: default;">向前</a></p>
+								<p class="carouselNext"><a href="javascript: void(0);" class="db bS btnCarouselNext offL" id="jsiBtnCarouselNext">下一个</a></p>
+							</div>
+						</div>
+						<!-- ↑carousel -->
+						<div class="mT30">
+							<div class="cFix p15 bgLGray">
+								<div class="fl w89"><img src="@routes.Assets.at("images/stylist/stylist01.jpg")" alt="弗里尔兄弟公司崎修"></div>
+								<div class="cFix fr w636">
+									<div class="detail2S waitTitle offL">我们期待未来</div>
+									<div class="cFix bgDGray p10">
+										<div class="fl">
+											<div class="fgPink fs10">代表</div>
+											<div class="fs14 b mT5">岛崎，小寒<span class="fs10 mL5">小寒岛崎</span></div>
+										</div>
+									</div>
+									<ul class="cFix mT10">
+										<li class="fr mL10">
+											<a href="#" class="bS db nominatedReserve offL">本书通过预约</a>
+										</li>
+										<li class="fr mL10 mT3">
+											<a href="#" class="bS db addIntoMyStylist offL">收藏技师</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="mT30">
+						<div class="detailS couponListHead pr">
+							<dl class="pa top0 left210 cFix fs10">
+								<dd class="fl lh23 fgGray mR20">第一次到沙龙的人</dd>
+								<dd class="fl lh23 fgGray mR20">已消费过的人</dd>
+								<dt class="iS couponTypeCT01 offL fl mR5">所有成员</dt>
+							</dl>
+						</div>
+						<div class="pH10 mT10 cFix">
+							<p class="fl">※详细，若要使用优惠劵，请确认您要链接到和“优惠券菜单”画面。</p>
+							<p class="fr"><a href="#" class="iS arrowR couponGuideP">如何使用优惠券</a></p>
+						</div>
+					</div>
+		<!-- ↓coupon -->
+						@views.html.store.storeServiceItem()
+				
+			
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/hairReservation.css")">
+}

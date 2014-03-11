@@ -1,0 +1,46 @@
+.content-link,.content-core{
+	float:left;
+	font-color:red;
+	font-size:16px;
+}
+.content-link{
+	margin:80px 50px 0px 50px;
+}
+.content-core{
+	margin:60px 50px 50px 100px;
+}
+.designerview-main,.designerview-body{
+	float:left;
+}
+.recordview-table{
+	height:500px;
+}
+.designerTask{
+	
+}
+a{ 
+	text-decoration:none
+} 
+.addrecord-table{
+	width:600px;
+	height:600px;	
+}
+.row1{
+			background-color:#FFE7BA;
+		}
+.row2{
+			background-color:#FFF0F5;
+}
+.row3{
+			background-color:#FF9966;
+}
+.row4{
+			background-color:#FFCC00;
+}
+#recordmain thead{
+	background-color:gray;
+}
+.pagelink{
+	font-size:14pt;
+	font-weight:bold;
+}

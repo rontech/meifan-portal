@@ -1,0 +1,13 @@
+@(userId : ObjectId)
+
+    @import helper._
+
+    @main("New a blog") {
+        @form(action = routes.Blogs.showBlog(userId)) {
+          <fieldset>
+            <p>hello @userId</p>
+		  </fieldset>
+		  
+            <input type="submit" class = "buttons" value="查看我的blog" >
+           }
+    }

@@ -1,0 +1,175 @@
+@(message:String) 
+
+@import helper._ 
+@import helper.twitterBootstrap._
+
+@main(""){
+<div class="reservation-store-head">
+<div>
+	@views.html.reservation.reservStoreHead()
+	<table cellspacing="0" class="wFull bdCell pCell5 mT20">
+		<tbody>
+			<tr>
+				<th class="w130 fgRbrown bgLGray2 taC"><font><font>预计耗时</font></font></th>
+				<td><span class="fgRbrown pT5 b"><font><font>1小时30分钟</font></font></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table cellspacing="0" class="wFull bdCell pCell5 mT20">
+		<tbody>
+			<tr class="bgLGray2">
+				<th colspan="2" class="taC"><font><font>所选菜单优惠券</font></font></th>
+				<th class="w100 taC"><font><font>费</font></font></th>
+				<th class="w110 taC"><font><font>治疗时间（近似值）</font></font></th>
+			</tr>
+			<tr>
+				<td class="bgPink8 fgWhite bd0 taC p5 fs12 b w14"><font><font>
+							新</font></font><br> <font><font>法规 </font></font></td>
+				<td class="cellP10 w484">
+					<ul class="couponMenuIcons mT5 fs10 cFix">
+						<li class="couponMenuIcon mB5"><font><font>切</font></font></li>
+						<li class="couponMenuIcon mB5"><font><font>治疗</font></font></li>
+						<li class="couponMenuIcon mB5"><font><font>其他</font></font></li>
+					</ul>
+					<p class="b fgDGray pT5">
+						<font><font>新公司</font></font>
+					</p>
+					<p class="pT10">
+						<font><font>◆体验到自己可爱虽然是♪我们自然要授予风格，你想仔细咨询☆◆您可以选择洗发水是一种根据请求的皮肤和头发，定型剂</font></font>
+					</p>
+					<dl class="mT5 fs10">
+						<dt class="di fgPink">
+							<font><font>演示条件：</font></font>
+						</dt>
+						<dd class="di mR10 pR10 fgGray bdLGrayR">
+							<font><font>在预订时间</font></font>
+						</dd>
+						<dt class="di fgPink">
+							<font><font>条款及细则：</font></font>
+						</dt>
+						<dd class="di mR10 pR10 fgGray bdLGrayR">
+							<font><font>你看到的HOTPEPPER美容♪字</font></font>
+						</dd>
+						<dt class="di fgPink">
+							<font><font>到期日：</font></font>
+						</dt>
+						<dd class="di mR20 fgGray">
+							<font><font>直到2014年3月31日</font></font>
+						</dd>
+					</dl>
+				</td>
+				<td><font><font>5250日元</font></font></td>
+				<td><font><font>1小时并且30分钟</font></font></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="mT10">
+		<div class="w180 dibBL vaM mR10">
+			<a href="#"
+				class="btn btn2H24 thickbox"><span><span><font><font>继续添加服务</font></font></span></span></a>
+		</div>
+	</div>
+	<div class="yS reserveTitleOuter mT15">
+		<h3 class="yS reserveTitleInner pL10">
+			<font><font>指定日期时间预约</font></font>
+		</h3>
+	</div>
+	<p class="mT10">
+		<span class="fgBlue b"><font><font>◎</font></font></span><font><font>空闲可预约</font></font>
+		<span class="fgBlue b"><font><font>×</font></font></span><font><font>忙碌状态</font><br />
+	</p>
+</div>
+<div class="scontent-core">
+	<div>
+		<div>
+			<p style="float: left;">
+				<img
+					src="@routes.Assets.at("images/stylist/stylist01.jpg")"
+					oncontextmenu="return false;" />
+			</p>
+			<div style="float: left;">
+				<p>選択中のスタイリスト</p>
+				<p>
+					造型王</span>可预约的日程
+				</p>
+				<p>
+					<a href="@routes.Reservations.reservSelectStylist">其它技师日程查看</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<table cellpadding="0" cellspacing="0" width="750px"
+		border="1px solid gray">
+		<tr>
+			<th rowspan="2"><a href="#">《</a></th>
+			<th colspan="8">2014年02月</th>
+			<th colspan="4">2014年03月</th>
+			<th rowspan="2"><a href="#">》</a></th>
+		</tr>
+		<tr>
+			<th class="dayCell">21<br />周五
+			</th>
+			<th class="sat">22<br />周六
+			</th>
+			<th class="sun">23<br />周末
+			</th>
+			<th class="dayCell">24<br />周一
+			</th>
+			<th class="dayCell">25<br />周二
+			</th>
+			<th class="dayCell">26<br />周三
+			</th>
+			<th class="dayCell">27<br />周四
+			</th>
+			<th class="dayCell">28<br />周五
+			</th>
+			<th class="sat">01<br />周六
+			</th>
+			<th class="sun">02<br />周末
+			</th>
+			<th class="dayCell">03<br />周一
+			</th>
+			<th class="dayCell">04<br />周二
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<table cellpadding="0" cellspacing="0" width="100%"
+					border="1px solid gray">
+
+				</table>
+			</th>
+			<th colspan="12">
+				<table cellpadding="0" cellspacing="0" width="100%" height="1080px"
+					class="designerTask">
+					@for(i <- 0 until 25){
+					<tr>
+						<th><a href="@routes.Reservations.reservConfirmInfo"><span>×</span></a></th>
+						<th><a href="@routes.Reservations.reservConfirmInfo"><span>×</span></a></th>
+						<th><a href="@routes.Reservations.reservConfirmInfo"><span>◎</span></a></th>
+						<th><a href="@routes.Reservations.reservConfirmInfo"><span>◎</span></a></th>
+						<th><a href="@routes.Reservations.reservConfirmInfo"><span>×</span></a></th>
+						<th><a href="@routes.Reservations.reservConfirmInfo"><span>◎</span></a></th>
+						<th><a href="@routes.Reservations.reservConfirmInfo"><span>×</span></a></th>
+						<th><a href="@routes.Reservations.reservConfirmInfo"><span>×</span></a></th>
+						<th><a href="@routes.Reservations.reservConfirmInfo"><span>◎</span></a></th>
+						<th><a href="@routes.Reservations.reservConfirmInfo"><span>◎</span></a></th>
+						<th><a href="@routes.Reservations.reservConfirmInfo"><span>◎</span></a></th>
+						<th><a href="@routes.Reservations.reservConfirmInfo"><span>×</span></a></th>
+					</tr>
+					}
+				</table>
+			</th>
+			<th>
+				<table cellpadding="0" cellspacing="0" width="100%"
+					border="1px solid gray">
+
+				</table>
+			</th>
+		</tr>
+	</table>
+	</div>
+</div>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/hairReservation.css")">
+}

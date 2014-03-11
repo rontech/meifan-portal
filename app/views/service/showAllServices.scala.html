@@ -1,0 +1,42 @@
+@import helper._
+@import models._
+
+    @main(title = Messages("service.serviceList")) {
+
+		<head>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/service/service.css")">
+		</head>
+		<body>
+		
+		<table width=80%>
+			<tr>
+				<td>@Messages("service.name")</td>
+				<td>@Messages("service.price")</td>
+				<td>@Messages("service.tsCost")</td>
+				<td>@Messages("service.operate")</td>
+			</tr>
+
+		@for(i <- 0 to Service.getServiceTypeList.length-1){
+			<tr>
+				<td colspan="4"><font color = "red">@Service.getServiceTypeList(i)</font></td>
+			</tr>
+			@Service.getTypeList(Service.getServiceTypeList(i)).map { service =>		
+			<tr>
+				<td>@service.serviceName</td>
+				<td>@service.servicePrice</td>
+				<td>@service.serviceTsCost</td>
+				<td>
+				<a href = "@routes.Services.deleteService(service.id)"><input type="button" class = "buttons" value="@Messages("service.delete")"></a>
+				<a href = "@routes.Services.showService(service.id)"><input type="button" class = "buttons" value="@Messages("service.update")"></a>
+				</td>
+			</tr>
+		
+			}
+		}
+		
+		</table>
+				
+		<a href = "/serviceMain"><input type="button" class = "buttons" value="@Messages("service.addService")"></a>
+        </body>
+
+    }

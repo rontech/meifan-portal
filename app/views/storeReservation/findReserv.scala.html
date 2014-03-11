@@ -1,0 +1,97 @@
+@(records: List[Record], count: Long, pages: Int, page:Int)
+@import helper._
+@import helper.twitterBootstrap._
+@main("s"){
+	<div class="content-link">
+			@views.html.storeReservation.reservNav()
+	</div>	
+	<div class="content-core">
+		<p>总计<span>@count</span>个预约</p>
+		<input type="hidden" name="page" id="page" value="@page">
+		<input type="hidden" name="totalPage" id="totalPage" value="@pages">
+		<div>
+		    <form method="get" action="@routes.Records.findRecordByCondition">                    
+                                         开始日期：<input type="date" name="serviceStart">&nbsp;&nbsp;
+                                        
+                                          技师名：<input name="serviceDesigner" style="width:70px;"> &nbsp;&nbsp;
+            	服务状态：<select name="serviceStatus">
+            		<option value="">--</option>
+            		<option value="0">预约中 </option>
+            		<option value="1">已消费</option>
+            		<option value="2">已过期</option>
+            		<option value="-1">已取消</option>
+            	</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                               
+            <input type="submit" value="搜索"/>
+           
+           </form>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+            <a href="#">添加预约</a>
+        </div>
+		<table id="recordmain" border="1px solid black" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<td>预约号</td>
+					<td>到店日期</td>
+					<td>预计开始时间</td>
+					<td>预计结束时间</td>
+					<td>服务项目</td>
+					<td>预约会员名</td>
+					<td>会员联系</td>
+					<td>指定技师</td>
+					<td>状态</td>
+					<td>总计收费</td>
+					<td>操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				@records.map{re=>
+				<tr>
+					<td><a href="@routes.Records.checkReservInfo(re.id)">@re.id</a></td>
+					<td>@re.serviceStart.format("yyyy-MM-dd")</td>                        
+					<td>@re.serviceStart.format("hh:mm")</td>
+					<td>@re.serviceEnd.format("hh:mm")</td>
+					<td>@re.serviceItem</td>
+					<td>@re.userName</td>
+					<td>@re.userPhone</td>
+					<td>@re.serviceDesigner</td>
+					
+						<td id="service-status">
+						@if(re.serviceStatus==2){
+						已过期
+						}
+						@if(re.serviceStatus==0){
+						预约中	
+						}
+						@if(re.serviceStatus==1){
+						已消费
+						}
+						@if(-1 == re.serviceStatus){
+						已取消
+						}
+					</td>
+					<td>@re.costTotal</td>
+					<td>
+					<a href="@routes.Records.cancelRecord(re.id)">取消</a>&nbsp;
+					<a href="@routes.Records.overdateRecord(re.id)">过期</a>&nbsp;
+					<a href="@routes.Records.finishRecord(re.id)">完成</a>
+					
+					</td>
+				</tr>
+				}
+			</tbody>
+		</table>
+		<div class="page-limit">
+			<a href="javascript:toUpPage();">上一页</a>
+			@for(i <-1 to pages){
+				@if(page==i){
+					<a href="javascript:toPage(@i);" class="pagelink">@i</a>
+				}else{
+					<a href="javascript:toPage(@i);">@i</a>
+				}
+				
+			}
+			<a href="javascript:toNextPage();">下一页</a>
+		</div>
+	</div>
+}

@@ -1,0 +1,18 @@
+@(style: List[Style])
+<div>
+	<dl>
+		<dt class="fgPink b fs14">カジュアルなスタイル無造作スタ。</dt>
+		<dd class="mT10">日々の生活で髪が綺麗、かっこいいと気分があがります。<br />
+		くなったり、スキンケア頑張ってみたり、全ていい方向に向かいます。<br />
+		どんな小さな髪の悩みもお話しください。一緒に解決していきましょう。<br />
+		</dd>
+	</dl>
+</div>
+	<div class="mT30">
+	    <ul class="cFix">
+	    @style.map{sty=>
+	    	@views.html.stylist.styleItem(sty,style.indexOf(sty))
+	        }
+	    </ul>
+	</div>
+

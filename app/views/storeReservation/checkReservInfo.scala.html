@@ -1,0 +1,53 @@
+@(re:Record)
+@import helper._
+@import helper.twitterBootstrap._
+@main("message"){
+	<div class="content-link">
+			@views.html.storeReservation.reservNav()	
+	</div>	
+	<div class="content-core">
+		<h2>预约详情</h2>
+		<table border="1px solid black" cellspacing="0" cellpadding="0" class="recordview-table">
+			<tr>
+				<td>预约编号</td>
+				<td colspan="3">@re.id</td>
+			</tr>
+			<tr>
+				<td>顾客留言</td>
+				<td colspan="3">@re.userLeaveMessage</td>
+				
+			</tr>
+			<tr>
+				<td width="100px">预计到店时间</td>
+				<td width="150px">@re.serviceStart.format("yyyy-MM-dd hh:mm")</td>
+				<td width="100px">预计结束时间</td>
+				<td width="150px">@re.serviceEnd.format("yyyy-MM-dd hh:mm")</td>
+			</tr>
+			<tr>
+				<td>指定技师</td>
+				<td colspan="3">@re.serviceDesigner</td>
+			</tr>
+			<tr>
+				<td>服务项目</td>
+				<td colspan="3">@re.serviceItem</td>
+			</tr>
+			
+			<tr>
+				<td>是否用优惠劵</td>
+				<td></td>
+				<td>优惠劵使用情</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>联系会员</td>
+				<td colspan="3">@re.userPhone</td>
+			</tr>
+			<tr>
+				<td>合计金额</td>
+				<td colspan="3">@re.costTotal</td>
+			</tr>
+		</table>
+		<input type="button" value="返回预约履历" onclick="window.location.href='@routes.Records.findReserv(1)';"/>
+		<input type="button" value="取消预约" onclick="window.location.href='@routes.Records.cancelRecord(re.id)';"/>
+	</div>
+}
