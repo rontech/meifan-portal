@@ -10,10 +10,11 @@ GET     /                               controllers.Application.index
 GET		/getPhoto/:name					controllers.Application.getPhoto(name: String)
 
 # User Management
-GET     /login                          controllers.Application.login()
-GET     /register                       controllers.Application.register()
-POST    /login                          controllers.Users.login
-POST    /register                       controllers.Users.register
+GET		/user							controllers.Users.index
+GET     /login							controllers.Users.login
+GET     /register						controllers.Users.register
+POST    /login                          controllers.Users.doLogin
+POST    /register                       controllers.Users.doRegister
 POST    /update/:id                     controllers.Users.update(id: ObjectId)
 GET     /show/:userId                   controllers.Users.show(userId)
 GET     /myPage/:userId                 controllers.Users.myPage(userId)

@@ -37,29 +37,18 @@ trait UserDAO extends ModelCompanion[User, ObjectId] {
 
       // Indexes
       collection.ensureIndex(DBObject("userId" -> 1), "userId", unique = true)
-
+      
       // Queries
+      // Find a user according to userId
       def findOneByUserId(userId: String): Option[User] = dao.findOne(MongoDBObject("userId" -> userId))
+      
+      // Find a user according to ObjectId
+      def findById(id: ObjectId): Option[User] = dao.findOne(MongoDBObject("_id" -> id))
+      
+      //
       def findByNickNm(nickNm: String) = dao.find(MongoDBObject("nickNm" -> nickNm))
       def findByEmail(email: String) = dao.find(MongoDBObject("email" -> email))
+      
+      // Check the password when logining
       def authenticate(userId: String, password: String): Option[User] = findOne(MongoDBObject("userId" -> userId, "password" -> password))
-      
-      def getUserName(id : Object) = 
-      {
-          val p = dao.findOne(MongoDBObject("_id" -> id))
-          p match {
-            case Some(user) => user.userId
-            case None => "Not Exists User."
-          }
-      }
-
-      def findId(name : String) = {      
-          val p = dao.find(MongoDBObject("userId" -> name))
-          val id = p.next.id
-          id      
-      }
-      
-      def findById(id: ObjectId): Option[User] = {
-        dao.findOne(MongoDBObject("_id" -> id))
-    }
 }

@@ -3,10 +3,14 @@
     @import helper._
 
     @main(Messages("site.title")) {
+    	
+    	<head>
+			<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
+		</head>
 
-        <h2 align = "center">新用户</h2>
+        <font size =30px align = "center">新用户</font>
        
-        @form(routes.Users.register(), 'id -> "userForm") {
+        @form(routes.Users.doRegister, 'id -> "userForm") {
           <fieldset>
             @inputText(userForm("userId"),'_label -> "用户名",
             	'_error -> userForm("userId").error.map(_.withMessage("请输入用户名!")))
