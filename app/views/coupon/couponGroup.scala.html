@@ -1,0 +1,9 @@
+@(coupons: Seq[Coupon])
+
+<ol>
+@for(coupon <- coupons) {
+    <li class="couponItem">
+        @views.html.coupon.couponItem(coupon)
+    </li>
+}
+</ol>

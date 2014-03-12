@@ -1557,15 +1557,15 @@ text-align:right;
 	color: #F26F7E;
 }
 .btn2H50 {
-	background: url('/CSP/img/my/sprites/btn2.png') no-repeat 0 0;
+	background: url('/assets/images/btn2.png') no-repeat 0 0;
 	line-height: 50px;
 }
 .btn2H50 > span {
-	background: url('/CSP/img/my/sprites/btn2.png') no-repeat right -100px;
+	background: url('/assets/images/btn2.png') no-repeat right -100px;
 }
 .btn2H50 > span > input,
 .btn2H50 > span > span {
-	background: url('/CSP/img/my/sprites/btn2.png') repeat-x 0 -200px;
+	background: url('/assets/images/btn2.png') repeat-x 0 -200px;
 	color: #E53B4E;
 	font-size: 13px;
 }
