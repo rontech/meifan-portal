@@ -91,6 +91,19 @@ object InitialData {
 	).foreach(Service.save)
 
     }
+
+    if(Coupon.findAll.isEmpty) {
+      Seq(
+         Coupon(new ObjectId("5317c0d1d4d57997ce3e6d6a"), "xjc01", "[兄弟公司☆宝石]小脸斩+香薰头部按摩5250日元允许西装", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bfd"),
+         Seq(Service(new ObjectId("53168b38d4d5cb7e816db35c"), "剪刘海", "剪", 10, 10), Service(new ObjectId("5316bb36d4d57997ce3e6d49"), "离子烫", "烫", 90, 100)),
+         Seq(ServiceType(new  ObjectId("5316798cd4d5cb7e816db34b"), "剪"), ServiceType(new ObjectId("53167ae7d4d5cb7e816db355"), "烫")),
+         110, 100, 90, date("2014-03-01"), date("2014-03-31"), "你看到的HOTPEPPER美容♪字", "在预订时间", "◆体验到自己可爱虽然是♪我们自然要授予风格，你想仔细咨询☆◆您可以选择洗发水是一种根据请求的皮肤和头发，定型剂", "0"), 
+         Coupon(new ObjectId("5317c0d1d4d57997ce3e6d6b"), "xjc02", "[兄弟公司☆1号热门]斩+颜色+温和的芳香按摩头11340日元", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bfc"),
+         Seq(Service(new ObjectId("5316c048d4d57997ce3e6d5a"), "简洗", "洗", 10, 10), Service(new ObjectId("5316bb51d4d57997ce3e6d4b"), "局部染", "染", 90, 120), Service(new ObjectId("5316bb36d4d57997ce3e6d49"), "离子烫", "烫", 90, 100)),
+         Seq(ServiceType(new ObjectId("53167a91d4d5cb7e816db34d"), "洗"), ServiceType(new ObjectId("53167aced4d5cb7e816db351"), "染"), ServiceType(new ObjectId("53167ae7d4d5cb7e816db355"), "烫")),
+         230, 190, 120, date("2014-03-01"), date("2014-03-31"), "你看到的HOTPEPPER美容♪字", "在预订时间", "◆无♪◆长费咨询和那些敏感的皮肤☆◆最好的季节Tsuyakara成为各1号和皮肤的每一个颜色，眼睛的颜色，从时尚，更是对皮肤的刺激性是一个关注的晒后", "0")
+      ).foreach(Coupon.save)
+    }
     
     if(Blog.findByUserId(new ObjectId("530d8010d7f2861457771bf8")).isEmpty) {
       val date = new Date()
