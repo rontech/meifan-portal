@@ -23,13 +23,13 @@ object Global extends GlobalSettings {
 object InitialData {
   
   def date(str: String) = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(str)
-  
+
   def insert() = {
-    
+
     if(Salon.findAll == Nil) { 
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), "火影忍者发型"),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), "海贼王发型")
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), "火影忍者吧", Some("火吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ","99198121")), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), "海贼王吧", Some("海吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ","99198121")), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") )
       ).foreach(Salon.save)
       
       Seq(
@@ -108,7 +108,6 @@ object InitialData {
     
     if(Image.findAll.isEmpty) {
       // val file = new File(controllers.routes.Assets.at("/images").toString())
-      print("aaa" + play.Play.application().path())
       val file = new File(play.Play.application().path() + "/public/images")
       val files = Image.listAllFiles(file)
         files.foreach(f=>Image.save(f)) 

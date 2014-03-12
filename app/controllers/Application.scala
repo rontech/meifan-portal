@@ -15,9 +15,9 @@ import play.api.libs.iteratee.Enumerator
 import scala.concurrent.ExecutionContext
 
 object Application extends Controller {
-	def index = Action {
-		Ok(views.html.index("Your new application is ready."))
-	}
+  def index = Action {
+    Ok(views.html.index("Your new application is ready."))
+  }
 
   def login() = Action {
     Ok(views.html.user.login(Users.loginForm))
