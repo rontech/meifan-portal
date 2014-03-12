@@ -1,0 +1,32 @@
+@(stylists: Seq[Stylist])
+
+<!-- components to list the hair style. -->
+<div class="w166 mHA">
+	<div class="taC">
+	@if(stylists.length<=1){
+		@stylists.map{st =>
+    	<p><a href="@routes.Stylists.findBySalon(st.salonId)">查看店铺所有技师</a></p>
+    	}
+    }
+	</div>
+</div>
+<table cellspacing="0" class="w756">
+	<tbody>
+		<tr>
+		 @for(stylist <- stylists) {
+		 	@if((stylists.indexOf(stylist)-4) % 4 == 0){
+		 		<tr>
+		 	}
+			<td class="vaT bdGrayR">
+				@views.html.stylist.stylistItem(stylist)
+			</td>
+		 	@if((stylists.indexOf(stylist)-3) % 4 == 0){ 
+		 	</tr>
+		 		
+		 	}
+    	}
+   </tbody>	
+</table>
+    	
+    
+     

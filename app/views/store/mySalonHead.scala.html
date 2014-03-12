@@ -1,0 +1,137 @@
+@(navInSalon: String = "my-reservation", salon: Salon)
+	
+	<div class="m m3" id="userinfo">
+    <div class="user">
+        <div class="u-icon picture">
+            <div id="modifyheader" class="hide" style="display: none;">
+                <div id="modUserImgBox" class="upper fore">
+                </div>
+                <a href="javascript:void(0)" class="fore">
+                    修改头像
+                </a>
+            </div>
+            <img onerror="this.src='http://i.jd.com/commons/img/no-img_mid_.jpg'"
+            id="userImg" src="http://i.jd.com/commons/img/no-img_mid_.jpg" alt="用户头像">
+        </div>
+        <div class="extra">
+            <a target="_blank" href="http://me.jd.com">
+                查看我的主页
+            </a>
+        </div>
+    </div>
+    <!--user-->
+    <div id="i-userinfo">
+        <div class="username">
+            <div class="fl ftx-03" id="userinfodisp">
+                <strong>
+                    <a target="_blank" href="http://me.jd.com">
+                        alex
+                    </a>
+                </strong>
+                ,
+                <span id="welcome">
+                    欢迎您！
+                </span>
+            </div>
+            <div class="extra" id="jdTask">
+            </div>
+        </div>
+        <div class="account">
+            <div id="memberInfo" class="member">
+                <div class="rank r4" clstag="click|keycount|myhome|currentclass">
+                    <s>
+                    </s>
+                    <a target="_blank" href="http://usergrade.jd.com/user/grade">
+                        铜牌会员
+                    </a>
+                </div>
+                <div class="memb-info" style="display: block;">
+                    您的
+                    <a target="_blank" href="http://usergrade.jd.com/user/usergrade/userjoy">
+                        成长值
+                    </a>
+                    为50，再获得1950成长值可升级到
+                    <a target="_blank" href="http://help.jd.com/help/question-57.html">
+                        银牌会员
+                    </a>
+                </div>
+                <div class="close">
+                </div>
+            </div>
+            <div class="fl" style="display:none" id="double_href">
+                <a clstag="click|keycount|myhome|vip" href="http://usergrade.jd.com/user/grade"
+                target="_blank">
+                    <s>
+                    </s>
+                    查看贵宾专线
+                </a>
+            </div>
+        </div>
+        <div class="acco-safe">
+            <span>
+                账户安全：
+            </span>
+            <strong class="rank-text ftx-01">
+                很危险
+            </strong>
+            <i id="cla" class="icon-rank01">
+            </i>
+            <a clstag="click|keycount|myhome|verifyMobile" href="http://safe.jd.com/validate/verifyMobile"
+            class="teln">
+                <s>
+                </s>
+                手机未验证
+            </a>
+            <a clstag="click|keycount|myhome|verifymail" href="http://safe.jd.com/validate/verifyMail"
+            class="mailn">
+                <s>
+                </s>
+                邮箱未验证
+            </a>
+            <span id="zfmmid">
+                <a class="spsdn" href="http://safe.jd.com/user/paymentpassword/safetyCenter.action">
+                    <s>
+                    </s>
+                    未设支付密码
+                </a>
+            </span>
+        </div>
+        <!--end-->
+        <div id="remind">
+            <div class="oinfo">
+                <dl class="fore">
+                    <dt>
+                        订单提醒：
+                    </dt>
+                    <dd>
+                        <span id="orderCount" clstag="click|keycount|myhome|ordercount">
+                            <a href="http://jd2008.jd.com/JdHome/OrderList.aspx?jdhome=myjd">
+                                待评价预约(1135318216)
+                            </a>
+                        </span>
+                    </dd>
+                    <dd>
+                        <a id="reviewCountHref" clstag="click|keycount|myhome|commentscount" href="http://club.jd.com/mycomments.aspx">
+                            已过期预约(
+                            <span id="reviewCount">
+                                1
+                            </span>
+                            )
+                        </a>
+                    </dd>
+                    <dd>
+                        <a id="sdCountHref" clstag="click|keycount|myhome|shaidancount" href="http://club.jd.com/mycomments.aspx">
+                            已取消预约(
+                            <span id="sdCount">
+                                1
+                            </span>
+                            )
+                        </a>
+                    </dd>
+                </dl>
+            </div>
+            
+        </div>
+    </div>
+</div>
+	
