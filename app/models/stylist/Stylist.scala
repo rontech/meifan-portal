@@ -21,8 +21,8 @@ case class Stylist(
     userId: ObjectId,
     workYears: String,
     stylistStyle: List[String],
-    imageId: ObjectId,
-    consumerId: ObjectId,
+    imageId:List[ObjectId],
+    consumerId: List[ObjectId],
     description: String,
     pictureName: String
 )
