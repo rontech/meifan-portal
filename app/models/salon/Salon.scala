@@ -48,8 +48,8 @@ case class Address (
     region: String,
     town: Option[String],
     addrDetail: String,
-    longitude: Option[Double],
-    latitude: Option[Double]
+    longitude: Option[BigDecimal],
+    latitude: Option[BigDecimal]
 )
 
 /**
