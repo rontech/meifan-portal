@@ -26,6 +26,14 @@ object InitialData {
 
   def insert() = {
 
+    // For nowtime, we change the Table Defination frequently....
+    // Please do the drop actions below in mongodb.
+    // mongo
+    // use fashion-mongo
+    // db.Salon.drop()
+    // db.Style.drop()
+    // db.Stylist.drop()
+
     if(Salon.findAll == Nil) { 
       Seq(
         Salon(new ObjectId("530d7288d7f2861457771bdd"), "火影忍者吧", Some("火吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ","99198121")), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") ),
@@ -118,7 +126,7 @@ object InitialData {
           Comment(new ObjectId("531d4dd6a89e92eacc96ce32"), new ObjectId("530d8010d7f2861457771bf8"),date, 0,new ObjectId("531d4dd6a89e92eacc96ce31"), new ObjectId("530d8010d7f2861457771bf8"),3,"以和为贵")
         ).foreach(Comment.save) 
     }
-    
+
     if(Image.findAll.isEmpty) {
       // val file = new File(controllers.routes.Assets.at("/images").toString())
       val file = new File(play.Play.application().path() + "/public/images")
