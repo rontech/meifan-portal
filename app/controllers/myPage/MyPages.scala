@@ -23,9 +23,8 @@ object MyPages extends Controller {
   def myPageMain = Action {
     implicit request =>
       val user_id = request.session.get("user_id").get
-      println(""""""" + user_id)
       val userId = new ObjectId(user_id)
-    Ok(views.html.myPage.myPagemain(userId))
+      Ok(views.html.myPage.myPagemain(userId))
   }
 
 }

@@ -53,7 +53,7 @@ object Blogs extends Controller {
     val list = Blog.findByUserId(userId)
     // 目前传递的是username，可能需要传真实姓名或者是昵称，待完善
     val name = User.getUserName(userId)
-    println("name" + name)
+    
     // 这边时间的format需要调整，目前的格式是2014/03/05 9:04:08，，，，可能需要调整
     Ok(views.html.blog.blogTest(name, list))
   }
@@ -68,9 +68,6 @@ object Blogs extends Controller {
     
     val salon: Option[Salon] = Salon.findById(slnId)    
     val blog: Option[Blog] = Blog.findBySalon(slnId, blogId) 
-//    println("salon" + salon)
-//    println("blog" + blog)
-
     // TODO: process the salon not exist pattern.
     Ok(views.html.salon.store.salonInfoBlog(salon = salon.get, blog = blog.get))
  }
@@ -85,10 +82,6 @@ object Blogs extends Controller {
     Blog.bloglist = Nil
     val salon: Option[Salon] = Salon.findById(salonId)    
     val blogs: Seq[Blog] = Blog.findBySalon(salonId)    
-    
-//    println("blogs" + blogs)
-    
-
     // TODO: process the salon not exist pattern.
     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogs))
   }
