@@ -30,6 +30,11 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
     dao.save(Blog(userId = userId, status = 0, title = title, blogTyp = blogTyp, tags = tags, content = content))    
   }
   
+  def modBlog(blogId : ObjectId, title : String, content : String, blogTyp : String,tags: String) = {
+    val blog = findById(blogId).get
+    dao.save(Blog(id = blogId,userId = blog.userId, status = blog.status, title = title, blogTyp = blogTyp, tags = tags, content = content))    
+  }
+  
   def showBlog(userId : ObjectId) = {
     val blog = dao.find(MongoDBObject("userId" -> userId, "status" -> 0)).toList
     blog
@@ -67,13 +72,11 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
   var bloglist : List[Blog] = Nil
   def findBySalon(salonId: ObjectId): List[Blog] = {
     val stylist = Stylist.findBySalon(salonId)
-    println("stylist" + stylist)
     var blog : List[Blog] = Nil
     stylist.foreach(
       {
       r => 
       blog = Blog.find(DBObject("userId" -> r.id)).toList
-      println("blog" + blog)
       if(!blog.isEmpty)
 //        blog :::= bloglist
           bloglist :::= blog
@@ -112,6 +115,46 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
         r => dao.save(Blog(id = r.id, userId = userId, status = 0, title = r.title, blogTyp = "选择分类", tags = r.tags, content = r.content), WriteConcern.Safe)
       })
     }
+  }
+  
+  /**
+   * 统计blog各个分类的数量
+   */
+  def getBlogCountByCatagory(userId : ObjectId, catagory : String) : Int= {
+    if(catagory == "全部博文") {
+      return dao.find(MongoDBObject("userId" -> userId, "status" -> 0)).toList.size
+    }
+    if(catagory == "未分类博文") {
+      return  dao.find(MongoDBObject("userId" -> userId, "blogTyp" -> "选择分类", "status" -> 0)).toList.size
+    }
+    else
+       return dao.find(MongoDBObject("userId" -> userId, "blogTyp" -> catagory, "status" -> 0)).toList.size
+  }
+  
+  /**
+   * 查看各个分类下的blog
+   */
+  def showBlogsByCatagory(userId : ObjectId, catagory : String) : List[Blog]= {
+    if(catagory == "全部博文") {
+      return dao.find(MongoDBObject("userId" -> userId, "status" -> 0)).toList
+    }
+    if(catagory == "未分类博文") {
+      return  dao.find(MongoDBObject("userId" -> userId, "blogTyp" -> "选择分类", "status" -> 0)).toList
+    }
+    else
+       return dao.find(MongoDBObject("userId" -> userId, "blogTyp" -> catagory, "status" -> 0)).toList
+  }
+  
+  def findById(id: ObjectId): Option[Blog] = {
+    dao.findOne(MongoDBObject("_id" -> id))
+  }
+  
+  /**
+   * 修改单个blog的分类
+   */
+  def changeCatagory(blogId : ObjectId,blogTyp : String) = {
+    val blog = findById(blogId).get
+    dao.save(Blog(id = blogId, userId = blog.userId, status = blog.status, title = blog.title, blogTyp = blogTyp, tags = blog.tags, content = blog.content), WriteConcern.Safe)
   }
 
 }
