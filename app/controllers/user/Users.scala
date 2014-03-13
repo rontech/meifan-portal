@@ -133,8 +133,6 @@ object Users extends Controller {
       {
         user =>
           Redirect(routes.Users.myPage(user._1)).withSession(request.session + ("userId" -> user._1))
-//          val user_id = User.findOneByUserId(user._1).get.id
-//          Redirect(routes.MyPages.myPageMain).withSession(request.session+("user_id" -> user_id.toString()))
       })
   }
 

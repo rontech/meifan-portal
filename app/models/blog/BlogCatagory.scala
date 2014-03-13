@@ -29,12 +29,9 @@ object BlogCatagory extends ModelCompanion[BlogCatagory, ObjectId] {
   var list : List[String] = Nil
   def newBlogCatagory(userId : ObjectId, catagory : String) = {
     
-//    catagory :: list
     list = getCatagory(userId)
     list :::= List(catagory)
-//    println("----------" + getIdByUserId(userId))
-//    
-////    println("++++++" + new ObjectId(getIdByUserId(userId).toString))
+
     if (getIdByUserId(userId).equals(None)){
       dao.save(BlogCatagory(userId = userId, status = 0, catagory = list)) 
     }else{

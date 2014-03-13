@@ -1,11 +1,11 @@
-@(formBlog: Form[(String,String,String,String)], list : List[String], user : User)
+@(blogId : ObjectId, formBlog: Form[(String,String,String,String)], list : List[String], user : User)
 @*@(formBlog: Form[Blog], list : List[String], user : User)*@
 
 @import helper._
 @import views.html.user._
 
 @myPageMain(navInMyPage = "my-blog", user) {
-    @form(action = routes.Blogs.writeBlog(user.id)) {
+    @form(action = routes.Blogs.modBlog(blogId)) {
       <fieldset>
         @inputText(formBlog("title"),'_label -> "标题")
 		@textarea(formBlog("content"),'_label -> "内容")
@@ -13,12 +13,10 @@
 	        field = formBlog("blogTyp"), 
 	        options = options(list),
 	        '_label -> "博客类型"
-        )	
-        
-        <a href = "@routes.BlogCatagories.newBlogCatagory(user.id)">创建一个新的分类</a>	
+        )
 		@inputText(formBlog("tags"), args = '_label -> "标签")
-     </fieldset>
+      </fieldset>
 
-        <input type="submit" class = "buttons" value="发博文" >
-       }
+      <input type="submit" class = "buttons" value="保存修改" >
+    }
 }
