@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat
 
 object Records extends Controller{
   val pageSize:Int = 5	 //每页显示记录
+  
   /**
    * 定义一个履历表单
    */
@@ -64,14 +65,8 @@ object Records extends Controller{
   	  val designer = request.getQueryString("serviceDesigner")
   	  val serviceStart = request.getQueryString("serviceStart")
   	  val serviceStatus = request.getQueryString("serviceStatus")
-  	  /*designer match{
-  	    case Some(e)=>e
-  	    case _=>None
-  	  }*/
   	  val builder = MongoDBObject.newBuilder
   	  builder +="store" -> re
-  	  println("designer..."+designer.get)
-  	  println("serviceStart!=None "+(!(serviceStart.get).equals("")))
   	  if(!(designer.get).equals("")){
   	    builder +="serviceDesigner" -> designer.get
   	  }
@@ -90,21 +85,18 @@ object Records extends Controller{
 	  }else{
 		pages = count.toInt/pageSize+1
 	  }
-  	  
-  	   Ok(views.html.storeReservation.findReserv(records,count,pages,1))
+  	  Ok(views.html.storeReservation.findReserv(records,count,pages,1))
   	}
   	  	  
   	 /**
   	  *       店铺查看技师日程
   	  */ 	    
   	 def checkStylistReserv = Action {
-	   
 	  var date:Date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2005-06-09 06:30")
 	  var list:List[java.util.Date]=Nil
 	  val from = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 	  for(i<-1 to 25){
 	    date.setMinutes(date.getMinutes() - 30)
-	    println("date......."+from.format(date))
 	    list:::=List(new Date(date.toString())) //error
 	  }
 	  Ok(views.html.storeReservation.checkStylistReserv(list.reverse))
@@ -120,8 +112,7 @@ object Records extends Controller{
 	  	Ok(views.html.storeReservation.checkReservInfo(record))
 	  }getOrElse {
 		  NotFound
-    }
-	  
+	  }
 	}
 	
 	/**
@@ -141,7 +132,6 @@ object Records extends Controller{
 	 *   
 	 */
 	
-	
 	/**
 	 *取消预约将状态改成-1
 	 */
@@ -154,16 +144,7 @@ object Records extends Controller{
 		}
 		Redirect(routes.Records.findReserv(1))
 	}
-	//
-	/*def inRecord(id: ObjectId) = Action {
-		Record.findOneById(id).map { record =>
-		val records = new Record(new ObjectId,record.store,0,record.serviceStart,record.serviceEnd,
-		record.serviceDesigner,record.serviceItem,record.userName,record.userPhone,record.userLeaveMessage,record.costTotal)
-		Record.save(records.copy(id = record.id))
-		
-		}
-		Redirect(routes.Records.findReserv)
-	}*/
+	
 	/**
 	 * 将预约状态改成已完成消费1
 	 */
@@ -176,6 +157,7 @@ object Records extends Controller{
 		}
 		Redirect(routes.Records.findReserv(1))
 	}
+	
 	/**
 	 * 将预约状态改成已过期2
 	 */
@@ -184,7 +166,6 @@ object Records extends Controller{
 		val records = new Record(new ObjectId,record.store,2,record.serviceStart,record.serviceEnd,
 		record.serviceDesigner,record.serviceItem,record.userName,record.userPhone,record.userLeaveMessage,record.costTotal)
 		Record.save(records.copy(id = record.id))
-		
 		}
 		Redirect(routes.Records.findReserv(1))
 	}
