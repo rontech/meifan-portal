@@ -18,18 +18,18 @@ object BasicInformations extends Controller{
   def registerForm(id: ObjectId = new ObjectId) = Form(
     mapping(
       "id" -> ignored(id),
-      "storeId" -> nonEmptyText,
+      "salonId" -> nonEmptyText,
       "storeNm" -> text(minLength = 6),
       "homePage" -> text) {
-        (id, storeId, storeNm, homePage) =>
-          BasicInformation(id, storeId, storeNm, "none", homePage,new Date(), "none", "none", "none", "none", "none", "none", new Date(), "8", 000, 000, 000)
+        (id, salonId, storeNm, homePage) =>
+          SalonInfoBasic(id, salonId, storeNm, "none", homePage,new Date(), "none", "none", "none", "none", "none", "none", new Date(), "8", 000, 000, 000)
       }{
-        basicInformation => Some((basicInformation.id, basicInformation.storeId, basicInformation.storeNm, basicInformation.homePage))
+        salonInfoBasic => Some((salonInfoBasic.id, salonInfoBasic.salonId, salonInfoBasic.storeNm, salonInfoBasic.homePage))
       })
         
-  val basicInformation:Form[BasicInformation] = Form(
+  val salonInfoBasic:Form[SalonInfoBasic] = Form(
 	    mapping(
-	        "storeId" -> text,
+	        "salonId" -> text,
 	        "storeNm" -> text(minLength = 6),
 	        "storeTyp" ->text,
 	        "homePage" -> text,
@@ -46,21 +46,21 @@ object BasicInformations extends Controller{
 	        "North" -> number,
 	        "West" -> number
 	        ){
-	      (storeId, storeNm, storeTyp, homePage, establishDate, addProvince, addCity, addArea, addTown, add, email,
-	       registerTime, image, qq, North, West) => BasicInformation(new ObjectId, storeId, storeNm, storeTyp, homePage, 
+	      (salonId, storeNm, storeTyp, homePage, establishDate, addProvince, addCity, addArea, addTown, add, email,
+	       registerTime, image, qq, North, West) => SalonInfoBasic(new ObjectId, salonId, storeNm, storeTyp, homePage, 
 	       establishDate, addProvince, addCity, addArea, addTown, add, email, registerTime, image, qq, North, West)
 	    }
 	    {
-	      basicInformation=> Some((basicInformation.storeId, basicInformation.storeNm, basicInformation.storeTyp,
-	          basicInformation.homePage, basicInformation.establishDate, basicInformation.addProvince, basicInformation.addCity,
-	          basicInformation.addArea,basicInformation.addTown,basicInformation.add, basicInformation.email, basicInformation.registerTime, 
-	          basicInformation.image, basicInformation.qq, basicInformation.North, basicInformation.West))
+	      salonInfoBasic=> Some((salonInfoBasic.salonId, salonInfoBasic.storeNm, salonInfoBasic.storeTyp,
+	          salonInfoBasic.homePage, salonInfoBasic.establishDate, salonInfoBasic.addProvince, salonInfoBasic.addCity,
+	          salonInfoBasic.addArea,salonInfoBasic.addTown,salonInfoBasic.add, salonInfoBasic.email, salonInfoBasic.registerTime, 
+	          salonInfoBasic.image, salonInfoBasic.qq, salonInfoBasic.North, salonInfoBasic.West))
 	    }
 	)
   
-   val detailedInformation:Form[DetailedInformation] = Form(
+   val salonInfoDetail:Form[SalonInfoDetail] = Form(
 	     mapping(
-	        "storeId" -> text,
+	        "salonId" -> text,
 	        "tel" -> text,
 	        "contact" ->text,
 	        "trafficDescribe" -> text,
@@ -78,32 +78,26 @@ object BasicInformations extends Controller{
 	        "parking" -> boolean,
 	        "wifi" -> boolean
 	        ){
-	      (storeId, tel, contact, trafficDescribe, openTime, closeTime, restDate, seatNum, onlineOrd, immediatelyOrd, appointOrd,
-	       onDateOrd, pointOrd, maleOrd, posAvailibale, parking,wifi) => DetailedInformation(new ObjectId, storeId, tel, contact, trafficDescribe, openTime, 
+	      (salonId, tel, contact, trafficDescribe, openTime, closeTime, restDate, seatNum, onlineOrd, immediatelyOrd, appointOrd,
+	       onDateOrd, pointOrd, maleOrd, posAvailibale, parking,wifi) => SalonInfoDetail(new ObjectId, salonId, tel, contact, trafficDescribe, openTime, 
 	       closeTime, restDate, seatNum, onlineOrd, immediatelyOrd, appointOrd, onDateOrd, pointOrd, maleOrd, posAvailibale, parking, wifi)
 	    }
 	    {
-	      detailedInformation=> Some((detailedInformation.storeId, detailedInformation.tel, detailedInformation.contact,
-	          detailedInformation.trafficDescribe, detailedInformation.openTime, detailedInformation.closeTime, detailedInformation.restDate,
-	          detailedInformation.seatNum,detailedInformation.onlineOrd,detailedInformation.immediatelyOrd, detailedInformation.appointOrd, detailedInformation.onDateOrd, 
-	          detailedInformation.pointOrd, detailedInformation.maleOrd, detailedInformation.posAvailibale, detailedInformation.parking, detailedInformation.wifi))
+	      salonInfoDetail=> Some((salonInfoDetail.salonId, salonInfoDetail.tel, salonInfoDetail.contact,
+	          salonInfoDetail.trafficDescribe, salonInfoDetail.openTime, salonInfoDetail.closeTime, salonInfoDetail.restDate,
+	          salonInfoDetail.seatNum,salonInfoDetail.onlineOrd,salonInfoDetail.immediatelyOrd, salonInfoDetail.appointOrd, salonInfoDetail.onDateOrd, 
+	          salonInfoDetail.pointOrd, salonInfoDetail.maleOrd, salonInfoDetail.posAvailibale, salonInfoDetail.parking, salonInfoDetail.wifi))
 	    }
 	)
+	
   /**
    * 店铺基本信息显示
    *
    */
-//  def storeInfo = Action {
-//    val storeId: String = "abc123"
-//    val basicInformation = BasicInformation.findOneBystoreId(storeId).get 
-//    val basic = BasicInformations.basicInformation.fill(basicInformation)
-//    Ok(views.html.salon.basicInformation(basic))  
-//  }
-
-  def storeInfo(storeId: String) = Action {
-    BasicInformation.findOneBystoreId(storeId).map { basicInformation =>
-      val basic = BasicInformations.basicInformation.fill(basicInformation)
-      Ok(views.html.salon.basicInformation(basic))
+  def storeInfo(salonId: String) = Action {
+    SalonInfoBasic.findOneBysalonId(salonId).map { salonInfoBasic =>
+      val basic = BasicInformations.salonInfoBasic.fill(salonInfoBasic)
+      Ok(views.html.salon.salonInfoBasic(basic))
     } getOrElse {
       NotFound
     }
@@ -112,17 +106,10 @@ object BasicInformations extends Controller{
   /**
    * 店铺详细信息显示
    */
-//  def detailedInfo = Action {
-//    val storeId: String = "abc123"
-//    val detailedInformation = DetailedInformation.findOneBystoreId(storeId).get
-//    val detailed = BasicInformations.detailedInformation.fill(detailedInformation)
-//    Ok(views.html.salon.detailedInformation(detailed))
-//  }
-
-  def detailedInfo(storeId: String) = Action {
-    DetailedInformation.findOneBystoreId(storeId).map { detailedInformation =>
-      val detailed = BasicInformations.detailedInformation.fill(detailedInformation)
-      Ok(views.html.salon.detailedInformation(detailed))
+  def detailedInfo(salonId: String) = Action {
+    SalonInfoDetail.findOneBysalonId(salonId).map { salonInfoDetail =>
+      val detailed = BasicInformations.salonInfoDetail.fill(salonInfoDetail)
+      Ok(views.html.salon.salonInfoDetail(detailed))
     } getOrElse {
       NotFound
     }
@@ -132,12 +119,12 @@ object BasicInformations extends Controller{
   * 基本信息表更新
   */
   def storeUpd(id: ObjectId) = Action { implicit request =>
-  	basicInformation.bindFromRequest.fold(
+  	salonInfoBasic.bindFromRequest.fold(
   		error => BadRequest(views.html.error.errorBasic(error)),
       {
-        basicInformation =>
-          BasicInformation.save(basicInformation.copy(id = id), WriteConcern.Safe)
-          Redirect(routes.BasicInformations.detailedInfo(basicInformation.storeId))
+        salonInfoBasic =>
+          SalonInfoBasic.save(salonInfoBasic.copy(id = id), WriteConcern.Safe)
+          Redirect(routes.BasicInformations.detailedInfo(salonInfoBasic.salonId))
       })
   }
   
@@ -145,12 +132,12 @@ object BasicInformations extends Controller{
    * 詳細信息表更新 
    */
   def storeUpdDet(id: ObjectId) = Action { implicit request =>
-    detailedInformation.bindFromRequest.fold(
+    salonInfoDetail.bindFromRequest.fold(
       error => BadRequest(views.html.error.errorDetailed(error)),
       {
-        detailedInformation =>
-          DetailedInformation.save(detailedInformation.copy(id = id), WriteConcern.Safe)
-          Redirect(routes.BasicInformations.detailedInfo(detailedInformation.storeId))
+        salonInfoDetail =>
+          SalonInfoDetail.save(salonInfoDetail.copy(id = id), WriteConcern.Safe)
+          Redirect(routes.BasicInformations.detailedInfo(salonInfoDetail.salonId))
       })
   }
 
@@ -168,9 +155,17 @@ object BasicInformations extends Controller{
     registerForm().bindFromRequest.fold(
   		error => BadRequest(views.html.error.errorBasic(error)),
       {
-        basicInformation =>
-          BasicInformation.save(basicInformation, WriteConcern.Safe)
-          Redirect(routes.BasicInformations.storeInfo(basicInformation.storeId))
+        salonInfoBasic =>
+          SalonInfoBasic.save(salonInfoBasic, WriteConcern.Safe)
+          Redirect(routes.BasicInformations.storeInfo(salonInfoBasic.salonId))
       })
   }
+  
+//  /**
+//   * 沙龙情报
+//   */
+//    def getSalon(id: ObjectId) = Action {
+//    val salonInfoDetail: Option[SalonInfoDetail] = SalonInfoDetail.findById(id)
+//    Ok(views.html.salon.store.salonInfoBasic(salonInfoDetail = salonInfoDetail.get))
+//  }
 }

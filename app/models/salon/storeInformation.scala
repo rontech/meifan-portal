@@ -15,9 +15,9 @@ import play.api.data.Form
 import play.api.data.Forms._
 
 
-case class BasicInformation(
+case class SalonInfoBasic(
 				id: ObjectId = new ObjectId,
-				storeId: String,
+				salonId: String,
 				storeNm: String,
 				storeTyp: String,
 				homePage: String,
@@ -35,9 +35,9 @@ case class BasicInformation(
 				West: Int
                  )
  
-case class DetailedInformation(
+case class SalonInfoDetail(
 				id: ObjectId = new ObjectId,
-				storeId: String,
+				salonId: String,
 				tel: String,
 				contact: String,
 				trafficDescribe: String,
@@ -56,20 +56,22 @@ case class DetailedInformation(
 				wifi: Boolean
     )
 
-object BasicInformation extends ModelCompanion[BasicInformation, ObjectId]{
+object SalonInfoBasic extends ModelCompanion[SalonInfoBasic, ObjectId]{
   
-   val dao = new SalatDAO[BasicInformation, ObjectId](collection = mongoCollection("basicInformation")){}
+   val dao = new SalatDAO[SalonInfoBasic, ObjectId](collection = mongoCollection("basicInformation")){}
      
-   def findOneBystoreId(storeId: String): Option[BasicInformation] = dao.findOne(MongoDBObject("storeId" -> storeId))
+   def findOneBysalonId(salonId: String): Option[SalonInfoBasic] = dao.findOne(MongoDBObject("salonId" -> salonId))
    
-   def createBasicInformation(basicInformation:BasicInformation) = dao.save(basicInformation, WriteConcern.Safe)
+   def createBasicInformation(basicInformation:SalonInfoBasic) = dao.save(basicInformation, WriteConcern.Safe)
 }
 
-object DetailedInformation extends ModelCompanion[DetailedInformation, ObjectId]{
-  
-   val dao = new SalatDAO[DetailedInformation, ObjectId](collection = mongoCollection("detailedInformation")){}
-     
-   def findOneBystoreId(storeId: String): Option[DetailedInformation] = dao.findOne(MongoDBObject("storeId" -> storeId))
-   
-   def createDetailedInformation(detailedInformation:DetailedInformation) = dao.save(detailedInformation, WriteConcern.Safe)
+object SalonInfoDetail extends ModelCompanion[SalonInfoDetail, ObjectId] {
+
+  val dao = new SalatDAO[SalonInfoDetail, ObjectId](collection = mongoCollection("detailedInformation")) {}
+
+  def findById(id: ObjectId): Option[SalonInfoDetail] = { dao.findOne(MongoDBObject("_id" -> id)) }
+
+  def findOneBysalonId(salonId: String): Option[SalonInfoDetail] = dao.findOne(MongoDBObject("salonId" -> salonId))
+
+  def createDetailedInformation(detailedInformation: SalonInfoDetail) = dao.save(detailedInformation, WriteConcern.Safe)
 }
