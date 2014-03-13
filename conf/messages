@@ -81,4 +81,12 @@ service.delete=删除
 service.back=返回
 service.update=更新
 
+# Coupon
+coupon.title = {0} 的优惠券
+coupon.tip = 没有找到您希望的优惠券！
+coupon.menu = 搜索条件
+coupon.searchOption = 搜索选项
+coupon.searchOptionContent = 包含上述所选条件
+coupon.search = 搜索
+
  
