@@ -376,7 +376,7 @@
     #OSC_Topbar #SearchBar form .hide {
       display: none;
     }
-    /* 陟取坩ﾎ夊ｿ壼沺謠�*/
+    
     #OSC_Footer {
       margin-top: 20px;
       padding-bottom: 50px;
@@ -1063,23 +1063,6 @@
     .BlogContent blockquote:before,
     .BlogContent blockquote:after,
     .BlogContent q:before,
-    .BlogContent q:after {
-      content: "";
-      font-size: 24px;
-      color: #0F6575;
-      font-family: Helvetica, arial, '陞ｳ蛟ｶ�ｽ�ｽ;
-      position: absolute;
-    }
-    .BlogContent blockquote:before {
-      content: "遯ｶ�ｽ;
-      top: 5px;
-      left: 10px;
-    }
-    .BlogContent blockquote:after {
-      content: "遯ｶ�ｽ;
-      bottom: -5px;
-      right: 15px;
-    }
     .BlogContent q,
     .BlogContent blockquote {
       position: relative;
@@ -1332,7 +1315,6 @@
       color: #FFF;
       display: inline-block;
       border: none;
-      font-family: '陟包ｽｮ髴難ｽｯ鬮ｮ�ｽ�ｻ�ｽ;
       cursor: pointer;
     }
     .blg_submit_btn:hover {
@@ -2652,7 +2634,6 @@
       color: #000;
       display: none;
     }
-    /* 鬨ｾ螟ら舞騾ｧ�ｽ�｡�ｨ陷奇ｿｽ*/
     .error_msg {
       height: 22px;
       color: #A00;
@@ -2824,7 +2805,6 @@
       color: #FFF;
       margin-right: 10px;
       font-size: 14px;
-      font-family: '陟包ｽｮ髴難ｽｯ鬮ｮ�ｽ�ｻ�ｽ, 'Verdana', 'sans-serif', '陞ｳ蛟ｶ�ｽ�ｽ;
       cursor: pointer;
     }
     .write-blog .s-button:hover {
@@ -2990,9 +2970,6 @@
     }
 @charset "utf-8";
 
-/************************************************************
- * 蛻晄悄蛹� ************************************************************/
-
 body, form, img, div, p, ul, ol, li, dl, dt, dd, h1, h2, h3 ,h4 , h5, h6{
 	margin: 1;
 	padding: 1;
@@ -3015,10 +2992,6 @@ iframe	{ vertical-align: middle; }
 }
 .cFix	{ min-height: 1px; _height: 1px; }
 
-/************************************************************
- * 繧｢繝ｳ繧ｫ繝ｼ
- ************************************************************/
-
 a:link			{ color: #4C4C80; }
 a:visited		{ color: #896958; }
 a:hover,
@@ -3039,11 +3012,8 @@ a:active		{ color: #7878CC; text-decoration: none; }
 .linkWhite:hover,
 .linkWhite:active	{ color: #FFFFFF; text-decoration: none; }
 
-/************************************************************
- * 繝輔か繝ｳ繝� ************************************************************/
-
 body, input, select, textarea, table, th, td, li ,a {
-	font-family: '�ｭ�ｳ �ｰ繧ｴ繧ｷ繝�け', 'MS P Gothic', '繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3', 'Hiragino Kaku Gothic Pro', '繝｡繧､繝ｪ繧ｪ', Meiryo, 'Osaka', arial, sans-serif, verdana, Helvetica;
+	font-family:  'MS P Gothic',  'Hiragino Kaku Gothic Pro', Meiryo, 'Osaka', arial, sans-serif, verdana, Helvetica;
 }
 body, input, textarea {
 	color: #333333;
@@ -3053,12 +3023,6 @@ body, input, textarea {
 h1, h2, h3, h4, h5, h6 {
 	font-size: 12px;
 }
-
-/************************************************************
- * IDS
- ************************************************************/
-
-/* 繝倥ャ繝�� */
 #headerWrapper {
 	border-bottom: 2px solid #998a8a;
 	border-top: 16px solid #BFB4AB;
@@ -3119,24 +3083,20 @@ h1, h2, h3, h4, h5, h6 {
 	z-index: 3;
 }
 
-/* 繝ｩ繝�ヱ繝ｼ */
 #wrapper {
 	width: 1000px;
 	margin: 0 auto;
 	position: relative;
 }
 
-/* 繝励Ξ繧ｳ繝ｳ繝�Φ繝�*/
 #preContents {
 	padding: 0 20px;
 }
 
-/* 繝槭ャ繝輸rea */
 .bgRouteMapTitle	{ background: url("/CSP/img/my/bg/bg_routemaptitle.gif?switch=20140227") no-repeat; display: block; width: 291px; height: 25px; padding:5px 0 0 10px; }
 .btnSearchStation	{ background: url("/CSP/img/my/button/btn_searchbystation.gif?switch=20140227") no-repeat 0 0; display: block; width: 150px; height: 30px; }
 .btnSearchStation:hover	{ background: url("/CSP/img/my/button/btn_searchbystation.gif?switch=20140227") no-repeat 0 -30px; display: block; wdith: 150px; height: 30px; }
 
-/* 繧ｳ繝ｳ繝�Φ繝�*/
 #contents {
 	margin-top: 6px;
 	padding: 0 20px;
@@ -3162,7 +3122,6 @@ h1, h2, h3, h4, h5, h6 {
 	text-align: right;
 }
 
-/* 繧｢繧､繧ｳ繝ｳ */
 .iconMust {
 	width: 20px;
 	color:#FFFFFF;
@@ -3176,7 +3135,6 @@ h1, h2, h3, h4, h5, h6 {
 	padding:1px 5px;
 }
 
-/* 繝槭う繧ｨ繝ｪ繧｢ */
 #myMenu			{ background-position: -5430px 0; background-repeat: repeat-y; }
 #myMenuHead		{ background-position: -5070px top; background-repeat: no-repeat; }
 #myMenuBottom {
@@ -3299,12 +3257,10 @@ h1, h2, h3, h4, h5, h6 {
 	text-indent: -9999px;
 	overflow:hidden;
 }
-/* 繝励Ξ繧ｳ繝ｳ繝�Φ繝�*/
 #postContents {
 	margin-top: 30px;
 }
 
-/* 繝輔ャ繧ｿ繝ｼ */
 #footer {
 	height: 60px;
 	border-top: 1px solid #DDDDDD;
@@ -3337,14 +3293,6 @@ h1, h2, h3, h4, h5, h6 {
 	float:left;
 	margin : 0 10px ;
 }
-#copyrightnew p a {
-	font-size: 10px;
-	font-weight: bold;
-	font-family: '繝｡繧､繝ｪ繧ｪ',Meiryo,'繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3','�ｭ�ｳ �ｰ繧ｴ繧ｷ繝�け',MS PGothic,sans-serif;
-	line-height: 2;
-	color: #435B67 !important;
-	text-decoration: underline !important;
-}
 
 .postSalonInfo {
 	position: absolute;
@@ -3360,7 +3308,6 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: normal;
 }
 
-/* 繝昴ャ繝励い繝�� */
 #popUpWrapper {
 	width: 580px;
 	background-color: #FFFFFF;
@@ -3392,17 +3339,12 @@ h1, h2, h3, h4, h5, h6 {
 	position: relative;
 }
 
-/* 莨壼藤逋ｻ骭ｲ */
 #memberContents {
 	width: 560px;
 	margin: 20px auto 0;
 }
 
-/************************************************************
- * CLASSES(繧ｳ繝ｳ繝昴�繝阪Φ繝�
- ************************************************************/
 
-/* 繝代Φ繧ｯ繧ｺ */
 .pankuzu {
 	float: left;
 	font-size: 10px;
@@ -3418,7 +3360,6 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: normal;
 }
 
-/* 讀懃ｴ｢邨先棡陦ｨ遉ｺ */
 .numberOfResult {
 	font-size: 20px;
 	line-height: 1;
@@ -3432,7 +3373,6 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 }
 
-/* 陦ｨ */
 .pCell5 th,
 .pCell5 td {
 	padding: 5px;
@@ -3479,7 +3419,6 @@ h1, h2, h3, h4, h5, h6 {
 .bgCellNml2	{ background-color: #F6F3E3 !important; }
 .bgCellEnp	{ background-color: #FFC0CC !important; color: #CC4466; }
 
-/* 繝代せ繝ｯ繝ｼ繝牙�蜈･蜉帙お繝ｪ繧｢�医げ繝ｬ繝ｼ��*/
 .bdCellPass {
 	border-top: 1px solid #CCCCCC;
 	border-left: 1px solid #CCCCCC;
@@ -3513,7 +3452,6 @@ h1, h2, h3, h4, h5, h6 {
 	border-top: 1px solid #CCCCCC;
 }
 
-/* 繝壹�繧ｸ繝ｳ繧ｰ */
 .paging {
 	float: left;
 	position: relative;
@@ -3537,7 +3475,6 @@ h1, h2, h3, h4, h5, h6 {
 	right: 10px;
 }
 
-/* 繝ｪ繝�メ繝壹�繧ｸ繝ｳ繧ｰ */
 .richPaging {
 	text-align:center;
 }
@@ -3580,7 +3517,6 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 }
 
-/* 繝ｪ繝ｳ繧ｯ繝ｪ繧ｹ繝�*/
 .linkList {
 	text-align: left;
 }
@@ -3589,12 +3525,10 @@ h1, h2, h3, h4, h5, h6 {
 	display: inline;
 }
 
-/* 繝｡繧､繝ｳ繧ｳ繝ｳ繝�Φ繝�ヵ繝�ち繝ｼ */
 .mainContentsFooter {
 	margin-top: 20px;
 }
 
-/* 繝｡繧､繝ｳ繧ｳ繝ｳ繝�Φ繝�ヵ繝�ち繝ｼ繝ｪ繝ｳ繧ｯ */
 .mainContentsFooterLinks {
 	margin-top: 20px;
 }
@@ -3604,7 +3538,6 @@ h1, h2, h3, h4, h5, h6 {
 	color: #CCCCCC;
 }
 
-/* 繝｡繧､繝ｳ繧ｳ繝ｳ繝�Φ繝�ヵ繝�ち繝ｼ繝舌リ繝ｼ */
 .mainContentsFooterBanners {
 	margin-top: 20px;
 }
@@ -3614,7 +3547,6 @@ h1, h2, h3, h4, h5, h6 {
 	margin-right: 10px;
 }
 
-/* 繝槭う繧ｨ繝ｪ繧｢ */
 .myMenuTop {
 	background-position: -900px -20px;
 }
@@ -3706,7 +3638,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-/* 繝ｪ繧ｯ繝ｫ繝ｼ繝医�繧､繝ｳ繝�*/
 .myPointBody a{
 	text-decoration: none;
 	color: #4c4c80;
@@ -3717,13 +3648,6 @@ h1, h2, h3, h4, h5, h6 {
 	text-decoration: underline;
 }
 
-.grayPointBody p{
-	color:#FFF;
-	font-weight: bold;
-	line-height: 120%;
-	font-size: 10px;
-	font-family: '繝｡繧､繝ｪ繧ｪ', 'Meiryo', '�ｭ�ｳ �ｰ繧ｴ繧ｷ繝�け', 'MS P Gothic', '繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3', 'Hiragino Kaku Gothic Pro', 'Osaka', arial, sans-serif, verdana, Helvetica;
-}
 
 .grayPointBody p span,
 .usePointBody p span{
@@ -3748,7 +3672,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-/* 繝槭う繧ｨ繝ｪ繧｢�医�繧､繝壹�繧ｸ��*/
 .myPageSide {
 	background-color:#F5C3CC;
 	color:#A5184B;
@@ -3776,7 +3699,6 @@ h1, h2, h3, h4, h5, h6 {
 	padding:3px 7px;
 }
 
-/* 讀懃ｴ｢繝懊ャ繧ｯ繧ｹ */
 .searchBox {
 	float: right;
 	width: 364px;
@@ -3789,7 +3711,6 @@ h1, h2, h3, h4, h5, h6 {
 .searchButton		{ background-position: -200px -560px; width:62px; height:24px; }
 .searchButton:hover	{ background-position: -200px -584px; }
 
-/* 繧ｷ繝ｧ繝ｼ繝医き繝�ヨ繝ｪ繝ｳ繧ｯ */
 .sideShortcutSearchBox {
 	margin-top: -1px;
 }
@@ -3810,13 +3731,11 @@ h1, h2, h3, h4, h5, h6 {
 	margin-bottom: 10px;
 }
 
-/* 繝壹�繧ｸ繝医ャ繝励Μ繝ｳ繧ｯ */
 .pageTopLink {
 	margin-top: 20px;
 	text-align: right;
 }
 
-/* 繝輔か繝ｼ繝�ｳｻ */
 .tfFR {
 	border-top: 1px solid #8E8E8E;
 	border-right: 1px solid #CCCCCC;
@@ -3873,13 +3792,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .inputHelp { margin-bottom: 18px; }
 
-/* 蠎励�繧ｭ繝｣繝�メ繧ｳ繝斐� */
 .shopCatchCopy {
 	color: #CD4D72;
 	font-size: 16px;
 }
 
-/* SEO繧ｭ繝｣繝励す繝ｧ繝ｳ */
 .seoCaption,
 .seoCaption i,
 .seoCaption em,
@@ -3891,18 +3808,15 @@ h1, h2, h3, h4, h5, h6 {
 	font-style: normal;
 }
 
-/* 繝励Λ繧､繝舌す繝ｼ繝槭�繧ｯ */
 .privacyMarkCaption {
 	width: 105px;
 	font-size: 10px;
 }
 
-/* 逋ｽ閭梧勹逕ｻ蜒冗畑繝懊�繝�� */
 .bdImgGray {
 	border: 1px solid #EEE;
 }
 
-/* 隕句�縺�*/
 .boxTitle {
 	color: #88796B;
 	font-weight: bold;
@@ -3922,19 +3836,14 @@ h1, h2, h3, h4, h5, h6 {
 	font-size: 12px;
 	line-height: 1;
 }
-/* 繧ｿ繝門�繧頑崛縺�*/
 .shadowStyle			{ background-position: right bottom; width: 769px; }
 .OtherStylistContents	{ position: absolute; z-index: 2; display:none; padding-bottom: 4px; }
 .ReserveConditionTable	{ position:relative; z-index: 1; }
 
-/* 霍ｯ邱壼峙 */
 .routeMap		{ background:  url("/CSP/img/my/bg/routeMap.gif?switch=20140227") repeat-y; }
 .routeMapHead	{ background:  url("/CSP/img/my/bg/routeMapHead.gif?switch=20140227") top no-repeat; }
 .routeMapBottom	{ background:  url("/CSP/img/my/bg/routeMapBottom.gif?switch=20140227") bottom no-repeat; padding: 10px; }
 
-/************************************************************
- * CLASSES(繝励Ο繝代ユ繧｣)
- ************************************************************/
 
 /* WIDTH */
 .wFull	{ width: 100%; }
@@ -4411,14 +4320,6 @@ h1, h2, h3, h4, h5, h6 {
 .bdWRedB3		{ border-bottom:3px solid #AA3355; }
 
 .bdPurpleB2 { border-bottom: 2px solid #663399; }
-
-/************************************************************
- * 繝�じ繧､繝ｳ繧�ｻ墓ｧ倥�逅�罰縺ｫ繧医ｊmy迢ｬ閾ｪ縺ｮ鬆�岼繧貞ｮ夂ｾｩ
- *
- * 窶ｻ菴�＠縲∵悽鬆�岼莉･螟悶ｂ荳願ｨ倥�驛ｨ蛻�↓螟画峩縺梧里縺ｫ縺輔ｌ縺ｦ縺�ｋ縺溘ａ縲� *   繝輔Ο繝ｳ繝医→縺ｮ蟾ｮ縺ｯ縲√∪縺�､壹￥縺ゅｋ縺ｨ諤昴＞縺ｾ縺吶�
- ************************************************************/
-
-/* 繝�く繧ｹ繝医お繝ｪ繧｢陦ｨ遉ｺ蠑ｷ蛻ｶ謾ｹ陦�IE) */
 .wordBreak {
 	word-break:break-all;
 }
@@ -4441,19 +4342,8 @@ table td.demandTdOuter table.demandTbInner th {
 }
 
 
-/************************************************************************************************************************************************************************************
- ************************************************************************************************************************************************************************************
-
-   縺薙％縺九ｉ荳九�繝輔Ο繝ｳ繝医〒蛻ｩ逕ｨ縺励※縺�ｋbt/common縺ｮ繧ｹ繧ｿ繧､繝ｫ繧ｷ繝ｼ繝医→繧ｹ繝励Λ繧､繝医�螳夂ｾｩ繧貞ｸｸ縺ｫ蜷後§縺ｫ縺吶ｋ譁ｹ驥�
- ************************************************************************************************************************************************************************************
- ************************************************************************************************************************************************************************************/
-
-/************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 蜈ｱ騾夲ｼ�.png�� ************************************************************/
-
 .cS		{ background-image: url("/CSP/img/my/sprites/c.png?switch=20140227"); background-repeat: no-repeat; border: 0; }
 
-/* 繝倥ャ繝�� */
 .logo			{ background-position: 4px 0px; display: block; width: 512px; height: 52px; text-indent: -9999px; overflow: hidden; }
 .salon			{ background-position: -20px -72px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
 .salon:hover	{ background-position: -20px -107px; }
@@ -4474,8 +4364,6 @@ table td.demandTdOuter table.demandTbInner th {
 .esthe:hover	{ background-position: -840px -107px; }
 .estheCurrent	{ background-position: -840px -142px; display: block; width: 134px; height: 35px; margin-right: 6px; text-indent: -9999px; overflow: hidden; }
 
-
-/* 繝�く繧ｹ繝育判蜒�*/
 .txtNewHairStyle		{ background-position: -260px -1060px; width: 120px; height: 15px; }
 .txtUsefulContents		{ background-position: -20px -440px; width: 133px; height: 15px; }
 .txtPopularRanking 		{ background-position: -20px -1180px; width: 175px; height: 12px; }
@@ -4514,10 +4402,8 @@ table td.demandTdOuter table.demandTbInner th {
 .txtNewSearchAreaStation		{ background-position: -960px -1420px; width:177px; height:17px; }
 .txtNewSearchImage				{ background-position: -960px -1460px; width:135px; height:17px; }
 
-/* 閭梧勹 */
 .wantToBeBG					{ background-position: -220px -1240px; width:167px; height:180px; padding: 2px 9px 0; }
 
-/* 繝懊ち繝ｳ */
 .regist						{ background-position: -180px -480px; display: block; width:69px; height:24px; }
 .regist:hover				{ background-position: -180px -504px; }
 .login						{ background-position: -260px -480px; display: block; width:69px; height:24px; }
@@ -4533,16 +4419,6 @@ table td.demandTdOuter table.demandTbInner th {
 .detailReserve				{ background-position: -660px -480px; width: 150px; height: 30px; }
 .detailReserve:hover		{ background-position: -660px -510px; }
 
-/* 繝懊ち繝ｳ */
-.btn {
-	display: block;
-	border: 0;
-	padding-left: 4px;
-	text-align: center;
-	text-decoration: none;
-	font-family: '繝｡繧､繝ｪ繧ｪ', Meiryo, '繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3', 'Hiragino Kaku Gothic Pro', '�ｭ�ｳ �ｰ繧ｴ繧ｷ繝�け', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
-	font-weight: bold;
-}
 .btn > span {
 	padding-right: 4px;
 	display: block;
@@ -4593,7 +4469,7 @@ table td.demandTdOuter table.demandTbInner th {
 	width: 100%;
 	height: 100%;
 	border: none;
-	font-family: '繝｡繧､繝ｪ繧ｪ', Meiryo, '繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3', 'Hiragino Kaku Gothic Pro', '�ｭ�ｳ �ｰ繧ｴ繧ｷ繝�け', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
+	font-family:  Meiryo,  'Hiragino Kaku Gothic Pro',  'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
 	font-weight: bold;
 	cursor: pointer;
 }
@@ -4741,12 +4617,10 @@ table td.demandTdOuter table.demandTbInner th {
 .btCmpTop					{ background: url("/CSP/img/my/btn_cmp_top.png?switch=20140227") no-repeat top; width: 200px; height: 45px; }
 .btCmpTop:hover				{ background-position: bottom; }
 
-/* 繝懊ち繝ｳ蝙ら峩陦ｨ遉ｺ逕ｨ */
 .vaM30		{ margin-top: -15px; }
 .vaM40		{ margin-top: -20px; }
 .vaM45		{ margin-top: -22.5px; }
 
-/* 繧｢繧､繧ｳ繝ｳ */
 .hairstyleHL01		{ background-position: -20px -220px; width: 77px; height: 18px; }
 .hairstyleHL02		{ background-position: -100px -220px; width: 77px; height: 18px; }
 .hairstyleHL03		{ background-position: -180px -220px; width: 77px; height: 18px; }
@@ -4788,64 +4662,23 @@ table td.demandTdOuter table.demandTbInner th {
 .listRecommendMenu	{ background-position: -300px -900px; width:107px; height:19px; display: block; }
 */
 
-/* 繧ｵ繧､繝峨Γ繝九Η繝ｼ荳矩Κ繝舌リ繝ｼ */
 .forSalonWishToLink				{ background-position: -580px -40px; display: block; width:180px; height:45px; }
 .forSalonWishToPost				{ background-position: -580px -100px; display: block; width:180px; height:45px; }
 .forFooMoo						{ background-position: -580px -160px; display: block; width:180px; height:45px; }
 
 /************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 邵ｦ髟ｷ逕ｻ蜒擾ｼ�.png�� ************************************************************/
 
 .xS		{ background-image: url("/CSP/img/my/sprites/x.png?switch=20140227"); }
 
-/* repeat-x閭梧勹 */
 .bgOrangeSlashGrd	{ background-position: 0 -1000px; background-repeat: repeat-x; }
 .bgOrangeSlash		{ background-position: 0 0; background-repeat: repeat-x; }
 
-/************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 讓ｪ髟ｷ逕ｻ蜒擾ｼ�.png�� ************************************************************/
-
-.yS		{ background-image: url("/CSP/img/my/sprites/y.png?switch=20140227"); }
-
-/* 隕句�縺�*/
-.mainContentsTitleOuter { background: none; }
-.mainContentsTitleInner {
-	line-height: 21px;
-	border-bottom: 1px solid #666666;
-	background: url("/CSP/img/my/icons/icon_heading.png?switch=20140227") no-repeat 0 1px;
-	padding-left: 25px;
-	padding-bottom: 1px;
-	font-size: 15px;
-	font-weight: bold;
-	color: #444444;
-	font-family: '繝｡繧､繝ｪ繧ｪ', Meiryo, '繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3', 'Hiragino Kaku Gothic Pro', '�ｭ�ｳ �ｰ繧ｴ繧ｷ繝�け', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
-}
-.mainContentsTitleInner h2		{ font-size: 18px; }
-
-.mainContentsSecondTitleOuter	{ background-position: -3060px top; background-repeat: no-repeat; background-color: #A6A39B; position: relative; zoom: 1; }
-.mainContentsSecondTitleInner	{ background-position: -3825px bottom; background-repeat: no-repeat; color: #FFFFFF; font-size: 14px; padding: 6px 10px; }
-
-.mainContentsTitleYellow		{ background-position: 0 -420px; height:45px; color: #FFF; line-height: 45px; padding: 0 15px; }
-
-.mainContentsTitleNHOuter		{ background-position: -6126px top; background-repeat: no-repeat; background-color: #AA3355; }
-.mainContentsTitleNHInner		{ background-position: -6683px bottom; background-repeat: no-repeat; color: #FFFFFF; font-size: 16px; padding: 8px 10px; }
-.mainContentsTitleNHInner h2	{ font-size: 16px; }
-
-.mainContentsTitleNOuter		{ background-position: -6126px top; background-repeat: no-repeat; background-color: #AA3355; }
-.mainContentsTitleNInner		{ background-position: -6683px bottom; background-repeat: no-repeat; color: #FFFFFF; font-size: 14px; padding: 6px 10px; }
-.mainContentsTitleNInner h2		{ font-size: 16px; }
-
-/************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 讓ｪ髟ｷ逕ｻ蜒���2.png�� ************************************************************/
-
 .y2S		{ background-image: url("/CSP/img/my/sprites/y2.png?switch=20140227"); }
 
-/* 譛�ｿ題ｦ九◆ */
 .lastArea		{ background-position: 0 0; background-repeat: repeat-y; }
 .lastAreaTop	{ background-position: -557px top; background-repeat: no-repeat; }
 .lastAreaBottom	{ background-position: -1114px bottom; background-repeat: no-repeat; padding: 10px; }
 
-/* 霍ｯ邱壻ｸ�ｦｧ��SOFF譎ゑｼ�*/
 .routeMapList {
 	margin-top: -21px;
 }
@@ -4858,7 +4691,7 @@ table td.demandTdOuter table.demandTbInner th {
 
 
 /************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 讓ｪ髟ｷ逕ｻ蜒���4.png�� ************************************************************/
+***********************************************************/
 .y4S		{ background-image: url("/CSP/img/my/sprites/y4.png?switch=20140227"); }
 
 .grayPointBodyHead {background-position: -324px top; background-repeat: no-repeat; padding-top: 6px;}
@@ -4882,7 +4715,7 @@ table td.demandTdOuter table.demandTbInner th {
 
 
 /************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 讓ｪ髟ｷ逕ｻ蜒擾ｼ�_g.png�� ************************************************************/
+***********************************************************/
 
 .ygS	{ background-image: url("/CSP/img/my/sprites/y_g.png?switch=20140227"); }
 
@@ -4891,7 +4724,7 @@ table td.demandTdOuter table.demandTbInner th {
 
 
 /************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 讓ｪ髟ｷ逕ｻ蜒擾ｼ�_mypage.png�� ************************************************************/
+*********************************************************/
 
 .ympS	{ background-image: url("/CSP/img/my/sprites/y_mypage.png?switch=20140227"); }
 
@@ -4909,7 +4742,6 @@ table td.demandTdOuter table.demandTbInner th {
 .couponAreaBottom	{ background-position: -5398px bottom; padding:3px; background-repeat: no-repeat; zoom: 1; }
 
 
-/* 荳�ｦｧ繧ｫ繧ｻ繝�ヨ蜀��繧｢繧ｯ繧ｻ繧ｹ陦ｨ遉ｺ驛ｨ閭梧勹 */
 .listCassetteAccessOuter {
 	background-position: 0 top;
 	background-repeat: no-repeat;
@@ -4923,7 +4755,6 @@ table td.demandTdOuter table.demandTbInner th {
 	zoom: 1;
 }
 
-/* 繝ｩ繝ｳ繧ｭ繝ｳ繧ｰ繝懊ャ繧ｯ繧ｹ */
 .rankingBox {
 	background-position: -1530px 0;
 	background-repeat: repeat-y;
@@ -4940,7 +4771,6 @@ table td.demandTdOuter table.demandTbInner th {
 	background-repeat: no-repeat;
 }
 
-/* 繝阪ャ繝井ｺ育ｴОK��*/
 .netReserveWrapper {
 	min-height: 3px;
 	_height: 3px;
@@ -4948,7 +4778,7 @@ table td.demandTdOuter table.demandTbInner th {
 }
 
 /************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 繝懊ち繝ｳ��.png�� ************************************************************/
+***********************************************************/
 
 .bS		{ background-image: url("/CSP/img/my/sprites/b.png?switch=20140227"); background-repeat: no-repeat; background-color: transparent; border: 0; }
 
@@ -5008,14 +4838,12 @@ table td.demandTdOuter table.demandTbInner th {
 .deleteMySalon				{ background-position: 0px -180px; width: 165px; height: 24px; }
 .deleteMySalon:hover		{ background-position: 0px -204px; }
 
-/*竊鍋ｹ顔ｶｭ蜈医↓繧医▲縺ｦ蜃ｺ縺励ｏ縺代ｋ竊�/
 .toReserveList					{ background-position: -170px -180px; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*莠育ｴ�ｸ�ｦｧ(繝槭う繝壹�繧ｸ繝医ャ繝励∈)*/
 .toReserveList:hover			{ background-position: -170px -204px; }
 .reservationHistory				{ background-position: -1560px -120px; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}/*莠育ｴ�ｱ･豁ｴ縺ｸ*/
 .reservationHistory:hover		{ background-position: -1560px -144px; }
 .reservationHistorySalon		{ background-position: -1030px 0; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}/*繧ｵ繝ｭ繝ｳ莠育ｴ�ｱ･豁ｴ縺ｸ*/
 .reservationHistorySalon:hover	{ background-position: -1030px -24px; }
-/*竊醍ｹ顔ｶｭ蜈医↓繧医▲縺ｦ蜃ｺ縺励ｏ縺代ｋ竊�/
 
 .reservationCancel				{ background-position: -1215px 0; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*縺薙�莠育ｴ�ｒ繧ｭ繝｣繝ｳ繧ｻ繝ｫ縺吶ｋ*/
 .reservationCancel:hover		{ background-position: -1215px -24px; }
@@ -5163,46 +4991,37 @@ table td.demandTdOuter table.demandTbInner th {
 .pointInquiry:hover			    { background-position:-651px -895px; text-indent: -9999px; display: block; overflow: hidden;}
 .pointInquiryCurrent		    { background-position:-651px -930px; width:93px; height:35px; text-indent: -9999px; display: block; overflow: hidden;}
 
-/* MAP繝懊ち繝ｳ */
 .mapBtn                   { background-position: -1435px -240px; width:49px; height:24px; text-indent: 100%; white-space:nowrap; display: block; overflow: hidden;}
 .mapBtn:hover             { background-position: -1435px -264px; }
 
-/* MAP繝懊ち繝ｳ(繝槭う繧ｵ繝ｭ繝ｳ逕ｨ) */
 .mapBtnMysalon			  { background-position: 0 -800px; width:39px; height:20px; text-indent: -9999px; display: block; overflow: hidden;}
 .mapBtnMysalon:hover	  { background-position: 0 -820px; width:39px; height:20px; text-indent: -9999px; display: block; overflow: hidden;}
 
-/* 莠育ｴ��螳ｹ隧ｳ邏ｰ */
 .reserveDetail                   { background-position: -1494px -240px; width:115px; height:24px; text-indent: 100%; white-space:nowrap; display: block; overflow: hidden;}
 .reserveDetail:hover             { background-position: -1494px -264px; }
 
-/* 蜿｣繧ｳ繝滓兜遞ｿ */
 .reviewBtn                   { background-position: 0 -746px; width:115px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}
 .reviewBtn:hover             { background-position: 0 -770px; }
 
-/* 莠育ｴ�☆繧�*/
 .reserveBtn                   { background-position: -380px -680px; width:115px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}
 .reserveBtn:hover             { background-position: -380px -704px; }
 .reserveKrBtn                 { background-position: -500px -680px; width:115px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}
 .reserveKrBtn:hover           { background-position: -500px -704px; }
 
-/* 莠育ｴ�☆繧�繝槭う繧ｵ繝ｭ繝ｳ) */
 .reserveBtnMysalon            { background-position: -1010px -60px; width:115px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}
 .reserveBtnMysalon:hover      { background-position: -1010px -84px; }
 
-/* 謖�錐縺励※莠育ｴ�☆繧�*/
 .reserveBtnNomination         { background-position: 0px -680px; width:131px; height:30px; text-indent: -9999px; display: block; overflow: hidden;}
 .reserveBtnNomination:hover   { background-position: 0px -710px; }
 
-/* 莉悶�繝｡繝九Η繝ｼ縺ｧ莠育ｴ�☆繧�*/
 .reserveAbout                   { background-position: -1619px -240px; width:135px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}
 .reserveAbout:hover             { background-position: -1619px -264px; }
 
 /************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 繧｢繧､繧ｳ繝ｳ��.png�� ************************************************************/
+***********************************************************/
 
 .iS		{ background-image: url("/CSP/img/my/sprites/i.png?switch=20140227"); background-repeat: no-repeat; }
 
-/* 蟾ｦ莉�*/
 .arrowT {
 	padding-left: 10px;
 	background: url("/CSP/img/my/arw_top.gif?switch=20140227") no-repeat left center;
@@ -5212,17 +5031,14 @@ table td.demandTdOuter table.demandTbInner th {
 .arrowROff			{ background-position: -196px -460px; display: inline-block; padding-left: 8px; }
 .cautionRed			{ background-position: -187px -5130px; display: inline-block; padding-left: 22px; }
 
-/* 繝壹�繧ｸ繝ｳ繧ｰ */
 .arrowPagingL		{ background-position: -196px -124px; padding-left: 8px; margin-right: 8px; }
 .arrowPagingR		{ background-position: right -244px; padding-right: 8px; margin-left: 8px; }
 
-/* 繝壹�繧ｸ繝ｳ繧ｰ�磯�豈趣ｼ�*/
 .arrowPagingWeekL	{ background-position: -196px -124px; padding-left: 8px;}
 .arrowPagingWeekLOff{ background-position: -196px -364px; padding-left: 8px;}
 .arrowPagingWeekR	{ background-position: right -244px; padding-right: 8px; }
 .arrowPagingWeekROff{ background-position: right -464px; padding-right: 8px; }
 
-/* 繧ｯ繝ｼ繝昴Φ (鄒主ｮｹ) */
 .couponTypeSmallCT02{ background-position: -177px -3950px; display: block; width: 23px; height: 13px;}
 .couponTypeSmallCT03{ background-position: -177px -4063px; display: block; width: 23px; height: 13px; }
 .couponTypeSmallCT01{ background-position: -177px -4176px; display: block; width: 23px; height: 13px; }
@@ -5236,21 +5052,18 @@ table td.demandTdOuter table.demandTbInner th {
 .listCouponTypeCT03	{ background-position: -177px -720px; display: block; width: 23px; height: 23px; }
 .listCouponTypeCT01	{ background-position: -177px -860px; display: block; width: 23px; height: 23px; }
 
-/* 繧ｯ繝ｼ繝昴Φ (繧ｭ繝ｬ繧､) */
 .couponTypeSmallHpkCT02 { background-position:-177px -4289px; display:block; height:13px; width:23px; }
 .couponTypeSmallHpkCT03 { background-position:-177px -4402px; display:block; height:13px; width:23px; }
 .couponTypeSmallHpkCT01 { background-position:-177px -4515px; display:block; height:13px; width:23px; }
 .forNewCustomersSmallHpk	{ background-position: -177px -4289px; display: block; width: 23px; height: 13px;}
 .forAllCustomersSmallHpk	{ background-position: -177px -4515px; display: block; width: 23px; height: 13px; }
 
-/* 蜊倅ｽ�*/
 .check				{ background-position: -155px -1460px; width: 45px; height: 18px; }
 .upLately			{ background-position: -170px -1500px; width: 30px; height: 13px; margin-left: 5px; }
 .upLatelyS			{ background-position: -178px -1480px; width: 22px; height: 11px; margin-left: 5px; }
 .new				{ background-position: -170px -1520px; width: 30px; height: 13px; margin-left: 5px; }
 .newS				{ background-position: -178px -1540px; width: 22px; height: 11px; margin-left: 5px; }
 
-/* 繧ｹ繧ｿ繧､繝ｫ隧ｳ邏ｰ */
 .SV01			{ background-position: -166px -1580px; display: block; width:34px; height: 7px; }
 .SV02			{ background-position: -176px -1600px; display: block; width:24px; height: 7px; }
 .SV03			{ background-position: -170px -1620px; display: block; width:30px; height: 7px; }
@@ -5258,18 +5071,15 @@ table td.demandTdOuter table.demandTbInner th {
 .SV05			{ background-position: -162px -3760px; display: block; width:38px; height: 7px; }
 .SV06			{ background-position: -155px -3780px; display: block; width:45px; height: 7px; }
 
-/* 鬘泌梛 */
 .faceTypeCircle				{ background-position: right -1640px; height: 18px; padding-right:20px; }
 .faceTypeEgg				{ background-position: right -1660px; height: 18px; padding-right:20px; }
 .faceTypeSquare				{ background-position: right -1680px; height: 18px; padding-right:20px; }
 .faceTypeReverseTriangle	{ background-position: right -1700px; height: 18px; padding-right:20px; }
 .faceTypeBase				{ background-position: right -1720px; height: 18px; padding-right:20px; }
 
-/* 繝励Λ繧ｹ繝槭�繧ｯ */
 .plusMark		{ background-position: -183px -1840px; width: 17px; height: 17px; }
 .plusMarkGreen	{ background-position: -183px -1860px; width: 17px; height: 17px; }
 
-/* 繝阪ャ繝井ｺ育ｴОK��*/
 .listNetReserveOk		{ background-position: -110px -1900px; width:89px; height:18px; }
 .listImmediately		{ background-position: -140px -3240px; width:60px; height:15px;  }
 .listImmediatelyOff		{ background-position: -158px -1940px; width:42px; height:18px; }
@@ -5294,7 +5104,6 @@ table td.demandTdOuter table.demandTbInner th {
 .listPoint				{ background-position: -132px -3400px; width:68px; height:15px; }
 .listPointOff			{ background-position: -148px -2100px; width:52px; height:18px; }
 
-/* 繝阪ャ繝井ｺ育ｴОK��ｼ井ｸ�ｦｧ繧ｫ繧ｻ繝�ヨ閭梧勹繝舌�繧ｸ繝ｧ繝ｳ��*/
 .listNetReserveOkGray		{ background-position: -110px -3220px; width:89px; height:18px; }
 .listImmediatelyGray		{ background-position: -140px -3240px; width:60px; height:15px; }
 .listImmediatelyGrayOff		{ background-position: -140px -3260px; width:60px; height:15px; }
@@ -5318,7 +5127,6 @@ table td.demandTdOuter table.demandTbInner th {
 .listPointGray				{ background-position: -132px -3400px; width:68px; height:15px; }
 .listPointGrayOff			{ background-position: -132px -3420px; width:68px; height:15px; }
 
-/* 隧ｳ邏ｰ繝倥ャ繝��繧ｵ繝ｼ繝薙せ繧｢繧､繧ｳ繝ｳ */
 .listRelax					{ background-position: -142px -2280px; width:58px; height:18px; }
 .listTherapeuticsChiro		{ background-position: -142px -2300px; width:58px; height:18px; }
 .listRefresh				{ background-position: -142px -2320px; width:58px; height:18px; }
@@ -5327,18 +5135,15 @@ table td.demandTdOuter table.demandTbInner th {
 .listBeautyTreatment		{ background-position: -142px -2380px; width:58px; height:18px; }
 
 
-/* 繝悶Ο繧ｰ繝ｻ繧ｯ繝√さ繝溘い繧､繧ｳ繝ｳ */
 .listBlog			{ background-position: -153px -2120px; width:47px; height:20px; display: block; }
 .listKuchikomi		{ background-position: -153px -2140px; width:47px; height:20px; display: block; }
 
-/* 繝槭う繝｡繝九Η繝ｼ繧｢繧､繧ｳ繝ｳ */
 .myMenuDecision	{ background-position: -135px -3100px; width:65px; height:18px;}
 .myMenuTemporary{ background-position: -135px -3120px; width:65px; height:18px;}
 .myMenuVisitted	{ background-position: -135px -3140px; width:65px; height:18px;}
 .myMenuFailure	{ background-position: -135px -3160px; width:65px; height:18px;}
 .myMenuCancel	{ background-position: -135px -3180px; width:65px; height:18px;}
 
-/* 繧ｸ繝｣繝ｳ繝ｫ繧｢繧､繧ｳ繝ｳ (蛟狗､ｾTOP逕ｨ) */
 .btGenreHairSalon        { background-position: -142px -2260px; width:58px; height:18px;}
 
 .krGenreGR01        { background-position: -142px -2280px; width:58px; height:18px; }
@@ -5348,7 +5153,6 @@ table td.demandTdOuter table.demandTbInner th {
 .krGenreGR05        { background-position: -142px -2340px; width:58px; height:18px; }
 .krGenreGR06        { background-position: -142px -2380px; width:58px; height:18px; }
 
-/* 繧ｸ繝｣繝ｳ繝ｫ繧｢繧､繧ｳ繝ｳ (MyPage逕ｨ) 荳崎ｦ√°繧�*/
 .serviceHairSalon	{ background-position: -20px -740px; width: 58px; height: 18px; }
 .serviceRelax		{ background-position: -100px -740px; width: 58px; height: 18px; }
 .serviceSeitai		{ background-position: -180px -740px; width: 58px; height: 18px; }
@@ -5357,7 +5161,6 @@ table td.demandTdOuter table.demandTbInner th {
 .serviceNail		{ background-position: -420px -740px; width: 58px; height: 18px; }
 .serviceEsthe		{ background-position: -500px -740px; width: 58px; height: 18px; }
 
-/* 繧ｸ繝｣繝ｳ繝ｫ繧｢繧､繧ｳ繝ｳ (MyPage逕ｨ) */
 .serviceHairSalonN	{ background-position: -148px -2480px; width: 52px; height: 14px; }
 .serviceRelaxN		{ background-position: -148px -2500px; width: 52px; height: 14px; }
 .serviceSeitaiN		{ background-position: -148px -2520px; width: 52px; height: 14px; }
@@ -5366,39 +5169,27 @@ table td.demandTdOuter table.demandTbInner th {
 .serviceNailN		{ background-position: -148px -2580px; width: 52px; height: 14px; }
 .serviceEstheN		{ background-position: -148px -2600px; width: 52px; height: 14px; }
 
-/* 莉ｮ莠育ｴ�ｸｭ */
 .proposedResource				{ background-position: -137px -5228px; width: 63px; height: 21px; text-indent: -9999px; }
-/* 莠育ｴ�｢ｺ螳�*/
 .reserveFix							{ background-position: -137px -5279px; width: 63px; height: 21px; text-indent: -9999px; }
-/* 譚･蠎玲ｸ医∩ */
 .visitedStore						{ background-position: -127px -5330px; width: 73px; height: 21px; text-indent: -9999px; }
-/* 繧ｭ繝｣繝ｳ繧ｻ繝ｫ */
 .cancelledStore					{ background-position: -127px -5381px; width: 73px; height: 21px; text-indent: -9999px; }
-/* 縺雁ｺ励♀譁ｭ繧�*/
 .proposedResourceCross 	{ background-position: -137px -5432px; width: 63px; height: 21px; text-indent: -9999px; }
-/* 莉ｮ莠育ｴ�く繝｣繝ｳ繧ｻ繝ｫ */
 .proposedResourceCancel	{ background-position: -127px -5483px; width: 73px; height: 31px; text-indent: -9999px; }
-/* 縺疲擂蠎励↑縺�*/
 .noVisiting 	{ background-position: -127px -5544px; width: 73px; height: 21px; text-indent: -9999px; }
-/* 縺ｯ縺ｦ縺ｪ繝槭�繧ｯ */
 .questionMark						{ background-position: -188px -2760px; width: 12px; height: 12px; padding: 0 0 5px 15px;}
-/* ﾃ励�繝ｼ繧ｯ */
 .crossMark							{ background-position: -182px -5180px; width: 18px; height: 18px; padding-left: 22px; display: block; white-space:nowrap; }
-/* 繝ｪ繧ｯ繝ｫ繝ｼ繝医�繧､繝ｳ繝�*/
 .rPoint{background-position: -187px -5820px; padding-left: 17px; height: 13px;}
 .alertIcon{background-position: -185px -5856px; padding-left: 18px; height: 14px; display: inline-block;}
 
 
 /************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 荳�ｦｧ逕ｻ髱｢蝗ｺ譛峨せ繝励Λ繧､繝育判蜒擾ｼ�ist.png�� ************************************************************/
+************************************************************/
 
 .listS		{ background-image: url("/CSP/img/my/sprites/list.png?switch=20140227"); background-repeat: no-repeat; }
 
-/* 陦ｨ */
 .bgThYellowSlash	{ background-position: 0 -220px; background-repeat: no-repeat; }
 .bgThLYellowSlash	{ background-position: 0 -340px; }
 
-/* 繝ｩ繝ｳ繧ｭ繝ｳ繧ｰ繝壹�繧ｸ */
 .ranking1Top {
 	background-position: 0 -480px;
 	width: 112px;
@@ -5457,32 +5248,27 @@ table td.demandTdOuter table.demandTbInner th {
 	text-align: center;
 	padding: 3px 0 4px;
 }
- /* 隕句�縺�*/
 .mainContentsTitleYellow		{ background-position: 0 0; height:45px; color: #FFF; line-height: 45px; padding: 0 15px; }
 .mainContentsTitleYellowShort	{ background-position: -400px -680px; height:45px; color: #FFF; line-height: 45px; padding: 0 15px; }
 .mainContentsTitleYellow h2,
 .mainContentsTitleYellowShort h2{ font-size: 16px; }
- /* 讀懃ｴ｢繝懊ャ繧ｯ繧ｹ */
 .bgSearch		{ background-position: -400px -540px; padding: 22px 30px; }
 .searchTitle	{ background-position: -400px -640px; width:94px; height:14px; }
 
 /************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 荳�ｦｧ逕ｻ髱｢�亥�蝗ｽ�牙崋譛峨せ繝励Λ繧､繝育判蜒擾ｼ�ist_all.png�� ************************************************************/
+************************************************************/
 
-/* 繧ｹ繝ｩ繝�す繝･閭梧勹縺ｮ縺ｿ */
 .listAllS	{ background-image: url("/CSP/img/my/sprites/list_all.png?switch=20140227"); background-repeat: repeat; }
 
 /************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 隧ｳ邏ｰ逕ｻ髱｢蝗ｺ譛峨せ繝励Λ繧､繝育判蜒擾ｼ�etail.png�� ************************************************************/
+**********************************************************/
 
 .detailS	{ background-image: url("/CSP/img/my/sprites/detail.png?switch=20140227"); background-repeat: no-repeat; }
 
-/* 繧ｯ繝ｼ繝昴Φ */
 .couponListHead			{ background-position: -20px -60px; height: 31px; }
 .limitedCouponListHead	{ background-position: -20px -100px; height: 31px; }
 .messageFromSalon		{ background-position: -20px -20px; width: 122px; height: 28px; display: block; }
 
-/* 隕句�縺�*/
 .titleStaff				{ background-position: -1040px -360px; width: 187px; height: 24px; display: block; }
 .titlePast				{ background-position: -1240px -360px; width: 187px; height: 24px; display: block; }
 .titleLatest			{ background-position: -1440px -360px; width: 187px; height: 24px; display: block; }
@@ -5502,7 +5288,6 @@ table td.demandTdOuter table.demandTbInner th {
 
 .pickUp			{ background-position: -2100px -360px; width: 214px; height: 28px; }
 
-/* 迚ｹ髮�ｦ句�縺�*/
 .tokusyuTitle01			{ background-position: -1040px -420px; width: 349px; height: 23px; }
 .tokusyuTitle02			{ background-position: -1040px -460px; width: 349px; height: 23px; }
 .tokusyuTitle03			{ background-position: -1040px -500px; width: 349px; height: 23px; }
@@ -5523,7 +5308,6 @@ table td.demandTdOuter table.demandTbInner th {
 .tokusyuTitle18			{ background-position: -1040px -1100px; width: 349px; height: 23px; }
 .tokusyuTitle19			{ background-position: -1040px -1140px; width: 349px; height: 23px; }
 
-/* 縺翫☆縺吶ａ繧ｿ繧､繝�*/
 .hairNormal				{ background-position: -1040px -20px; width: 48px; height: 21px; display:block; }
 .hairNormalOn			{ background-position: -1040px -41px; width: 48px; height: 21px; display:block; }
 .hairLittle				{ background-position: -1120px -20px; width: 48px; height: 21px; display:block; }
@@ -5545,7 +5329,6 @@ table td.demandTdOuter table.demandTbInner th {
 .hairStrong				{ background-position: -1760px -20px; width: 48px; height: 21px; display:block; }
 .hairStrongOn			{ background-position: -1760px -41px; width: 48px; height: 21px; display:block; }
 
-/* 鬘泌梛 */
 .recommendTypeCircle					{ background-position: -1040px -80px; width: 48px; height: 48px; display:block; }
 .recommendTypeCircleOn					{ background-position: -1040px -128px; width: 48px; height: 48px; display:block; }
 .recommendTypeEgg						{ background-position: -1120px -80px; width: 48px; height: 48px; display:block; }
@@ -5557,14 +5340,12 @@ table td.demandTdOuter table.demandTbInner th {
 .recommendTypeBase						{ background-position: -1360px -80px; width: 48px; height: 48px; display:block; }
 .recommendTypeBaseOn					{ background-position: -1360px -128px; width: 48px; height: 48px; display:block; }
 
-/* 隕句�縺�*/
 .stylistCommentTitle	{ background-position: -1040px -200px; height: 24px; display:block; }
 .styleDataTitle			{ background-position: -1500px -200px; height: 24px; display:block; }
 .recommendTitle			{ background-position: -1960px -200px; height: 24px; display:block; }
 .waitTitle				{ background-position: -1040px -260px; width: 635px; height: 24px; display:block; }
 .arrangePointTitle		{ background-position: -1040px -320px; height: 11px; }
 
-/* 繧ｯ繝√さ繝溘し繝�ロ繧､繝ｫ逕ｻ蜒�*/
 .thumnailSalesPointRP01	{ background-position: -20px -160px; width: 119px; height: 119px; }
 .thumnailSalesPointRP02	{ background-position: -160px -160px; width: 119px; height: 119px; }
 .thumnailSalesPointRP03	{ background-position: -300px -160px; width: 119px; height: 119px; }
@@ -5586,32 +5367,27 @@ table td.demandTdOuter table.demandTbInner th {
 .thumnailSalesPointRP19	{ background-position: -160px -580px; width: 119px; height: 119px; }
 .thumnailSalesPointRP20	{ background-position: -300px -580px; width: 119px; height: 119px; }
 
-/* 繧､繝√が繧ｷNo.1繝昴う繝ｳ繝郁レ譎ｯ */
 .no1RecommendPoint20		{ background-position: -1020px -300px; width: 765px; height: 82px; padding-top: 50px; }
 .no1RecommendPoint30		{ background-position: -1020px -460px; width: 765px; height: 82px; padding-top: 50px; }
 .no1RecommendPoint10		{ background-position: -1020px -620px; width: 765px; height: 82px; padding-top: 50px; }
 .no1RecommendPoint40		{ background-position: -1020px -780px; width: 765px; height: 82px; padding-top: 50px; }
 .no1RecommendPoint90		{ background-position: -1020px -780px; width: 765px; height: 82px; padding-top: 50px; }
 
-/* 繧､繝√が繧ｷNo.1繝昴う繝ｳ繝郁レ譎ｯ(2菴搾ｽ､3菴阪ヨ繝ｫ繝�Γ) */
 .no1RecommendOnlyPoint20		{ background-position: -1020px -300px; width: 765px; height: 47px; padding-top: 50px; }
 .no1RecommendOnlyPoint30		{ background-position: -1020px -460px; width: 765px; height: 47px; padding-top: 50px; }
 .no1RecommendOnlyPoint10		{ background-position: -1020px -620px; width: 765px; height: 47px; padding-top: 50px; }
 .no1RecommendOnlyPoint40		{ background-position: -1020px -780px; width: 765px; height: 47px; padding-top: 50px; }
 .no1RecommendOnlyPoint90		{ background-position: -1020px -780px; width: 765px; height: 47px; padding-top: 50px; }
 
-/* 繝ｯ繧ｿ繧ｷ縺後が繧ｹ繧ｹ繝｡縺吶ｋ繧､繝√が繧ｷ繝昴う繝ｳ繝郁レ譎ｯ */
 .bgMyRecommendPoint20		{ background-position: -1820px -310px; width: 765px; height: 86px; }
 .bgMyRecommendPoint30		{ background-position: -1820px -470px; width: 765px; height: 86px; }
 .bgMyRecommendPoint10		{ background-position: -1820px -630px; width: 765px; height: 86px; }
 .bgMyRecommendPoint40		{ background-position: -1820px -790px; width: 765px; height: 86px; }
 .bgMyRecommendPoint90		{ background-position: -1820px -790px; width: 765px; height: 86px; }
 
-/* 繧､繝√が繧ｷNo.2繝昴う繝ｳ繝�No.3繝昴う繝ｳ繝�*/
 .no2RecommendPoint		{ background-position: -20px -720px; width: 72px; height: 20px; }
 .no3RecommendPoint		{ background-position: -120px -720px; width: 72px; height: 20px; }
 
-/* 繧､繝√が繧ｷNo.1繝昴う繝ｳ繝�- 繝�く繧ｹ繝育判蜒�*/
 .textSalesPointLargeRP01	{ background-position: -20px -920px; width: 256px; height: 34px; }
 .textSalesPointLargeRP02	{ background-position: -20px -960px; width: 231px; height: 34px; }
 .textSalesPointLargeRP03	{ background-position: -20px -1000px; width: 230px; height: 34px; }
@@ -5633,7 +5409,6 @@ table td.demandTdOuter table.demandTbInner th {
 .textSalesPointLargeRP19	{ background-position: -20px -1640px; width: 255px; height: 34px; }
 .textSalesPointLargeRP20	{ background-position: -20px -1680px; width: 97px; height: 34px; }
 
-/* 繧､繝√が繧ｷNo.2繝昴う繝ｳ繝�No.3繝昴う繝ｳ繝�- 繝�く繧ｹ繝育判蜒�*/
 .textSalesPointSmallRP01	{ background-position: -500px -920px; width: 95px ; height: 13px; }
 .textSalesPointSmallRP02	{ background-position: -500px -940px; width: 86px; height: 13px; }
 .textSalesPointSmallRP03	{ background-position: -500px -960px; width: 87px; height: 13px; }
@@ -5655,7 +5430,6 @@ table td.demandTdOuter table.demandTbInner th {
 .textSalesPointSmallRP19	{ background-position: -500px -1280px; width: 95px; height: 13px; }
 .textSalesPointSmallRP20	{ background-position: -500px -1300px; width: 37px; height: 12px; }
 
-/* No,1繝昴う繝ｳ繝�*/
 .pointRP01L		{ background-position: -20px -920px; width: 256px; height: 33px; left: 50%; margin-left: -128px; }
 .pointRP02L		{ background-position: -20px -960px; width: 231px; height: 33px; left: 50%; margin-left: -115px; }
 .pointRP03L		{ background-position: -20px -1000px; width: 230px; height: 33px; left: 50%; margin-left: -115px; }
@@ -5678,14 +5452,13 @@ table td.demandTdOuter table.demandTbInner th {
 .pointRP20L		{ background-position: -20px -1680px; width: 97px; height: 32px; left: 50%; margin-left: -48px; }
 
 /************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 莠育ｴ�判髱｢蝗ｺ譛峨せ繝励Λ繧､繝育判蜒擾ｼ�eserve.png�� ************************************************************/
+**********************************************************/
 
 .rsvS				{ background-image: url("/CSP/img/my/sprites/reserve.png?switch=20140227"); background-repeat: no-repeat; display: block; }
 
 .preRsv				{ background-position: -840px -540px; width: 90px; height: 25px; }
 .directRsv			{ background-position: -840px -580px; width: 90px; height: 25px; }
 
-/* 逕ｻ髱｢驕ｷ遘ｻ繝輔Ο繝ｼ */
 .stepIcon			{ background-position: -20px -540px; width: 40px; height: 25px; margin-right: 10px; }
 
 .stepA01			{ background-position: -60px -540px; width: 119px; height: 25px; margin-right: 6px; }
@@ -5738,7 +5511,6 @@ table td.demandTdOuter table.demandTbInner th {
 .stepD03On			{ background-position: -300px -740px; width: 119px; height: 25px; margin-right: 6px; }
 .stepD04On			{ background-position: -420px -740px; width: 119px; height: 25px; margin-right: 6px; }
 
-/* 莠育ｴ�庄荳榊庄繧｢繧､繧ｳ繝ｳ */
 .closeday			{ background-position: -50px 0; width: 35px; height: 90px; }
 .telPls				{ background-position: 0 0; width: 35px; height: 185px; }
 
@@ -5747,7 +5519,6 @@ table td.demandTdOuter table.demandTbInner th {
 .wcircle:hover		{ background-position: -925px -325px; width: 35px; height: 32px; }
 
 
-/* 莠育ｴ�｡ｨ繧ｿ繝冶ｦ句�縺�*/
 .reserveDateTabOn {
 	float: left;
 	background-position: left -500px;
@@ -5790,11 +5561,10 @@ table td.demandTdOuter table.demandTbInner th {
 .selectImg			{ background-position: -575px -40px; width: 115px; height: 153px; }
 
 /************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 繝悶Ο繧ｰ逕ｻ髱｢蝗ｺ譛会ｼ�log.png�� ************************************************************/
+***********************************************************/
 
 .blogS	{ background-image: url("/CSP/img/my/sprites/blog.png?switch=20140227"); background-repeat: no-repeat; }
 
-/* 繝悶Ο繧ｰ繧｢繧､繧ｳ繝ｳ */
 .blogCategoryBL03	{ background-position: 0 0; display: block; width: 107px; height: 19px; }
 .blogCategoryBL02	{ background-position: -120px 0; display: block; width: 107px; height: 19px; }
 .blogCategoryBL04	{ background-position: -240px 0; display: block; width: 107px; height: 19px; }
@@ -5807,7 +5577,6 @@ table td.demandTdOuter table.demandTbInner th {
 .blogCategoryBL11	{ background-position: -1080px 0; display: block; width: 107px; height: 19px; }
 .blogCategoryBL08	{ background-position: -1200px 0; display: block; width: 107px; height: 19px; }
 
-/* 繝悶Ο繧ｰ繧｢繧､繧ｳ繝ｳ�亥､ｧ��*/
 .blogCategoryLargeBL03	{ background-position: 0 -40px; display: block; width: 232px; height: 34px; }
 .blogCategoryLargeBL02	{ background-position: -260px -40px; display: block; width: 232px; height: 34px; }
 .blogCategoryLargeBL04	{ background-position: -520px -40px; display: block; width: 232px; height: 34px; }
@@ -5820,8 +5589,6 @@ table td.demandTdOuter table.demandTbInner th {
 .blogCategoryLargeBL09	{ background-position: -2340px -40px; display: block; width: 232px; height: 34px; }
 .blogCategoryLargeBL11	{ background-position: -2860px -40px; display: block; width: 232px; height: 34px; }
 
-/* 繧ｯ繝√さ繝溘い繧､繧ｳ繝ｳ */
-/* 鄒主ｮｹ */
 .recommendPointRP01		{ background-position: 0 -100px; display: block; width: 107px; height: 19px; }
 .recommendPointRP02		{ background-position: -120px -100px; display: block; width: 107px; height: 19px; }
 .recommendPointRP03		{ background-position: -240px -100px; display: block; width: 107px; height: 19px; }
@@ -5842,7 +5609,6 @@ table td.demandTdOuter table.demandTbInner th {
 .recommendPointRP18		{ background-position: -480px -140px; display: block; width: 107px; height: 19px; }
 .recommendPointRP19		{ background-position: -960px -140px; display: block; width: 107px; height: 19px; }
 .recommendPointRP20		{ background-position: -120px -180px; display: block; width: 107px; height: 19px; }
-/* 繧ｭ繝ｬ繧､ */
 .kireiRecoPointRP01		{ background-position: -600px -140px; display: block; width: 107px; height: 19px; }
 .kireiRecoPointRP02		{ background-position: -720px -140px; display: block; width: 107px; height: 19px; }
 .kireiRecoPointRP03		{ background-position: -840px -140px; display: block; width: 107px; height: 19px; }
@@ -5854,13 +5620,12 @@ table td.demandTdOuter table.demandTbInner th {
 .kireiRecoPointRP09		{ background-position: 0 -180px; display: block; width: 107px; height: 19px; }
 
 /************************************************************
- * 繧ｹ繝励Λ繧､繝育判蜒�- 繝槭う繝壹�繧ｸ逕ｻ髱｢蝗ｺ譛会ｼ�ypage.png�� ************************************************************/
+********************************************************/
 .mypageS	{ background-image: url("/CSP/img/my/sprites/mypage.png?switch=20140227"); background-repeat: no-repeat; }
 
 .reserveW100H30				{ background-position: -220px -360px; width: 100px; height: 30px; }
 .reserveW100H30:hover		{ background-position: -220px -390px; }
 
-/* 莠育ｴ�繝昴う繝ｳ繧ｿ繝ｼ繧ｫ繝ｼ繧ｽ繝ｫ */
 .pointerCursor	{ cursor:pointer; }
 
 .reserveSameStylist			{ background-position: 0 -360px; width: 195px; height: 30px; }
@@ -5874,14 +5639,13 @@ table td.demandTdOuter table.demandTbInner th {
 
 
 /************************************************************
- * 霑ｽ蜉� ************************************************************/
+***********************************************************/
 .addIntoMyStyle2				{ background-position: -1440px -120px; width: 115px; height: 24px; }
 .addIntoMyStyle2:hover		{ background-position: -1440px -144px; }
 
 .inService		{ background: url("/CSP/img/bt/icons_buttons/hed_service.gif?switch=20140227") no-repeat; display: block; width:140px; height:22px; }
 .recruitSite	{ background: url("/CSP/img/bt/icons_buttons/hed_recruitsite.gif?switch=20140227") no-repeat; display: block; width:114px; height:22px; }
 
-/* SA繧ｨ繝ｪ繧｢繝懊ち繝ｳ */
 .saSapporo					{ background: url("/CSP/img/bt/map/button/btn_saSapporo.gif") no-repeat top; display: block; width: 75px; height: 65px; }
 .saSapporo:hover			{ background-position: bottom; }
 .saAsahikawa				{ background: url("/CSP/img/bt/map/button/btn_saAsahikawa.gif") no-repeat top; display: block; width: 75px; height: 65px; }
@@ -6022,7 +5786,6 @@ table td.demandTdOuter table.demandTbInner th {
 .couponMenuIconPurple	{background-color: #C49BC2; }
 
 
-/* 繧ｯ繝ｼ繝昴Φ */
 .couponListCassete3 {
 	border-left: 1px solid #BFBFBF;
 	border-top: 1px solid #BFBFBF;
@@ -6116,7 +5879,6 @@ table td.demandTdOuter table.demandTbInner th {
 .subtitle h2{
 	font-size: 16px;
 	font-weight: bold;
-	font-family: '繝｡繧､繝ｪ繧ｪ',Meiryo,'繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3','�ｭ�ｳ �ｰ繧ｴ繧ｷ繝�け',MS PGothic,sans-serif;
 	margin: 10px 0 15px 0;
 	color: #444;
 }
@@ -6133,13 +5895,11 @@ table td.demandTdOuter table.demandTbInner th {
 .skinHeadingWrapper h2 {
 	font-size: 15px;
 	color: #666;
-	font-family: '繝｡繧､繝ｪ繧ｪ', Meiryo, '繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3', 'Hiragino Kaku Gothic Pro', '�ｭ�ｳ �ｰ繧ｴ繧ｷ繝�け', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
 }
 
 .skinHeadingWrapper h3 {
 	font-size: 15px;
 	color: #666;
-	font-family: '繝｡繧､繝ｪ繧ｪ', Meiryo, '繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3', 'Hiragino Kaku Gothic Pro', '�ｭ�ｳ �ｰ繧ｴ繧ｷ繝�け', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
 }
 
 .skinHeadingWrapper2 {
@@ -6165,7 +5925,6 @@ table td.demandTdOuter table.demandTbInner th {
 	font-size: 15px;
 	border-bottom: dotted 1px #2A2723;
 	line-height: 1;
-	font-family: '繝｡繧､繝ｪ繧ｪ', Meiryo, '繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3', 'Hiragino Kaku Gothic Pro', '�ｭ�ｳ �ｰ繧ｴ繧ｷ繝�け', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
 }
 
 .boxHeading {
@@ -6207,7 +5966,7 @@ table td.demandTdOuter table.demandTbInner th {
 .cassetteContentsBox {border:1px solid #CCCCCC; width: 460px; }
 
 .shopContentsWrapper { width:650px; margin:0 8px; }
-.shopContentsHeader  { font-size:18px; color:#666; line-height:1.2; margin-bottom: 4px; width: 520px; font-family: '繝｡繧､繝ｪ繧ｪ', Meiryo, '繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3', 'Hiragino Kaku Gothic Pro', '�ｭ�ｳ �ｰ繧ｴ繧ｷ繝�け', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;}
+.shopContentsHeader  { font-size:18px; color:#666; line-height:1.2; margin-bottom: 4px; width: 520px; font-family:  Meiryo,  'Hiragino Kaku Gothic Pro',  'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;}
 .shopContentsInner   { width:695px; position: relative; }
 .shopContentsInnerSalon { width:695px; min-height:86px; position: relative; }
 .shopContentsInnerReserve { width:695px; position: relative; }
@@ -6235,7 +5994,6 @@ table td.demandTdOuter table.demandTbInner th {
 .cassetteHeading         {padding: 7px 14px 8px; border-bottom:2px solid #AA3355; }
 .cassetteContentsHeading {padding-left: 8px; font-weight:bold; color:#666666; border-left: 5px solid #988989; line-height:14px; }
 
-/* 繧ｷ繝ｧ繝��蜷咲畑繝上ャ繧ｯ */
 .shopNameWrapper{
 
 }
@@ -6249,7 +6007,7 @@ table td.demandTdOuter table.demandTbInner th {
 	padding-left: 4px;
 	text-align: center;
 	text-decoration: none;
-	font-family: '繝｡繧､繝ｪ繧ｪ', Meiryo, '繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3', 'Hiragino Kaku Gothic Pro', '�ｭ�ｳ �ｰ繧ｴ繧ｷ繝�け', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
+	font-family:  Meiryo,  'Hiragino Kaku Gothic Pro', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
 	font-weight: bold;
 }
 
