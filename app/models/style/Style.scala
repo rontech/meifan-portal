@@ -20,7 +20,16 @@ case class Style(
     id: ObjectId = new ObjectId,
     label: String,
     salonId: ObjectId,
-    stylistId: ObjectId
+    stylistId: ObjectId,
+    stylePic: List[String],
+    impression: String,
+    serviceType: String,
+    styleLength: String,
+    styleColor: List[String],
+    styleAmount: List[String],
+    styleQuality: List[String],
+    faceType: List[String],
+    introduce: String
 )
 
 
@@ -56,7 +65,7 @@ object Style {
     }
     
     def findByStylistId(salonId: ObjectId, stylistId: ObjectId): List[Style] = {
-      StyleDAO.findOne(DBObject("salonId" -> salonId, "stylistId" -> stylistId)).toList
+      StyleDAO.find(DBObject("salonId" -> salonId, "stylistId" -> stylistId)).toList
     }
     
     def create(style: Style): Option[ObjectId] = {
@@ -64,7 +73,16 @@ object Style {
             Style(
                 label = style.label,
                 salonId = style.salonId,
-                stylistId = style.stylistId
+                stylistId = style.stylistId,
+                stylePic = style.stylePic,
+                impression = style.impression,
+			    serviceType = style.serviceType,
+			    styleLength = style.styleLength,
+			    styleColor = style.styleColor,
+			    styleAmount = style.styleAmount,
+			    styleQuality = style.styleQuality,
+			    faceType = style.faceType,
+			    introduce = style.introduce
             )
         )
     }
@@ -75,7 +93,16 @@ object Style {
 		id = style.id,
                 label = style.label,
                 salonId = style.salonId,
-                stylistId = style.stylistId
+                stylistId = style.stylistId,
+                stylePic = style.stylePic,
+                impression = style.impression,
+			    serviceType = style.serviceType,
+			    styleLength = style.styleLength,
+			    styleColor = style.styleColor,
+			    styleAmount = style.styleAmount,
+			    styleQuality = style.styleQuality,
+			    faceType = style.faceType,
+			    introduce = style.introduce
             )
         )
     }
