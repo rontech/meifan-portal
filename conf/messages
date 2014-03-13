@@ -81,4 +81,5 @@ service.delete=删除
 service.back=返回
 service.update=更新
 
- 
+# User
+relation.type=关系类型

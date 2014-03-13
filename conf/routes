@@ -25,6 +25,9 @@ GET     /myPage/mySaveStyle/:id		 	controllers.Users.mySaveStyle(id: ObjectId)
 GET     /myPage/mySaveSalonActi/:id		controllers.Users.mySaveSalonActi(id: ObjectId)
 GET		/applyStylist					controllers.Users.applyStylist
 POST	/agreeStylist					controllers.Users.agreeStylist
+GET     /addRelationType                  controllers.RelationTypes.addRelationType
+GET     /relationTypeMain                 controllers.RelationTypes.relationTypeMain
+
 #Salon Management
 GET		/mySalon/:id					controllers.Salons.mySalon(id: ObjectId)
 GET		/mySalon/:id/stylist			controllers.Salons.myStylist(id: ObjectId)

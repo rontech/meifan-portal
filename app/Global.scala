@@ -134,6 +134,16 @@ object InitialData {
         files.foreach(f=>Image.save(f)) 
     }
 
+    if(RelationType.findAll.isEmpty){
+      Seq(
+       RelationType(new ObjectId("53217c2ed4d5c027e48dd978"), "关注店铺", 1),
+       RelationType(new ObjectId("53217c35d4d5c027e48dd97a"), "关注技师", 2),
+       RelationType(new ObjectId("53217c4cd4d5c027e48dd97c"), "收藏风格", 3),
+       RelationType(new ObjectId("53217c62d4d5c027e48dd97e"), "收藏优惠劵", 4),
+       RelationType(new ObjectId("53217c6fd4d5c027e48dd980"), "收藏博客", 5)
+      ).foreach(RelationType.save)
+    } 
+    
   }
   
 }
