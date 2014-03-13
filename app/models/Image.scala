@@ -61,9 +61,11 @@ object Image {
 	      listAllFiles(sub)
 	    }
 	  }
+          /*
 	  files.map{f=>
 		  println("list file "+f.getName())
 	  }
+          */
 	  files
 	}
 }
