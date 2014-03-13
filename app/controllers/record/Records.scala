@@ -85,15 +85,13 @@ object Records extends Controller{
 	  }else{
 		pages = count.toInt/pageSize+1
 	  }
-  	  
-  	   Ok(views.html.storeReservation.findReserv(records,count,pages,1))
+  	  Ok(views.html.storeReservation.findReserv(records,count,pages,1))
   	}
   	  	  
   	 /**
   	  *       店铺查看技师日程
   	  */ 	    
   	 def checkStylistReserv = Action {
-	   
 	  var date:Date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2005-06-09 06:30")
 	  var list:List[java.util.Date]=Nil
 	  val from = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -114,8 +112,7 @@ object Records extends Controller{
 	  	Ok(views.html.storeReservation.checkReservInfo(record))
 	  }getOrElse {
 		  NotFound
-    }
-	  
+	  }
 	}
 	
 	/**
@@ -169,7 +166,6 @@ object Records extends Controller{
 		val records = new Record(new ObjectId,record.store,2,record.serviceStart,record.serviceEnd,
 		record.serviceDesigner,record.serviceItem,record.userName,record.userPhone,record.userLeaveMessage,record.costTotal)
 		Record.save(records.copy(id = record.id))
-		
 		}
 		Redirect(routes.Records.findReserv(1))
 	}

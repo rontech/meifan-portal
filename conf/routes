@@ -44,6 +44,10 @@ GET     /storeUpdateD/:id               controllers.BasicInformations.storeUpdDe
 GET     /storeRegister              	controllers.BasicInformations.storeRegister
 					
 
+# Coupon
+GET     /coupon                         controllers.Coupons.index
+GET     /salon/:salonId/coupons         controllers.Coupons.findBySalon(salonId: ObjectId)
+
 # Style
 GET     /style                          controllers.Styles.index
 GET     /style/:id                      controllers.Styles.findById(id: ObjectId)
