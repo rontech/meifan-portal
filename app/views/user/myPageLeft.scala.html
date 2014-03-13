@@ -2,7 +2,7 @@
 			<div class ="Owner">
 				<a href="#" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")" align="absmiddle" alt="@user.userId" title="@user.userId" class="LargePortrait"/></a>
 				<span class='U'>
-      				<a href="#" class='Name' title='female'>@user.userId</a>
+      				<a href="@routes.Users.myPage(user.userId.toString)" class='Name' title='female'>@user.userId</a>
 					<span class='opts'>
 						<img src="@routes.Assets.at("images/user/women.png")" align='absmiddle' title='female'/>
 						<a href = "#">更换头像</a>
@@ -19,7 +19,7 @@
    				个人座右铭
    			</div>
    			<div class='Opts clearfix'>
-				<a href="#" class='a2 admin'><i>.</i><span>修改资料</span></a>
+				<a href="@routes.Users.show(user.userId)" class='a2 admin'><i>.</i><span>修改资料</span></a>
 				<a href="#" class='a1 blog'><i>.</i><span>我的博客</span></a>
 			</div>  			
 			<div class='Mod Users' id='Fellows'>

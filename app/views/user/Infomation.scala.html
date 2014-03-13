@@ -1,17 +1,15 @@
 @* UserInfomation Template File *@
-@(userForm: Form[User])
+@(userForm: Form[User],user:User)
  @import helper._
  
-    @main(Messages("site.title")) {
+    @myPageMain(navInMyPage = "information", user)  {
 
-        <h2 align = "center">用户信息</h2>
-       
-        @form(routes.Users.update(userForm.get.id), 'id -> "userForm") {
+        @form(routes.Users.update(user.id), 'id -> "userForm") {
           <fieldset>
            	
                   @inputText(userForm("userId"),'_label -> "用户名", 'readonly -> "true")
 
-                  <input type="hidden" name="password" value="@userForm.get.password">
+                  <input type="hidden" name="password" value="@user.password">
 
                   @inputText(userForm("nickNm"),'_label -> "昵称")
 
@@ -34,23 +32,27 @@
 
                   @inputText(userForm("weChat"),'_label -> "微信")
 
-                  @inputText(userForm("userTyp"),'_label -> "用户类别")
+                  @*inputText(userForm("userTyp"),'_label -> "用户类别")
 
-                  @inputText(userForm("userBehaviorLevel"),'_label -> "用户行为等级")
+                  @*inputText(userForm("userBehaviorLevel"),'_label -> "用户行为等级")
 
-                  @inputText(userForm("point"),'_label -> "积分")
+                  @*inputText(userForm("point"),'_label -> "积分")
 
-                  @inputDate(userForm("added"),'_label -> "注册时间")
+                  
 
-                  @inputText(userForm("status"),'_label -> "状态")
+                  @*inputText(userForm("status"),'_label -> "状态")*@
+                  @inputDate(userForm("added"),'_label -> "" ,'style -> "display: none")
+                  <input type="hidden" name="userTyp" value="@user.userTyp">
+                  <input type="hidden" name="userBehaviorLevel" value="@user.userBehaviorLevel">
+                  <input type="hidden" name="point" value="@user.point">
+                  <input type="hidden" name="added" value="@user.added">
+                  <input type="hidden" name="status" value="@user.status">
+                  <input type="hidden" name="id" value="@user.id">
 
 			
 		  </fieldset>            
 
-            <input type = "submit" class = "buttons" value="更新">
-            
-            <a herf = "@routes.Users.show(userForm("userId").toString)"><input type = "button"value="取消"></a>
-           
+            <input type = "submit" class = "buttons" value="更新">           
         }
 
     }
