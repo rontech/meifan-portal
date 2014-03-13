@@ -1,4 +1,5 @@
 @(stylists: Seq[Stylist])
+
 <!-- components to list the hair style. -->
 <div class="w166 mHA">
 	<div class="taC">
@@ -12,7 +13,7 @@
 <div class="mysalon-stylist-group">
 	@stylists.map{sty=>
 		<div class="mysalon-stylist-@(stylists.indexOf(sty)%4)">
-			@views.html.stylist.stylistItem(sty)
+			@views.html.stylist.mySalonStylistItem(sty)
 		</div>
 	}
 </div>

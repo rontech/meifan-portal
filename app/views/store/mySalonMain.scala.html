@@ -1,9 +1,10 @@
 @(navInSalon: String = "my-reservation", salon: Salon)(content: Html)
-
+@import models._
+@import controllers._
 @main(Messages("site.title")){
 	<head>
-		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
 		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mySalon.css")">
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
 	</head>
 
 <!-- ↓contents -->
@@ -13,9 +14,7 @@
         		@views.html.store.mySalonLeft(salon)
         	</div>
 			<div id='SpaceMain'>
-	    		@views.html.store.mySalonHead(navInSalon, salon)
-	    
-       		 	@content
+	    		@content
        		</div>	        
         </div>
 

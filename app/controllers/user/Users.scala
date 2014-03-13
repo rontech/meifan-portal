@@ -204,8 +204,17 @@ object Users extends Controller {
   /**
    * 店长或店铺管理者确认后才录入数据库
    */
-  def agreeStylist() = Action {
-     Ok(views.html.index(""))
+  def agreeStylist() = Action {implicit request=>
+    /*val userId = request.session.get("user")*/
+    val userId = new ObjectId
+  	stylistForm.bindFromRequest.fold(
+      errors => BadRequest(views.html.index("")),
+      {
+    	  stylist =>
+    	    Stylist.save(stylist)
+    	    Redirect(routes.Users.show(userId.toString))
+      })
+      
   }
   
 }
