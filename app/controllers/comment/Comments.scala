@@ -28,7 +28,8 @@ object Comments extends Controller {
     implicit request =>      
       val user_id = request.session.get("user_id").get
       val userId = new ObjectId(user_id)
-      val username = User.getUserName(userId)
+//      val username = User.getUserName(userId)
+      val username = User.findOneById(userId).get.userId
     clean() 
     Ok(views.html.comment.comment(username, userId, Comment.all(commentedId)))
   }
@@ -72,14 +73,14 @@ object Comments extends Controller {
    */
   def addC(commentedId : ObjectId) = Action {
     implicit request =>
-      val user_id = request.session.get("user_id").get      // TODO这边需要分类。。。！！！
+      val user_id = request.session.get("userId").get      // TODO这边需要分类。。。！！！
       formAddComment.bindFromRequest.fold(
         //处理错误
         errors => BadRequest(views.html.comment.addComment(commentedId, errors)),
         {
           case (content) =>
-            val userId = new ObjectId(user_id) // 这边需要用session取得用户名之类的东西
-            val relevantUser = new ObjectId(user_id)            
+            val userId = User.findOneByUserId(user_id).get.id // 这边需要用session取得用户名之类的东西
+            val relevantUser = User.findOneByUserId(user_id).get.id // TODO            
 	        Comment.addComment(userId, content, commentedId, relevantUser)
 //	        Redirect(routes.Comments.find(commentedId))
 	        Redirect(routes.Comments.test)
