@@ -28,6 +28,7 @@ case class Style(
     styleColor: List[String],
     styleAmount: List[String],
     styleQuality: List[String],
+    styleDiameter: List[String],
     faceType: List[String],
     introduce: String
 )
@@ -81,6 +82,7 @@ object Style {
 			    styleColor = style.styleColor,
 			    styleAmount = style.styleAmount,
 			    styleQuality = style.styleQuality,
+			    styleDiameter = style.styleDiameter,
 			    faceType = style.faceType,
 			    introduce = style.introduce
             )
@@ -101,6 +103,7 @@ object Style {
 			    styleColor = style.styleColor,
 			    styleAmount = style.styleAmount,
 			    styleQuality = style.styleQuality,
+			    styleDiameter = style.styleDiameter,
 			    faceType = style.faceType,
 			    introduce = style.introduce
             )
