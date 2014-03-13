@@ -23,6 +23,15 @@ GET     /myPage/mySaveCoupon/:id		controllers.Users.mySaveCoupon(id: ObjectId)
 GET     /myPage/mySaveBlog/:id		 	controllers.Users.mySaveBlog(id: ObjectId)
 GET     /myPage/mySaveStyle/:id		 	controllers.Users.mySaveStyle(id: ObjectId)
 GET     /myPage/mySaveSalonActi/:id		controllers.Users.mySaveSalonActi(id: ObjectId)
+GET		/applyStylist					controllers.Users.applyStylist
+POST	/agreeStylist					controllers.Users.agreeStylist
+#Salon Management
+GET		/mySalon/:id					controllers.Salons.mySalon(id: ObjectId)
+GET		/mySalon/:id/stylist			controllers.Salons.myStylist(id: ObjectId)
+GET		/mySalon/:id/reserv				controllers.Salons.myReserv(id: ObjectId)
+GET		/mySalon/:id/comment			controllers.Salons.myComment(id: ObjectId)
+GET		/mySalon/:id/service			controllers.Salons.myService(id: ObjectId)
+
 
 
 # Salon 
@@ -34,6 +43,11 @@ GET     /storeInformationD/:storeId     controllers.BasicInformations.detailedIn
 GET     /storeUpdateB/:id               controllers.BasicInformations.storeUpd(id :ObjectId)
 GET     /storeUpdateD/:id               controllers.BasicInformations.storeUpdDet(id :ObjectId)
 GET     /storeRegister              	controllers.BasicInformations.storeRegister
+					
+
+# Coupon
+GET     /coupon                         controllers.Coupons.index
+GET     /salon/:salonId/coupons         controllers.Coupons.findBySalon(salonId: ObjectId)
 
 # Style
 GET     /style                          controllers.Styles.index

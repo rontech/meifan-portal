@@ -78,6 +78,28 @@ object Users extends Controller {
     }.verifying(
         "This userId is not available",user => User.findByNickNm(user.nickNm).nonEmpty)
   )
+  
+  /**
+   * 定义用户申请技师的表单
+   */
+  def stylistForm: Form[Stylist] = Form(
+    mapping(
+    	"label" -> text,
+    	"salonId" -> text,
+    	"workYears" -> text,
+    	"stylistStyle" -> list(text),
+    	"imageId" ->list(text),
+    	"consumerId" -> list(text),
+    	"description" -> text
+    ){
+      (label,salonId,workYears,stylistStyle,imageId,consumerId,description)=>
+        Stylist(new ObjectId, label, new ObjectId(salonId), new ObjectId, workYears, stylistStyle, imageId.map(i=>new ObjectId(i)),
+            consumerId.map(c=>new ObjectId(c)), description, new String)
+    }
+    {
+      stylist => Some((stylist.label, stylist.salonId.toString, stylist.workYears, stylist.stylistStyle, List(stylist.imageId.toString), List(stylist.consumerId.toString), stylist.description))
+    }
+  )
 //  val userForm: Form[User] = Form(
 //    mapping(
 //      "username" -> text,
@@ -183,4 +205,22 @@ object Users extends Controller {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.mySaveSalonActi(user = user.get))
   }
+  
+  /**
+   * 申请成为技师
+   */
+  def applyStylist = Action {
+    val user = new User(new ObjectId, "123456576", "12333333", "adsad", new Date, "1",
+        "jiangsu", "18606291469", "1324567987","729932232",
+        "456d4sdsd", "..", "..", "1", "1", 1, new Date, ".")
+    Ok(views.html.user.applyStylist(stylistForm,user))
+  }
+  
+  /**
+   * 店长或店铺管理者确认后才录入数据库
+   */
+  def agreeStylist() = Action {
+     Ok(views.html.index(""))
+  }
+  
 }

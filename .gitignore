@@ -1,23 +1,32 @@
-# Extracted from https://github.com/ulrich/macaron-factory/blob/master/.gitignore
-# Ignore all dotfiles...
+# ignore all dot files;
 .*
-# except for .gitignore
+
+# ignore all html temp files;
+*~
+
+# ignore all vim temp files;
+*.swp
+
+# except for .gitignore file;
 !.gitignore
 
-# Ignore Play! working directory #
+# ignore play! working directory;
 bin
 db
 eclipse
-lib
 log
 logs
-modules
-precompiled
 project/project
 project/target
 target
-tmp
 test-result
-server.pid
+tmp
+dist
 *.iml
-*.eml
+
+# ignore auto backuped html files.
+*.bak
+
+# individual work plan not to commit.
+doc/plan
+

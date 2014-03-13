@@ -15,9 +15,9 @@ import play.api.libs.iteratee.Enumerator
 import scala.concurrent.ExecutionContext
 
 object Application extends Controller {
-	def index = Action {
-		Ok(views.html.index("Your new application is ready."))
-	}
+  def index = Action {
+    Ok(views.html.index("Your new application is ready."))
+  }
 
     def getPhoto(file: String) = Action {
     import com.mongodb.casbah.Implicits._

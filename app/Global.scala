@@ -23,31 +23,39 @@ object Global extends GlobalSettings {
 object InitialData {
   
   def date(str: String) = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(str)
-  
+
   def insert() = {
-    
+
+    // For nowtime, we change the Table Defination frequently....
+    // Please do the drop actions below in mongodb.
+    // mongo
+    // use fashion-mongo
+    // db.Salon.drop()
+    // db.Style.drop()
+    // db.Stylist.drop()
+
     if(Salon.findAll == Nil) { 
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), "火影忍者发型"),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), "海贼王发型")
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), "火影忍者吧", Some("火吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ","99198121")), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), "海贼王吧", Some("海吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ","99198121")), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") )
       ).foreach(Salon.save)
       
       Seq(
-        Stylist(new ObjectId("530d8010d7f2861457771bf8"), "漩涡鸣人", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "中国顶尖理发师", "B004138935_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771bf9"), "宇智波佐助", new  ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "美国顶尖理发师", "B004670057_164-219.jpg" ),
-        Stylist(new ObjectId("530d8010d7f2861457771bfa"), "宇智波带土", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "3", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "埃塞俄比亚顶尖理发师", "B004554657_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771bfb"), "宇智波斑", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "2", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "朝鲜顶尖理发师", "B003961937_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771bfc"), "千手柱间", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "越南顶尖理发师", "B003921724_164-219.jpg"),
+        Stylist(new ObjectId("530d8010d7f2861457771bf8"), "漩涡鸣人", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), List(new ObjectId("53168b61d4d5cb7e816db35e")), List(new ObjectId("53168b38d4d5cb7e816db35c")), "中国顶尖理发师", "B004138935_164-219.jpg"),
+        Stylist(new ObjectId("530d8010d7f2861457771bf9"), "宇智波佐助", new  ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), List(new ObjectId("53168b61d4d5cb7e816db35e")), List(new ObjectId("53168b38d4d5cb7e816db35c")), "美国顶尖理发师", "B004670057_164-219.jpg" ),
+        Stylist(new ObjectId("530d8010d7f2861457771bfa"), "宇智波带土", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "3", List("美发师","美甲师"), List(new ObjectId("53168b61d4d5cb7e816db35e")), List(new ObjectId("53168b38d4d5cb7e816db35c")), "埃塞俄比亚顶尖理发师", "B004554657_164-219.jpg"),
+        Stylist(new ObjectId("530d8010d7f2861457771bfb"), "宇智波斑", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "2", List("美发师","美甲师"), List(new ObjectId("53168b61d4d5cb7e816db35e")), List(new ObjectId("53168b38d4d5cb7e816db35c")), "朝鲜顶尖理发师", "B003961937_164-219.jpg"),
+        Stylist(new ObjectId("530d8010d7f2861457771bfc"), "千手柱间", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), List(new ObjectId("53168b61d4d5cb7e816db35e")), List(new ObjectId("53168b38d4d5cb7e816db35c")), "越南顶尖理发师", "B003921724_164-219.jpg"),
 
-        Stylist(new ObjectId("530d8010d7f2861457771bfd"), "路飞", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "老挝顶尖理发师", "B002740532_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771bfe"), "索隆", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "7", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "缅甸顶尖理发师", "B004138935_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771bff"), "香吉士", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "9", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "刚果顶尖理发师", "B004689277_164-219"),
-        Stylist(new ObjectId("530d8010d7f2861457771c00"), "娜美", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "8", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "利比亚顶尖理发师", "B004452138_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771c01"), "乔巴", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "印度顶尖理发师", "B004554657_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771c02"), "罗宾", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "7", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "哈萨克斯坦顶尖理发师", "B004670057_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771c03"), "乌索普", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "日本顶尖理发师", "B004537535_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771c04"), "弗兰奇", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "美国顶尖理发师", "B004538417_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771c05"), "布鲁克", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "2", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "泰国顶尖理发师", "B004689277_164-219.jpg")
+        Stylist(new ObjectId("530d8010d7f2861457771bfd"), "路飞", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), List(new ObjectId("53168b61d4d5cb7e816db35e")), List(new ObjectId("53168b38d4d5cb7e816db35c")), "老挝顶尖理发师", "B002740532_164-219.jpg"),
+        Stylist(new ObjectId("530d8010d7f2861457771bfe"), "索隆", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "7", List("美发师","美甲师"), List(new ObjectId("53168b61d4d5cb7e816db35e")), List(new ObjectId("53168b38d4d5cb7e816db35c")), "缅甸顶尖理发师", "B004138935_164-219.jpg"),
+        Stylist(new ObjectId("530d8010d7f2861457771bff"), "香吉士", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "9", List("美发师","美甲师"), List(new ObjectId("53168b61d4d5cb7e816db35e")), List(new ObjectId("53168b38d4d5cb7e816db35c")), "刚果顶尖理发师", "B004689277_164-219"),
+        Stylist(new ObjectId("530d8010d7f2861457771c00"), "娜美", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "8", List("美发师","美甲师"), List(new ObjectId("53168b61d4d5cb7e816db35e")), List(new ObjectId("53168b38d4d5cb7e816db35c")), "利比亚顶尖理发师", "B004452138_164-219.jpg"),
+        Stylist(new ObjectId("530d8010d7f2861457771c01"), "乔巴", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), List(new ObjectId("53168b61d4d5cb7e816db35e")), List(new ObjectId("53168b38d4d5cb7e816db35c")), "印度顶尖理发师", "B004554657_164-219.jpg"),
+        Stylist(new ObjectId("530d8010d7f2861457771c02"), "罗宾", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "7", List("美发师","美甲师"), List(new ObjectId("53168b61d4d5cb7e816db35e")), List(new ObjectId("53168b38d4d5cb7e816db35c")), "哈萨克斯坦顶尖理发师", "B004670057_164-219.jpg"),
+        Stylist(new ObjectId("530d8010d7f2861457771c03"), "乌索普", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), List(new ObjectId("53168b61d4d5cb7e816db35e")), List(new ObjectId("53168b38d4d5cb7e816db35c")), "日本顶尖理发师", "B004537535_164-219.jpg"),
+        Stylist(new ObjectId("530d8010d7f2861457771c04"), "弗兰奇", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), List(new ObjectId("53168b61d4d5cb7e816db35e")), List(new ObjectId("53168b38d4d5cb7e816db35c")), "美国顶尖理发师", "B004538417_164-219.jpg"),
+        Stylist(new ObjectId("530d8010d7f2861457771c05"), "布鲁克", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "2", List("美发师","美甲师"), List(new ObjectId("53168b61d4d5cb7e816db35e")), List(new ObjectId("53168b38d4d5cb7e816db35c")), "泰国顶尖理发师", "B004689277_164-219.jpg")
       ).foreach(Stylist.save)
       
       Seq(
@@ -91,6 +99,19 @@ object InitialData {
 	).foreach(Service.save)
 
     }
+
+    if(Coupon.findAll.isEmpty) {
+      Seq(
+         Coupon(new ObjectId("5317c0d1d4d57997ce3e6d6a"), "xjc01", "[兄弟公司☆宝石]小脸斩+香薰头部按摩5250日元允许西装", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bfd"),
+         Seq(Service(new ObjectId("53168b38d4d5cb7e816db35c"), "剪刘海", "剪", 10, 10), Service(new ObjectId("5316bb36d4d57997ce3e6d49"), "离子烫", "烫", 90, 100)),
+         Seq(ServiceType(new  ObjectId("5316798cd4d5cb7e816db34b"), "剪"), ServiceType(new ObjectId("53167ae7d4d5cb7e816db355"), "烫")),
+         110, 100, 90, date("2014-03-01"), date("2014-03-31"), "你看到的HOTPEPPER美容♪字", "在预订时间", "◆体验到自己可爱虽然是♪我们自然要授予风格，你想仔细咨询☆◆您可以选择洗发水是一种根据请求的皮肤和头发，定型剂", "0"), 
+         Coupon(new ObjectId("5317c0d1d4d57997ce3e6d6b"), "xjc02", "[兄弟公司☆1号热门]斩+颜色+温和的芳香按摩头11340日元", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bfc"),
+         Seq(Service(new ObjectId("5316c048d4d57997ce3e6d5a"), "简洗", "洗", 10, 10), Service(new ObjectId("5316bb51d4d57997ce3e6d4b"), "局部染", "染", 90, 120), Service(new ObjectId("5316bb36d4d57997ce3e6d49"), "离子烫", "烫", 90, 100)),
+         Seq(ServiceType(new ObjectId("53167a91d4d5cb7e816db34d"), "洗"), ServiceType(new ObjectId("53167aced4d5cb7e816db351"), "染"), ServiceType(new ObjectId("53167ae7d4d5cb7e816db355"), "烫")),
+         230, 190, 120, date("2014-03-01"), date("2014-03-31"), "你看到的HOTPEPPER美容♪字", "在预订时间", "◆无♪◆长费咨询和那些敏感的皮肤☆◆最好的季节Tsuyakara成为各1号和皮肤的每一个颜色，眼睛的颜色，从时尚，更是对皮肤的刺激性是一个关注的晒后", "0")
+      ).foreach(Coupon.save)
+    }
     
     if(Blog.findByUserId(new ObjectId("530d8010d7f2861457771bf8")).isEmpty) {
       val date = new Date()
@@ -105,10 +126,9 @@ object InitialData {
           Comment(new ObjectId("531d4dd6a89e92eacc96ce32"), new ObjectId("530d8010d7f2861457771bf8"),date, 0,new ObjectId("531d4dd6a89e92eacc96ce31"), new ObjectId("530d8010d7f2861457771bf8"),3,"以和为贵")
         ).foreach(Comment.save) 
     }
-    
+
     if(Image.findAll.isEmpty) {
       // val file = new File(controllers.routes.Assets.at("/images").toString())
-      print("aaa" + play.Play.application().path())
       val file = new File(play.Play.application().path() + "/public/images")
       val files = Image.listAllFiles(file)
         files.foreach(f=>Image.save(f)) 
