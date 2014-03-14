@@ -1,0 +1,582 @@
+@()
+
+<!--发型检索  -->
+<html>
+	<head>
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/tempindex.css")">
+	</head>
+	<body>
+		<div class="mT20">
+			<form id="conditionLadyForm" method="post" action="@routes.Styles.styleSearchList">
+				<div class="skinHeadingWrapper2 mB15 cFix pr">
+					<h3 class="fl skinHeading1 offL headingSearch">
+						<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-213" rel="213">
+							search具体条件中
+						</font>
+					</h3>
+					<p class="fs10 skinHeadingCaption pa right0 bottom2">
+						<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-214" rel="214">
+							头发的长度和形象之外,颜色和菜单内容、发型、头发品质等开始搜索。
+						</font>
+					</p>
+				</div>
+				<div class="skinTbl1Wrapper">
+					<table class="skinTbl1 pCell1">
+						<tbody>
+							<tr>
+								<th class="w85 vaM taC nowrap">
+									<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-215" rel="215">
+										头发的长度
+									</font>
+								</th>
+								<td colspan="3" style="width: 633px;">
+									<ul class="cFix" id="jsiLengthPanel">
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="radio" class="cbF" name="stylelength" id="styleLength_ALL" checked="checked"
+											value="" />
+											<label for="styleLength_ALL">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-216" rel="216">
+													所有
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="radio" class="cbF" name="styleLength" id="styleLength_HL03" value="HL03"
+											/>
+											<label for="styleLength_HL03">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-217" rel="217">
+													式
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="radio" class="cbF" name="styleLength" id="styleLength_HL04" value="HL04"
+											/>
+											<label for="styleLength_HL04">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-218" rel="218">
+													游击手
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="radio" class="cbF" name="styleLength" id="styleLength_HL02" value="HL02"
+											/>
+											<label for="styleLength_HL02">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-219" rel="219">
+													长发
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="radio" class="cbF" name="styleLength" id="styleLength_HL01" value="HL01"
+											/>
+											<label for="styleLength_HL01">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-220" rel="220">
+													长
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="radio" class="cbF" name="styleLength" id="styleLength_HL05" value="HL05"
+											/>
+											<label for="styleLength_HL05">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-221" rel="221">
+													肚皮游击手
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="radio" class="cbF jscCloseImagePanel" name="styleLength" id="styleLength_HL08"
+											value="HL08" onclick="clearImageSelect();" />
+											<label for="styleLength_HL08">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-222" rel="222">
+													头发盘
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="radio" class="cbF jscCloseImagePanel" name="styleLength" id="styleLength_HL07"
+											value="HL07" onclick="clearImageSelect();" />
+											<label for="styleLength_HL07">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-223" rel="223">
+													已婚女性
+												</font>
+											</label>
+										</li>
+										<!-- -->
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+						<tbody>
+							<tr>
+								<td colspan="4" class="pV1 pH0">
+									<p class="bdTblSprt">
+										&nbsp;
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th class="w85 vaM taC nowrap">
+									<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-224" rel="224">
+										彩色
+									</font>
+								</th>
+								<td colspan="3" style="padding-right: 0 !important;">
+									<ul>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="radio" class="cbF" name="styleColor" id="hairColorCd_ALL"
+											checked="checked" value="" />
+											<label for="hairColorCd_ALL">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-225" rel="225">
+													所有
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="radio" class="cbF" name="styleColor" id="hairColorCd_HC01"
+											value="HC01" />
+											<label for="hairColorCd_HC01">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-226" rel="226">
+													布朗、米色系
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="radio" class="cbF" name="styleColor" id="hairColorCd_HC02"
+											value="HC02" />
+											<label for="hairColorCd_HC02">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-227" rel="227">
+													黄色、橙子系
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="radio" class="cbF" name="styleColor" id="hairColorCd_HC03"
+											value="HC03" />
+											<label for="hairColorCd_HC03">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-228" rel="228">
+													粉红等红
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="radio" class="cbF" name="styleColor" id="hairColorCd_HC04"
+											value="HC04" />
+											<label for="hairColorCd_HC04">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-229" rel="229">
+													アッシュ・ブラック系
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="radio" class="cbF" name="styleColor" id="hairColorCd_HC05"
+											value="HC05" />
+											<label for="hairColorCd_HC05">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-230" rel="230">
+													其他颜色
+												</font>
+											</label>
+										</li>
+										<!-- -->
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+						<tbody id="jsiImagePanel">
+							<tr>
+								<td colspan="4" class="pV1 pH0">
+									<p class="bdTblSprt">
+										&nbsp;
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th class="w85 vaM taC nowrap">
+									<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-231" rel="231">
+										形象
+									</font>
+								</th>
+								<td colspan="3" style="width: 633px;">
+									<ul class="cFix">
+										<!-- -->
+										<li class="dibBL w3Clm">
+											<input type="checkbox" class="cbF" name="impression" id="impression_IC16" value="IC16"
+											/>
+											<label for="impression_IC16">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-232" rel="232">
+													还原记号
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL w3Clm">
+											<input type="checkbox" class="cbF" name="impression" id="impression_IC17" value="IC17"
+											/>
+											<label for="impression_IC17">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-233" rel="233">
+													写字楼孔青花鱼
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL w3Clm">
+											<input type="checkbox" class="cbF" name="impression" id="impression_IC18" value="IC18"
+											/>
+											<label for="impression_IC18">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-234" rel="234">
+													喜爱、受欢迎
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL w3Clm">
+											<input type="checkbox" class="cbF" name="impression" id="impression_IC20" value="IC20"
+											/>
+											<label for="impression_IC20">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-235" rel="235">
+													辣妹们
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL w3Clm">
+											<input type="checkbox" class="cbF" name="impression" id="impression_IC21" value="IC21"
+											/>
+											<label for="impression_IC21">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-236" rel="236">
+													休闲中心
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL w3Clm">
+											<input type="checkbox" class="cbF" name="impression" id="impression_IC22" value="IC22"
+											/>
+											<label for="impression_IC22">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-237" rel="237">
+													ティーンズ・ガーリー
+												</font>
+											</label>
+										</li>
+										<!-- -->
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+						<tbody>
+							<tr>
+								<td colspan="4" class="pV1 pH0">
+									<p class="bdTblSprt">
+										&nbsp;
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th class="w85 vaM taC nowrap">
+									<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-238" rel="238">
+										菜单内容
+									</font>
+								</th>
+								<td colspan="3" style="width: 633px;">
+									<ul class="cFix">
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="checkbox" class="serviceType" name="serviceType" id="serviceType_MC01"
+											value="MC01" />
+											<label for="serviceType_MC01">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-239" rel="239">
+													烫发
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="checkbox" class="cbF" name="serviceType" id="serviceType_MC02"
+											value="MC02" />
+											<label for="serviceType_MC02">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-240" rel="240">
+													直烫发、缩毛矫正
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="checkbox" class="cbF" name="serviceType" id="serviceType_MC03"
+											value="MC03" />
+											<label for="serviceType_MC03">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-241" rel="241">
+													睫毛
+												</font>
+											</label>
+										</li>
+										<!-- -->
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+						<tbody>
+							<tr>
+								<td colspan="4" class="pV1 pH0">
+									<p class="bdTblSprt">
+										&nbsp;
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th class="w85 vaM taC nowrap">
+									<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-242" rel="242">
+										头发量
+									</font>
+								</th>
+								<td colspan="1" style="width: 263px;">
+									<ul class="cFix">
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="checkbox" class="cbF" name="styleAmount" id="qtyLittle_1" value="少"
+											/>
+											<label for="qtyLittle_1">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-243" rel="243">
+													少
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="checkbox" class="cbF" name="styleAmount" id="styleAmount_1" value="普通"
+											/>
+											<label for="styleAmount_1">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-244" rel="244">
+													普通
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="checkbox" class="cbF" name="styleAmount" id="qtyMany_1" value="很多"
+											/>
+											<label for="qtyMany_1">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-245" rel="245">
+													很多
+												</font>
+											</label>
+										</li>
+										<!-- -->
+									</ul>
+								</td>
+								<!-- fh 0313 test st-->
+								@*<th class="w85 vaM taC nowrap">
+									<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-242" rel="242">
+										洗剪吹
+									</font>
+								</th>
+								<td colspan="1" style="width: 263px;">
+								@(field = Style("styleQuality"),args = '_label ->"洗剪吹"){(id,name,value,args) =>
+								 	@for(i <- 0 to styleQuality.length-1){
+								 		<input type = "checkbox" name = "styleQuality[@i]", value = "@styleQuality(i)">@styleQuality(i)
+								 	}
+								  }
+								</td>*@
+								<!-- fh 0313 test end-->
+								<th class="w85 vaM taC nowrap">
+									<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-246" rel="246">
+										头发质量
+									</font>
+								</th>
+								<td colspan="1" style="width: 263px;">
+									<ul class="cFix">
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="checkbox" class="cbF" name="styleQuality" id="qlySoft_1" value="1"
+											/>
+											<label for="qlySoft_1">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-247" rel="247">
+													不仅鲜嫩
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="checkbox" class="cbF" name="styleQuality" id="qlyNormal_1" value="1"
+											/>
+											<label for="qlyNormal_1">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-248" rel="248">
+													普通
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="checkbox" class="cbF" name="styleQuality" id="qlyObstinate_1"
+											value="1" />
+											<label for="qlyObstinate_1">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-249" rel="249">
+													硬
+												</font>
+											</label>
+										</li>
+										<!-- -->
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+						<tbody>
+							<tr>
+								<td colspan="4" class="pV1 pH0">
+									<p class="bdTblSprt">
+										&nbsp;
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th class="w85 vaM taC nowrap">
+									<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-250" rel="250">
+										直径
+									</font>
+								</th>
+								<td colspan="1" style="width: auto;">
+									<ul class="cFix">
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="checkbox" class="cbF" name="styleDiameter" id="tThin_1" value="1"
+											/>
+											<label for="tThin_1">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-251" rel="251">
+													细
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="checkbox" class="cbF" name="styleDiameter" id="tNormal_1" value="1"
+											/>
+											<label for="tNormal_1">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-252" rel="252">
+													普通
+												</font>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR2">
+											<input type="checkbox" class="cbF" name="styleDiameter" id="tShameless_1"
+											value="1" />
+											<label for="tShameless_1">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-253" rel="253">
+													粗
+												</font>
+											</label>
+										</li>
+										<!-- -->
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+						<tbody>
+							<tr>
+								<td colspan="4" class="pV1 pH0">
+									<p class="bdTblSprt">
+										&nbsp;
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th class="w85 vaM taC nowrap">
+									<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-258" rel="258">
+										脸型
+									</font>
+								</th>
+								<td colspan="3" style="width: 633px;">
+									<ul class="cFix">
+										<!-- -->
+										<li class="dibBL mR10">
+											<input type="checkbox" class="cbF" name="faceType" id="mRound_1" value="1"
+											/>
+											<label for="mRound_1">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-259" rel="259">
+													圆形
+												</font>
+												<span class="iS faceTypeCircle dib">
+													&nbsp;
+												</span>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR10">
+											<input type="checkbox" class="cbF" name="mEgg" id="mEgg_1" value="1" />
+											<label for="mEgg_1">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-260" rel="260">
+													鹅蛋脸
+												</font>
+												<span class="iS faceTypeEgg dib">
+													&nbsp;
+												</span>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR10">
+											<input type="checkbox" class="cbF" name="faceType" id="mSquare_1" value="1"
+											/>
+											<label for="mSquare_1">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-261" rel="261">
+													四角
+												</font>
+												<span class="iS faceTypeSquare dib">
+													&nbsp;
+												</span>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR10">
+											<input type="checkbox" class="cbF" name="faceType" id="mReverseTriangle_1"
+											value="1" />
+											<label for="mReverseTriangle_1">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-262" rel="262">
+													相反三角
+												</font>
+												<span class="iS faceTypeReverseTriangle dib">
+													&nbsp;
+												</span>
+											</label>
+										</li>
+										<!-- -->
+										<li class="dibBL mR10">
+											<input type="checkbox" class="cbF" name="faceType" id="mBase_1" value="1"
+											/>
+											<label for="mBase_1">
+												<font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-263" rel="263">
+													标准
+												</font>
+												<span class="iS faceTypeBase dib">
+													&nbsp;
+												</span>
+											</label>
+										</li>
+										<!-- -->
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="mT20" align="center">
+					<input type="Submit" name="Submit" value="搜索"/>
+				</div>
+			</form>
+		</div>
+	</body>
+
+</html>

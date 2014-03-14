@@ -13,20 +13,7 @@ import com.mongodb.casbah.WriteConcern
 import play.api.templates._
 import java.util.Date
 
-object SalonInfo extends Controller{
-
-//  def registerForm(id: ObjectId = new ObjectId) = Form(
-//    mapping(
-//      "id" -> ignored(id),
-//      "salonId" -> nonEmptyText,
-//      "storeNm" -> text(minLength = 6),
-//      "homePage" -> text) {
-//        (id, salonId, storeNm, homePage) =>
-//          SalonInfoBasic(id, salonId, storeNm, "none", homePage,new Date(), "none", "none", "none", "none", "none", "none", new Date(), "8", 000, 000, 000)
-//      }{
-//        salonInfoBasic => Some((salonInfoBasic.id, salonInfoBasic.salonId, salonInfoBasic.storeNm, salonInfoBasic.homePage))
-//      })
-        
+object SalonInfo extends Controller{        
   val salonInfo:Form[Salon] = Form(
 	    mapping(
 	        "salonName" -> text,
@@ -85,81 +72,10 @@ object SalonInfo extends Controller{
    * 店铺基本信息显示
    *
    */
-//  def storeInfo(id: ObjectId) = Action {
-//    Salon.findById(id).map { salon =>
-//      val basic = SalonInfo.salonInfo.fill(salon)
-//      Ok(views.html.salon.salonInfoBasic(basic))
-//    } getOrElse {
-//      NotFound
-//    }
-//  }
-
   def storeInfo = Action {
     val id: ObjectId = new ObjectId("530d7288d7f2861457771bdd")
     val basic = Salon.findById(id).get
     val salon = SalonInfo.salonInfo.fill(basic)
     Ok(views.html.salon.salonInfoBasic(salon))
   }
-  
-//  def findById(salonId: ObjectId) = Action { 
-//    val salon: Option[Salon] = Salon.findById(salonId)
-//    Ok(views.html.salon.salonInfoBasic(salon))
-//  }
-//  /**
-//   * 店铺详细信息显示
-//   */
-//  def detailedInfo(salonId: String) = Action {
-//    SalonInfoDetail.findOneBysalonId(salonId).map { salonInfoDetail =>
-//      val detailed = BasicInformations.salonInfoDetail.fill(salonInfoDetail)
-//      Ok(views.html.salon.salonInfoDetail(detailed))
-//    } getOrElse {
-//      NotFound
-//    }
-//  }
-
-// /**
-//  * 基本信息表更新
-//  */
-//  def storeUpd(id: ObjectId) = Action { implicit request =>
-//  	salonInfo.bindFromRequest.fold(
-//  		error => BadRequest(views.html.error.errorMsg(error)),
-//      {
-//        salonInfo =>
-//          Salon.save(salonInfo.copy(id = id), WriteConcern.Safe)
-//          Redirect(routes.BasicInformations.detailedInfo(salonInfoBasic.salonId))
-//      })
-//  }
-  
-//  /**
-//   * 詳細信息表更新 
-//   */
-//  def storeUpdDet(id: ObjectId) = Action { implicit request =>
-//    salonInfoDetail.bindFromRequest.fold(
-//      error => BadRequest(views.html.error.errorDetailed(error)),
-//      {
-//        salonInfoDetail =>
-//          SalonInfoDetail.save(salonInfoDetail.copy(id = id), WriteConcern.Safe)
-//          Redirect(routes.BasicInformations.detailedInfo(salonInfoDetail.salonId))
-//      })
-//  }
-
-//    /**
-//   * 店铺注册页面
-//   */
-//  def store = Action {
-//    Ok(views.html.salon.addInformation("Your new application is ready."))
-//  }
-//  
-//  /**
-//   * 店铺基本信息注册
-//   */
-//  def storeRegister = Action { implicit request =>
-//    registerForm().bindFromRequest.fold(
-//  		error => BadRequest(views.html.error.errorBasic(error)),
-//      {
-//        salonInfoBasic =>
-//          SalonInfoBasic.save(salonInfoBasic, WriteConcern.Safe)
-//          Redirect(routes.BasicInformations.storeInfo(salonInfoBasic.salonId))
-//      })
-//  }
 }
