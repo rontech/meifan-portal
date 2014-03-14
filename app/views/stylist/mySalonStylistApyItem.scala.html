@@ -1,0 +1,31 @@
+@(stylist: Stylist)
+<body>
+<div class="w166 mHA">
+    <div class="taC">
+        <a href="@routes.Stylists.findStylistById(stylist.id)">
+            <img src="@routes.Application.getPhoto(stylist.pictureName)" class="bdImgGray w164 h219">
+        </a>
+    </div>
+    <p class="mT10">
+        <a href="http://beauty.hotpepper.jp/slnH000231733/stylist/T000188298/">
+           <p>@stylist.label</p>
+        </a>
+    </p>
+    <div class="bdDotT mT5 pT5 fs10">
+        <span class="fgPink">
+       @stylist.stylistStyle.map{sty=>
+       	@sty
+       	&nbsp;
+       }
+        </span>
+  （@stylist.workYears
+  年）
+    </div>
+    <div class="bdDotT mT5 pT5 fs10 hMin30">
+    </div>
+</div>
+<div class="taC mT10">
+	<span>申请时间@ApplyRecord.findStylistAyRd(Stylist.findById(stylist.id).get.salonId, stylist.id).get.createTime.format("yyyy-MM-dd HH:mm")</span>
+	<a href="/agreeStylistApply/@stylist.id" class="salon-stylist-reserv">同意申请</a>
+</div>
+</body>

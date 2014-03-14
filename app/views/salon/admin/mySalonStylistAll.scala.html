@@ -1,0 +1,18 @@
+@(navInSalon: String = "my-reservation", salon: Salon, stylist: List[Stylist])
+
+@mySalonMain(navInSalon, salon){
+	<div>
+		<div class="mt">
+        	<ul class="tab">
+				<li clstag="click|keycount|myhome|tuangouqian" data-widget="tab-item" class="curr"><s></s><b></b>我的技师</li>
+            </ul>
+		</div>
+		技师ID<input name="id" id="stylist-search"/>&nbsp;&nbsp;&nbsp;<input type="button" value="搜索">
+	</div>
+	<div class="mc">
+   		<div class="tabcon hide" data-widget="tab-content" style="display: block;">
+   			
+        	@views.html.stylist.mySalonStylistGroup(stylists = Stylist.findBySalon(salon.id),status = 1)
+        </div>
+    </div>
+}
