@@ -148,8 +148,7 @@ object Users extends Controller {
 
   def update(id: ObjectId) = Action { implicit request =>
     Users.userForm(id).bindFromRequest.fold(
-//      errors => BadRequest(views.html.user.Infomation(errors,User.findOneByID(id).get)),
-        errors => BadRequest(views.html.user.errorMsg(errors)),
+      errors => BadRequest(views.html.user.Infomation(errors,User.findOneByID(id).get)),
       {
         user =>
           User.save(user, WriteConcern.Safe)
@@ -178,6 +177,11 @@ object Users extends Controller {
     Ok(views.html.user.myPageRes(user))
  }
   
+  def otherIndex(id: ObjectId) = Action{
+    val other = User.findById(id).get
+    Ok(views.html.user.otherPage(other))
+  }
+  
   def myReservation(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.myPageRes(user = user.get))
@@ -201,6 +205,21 @@ object Users extends Controller {
   def mySaveSalonActi(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.mySaveSalonActi(user = user.get))
+  }
+  
+  def SaveCoupon(userId: ObjectId) = Action {
+    val user: Option[User] = User.findById(userId)
+    Ok(views.html.user.otherSaveCoupon(user = user.get))
+  }
+  
+  def SaveBlog(userId: ObjectId) = Action {
+    val user: Option[User] = User.findById(userId)
+    Ok(views.html.user.otherSaveBlog(user = user.get))
+  }
+  
+  def SaveStyle(userId: ObjectId) = Action {
+    val user: Option[User] = User.findById(userId)
+    Ok(views.html.user.otherSaveStyle(user = user.get))
   }
   
   /**

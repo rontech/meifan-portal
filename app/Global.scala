@@ -68,7 +68,6 @@ object InitialData {
 
     if(ServiceType.findAll.isEmpty) {
 	Seq (
-          ServiceType(new  ObjectId("5316798cd4d5cb7e816db34b"), "剪"),
 	  ServiceType(new ObjectId("5316798cd4d5cb7e816db34b"), "剪"),
 	  ServiceType(new ObjectId("53167a91d4d5cb7e816db34d"), "洗"),
 	  ServiceType(new ObjectId("53167abbd4d5cb7e816db34f"), "吹"),
@@ -140,9 +139,22 @@ object InitialData {
        RelationType(new ObjectId("53217c35d4d5c027e48dd97a"), "关注技师", 2),
        RelationType(new ObjectId("53217c4cd4d5c027e48dd97c"), "收藏风格", 3),
        RelationType(new ObjectId("53217c62d4d5c027e48dd97e"), "收藏优惠劵", 4),
-       RelationType(new ObjectId("53217c6fd4d5c027e48dd980"), "收藏博客", 5)
+       RelationType(new ObjectId("53217c6fd4d5c027e48dd980"), "收藏博客", 5),
+       RelationType(new ObjectId("53217c6fd4d5c027e48dd981"), "关注用户", 6)
       ).foreach(RelationType.save)
     } 
+    
+    if(FollowCollect.findAll.isEmpty){
+      Seq(
+       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a8"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d7288d7f2861457771bdd"),1,true),
+       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a9"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d7292d7f2861457771bde"),1,true),
+       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a0"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d8010d7f2861457771bfd"),2,true),
+       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a1"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d8010d7f2861457771c01"),2,true),
+       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a2"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d8010d7f2861457771c05"),2,true),
+       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a3"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("531964e0d4d57d0a43771411"),6,true),
+       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a4"),new ObjectId("531964e0d4d57d0a43771411"),new ObjectId("53202c29d4d5e3cd47efffd3"),6,true)
+      ).foreach(FollowCollect.save)
+    }
     
   }
   

@@ -10,23 +10,27 @@ GET     /                               controllers.Application.index
 GET		/getPhoto/:name					controllers.Application.getPhoto(name: String)
 
 # User Management
-GET		/user							controllers.Users.index
-GET     /login							controllers.Users.login
-GET     /register						controllers.Users.register
+GET     /user                           controllers.Users.index
+GET     /login                          controllers.Users.login
+GET     /register                       controllers.Users.register
 POST    /login                          controllers.Users.doLogin
 POST    /register                       controllers.Users.doRegister
 POST    /update/:id                     controllers.Users.update(id: ObjectId)
 GET     /show/:userId                   controllers.Users.show(userId)
 GET     /myPage/:userId                 controllers.Users.myPage(userId)
-GET     /myPage/myReservation/:id		controllers.Users.myReservation(id: ObjectId)
-GET     /myPage/mySaveCoupon/:id		controllers.Users.mySaveCoupon(id: ObjectId)
-GET     /myPage/mySaveBlog/:id		 	controllers.Users.mySaveBlog(id: ObjectId)
-GET     /myPage/mySaveStyle/:id		 	controllers.Users.mySaveStyle(id: ObjectId)
-GET     /myPage/mySaveSalonActi/:id		controllers.Users.mySaveSalonActi(id: ObjectId)
-GET		/applyStylist					controllers.Users.applyStylist
-POST	/agreeStylist					controllers.Users.agreeStylist
-GET     /addRelationType                  controllers.RelationTypes.addRelationType
-GET     /relationTypeMain                 controllers.RelationTypes.relationTypeMain
+GET     /myPage/myReservation/:id       controllers.Users.myReservation(id: ObjectId)
+GET     /myPage/mySaveCoupon/:id        controllers.Users.mySaveCoupon(id: ObjectId)
+GET     /myPage/mySaveBlog/:id          controllers.Users.mySaveBlog(id: ObjectId)
+GET     /myPage/mySaveStyle/:id         controllers.Users.mySaveStyle(id: ObjectId)
+GET     /myPage/mySaveSalonActi/:id     controllers.Users.mySaveSalonActi(id: ObjectId)
+GET     /applyStylist                   controllers.Users.applyStylist
+POST    /agreeStylist                   controllers.Users.agreeStylist
+GET     /addRelationType                controllers.RelationTypes.addRelationType
+GET     /relationTypeMain               controllers.RelationTypes.relationTypeMain
+GET     /otherPage/:id                  controllers.Users.otherIndex(id: ObjectId)
+GET     /otherPage/SaveCoupon/:id       controllers.Users.SaveCoupon(id: ObjectId)
+GET     /otherPage/SaveBlog/:id	        controllers.Users.SaveBlog(id: ObjectId)
+GET     /otherPage/SaveStyle/:id        controllers.Users.SaveStyle(id: ObjectId)
 
 #Salon Management
 GET		/mySalon/:id					controllers.Salons.mySalon(id: ObjectId)
