@@ -94,7 +94,7 @@ object SalonInfo extends Controller{
 //    }
 //  }
 
-  def storeInfo = Action {
+  def salonInfoBasic = Action {
     val id: ObjectId = new ObjectId("530d7288d7f2861457771bdd")
     val basic = Salon.findById(id).get
     val salon = SalonInfo.salonInfo.fill(basic)

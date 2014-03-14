@@ -27,7 +27,7 @@ GET     /myPage/mySaveSalonActi/:id		controllers.Users.mySaveSalonActi(id: Objec
 # Salon 
 GET     /salon                          controllers.Salons.index
 GET     /salon/:id                      controllers.Salons.getSalon(id: ObjectId)
-GET     /storeInformation/      		controllers.SalonInfo.storeInfo
+GET     /salonInfo/      				controllers.SalonInfo.salonInfoBasic
 
 # Coupon
 GET     /coupon                         controllers.Coupons.index
