@@ -65,7 +65,67 @@ object InitialData {
       ).foreach(Style.save)
 
     }
-
+    
+    if(StyleColor.findAll.isEmpty) {
+      Seq (
+          StyleColor(new ObjectId, "红"),
+          StyleColor(new ObjectId, "黄"),
+          StyleColor(new ObjectId, "黑色"),
+          StyleColor(new ObjectId, "其他颜色")
+        ).foreach(StyleColor.save)
+    }
+    
+    if(StyleLength.findAll.isEmpty) {
+      Seq (
+          StyleLength(new ObjectId, "长"),
+          StyleLength(new ObjectId, "中"),
+          StyleLength(new ObjectId, "短")
+        ).foreach(StyleLength.save)
+    }
+    
+    if(Impression.findAll.isEmpty) {
+      Seq (
+          Impression(new ObjectId, "清新"),
+          Impression(new ObjectId, "自然"),
+          Impression(new ObjectId, "淡雅"),
+          Impression(new ObjectId, "其他印象")
+        ).foreach(Impression.save)
+    }
+    
+    if(StyleAmount.findAll.isEmpty) {
+      Seq (
+          StyleAmount(new ObjectId, "多"),
+          StyleAmount(new ObjectId, "一般"),
+          StyleAmount(new ObjectId, "少")
+        ).foreach(StyleAmount.save)
+    }
+    
+    if(StyleQuality.findAll.isEmpty) {
+      Seq (
+          StyleQuality(new ObjectId, "软"),
+          StyleQuality(new ObjectId, "适中"),
+          StyleQuality(new ObjectId, "硬"),
+          StyleQuality(new ObjectId, "柔顺")
+        ).foreach(StyleQuality.save)
+    }
+    
+    if(StyleDiameter.findAll.isEmpty) {
+      Seq (
+          StyleDiameter(new ObjectId, "细"),
+          StyleDiameter(new ObjectId, "适中"),
+          StyleDiameter(new ObjectId, "粗")
+        ).foreach(StyleDiameter.save)
+    }
+    
+    if(FaceType.findAll.isEmpty) {
+      Seq (
+          FaceType(new ObjectId, "标准"),
+          FaceType(new ObjectId, "圆形"),
+          FaceType(new ObjectId, "鹅蛋脸"),
+          FaceType(new ObjectId, "四角")
+        ).foreach(FaceType.save)
+    }
+    
     if(ServiceType.findAll.isEmpty) {
 	Seq (
           ServiceType(new  ObjectId("5316798cd4d5cb7e816db34b"), "剪"),
