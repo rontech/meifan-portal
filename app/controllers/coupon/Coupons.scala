@@ -38,10 +38,12 @@ object Coupons extends Controller {
   def findBySalon(salonId: ObjectId) = Action {
     val salon: Option[Salon] = Salon.findById(salonId)
     val coupons: Seq[Coupon] = Coupon.findBySalon(salonId)
+    val menus: Seq[Menu] = Menu.findBySalon(salonId)
     val serviceTypes: Seq[ServiceType] = ServiceType.findAll().toList
+    val serviceTypeNames: Seq[String] = Service.getServiceTypeList
     
     // TODO: process the salon not exist pattern.
-    Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons))
+    Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus, serviceTypeNames))
   }
   
   /**
@@ -81,9 +83,11 @@ object Coupons extends Controller {
             println("coupons = " + coupons)
           }
           val salon: Option[Salon] = Salon.findById(salonId)
+          val menus: Seq[Menu] = Menu.findBySalon(salonId)
+          val serviceTypeNames: Seq[String] = Service.getServiceTypeList
           //val serviceTypes: Seq[ServiceType] = ServiceType.findAll().toList
           
-          Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons))
+          Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus, serviceTypeNames))
       })
   }
   
