@@ -120,7 +120,7 @@
                         <a id="reviewCountHref" clstag="click|keycount|myhome|commentscount" href="http://club.jd.com/mycomments.aspx">
                            	即将到期(
                             <span id="reviewCount">
-                                5
+                               
                             </span>
                             )
                         </a>
@@ -135,12 +135,12 @@
                        	技师提醒：
                     </dt>
                     <dd>
-                	<a href="#">
+                	<a href="/mySalon/@salon.id/checkHoldApply">
                 	待确认的申请(
                 		 <span id="reviewCount">
-                                1
+                               @ApplyRecord.countStylistApply(salon.id)
                          </span>
-                	)
+                	个)
                 	</a>
                 	</dd>
                 </dl>

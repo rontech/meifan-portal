@@ -14,14 +14,14 @@
 
       <div class="row">
         <div class="span14">
-          	@form(routes.Users.agreeStylist(), 'id -> "userForm"){
+          	@form(routes.Users.commitStylistApply(), 'id -> "userForm"){
 		
-       		@inputText(stylistForm("label"),'_label -> "昵称",'readonly -> true,'value ->user.nickNm,
+       		@inputText(stylistForm("label"), '_label -> "昵称", 'value ->user.nickNm,
             	'_error -> stylistForm("label").error.map(_.withMessage("请输入用户名!")))
 			
-			@inputText(stylistForm("workYears"),'_label -> "工作年数",'class ->  "font1")
+			@inputText(stylistForm("workYears"), '_label -> "工作年数", 'class ->  "font1")
 			
-			@inputText(stylistForm("storeId"),'_label -> "salonId",'class ->  "font1")
+			@inputText(stylistForm("salonId"), '_label -> "salonId", 'class ->  "font1")
 			
 			@input(field = stylistForm("stylistStyle"),args = '_label ->"技师类别"){(id,name,value,args) =>
 			 	@for(i <- 0 to stylistStyle.length-1){
@@ -32,7 +32,7 @@
 			
 			@input(field = stylistForm("imageId"),args = '_label ->"擅长风格"){(id,name,value,args) =>
 			 	@for(i <- 0 to stylistStyle.length-1){
-			 		<input type = "checkbox" name = "images[@i]", value = "@images(i)">@images(i)
+			 		<input type = "checkbox" name = "imageId[@i]", value = "@images(i)">@images(i)
 			 	}
 			  }
 			  

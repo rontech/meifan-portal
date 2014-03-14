@@ -1,5 +1,6 @@
 @(navInSalon: String = "my-reservation", salon: Salon)(content: Html)
 @import models._
+
 @import controllers._
 @main(Messages("site.title")){
 	<head>
@@ -11,7 +12,7 @@
 
         <div id="OSC_Content">
         	<div id='SpaceLeft'>
-        		@views.html.store.mySalonLeft(salon)
+        		@views.html.salon.admin.mySalonLeft(salon)
         	</div>
 			<div id='SpaceMain'>
 	    		@content
