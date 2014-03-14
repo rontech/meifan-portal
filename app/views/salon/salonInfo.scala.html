@@ -2,21 +2,39 @@
 @import helper._
 @import helper.twitterBootstrap._
 
+@accountField(field: Field, className: String = "account") = {
+    @input(field, '_label -> "accounts", '_class -> className) { (id, name, value, _) =>
+        <input type="text" name="@name" value="@value">
+    }
+}
+
+@informationGroup(field: Field, className: String = "profile") = {
+        @inputText(
+            field("contMethmodType"), 
+            '_label -> "contMethmodType"
+        )
+        
+        @repeat(field("account"), min = 0) { account =>
+                
+                @accountField(account)   
+            }
+}
+
 @main("basicInformation"){
 <div class="basicInformation-content">
 	<div class="basicInformation">
-		<h2>店铺基本信息管理</h2>
-  
-		@form(action = routes.Users.login, args = 'id -> "userloginForm"){
+		<h2>@Messages("salon.title")</h2>
+
+		@helper.form(action = routes.Users.login, args = 'id -> "userloginForm"){
 		 <fieldset >	         
             @inputText(salon("salonName"),'_label ->  Messages("salon.Name"))           
             @inputText(salon("salonNameAbbr"),'_label -> Messages("salon.Abbr"))			
 			@select(
             field = salon("salonIndst"), 
             options = options(
-                "A" -> "美容美发",
-                "B" -> "美甲",
-                "C" -> "瘦身健美"
+                "A" -> Messages("salon.a"),
+                "B" -> Messages("salon.b"),
+                "C" -> Messages("salon.c")
             ),
             args = '_label -> Messages("salon.type")
         )		
@@ -24,7 +42,9 @@
 			@inputText(salon("salonDescription"), '_label -> Messages("salon.description"))
 			@inputText(salon("mainPhone"), '_label -> Messages("salon.mainPhone"))
 			@inputText(salon("contact"), '_label -> Messages("salon.contact"))
-			@inputText(salon("optContactMethod"), '_label -> Messages("salon.optContactMethod"))		
+			@repeat(salon("optContactMethod")) { optContactMethod =>
+               @informationGroup(optContactMethod)
+            }	
 			@inputDate(salon("establishDate"), '_label -> Messages("salon.establishDate"))			
 			@inputText(salon("address.province"), '_label -> Messages("salon.province"))
 			@inputText(salon("address.city"), '_label -> Messages("salon.city"))
@@ -51,8 +71,8 @@
 			@inputText(salon("salonPictures"), '_label -> Messages("salon.pictures"))
 			@inputDate(salon("registerDate"), '_label -> Messages("salon.registerTime"))	
 		  </fieldset>            
-            <input type = "submit" class = "buttons" value="保存">
-			<input type="reset" value="重 置"/><a href = "/  "><input type="button" value="返回" ></a>                     
+            <input type = "submit" class = "buttons" value=@Messages("common.submit")>
+			<input type="reset" value=@Messages("common.reset")><a href = "/  "><input type="button" value=@Messages("common.backUp") ></a>                     
 		}
 		</div>
 </div>

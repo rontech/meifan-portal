@@ -7,6 +7,10 @@ site.description=美容院・美容室・ヘアサロン・ネイルサロン・
 site.keywords=美容,キレイ,美容院,美容室,ヘアサロン,ネイルサロン,まつげサロン,リラクサロン,エステサロン,ヘアカタログ,ネイルカタログ
 site.copyright=Copyright &copy; RONTECH Co., Ltd. All rights reserved.
 
+#common
+common.submit = 提交
+common.reset=重置
+common.backUp=返回
 
 # Index page
 index.reserve=24小时网上预约&空席确认
@@ -38,6 +42,7 @@ main.myPage=我的主页
 
 # Salon
 salon.show=展示所有沙龙
+salon.title=店铺基本信息管理
 salon.id=店铺ID
 salon.Name=店铺名
 salon.Abbr=店铺名略称
@@ -46,7 +51,8 @@ salon.homepage=官方主页
 salon.description=店铺简介
 salon.mainPhone=联系电话
 salon.contact=联系人
-salon.optContactMethod=备选联系方式
+salon.contMethmodType=联系工具名
+salon.account=号码
 salon.establishDate=成立日期
 salon.province=省
 salon.city=市
@@ -72,8 +78,9 @@ salon.parkingDesc=停车场状况描述
 salon.facilities=可否网上预约
 salon.pictures=展示图片
 salon.registerTime=美容平台注册日期
-
-
+salon.a=美容美发
+salon.b=瘦身健美
+salon.c=美甲美肤
 
 # Hair
 hair.salon=美发沙龙

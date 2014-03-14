@@ -26,7 +26,7 @@ object SalonInfo extends Controller{
 	        "optContactMethod" -> seq(
 	            mapping(
 	                "contMethmodType" -> text,
-	                "account" -> text)(OptContactMethod.apply)(OptContactMethod.unapply)),
+	                "account" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
 	        "establishDate" -> date("yyyy-MM-dd"),
 	        "address" -> mapping(
 	        	"province" -> text,
@@ -76,6 +76,6 @@ object SalonInfo extends Controller{
     val id: ObjectId = new ObjectId("530d7288d7f2861457771bdd")
     val basic = Salon.findById(id).get
     val salon = SalonInfo.salonInfo.fill(basic)
-    Ok(views.html.salon.salonInfoBasic(salon))
+    Ok(views.html.salon.salonInfo(salon))
   }
 }

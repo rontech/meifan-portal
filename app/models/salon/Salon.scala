@@ -73,7 +73,7 @@ case class SalonFacilities (
 */
 case class OptContactMethod (
     contMethmodType: String,
-    account: String
+    account: List[String]
 )
 
 
