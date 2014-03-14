@@ -49,10 +49,13 @@ hair.stylist=发型师
 hair.impression=风格
 hair.styleQuality=发质
 hair.styleAmount=发量
+hair.styleDiameter=直径
 hair.faceType=脸型
 hair.color=颜色
 hair.styleLength=长度
 hair.serviceItem=菜单内容
+hair.serviceType=技术类别
+hair.search=发型检索
 
 # Cosmetic
 cosmetic.salon=美容沙龙

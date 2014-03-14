@@ -10,10 +10,11 @@ GET     /                               controllers.Application.index
 GET		/getPhoto/:name					controllers.Application.getPhoto(name: String)
 
 # User Management
-GET     /login                          controllers.Application.login()
-GET     /register                       controllers.Application.register()
-POST    /login                          controllers.Users.login
-POST    /register                       controllers.Users.register
+GET		/user							controllers.Users.index
+GET     /login							controllers.Users.login
+GET     /register						controllers.Users.register
+POST    /login                          controllers.Users.doLogin
+POST    /register                       controllers.Users.doRegister
 POST    /update/:id                     controllers.Users.update(id: ObjectId)
 GET     /show/:userId                   controllers.Users.show(userId)
 GET     /myPage/:userId                 controllers.Users.myPage(userId)
@@ -57,7 +58,8 @@ GET     /style                          controllers.Styles.index
 GET     /style/:id                      controllers.Styles.findById(id: ObjectId)
 GET     /salon/:salonId/styles          controllers.Styles.findBySalon(salonId: ObjectId)
 GET     /salon/:slnId/style/:styId      controllers.Styles.getStyleInfoOfSalon(slnId: ObjectId, styId: ObjectId)
-
+POST    /styleSearchList                controllers.Styles.styleSearchList
+GET     /styleSearch                    controllers.Styles.styleSearch
 
 # Stylist
 GET		/stylistViews/:id				controllers.Stylists.findStylistById(id: ObjectId)
@@ -130,12 +132,16 @@ GET     /writeBlogCatagory/:userId       controllers.BlogCatagories.writeBlogCat
 GET     /delBlogCatarory/:userId/:blogCatagory    controllers.BlogCatagories.delBlogCatarory(userId : ObjectId, blogCatagory : String)
 GET     /modBlogCatarory/:userId/:blogCatagory    controllers.BlogCatagories.modBlogCatarory(userId : ObjectId, blogCatagory : String)
 GET     /modCatagory/:userId/:blogCatagory        controllers.BlogCatagories.modCatagory(userId : ObjectId, blogCatagory : String)
+GET     /findBlogByCatagory/:catagory/:userId     controllers.Blogs.findBlogByCatagory(catagory : String, userId : ObjectId)
+GET     /changeBlogCatagory/:blogId/:blogTyp      controllers.Blogs.changeBlogCatagory(blogId : ObjectId, blogTyp : String)
+GET     /editBlog/:blogId                controllers.Blogs.editBlog(blogId : ObjectId)
+GET     /changeCatagory/:blogId          controllers.Blogs.changeCatagory(blogId : ObjectId)
+GET     /modBlog/:blogId                 controllers.Blogs.modBlog(blogId : ObjectId)
 
 
+GET     /salon/:slnId/blog/:blogId       controllers.Blogs.getBlogInfoOfSalon(slnId: ObjectId, blogId: ObjectId)
 
-GET     /salon/:slnId/blog/:blogId      controllers.Blogs.getBlogInfoOfSalon(slnId: ObjectId, blogId: ObjectId)
-
-GET     /salon/:salonId/blogs          controllers.Blogs.findBySalon(salonId: ObjectId)
+GET     /salon/:salonId/blogs            controllers.Blogs.findBySalon(salonId: ObjectId)
 
 
 #add by wu end 
