@@ -23,41 +23,109 @@ object Global extends GlobalSettings {
 object InitialData {
   
   def date(str: String) = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(str)
-  
+
   def insert() = {
-    
+
+    // For nowtime, we change the Table Defination frequently....
+    // Please do the drop actions below in mongodb.
+    // mongo
+    // use fashion-mongo
+    // db.Salon.drop()
+    // db.Style.drop()
+    // db.Stylist.drop()
+
     if(Salon.findAll == Nil) { 
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), "火影忍者发型"),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), "海贼王发型")
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), "火影忍者吧", Some("火吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ","99198121")), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), "海贼王吧", Some("海吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ","99198121")), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") )
       ).foreach(Salon.save)
       
       Seq(
-        Stylist(new ObjectId("530d8010d7f2861457771bf8"), "漩涡鸣人", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "中国顶尖理发师", "B004138935_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771bf9"), "宇智波佐助", new  ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "美国顶尖理发师", "B004670057_164-219.jpg" ),
-        Stylist(new ObjectId("530d8010d7f2861457771bfa"), "宇智波带土", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "3", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "埃塞俄比亚顶尖理发师", "B004554657_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771bfb"), "宇智波斑", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "2", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "朝鲜顶尖理发师", "B003961937_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771bfc"), "千手柱间", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "越南顶尖理发师", "B003921724_164-219.jpg"),
+        Stylist(new ObjectId("530d8010d7f2861457771bf8"), "漩涡鸣人", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "中国顶尖理发师", "B004138935_164-219.jpg", 1),
+        Stylist(new ObjectId("530d8010d7f2861457771bf9"), "宇智波佐助", new  ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "美国顶尖理发师", "B004670057_164-219.jpg", 1 ),
+        Stylist(new ObjectId("530d8010d7f2861457771bfa"), "宇智波带土", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "3", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "埃塞俄比亚顶尖理发师", "B004554657_164-219.jpg", 1),
+        Stylist(new ObjectId("530d8010d7f2861457771bfb"), "宇智波斑", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "2", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "朝鲜顶尖理发师", "B003961937_164-219.jpg", 1),
+        Stylist(new ObjectId("530d8010d7f2861457771bfc"), "千手柱间", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "越南顶尖理发师", "B003921724_164-219.jpg", 1),
 
-        Stylist(new ObjectId("530d8010d7f2861457771bfd"), "路飞", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "老挝顶尖理发师", "B002740532_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771bfe"), "索隆", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "7", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "缅甸顶尖理发师", "B004138935_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771bff"), "香吉士", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "9", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "刚果顶尖理发师", "B004689277_164-219"),
-        Stylist(new ObjectId("530d8010d7f2861457771c00"), "娜美", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "8", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "利比亚顶尖理发师", "B004452138_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771c01"), "乔巴", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "印度顶尖理发师", "B004554657_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771c02"), "罗宾", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "7", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "哈萨克斯坦顶尖理发师", "B004670057_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771c03"), "乌索普", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "日本顶尖理发师", "B004537535_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771c04"), "弗兰奇", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "美国顶尖理发师", "B004538417_164-219.jpg"),
-        Stylist(new ObjectId("530d8010d7f2861457771c05"), "布鲁克", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "2", List("美发师","美甲师"), new ObjectId("53168b61d4d5cb7e816db35e"), new ObjectId("53168b38d4d5cb7e816db35c"), "泰国顶尖理发师", "B004689277_164-219.jpg")
+        Stylist(new ObjectId("530d8010d7f2861457771bfd"), "路飞", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"),List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "老挝顶尖理发师", "B002740532_164-219.jpg", 1),
+        Stylist(new ObjectId("530d8010d7f2861457771bfe"), "索隆", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "7", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "缅甸顶尖理发师", "B004138935_164-219.jpg", 1),
+        Stylist(new ObjectId("530d8010d7f2861457771bff"), "香吉士", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "9", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "刚果顶尖理发师", "B004689277_164-219", 1),
+        Stylist(new ObjectId("530d8010d7f2861457771c00"), "娜美", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "8", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "利比亚顶尖理发师", "B004452138_164-219.jpg", 1),
+        Stylist(new ObjectId("530d8010d7f2861457771c01"), "乔巴", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "印度顶尖理发师", "B004554657_164-219.jpg", 1),
+        Stylist(new ObjectId("530d8010d7f2861457771c02"), "罗宾", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "7", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "哈萨克斯坦顶尖理发师", "B004670057_164-219.jpg", 1),
+        Stylist(new ObjectId("530d8010d7f2861457771c03"), "乌索普", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "日本顶尖理发师", "B004537535_164-219.jpg", 1),
+        Stylist(new ObjectId("530d8010d7f2861457771c04"), "弗兰奇", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "美国顶尖理发师", "B004538417_164-219.jpg", 1),
+        Stylist(new ObjectId("530d8010d7f2861457771c05"), "布鲁克", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "2", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "泰国顶尖理发师", "B004689277_164-219.jpg", 1)
       ).foreach(Stylist.save)
       
       Seq(
-        Style(new ObjectId("530d828cd7f2861457771c0b"), "四代火影发型式", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf8")),
-        Style(new ObjectId("530d828cd7f2861457771c0c"), "六道仙人发型", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf8")),
-        Style(new ObjectId("530d828cd7f2861457771c0d"), "海贼王发型", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d8010d7f2861457771bfd"))
+        Style(new ObjectId("530d828cd7f2861457771c0b"), "四代火影发型式", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf8"), List("B002740532_164-219.jpg","B004689277_164-219.jpg","B004538417_164-219.jpg"),"清爽、舒适","烫发","中",List("黄色","绿色","紫色"),List("很少","很多","较少"),List("软","硬"),List("粗","细"),List("国字","方形","圆形","尖"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生"),
+        Style(new ObjectId("530d828cd7f2861457771c0c"), "六道仙人发型", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf8"), List("B004670057_164-219.jpg","B004670057_164-219.jpg","B004554657_164-219.jpg"),"舒适","染发","长",List("绿色","紫色"),List("很少","很多","较少"),List("软","硬"),List("适中","细"),List("国字","方形","圆形","尖"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生"),
+        Style(new ObjectId("530d828cd7f2861457771c0d"), "海贼王发型", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d8010d7f2861457771bfd"), List("B004554657_164-219.jpg"),"清爽、舒适","烫发","中",List("黄色","绿色","紫色"),List("很少","很多","较少"),List("软","硬"),List("粗","细"),List("国字","方形","圆形","尖"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生")
       ).foreach(Style.save)
 
     }
-
+    
+    if(StyleColor.findAll.isEmpty) {
+      Seq (
+          StyleColor(new ObjectId, "红"),
+          StyleColor(new ObjectId, "黄"),
+          StyleColor(new ObjectId, "黑色"),
+          StyleColor(new ObjectId, "其他颜色")
+        ).foreach(StyleColor.save)
+    }
+    
+    if(StyleLength.findAll.isEmpty) {
+      Seq (
+          StyleLength(new ObjectId, "长"),
+          StyleLength(new ObjectId, "中"),
+          StyleLength(new ObjectId, "短")
+        ).foreach(StyleLength.save)
+    }
+    
+    if(Impression.findAll.isEmpty) {
+      Seq (
+          Impression(new ObjectId, "清新"),
+          Impression(new ObjectId, "自然"),
+          Impression(new ObjectId, "淡雅"),
+          Impression(new ObjectId, "其他印象")
+        ).foreach(Impression.save)
+    }
+    
+    if(StyleAmount.findAll.isEmpty) {
+      Seq (
+          StyleAmount(new ObjectId, "多"),
+          StyleAmount(new ObjectId, "一般"),
+          StyleAmount(new ObjectId, "少")
+        ).foreach(StyleAmount.save)
+    }
+    
+    if(StyleQuality.findAll.isEmpty) {
+      Seq (
+          StyleQuality(new ObjectId, "软"),
+          StyleQuality(new ObjectId, "适中"),
+          StyleQuality(new ObjectId, "硬"),
+          StyleQuality(new ObjectId, "柔顺")
+        ).foreach(StyleQuality.save)
+    }
+    
+    if(StyleDiameter.findAll.isEmpty) {
+      Seq (
+          StyleDiameter(new ObjectId, "细"),
+          StyleDiameter(new ObjectId, "适中"),
+          StyleDiameter(new ObjectId, "粗")
+        ).foreach(StyleDiameter.save)
+    }
+    
+    if(FaceType.findAll.isEmpty) {
+      Seq (
+          FaceType(new ObjectId, "标准"),
+          FaceType(new ObjectId, "圆形"),
+          FaceType(new ObjectId, "鹅蛋脸"),
+          FaceType(new ObjectId, "四角")
+        ).foreach(FaceType.save)
+    }
+    
     if(ServiceType.findAll.isEmpty) {
 	Seq (
           ServiceType(new  ObjectId("5316798cd4d5cb7e816db34b"), "剪"),
@@ -104,7 +172,7 @@ object InitialData {
          230, 190, 120, date("2014-03-01"), date("2014-03-31"), "你看到的HOTPEPPER美容♪字", "在预订时间", "◆无♪◆长费咨询和那些敏感的皮肤☆◆最好的季节Tsuyakara成为各1号和皮肤的每一个颜色，眼睛的颜色，从时尚，更是对皮肤的刺激性是一个关注的晒后", "0")
       ).foreach(Coupon.save)
     }
-    
+
     if(Menu.findAll().isEmpty) {
       Seq(
           Menu(new ObjectId("5317c0d1d4d57337ce3e6d61"), new ObjectId("530d7288d7f2861457771bdd"), Seq(Service(new ObjectId("53168b38d4d5cb7e816db35c"), "剪刘海", "剪", 10, 10), Service(new ObjectId("5316bb51d4d57997ce3e6d4b"), "局部染", "染", 90, 120)),
@@ -129,10 +197,9 @@ object InitialData {
           Comment(new ObjectId("531d4dd6a89e92eacc96ce32"), new ObjectId("530d8010d7f2861457771bf8"),date, 0,new ObjectId("531d4dd6a89e92eacc96ce31"), new ObjectId("530d8010d7f2861457771bf8"),3,"以和为贵")
         ).foreach(Comment.save) 
     }
-    
+
     if(Image.findAll.isEmpty) {
       // val file = new File(controllers.routes.Assets.at("/images").toString())
-      print("aaa" + play.Play.application().path())
       val file = new File(play.Play.application().path() + "/public/images")
       val files = Image.listAllFiles(file)
         files.foreach(f=>Image.save(f)) 
@@ -141,4 +208,3 @@ object InitialData {
   }
   
 }
-

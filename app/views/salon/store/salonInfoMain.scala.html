@@ -18,31 +18,31 @@ TODO
 
 @main("todo", "hair-salon") {
 
-<!-- 竊田ontents -->
+<!-- ↓contents -->
 
-        <!-- 竊杜ainContents -->
+        <!-- ↓mainContents -->
         <div id="salonMainContents">
 
-	    <!-- 竊都alonInfoHeader -->
+	    <!-- ↓salonInfoHeader -->
 	    @views.html.salon.store.salonInfoHeader(navInSalon, salon)
-	    <!-- 竊都alonInfoHeader -->
+	    <!-- ↑salonInfoHeader -->
 
-            <!-- 竊都alonInfoBody -->
+            <!-- ↓salonInfoBody -->
             <!-- show different body contents according to the NAV tab. -->
             @content
-            <!-- 竊壮alonInfoBody -->  
+            <!-- ↑salonInfoBody -->  
 
-            <!-- 竊都alonInfoFooter  -->
+            <!-- ↓salonInfoFooter  -->
             @views.html.salon.store.salonInfoFooter(navInSalon, salon)
-            <!-- 竊壮alonInfoFooter  -->  
+            <!-- ↑salonInfoFooter  -->  
 
         </div>
-        <!-- 竊僧ainContents -->
+        <!-- ↑mainContents -->
 
-        <!-- 竊都ideContents -->
+        <!-- ↓sideContents -->
         @views.html.salon.store.rightColumn(None)
-        <!-- 竊壮ideContents -->
+        <!-- ↑sideContents -->
 
-<!-- 竊祖ontents -->
+<!-- ↑contents -->
 
 }

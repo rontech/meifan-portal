@@ -1,7 +1,7 @@
 @(salon: Salon, coupons: Seq[Coupon])
 
 <div class="yS mainContentsSecondTitleOuter mT50">
-	<h2 class="yS mainContentsSecondTitleInner">@Messages("coupon.title", salon.label)</h2>
+	<h2 class="yS mainContentsSecondTitleInner">@Messages("coupon.title", salon.salonName)</h2>
 </div>
 
 @views.html.coupon.couponGroup(coupons)

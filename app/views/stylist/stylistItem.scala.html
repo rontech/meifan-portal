@@ -1,6 +1,8 @@
 @(stylist: Stylist)
-
-
+<head>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mySalon.css")">
+</head>
 <body>
 <div class="w166 mHA">
     <div class="taC">
@@ -32,11 +34,6 @@
     </div>
 </div>
 <div class="taC mT10">
-	<a href="@routes.Reservations.reservHairView(stylist.id)" class="bS db nominatedReserve offL mHA">指名して予約する</a>
-</div>
-
-         
-        
-    
+	<a href="@routes.Reservations.reservHairView(stylist.id)" class="salon-stylist-reserv">指名して予約する</a>
 </div>
 </body>

@@ -1,0 +1,284 @@
+.left {
+float: left;
+width: 220px;
+margin-right: 10px;
+font: 14px/150% Arial,Verdana,"\5b8b\4f53";
+}
+.m, .sm {
+margin-bottom: 10px;
+}
+.m, .mt, .mc, .mb, .sm, .smt, .smc, .smb {
+overflow: hidden;
+zoom: 1;
+}
+#myjd .mc {
+border: solid #E6E6E6;
+border-width: 0 1px 1px;
+overflow: hidden;
+}
+dl {
+display: block;
+-webkit-margin-before: 1em;
+-webkit-margin-after: 1em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+}
+#myjd dl dt {
+position: relative;
+margin-bottom: -1px;
+height: 30px;
+padding: 0 12px;
+font-weight: bold;
+line-height: 30px;
+cursor: pointer;
+color: #333333;
+background-color: #F9F9F9;
+}
+#userinfo {
+-moz-border-radius: 2px;
+-webkit-border-radius: 2px;
+border-radius: 2px;
+padding: 10px 10px 10px 5px;
+}
+.m3 {
+border: 1px solid #EDD28B;
+background: #FFFDEE;
+}
+#userinfo .user {
+position: relative;
+}
+.user {
+float: left;
+text-align: center;
+}
+#i-userinfo {
+margin-left: 125px;
+border-left: 1px solid #ffeed6;
+padding-left: 10px;
+}
+.username {
+height: 30px;
+line-height: 25px;
+overflow: hidden;
+margin-bottom: 3px;
+}
+.ftx-03{
+color: #999999;
+}
+.fl {
+float: left;
+}
+.username .extra {
+float: right;
+}
+.account {
+overflow: hidden;
+zoom: 1;
+margin-bottom: 5px;
+line-height: 23px;
+}
+.member {
+border: 1px solid #ffeed6;
+background: #fff;
+height: 23px;
+overflow: hidden;
+float: left;
+margin-right: 10px;
+zoom: 1;
+}
+.rank {
+float: left;
+padding-right: 4px;
+}
+.memb-info {
+border-left: 1px solid #ffeed6;
+color: #999;
+float: left;
+padding-left: 4px;
+width: 380px;
+overflow: hidden;
+}
+.account, .acco-safe {
+overflow: hidden;
+zoom: 1;
+margin-bottom: 5px;
+line-height: 23px;
+}
+#remind {
+border: 1px solid #ffeed6;
+background: #fff;
+padding: 10px;
+overflow: hidden;
+zoom: 1;
+}
+#remind .oinfo {
+float: left;
+width: 405px;
+}
+#remind dl {
+border-top: 1px solid #ffeed6;
+overflow: hidden;
+zoom: 1;
+height: 30px;
+line-height: 30px;
+}
+#UserSkills #UserScore {
+      border-bottom: 1px dashed #eee;
+      overflow: hidden;
+      padding-bottom: 10px;
+    }
+    #UserSkills #UserScore h1 {
+      font-size: 12pt;
+      font-weight: normal;
+      float: left;
+      text-align: center;
+    }
+    #UserSkills #UserScore h1 em {
+      font-size: 20pt;
+      color: red;
+      font-style: normal;
+      color: #F00;
+      display: block;
+      margin: 5px 0 0 0;
+    }
+    #UserSkills #UserScore h1 a {
+      color: #999;
+      text-decoration: none;
+      display: block;
+    }
+    #UserSkills #UserScore h1 a:hover {
+      color: #000;
+    }
+    #UserSkills #UserScore h1.best {
+      width: 80px;
+    }
+    #UserSkills #UserScore h1.score {
+      width: 90px;
+      border-left: 1px solid #eee;
+      padding-left: 10px;
+    }
+    #UserSkills h1.Title {
+      color: #ad4a23;
+      font-size: 16pt;
+    }
+    #UserSkills h1.Title a {
+      font-weight: normal;
+      font-size: 10pt;
+      float: right;
+      margin: 3px 2px 0 0;
+    }
+    #UserSkills ul li {
+      margin: 10px 0 0 0;
+    }
+    #UserSkills ul li strong {
+      font-size: 10.5pt;
+      margin: 0px;
+      font-weight: bold;
+    }
+    #UserSkills ul li p {
+      color: #666;
+    }
+    #UserSkills ul li .more {
+      display: block;
+    }
+    #UserSkills #OtherScore {
+      border-bottom: 1px dashed #eee;
+      padding: 5px 0 5px 20px;
+      overflow: hidden;
+    }
+    #UserSkills #OtherScore h1 {
+      font-size: 10pt;
+      font-weight: normal;
+      float: left;
+    }
+    #UserSkills #OtherScore h1 em {
+      font-size: 10pt;
+      color: red;
+      font-style: normal;
+      color: #F00;
+      margin: 0 15px 0 0px;
+      float: right;
+      width: 50px;
+      text-align: right;
+    }
+    #UserSkills #OtherScore h1 a {
+      color: #999;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+      width: 140px;
+    }
+    #UserSkills #OtherScore h1 a:hover {
+      color: #000;
+    }
+    #remind .oinfo dd {
+width: 104px;
+padding-right: 10px;
+}
+#remind dl dt, #remind dl dd {
+float: left;
+}
+html, body, div, span, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, address, big, cite, code, del, em, font, img, ins, small, strong, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend {
+margin: 0;
+padding: 0;
+}
+.user agent stylesheetdd {
+display: block;
+-webkit-margin-start: 40px;
+}
+.mysalon-stylist-0,.mysalon-stylist-1,.mysalon-stylist-2{
+	float:left;
+	margin-left:15px;
+	margin-top:15px;
+}
+.mysalon-stylist-3{
+	clear:left;
+}
+.mysalon-stylist-3{
+	float:left;
+	margin-left:10px;
+	margin-top:10px;
+}
+.salon-stylist-reserv{
+	background-color:#CCCCFF;
+}
+.mt, .smt {
+cursor: default;
+}
+.m, .mt, .mc, .mb, .sm, .smt, .smc, .smb {
+overflow: hidden;
+zoom: 1;
+}
+.tab {
+border-bottom: 1px solid #edd28b;
+cursor: pointer;
+}
+.tab {
+padding-left: 5px;
+border-bottom: 2px solid #ffccaa;
+z-index: 2;
+}
+.right .tab li {
+background-image: url(i/tabindex.png);
+letter-spacing: 1px;
+}
+.tab li {
+float: left;
+background: url(i/tab.gif) 0 -28px;
+line-height: 29px;
+margin-right: 3px;
+text-align: center;
+height: 27px;
+padding: 0 10px;
+position: relative;
+overflow: hidden;
+}
+.curr{
+color: #cc0000;
+font-weight: bold;
+font-size:16px;
+letter-spacing: 0;
+}
+.left dl{
+	margin-bottom:30px;
+}

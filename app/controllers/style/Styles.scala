@@ -13,7 +13,31 @@ import views._
 
 object Styles extends Controller {
 
-
+  /**
+   * 定义一个发型查询数据表单
+   */
+  val styleSearchForm:Form[Style] = Form(
+	    mapping(
+	        "impression" -> text,
+		    "serviceType" -> text,
+		    "styleLength" -> text,
+		    "styleColor" -> list(text),
+		    "styleAmount" -> list(text),
+		    "styleQuality" -> list(text),
+		    "styleDiameter" -> list(text),
+		    "faceType" -> list(text)
+	        ){
+	      (impression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceType) =>
+	          Style(new ObjectId,"",new ObjectId,new ObjectId,List(""),
+	           impression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceType,"")
+	    }
+	    {
+	      style=> Some((style.impression,style.serviceType,
+	          style.styleLength,style.styleColor,style.styleAmount,style.styleQuality,
+	          style.styleDiameter,style.faceType))
+	    }
+  )
+  
   def index = Action {
      val styles: Seq[Style] = Style.findAll()
      Ok(html.style.overview(styles))
@@ -42,7 +66,20 @@ object Styles extends Controller {
 
  }
   
-
-
+  def styleSearchList = Action {
+    implicit request => 
+	  styleSearchForm.bindFromRequest.fold(
+	      errors => BadRequest(html.index("")),
+      {
+          case(styleSearchForm) => {
+            Ok(html.style.styleSearchList(styleSearchForm))
+          }
+      }
+    )
+  }
+  
+  def styleSearch = Action {
+    Ok(html.style.styleSearch(styleSearchForm))
+  }
 
 }

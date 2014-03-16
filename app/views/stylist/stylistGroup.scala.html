@@ -1,0 +1,18 @@
+@(stylists: Seq[Stylist])
+<!-- components to list the hair style. -->
+<div class="w166 mHA">
+	<div class="taC">
+	@if(stylists.length<=1){
+		@stylists.map{st =>
+    	<p><a href="@routes.Stylists.findBySalon(st.salonId)">查看店铺所有技师</a></p>
+    	}
+    }
+	</div>
+</div>
+<div class="mysalon-stylist-group">
+	@stylists.map{sty=>
+		<div class="mysalon-stylist-@(stylists.indexOf(sty)%4)">
+			@views.html.stylist.stylistItem(sty)
+		</div>
+	}
+</div>

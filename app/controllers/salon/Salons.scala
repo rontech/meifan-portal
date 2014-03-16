@@ -5,13 +5,13 @@ import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
 import com.mongodb.casbah.commons.Imports._
-
 import models._
 import views._
+import java.util.Date
 
 
 object Salons extends Controller {
-
+	
   def index = Action {
     val salons: Seq[Salon] = Salon.findAll()
 //    Ok(views.html.salon.overview(salons))
@@ -26,6 +26,6 @@ object Salons extends Controller {
     // Option when null
     Ok(views.html.salon.store.salonInfoBasic(salon = salon.get))
   }
-
-
+   
+  
 }

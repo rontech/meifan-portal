@@ -1,5 +1,4 @@
 @(coupon: Coupon)
-
 <div>
 	<table summary="summary" cellspacing="1" class="mT2 wFull bgLGray2 fs10 couponTable">
 		<tbody>
@@ -27,7 +26,7 @@
 						<dl class="mT10">
 							<dt class="di fgPink"><font><font>@Messages("coupon.meldTime")</font></font></dt><dd class="di mR10 pR10 fgGray bdLGrayR"><font><font>@coupon.meldTime</font></font></dd>
 							<dt class="di fgPink"><font><font>@Messages("coupon.useRules")</font></font></dt><dd class="di mR10 pR10 fgGray bdLGrayR"><font><font>@coupon.useRules</font></font></dd>
-							<dt class="di fgPink"><font><font>@Messages("coupon.endDate")</font></font></dt><dd class="di mR20 fgGray"><font><font>@Messages("coupon.util")@coupon.endDate.format("yyyy年MM月dd日")</font></font></dd>
+							<dt class="di fgPink"><font><font>@Messages("coupon.endDate")</font></font></dt><dd class="di mR20 fgGray"><font><font>@Messages("coupon.util")@coupon.endDate.format("yyyy-MM-dd")</font></font></dd>
 						</dl>
 					</div>
 				</td>

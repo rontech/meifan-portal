@@ -1,0 +1,65 @@
+@(stylistForm: Form[Stylist], user: User, stylistStyle:List[String] = List("美发师","美甲师", "按摩师", "整容师"), images:List[String]=List("甜美","大方","清新","成熟"), 
+	consumerId: List[String] = List("公司白领", "蓝领", "公务员", "医生") )
+@import helper._
+
+@myPageMain(navInMyPage = "my-reservation",user){
+	
+	<div class="container">
+
+    <div class="content">
+
+      <div class="page-header">
+        <h1>个人用户申请技师</h1>
+      </div>
+
+      <div class="row">
+        <div class="span14">
+          	@form(routes.Users.commitStylistApply(), 'id -> "userForm"){
+		
+       		@inputText(stylistForm("label"), '_label -> "昵称", 'value ->user.nickNm,
+            	'_error -> stylistForm("label").error.map(_.withMessage("请输入用户名!")))
+			
+			@inputText(stylistForm("workYears"), '_label -> "工作年数", 'class ->  "font1")
+			
+			@inputText(stylistForm("salonId"), '_label -> "salonId", 'class ->  "font1")
+			
+			@input(field = stylistForm("stylistStyle"),args = '_label ->"技师类别"){(id,name,value,args) =>
+			 	@for(i <- 0 to stylistStyle.length-1){
+			 		<input type = "checkbox" class="" name = "stylistStyle[@i]", value = "@stylistStyle(i)">@stylistStyle(i)
+			 	}
+			  }
+			  
+			
+			@input(field = stylistForm("imageId"),args = '_label ->"擅长风格"){(id,name,value,args) =>
+			 	@for(i <- 0 to stylistStyle.length-1){
+			 		<input type = "checkbox" name = "imageId[@i]", value = "@images(i)">@images(i)
+			 	}
+			  }
+			  
+			@input(field = stylistForm("consumerId"),args = '_label ->"擅长人群"){(id,name,value,args) =>
+			 	@for(i <- 0 to consumerId.length-1){
+			 		<input type = "checkbox" name = "consumerId[@i]", value = "@consumerId(i)">@consumerId(i)
+			 	}
+			  }
+			  
+			            
+            @textarea(field = stylistForm("description"),'rows ->4, 'cols ->80, '_label -> "职业描述", '_help ->"方便顾客了解你")
+ 		
+		  
+        <input type="submit" class = "buttons" value="提交申请">
+            
+        <input type = "reset" class = "buttons" value="重置">
+        </div>
+      </div>
+
+    </div>
+
+    
+
+  </div>
+	
+		
+	}
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">
+}
+

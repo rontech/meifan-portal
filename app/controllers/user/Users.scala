@@ -9,6 +9,8 @@ import play.api.data.Forms._
 import models._
 
 
+
+
 object Users extends Controller {
   def registerForm(id :ObjectId = new ObjectId) = Form(
     mapping(
@@ -78,6 +80,30 @@ object Users extends Controller {
     }.verifying(
         "This userId is not available",user => User.findByNickNm(user.nickNm).nonEmpty)
   )
+  
+  /**
+   * 定义用户申请技师的表单
+   */
+  def stylistForm: Form[Stylist] = Form(
+    mapping(
+    	"label" -> text,
+    	"salonId" -> text,
+    	"workYears" -> text,
+    	"stylistStyle" -> list(text),
+    	"imageId" ->list(text),
+    	"consumerId" -> list(text),
+    	"description" -> text
+    ){
+      (label,salonId,workYears,stylistStyle,imageId,consumerId,description)=>
+        Stylist(new ObjectId, label, new ObjectId(salonId), new ObjectId, workYears, stylistStyle, imageId,
+        
+            consumerId, description, new String, 0)
+    }
+    {
+      stylist => Some((stylist.label, stylist.salonId.toString, stylist.workYears, stylist.stylistStyle, (stylist.imageId.toString)::Nil, 
+          stylist.consumerId.toString::Nil, stylist.description))
+    }
+  )
 //  val userForm: Form[User] = Form(
 //    mapping(
 //      "username" -> text,
@@ -97,21 +123,26 @@ object Users extends Controller {
 //        user => Some((user.username, user.password, user.sex, user.age, user.tel, user.email, user.education, user.introduce, user.added, user.updated))
 //      }
 //  )
+  def login = Action {
+    Ok(views.html.user.login(Users.loginForm))
+  }
+
+  def register = Action {
+    Ok(views.html.user.register(Users.registerForm()))
+  }
   
-  def login() = Action { implicit request =>
+  def doLogin = Action { implicit request =>
     Users.loginForm.bindFromRequest.fold(
       errors => BadRequest(views.html.user.login(errors)),
       {
         user =>
-          Redirect(routes.Users.myPage(user._1))
-//          val user_id = User.findId(user._1)
-//          Redirect(routes.MyPages.myPageMain).withSession(request.session+("user_id" -> user_id.toString()))
+          Redirect(routes.Users.myPage(user._1)).withSession(request.session + ("userId" -> user._1))
       })
   }
 
-  def register = Action { implicit request =>
+  def doRegister = Action { implicit request =>
     Users.registerForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.user.message1(errors)),
+      errors => BadRequest(views.html.user.register(errors)),
       {
         user =>
           User.save(user, WriteConcern.Safe)
@@ -121,24 +152,32 @@ object Users extends Controller {
 
   def update(id: ObjectId) = Action { implicit request =>
     Users.userForm(id).bindFromRequest.fold(
-      errors => BadRequest(views.html.user.message1(errors)),
+//      errors => BadRequest(views.html.user.Infomation(errors,User.findOneByID(id).get)),
+        errors => BadRequest(views.html.user.errorMsg(errors)),
       {
         user =>
-//          User.save(user.copy(id = id), WriteConcern.Safe)
+          println("1231231312131131231")
           User.save(user, WriteConcern.Safe)
-          Ok(views.html.user.success(user.userId))
+          Ok(views.html.user.myPageRes(user))
       })
   }
 
   def show(userId: String) = Action {
     User.findOneByUserId(userId).map { user =>
       val userForm = Users.userForm().fill(user)
-      Ok(views.html.user.Infomation(userForm))
+      Ok(views.html.user.Infomation(userForm,user))
     } getOrElse {
       NotFound
     }
   }
 
+  def index = Action{ implicit request =>
+    if(!request.session.get("userId").nonEmpty){
+      Redirect(routes.Users.login)
+    }else
+	  Redirect(routes.Users.myPage(request.session.get("userId").get))
+  }
+  
   def myPage(userId :String) = Action{
     val user = User.findOneByUserId(userId).get
     Ok(views.html.user.myPageRes(user))
@@ -168,4 +207,37 @@ object Users extends Controller {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.mySaveSalonActi(user = user.get))
   }
+  
+  /**
+   * 申请成为技师
+   */
+  def applyStylist = Action {
+    val user = new User(new ObjectId, "123456576", "12333333", "adsad", new Date, "1",
+        "jiangsu", "18606291469", "1324567987","729932232",
+        "456d4sdsd", "..", "..", "1", "1", 1, new Date, ".")
+    Ok(views.html.user.applyStylist(stylistForm, user))
+  }
+  
+  /**
+   * 店长或店铺管理者确认后才录入数据库
+   */
+  def commitStylistApply() = Action {implicit request=>
+    /*val userId = request.session.get("user")*/
+    val user = new User(new ObjectId, "123456576", "12333333", "adsad", new Date, "1",
+        "jiangsu", "18606291469", "1324567987","729932232",
+        "456d4sdsd", "..", "..", "1", "1", 1, new Date, ".")
+    val userId = new ObjectId
+  	stylistForm.bindFromRequest.fold(
+      errors => BadRequest(views.html.fortest(errors)),
+      {
+    	  stylist =>
+    	    Stylist.save(stylist)
+    	    val applyRecord = new ApplyRecord(new ObjectId, stylist.id, stylist.salonId, 1,
+    	        new Date, None, None, None, 0)
+    	    ApplyRecord.save(applyRecord)
+    	    Redirect(routes.Users.show(userId.toString))
+      })
+      
+  }
+  
 }

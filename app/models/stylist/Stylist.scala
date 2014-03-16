@@ -2,16 +2,13 @@ package models
 
 import play.api.Play.current
 import play.api.PlayException
-
 import com.novus.salat._
 import com.novus.salat.dao._
-
 import com.mongodb.casbah.commons.Imports._
 import com.mongodb.casbah.MongoConnection
-
 import com.novus.salat.Context
-
 import mongoContext._
+import java.util.Date
 
 
 case class Stylist(
@@ -21,10 +18,11 @@ case class Stylist(
     userId: ObjectId,
     workYears: String,
     stylistStyle: List[String],
-    imageId: ObjectId,
-    consumerId: ObjectId,
+    imageId:List[String],
+    consumerId: List[String],
     description: String,
-    pictureName: String
+    pictureName: String,
+    status: Int
 )
 
 
@@ -35,7 +33,6 @@ object StylistDAO extends SalatDAO[Stylist, ObjectId](
           "Configuration error",
           "Could not find mongodb.default.db in settings"))
   )("Stylist"))
-
 
 object Stylist {
 
@@ -62,7 +59,8 @@ object Stylist {
                 imageId = stylist.imageId,
                 consumerId = stylist.consumerId,
                 description = stylist.description,
-                pictureName = stylist.pictureName
+                pictureName = stylist.pictureName,
+                status = stylist.status
             )
         )
     }
@@ -79,14 +77,13 @@ object Stylist {
                 imageId = stylist.imageId,
                 consumerId = stylist.consumerId,
                 description = stylist.description,
-                pictureName = stylist.pictureName
-                
-                
+                pictureName = stylist.pictureName,
+                status = stylist.status
             )
         )
     }
-
-   def delete(id: String) {
+    
+    def delete(id: String) {
         StylistDAO.remove(MongoDBObject("_id" -> new ObjectId(id)))
     }
 

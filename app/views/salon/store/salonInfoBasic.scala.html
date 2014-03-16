@@ -2,8 +2,128 @@
 
 @salonInfoMain(navInSalon = "salon-basic", salon) {
 
-    <div>
-        <h1>Test successful!</h1>
+    <div class="mT30">
+        <div class="yS mainContentsSecondTitleOuter">
+        <h2 class="yS mainContentsSecondTitleInner">
+            @salon.salonName のサロンデータ
+        </h2>
+        </div>
+        <p class="mT5 taR">
+        <i>
+            <em class="seoCaption">
+            @salon.salonName 
+            </em>
+        </i>
+        </p>
+        <table cellspacing="0" class="wFull bdCell bgThNml fgThNml vaThT pCellV10H12">
+        <tbody>
+            <tr>
+            <th class="w120">
+                電話番号
+            </th>
+            <td colspan="3" class="w620">
+                <a href="#"/>
+                番号を表示: @salon.mainPhone
+                </a>
+            </td>
+            </tr>
+            <tr>
+            <th class="w120">
+                住所
+            </th>
+            <td colspan="3" class="w620">
+                @salon.address.province @salon.address.city @salon.address.region @salon.address.addrDetail &nbsp;
+            </td>
+            </tr>
+            <tr>
+            <th class="w120">
+                アクセス・道案内
+            </th>
+            <td colspan="3" class="w620">
+               @salon.accessMethodDesc &nbsp; 
+            </td>
+            </tr>
+            <tr>
+            <th class="w120">
+                営業時間
+            </th>
+            <td colspan="3" class="w620">
+                平日・土10：00～21：00　日祝10：00～20：00&nbsp;
+            </td>
+            </tr>
+            <tr>
+            <th class="w120">
+                定休日
+            </th>
+            <td colspan="3" class="w620">
+                毎週火曜日　&nbsp;
+            </td>
+            </tr>
+            <tr>
+            <th class="w120">
+                クレジットカード
+            </th>
+            <td colspan="3" class="w620">
+                可&nbsp;
+            </td>
+            </tr>
+            <tr>
+            <th class="w120">
+                お店のホームページ
+            </th>
+            <td colspan="3" class="w620">
+                <p>
+                <i>
+                    <em class="seoCaption">
+                    @salon.salonName
+                    </em>
+                </i>
+                </p>
+                <a href="javascript:void(0);" id="store_hp">
+                @salon.homepage                
+                </a>
+            </td>
+            </tr>
+            <tr>
+            <th class="w120">
+                カット価格
+            </th>
+            <td class="w208 vaT">
+                ¥6300&nbsp;
+            </td>
+            <th class="w120">
+                席数
+            </th>
+            <td class="w208 vaT">
+                @salon.seatNums 席&nbsp;
+            </td>
+            </tr>
+            <tr>
+            <th class="w120">
+                スタイリスト数
+            </th>
+            <td class="w208 vaT">
+                ２人&nbsp;
+            </td>
+            <th class="w120">
+                駐車場
+            </th>
+            <td class="w208 vaT">
+                近くにあります&nbsp;
+            </td>
+            </tr>
+            <tr>
+            <th class="w120">
+                こだわり条件
+            </th>
+            <td colspan="3" class="w620">
+               @salon.salonDescription 
+            </td>
+            </tr>
+        </tbody>
+        </table>
     </div>
+
+
 
 }
