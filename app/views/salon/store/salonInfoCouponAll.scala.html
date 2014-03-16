@@ -1,12 +1,20 @@
-@(salon: Salon, coupons: Seq[Coupon])
+@(salon: Salon, serviceTypes: Seq[ServiceType], coupons: Seq[Coupon], menus: Seq[Menu], serviceTypeNames: Seq[String])
 
 @salonInfoMain(navInSalon = "salon-coupon", salon) {
 	
 	<head>
 		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">	
 	</head>
+	
+	@views.html.coupon.couponSearchGroup(salon, serviceTypes)
 
-    <!-- Get All the Salons with all the styles.  -->
-    @views.html.coupon.couponGroup(coupons)
+    <!-- Get the Salon with all the coupons.  -->
+    @views.html.coupon.couponComponent(salon, coupons)
+    
+    <!-- Get the Salon with all the menus.  -->
+    @views.html.menu.menuGroup(salon, menus)
+    
+    <!-- Get the Salon with all the services.  -->
+    @views.html.menu.menuGroupByType(serviceTypeNames)
 
 }

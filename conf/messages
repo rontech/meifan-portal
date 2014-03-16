@@ -84,4 +84,28 @@ service.delete=删除
 service.back=返回
 service.update=更新
 
- 
+# Coupon&Menu
+coupon.title = {0} 的优惠券
+coupon.meldTime = 演示条件： 
+coupon.useRules = 条款及细则：
+coupon.endDate = 到期日：
+coupon.util = 直到
+coupon.tip = 没有找到您希望的优惠券！
+coupon.menu = 搜索条件
+coupon.searchOption = 搜索选项
+coupon.searchOptionContent = 包含上述所选条件
+coupon.search = 搜索
+coupon.appointment1 = 该优惠券
+coupon.appointment2 = 空缺查询
+coupon.addMenu = 增加菜单
+coupon.currency = 元
+coupon.newConpon = 新
+coupon.conpon = 券
+
+menu.title = {0} 的菜单
+menu.tip = 没有找到您希望的菜单！
+menu.addMark = +
+menu.appointment = 空缺查询·预约
+menu.todoMessage = 该位置显示服务的描述
+
+
