@@ -1,44 +1,144 @@
 @(coupon: Coupon)
 <div>
-	<table summary="summary" cellspacing="1" class="mT2 wFull bgLGray2 fs10 couponTable">
-		<tbody>
-			<tr>
-				<td class="bgPink8 fgWhite bd0 taC p5 fs12 b"><font><font>
-					
-					@Messages("coupon.newConpon")</font></font><br><font><font>@Messages("coupon.conpon")
-					</font></font></td>
-				<td class="w554 bgWhite">
-				<div class="w534 p10">
-						<div class="">
-							<div class="">
-								<ul class="couponMenuIcons fs10 cFix">
-									@for(serviceType <- coupon.categories) {
-										<li class="couponMenuIcon mB5"><font><font>@serviceType.serviceTypeName</font></font></li>
-									}
-								</ul>
-							</div>
-							<div class="mT5 b fs12 cFix">
-								<p class="fl"><font><font>@coupon.couponName</font></font></p>
-								<p class="fr fgRed"><span class="fs13"><font><font>@coupon.perferentialPrice @Messages("coupon.currency")</font></font></span></p>
-							</div>
-						</div>
-						<p class="mT10 fgGray fs10"><font><font class="">@coupon.description</font></font></p>
-						<dl class="mT10">
-							<dt class="di fgPink"><font><font>@Messages("coupon.meldTime")</font></font></dt><dd class="di mR10 pR10 fgGray bdLGrayR"><font><font>@coupon.meldTime</font></font></dd>
-							<dt class="di fgPink"><font><font>@Messages("coupon.useRules")</font></font></dt><dd class="di mR10 pR10 fgGray bdLGrayR"><font><font>@coupon.useRules</font></font></dd>
-							<dt class="di fgPink"><font><font>@Messages("coupon.endDate")</font></font></dt><dd class="di mR20 fgGray"><font><font>@Messages("coupon.util")@coupon.endDate.format("yyyy-MM-dd")</font></font></dd>
-						</dl>
-					</div>
-				</td>
-				<td class="bdWhite bgLLGray2 vaM">
-					<div class="pV10 fs12">
-						<div>
-							<a href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733&amp;couponId=CP00000003458772&amp;add=0&amp;addMenu=0&amp;rootCd=10" class="btn btn2H50 btnWlines w146 mHA"><span><span><font><font>@Messages("coupon.appointment1")</font></font><br><font><font>@Messages("coupon.appointment2")</font></font></span></span></a>
-						</div>
-						<div class="mT8 taC"><a href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733&amp;couponId=CP00000003458772&amp;add=1&amp;addMenu=1&amp;rootCd=10" class="iS arrowR"><font><font>@Messages("coupon.addMenu")</font></font></a></div>
-						</div>
-				</td>
-				</tr>
-		</tbody>
-	</table>
+    <table summary="summary" cellspacing="1" class="mT2 wFull bgLGray2 fs10 couponTable">
+        <tbody>
+            <tr>
+                <td class="bgPink8 fgWhite bd0 taC p5 fs12 b">
+                    <font>
+                        <font>
+                            @Messages("coupon.newConpon")
+                        </font>
+                    </font>
+                    <br>
+                    <font>
+                        <font>
+                            @Messages("coupon.conpon")
+                        </font>
+                    </font>
+                </td>
+                <td class="w554 bgWhite">
+                    <div class="w534 p10">
+                        <div class="">
+                            <div class="">
+                                <ul class="couponMenuIcons fs10 cFix">
+                                    @for(serviceType
+                                    <- coupon.serviceCategories) { <li class="couponMenuIcon mB5">
+                                        <font>
+                                            <font>
+                                                @serviceType.serviceTypeName
+                                            </font>
+                                        </font>
+                                        </li>
+                                        }
+                                </ul>
+                            </div>
+                            <div class="mT5 b fs12 cFix">
+                                <p class="fl">
+                                    <font>
+                                        <font>
+                                            @coupon.couponName
+                                        </font>
+                                    </font>
+                                </p>
+                                <p class="fr fgRed">
+                                    <span class="fs13">
+                                        <font>
+                                            <font>
+                                                @coupon.perferentialPrice @Messages("coupon.currency")
+                                            </font>
+                                        </font>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <p class="mT10 fgGray fs10">
+                            <font>
+                                <font class="">
+                                    @coupon.description
+                                </font>
+                            </font>
+                        </p>
+                        <dl class="mT10">
+                            <dt class="di fgPink">
+                                <font>
+                                    <font>
+                                        @Messages("coupon.presentTime")
+                                    </font>
+                                </font>
+                            </dt>
+                            <dd class="di mR10 pR10 fgGray bdLGrayR">
+                                <font>
+                                    <font>
+                                        @coupon.presentTime
+                                    </font>
+                                </font>
+                            </dd>
+                            <dt class="di fgPink">
+                                <font>
+                                    <font>
+                                        @Messages("coupon.useConditions")
+                                    </font>
+                                </font>
+                            </dt>
+                            <dd class="di mR10 pR10 fgGray bdLGrayR">
+                                <font>
+                                    <font>
+                                        @coupon.useConditions
+                                    </font>
+                                </font>
+                            </dd>
+                            <dt class="di fgPink">
+                                <font>
+                                    <font>
+                                        @Messages("coupon.endDate")
+                                    </font>
+                                </font>
+                            </dt>
+                            <dd class="di mR20 fgGray">
+                                <font>
+                                    <font>
+                                        @coupon.endDate.format("yyyy-MM-dd")
+                                    </font>
+                                </font>
+                            </dd>
+                        </dl>
+                    </div>
+                </td>
+                <td class="bdWhite bgLLGray2 vaM">
+                    <div class="pV10 fs12">
+                        <div>
+                            <a href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733&amp;couponId=CP00000003458772&amp;add=0&amp;addMenu=0&amp;rootCd=10"
+                            class="btn btn2H50 btnWlines w146 mHA">
+                                <span>
+                                    <span>
+                                        <font>
+                                            <font>
+                                                @Messages("coupon.appointment1")
+                                            </font>
+                                        </font>
+                                        <br>
+                                        <font>
+                                            <font>
+                                                @Messages("coupon.appointment2")
+                                            </font>
+                                        </font>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="mT8 taC">
+                            <a href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733&amp;couponId=CP00000003458772&amp;add=1&amp;addMenu=1&amp;rootCd=10"
+                            class="iS arrowR">
+                                <font>
+                                    <font>
+                                        @Messages("coupon.addMenu")
+                                    </font>
+                                </font>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

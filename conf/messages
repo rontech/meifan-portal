@@ -86,11 +86,10 @@ service.update=更新
 
 # Coupon&Menu
 coupon.title = {0} 的优惠券
-coupon.meldTime = 演示条件： 
-coupon.useRules = 条款及细则：
+coupon.presentTime = 出示时间： 
+coupon.useConditions = 使用条件：
 coupon.endDate = 到期日：
-coupon.util = 直到
-coupon.tip = 没有找到您希望的优惠券！
+coupon.noCouponSearched = 没有找到您希望的优惠券！
 coupon.menu = 搜索条件
 coupon.searchOption = 搜索选项
 coupon.searchOptionContent = 包含上述所选条件
