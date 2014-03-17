@@ -2,13 +2,40 @@
 @import helper._
 @import helper.twitterBootstrap._
 
+@phoneField(field: Field, className: String = "contact") = {
+    @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
+        <input type="text" name="@name" value="@value"> 
+    }
+}
+
+@informationGroup(field: Field, className: String = "profile") = {
+    <div class="twipsies well @className">
+
+        @inputText(
+            field("contMethmodType"), 
+            '_label -> Messages("salon.contMethmodType")
+        )
+        
+        <div class="phones">
+
+            @repeat(field("account"), min = 0) { account =>
+                
+                @phoneField(account)
+    
+            }        
+        </div>
+
+    </div>
+}
+
 @main("basicInformation"){
+
 <div class="basicInformation-content">
 	<div class="basicInformation">
 		<h2>@Messages("salon.title")</h2>
 
-		@helper.form(action = routes.Users.login, args = 'id -> "userloginForm"){
-		 <fieldset >	         
+		@helper.form(action = routes.SalonInfo.update(salon.get.id), args = 'id -> "salonForm"){
+		 <fieldset >         
             @inputText(salon("salonName"),'_label ->  Messages("salon.Name"))           
             @inputText(salon("salonNameAbbr"),'_label -> Messages("salon.Abbr"))			
 			@select(
@@ -24,8 +51,12 @@
 			@inputText(salon("salonDescription"), '_label -> Messages("salon.description"))
 			@inputText(salon("mainPhone"), '_label -> Messages("salon.mainPhone"))
 			@inputText(salon("contact"), '_label -> Messages("salon.contact"))
-			@inputText(salon("optContactMethod.contMethmodType"), '_label -> Messages("salon.contMethmodType"))
-			@inputText(salon("optContactMethod.account"), '_label -> Messages("salon.account"))
+			<div id="profiles">           
+                @repeat(salon("optContactMethod")) { optContactMethod =>                
+                    @informationGroup(optContactMethod)
+                
+                }                               
+            </div>
 			@inputDate(salon("establishDate"), '_label -> Messages("salon.establishDate"))			
 			@inputText(salon("address.province"), '_label -> Messages("salon.province"))
 			@inputText(salon("address.city"), '_label -> Messages("salon.city"))
@@ -57,4 +88,5 @@
 		}
 		</div>
 </div>
+
 }
