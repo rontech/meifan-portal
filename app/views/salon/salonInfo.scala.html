@@ -2,24 +2,6 @@
 @import helper._
 @import helper.twitterBootstrap._
 
-@accountField(field: Field, className: String = "account") = {
-    @input(field, '_label -> "accounts", '_class -> className) { (id, name, value, _) =>
-        <input type="text" name="@name" value="@value">
-    }
-}
-
-@informationGroup(field: Field, className: String = "profile") = {
-        @inputText(
-            field("contMethmodType"), 
-            '_label -> "contMethmodType"
-        )
-        
-        @repeat(field("account"), min = 0) { account =>
-                
-                @accountField(account)   
-            }
-}
-
 @main("basicInformation"){
 <div class="basicInformation-content">
 	<div class="basicInformation">
@@ -42,9 +24,8 @@
 			@inputText(salon("salonDescription"), '_label -> Messages("salon.description"))
 			@inputText(salon("mainPhone"), '_label -> Messages("salon.mainPhone"))
 			@inputText(salon("contact"), '_label -> Messages("salon.contact"))
-			@repeat(salon("optContactMethod")) { optContactMethod =>
-               @informationGroup(optContactMethod)
-            }	
+			@inputText(salon("optContactMethod.contMethmodType"), '_label -> Messages("salon.contMethmodType"))
+			@inputText(salon("optContactMethod.account"), '_label -> Messages("salon.account"))
 			@inputDate(salon("establishDate"), '_label -> Messages("salon.establishDate"))			
 			@inputText(salon("address.province"), '_label -> Messages("salon.province"))
 			@inputText(salon("address.city"), '_label -> Messages("salon.city"))
