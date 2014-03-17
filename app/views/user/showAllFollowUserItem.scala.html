@@ -1,0 +1,17 @@
+@(followUser:User)
+	<li><table class="ostable">
+		<tbody>
+			<tr>
+				<td class="avatar"><a href="#" title=""><img src="#" align="absmiddle" alt="" title="1" class="SmallPortrait" user="1435017"></a></td>
+				<td class="update">
+					<span class="name"><a href="#" target="_blank">@followUser.userId</a></span><br>
+					<span class="city">@followUser.point</span>
+				</td>
+				<td class="opts">
+					<a href="#">@Messages("user.cancleFollow")</a>
+					<a href="#">@Messages("user.sendMsg")</a>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+</li>
