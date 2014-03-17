@@ -50,5 +50,5 @@ trait UserDAO extends ModelCompanion[User, ObjectId] {
       def findByEmail(email: String) = dao.find(MongoDBObject("email" -> email))
       
       // Check the password when logining
-      def authenticate(userId: String, password: String): Option[User] = findOne(MongoDBObject("userId" -> userId, "password" -> password))
+      def authenticate(userId: String, password: String): Option[User] = dao.findOne(MongoDBObject("userId" -> userId, "password" -> password))
 }

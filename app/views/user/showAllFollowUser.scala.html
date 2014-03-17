@@ -1,0 +1,26 @@
+@(followUserList : List[User],user:User)
+
+@main("") {
+	
+	<head>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
+	</head>
+	
+    <div id="OSC_Content">
+        	<div id='SpaceLeft'>
+        		@views.html.user.myPageLeft(user)
+        	</div>
+			<div id='SpaceMain'>
+	    		 <div class="MMod" id="Logs">
+    				<ul>
+    					@followUserList.map{followUser =>
+    					
+    						@views.html.user.showAllFollowUserItem(followUser)
+    					
+    					}
+    				</ul>
+   				</div>
+       		</div>	        
+        </div>
+
+}
