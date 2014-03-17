@@ -14,6 +14,7 @@
 bin
 db
 eclipse
+lib
 log
 logs
 project/project
@@ -29,4 +30,3 @@ dist
 
 # individual work plan not to commit.
 doc/plan
-

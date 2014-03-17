@@ -30,7 +30,7 @@ object Salons extends Controller {
        Seq(OptContactMethod("QQ",List("99198121"))), new Date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)),
        "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", 
        new Date("2014-03-12") )
-    Ok(views.html.store.mySalonHome(salon = salon))
+    Ok(views.html.salon.admin.mySalonHome(salon = salon))
   }
   
   def myStylist(salonId: ObjectId) = Action {
