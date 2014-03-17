@@ -79,7 +79,7 @@ object Styles extends Controller {
   }
   
   def styleSearch = Action {
-    Ok(html.style.styleSearch())
+    Ok(html.style.styleSearch(styleSearchForm))
   }
 
 }

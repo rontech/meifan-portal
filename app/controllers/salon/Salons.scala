@@ -11,7 +11,7 @@ import java.util.Date
 
 
 object Salons extends Controller {
-
+	
   def index = Action {
     val salons: Seq[Salon] = Salon.findAll()
 //    Ok(views.html.salon.overview(salons))
@@ -44,9 +44,4 @@ object Salons extends Controller {
   def myComment(salonId: ObjectId) = Action {
     Ok(views.html.salon.general.index(""))
   }
-  
-  def myService(salonId: ObjectId) = Action {
-    Ok(views.html.salon.general.index(""))
-  }
-
 }
