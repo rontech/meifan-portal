@@ -54,6 +54,7 @@ GET		/rejectStylistApply/:stylistId/:salonId		    controllers.SalonsAdmin.reject
 GET     /salon                          controllers.Salons.index
 GET     /salon/:id                      controllers.Salons.getSalon(id: ObjectId)
 GET     /salonInfo/      				controllers.SalonInfo.salonInfoBasic
+GET     /salonUpd/:id              		controllers.SalonInfo.update(id: ObjectId)
 
 # Coupon
 GET     /coupon                         controllers.Coupons.index
