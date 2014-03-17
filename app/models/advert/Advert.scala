@@ -24,7 +24,7 @@ case class Advert(
 object Advert extends AdvertDAO
 
 trait AdvertDAO extends ModelCompanion[Advert, ObjectId] {
-  def collection = mongoCollection("adverts")
+  def collection = mongoCollection("Advert")
   val dao = new SalatDAO[Advert, ObjectId](collection) {}
 
 }

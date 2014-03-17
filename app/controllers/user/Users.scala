@@ -156,7 +156,6 @@ object Users extends Controller {
         errors => BadRequest(views.html.user.errorMsg(errors)),
       {
         user =>
-          println("1231231312131131231")
           User.save(user, WriteConcern.Safe)
           Ok(views.html.user.myPageRes(user))
       })

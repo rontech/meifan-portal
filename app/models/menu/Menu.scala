@@ -13,21 +13,22 @@ import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
 case class Menu (
-		id: ObjectId = new ObjectId,
-		salonId: ObjectId,
-		serviceItems: Seq[Service],
-		categories: Seq[ServiceType],
-		originalPrice: BigDecimal,
-		status: String
+        id: ObjectId = new ObjectId,
+        salonId: ObjectId,
+        serviceItems: Seq[Service],
+        categories: Seq[ServiceType],
+        originalPrice: BigDecimal,
+        status: String
 )
 
 object Menu extends ModelCompanion[Menu, ObjectId]{
 
-	val dao = new SalatDAO[Menu, ObjectId](collection = mongoCollection("Menu")){}
+    val dao = new SalatDAO[Menu, ObjectId](collection = mongoCollection("Menu")){}
 
-	def addMenu (menu :Menu) = dao.save(menu, WriteConcern.Safe)
+    def addMenu (menu :Menu) = dao.save(menu, WriteConcern.Safe)
 
-	def findAllMenus : List[Menu] = dao.find(MongoDBObject.empty).toList
-	
-	def findBySalon(salonId: ObjectId): List[Menu] = dao.find(MongoDBObject("salonId" -> salonId)).toList
+    def findAllMenus : List[Menu] = dao.find(MongoDBObject.empty).toList
+    
+    def findBySalon(salonId: ObjectId): List[Menu] = dao.find(MongoDBObject("salonId" -> salonId)).toList
+
 }
