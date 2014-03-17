@@ -14,22 +14,22 @@ import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
 case class Coupon (
-		id: ObjectId = new ObjectId,
-		couponId: String,
-		couponName: String,
-		salonId: ObjectId,
-		stylistId: ObjectId,
-		serviceItems: Seq[Service],
-		categories: Seq[ServiceType],
-		originalPrice: BigDecimal,
-		perferentialPrice: BigDecimal,
-		serviceDuration: Int,
-		startDate: Date,
-		endDate: Date,
-		useRules: String,
-		meldTime: String,
-		description: String,
-		status: String
+        id: ObjectId = new ObjectId,
+        couponId: String,
+        couponName: String,
+        salonId: ObjectId,
+        stylistId: ObjectId,
+        serviceItems: Seq[Service],
+        serviceCategories: Seq[ServiceType],
+        originalPrice: BigDecimal,
+        perferentialPrice: BigDecimal,
+        serviceDuration: Int,            // Unit: Minutes.
+        startDate: Date,
+        endDate: Date,
+        useConditions: String,
+        presentTime: String,
+        description: String,
+        status: String
 )
 
 object CouponDAO extends SalatDAO[Coupon, ObjectId](
@@ -53,20 +53,20 @@ object Coupon {
   def save(coupon: Coupon) = {
         CouponDAO.save(
             Coupon(
-            	id = coupon.id,
+                id = coupon.id,
                 couponId = coupon.couponId,
                 couponName = coupon.couponName,
                 salonId = coupon.salonId,
                 stylistId = coupon.stylistId,
                 serviceItems = coupon.serviceItems,
-                categories = coupon.categories,
+                serviceCategories = coupon.serviceCategories,
                 originalPrice = coupon.originalPrice,
                 perferentialPrice = coupon.perferentialPrice,
                 serviceDuration = coupon.serviceDuration,
                 startDate = coupon.startDate,
                 endDate = coupon.endDate,
-                useRules = coupon.useRules,
-                meldTime = coupon.meldTime,
+                useConditions = coupon.useConditions,
+                presentTime = coupon.presentTime,
                 description = coupon.description,
                 status = coupon.status
             )
@@ -74,7 +74,37 @@ object Coupon {
     }
   
   def findContainCondtions(serviceTypes: ObjectId): List[Coupon] = {
-    CouponDAO.find(DBObject("categories._id" -> {"$all" -> serviceTypes} )).toList
-//   CouponDAO.find(DBObject("categories" -> Seq[ServiceType(ObjectId())] )).toList
+    // in mongodb, we can select like this below:
+    // db.Coupon.find({"serviceCategories._id": {$all: [ObjectId("5316798cd4d5cb7e816db34b"), ObjectId("53167ae7d4d5cb7e816db355")]}})
+   
+    // faild1 
+    //val lst = List(new ObjectId("5316798cd4d5cb7e816db34b"), new ObjectId("53167ae7d4d5cb7e816db355"))
+    //CouponDAO.find(DBObject("serviceCategories._id" -> {"$all" -> lst} )).toList
+    
+    // List(ServiceType(5316798cd4d5cb7e816db34b,剪), ServiceType(53167ae7d4d5cb7e816db355,烫))
+    //val lst1 = List(ServiceType(new ObjectId("5316798cd4d5cb7e816db34b"),"剪"), ServiceType(new ObjectId("53167ae7d4d5cb7e816db355"),"烫"))
+    //CouponDAO.find(DBObject("serviceCategories" -> {"$all" -> lst1} )).toList
+
+    // failed2
+    //CouponDAO.find(DBObject("originalPrice" $lt 200 $gt 50 )).toList
+    // failed 3
+    //CouponDAO.find(DBObject("originalPrice" -> { "$lt" -> 200} )).toList
+
+    // success1
+    //val itm = new ObjectId("5316798cd4d5cb7e816db34b")
+    //CouponDAO.find(DBObject("serviceCategories._id" -> itm )).toList
+
+    // success2
+    //val lst1 = List(ServiceType(new ObjectId("5316798cd4d5cb7e816db34b"),"剪"))
+    //CouponDAO.find(DBObject("serviceCategories._id" -> lst1(0).id )).toList
+
+    // success2
+    val lst1 = ServiceType(new ObjectId("5316798cd4d5cb7e816db34b"),"剪")
+    val lst2 = ServiceType(new ObjectId("53167ae7d4d5cb7e816db355"),"烫")
+    println(lst1::lst2::Nil)
+    CouponDAO.find(DBObject("serviceCategories" -> {"$all" -> lst1::lst2::Nil})).toList
+
+    //CouponDAO.find(DBObject("serviceCategories._id" -> {"$all" -> serviceTypes} )).toList
+//   CouponDAO.find(DBObject("serviceCategories" -> Seq[ServiceType(ObjectId())] )).toList
   }
 }
