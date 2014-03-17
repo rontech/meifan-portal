@@ -26,7 +26,7 @@ object Coupons extends Controller {
       "subMenuFlg" -> optional(text)
       )
   )
-	
+
   def index = Action {
     val coupons:Seq[Coupon] = Coupon.findAll
     Ok(views.html.coupon.couponOverview(coupons))

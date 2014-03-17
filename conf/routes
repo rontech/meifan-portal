@@ -53,13 +53,7 @@ GET		/rejectStylistApply/:stylistId/:salonId		    controllers.SalonsAdmin.reject
 # Salon 
 GET     /salon                          controllers.Salons.index
 GET     /salon/:id                      controllers.Salons.getSalon(id: ObjectId)
-GET     /basicRegister					controllers.BasicInformations.store
-GET     /storeInformation/:storeId      controllers.BasicInformations.storeInfo(storeId)
-GET     /storeInformationD/:storeId     controllers.BasicInformations.detailedInfo(storeId)
-GET     /storeUpdateB/:id               controllers.BasicInformations.storeUpd(id :ObjectId)
-GET     /storeUpdateD/:id               controllers.BasicInformations.storeUpdDet(id :ObjectId)
-GET     /storeRegister              	controllers.BasicInformations.storeRegister
-					
+GET     /salonInfo/      				controllers.SalonInfo.salonInfoBasic
 
 # Coupon
 GET     /coupon                         controllers.Coupons.index

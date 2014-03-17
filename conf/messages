@@ -7,6 +7,10 @@ site.description=美容院・美容室・ヘアサロン・ネイルサロン・
 site.keywords=美容,キレイ,美容院,美容室,ヘアサロン,ネイルサロン,まつげサロン,リラクサロン,エステサロン,ヘアカタログ,ネイルカタログ
 site.copyright=Copyright &copy; RONTECH Co., Ltd. All rights reserved.
 
+#common
+common.submit = 提交
+common.reset=重置
+common.backUp=返回
 
 # Index page
 index.reserve=24小时网上预约&空席确认
@@ -38,9 +42,45 @@ main.myPage=我的主页
 
 # Salon
 salon.show=展示所有沙龙
-
-
-
+salon.title=店铺基本信息管理
+salon.id=店铺ID
+salon.Name=店铺名
+salon.Abbr=店铺名略称
+salon.type=店铺行业种类
+salon.homepage=官方主页
+salon.description=店铺简介
+salon.mainPhone=联系电话
+salon.contact=联系人
+salon.contMethmodType=联系工具名
+salon.account=号码
+salon.establishDate=成立日期
+salon.province=省
+salon.city=市
+salon.region=区
+salon.town=镇
+salon.addrDetail=其他
+salon.longitude=店铺地理位置经度
+salon.latitude=店铺地理位置纬度
+salon.openTime=营业开始时间
+salon.closeTime=营业结束时间
+salon.restDay=休息日
+salon.seatNums=席位
+salon.canOnlineOrder=可否网上预约
+salon.canImmediatelyOrder=可否即时预约
+salon.canNominateOrder=可否指名预约
+salon.canCurntDayOrder=可否当日预约
+salon.canMaleUse=是否男性可用
+salon.isPointAvailable=是否Point加盟店
+salon.isPosAvailable=可刷卡
+salon.isWifiAvailable=wifi
+salon.hasParkingNearby=附近有无停车场
+salon.parkingDesc=停车场状况描述
+salon.facilities=可否网上预约
+salon.pictures=展示图片
+salon.registerTime=美容平台注册日期
+salon.a=美容美发
+salon.b=瘦身健美
+salon.c=美甲美肤
 
 # Hair
 hair.salon=美发沙龙

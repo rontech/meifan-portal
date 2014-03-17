@@ -1,0 +1,60 @@
+@(salon:Form[Salon])
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("basicInformation"){
+<div class="basicInformation-content">
+	<div class="basicInformation">
+		<h2>@Messages("salon.title")</h2>
+
+		@helper.form(action = routes.Users.login, args = 'id -> "userloginForm"){
+		 <fieldset >	         
+            @inputText(salon("salonName"),'_label ->  Messages("salon.Name"))           
+            @inputText(salon("salonNameAbbr"),'_label -> Messages("salon.Abbr"))			
+			@select(
+            field = salon("salonIndst"), 
+            options = options(
+                "A" -> Messages("salon.a"),
+                "B" -> Messages("salon.b"),
+                "C" -> Messages("salon.c")
+            ),
+            args = '_label -> Messages("salon.type")
+        )		
+		 	@inputText(salon("homepage"), '_label -> Messages("salon.homepage"))			
+			@inputText(salon("salonDescription"), '_label -> Messages("salon.description"))
+			@inputText(salon("mainPhone"), '_label -> Messages("salon.mainPhone"))
+			@inputText(salon("contact"), '_label -> Messages("salon.contact"))
+			@inputText(salon("optContactMethod.contMethmodType"), '_label -> Messages("salon.contMethmodType"))
+			@inputText(salon("optContactMethod.account"), '_label -> Messages("salon.account"))
+			@inputDate(salon("establishDate"), '_label -> Messages("salon.establishDate"))			
+			@inputText(salon("address.province"), '_label -> Messages("salon.province"))
+			@inputText(salon("address.city"), '_label -> Messages("salon.city"))
+			@inputText(salon("address.region"), '_label -> Messages("salon.region"))
+			@inputText(salon("address.town"), '_label -> Messages("salon.town"))
+			@inputText(salon("address.addrDetail"), '_label -> Messages("salon.addrDetail"))
+			@inputText(salon("address.longitude"), '_label -> Messages("salon.longitude"))
+			@inputText(salon("address.latitude"), '_label -> Messages("salon.latitude"))			
+			@inputText(salon("accessMethodDesc"), '_label -> Messages("salon.accessMethodDesc"))
+			@inputText(salon("openTime"), '_label -> Messages("salon.openTime"))
+			@inputText(salon("closeTime"), '_label -> Messages("salon.closeTime"))
+			@inputText(salon("restDay"), '_label -> Messages("salon.restDay"))	
+			@inputText(salon("seatNums"), '_label -> Messages("salon.seatNums"))	
+			@checkbox(salon("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"))
+			@checkbox(salon("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"))
+			@checkbox(salon("salonFacilities.canNominateOrder"), '_label -> Messages("salon.canNominateOrder"))
+			@checkbox(salon("salonFacilities.canCurntDayOrder"), '_label -> Messages("salon.canCurntDayOrder"))
+			@checkbox(salon("salonFacilities.canMaleUse"), '_label -> Messages("salon.canMaleUse"))
+			@checkbox(salon("salonFacilities.isPointAvailable"), '_label -> Messages("salon.isPointAvailable"))
+			@checkbox(salon("salonFacilities.isPosAvailable"), '_label -> Messages("salon.isPosAvailable"))
+			@checkbox(salon("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"))
+			@checkbox(salon("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"))
+			@inputText(salon("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"))
+			@inputText(salon("salonPictures"), '_label -> Messages("salon.pictures"))
+			@inputDate(salon("registerDate"), '_label -> Messages("salon.registerTime"))	
+		  </fieldset>            
+            <input type = "submit" class = "buttons" value=@Messages("common.submit")>
+			<input type="reset" value=@Messages("common.reset")><a href = "/  "><input type="button" value=@Messages("common.backUp") ></a>                     
+		}
+		</div>
+</div>
+}
