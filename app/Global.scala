@@ -36,8 +36,8 @@ object InitialData {
 
     if(Salon.findAll == Nil) { 
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), "火影忍者吧", Some("火吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ","99198121")), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), "海贼王吧", Some("海吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ","99198121")), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") )
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), "火影忍者吧", Some("火吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), "海贼王吧", Some("海吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") )
       ).foreach(Salon.save)
       
       Seq(
@@ -170,6 +170,17 @@ object InitialData {
          Seq(ServiceType(new ObjectId("53167a91d4d5cb7e816db34d"), "洗"), ServiceType(new ObjectId("53167aced4d5cb7e816db351"), "染"), ServiceType(new ObjectId("53167ae7d4d5cb7e816db355"), "烫")),
          230, 190, 120, date("2014-03-01"), date("2014-03-31"), "你看到的HOTPEPPER美容♪字", "在预订时间", "◆无♪◆长费咨询和那些敏感的皮肤☆◆最好的季节Tsuyakara成为各1号和皮肤的每一个颜色，眼睛的颜色，从时尚，更是对皮肤的刺激性是一个关注的晒后", "0")
       ).foreach(Coupon.save)
+    }
+
+    if(Menu.findAll().isEmpty) {
+      Seq(
+          Menu(new ObjectId("5317c0d1d4d57337ce3e6d61"), new ObjectId("530d7288d7f2861457771bdd"), Seq(Service(new ObjectId("53168b38d4d5cb7e816db35c"), "剪刘海", "剪", 10, 10), Service(new ObjectId("5316bb51d4d57997ce3e6d4b"), "局部染", "染", 90, 120)),
+              Seq(ServiceType(new  ObjectId("5316798cd4d5cb7e816db34b"), "剪"), ServiceType(new ObjectId("53167aced4d5cb7e816db351"), "染")), 130, "0"),
+          Menu(new ObjectId("5317c0d1d4d57337ce3e6d62"), new ObjectId("530d7288d7f2861457771bdd"), Seq(Service(new ObjectId("53168b38d4d5cb7e816db35c"), "剪刘海", "剪", 10, 10), Service(new ObjectId("5316be8ed4d57997ce3e6d52"), "3D彩色", "染", 80, 150)),
+              Seq(ServiceType(new  ObjectId("5316798cd4d5cb7e816db34b"), "剪"), ServiceType(new ObjectId("53167aced4d5cb7e816db351"), "染")), 160, "0"),
+          Menu(new ObjectId("5317c0d1d4d57337ce3e6d63"), new ObjectId("530d7288d7f2861457771bdd"), Seq(Service(new ObjectId("53168b38d4d5cb7e816db35c"), "剪刘海", "剪", 10, 10), Service(new ObjectId("5316c048d4d57997ce3e6d5a"), "简洗", "洗", 10, 10)),
+              Seq(ServiceType(new  ObjectId("5316798cd4d5cb7e816db34b"), "剪"), ServiceType(new ObjectId("53167a91d4d5cb7e816db34d"), "洗")), 20, "0")
+      ).foreach(Menu.save)
     }
 
     if(Menu.findAll().isEmpty) {
