@@ -78,4 +78,17 @@ object SalonInfo extends Controller{
     val salon = SalonInfo.salonInfo.fill(basic)
     Ok(views.html.salon.salonInfo(salon))
   }
+
+  /**
+   * 店铺基本信息更新
+   */
+  def update(id: ObjectId) = Action { implicit request =>
+    salonInfo.bindFromRequest.fold(
+      errors => BadRequest(views.html.error.errorMsg(errors)),
+      {
+        salon =>
+          Salon.save(salon.copy(id = id))
+          Ok("修改成功")
+      })
+  }
 }
