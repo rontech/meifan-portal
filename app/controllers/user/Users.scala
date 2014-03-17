@@ -9,6 +9,8 @@ import play.api.data.Forms._
 import models._
 
 
+
+
 object Users extends Controller {
   def registerForm(id :ObjectId = new ObjectId) = Form(
     mapping(
@@ -93,11 +95,13 @@ object Users extends Controller {
     	"description" -> text
     ){
       (label,salonId,workYears,stylistStyle,imageId,consumerId,description)=>
-        Stylist(new ObjectId, label, new ObjectId(salonId), new ObjectId, workYears, stylistStyle, imageId.map(i=>new ObjectId(i)),
-            consumerId.map(c=>new ObjectId(c)), description, new String)
+        Stylist(new ObjectId, label, new ObjectId(salonId), new ObjectId, workYears, stylistStyle, imageId,
+        
+            consumerId, description, new String, 0)
     }
     {
-      stylist => Some((stylist.label, stylist.salonId.toString, stylist.workYears, stylist.stylistStyle, List(stylist.imageId.toString), List(stylist.consumerId.toString), stylist.description))
+      stylist => Some((stylist.label, stylist.salonId.toString, stylist.workYears, stylist.stylistStyle, (stylist.imageId.toString)::Nil, 
+          stylist.consumerId.toString::Nil, stylist.description))
     }
   )
 //  val userForm: Form[User] = Form(
@@ -229,14 +233,29 @@ object Users extends Controller {
     val user = new User(new ObjectId, "123456576", "12333333", "adsad", new Date, "1",
         "jiangsu", "18606291469", "1324567987","729932232",
         "456d4sdsd", "..", "..", "1", "1", 1, new Date, ".")
-    Ok(views.html.user.applyStylist(stylistForm,user))
+    Ok(views.html.user.applyStylist(stylistForm, user))
   }
   
   /**
    * 店长或店铺管理者确认后才录入数据库
    */
-  def agreeStylist() = Action {
-     Ok(views.html.index(""))
+  def commitStylistApply() = Action {implicit request=>
+    /*val userId = request.session.get("user")*/
+    val user = new User(new ObjectId, "123456576", "12333333", "adsad", new Date, "1",
+        "jiangsu", "18606291469", "1324567987","729932232",
+        "456d4sdsd", "..", "..", "1", "1", 1, new Date, ".")
+    val userId = new ObjectId
+  	stylistForm.bindFromRequest.fold(
+      errors => BadRequest(views.html.fortest(errors)),
+      {
+    	  stylist =>
+    	    Stylist.save(stylist)
+    	    val applyRecord = new ApplyRecord(new ObjectId, stylist.id, stylist.salonId, 1,
+    	        new Date, None, None, None, 0)
+    	    ApplyRecord.save(applyRecord)
+    	    Redirect(routes.Users.show(userId.toString))
+      })
+      
   }
   
 }
