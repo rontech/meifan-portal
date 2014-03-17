@@ -24,13 +24,17 @@ GET     /myPage/mySaveBlog/:id		 	controllers.Users.mySaveBlog(id: ObjectId)
 GET     /myPage/mySaveStyle/:id		 	controllers.Users.mySaveStyle(id: ObjectId)
 GET     /myPage/mySaveSalonActi/:id		controllers.Users.mySaveSalonActi(id: ObjectId)
 GET		/applyStylist					controllers.Users.applyStylist
-POST	/agreeStylist					controllers.Users.agreeStylist
+POST	/commitStylistApply				controllers.Users.commitStylistApply
 #Salon Management
-GET		/mySalon/:id					controllers.Salons.mySalon(id: ObjectId)
-GET		/mySalon/:id/stylist			controllers.Salons.myStylist(id: ObjectId)
-GET		/mySalon/:id/reserv				controllers.Salons.myReserv(id: ObjectId)
-GET		/mySalon/:id/comment			controllers.Salons.myComment(id: ObjectId)
-GET		/mySalon/:id/service			controllers.Salons.myService(id: ObjectId)
+GET		/mySalon/:id					controllers.SalonsAdmin.mySalon(id: ObjectId)
+GET		/mySalon/:id/stylist			controllers.SalonsAdmin.myStylist(id: ObjectId)
+GET		/mySalon/:id/reserv				controllers.SalonsAdmin.myReserv(id: ObjectId)
+GET		/mySalon/:id/comment			controllers.SalonsAdmin.myComment(id: ObjectId)
+GET		/mySalon/:id/service			controllers.SalonsAdmin.myService(id: ObjectId)
+GET		/mySalon/:salonId/checkHoldApply				controllers.SalonsAdmin.checkHoldApply(salonId: ObjectId)
+GET		/agreeStylistApply/:stylistId/:salonId			controllers.SalonsAdmin.agreeStylistApply(stylistId: ObjectId, salonId: ObjectId)
+GET		/rejectStylistApply/:stylistId/:salonId		    controllers.SalonsAdmin.rejectStylistApply(stylistId: ObjectId, salonId: ObjectId)
+
 
 
 
@@ -42,6 +46,7 @@ GET     /salonInfo/      				controllers.SalonInfo.salonInfoBasic
 # Coupon
 GET     /coupon                         controllers.Coupons.index
 GET     /salon/:salonId/coupons         controllers.Coupons.findBySalon(salonId: ObjectId)
+POST    /salon/:salonId/coupons/condtion   controllers.Coupons.findByCondtion(salonId: ObjectId)
 
 # Style
 GET     /style                          controllers.Styles.index
@@ -57,6 +62,8 @@ GET     /stylist/:id                    controllers.Stylists.findById(id: Object
 GET     /salon/:salonId/stylists        controllers.Stylists.findBySalon(salonId: ObjectId)
 GET     /findStylist                    controllers.Stylists.findStylist
 GET     /checkStylist                   controllers.Stylists.checkStylist
+GET 	/agreeSalonApply/:stylistId/:salonId		controllers.Stylists.agreeSalonApply(stylistId: ObjectId, salonId: ObjectId)
+GET		/rejectSalonApply/:stylistId/:salonId		controllers.Stylists.rejectSalonApply(stylistId: ObjectId, salonId: ObjectId)
 
 
 # Reservations Management

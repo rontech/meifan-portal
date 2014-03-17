@@ -1,0 +1,6 @@
+@* menuGroupByType Template File *@
+@(serviceTypeNames: Seq[String])
+
+@for(serviceTypeName <- serviceTypeNames) {
+	@views.html.menu.menuItemByType(serviceTypeName)
+}

@@ -1,7 +1,7 @@
-@(navInSalon: String = "my-reservation", salon: Salon)
+@(salon: Salon)
 	
 	<div class="m m3" id="userinfo">
-    <div class="user">
+	<div class="user">
         <div class="u-icon picture">
             <div id="modifyheader" class="hide" style="display: none;">
                 <div id="modUserImgBox" class="upper fore">
@@ -14,8 +14,13 @@
             id="userImg" src="http://i.jd.com/commons/img/no-img_mid_.jpg" alt="用户头像">
         </div>
         <div class="extra">
-            <a target="_blank" href="http://me.jd.com">
+            <a target="_blank" href="#">
                 查看我的主页
+            </a>
+        </div>
+        <div class="extra">
+            <a target="_blank" href="#">
+                我的博客
             </a>
         </div>
     </div>
@@ -25,7 +30,7 @@
             <div class="fl ftx-03" id="userinfodisp">
                 <strong>
                     <a target="_blank" href="http://me.jd.com">
-                        alex
+                        @salon.salonName
                     </a>
                 </strong>
                 ,
@@ -76,43 +81,35 @@
             </strong>
             <i id="cla" class="icon-rank01">
             </i>
-            <a clstag="click|keycount|myhome|verifyMobile" href="http://safe.jd.com/validate/verifyMobile"
+            <a href="#"
             class="teln">
                 <s>
                 </s>
                 手机未验证
             </a>
-            <a clstag="click|keycount|myhome|verifymail" href="http://safe.jd.com/validate/verifyMail"
-            class="mailn">
+            <a href="#" class="mailn">
                 <s>
                 </s>
                 邮箱未验证
             </a>
-            <span id="zfmmid">
-                <a class="spsdn" href="http://safe.jd.com/user/paymentpassword/safetyCenter.action">
-                    <s>
-                    </s>
-                    未设支付密码
-                </a>
-            </span>
         </div>
         <!--end-->
         <div id="remind">
             <div class="oinfo">
                 <dl class="fore">
                     <dt>
-                        订单提醒：
+                       预约提醒：
                     </dt>
                     <dd>
                         <span id="orderCount" clstag="click|keycount|myhome|ordercount">
                             <a href="http://jd2008.jd.com/JdHome/OrderList.aspx?jdhome=myjd">
-                                待评价预约(1135318216)
+                                待评价预约(2)
                             </a>
                         </span>
                     </dd>
                     <dd>
                         <a id="reviewCountHref" clstag="click|keycount|myhome|commentscount" href="http://club.jd.com/mycomments.aspx">
-                            已过期预约(
+                           	 已过期预约(
                             <span id="reviewCount">
                                 1
                             </span>
@@ -120,10 +117,10 @@
                         </a>
                     </dd>
                     <dd>
-                        <a id="sdCountHref" clstag="click|keycount|myhome|shaidancount" href="http://club.jd.com/mycomments.aspx">
-                            已取消预约(
-                            <span id="sdCount">
-                                1
+                        <a id="reviewCountHref" clstag="click|keycount|myhome|commentscount" href="http://club.jd.com/mycomments.aspx">
+                           	即将到期(
+                            <span id="reviewCount">
+                               
                             </span>
                             )
                         </a>
@@ -131,5 +128,75 @@
                 </dl>
             </div>
         </div>
+        <div id="remind">
+        	<div class="oinfo">
+                <dl class="fore">
+                	<dt>
+                       	技师提醒：
+                    </dt>
+                    <dd>
+                	<a href="/mySalon/@salon.id/checkHoldApply">
+                	待确认的申请(
+                		 <span id="reviewCount">
+                               @ApplyRecord.countStylistApply(salon.id)
+                         </span>
+                	个)
+                	</a>
+                	</dd>
+                </dl>
+            </div>
+        </div>
     </div>
 </div>
+	<!-- ↓mainContents -->
+			<div class="left">
+	    		<div id="myjd" class="m">
+			        <div class="mc">
+			        	<div class='RMod' id='UserSkills'>
+				  			<div id="OtherScore">
+			        			<h1><a href="http://www.oschina.net/question/3307_20931" target="_blank" title="如何获得积分？"><em>50</em>活跃积分:</a></h1>
+			        			<h1><a href="http://www.oschina.net/question/3307_20931" target="_blank" title="如何获得积分？"><em>463</em>可用积分:</a></h1>
+			    			</div> 
+							<div style="clear: both"></div>
+						</div>
+			            <dl tag="1">
+			                <dt tag="1">
+			                    <a href="/mySalon/@salon.id" >信息管理</a><b></b>
+			                </dt>
+			           </dl>
+			            <dl tag="4">
+			                <dt tag="4">
+			                     <a href="/mySalon/@salon.id/stylist">技师管理</a>
+			                </dt>
+			            </dl>
+			            <dl tag="2">
+			                <dt tag="2">
+			                    <a href="/mySalon/@salon.id/reserv">预约管理</a> 
+			                 </dt>
+			            </dl>
+			            <dl tag="3">
+			                <dt tag="3">
+			                    <a href="/mySalon/@salon.id/comment">评论管理</a> 
+			                 </dt>
+			            </dl>
+					    <dl tag="3">
+				                <dt tag="3">
+				                   <a href="/mySalon/@salon.id/service">服务管理</a> 
+				                </dt>
+				            </dl>
+					    <dl tag="3">
+				                <dt tag="3">
+				                   <a href="#">优惠劵管理</a> 
+				                </dt>
+				            </dl>
+					    <dl tag="3">
+				                <dt tag="3">
+				                 <a href="#">动态管理</a>
+				                    <b>
+				                    </b>
+				                </dt>
+				        </dl>
+			        </div>
+	   		 	</div>
+	   		</div>
+<!-- ↑mainContents -->
