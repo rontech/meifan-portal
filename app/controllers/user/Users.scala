@@ -7,6 +7,7 @@ import se.radley.plugin.salat.Binders._
 import play.api.data.Form
 import play.api.data.Forms._
 import models._
+import scala.collection.mutable.ListBuffer
 
 
 
@@ -131,6 +132,9 @@ object Users extends Controller {
     Ok(views.html.user.register(Users.registerForm()))
   }
   
+  /**
+   * 登录触发动作
+   */
   def doLogin = Action { implicit request =>
     Users.loginForm.bindFromRequest.fold(
       errors => BadRequest(views.html.user.login(errors)),
@@ -140,6 +144,9 @@ object Users extends Controller {
       })
   }
 
+  /**
+   * 注册触发动作
+   */
   def doRegister = Action { implicit request =>
     Users.registerForm().bindFromRequest.fold(
       errors => BadRequest(views.html.user.register(errors)),
@@ -150,6 +157,9 @@ object Users extends Controller {
       })
   }
 
+  /**
+   * 更新触发的动作
+   */
   def update(id: ObjectId) = Action { implicit request =>
     Users.userForm(id).bindFromRequest.fold(
       errors => BadRequest(views.html.user.Infomation(errors,User.findOneByID(id).get)),
@@ -160,6 +170,9 @@ object Users extends Controller {
       })
   }
 
+  /**
+   * 显示用户基本信息
+   */
   def show(userId: String) = Action {
     User.findOneByUserId(userId).map { user =>
       val userForm = Users.userForm().fill(user)
@@ -169,6 +182,9 @@ object Users extends Controller {
     }
   }
 
+  /**
+   * 点击主页“我的主页”触发的动作，判断是否已登录
+   */
   def index = Action{ implicit request =>
     if(!request.session.get("userId").nonEmpty){
       Redirect(routes.Users.login)
@@ -176,55 +192,148 @@ object Users extends Controller {
 	  Redirect(routes.Users.myPage(request.session.get("userId").get))
   }
   
+  /**
+   * 个人主页
+   */
   def myPage(userId :String) = Action{
     val user = User.findOneByUserId(userId).get
     Ok(views.html.user.myPageRes(user))
  }
   
+  /**
+   * 浏览他人主页
+   */
   def otherIndex(id: ObjectId) = Action{
     val other = User.findById(id).get
     Ok(views.html.user.otherPage(other))
   }
   
+  /**
+   * 我的预约
+   */
   def myReservation(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.myPageRes(user = user.get))
   }
   
+  /**
+   * 我收藏的优惠劵
+   */
   def mySaveCoupon(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.mySaveCoupon(user = user.get))
   }
   
+  /**
+   * 我收藏的博客
+   */
   def mySaveBlog(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.mySaveBlog(user = user.get))
   }
   
+  /**
+   * 我收藏的风格
+   */
   def mySaveStyle(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.mySaveStyle(user = user.get))
   }
   
+  /**
+   *我收藏的店铺动态 
+   */
   def mySaveSalonActi(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.mySaveSalonActi(user = user.get))
   }
   
+  /**
+   *他人收藏的优惠劵 
+   */
   def SaveCoupon(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.otherSaveCoupon(user = user.get))
   }
-  
+
+  /**
+   *他人收藏的博客 
+   */
   def SaveBlog(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.otherSaveBlog(user = user.get))
   }
-  
+
+  /**
+   *他人收藏的风格 
+   */
   def SaveStyle(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.otherSaveStyle(user = user.get))
   }
+
+  /**
+   *列表显示关注的沙龙 
+   */
+  def showAllFollowSalon(userId: ObjectId) = Action{
+    val user: Option[User] = User.findById(userId)
+    val salonIdList: List[ObjectId] = FollowCollect.getAllFollowCollectAtId(1,userId)
+    val salonList = ListBuffer[Salon]()
+    for (i <-0 to salonIdList.length-1){
+      val salon =Salon.findById(salonIdList(i)).get
+      salonList += salon
+    }
+    Ok(views.html.user.showAllFollowSalon(salonList.toList,user.get))
+  }
+  
+  /**
+   *列表显示关注的技师 
+   */
+  def showAllFollowStylist(userId: ObjectId) = Action{
+    val user: Option[User] = User.findById(userId)
+    val stylistIdList: List[ObjectId] = FollowCollect.getAllFollowCollectAtId(2,userId)
+    val stylistList = ListBuffer[Stylist]()
+    for (i <-0 to stylistIdList.length-1){
+      val stylist =Stylist.findById(stylistIdList(i)).get
+      stylistList += stylist
+    }
+    Ok(views.html.user.showAllFollowStylist(stylistList.toList,user.get))
+  }
+
+  /**
+   *列表显示关注的其他用户 
+   */
+  def showAllFollowUser(userId: ObjectId) = Action{
+    val user: Option[User] = User.findById(userId)
+    val userIdList: List[ObjectId] = FollowCollect.getAllFollowCollectAtId(6,userId)
+    val userList = ListBuffer[User]()
+    for (i <-0 to userIdList.length-1){
+      val followUser =User.findById(userIdList(i)).get
+      userList += followUser
+    }
+    Ok(views.html.user.showAllFollowUser(userList.toList,user.get))
+  }
+  
+  /**
+   *列表显示我的粉丝 
+   */
+   def showMyFollowers(userId: ObjectId) = Action{
+    val user: Option[User] = User.findById(userId)
+    val myFollowersIdList: List[ObjectId] = FollowCollect.getFollowers(userId)
+    val myFollowersList = ListBuffer[User]()
+    for (i <-0 to myFollowersIdList.length-1){
+      val myFollowers =User.findById(myFollowersIdList(i)).get
+      myFollowersList += myFollowers
+    }
+    Ok(views.html.user.showMyFollowers(myFollowersList.toList,user.get))
+  }
+   
+   /**
+    * 退出登录
+    */
+   def loginout = Action{
+     Redirect(routes.Application.index).withNewSession
+   }
   
   /**
    * 申请成为技师

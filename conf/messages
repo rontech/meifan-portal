@@ -149,3 +149,5 @@ user.confirmPas=确认密码
 user.agree=必须同意!
 user.male=男
 user.female=女
+user.loginOut=退出
+user.cancleBothFollow=取消互粉

@@ -31,6 +31,11 @@ GET     /otherPage/:id                  controllers.Users.otherIndex(id: ObjectI
 GET     /otherPage/SaveCoupon/:id       controllers.Users.SaveCoupon(id: ObjectId)
 GET     /otherPage/SaveBlog/:id	        controllers.Users.SaveBlog(id: ObjectId)
 GET     /otherPage/SaveStyle/:id        controllers.Users.SaveStyle(id: ObjectId)
+GET     /showAllFollowSalon/:id         controllers.Users.showAllFollowSalon(id:ObjectId)
+GET     /showAllFollowStylist/:id       controllers.Users.showAllFollowStylist(id:ObjectId)
+GET     /showAllFollowUser/:id          controllers.Users.showAllFollowUser(id:ObjectId)
+GET     /showMyFollowers/:id            controllers.Users.showMyFollowers(id:ObjectId)
+GET     /loginout                       controllers.Users.loginout
 
 #Salon Management
 GET		/mySalon/:id					controllers.SalonsAdmin.mySalon(id: ObjectId)

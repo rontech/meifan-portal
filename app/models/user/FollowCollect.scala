@@ -41,4 +41,10 @@ object FollowCollect extends ModelCompanion[FollowCollect, ObjectId] {
   //查看我被关注的对象，即我的粉丝
   def getFollowers(userId:ObjectId):
 	  List[ObjectId] = dao.find(MongoDBObject("relationTypeId" -> 6, "followCollectAtId" -> userId, "status" -> true)).toList.map { userFollowCollect => userFollowCollect.userId }
+  
+  //检验是否已关注或收藏
+  def checkIfFollow(userId: ObjectId, followCollectAtId:ObjectId): Boolean ={
+    val isFollow = dao.findOne(MongoDBObject("userId" -> userId, "followCollectAtId" -> followCollectAtId))
+    return isFollow.nonEmpty
+  }
 }
