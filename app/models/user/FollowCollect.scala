@@ -33,6 +33,11 @@ object FollowCollect extends ModelCompanion[FollowCollect, ObjectId] {
     dao.insert(FollowCollect(userId = userId,followCollectAtId = followCollectAtId,relationTypeId = relationTypeId,status = true))
   }
   
+  //重新添加收藏或关注
+  def createAgain(userId: ObjectId,followCollectAtId: ObjectId, relationTypeId: Int) {
+      dao.update(MongoDBObject("relationTypeId" -> relationTypeId, "userId" -> userId, "followCollectAtId" -> followCollectAtId),MongoDBObject("relationTypeId" -> relationTypeId, "userId" -> userId, "followCollectAtId" -> followCollectAtId,"status" ->true))
+  }
+  
   //取消收藏或关注
   def delete(userId: ObjectId,followCollectAtId: ObjectId, relationTypeId: Int) {
       dao.update(MongoDBObject("relationTypeId" -> relationTypeId, "userId" -> userId, "followCollectAtId" -> followCollectAtId),MongoDBObject("relationTypeId" -> relationTypeId, "userId" -> userId, "followCollectAtId" -> followCollectAtId,"status" ->false))
@@ -42,9 +47,21 @@ object FollowCollect extends ModelCompanion[FollowCollect, ObjectId] {
   def getFollowers(userId:ObjectId):
 	  List[ObjectId] = dao.find(MongoDBObject("relationTypeId" -> 6, "followCollectAtId" -> userId, "status" -> true)).toList.map { userFollowCollect => userFollowCollect.userId }
   
-  //检验是否已关注或收藏
-  def checkIfFollow(userId: ObjectId, followCollectAtId:ObjectId): Boolean ={
-    val isFollow = dao.findOne(MongoDBObject("userId" -> userId, "followCollectAtId" -> followCollectAtId))
+  //检验是否已关注或收藏并且有效
+  def checkIfFollowOn(userId: ObjectId, followCollectAtId:ObjectId): Boolean ={
+    val isFollow = dao.findOne(MongoDBObject("userId" -> userId, "followCollectAtId" -> followCollectAtId,"status" -> true))
     return isFollow.nonEmpty
+  }
+  
+  //检验是否已关注或收藏但后来取消了
+  def checkIfFollowOff(userId: ObjectId, followCollectAtId:ObjectId): Boolean ={
+    val isFollow = dao.findOne(MongoDBObject("userId" -> userId, "followCollectAtId" -> followCollectAtId,"status" -> false))
+    return isFollow.nonEmpty
+  }
+  
+  //根据用户名检验是否已关注或收藏并且有效
+  def checkIfFollowOnByName(userName:String,followCollectAtId:ObjectId): Boolean={
+    val userId = User.findOneByUserId(userName).get.id
+    checkIfFollowOn(userId,followCollectAtId)
   }
 }

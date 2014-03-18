@@ -1,4 +1,4 @@
-@(navInPage: String = "save-coupon", user: User)(content: Html)
+@(user: User)(content: Html)
 
 @main(Messages("site.title")) {
 	
@@ -14,8 +14,6 @@
         		@views.html.user.otherPageLeft(user)
         	</div>
 			<div id='SpaceMain'>
-	    		@views.html.user.otherPageHeader(navInPage, user)
-	    
        		 	@content
        		</div>	        
         </div>
