@@ -1938,3 +1938,19 @@ width: 156px;
 .mT50 {
 margin-top: 50px;
 }
+
+.mainContentsSecondTitleOuter {
+background: none;
+}
+
+.mainContentsSecondTitleInner {
+line-height: 21px;
+border-bottom: 1px solid #666666;
+background: url('/assets/images/icon_heading.png') no-repeat 0 1px;
+padding-left: 25px;
+padding-bottom: 1px;
+font-size: 15px;
+font-weight: bold;
+color: #444444;
+font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'ＭＳ Ｐゴシック', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
+}
