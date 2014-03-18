@@ -3,14 +3,18 @@
 @import helper._
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">
+<head>
+	<div>
+		<h2>@Messages("hair.search")</h2>
+	</div>
+</head>
 <body>
 	<div>
 	@form(routes.Styles.styleSearchList, 'id -> "styleSearchForm"){
-		@input(field = styleSearchForm("styleLength"),args = '_label ->Messages("hair.styleLength")){(id,name,value,args) =>
+		@Messages("hair.styleLength")
 	    	@for(i <- 0 to StyleLength.findAll().length-1){
-	      		<input type = "radio" class="" name = "styleLength[@i]", value = "@StyleLength.findAll()(i).styleLength">@StyleLength.findAll()(i).styleLength
+	      		<input type = "radio" class="" name = "styleLength", value = "@StyleLength.findAll()(i).styleLength">@StyleLength.findAll()(i).styleLength
 	    	}
-	    }
 	    @input(field = styleSearchForm("styleColor"),args = '_label ->Messages("hair.color")){(id,name,value,args) =>
 	    	@for(i <- 0 to StyleColor.findAll().length-1){
 	      		<input type = "checkbox" class="" name = "styleColor[@i]", value = "@StyleColor.findAll()(i).styleColor">@StyleColor.findAll()(i).styleColor

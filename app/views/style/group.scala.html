@@ -1,22 +1,20 @@
-@(styles: Seq[Style] = Nil)
+@(styles: Seq[Style] = Nil, salon: Salon)
 
 <ol>
 @for(style <- styles) {
-	@*<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/hairReservation.css")">
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/reservation.css")">*@
 	<table>
 		<tbody>
 			<tr>
 				<td class="vaT bdGrayR">
 					<div class="w156 mHA">
 						<div class="mT10 fs16">
-							<a href="@routes.Styles.getStyleInfoOfSalon(style.salonId,style.id)">
+							<a href="@routes.Styles.getStyleInfoOfSalon(salon.id,style.id)">
 								<img src="@routes.Application.getPhoto(style.stylePic(0))">
 							</a>
 						</div>
 						<p class="mT10 lh13">
-							<a href="@routes.Styles.getStyleInfoOfSalon(style.salonId,style.id)">
-								@style.label
+							<a href="@routes.Styles.getStyleInfoOfSalon(salon.id,style.id)">
+								@style.styleName
 							</a>
 						</p>
 					</div>
