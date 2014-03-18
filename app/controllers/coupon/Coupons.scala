@@ -26,7 +26,7 @@ object Coupons extends Controller {
       "subMenuFlg" -> optional(text)
       )
   )
-	
+
   def index = Action {
     val coupons:Seq[Coupon] = Coupon.findAll
     Ok(views.html.coupon.couponOverview(coupons))
@@ -48,10 +48,11 @@ object Coupons extends Controller {
   
   /**
    * 根据查找条件检索出符合的优惠劵
+
    */
   def findByCondtion(salonId: ObjectId) = Action {implicit request =>
     condtionForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.index("")),
+      errors => BadRequest(views.html.error.errorMsg(errors)),
       {
         serviceType =>
           val subMenuFlg = serviceType.productElement(serviceType.productArity-1)
@@ -66,7 +67,7 @@ object Coupons extends Controller {
               conditions = serviceTypeOne::conditions
             }
           }
-          println("conditions = " + conditions)
+          //println("conditions = " + conditions)
           val serviceTypes: Seq[ServiceType] = ServiceType.findAll().toList
           /*for( a <- serviceTypes) {
             if(serviceTypes.indexOf(a) == 0) {
@@ -90,6 +91,4 @@ object Coupons extends Controller {
           Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus, serviceTypeNames))
       })
   }
-  
-  
 }

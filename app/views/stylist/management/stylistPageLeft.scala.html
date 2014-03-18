@@ -1,4 +1,4 @@
-@(user :User)
+@(user: User, stylist: Stylist)
 			<div class ="Owner">
 				<a href="#" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")" align="absmiddle" alt="@user.userId" title="@user.userId" class="LargePortrait"/></a>
 				<span class='U'>
@@ -17,22 +17,24 @@
                                 <a href="@routes.Users.show(user.userId)" class='a2 admin'><i>.</i><span>@Messages("user.changeInfo")</span></a>
 				<a href="/showBlog/@user.id" class='a1 blog'><i>.</i><span>@Messages("user.myBlog")</span></a>
 			</div>  			
+			<!-- 我的沙龙，如果没有则显示来自沙龙的邀请 -->
 			<div class='Mod Users' id='Fellows'>
-    			<strong>@Messages("user.followSalon")</strong>
+    			<strong>@Messages("stylistMag.mySalon")</strong>
 	  			<ul class='clearfix'>
-	  				@for(i <- 0 to FollowCollect.getAllFollowCollectAtId(1,user.id).length-1){
-	  					@Salon.findById(FollowCollect.getAllFollowCollectAtId(1,user.id)(i)).map {salon =>
+	  				
 	  					<li>
-    	 				<!--  <a href="#"><img src="#" align="absmiddle" alt="" title="" class="SmallPortrait"></a>-->
-    	 				<a href="#">@salon.salonName</a>&nbsp;&nbsp;&nbsp;&nbsp;
-    	 			     </li>
-	  					}
-	  				}
-    			</ul>
-				<div class='more'>
-    				<a href="@routes.Users.showAllFollowSalon(user.id)">@Messages("user.showAllFollow")@FollowCollect.getAllFollowCollectAtId(1,user.id).length)</a>
+    	 					<a href="#"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 			    </li>
+	  			</ul>
+			</div>
+			<!-- 我的发型 -->
+			<div class='Mod Users' id='Fellows'>
+    			<strong>@Messages("stylistMag.myStyle")</strong>
+	  			<div class='more'>
+    				<a href="@routes.Users.showAllFollowStylist(user.id)">@Messages("user.showAllFollow")@FollowCollect.getAllFollowCollectAtId(2,user.id).length)</a>
     			</div>
 			</div>
+			
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("user.followStylist")</strong>
 	  			<ul class='clearfix'>

@@ -7,7 +7,7 @@
                 <div id="modUserImgBox" class="upper fore">
                 </div>
                 <a href="javascript:void(0)" class="fore">
-                    修改头像
+                    @Messages("salonAdmin.updateHeadPortrait")
                 </a>
             </div>
             <img onerror="this.src='http://i.jd.com/commons/img/no-img_mid_.jpg'"
@@ -15,12 +15,12 @@
         </div>
         <div class="extra">
             <a target="_blank" href="#">
-                查看我的主页
+                @Messages("salonAdmin.myPage")
             </a>
         </div>
         <div class="extra">
             <a target="_blank" href="#">
-                我的博客
+                @Messages("salonAdmin.myBlog")
             </a>
         </div>
     </div>
@@ -35,7 +35,7 @@
                 </strong>
                 ,
                 <span id="welcome">
-                    欢迎您！
+                    @Messages("salonAdmin.welcome")
                 </span>
             </div>
             <div class="extra" id="jdTask">
@@ -98,18 +98,20 @@
             <div class="oinfo">
                 <dl class="fore">
                     <dt>
-                       预约提醒：
+                       @Messages("salonAdmin.remindReserv")
                     </dt>
                     <dd>
                         <span id="orderCount" clstag="click|keycount|myhome|ordercount">
                             <a href="http://jd2008.jd.com/JdHome/OrderList.aspx?jdhome=myjd">
-                                待评价预约(2)
+                                @Messages("salonAdmin.needCommentReserv")
+                                (2)
                             </a>
                         </span>
                     </dd>
                     <dd>
                         <a id="reviewCountHref" clstag="click|keycount|myhome|commentscount" href="http://club.jd.com/mycomments.aspx">
-                           	 已过期预约(
+                           	 @Messages("salonAdmin.overtimeReserv")
+                           	 (
                             <span id="reviewCount">
                                 1
                             </span>
@@ -118,7 +120,8 @@
                     </dd>
                     <dd>
                         <a id="reviewCountHref" clstag="click|keycount|myhome|commentscount" href="http://club.jd.com/mycomments.aspx">
-                           	即将到期(
+                           	@Messages("salonAdmin.expireReserv")
+                           	(
                             <span id="reviewCount">
                                
                             </span>
@@ -132,11 +135,12 @@
         	<div class="oinfo">
                 <dl class="fore">
                 	<dt>
-                       	技师提醒：
+                       	@Messages("salonAdmin.remindApply")
                     </dt>
                     <dd>
                 	<a href="@routes.SalonsAdmin.checkHoldApply(salon.id)">
-                	来自技师申请(
+                	@Messages("salonAdmin.fromStylistApply")
+                	(
                 		 <span id="reviewCount">
                                @ApplyRecord.countStylistApply(salon.id)
                          </span>
@@ -161,37 +165,37 @@
 						</div>
 			            <dl tag="1">
 			                <dt tag="1">
-			                    <a href="/mySalon/@salon.id" >信息管理</a><b></b>
+			                    <a href="/salonInfo/" >@Messages("salonAdmin.infoManagement")</a><b></b>
 			                </dt>
 			           </dl>
 			            <dl tag="4">
 			                <dt tag="4">
-			                     <a href="/mySalon/@salon.id/stylist">技师管理</a>
+			                     <a href="/mySalon/@salon.id/stylist">@Messages("salonAdmin.stylistManagement")</a>
 			                </dt>
 			            </dl>
 			            <dl tag="2">
 			                <dt tag="2">
-			                    <a href="/mySalon/@salon.id/reserv">预约管理</a> 
+			                    <a href="/mySalon/@salon.id/reserv">@Messages("salonAdmin.reservManagement")</a> 
 			                 </dt>
 			            </dl>
 			            <dl tag="3">
 			                <dt tag="3">
-			                    <a href="/mySalon/@salon.id/comment">评论管理</a> 
+			                    <a href="/mySalon/@salon.id/comment">@Messages("salonAdmin.commentManagement")</a> 
 			                 </dt>
 			            </dl>
 					    <dl tag="3">
 				                <dt tag="3">
-				                   <a href="/mySalon/@salon.id/service">服务管理</a> 
+				                   <a href="/mySalon/@salon.id/service">@Messages("salonAdmin.serviceManagement")</a> 
 				                </dt>
 				            </dl>
 					    <dl tag="3">
 				                <dt tag="3">
-				                   <a href="#">优惠劵管理</a> 
+				                   <a href="#">@Messages("salonAdmin.couponManagement")</a> 
 				                </dt>
 				            </dl>
 					    <dl tag="3">
 				                <dt tag="3">
-				                 <a href="#">动态管理</a>
+				                 <a href="#">@Messages("salonAdmin.stateManagement")</a>
 				                    <b>
 				                    </b>
 				                </dt>

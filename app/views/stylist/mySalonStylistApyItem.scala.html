@@ -19,17 +19,18 @@
        }
         </span>
   （@stylist.workYears
-  年）
+  @Messages("stylist.workYears")）
     </div>
     <div class="bdDotT mT5 pT5 fs10 hMin30">
     </div>
 </div>
 <div class="taC mT10">
 	<div>
-		<span>申请时间@ApplyRecord.findStylistAyRd(Stylist.findById(stylist.id).get.salonId, stylist.id).get.createTime.format("yyyy-MM-dd HH:mm")</span>
+		<span>@Messages("stylist.applyCreateTime")
+		@ApplyRecord.findStylistAyRd(Stylist.findById(stylist.id).get.salonId, stylist.id).get.createTime.format("yyyy-MM-dd HH:mm")</span>
 	</div>
-	<a href="/agreeStylistApply/@stylist.id/@stylist.salonId" class="salon-stylist-reserv">同意申请</a>|
-	<a href="/rejectStylistApply/@stylist.id/@stylist.salonId" class="salon-stylist-reserv">拒绝</a>
+	<a href="/agreeStylistApply/@stylist.id/@stylist.salonId" class="salon-stylist-reserv">@Messages("stylist.acceptApply")</a>|
+	<a href="/rejectStylistApply/@stylist.id/@stylist.salonId" class="salon-stylist-reserv">@Messages("stylist.rejectApply")</a>
 </div>
 	
 </div>

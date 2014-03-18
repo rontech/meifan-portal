@@ -48,8 +48,8 @@ case class Address (
     region: String,
     town: Option[String],
     addrDetail: String,
-    longitude: Option[Double],
-    latitude: Option[Double]
+    longitude: Option[BigDecimal],
+    latitude: Option[BigDecimal]
 )
 
 /**
@@ -73,7 +73,7 @@ case class SalonFacilities (
 */
 case class OptContactMethod (
     contMethmodType: String,
-    account: String
+    account: List[String]
 )
 
 

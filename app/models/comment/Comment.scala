@@ -48,13 +48,13 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
   var commentlist : List[Comment] = Nil
   def findBySalon(salonId: ObjectId): List[Comment] = {
     val stylist = Stylist.findBySalon(salonId)
-    println("stylist" + stylist)
+    //println("stylist" + stylist)
     var comment : List[Comment] = Nil
     stylist.foreach(
       {
       r => 
       comment = Comment.find(DBObject("userId" -> r.id)).toList
-      println("blog" + comment)
+      //println("blog" + comment)
       if(!comment.isEmpty)
 //        blog :::= bloglist
           commentlist :::= comment

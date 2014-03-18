@@ -7,6 +7,10 @@ site.description=美容院・美容室・ヘアサロン・ネイルサロン・
 site.keywords=美容,キレイ,美容院,美容室,ヘアサロン,ネイルサロン,まつげサロン,リラクサロン,エステサロン,ヘアカタログ,ネイルカタログ
 site.copyright=Copyright &copy; RONTECH Co., Ltd. All rights reserved.
 
+#common
+common.submit = 提交
+common.reset=重置
+common.backUp=返回
 
 # Index page
 index.reserve=24小时网上预约&空席确认
@@ -38,9 +42,66 @@ main.myPage=我的主页
 
 # Salon
 salon.show=展示所有沙龙
+salon.title=店铺基本信息管理
+salon.id=店铺ID
+salon.Name=店铺名
+salon.Abbr=店铺名略称
+salon.type=店铺行业种类
+salon.homepage=官方主页
+salon.description=店铺简介
+salon.mainPhone=联系电话
+salon.contact=联系人
+salon.contMethmodType=联系工具名
+salon.account=号码
+salon.establishDate=成立日期
+salon.province=省
+salon.city=市
+salon.region=区
+salon.town=镇
+salon.addrDetail=其他
+salon.longitude=店铺地理位置经度
+salon.latitude=店铺地理位置纬度
+salon.openTime=营业开始时间
+salon.closeTime=营业结束时间
+salon.restDay=休息日
+salon.seatNums=席位
+salon.canOnlineOrder=可否网上预约
+salon.canImmediatelyOrder=可否即时预约
+salon.canNominateOrder=可否指名预约
+salon.canCurntDayOrder=可否当日预约
+salon.canMaleUse=是否男性可用
+salon.isPointAvailable=是否Point加盟店
+salon.isPosAvailable=可刷卡
+salon.isWifiAvailable=wifi
+salon.hasParkingNearby=附近有无停车场
+salon.parkingDesc=停车场状况描述
+salon.facilities=可否网上预约
+salon.pictures=展示图片
+salon.registerTime=美容平台注册日期
+salon.a=美容美发
+salon.b=瘦身健美
+salon.c=美甲美肤
 
-#Salon management
-
+#salon management
+salonAdmin.updateHeadPortrait = 更换头像
+salonAdmin.myPage = 我的主页
+salonAdmin.myBlog = 我的博客
+salonAdmin.welcome = 欢迎您
+salonAdmin.remindReserv = 预约提醒
+salonAdmin.needCommentReserv = 待评价预约
+salonAdmin.overtimeReserv = 已过期预约
+salonAdmin.expireReserv = 即将到期
+salonAdmin.remindApply = 申请提示
+salonAdmin.fromStylistApply = 来自技师申请
+salonAdmin.infoManagement = 信息管理
+salonAdmin.stylistManagement = 技师管理
+salonAdmin.reservManagement = 预约管理
+salonAdmin.commentManagement = 评论管理
+salonAdmin.serviceManagement = 服务管理
+salonAdmin.couponManagement = 优惠劵管理
+salonAdmin.stateManagement = 动态管理
+salonAdmin.myStylist = 我的技师
+salonAdmin.applyStylists = 申请的技师
 
 
 # Hair
@@ -87,11 +148,10 @@ service.update=更新
 
 # Coupon&Menu
 coupon.title = {0} 的优惠券
-coupon.meldTime = 演示条件： 
-coupon.useRules = 条款及细则：
+coupon.presentTime = 出示时间： 
+coupon.useConditions = 使用条件：
 coupon.endDate = 到期日：
-coupon.util = 直到
-coupon.tip = 没有找到您希望的优惠券！
+coupon.noCouponSearched = 没有找到您希望的优惠券！
 coupon.menu = 搜索条件
 coupon.searchOption = 搜索选项
 coupon.searchOptionContent = 包含上述所选条件
@@ -122,4 +182,56 @@ stylist.id = 技师ID
 stylist.workYears = 年
 stylist.checkReserv = 查看日程
 stylist.invite = 邀请
+stylist.empty = 暂无 
+stylist.applyCreateTime = 申请时间
+stylist.acceptApply = 同意
+stylist.rejectApply = 拒绝
 
+#Stylist management
+stylistMag.mySalon = 我的店铺
+stylistMag.salonApply = 来自店铺申请
+stylistMag.myStyle = 我的作品
+
+# User
+user.relation.type=关系类型
+user.changeImage=更换头像
+user.myFollowers=粉丝
+user.myBlog=我的博客
+user.changeInfo=修改资料
+user.followSalon=关注的店铺
+user.showAllFollow=显示所有关注（
+user.followStylist=关注的技师
+user.followUser=关注的美丽达人
+user.howToGetPoint=如何获得积分？
+user.point=可用积分
+user.cancleFollow=取消关注
+user.sendMsg=发送留言
+user.otherBlog=他的博客
+user.collectCoupon=收藏の优惠劵
+user.collectBlog=收藏の博客
+user.collectStyle=收藏の风格
+user.reservation=我的预约
+user.salonAct=店铺の动态
+user.name=用户名
+user.nickNm=昵称
+user.birthDay=出生日期
+user.sex=性别
+user.sexErr=请选择性别!
+user.city=城市
+user.job=职业
+user.email=电子邮箱
+user.tel=联系电话
+user.weChat=微信
+user.login=用户登录
+user.pasword=密码
+user.loginErr=用户名或密码错误，请重新输入!
+user.loginBtn=登录
+user.registerBtn=注册
+user.new=新用户
+user.regErr=请输入用户名!
+user.confirmPas=确认密码
+user.agree=必须同意!
+user.male=男
+user.female=女
+user.loginOut=退出
+user.cancleBothFollow=取消互粉

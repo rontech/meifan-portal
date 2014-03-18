@@ -14,9 +14,13 @@ object SalonsAdmin extends Controller {
 	def date(str: String) = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(str)
   
 	def mySalon(salonId: ObjectId) = Action {
+
 	   val salon: Salon = Salon.findById(salonId).get
 	    Ok(views.html.salon.admin.mySalonHome(salon = salon))
 	  }
+
+   
+  
   
   def myStylist(salonId: ObjectId) = Action {
 	val stylist = Stylist.findBySalon(salonId)

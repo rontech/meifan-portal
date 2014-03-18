@@ -7,6 +7,7 @@ import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
+import play.api.PlayException
 
 case class User(
      id: ObjectId = new ObjectId,    
@@ -32,9 +33,15 @@ case class User(
 object User extends UserDAO
 
 trait UserDAO extends ModelCompanion[User, ObjectId] {
-      def collection = mongoCollection("users")
-      val dao = new SalatDAO[User, ObjectId](collection) {}
-
+      def collection = MongoConnection()(
+    current.configuration.getString("mongodb.default.db")
+      .getOrElse(throw new PlayException(
+          "Configuration error",
+          "Could not find mongodb.default.db in settings"))
+  )("User")
+      val dao = new SalatDAO[User, ObjectId](collection){}
+      
+      
       // Indexes
       collection.ensureIndex(DBObject("userId" -> 1), "userId", unique = true)
       
@@ -50,5 +57,5 @@ trait UserDAO extends ModelCompanion[User, ObjectId] {
       def findByEmail(email: String) = dao.find(MongoDBObject("email" -> email))
       
       // Check the password when logining
-      def authenticate(userId: String, password: String): Option[User] = findOne(MongoDBObject("userId" -> userId, "password" -> password))
+      def authenticate(userId: String, password: String): Option[User] = dao.findOne(MongoDBObject("userId" -> userId, "password" -> password))
 }
