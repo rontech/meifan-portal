@@ -18,7 +18,6 @@ object Salons extends Controller {
       Ok(views.html.salon.general.index(""))
   }
 
-  
   def getSalon(salonId: ObjectId) = Action {
     val salon: Option[Salon] = Salon.findById(salonId)
 

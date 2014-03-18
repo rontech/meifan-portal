@@ -39,6 +39,7 @@ main.myPage=我的主页
 # Salon
 salon.show=展示所有沙龙
 
+#Salon management
 
 
 
@@ -108,4 +109,17 @@ menu.addMark = +
 menu.appointment = 空缺查询·预约
 menu.todoMessage = 该位置显示服务的描述
 
+#ApplyRecord.status
+apply.inApply = 0
+apply.accept = 1
+apply.reject = 2
+apply.termination = 3
+
+#Stylist
+stylist.searchResults = 搜索结果
+stylist.search = 搜索
+stylist.id = 技师ID
+stylist.workYears = 年
+stylist.checkReserv = 查看日程
+stylist.invite = 邀请
 

@@ -34,7 +34,8 @@ GET		/mySalon/:id/service			controllers.SalonsAdmin.myService(id: ObjectId)
 GET		/mySalon/:salonId/checkHoldApply				controllers.SalonsAdmin.checkHoldApply(salonId: ObjectId)
 GET		/agreeStylistApply/:stylistId/:salonId			controllers.SalonsAdmin.agreeStylistApply(stylistId: ObjectId, salonId: ObjectId)
 GET		/rejectStylistApply/:stylistId/:salonId		    controllers.SalonsAdmin.rejectStylistApply(stylistId: ObjectId, salonId: ObjectId)
-
+GET		/searchStylistById								controllers.SalonsAdmin.searchStylistById
+GET		/inviteStylist/:stylistId/:salonId				controllers.SalonsAdmin.inviteStylist(stylistId: ObjectId, salonId: ObjectId)
 
 
 
@@ -70,6 +71,7 @@ GET     /findStylist                    controllers.Stylists.findStylist
 GET     /checkStylist                   controllers.Stylists.checkStylist
 GET 	/agreeSalonApply/:stylistId/:salonId		controllers.Stylists.agreeSalonApply(stylistId: ObjectId, salonId: ObjectId)
 GET		/rejectSalonApply/:stylistId/:salonId		controllers.Stylists.rejectSalonApply(stylistId: ObjectId, salonId: ObjectId)
+
 
 
 # Reservations Management

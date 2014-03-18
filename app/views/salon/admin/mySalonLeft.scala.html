@@ -135,12 +135,12 @@
                        	技师提醒：
                     </dt>
                     <dd>
-                	<a href="/mySalon/@salon.id/checkHoldApply">
-                	待确认的申请(
+                	<a href="@routes.SalonsAdmin.checkHoldApply(salon.id)">
+                	来自技师申请(
                 		 <span id="reviewCount">
                                @ApplyRecord.countStylistApply(salon.id)
                          </span>
-                	个)
+                	)
                 	</a>
                 	</dd>
                 </dl>

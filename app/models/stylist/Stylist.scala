@@ -45,7 +45,7 @@ object Stylist {
     }
 
     def findBySalon(salonId: ObjectId): List[Stylist] = {
-        StylistDAO.find(DBObject("salonId" -> salonId)).toList
+        StylistDAO.find(DBObject("salonId" -> salonId, "status" -> 1)).toList
     }
 
     def create(stylist: Stylist): Option[ObjectId] = {

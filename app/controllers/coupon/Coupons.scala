@@ -51,7 +51,7 @@ object Coupons extends Controller {
    */
   def findByCondtion(salonId: ObjectId) = Action {implicit request =>
     condtionForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.coupon.debugMessage(errors)),
+      errors => BadRequest(views.html.index("")),
       {
         serviceType =>
           val subMenuFlg = serviceType.productElement(serviceType.productArity-1)

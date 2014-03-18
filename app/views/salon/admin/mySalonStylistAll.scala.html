@@ -7,7 +7,13 @@
 				<li clstag="click|keycount|myhome|tuangouqian" data-widget="tab-item" class="curr"><s></s><b></b>我的技师</li>
             </ul>
 		</div>
-		技师ID<input name="id" id="stylist-search"/>&nbsp;&nbsp;&nbsp;<input type="button" value="搜索">
+		<div class="mysalon-stylist-search">
+			<form action="/searchStylistById" method="get">
+				技师ID<input name="searchStylistById" id="stylist-search"/>&nbsp;&nbsp;&nbsp;
+					<input type="hidden" name="salonId" value="@salon.id">
+				<input type="submit" value="搜索">
+			</form>
+		</div>
 	</div>
 	<div class="mc">
    		<div class="tabcon hide" data-widget="tab-content" style="display: block;">

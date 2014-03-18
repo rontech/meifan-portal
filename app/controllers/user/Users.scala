@@ -223,15 +223,13 @@ object Users extends Controller {
    */
   def commitStylistApply() = Action {implicit request=>
     /*val userId = request.session.get("user")*/
-    val user = new User(new ObjectId, "123456576", "12333333", "adsad", new Date, "1",
-        "jiangsu", "18606291469", "1324567987","729932232",
-        "456d4sdsd", "..", "..", "1", "1", 1, new Date, ".")
     val userId = new ObjectId
   	stylistForm.bindFromRequest.fold(
       errors => BadRequest(views.html.fortest(errors)),
       {
     	  stylist =>
     	    Stylist.save(stylist)
+    	    println("stylist_id........"+stylist.id)
     	    val applyRecord = new ApplyRecord(new ObjectId, stylist.id, stylist.salonId, 1,
     	        new Date, None, None, None, 0)
     	    ApplyRecord.save(applyRecord)
