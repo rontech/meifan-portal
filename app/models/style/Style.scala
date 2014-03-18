@@ -6,7 +6,7 @@ import play.api.PlayException
 import com.novus.salat._
 import com.novus.salat.dao._
 
-import com.mongodb.casbah.commons.Imports._
+//import com.mongodb.casbah.commons.Imports._
 import com.mongodb.casbah.MongoConnection
 
 import com.novus.salat.Context
@@ -15,22 +15,22 @@ import mongoContext._
 
 import models.Style._
 
+import com.mongodb.casbah.query.Imports._
 
 case class Style(
     id: ObjectId = new ObjectId,
-    label: String,
-    salonId: ObjectId,
+    styleName: String,
     stylistId: ObjectId,
     stylePic: List[String],
-    impression: String,
-    serviceType: String,
+    styleImpression: List[String],
+    serviceType: List[String],
     styleLength: String,
     styleColor: List[String],
     styleAmount: List[String],
     styleQuality: List[String],
     styleDiameter: List[String],
     faceType: List[String],
-    introduce: String
+    description: String
 )
 
 
@@ -53,30 +53,17 @@ object Style {
         StyleDAO.findOne(MongoDBObject("_id" -> id))
     }
 
-    def findBySalon(salonId: ObjectId): List[Style] = {
-        StyleDAO.find(DBObject("salonId" -> salonId)).toList
-    }
-
-    def findBySalon(salonId: ObjectId, styleId: ObjectId): Option[Style] = {
-        StyleDAO.findOne(DBObject("salonId" -> salonId, "_id" -> styleId))
-    }
-    
-    def findBySalonId(salonId: ObjectId): List[Style] = {
-         StyleDAO.find(DBObject("salonId" -> salonId)).toList
-    }
-    
-    def findByStylistId(salonId: ObjectId, stylistId: ObjectId): List[Style] = {
-      StyleDAO.find(DBObject("salonId" -> salonId, "stylistId" -> stylistId)).toList
+    def findByStylistId(stylistId: ObjectId): List[Style] = {
+      StyleDAO.find(DBObject("stylistId" -> stylistId)).toList
     }
     
     def create(style: Style): Option[ObjectId] = {
         StyleDAO.insert(
             Style(
-                label = style.label,
-                salonId = style.salonId,
+                styleName = style.styleName,
                 stylistId = style.stylistId,
                 stylePic = style.stylePic,
-                impression = style.impression,
+                styleImpression = style.styleImpression,
 			    serviceType = style.serviceType,
 			    styleLength = style.styleLength,
 			    styleColor = style.styleColor,
@@ -84,7 +71,7 @@ object Style {
 			    styleQuality = style.styleQuality,
 			    styleDiameter = style.styleDiameter,
 			    faceType = style.faceType,
-			    introduce = style.introduce
+			    description = style.description
             )
         )
     }
@@ -93,11 +80,10 @@ object Style {
         StyleDAO.save(
             Style(
 		id = style.id,
-                label = style.label,
-                salonId = style.salonId,
+                styleName = style.styleName,
                 stylistId = style.stylistId,
                 stylePic = style.stylePic,
-                impression = style.impression,
+                styleImpression = style.styleImpression,
 			    serviceType = style.serviceType,
 			    styleLength = style.styleLength,
 			    styleColor = style.styleColor,
@@ -105,13 +91,16 @@ object Style {
 			    styleQuality = style.styleQuality,
 			    styleDiameter = style.styleDiameter,
 			    faceType = style.faceType,
-			    introduce = style.introduce
+			    description = style.description
             )
         )
     }
 
-   def delete(id: String) {
+   def delete(id: String) {	
         StyleDAO.remove(MongoDBObject("_id" -> new ObjectId(id)))
     }
-
+   
+   def findByPara(style: models.Style) : List[Style] = {
+        StyleDAO.find($and("styleDiameter" $in style.styleDiameter ,"styleImpression" $in style.styleImpression)).toList	
+   }
 }

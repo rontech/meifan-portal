@@ -31,7 +31,6 @@ object Stylists extends Controller {
     val salon: Option[Salon] = Salon.findById(salonId)
     val nav: String = "style"
     val stylistsOfSalon: Seq[Stylist] = Stylist.findBySalon(salonId)    
-    val style: Seq[Style] = Style.findBySalonId(salonId) 
      // TODO
     Ok(html.salon.store.salonInfoStylistAll(salon.get, stylistsOfSalon))
 
@@ -40,7 +39,7 @@ object Stylists extends Controller {
   def findStylistById(id: ObjectId) = Action{
     val stylist = Stylist.findById(id)
     val salon = Salon.findById(stylist.get.salonId)
-    val style = Style.findByStylistId(stylist.get.salonId, id)
+    val style = Style.findByStylistId(id)
     Ok(html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, style = style))
     
   }
