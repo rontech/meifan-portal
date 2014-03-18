@@ -30,5 +30,9 @@ object Menu extends ModelCompanion[Menu, ObjectId]{
     def findAllMenus : List[Menu] = dao.find(MongoDBObject.empty).toList
     
     def findBySalon(salonId: ObjectId): List[Menu] = dao.find(MongoDBObject("salonId" -> salonId)).toList
+    
+    def findContainCondtions(serviceTypes: Seq[ObjectId]): List[Menu] = {
+    	dao.find("categories._id" $all serviceTypes).toList
+    }
 
 }

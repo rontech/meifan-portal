@@ -18,8 +18,8 @@ object Styles extends Controller {
    */
   val styleSearchForm:Form[Style] = Form(
 	    mapping(
-	        "impression" -> text,
-		    "serviceType" -> text,
+	        "styleImpression" -> list(text),
+		    "serviceType" -> list(text),
 		    "styleLength" -> text,
 		    "styleColor" -> list(text),
 		    "styleAmount" -> list(text),
@@ -27,12 +27,12 @@ object Styles extends Controller {
 		    "styleDiameter" -> list(text),
 		    "faceType" -> list(text)
 	        ){
-	      (impression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceType) =>
-	          Style(new ObjectId,"",new ObjectId,new ObjectId,List(""),
-	           impression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceType,"")
+	      (styleImpression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceType) =>
+	          Style(new ObjectId,"",new ObjectId,List(""),
+	           styleImpression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceType,"")
 	    }
 	    {
-	      style=> Some((style.impression,style.serviceType,
+	      style=> Some((style.styleImpression,style.serviceType,
 	          style.styleLength,style.styleColor,style.styleAmount,style.styleQuality,
 	          style.styleDiameter,style.faceType))
 	    }
@@ -52,16 +52,22 @@ object Styles extends Controller {
   }
   
   def findBySalon(salonId: ObjectId) = Action {
-    val salon: Option[Salon] = Salon.findById(salonId)    
-    val styles: Seq[Style] = Style.findBySalon(salonId)    
-
+    val salon: Option[Salon] = Salon.findById(salonId)
+    //此处由于豆平那技师和店铺关系的表还未确定，暂时固定写死，明日修改2014/03/18
+    //val styles: Seq[Style] = Style.findBySalon(salonId)    
+    val stylists = List("530d8010d7f2861457771bf8","530d8010d7f2861457771bf8")
+    var styles: List[Style] = Nil
+    stylists.map{ sty =>
+    	var style = Style.findByStylistId(new ObjectId(sty))
+    	styles :::= style
+    }
     // TODO: process the salon not exist pattern.
     Ok(html.salon.store.salonInfoStyleAll(salon = salon.get, styles = styles))
   }
-
+  
   def getStyleInfoOfSalon(salonId: ObjectId, styleId: ObjectId) = Action {
     val salon: Option[Salon] = Salon.findById(salonId)    
-    val style: Option[Style] = Style.findBySalon(salonId, styleId)    
+    val style: Option[Style] = Style.findById(styleId)    
     Ok(html.salon.store.salonInfoStyle(salon = salon.get, style = style.get))
 
  }
@@ -72,7 +78,13 @@ object Styles extends Controller {
 	      errors => BadRequest(html.index("")),
       {
           case(styleSearchForm) => {
-            Ok(html.style.styleSearchList(styleSearchForm))
+            val styleSearchInfo = Style.findByPara(styleSearchForm)
+            println("wwwwww："+styleSearchForm)
+            println("册数："+styleSearchInfo)
+            //此处由于豆平那技师和店铺关系的表还未确定，暂时固定写死，明日修改2014/03/18
+            val salonId :ObjectId = new ObjectId("530d7288d7f2861457771bdd")
+            val salon: Option[Salon] = Salon.findById(salonId)
+            Ok(html.style.styleSearchList(styleSearchInfo,salon = salon.get))
           }
       }
     )

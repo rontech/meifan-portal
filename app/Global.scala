@@ -59,9 +59,9 @@ object InitialData {
       ).foreach(Stylist.save)
       
       Seq(
-        Style(new ObjectId("530d828cd7f2861457771c0b"), "四代火影发型式", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf8"), List("B002740532_164-219.jpg","B004689277_164-219.jpg","B004538417_164-219.jpg"),"清爽、舒适","烫发","中",List("黄色","绿色","紫色"),List("很少","很多","较少"),List("软","硬"),List("粗","细"),List("国字","方形","圆形","尖"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生"),
-        Style(new ObjectId("530d828cd7f2861457771c0c"), "六道仙人发型", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf8"), List("B004670057_164-219.jpg","B004670057_164-219.jpg","B004554657_164-219.jpg"),"舒适","染发","长",List("绿色","紫色"),List("很少","很多","较少"),List("软","硬"),List("适中","细"),List("国字","方形","圆形","尖"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生"),
-        Style(new ObjectId("530d828cd7f2861457771c0d"), "海贼王发型", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d8010d7f2861457771bfd"), List("B004554657_164-219.jpg"),"清爽、舒适","烫发","中",List("黄色","绿色","紫色"),List("很少","很多","较少"),List("软","硬"),List("粗","细"),List("国字","方形","圆形","尖"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生")
+        Style(new ObjectId("530d828cd7f2861457771c0b"), "四代火影发型式", new ObjectId("530d8010d7f2861457771bf8"), List("B002740532_164-219.jpg","B004689277_164-219.jpg","B004538417_164-219.jpg"),List("清新"),List("烫"),"中",List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("圆脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生"),
+        Style(new ObjectId("530d828cd7f2861457771c0c"), "六道仙人发型", new ObjectId("530d8010d7f2861457771bf8"), List("B004670057_164-219.jpg","B004670057_164-219.jpg","B004554657_164-219.jpg"),List("自然"),List("染"),"长",List("绿色","紫色"),List("少","多","一般"),List("软","硬"),List("适中","细"),List("标准","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生"),
+        Style(new ObjectId("530d828cd7f2861457771c0d"), "海贼王发型", new ObjectId("530d8010d7f2861457771bfd"), List("B004554657_164-219.jpg"),List("清新"),List("烫"),"中",List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生")
       ).foreach(Style.save)
 
     }
@@ -228,6 +228,14 @@ object InitialData {
        FollowCollect(new ObjectId("531563e2d4d5b6a812c359a3"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("531964e0d4d57d0a43771411"),6,true),
        FollowCollect(new ObjectId("531563e2d4d5b6a812c359a4"),new ObjectId("531964e0d4d57d0a43771411"),new ObjectId("53202c29d4d5e3cd47efffd3"),6,true)
       ).foreach(FollowCollect.save)
+    }
+    
+    if(User.findAll.isEmpty){
+      Seq(
+       User(new ObjectId("531964e0d4d57d0a43771411"),"zhenglu316","123456","关雨",date("2014-03-18"),"F","苏州","咚咚咚","123@123.com","15269845698","845654891","","","userTyp.0","userLevel.0",20,date("2014-03-18"),"status.0"),
+       User(new ObjectId("53202c29d4d5e3cd47efffd3"),"zhenglu","123456","关雨",date("2014-03-18"),"F","苏州","咚咚咚","123@123.com","15269845698","845654891","","","userTyp.0","userLevel.0",20,date("2014-03-18"),"status.0"),
+       User(new ObjectId("53202c29d4d5e3cd47efffd4"),"530d7288d7f2861457771bdd","123456","关雨",date("2014-03-18"),"F","苏州","咚咚咚","123@123.com","15269845698","845654891","","","userTyp.1","userLevel.0",20,date("2014-03-18"),"status.0")
+      ).foreach(User.save)
     }
     
   }

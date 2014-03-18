@@ -29,6 +29,10 @@ object Service extends ModelCompanion[Service, ObjectId]{
 	def getServiceTypeList : List[String] = ServiceType.dao.find(MongoDBObject.empty).toList.map {
 		serviceType =>serviceType.serviceTypeName
 	}
+	
+	def getTypeByCondition(servicesTypes: List[ObjectId]) : List[String] = ServiceType.dao.find("_id" $in servicesTypes).toList.map {
+		serviceType =>serviceType.serviceTypeName
+	}
 
 	def findAllServices : List[Service] = dao.find(MongoDBObject.empty).toList
 

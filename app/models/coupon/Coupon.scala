@@ -6,12 +6,14 @@ import java.util.Date
 import com.novus.salat._
 import com.novus.salat.annotations._
 import com.novus.salat.dao._
-import com.mongodb.casbah.Imports._
+//import com.mongodb.casbah.MongoConnection
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
+
+import com.mongodb.casbah.query.Imports._
 
 case class Coupon (
         id: ObjectId = new ObjectId,
@@ -33,7 +35,7 @@ case class Coupon (
 )
 
 object CouponDAO extends SalatDAO[Coupon, ObjectId](
-  collection = MongoConnection()(
+  collection = com.mongodb.casbah.MongoConnection()(
     current.configuration.getString("mongodb.default.db")
       .getOrElse(throw new PlayException(
           "Configuration error",
@@ -43,11 +45,11 @@ object CouponDAO extends SalatDAO[Coupon, ObjectId](
 object Coupon {
   
   def findAll(): List[Coupon] = {
-        CouponDAO.find(MongoDBObject.empty).toList
+        CouponDAO.find(com.mongodb.casbah.commons.MongoDBObject.empty).toList
     }
   
   def findBySalon(salonId: ObjectId): List[Coupon] = {
-    CouponDAO.find(DBObject("salonId" -> salonId)).toList
+    CouponDAO.find(com.mongodb.casbah.commons.Imports.DBObject("salonId" -> salonId)).toList
   }
   
   def save(coupon: Coupon) = {
@@ -73,38 +75,7 @@ object Coupon {
         )
     }
   
-  def findContainCondtions(serviceTypes: ObjectId): List[Coupon] = {
-    // in mongodb, we can select like this below:
-    // db.Coupon.find({"serviceCategories._id": {$all: [ObjectId("5316798cd4d5cb7e816db34b"), ObjectId("53167ae7d4d5cb7e816db355")]}})
-   
-    // faild1 
-    //val lst = List(new ObjectId("5316798cd4d5cb7e816db34b"), new ObjectId("53167ae7d4d5cb7e816db355"))
-    //CouponDAO.find(DBObject("serviceCategories._id" -> {"$all" -> lst} )).toList
-    
-    // List(ServiceType(5316798cd4d5cb7e816db34b,剪), ServiceType(53167ae7d4d5cb7e816db355,烫))
-    //val lst1 = List(ServiceType(new ObjectId("5316798cd4d5cb7e816db34b"),"剪"), ServiceType(new ObjectId("53167ae7d4d5cb7e816db355"),"烫"))
-    //CouponDAO.find(DBObject("serviceCategories" -> {"$all" -> lst1} )).toList
-
-    // failed2
-    //CouponDAO.find(DBObject("originalPrice" $lt 200 $gt 50 )).toList
-    // failed 3
-    //CouponDAO.find(DBObject("originalPrice" -> { "$lt" -> 200} )).toList
-
-    // success1
-    //val itm = new ObjectId("5316798cd4d5cb7e816db34b")
-    //CouponDAO.find(DBObject("serviceCategories._id" -> itm )).toList
-
-    // success2
-    //val lst1 = List(ServiceType(new ObjectId("5316798cd4d5cb7e816db34b"),"剪"))
-    //CouponDAO.find(DBObject("serviceCategories._id" -> lst1(0).id )).toList
-
-    // success2
-    val lst1 = ServiceType(new ObjectId("5316798cd4d5cb7e816db34b"),"剪")
-    val lst2 = ServiceType(new ObjectId("53167ae7d4d5cb7e816db355"),"烫")
-    println(lst1::lst2::Nil)
-    CouponDAO.find(DBObject("serviceCategories" -> {"$all" -> lst1::lst2::Nil})).toList
-
-    //CouponDAO.find(DBObject("serviceCategories._id" -> {"$all" -> serviceTypes} )).toList
-//   CouponDAO.find(DBObject("serviceCategories" -> Seq[ServiceType(ObjectId())] )).toList
+  def findContainCondtions(serviceTypes: Seq[ObjectId]): List[Coupon] = {
+    CouponDAO.find("serviceCategories._id" $all serviceTypes).toList
   }
 }
