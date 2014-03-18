@@ -10,6 +10,7 @@ import models._
 import scala.collection.mutable.ListBuffer
 import com.mongodb.casbah.commons.Imports._
 
+
 object Users extends Controller {
   def registerForm(id :ObjectId = new ObjectId) = Form(
     mapping(
@@ -23,7 +24,7 @@ object Users extends Controller {
           "Passwords don't match", passwords => passwords._1 == passwords._2),
       "nickNm" ->text,
       "birthDay" ->date,
-      "sex" ->text,
+      "sex" ->text, 
       "city" ->text,
       "job" ->text,
       "email" -> email,
@@ -252,14 +253,6 @@ object Users extends Controller {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.mySaveSalonActi(user = user.get))
   }
-  
-  /**
-   *他人收藏的优惠劵 
-   */
-  def SaveCoupon(userId: ObjectId) = Action {
-    val user: Option[User] = User.findById(userId)
-    Ok(views.html.user.otherSaveCoupon(user = user.get))
-  }
 
   /**
    *他人收藏的博客 
@@ -280,7 +273,8 @@ object Users extends Controller {
   /**
    *列表显示关注的沙龙 
    */
-  def showAllFollowSalon(userId: ObjectId) = Action{
+  def showAllFollowSalon(userId: ObjectId) = Action{implicit request =>
+    val sessionUserId = request.session.get("userId")
     val user: Option[User] = User.findById(userId)
     val salonIdList: List[ObjectId] = FollowCollect.getAllFollowCollectAtId(1,userId)
     val salonList = ListBuffer[Salon]()
@@ -288,13 +282,14 @@ object Users extends Controller {
       val salon =Salon.findById(salonIdList(i)).get
       salonList += salon
     }
-    Ok(views.html.user.showAllFollowSalon(salonList.toList,user.get))
+    Ok(views.html.user.showAllFollowSalon(salonList.toList,user.get,sessionUserId))
   }
   
   /**
    *列表显示关注的技师 
    */
-  def showAllFollowStylist(userId: ObjectId) = Action{
+  def showAllFollowStylist(userId: ObjectId) = Action{implicit request =>
+    val sessionUserId = request.session.get("userId")
     val user: Option[User] = User.findById(userId)
     val stylistIdList: List[ObjectId] = FollowCollect.getAllFollowCollectAtId(2,userId)
     val stylistList = ListBuffer[Stylist]()
@@ -302,13 +297,14 @@ object Users extends Controller {
       val stylist =Stylist.findById(stylistIdList(i)).get
       stylistList += stylist
     }
-    Ok(views.html.user.showAllFollowStylist(stylistList.toList,user.get))
+    Ok(views.html.user.showAllFollowStylist(stylistList.toList,user.get,sessionUserId))
   }
 
   /**
    *列表显示关注的其他用户 
    */
-  def showAllFollowUser(userId: ObjectId) = Action{
+  def showAllFollowUser(userId: ObjectId) = Action{implicit request =>
+    val sessionUserId = request.session.get("userId")
     val user: Option[User] = User.findById(userId)
     val userIdList: List[ObjectId] = FollowCollect.getAllFollowCollectAtId(6,userId)
     val userList = ListBuffer[User]()
@@ -316,13 +312,14 @@ object Users extends Controller {
       val followUser =User.findById(userIdList(i)).get
       userList += followUser
     }
-    Ok(views.html.user.showAllFollowUser(userList.toList,user.get))
+    Ok(views.html.user.showAllFollowUser(userList.toList,user.get,sessionUserId))
   }
   
   /**
    *列表显示我的粉丝 
    */
-   def showMyFollowers(userId: ObjectId) = Action{
+   def showMyFollowers(userId: ObjectId) = Action{implicit request =>
+    val sessionUserId = request.session.get("userId")
     val user: Option[User] = User.findById(userId)
     val myFollowersIdList: List[ObjectId] = FollowCollect.getFollowers(userId)
     val myFollowersList = ListBuffer[User]()
@@ -330,7 +327,7 @@ object Users extends Controller {
       val myFollowers =User.findById(myFollowersIdList(i)).get
       myFollowersList += myFollowers
     }
-    Ok(views.html.user.showMyFollowers(myFollowersList.toList,user.get))
+    Ok(views.html.user.showMyFollowers(myFollowersList.toList,user.get,sessionUserId))
   }
    
    /**
@@ -340,6 +337,33 @@ object Users extends Controller {
      Redirect(routes.Application.index).withNewSession
    }
   
+   /**
+    * 取消关注
+    */
+   def cancelFollow(userName:String,salonId:ObjectId,relationTypeId:Int) =Action{
+    val userId = User.findOneByUserId(userName).get.id
+   	FollowCollect.delete(userId, salonId, relationTypeId)
+   	Redirect(routes.Users.showAllFollowSalon(userId))
+   }
+   
+   /**
+    * 添加关注或收藏
+    */
+   def addFollow(followId:ObjectId,relationTypeId:Int) = Action{implicit request =>
+     val userId = request.session.get("userId")
+     if(userId.nonEmpty){
+       val user = User.findOneByUserId(userId.get).get
+       if(!FollowCollect.checkIfFollowOff(user.id, followId) && !FollowCollect.checkIfFollowOn(user.id, followId)){
+         FollowCollect.create(user.id, followId, relationTypeId)
+       }else if(FollowCollect.checkIfFollowOff(user.id, followId)){
+         FollowCollect.createAgain(user.id, followId, relationTypeId)
+       }
+       Redirect(routes.Users.myPage(userId.get))
+     }else{
+       Redirect(routes.Users.myPage(userId.get))//TODO
+     }
+   }
+   
   /**
    * 申请成为技师
    */
@@ -361,7 +385,7 @@ object Users extends Controller {
       {
     	  stylist =>
     	    Stylist.save(stylist)
-    	    println("stylist_id........"+stylist.id)
+    	    
     	    val applyRecord = new ApplyRecord(new ObjectId, stylist.id, stylist.salonId, 1,
     	        new Date, None, None, None, 0)
     	    ApplyRecord.save(applyRecord)

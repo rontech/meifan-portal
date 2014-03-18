@@ -28,7 +28,6 @@ POST    /commitStylistApply             controllers.Users.commitStylistApply
 GET     /addRelationType                controllers.RelationTypes.addRelationType
 GET     /relationTypeMain               controllers.RelationTypes.relationTypeMain
 GET     /otherPage/:id                  controllers.Users.otherIndex(id: ObjectId)
-GET     /otherPage/SaveCoupon/:id       controllers.Users.SaveCoupon(id: ObjectId)
 GET     /otherPage/SaveBlog/:id	        controllers.Users.SaveBlog(id: ObjectId)
 GET     /otherPage/SaveStyle/:id        controllers.Users.SaveStyle(id: ObjectId)
 GET     /showAllFollowSalon/:id         controllers.Users.showAllFollowSalon(id:ObjectId)
@@ -36,6 +35,8 @@ GET     /showAllFollowStylist/:id       controllers.Users.showAllFollowStylist(i
 GET     /showAllFollowUser/:id          controllers.Users.showAllFollowUser(id:ObjectId)
 GET     /showMyFollowers/:id            controllers.Users.showMyFollowers(id:ObjectId)
 GET     /loginout                       controllers.Users.loginout
+GET     /cancelFollow/:userName/:salonId         controllers.Users.cancelFollow(userName:String,salonId:ObjectId,relationTypeId:Int)
+GET     /addFollow/:followId             controllers.Users.addFollow(followId:ObjectId,relationTypeId:Int)
 
 #Salon Management
 GET		/mySalon/:id					controllers.SalonsAdmin.mySalon(id: ObjectId)

@@ -48,14 +48,14 @@ object SalonsAdmin extends Controller {
    */
   def checkHoldApply(salonId: ObjectId) = Action {
     val stylists = ApplyRecord.findStylistApply(salonId)
-    println("eeeeeeeeeeeeeeeeeeeee" + stylists)
+    
     stylists.map{sty=>
-      println("stylists .. "+sty)
+      
     }
     val salon = Salon.findById(salonId)
     salon match {
       case Some(s) =>{
-    	println("goto mysalonapplyall")  
+    	 
         Ok(views.html.salon.admin.mySalonApplyAll(stylist = stylists, salon = s))
         
       }

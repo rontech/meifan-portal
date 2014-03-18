@@ -1,4 +1,4 @@
-@(myFollowersList : List[User],user:User)
+@(myFollowersList : List[User],user:User,sessionUserId:Option[String])
 
 @main("") {
 	
@@ -8,7 +8,11 @@
 	
     <div id="OSC_Content">
         	<div id='SpaceLeft'>
+        	@if(sessionUserId.nonEmpty && sessionUserId.get.equals(user.userId) ){
         		@views.html.user.myPageLeft(user)
+        	}else{
+        		@views.html.user.otherPageLeft(user)
+        	}
         	</div>
 			<div id='SpaceMain'>
 	    		 <div class="MMod" id="Logs">

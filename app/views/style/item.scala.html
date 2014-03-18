@@ -1,27 +1,21 @@
-@(style: Style)
+@(style: Style,salon:Salon)
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
 <div class="mT30" id="jsiHoverAlphaLayerScope">
 	<div class="stylePageTileOuter cFix">
 		<h2 class="fs16 fl">
-			@style.label
+			@style.styleName
 		</h2>
 		<div class="jscHoverTarget">
 			<div class="jscLayer">
 				<p id="mysId01L000544169" style="position: relative; zoom: 1;">
 					<a id="mysIdh01L000544169" href="javascript:void(0);" >
-						保存到我的风格
+						@Messages("hair.ToCollect")
 					</a>
 					<a href="" class="btnSaveToMyStyleDone jscRadius3px offL fr mR10">
 						<span class="btnSaveToMyStyleDoneInner jscRadius3px">
-							<span class="btnSaveToMyStyleDoneInnerLinkText b">
-								我的风格
-							</span>
-							已保存
+							@Messages("hair.BeCollected")
 						</span>
 					</a>
-					<span style="display: block; position: absolute; top: -30px; right: 22.5px; margin-left: -50px; width: 100px; height: 20px; line-height: 20px; text-align: center; background-color: rgb(112, 87, 89); opacity: 0; color: rgb(255, 255, 255); text-indent: 0px;">
-						保存しました
-					</span>
 				</p>
 			</div>
 		</div>
@@ -48,19 +42,13 @@
 				<div class="jscLayer">
 					<p id="mysId01L000544169" style="position: relative; zoom: 1;">
 						<a id="mysIdh01L000544169" href="javascript:void(0);" >
-							保存到我的风格
+							@Messages("hair.ToCollect")
 						</a>
 						<a href="" class="btnSaveToMyStyleDone jscRadius3px offL fr mR10">
 							<span class="btnSaveToMyStyleDoneInner jscRadius3px">
-								<span class="btnSaveToMyStyleDoneInnerLinkText b">
-									我的风格
-								</span>
-								已保存
+								@Messages("hair.BeCollected")
 							</span>
 						</a>
-						<span style="display: block; position: absolute; top: -30px; right: 22.5px; margin-left: -50px; width: 100px; height: 20px; line-height: 20px; text-align: center; background-color: rgb(112, 87, 89); opacity: 0; color: rgb(255, 255, 255); text-indent: 0px;">
-							保存しました
-						</span>
 					</p>
 				</div>
 			</div>
@@ -68,7 +56,7 @@
 		<div class="fr w427">
 			<div>
 				<div class="titleStyle">
-					造型师评论
+					@Messages("hair.assessFromStylist")
 				</div>
 				<div class="cFix mT10">
 					<div class="fl w99">
@@ -78,7 +66,7 @@
 						</a>
 					</div>
 					<div class="fr w318">
-						@style.introduce
+						@style.description
 					</div>
 				</div>
 				<div class="cFix mT10 pT10 bdDotT">
@@ -90,7 +78,7 @@
 					<div class="fr" >
 						<a href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733&amp;stylistId=T000164185"
 						class="bS db nominatedReserve offL" width="200px">
-							指明预约
+							@Messages("reserve.name")
 						</a>
 					</div>
 				</div>
@@ -122,7 +110,7 @@
 						@Messages("hair.impression")
 					</dt>
 					<dd class="fl" style="background:#24D3E2">
-						@style.impression
+						@style.styleImpression
 					</dd>
 				</dl>
 				<dl class="cFix bdDotT mT5 pT5">
@@ -136,7 +124,7 @@
 			</div>
 			<div class="mT30">
 				<div class="titleStyle">
-					推荐人群
+					@Messages("hair.styleForPerson")
 				</div>
 				<div class="cFix p10 bgLGray">
 					<div class="fl w190">
@@ -166,7 +154,7 @@
 						</dl>
 						<dl class="cFix mT5">
 							<dt class="fl fgPink w2em">
-								直径
+								@Messages("hair.styleDiameter")
 							</dt>
 							<dd class="fl" style="background:#24D3E2">
 								<span>
@@ -197,7 +185,7 @@
 	<div class="w785 mT30">
 		<div class="yS mainContentsSecondTitleOuter" id="jsiCarouselPaging" style="position: relative;">
 			<h2 class="yS mainContentsSecondTitleInner">
-				此发型师的其它发型
+				@Messages("hair.styleOfStylist")
 			</h2>
 			<div style="position: absolute; top: 6px; right: 20px; color: rgb(255, 255, 255); font-size: 14px;">
 				7 / 7
@@ -206,10 +194,10 @@
 		<div class="mT20 carouselWrapper" id="jsiCarouselWrapper">
 			<div class="carouselInnerWrapper" id="jsiCarouselInnerWrapper">
 				<ul class="carousel" id="jsiCarousel" style="left: -4284px;">
-					@Style.findByStylistId(style.salonId,style.stylistId).map { stylistAll =>
+					@Style.findByStylistId(style.stylistId).map { stylistAll =>
 						@if(stylistAll.id != style.id) {
 							<li>
-								<a href="@routes.Styles.getStyleInfoOfSalon(stylistAll.salonId,stylistAll.id)"  class="db pr">
+								<a href="@routes.Styles.getStyleInfoOfSalon(salon.id,stylistAll.id)"  class="db pr">
 									<img src="@routes.Application.getPhoto(stylistAll.stylePic(0))"
 									class="bdImgGray" oncontextmenu="return false;">
 								</a>
@@ -221,13 +209,13 @@
 			<p class="carouselPrev">
 				<a href="javascript: void(0);" class="db bS btnCarouselPrev offL" id="jsiBtnCarouselPrev"
 				style="opacity: 1; cursor: pointer;">
-					前
+					pre
 				</a>
 			</p>
 			<p class="carouselNext disabled">
 				<a href="javascript: void(0);" class="db bS btnCarouselNext offL" id="jsiBtnCarouselNext"
 				style="opacity: 0.5; cursor: default;">
-					次
+					fut
 				</a>
 			</p>
 		</div>
@@ -242,12 +230,12 @@
 			</div>
 			<div class="cFix fr w636">
 				<div class="detail2S waitTitle offL">
-					我们期待您的光临
+					@Messages("hair.welcome")
 				</div>
 				<div class="cFix bgDGray p10">
 					<div class="fl">
 						<div class="fgPink fs10">
-							店长 @*@Stylist.findById(style.stylistId).get.stylist*@
+							 @*店长@Stylist.findById(style.stylistId).get.stylist*@
 						</div>
 						<div class="fs14 b mT5">
 							<a href="@routes.Stylists.findStylistById(Stylist.findById(style.stylistId).get.id)">
@@ -260,13 +248,13 @@
 					<li class="">
 						<a href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733&amp;stylistId=T000164185"
 						class="bS db nominatedReserve offL">
-							指名して予約する
+							@Messages("reserve.name")
 						</a>
 					</li>
 					<li class="">
 						<a href="https://beauty.hotpepper.jp/CSP/my/myStylist/doSet/?stylistId=T000164185&amp;org.apache.struts.taglib.html.TOKEN=4607a496c428a11ef5de803c10f73ad8"
 						class="bS db addIntoMyStylist offL">
-							マイスタイリストに保存
+							@Messages("hair.stylistToCollect")
 						</a>
 					</li>
 				</ul>

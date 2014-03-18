@@ -13,6 +13,12 @@
 					<a href="@routes.Users.showMyFollowers(user.id)"><font color="gray">@Messages("user.myFollowers")<span>(@FollowCollect.getFollowers(user.id).length)</span></font></a>
 				</div>
 			</div>
+			<div class='RMod' id='UserSkills'>
+	  			<div id="OtherScore">
+        			<h1><a href="http://www.oschina.net/question/3307_20931" target="_blank" title="@Messages("user.howToGetPoint")"><em>@user.point</em>@Messages("user.point")</a></h1>
+    			</div> 
+				<div style="clear: both"></div>
+	  		</div>
    			<div class='Opts clearfix'>
                                 <a href="@routes.Users.show(user.userId)" class='a2 admin'><i>.</i><span>@Messages("user.changeInfo")</span></a>
 				<a href="/showBlog/@user.id" class='a1 blog'><i>.</i><span>@Messages("user.myBlog")</span></a>
@@ -65,12 +71,6 @@
        				<a href="@routes.Users.showAllFollowUser(user.id)">@Messages("user.showAllFollow")@FollowCollect.getAllFollowCollectAtId(6,user.id).length)</a>
      			</div>
 			</div>
-			<div class='RMod' id='UserSkills'>
-	  			<div id="OtherScore">
-        			<h1><a href="http://www.oschina.net/question/3307_20931" target="_blank" title="@Messages("user.howToGetPoint")"><em>@user.point</em>@Messages("user.point")</a></h1>
-    			</div> 
-				<div style="clear: both"></div>
-	  		</div>
 	  		<div class='RMod' id='UserSkills'>
 	  			<a href = "@routes.Users.loginout">@Messages("user.loginOut")</a>
 	  		</div>
