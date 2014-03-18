@@ -1,5 +1,4 @@
 @(stylists: Seq[Stylist])
-
 <!-- components to list the hair style. -->
 <div class="w166 mHA">
 	<div class="taC">
@@ -10,19 +9,10 @@
     }
 	</div>
 </div>
-<table cellspacing="0" class="w756">
-	<tbody>
-		<tr>
-		 @for(stylist <- stylists) {
-		 	@if((stylists.indexOf(stylist)-4) % 4 == 0){
-		 		<tr>
-		 	}
-			<td class="vaT bdGrayR">
-				@views.html.stylist.stylistItem(stylist)
-			</td>
-		 	@if((stylists.indexOf(stylist)-3) % 4 == 0){ 
-		 	</tr>
-		 	}
-    	}
-   </tbody>	
-</table>
+<div class="mysalon-stylist-group">
+	@stylists.map{sty=>
+		<div class="mysalon-stylist-@(stylists.indexOf(sty)%4)">
+			@views.html.stylist.stylistItem(sty)
+		</div>
+	}
+</div>

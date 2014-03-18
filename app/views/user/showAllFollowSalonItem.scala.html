@@ -1,0 +1,21 @@
+@(salon:Salon,user:User,sessionUserId:Option[String])
+	<li><table class="ostable">
+		<tbody>
+			<tr>
+				<td class="avatar"><a href="#" title=""><img src="#" align="absmiddle" alt="" title="1" class="SmallPortrait" user="1435017"></a></td>
+				<td class="update">
+					<span class="name"><a href="#" target="_blank">@salon.salonName</a></span><br>
+					<span class="city">@salon.address.province &nbsp;@salon.address.city</span>
+				</td>
+				<td class="opts">
+					@if(sessionUserId.nonEmpty && FollowCollect.checkIfFollowOnByName(sessionUserId.get,salon.id)){
+						<a href="@routes.Users.cancelFollow(sessionUserId.get,salon.id,1)">@Messages("user.cancelFollow")</a>
+					}else{
+						<a href="@routes.Users.addFollow(salon.id,1)">@Messages("user.addFollow")</a>
+					}
+					<a href="#">@Messages("user.sendMsg")</a>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+</li>

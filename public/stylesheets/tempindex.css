@@ -1938,3 +1938,45 @@ width: 156px;
 .mT50 {
 margin-top: 50px;
 }
+
+.bdCell {
+	border-top: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+}
+.bdCell th,
+.bdCell td {
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #FFFFFF;
+	border-top: 1px solid #FFFFFF;
+}
+
+.fgThNml th {
+	font-weight: bold;
+}
+
+.vaThT th {
+	vertical-align: top;
+}
+
+.pCellV10H12 th,
+.pCellV10H12 td {
+	padding: 10px 12px;
+}
+
+.yS		{ background-image: url(/CSP/img/bt/sprites/y.png?switch=20140227); }
+
+.mainContentsTitleOuter { background: none; }
+.mainContentsSecondTitleInner {
+ line-height: 21px;
+ border-bottom: 1px solid #666666;
+ background: url('/assets/images/icon_heading.png') no-repeat 0 1px;
+ padding-left: 25px;
+ padding-bottom: 1px;
+ font-size: 15px;
+ font-weight: bold;
+ color: #444444;
+ font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'ＭＳ Ｐゴシック', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
+  }
+.mainContentsTitleInner h2		{ font-size: 18px; }
+

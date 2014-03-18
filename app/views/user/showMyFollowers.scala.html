@@ -1,0 +1,30 @@
+@(myFollowersList : List[User],user:User,sessionUserId:Option[String])
+
+@main("") {
+	
+	<head>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
+	</head>
+	
+    <div id="OSC_Content">
+        	<div id='SpaceLeft'>
+        	@if(sessionUserId.nonEmpty && sessionUserId.get.equals(user.userId) ){
+        		@views.html.user.myPageLeft(user)
+        	}else{
+        		@views.html.user.otherPageLeft(user)
+        	}
+        	</div>
+			<div id='SpaceMain'>
+	    		 <div class="MMod" id="Logs">
+    				<ul>
+    					@myFollowersList.map{myFollower =>
+    					
+    						@views.html.user.showMyFollowersItem(myFollower)
+    					
+    					}
+    				</ul>
+   				</div>
+       		</div>	        
+        </div>
+
+}

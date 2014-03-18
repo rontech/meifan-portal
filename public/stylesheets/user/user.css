@@ -6080,3 +6080,25 @@ _height: 19px;
     margin-top: 30px;
     width: 150px;
 }
+.MMod li .avatar {
+width: 45px;
+}
+
+.MMod li td {
+vertical-align: top;
+padding: 0;
+}
+
+.ostable td {
+vertical-align: top;
+overflow: hidden;
+}
+
+.MMod li .update .name {
+font-weight: bold;
+}
+
+.MMod li .opts {
+text-align: right;
+width: 50px;
+}

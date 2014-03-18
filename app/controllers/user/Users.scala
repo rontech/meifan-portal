@@ -7,6 +7,7 @@ import se.radley.plugin.salat.Binders._
 import play.api.data.Form
 import play.api.data.Forms._
 import models._
+import scala.collection.mutable.ListBuffer
 
 
 object Users extends Controller {
@@ -22,7 +23,7 @@ object Users extends Controller {
           "Passwords don't match", passwords => passwords._1 == passwords._2),
       "nickNm" ->text,
       "birthDay" ->date,
-      "sex" ->text,
+      "sex" ->text, 
       "city" ->text,
       "job" ->text,
       "email" -> email,
@@ -93,11 +94,13 @@ object Users extends Controller {
     	"description" -> text
     ){
       (label,salonId,workYears,stylistStyle,imageId,consumerId,description)=>
-        Stylist(new ObjectId, label, new ObjectId(salonId), new ObjectId, workYears, stylistStyle, imageId.map(i=>new ObjectId(i)),
-            consumerId.map(c=>new ObjectId(c)), description, new String)
+        Stylist(new ObjectId, label, new ObjectId(salonId), new ObjectId, workYears, stylistStyle, imageId,
+        
+            consumerId, description, new String, 0)
     }
     {
-      stylist => Some((stylist.label, stylist.salonId.toString, stylist.workYears, stylist.stylistStyle, List(stylist.imageId.toString), List(stylist.consumerId.toString), stylist.description))
+      stylist => Some((stylist.label, stylist.salonId.toString, stylist.workYears, stylist.stylistStyle, (stylist.imageId.toString)::Nil, 
+          stylist.consumerId.toString::Nil, stylist.description))
     }
   )
 //  val userForm: Form[User] = Form(
@@ -127,6 +130,9 @@ object Users extends Controller {
     Ok(views.html.user.register(Users.registerForm()))
   }
   
+  /**
+   * 登录触发动作
+   */
   def doLogin = Action { implicit request =>
     Users.loginForm.bindFromRequest.fold(
       errors => BadRequest(views.html.user.login(errors)),
@@ -136,6 +142,9 @@ object Users extends Controller {
       })
   }
 
+  /**
+   * 注册触发动作
+   */
   def doRegister = Action { implicit request =>
     Users.registerForm().bindFromRequest.fold(
       errors => BadRequest(views.html.user.register(errors)),
@@ -146,18 +155,22 @@ object Users extends Controller {
       })
   }
 
+  /**
+   * 更新触发的动作
+   */
   def update(id: ObjectId) = Action { implicit request =>
     Users.userForm(id).bindFromRequest.fold(
-//      errors => BadRequest(views.html.user.Infomation(errors,User.findOneByID(id).get)),
-        errors => BadRequest(views.html.user.errorMsg(errors)),
+      errors => BadRequest(views.html.user.Infomation(errors,User.findOneByID(id).get)),
       {
         user =>
-          println("1231231312131131231")
           User.save(user, WriteConcern.Safe)
           Ok(views.html.user.myPageRes(user))
       })
   }
 
+  /**
+   * 显示用户基本信息
+   */
   def show(userId: String) = Action {
     User.findOneByUserId(userId).map { user =>
       val userForm = Users.userForm().fill(user)
@@ -167,6 +180,9 @@ object Users extends Controller {
     }
   }
 
+  /**
+   * 点击主页“我的主页”触发的动作，判断是否已登录
+   */
   def index = Action{ implicit request =>
     if(!request.session.get("userId").nonEmpty){
       Redirect(routes.Users.login)
@@ -174,36 +190,172 @@ object Users extends Controller {
 	  Redirect(routes.Users.myPage(request.session.get("userId").get))
   }
   
+  /**
+   * 个人主页
+   */
   def myPage(userId :String) = Action{
     val user = User.findOneByUserId(userId).get
     Ok(views.html.user.myPageRes(user))
  }
   
+  /**
+   * 浏览他人主页
+   */
+  def otherIndex(id: ObjectId) = Action{
+    val other = User.findById(id).get
+    Ok(views.html.user.otherPage(other))
+  }
+  
+  /**
+   * 我的预约
+   */
   def myReservation(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.myPageRes(user = user.get))
   }
   
+  /**
+   * 我收藏的优惠劵
+   */
   def mySaveCoupon(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.mySaveCoupon(user = user.get))
   }
   
+  /**
+   * 我收藏的博客
+   */
   def mySaveBlog(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.mySaveBlog(user = user.get))
   }
   
+  /**
+   * 我收藏的风格
+   */
   def mySaveStyle(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.mySaveStyle(user = user.get))
   }
   
+  /**
+   *我收藏的店铺动态 
+   */
   def mySaveSalonActi(userId: ObjectId) = Action {
     val user: Option[User] = User.findById(userId)
     Ok(views.html.user.mySaveSalonActi(user = user.get))
   }
+
+  /**
+   *他人收藏的博客 
+   */
+  def SaveBlog(userId: ObjectId) = Action {
+    val user: Option[User] = User.findById(userId)
+    Ok(views.html.user.otherSaveBlog(user = user.get))
+  }
+
+  /**
+   *他人收藏的风格 
+   */
+  def SaveStyle(userId: ObjectId) = Action {
+    val user: Option[User] = User.findById(userId)
+    Ok(views.html.user.otherSaveStyle(user = user.get))
+  }
+
+  /**
+   *列表显示关注的沙龙 
+   */
+  def showAllFollowSalon(userId: ObjectId) = Action{implicit request =>
+    val sessionUserId = request.session.get("userId")
+    val user: Option[User] = User.findById(userId)
+    val salonIdList: List[ObjectId] = FollowCollect.getAllFollowCollectAtId(1,userId)
+    val salonList = ListBuffer[Salon]()
+    for (i <-0 to salonIdList.length-1){
+      val salon =Salon.findById(salonIdList(i)).get
+      salonList += salon
+    }
+    Ok(views.html.user.showAllFollowSalon(salonList.toList,user.get,sessionUserId))
+  }
   
+  /**
+   *列表显示关注的技师 
+   */
+  def showAllFollowStylist(userId: ObjectId) = Action{implicit request =>
+    val sessionUserId = request.session.get("userId")
+    val user: Option[User] = User.findById(userId)
+    val stylistIdList: List[ObjectId] = FollowCollect.getAllFollowCollectAtId(2,userId)
+    val stylistList = ListBuffer[Stylist]()
+    for (i <-0 to stylistIdList.length-1){
+      val stylist =Stylist.findById(stylistIdList(i)).get
+      stylistList += stylist
+    }
+    Ok(views.html.user.showAllFollowStylist(stylistList.toList,user.get,sessionUserId))
+  }
+
+  /**
+   *列表显示关注的其他用户 
+   */
+  def showAllFollowUser(userId: ObjectId) = Action{implicit request =>
+    val sessionUserId = request.session.get("userId")
+    val user: Option[User] = User.findById(userId)
+    val userIdList: List[ObjectId] = FollowCollect.getAllFollowCollectAtId(6,userId)
+    val userList = ListBuffer[User]()
+    for (i <-0 to userIdList.length-1){
+      val followUser =User.findById(userIdList(i)).get
+      userList += followUser
+    }
+    Ok(views.html.user.showAllFollowUser(userList.toList,user.get,sessionUserId))
+  }
+  
+  /**
+   *列表显示我的粉丝 
+   */
+   def showMyFollowers(userId: ObjectId) = Action{implicit request =>
+    val sessionUserId = request.session.get("userId")
+    val user: Option[User] = User.findById(userId)
+    val myFollowersIdList: List[ObjectId] = FollowCollect.getFollowers(userId)
+    val myFollowersList = ListBuffer[User]()
+    for (i <-0 to myFollowersIdList.length-1){
+      val myFollowers =User.findById(myFollowersIdList(i)).get
+      myFollowersList += myFollowers
+    }
+    Ok(views.html.user.showMyFollowers(myFollowersList.toList,user.get,sessionUserId))
+  }
+   
+   /**
+    * 退出登录
+    */
+   def loginout = Action{
+     Redirect(routes.Application.index).withNewSession
+   }
+  
+   /**
+    * 取消关注
+    */
+   def cancelFollow(userName:String,salonId:ObjectId,relationTypeId:Int) =Action{
+    val userId = User.findOneByUserId(userName).get.id
+   	FollowCollect.delete(userId, salonId, relationTypeId)
+   	Redirect(routes.Users.showAllFollowSalon(userId))
+   }
+   
+   /**
+    * 添加关注或收藏
+    */
+   def addFollow(followId:ObjectId,relationTypeId:Int) = Action{implicit request =>
+     val userId = request.session.get("userId")
+     if(userId.nonEmpty){
+       val user = User.findOneByUserId(userId.get).get
+       if(!FollowCollect.checkIfFollowOff(user.id, followId) && !FollowCollect.checkIfFollowOn(user.id, followId)){
+         FollowCollect.create(user.id, followId, relationTypeId)
+       }else if(FollowCollect.checkIfFollowOff(user.id, followId)){
+         FollowCollect.createAgain(user.id, followId, relationTypeId)
+       }
+       Redirect(routes.Users.myPage(userId.get))
+     }else{
+       Redirect(routes.Users.myPage(userId.get))//TODO
+     }
+   }
+   
   /**
    * 申请成为技师
    */
@@ -211,14 +363,29 @@ object Users extends Controller {
     val user = new User(new ObjectId, "123456576", "12333333", "adsad", new Date, "1",
         "jiangsu", "18606291469", "1324567987","729932232",
         "456d4sdsd", "..", "..", "1", "1", 1, new Date, ".")
-    Ok(views.html.user.applyStylist(stylistForm,user))
+    Ok(views.html.user.applyStylist(stylistForm, user))
   }
   
   /**
    * 店长或店铺管理者确认后才录入数据库
    */
-  def agreeStylist() = Action {
-     Ok(views.html.index(""))
+  def commitStylistApply() = Action {implicit request=>
+    /*val userId = request.session.get("user")*/
+    val user = new User(new ObjectId, "123456576", "12333333", "adsad", new Date, "1",
+        "jiangsu", "18606291469", "1324567987","729932232",
+        "456d4sdsd", "..", "..", "1", "1", 1, new Date, ".")
+    val userId = new ObjectId
+  	stylistForm.bindFromRequest.fold(
+      errors => BadRequest(views.html.fortest(errors)),
+      {
+    	  stylist =>
+    	    Stylist.save(stylist)
+    	    val applyRecord = new ApplyRecord(new ObjectId, stylist.id, stylist.salonId, 1,
+    	        new Date, None, None, None, 0)
+    	    ApplyRecord.save(applyRecord)
+    	    Redirect(routes.Users.show(userId.toString))
+      })
+      
   }
   
 }
