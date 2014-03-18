@@ -1,0 +1,24 @@
+@(navInPage: String = "save-coupon", user: User)(content: Html)
+
+@main(Messages("site.title")) {
+	
+	
+	<head>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
+	</head>
+
+<!-- ↓contents -->
+
+        <div id="OSC_Content">
+        	<div id='SpaceLeft'>
+        		@views.html.user.otherPageLeft(user)
+        	</div>
+			<div id='SpaceMain'>
+	    		@views.html.user.otherPageHeader(navInPage, user)
+	    
+       		 	@content
+       		</div>	        
+        </div>
+
+<!-- ↑contents -->
+}

@@ -1,0 +1,25 @@
+@(relationTypeForm: Form[RelationType])
+
+@import helper._
+
+    @main(title = Messages("")) {
+
+		<body>
+        @form(routes.RelationTypes.addRelationType, 'id -> "relationTypeForm") {
+          <fieldset>
+          
+            @inputText(relationTypeForm("relationTypeName"),'_label -> Messages("user.relation.type"))
+      
+      		<input type="hidden" name="relationTypeId" value="@RelationType.relationTypeNewId">
+      		
+		  </fieldset>
+		  
+            <input type="submit" class = "buttons" value="@Messages("service.addBton")">
+            
+            <input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+           
+        }
+        
+        </body>
+
+    }

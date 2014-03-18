@@ -7,52 +7,49 @@
         @form(routes.Users.update(user.id), 'id -> "userForm") {
           <fieldset>
            	
-                  @inputText(userForm("userId"),'_label -> "用户名", 'readonly -> "true")
+                  @inputText(userForm("userId"),'_label -> Messages("user.name"), 'readonly -> "true")
 
                   <input type="hidden" name="password" value="@user.password">
 
-                  @inputText(userForm("nickNm"),'_label -> "昵称")
+                  @inputText(userForm("nickNm"),'_label -> Messages("user.nickNm"))
 
-                  @inputDate(userForm("birthDay"), '_label -> "出生日期")
+                  @inputDate(userForm("birthDay"), '_label -> Messages("user.birthDay"))
 
-                  @inputRadioGroup(userForm("sex"),options = options("M" -> "男", "F" -> "女") , '_label -> "性别",
-                  '_error -> userForm("sex").error.map(_.withMessage("请选择性别!")))
+                  @inputRadioGroup(userForm("sex"),options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")) , '_label -> Messages("user.sex"),
+                  '_error -> userForm("sex").error.map(_.withMessage(Messages("user.sexErr"))))
 
-                  @inputText(userForm("city"),'_label -> "城市")
+                  @inputText(userForm("city"),'_label -> Messages("user.city"))
 
-                  @inputText(userForm("job"),'_label -> "职业")
+                  @inputText(userForm("job"),'_label -> Messages("user.job"))
 
-                  @inputText(userForm("email"), '_label -> "电子邮箱")
+                  @inputText(userForm("email"), '_label -> Messages("user.email"))
 
-                  @inputText(userForm("tel"), '_label -> "联系电话")
+                  @inputText(userForm("tel"), '_label -> Messages("user.tel"))
 
                   @inputText(userForm("qq"), '_label -> "QQ")
 
                   @inputText(userForm("msn"), '_label -> "MSN")
 
-                  @inputText(userForm("weChat"),'_label -> "微信")
+                  @inputText(userForm("weChat"),'_label -> Messages("user.weChat"))
 
-                  @*inputText(userForm("userTyp"),'_label -> "用户类别")
-
-                  @*inputText(userForm("userBehaviorLevel"),'_label -> "用户行为等级")
-
-                  @*inputText(userForm("point"),'_label -> "积分")
-
-                  
-
-                  @*inputText(userForm("status"),'_label -> "状态")*@
                   @inputDate(userForm("added"),'_label -> "" ,'style -> "display: none")
+                  
                   <input type="hidden" name="userTyp" value="@user.userTyp">
+                  
                   <input type="hidden" name="userBehaviorLevel" value="@user.userBehaviorLevel">
+                  
                   <input type="hidden" name="point" value="@user.point">
+                  
                   <input type="hidden" name="added" value="@user.added">
+                  
                   <input type="hidden" name="status" value="@user.status">
+                  
                   <input type="hidden" name="id" value="@user.id">
 
 			
 		  </fieldset>            
 
-            <input type = "submit" class = "buttons" value="更新">           
+            <input type = "submit" class = "buttons" value="@Messages("service.update")">           
         }
 
     }

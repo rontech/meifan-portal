@@ -36,8 +36,8 @@ object InitialData {
 
     if(Salon.findAll == Nil) { 
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), "火影忍者吧", Some("火吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ","99198121")), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), "海贼王吧", Some("海吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ","99198121")), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") )
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), "火影忍者吧", Some("火吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), "海贼王吧", Some("海吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") )
       ).foreach(Salon.save)
       
       Seq(
@@ -182,6 +182,17 @@ object InitialData {
               Seq(ServiceType(new  ObjectId("5316798cd4d5cb7e816db34b"), "剪"), ServiceType(new ObjectId("53167a91d4d5cb7e816db34d"), "洗")), 20, "0")
       ).foreach(Menu.save)
     }
+
+    if(Menu.findAll().isEmpty) {
+      Seq(
+          Menu(new ObjectId("5317c0d1d4d57337ce3e6d61"), new ObjectId("530d7288d7f2861457771bdd"), Seq(Service(new ObjectId("53168b38d4d5cb7e816db35c"), "剪刘海", "剪", 10, 10), Service(new ObjectId("5316bb51d4d57997ce3e6d4b"), "局部染", "染", 90, 120)),
+              Seq(ServiceType(new  ObjectId("5316798cd4d5cb7e816db34b"), "剪"), ServiceType(new ObjectId("53167aced4d5cb7e816db351"), "染")), 130, "0"),
+          Menu(new ObjectId("5317c0d1d4d57337ce3e6d62"), new ObjectId("530d7288d7f2861457771bdd"), Seq(Service(new ObjectId("53168b38d4d5cb7e816db35c"), "剪刘海", "剪", 10, 10), Service(new ObjectId("5316be8ed4d57997ce3e6d52"), "3D彩色", "染", 80, 150)),
+              Seq(ServiceType(new  ObjectId("5316798cd4d5cb7e816db34b"), "剪"), ServiceType(new ObjectId("53167aced4d5cb7e816db351"), "染")), 160, "0"),
+          Menu(new ObjectId("5317c0d1d4d57337ce3e6d63"), new ObjectId("530d7288d7f2861457771bdd"), Seq(Service(new ObjectId("53168b38d4d5cb7e816db35c"), "剪刘海", "剪", 10, 10), Service(new ObjectId("5316c048d4d57997ce3e6d5a"), "简洗", "洗", 10, 10)),
+              Seq(ServiceType(new  ObjectId("5316798cd4d5cb7e816db34b"), "剪"), ServiceType(new ObjectId("53167a91d4d5cb7e816db34d"), "洗")), 20, "0")
+      ).foreach(Menu.save)
+    }
     
     if(Blog.findByUserId(new ObjectId("530d8010d7f2861457771bf8")).isEmpty) {
       val date = new Date()
@@ -204,6 +215,29 @@ object InitialData {
         files.foreach(f=>Image.save(f)) 
     }
 
+    if(RelationType.findAll.isEmpty){
+      Seq(
+       RelationType(new ObjectId("53217c2ed4d5c027e48dd978"), "关注店铺", 1),
+       RelationType(new ObjectId("53217c35d4d5c027e48dd97a"), "关注技师", 2),
+       RelationType(new ObjectId("53217c4cd4d5c027e48dd97c"), "收藏风格", 3),
+       RelationType(new ObjectId("53217c62d4d5c027e48dd97e"), "收藏优惠劵", 4),
+       RelationType(new ObjectId("53217c6fd4d5c027e48dd980"), "收藏博客", 5),
+       RelationType(new ObjectId("53217c6fd4d5c027e48dd981"), "关注用户", 6)
+      ).foreach(RelationType.save)
+    } 
+    
+    if(FollowCollect.findAll.isEmpty){
+      Seq(
+       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a8"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d7288d7f2861457771bdd"),1,true),
+       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a9"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d7292d7f2861457771bde"),1,true),
+       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a0"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d8010d7f2861457771bfd"),2,true),
+       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a1"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d8010d7f2861457771c01"),2,true),
+       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a2"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d8010d7f2861457771c05"),2,true),
+       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a3"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("531964e0d4d57d0a43771411"),6,true),
+       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a4"),new ObjectId("531964e0d4d57d0a43771411"),new ObjectId("53202c29d4d5e3cd47efffd3"),6,true)
+      ).foreach(FollowCollect.save)
+    }
+    
   }
   
 }

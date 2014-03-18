@@ -10,21 +10,33 @@ GET     /                               controllers.Application.index
 GET		/getPhoto/:name					controllers.Application.getPhoto(name: String)
 
 # User Management
-GET		/user							controllers.Users.index
-GET     /login							controllers.Users.login
-GET     /register						controllers.Users.register
+GET     /user                           controllers.Users.index
+GET     /login                          controllers.Users.login
+GET     /register                       controllers.Users.register
 POST    /login                          controllers.Users.doLogin
 POST    /register                       controllers.Users.doRegister
 POST    /update/:id                     controllers.Users.update(id: ObjectId)
 GET     /show/:userId                   controllers.Users.show(userId)
 GET     /myPage/:userId                 controllers.Users.myPage(userId)
-GET     /myPage/myReservation/:id		controllers.Users.myReservation(id: ObjectId)
-GET     /myPage/mySaveCoupon/:id		controllers.Users.mySaveCoupon(id: ObjectId)
-GET     /myPage/mySaveBlog/:id		 	controllers.Users.mySaveBlog(id: ObjectId)
-GET     /myPage/mySaveStyle/:id		 	controllers.Users.mySaveStyle(id: ObjectId)
-GET     /myPage/mySaveSalonActi/:id		controllers.Users.mySaveSalonActi(id: ObjectId)
-GET		/applyStylist					controllers.Users.applyStylist
-POST	/commitStylistApply				controllers.Users.commitStylistApply
+GET     /myPage/myReservation/:id       controllers.Users.myReservation(id: ObjectId)
+GET     /myPage/mySaveCoupon/:id        controllers.Users.mySaveCoupon(id: ObjectId)
+GET     /myPage/mySaveBlog/:id          controllers.Users.mySaveBlog(id: ObjectId)
+GET     /myPage/mySaveStyle/:id         controllers.Users.mySaveStyle(id: ObjectId)
+GET     /myPage/mySaveSalonActi/:id     controllers.Users.mySaveSalonActi(id: ObjectId)
+GET     /applyStylist                   controllers.Users.applyStylist
+POST    /commitStylistApply             controllers.Users.commitStylistApply
+GET     /addRelationType                controllers.RelationTypes.addRelationType
+GET     /relationTypeMain               controllers.RelationTypes.relationTypeMain
+GET     /otherPage/:id                  controllers.Users.otherIndex(id: ObjectId)
+GET     /otherPage/SaveCoupon/:id       controllers.Users.SaveCoupon(id: ObjectId)
+GET     /otherPage/SaveBlog/:id	        controllers.Users.SaveBlog(id: ObjectId)
+GET     /otherPage/SaveStyle/:id        controllers.Users.SaveStyle(id: ObjectId)
+GET     /showAllFollowSalon/:id         controllers.Users.showAllFollowSalon(id:ObjectId)
+GET     /showAllFollowStylist/:id       controllers.Users.showAllFollowStylist(id:ObjectId)
+GET     /showAllFollowUser/:id          controllers.Users.showAllFollowUser(id:ObjectId)
+GET     /showMyFollowers/:id            controllers.Users.showMyFollowers(id:ObjectId)
+GET     /loginout                       controllers.Users.loginout
+
 #Salon Management
 GET		/mySalon/:id					controllers.SalonsAdmin.mySalon(id: ObjectId)
 GET		/mySalon/:id/stylist			controllers.SalonsAdmin.myStylist(id: ObjectId)
@@ -41,13 +53,8 @@ GET		/rejectStylistApply/:stylistId/:salonId		    controllers.SalonsAdmin.reject
 # Salon 
 GET     /salon                          controllers.Salons.index
 GET     /salon/:id                      controllers.Salons.getSalon(id: ObjectId)
-GET     /basicRegister					controllers.BasicInformations.store
-GET     /storeInformation/:storeId      controllers.BasicInformations.storeInfo(storeId)
-GET     /storeInformationD/:storeId     controllers.BasicInformations.detailedInfo(storeId)
-GET     /storeUpdateB/:id               controllers.BasicInformations.storeUpd(id :ObjectId)
-GET     /storeUpdateD/:id               controllers.BasicInformations.storeUpdDet(id :ObjectId)
-GET     /storeRegister              	controllers.BasicInformations.storeRegister
-					
+GET     /salonInfo/      				controllers.SalonInfo.salonInfoBasic
+GET     /salonUpd/:id              		controllers.SalonInfo.update(id: ObjectId)
 
 # Coupon
 GET     /coupon                         controllers.Coupons.index

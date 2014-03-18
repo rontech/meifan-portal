@@ -1,8 +1,7 @@
 @charset "utf-8";
 
 /************************************************************
- * 初期化
- ************************************************************/
+ * 蛻晄悄蛹� ************************************************************/
 body, form, img, div, p, ul, li, dl, dt, dd, h1, h2, h3, table,td ,select {
 	margin: 0;
 	padding: 0;
@@ -22,7 +21,7 @@ table	{ border-spacing: 0; }
 .cFix	{ min-height: 1px; _height: 1px; }
 
 /************************************************************
- * アンカー
+ * 繧｢繝ｳ繧ｫ繝ｼ
  ************************************************************/
 
 a:link			{ color: #4c4c80; }
@@ -52,8 +51,7 @@ a:hover .imgFrame {
 */
 
 /************************************************************
- * フォント
- ************************************************************/
+ * 繝輔か繝ｳ繝� ************************************************************/
 
 body, input, select, table, td, li ,a {
 	font-family: 'Microsoft YaHei', Arial, Helvetica, MS PGothic, sans-serif; 
@@ -72,7 +70,7 @@ h1, h2 {
  ************************************************************/
 
 
-/* ヘッダー */
+/* 繝倥ャ繝�� */
 #headerWrapper {
 	border-bottom: 2px solid #998a8a;
 	border-top:    16px solid #BFB4AB;
@@ -123,18 +121,18 @@ h1, h2 {
 	z-index: 3;
 }
 
-/* ラッパー */
+/* 繝ｩ繝�ヱ繝ｼ */
 #wrapper {
 	width: 1000px;
 	margin: 0 auto;
 	position: relative;
 }
 
-/* プレコンテンツ */
+/* 繝励Ξ繧ｳ繝ｳ繝�Φ繝�*/
 #preContents {
 	padding: 0 20px;
 }
-/* コンテンツ */
+/* 繧ｳ繝ｳ繝�Φ繝�*/
 #contents {
 	margin-top: 8px;
 	padding: 0 20px;
@@ -178,7 +176,7 @@ h1, h2 {
 	width: 180px;
 }
 
-/* マイエリア */
+/* 繝槭う繧ｨ繝ｪ繧｢ */
 #myMenu			{ background-position: -5430px 0; background-repeat: repeat-y; }
 #myMenuHead		{ background-position: -5070px top; background-repeat: no-repeat; }
 #myMenuBottom {
@@ -188,7 +186,7 @@ h1, h2 {
 	zoom: 1;
 }
 
-/* フッター */
+/* 繝輔ャ繧ｿ繝ｼ */
 
 .footerwrapper {
 	background:#f6f4f3 url("/CSP/img/top/bg_footerwrapper.gif") top;
@@ -258,16 +256,16 @@ h1, h2 {
 }
 
 /************************************************************
- * CLASSES(コンポーネント)
+ * CLASSES(繧ｳ繝ｳ繝昴�繝阪Φ繝�
  ************************************************************/
 
-/* メインコンテンツフッター */
+/* 繝｡繧､繝ｳ繧ｳ繝ｳ繝�Φ繝�ヵ繝�ち繝ｼ */
 .mainContentsFooter {
 	width:1000px;
 	margin: 0 auto;
 }
 
-/* メインコンテンツフッターリンク */
+/* 繝｡繧､繝ｳ繧ｳ繝ｳ繝�Φ繝�ヵ繝�ち繝ｼ繝ｪ繝ｳ繧ｯ */
 .mainContentsFooterLinks {
 	padding-top:27px;
 	margin:0px 20px;
@@ -302,7 +300,7 @@ h1, h2 {
 	color: #4c4c80;
 	line-height:18px;
 }
-/* メインコンテンツフッターバナー */
+/* 繝｡繧､繝ｳ繧ｳ繝ｳ繝�Φ繝�ヵ繝�ち繝ｼ繝舌リ繝ｼ */
 .mainContentsFooterBanners {
 	margin-top: 20px;
 }
@@ -312,7 +310,7 @@ h1, h2 {
 	margin-right: 10px;
 }
 
-/* ジャンルボックス */
+/* 繧ｸ繝｣繝ｳ繝ｫ繝懊ャ繧ｯ繧ｹ */
 .topGenreBox {
 	background:  url("/CSP/img/bt/map/bg/bg_topGenereBox.gif");
 	background-repeat: repeat-y;
@@ -320,7 +318,7 @@ h1, h2 {
 .topGenreBoxHead	{ background:  url("/CSP/img/bt/map/bg/bg_topGenereBoxHead.gif") top no-repeat; }
 .topGenreBoxBottom	{ background:  url("/CSP/img/bt/map/bg/bg_topGenereBoxBottom.gif")  bottom no-repeat; padding: 7px; overflow: hidden; position: relative; z-index: 10; zoom:1; }
 
-/* マイエリア */
+/* 繝槭う繧ｨ繝ｪ繧｢ */
 .myMenuTop {
 	background-position: -900px -20px;
 }
@@ -463,7 +461,7 @@ h1, h2 {
 }
 
 
-/* 検索ボックス */
+/* 讀懃ｴ｢繝懊ャ繧ｯ繧ｹ */
 .searchBox {
 	float: right;
 	width: 364px;
@@ -476,7 +474,7 @@ h1, h2 {
 .searchButton		{ background-position: -300px -1280px; width:73px; height:24px; }
 .searchButton:hover	{ background-position: -300px -1304px; }
 
-/* ショートカットリンク */
+/* 繧ｷ繝ｧ繝ｼ繝医き繝�ヨ繝ｪ繝ｳ繧ｯ */
 .sideShortcutSearchBox {
 	margin-top: -1px;
 }
@@ -486,17 +484,17 @@ h1, h2 {
 	margin-bottom: 10px;
 }
 
-/* プライバシーマーク */
+/* 繝励Λ繧､繝舌す繝ｼ繝槭�繧ｯ */
 .privacyMarkCaption {
 	width: 105px;
 	font-size: 10px;
 }
 
-/* 白背景画像用ボーダー */
+/* 逋ｽ閭梧勹逕ｻ蜒冗畑繝懊�繝�� */
 .bdImgGray	{ border: 1px solid #EEE; }
 /*a:hover .bdImgGray	{ border: 2px solid #F47892; }*/
 
-/* インフォメーション */
+/* 繧､繝ｳ繝輔か繝｡繝ｼ繧ｷ繝ｧ繝ｳ */
 .infoList {
 	margin-top: -1px;
 }
@@ -504,7 +502,7 @@ h1, h2 {
 	padding: 20px 20px 0;
 }
 
-/* フォーム系 */
+/* 繝輔か繝ｼ繝�ｳｻ */
 .tfF {
 	border-top: 1px solid #8E8E8E;
 	border-right: 1px solid #CCCCCC;
@@ -535,7 +533,7 @@ h1, h2 {
 	cursor: pointer;
 }
 
-/* 見出し */
+/* 隕句�縺�*/
 .boxTitle {
 	color: #88796B;
 	font-weight: bold;
@@ -560,7 +558,7 @@ h1, h2 {
 	line-height: 18px;
 }
 
-/* ↓総合トップ、ヘア型兼用差し込みパーツ↓ */
+/* 竊鍋ｷ丞粋繝医ャ繝励�繝倥い蝙句�逕ｨ蟾ｮ縺苓ｾｼ縺ｿ繝代�繝�� */
 .skinHeadingWrapper1 {
 	height: 12px;
 	border-bottom: 1px solid #959595;
@@ -568,7 +566,7 @@ h1, h2 {
 	padding-left: 24px;
 	padding-bottom: 9px;
 	line-height: 16px;
-	/*display:none;*/    /*ヘアカタログサイト時使用*/
+	/*display:none;*/    /*繝倥い繧ｫ繧ｿ繝ｭ繧ｰ繧ｵ繧､繝域凾菴ｿ逕ｨ*/
 }
 
 div.skinHeadingWrapper2 {
@@ -596,7 +594,7 @@ div.skinHeadingWrapper2 {
 }
 
 
-/* ↑総合トップ、ヘア型兼用差し込みパーツ↑ */
+/* 竊醍ｷ丞粋繝医ャ繝励�繝倥い蝙句�逕ｨ蟾ｮ縺苓ｾｼ縺ｿ繝代�繝�� */
 
 
 .skinHeadingWrapper h3,
@@ -607,9 +605,9 @@ div.skinHeadingWrapper2 {
 	font-family: 'Microsoft YaHei', Arial, Helvetica, MS PGothic, sans-serif; 
 	}
 
-/* 見出しの画像テキスト */
+/* 隕句�縺励�逕ｻ蜒上ユ繧ｭ繧ｹ繝�*/
 
-/*========index用=========*/
+/*========index逕ｨ=========*/
 
 .mainImage_navi{width:960px; height:397px; margin:0 auto;}
 .mainImage_navi a{ text-indent: -9999px; text-decoration: none; display: block; width: 230px; background-repeat: no-repeat;
@@ -698,15 +696,15 @@ div.skinHeadingWrapper2 {
 
 .plugWrapper {
 	margin-top:-1px;
-	font-size:0;     /* cFixによる空白解除用 */
-	display: block;  /* cFixによる空白解除用 */
+	font-size:0;     /* cFix縺ｫ繧医ｋ遨ｺ逋ｽ隗｣髯､逕ｨ */
+	display: block;  /* cFix縺ｫ繧医ｋ遨ｺ逋ｽ隗｣髯､逕ｨ */
 }
 .plugWrapper div.w421{
 	margin-top:21px;
 	font-size:12px;
 }
 
-/* ヘッダー */
+/* 繝倥ャ繝�� */
 .logo			{ background-position: 4px 0px; display: block; width: 512px; height: 52px; text-indent: -9999px; overflow: hidden; }
 .salon			{ background-position: -20px -72px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
 .salon:hover	{ background-position: -20px -107px; }
@@ -727,7 +725,7 @@ div.skinHeadingWrapper2 {
 .esthe:hover	{ background-position: -840px -107px; }
 .estheCurrent	{ background-position: -840px -142px; display: block; width: 134px; height: 35px; margin-right: 6px; text-indent: -9999px; overflow: hidden; }
 
-/* 背景 */
+/* 閭梧勹 */
 .insertArea				{ background-position: -900px -340px; display: block; width:190px; height:300px; }
 
 .ranking1Small	{ background-position: 0 -320px; width: 46px; height: 16px; }
@@ -742,7 +740,7 @@ div.skinHeadingWrapper2 {
 .affiliate		{ background-position: -300px -380px; width:81px; height:19px; }
 .words			{ background-position: -400px -380px; width:81px; height:19px; }
 
-/* アイコン（単体） */
+/* 繧｢繧､繧ｳ繝ｳ�亥腰菴難ｼ�*/
 .new			{ background-position: -1186px -160px; width: 30px; height: 13px; margin-left: 5px; }
 .newS			{ background-position: -1194px -140px; width:22px; height:11px; margin-left: 5px; }
 
@@ -754,10 +752,10 @@ div.skinHeadingWrapper2 {
 .serviceEyeMakeN{ background-position: -1167px -400px; width: 52px; height: 14px; }
 .serviceEsuteN	{ background-position: -1164px -440px; width: 52px; height: 14px; }
 
-/* アイコン（左付） */
-/* アイコン（右付） */
+/* 繧｢繧､繧ｳ繝ｳ�亥ｷｦ莉假ｼ�*/
+/* 繧｢繧､繧ｳ繝ｳ�亥承莉假ｼ�*/
 
-/* ボタン */
+/* 繝懊ち繝ｳ */
 .shindanStart					{ background-position: -540px -1200px; display: block; width:166px; height:27px; }
 .shindanStart:hover				{ background-position: -540px -1227px; display: block; width:166px; height:27px; }
 
@@ -776,14 +774,14 @@ div.skinHeadingWrapper2 {
 .reserveW69H24					{ background-position: -220px -1280px; display: block; width:69px; height:24px; }
 .reserveW69H24:hover			{ background-position: -220px -1304px; }
 
-/*予約ボタン*/
+/*莠育ｴ��繧ｿ繝ｳ*/
 .salonReserve				{ background-position: -339px -480px; display: block; width: 42px; height: 16px; }
 .salonReserve:hover			{ background-position: -339px -496px; }
 
-/* 地図 */
+/* 蝨ｰ蝗ｳ */
 .hairSalonMap			{ background-position: 0 -420px; height:206px; }
 
-/* ▼ここから削除予定▼ */
+/* 笆ｼ縺薙％縺九ｉ蜑企勁莠亥ｮ壺名 */
 .hokkaido1				{ background: url("/CSP/img/bt/map/button/btn_hokkaido1.gif") no-repeat -3px -1px; display: block; width:76px; height:47px; top: -159px; left: 264px; }
 .hokkaido1:hover		{ background-position: -3px -54px; }
 .touhoku1				{ background: url("/CSP/img/bt/map/button/btn_touhoku1.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 254px;  }
@@ -802,9 +800,9 @@ div.skinHeadingWrapper2 {
 .shikoku1:hover			{ background-position: -3px -38px; }
 .kyushu1				{ background: url("/CSP/img/bt/map/button/btn_kyushu1.gif") no-repeat -3px -1px; display: block; width:37px; height:80px; top: -90px; left: 25px;  }
 .kyushu1:hover			{ background-position: -3px -87px; }
-/* ▲ここまで削除予定▲ */
+/* 笆ｲ縺薙％縺ｾ縺ｧ蜑企勁莠亥ｮ壺夢 */
 
-/* ▼ここから追加▼ */
+/* 笆ｼ縺薙％縺九ｉ霑ｽ蜉�名 */
 .hokkaido1_2			{ background: url("/CSP/img/bt/map/button/btn_hokkaido1.gif") no-repeat -3px -1px; display: block; width:76px; height:47px; top: -159px; left: 266px; }
 .hokkaido1_2:hover		{ background-position: -3px -54px; }
 .touhoku1_2				{ background: url("/CSP/img/bt/map/button/btn_touhoku1.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 256px;  }
@@ -823,12 +821,12 @@ div.skinHeadingWrapper2 {
 .shikoku1_2:hover		{ background-position: -3px -38px; }
 .kyushu1_2				{ background: url("/CSP/img/bt/map/button/btn_kyushu1_2.gif") no-repeat -3px -1px; display: block; width:37px; height:80px; top: -90px; left: 27px;  }
 .kyushu1_2:hover		{ background-position: -3px -87px; }
-/* ▲ここまで追加▲ */
+/* 笆ｲ縺薙％縺ｾ縺ｧ霑ｽ蜉�夢 */
 
 
 .relaxBeautySalonMap	{ background-position: 0 -660px; height:206px; }
 
-/* ▼ここから削除予定▼ */
+/* 笆ｼ縺薙％縺九ｉ蜑企勁莠亥ｮ壺名 */
 .hokkaido2				{ background: url("/CSP/img/bt/map/button/btn_hokkaido2.gif") no-repeat -3px -1px; display: block; width:76px; height:47px; top: -159px; left: 271px; }
 .hokkaido2:hover		{ background-position: -3px -54px; }
 .touhoku2				{ background: url("/CSP/img/bt/map/button/btn_touhoku2.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 261px;  }
@@ -847,9 +845,9 @@ div.skinHeadingWrapper2 {
 .shikoku2:hover			{ background-position: -5px -38px; }
 .kyushu2				{ background: url("/CSP/img/bt/map/button/btn_kyushu2.gif") no-repeat -3px -1px; display: block; width:37px; height:80px; top: -90px; left: 32px;  }
 .kyushu2:hover			{ background-position: -3px -87px; }
-/* ▲ここまで削除予定▲ */
+/* 笆ｲ縺薙％縺ｾ縺ｧ蜑企勁莠亥ｮ壺夢 */
 
-/* ▼ここから追加▼ */
+/* 笆ｼ縺薙％縺九ｉ霑ｽ蜉�名 */
 .hokkaido2_2			{ background: url("/CSP/img/bt/map/button/btn_hokkaido2.gif") no-repeat -3px -1px; display: block; width:76px; height:47px; top: -159px; left: 267px; }
 .hokkaido2_2:hover		{ background-position: -3px -54px; }
 .touhoku2_2				{ background: url("/CSP/img/bt/map/button/btn_touhoku2.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -101px; left: 257px;  }
@@ -868,9 +866,9 @@ div.skinHeadingWrapper2 {
 .shikoku2_2:hover		{ background-position: -5px -38px; }
 .kyushu2_2				{ background: url("/CSP/img/bt/map/button/btn_kyushu2_2.gif") no-repeat -3px -1px; display: block; width:37px; height:80px; top: -90px; left: 28px;  }
 .kyushu2_2:hover		{ background-position: -3px -87px; }
-/* ▲ここまで追加▲ */
+/* 笆ｲ縺薙％縺ｾ縺ｧ霑ｽ蜉�夢 */
 
-/* キレイ分割 */
+/* 繧ｭ繝ｬ繧､蛻�牡 */
 .hokkaido1_3			{ background: url("/CSP/img/bt/map/button/btn_hokkaido1.gif") no-repeat -3px -1px; display: block; width:76px; height:47px; top: -168px; left: 268px; }
 .hokkaido1_3:hover		{ background-position: -3px -54px; }
 .touhoku1_3				{ background: url("/CSP/img/bt/map/button/btn_touhoku1.gif") no-repeat -3px -1px; display: block; width:86px; height:37px; top: -110px; left: 258px;  }
@@ -890,34 +888,34 @@ div.skinHeadingWrapper2 {
 .kyushu1_3				{ background: url("/CSP/img/bt/map/button/btn_kyushu1_2.gif") no-repeat -3px -1px; display: block; width:37px; height:80px; top: -100px; left: 29px;  }
 .kyushu1_3:hover		{ background-position: -3px -87px; }
 
-/* 地図内bg */
+/* 蝨ｰ蝗ｳ蜀�g */
 .bgTopBoxTitle			{ background: url("/CSP/img/bt/map/bg/bg_topgenreboxtitle.gif") no-repeat; display: block; width: 750px; height: 36px; }
 
 
-/* ▼ここから追加▼ */
+/* 笆ｼ縺薙％縺九ｉ霑ｽ蜉�名 */
 .bgSalonMap2			{ background: url("/CSP/img/bt/map/bg/bg_hairsalonmap2.gif") no-repeat; display: block; width: 371px; height: 206px; }
 .bgRelaxMap2			{ background: url("/CSP/img/bt/map/bg/bg_relaxbeautysalonmap2.gif") no-repeat; display: block; width: 371px; height: 206px; }
-/* ▲ここまで追加▲ */
+/* 笆ｲ縺薙％縺ｾ縺ｧ霑ｽ蜉�夢 */
 
 
 .bgSalonMap			{ background: url("/CSP/img/bt/map_new/bg_hairsalonmap.gif") no-repeat; display: block; width: 421px; height: 358px; position: relative;}
 
 
 
-/* キレイ分割 */
+/* 繧ｭ繝ｬ繧､蛻�牡 */
 .bgSalonMap3			{ background: url("/CSP/img/bt/map/bg/bg_hairsalonmap3.gif") no-repeat; display: block; width: 374px; height: 228px; }
 .bgRelaxMap3			{ background: url("/CSP/img/bt/map/bg/bg_relaxalonmap3.gif") no-repeat; display: block; width: 374px; height: 228px; }
 .bgEstheMap				{ background: url(/CSP/img/bt/map/bg/bg_esthesalonmap.gif) no-repeat; display: block; width: 374px; height: 228px; }
 .bgNailMap				{ background: url(/CSP/img/bt/map/bg/bg_nailsalonmap.gif) no-repeat; display: block; width: 374px; height: 228px; }
 
-/* マイメニューアイコン */
+/* 繝槭う繝｡繝九Η繝ｼ繧｢繧､繧ｳ繝ｳ */
 .myMenuDecision	{ background-position: -1151px -680px; width:65px; height:18px;}
 .myMenuTemporary{ background-position: -1151px -700px; width:65px; height:18px;}
 .myMenuVisitted	{ background-position: -1151px -720px; width:65px; height:18px;}
 .myMenuFailure	{ background-position: -1151px -740px; width:65px; height:18px;}
 .myMenuCancel	{ background-position: -1151px -760px; width:65px; height:18px;}
 
-/* ヘアカタログタブ */
+/* 繝倥い繧ｫ繧ｿ繝ｭ繧ｰ繧ｿ繝�*/
 .hairStyleTab li {
 	float: left;
 	width: 8em;
@@ -939,12 +937,11 @@ div.skinHeadingWrapper2 {
 .tabContent		{ width: 547px; }
 
 /************************************************************
- * スプライト画像 - 横長画像（y.png）
- ************************************************************/
+ * 繧ｹ繝励Λ繧､繝育判蜒�- 讓ｪ髟ｷ逕ｻ蜒擾ｼ�.png�� ************************************************************/
 
 .yS		{ background-image: url(/assets/images/y.png); }
 
-/* 見出し */
+/* 隕句�縺�*/
 .mainContentsTitleNHOuter		{ background-position: -6126px top; background-repeat: no-repeat; background-color: #AA3355; }
 .mainContentsTitleNHInner		{ background-position: -6683px bottom; background-repeat: no-repeat; color: #FFFFFF; font-size: 16px; padding: 8px 10px; }
 .mainContentsTitleNHInner h2	{ font-size: 16px; }
@@ -955,12 +952,11 @@ div.skinHeadingWrapper2 {
 .mainContentsTitleNInner h2		{ font-size: 16px; }
 
 /************************************************************
- * スプライト画像 - 横長画像（y2.png）
- ************************************************************/
+ * 繧ｹ繝励Λ繧､繝育判蜒�- 讓ｪ髟ｷ逕ｻ蜒擾ｼ�2.png�� ************************************************************/
 
 .y2S		{ background-image: url(/assets/images/y2.png); }
 
-/* ランキングボックス */
+/* 繝ｩ繝ｳ繧ｭ繝ｳ繧ｰ繝懊ャ繧ｯ繧ｹ */
 .rankingBox {
 	background-position: -5262px 0;
 	background-repeat: repeat-y;
@@ -969,8 +965,7 @@ div.skinHeadingWrapper2 {
 .rankingBoxBottom		{ background-position: -5474px bottom; background-repeat: no-repeat; padding: 7px; overflow: hidden; position: relative; z-index: 10; zoom:1; }
 
 /************************************************************
- * スプライト画像 - 横長画像（y3.png）
- ************************************************************/
+ * 繧ｹ繝励Λ繧､繝育判蜒�- 讓ｪ髟ｷ逕ｻ蜒擾ｼ�3.png�� ************************************************************/
 
 .y3S		{ background-image: url(/assets/images/y3.png); background-color: transparent;}
 
@@ -996,8 +991,7 @@ div.skinHeadingWrapper2 {
 
 
 /************************************************************
- * スプライト画像 - 横長画像（y4.png）
- ************************************************************/
+ * 繧ｹ繝励Λ繧､繝育判蜒�- 讓ｪ髟ｷ逕ｻ蜒擾ｼ�4.png�� ************************************************************/
 
 .y4S		{ background-image: url(/assets/images/y4.png);}
 
@@ -1022,7 +1016,7 @@ div.skinHeadingWrapper2 {
 
 
 /************************************************************
- * CLASSES(プロパティ)
+ * CLASSES(繝励Ο繝代ユ繧｣)
  ************************************************************/
 
 /* WIDTH */
@@ -1297,7 +1291,7 @@ div.skinHeadingWrapper2 {
 .bdDotPurpleB	{ border-bottom: 1px dotted #A36FA2; }
 
 
-/****** 追加 ********************************************************/
+/****** 霑ｽ蜉�********************************************************/
 .iS		{ background-image: url(/assets/images/i.png) !important; background-repeat: no-repeat; }
 .newS	{ background-position: -178px -1540px; width: 22px; height: 11px; margin-left: 5px; }
 .arrowR	{ background-position: -196px -240px; display: inline-block; padding-left: 8px; }
@@ -1327,7 +1321,7 @@ color:#666666;
 text-align:right;
 }
 
-/* ページトップリンク */
+/* 繝壹�繧ｸ繝医ャ繝励Μ繝ｳ繧ｯ */
 .pageTopLink {
 	margin-top: 20px;
 	text-align: right;
@@ -1339,8 +1333,7 @@ text-align:right;
 .aboutHPB		{ width:620px; font-weight: bold; }
 
 /************************************************************
- * スプライト画像 - 共通（c.png）
- ************************************************************/
+ * 繧ｹ繝励Λ繧､繝育判蜒�- 蜈ｱ騾夲ｼ�.png�� ************************************************************/
 
 .cS		{ background-image: url(/assets/images/c.png) !important; background-repeat: no-repeat; border: 0; }
 
@@ -1361,8 +1354,7 @@ text-align:right;
 .tabMans span.selected		{ background-position: -121px -265px; display: block; background-repeat: no-repeat; margin-bottom: -1px; width: 90px; height: 25px; position:relative; }
 
 /************************************************************
- * スプライト画像 - 横長画像（b.png）
- ************************************************************/
+ * 繧ｹ繝励Λ繧､繝育判蜒�- 讓ｪ髟ｷ逕ｻ蜒擾ｼ�.png�� ************************************************************/
 
 .bS		{ background-image: url(/assets/images/b.png); background-repeat: no-repeat; background-color: transparent; border: 0; }
 
@@ -1416,7 +1408,7 @@ text-align:right;
 /************************************************************
 * buttons
 ************************************************************/
-/* ボタン */
+/* 繝懊ち繝ｳ */
 
 .btn {
 	display: block;
@@ -1613,7 +1605,7 @@ text-align:right;
 	color: #A3A3A3;
 }
 
-/* サロンダイレクト */
+/* 繧ｵ繝ｭ繝ｳ繝�う繝ｬ繧ｯ繝�*/
 /* height30px */
 .btn3H30SD {
 	background: url('/assets/images/btn2.png') no-repeat left -1050px;
@@ -1682,7 +1674,7 @@ text-align:right;
 	z-index:2;
 	font-weight:bold;
 	color: #463413;
-	font-family: 'メイリオ',Meiryo,'ヒラギノ角ゴ Pro W3','ＭＳ Ｐゴシック',MS PGothic,sans-serif;
+	font-family: '繝｡繧､繝ｪ繧ｪ',Meiryo,'繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3','�ｭ�ｳ �ｰ繧ｴ繧ｷ繝�け',MS PGothic,sans-serif;
 }
 
 .copyList {
@@ -1697,7 +1689,7 @@ text-align:right;
 	line-height:24px;
 }
 
-/* プレコンテンツ */
+/* 繝励Ξ繧ｳ繝ｳ繝�Φ繝�*/
 .pankuzuShort {
 width: 568px;
 }
@@ -1720,7 +1712,7 @@ width: 568px;
 	width: 765px;
 	height: 30px;
 	color: #444;
-	font-family: 'メイリオ',Meiryo,'ヒラギノ角ゴ Pro W3','ＭＳ Ｐゴシック',MS PGothic,sans-serif;
+	font-family: '繝｡繧､繝ｪ繧ｪ',Meiryo,'繝偵Λ繧ｮ繝手ｧ偵ざ Pro W3','�ｭ�ｳ �ｰ繧ｴ繧ｷ繝�け',MS PGothic,sans-serif;
 	border-bottom: solid 2px #CDCABF;
 }
 
@@ -1939,6 +1931,33 @@ width: 156px;
 margin-top: 50px;
 }
 
+.bdCell {
+	border-top: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+}
+.bdCell th,
+.bdCell td {
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #FFFFFF;
+	border-top: 1px solid #FFFFFF;
+}
+
+.fgThNml th {
+	font-weight: bold;
+}
+
+.vaThT th {
+	vertical-align: top;
+}
+
+.pCellV10H12 th,
+.pCellV10H12 td {
+	padding: 10px 12px;
+}
+
+.yS		{ background-image: url(/CSP/img/bt/sprites/y.png?switch=20140227); }
+
 .mainContentsSecondTitleOuter {
 background: none;
 }
@@ -1954,3 +1973,4 @@ font-weight: bold;
 color: #444444;
 font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'ＭＳ Ｐゴシック', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
 }
+.mainContentsTitleInner h2		{ font-size: 18px; }
