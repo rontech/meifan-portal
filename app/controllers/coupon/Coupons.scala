@@ -55,10 +55,10 @@ object Coupons extends Controller {
       {
         serviceType =>
           val subMenuFlg = serviceType.productElement(serviceType.productArity-1)
-          var coupons: Seq[Coupon] = None.toList
-          var menus: Seq[Menu] = None.toList
+          var coupons: Seq[Coupon] = Nil
+          var menus: Seq[Menu] = Nil
           var serviceTypeNames: Seq[String] = Nil
-          var conditions: List[ObjectId] = None.toList
+          var conditions: List[ObjectId] = Nil
 
           for(i <- 0 to serviceType.productArity-2) {
             serviceType.productElement(i) match {

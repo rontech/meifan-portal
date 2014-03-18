@@ -76,7 +76,6 @@ object Coupon {
     }
   
   def findContainCondtions(serviceTypes: Seq[ObjectId]): List[Coupon] = {
-    println("serviceTypes = " + serviceTypes)
     CouponDAO.find("serviceCategories._id" $all serviceTypes).toList
   }
 }
