@@ -55,37 +55,34 @@ object Coupons extends Controller {
       {
         serviceType =>
           val subMenuFlg = serviceType.productElement(serviceType.productArity-1)
-          var coupons: Seq[Coupon] = None.toList
-          var conditions: List[ObjectId] = None.toList
-          //var conditions1: List[ServiceType] = None.toList
+          var coupons: Seq[Coupon] = Nil
+          var menus: Seq[Menu] = Nil
+          var serviceTypeNames: Seq[String] = Nil
+          var conditions: List[ObjectId] = Nil
 
           for(i <- 0 to serviceType.productArity-2) {
-            if(serviceType.productElement(i) != None) {
-              val serviceTypeOne: ObjectId = new ObjectId(("5316798cd4d5cb7e816db34b"))
-              //println("serviceTypeOne = " + serviceTypeOne)
-              conditions = serviceTypeOne::conditions
+            serviceType.productElement(i) match {
+              case Some(s) => val serviceTypeId = new ObjectId(s.toString)
+              				  conditions = serviceTypeId::conditions
+              case None => NotFound
             }
           }
-          //println("conditions = " + conditions)
+          
           val serviceTypes: Seq[ServiceType] = ServiceType.findAll().toList
-          /*for( a <- serviceTypes) {
-            if(serviceTypes.indexOf(a) == 0) {
-              conditions1 = a::conditions1
-            }
-          }*/
-          
-          
           if(subMenuFlg == None) {
             //coupons = Coupon.findContainCondtions(serviceTypes)
           } else {
-            //println("conditions1 = " + conditions1)
-            coupons = Coupon.findContainCondtions(new ObjectId(("5316798cd4d5cb7e816db34b")))
-            println("coupons = " + coupons)
+            if(conditions.isEmpty) {
+              coupons = Coupon.findBySalon(salonId)
+              menus = Menu.findBySalon(salonId)
+              serviceTypeNames = Service.getServiceTypeList
+            } else {
+              coupons = Coupon.findContainCondtions(conditions)
+              menus = Menu.findContainCondtions(conditions)
+              serviceTypeNames = Service.getTypeByCondition(conditions)
+            }
           }
           val salon: Option[Salon] = Salon.findById(salonId)
-          val menus: Seq[Menu] = Menu.findBySalon(salonId)
-          val serviceTypeNames: Seq[String] = Service.getServiceTypeList
-          //val serviceTypes: Seq[ServiceType] = ServiceType.findAll().toList
           
           Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus, serviceTypeNames))
       })

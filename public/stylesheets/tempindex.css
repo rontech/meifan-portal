@@ -1967,29 +1967,16 @@ margin-top: 50px;
 .yS		{ background-image: url(/CSP/img/bt/sprites/y.png?switch=20140227); }
 
 .mainContentsTitleOuter { background: none; }
-.mainContentsTitleInner {
-	line-height: 21px;
-	border-bottom: 1px solid #666666;
-	background: url(/CSP/img/bt/icons/icon_heading_bt.png?switch=20140227) no-repeat 0 1px;
-	padding-left: 25px;
-	padding-bottom: 1px;
-	font-size: 15px;
-	font-weight: bold;
-	color: #444444;
-	font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'ＭＳ Ｐゴシック', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
-}
+.mainContentsSecondTitleInner {
+ line-height: 21px;
+ border-bottom: 1px solid #666666;
+ background: url('/assets/images/icon_heading.png') no-repeat 0 1px;
+ padding-left: 25px;
+ padding-bottom: 1px;
+ font-size: 15px;
+ font-weight: bold;
+ color: #444444;
+ font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'ＭＳ Ｐゴシック', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
+  }
 .mainContentsTitleInner h2		{ font-size: 18px; }
-
-.mainContentsSecondTitleOuter	{ background: none; }
-.mainContentsSecondTitleInner	{
-	line-height: 21px;
-	border-bottom: 1px solid #666666;
-	background: url(/CSP/img/bt/icons/icon_heading.png?switch=20140227) no-repeat 0 1px;
-	padding-left: 25px;
-	padding-bottom: 1px;
-	font-size: 15px;
-	font-weight: bold;
-	color: #444444;
-	font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'ＭＳ Ｐゴシック', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
-}
 
