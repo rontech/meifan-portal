@@ -238,6 +238,14 @@ object InitialData {
       ).foreach(FollowCollect.save)
     }
     
+    if(User.findAll.isEmpty){
+      Seq(
+       User(new ObjectId("531964e0d4d57d0a43771411"),"zhenglu316","123456","关雨",date("2014-03-18"),"F","苏州","咚咚咚","123@123.com","15269845698","845654891","","","userTyp.0","userLevel.0",20,date("2014-03-18"),"status.0"),
+       User(new ObjectId("53202c29d4d5e3cd47efffd3"),"zhenglu","123456","关雨",date("2014-03-18"),"F","苏州","咚咚咚","123@123.com","15269845698","845654891","","","userTyp.0","userLevel.0",20,date("2014-03-18"),"status.0"),
+       User(new ObjectId("53202c29d4d5e3cd47efffd4"),"530d7288d7f2861457771bdd","123456","关雨",date("2014-03-18"),"F","苏州","咚咚咚","123@123.com","15269845698","845654891","","","userTyp.1","userLevel.0",20,date("2014-03-18"),"status.0")
+      ).foreach(User.save)
+    }
+    
   }
   
 }

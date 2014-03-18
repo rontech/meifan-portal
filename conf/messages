@@ -155,6 +155,28 @@ menu.addMark = +
 menu.appointment = 空缺查询·预约
 menu.todoMessage = 该位置显示服务的描述
 
+#ApplyRecord.status
+apply.inApply = 0
+apply.accept = 1
+apply.reject = 2
+apply.termination = 3
+
+#Stylist
+stylist.searchResults = 搜索结果
+stylist.search = 搜索
+stylist.id = 技师ID
+stylist.workYears = 年
+stylist.checkReserv = 查看日程
+stylist.invite = 邀请
+stylist.empty = 暂无 
+stylist.applyCreateTime = 申请时间
+stylist.acceptApply = 同意
+stylist.rejectApply = 拒绝
+
+#Stylist management
+stylistMag.mySalon = 我的店铺
+stylistMag.salonApply = 来自店铺申请
+stylistMag.myStyle = 我的作品
 
 # User
 user.relation.type=关系类型

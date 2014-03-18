@@ -1,0 +1,21 @@
+@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist)(content: Html)
+
+@main(Messages("site.title")) {
+	
+	
+	<head>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
+	</head>
+
+<!-- ↓contents -->
+
+        <div id="OSC_Content">
+        	<div id='SpaceLeft'>
+        		@views.html.stylist.management.stylistPageLeft(user, stylist)
+        	</div>
+			<div id='SpaceMain'>
+	    		@content
+       		</div>	        
+        </div>
+<!-- ↑contents -->
+}

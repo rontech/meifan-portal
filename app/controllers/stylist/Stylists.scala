@@ -91,12 +91,4 @@ object Stylists extends Controller {
         }
   }
   
-   def findStylist = Action{
-      Ok(views.html.stylist.findStylist("hello"))
-   }
-    
-    def checkStylist = Action{
-      Ok(views.html.stylist.checkStylist("hello"))
-    }
-
 }
