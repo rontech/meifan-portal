@@ -1,0 +1,43 @@
+@(newBlogForm: Form[Blog], list : List[String], user : User, blogAvailable : List[String] = List("文章仅自己可见", "禁止转载"))
+@*@(formBlog: Form[Blog], list : List[String], user : User)*@
+
+@import helper._
+@import views.html.user._
+
+
+
+@myPageMain(navInMyPage = "my-blog", user) {
+    @form(action = routes.Blogs.writeBlog(user.userId), 'id -> "newBlogForm") {
+      <fieldset>
+        @inputText(newBlogForm("title"),'_label -> "标题")
+		@textarea(newBlogForm("content"),'_label -> "内容")
+		@select(
+	        field = newBlogForm("blogTyp"), 
+	        options = options(list),
+	        '_label -> "博客类型"
+        )	
+        
+        @*<a href = "@routes.BlogCatagories.newBlogCatagory(user.id)">创建一个新的分类</a>*@	
+		@inputText(newBlogForm("tags"), args = '_label -> "标签")
+		@inputRadioGroup(newBlogForm("commentType"),options = options("0" -> "允许所有人评论", "1" -> "不允许匿名评论", "2" -> "不允许评论"))
+		@*@checkbox(newBlogForm("blogAvailable"), '_label -> "文章仅自己可见", 'value -> "文章仅自己可见")
+		@checkbox(newBlogForm("blogAvailable"), '_label -> "禁止转载", 'value -> "禁止转载")*@
+		
+		@input(field = newBlogForm("blogAvailable"),args = '_label ->"可见性"){(id,name,value,args) =>
+			 	@for(i <- 0 to blogAvailable.length-1){
+			 		<input type = "checkbox" name = "blogAvailable[@i]", value = "@blogAvailable(i)">@blogAvailable(i)
+			 	}
+			  }
+		@*@checkbox(newBlogForm("blogAvailable"), options = options("文章仅自己可见" -> "文章仅自己可见", "禁止转载" -> "禁止转载"))*@
+		@*<input type="checkbox" class="cbF" name="blogAvailable" id="blogAvailable"
+           value="文章仅自己可见" />
+           <label for="serviceType_MC03">
+            <font class="OUTFOX_JTR_TRANS_NODE" id="OUTFOX_JTR_TRANS_NODE-241" rel="241">
+            文章仅自己可见
+            </font>*@
+        <input type="submit" class = "buttons" value="发博文" >
+     </fieldset>
+
+        
+       }
+}
