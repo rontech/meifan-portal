@@ -194,18 +194,10 @@ object InitialData {
       ).foreach(Menu.save)
     }
     
-    if(Blog.findByUserId(new ObjectId("530d8010d7f2861457771bf8")).isEmpty) {
-      val date = new Date()
+    if(BlogCatagory.getCommonCatagory.isEmpty){
       Seq (
-          Blog(new ObjectId("53195fb4a89e175858abce82"), new ObjectId("530d8010d7f2861457771bf8"),date, 0, "java", "心情", "It","java学习"),
-          Blog(new ObjectId("53195fb4a89e175858abce83"), new ObjectId("530d8010d7f2861457771bf8"),date, 0, "scala", "工作", "It","scala学习")
-        ).foreach(Blog.save)
-        
-       Seq (
-          Comment(new ObjectId("531d4dd6a89e92eacc96ce30"), new ObjectId("530d8010d7f2861457771bf8"),date, 0,new ObjectId("53195fb4a89e175858abce82"), new ObjectId("530d8010d7f2861457771bf8"),1,"good"),
-          Comment(new ObjectId("531d4dd6a89e92eacc96ce31"), new ObjectId("530d8010d7f2861457771bf8"),date, 0,new ObjectId("53195fb4a89e175858abce82"), new ObjectId("530d8010d7f2861457771bf8"),1,"bad"),
-          Comment(new ObjectId("531d4dd6a89e92eacc96ce32"), new ObjectId("530d8010d7f2861457771bf8"),date, 0,new ObjectId("531d4dd6a89e92eacc96ce31"), new ObjectId("530d8010d7f2861457771bf8"),3,"以和为贵")
-        ).foreach(Comment.save) 
+        BlogCatagory(new ObjectId("53195fb4a89e175858abce82"), "", List("选择分类", "私密博文"), 0, 0)       
+      ).foreach(BlogCatagory.save)
     }
 
     if(Image.findAll.isEmpty) {

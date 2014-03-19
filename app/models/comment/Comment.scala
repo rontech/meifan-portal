@@ -15,24 +15,24 @@ import models._
     
 case class Comment(
     id : ObjectId = new ObjectId,
-    userId: ObjectId, 
+    userId: String, 
     time: Date = new Date, 
     status : Int, 
 //    refCommentId: ObjectId, 
     commentedId : ObjectId, 
-    relevantUser : ObjectId,
+    relevantUser : String,
     commentedType : Int,
     content : String)
 
 object Comment extends ModelCompanion[Comment, ObjectId] {
-  val dao = new SalatDAO[Comment, ObjectId](collection = mongoCollection("comment")) {}
+  val dao = new SalatDAO[Comment, ObjectId](collection = mongoCollection("Comment")) {}
   
   implicit var list = List.empty[Comment]
   def all(id : ObjectId): List[Comment] =   
     {
 //     val l = dao.find(MongoDBObject("commentedId" -> id, "status" -> 0)).toList
     //以时间降序排序
-    val l = dao.find(MongoDBObject("commentedId" -> id, "status" -> 0)).sort(MongoDBObject("time" -> -1)).toList
+    val l = dao.find(MongoDBObject("commentedId" -> id, "status" -> 0)).sort(MongoDBObject("time" -> 1)).toList
      if (!l.isEmpty){
      l.foreach(
        {
@@ -48,13 +48,11 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
   var commentlist : List[Comment] = Nil
   def findBySalon(salonId: ObjectId): List[Comment] = {
     val stylist = Stylist.findBySalon(salonId)
-    //println("stylist" + stylist)
     var comment : List[Comment] = Nil
     stylist.foreach(
       {
       r => 
       comment = Comment.find(DBObject("userId" -> r.id)).toList
-      //println("blog" + comment)
       if(!comment.isEmpty)
 //        blog :::= bloglist
           commentlist :::= comment
@@ -64,7 +62,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
     
   }
   
-  def addComment(userId : ObjectId, content : String, commentedId : ObjectId, relevantUser : ObjectId) = {
+  def addComment(userId : String, content : String, commentedId : ObjectId, relevantUser : String) = {
     dao.save(Comment(userId = userId, status = 0, commentedId = commentedId, relevantUser = relevantUser, commentedType = 1, content = content))    
   }
   
@@ -74,11 +72,16 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
     dao.save(Comment(id = id, userId = comment.userId, status = 1, commentedId = comment.commentedId, relevantUser = comment.relevantUser, commentedType = comment.commentedType, content = comment.content), WriteConcern.Safe)
   }
   
-  def huifu(id : ObjectId, content : String, userId : ObjectId) {
+  def huifu(id : ObjectId, content : String, userId : String) {
     val model = dao.findOneById(id)
     
 //    val model = dao.findOne(MongoDBObject("id" -> new ObjectId(id))).get
     dao.save(Comment(userId = userId, status = 0, commentedId = id, relevantUser = userId, commentedType = 3, content = content))
     
   }
+  
+  def findById(id : ObjectId) = {
+    dao.findOneById(id).get
+  }
 }
+
