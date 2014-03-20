@@ -16,10 +16,19 @@ object Services extends Controller {
     mapping(
       "id" -> ignored(id),
       "serviceName" -> nonEmptyText,
+      "description" -> text,
       "serviceType" -> text,
-      "serviceTsCost" -> number,
-      "servicePrice" -> number
-      )(Service.apply)(Service.unapply).verifying(
+      "salonId" -> text,
+      "price" -> bigDecimal,
+      "duration" -> number,
+      "createdTime" -> date,
+      "expireTime" -> date
+      )
+      {(id, serviceName, description, serviceType, salonId, price, duration, createdTime, expireTime) => Service(new ObjectId(),  serviceName,
+          description, serviceType, new ObjectId(salonId), price, duration, createdTime, Some(expireTime), true)}
+      {
+        service => Some((service.id, service.serviceName, service.description, service.serviceType, service.salonId.toString(), service.price, service.duration, service.createdTime, service.expireTime.get))
+      }.verifying(
         "This name has been used!",
         service => !Service.checkService(service.serviceName)   
     )
@@ -29,10 +38,19 @@ object Services extends Controller {
     mapping(
       "id" -> ignored(id),
       "serviceName" -> nonEmptyText,
-      "serviceType" -> nonEmptyText,
-      "serviceTsCost" -> number,
-      "servicePrice" -> number
-      )(Service.apply)(Service.unapply)
+      "description" -> text,
+      "serviceType" -> text,
+      "salonId" -> text,
+      "price" -> bigDecimal,
+      "duration" -> number,
+      "createdTime" -> date,
+      "expireTime" -> date
+      )
+      {(id, serviceName, description, serviceType, salonId, price, duration, createdTime, expireTime) => Service(new ObjectId(),  serviceName,
+          description, serviceType, new ObjectId(salonId), price, duration, createdTime, Some(expireTime), true)}
+      {
+        service => Some((service.id, service.serviceName, service.description, service.serviceType, service.salonId.toString(), service.price, service.duration, service.createdTime, service.expireTime.get))
+      }
   )
   
   def serviceMain = Action{

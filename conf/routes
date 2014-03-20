@@ -62,6 +62,8 @@ GET     /salonUpd/:id              		controllers.SalonInfo.update(id: ObjectId)
 GET     /coupon                         controllers.Coupons.index
 GET     /salon/:salonId/coupons         controllers.Coupons.findBySalon(salonId: ObjectId)
 POST    /salon/:salonId/coupons/condtion   controllers.Coupons.findByCondtion(salonId: ObjectId)
+GET     /createCoupon                   controllers.Coupons.createCoupon
+GET     /couponMain/:salonId            controllers.Coupons.couponMain(salonId: ObjectId)
 
 # Style
 GET     /style                          controllers.Styles.index

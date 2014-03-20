@@ -132,6 +132,16 @@ service.delete=删除
 service.back=返回
 service.update=更新
 
+#ServiceType
+ServiceType.serviceTypeName.Cut = 剪
+ServiceType.serviceTypeName.Wash = 洗
+ServiceType.serviceTypeName.Blow = 吹
+ServiceType.serviceTypeName.Dye = 染
+ServiceType.serviceTypeName.Care = 护理
+ServiceType.serviceTypeName.Perm = 烫
+ServiceType.serviceTypeName.Supple = 柔顺
+ServiceType.serviceTypeName.Other = 其他
+
 # Coupon&Menu
 coupon.title = {0} 的优惠券
 coupon.presentTime = 出示时间： 
@@ -148,6 +158,15 @@ coupon.addMenu = 增加菜单
 coupon.currency = 元
 coupon.newConpon = 新
 coupon.conpon = 券
+coupon.couponName = 优惠劵名
+coupon.perferentialPrice = 优惠价格（元）
+coupon.startDate = 开始时间
+coupon.endDate = 截至时间
+coupon.useConditions = 使用条件
+coupon.presentTime = 出示时间
+coupon.description = 描述
+coupon.createCouponArea = 创建优惠劵区域
+coupon.serviceArea = 服务选择区域
 
 menu.title = {0} 的菜单
 menu.tip = 没有找到您希望的菜单！
