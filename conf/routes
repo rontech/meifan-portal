@@ -11,8 +11,8 @@ GET		/getPhoto/:name					controllers.Application.getPhoto(name: String)
 
 # User Management
 GET     /user                           controllers.Users.index
-GET     /login                          controllers.Users.login
-GET     /register                       controllers.Users.register
+GET     /login                          controllers.Application.login
+GET     /register                       controllers.Application.register
 POST    /login                          controllers.Users.doLogin
 POST    /register                       controllers.Users.doRegister
 POST    /update/:id                     controllers.Users.update(id: ObjectId)

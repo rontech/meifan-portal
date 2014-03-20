@@ -11,7 +11,7 @@
 
                   <input type="hidden" name="password" value="@user.password">
 
-                  @inputText(userForm("nickNm"),'_label -> Messages("user.nickNm"))
+                  @inputText(userForm("nickName"),'_label -> Messages("user.nickNm"))
 
                   @inputDate(userForm("birthDay"), '_label -> Messages("user.birthDay"))
 
@@ -20,31 +20,17 @@
 
                   @inputText(userForm("city"),'_label -> Messages("user.city"))
 
-                  @inputText(userForm("job"),'_label -> Messages("user.job"))
+                  @inputText(userForm("socialStatus"),'_label -> Messages("user.job"))
 
                   @inputText(userForm("email"), '_label -> Messages("user.email"))
 
                   @inputText(userForm("tel"), '_label -> Messages("user.tel"))
 
-                  @inputText(userForm("qq"), '_label -> "QQ")
+                  @inputText(userForm("optContactMethod"), '_label -> "",'style -> "display: none")
 
-                  @inputText(userForm("msn"), '_label -> "MSN")
-
-                  @inputText(userForm("weChat"),'_label -> Messages("user.weChat"))
-
-                  @inputDate(userForm("added"),'_label -> "" ,'style -> "display: none")
+                  @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none")
                   
-                  <input type="hidden" name="userTyp" value="@user.userTyp">
                   
-                  <input type="hidden" name="userBehaviorLevel" value="@user.userBehaviorLevel">
-                  
-                  <input type="hidden" name="point" value="@user.point">
-                  
-                  <input type="hidden" name="added" value="@user.added">
-                  
-                  <input type="hidden" name="status" value="@user.status">
-                  
-                  <input type="hidden" name="id" value="@user.id">
 
 			
 		  </fieldset>            
