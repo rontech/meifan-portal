@@ -24,6 +24,11 @@ case class Service(
 		expireTime : Option[Date],
 		isValid : Boolean
 		)
+		
+case class ServiceByType(
+		serviceTypeName: String,
+		serviceItems: Seq[Service]
+)
 
 object Service extends ModelCompanion[Service, ObjectId]{
 

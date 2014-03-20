@@ -1,4 +1,4 @@
-@(salon: Salon, serviceTypes: Seq[ServiceType], coupons: Seq[Coupon], menus: Seq[Menu], serviceTypeNames: Seq[String])
+@(salon: Salon, serviceTypes: Seq[ServiceType], coupons: Seq[Coupon], menus: Seq[Menu], serviceByTypes: Seq[ServiceByType])
 
 @salonInfoMain(navInSalon = "salon-coupon", salon) {
 	
@@ -15,6 +15,6 @@
     @views.html.menu.menuGroup(salon, menus)
     
     <!-- Get the Salon with all the services.  -->
-    @views.html.menu.menuGroupByType(salon, serviceTypeNames)
+    @views.html.menu.menuGroupByType(salon, serviceByTypes)
 
 }
