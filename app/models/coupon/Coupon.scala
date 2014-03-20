@@ -32,6 +32,7 @@ case class Coupon (
         isValid: Boolean
 )
 
+
 object CouponDAO extends SalatDAO[Coupon, ObjectId](
   collection = com.mongodb.casbah.MongoConnection()(
     current.configuration.getString("mongodb.default.db")

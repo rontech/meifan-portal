@@ -54,6 +54,22 @@ object Coupons extends Controller {
       "subMenuFlg" -> optional(text)
       )
   )
+  
+  /*def serviceByTypeForm: Form[ServiceByType] = Form{
+      mapping(
+        "serviceTypeName" -> text,
+        "serviceItems" -> seq(
+         mapping(
+           "id" -> text
+         ){(id) => Service(new ObjectId(id), "", "", "", new ObjectId(), BigDecimal(0), 0, null, null, true)}
+         {service => Some((service.id.toString()))}),
+      ){
+      (serviceTypeName, serviceItems) => ServiceByType(serviceTypeName, serviceItems)
+      }
+      {
+        serviceByType => Some((serviceByType.serviceTypeName, serviceByType.serviceItems))
+      }
+  }*/
 
   def index = Action {
     val coupons:Seq[Coupon] = Coupon.findAll
@@ -90,7 +106,13 @@ object Coupons extends Controller {
 		    val menus: Seq[Menu] = Menu.findBySalon(coupon.salonId)
 		    val serviceTypes: Seq[ServiceType] = ServiceType.findAll().toList
 		    val serviceTypeNames: Seq[String] = Service.getServiceTypeList
-            Ok(html.salon.store.salonInfoCouponAll(salon.get, serviceTypes, coupons, menus, serviceTypeNames))
+		    var servicesByTypes: List[ServiceByType] = Nil
+		    for(serviceType <- serviceTypeNames) {
+		      var servicesByType: ServiceByType = ServiceByType("", Nil)
+		      val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(coupon.salonId, serviceType))
+		      servicesByTypes = y::servicesByTypes
+		    }
+            Ok(html.salon.store.salonInfoCouponAll(salon.get, serviceTypes, coupons, menus, servicesByTypes))
         }
     )
   }
@@ -105,8 +127,15 @@ object Coupons extends Controller {
     val serviceTypes: Seq[ServiceType] = ServiceType.findAll().toList
     val serviceTypeNames: Seq[String] = Service.getServiceTypeList
     
+    var servicesByTypes: List[ServiceByType] = Nil
+    for(serviceType <- serviceTypeNames) {
+      var servicesByType: ServiceByType = ServiceByType("", Nil)
+      val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(salonId, serviceType))
+      servicesByTypes = y::servicesByTypes
+    }
+    
     // TODO: process the salon not exist pattern.
-    Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus, serviceTypeNames))
+    Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus, servicesByTypes))
   }
   
   /**
@@ -123,6 +152,7 @@ object Coupons extends Controller {
           var menus: Seq[Menu] = Nil
           var serviceTypeNames: Seq[String] = Nil
           var conditions: List[String] = Nil
+          var servicesByTypes: List[ServiceByType] = Nil
 
           for(i <- 0 to serviceType.productArity-2) {
             serviceType.productElement(i) match {
@@ -139,15 +169,24 @@ object Coupons extends Controller {
               coupons = Coupon.findBySalon(salonId)
               menus = Menu.findBySalon(salonId)
               serviceTypeNames = Service.getServiceTypeList
+		      for(serviceType <- serviceTypeNames) {
+		        var servicesByType: ServiceByType = ServiceByType("", Nil)
+		        val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(salonId, serviceType))
+		        servicesByTypes = y::servicesByTypes
+		      }
             } else {
               coupons = Coupon.findContainCondtions(conditions)
               menus = Menu.findContainCondtions(conditions)
-              serviceTypeNames = conditions
+		      for(serviceType <- conditions) {
+		        var servicesByType: ServiceByType = ServiceByType("", Nil)
+		        val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(salonId, serviceType))
+		        servicesByTypes = y::servicesByTypes
+		      }
             }
           }
           val salon: Option[Salon] = Salon.findById(salonId)
           
-          Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus, serviceTypeNames))
+          Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus, servicesByTypes))
       })
   }
 
