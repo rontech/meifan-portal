@@ -96,6 +96,14 @@ hair.styleLength=长度
 hair.serviceItem=菜单内容
 hair.serviceType=技术类别
 hair.search=发型检索
+hair.ToCollect=收藏此发型
+hair.BeCollected=此发型已收藏
+hair.detailInfo=详细信息
+hair.styleOfStylist=此发型师的其它发型
+hair.styleForPerson=推荐人群
+hair.assessFromStylist=造型师评价
+hair.stylistToCollect=收藏该发型师
+hair.welcome=我们期待您的光临
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -166,6 +174,28 @@ menu.addMark = +
 menu.appointment = 空缺查询·预约
 menu.todoMessage = 该位置显示服务的描述
 
+#ApplyRecord.status
+apply.inApply = 0
+apply.accept = 1
+apply.reject = 2
+apply.termination = 3
+
+#Stylist
+stylist.searchResults = 搜索结果
+stylist.search = 搜索
+stylist.id = 技师ID
+stylist.workYears = 年
+stylist.checkReserv = 查看日程
+stylist.invite = 邀请
+stylist.empty = 暂无 
+stylist.applyCreateTime = 申请时间
+stylist.acceptApply = 同意
+stylist.rejectApply = 拒绝
+
+#Stylist management
+stylistMag.mySalon = 我的店铺
+stylistMag.salonApply = 来自店铺申请
+stylistMag.myStyle = 我的作品
 
 # User
 user.relation.type=关系类型
@@ -179,7 +209,7 @@ user.followStylist=关注的技师
 user.followUser=关注的美丽达人
 user.howToGetPoint=如何获得积分？
 user.point=可用积分
-user.cancleFollow=取消关注
+user.cancelFollow=取消关注
 user.sendMsg=发送留言
 user.otherBlog=他的博客
 user.collectCoupon=收藏の优惠劵
@@ -210,3 +240,4 @@ user.male=男
 user.female=女
 user.loginOut=退出
 user.cancleBothFollow=取消互粉
+user.addFollow=添加关注

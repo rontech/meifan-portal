@@ -111,6 +111,7 @@ object Coupons extends Controller {
   
   /**
    * 根据查找条件检索出符合的优惠劵
+
    */
   def findByCondtion(salonId: ObjectId) = Action {implicit request =>
     condtionForm.bindFromRequest.fold(
@@ -149,6 +150,5 @@ object Coupons extends Controller {
           Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus, serviceTypeNames))
       })
   }
-  
-  
+
 }

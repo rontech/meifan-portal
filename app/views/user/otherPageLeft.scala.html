@@ -5,18 +5,24 @@
       				<a href="@routes.Users.myPage(user.userId.toString)" class='Name' title='female'>@user.userId</a>
 					<span class='opts'>
 						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='absmiddle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
-						<a href = "#">@Messages("user.cancleFollow")</a>
+						<a href = "#">@Messages("user.cancelFollow")</a>
 					</span>
 				</span>
     			<div class="clear"></div>
 				<div class ="sta">
-					<a href="#"><font color="gray">@Messages("user.myFollowers")<span>(@FollowCollect.getFollowers(user.id).length)</span></font></a>
+					<a href="@routes.Users.showMyFollowers(user.id)"><font color="gray">@Messages("user.myFollowers")<span>(@FollowCollect.getFollowers(user.id).length)</span></font></a>
 				</div>
 			</div>
    			<div class='Opts clearfix'>
                 <a href="#" class='a2 admin'><i>.</i><span>@Messages("user.sendMsg")</span></a>
 				<a href="/showBlog/@user.id" class='a1 blog'><i>.</i><span>@Messages("user.otherBlog")</span></a>
-			</div>  			
+			</div> 
+						<div class='Mod Users' id='Fellows'>
+    			<a href = "/otherPage/SaveBlog/@user.id"><strong>@Messages("user.collectBlog")</strong></a>
+			</div>
+			<div class='Mod Users' id='Fellows'>
+    			<a href = "/otherPage/SaveStyle/@user.id"><strong>@Messages("user.collectStyle")</strong></a>
+			</div> 			
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("user.followSalon")</strong>
 	  			<ul class='clearfix'>
@@ -30,7 +36,7 @@
 	  				}
     			</ul>
 				<div class='more'>
-    				<a href="http://my.oschina.net/dongming/fellow">@Messages("user.showAllFollow")@FollowCollect.getAllFollowCollectAtId(1,user.id).length)</a>
+    				<a href="@routes.Users.showAllFollowSalon(user.id)">@Messages("user.showAllFollow")@FollowCollect.getAllFollowCollectAtId(1,user.id).length)</a>
     			</div>
 			</div>
 			<div class='Mod Users' id='Fellows'>
@@ -46,7 +52,7 @@
 	  				}
     			</ul>
 				<div class='more'>
-    				<a href="http://my.oschina.net/dongming/fellow">@Messages("user.showAllFollow")@FollowCollect.getAllFollowCollectAtId(2,user.id).length)</a>
+    				<a href="@routes.Users.showAllFollowStylist(user.id)">@Messages("user.showAllFollow")@FollowCollect.getAllFollowCollectAtId(2,user.id).length)</a>
     			</div>
 			</div>
 			<div class='Mod Users' id='Fans'>
@@ -62,12 +68,8 @@
 	  				}
 				</ul>
 		 		<div class='more'>
-       				<a href="#">@Messages("user.showAllFollow")@FollowCollect.getAllFollowCollectAtId(6,user.id).length)</a>
+       				<a href="@routes.Users.showAllFollowUser(user.id)">@Messages("user.showAllFollow")@FollowCollect.getAllFollowCollectAtId(6,user.id).length)</a>
      			</div>
 			</div>
-			<div class='RMod' id='UserSkills'>
-	  			<div id="OtherScore">
-        			<h1><a href="http://www.oschina.net/question/3307_20931" target="_blank" title="@Messages("user.howToGetPoint")"><em>@user.point</em>@Messages("user.point")</a></h1>
-    			</div> 
-				<div style="clear: both"></div>
+
 	<!-- ↑mainContents -->

@@ -1,4 +1,4 @@
-@(stylist:Stylist)
+@(stylist:Stylist,sessionUserId:Option[String])
 	<li><table class="ostable">
 		<tbody>
 			<tr>
@@ -8,7 +8,11 @@
 					<span class="city">@stylist.description</span>
 				</td>
 				<td class="opts">
-					<a href="#">@Messages("user.cancleFollow")</a>
+					@if(sessionUserId.nonEmpty && FollowCollect.checkIfFollowOnByName(sessionUserId.get,stylist.id)){
+						<a href="@routes.Users.cancelFollow(sessionUserId.get,stylist.id,2)">@Messages("user.cancelFollow")</a>
+					}else{
+						<a href="@routes.Users.addFollow(stylist.id,2)">@Messages("user.addFollow")</a>
+					}
 					<a href="#">@Messages("user.sendMsg")</a>
 				</td>
 			</tr>

@@ -7,7 +7,7 @@
         </a>
     </div>
     <p class="mT10">
-        <a href="http://beauty.hotpepper.jp/slnH000231733/stylist/T000188298/">
+        <a href="#">
            <p>@stylist.label</p>
         </a>
     </p>
@@ -19,13 +19,19 @@
        }
         </span>
   （@stylist.workYears
-  年）
+  @Messages("stylist.workYears")）
     </div>
     <div class="bdDotT mT5 pT5 fs10 hMin30">
     </div>
 </div>
 <div class="taC mT10">
-	<span>申请时间@ApplyRecord.findStylistAyRd(Stylist.findById(stylist.id).get.salonId, stylist.id).get.createTime.format("yyyy-MM-dd HH:mm")</span>
-	<a href="/agreeStylistApply/@stylist.id" class="salon-stylist-reserv">同意申请</a>
+	<div>
+		<span>@Messages("stylist.applyCreateTime")
+		@ApplyRecord.findStylistAyRd(Stylist.findById(stylist.id).get.salonId, stylist.id).get.createTime.format("yyyy-MM-dd HH:mm")</span>
+	</div>
+	<a href="/agreeStylistApply/@stylist.id/@stylist.salonId" class="salon-stylist-reserv">@Messages("stylist.acceptApply")</a>|
+	<a href="/rejectStylistApply/@stylist.id/@stylist.salonId" class="salon-stylist-reserv">@Messages("stylist.rejectApply")</a>
+</div>
+	
 </div>
 </body>

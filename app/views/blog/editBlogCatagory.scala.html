@@ -1,6 +1,8 @@
-@(userId : ObjectId, blogCatagories : List[String])
+@(user : User, blogCatagories : List[String])
 @import helper._
-@main("BlogCatagory") {
+@import views.html.user._
+
+@myPageMain(navInMyPage = "my-blog", user) {
     <body>
 		<form>
 			<table border = 1>
@@ -16,19 +18,16 @@
 					
 					<td>@blogCatagory</td>
 					
-					<td><a href = "@routes.BlogCatagories.modBlogCatarory(userId, blogCatagory)"><input type="button" value="编辑" ></a></td>
-					<td><a href = "@routes.BlogCatagories.delBlogCatarory(userId, blogCatagory)"><input type="button" value="删除" ></a></td>
+					<td><a href = "@routes.BlogCatagories.modBlogCatagory(user.userId, blogCatagory)"><input type="button" value="编辑" ></a></td>
+					<td><a href = "@routes.BlogCatagories.delBlogCatagory(user.userId, blogCatagory)"><input type="button" value="删除" ></a></td>
 				</tr>
 				}
 				
 				
 			</table>
+			<a href = "@routes.BlogCatagories.newBlogCatagory(user.userId)"><input type="button" value="新建" ></a>
 
 		</form>
-		<!-- ShareTo Button BEGIN -->
-		<!--<a class="shareto_button" href="http://shareto.com.cn/share.html"><img src="http://s.shareto.com.cn/btn/lg-share-cn.gif" width="125" height="21" alt="陋ｻ�ｽ�ｺ�ｫ鬩包ｿｽ style="border:0"/></a>
-		<script type="text/javascript" src="http://s.shareto.com.cn/js/shareto_button.js" charset="utf-8"></script>
-		ShareTo Button END -->
 		
 		
 	

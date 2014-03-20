@@ -36,7 +36,7 @@ object ApplyRecord{
    * 计算在salon中来自技师申请的个数
    */
   def countStylistApply(salonId: ObjectId): Long = {
-    ApplyRecordDAO.count(MongoDBObject("salonId" -> salonId, "acceptTime" -> None, "applyType" -> 1, "status" -> {"$ne" -> 1}))
+    ApplyRecordDAO.count(MongoDBObject("salonId" -> salonId, "acceptTime" -> None, "applyType" -> 1, "status" -> 0))
   }
   
   /**
@@ -68,8 +68,7 @@ object ApplyRecord{
    */
   def findStylistApply(salonId: ObjectId): List[Stylist] = {
     var stylists: List[Stylist] = Nil
-    val records = ApplyRecordDAO.find(MongoDBObject("salonId" -> salonId, "acceptTime" -> None, "applyType" -> 1,
-        "status" -> {"$ne" -> 1})).toList
+    val records = ApplyRecordDAO.find(MongoDBObject("salonId" -> salonId, "acceptTime" -> None, "applyType" -> 1, "status" -> 0)).toList
     records.map {re =>
        val stylist = Stylist.findById(re.stylistId)
        stylist match {
@@ -85,7 +84,7 @@ object ApplyRecord{
    */
   def findStylistAyRd(salonId: ObjectId, stylistId: ObjectId): Option[ApplyRecord] = {
     ApplyRecordDAO.findOne(MongoDBObject("salonId" -> salonId, "stylistId" ->stylistId, "acceptTime" -> None,
-        "applyType" -> 1, "status" -> {"$ne" -> 1}))
+        "applyType" -> 1, "status" -> 0))
   }
   
   /**
