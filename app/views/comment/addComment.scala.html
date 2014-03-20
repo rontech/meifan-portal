@@ -1,4 +1,4 @@
-@(commentedId : ObjectId, formAddComment: Form[(String)])
+@(commentedId : ObjectId, formAddComment: Form[(String)], commentedType : Int)
 
 @import helper._
 
@@ -6,7 +6,7 @@
   
    
    
-   @form(routes.Comments.addC(commentedId)){
+   @form(routes.Comments.addC(commentedId, commentedType)){
        
        @*@inputText(formAddComment("cmUsername"), '_label -> "用户名") 
        

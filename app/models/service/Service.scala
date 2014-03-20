@@ -15,10 +15,20 @@ import play.api.libs.functional.syntax._
 case class Service(
 		id: ObjectId = new ObjectId,
 		serviceName : String,
+		description : String,
 		serviceType : String,
-		serviceTsCost : Int,
-		servicePrice : Int
+		salonId : ObjectId,
+		price : BigDecimal,
+		duration : Int,
+		createdTime : Date,
+		expireTime : Option[Date],
+		isValid : Boolean
 		)
+		
+case class ServiceByType(
+		serviceTypeName: String,
+		serviceItems: Seq[Service]
+)
 
 object Service extends ModelCompanion[Service, ObjectId]{
 
@@ -30,15 +40,21 @@ object Service extends ModelCompanion[Service, ObjectId]{
 		serviceType =>serviceType.serviceTypeName
 	}
 	
-	def getTypeByCondition(servicesTypes: List[ObjectId]) : List[String] = ServiceType.dao.find("_id" $in servicesTypes).toList.map {
+	def getTypeByCondition(servicesTypes: List[String]) : List[String] = ServiceType.dao.find("serviceTypeName" $in servicesTypes).toList.map {
 		serviceType =>serviceType.serviceTypeName
 	}
 
 	def findAllServices : List[Service] = dao.find(MongoDBObject.empty).toList
 
 	def getTypeList(serviceType:String) : List[Service] = {
-		findAllServices.filter(s =>s.serviceType == serviceType)
+		findAllServices.filter(s => s.serviceType == serviceType)
 	}
+	
+	def getTypeListBySalonId(salonId: ObjectId, serviceType:String) : List[Service] = {
+		findBySalonId(salonId).filter(s => s.serviceType == serviceType)
+	}
+	
+	def findBySalonId(salonId: ObjectId): List[Service] = dao.find(MongoDBObject("salonId" -> salonId)).toList
 
 	def deleteService(id: ObjectId) = dao.remove(MongoDBObject("_id" -> id))
 

@@ -62,6 +62,8 @@ GET     /salonUpd/:id              		controllers.SalonInfo.update(id: ObjectId)
 GET     /coupon                         controllers.Coupons.index
 GET     /salon/:salonId/coupons         controllers.Coupons.findBySalon(salonId: ObjectId)
 POST    /salon/:salonId/coupons/condtion   controllers.Coupons.findByCondtion(salonId: ObjectId)
+GET     /createCoupon                   controllers.Coupons.createCoupon
+GET     /couponMain/:salonId            controllers.Coupons.couponMain(salonId: ObjectId)
 
 # Style
 GET     /style                          controllers.Styles.index
@@ -106,53 +108,43 @@ GET     /showAllServices/:id             controllers.Services.deleteService(id: 
 GET     /showService                     controllers.Services.showService(id: ObjectId)
 GET     /showService/:id                 controllers.Services.updateService(id: ObjectId)
 
-#----------------------------------------------------------------------------------------------
-#add MyPage by wu start
-GET     /myPageMain                      controllers.MyPages.myPageMain
-GET     /dianpu_guanzhu                  controllers.MyPages.dianpu_guanzhu
-GET     /stylist                         controllers.MyPages.stylist_guanzhu
-
-
 #add Comment
-GET     /addComment/:id                  controllers.Comments.addComment(id : ObjectId)
+POST    /addComment/:id/:commentedType   controllers.Comments.addComment(id : ObjectId, commentedType : Int)
 GET     /comment/:commentedId            controllers.Comments.find(commentedId : ObjectId)
 GET     /answer/:id/:commentedId         controllers.Comments.answer(id : ObjectId, commentedId : ObjectId)
-GET     /huifu/:id/:commentedId          controllers.Comments.huifu(id : ObjectId, commentedId : ObjectId)
+POST    /huifu/:id/:commentedId          controllers.Comments.huifu(id : ObjectId, commentedId : ObjectId)
 GET     /delete/:id/:commentedId         controllers.Comments.delete(id : ObjectId, commentedId : ObjectId)
 GET     /complaint/:cmId                 controllers.Comments.complaint(cmId : ObjectId)
 GET     /testComment                     controllers.Comments.test
-POST     /addC/:commentedId              controllers.Comments.addC(commentedId : ObjectId)
+POST    /addC/:commentedId/:commentedType        controllers.Comments.addC(commentedId : ObjectId, commentedType : Int)
 
-GET    /salon/:salonId/comments          controllers.Comments.findBySalon(salonId: ObjectId)
+#GET    /salon/:salonId/comments          controllers.Comments.findBySalon(salonId: ObjectId)
 
 
 # add Blog
-GET     /newBlog/:id                     controllers.Blogs.newBlog(id : ObjectId)
-GET     /testBlog                        controllers.Blogs.test
-GET     /deleteBlog/:id                  controllers.Blogs.deleteBlog(id : ObjectId)
-GET     /showBlog/:id                    controllers.Blogs.showBlog(id : ObjectId)
-GET     /showBlogById/:id                controllers.Blogs.showBlogById(id : ObjectId)
-POST    /writeBlog/:id/                  controllers.Blogs.writeBlog(id : ObjectId)
-GET     /newBlogCatagory/:userId         controllers.BlogCatagories.newBlogCatagory(userId : ObjectId)
-GET     /editBlogCatagory/:userId        controllers.BlogCatagories.editBlogCatagory(userId : ObjectId)
-GET     /writeBlogCatagory/:userId       controllers.BlogCatagories.writeBlogCatagory(userId : ObjectId)
-GET     /delBlogCatarory/:userId/:blogCatagory    controllers.BlogCatagories.delBlogCatarory(userId : ObjectId, blogCatagory : String)
-GET     /modBlogCatarory/:userId/:blogCatagory    controllers.BlogCatagories.modBlogCatarory(userId : ObjectId, blogCatagory : String)
-GET     /modCatagory/:userId/:blogCatagory        controllers.BlogCatagories.modCatagory(userId : ObjectId, blogCatagory : String)
-GET     /findBlogByCatagory/:catagory/:userId     controllers.Blogs.findBlogByCatagory(catagory : String, userId : ObjectId)
-GET     /changeBlogCatagory/:blogId/:blogTyp      controllers.Blogs.changeBlogCatagory(blogId : ObjectId, blogTyp : String)
+GET     /newBlog/:userId                 controllers.Blogs.newBlog(userId : String)
+#GET     /testBlog                        controllers.Blogs.test
+GET     /deleteBlog/:blogId              controllers.Blogs.deleteBlog(blogId : ObjectId)
+GET     /showBlog/:userId                controllers.Blogs.showBlog(userId : String)
+GET     /showBlogById/:blogId            controllers.Blogs.showBlogById(blogId : ObjectId)
+POST    /writeBlog/:userId               controllers.Blogs.writeBlog(userId : String)
+GET     /newBlogCatagory/:userId         controllers.BlogCatagories.newBlogCatagory(userId : String)
+GET     /editBlogCatagory/:userId        controllers.BlogCatagories.editBlogCatagory(userId : String)
+GET     /writeBlogCatagory/:userId       controllers.BlogCatagories.writeBlogCatagory(userId : String)
+GET     /delBlogCatagory/:userId/:blogCatagory    controllers.BlogCatagories.delBlogCatagory(userId : String, blogCatagory : String)
+GET     /modBlogCatagory/:userId/:blogCatagory    controllers.BlogCatagories.modBlogCatagory(userId : String, blogCatagory : String)
+GET     /modCatagory/:userId/:blogCatagory        controllers.BlogCatagories.modCatagory(userId : String, blogCatagory : String)
+#GET     /findBlogByCatagory/:catagory/:userId     controllers.Blogs.findBlogByCatagory(catagory : String, userId : ObjectId)
+#GET     /changeBlogCatagory/:blogId/:blogTyp      controllers.Blogs.changeBlogCatagory(blogId : ObjectId, blogTyp : String)
 GET     /editBlog/:blogId                controllers.Blogs.editBlog(blogId : ObjectId)
-GET     /changeCatagory/:blogId          controllers.Blogs.changeCatagory(blogId : ObjectId)
+#GET     /changeCatagory/:blogId          controllers.Blogs.changeCatagory(blogId : ObjectId)
 GET     /modBlog/:blogId                 controllers.Blogs.modBlog(blogId : ObjectId)
 
 
-GET     /salon/:slnId/blog/:blogId       controllers.Blogs.getBlogInfoOfSalon(slnId: ObjectId, blogId: ObjectId)
+#GET     /salon/:slnId/blog/:blogId       controllers.Blogs.getBlogInfoOfSalon(slnId: ObjectId, blogId: ObjectId)
 
-GET     /salon/:salonId/blogs            controllers.Blogs.findBySalon(salonId: ObjectId)
+#GET     /salon/:salonId/blogs            controllers.Blogs.findBySalon(salonId: ObjectId)
 
-
-#add by wu end 
-#-------------------------------------------------------------------------------------------
 
 
 # Map static resources from the /public folder to the /assets URL path
