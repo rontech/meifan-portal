@@ -1,13 +1,13 @@
-@(serviceTypeName: String)
+@(salon: Salon, serviceTypeName: String)
 
 <div class="singleMenuHead mT30 cFix">
-		<p class="b fl"><span><font><font>@serviceTypeName</font></font></span></p>
+		<p class="b fl"><span><font><font>@Messages("ServiceType.serviceTypeName." + serviceTypeName)</font></font></span></p>
 </div>
 
 <div>
 	<table summary="summary" cellspacing="1" class="wFull bgLGray2 mT10 fs10 couponTable w765">
 		<tbody>
-			@for(service <- Service.getTypeList(serviceTypeName)) {
+			@for(service <- Service.getTypeListBySalonId(salon.id, serviceTypeName)) {
 				<tr>
 				<td class="w580 bgWhite">
 					<a id="MN00000001062756" name="MN00000001062756"><!-- --></a>
@@ -15,10 +15,10 @@
 						<div class="">
 							<div class="w560 b fs12 cFix">
 								<p class="fl"><font><font>@service.serviceName</font></font></p>
-								<p class="fr"><span class="fs13"><font><font>@service.servicePrice @Messages("coupon.currency")</font></font></span></p>
+								<p class="fr"><span class="fs13"><font><font>@service.price @Messages("coupon.currency")</font></font></span></p>
 							</div>
 						</div>
-						<p class="mT5 fgGray fs10"><font><font>@Messages("menu.todoMessage")</font></font></p>
+						<p class="mT5 fgGray fs10"><font><font>@service.description</font></font></p>
 					</div>
 				</td>
 				<td class="bdWhite bgLLGray2 vaM">

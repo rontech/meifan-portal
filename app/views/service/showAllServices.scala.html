@@ -22,9 +22,9 @@
 			</tr>
 			@Service.getTypeList(Service.getServiceTypeList(i)).map { service =>		
 			<tr>
-				<td>@service.serviceName</td>
-				<td>@service.servicePrice</td>
-				<td>@service.serviceTsCost</td>
+				<td>@Messages("ServiceType.serviceTypeName." + service.serviceName)</td>
+				<td>@service.price</td>
+				<td>@service.duration</td>
 				<td>
 				<a href = "@routes.Services.deleteService(service.id)"><input type="button" class = "buttons" value="@Messages("service.delete")"></a>
 				<a href = "@routes.Services.showService(service.id)"><input type="button" class = "buttons" value="@Messages("service.update")"></a>

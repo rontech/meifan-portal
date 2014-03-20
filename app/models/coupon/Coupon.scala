@@ -6,7 +6,7 @@ import java.util.Date
 import com.novus.salat._
 import com.novus.salat.annotations._
 import com.novus.salat.dao._
-//import com.mongodb.casbah.MongoConnection
+import com.mongodb.casbah._ 
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
@@ -20,9 +20,7 @@ case class Coupon (
         couponId: String,
         couponName: String,
         salonId: ObjectId,
-        stylistId: ObjectId,
         serviceItems: Seq[Service],
-        serviceCategories: Seq[ServiceType],
         originalPrice: BigDecimal,
         perferentialPrice: BigDecimal,
         serviceDuration: Int,            // Unit: Minutes.
@@ -31,7 +29,7 @@ case class Coupon (
         useConditions: String,
         presentTime: String,
         description: String,
-        status: String
+        isValid: Boolean
 )
 
 object CouponDAO extends SalatDAO[Coupon, ObjectId](
@@ -59,9 +57,7 @@ object Coupon {
                 couponId = coupon.couponId,
                 couponName = coupon.couponName,
                 salonId = coupon.salonId,
-                stylistId = coupon.stylistId,
                 serviceItems = coupon.serviceItems,
-                serviceCategories = coupon.serviceCategories,
                 originalPrice = coupon.originalPrice,
                 perferentialPrice = coupon.perferentialPrice,
                 serviceDuration = coupon.serviceDuration,
@@ -70,12 +66,14 @@ object Coupon {
                 useConditions = coupon.useConditions,
                 presentTime = coupon.presentTime,
                 description = coupon.description,
-                status = coupon.status
+                isValid = coupon.isValid
             )
         )
     }
   
-  def findContainCondtions(serviceTypes: Seq[ObjectId]): List[Coupon] = {
-    CouponDAO.find("serviceCategories._id" $all serviceTypes).toList
+  def findContainCondtions(serviceTypes: Seq[String]): List[Coupon] = {
+    CouponDAO.find("serviceItems.serviceType" $all serviceTypes).toList
   }
+  
+  def checkCoupon(CouponName:String): Boolean = CouponDAO.find(com.mongodb.casbah.commons.Imports.DBObject("couponName" -> CouponName)).hasNext
 }

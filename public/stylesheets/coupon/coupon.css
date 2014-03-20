@@ -695,3 +695,8 @@ width: 580px;
 .w120 {
 width: 120px;
 }
+
+/*createCoupon start*/
+#serviceItems_field {
+float: left;
+}

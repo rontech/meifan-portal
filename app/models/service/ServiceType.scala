@@ -9,7 +9,8 @@ import se.radley.plugin.salat.Binders._
 
 case class ServiceType(
 		id: ObjectId = new ObjectId,
-		serviceTypeName : String
+		serviceTypeName : String,
+		description : String
 		)
 
 object ServiceType extends ModelCompanion[ServiceType, ObjectId]{
