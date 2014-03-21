@@ -57,11 +57,14 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
       applyRe.map{app =>
         val stylist = dao.findOne(DBObject("_id" -> app.stylistId))
         stylist match {
-          case Some(sty) => stylists :: List(sty)
+          case Some(sty) => stylists :::= List(sty)
           case _ => stylists
         }
       }
       stylists
     }
-    
+    def becomeStylist(stylistId : ObjectId) =  {
+    	dao.update(MongoDBObject("_id" -> stylistId), MongoDBObject("$set" -> (MongoDBObject("isVarified" -> true)++
+                MongoDBObject("isValid" -> true))))   
+    }
 }
