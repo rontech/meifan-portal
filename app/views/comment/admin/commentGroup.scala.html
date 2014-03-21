@@ -1,0 +1,15 @@
+@(comments: List[Comment])
+
+<ol>
+@if(comments.isEmpty) {
+    <div class="bgAlertMsg mT20">
+        <p class="alertMsg">暂无评论</p>
+    </div>
+} else {
+    @for(comment <- comments) {
+        <li class="couponItem">
+            @views.html.comment.admin.commentItem(comment)
+        </li>
+    }
+}
+</ol>
