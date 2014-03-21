@@ -7,12 +7,12 @@ GET     /                               controllers.Application.index
 
 #get photo
 
-GET		/getPhoto/:name					controllers.Application.getPhoto(name: String)
+GET		/getPhoto/:name					controllers.Application.getPhoto(name: ObjectId)
 
 # User Management
 GET     /user                           controllers.Users.index
-GET     /login                          controllers.Users.login
-GET     /register                       controllers.Users.register
+GET     /login                          controllers.Application.login
+GET     /register                       controllers.Application.register
 POST    /login                          controllers.Users.doLogin
 POST    /register                       controllers.Users.doRegister
 POST    /update/:id                     controllers.Users.update(id: ObjectId)
@@ -44,6 +44,10 @@ GET		/mySalon/:id/stylist			controllers.SalonsAdmin.myStylist(id: ObjectId)
 GET		/mySalon/:id/reserv				controllers.SalonsAdmin.myReserv(id: ObjectId)
 GET		/mySalon/:id/comment			controllers.SalonsAdmin.myComment(id: ObjectId)
 GET		/mySalon/:id/service			controllers.SalonsAdmin.myService(id: ObjectId)
+GET     /mySalon/:id/coupon             controllers.SalonsAdmin.myCoupon(id: ObjectId)
+GET     /mySalon/:id/createCoupon       controllers.Coupons.couponMain(id: ObjectId)
+GET     /mySalon/:id/menu               controllers.SalonsAdmin.myMenu(id: ObjectId)
+GET     /mySalon/:id/createMenu         controllers.Menus.menuMain(id: ObjectId)
 GET		/mySalon/:salonId/checkHoldApply				controllers.SalonsAdmin.checkHoldApply(salonId: ObjectId)
 GET		/agreeStylistApply/:stylistId/:salonId			controllers.SalonsAdmin.agreeStylistApply(stylistId: ObjectId, salonId: ObjectId)
 GET		/rejectStylistApply/:stylistId/:salonId		    controllers.SalonsAdmin.rejectStylistApply(stylistId: ObjectId, salonId: ObjectId)
@@ -62,6 +66,9 @@ GET     /salonUpd/:id              		controllers.SalonInfo.update(id: ObjectId)
 GET     /coupon                         controllers.Coupons.index
 GET     /salon/:salonId/coupons         controllers.Coupons.findBySalon(salonId: ObjectId)
 POST    /salon/:salonId/coupons/condtion   controllers.Coupons.findByCondtion(salonId: ObjectId)
+GET     /createCoupon                   controllers.Coupons.createCoupon
+GET     /showCoupons/:salonId           controllers.Coupons.showCoupons(salonId: ObjectId)
+GET     /createMenu                     controllers.Menus.createMenu
 
 # Style
 GET     /style                          controllers.Styles.index
@@ -69,6 +76,7 @@ GET     /style/:id                      controllers.Styles.findById(id: ObjectId
 GET     /salon/:salonId/styles          controllers.Styles.findBySalon(salonId: ObjectId)
 GET     /salon/:slnId/style/:styId      controllers.Styles.getStyleInfoOfSalon(slnId: ObjectId, styId: ObjectId)
 POST    /styleSearchList                controllers.Styles.styleSearchList
+POST    /styleLogin                     controllers.Styles.styleLogin
 GET     /styleSearch                    controllers.Styles.styleSearch
 
 # Stylist

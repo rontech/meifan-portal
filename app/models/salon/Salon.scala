@@ -5,7 +5,7 @@ import play.api.PlayException
 
 import com.novus.salat._
 import com.novus.salat.dao._
-import com.novus.salat.Context
+import com.novus.salat.Context 
 
 import com.mongodb.casbah.commons.Imports._
 import com.mongodb.casbah.MongoConnection
@@ -20,27 +20,11 @@ import java.util.Date
 
 
 /*----------------------------
- * Associated Tables of Salon.
+ * Embed Structure of Salon.
  -----------------------------*/
 
 /**
- * The Industry Type of Salon. 
-*/
-case class Industry (
-    id: ObjectId = new ObjectId,
-    //indstId: Int,
-    indstName: String
-)
-
-object Industry extends ModelCompanion[Industry, ObjectId]{
-  val dao = new SalatDAO[Industry, ObjectId](collection = mongoCollection("Industry")){}
-  
-  def findById(id: ObjectId): Option[Industry] = dao.findOne(MongoDBObject("_id" -> id))
-  
-}
-
-/**
- * 
+ * Embed Structure.
 */
 case class Address (
     province: String,
@@ -53,7 +37,7 @@ case class Address (
 )
 
 /**
- * 
+ * Embed Structure.
 */
 case class SalonFacilities (
    canOnlineOrder: Boolean,          
@@ -68,46 +52,51 @@ case class SalonFacilities (
    parkingDesc: String
 )
 
+
 /**
- * 
+ * Embed Structure.
 */
-case class OptContactMethod (
-    contMethmodType: String,
-    account: List[String]
+case class WorkTime(
+    openTime: String,
+    closeTime: String
+)
+
+/**
+ * Embed Structure.
+*/
+case class RestDay(
+    restDayDivision: Int,
+    restDay: Int
 )
 
 
-/*
-case class SalonPictures {
-    
-}
-*/
 
-
-
+/*----------------------------
+ * Embed Structure of Salon.
+ -----------------------------*/
 /*
  * Main Class: Salon.
 */
 
 case class Salon(
-    id: ObjectId = new ObjectId,        // Salon Id
-    salonName: String,                  // Salon Name 
-    salonNameAbbr: Option[String],      // Salon Name abbr
-    salonIndst: String,               // Salon Industry
-    homepage: Option[String],           //
-    salonDescription: Option[String],   //
+    id: ObjectId = new ObjectId,   	
+    accountId:String,
+    salonName: String,                  
+    salonNameAbbr: Option[String],      
+    salonIndustry: List[String],       // Ref to Master [Industry] table.           
+    homepage: Option[String],           
+    salonDescription: Option[String],   
     mainPhone: String,
-    contact: String,
-    optContactMethod: Seq[OptContactMethod],
+    contact: String, 
+    optContactMethod: List[OptContactMethod],
     establishDate: Date,
-    address: Address,
+    salonAddress: Address,
     accessMethodDesc: String,
-    openTime: String,                   // TODO
-    closeTime: String,                  // TODO
-    restDay: String,                    // TODO
+    workTime: WorkTime,
+    restDay: List[RestDay],                    
     seatNums: Int,
-    salonFacilities: SalonFacilities,   // 
-    salonPictures: String,              // TODO SalonPictures
+    salonFacilities: SalonFacilities,    
+    salonPics: List[OnUsePicture],             
     registerDate: Date
 )
 
@@ -134,23 +123,23 @@ object Salon {
     def create(salon: Salon): Option[ObjectId] = {
         SalonDAO.insert(
             Salon(
+                accountId = salon.accountId,
                 salonName = salon.salonName,
                 salonNameAbbr = salon.salonNameAbbr,
-                salonIndst = salon.salonIndst,
+                salonIndustry = salon.salonIndustry,
                 homepage = salon.homepage,
                 salonDescription = salon.salonDescription,
                 mainPhone = salon.mainPhone,
                 contact = salon.contact,
                 optContactMethod = salon.optContactMethod,
                 establishDate = salon.establishDate,
-                address = salon.address,
+                salonAddress = salon.salonAddress,
                 accessMethodDesc = salon.accessMethodDesc,
-                openTime = salon.openTime,
-                closeTime = salon.closeTime,
+                workTime = salon.workTime,
                 restDay = salon.restDay,
                 seatNums = salon.seatNums,
                 salonFacilities = salon.salonFacilities,
-                salonPictures = salon.salonPictures,
+                salonPics = salon.salonPics,
                 registerDate = salon.registerDate
              )
         )
@@ -160,23 +149,23 @@ object Salon {
         SalonDAO.save(
             Salon(
                 id = salon.id,
+                accountId = salon.accountId,
                 salonName = salon.salonName,
                 salonNameAbbr = salon.salonNameAbbr,
-                salonIndst = salon.salonIndst,
+                salonIndustry = salon.salonIndustry,
                 homepage = salon.homepage,
                 salonDescription = salon.salonDescription,
                 mainPhone = salon.mainPhone,
                 contact = salon.contact,
                 optContactMethod = salon.optContactMethod,
                 establishDate = salon.establishDate,
-                address = salon.address,
+                salonAddress = salon.salonAddress,
                 accessMethodDesc = salon.accessMethodDesc,
-                openTime = salon.openTime,
-                closeTime = salon.closeTime,
+                workTime = salon.workTime,
                 restDay = salon.restDay,
                 seatNums = salon.seatNums,
                 salonFacilities = salon.salonFacilities,
-                salonPictures = salon.salonPictures,
+                salonPics = salon.salonPics,
                 registerDate = salon.registerDate
             )
         )
@@ -188,4 +177,3 @@ object Salon {
     }
 
 } 
-

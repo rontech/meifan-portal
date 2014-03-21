@@ -59,7 +59,7 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
     stylistList.foreach(
       {
       row => 
-        var user = User.findById(row.userId).get
+        var user = User.findOneById(row.publicId).get
         blog = Blog.find(DBObject("authorId" -> user.userId)).toList
         if(!blog.isEmpty)
           blogList :::= blog
@@ -83,3 +83,4 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
     dao.update(MongoDBObject("_id" -> blog.id), MongoDBObject("$set" -> (MongoDBObject("isValid" -> false))))
   }
 }
+

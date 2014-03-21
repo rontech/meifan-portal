@@ -1,0 +1,41 @@
+@(salonId: ObjectId, couponForm: Form[Coupon], services: List[Service])
+
+@import helper._
+
+@form(routes.Coupons.createCoupon, 'id -> "couponForm") {
+	<fieldset>
+		<legend>@Messages("coupon.createCouponArea")</legend>
+		<input type="hidden" name="salonId" value="@salonId" />
+		
+		@inputText(couponForm("couponName"), '_label -> Messages("coupon.couponName"),
+			'_error -> couponForm("couponName").error.map(_.withMessage(Messages("coupon.addErrorMsg")))
+            ,'_error -> couponForm.globalError
+		)
+		
+		<fieldset>
+			<legend>@Messages("coupon.serviceArea")</legend>
+			@input(field = couponForm("serviceItems"), args = '_label ->None){(id,name,value,args) =>
+			 	@for(service <- services) {
+			 		<input type = "checkbox" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
+			 	}
+			  }
+		</fieldset>
+		
+		@inputText(couponForm("perferentialPrice"),'_label -> Messages("coupon.perferentialPrice"))
+		
+		@inputDate(couponForm("startDate"), '_label -> Messages("coupon.startDate"))
+		
+		@inputDate(couponForm("endDate"), '_label -> Messages("coupon.endDate"))
+		
+		@inputText(couponForm("useConditions"), '_label -> Messages("coupon.useConditions"))
+		
+		@inputText(couponForm("presentTime"), '_label -> Messages("coupon.presentTime"))
+		
+		@inputText(couponForm("description"), '_label -> Messages("coupon.description"))
+		
+	</fieldset>
+	
+	<input type = "submit" class = "buttons" value="@Messages("service.addBton")">
+            
+    <input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+}

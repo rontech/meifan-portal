@@ -66,7 +66,8 @@ object Comments extends Controller {
    */
   def addComment(commentObjId : ObjectId, commentObjType : Int) = Action {
     implicit request =>
-      val userId = request.session.get("userId").get      
+//      val userId = request.session.get("userId").get
+      val userId = "test" //TODO
       formAddComment.bindFromRequest.fold(
         //处理错误
         errors => BadRequest(views.html.comment.errorMsg("")),
@@ -103,7 +104,8 @@ object Comments extends Controller {
    */
   def reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = Action {
     implicit request =>
-      val userId = request.session.get("userId").get
+//      val userId = request.session.get("userId").get
+      val userId = "test" //TODO
       formHuifuComment.bindFromRequest.fold(
         //处理错误
         errors => BadRequest(views.html.comment.errorMsg("")),

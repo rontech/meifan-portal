@@ -3,20 +3,19 @@
 <div class="w166 mHA">
     <div class="taC">
         <a href="@routes.Stylists.findStylistById(stylist.id)">
-            <img src="@routes.Application.getPhoto(stylist.pictureName)" class="bdImgGray w164 h219">
+            <img src="#" class="bdImgGray w164 h219">
         </a>
     </div>
     <p class="mT10">
         <a href="#">
-           <p>@stylist.label</p>
+           <p>@stylist.publicId</p>
         </a>
     </p>
     <div class="bdDotT mT5 pT5 fs10">
         <span class="fgPink">
-       @stylist.stylistStyle.map{sty=>
-       	@sty
+      
        	&nbsp;
-       }
+      
         </span>
   （@stylist.workYears
   @Messages("stylist.workYears")）
@@ -27,10 +26,9 @@
 <div class="taC mT10">
 	<div>
 		<span>@Messages("stylist.applyCreateTime")
-		@ApplyRecord.findStylistAyRd(Stylist.findById(stylist.id).get.salonId, stylist.id).get.createTime.format("yyyy-MM-dd HH:mm")</span>
 	</div>
-	<a href="/agreeStylistApply/@stylist.id/@stylist.salonId" class="salon-stylist-reserv">@Messages("stylist.acceptApply")</a>|
-	<a href="/rejectStylistApply/@stylist.id/@stylist.salonId" class="salon-stylist-reserv">@Messages("stylist.rejectApply")</a>
+	<a href="/agreeStylistApply/@stylist.id/@stylist.id" class="salon-stylist-reserv">@Messages("stylist.acceptApply")</a>|
+	<a href="/rejectStylistApply/@stylist.id/@stylist.id" class="salon-stylist-reserv">@Messages("stylist.rejectApply")</a>
 </div>
 	
 </div>

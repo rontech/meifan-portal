@@ -18,7 +18,7 @@
 	<dt class="titleBlog">店员</dt>
 		<dd class="list p10">
 		@Stylist.findBySalon(salon.id).map { stylist =>
-			<p><a href="/salon/@salon.id/blogs/@stylist.id">@stylist.userId （博客是数量）</a></p>
+			<p><a href="/salon/@salon.id/blogs/@stylist.id">（博客是数量）</a></p>
 		}
 		</dd>
 	<dt class="titleBlog">历史博客</dt>

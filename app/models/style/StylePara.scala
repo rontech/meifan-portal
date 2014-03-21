@@ -18,7 +18,8 @@ import mongoContext._
  */
 case class StyleLength(
     id: ObjectId = new ObjectId,
-    styleLength: String
+    styleLength: String,
+    description: String
 )
 
 
@@ -44,7 +45,8 @@ object StyleLength {
     def create(styleLength: StyleLength): Option[ObjectId] = {
         StyleLengthDAO.insert(
             StyleLength(
-			    styleLength = styleLength.styleLength
+			    styleLength = styleLength.styleLength,
+			    description = styleLength.description
             )
         )
     }
@@ -53,7 +55,8 @@ object StyleLength {
         StyleLengthDAO.save(
             StyleLength(
 		id = styleLength.id,
-                styleLength = styleLength.styleLength
+                styleLength = styleLength.styleLength,
+                description = styleLength.description
             )
         )
     }
@@ -70,7 +73,8 @@ object StyleLength {
  */
 case class StyleColor(
     id: ObjectId = new ObjectId,
-    styleColor: String
+    styleColor: String,
+    description: String
 )
 
 
@@ -96,7 +100,8 @@ object StyleColor {
     def create(styleColor: StyleColor): Option[ObjectId] = {
         StyleColorDAO.insert(
             StyleColor(
-			    styleColor = styleColor.styleColor
+			    styleColor = styleColor.styleColor,
+			    description = styleColor.description
             )
         )
     }
@@ -105,7 +110,8 @@ object StyleColor {
         StyleColorDAO.save(
             StyleColor(
 		id = styleColor.id,
-                styleColor = styleColor.styleColor
+                styleColor = styleColor.styleColor,
+                description = styleColor.description
             )
         )
     }
@@ -118,52 +124,55 @@ object StyleColor {
 
 
 /**
- * The table of impression
+ * The table of StyleStyleImpression
  */
-case class Impression(
+case class StyleImpression(
     id: ObjectId = new ObjectId,
-    impression: String
+    styleImpression: String,
+    description: String
 )
 
 
-object ImpressionDAO extends SalatDAO[Impression, ObjectId](
+object StyleImpressionDAO extends SalatDAO[StyleImpression, ObjectId](
   collection = MongoConnection()(
     current.configuration.getString("mongodb.default.db")
       .getOrElse(throw new PlayException(
           "Configuration error",
           "Could not find mongodb.default.db in settings"))
-  )("Impression"))
+  )("StyleImpression"))
 
 
-object Impression {
+object StyleImpression {
 
-    def findAll(): List[Impression] = {
-        ImpressionDAO.find(MongoDBObject.empty).toList
+    def findAll(): List[StyleImpression] = {
+        StyleImpressionDAO.find(MongoDBObject.empty).toList
     }
 
-    def findById(id: ObjectId): Option[Impression] = {
-        ImpressionDAO.findOne(MongoDBObject("_id" -> id))
+    def findById(id: ObjectId): Option[StyleImpression] = {
+        StyleImpressionDAO.findOne(MongoDBObject("_id" -> id))
     }
 
-    def create(impression: Impression): Option[ObjectId] = {
-        ImpressionDAO.insert(
-            Impression(
-			    impression = impression.impression
+    def create(styleImpression: StyleImpression): Option[ObjectId] = {
+        StyleImpressionDAO.insert(
+            StyleImpression(
+			    styleImpression = styleImpression.styleImpression,
+			    description = styleImpression.description
             )
         )
     }
 
-    def save(impression: Impression) = {
-        ImpressionDAO.save(
-            Impression(
-		id = impression.id,
-                impression = impression.impression
+    def save(styleImpression: StyleImpression) = {
+        StyleImpressionDAO.save(
+            StyleImpression(
+		id = styleImpression.id,
+			styleImpression = styleImpression.styleImpression,
+			description = styleImpression.description
             )
         )
     }
 
    def delete(id: String) {
-        ImpressionDAO.remove(MongoDBObject("_id" -> new ObjectId(id)))
+        StyleImpressionDAO.remove(MongoDBObject("_id" -> new ObjectId(id)))
     }
 
 }
@@ -174,7 +183,8 @@ object Impression {
  */
 case class StyleAmount(
     id: ObjectId = new ObjectId,
-    styleAmount: String
+    styleAmount: String,
+    description: String
 )
 
 
@@ -200,7 +210,8 @@ object StyleAmount {
     def create(styleAmount: StyleAmount): Option[ObjectId] = {
         StyleAmountDAO.insert(
             StyleAmount(
-			    styleAmount = styleAmount.styleAmount
+			    styleAmount = styleAmount.styleAmount,
+			    description = styleAmount.description
             )
         )
     }
@@ -209,7 +220,8 @@ object StyleAmount {
         StyleAmountDAO.save(
             StyleAmount(
 		id = styleAmount.id,
-                styleAmount = styleAmount.styleAmount
+                styleAmount = styleAmount.styleAmount,
+                description = styleAmount.description
             )
         )
     }
@@ -226,7 +238,8 @@ object StyleAmount {
  */
 case class StyleQuality(
     id: ObjectId = new ObjectId,
-    styleQuality: String
+    styleQuality: String,
+    description: String
 )
 
 
@@ -252,7 +265,8 @@ object StyleQuality {
     def create(styleQuality: StyleQuality): Option[ObjectId] = {
         StyleQualityDAO.insert(
             StyleQuality(
-			    styleQuality = styleQuality.styleQuality
+			    styleQuality = styleQuality.styleQuality,
+			    description = styleQuality.description
             )
         )
     }
@@ -261,7 +275,8 @@ object StyleQuality {
         StyleQualityDAO.save(
             StyleQuality(
 		id = styleQuality.id,
-                styleQuality = styleQuality.styleQuality
+                styleQuality = styleQuality.styleQuality,
+                description = styleQuality.description
             )
         )
     }
@@ -278,7 +293,8 @@ object StyleQuality {
  */
 case class StyleDiameter(
     id: ObjectId = new ObjectId,
-    styleDiameter: String
+    styleDiameter: String,
+    description: String
 )
 
 
@@ -304,7 +320,8 @@ object StyleDiameter {
     def create(styleDiameter: StyleDiameter): Option[ObjectId] = {
         StyleDiameterDAO.insert(
             StyleDiameter(
-			    styleDiameter = styleDiameter.styleDiameter
+			    styleDiameter = styleDiameter.styleDiameter,
+			    description = styleDiameter.description
             )
         )
     }
@@ -313,7 +330,8 @@ object StyleDiameter {
         StyleDiameterDAO.save(
             StyleDiameter(
 		id = styleDiameter.id,
-                styleDiameter = styleDiameter.styleDiameter
+                styleDiameter = styleDiameter.styleDiameter,
+                description = styleDiameter.description
             )
         )
     }
@@ -326,52 +344,214 @@ object StyleDiameter {
 
 
 /**
- * The table of faceType
+ * The table of faceShape
  */
-case class FaceType(
+case class FaceShape(
     id: ObjectId = new ObjectId,
-    faceType: String
+    faceShape: String,
+    description: String
 )
 
 
-object FaceTypeDAO extends SalatDAO[FaceType, ObjectId](
+object FaceShapeDAO extends SalatDAO[FaceShape, ObjectId](
   collection = MongoConnection()(
     current.configuration.getString("mongodb.default.db")
       .getOrElse(throw new PlayException(
           "Configuration error",
           "Could not find mongodb.default.db in settings"))
-  )("FaceType"))
+  )("FaceShape"))
 
 
-object FaceType {
+object FaceShape {
 
-    def findAll(): List[FaceType] = {
-        FaceTypeDAO.find(MongoDBObject.empty).toList
+    def findAll(): List[FaceShape] = {
+        FaceShapeDAO.find(MongoDBObject.empty).toList
     }
 
-    def findById(id: ObjectId): Option[FaceType] = {
-        FaceTypeDAO.findOne(MongoDBObject("_id" -> id))
+    def findById(id: ObjectId): Option[FaceShape] = {
+        FaceShapeDAO.findOne(MongoDBObject("_id" -> id))
     }
 
-    def create(faceType: FaceType): Option[ObjectId] = {
-        FaceTypeDAO.insert(
-            FaceType(
-			    faceType = faceType.faceType
+    def create(faceShape: FaceShape): Option[ObjectId] = {
+        FaceShapeDAO.insert(
+            FaceShape(
+			    faceShape = faceShape.faceShape,
+			    description = faceShape.description
             )
         )
     }
 
-    def save(faceType: FaceType) = {
-        FaceTypeDAO.save(
-            FaceType(
-		id = faceType.id,
-                faceType = faceType.faceType
+    def save(faceShape: FaceShape) = {
+        FaceShapeDAO.save(
+            FaceShape(
+		id = faceShape.id,
+                faceShape = faceShape.faceShape,
+                description = faceShape.description
             )
         )
     }
 
    def delete(id: String) {
-        FaceTypeDAO.remove(MongoDBObject("_id" -> new ObjectId(id)))
+        FaceShapeDAO.remove(MongoDBObject("_id" -> new ObjectId(id)))
+    }
+
+}
+
+/**
+ * The table of socialStatus
+ */
+case class SocialStatus(
+    id: ObjectId = new ObjectId,
+    socialStatus: String,
+    description: String
+)
+
+
+object SocialStatusDAO extends SalatDAO[SocialStatus, ObjectId](
+  collection = MongoConnection()(
+    current.configuration.getString("mongodb.default.db")
+      .getOrElse(throw new PlayException(
+          "Configuration error",
+          "Could not find mongodb.default.db in settings"))
+  )("SocialStatus"))
+
+
+object SocialStatus {
+
+    def findAll(): List[SocialStatus] = {
+        SocialStatusDAO.find(MongoDBObject.empty).toList
+    }
+
+    def findById(id: ObjectId): Option[SocialStatus] = {
+        SocialStatusDAO.findOne(MongoDBObject("_id" -> id))
+    }
+
+    def create(socialStatus: SocialStatus): Option[ObjectId] = {
+        SocialStatusDAO.insert(
+            SocialStatus(
+			    socialStatus = socialStatus.socialStatus,
+			    description = socialStatus.description
+            )
+        )
+    }
+
+    def save(socialStatus: SocialStatus) = {
+        SocialStatusDAO.save(
+            SocialStatus(
+		id = socialStatus.id,
+                socialStatus = socialStatus.socialStatus,
+                description = socialStatus.description
+            )
+        )
+    }
+
+   def delete(id: String) {
+        SocialStatusDAO.remove(MongoDBObject("_id" -> new ObjectId(id)))
+    }
+
+}
+
+/**
+ * The table of ageGroup
+ */
+case class AgeGroup(
+    id: ObjectId = new ObjectId,
+    ageGroup: String,
+    description: String
+)
+
+
+object AgeGroupDAO extends SalatDAO[AgeGroup, ObjectId](
+  collection = MongoConnection()(
+    current.configuration.getString("mongodb.default.db")
+      .getOrElse(throw new PlayException(
+          "Configuration error",
+          "Could not find mongodb.default.db in settings"))
+  )("AgeGroup"))
+
+
+object AgeGroup {
+
+    def findAll(): List[AgeGroup] = {
+        AgeGroupDAO.find(MongoDBObject.empty).toList
+    }
+
+    def findById(id: ObjectId): Option[AgeGroup] = {
+        AgeGroupDAO.findOne(MongoDBObject("_id" -> id))
+    }
+
+    def create(ageGroup: AgeGroup): Option[ObjectId] = {
+        AgeGroupDAO.insert(
+            AgeGroup(
+			    ageGroup = ageGroup.ageGroup,
+			    description = ageGroup.description
+            )
+        )
+    }
+
+    def save(ageGroup: AgeGroup) = {
+        AgeGroupDAO.save(
+            AgeGroup(
+		id = ageGroup.id,
+                ageGroup = ageGroup.ageGroup,
+                description = ageGroup.description
+            )
+        )
+    }
+
+   def delete(id: String) {
+        AgeGroupDAO.remove(MongoDBObject("_id" -> new ObjectId(id)))
+    }
+
+}
+
+/**
+ * The table of sex
+ */
+case class Sex(
+    id: ObjectId = new ObjectId,
+    sex: String
+)
+
+
+object SexDAO extends SalatDAO[Sex, ObjectId](
+  collection = MongoConnection()(
+    current.configuration.getString("mongodb.default.db")
+      .getOrElse(throw new PlayException(
+          "Configuration error",
+          "Could not find mongodb.default.db in settings"))
+  )("Sex"))
+
+
+object Sex {
+
+    def findAll(): List[Sex] = {
+        SexDAO.find(MongoDBObject.empty).toList
+    }
+
+    def findById(id: ObjectId): Option[Sex] = {
+        SexDAO.findOne(MongoDBObject("_id" -> id))
+    }
+
+    def create(sex: Sex): Option[ObjectId] = {
+        SexDAO.insert(
+            Sex(
+			    sex = sex.sex
+            )
+        )
+    }
+
+    def save(sex: Sex) = {
+        SexDAO.save(
+            Sex(
+		id = sex.id,
+                sex = sex.sex
+            )
+        )
+    }
+
+   def delete(id: String) {
+        SexDAO.remove(MongoDBObject("_id" -> new ObjectId(id)))
     }
 
 }

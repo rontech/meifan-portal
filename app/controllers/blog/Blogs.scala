@@ -69,8 +69,8 @@ object Blogs extends Controller {
    */    
   def getBlogByStylist(salonId: ObjectId, stylistId: ObjectId) = Action {
      val salon: Option[Salon] = Salon.findById(salonId)
-     val stylist = Stylist.findById(stylistId)
-     var user = User.findById(stylist.get.userId).get
+     val stylist = Stylist.findOneById(stylistId)
+     var user = User.findOneById(stylist.get.id).get
      var blogList = Blog.getBlogByUserId(user.userId)
      Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogList))
    }    
@@ -162,8 +162,7 @@ object Blogs extends Controller {
    * 用户删除blog
    */
   def deleteBlog(blogId : ObjectId) = Action {
-     implicit request =>
-      val userId = request.session.get("userId").get
+    var userId = Blog.findOneById(blogId).get.authorId
     Blog.delete(blogId)
     Redirect(routes.Blogs.showBlog(userId))
   }

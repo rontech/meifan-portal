@@ -695,3 +695,45 @@ width: 580px;
 .w120 {
 width: 120px;
 }
+
+/*createCoupon start*/
+#serviceItems_field {
+float: left;
+}
+
+.showCoupon, .showMenu {
+float: left;
+width: 76%;
+}
+
+.mainContentsSecondTitleOuter {
+background: none;
+}
+
+.showCoupon li.couponItem div {
+margin-bottom: 0;
+}
+
+.pl10 {
+padding-left: 10px;
+}
+
+.w70 {
+width: 70px;
+}
+
+.w595 {
+width: 595px;
+}
+
+.w585 {
+width: 585px;
+}
+
+.showCoupon .btn2H50.btnWlines, .showMenu .btn2H50.btnWlines {
+line-height: 36px;
+}
+
+.txtM {
+text-align: center;
+}
