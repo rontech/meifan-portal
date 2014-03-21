@@ -1,0 +1,8 @@
+@(salon: Salon, menuForm: Form[Menu], services: List[Service])
+
+@mySalonMain(navInSalon = "salon-coupon", salon) {
+	
+    <!-- Get the Salon with all the coupons.  -->
+    @views.html.menu.createMenu(salon.id, menuForm, services)
+
+}

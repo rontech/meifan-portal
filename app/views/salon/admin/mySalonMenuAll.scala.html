@@ -1,0 +1,14 @@
+@(salon: Salon, menus: List[Menu])
+
+@mySalonMain(navInSalon = "salon-coupon", salon) {
+	
+	<head>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">	
+	</head>
+	
+	@*@views.html.coupon.couponSearchGroup(salon, serviceTypes)*@
+
+    <!-- Get the Salon with all the coupons.  -->
+    @views.html.menu.showMenuGroup(salon, menus)
+
+}

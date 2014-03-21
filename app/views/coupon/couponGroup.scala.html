@@ -7,9 +7,11 @@
     </div>
 } else {
     @for(coupon <- coupons) {
-        <li class="couponItem">
-            @views.html.coupon.couponItem(coupon)
-        </li>
+    	@if(coupon.isValid && coupon.endDate.after(new java.util.Date()) && coupon.startDate.before(new java.util.Date())) {
+    		<li class="couponItem">
+            	@views.html.coupon.couponItem(coupon)
+        	</li>	
+    	}
     }
 }
 </ol>

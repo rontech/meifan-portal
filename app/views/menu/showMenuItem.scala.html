@@ -1,0 +1,134 @@
+@(menu: Menu)
+
+<table summary="summary" cellspacing="1" class="wFull bgLGray2 mT10 fs10 couponTable">
+	<tbody>
+		<tr>
+			<td class="w580 bgWhite">
+				<div class="w560 p10">
+					<div class="">
+						<div class="">
+							<ul class="couponMenuIcons fs10 cFix">
+								@for(service <- menu.serviceItems) {
+									<li class="couponMenuIcon mB5">@Messages("ServiceType.serviceTypeName." + service.serviceType)</li>
+								}
+							</ul>
+						</div>
+						<div class="mT5 b fs12 cFix">
+							<p class="fl">
+								[@menu.menuName]
+								@for(serviceItem <- menu.serviceItems) {
+									@serviceItem.serviceName
+									@if(menu.serviceItems.indexOf(serviceItem) != ((menu.serviceItems).size -1)) {
+										@Messages("menu.addMark")	
+									}
+									
+								}
+							</p>
+							<p class="fr"><span class="fs13">@menu.originalPrice @Messages("coupon.currency")</span></p>
+						</div>
+						<p class="fgGray fs10">
+                            <font>
+                                <font class="">
+                                    @menu.description
+                                </font>
+                            </font>
+                        </p>
+					</div>
+					<dl class="mT10">
+                            <dt class="di fgPink">
+                                <font>
+                                    <font>
+                                        @Messages("coupon.serviceDuration")
+                                    </font>
+                                </font>
+                            </dt>
+                            <dd class="di mR10 pR10 fgGray bdLGrayR">
+                                <font>
+                                    <font>
+                                        @menu.serviceDuration @Messages("service.minutes")
+                                    </font>
+                                </font>
+                            </dd>
+                            <dt class="di fgPink">
+                                <font>
+                                    <font>
+                                        @Messages("coupon.startDate")
+                                    </font>
+                                </font>
+                            </dt>
+                            <dd class="di mR10 pR10 fgGray bdLGrayR">
+                                <font>
+                                    <font>
+                                        @menu.createDate.format("yyyy-MM-dd")
+                                    </font>
+                                </font>
+                            </dd>
+                            @if(!menu.expireDate == "" && !menu.expireDate == null) {
+                            	<dt class="di fgPink">
+                                <font>
+                                    <font>
+                                        @Messages("coupon.endDate")
+                                    </font>
+                                </font>
+                            </dt>
+                            <dd class="di mR20 fgGray">
+                                <font>
+                                    <font>
+                                        @menu.expireDate.get.format("yyyy-MM-dd")
+                                    </font>
+                                </font>
+                            </dd>
+                            }
+                        </dl>
+				</div>
+			</td>
+				@if(menu.isValid) {
+                	<td class="bdWhite bgLLGray2 vaM">
+                    <div class="pV10 fs12">
+                        <div>
+                            <a href="#"
+                            class="btn btn2H50 btnWlines w70 mHA">
+                                <span>
+                                    <span>
+                                        <font>
+                                            <font>
+                                                @Messages("coupon.modify")
+                                            </font>
+                                        </font>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="pV10 fs12">
+                        <div>
+                            <a href="#"
+                            class="btn btn2H50 btnWlines w70 mHA">
+                                <span>
+                                    <span>
+                                        <font>
+                                            <font>
+                                                @Messages("coupon.invalid")
+                                            </font>
+                                        </font>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+               } else {
+               	   <td class="bdWhite bgLLGray2 vaM txtM">
+                       <div class="pV10 fs12">
+                        <div>
+                           <span class ="txtM">
+                             <font class="fgRed">
+                                 @Messages("menu.invalidCoupon")
+                             </font>
+                           </span>
+                        </div>
+                      </div>
+                   </td>
+               }
+			</tr>
+	</tbody>
+</table>
