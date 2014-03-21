@@ -7,7 +7,7 @@ GET     /                               controllers.Application.index
 
 #get photo
 
-GET		/getPhoto/:name					controllers.Application.getPhoto(name: String)
+GET		/getPhoto/:name					controllers.Application.getPhoto(name: ObjectId)
 
 # User Management
 GET     /user                           controllers.Users.index

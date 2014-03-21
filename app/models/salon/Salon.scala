@@ -26,10 +26,9 @@ import java.util.Date
 /**
  * The Industry Type of Salon. 
 */
-case class Industry (
-    id: ObjectId = new ObjectId,
-    //indstId: Int,
-    indstName: String
+case class Industry(
+		id: ObjectId,
+		industryName: String
 )
 
 object Industry extends ModelCompanion[Industry, ObjectId]{

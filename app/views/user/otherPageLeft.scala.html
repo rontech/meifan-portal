@@ -43,10 +43,10 @@
     			<strong>@Messages("user.followStylist")</strong>
 	  			<ul class='clearfix'>
     	 			@for(i <- 0 to FollowCollect.getAllFollowCollectAtId(2,user.id).length-1){
-	  					@Stylist.findById(FollowCollect.getAllFollowCollectAtId(2,user.id)(i)).map {stylist =>
+	  					@Stylist.findOneById(FollowCollect.getAllFollowCollectAtId(2,user.id)(i)).map {stylist =>
 	  					<li>
     	 				<!--  <a href="#"><img src="#" align="absmiddle" alt="" title="" class="SmallPortrait"></a>-->
-    	 				<a href="#">@stylist.label</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 				<a href="#">@stylist.publicId</a>&nbsp;&nbsp;&nbsp;&nbsp;
     	 			     </li>
 	  					}
 	  				}

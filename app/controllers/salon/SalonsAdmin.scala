@@ -73,12 +73,11 @@ object SalonsAdmin extends Controller {
             val  rec = new ApplyRecord(re.id, re.stylistId, re.salonId, re.applyType,
                 re.createTime, Option(new Date), None, None, 1)
             ApplyRecord.save(rec.copy(id = re.id))
-            val stylist = Stylist.findById(stylistId)
+            val stylist = Stylist.findOneById(stylistId)
             stylist match {
               case Some(sty) => {
-                val slt = new Stylist(sty.id, sty.label, salonId, sty.userId, sty.workYears, sty.stylistStyle,
-                    sty.imageId, sty.consumerId, sty.description, sty.pictureName, 1)
-                Stylist.save(slt.copy(id = sty.id))
+               
+                Stylist.save(sty.copy(id = sty.id, isVarified = true, isValid = true))
               }
               case None => NotFound
             }
@@ -98,12 +97,10 @@ object SalonsAdmin extends Controller {
             val  rec = new ApplyRecord(re.id, re.stylistId, re.salonId, re.applyType,
                 re.createTime, None, Option(new Date), None, 2)
             ApplyRecord.save(rec.copy(id = re.id))
-            val stylist = Stylist.findById(stylistId)
+            val stylist = Stylist.findOneById(stylistId)
             stylist match {
               case Some(sty) => {
-                val slt = new Stylist(sty.id, sty.label, salonId, sty.userId, sty.workYears, sty.stylistStyle,
-                    sty.imageId, sty.consumerId, sty.description, sty.pictureName, 0)
-                Stylist.save(slt.copy(id = sty.id))
+                Stylist.save(sty.copy(id = sty.id, isVarified = false, isValid = true))
               }
               case None => NotFound
             }
@@ -117,26 +114,13 @@ object SalonsAdmin extends Controller {
    * 根据Id查找技师
    */
   def searchStylistById() = Action {implicit request =>
-    val stylistId = request.getQueryString("searchStylistById")
+    val stylistId = request.getQueryString("searchStylistById").get
     val salonId = request.getQueryString("salonId").get
 	val salon = Salon.findById(new ObjectId(salonId)).get
-    stylistId match {
-      case Some(styId) =>{ 
-        val stylist = Stylist.findById(new ObjectId(styId))
-	    stylist match {
-	      case Some(sty) =>{
-		    if(salonId == sty.salonId.toString && sty.status == 1) {
-		      Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 1))
-		    } else {
-		      Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 2))
-		    }
-	      }
-	      case None => Ok(html.salon.admin.findStylistBySearch(stylist = null, salon = salon, status = 1))
-	    }
-      }
-      case None => Ok(html.salon.admin.findStylistBySearch(stylist = null, salon = salon, status = 1))
-    }
-   }
+	val stylist = Stylist.findOneById(new ObjectId(stylistId))
+	
+    Ok(html.salon.admin.findStylistBySearch(stylist = stylist.get, salon = salon, status = 1))
+  }
   
   /**
    *店铺邀请技师 

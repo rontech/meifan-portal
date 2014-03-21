@@ -84,45 +84,48 @@ object Users extends Controller {
   /**
    * 定义用户申请技师的表单
    */
-  def stylistForm: Form[Stylist] = Form(
-    mapping(
-    	"label" -> text,
-    	"salonId" -> text,
-    	"workYears" -> text,
-    	"stylistStyle" -> list(text),
-    	"imageId" ->list(text),
-    	"consumerId" -> list(text),
-    	"description" -> text
-    ){
-      (label,salonId,workYears,stylistStyle,imageId,consumerId,description)=>
-        Stylist(new ObjectId, label, new ObjectId(salonId), new ObjectId, workYears, stylistStyle, imageId,
-        
-            consumerId, description, new String, 0)
-    }
-    {
-      stylist => Some((stylist.label, stylist.salonId.toString, stylist.workYears, stylist.stylistStyle, (stylist.imageId.toString)::Nil, 
-          stylist.consumerId.toString::Nil, stylist.description))
-    }
-  )
-//  val userForm: Form[User] = Form(
-//    mapping(
-//      "username" -> text,
-//      "password" -> text,
-//      "sex" -> text,
-//      "age" -> number,
-//      "tel" -> text,
-//      "email" -> text,
-//      "education" -> text,
-//      "introduce" -> text,
-//      "added" -> date,
-//      "updated" -> date) {
-//        // Binding: Create a User from the mapping result (ignore the second password and the accept field)
-//        (username, password, sex, age, tel, email, education, introduce, added, _) => User(new ObjectId, username, password, sex, age, tel, email, education, introduce, added, new Date())
-//      } // Unbinding: Create the mapping values from an existing Hacker value
-//      {
-//        user => Some((user.username, user.password, user.sex, user.age, user.tel, user.email, user.education, user.introduce, user.added, user.updated))
-//      }
-//  )
+  def stylistApplyForm: Form[StylistApply] = Form(
+        mapping("stylist" -> 
+		    mapping(
+		    	"workYears" -> number,
+			    "position" -> seq(
+			    	mapping(
+			    		"positionName" -> text,
+			    		"industryName" -> text
+			    	){
+			    		(positionName, industryName) => IndustryAndPosition(new ObjectId, positionName, industryName)
+			    	}{
+			    		industryAndPosition => Some(industryAndPosition.positionName, industryAndPosition.indestryName)
+			    	}	
+			    ),
+			    "goodAtImage" -> seq(text),
+			    "goodAtStatus" -> seq(text),
+			    "goodAtService" -> seq(text),
+			    "goodAtUser" -> seq(text),
+			    "goodAtAgeGroup" -> seq(text),
+			    "myWords" -> text,
+			    "mySpecial" -> text,
+			    "myBoom" -> text,
+			    "myPR" -> text
+			){
+		      (workYears, position, goodAtImage, goodAtStatus, goodAtService,
+		          goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR)
+		      => Stylist(new ObjectId, new ObjectId(), 0, position, goodAtImage, goodAtStatus,
+		    	   goodAtService, goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR, 
+		           Option(Seq(new OnUsePicture(new ObjectId, new PictureUse(new ObjectId, "" , 1), 1, ""))), false, false)
+		    }{
+		      stylist => Some(stylist.workYears, stylist.position, 
+		          stylist.goodAtImage, stylist.goodAtStatus, stylist.goodAtService, stylist.goodAtUser,
+		          stylist.goodAtAgeGroup, stylist.myWords, stylist.mySpecial, stylist.myBoom, stylist.myPR)
+		    },
+		    "salonId" -> text
+		    ){
+		      (stylist, salonId) => StylistApply(stylist, new ObjectId(salonId))
+		    }{
+		      stylistApply => Some((stylistApply.stylist, stylistApply.salonId.toString))
+		    }
+		)
+
   def login = Action {
     Ok(views.html.user.login(Users.loginForm))
   }
@@ -199,7 +202,7 @@ object Users extends Controller {
     if((user.userTyp).equals("userTyp.0")) {
     	Ok(views.html.user.myPageRes(user))
     } else if((user.userTyp).equals("userTyp.1")) {
-    	val stylist = StylistDAO.findOne(MongoDBObject("userId" -> new ObjectId(user.userId)))
+    	val stylist = Stylist.findOne(MongoDBObject("userId" -> new ObjectId(user.userId)))
     	Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get))
     }else {
     	Ok(views.html.user.myPageRes(user))
@@ -294,7 +297,7 @@ object Users extends Controller {
     val stylistIdList: List[ObjectId] = FollowCollect.getAllFollowCollectAtId(2,userId)
     val stylistList = ListBuffer[Stylist]()
     for (i <-0 to stylistIdList.length-1){
-      val stylist =Stylist.findById(stylistIdList(i)).get
+      val stylist =Stylist.findOneById(stylistIdList(i)).get
       stylistList += stylist
     }
     Ok(views.html.user.showAllFollowStylist(stylistList.toList,user.get,sessionUserId))
@@ -367,31 +370,34 @@ object Users extends Controller {
   /**
    * 申请成为技师
    */
-  def applyStylist = Action {
-    val user = new User(new ObjectId, "123456576", "12333333", "adsad", new Date, "1",
-        "jiangsu", "18606291469", "1324567987","729932232",
-        "456d4sdsd", "..", "..", "1", "1", 1, new Date, ".")
-    Ok(views.html.user.applyStylist(stylistForm, user))
+  def applyStylist = Action { implicit request=>
+    val user = User.findById(new ObjectId("53202c29d4d5e3cd47efffd4"))
+    val industry = Industry.findAll.toList
+    val position = Position.findAll.toList
+    val goodAtImage = StyleImpression.findAll.toList
+    val goodAtStatus = SocialStatus.findAll.toList
+    val goodAtService = Service.findAll.toList
+    val goodAtUser = Sex.findAll.toList
+    val goodAtAgeGroup = AgeGroup.findAll.toList
+    Ok(views.html.user.applyStylist(stylistApplyForm, user.get, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup))
   }
   
   /**
    * 店长或店铺管理者确认后才录入数据库
    */
   def commitStylistApply() = Action {implicit request=>
-    /*val userId = request.session.get("user")*/
-    val userId = new ObjectId
-  	stylistForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.index("")),
+    val userId = new ObjectId("53202c29d4d5e3cd47efffd4")
+    stylistApplyForm.bindFromRequest.fold(
+      errors => BadRequest(views.html.fortest(errors)),
       {
-    	  stylist =>
-    	    Stylist.save(stylist)
-    	    
-    	    val applyRecord = new ApplyRecord(new ObjectId, stylist.id, stylist.salonId, 1,
-    	        new Date, None, None, None, 0)
-    	    ApplyRecord.save(applyRecord)
-    	    Redirect(routes.Users.show(userId.toString))
+        case(stylistApply) => {
+        	Stylist.save(stylistApply.stylist)
+        	val applyRecord = new SalonStylistApplyRecord(new ObjectId, stylistApply.salonId, stylistApply.stylist.id, 1, new Date, 0, None)
+    	    SalonStylistApplyRecord.save(applyRecord)
+    	    Ok(views.html.fortest(stylistApplyForm.fill(stylistApply)))
+        }
       })
-      
+    	 
   }
   
 }

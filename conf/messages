@@ -82,6 +82,24 @@ salon.a=美容美发
 salon.b=瘦身健美
 salon.c=美甲美肤
 
+#salon management
+salonAdmin.myPage = 我的店铺
+salonAdmin.myBlog = 我的博客
+salonAdmin.welcome = 欢迎您
+salonAdmin.remindReserv = 预约提示：
+salonAdmin.needCommentReserv = 待评论
+salonAdmin.overtimeReserv = 已过期
+salonAdmin.expireReserv = 即将到期
+salonAdmin.remindApply = 申请提示：
+salonAdmin.fromStylistApply = 来自技师申请
+salonAdmin.infoManagement = 信息管理
+salonAdmin.stylistManagement = 技师管理
+salonAdmin.reservManagement = 预约管理
+salonAdmin.commentManagement = 评论管理
+salonAdmin.serviceManagement = 服务管理
+salonAdmin.couponManagement = 优惠劵管理
+salonAdmin.stateManagement = 动态管理
+
 # Hair
 hair.salon=美发沙龙
 hair.style=发型
@@ -177,6 +195,13 @@ stylist.rejectApply = 拒绝
 stylistMag.mySalon = 我的店铺
 stylistMag.salonApply = 来自店铺申请
 stylistMag.myStyle = 我的作品
+stylistMag.showAllStyles = 显示所有发型
+stylistMag.findReserv = 查看预约
+stylistMag.styleManage = 发型管理
+stylistMag.serviceManage = 服务管理
+stylistMag.salonHistory = 店铺历史
+stylistMag.totalReserv = 显示当天预约
+
 
 # User
 user.relation.type=关系类型
