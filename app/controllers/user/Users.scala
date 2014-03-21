@@ -391,7 +391,14 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
 
   def commitStylistApply() = Action {implicit request=>
-    val userId = new ObjectId("53202c29d4d5e3cd47efffd4")
+    val user = User.findOneById(new ObjectId("53202c29d4d5e3cd47efffd4"))
+    val industry = Industry.findAll.toList
+    val position = Position.findAll.toList
+    val goodAtImage = StyleImpression.findAll.toList
+    val goodAtStatus = SocialStatus.findAll.toList
+    val goodAtService = Service.findAll.toList
+    val goodAtUser = Sex.findAll.toList
+    val goodAtAgeGroup = AgeGroup.findAll.toList
     stylistApplyForm.bindFromRequest.fold(
       errors => BadRequest(views.html.index("")),
       {
@@ -399,7 +406,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
         	Stylist.save(stylistApply.stylist)
         	val applyRecord = new SalonStylistApplyRecord(new ObjectId, stylistApply.salonId, stylistApply.stylist.id, 1, new Date, 0, None)
     	    SalonStylistApplyRecord.save(applyRecord)
-    	    Ok(views.html.fortest(stylistApplyForm.fill(stylistApply)))
+    	    Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user.get, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup))
         }
       })
     	 
