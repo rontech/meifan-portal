@@ -30,7 +30,7 @@ object Stylists extends Controller {
 
     val salon: Option[Salon] = Salon.findById(salonId)
     val nav: String = "style"
-    val stylistsOfSalon: Seq[Stylist] = Stylist.findBySalon(salonId)    
+    val stylistsOfSalon: List[Stylist] = Stylist.findBySalon(salonId)    
      // TODO
     Ok(html.salon.store.salonInfoStylistAll(salon.get, stylistsOfSalon))
 

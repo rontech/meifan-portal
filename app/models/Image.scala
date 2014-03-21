@@ -71,7 +71,7 @@ object Image {
 }
 case class OnUsePicture(
 	fileObjId: ObjectId,
-	picUse: PictureUse,
+	picUse: String,
 	showPriority: Int,
 	description: String
 )

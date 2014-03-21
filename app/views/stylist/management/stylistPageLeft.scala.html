@@ -63,7 +63,7 @@
 	   			<strong>@Messages("user.followUser")</strong>
 	   			<ul class='clearfix'>
       				@for(i <- 0 to FollowCollect.getAllFollowCollectAtId(6,user.id).length-1){
-	  					@User.findById(FollowCollect.getAllFollowCollectAtId(6,user.id)(i)).map {user =>
+	  					@User.findOneById(FollowCollect.getAllFollowCollectAtId(6,user.id)(i)).map {user =>
 	  					<li>
     	 				<!--  <a href="#"><img src="#" align="absmiddle" alt="" title="" class="SmallPortrait"></a>-->
     	 				<a href="@routes.Users.otherIndex(user.id)">@user.userId</a>&nbsp;&nbsp;&nbsp;&nbsp;

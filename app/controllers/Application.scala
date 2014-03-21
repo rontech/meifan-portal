@@ -19,7 +19,16 @@ object Application extends Controller {
     Ok(views.html.index("Your new application is ready."))
   }
 
+  def login() = Action { implicit request =>
+    Ok(views.html.user.login(Users.loginForm))
+  }
+
+  def register() = Action {
+    Ok(views.html.user.register(Users.registerForm()))
+  }
+  
     def getPhoto(file: ObjectId) = Action {
+
     import com.mongodb.casbah.Implicits._
     import ExecutionContext.Implicits.global
     

@@ -1,6 +1,6 @@
 @* menuGroupByType Template File *@
-@(serviceTypeNames: Seq[String])
+@(salon: Salon, serviceByTypes: Seq[ServiceByType])
 
-@for(serviceTypeName <- serviceTypeNames) {
-	@views.html.menu.menuItemByType(serviceTypeName)
+@for(serviceByType <- serviceByTypes) {
+	@views.html.menu.menuItemByType(salon, serviceByType)
 }

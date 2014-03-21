@@ -16,17 +16,17 @@ case class Stylist(
     id: ObjectId = new ObjectId,
     publicId: ObjectId,
     workYears: Int,
-    position: Seq[IndustryAndPosition],
-    goodAtImage: Seq[String],
-    goodAtStatus: Seq[String],
-    goodAtService: Seq[String],
-    goodAtUser: Seq[String],
-    goodAtAgeGroup: Seq[String],
+    position: List[IndustryAndPosition],
+    goodAtImage: List[String],
+    goodAtStatus: List[String],
+    goodAtService: List[String],
+    goodAtUser: List[String],
+    goodAtAgeGroup: List[String],
     myWords: String,
     mySpecial: String,
     myBoom: String,
     myPR: String,
-    myPics: Option[Seq[OnUsePicture]],
+    myPics: Option[List[OnUsePicture]],
     isVarified: Boolean,
     isValid: Boolean
 )
@@ -51,8 +51,8 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
   	/**
      *  根据salonId查找这个店铺所有技师
      */
-    def findBySalon(salonId: ObjectId): Seq[Stylist] = {
-      var stylists: Seq[Stylist] = Nil
+    def findBySalon(salonId: ObjectId): List[Stylist] = {
+      var stylists: List[Stylist] = Nil
       val applyRe = SalonAndStylist.findBySalonId(salonId)
       applyRe.map{app =>
         val stylist = dao.findOne(DBObject("_id" -> app.stylistId))

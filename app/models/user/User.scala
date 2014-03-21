@@ -10,52 +10,46 @@ import mongoContext._
 import play.api.PlayException
 
 case class User(
-     id: ObjectId = new ObjectId,    
-         userId: String,
-         password: String,
-         nickNm: String,
-         birthDay: Date,
-         sex: String,
-         city: String,
-         job: String,
-         email: String,
-         tel: String,
-         qq: String,
-         msn: String,
-         weChat: String,
-         userTyp: String,
-         userBehaviorLevel: String,
-         point: Int,
-         added: Date,
-         status: String
-         )
+  id: ObjectId = new ObjectId,
+  userId: String,
+  nickName: String,
+  password: String,
+  sex: String,
+  birthDay: Date,
+  city: String,
+  userPics: ObjectId,
+  tel: String,
+  email: String,
+  optContactMethod: Seq[OptContactMethod],
+  socialStatus: String,
+  userTyp: String,
+  userBehaviorLevel: String,
+  point: Int,
+  registerTime: Date,
+  permission: String,
+  isValid: Boolean)
 
 object User extends UserDAO
 
 trait UserDAO extends ModelCompanion[User, ObjectId] {
-      def collection = MongoConnection()(
+  def collection = MongoConnection()(
     current.configuration.getString("mongodb.default.db")
       .getOrElse(throw new PlayException(
-          "Configuration error",
-          "Could not find mongodb.default.db in settings"))
-  )("User")
-      val dao = new SalatDAO[User, ObjectId](collection){}
-      
-      
-      // Indexes
-      collection.ensureIndex(DBObject("userId" -> 1), "userId", unique = true)
-      
-      // Queries
-      // Find a user according to userId
-      def findOneByUserId(userId: String): Option[User] = dao.findOne(MongoDBObject("userId" -> userId))
-      
-      // Find a user according to ObjectId
-      def findById(id: ObjectId): Option[User] = dao.findOne(MongoDBObject("_id" -> id))
-      
-      //
-      def findByNickNm(nickNm: String) = dao.find(MongoDBObject("nickNm" -> nickNm))
-      def findByEmail(email: String) = dao.find(MongoDBObject("email" -> email))
-      
-      // Check the password when logining
-      def authenticate(userId: String, password: String): Option[User] = dao.findOne(MongoDBObject("userId" -> userId, "password" -> password))
+        "Configuration error",
+        "Could not find mongodb.default.db in settings")))("User")
+  val dao = new SalatDAO[User, ObjectId](collection) {}
+
+  // Indexes
+  collection.ensureIndex(DBObject("userId" -> 1), "userId", unique = true)
+
+  // Queries
+  // Find a user according to userId
+  def findOneByUserId(userId: String): Option[User] = dao.findOne(MongoDBObject("userId" -> userId))
+
+  //
+  def findOneByNickNm(nickName: String) = dao.findOne(MongoDBObject("nickName" -> nickName))
+  def findOneByEmail(email: String) = dao.findOne(MongoDBObject("email" -> email))
+
+  // Check the password when logining
+  def authenticate(userId: String, password: String): Option[User] = dao.findOne(MongoDBObject("userId" -> userId, "password" -> password))
 }

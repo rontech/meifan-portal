@@ -17,65 +17,64 @@
         <div class="span14">
           	@form(routes.Users.commitStylistApply(), 'id -> "userForm"){
 		
-       		@inputText(stylistForm("stylist.label"), '_label -> "昵称", 'default ->user.nickNm,
-            	'_error -> stylistForm("label").error.map(_.withMessage("请输入用户名!")))
+       		@inputText(stylistForm("stylist.label"), '_label -> Messages("stylist.name"), 'default ->user.nickName)
 			
-			@inputText(stylistForm("stylist.workYears"), '_label -> "工作年数", 'class ->  "font1")
+			@inputText(stylistForm("stylist.workYears"), '_label -> Messages("stylist.workYesrs"), 'class ->  "font1")
 			
 			@inputText(stylistForm("salonId"), '_label -> "salonId", 'class ->  "font1")
 			
-			@input(field = stylistForm("stylist.position.industryName"),args = '_label ->"技师类别"){(id,name,value,args) =>
+			@input(field = stylistForm("stylist.position.industryName"),args = '_label ->Messages("stylist.industry")){(id,name,value,args) =>
 			 	@for(i <- 0 to industry.length-1){
-			 		<input type = "checkbox" class="" name = "stylist.position.industryName[@i]", value = "@industry(i)">@industry(i)
-			 		选择职位<select name="stylist.position.positionName[@i]">
+			 		<input type = "checkbox" class="" name = "stylist.position.industryName[@i]", value = "@industry(i).industryName">@industry(i).industryName
+			 		@Messages("stylist.position")<select name="stylist.position.positionName[@i]">
 			 			@position.map{idy=>
-			 				<option value="@idy">@idy</option>
+			 				<option value="@idy.positionName">@idy.positionName</option>
 			 			}
 			 		</select>
 			 	}
 			  }
 			
-			@input(field = stylistForm("stylist.goodAtImage"),args = '_label ->"擅长风格"){(id,name,value,args) =>
+			@input(field = stylistForm("stylist.goodAtImage"),args = '_label ->Messages("stylist.goodAtImage")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtImage.length-1){
 			 		<input type = "checkbox" name = "goodAtImage[@i]", value = "@goodAtImage(i)">@goodAtImage(i).styleImpression&nbsp;
 			 	}
 			  }
 			  
-			@input(field = stylistForm("stylist.goodAtStatus"),args = '_label ->"擅长人群"){(id,name,value,args) =>
+			@input(field = stylistForm("stylist.goodAtStatus"),args = '_label ->Messages("stylist.goodAtStatus")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtStatus.length-1){
 			 		<input type = "checkbox" name = "goodAtStatus[@i]", value = "@goodAtStatus(i)">@goodAtStatus(i).socialStatus
 			 	}
 			  }
 			  
-			@input(field = stylistForm("stylist.goodAtService"),args = '_label ->"擅长服务"){(id,name,value,args) =>
+			@input(field = stylistForm("stylist.goodAtService"),args = '_label ->Messages("stylist.goodAtService")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtService.length-1){
 			 		<input type = "checkbox" name = "stylist.goodAtService[@i]", value = "@goodAtService(i)">@goodAtService(i).serviceName
 			 	}
 			  }
 			  
-			@input(field = stylistForm("goodAtUser"),args = '_label ->"擅长性别"){(id,name,value,args) =>
+			@input(field = stylistForm("stylist.goodAtUser"),args = '_label ->Messages("stylist.goodAtUser")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtUser.length-1){
 			 		<input type = "checkbox" name = "stylist.goodAtUser[@i]", value = "@goodAtUser(i)">@goodAtUser(i).sex
 			 	}
 			  }  
 			
-			@input(field = stylistForm("goodAtAgeGroup"),args = '_label ->"擅长年龄段"){(id,name,value,args) =>
+			@input(field = stylistForm("stylist.goodAtAgeGroup"),args = '_label ->Messages("stylist.goodAtAgeGroup")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtAgeGroup.length-1){
 			 		<input type = "checkbox" name = "stylist.goodAtAgeGroup[@i]", value = "@goodAtAgeGroup(i)">@goodAtAgeGroup(i).ageGroup
 			 	}
 			  }
 			
-			@textarea(field = stylistForm("stylist.myWords"),'rows -> 4, 'cols -> 100, '_label -> "我的话语", '_help -> "方便顾客了解你")
+			@textarea(field = stylistForm("stylist.myWords"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myWords"))
 			
-			@textarea(field = stylistForm("stylist.mySpecial"),'rows -> 4, 'cols -> 100, '_label -> "技术特长", '_help -> "方便顾客了解你")
+			@textarea(field = stylistForm("stylist.mySpecial"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.mySpecial"))
 			            
-            @textarea(field = stylistForm("stylist.myBoom"),'rows -> 4, 'cols -> 100, '_label -> "兴趣爱好", '_help -> "方便顾客了解你")
+            @textarea(field = stylistForm("stylist.myBoom"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myBoom"))
  		
-		  	@textarea(field = stylistForm("stylist.myPR"),'rows -> 4, 'cols -> 100, '_label -> "自我宣传", '_help -> "方便顾客了解你")
+		  	@textarea(field = stylistForm("stylist.myPR"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myPR"))
 		  	
-		<input type="submit" class = "buttons" value="提交申请">
+		<input type="submit" class = "buttons" value="@Messages("stylist.submit")">
             
-        <input type = "reset" class = "buttons" value="重置">
+        <input type = "reset" class = "buttons" value="@Messages("stylist.reset")">
         </div>
       </div>
 

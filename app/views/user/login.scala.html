@@ -1,20 +1,20 @@
-@(loginForm: Form[(String,String)])
+@(loginForm: Form[Option[User]])(implicit flash: Flash)
 
 	@import helper._
 	
-	 @main(title = Messages("user.login")) {
+	 @main(title = "登录") {
 	 	
-	 	<font size =30px align = "center">@Messages("user.login")</font>
+	 	<h2>用户登录</h2>
 	 	
-	 	@form(action = routes.Users.doLogin, args = 'id -> "userloginForm"){
+	 	@form(action = routes.Users.doLogin, args = 'id -> "userloginForm", 'mothed ->"post"){
 	 		
-	 		@inputText(field = loginForm("userId"), args = '_label -> Messages("user.name"), 'placeholder ->"UserId")
+	 		@inputText(field = loginForm("username"), args = '_label -> "用户名", 'placeholder ->"UserName")
           
-			@inputPassword(field = loginForm("password"),args = '_label -> Messages("user.pasword"), 'placeholder ->"Password" ,
-				'_error -> loginForm.globalError.map(_.withMessage(Messages("user.loginErr"))))
+			@inputPassword(field = loginForm("password"),args = '_label -> "密码", 'placeholder ->"Password" ,
+				'_error -> loginForm.globalError.map(_.withMessage("用户名或密码错误，请重新输入!")))
 			
-            <a href = "@routes.Users.register"><input type="button" class = "buttons" value="@Messages("user.registerBtn")"></a>
+            <a href = "@routes.Application.register"><input type="button" class = "buttons" value="注册"></a>
             
-            <input type= "submit" class = "buttons" value="@Messages("user.loginBtn")">
+            <input type= "submit" class = "buttons" value="登录">
 	 	}
 	 }
