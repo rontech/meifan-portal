@@ -1,0 +1,41 @@
+@(salonRegister: Form[Salon])
+
+    @import helper._
+
+    @main(Messages("site.title")) {
+    	
+    	<head>
+			<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
+		</head>
+
+        <font size =30px align = "center">@Messages("user.new")</font>
+       
+        @form(routes.SalonInfo.doRegister, 'id -> "salonRegister") {
+          <fieldset>
+            @inputText(salonRegister("salonAccount.accountId"),'_label -> "注册ID",
+            	'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("user.regErr"))))
+
+			@inputPassword(salonRegister("salonAccount.password.main"),'_label -> Messages("user.pasword"))
+			
+			@inputPassword(salonRegister("salonAccount.password.confirm"),'_label -> Messages("user.confirmPas"),'_error -> salonRegister.error("password"))
+
+            @inputText(salonRegister("salonName"),'_label ->  Messages("salon.Name"))
+
+            @inputText(salonRegister("mainPhone"), '_label -> Messages("salon.mainPhone"))
+
+			@inputDate(salonRegister("establishDate"), '_label ->Messages("salon.establishDate"))
+
+			@checkbox(salonRegister("accept"), '_label -> None, '_text -> "I agree to the Terms and conditions",
+				'_error -> salonRegister("accept").error.map(_.withMessage(Messages("user.agree"))))
+	
+		  </fieldset>
+		  
+            <input type="submit" class = "buttons" value="@Messages("user.new")">
+            
+            <a href="login"><input type = "button" class = "buttons" value="@Messages("user.loginBtn")"></a>
+            
+            <input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+           
+        }
+
+    }

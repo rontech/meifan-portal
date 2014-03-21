@@ -57,6 +57,8 @@ GET     /salon                          controllers.Salons.index
 GET     /salon/:id                      controllers.Salons.getSalon(id: ObjectId)
 GET     /salonInfo/      				controllers.SalonInfo.salonInfoBasic
 GET     /salonUpd/:id              		controllers.SalonInfo.update(id: ObjectId)
+GET     /salonRegister                  controllers.SalonInfo.register
+POST    /salonRegister                  controllers.SalonInfo.doRegister
 
 # Coupon
 GET     /coupon                         controllers.Coupons.index
