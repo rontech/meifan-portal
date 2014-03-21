@@ -80,24 +80,51 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   /**
    * 定义用户申请技师的表单
    */
-  def stylistForm: Form[Stylist] = Form(
-    mapping(
-      "label" -> text,
-      "salonId" -> text,
-      "workYears" -> text,
-      "stylistStyle" -> list(text),
-      "imageId" -> list(text),
-      "consumerId" -> list(text),
-      "description" -> text) {
-        (label, salonId, workYears, stylistStyle, imageId, consumerId, description) =>
-          Stylist(new ObjectId, label, new ObjectId(salonId), new ObjectId, workYears, stylistStyle, imageId,
 
-            consumerId, description, new String, 0)
-      } {
-        stylist =>
-          Some((stylist.label, stylist.salonId.toString, stylist.workYears, stylist.stylistStyle, (stylist.imageId.toString) :: Nil,
-            stylist.consumerId.toString :: Nil, stylist.description))
-      })
+  def stylistApplyForm: Form[StylistApply] = Form(
+        mapping("stylist" -> 
+		    mapping(
+		    	"workYears" -> number,
+			    "position" -> list(
+			    	mapping(
+			    		"positionName" -> text,
+			    		"industryName" -> text
+			    	){
+			    		(positionName, industryName) => IndustryAndPosition(new ObjectId, positionName, industryName)
+			    	}{
+			    		industryAndPosition => Some(industryAndPosition.positionName, industryAndPosition.indestryName)
+			    	}	
+			    ),
+			    "goodAtImage" -> list(text),
+			    "goodAtStatus" -> list(text),
+			    "goodAtService" -> list(text),
+			    "goodAtUser" -> list(text),
+			    "goodAtAgeGroup" -> list(text),
+			    "myWords" -> text,
+			    "mySpecial" -> text,
+			    "myBoom" -> text,
+			    "myPR" -> text
+			){
+		      (workYears, position, goodAtImage, goodAtStatus, goodAtService,
+		          goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR)
+		      => Stylist(new ObjectId, new ObjectId(), 0, position, goodAtImage, goodAtStatus,
+		    	   goodAtService, goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR, 
+		           Option(List(new OnUsePicture(new ObjectId, "logo", 1, ""))), false, false)
+		    }{
+		      stylist => Some(stylist.workYears, stylist.position, 
+		          stylist.goodAtImage, stylist.goodAtStatus, stylist.goodAtService, stylist.goodAtUser,
+		          stylist.goodAtAgeGroup, stylist.myWords, stylist.mySpecial, stylist.myBoom, stylist.myPR)
+		    },
+		    "salonId" -> text
+		    ){
+		      (stylist, salonId) => StylistApply(stylist, new ObjectId(salonId))
+		    }{
+		      stylistApply => Some((stylistApply.stylist, stylistApply.salonId.toString))
+		    }
+		)
+
+  
+
   //  val userForm: Form[User] = Form(
   //    mapping(
   //      "username" -> text,
@@ -117,7 +144,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   //        user => Some((user.username, user.password, user.sex, user.age, user.tel, user.email, user.education, user.introduce, user.added, user.updated))
   //      }
   //  )
-
+  
   /**
    * 登录触发动作
    */
@@ -180,13 +207,13 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def myPage(userId: String) = Action {
     val user = User.findOneByUserId(userId).get
-    if ((user.userTyp).equals("userTyp.0")) {
-      Ok(views.html.user.myPageRes(user))
-    } else if ((user.userTyp).equals("userTyp.1")) {
-      val stylist = StylistDAO.findOne(MongoDBObject("userId" -> new ObjectId(user.userId)))
-      Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get))
-    } else {
-      Ok(views.html.user.myPageRes(user))
+    if((user.userTyp).equals("userTyp.0")) {
+    	Ok(views.html.user.myPageRes(user))
+    } else if((user.userTyp).equals("userTyp.1")) {
+    	val stylist = Stylist.findOne(MongoDBObject("userId" -> new ObjectId(user.userId)))
+    	Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get))
+    }else {
+    	Ok(views.html.user.myPageRes(user))
     }
   }
 
@@ -275,8 +302,9 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val user =loggedIn
     val stylistIdList: List[ObjectId] = FollowCollect.getAllFollowCollectAtId(2, userId)
     val stylistList = ListBuffer[Stylist]()
+
     for (i <- 0 to stylistIdList.length - 1) {
-      val stylist = Stylist.findById(stylistIdList(i)).get
+      val stylist = Stylist.findOneById(stylistIdList(i)).get
       stylistList += stylist
     }
     Ok(views.html.user.showAllFollowStylist(stylistList.toList, user, Option(user.userId)))
@@ -344,29 +372,37 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   /**
    * 申请成为技师
    */
-  def applyStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {implicit request =>
-    val user = loggedIn
-    Ok(views.html.user.applyStylist(stylistForm, user))
+
+  def applyStylist = Action { implicit request=>
+    val user = User.findOneById(new ObjectId("53202c29d4d5e3cd47efffd4"))
+    val industry = Industry.findAll.toList
+    val position = Position.findAll.toList
+    val goodAtImage = StyleImpression.findAll.toList
+    val goodAtStatus = SocialStatus.findAll.toList
+    val goodAtService = Service.findAll.toList
+    val goodAtUser = Sex.findAll.toList
+    val goodAtAgeGroup = AgeGroup.findAll.toList
+    Ok(views.html.user.applyStylist(stylistApplyForm, user.get, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup))
+
   }
 
   /**
    * 店长或店铺管理者确认后才录入数据库
    */
-  def commitStylistApply() = Action { implicit request =>
-    /*val userId = request.session.get("user")*/
-    val userId = new ObjectId
-    stylistForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.index("")),
+
+  def commitStylistApply() = Action {implicit request=>
+    val userId = new ObjectId("53202c29d4d5e3cd47efffd4")
+    stylistApplyForm.bindFromRequest.fold(
+      errors => BadRequest(views.html.fortest(errors)),
       {
-        stylist =>
-          Stylist.save(stylist)
-
-          val applyRecord = new ApplyRecord(new ObjectId, stylist.id, stylist.salonId, 1,
-            new Date, None, None, None, 0)
-          ApplyRecord.save(applyRecord)
-          Redirect(routes.Users.show(userId.toString))
+        case(stylistApply) => {
+        	Stylist.save(stylistApply.stylist)
+        	val applyRecord = new SalonStylistApplyRecord(new ObjectId, stylistApply.salonId, stylistApply.stylist.id, 1, new Date, 0, None)
+    	    SalonStylistApplyRecord.save(applyRecord)
+    	    Ok(views.html.fortest(stylistApplyForm.fill(stylistApply)))
+        }
       })
-
+    	 
   }
 
 }

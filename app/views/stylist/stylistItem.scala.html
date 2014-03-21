@@ -7,14 +7,14 @@
 <div class="mysalon-stylist-search w166 mHA">
     <div class="taC">
         <a href="@routes.Stylists.findStylistById(stylist.id)">
-            <img src="@routes.Application.getPhoto(stylist.pictureName)"
+            <img src="@routes.Application.getPhoto(stylist.myPics.get(0).fileObjId)"
             alt="弗里尔兄弟公司坂本隆文" class="bdImgGray w164 h219">
         </a>
     </div>
     <p class="mT10">
         <a href="http://beauty.hotpepper.jp/slnH000231733/stylist/T000188298/">
             
-                   <p>@stylist.label</p>
+                   <p>@stylist.publicId</p>
                 
         </a>
         <span class="iS upLately offL dib vaM">

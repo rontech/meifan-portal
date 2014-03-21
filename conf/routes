@@ -7,7 +7,7 @@ GET     /                               controllers.Application.index
 
 #get photo
 
-GET		/getPhoto/:name					controllers.Application.getPhoto(name: String)
+GET		/getPhoto/:name					controllers.Application.getPhoto(name: ObjectId)
 
 # User Management
 GET     /user                           controllers.Users.index
@@ -71,6 +71,7 @@ GET     /style/:id                      controllers.Styles.findById(id: ObjectId
 GET     /salon/:salonId/styles          controllers.Styles.findBySalon(salonId: ObjectId)
 GET     /salon/:slnId/style/:styId      controllers.Styles.getStyleInfoOfSalon(slnId: ObjectId, styId: ObjectId)
 POST    /styleSearchList                controllers.Styles.styleSearchList
+POST    /styleLogin                     controllers.Styles.styleLogin
 GET     /styleSearch                    controllers.Styles.styleSearch
 
 # Stylist

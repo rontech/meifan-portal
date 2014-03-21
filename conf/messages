@@ -82,6 +82,24 @@ salon.a=美容美发
 salon.b=瘦身健美
 salon.c=美甲美肤
 
+#salon management
+salonAdmin.myPage = 我的店铺
+salonAdmin.myBlog = 我的博客
+salonAdmin.welcome = 欢迎您
+salonAdmin.remindReserv = 预约提示：
+salonAdmin.needCommentReserv = 待评论
+salonAdmin.overtimeReserv = 已过期
+salonAdmin.expireReserv = 即将到期
+salonAdmin.remindApply = 申请提示：
+salonAdmin.fromStylistApply = 来自技师申请
+salonAdmin.infoManagement = 信息管理
+salonAdmin.stylistManagement = 技师管理
+salonAdmin.reservManagement = 预约管理
+salonAdmin.commentManagement = 评论管理
+salonAdmin.serviceManagement = 服务管理
+salonAdmin.couponManagement = 优惠劵管理
+salonAdmin.stateManagement = 动态管理
+
 # Hair
 hair.salon=美发沙龙
 hair.style=发型
@@ -90,7 +108,7 @@ hair.impression=风格
 hair.styleQuality=发质
 hair.styleAmount=发量
 hair.styleDiameter=直径
-hair.faceType=脸型
+hair.faceShape=脸型
 hair.color=颜色
 hair.styleLength=长度
 hair.serviceItem=菜单内容
@@ -192,10 +210,35 @@ stylist.applyCreateTime = 申请时间
 stylist.acceptApply = 同意
 stylist.rejectApply = 拒绝
 
+#Stylist Apply
+stylist.name = 昵称
+stylist.workYesrs = 工作年数
+stylist.industry = 类别
+stylist.position = 职位
+stylist.goodAtImage = 擅长风格
+stylist.goodAtStatus = 擅长人群
+stylist.goodAtService = 擅长服务
+stylist.goodAtUser = 擅长性别
+stylist.goodAtAgeGroup = 擅长年龄
+stylist.myWords = 我的话语
+stylist.mySpecial = 我的特长
+stylist.myBoom = 兴趣爱好
+stylist.myPR = 自我宣传
+stylist.submit = 提交申请
+stylist.reset = 重置
+
+
 #Stylist management
 stylistMag.mySalon = 我的店铺
 stylistMag.salonApply = 来自店铺申请
 stylistMag.myStyle = 我的作品
+stylistMag.showAllStyles = 显示所有发型
+stylistMag.findReserv = 查看预约
+stylistMag.styleManage = 发型管理
+stylistMag.serviceManage = 服务管理
+stylistMag.salonHistory = 店铺历史
+stylistMag.totalReserv = 显示当天预约
+
 
 # User
 user.relation.type=关系类型

@@ -4,8 +4,8 @@
 			<tr>
 				<td class="avatar"><a href="#" title=""><img src="#" align="absmiddle" alt="" title="1" class="SmallPortrait" user="1435017"></a></td>
 				<td class="update">
-					<span class="name"><a href="#" target="_blank">@stylist.label</a></span><br>
-					<span class="city">@stylist.description</span>
+					<span class="name"><a href="#" target="_blank">@stylist.id</a></span><br>
+					<span class="city">@stylist.myWords</span>
 				</td>
 				<td class="opts">
 					@if(sessionUserId.nonEmpty && FollowCollect.checkIfFollowOnByName(sessionUserId.get,stylist.id)){
