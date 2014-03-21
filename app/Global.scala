@@ -228,10 +228,18 @@ object InitialData {
     
     if(User.findAll.isEmpty){
       Seq(
-       User(new ObjectId("531964e0d4d57d0a43771411"),"zhenglu316","123456","关雨",date("2014-03-18"),"F","苏州","咚咚咚","123@123.com","15269845698","845654891","","","userTyp.0","userLevel.0",20,date("2014-03-18"),"status.0"),
-       User(new ObjectId("53202c29d4d5e3cd47efffd3"),"zhenglu","123456","关雨",date("2014-03-18"),"F","苏州","咚咚咚","123@123.com","15269845698","845654891","","","userTyp.0","userLevel.0",20,date("2014-03-18"),"status.0"),
-       User(new ObjectId("53202c29d4d5e3cd47efffd4"),"530d7288d7f2861457771bdd","123456","关雨",date("2014-03-18"),"F","苏州","咚咚咚","123@123.com","15269845698","845654891","","","userTyp.1","userLevel.0",20,date("2014-03-18"),"status.0")
+       User(new ObjectId("531964e0d4d57d0a43771411"),"zhenglu316","关雨1","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd3"),"zhenglu","关雨2","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd4"),"zhenglu3","关雨3","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true)
       ).foreach(User.save)
+    }
+    
+    if(Message.findAll.isEmpty){
+      Seq(
+       Message(new ObjectId("531964e0d4d57d0a43771810"),"欢迎加入美范网！","欢迎你！！！！！！",new Date),
+       Message(new ObjectId("531964e0d4d57d0a43771811"),"您有新粉丝关注你了！！","您有新粉丝关注你了，快去查看吧！！！",new Date),
+       Message(new ObjectId("531964e0d4d57d0a43771812"),"看什么看，这是测试消息！","告诉你了是测试消息，你还打开，有病！！！！！！",new Date)
+      ).foreach(Message.save)
     }
     
   }
