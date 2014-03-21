@@ -421,10 +421,10 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
       errors => BadRequest(views.html.index("")),
       {
         case(stylistApply) => {
-         Stylist.save(stylistApply.stylist)
-         val applyRecord = new SalonStylistApplyRecord(new ObjectId, stylistApply.salonId, stylistApply.stylist.id, 1, new Date, 0, None)
-         SalonStylistApplyRecord.save(applyRecord)
-         Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user.get, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup))
+        	Stylist.save(stylistApply.stylist)
+        	val applyRecord = new SalonStylistApplyRecord(new ObjectId, stylistApply.salonId, stylistApply.stylist.id, 1, new Date, 0, None)
+    	    SalonStylistApplyRecord.save(applyRecord)
+    	    Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user.get, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup))
         }
       })
       
