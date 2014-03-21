@@ -36,7 +36,12 @@ object SalonsAdmin extends Controller {
   }
   
   def myComment(salonId: ObjectId) = Action {
-    Ok(views.html.salon.general.index(""))
+	val commentList = Comment.findBySalon(salonId)
+	val salon = Salon.findById(salonId)
+	salon match{
+	  case Some(s) =>Ok(html.salon.admin.mySalonCommentAll(salon = s, commentList = commentList))
+	  case None => NotFound
+	}
   }
   
   def myService(salonId: ObjectId) = Action {

@@ -66,7 +66,7 @@ object InitialData {
           Industry(new ObjectId("5317c0d1d4d57997ce3e6ec4"), "Cosmetic")         // 整形 Face, plastic 
       ).foreach(Industry.save)
     }
-
+     
     if(Position.findAll.isEmpty){
       Seq(
        Position(new ObjectId("531964e0d4d57d0a43771411"),"店长"),
@@ -184,12 +184,14 @@ object InitialData {
       ).foreach(RelationType.save)
     } 
    
-    if(BlogCatagory.getCommonCatagory.isEmpty){
+    if(BlogCategory.getCategory.isEmpty){
       Seq (
-        BlogCatagory(new ObjectId("53195fb4a89e175858abce82"), "", List("选择分类", "私密博文"), 0, 0)       
-      ).foreach(BlogCatagory.save)
+        BlogCategory(new ObjectId("53195fb4a89e175858abce82"),"分类1", true),
+        BlogCategory(new ObjectId("53195fb4a89e175858abce83"),"分类2", true),
+        BlogCategory(new ObjectId("53195fb4a89e175858abce84"),"分类3", true)
+      ).foreach(BlogCategory.save)
     }
-
+    
    
   }
 
@@ -299,6 +301,20 @@ object InitialData {
        User(new ObjectId("53202c29d4d5e3cd47efffd3"),"zhenglu","关雨2","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
        User(new ObjectId("53202c29d4d5e3cd47efffd4"),"zhenglu3","关雨3","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true)
       ).foreach(User.save)
+    }
+
+    if(Blog.findAll.isEmpty){
+      Seq(
+        Blog(new ObjectId("532a8ef4a89ee221d679bdc1"),"1111","1", "zhenglu", new Date(), new Date(), "分类2", Option(List("111", "2222")), List("111", "2222"),true,Option(false),false,true),
+        Blog(new ObjectId("532a8ef4a89ee221d679bdc2"),"2222","2", "zhenglu316", new Date(), new Date(), "分类1", Option(List("111", "2222")),List("2222"), true, Option(false),false,true)
+      ).foreach(Blog.save)
+    }
+
+    if(Comment.findBySalon(new ObjectId("530d7288d7f2861457771bdd")).isEmpty){
+      Seq (
+        Comment(new ObjectId("53195fb4a89e175858abce85"), 3, new ObjectId("5317c0d1d4d57997ce3e6d6a"), "good1", "jack", new Date, true),
+        Comment(new ObjectId("53195fb4a89e175858abce86"), 3, new ObjectId("5317c0d1d4d57997ce3e6d6b"), "good2", "jack", new Date, true)
+      ).foreach(Comment.save)
     }
 
     if(Message.findAll.isEmpty){

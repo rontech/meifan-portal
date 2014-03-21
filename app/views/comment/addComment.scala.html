@@ -6,7 +6,7 @@
   
    
    
-   @form(routes.Comments.addC(commentedId, commentedType)){
+   @*@form(routes.Comments.addC(commentedId, commentedType)){*@
        
        @*@inputText(formAddComment("cmUsername"), '_label -> "用户名") 
        
@@ -18,7 +18,7 @@
        @inputText(formAddComment("cmAddContent"), '_label -> "增加评论") *@
        @* 生成用于提交的按钮 *@
        <input type="submit" value="提交" >
-   }
+   @*}*@
 
 }
 

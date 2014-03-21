@@ -4,7 +4,7 @@
 @import views.html.user._
 
 @myPageMain(navInMyPage = "my-blog", user) {
-    @form(action = routes.BlogCatagories.modCatagory(user.userId, blogCatagory)) {
+    @*@form(action = routes.BlogCatagories.modCatagory(user.userId, blogCatagory)) {*@
       <fieldset>
         @inputText(formBlogCatagory("catagory"),'_label -> "博客类型" ,'placeholder -> blogCatagory)
         
@@ -15,5 +15,5 @@
       </fieldset>
 
         
-       }
+      @* }*@
 }
