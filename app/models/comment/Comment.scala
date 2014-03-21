@@ -28,8 +28,6 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
   implicit var list = List.empty[Comment]
   def all(id : ObjectId): List[Comment] =   
     {
-//     val l = dao.find(MongoDBObject("commentedId" -> id, "status" -> 0)).toList
-    //以时间降序排序
     val l = dao.find(MongoDBObject("commentObjId" -> id, "isValid" -> true)).sort(MongoDBObject("time" -> 1)).toList
      if (!l.isEmpty){
      l.foreach(
@@ -38,7 +36,6 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
            all(r.id)
        })
      }
-    // 把店家的回复放在下面
      list.reverse
     }
   
@@ -62,15 +59,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
     dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, authorId = userId, isValid = true))    
   }
   
-  
-//  def delete(id : ObjectId) = {
-//    val comment = dao.findOneById(id).get
-//    dao.save(Comment(id = id, userId = comment.userId, status = 1, commentedId = comment.commentedId, relevantUser = comment.relevantUser, commentedType = comment.commentedType, content = comment.content), WriteConcern.Safe)
-//  }
-  
   def reply(userId : String, content : String, commentObjId : ObjectId, commentObjType : Int) = {
-//    val model = dao.findOneById(id)
-//    val model = dao.findOne(MongoDBObject("id" -> new ObjectId(id))).get
     dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, authorId = userId, isValid = true))      
   }
   
