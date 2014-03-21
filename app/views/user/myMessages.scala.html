@@ -1,0 +1,40 @@
+@(letters: List[UserLetter], count: Long, pages: Int, page:Int)
+@import helper._
+@import helper.twitterBootstrap._
+@main("s"){
+	<div class="content-core">
+		<p>总计<span>@count</span>个预约</p>
+		<input type="hidden" name="page" id="page" value="@page">
+		<input type="hidden" name="totalPage" id="totalPage" value="@pages">
+		<table id="recordmain" border="1px solid black" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<td>发件人</td>
+					<td>标题</td>
+					<td>发送时间</td>
+				</tr>
+			</thead>
+			<tbody>
+				@letters.map{letter=>
+				<tr href="@views.html.user.message(letter)">
+					<td>@letter.userMessage.senderNm</td>                        
+					<td>@letter.message.title</td>
+					<td>@letter.userMessage.createdTime.format("yyyy-MM-dd hh:mm")</td>
+				</tr>
+				}
+			</tbody>
+		</table>
+		<div class="page-limit">
+			<a href="javascript:toUpPage();">上一页</a>
+			@for(i <-1 to pages){
+				@if(page==i){
+					<a href="javascript:toPage(@i);" class="pagelink">@i</a>
+				}else{
+					<a href="javascript:toPage(@i);">@i</a>
+				}
+				
+			}
+			<a href="javascript:toNextPage();">下一页</a>
+		</div>
+	</div>
+}
