@@ -28,8 +28,6 @@ object Comments extends Controller {
     implicit request =>      
       val userId = request.session.get("userId").get
       val user_Id = User.findOneByUserId(userId).get.id
-//      val username = User.getUserName(userId)
-//      val username = User.findOneById(userId).get.userId
     clean() 
     Ok(views.html.comment.comment(userId, user_Id, Comment.all(commentedId)))
   }
@@ -39,24 +37,6 @@ object Comments extends Controller {
    */
   implicit def clean() = {
     Comment.list = Nil
-  }
-  
-//  /**
-//   * 增加评论，跳转
-//   */
-//  def addComment(commentedId : ObjectId, commentedType : Int) = Action {
-//    Ok(views.html.comment.addComment(commentedId, formAddComment, commentedType))
-//  }
-  
-  /**
-   * 前台展示
-   */
-  def test = Action {
-    // 这是数据库中的被评论对象的ObjectId的编号
-    val commentedId = new ObjectId("53195fb4a89e175858abce82")
-    clean() 
-    val list = Comment.all(commentedId)
-    Ok(views.html.comment.commentTest(list))
   }
   
   // 模块化代码
@@ -86,7 +66,8 @@ object Comments extends Controller {
    */
   def addComment(commentObjId : ObjectId, commentObjType : Int) = Action {
     implicit request =>
-      val userId = request.session.get("userId").get      // TODO这边需要分类。。。！！！
+//      val userId = request.session.get("userId").get
+      val userId = "test" //TODO
       formAddComment.bindFromRequest.fold(
         //处理错误
         errors => BadRequest(views.html.comment.errorMsg("")),
@@ -106,6 +87,7 @@ object Comments extends Controller {
   /**
    * 店家的申诉
    */
+  // TODO
   def complaint(id : ObjectId) = Action {
     Ok(Html("我要申诉的评论Id是" + id))
   }
@@ -117,20 +99,13 @@ object Comments extends Controller {
     Ok(views.html.comment.answer(id, commentedId, formHuifuComment))
   }
   
-//  /**
-//   * 管理员的功能，删除评论
-//   */
-//  def delete(id : ObjectId, commentedId : ObjectId) = Action {
-//    Comment.delete(id)
-//    Redirect(routes.Comments.find(commentedId))
-//  }
-  
   /**
    * 回复，后台逻辑
    */
   def reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = Action {
     implicit request =>
-      val userId = request.session.get("userId").get
+//      val userId = request.session.get("userId").get
+      val userId = "test" //TODO
       formHuifuComment.bindFromRequest.fold(
         //处理错误
         errors => BadRequest(views.html.comment.errorMsg("")),
