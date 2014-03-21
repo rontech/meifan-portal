@@ -4,7 +4,7 @@
 @import views.html.user._
 
 @myPageMain(navInMyPage = "my-blog", user) {
-    @form(action = routes.Blogs.modBlog(blog.id)) {
+    @*@form(action = routes.Blogs.modBlog(blog.id)) {*@
       <fieldset>
         @inputText(formBlog("title"),'_label -> "标题")
 		@textarea(formBlog("content"),'_label -> "内容")
@@ -18,5 +18,5 @@
 		@inputDate(formBlog("createdTime"),'_label -> "" ,'style -> "display: none")
 		<input type="submit" class = "buttons" value="保存修改" >
       </fieldset>
-    }
+    @*}*@
 }

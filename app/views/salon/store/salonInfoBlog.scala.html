@@ -2,7 +2,46 @@
 
 @salonInfoMain(navInSalon = "salon-blog", salon) {
 
-    <!-- Get All the Salons with all the styles.  -->
-    @*@views.html.blog.blogDetail(blog.id, List(blog))*@
+    <div class="mT30">
+		<div class="yS mainContentsSecondTitleOuter">
+			<h2 class="yS mainContentsSecondTitleInner">@salon.salonName 博客</h2>
+		</div>
+	</div>
+	
+	
+	
+    @views.html.blog.blogDetail(blog)
+    
+    
+    <dl class="rightContents fr w187">
+		<dt class="titleBlogPublisher">博客作者</dt>
+		<dd class="list p10 bgDGray2">
+			<div class="taC"><img src="http://imgbp.hotp.jp/CSP/IMG_SRC/19/34/B003961934/B003961934_89-119.jpg" alt="フレール　Freres&nbsp;坂本 隆文"></div>
+				<p class="fgPink fs10 mT5">スタイリスト</p>
+			<p class="mT5"><a href="http://beauty.hotpepper.jp/slnH000231733/stylist/T000188298/">名字</a></p>
+			<p class="fs10 mT5">サカモト タカフミ</p>
+				<p class="fs10 mT5">お家でも簡単にあつかいやすいスタイルにします☆</p>
+				<div class="mT5"><a href="http://beauty.hotpepper.jp/slnH000231733/stylist/T000188298/" class="bS db showDetailW131H30 offL mHA">查看详情</a></div>
+				<div class="mT5 taC"><a href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733&amp;stylistId=T000188298" class="bS db nominatedReserve offL mHA">指名预约</a></div>
+				</dd>
+		<dt class="titleBlog mT20">沙龙最新的博客</dt>
+			<dd class="list p10">
+				<div>
+					<p class="fs10"><span class="fgPink mR3">●</span>博客发布时间</p>
+					<p class="wwbw"><a href="http://beauty.hotpepper.jp/slnH000231733/blog/bidA003386073.html">博客的标题</a></p>
+					<p>博客作者：<a href="http://beauty.hotpepper.jp/slnH000231733/stylist/T000188298/">博客作者</a></p>
+				</div>
+			</dd>
+		<dt class="titleBlog">店员</dt>
+			<dd class="list p10">
+			@Stylist.findBySalon(salon.id).map { stylist =>
+				<p><a href="/salon/@salon.id/blogs/@stylist.id">TODO（博客是数量）</a></p>
+			}
+			</dd>
+		<dt class="titleBlog">历史博客</dt>
+			<dd class="list p10">
+				<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201403/">年月（博客的数量）</a></p>
+			</dd>
+		</dl>
 
 }
