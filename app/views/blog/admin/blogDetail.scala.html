@@ -12,15 +12,11 @@
         }		        
       }
     function delete_c(commentId, blogId){
-		alert("aaaaaaaaaa");
         if(!confirm("您确认要删除此篇评论？")){
         	return;
         }else{
             location.href="/delete/"+commentId+"/"+blogId;
         }		        
-      }
-       function test(){
-      	alert("bbbbbbbbb");
       }
       
       function submitForm(){
@@ -46,17 +42,17 @@
 	
 
 <div class="BlogEntity">		
-      <div class="BlogTitle">
-        <h1><span class="icon" style="background:#44ac57;" title=""></span>@blog.title</h1>
-        <div class="BlogStat">
-    		    		@blog.createTime.toLocaleString&nbsp;&nbsp;评论（<a href="#comments"><span class="g">@commentList.size</span></a>）
-    		    				    		<span class="admin">
-    			<a href="@routes.Blogs.editBlog(blog.id)">编辑</a>&nbsp;|&nbsp;
-                <a href="javascript:deleteBlog()">删除</a>
-                                    		</span>
-    		    	</div>
-		
-      </div>
+  <div class="BlogTitle">
+    <h1><span class="icon" style="background:#44ac57;" title=""></span>@blog.title</h1>
+    <div class="BlogStat">
+		@blog.createTime.toLocaleString&nbsp;&nbsp;评论（<a href="#comments"><span class="g">@commentList.size</span></a>）
+		<span class="admin">
+			<a href="@routes.Blogs.editBlog(blog.id)">编辑</a>&nbsp;|&nbsp;
+            <a href="javascript:deleteBlog()">删除</a>
+        </span>
+   	</div>
+
+  </div>
 	  
 	  <a name="ueditor"></a>
 	            <div class="BlogAbstracts">
@@ -76,7 +72,7 @@
                 <li class="prev"><a href="" title="上一篇：test">« 上一篇</a></li>        
                 <li class="next"><a href="" title="下一篇：1">下一篇 »</a></li>    	
         </ul>
-		      </div>
+      </div>
 	</div>
 
 @if(blog.allowComment == true) {
