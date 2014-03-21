@@ -1,15 +1,15 @@
 @* UserInfomation Template File *@
-@(userForm: Form[User],user:User)
+@(userForm: Form[User])
  @import helper._
  
-    @myPageMain(navInMyPage = "information", user)  {
+    @myPageMain(navInMyPage = "information", userForm.get)  {
 
         @form(routes.Users.update(user.id), 'id -> "userForm") {
           <fieldset>
            	
                   @inputText(userForm("userId"),'_label -> Messages("user.name"), 'readonly -> "true")
 
-                  <input type="hidden" name="password" value="@user.password">
+                  @inputPassword(userForm("password"),'_label -> "",'style -> "display: none")
 
                   @inputText(userForm("nickName"),'_label -> Messages("user.nickNm"))
 
@@ -29,9 +29,10 @@
                   @inputText(userForm("optContactMethod"), '_label -> "",'style -> "display: none")
 
                   @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none")
+    
+                  @*inputText(userForm("userPics"),'_label -> "" ,'style -> "display: none")*@
                   
-                  
-
+                  <input type = "hidden" name="userPics" value="@userForm.get.userPics">
 			
 		  </fieldset>            
 

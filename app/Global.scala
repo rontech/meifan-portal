@@ -203,7 +203,7 @@ object InitialData {
         files.foreach(f=>Image.save(f)) 
     }
 
-    if(RelationType.findAll.isEmpty){
+/*    if(RelationType.findAll.isEmpty){
       Seq(
        RelationType(new ObjectId("53217c2ed4d5c027e48dd978"), "关注店铺", 1),
        RelationType(new ObjectId("53217c35d4d5c027e48dd97a"), "关注技师", 2),
@@ -212,8 +212,8 @@ object InitialData {
        RelationType(new ObjectId("53217c6fd4d5c027e48dd980"), "收藏博客", 5),
        RelationType(new ObjectId("53217c6fd4d5c027e48dd981"), "关注用户", 6)
       ).foreach(RelationType.save)
-    } 
-    
+    }*/ 
+/*    
     if(FollowCollect.findAll.isEmpty){
       Seq(
        FollowCollect(new ObjectId("531563e2d4d5b6a812c359a8"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d7288d7f2861457771bdd"),1,true),
@@ -224,15 +224,15 @@ object InitialData {
        FollowCollect(new ObjectId("531563e2d4d5b6a812c359a3"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("531964e0d4d57d0a43771411"),6,true),
        FollowCollect(new ObjectId("531563e2d4d5b6a812c359a4"),new ObjectId("531964e0d4d57d0a43771411"),new ObjectId("53202c29d4d5e3cd47efffd3"),6,true)
       ).foreach(FollowCollect.save)
-    }
+    }*/
     
-    if(User.findAll.isEmpty){
+/*    if(User.findAll.isEmpty){
       Seq(
        User(new ObjectId("531964e0d4d57d0a43771411"),"zhenglu316","关雨1","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
        User(new ObjectId("53202c29d4d5e3cd47efffd3"),"zhenglu","关雨2","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
        User(new ObjectId("53202c29d4d5e3cd47efffd4"),"zhenglu3","关雨3","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true)
       ).foreach(User.save)
-    }
+    }*/
     
     if(Message.findAll.isEmpty){
       Seq(

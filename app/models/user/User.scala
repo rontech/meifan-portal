@@ -8,12 +8,14 @@ import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
 import play.api.PlayException
+import scala.concurrent.{ExecutionContext, Future}
+import ExecutionContext.Implicits.global
 
 case class User(
   id: ObjectId = new ObjectId,
   userId: String,
-  nickName: String,
   password: String,
+  nickName: String,
   sex: String,
   birthDay: Date,
   city: String,
@@ -52,4 +54,10 @@ trait UserDAO extends ModelCompanion[User, ObjectId] {
 
   // Check the password when logining
   def authenticate(userId: String, password: String): Option[User] = dao.findOne(MongoDBObject("userId" -> userId, "password" -> password))
+  
+  /**
+   * 权限认证
+   * 用于判断userId是否为当前用户
+   */
+  def isOwner(userId:String)(user:User) : Future[Boolean] = Future{User.findOneByUserId(userId).map(_ == user).get}
 }

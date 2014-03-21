@@ -1,9 +1,8 @@
-@(letters: List[UserLetter], count: Long, pages: Int, page:Int)
+@(letters: List[UserLetter], count: Long, pages: Int, page:Int, user:User)
 @import helper._
 @import helper.twitterBootstrap._
-@main("s"){
+@myPageMain(navInMyPage = "messages", user){
 	<div class="content-core">
-		<p>总计<span>@count</span>个预约</p>
 		<input type="hidden" name="page" id="page" value="@page">
 		<input type="hidden" name="totalPage" id="totalPage" value="@pages">
 		<table id="recordmain" border="1px solid black" cellspacing="0" cellpadding="0">
@@ -16,11 +15,12 @@
 			</thead>
 			<tbody>
 				@letters.map{letter=>
-				<tr href="@views.html.user.message(letter)">
+				<tr>
 					<td>@letter.userMessage.senderNm</td>                        
-					<td>@letter.message.title</td>
+					<td><a href="@routes.UserLetters.showMessage(letter.userMessage.id)">@letter.message.title</a></td>
 					<td>@letter.userMessage.createdTime.format("yyyy-MM-dd hh:mm")</td>
 				</tr>
+				</a>
 				}
 			</tbody>
 		</table>

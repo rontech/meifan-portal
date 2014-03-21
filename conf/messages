@@ -241,3 +241,9 @@ user.female=女
 user.loginOut=退出
 user.cancleBothFollow=取消互粉
 user.addFollow=添加关注
+user.myMessages=消息
+
+#Letter
+letter.addressee=收件人
+letter.sender=发件人
+letter.time=时间
