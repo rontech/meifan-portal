@@ -63,8 +63,10 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
       }
       stylists
     }
+
     def becomeStylist(stylistId : ObjectId) =  {
     	dao.update(MongoDBObject("_id" -> stylistId), MongoDBObject("$set" -> (MongoDBObject("isVarified" -> true)++
                 MongoDBObject("isValid" -> true))))   
     }
 }
+

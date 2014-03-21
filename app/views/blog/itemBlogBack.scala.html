@@ -1,27 +1,16 @@
 @(blog : Blog)
-	<head>
-		<script type="text/javascript">
-			function delete_blog(){
-		        if(!confirm("文章删除后无法恢复，请确认是否删除此篇文章？")){
-		        	return;
-		        }else{
-		            location.href="@routes.Blogs.deleteBlog(blog.id)";
-		        }		        
-		      }
-	    </script>
-	</head>
 	
 	<div class="Blog">      
 		<div class="BlogTitle">
     		<div class="title">
             	<h2>
-					<span class="icon" style="background:#44ac57;" title="原创博客">原</span>	<a href="@routes.Blogs.showBlogById(blog.id)">@blog.title</a></h2>			    	
+					@*<span class="icon" style="background:#44ac57;" title="原创博客">原</span>	<a href="@routes.Blogs.showBlogById(blog.id)">@blog.title</a></h2>*@			    	
         		<div class="outline">
             	  <span class="catalog">
 										分类: 
 						<a href="">日常记录			   							                			            		
 				  </span>		  
-                  <span class="blog_admin">( <a href="@routes.Blogs.editBlog(blog.id)">修改</a> | <a href="javascript:delete_blog();">删除</a> )</span>	  
+                  @*<span class="blog_admin">( <a href="@routes.Blogs.editBlog(blog.id)">修改</a> | <a href="javascript:delete_blog();">删除</a> )</span>*@	  
             	        </div>
     		</div>		
 		</div>
@@ -30,8 +19,8 @@
     	</div>
 		<div class="bottom">
 			
-			发布于@blog.createdTime.toLocaleString，阅读(12) | 评论(@Comments.clean@Comment.all(blog.id).size) |  投票(0) | 收藏(0) 
-    		<a href="@routes.Blogs.showBlogById(blog.id)" class="fullcontent">阅读全文...</a>
+			@*发布于@blog.createTime.toLocaleString，阅读(12) | 评论(@Comments.clean@Comment.all(blog.id).size) |  投票(0) | 收藏(0)*@ 
+    		@*<a href="@routes.Blogs.showBlogById(blog.id)" class="fullcontent">阅读全文...</a>*@
     	</div>
     </div>
     

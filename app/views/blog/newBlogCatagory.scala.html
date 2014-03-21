@@ -3,11 +3,11 @@
 @import views.html.user._
 
 @myPageMain(navInMyPage = "my-blog", user) {
-  @form(action = routes.BlogCatagories.writeBlogCatagory(user.userId)) {
+ @* @form(action = routes.BlogCatagories.writeBlogCatagory(user.userId)) {*@
     <fieldset>
       @inputText(formBlogCatagory("catagory"),'_label -> "博客类型")
     </fieldset>
 
     <input type="submit" class = "buttons" value="确认创建" >
-  }
+ @* }*@
 }

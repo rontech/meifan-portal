@@ -43,6 +43,7 @@ main.myPage=我的主页
 # Salon
 salon.show=展示所有沙龙
 salon.title=店铺基本信息管理
+salon.salonData={0}的基本信息
 salon.id=店铺ID
 salon.Name=店铺名
 salon.Abbr=店铺名略称
@@ -54,6 +55,8 @@ salon.contact=联系人
 salon.contMethmodType=联系工具名
 salon.account=号码
 salon.establishDate=成立日期
+salon.address=地址
+salon.accessMethod=交通方法
 salon.province=省
 salon.city=市
 salon.region=区
@@ -61,10 +64,13 @@ salon.town=镇
 salon.addrDetail=其他
 salon.longitude=店铺地理位置经度
 salon.latitude=店铺地理位置纬度
-salon.openTime=营业开始时间
-salon.closeTime=营业结束时间
+salon.workTime=营业时间
 salon.restDay=休息日
-salon.seatNums=席位
+salon.priceCutOnly=剪发价格
+salon.priceCutOnlyMsg={0} 元起
+salon.seatNums=席位数
+salon.seatNumsMsg={0} 席
+salon.stylistNums=发型师人数
 salon.canOnlineOrder=可否网上预约
 salon.canImmediatelyOrder=可否即时预约
 salon.canNominateOrder=可否指名预约
@@ -76,6 +82,8 @@ salon.isWifiAvailable=wifi
 salon.hasParkingNearby=附近有无停车场
 salon.parkingDesc=停车场状况描述
 salon.facilities=可否网上预约
+salon.hasParkingNearByMsg=有
+salon.hasNoParkingNearByMsg=无
 salon.pictures=展示图片
 salon.registerTime=美容平台注册日期
 salon.a=美容美发
@@ -98,6 +106,7 @@ salonAdmin.reservManagement = 预约管理
 salonAdmin.commentManagement = 评论管理
 salonAdmin.serviceManagement = 服务管理
 salonAdmin.couponManagement = 优惠劵管理
+salonAdmin.menuManagement = 菜单管理
 salonAdmin.stateManagement = 动态管理
 
 # Hair
@@ -149,6 +158,7 @@ service.operate=操作
 service.delete=删除
 service.back=返回
 service.update=更新
+service.minutes = 分钟
 
 #ServiceType
 ServiceType.serviceTypeName.Cut = 剪
@@ -184,13 +194,22 @@ coupon.useConditions = 使用条件
 coupon.presentTime = 出示时间
 coupon.description = 描述
 coupon.createCouponArea = 创建优惠劵区域
+coupon.createCoupon = 创建优惠劵
 coupon.serviceArea = 服务选择区域
+coupon.serviceDuration = 服务时长
+coupon.modify = 修改
+coupon.invalid = 无效 
+coupon.invalidCoupon = 该优惠劵已无效
 
 menu.title = {0} 的菜单
 menu.tip = 没有找到您希望的菜单！
 menu.addMark = +
 menu.appointment = 空缺查询·预约
 menu.todoMessage = 该位置显示服务的描述
+menu.createMenuArea = 创建菜单区域
+menu.menuName = 菜单名
+menu.createMenu = 创建菜单
+menu.invalidCoupon = 该菜单已无效
 
 #ApplyRecord.status
 apply.inApply = 0
@@ -284,3 +303,54 @@ user.female=女
 user.loginOut=退出
 user.cancleBothFollow=取消互粉
 user.addFollow=添加关注
+
+
+
+
+#-------------------------------
+# Messages Area.
+#-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+#-------------------------------
+# Master Table Translation Area.
+# 主表字段翻译定义区
+#-------------------------------
+# 省份
+province.provinceName.Jiangsu=江苏省
+province.provinceName.Jiangxi=江西省
+province.provinceName.Shangdong=山东省
+province.provinceName.Shangxi=山西省
+province.provinceName.Hubei=湖北省
+province.provinceName.Hunan=湖南省
+province.provinceName.Sichuan=四川省
+province.provinceName.Hebei=河北省
+province.provinceName.Henan=河南省
+
+
+
+# 直辖市
+city.cityName.Shanghai=上海市
+city.cityName.Beijing=北京市
+
+# 市
+city.cityName.Suzhou=苏州市
+city.cityName.Wuxi=无锡市
+city.cityName.Nanjing=南京市
+city.cityName.Jinan=济南市
+city.cityName.Qingdao=青岛市
+
+
+# 区
+region.regionName.Gaoxin=高新区

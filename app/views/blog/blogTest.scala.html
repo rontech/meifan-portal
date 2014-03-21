@@ -103,11 +103,11 @@
 									</div>*@
 									<div class="fr w397">
 								<div class="cFix">
-										<div class="fl blogS blogCategoryBL10 mT5 hMin19 offL pR10">（blog的类型）@blog.blogTyp</div>
+										<div class="fl blogS blogCategoryBL10 mT5 hMin19 offL pR10">（blog的类型）@blog.id</div>
 										<div class="fl">
 											<dl class="cFix">
 												<dt class="fl">投稿日：</dt>
-												<dd class="fl">(创建时间)@blog.createdTime.toLocaleString</dd>
+												<dd class="fl">(创建时间)@blog.createTime.toLocaleString</dd>
 											</dl>
 											<dl class="cFix">
 												<dt class="fl">投稿者：</dt>
@@ -120,7 +120,7 @@
 									<div class="mT10">
 										<div class="cFix">
 											<div class="fs14 b wwbw">
-												<a href=@routes.Blogs.showBlogById(blog.id)>（blog的标题）@blog.title</a>
+												@*<a href=@routes.Blogs.showBlogById(blog.id)>（blog的标题）@blog.title</a>*@
 											</div>
 										</div>
 										<div class="mT5 wwbw">（blog内容）@blog.content<a href="http://beauty.hotpepper.jp/slnH000231733/blog/bidA003244007.html">続きを見る</a></div>

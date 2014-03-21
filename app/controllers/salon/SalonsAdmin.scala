@@ -36,7 +36,12 @@ object SalonsAdmin extends Controller {
   }
   
   def myComment(salonId: ObjectId) = Action {
-    Ok(views.html.salon.general.index(""))
+	val commentList = Comment.findBySalon(salonId)
+	val salon = Salon.findById(salonId)
+	salon match{
+	  case Some(s) =>Ok(html.salon.admin.mySalonCommentAll(salon = s, commentList = commentList))
+	  case None => NotFound
+	}
   }
   
   def myService(salonId: ObjectId) = Action {
@@ -44,7 +49,35 @@ object SalonsAdmin extends Controller {
   }
   
   /**
-   *  店铺查看申请中的技师
+
+   *  
+   * 店铺优惠劵后台管理
+   */
+  def myCoupon(salonId: ObjectId) = Action {
+    val salon = Salon.findById(salonId)
+    val coupons = Coupon.findBySalon(salonId)
+    
+    salon match {
+      case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, coupons))
+      case None => NotFound
+    }
+  }
+  
+  /**
+   * 店铺菜单后台管理
+   */
+  def myMenu(salonId: ObjectId) = Action {
+    val salon = Salon.findById(salonId)
+    val menus = Menu.findBySalon(salonId)
+    
+    salon match {
+      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, menus))
+      case None => NotFound
+    }
+  }
+  
+  /**
+   * 店铺查看申请中的技师
    */
   def checkHoldApply(salonId: ObjectId) = Action {
     val records = SalonStylistApplyRecord.findApplingStylist(salonId)

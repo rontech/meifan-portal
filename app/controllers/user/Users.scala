@@ -109,7 +109,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
 		          goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR)
 		      => Stylist(new ObjectId, new ObjectId(), 0, position, goodAtImage, goodAtStatus,
 		    	   goodAtService, goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR, 
-		           Option(List(new OnUsePicture(new ObjectId, "logo", 1, ""))), false, false)
+		           Option(List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), false, false)
 		    }{
 		      stylist => Some(stylist.workYears, stylist.position, 
 		          stylist.goodAtImage, stylist.goodAtStatus, stylist.goodAtService, stylist.goodAtUser,
@@ -393,7 +393,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   def commitStylistApply() = Action {implicit request=>
     val userId = new ObjectId("53202c29d4d5e3cd47efffd4")
     stylistApplyForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.fortest(errors)),
+      errors => BadRequest(views.html.index("")),
       {
         case(stylistApply) => {
         	Stylist.save(stylistApply.stylist)
