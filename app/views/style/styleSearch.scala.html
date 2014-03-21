@@ -1,4 +1,4 @@
-@(styleSearchForm: Form[Style])
+@(styleSearchForm: Form[Style], ParaStyleColor : List[StyleColor])
 
 @import helper._
 
@@ -6,24 +6,27 @@
 <head>
 	<div>
 		<h2>@Messages("hair.search")</h2>
+		<h2>@ParaStyleColor</h2>
 	</div>
 </head>
 <body>
 	<div>
 	@form(routes.Styles.styleSearchList, 'id -> "styleSearchForm"){
-		@Messages("hair.styleLength")
+		@input(field = styleSearchForm("styleLength"),args = '_label ->Messages("hair.styleLength")){(id,name,value,args) =>
 	    	@for(i <- 0 to StyleLength.findAll().length-1){
-	      		<input type = "radio" class="" name = "styleLength", value = "@StyleLength.findAll()(i).styleLength">@StyleLength.findAll()(i).styleLength
-	    	}
-	    @input(field = styleSearchForm("styleColor"),args = '_label ->Messages("hair.color")){(id,name,value,args) =>
-	    	@for(i <- 0 to StyleColor.findAll().length-1){
-	      		<input type = "checkbox" class="" name = "styleColor[@i]", value = "@StyleColor.findAll()(i).styleColor">@StyleColor.findAll()(i).styleColor
+	      		<input type = "checkbox" class="" name = "styleLength[@i]", value = "@StyleLength.findAll()(i).styleLength">@StyleLength.findAll()(i).styleLength
 	    	}
 	    }
-	    @input(field = styleSearchForm("impression"),args = '_label ->Messages("hair.impression")){(id,name,value,args) =>
-	    	@for(i <- 0 to StyleImpression.findAll().length-1){
-	      		<input type = "checkbox" class="" name = "impression[@i]", value = "@StyleImpression.findAll()(i).styleImpression">@StyleImpression.findAll()(i).styleImpression
+	    @input(field = styleSearchForm("styleColor"),args = '_label ->Messages("hair.color")){(id,name,value,args) =>
+	    	@for(i <- 0 to ParaStyleColor.length-1){
+	      		<input type = "checkbox" class="" name = "styleColor[@i]", value = "@ParaStyleColor(i).styleColor">@ParaStyleColor(i).styleColor
 	    	}
+	    }
+
+	    @input(field = styleSearchForm("styleImpression"),args = '_label ->Messages("hair.impression")){(id,name,value,args) =>
+	    	@for(i <- 0 to StyleImpression.findAll().length-1){
+	      		<input type = "checkbox" class="" name = "styleImpression[@i]", value = "@StyleImpression.findAll()(i).styleImpression">@StyleImpression.findAll()(i).styleImpression
+			}
 	    }
 	    @input(field = styleSearchForm("serviceType"),args = '_label ->Messages("hair.serviceType")){(id,name,value,args) =>
 	    	@for(i <- 0 to ServiceType.findAll().length-1){
@@ -45,10 +48,11 @@
 	      		<input type = "checkbox" class="" name = "styleDiameter[@i]", value = "@StyleDiameter.findAll()(i).styleDiameter">@StyleDiameter.findAll()(i).styleDiameter
 	    	}
 	    }
-	    @input(field = styleSearchForm("FaceShape"),args = '_label ->Messages("hair.FaceShape")){(id,name,value,args) =>
+
+	    @input(field = styleSearchForm("faceShape"),args = '_label ->Messages("hair.faceShape")){(id,name,value,args) =>
 	    	@for(i <- 0 to FaceShape.findAll().length-1){
-	      		<input type = "checkbox" class="" name = "FaceShape[@i]", value = "@FaceShape.findAll()(i).faceShape">@FaceShape.findAll()(i).faceShape
-	    	}
+	      		<input type = "checkbox" class="" name = "faceShape[@i]" value = "@FaceShape.findAll()(i).faceShape">@FaceShape.findAll()(i).faceShape
+			}
 	    }
 	    <div align="center">
 	        <input type = "reset" class = "buttons" value=@Messages("service.resetBton")>

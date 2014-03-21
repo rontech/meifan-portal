@@ -69,6 +69,7 @@ GET     /style/:id                      controllers.Styles.findById(id: ObjectId
 GET     /salon/:salonId/styles          controllers.Styles.findBySalon(salonId: ObjectId)
 GET     /salon/:slnId/style/:styId      controllers.Styles.getStyleInfoOfSalon(slnId: ObjectId, styId: ObjectId)
 POST    /styleSearchList                controllers.Styles.styleSearchList
+POST    /styleLogin                     controllers.Styles.styleLogin
 GET     /styleSearch                    controllers.Styles.styleSearch
 
 # Stylist

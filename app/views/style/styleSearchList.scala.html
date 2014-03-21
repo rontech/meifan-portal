@@ -1,15 +1,82 @@
-@(styles: List[models.Style],salon:Salon)
+@(styleSearchForm: Form[Style], styles: List[models.Style], salon:Salon)
+@import helper._
 		<h2 class="fs16 fl">
-			@styleSearch
+			@styles
 		</h2>
 		<h2 class="fs16 fl">
-			数据检索结果查看
+			数据检索结果查看@styleSearchForm
 		</h2>
 		<h2 class="fs16 fl">
-			@salon
+		
+			结果查看
+		</h2>
+		<h2 class="fs16 fl">
+			数据检索@salon
 		</h2>
 
-@Messages("hair.styleLength")
+<div>
+	<h2>检索条件</h2>
+	<div>
+	@form(routes.Styles.styleSearchList, 'id -> "styleSearchForm"){
+		@input(field = styleSearchForm("styleLength"),args = '_label ->Messages("hair.styleLength")){(id,name,value,args) =>
+	    	@for(i <- 0 to StyleLength.findAll().length-1){
+	      		@if(styleSearchForm.get.styleLength.contains(StyleLength.findAll()(i).styleLength)){
+					<input type = "checkbox" class="" name = "styleLength[@i]" value = "@StyleLength.findAll()(i).styleLength" checked="checked">@StyleLength.findAll()(i).styleLength
+				}else{
+					<input type = "checkbox" class="" name = "styleLength[@i]" value = "@StyleLength.findAll()(i).styleLength" >@StyleLength.findAll()(i).styleLength
+				}
+	      		
+	    	}
+	    }
+	    @input(field = styleSearchForm("styleColor"),args = '_label ->Messages("hair.color")){(id,name,value,args) =>
+	    	@for(i <- 0 to StyleColor.findAll().length-1){
+	    		@if(styleSearchForm.get.styleColor.contains(StyleColor.findAll()(i).styleColor)){
+					<input type = "checkbox" class="" name = "styleColor[@i]" value = "@StyleColor.findAll()(i).styleColor" checked="checked">@StyleColor.findAll()(i).styleColor
+				}else{
+					<input type = "checkbox" class="" name = "styleColor[@i]" value = "@StyleColor.findAll()(i).styleColor">@StyleColor.findAll()(i).styleColor
+				}
+	    	}
+	    }
+	    @input(field = styleSearchForm("styleImpression"),args = '_label ->Messages("hair.impression")){(id,name,value,args) =>
+	    	@for(i <- 0 to StyleImpression.findAll().length-1){
+	      		<input type = "checkbox" class="" name = "styleImpression[@i]" value = "@StyleImpression.findAll()(i).styleImpression">@StyleImpression.findAll()(i).styleImpression
+	    	}
+	    }
+	    @input(field = styleSearchForm("serviceType"),args = '_label ->Messages("hair.serviceType")){(id,name,value,args) =>
+	    	@for(i <- 0 to ServiceType.findAll().length-1){
+	      		<input type = "checkbox" class="" name = "serviceType[@i]" value = "@ServiceType.findAll().toList(i).serviceTypeName">@ServiceType.findAll().toList(i).serviceTypeName
+	    	}
+	    }
+	    @input(field = styleSearchForm("styleAmount"),args = '_label ->Messages("hair.styleAmount")){(id,name,value,args) =>
+	    	@for(i <- 0 to StyleAmount.findAll().length-1){
+	      		<input type = "checkbox" class="" name = "styleAmount[@i]" value = "@StyleAmount.findAll()(i).styleAmount">@StyleAmount.findAll()(i).styleAmount
+	    	}
+	    }
+	    @input(field = styleSearchForm("styleQuality"),args = '_label ->Messages("hair.styleQuality")){(id,name,value,args) =>
+	    	@for(i <- 0 to StyleQuality.findAll().length-1){
+	      		<input type = "checkbox" class="" name = "styleQuality[@i]" value = "@StyleQuality.findAll()(i).styleQuality">@StyleQuality.findAll()(i).styleQuality
+	    	}
+	    }
+	    @input(field = styleSearchForm("styleDiameter"),args = '_label ->Messages("hair.styleDiameter")){(id,name,value,args) =>
+	    	@for(i <- 0 to StyleDiameter.findAll().length-1){
+	      		<input type = "checkbox" class="" name = "styleDiameter[@i]" value = "@StyleDiameter.findAll()(i).styleDiameter">@StyleDiameter.findAll()(i).styleDiameter
+	    	}
+	    }
+	    @input(field = styleSearchForm("faceShape"),args = '_label ->Messages("hair.faceShape")){(id,name,value,args) =>
+	    	@for(i <- 0 to FaceShape.findAll().length-1){
+	      		<input type = "checkbox" class="" name = "faceShape[@i]" value = "@FaceShape.findAll()(i).faceShape">@FaceShape.findAll()(i).faceShape
+	    	}
+	    }
+	    <div align="center">
+	        <input type = "reset" class = "buttons" value=@Messages("service.resetBton")>
+		    <input type="submit" class = "buttons" value=@Messages("hair.search")>
+        </div>
+     }	
+	</div>
+</div>
+
+<div>
+ 	@Messages("hair.style")
    	@for(i <- 0 to styles.length-1){
    		<a href="@routes.Styles.getStyleInfoOfSalon(styles(i).id,salon.id)" >
    			<img src="#" class="" alt="@styles(i).styleName" >
@@ -32,3 +99,4 @@
 			</a>
 		</div>
    	}
+</div>
