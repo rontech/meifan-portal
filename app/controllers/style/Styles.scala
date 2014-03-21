@@ -11,7 +11,54 @@ import views._
 import java.util.Date
 
 object Styles extends Controller {
+  
+  
+/*  val styleForm:Form[StyleAndPara] = Form(
+        mapping(
+	        "style" ->mapping(
+		        "styleImpression" -> list(text),
+			    "serviceType" -> list(text),
+			    "styleLength" -> list(text),
+			    "styleColor" -> list(text),
+			    "styleAmount" -> list(text),
+			    "styleQuality" -> list(text),
+			    "styleDiameter" -> list(text),
+			    "faceShape" -> list(text)
+		        ){
+			      (styleImpression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceShape) =>
+			          Style(new ObjectId,"",new ObjectId,List(""),styleImpression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceShape,"",List(""),List(""),List(""), new Date,true)
+			    }
+			    {
+			      style=> Some((style.styleImpression,style.serviceType,
+			          style.styleLength,style.styleColor,style.styleAmount,style.styleQuality,
+			          style.styleDiameter,style.faceShape))
+			    },
+		    "styleImpression" ->mapping(
+		       "styleImpression" -> text,
+		       "description" -> text
+			    ){
+			      (styleImpression,description) =>
+			        StyleImpression(new ObjectId,styleImpression,description)
+			    }
+			    {
+			    styleImpression=> Some((styleImpression.styleImpression,styleImpression.description))  
+			    }
+	    )(StyleAndPara.apply)(StyleAndPara.unapply)
 
+  )*/
+
+//  val styleList:Form[StylePara] = Form(
+//        "styleList" ->mapping(
+//	        "styleImpression" -> list(text),
+//		    "serviceType" -> list(text),
+//		    "styleLength" -> list(text),
+//		    "styleColor" -> list(text),
+//		    "styleAmount" -> list(text),
+//		    "styleQuality" -> list(text),
+//		    "styleDiameter" -> list(text),
+//		    "faceShape" -> list(text)
+//	        )(StyleAnd.apply)(StyleAnd.unapply)
+//  )
   /**
    * 定义一个发型查询数据表单
    */
@@ -24,16 +71,19 @@ object Styles extends Controller {
 		    "styleAmount" -> list(text),
 		    "styleQuality" -> list(text),
 		    "styleDiameter" -> list(text),
-		    "faceShape" -> list(text)
+		    "faceShape" -> list(text),
+		    "consumerAgeGroup" -> list(text),
+		    "consumerSex" -> list(text),
+		    "consumerSocialStatus" -> list(text)
 	        ){
-	      (styleImpression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceShape) =>
+	      (styleImpression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceShape,consumerAgeGroup,consumerSex,consumerSocialStatus) =>
 	          Style(new ObjectId,"",new ObjectId,List(""),
-	           styleImpression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceShape,"",List(""),List(""),List(""), new Date,true)
+	           styleImpression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceShape,"",consumerAgeGroup,consumerSex,consumerSocialStatus, new Date,true)
 	    }
 	    {
 	      style=> Some((style.styleImpression,style.serviceType,
 	          style.styleLength,style.styleColor,style.styleAmount,style.styleQuality,
-	          style.styleDiameter,style.faceShape))
+	          style.styleDiameter,style.faceShape,style.consumerAgeGroup,style.consumerSex,style.consumerSocialStatus))
 	    }
   )
   
@@ -50,25 +100,24 @@ object Styles extends Controller {
 		    "styleQuality" -> list(text),
 		    "styleDiameter" -> list(text),
 		    "faceShape" -> list(text),
-		    "description" -> text
+		    "description" -> text,
+		    "consumerAgeGroup" -> list(text),
+		    "consumerSex" -> list(text),
+		    "consumerSocialStatus" -> list(text)
 	        ){
-	      (styleName,stylistId,stylePic,styleImpression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceShape,description) =>
+	      (styleName,stylistId,stylePic,styleImpression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceShape,description,consumerAgeGroup,consumerSex,consumerSocialStatus) =>
 	          Style(new ObjectId,styleName,new ObjectId(stylistId),stylePic,
-	           styleImpression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceShape,description,List(""),List(""),List(""), new Date,true)
+	           styleImpression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceShape,description,consumerAgeGroup,consumerSex,consumerSocialStatus, new Date,true)
 	    }
 	    {
 	      style=> Some((style.styleName,style.stylistId.toString,style.stylePic,style.styleImpression,style.serviceType,
 	          style.styleLength,style.styleColor,style.styleAmount,style.styleQuality,
-	          style.styleDiameter,style.faceShape,style.description))
+	          style.styleDiameter,style.faceShape,style.description,style.consumerAgeGroup,style.consumerSex,style.consumerSocialStatus))
 	    }
   )
   
   def index = Action {
-//     val styles: Seq[Style] = Style.findAll()
-//     Ok(html.style.overview(styles))
-//    Style.findParaAll
-    val ParaStyleColor : List[StyleColor] = StyleColor.findAll()
-    Ok(html.style.styleSearch(styleSearchForm,ParaStyleColor))
+	Ok(html.style.styleSearch(styleSearchForm,Style.findParaAll))
   }
   
    /**
@@ -115,14 +164,24 @@ object Styles extends Controller {
 //		    	Style.updateTest(sty)
 //		    }
             //尝试更新 end
-            Ok(html.style.styleSearchList(styleSearchForm.fill(styleSearch),styleSearchInfo,salon = salon.get))
+            Ok(html.style.styleSearchList(styleSearchForm.fill(styleSearch),styleSearchInfo,salon = salon.get,Style.findParaAll))
           }
       }
     )
   }
   
   def styleSearch = Action {
-    Ok(html.style.styleLogin(styleSearchForm))
+    //此处为发型更新，将来会传一个styleId过来修改
+    val styleId :ObjectId = new ObjectId("530d828cd7f2861457771c0b")
+    val styleOne: Option[Style] = Style.findById(styleId)
+    styleOne match {
+	    case Some(style) => {
+	    	Ok(html.style.styleLogin(styleLoginForm, Style.findParaAll,style))
+	    }
+	    case None => {
+	    	NotFound
+	    } 
+    }
   }
 
   def styleLogin = Action {

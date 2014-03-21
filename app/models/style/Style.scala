@@ -11,6 +11,20 @@ import models.Style._
 import com.mongodb.casbah.query.Imports._
 import java.util.Date
 
+case class StylePara(
+	styleImpression: List[String],
+	serviceType: List[String],
+	styleLength: List[String],
+	styleColor: List[String],
+	styleAmount: List[String],
+	styleQuality: List[String],
+	styleDiameter: List[String],
+	faceShape: List[String],
+	consumerAgeGroup: List[String],
+	consumerSex: List[String],
+	consumerSocialStatus: List[String]
+) 
+	
 case class Style(
     id: ObjectId = new ObjectId,
     styleName: String,
@@ -110,8 +124,7 @@ object Style {
     }
    
    def findByPara(style: models.Style) : List[Style] = {
-        StyleDAO.find($and("styleDiameter" $all style.styleDiameter ,"styleImpression" $in style.styleImpression,"faceShape" $in style.faceShape)).toList	
-//        StyleDAO.find($and("styleDiameter" $all List("粗","细") ,"styleImpression" $in List("清新","舒适"),com.mongodb.casbah.commons.Imports.DBObject("styleLength" -> "短"))).toList
+        StyleDAO.find($and("styleDiameter" $in style.styleDiameter ,"styleImpression" $in style.styleImpression,"faceShape" $in style.faceShape)).toList	
    }
    
    def updateTest(style: models.Style) = {
@@ -122,26 +135,68 @@ object Style {
 			   ))
 	   )
    }
-                   
+   
+   /**
+    * 获取发型检索字段的主表信息 
+   */                
    def findParaAll = {
-	   val ParaStyleImpression : List[StyleImpression] = StyleImpression.findAll()
-	   val ParaServiceType : List[ServiceType] = ServiceType.findAll().toList
-	   val ParaStyleLength : List[StyleLength] = StyleLength.findAll()
-	   val ParaStyleColor : List[StyleColor] = StyleColor.findAll()
-	   val ParaStyleAmount : List[StyleAmount] = StyleAmount.findAll()
-	   val ParaStyleQuality : List[StyleQuality] = StyleQuality.findAll()
-	   val ParaStyleDiameter : List[StyleDiameter] = StyleDiameter.findAll()
-	   val ParaFaceShape : List[FaceShape] = FaceShape.findAll()
-	   val ParaConsumerAgeGroup : List[AgeGroup] = AgeGroup.findAll()
-	   val ParaConsumerSex : List[Sex] = Sex.findAll()
-	   val ParaConsumerSocialStatus : List[SocialStatus] = SocialStatus.findAll()
-	   //val 
-//	   val ParaAll: List[List[Object]] = List(ParaStyleImpression,ParaServiceType,ParaStyleLength,ParaStyleColor,ParaStyleAmount,ParaStyleQuality,ParaStyleDiameter,ParaFaceShape,ParaConsumerAgeGroup,ParaConsumerSex,ParaConsumerSocialStatus)
-	   val ParaAll: List[List[Object]] = List(ParaStyleImpression,ParaServiceType,List("ParaStyleImpression","ParaServiceType"))
-	 //  ParaAll.last.
-	   print("www.wwww.wwww "+ParaAll.last)
-//	   ParaAll.toList
-	   //print("www.wwww.wwww "+ParaAll(2))
-	   ParaAll
+	   val paraStyleImpression : List[StyleImpression] = StyleImpression.findAll()
+	   var paraStyleImpressions: List[String] = Nil 
+		   paraStyleImpression.map{para=>
+		       paraStyleImpressions :::= List(para.styleImpression)
+	   	   }
+	   val paraServiceType : List[ServiceType] = ServiceType.findAll().toList
+	   var paraServiceTypes: List[String] = Nil 
+		   paraServiceType.map{para=>
+		       paraServiceTypes :::= List(para.serviceTypeName)
+	   	   }
+	   val paraStyleLength : List[StyleLength] = StyleLength.findAll()
+	   var paraStyleLengths: List[String] = Nil 
+		   paraStyleLength.map{para=>
+		       paraStyleLengths :::= List(para.styleLength)
+	   	   }
+	   val paraStyleColor : List[StyleColor] = StyleColor.findAll()
+	   var paraStyleColors: List[String] = Nil 
+		   paraStyleColor.map{para=>
+		       paraStyleColors :::= List(para.styleColor)
+	   	   }
+	   val paraStyleAmount : List[StyleAmount] = StyleAmount.findAll()
+	   var paraStyleAmounts: List[String] = Nil 
+		   paraStyleAmount.map{para=>
+		       paraStyleAmounts :::= List(para.styleAmount)
+	   	   }
+	   val paraStyleQuality : List[StyleQuality] = StyleQuality.findAll()
+	   var paraStyleQualitys: List[String] = Nil 
+		   paraStyleQuality.map{para=>
+		       paraStyleQualitys :::= List(para.styleQuality)
+	   	   }
+	   val paraStyleDiameter : List[StyleDiameter] = StyleDiameter.findAll()
+	   var paraStyleDiameters: List[String] = Nil 
+		   paraStyleDiameter.map{para=>
+		       paraStyleDiameters :::= List(para.styleDiameter)
+	   	   }
+	   val paraFaceShape : List[FaceShape] = FaceShape.findAll()
+	   var paraFaceShapes: List[String] = Nil 
+		   paraFaceShape.map{para=>
+		   paraFaceShapes :::= List(para.faceShape)
+	  }
+	   val paraConsumerAgeGroup : List[AgeGroup] = AgeGroup.findAll()
+	   var paraConsumerAgeGroups: List[String] = Nil 
+		   paraConsumerAgeGroup.map{para=>
+		       paraConsumerAgeGroups :::= List(para.ageGroup)
+	   	   }
+	   val paraConsumerSex : List[Sex] = Sex.findAll()
+	   var paraConsumerSexs: List[String] = Nil 
+		   paraConsumerSex.map{para=>
+		       paraConsumerSexs :::= List(para.sex)
+	   	   }
+	   val paraConsumerSocialStatus : List[SocialStatus] = SocialStatus.findAll()
+	   var paraConsumerSocialStatuss: List[String] = Nil 
+		   paraConsumerSocialStatus.map{para=>
+		       paraConsumerSocialStatuss :::= List(para.socialStatus)
+	   	   }
+	   val styleList = new StylePara(paraStyleImpressions,paraServiceTypes,paraStyleLengths,paraStyleColors,paraStyleAmounts,paraStyleQualitys,paraStyleDiameters,paraFaceShapes,paraConsumerAgeGroups,paraConsumerSexs,paraConsumerSocialStatuss)
+	   styleList
    }
 }
+
