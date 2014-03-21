@@ -59,71 +59,96 @@ object InitialData {
       ).foreach(Stylist.save)
       
       Seq(
-        Style(new ObjectId("530d828cd7f2861457771c0b"), "四代火影发型式", new ObjectId("530d8010d7f2861457771bf8"), List("B002740532_164-219.jpg","B004689277_164-219.jpg","B004538417_164-219.jpg"),List("清新"),List("烫"),"中",List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("圆脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生"),
-        Style(new ObjectId("530d828cd7f2861457771c0c"), "六道仙人发型", new ObjectId("530d8010d7f2861457771bf8"), List("B004670057_164-219.jpg","B004670057_164-219.jpg","B004554657_164-219.jpg"),List("自然"),List("染"),"长",List("绿色","紫色"),List("少","多","一般"),List("软","硬"),List("适中","细"),List("标准","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生"),
-        Style(new ObjectId("530d828cd7f2861457771c0d"), "海贼王发型", new ObjectId("530d8010d7f2861457771bfd"), List("B004554657_164-219.jpg"),List("清新"),List("烫"),"中",List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生")
+        Style(new ObjectId("530d828cd7f2861457771c0b"), "四代火影发型式", new ObjectId("530d8010d7f2861457771bf8"), List("B002740532_164-219.jpg","B004689277_164-219.jpg","B004538417_164-219.jpg"),List("清新"),List("烫"),List("中"),List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("圆脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("男"),List("程序员"),date("2014-03-12"),true),
+        Style(new ObjectId("530d828cd7f2861457771c0c"), "六道仙人发型", new ObjectId("530d8010d7f2861457771bf8"), List("B004670057_164-219.jpg","B004670057_164-219.jpg","B004554657_164-219.jpg"),List("自然"),List("染"),List("长"),List("绿色","紫色"),List("少","多","一般"),List("软","硬"),List("适中","细"),List("标准","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("男"),List("程序员"),date("2014-03-12"),true),
+        Style(new ObjectId("530d828cd7f2861457771c0d"), "海贼王发型", new ObjectId("530d8010d7f2861457771bfd"), List("B004554657_164-219.jpg"),List("清新"),List("烫"),List("中"),List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("女"),List("程序员"),date("2014-03-12"),true)
       ).foreach(Style.save)
 
     }
     
     if(StyleColor.findAll.isEmpty) {
       Seq (
-          StyleColor(new ObjectId, "红"),
-          StyleColor(new ObjectId, "黄"),
-          StyleColor(new ObjectId, "黑色"),
-          StyleColor(new ObjectId, "其他颜色")
+          StyleColor(new ObjectId, "红", ""),
+          StyleColor(new ObjectId, "黄", ""),
+          StyleColor(new ObjectId, "黑色", ""),
+          StyleColor(new ObjectId, "其他颜色", "")
         ).foreach(StyleColor.save)
     }
     
     if(StyleLength.findAll.isEmpty) {
       Seq (
-          StyleLength(new ObjectId, "长"),
-          StyleLength(new ObjectId, "中"),
-          StyleLength(new ObjectId, "短")
+          StyleLength(new ObjectId, "长", ""),
+          StyleLength(new ObjectId, "中", ""),
+          StyleLength(new ObjectId, "短", "")
         ).foreach(StyleLength.save)
     }
     
-    if(Impression.findAll.isEmpty) {
+    if(StyleImpression.findAll.isEmpty) {
       Seq (
-          Impression(new ObjectId, "清新"),
-          Impression(new ObjectId, "自然"),
-          Impression(new ObjectId, "淡雅"),
-          Impression(new ObjectId, "其他印象")
-        ).foreach(Impression.save)
+          StyleImpression(new ObjectId, "清新", ""),
+          StyleImpression(new ObjectId, "自然", ""),
+          StyleImpression(new ObjectId, "淡雅", ""),
+          StyleImpression(new ObjectId, "其他印象", "")
+        ).foreach(StyleImpression.save)
     }
     
     if(StyleAmount.findAll.isEmpty) {
       Seq (
-          StyleAmount(new ObjectId, "多"),
-          StyleAmount(new ObjectId, "一般"),
-          StyleAmount(new ObjectId, "少")
+          StyleAmount(new ObjectId, "多", ""),
+          StyleAmount(new ObjectId, "一般", ""),
+          StyleAmount(new ObjectId, "少", "")
         ).foreach(StyleAmount.save)
     }
     
     if(StyleQuality.findAll.isEmpty) {
       Seq (
-          StyleQuality(new ObjectId, "软"),
-          StyleQuality(new ObjectId, "适中"),
-          StyleQuality(new ObjectId, "硬"),
-          StyleQuality(new ObjectId, "柔顺")
+          StyleQuality(new ObjectId, "软", ""),
+          StyleQuality(new ObjectId, "适中", ""),
+          StyleQuality(new ObjectId, "硬", ""),
+          StyleQuality(new ObjectId, "柔顺", "")
         ).foreach(StyleQuality.save)
     }
     
     if(StyleDiameter.findAll.isEmpty) {
       Seq (
-          StyleDiameter(new ObjectId, "细"),
-          StyleDiameter(new ObjectId, "适中"),
-          StyleDiameter(new ObjectId, "粗")
+          StyleDiameter(new ObjectId, "细", ""),
+          StyleDiameter(new ObjectId, "适中", ""),
+          StyleDiameter(new ObjectId, "粗", "")
         ).foreach(StyleDiameter.save)
     }
-    
-    if(FaceType.findAll.isEmpty) {
+     
+    if(FaceShape.findAll.isEmpty) {
       Seq (
-          FaceType(new ObjectId, "标准"),
-          FaceType(new ObjectId, "圆形"),
-          FaceType(new ObjectId, "鹅蛋脸"),
-          FaceType(new ObjectId, "四角")
-        ).foreach(FaceType.save)
+          FaceShape(new ObjectId, "标准", ""),
+          FaceShape(new ObjectId, "圆形", ""),
+          FaceShape(new ObjectId, "鹅蛋脸", ""),
+          FaceShape(new ObjectId, "四角", "")
+        ).foreach(FaceShape.save)
+    }
+    
+    if(SocialStatus.findAll.isEmpty) {
+      Seq (
+          SocialStatus(new ObjectId, "程序员", ""),
+          SocialStatus(new ObjectId, "教师", ""),
+          SocialStatus(new ObjectId, "茶艺", ""),
+          SocialStatus(new ObjectId, "工程师", "")
+        ).foreach(SocialStatus.save)
+    }
+    
+    if(Sex.findAll.isEmpty) {
+      Seq (
+          Sex(new ObjectId, "男"),
+          Sex(new ObjectId, "女")
+        ).foreach(Sex.save)
+    }
+    
+    if(AgeGroup.findAll.isEmpty) {
+      Seq (
+          AgeGroup(new ObjectId, "1-10", ""),
+          AgeGroup(new ObjectId, "11-20", ""),
+          AgeGroup(new ObjectId, "21-30", ""),
+          AgeGroup(new ObjectId, "31-80", "")
+        ).foreach(AgeGroup.save)
     }
     
     if(ServiceType.findAll.isEmpty) {
