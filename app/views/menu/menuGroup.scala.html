@@ -11,7 +11,9 @@
 	</div>
 } else {
 	@for(menu <- menus) {
-		@views.html.menu.menuItem(menu)
+		@if(menu.isValid) {
+			@views.html.menu.menuItem(menu)
+		}
 	}
 }
 </div>

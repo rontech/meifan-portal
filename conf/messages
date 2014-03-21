@@ -106,6 +106,7 @@ salonAdmin.reservManagement = 预约管理
 salonAdmin.commentManagement = 评论管理
 salonAdmin.serviceManagement = 服务管理
 salonAdmin.couponManagement = 优惠劵管理
+salonAdmin.menuManagement = 菜单管理
 salonAdmin.stateManagement = 动态管理
 
 # Hair
@@ -157,6 +158,7 @@ service.operate=操作
 service.delete=删除
 service.back=返回
 service.update=更新
+service.minutes = 分钟
 
 #ServiceType
 ServiceType.serviceTypeName.Cut = 剪
@@ -192,13 +194,22 @@ coupon.useConditions = 使用条件
 coupon.presentTime = 出示时间
 coupon.description = 描述
 coupon.createCouponArea = 创建优惠劵区域
+coupon.createCoupon = 创建优惠劵
 coupon.serviceArea = 服务选择区域
+coupon.serviceDuration = 服务时长
+coupon.modify = 修改
+coupon.invalid = 无效 
+coupon.invalidCoupon = 该优惠劵已无效
 
 menu.title = {0} 的菜单
 menu.tip = 没有找到您希望的菜单！
 menu.addMark = +
 menu.appointment = 空缺查询·预约
 menu.todoMessage = 该位置显示服务的描述
+menu.createMenuArea = 创建菜单区域
+menu.menuName = 菜单名
+menu.createMenu = 创建菜单
+menu.invalidCoupon = 该菜单已无效
 
 #ApplyRecord.status
 apply.inApply = 0
