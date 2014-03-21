@@ -7,8 +7,9 @@ import play.api.mvc._
 import play.api.mvc.Results._
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
-
+import se.radley.plugin.salat.Binders._
 import models._
+
 
 trait AuthConfigImpl extends AuthConfig {
 
@@ -37,8 +38,6 @@ trait AuthConfigImpl extends AuthConfig {
 
   def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = authority(user)
 
-  def isAuthor(username : String)(user : User) : Future[Boolean] = Future{User.findOneByUserId(username).map(_ == user).get}
-  
   def requireAdminUser(user: User): Future[Boolean] = Future.successful(user.permission == "Administrator")
  
   def authorization(permission: Permission)(user : User)(implicit ctx: ExecutionContext) = Future.successful((permission, user.permission) match {

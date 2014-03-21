@@ -1,8 +1,11 @@
 @* message Template File *@
-@(letter: UserLetter)
-@main("msg"){
+@(letter: UserLetter, user: User)
+@myPageMain(navInMyPage = "message", user){
 	<div>
-	<h2>消息</h2>
-	<p>@letter.message.title</p>
+	<h1>@letter.message.title</h1>
+	<p>@Messages("letter.sender"):@letter.userMessage.senderNm</p>
+	<p>@Messages("letter.addressee"):@letter.userMessage.addresseeNm</p>
+	<p>@Messages("letter.time"):@letter.userMessage.createdTime</p>
+	<h2>@letter.message.content</h2>
 	</div>
 }

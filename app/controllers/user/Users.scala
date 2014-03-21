@@ -4,8 +4,8 @@ import java.util.Date
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.ExecutionContext.Implicits.global
 import com.mongodb.casbah.WriteConcern
-import com.mongodb.casbah.commons.Imports.MongoDBObject
-import com.mongodb.casbah.commons.Imports.ObjectId
+import com.mongodb.casbah.commons.Imports._
+import se.radley.plugin.salat.Binders._
 import jp.t2v.lab.play2.auth._
 import models._
 import play.api.data.Form
@@ -13,7 +13,46 @@ import play.api.data.Forms._
 import play.api.mvc._
 import scala.concurrent.Future
 
-object Users extends Controller with LoginLogout with AuthElement with AuthConfigImpl{
+object Users extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
+
+  /*
+   * 关注与收藏类别
+   * collection： FollowType
+   */
+
+  //关注沙龙
+  val FOLLOWSALON = "salon"
+  //关注技师
+  val FOLLOWSTYLIST = "stylist"
+  //关注用户
+  val FOLLOWUSER = "user"
+  //收藏发型
+  val FOLLOWSTYLE = "style"
+  //收藏博客
+  val FOLLOWBLOG = "blog"
+  //收藏优惠券
+  val FOLLOWCOUPON = "coupon"
+
+  /*
+   * 用户类别
+   */
+
+  //普通用户
+  val NORMALUSER = "normalUser"
+  //专业技师
+  val STYLIST = "stylist"
+
+  /*
+    * 用户行为等级
+    */
+
+  //高
+  val HIGH = "high"
+  //中
+  val MIDDLE = "middle"
+  //底
+  val LOW = "low"
+
   def registerForm(id: ObjectId = new ObjectId) = Form(
     mapping(
       "id" -> ignored(id),
@@ -34,8 +73,8 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
           "contMethmodType" -> text,
           "account" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
       "socialStatus" -> text) {
-        (id, userId, password, nickName, sex, birthDay, city, tel, email, optContactMethod, socialStatus) => 
-          User(new ObjectId, userId, password._1, nickName, sex, birthDay, city, new ObjectId, tel, email, optContactMethod, socialStatus, "NormalUser", "userLevel.0", 0, new Date(), "LoggedIn", false)
+        (id, userId, password, nickName, sex, birthDay, city, tel, email, optContactMethod, socialStatus) =>
+          User(new ObjectId, userId, nickName, password._1, sex, birthDay, city, new ObjectId, tel, email, optContactMethod, socialStatus, "NormalUser", "userLevel.0", 0, new Date(), LoggedIn.toString, false)
       } {
         user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.sex, user.birthDay, user.city, user.tel, user.email, user.optContactMethod, user.socialStatus))
       }.verifying(
@@ -44,44 +83,39 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   val loginForm = Form(mapping(
     "userId" -> nonEmptyText,
     "password" -> nonEmptyText)(User.authenticate)(_.map(u => (u.userId, "")))
-      .verifying("Invalid email or password", result => result.isDefined) 
-  )
+    .verifying("Invalid email or password", result => result.isDefined))
 
   def userForm(id: ObjectId = new ObjectId) = Form(
     mapping(
       "id" -> ignored(id),
-      "userId" -> nonEmptyText(6,16),
+      "userId" -> nonEmptyText(6, 16),
       "password" -> text,
-      "nickName" ->text,
-      "sex" ->text,
-      "birthDay" ->date,
-      "city" ->text,
-      "userPics" ->text,
+      "nickName" -> text,
+      "sex" -> text,
+      "birthDay" -> date,
+      "city" -> text,
+      "userPics" -> text,
       "tel" -> text,
       "email" -> email,
       "optContactMethod" -> seq(
-          mapping(
-            "contMethmodType" ->text,
-            "account" -> list(text)
-          )(OptContactMethod.apply)(OptContactMethod.unapply)   
-       ),
-      "socialStatus" ->text,
-      "registerTime" -> date
-      ) {
-      // Binding: Create a User from the mapping result (ignore the second password and the accept field)
-      (id, userId, password, nickName, sex, birthDay, city, userPics,tel, email, optContactMethod,socialStatus,registerTime)
-      => User(id, userId,password, nickName, sex, birthDay, city, new ObjectId(userPics), tel, email, optContactMethod, socialStatus, "NormalUser", "userLevel.0",0, registerTime, "LoggedIn", false) 
-    } // Unbinding: Create the mapping values from an existing Hacker value
-    {
-      user => Some((user.id, user.userId, user.password, user.nickName, user.sex, user.birthDay, user.city, user.userPics.toString(), user.tel, user.email, user.optContactMethod, user.socialStatus, user.registerTime))
-    }.verifying(
-        "This userId is not available",user => User.findOneByNickNm(user.nickName).nonEmpty)
-  )
+        mapping(
+          "contMethmodType" -> text,
+          "account" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
+      "socialStatus" -> text,
+      "registerTime" -> date) {
+        // Binding: Create a User from the mapping result (ignore the second password and the accept field)
+        (id, userId, nickName, password, sex, birthDay, city, userPics, tel, email, optContactMethod, socialStatus, registerTime) => User(id, userId, password, nickName, sex, birthDay, city, new ObjectId(userPics), tel, email, optContactMethod, socialStatus, "NormalUser", "userLevel.0", 0, registerTime, "LoggedIn", false)
+      } // Unbinding: Create the mapping values from an existing Hacker value
+      {
+        user => Some((user.id, user.userId, user.password, user.nickName, user.sex, user.birthDay, user.city, user.userPics.toString(), user.tel, user.email, user.optContactMethod, user.socialStatus, user.registerTime))
+      }.verifying(
+        "This userId is not available", user => User.findOneByNickNm(user.nickName).nonEmpty))
+
   /**
-   * 定义用户申请技师的表单
+   * 用户申请技师用表单
    */
 
-  def stylistApplyForm: Form[StylistApply] = Form(
+  val stylistApplyForm: Form[StylistApply] = Form(
         mapping("stylist" -> 
 		    mapping(
 		    	"workYears" -> number,
@@ -122,259 +156,244 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
 		      stylistApply => Some((stylistApply.stylist, stylistApply.salonId.toString))
 		    }
 		)
-
-  
-
-  //  val userForm: Form[User] = Form(
-  //    mapping(
-  //      "username" -> text,
-  //      "password" -> text,
-  //      "sex" -> text,
-  //      "age" -> number,
-  //      "tel" -> text,
-  //      "email" -> text,
-  //      "education" -> text,
-  //      "introduce" -> text,
-  //      "added" -> date,
-  //      "updated" -> date) {
-  //        // Binding: Create a User from the mapping result (ignore the second password and the accept field)
-  //        (username, password, sex, age, tel, email, education, introduce, added, _) => User(new ObjectId, username, password, sex, age, tel, email, education, introduce, added, new Date())
-  //      } // Unbinding: Create the mapping values from an existing Hacker value
-  //      {
-  //        user => Some((user.username, user.password, user.sex, user.age, user.tel, user.email, user.education, user.introduce, user.added, user.updated))
-  //      }
-  //  )
-  
   /**
-   * 登录触发动作
+   * 用户登录验证
    */
-  def doLogin = Action.async { implicit request =>
+  def login = Action.async { implicit request =>
     loginForm.bindFromRequest.fold(
-      formWithErrors => {
-        Future.successful(BadRequest(views.html.user.login(formWithErrors)))},
-      user           => gotoLoginSucceeded(user.get.userId)
-    )
+      formWithErrors => { Future.successful(BadRequest(views.html.user.login(formWithErrors))) },
+      user => gotoLoginSucceeded(user.get.userId))
   }
-
+  
   /**
-   * 注册触发动作
+   * 退出登录
    */
-  def doRegister = Action { implicit request =>
+  def logout = Action.async { implicit request =>
+    gotoLogoutSucceeded.map(_.flashing(
+      "success" -> "You've been logged out"
+    ))
+  }
+  
+  /**
+   * 用户注册
+   */
+  def register = Action { implicit request =>
     Users.registerForm().bindFromRequest.fold(
       errors => BadRequest(views.html.user.register(errors)),
       {
         user =>
           User.save(user, WriteConcern.Safe)
-          Ok(views.html.user.myPageRes(user))
+          Ok(views.html.user.login(Users.loginForm))
       })
   }
 
   /**
-   * 更新触发的动作
+   * 用户信息更新
    */
-  def update(id: ObjectId) = Action { implicit request =>
-    Users.userForm(id).bindFromRequest.fold(
-      errors => BadRequest(views.html.user.Infomation(errors, User.findOneById(id).get)),
+  def updateInfo(userId: String) = StackAction(AuthorityKey -> User.isOwner(userId) _) { implicit request =>
+    val loginUser = loggedIn
+    Users.userForm().bindFromRequest.fold(
+      errors => BadRequest(views.html.user.Infomation(errors)),
       {
         user =>
-          User.save(user, WriteConcern.Safe)
+          User.save(user.copy(id = loginUser.id), WriteConcern.Safe)
           Ok(views.html.user.myPageRes(user))
       })
   }
 
   /**
-   * 显示用户基本信息
+   * 登录用户基本信息
    */
-  def show(userId: String) = Action {
-    User.findOneByUserId(userId).map { user =>
-      val userForm = Users.userForm().fill(user)
-      Ok(views.html.user.Infomation(userForm, user))
-    } getOrElse {
-      NotFound
-    }
+  def myInfo() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    val userForm = Users.userForm().fill(user)
+    Ok(views.html.user.Infomation(userForm))
   }
 
   /**
-   * 点击主页“我的主页”触发的动作，判断是否已登录
+   * 其他用户基本信息
    */
-  def index = StackAction(AuthorityKey -> authorization(LoggedIn) _) {implicit request =>
-    val user = loggedIn
-      Redirect(routes.Users.myPage(user.userId))
+  def userInfo(userId: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val loginUser = loggedIn
+    User.findOneByUserId(userId).map{user =>
+      val userForm = Users.userForm().fill(user)
+      Ok(views.html.user.Infomation(userForm))
+    }getOrElse{
+      NotFound
+    }
+    
   }
 
   /**
    * 个人主页
    */
-  def myPage(userId: String) = Action {
-    val user = User.findOneByUserId(userId).get
-    if((user.userTyp).equals("userTyp.0")) {
-    	Ok(views.html.user.myPageRes(user))
-    } else if((user.userTyp).equals("userTyp.1")) {
-    	val stylist = Stylist.findOne(MongoDBObject("userId" -> new ObjectId(user.userId)))
-    	Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get))
-    }else {
-    	Ok(views.html.user.myPageRes(user))
+  def myPage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    if ((user.userTyp).equals(NORMALUSER)) {
+      Ok(views.html.user.myPageRes(user))
+    } else if ((user.userTyp).equals(STYLIST)) {
+      //TODO
+      val stylist = Stylist.findOneById(user.id)
+      Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get))
+    } else {
+      Ok(views.html.user.myPageRes(user))
     }
   }
 
   /**
    * 浏览他人主页
    */
-  def otherIndex(id: ObjectId) = Action {
-    val other = User.findOneById(id).get
-    Ok(views.html.user.otherPage(other))
+  def userPage(userId : String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val loginUser = loggedIn
+    User.findOneByUserId(userId).map{user =>
+      Ok(views.html.user.otherPage(user))
+    }getOrElse{
+      NotFound
+    }
   }
 
   /**
    * 我的预约
    */
-  def myReservation(userId: ObjectId) = Action {
-    val user: Option[User] = User.findOneById(userId)
-    Ok(views.html.user.myPageRes(user = user.get))
+  def myReservation() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    Ok(views.html.user.myPageRes(user))
   }
 
   /**
    * 我收藏的优惠劵
    */
-  def mySaveCoupon(userId: ObjectId) = Action {
-    val user: Option[User] = User.findOneById(userId)
-    Ok(views.html.user.mySaveCoupon(user = user.get))
+  def myFollowedCoupon() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    Ok(views.html.user.mySaveCoupon(user))
   }
 
   /**
    * 我收藏的博客
    */
-  def mySaveBlog(userId: ObjectId) = Action {
-    val user: Option[User] = User.findOneById(userId)
-    Ok(views.html.user.mySaveBlog(user = user.get))
+  def myFollowedBlog() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    Ok(views.html.user.mySaveBlog(user))
   }
 
   /**
    * 我收藏的风格
    */
-  def mySaveStyle(userId: ObjectId) = Action {
-    val user: Option[User] = User.findOneById(userId)
-    Ok(views.html.user.mySaveStyle(user = user.get))
+  def myFollowedStyle() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    Ok(views.html.user.mySaveStyle(user))
   }
 
   /**
    * 我收藏的店铺动态
    */
-  def mySaveSalonActi(userId: ObjectId) = Action {
-    val user: Option[User] = User.findOneById(userId)
-    Ok(views.html.user.mySaveSalonActi(user = user.get))
+  def myFollowedSalonActi() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    //TODO
+    Ok(views.html.user.mySaveSalonActi(user))
   }
 
   /**
    * 他人收藏的博客
    */
-  def SaveBlog(userId: ObjectId) = Action {
-    val user: Option[User] = User.findOneById(userId)
-    Ok(views.html.user.otherSaveBlog(user = user.get))
+  def userBlog(userId: String) = Action {
+    User.findOneByUserId(userId).map{user =>
+      Ok(views.html.user.otherSaveBlog(user))
+    }getOrElse{
+      NotFound
+    }
   }
 
   /**
    * 他人收藏的风格
    */
-  def SaveStyle(userId: ObjectId) = Action {
-    val user: Option[User] = User.findOneById(userId)
-    Ok(views.html.user.otherSaveStyle(user = user.get))
+  def userStyle(userId: String) = Action {
+    User.findOneByUserId(userId).map{user =>
+      Ok(views.html.user.otherSaveStyle(user))
+    }getOrElse{
+      NotFound
+    }
   }
 
   /**
    * 列表显示关注的沙龙
    */
-  def showAllFollowSalon(userId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user =loggedIn
-    val salonIdList: List[ObjectId] = FollowCollect.getAllFollowCollectAtId(1, userId)
-    val salonList = ListBuffer[Salon]()
-    for (i <- 0 to salonIdList.length - 1) {
-      val salon = Salon.findById(salonIdList(i)).get
-      salonList += salon
-    }
-    Ok(views.html.user.showAllFollowSalon(salonList.toList, user, Option(user.userId)))
+  def myFollowedSalon() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    //TODO 关注表 userId 希望改成 String
+    val salonIdL: List[ObjectId] = MyFollows.getAllFollowObjId(FOLLOWSALON, user.id)
+    val salonL = salonIdL.map(salonId =>
+    	Salon.findById(salonId).get
+    )
+    //TODO view的显示
+    Ok(views.html.user.showAllFollowSalon(salonL, user, Option(user.userId)))
   }
 
   /**
    * 列表显示关注的技师
    */
-  def showAllFollowStylist(userId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user =loggedIn
-    val stylistIdList: List[ObjectId] = FollowCollect.getAllFollowCollectAtId(2, userId)
-    val stylistList = ListBuffer[Stylist]()
-
-    for (i <- 0 to stylistIdList.length - 1) {
-      val stylist = Stylist.findOneById(stylistIdList(i)).get
-      stylistList += stylist
-    }
-    Ok(views.html.user.showAllFollowStylist(stylistList.toList, user, Option(user.userId)))
+  def myFollowedStylist() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    val stylistIdL: List[ObjectId] = MyFollows.getAllFollowObjId(FOLLOWSTYLIST, user.id)
+    val stylistL = stylistIdL.map(stylistId =>
+    	Stylist.findOneById(stylistId).get
+    )
+    Ok(views.html.user.showAllFollowStylist(stylistL, user, Option(user.userId)))
   }
 
   /**
    * 列表显示关注的其他用户
    */
-  def showAllFollowUser(userId: ObjectId)= StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user =loggedIn
-    val userIdList: List[ObjectId] = FollowCollect.getAllFollowCollectAtId(6, userId)
-    val userList = ListBuffer[User]()
-    for (i <- 0 to userIdList.length - 1) {
-      val followUser = User.findOneById(userIdList(i)).get
-      userList += followUser
-    }
-    Ok(views.html.user.showAllFollowUser(userList.toList, user, Option(user.userId)))
+  def myFollowedUser() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    val userIdL: List[ObjectId] = MyFollows.getAllFollowObjId(FOLLOWUSER, user.id)
+    val userL = userIdL.map(userId =>
+    	User.findOneById(userId).get
+    )
+    Ok(views.html.user.showAllFollowUser(userL, user, Option(user.userId)))
   }
 
   /**
    * 列表显示我的粉丝
    */
-  def showMyFollowers(userId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user =loggedIn
-    val myFollowersIdList: List[ObjectId] = FollowCollect.getFollowers(userId)
-    val myFollowersList = ListBuffer[User]()
-    for (i <- 0 to myFollowersIdList.length - 1) {
-      val myFollowers = User.findOneById(myFollowersIdList(i)).get
-      myFollowersList += myFollowers
-    }
-    Ok(views.html.user.showMyFollowers(myFollowersList.toList, user, Option(user.userId)))
+  def myFollowers() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    val myFollowersIdL: List[ObjectId] = MyFollows.getFollowers(user.id)
+    val myFollowersL = myFollowersIdL.map(myFollowersId =>
+    	User.findOneById(myFollowersId).get
+    )
+    Ok(views.html.user.showMyFollowers(myFollowersL.toList, user, Option(user.userId)))
   }
-
-  /**
-   * 退出登录
-   */
-  def loginout = Action {
-    Redirect(routes.Application.index).withNewSession
-  }
-
+////////////////////////////////////////////////////////////////
+  
   /**
    * 取消关注
    */
-  def cancelFollow(userName: String, salonId: ObjectId, relationTypeId: Int) = Action {
+  def cancelFollow(userName: String, salonId: ObjectId) = Action {
     val userId = User.findOneByUserId(userName).get.id
-    FollowCollect.delete(userId, salonId, relationTypeId)
-    Redirect(routes.Users.showAllFollowSalon(userId))
+    MyFollows.delete(userId, salonId)
+    Redirect(routes.Users.myFollowedSalon())
   }
 
   /**
    * 添加关注或收藏
    */
-  def addFollow(followId: ObjectId, relationTypeId: Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-      val user = loggedIn
-      if (!FollowCollect.checkIfFollowOff(user.id, followId) && !FollowCollect.checkIfFollowOn(user.id, followId)) {
-        FollowCollect.create(user.id, followId, relationTypeId)
-      } else if (FollowCollect.checkIfFollowOff(user.id, followId)) {
-        FollowCollect.createAgain(user.id, followId, relationTypeId)
-      }
-      if (relationTypeId == 1 || relationTypeId == 2 || relationTypeId== 6)
-         UserMessage.sendFollowMsg(user,followId,relationTypeId)
-      Redirect(routes.Users.myPage(user.userId))
+  def addFollow(followId: ObjectId, followObjType: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    if (!MyFollows.checkIfFollow(user.id, followId)) {
+      MyFollows.create(user.id, followId, followObjType)
+    }
+    if (followObjType == FOLLOWSALON || followObjType == FOLLOWSTYLIST || followObjType == FOLLOWUSER)
+      UserMessage.sendFollowMsg(user, followId, followObjType)
+    Redirect(routes.Users.myPage())
   }
 
   /**
    * 申请成为技师
    */
 
-  def applyStylist = Action { implicit request=>
-    val user = User.findOneById(new ObjectId("53202c29d4d5e3cd47efffd4"))
+  def applyStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
     val industry = Industry.findAll.toList
     val position = Position.findAll.toList
     val goodAtImage = StyleImpression.findAll.toList
@@ -382,8 +401,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val goodAtService = Service.findAll.toList
     val goodAtUser = Sex.findAll.toList
     val goodAtAgeGroup = AgeGroup.findAll.toList
-    Ok(views.html.user.applyStylist(stylistApplyForm, user.get, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup))
-
+    Ok(views.html.user.applyStylist(stylistApplyForm, user, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup))
   }
 
   /**
@@ -409,7 +427,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     	    Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user.get, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup))
         }
       })
-    	 
+      
   }
 
 }

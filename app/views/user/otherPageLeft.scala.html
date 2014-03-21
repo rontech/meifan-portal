@@ -2,7 +2,7 @@
 			<div class ="Owner">
 				<a href="#" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")" align="absmiddle" alt="@user.userId" title="@user.userId" class="LargePortrait"/></a>
 				<span class='U'>
-      				<a href="@routes.Users.myPage(user.userId.toString)" class='Name' title='female'>@user.userId</a>
+      				<a href="@routes.Users.myPage" class='Name' title='female'>@user.userId</a>
 					<span class='opts'>
 						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='absmiddle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
 						<a href = "#">@Messages("user.cancelFollow")</a>
@@ -10,7 +10,7 @@
 				</span>
     			<div class="clear"></div>
 				<div class ="sta">
-					<a href="@routes.Users.showMyFollowers(user.id)"><font color="gray">@Messages("user.myFollowers")<span>(@FollowCollect.getFollowers(user.id).length)</span></font></a>
+					<a href="@routes.Users.myFollowers"><font color="gray">@Messages("user.myFollowers")<span>(@MyFollows.getFollowers(user.id).length)</span></font></a>
 				</div>
 			</div>
    			<div class='Opts clearfix'>
@@ -26,8 +26,8 @@
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("user.followSalon")</strong>
 	  			<ul class='clearfix'>
-	  				@for(i <- 0 to FollowCollect.getAllFollowCollectAtId(1,user.id).length-1){
-	  					@Salon.findById(FollowCollect.getAllFollowCollectAtId(1,user.id)(i)).map {salon =>
+	  				@for(i <- 0 to MyFollows.getAllFollowObjId("salon",user.id).length-1){
+	  					@Salon.findById(MyFollows.getAllFollowObjId("salon",user.id)(i)).map {salon =>
 	  					<li>
     	 				<!--  <a href="#"><img src="#" align="absmiddle" alt="" title="" class="SmallPortrait"></a>-->
     	 				<a href="#">@salon.salonName</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -36,14 +36,14 @@
 	  				}
     			</ul>
 				<div class='more'>
-    				<a href="@routes.Users.showAllFollowSalon(user.id)">@Messages("user.showAllFollow")@FollowCollect.getAllFollowCollectAtId(1,user.id).length)</a>
+    				<a href="@routes.Users.myFollowedSalon">@Messages("user.showAllFollow")@MyFollows.getAllFollowObjId("salon",user.id).length)</a>
     			</div>
 			</div>
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("user.followStylist")</strong>
 	  			<ul class='clearfix'>
-    	 			@for(i <- 0 to FollowCollect.getAllFollowCollectAtId(2,user.id).length-1){
-	  					@Stylist.findOneById(FollowCollect.getAllFollowCollectAtId(2,user.id)(i)).map {stylist =>
+    	 			@for(i <- 0 to MyFollows.getAllFollowObjId("stylist",user.id).length-1){
+	  					@Stylist.findOneById(MyFollows.getAllFollowObjId("stylist",user.id)(i)).map {stylist =>
 	  					<li>
     	 				<!--  <a href="#"><img src="#" align="absmiddle" alt="" title="" class="SmallPortrait"></a>-->
     	 				<a href="#">@stylist.publicId</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -52,23 +52,23 @@
 	  				}
     			</ul>
 				<div class='more'>
-    				<a href="@routes.Users.showAllFollowStylist(user.id)">@Messages("user.showAllFollow")@FollowCollect.getAllFollowCollectAtId(2,user.id).length)</a>
+    				<a href="@routes.Users.myFollowedStylist">@Messages("user.showAllFollow")@MyFollows.getAllFollowObjId("stylist",user.id).length)</a>
     			</div>
 			</div>
 			<div class='Mod Users' id='Fans'>
 	   			<strong>@Messages("user.followUser")</strong>
 	   			<ul class='clearfix'>
-      				@for(i <- 0 to FollowCollect.getAllFollowCollectAtId(6,user.id).length-1){
-	  					@User.findOneById(FollowCollect.getAllFollowCollectAtId(6,user.id)(i)).map {user =>
+      				@for(i <- 0 to MyFollows.getAllFollowObjId("user",user.id).length-1){
+	  					@User.findOneById(MyFollows.getAllFollowObjId("user",user.id)(i)).map {user =>
 	  					<li>
     	 				<!--  <a href="#"><img src="#" align="absmiddle" alt="" title="" class="SmallPortrait"></a>-->
-    	 				<a href="@routes.Users.otherIndex(user.id)">@user.userId</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 				<a href="@routes.Users.userPage(user.userId)">@user.userId</a>&nbsp;&nbsp;&nbsp;&nbsp;
     	 			     </li>
 	  					}
 	  				}
 				</ul>
 		 		<div class='more'>
-       				<a href="@routes.Users.showAllFollowUser(user.id)">@Messages("user.showAllFollow")@FollowCollect.getAllFollowCollectAtId(6,user.id).length)</a>
+       				<a href="@routes.Users.myFollowedUser">@Messages("user.showAllFollow")@MyFollows.getAllFollowObjId("user",user.id).length)</a>
      			</div>
 			</div>
 
