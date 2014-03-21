@@ -5,7 +5,7 @@
     <div class="mT30">
         <div class="yS mainContentsSecondTitleOuter">
         <h2 class="yS mainContentsSecondTitleInner">
-            @salon.salonName のサロンデータ
+            @Messages("salon.salonData", salon.salonName)
         </h2>
         </div>
         <p class="mT5 taR">
@@ -19,7 +19,7 @@
         <tbody>
             <tr>
             <th class="w120">
-                電話番号
+                @Messages("salon.mainPhone")
             </th>
             <td colspan="3" class="w620">
                 <a href="#"/>
@@ -29,15 +29,18 @@
             </tr>
             <tr>
             <th class="w120">
-                住所
+                @Messages("salon.address")
             </th>
             <td colspan="3" class="w620">
-                @salon.address.province @salon.address.city @salon.address.region @salon.address.addrDetail &nbsp;
+                @(Messages("province.provinceName." + salon.salonAddress.province))
+                @(Messages("city.cityName." + salon.salonAddress.city))
+                @(Messages("region.regionName." + salon.salonAddress.region))
+                @salon.salonAddress.addrDetail
             </td>
             </tr>
             <tr>
             <th class="w120">
-                アクセス・道案内
+               @Messages("salon.accessMethod") 
             </th>
             <td colspan="3" class="w620">
                @salon.accessMethodDesc &nbsp; 
@@ -45,7 +48,7 @@
             </tr>
             <tr>
             <th class="w120">
-                営業時間
+                @Messages("salon.workTime")
             </th>
             <td colspan="3" class="w620">
                 平日・土10：00～21：00　日祝10：00～20：00&nbsp;
@@ -53,7 +56,7 @@
             </tr>
             <tr>
             <th class="w120">
-                定休日
+                @Messages("salon.restDay")
             </th>
             <td colspan="3" class="w620">
                 毎週火曜日　&nbsp;
@@ -61,7 +64,7 @@
             </tr>
             <tr>
             <th class="w120">
-                クレジットカード
+                @Messages("salon.isPosAvailable")
             </th>
             <td colspan="3" class="w620">
                 可&nbsp;
@@ -69,7 +72,7 @@
             </tr>
             <tr>
             <th class="w120">
-                お店のホームページ
+               @Messages("salon.homepage") 
             </th>
             <td colspan="3" class="w620">
                 <p>
@@ -86,35 +89,35 @@
             </tr>
             <tr>
             <th class="w120">
-                カット価格
+                @Messages("salon.priceCutOnly")
             </th>
             <td class="w208 vaT">
-                ¥6300&nbsp;
+                @Messages("salon.priceCutOnlyMsg", "TODO")
             </td>
             <th class="w120">
-                席数
+                @Messages("salon.seatNums")
             </th>
             <td class="w208 vaT">
-                @salon.seatNums 席&nbsp;
-            </td>
-            </tr>
-            <tr>
-            <th class="w120">
-                スタイリスト数
-            </th>
-            <td class="w208 vaT">
-                ２人&nbsp;
-            </td>
-            <th class="w120">
-                駐車場
-            </th>
-            <td class="w208 vaT">
-                近くにあります&nbsp;
+                @Messages("salon.seatNumsMsg", salon.seatNums)
             </td>
             </tr>
             <tr>
             <th class="w120">
-                こだわり条件
+                @Messages("salon.stylistNums")
+            </th>
+            <td class="w208 vaT">
+                TODO ２人&nbsp;
+            </td>
+            <th class="w120">
+                @Messages("salon.parkingDesc")
+            </th>
+            <td class="w208 vaT">
+                @if(salon.salonFacilities.hasParkingNearby) { @salon.salonFacilities.parkingDesc &nbsp;} else { @Messages("salon.hasNoParkingNearByMsg")}
+            </td>
+            </tr>
+            <tr>
+            <th class="w120">
+                @Messages("salon.description")
             </th>
             <td colspan="3" class="w620">
                @salon.salonDescription 

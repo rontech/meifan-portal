@@ -5,13 +5,13 @@
 				<td class="avatar"><a href="#" title=""><img src="#" align="absmiddle" alt="" title="1" class="SmallPortrait" user="1435017"></a></td>
 				<td class="update">
 					<span class="name"><a href="#" target="_blank">@salon.salonName</a></span><br>
-					<span class="city">@salon.address.province &nbsp;@salon.address.city</span>
+					<span class="city">@salon.salonAddress.province &nbsp;@salon.salonAddress.city</span>
 				</td>
 				<td class="opts">
 					@if(sessionUserId.nonEmpty && MyFollows.checkIfFollowByName(sessionUserId.get,salon.id)){
 						<a href="@routes.Users.cancelFollow(sessionUserId.get,salon.id)">@Messages("user.cancelFollow")</a>
 					}else{
-						<a href="@routes.Users.addFollow(salon.id,"followSalon")">@Messages("user.addFollow")</a>
+						<a href="@routes.Users.addFollow(salon.id,"salon")">@Messages("user.addFollow")</a>
 					}
 					<a href="#">@Messages("user.sendMsg")</a>
 				</td>

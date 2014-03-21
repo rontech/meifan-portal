@@ -23,7 +23,7 @@
 		    <li class="mT50 pT15">
 			<div class="jscMySalonSaveLayer">
 			    <p class="jscMySlnSvStIdH000231733" style="height: 19px; overflow:hidden;">
-				<a href="@routes.Users.addFollow(salon.id,1)" class="bS addIntoMyPage jscBtnSaveToMySalon offL db">
+				<a href="@routes.Users.addFollow(salon.id,"salon")" class="bS addIntoMyPage jscBtnSaveToMySalon offL db">
 				    マイサロンに保存
 				</a>
 				<span class="btnSlnSaveToMySalonDone bS offL">
@@ -83,7 +83,7 @@
 			    </div>
 			    <ul class="fs10">
 				<li>
-				    @salon.address.province @salon.address.city @salon.address.region @salon.address.addrDetail
+                                    @(salon.salonAddress.province + salon.salonAddress.city + salon.salonAddress.region + salon.salonAddress.addrDetail) &nbsp;
 				</li>
 				<li>
 				    @salon.accessMethodDesc

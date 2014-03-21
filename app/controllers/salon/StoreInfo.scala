@@ -16,19 +16,20 @@ import java.util.Date
 object SalonInfo extends Controller{        
   val salonInfo:Form[Salon] = Form(
 	    mapping(
+	        "accountId" -> text,
 	        "salonName" -> text,
 	        "salonNameAbbr" -> optional(text),
-	        "salonIndst" -> text,
+	        "salonIndustry" -> list(text),
 	        "homepage" -> optional(text),
 	        "salonDescription" -> optional(text),
 	        "mainPhone" -> text,
 	        "contact" -> text,
-	        "optContactMethod" -> seq(
+	        "optContactMethod" -> list(
 	            mapping(
 	                "contMethmodType" -> text,
 	                "account" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
 	        "establishDate" -> date("yyyy-MM-dd"),
-	        "address" -> mapping(
+	        "salonAddress" -> mapping(
 	        	"province" -> text,
 	        	"city" -> text,
 	        	"region" -> text,
@@ -39,9 +40,18 @@ object SalonInfo extends Controller{
 	        	)
 	        	(Address.apply)(Address.unapply),
 	        "accessMethodDesc" -> text,
-	        "openTime" -> text ,
-	        "closeTime" -> text,
-	        "restDay" -> text,
+	        "workTime" -> mapping(
+	            "openTime" -> text ,
+	            "closeTime" -> text
+	            )
+	            (WorkTime.apply)(WorkTime.unapply),
+	        "restDay" -> list(
+	            mapping(
+	                "restDayDivision" -> number,
+	                "restDay" -> number
+	                )
+	                (RestDay.apply)(RestDay.unapply)
+	            ),
 	        "seatNums" -> number,
 	        "salonFacilities" -> mapping(
 	            "canOnlineOrder" -> boolean,
@@ -55,16 +65,26 @@ object SalonInfo extends Controller{
 	            "hasParkingNearby" -> boolean,
 	            "parkingDesc" -> text)
 	            (SalonFacilities.apply)(SalonFacilities.unapply),
-	        "salonPictures" -> text,
-	        "registerDate" -> date("yyyy-MM-dd")
+	        "salonPics" -> list(
+	            mapping(
+	                "fileObjId" -> text,
+	                "picUse" -> text,
+	                "showPriority"-> optional(number),
+	                "description" -> optional(text)
+	                ){
+	              (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId(fileObjId),"",Option(0),Option(""))
+	              }{
+	                salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
+	              }),
+	        "registerDate" -> date
 	        ){
-	      (salonName, salonNameAbbr, salonIndst, homepage, salonDescription, mainPhone, contact, optContactMethod, establishDate, address, accessMethodDesc,
-	       openTime, closeTime, restDay, seatNums, salonFacilities,salonPictures,registerDate) => Salon(new ObjectId, salonName, salonNameAbbr, salonIndst, homepage, salonDescription, mainPhone, contact, optContactMethod, establishDate, address, accessMethodDesc,
-	       openTime, closeTime, restDay, seatNums, salonFacilities,salonPictures,registerDate)
+	      (accountId,salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, mainPhone, contact, optContactMethod, establishDate, salonAddress, accessMethodDesc,
+	       workTime, restDay, seatNums, salonFacilities,salonPics,registerDate) => Salon(new ObjectId, accountId,salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, mainPhone, contact, optContactMethod, establishDate, salonAddress, accessMethodDesc,
+	       workTime, restDay, seatNums, salonFacilities,salonPics,registerDate)
 	    }
 	    {
-	      salon=> Some((salon.salonName, salon.salonNameAbbr, salon.salonIndst, salon.homepage, salon.salonDescription, salon.mainPhone, salon.contact, salon.optContactMethod, salon.establishDate, salon.address, salon.accessMethodDesc,
-	          salon.openTime, salon.closeTime, salon.restDay, salon.seatNums, salon.salonFacilities, salon.salonPictures, salon.registerDate))
+	      salon=> Some((salon.accountId,salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonDescription, salon.mainPhone, salon.contact, salon.optContactMethod, salon.establishDate, salon.salonAddress, salon.accessMethodDesc,
+	          salon.workTime, salon.restDay, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
 	    }
 	)
 	

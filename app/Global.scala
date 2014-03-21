@@ -10,9 +10,12 @@ import java.io.File
 object Global extends GlobalSettings {
   
   override def onStart(app: Application) {
-    // TODO initial test Data.
-    InitialData.insert()
-  }
+    // Initial Master Data.
+    InitialData.insertMaster()
+
+    // Initial Test Data.
+    InitialData.insertSampleData()
+   }
   
 }
 
@@ -24,7 +27,11 @@ object InitialData {
   
   def date(str: String) = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(str)
 
-  def insert() = {
+  /*---------------------------
+   * Master Data For Initialization. 
+   * 预先需要登录的主表数据
+   *--------------------------*/
+  def insertMaster() = {
 
     // For nowtime, we change the Table Defination frequently....
     // Please do the drop actions below in mongodb.
@@ -34,98 +41,40 @@ object InitialData {
     // db.Style.drop()
     // db.Stylist.drop()
 
-    if(Salon.findAll == Nil) { 
+   if(Province.findAll.isEmpty) {
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), "火影忍者吧", Some("火吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), "海贼王吧", Some("海吧"), "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", Seq(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", date("2014-03-12") )
-      ).foreach(Salon.save)
-      
+          Province(new ObjectId("5317c0d1d4d57997ce3e6daa"), "Jiangsu"),
+          Province(new ObjectId("5317c0d1d4d57997ce3e6dab"), "Shandong")
+      ).foreach(Province.save)
+    }
+    
+    if(City.findAll.isEmpty) {
       Seq(
-        Stylist(new ObjectId("530d8010d7f2861457771bf8"), "漩涡鸣人", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "中国顶尖理发师", "B004138935_164-219.jpg", 1),
-        Stylist(new ObjectId("530d8010d7f2861457771bf9"), "宇智波佐助", new  ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "美国顶尖理发师", "B004670057_164-219.jpg", 1 ),
-        Stylist(new ObjectId("530d8010d7f2861457771bfa"), "宇智波带土", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "3", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "埃塞俄比亚顶尖理发师", "B004554657_164-219.jpg", 1),
-        Stylist(new ObjectId("530d8010d7f2861457771bfb"), "宇智波斑", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "2", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "朝鲜顶尖理发师", "B003961937_164-219.jpg", 1),
-        Stylist(new ObjectId("530d8010d7f2861457771bfc"), "千手柱间", new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "越南顶尖理发师", "B003921724_164-219.jpg", 1),
+          City(new ObjectId("5317c0d1d4d57997ce3e6dca"), "Nanjing", "Jiangsu"),
+          City(new ObjectId("5317c0d1d4d57997ce3e6dcb"), "Suzhou", "Jiangsu"),
+          City(new ObjectId("5317c0d1d4d57997ce3e6dcc"), "Wuxi", "Jiangsu"),
+          City(new ObjectId("5317c0d1d4d57997ce3e6dcd"), "Jinan", "Shandong"), 
+          City(new ObjectId("5317c0d1d4d57997ce3e6dce"), "Qingdao", "Shandong") 
+      ).foreach(City.save)
+    }
 
-        Stylist(new ObjectId("530d8010d7f2861457771bfd"), "路飞", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"),List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "老挝顶尖理发师", "B002740532_164-219.jpg", 1),
-        Stylist(new ObjectId("530d8010d7f2861457771bfe"), "索隆", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "7", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "缅甸顶尖理发师", "B004138935_164-219.jpg", 1),
-        Stylist(new ObjectId("530d8010d7f2861457771bff"), "香吉士", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "9", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "刚果顶尖理发师", "B004689277_164-219", 1),
-        Stylist(new ObjectId("530d8010d7f2861457771c00"), "娜美", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "8", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "利比亚顶尖理发师", "B004452138_164-219.jpg", 1),
-        Stylist(new ObjectId("530d8010d7f2861457771c01"), "乔巴", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "印度顶尖理发师", "B004554657_164-219.jpg", 1),
-        Stylist(new ObjectId("530d8010d7f2861457771c02"), "罗宾", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "7", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "哈萨克斯坦顶尖理发师", "B004670057_164-219.jpg", 1),
-        Stylist(new ObjectId("530d8010d7f2861457771c03"), "乌索普", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "5", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "日本顶尖理发师", "B004537535_164-219.jpg", 1),
-        Stylist(new ObjectId("530d8010d7f2861457771c04"), "弗兰奇", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "4", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "美国顶尖理发师", "B004538417_164-219.jpg", 1),
-        Stylist(new ObjectId("530d8010d7f2861457771c05"), "布鲁克", new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d7288d7f2861457771bdd"), "2", List("美发师","美甲师"), List("53168b61d4d5cb7e816db35e"), List("53168b38d4d5cb7e816db35c"), "泰国顶尖理发师", "B004689277_164-219.jpg", 1)
-      ).foreach(Stylist.save)
-      
+    if(Industry.findAll.isEmpty) {
       Seq(
-        Style(new ObjectId("530d828cd7f2861457771c0b"), "四代火影发型式", new ObjectId("530d8010d7f2861457771bf8"), List("B002740532_164-219.jpg","B004689277_164-219.jpg","B004538417_164-219.jpg"),List("清新"),List("烫"),"中",List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("圆脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生"),
-        Style(new ObjectId("530d828cd7f2861457771c0c"), "六道仙人发型", new ObjectId("530d8010d7f2861457771bf8"), List("B004670057_164-219.jpg","B004670057_164-219.jpg","B004554657_164-219.jpg"),List("自然"),List("染"),"长",List("绿色","紫色"),List("少","多","一般"),List("软","硬"),List("适中","细"),List("标准","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生"),
-        Style(new ObjectId("530d828cd7f2861457771c0d"), "海贼王发型", new ObjectId("530d8010d7f2861457771bfd"), List("B004554657_164-219.jpg"),List("清新"),List("烫"),"中",List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生")
-      ).foreach(Style.save)
+          Industry(new ObjectId("5317c0d1d4d57997ce3e6ec1"), "Hairdressing"),    // 美发 Hair
+          Industry(new ObjectId("5317c0d1d4d57997ce3e6ec2"), "Manicures"),       // 美甲 Nail
+          Industry(new ObjectId("5317c0d1d4d57997ce3e6ec3"), "Healthcare"),      // 保健 Health Care 
+          Industry(new ObjectId("5317c0d1d4d57997ce3e6ec4"), "Cosmetic")         // 整形 Face, plastic 
+      ).foreach(Industry.save)
+    }
+     
+    if(Position.findAll.isEmpty){
+      Seq(
+       Position(new ObjectId("531964e0d4d57d0a43771411"),"店长"),
+       Position(new ObjectId("531964e0d4d57d0a43771412"),"技师"),
+       Position(new ObjectId("531964e0d4d57d0a43771412"),"助手")
+      ).foreach(Position.save)
+    }
 
-    }
-    
-    if(StyleColor.findAll.isEmpty) {
-      Seq (
-          StyleColor(new ObjectId, "红"),
-          StyleColor(new ObjectId, "黄"),
-          StyleColor(new ObjectId, "黑色"),
-          StyleColor(new ObjectId, "其他颜色")
-        ).foreach(StyleColor.save)
-    }
-    
-    if(StyleLength.findAll.isEmpty) {
-      Seq (
-          StyleLength(new ObjectId, "长"),
-          StyleLength(new ObjectId, "中"),
-          StyleLength(new ObjectId, "短")
-        ).foreach(StyleLength.save)
-    }
-    
-    if(Impression.findAll.isEmpty) {
-      Seq (
-          Impression(new ObjectId, "清新"),
-          Impression(new ObjectId, "自然"),
-          Impression(new ObjectId, "淡雅"),
-          Impression(new ObjectId, "其他印象")
-        ).foreach(Impression.save)
-    }
-    
-    if(StyleAmount.findAll.isEmpty) {
-      Seq (
-          StyleAmount(new ObjectId, "多"),
-          StyleAmount(new ObjectId, "一般"),
-          StyleAmount(new ObjectId, "少")
-        ).foreach(StyleAmount.save)
-    }
-    
-    if(StyleQuality.findAll.isEmpty) {
-      Seq (
-          StyleQuality(new ObjectId, "软"),
-          StyleQuality(new ObjectId, "适中"),
-          StyleQuality(new ObjectId, "硬"),
-          StyleQuality(new ObjectId, "柔顺")
-        ).foreach(StyleQuality.save)
-    }
-    
-    if(StyleDiameter.findAll.isEmpty) {
-      Seq (
-          StyleDiameter(new ObjectId, "细"),
-          StyleDiameter(new ObjectId, "适中"),
-          StyleDiameter(new ObjectId, "粗")
-        ).foreach(StyleDiameter.save)
-    }
-    
-    if(FaceType.findAll.isEmpty) {
-      Seq (
-          FaceType(new ObjectId, "标准"),
-          FaceType(new ObjectId, "圆形"),
-          FaceType(new ObjectId, "鹅蛋脸"),
-          FaceType(new ObjectId, "四角")
-        ).foreach(FaceType.save)
-    }
-    
     if(ServiceType.findAll.isEmpty) {
         Seq (
           ServiceType(new ObjectId("5316798cd4d5cb7e816db34b"), "Cut", "剪"),
@@ -137,26 +86,138 @@ object InitialData {
           ServiceType(new ObjectId("53167b3cd4d5cb7e816db359"), "Supple", "柔顺"),
           ServiceType(new ObjectId("5316c443d4d57997ce3e6d68"), "Other", "其他")
         ).foreach(ServiceType.save)
+    }
 
-        Seq (
-          Service(new ObjectId("53168b38d4d5cb7e816db35c"), "剪刘海", "专门剪刘海", "Cut", new ObjectId("530d7288d7f2861457771bdd"), 10, 10, date("2014-03-31"), null, true),
-          Service(new ObjectId("53168b61d4d5cb7e816db35e"), "数码烫", "数码烫是一种新型的技术", "Perm", new ObjectId("530d7288d7f2861457771bdd"), 90, 100, date("2014-03-31"), null, true),
-          Service(new ObjectId("5316bb36d4d57997ce3e6d49"), "离子烫", "离子烫对头发保护性最强", "Perm", new ObjectId("530d7288d7f2861457771bdd"), 90, 100, date("2014-03-31"), null, true),
-          Service(new ObjectId("5316bb51d4d57997ce3e6d4b"), "局部染", "对发梢进行染色或者挑染", "Dye", new ObjectId("530d7288d7f2861457771bdd"), 90, 120, date("2014-03-31"), null, true),
-          Service(new ObjectId("5316be49d4d57997ce3e6d50"), "小脸剪", "该发型剪完之后会有很好地修饰脸蛋的作用", "Cut", new ObjectId("530d7288d7f2861457771bdd"), 20, 30, date("2014-03-31"), null, true) ,
-          Service(new ObjectId("5316be8ed4d57997ce3e6d52"), "3D彩色", "染后能让头发更有立体感", "Dye", new ObjectId("530d7288d7f2861457771bdd"), 80, 150, date("2014-03-31"), null, true),
-          Service(new ObjectId("5316beb4d4d57997ce3e6d54"), "低色短", "底色短", "Dye", new ObjectId("530d7288d7f2861457771bdd"), 80, 140, date("2014-03-31"), null, true),
-          Service(new ObjectId("5316bed4d4d57997ce3e6d56"), "蒸汽烫", "高温水蒸气使得头发弯曲", "Perm", new ObjectId("530d7288d7f2861457771bdd"), 45, 80, date("2014-03-31"), null, true) ,
-          Service(new ObjectId("5316bef6d4d57997ce3e6d58"), "纯护理", "对干枯分叉等问题修复", "Care", new ObjectId("530d7288d7f2861457771bdd"), 50, 66, date("2014-03-31"), null, true) ,
-          Service(new ObjectId("5316c048d4d57997ce3e6d5a"), "简洗", "简单清洗", "Wash", new ObjectId("530d7288d7f2861457771bdd"), 10, 10, date("2014-03-31"), null, true) ,
-          Service(new ObjectId("5316c05bd4d57997ce3e6d5c"), "干洗", "先用干洗专用清洗剂洗一下，然后用水冲洗", "Wash", new ObjectId("530d7288d7f2861457771bdd"), 15, 20, date("2014-03-31"), null, true) ,
-          Service(new ObjectId("5316c07fd4d57997ce3e6d5e"), "简吹", "将湿的头发吹干", "Blow", new ObjectId("530d7288d7f2861457771bdd"), 10, 15, date("2014-03-31"), null, true) ,
-          Service(new ObjectId("5316c0a2d4d57997ce3e6d60"), "豪华护理", "对严重干枯分叉等问题修复", "Care", new ObjectId("530d7288d7f2861457771bdd"), 70, 200, date("2014-03-31"), null, true),
-          Service(new ObjectId("5316c0d1d4d57997ce3e6d62"), "拉直", "拉直头发", "Supple", new ObjectId("530d7288d7f2861457771bdd"), 30, 50, date("2014-03-31"), null, true) ,
-          Service(new ObjectId("5316ec2fd4d57997ce3e6d97"), "盘发", "将长发盘起", "Other", new ObjectId("530d7288d7f2861457771bdd"), 50, 50, date("2014-03-31"), null, true) ,
-          Service(new ObjectId("5316ecffd4d57997ce3e6d9d"), "盘发2", "将中长发盘起", "Other", new ObjectId("530d7288d7f2861457771bdd"), 100, 80, date("2014-03-31"), null, true) 
-        ).foreach(Service.save)
+    if(StyleColor.findAll.isEmpty) {
+      Seq (
+          StyleColor(new ObjectId, "红", "红色"),
+          StyleColor(new ObjectId, "黄", "黄色"),
+          StyleColor(new ObjectId, "黑色", "黑色"),
+          StyleColor(new ObjectId, "其他颜色", "其他颜色")
+        ).foreach(StyleColor.save)
+    }
+    
+    if(StyleLength.findAll.isEmpty) {
+      Seq (
+          StyleLength(new ObjectId, "长", ""),
+          StyleLength(new ObjectId, "中", ""),
+          StyleLength(new ObjectId, "短", "")
+        ).foreach(StyleLength.save)
+    }
+    
+    if(StyleImpression.findAll.isEmpty) {
+      Seq (
+          StyleImpression(new ObjectId, "清新", ""),
+          StyleImpression(new ObjectId, "自然", ""),
+          StyleImpression(new ObjectId, "淡雅", ""),
+          StyleImpression(new ObjectId, "其他印象", "")
+        ).foreach(StyleImpression.save)
+    }
+    
+    if(StyleAmount.findAll.isEmpty) {
+      Seq (
+          StyleAmount(new ObjectId, "多", ""),
+          StyleAmount(new ObjectId, "一般", ""),
+          StyleAmount(new ObjectId, "少", "")
+        ).foreach(StyleAmount.save)
+    }
+    
+    if(StyleQuality.findAll.isEmpty) {
+      Seq (
+          StyleQuality(new ObjectId, "软", ""),
+          StyleQuality(new ObjectId, "适中", ""),
+          StyleQuality(new ObjectId, "硬", ""),
+          StyleQuality(new ObjectId, "柔顺", "")
+        ).foreach(StyleQuality.save)
+    }
+    
+    if(StyleDiameter.findAll.isEmpty) {
+      Seq (
+          StyleDiameter(new ObjectId, "细", ""),
+          StyleDiameter(new ObjectId, "适中", ""),
+          StyleDiameter(new ObjectId, "粗", "")
+        ).foreach(StyleDiameter.save)
+    }
+     
+    if(FaceShape.findAll.isEmpty) {
+      Seq (
+          FaceShape(new ObjectId, "标准", ""),
+          FaceShape(new ObjectId, "圆形", ""),
+          FaceShape(new ObjectId, "鹅蛋脸", ""),
+          FaceShape(new ObjectId, "四角", "")
+        ).foreach(FaceShape.save)
+    }
+    
+    if(SocialStatus.findAll.isEmpty) {
+      Seq (
+          SocialStatus(new ObjectId, "程序员", ""),
+          SocialStatus(new ObjectId, "教师", ""),
+          SocialStatus(new ObjectId, "茶艺", ""),
+          SocialStatus(new ObjectId, "工程师", "")
+        ).foreach(SocialStatus.save)
+    }
+    
+    if(Sex.findAll.isEmpty) {
+      Seq (
+          Sex(new ObjectId, "男"),
+          Sex(new ObjectId, "女")
+        ).foreach(Sex.save)
+    }
+    
+    if(AgeGroup.findAll.isEmpty) {
+      Seq (
+          AgeGroup(new ObjectId, "1-10", ""),
+          AgeGroup(new ObjectId, "11-20", ""),
+          AgeGroup(new ObjectId, "21-30", ""),
+          AgeGroup(new ObjectId, "31-80", "")
+        ).foreach(AgeGroup.save)
+    }
 
+    if(BlogCategory.getCategory.isEmpty){
+      Seq (
+        BlogCategory(new ObjectId("53195fb4a89e175858abce82"),"分类1", true),
+        BlogCategory(new ObjectId("53195fb4a89e175858abce83"),"分类2", true),
+        BlogCategory(new ObjectId("53195fb4a89e175858abce84"),"分类3", true)
+      ).foreach(BlogCategory.save)
+    }
+    
+   
+  }
+
+
+  /*---------------------------
+   * Sample Data For Test. 
+   * 测试数据
+   *--------------------------*/
+  def insertSampleData() {
+
+    if(Image.findAll.isEmpty) {
+      val file = new File(play.Play.application().path() + "/public/images")
+      val files = Image.listAllFiles(file)
+        files.foreach(f=>Image.save(f)) 
+    }
+
+    if(Salon.findAll == Nil) { 
+      Seq(
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), "accountId", "火影忍者吧", Some("火吧"), List("Hairdressing"), Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "鸣人", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("Jiangsu", "Suzhou", "Gaoxin", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1, 7)), 25, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d592"), "logo", Some(1), None)), date("2014-03-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), "accountId", "海贼王吧", Some("海吧"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("Jiangsu", "Suzhou", "Gaoxin", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1, 6), RestDay(1, 7)), 9, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d593"), "logo", Some(1), None)), date("2014-03-12") )
+      ).foreach(Salon.save)
+    }
+      
+    if(Stylist.findAll.isEmpty) { 
+      Seq(
+         Stylist(new ObjectId("530d8010d7f2861457771bf8"), new ObjectId("530d7288d7f2861457771bdd"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"","","","",
+            Option(List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), false, false )
+      ).foreach(Stylist.save)
+    }      
+
+   if(Style.findAll.isEmpty) { 
+      Seq(
+        Style(new ObjectId("530d828cd7f2861457771c0b"), "四代火影发型式", new ObjectId("530d8010d7f2861457771bf8"), List("B002740532_164-219.jpg","B004689277_164-219.jpg","B004538417_164-219.jpg"),List("清新"),List("烫"),List("中"),List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("圆脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("男"),List("程序员"),date("2014-03-12"),true),
+        Style(new ObjectId("530d828cd7f2861457771c0c"), "六道仙人发型", new ObjectId("530d7288d7f2861457771bdd"), List("B004670057_164-219.jpg","B004670057_164-219.jpg","B004554657_164-219.jpg"),List("自然"),List("染"),List("长"),List("绿色","紫色"),List("少","多","一般"),List("软","硬"),List("适中","细"),List("标准","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("男"),List("程序员"),date("2014-03-12"),true),
+        Style(new ObjectId("530d828cd7f2861457771c0d"), "海贼王发型", new ObjectId("530d7292d7f2861457771bde"), List("B004554657_164-219.jpg"),List("清新"),List("烫"),List("中"),List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("女"),List("程序员"),date("2014-03-12"),true)
+      ).foreach(Style.save)
     }
 
     if(Coupon.findAll.isEmpty) {
@@ -189,18 +250,26 @@ object InitialData {
               20, 20, date("2014-03-19"), null, true)
       ).foreach(Menu.save)
     }
-    
-    if(BlogCatagory.getCommonCatagory.isEmpty){
-      Seq (
-        BlogCatagory(new ObjectId("53195fb4a89e175858abce82"), "", List("选择分类", "私密博文"), 0, 0)       
-      ).foreach(BlogCatagory.save)
-    }
-
-    if(Image.findAll.isEmpty) {
-      // val file = new File(controllers.routes.Assets.at("/images").toString())
-      val file = new File(play.Play.application().path() + "/public/images")
-      val files = Image.listAllFiles(file)
-        files.foreach(f=>Image.save(f)) 
+   
+     if(Service.findAll.isEmpty) {
+        Seq (
+          Service(new ObjectId("53168b38d4d5cb7e816db35c"), "剪刘海", "专门剪刘海", "Cut", new ObjectId("530d7288d7f2861457771bdd"), 10, 10, date("2014-03-31"), null, true),
+          Service(new ObjectId("53168b61d4d5cb7e816db35e"), "数码烫", "数码烫是一种新型的技术", "Perm", new ObjectId("530d7288d7f2861457771bdd"), 90, 100, date("2014-03-31"), null, true),
+          Service(new ObjectId("5316bb36d4d57997ce3e6d49"), "离子烫", "离子烫对头发保护性最强", "Perm", new ObjectId("530d7288d7f2861457771bdd"), 90, 100, date("2014-03-31"), null, true),
+          Service(new ObjectId("5316bb51d4d57997ce3e6d4b"), "局部染", "对发梢进行染色或者挑染", "Dye", new ObjectId("530d7288d7f2861457771bdd"), 90, 120, date("2014-03-31"), null, true),
+          Service(new ObjectId("5316be49d4d57997ce3e6d50"), "小脸剪", "该发型剪完之后会有很好地修饰脸蛋的作用", "Cut", new ObjectId("530d7288d7f2861457771bdd"), 20, 30, date("2014-03-31"), null, true) ,
+          Service(new ObjectId("5316be8ed4d57997ce3e6d52"), "3D彩色", "染后能让头发更有立体感", "Dye", new ObjectId("530d7288d7f2861457771bdd"), 80, 150, date("2014-03-31"), null, true),
+          Service(new ObjectId("5316beb4d4d57997ce3e6d54"), "低色短", "底色短", "Dye", new ObjectId("530d7288d7f2861457771bdd"), 80, 140, date("2014-03-31"), null, true),
+          Service(new ObjectId("5316bed4d4d57997ce3e6d56"), "蒸汽烫", "高温水蒸气使得头发弯曲", "Perm", new ObjectId("530d7288d7f2861457771bdd"), 45, 80, date("2014-03-31"), null, true) ,
+          Service(new ObjectId("5316bef6d4d57997ce3e6d58"), "纯护理", "对干枯分叉等问题修复", "Care", new ObjectId("530d7288d7f2861457771bdd"), 50, 66, date("2014-03-31"), null, true) ,
+          Service(new ObjectId("5316c048d4d57997ce3e6d5a"), "简洗", "简单清洗", "Wash", new ObjectId("530d7288d7f2861457771bdd"), 10, 10, date("2014-03-31"), null, true) ,
+          Service(new ObjectId("5316c05bd4d57997ce3e6d5c"), "干洗", "先用干洗专用清洗剂洗一下，然后用水冲洗", "Wash", new ObjectId("530d7288d7f2861457771bdd"), 15, 20, date("2014-03-31"), null, true) ,
+          Service(new ObjectId("5316c07fd4d57997ce3e6d5e"), "简吹", "将湿的头发吹干", "Blow", new ObjectId("530d7288d7f2861457771bdd"), 10, 15, date("2014-03-31"), null, true) ,
+          Service(new ObjectId("5316c0a2d4d57997ce3e6d60"), "豪华护理", "对严重干枯分叉等问题修复", "Care", new ObjectId("530d7288d7f2861457771bdd"), 70, 200, date("2014-03-31"), null, true),
+          Service(new ObjectId("5316c0d1d4d57997ce3e6d62"), "拉直", "拉直头发", "Supple", new ObjectId("530d7288d7f2861457771bdd"), 30, 50, date("2014-03-31"), null, true) ,
+          Service(new ObjectId("5316ec2fd4d57997ce3e6d97"), "盘发", "将长发盘起", "Other", new ObjectId("530d7288d7f2861457771bdd"), 50, 50, date("2014-03-31"), null, true) ,
+          Service(new ObjectId("5316ecffd4d57997ce3e6d9d"), "盘发2", "将中长发盘起", "Other", new ObjectId("530d7288d7f2861457771bdd"), 100, 80, date("2014-03-31"), null, true) 
+        ).foreach(Service.save)
     }
 
 /*    if(RelationType.findAll.isEmpty){
@@ -226,14 +295,28 @@ object InitialData {
       ).foreach(FollowCollect.save)
     }*/
     
-/*    if(User.findAll.isEmpty){
+    if(User.findAll.isEmpty){
       Seq(
        User(new ObjectId("531964e0d4d57d0a43771411"),"zhenglu316","关雨1","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
        User(new ObjectId("53202c29d4d5e3cd47efffd3"),"zhenglu","关雨2","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
        User(new ObjectId("53202c29d4d5e3cd47efffd4"),"zhenglu3","关雨3","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true)
       ).foreach(User.save)
-    }*/
-    
+    }
+
+    if(Blog.findAll.isEmpty){
+      Seq(
+        Blog(new ObjectId("532a8ef4a89ee221d679bdc1"),"1111","1", "zhenglu", new Date(), new Date(), "分类2", Option(List("111", "2222")), List("111", "2222"),true,Option(false),false,true),
+        Blog(new ObjectId("532a8ef4a89ee221d679bdc2"),"2222","2", "zhenglu316", new Date(), new Date(), "分类1", Option(List("111", "2222")),List("2222"), true, Option(false),false,true)
+      ).foreach(Blog.save)
+    }
+
+    if(Comment.findBySalon(new ObjectId("530d7288d7f2861457771bdd")).isEmpty){
+      Seq (
+        Comment(new ObjectId("53195fb4a89e175858abce85"), 3, new ObjectId("5317c0d1d4d57997ce3e6d6a"), "good1", "jack", new Date, true),
+        Comment(new ObjectId("53195fb4a89e175858abce86"), 3, new ObjectId("5317c0d1d4d57997ce3e6d6b"), "good2", "jack", new Date, true)
+      ).foreach(Comment.save)
+    }
+
     if(Message.findAll.isEmpty){
       Seq(
        Message(new ObjectId("531964e0d4d57d0a43771810"),"欢迎加入美范网！","欢迎你！！！！！！",new Date),
@@ -241,7 +324,6 @@ object InitialData {
        Message(new ObjectId("531964e0d4d57d0a43771812"),"看什么看，这是测试消息！","告诉你了是测试消息，你还打开，有病！！！！！！",new Date)
       ).foreach(Message.save)
     }
-    
-  }
+   }
   
 }

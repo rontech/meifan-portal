@@ -5,86 +5,64 @@ import play.api.PlayException
 import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.commons.Imports._
+import se.radley.plugin.salat.Binders._
 import com.mongodb.casbah.MongoConnection
 import com.novus.salat.Context
 import mongoContext._
 import java.util.Date
+import models._
 
 
 case class Stylist(
     id: ObjectId = new ObjectId,
-    label: String,
-    salonId: ObjectId,
-    userId: ObjectId,
-    workYears: String,
-    stylistStyle: List[String],
-    imageId:List[String],
-    consumerId: List[String],
-    description: String,
-    pictureName: String,
-    status: Int
+    publicId: ObjectId,
+    workYears: Int,
+    position: List[IndustryAndPosition],
+    goodAtImage: List[String],
+    goodAtStatus: List[String],
+    goodAtService: List[String],
+    goodAtUser: List[String],
+    goodAtAgeGroup: List[String],
+    myWords: String,
+    mySpecial: String,
+    myBoom: String,
+    myPR: String,
+    myPics: Option[List[OnUsePicture]],
+    isVarified: Boolean,
+    isValid: Boolean
 )
 
+case class StylistApply(
+	stylist: Stylist,
+	salonId: ObjectId
+)
 
-object StylistDAO extends SalatDAO[Stylist, ObjectId](
-  collection = MongoConnection()(
+object Stylist extends StylistDAO
+
+trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
+  def collection = MongoConnection()(
     current.configuration.getString("mongodb.default.db")
       .getOrElse(throw new PlayException(
           "Configuration error",
           "Could not find mongodb.default.db in settings"))
-  )("Stylist"))
-
-object Stylist {
-
-    def findAll(): List[Stylist] = {
-        StylistDAO.find(MongoDBObject.empty).toList
-    }
-
-    def findById(id: ObjectId): Option[Stylist] = {
-        StylistDAO.findOne(MongoDBObject("_id" -> id))
-    }
-
+  )("Stylist")
+  
+  val dao = new SalatDAO[Stylist, ObjectId](collection){}
+ 
+  	/**
+     *  根据salonId查找这个店铺所有技师
+     */
     def findBySalon(salonId: ObjectId): List[Stylist] = {
-        StylistDAO.find(DBObject("salonId" -> salonId, "status" -> 1)).toList
-    }
-
-    def create(stylist: Stylist): Option[ObjectId] = {
-        StylistDAO.insert(
-            Stylist(
-                label = stylist.label,
-                salonId = stylist.salonId,
-                userId = stylist.userId,
-                workYears = stylist.workYears,
-                stylistStyle = stylist.stylistStyle,
-                imageId = stylist.imageId,
-                consumerId = stylist.consumerId,
-                description = stylist.description,
-                pictureName = stylist.pictureName,
-                status = stylist.status
-            )
-        )
-    }
-
-    def save(stylist: Stylist) = {
-        StylistDAO.save(
-            Stylist(
-            	id = stylist.id,
-                label = stylist.label,
-                salonId = stylist.salonId,
-                userId = stylist.userId,
-                workYears = stylist.workYears,
-                stylistStyle = stylist.stylistStyle,
-                imageId = stylist.imageId,
-                consumerId = stylist.consumerId,
-                description = stylist.description,
-                pictureName = stylist.pictureName,
-                status = stylist.status
-            )
-        )
+      var stylists: List[Stylist] = Nil
+      val applyRe = SalonAndStylist.findBySalonId(salonId)
+      applyRe.map{app =>
+        val stylist = dao.findOne(DBObject("_id" -> app.stylistId))
+        stylist match {
+          case Some(sty) => stylists :: List(sty)
+          case _ => stylists
+        }
+      }
+      stylists
     }
     
-    def delete(id: String) {
-        StylistDAO.remove(MongoDBObject("_id" -> new ObjectId(id)))
-    }
-
 }

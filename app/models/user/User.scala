@@ -14,8 +14,8 @@ import ExecutionContext.Implicits.global
 case class User(
   id: ObjectId = new ObjectId,
   userId: String,
-  password: String,
   nickName: String,
+  password: String,
   sex: String,
   birthDay: Date,
   city: String,

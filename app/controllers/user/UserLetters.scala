@@ -27,7 +27,7 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
         "createdTime" -> text) { (sender, senderNm, addressee, addresseeNm, time) =>
           UserMessage(new ObjectId, sender, senderNm, addressee, addresseeNm, new ObjectId(), "sended", "normal", "unRead", new Date)
         } {
-          userMessage => Some((userMessage.sender, userMessage.senderNm, userMessage.addressee, userMessage.addresseeNm, userMessage.createdTime.toLocaleString()))
+          userMessage => Some((userMessage.sender, userMessage.senderNm, userMessage.addressee, userMessage.addresseeNm, userMessage.createdTime.toString()))
         },
       "message" -> mapping(
         "title" -> text,

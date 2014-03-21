@@ -11,6 +11,7 @@ import se.radley.plugin.salat.Binders._
 import mongoContext._
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import scala.collection.mutable.ListBuffer
 
 case class MyFollows(
   id: ObjectId = new ObjectId,
@@ -23,7 +24,12 @@ object MyFollows extends ModelCompanion[MyFollows, ObjectId] {
 
   val dao = new SalatDAO[MyFollows, ObjectId](collection = mongoCollection("MyFollows")) {}
 
-  val FOLLOWUSER = "followUser"
+  val FOLLOWSALON = "salon"
+  val FOLLOWSTYLIST = "stylist"
+  val FOLLOWUSER= "user"
+  val FOLLOWSTYLE="style"
+  val FOLLOWBLOG="blog"
+  val FOLLOWCOUPON="coupon"
   
   /**
    *根据用户Id和关系类型获取被关注或收藏的对象 
@@ -66,4 +72,35 @@ object MyFollows extends ModelCompanion[MyFollows, ObjectId] {
     val userId = User.findOneByUserId(userName).get.id
     checkIfFollow(userId,followObjId)
   }
+  
+  def getAllFollowInfo(id:ObjectId): FollowInfomation = {
+    val salonIdList: List[ObjectId] = MyFollows.getAllFollowObjId(FOLLOWSALON,id)
+    val salonList = ListBuffer[Salon]()
+    for (i <- 0 to salonIdList.length - 1) {
+      val salon = Salon.findById(salonIdList(i)).get
+      salonList += salon
+    }
+    val stylistIdList: List[ObjectId] = MyFollows.getAllFollowObjId(FOLLOWSTYLIST,id)
+    val stylistList = ListBuffer[Stylist]()
+    for (i <- 0 to stylistIdList.length - 1) {
+      val stylist = Stylist.findOneById(stylistIdList(i)).get
+      stylistList += stylist
+    }
+    val userIdList: List[ObjectId] = MyFollows.getAllFollowObjId(FOLLOWUSER,id)
+    val userList = ListBuffer[User]()
+    for (i <- 0 to userIdList.length - 1) {
+      val followUser = User.findOneById(userIdList(i)).get
+      userList += followUser
+    } 
+    FollowInfomation(salonList.toList,stylistList.toList,userList.toList)
+     }
 }
+
+case class FollowInfomation(
+     followSalon: List[Salon],
+     followStylist: List[Stylist],
+     followUser: List[User]
+//     followCoupon:List[Coupon],
+//     followBlog: List[Blog],
+//     followStyle: List[Style]
+)     

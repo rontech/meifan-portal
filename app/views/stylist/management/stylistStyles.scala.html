@@ -3,7 +3,10 @@
 @stylistPageMain(navInMyPage, user, stylist){
 	<div class="mysalon-stylist-group">
 		<div>
-			<!-- search form -->
+			<form action="/stylistFindStylesByCondtion" method="get">
+				
+			
+			</form>
 		</div>
 		@styles.map{style=>
 			@views.html.stylist.management.stylistStyleItem(style)

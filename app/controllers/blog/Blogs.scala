@@ -12,53 +12,65 @@ import com.mongodb.casbah.Imports.ObjectId
 
 object Blogs extends Controller {
 
-  val formBlog = Form(tuple(
-    "title" -> nonEmptyText,
-    "content" -> nonEmptyText,
-    "blogTyp" -> nonEmptyText,
-    "tags" -> nonEmptyText
-  ))
+//  val formBlog = Form(tuple(
+//    "title" -> nonEmptyText,
+//    "content" -> nonEmptyText,
+//    "blogTyp" -> nonEmptyText,
+//    "tags" -> nonEmptyText
+//  ))
   
   def newBlogForm(userId : String, id : ObjectId = new ObjectId) = Form(
       mapping(
       "id" -> ignored(id),
-      "userId" -> ignored(userId),
-      "commentType" -> text,
-      "blogAvailable" -> list(text),
-      "title" ->text,
-      "content" ->text,
-      "blogTyp" ->text,
-      "tags" -> text) {
-      (id, userId, commentType, blogAvailable, title, content, blogTyp, tags)
-        => Blog(id, userId, new Date(), new Date(), commentType, blogAvailable, 0, title, blogTyp, tags, content)
+      "title" -> text,
+      "content" -> text,
+      "authorId" -> ignored(userId),
+      "blogCategory" -> text,
+      "blogPics" -> optional(list(text)), // TODO
+      "tags" -> text,
+      "isVisible" -> boolean,
+      "pushToSlaon" -> optional(default(boolean, true)),
+      "allowComment" -> boolean) {
+      (id, title, content, authorId, blogCategory, blogPics, tags, isVisible, pushToSlaon, allowComment)
+        => Blog(id, title, content, authorId, new Date(), new Date(), blogCategory, blogPics, tags.split(",").toList, isVisible, pushToSlaon, allowComment, true)
       } 
       {
-        blog => Some((blog.id, blog.userId, blog.commentType, blog.blogAvailable, blog.title, blog.content, blog.blogTyp, blog.tags))
+        blog => Some((blog.id, blog.title, blog.content, blog.authorId, blog.blogCategory, blog.blogPics, listToString(blog.tags), blog.isVisible, blog.pushToSlaon, blog.allowComment))
       }
       )
 
+  def listToString(list : List[String]) ={
+    var strs : String = ""
+    list.foreach(str =>
+    strs += str + "," 
+    )
+    strs
+  }
+      
    def blogForm(userId : String, id : ObjectId = new ObjectId) = Form(
       mapping(
       "id" -> ignored(id),
-      "userId" -> ignored(userId),
-      "commentType" -> text,
-      "createdTime" -> date, 
-      "blogAvailable" -> list(text),
-      "title" ->text,
-      "content" ->text,
-      "blogTyp" ->text,
-      "tags" -> text) {
-        (id, userId, commentType, createdTime, blogAvailable, title, content, blogTyp, tags)
-        => Blog(id, userId, createdTime, new Date(), commentType, blogAvailable, 0, title, blogTyp, tags, content)
+      "title" -> text,
+      "content" -> text,
+      "authorId" -> ignored(userId),
+      "createTime" -> date,
+      "blogCategory" -> text,
+      "blogPics" -> optional(list(text)), // TODO
+      "tags" -> text,
+      "isVisible" -> default(boolean, true),
+      "pushToSlaon" -> optional(default(boolean, true)),
+      "allowComment" -> default(boolean, true)) {
+      (id, title, content, authorId, createTime, blogCategory, blogPics, tags, isVisible, pushToSlaon, allowComment)
+        => Blog(id, title, content, authorId, createTime, new Date(), blogCategory, blogPics, tags.split(",").toList, isVisible, pushToSlaon, allowComment, true)
       } 
       {
-        blog => Some((blog.id, blog.userId, blog.commentType, blog.createdTime, blog.blogAvailable, blog.title, blog.content, blog.blogTyp, blog.tags))
+        blog => Some((blog.id, blog.title, blog.content, blog.authorId, blog.createTime, blog.blogCategory, blog.blogPics, listToString(blog.tags), blog.isVisible, blog.pushToSlaon, blog.allowComment))
       }
       )
   
-  val formCatagory = Form(
-    "blogTyp" -> nonEmptyText
-  )
+//  val formCatagory = Form(
+//    "blogTyp" -> nonEmptyText
+//  )
 
 //  /**
 //   * 创建blog，跳转
@@ -97,31 +109,43 @@ object Blogs extends Controller {
 //    Ok(views.html.blog.blogTest(name, list))
 //  }
 //
-//  /**
-//   * 取得指定店铺的指定blog
-//   */
-//  def getBlogInfoOfSalon(slnId: ObjectId, blogId: ObjectId) = Action {
-//    //目前是为了造数据使用的 ，下面两句
+  /**
+   * 取得店铺指定理发师的blogs
+   */    
+  def getBlogByStylist(salonId: ObjectId, stylistId: ObjectId) = Action {
+     val salon: Option[Salon] = Salon.findById(salonId)
+     val stylist = Stylist.findOneById(stylistId)
+     var user = User.findOneById(stylist.get.id).get
+     var blogList = Blog.getBlogByUserId(user.userId)
+     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogList))
+   }    
+      
+  /**
+   * 取得指定店铺的指定blog
+   */
+  def getBlogInfoOfSalon(salonId: ObjectId, blogId: ObjectId) = Action {
+    //目前是为了造数据使用的 ，下面两句
 //    val userId = new ObjectId("530d8010d7f2861457771bf8")
 //    val list = Blog.findByUserId(userId)
-//    val salon: Option[Salon] = Salon.findById(slnId)
-//    val blog: Option[Blog] = Blog.findBySalon(slnId, blogId)
-//    // TODO: process the salon not exist pattern.
-//    Ok(views.html.salon.store.salonInfoBlog(salon = salon.get, blog = blog.get))
-//  }
-//  /**
-//   * 取得店铺所有的blog
-//   */
-//  def findBySalon(salonId: ObjectId) = Action {
-//    //目前是为了造数据使用的，下面两句
+    val salon: Option[Salon] = Salon.findById(salonId)
+//    val blog: Option[Blog] = Blog.findBySalon(salonId, blogId)
+    val blog: Option[Blog] = Blog.findById(blogId)
+    // TODO: process the salon not exist pattern.
+    Ok(views.html.salon.store.salonInfoBlog(salon = salon.get, blog = blog.get))
+  }
+  /**
+   * 取得店铺所有的blog
+   */
+  def findBySalon(salonId: ObjectId) = Action {
+    //目前是为了造数据使用的，下面两句
 //    val userId = new ObjectId("530d8010d7f2861457771bf8")
 //    val list = Blog.findByUserId(userId)
-//    Blog.bloglist = Nil
-//    val salon: Option[Salon] = Salon.findById(salonId)
-//    val blogs: Seq[Blog] = Blog.findBySalon(salonId)
-//    // TODO: process the salon not exist pattern.
-//    Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogs))
-//  }
+    Blog.blogList = Nil
+    val salon: Option[Salon] = Salon.findById(salonId)
+    val blogs: List[Blog] = Blog.findBySalon(salonId)
+    // TODO: process the salon not exist pattern.
+    Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogs))
+  }
 //
 //  /**
 //   * 这个参数是userid的意思 showBlogByUserId
@@ -239,11 +263,11 @@ object Blogs extends Controller {
 //      NotFound
 //    }
 //  }
-  
+//-------------------------------------------------------------------------------------------------------- 
     def showBlog(userId : String) = Action {
     
     // list是一个blog分类的list
-    var list = BlogCatagory.getAllCatagory(userId)
+//    var list = BlogCatagory.getAllCatagory(userId)
     // 创建两个不变的分类，这两个是默认的，不可编辑，不可删除
 //    list :::= List("全部博文","私密博文","未分类博文")
     
@@ -251,7 +275,8 @@ object Blogs extends Controller {
     val user: Option[User] = User.findOneByUserId(userId)
 //    val commentList = Comment.all(id)
 //    Comment.list = Nil
-    Ok(views.html.blog.findBlogs(user = user.get, list))
+    val blogList = Blog.getBlogByUserId(userId)
+    Ok(views.html.blog.admin.findBlogs(user = user.get, blogList))
 
   }
   
@@ -261,13 +286,13 @@ object Blogs extends Controller {
    */
   def newBlog(userId: String) = Action {
     // list是一个blog分类的list
-    var list = BlogCatagory.getAllCatagory(userId)
+//    var list = BlogCatagory.getAllCatagory(userId)
     // 创建两个不变的分类，这两个是默认的，不可编辑，不可删除
 //    list :::= List("选择分类","私密博文")
     
     val user: Option[User] = User.findOneByUserId(userId)
-    
-    Ok(views.html.blog.newBlog(newBlogForm(userId), list, user = user.get))
+    val listBlogCategory = BlogCategory.getCategory 
+    Ok(views.html.blog.admin.newBlog(newBlogForm(userId), listBlogCategory, user = user.get))
   }
   
    /**
@@ -293,16 +318,16 @@ object Blogs extends Controller {
    * 编辑blog
    */
   def editBlog(blogId : ObjectId) = Action {
-    val userId = Blog.findById(blogId).get.userId
+    val blog = Blog.findById(blogId)
     // list是一个blog分类的list
-    var list = BlogCatagory.getAllCatagory(userId)
+    var list = BlogCategory.getCategory()
     // 创建两个不变的分类，这两个是默认的，不可编辑，不可删除
 //    list :::= List("选择分类","私密博文")
     
-    val user = User.findOneByUserId(userId).get
-    Blog.findById(blogId).map { blog =>
-      val formEditBlog = blogForm(userId).fill(blog)
-      Ok(views.html.blog.editBlog(formEditBlog, list, user, blog))
+    val user = User.findOneByUserId(blog.get.authorId).get
+    blog.map { blog =>
+      val formEditBlog = blogForm(user.userId).fill(blog)
+      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user, blog))
     } getOrElse {
       NotFound
     }
@@ -313,12 +338,12 @@ object Blogs extends Controller {
    */
   def modBlog(blogId : ObjectId) = Action {   
     implicit request =>
-      val userId = Blog.findById(blogId).get.userId
+      val userId = Blog.findById(blogId).get.authorId
       blogForm(userId,blogId).bindFromRequest.fold(
         //处理错误        
         errors => BadRequest(views.html.blog.errorMsg(errors)),
         {
-          blog =>
+          blog =>            
             Blog.save(blog, WriteConcern.Safe)
 //	        Ok(views.html.blog.showBlog(userId))
 	        Redirect(routes.Blogs.showBlog(userId))
@@ -346,10 +371,10 @@ object Blogs extends Controller {
    */
   def showBlogById(blogId: ObjectId) = Action {
     val blog = Blog.findById(blogId).get
-    val user = User.findOneByUserId(blog.userId).get
+    val user = User.findOneByUserId(blog.authorId).get
     Comment.list = Nil
     val commentList = Comment.all(blogId)
     //    Ok(views.html.blog.findBlogs(id, list))
-    Ok(views.html.blog.blogDetail(blog, user, commentList))
+    Ok(views.html.blog.admin.blogDetail(blog, user, commentList))
   }
 }

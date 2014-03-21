@@ -27,14 +27,15 @@ object Application extends Controller {
     Ok(views.html.user.register(Users.registerForm()))
   }
   
-    def getPhoto(file: String) = Action {
+    def getPhoto(file: ObjectId) = Action {
+
     import com.mongodb.casbah.Implicits._
     import ExecutionContext.Implicits.global
     
     val db = MongoConnection()("picture")
     val gridFs = GridFS(db)
 
-    gridFs.findOne(Map("filename" -> file)) match {
+    gridFs.findOne(Map("_id" -> file)) match {
       case Some(f) => SimpleResult(
         ResponseHeader(OK, Map(
           CONTENT_LENGTH -> f.length.toString,
