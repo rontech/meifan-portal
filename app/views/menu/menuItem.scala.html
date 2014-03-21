@@ -8,8 +8,8 @@
 					<div class="">
 						<div class="">
 							<ul class="couponMenuIcons fs10 cFix">
-								@for(serviceType <- menu.categories) {
-									<li class="couponMenuIcon mB5">@serviceType.serviceTypeName</li>
+								@for(service <- menu.serviceItems) {
+									<li class="couponMenuIcon mB5">@Messages("ServiceType.serviceTypeName." + service.serviceType)</li>
 								}
 							</ul>
 						</div>

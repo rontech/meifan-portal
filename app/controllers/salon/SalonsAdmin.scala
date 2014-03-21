@@ -8,20 +8,19 @@ import com.mongodb.casbah.commons.Imports._
 import models._
 import views._
 import java.util.Date
+import models.Salon
 
 object SalonsAdmin extends Controller {
 	def date(str: String) = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(str)
   
 	def mySalon(salonId: ObjectId) = Action {
-   val salon: Salon = new Salon(new ObjectId("530d7288d7f2861457771bdd"), "火影忍者吧", Some("火吧"),
-       "美发", Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "路飞", 
-       Seq(OptContactMethod("QQ",List("99198121"))), 
-       date("2014-03-12"), 
-       Address("江苏", "苏州", "高新区", Some(""), "竹园路209号", Some(100.0), Some(110.0)),
-       "地铁一号线汾湖路站1号出口向西步行500米可达", "9:00", "18:00", "Sat", 5, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), "pic", 
-       date("2014-03-12") )
-    Ok(views.html.salon.admin.mySalonHome(salon = salon))
-  }
+
+	   val salon: Salon = Salon.findById(salonId).get
+	    Ok(views.html.salon.admin.mySalonHome(salon = salon))
+	  }
+
+   
+  
   
   def myStylist(salonId: ObjectId) = Action {
 	val stylist = Stylist.findBySalon(salonId)
@@ -37,18 +36,41 @@ object SalonsAdmin extends Controller {
   }
   
   def myComment(salonId: ObjectId) = Action {
-    Ok(views.html.salon.general.index(""))
+	val commentList = Comment.findBySalon(salonId)
+	val salon = Salon.findById(salonId)
+	salon match{
+	  case Some(s) =>Ok(html.salon.admin.mySalonCommentAll(salon = s, commentList = commentList))
+	  case None => NotFound
+	}
   }
   
   def myService(salonId: ObjectId) = Action {
     Ok(views.html.salon.general.index(""))
   }
   
+  /**
+   * 店铺查看申请中的技师
+   */
   def checkHoldApply(salonId: ObjectId) = Action {
-    val stylist = ApplyRecord.findStylistApply(salonId)
-    Ok(views.html.stylist.mySalonStylistGroup(stylist,1))
+    val stylists = ApplyRecord.findStylistApply(salonId)
+    
+    stylists.map{sty=>
+      
+    }
+    val salon = Salon.findById(salonId)
+    salon match {
+      case Some(s) =>{
+    	 
+        Ok(views.html.salon.admin.mySalonApplyAll(stylist = stylists, salon = s))
+        
+      }
+      case None => NotFound
+    }
   }
   
+  /**
+   * 同意技师申请
+   */
   def agreeStylistApply(stylistId: ObjectId, salonId: ObjectId) = Action {
 	  val record = ApplyRecord.findStylistAyRd(salonId, stylistId)
         record match {
@@ -56,12 +78,11 @@ object SalonsAdmin extends Controller {
             val  rec = new ApplyRecord(re.id, re.stylistId, re.salonId, re.applyType,
                 re.createTime, Option(new Date), None, None, 1)
             ApplyRecord.save(rec.copy(id = re.id))
-            val stylist = Stylist.findById(stylistId)
+            val stylist = Stylist.findOneById(stylistId)
             stylist match {
               case Some(sty) => {
-                val slt = new Stylist(sty.id, sty.label, salonId, sty.userId, sty.workYears, sty.stylistStyle,
-                    sty.imageId, sty.consumerId, sty.description, sty.pictureName, 1)
-                Stylist.save(slt.copy(id = sty.id))
+               
+                Stylist.save(sty.copy(id = sty.id, isVarified = true, isValid = true))
               }
               case None => NotFound
             }
@@ -69,22 +90,22 @@ object SalonsAdmin extends Controller {
           }
           case None => NotFound
         }
-       
   }
   
+  /**
+   * 店铺拒绝技师申请
+   */
   def rejectStylistApply(stylistId: ObjectId, salonId: ObjectId) = Action {
     val record = ApplyRecord.findStylistAyRd(salonId, stylistId)
         record match {
           case Some(re) => {
             val  rec = new ApplyRecord(re.id, re.stylistId, re.salonId, re.applyType,
-                re.createTime,None ,Option(new Date), None, 2)
+                re.createTime, None, Option(new Date), None, 2)
             ApplyRecord.save(rec.copy(id = re.id))
-            val stylist = Stylist.findById(stylistId)
+            val stylist = Stylist.findOneById(stylistId)
             stylist match {
               case Some(sty) => {
-                val slt = new Stylist(sty.id, sty.label, salonId, sty.userId, sty.workYears, sty.stylistStyle,
-                    sty.imageId, sty.consumerId, sty.description, sty.pictureName, 0)
-                Stylist.save(slt.copy(id = sty.id))
+                Stylist.save(sty.copy(id = sty.id, isVarified = false, isValid = true))
               }
               case None => NotFound
             }
@@ -92,5 +113,27 @@ object SalonsAdmin extends Controller {
           }
           case None => NotFound
         }
+  }
+  
+  /**
+   * 根据Id查找技师
+   */
+  def searchStylistById() = Action {implicit request =>
+    val stylistId = request.getQueryString("searchStylistById").get
+    val salonId = request.getQueryString("salonId").get
+	val salon = Salon.findById(new ObjectId(salonId)).get
+	val stylist = Stylist.findOneById(new ObjectId(stylistId))
+	
+    Ok(html.salon.admin.findStylistBySearch(stylist = stylist.get, salon = salon, status = 1))
+  }
+  
+  /**
+   *店铺邀请技师 
+   */
+  def inviteStylist(stylistId: ObjectId, salonId: ObjectId) = Action {
+    val  record = new ApplyRecord(new ObjectId, stylistId, salonId, 0,
+                new Date, None , None, None, 0)
+    ApplyRecord.save(record)
+    Redirect(routes.SalonsAdmin.myStylist(salonId))
   }
 }

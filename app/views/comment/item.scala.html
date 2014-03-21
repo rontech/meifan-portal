@@ -2,18 +2,17 @@
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comment/comment_2.css")">
 
 <div class="mT20">
-						@if(comment.commentedType == 1) {
+						@if(comment.isValid == true) {
 						<ul class="reportWrapper">
 							<li class="reportDetailCassette mT30">
 											<div class="reportHeaderPickup">
 												<p class="titlePickup">pick up</p>
 												<div class="shopInfo reportPickupTitle cFix">
-													<p class="fl w580 pL25"><span class="b">(评论人)@comment.userId</span><span class="mL5 fs10 fgGray">（评论人的基本信息）（女性/30代前半/会社員）</span></p>
+													<p class="fl w580 pL25"><span class="b">(评论人)@comment.authorId</span><span class="mL5 fs10 fgGray">（评论人的基本信息）（女性/30代前半/会社員）</span></p>
 													<div class="fr mT2">
-														<p class="fs10 fgGray">[投稿日] （发表评论的日期）@comment.time.toLocaleString</p>
+														<p class="fs10 fgGray">[投稿日] （发表评论的日期）@comment.createTime.toLocaleString</p>
 													</div>
 												</div>
-												@*这边需要各种评分吗？*@
 												<ul class="judgeList cFix">
 													<li class="bdN fgGray b">総合<span class="mL5 mR10 fgPink">5</span><span class="iconStarOn">★</span><span class="iconStarOn">★</span><span class="iconStarOn">★</span><span class="iconStarOn">★</span><span class="iconStarOn">★</span></li>
 													<li><span class="fgGray">雰囲気</span><span class="mL10 fgPink b">5</span></li>
@@ -42,7 +41,7 @@
 														<div class="fr">
 															</div>
 													</div>
-													<p class="mT10 wwbw">@comment.content    <br /><br />        回复人@comment.userId</p>
+													<p class="mT10 wwbw">@comment.content    <br /><br />        回复人@comment.authorId</p>
 											</div>
 											}
 							</li>

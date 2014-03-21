@@ -1,22 +1,21 @@
 @(stylist: Stylist)
 <body>
-<div class="w166 mHA">
+<div class="mysalon-stylist-search w166 mHA">
     <div class="taC">
         <a href="@routes.Stylists.findStylistById(stylist.id)">
-            <img src="@routes.Application.getPhoto(stylist.pictureName)" class="bdImgGray w164 h219">
+            <img src="@routes.Application.getPhoto(stylist.myPics.get(0).fileObjId)" class="bdImgGray w164 h219">
         </a>
     </div>
     <p class="mT10">
         <a href="http://beauty.hotpepper.jp/slnH000231733/stylist/T000188298/">
-           <p>@stylist.label</p>
+           <p>@stylist.publicId</p>
         </a>
     </p>
     <div class="bdDotT mT5 pT5 fs10">
         <span class="fgPink">
-       @stylist.stylistStyle.map{sty=>
-       	@sty
+       
        	&nbsp;
-       }
+      
         </span>
   （@stylist.workYears
   年）

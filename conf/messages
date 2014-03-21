@@ -43,6 +43,7 @@ main.myPage=我的主页
 # Salon
 salon.show=展示所有沙龙
 salon.title=店铺基本信息管理
+salon.salonData={0}的基本信息
 salon.id=店铺ID
 salon.Name=店铺名
 salon.Abbr=店铺名略称
@@ -54,6 +55,8 @@ salon.contact=联系人
 salon.contMethmodType=联系工具名
 salon.account=号码
 salon.establishDate=成立日期
+salon.address=地址
+salon.accessMethod=交通方法
 salon.province=省
 salon.city=市
 salon.region=区
@@ -61,10 +64,13 @@ salon.town=镇
 salon.addrDetail=其他
 salon.longitude=店铺地理位置经度
 salon.latitude=店铺地理位置纬度
-salon.openTime=营业开始时间
-salon.closeTime=营业结束时间
+salon.workTime=营业时间
 salon.restDay=休息日
-salon.seatNums=席位
+salon.priceCutOnly=剪发价格
+salon.priceCutOnlyMsg={0} 元起
+salon.seatNums=席位数
+salon.seatNumsMsg={0} 席
+salon.stylistNums=发型师人数
 salon.canOnlineOrder=可否网上预约
 salon.canImmediatelyOrder=可否即时预约
 salon.canNominateOrder=可否指名预约
@@ -76,11 +82,31 @@ salon.isWifiAvailable=wifi
 salon.hasParkingNearby=附近有无停车场
 salon.parkingDesc=停车场状况描述
 salon.facilities=可否网上预约
+salon.hasParkingNearByMsg=有
+salon.hasNoParkingNearByMsg=无
 salon.pictures=展示图片
 salon.registerTime=美容平台注册日期
 salon.a=美容美发
 salon.b=瘦身健美
 salon.c=美甲美肤
+
+#salon management
+salonAdmin.myPage = 我的店铺
+salonAdmin.myBlog = 我的博客
+salonAdmin.welcome = 欢迎您
+salonAdmin.remindReserv = 预约提示：
+salonAdmin.needCommentReserv = 待评论
+salonAdmin.overtimeReserv = 已过期
+salonAdmin.expireReserv = 即将到期
+salonAdmin.remindApply = 申请提示：
+salonAdmin.fromStylistApply = 来自技师申请
+salonAdmin.infoManagement = 信息管理
+salonAdmin.stylistManagement = 技师管理
+salonAdmin.reservManagement = 预约管理
+salonAdmin.commentManagement = 评论管理
+salonAdmin.serviceManagement = 服务管理
+salonAdmin.couponManagement = 优惠劵管理
+salonAdmin.stateManagement = 动态管理
 
 # Hair
 hair.salon=美发沙龙
@@ -137,6 +163,16 @@ service.delete=删除
 service.back=返回
 service.update=更新
 
+#ServiceType
+ServiceType.serviceTypeName.Cut = 剪
+ServiceType.serviceTypeName.Wash = 洗
+ServiceType.serviceTypeName.Blow = 吹
+ServiceType.serviceTypeName.Dye = 染
+ServiceType.serviceTypeName.Care = 护理
+ServiceType.serviceTypeName.Perm = 烫
+ServiceType.serviceTypeName.Supple = 柔顺
+ServiceType.serviceTypeName.Other = 其他
+
 # Coupon&Menu
 coupon.title = {0} 的优惠券
 coupon.presentTime = 出示时间： 
@@ -153,12 +189,68 @@ coupon.addMenu = 增加菜单
 coupon.currency = 元
 coupon.newConpon = 新
 coupon.conpon = 券
+coupon.couponName = 优惠劵名
+coupon.perferentialPrice = 优惠价格（元）
+coupon.startDate = 开始时间
+coupon.endDate = 截至时间
+coupon.useConditions = 使用条件
+coupon.presentTime = 出示时间
+coupon.description = 描述
+coupon.createCouponArea = 创建优惠劵区域
+coupon.serviceArea = 服务选择区域
 
 menu.title = {0} 的菜单
 menu.tip = 没有找到您希望的菜单！
 menu.addMark = +
 menu.appointment = 空缺查询·预约
 menu.todoMessage = 该位置显示服务的描述
+
+#ApplyRecord.status
+apply.inApply = 0
+apply.accept = 1
+apply.reject = 2
+apply.termination = 3
+
+#Stylist
+stylist.searchResults = 搜索结果
+stylist.search = 搜索
+stylist.id = 技师ID
+stylist.workYears = 年
+stylist.checkReserv = 查看日程
+stylist.invite = 邀请
+stylist.empty = 暂无 
+stylist.applyCreateTime = 申请时间
+stylist.acceptApply = 同意
+stylist.rejectApply = 拒绝
+
+#Stylist Apply
+stylist.name = 昵称
+stylist.workYesrs = 工作年数
+stylist.industry = 类别
+stylist.position = 职位
+stylist.goodAtImage = 擅长风格
+stylist.goodAtStatus = 擅长人群
+stylist.goodAtService = 擅长服务
+stylist.goodAtUser = 擅长性别
+stylist.goodAtAgeGroup = 擅长年龄
+stylist.myWords = 我的话语
+stylist.mySpecial = 我的特长
+stylist.myBoom = 兴趣爱好
+stylist.myPR = 自我宣传
+stylist.submit = 提交申请
+stylist.reset = 重置
+
+
+#Stylist management
+stylistMag.mySalon = 我的店铺
+stylistMag.salonApply = 来自店铺申请
+stylistMag.myStyle = 我的作品
+stylistMag.showAllStyles = 显示所有发型
+stylistMag.findReserv = 查看预约
+stylistMag.styleManage = 发型管理
+stylistMag.serviceManage = 服务管理
+stylistMag.salonHistory = 店铺历史
+stylistMag.totalReserv = 显示当天预约
 
 
 # User
@@ -205,3 +297,54 @@ user.female=女
 user.loginOut=退出
 user.cancleBothFollow=取消互粉
 user.addFollow=添加关注
+
+
+
+
+#-------------------------------
+# Messages Area.
+#-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+#-------------------------------
+# Master Table Translation Area.
+# 主表字段翻译定义区
+#-------------------------------
+# 省份
+province.provinceName.Jiangsu=江苏省
+province.provinceName.Jiangxi=江西省
+province.provinceName.Shangdong=山东省
+province.provinceName.Shangxi=山西省
+province.provinceName.Hubei=湖北省
+province.provinceName.Hunan=湖南省
+province.provinceName.Sichuan=四川省
+province.provinceName.Hebei=河北省
+province.provinceName.Henan=河南省
+
+
+
+# 直辖市
+city.cityName.Shanghai=上海市
+city.cityName.Beijing=北京市
+
+# 市
+city.cityName.Suzhou=苏州市
+city.cityName.Wuxi=无锡市
+city.cityName.Nanjing=南京市
+city.cityName.Jinan=济南市
+city.cityName.Qingdao=青岛市
+
+
+# 区
+region.regionName.Gaoxin=高新区

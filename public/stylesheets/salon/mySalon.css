@@ -241,6 +241,7 @@ display: block;
 }
 .salon-stylist-reserv{
 	background-color:#CCCCFF;
+	text-align:center;
 }
 .mt, .smt {
 cursor: default;
@@ -281,4 +282,11 @@ letter-spacing: 0;
 }
 .left dl{
 	margin-bottom:30px;
+}
+.mysalon-stylist-search{
+	text-align:center;
+}
+#stylist-search{
+	width:180px;
+	height:24px;
 }

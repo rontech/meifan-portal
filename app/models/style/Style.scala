@@ -7,7 +7,6 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.MongoConnection
 import com.novus.salat.Context
 import mongoContext._
-import models.Style._
 import com.mongodb.casbah.query.Imports._
 import java.util.Date
 
@@ -46,89 +45,32 @@ case class Style(
     isValid: Boolean
 )
 
+object Style extends StyleDAO
 
-object StyleDAO extends SalatDAO[Style, ObjectId](
-  collection = MongoConnection()(
+trait StyleDAO extends ModelCompanion[Style, ObjectId]{
+  def collection = MongoConnection()(
     current.configuration.getString("mongodb.default.db")
       .getOrElse(throw new PlayException(
           "Configuration error",
           "Could not find mongodb.default.db in settings"))
-  )("Style"))
+  )("Style")
 
+  val dao = new SalatDAO[Style, ObjectId](collection){}
+  	
+  def findByStylistId(stylistId: ObjectId): List[Style] = {
+    	dao.find(DBObject("stylistId" -> stylistId)).toList
+  }
 
-object Style {
-
-    def findAll(): List[Style] = {
-        StyleDAO.find(MongoDBObject.empty).toList
-    }
-
-    def findById(id: ObjectId): Option[Style] = {
-        StyleDAO.findOne(MongoDBObject("_id" -> id))
-    }
-
-    def findByStylistId(stylistId: ObjectId): List[Style] = {
-      StyleDAO.find(DBObject("stylistId" -> stylistId)).toList
-    }
-    
-    def create(style: Style): Option[ObjectId] = {
-        StyleDAO.insert(
-            Style(
-                styleName = style.styleName,
-                stylistId = style.stylistId,
-                stylePic = style.stylePic,
-                styleImpression = style.styleImpression,
-			    serviceType = style.serviceType,
-			    styleLength = style.styleLength,
-			    styleColor = style.styleColor,
-			    styleAmount = style.styleAmount,
-			    styleQuality = style.styleQuality,
-			    styleDiameter = style.styleDiameter,
-			    faceShape = style.faceShape,
-			    description = style.description,
-			    consumerAgeGroup = style.consumerAgeGroup,
-			    consumerSex = style.consumerSex,
-			    consumerSocialStatus = style.consumerSocialStatus,
-			    createDate = style.createDate,
-			    isValid = style.isValid
-            )
-        )
-    }
-
-    def save(style: Style) = {
-        StyleDAO.save(
-            Style(
-		id = style.id,
-                styleName = style.styleName,
-                stylistId = style.stylistId,
-                stylePic = style.stylePic,
-                styleImpression = style.styleImpression,
-			    serviceType = style.serviceType,
-			    styleLength = style.styleLength,
-			    styleColor = style.styleColor,
-			    styleAmount = style.styleAmount,
-			    styleQuality = style.styleQuality,
-			    styleDiameter = style.styleDiameter,
-			    faceShape = style.faceShape,
-			    description = style.description,
-			    consumerAgeGroup = style.consumerAgeGroup,
-			    consumerSex = style.consumerSex,
-			    consumerSocialStatus = style.consumerSocialStatus,
-			    createDate = style.createDate,
-			    isValid = style.isValid
-            )
-        )
-    }
-
-   def delete(id: String) {	
-        StyleDAO.remove(MongoDBObject("_id" -> new ObjectId(id)))
-    }
+  def delete(id: String) {	
+        dao.remove(MongoDBObject("_id" -> new ObjectId(id)))
+  }
    
-   def findByPara(style: models.Style) : List[Style] = {
-        StyleDAO.find($and("styleDiameter" $in style.styleDiameter ,"styleImpression" $in style.styleImpression,"faceShape" $in style.faceShape)).toList	
-   }
+  def findByPara(style: models.Style) : List[Style] = {
+        dao.find($and("styleDiameter" $in style.styleDiameter ,"styleImpression" $in style.styleImpression,"faceShape" $in style.faceShape)).toList	
+  }
    
-   def updateTest(style: models.Style) = {
-	   StyleDAO.update(MongoDBObject("_id" -> style.id), MongoDBObject("$set" -> (
+  def updateTest(style: models.Style) = {
+	   dao.update(MongoDBObject("_id" -> style.id), MongoDBObject("$set" -> (
 			   MongoDBObject("styleName" -> "海贼王发型")++
 			   MongoDBObject("styleLength" -> MongoDBList("中","长"))++
 			   MongoDBObject("styleQuality" -> MongoDBList("硬"))

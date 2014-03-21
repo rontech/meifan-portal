@@ -124,7 +124,7 @@ object Styles extends Controller {
    * 
    */
   def findById(styleId: ObjectId) = Action {
-    val style: Option[Style] = Style.findById(styleId)
+    val style: Option[Style] = Style.findOneById(styleId)
     Ok(html.style.overview(style.toList))
   }
   
@@ -144,7 +144,7 @@ object Styles extends Controller {
   
   def getStyleInfoOfSalon(salonId: ObjectId, styleId: ObjectId) = Action {
     val salon: Option[Salon] = Salon.findById(salonId)    
-    val style: Option[Style] = Style.findById(styleId)    
+    val style: Option[Style] = Style.findOneById(styleId)    
     Ok(html.salon.store.salonInfoStyle(salon = salon.get, style = style.get))
 
  }
@@ -173,7 +173,7 @@ object Styles extends Controller {
   def styleSearch = Action {
     //此处为发型更新，将来会传一个styleId过来修改
     val styleId :ObjectId = new ObjectId("530d828cd7f2861457771c0b")
-    val styleOne: Option[Style] = Style.findById(styleId)
+    val styleOne: Option[Style] = Style.findOneById(styleId)
     styleOne match {
 	    case Some(style) => {
 	    	Ok(html.style.styleLogin(styleLoginForm, Style.findParaAll,style))

@@ -63,9 +63,23 @@ object Image {
 	  }
           /*
 	  files.map{f=>
-		  println("list file "+f.getName())
+		  
 	  }
           */
 	  files
 	}
 }
+/*
+case class OnUsePicture(
+	fileObjId: ObjectId,
+	picUse: String,
+	showPriority: Int,
+	description: String
+)
+
+case class PictureUse(
+	id: ObjectId,
+	picUseName: String,
+	division: Int
+)
+*/

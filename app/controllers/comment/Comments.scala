@@ -14,7 +14,7 @@ object Comments extends Controller {
   
 
   val formAddComment = Form((
-    "content" -> nonEmptyText
+    "content" -> text
   ))
   
   val formHuifuComment = Form((
@@ -26,12 +26,12 @@ object Comments extends Controller {
    */
   def find(commentedId : ObjectId) = Action {    
     implicit request =>      
-      val user_id = request.session.get("user_id").get
-      val userId = new ObjectId(user_id)
+      val userId = request.session.get("userId").get
+      val user_Id = User.findOneByUserId(userId).get.id
 //      val username = User.getUserName(userId)
-      val username = User.findOneById(userId).get.userId
+//      val username = User.findOneById(userId).get.userId
     clean() 
-    Ok(views.html.comment.comment(username, userId, Comment.all(commentedId)))
+    Ok(views.html.comment.comment(userId, user_Id, Comment.all(commentedId)))
   }
   
   /**
@@ -40,12 +40,13 @@ object Comments extends Controller {
   implicit def clean() = {
     Comment.list = Nil
   }
-  /**
-   * 增加评论，跳转
-   */
-  def addComment(commentedId : ObjectId) = Action {
-    Ok(views.html.comment.addComment(commentedId, formAddComment))
-  }
+  
+//  /**
+//   * 增加评论，跳转
+//   */
+//  def addComment(commentedId : ObjectId, commentedType : Int) = Action {
+//    Ok(views.html.comment.addComment(commentedId, formAddComment, commentedType))
+//  }
   
   /**
    * 前台展示
@@ -60,7 +61,19 @@ object Comments extends Controller {
   
   // 模块化代码
   def findBySalon(salonId: ObjectId) = Action {
-    Comment.commentlist = Nil
+    Comment.commentList = Nil
+    val salon: Option[Salon] = Salon.findById(salonId)    
+    val comments: List[Comment] = Comment.findBySalon(salonId)    
+
+    // TODO: process the salon not exist pattern.
+    Ok(views.html.salon.store.salonInfoCommentAll(salon = salon.get, comments = comments))
+  }
+  
+  /**
+   * 店铺查看自己店铺的所有评论
+   */
+  def findBySalonAdmin(salonId: ObjectId) = Action {
+    Comment.commentList = Nil
     val salon: Option[Salon] = Salon.findById(salonId)    
     val comments: Seq[Comment] = Comment.findBySalon(salonId)    
 
@@ -71,24 +84,23 @@ object Comments extends Controller {
   /**
    * 增加评论，后台逻辑
    */
-  def addC(commentedId : ObjectId) = Action {
+  def addComment(commentObjId : ObjectId, commentObjType : Int) = Action {
     implicit request =>
-      val user_id = request.session.get("userId").get      // TODO这边需要分类。。。！！！
+      val userId = request.session.get("userId").get      // TODO这边需要分类。。。！！！
       formAddComment.bindFromRequest.fold(
         //处理错误
-        errors => BadRequest(views.html.comment.addComment(commentedId, errors)),
+        errors => BadRequest(views.html.comment.errorMsg("")),
         {
-          case (content) =>
-            val userId = User.findOneByUserId(user_id).get.id // 这边需要用session取得用户名之类的东西
-            val relevantUser = User.findOneByUserId(user_id).get.id // TODO            
-	        Comment.addComment(userId, content, commentedId, relevantUser)
-//	        Redirect(routes.Comments.find(commentedId))
-	        Redirect(routes.Comments.test)
-        }
-                
-          
-            
-        )
+          case (content) =>         
+	        Comment.addComment(userId, content, commentObjId, commentObjType)
+	        if (commentObjType == 1) { 
+	          Redirect(routes.Blogs.showBlogById(commentObjId))
+	        }
+	        else {
+	          Ok("")
+	        }
+        } 
+      )
   }
   
   /**
@@ -99,35 +111,36 @@ object Comments extends Controller {
   }
   
   /**
-   * 店家回复，跳转
+   * 回复，跳转
    */
   def answer(id : ObjectId, commentedId : ObjectId) = Action {
     Ok(views.html.comment.answer(id, commentedId, formHuifuComment))
   }
   
-  /**
-   * 管理员的功能，删除评论
-   */
-  def delete(id : ObjectId, commentedId : ObjectId) = Action {
-    Comment.delete(id)
-    Redirect(routes.Comments.find(commentedId))
-  }
+//  /**
+//   * 管理员的功能，删除评论
+//   */
+//  def delete(id : ObjectId, commentedId : ObjectId) = Action {
+//    Comment.delete(id)
+//    Redirect(routes.Comments.find(commentedId))
+//  }
   
   /**
-   * 店家回复，后台逻辑
+   * 回复，后台逻辑
    */
-  def huifu(id : ObjectId, commentedId : ObjectId) = Action {
+  def reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = Action {
     implicit request =>
-      val user_id = request.session.get("user_id").get
+      val userId = request.session.get("userId").get
       formHuifuComment.bindFromRequest.fold(
         //处理错误
-        errors => BadRequest(views.html.comment.answer(id, commentedId, errors)),
+        errors => BadRequest(views.html.comment.errorMsg("")),
         {
           case (content) =>
-            val username = new ObjectId(user_id)
-	        Comment.huifu(id, content, username)
-	        Redirect(routes.Comments.find(commentedId))
+	        Comment.reply(userId, content, commentObjId, commentObjType) 
+	        Redirect(routes.Blogs.showBlogById(id))	
         } 
-        )
+      )
   }
+  
+  
 }

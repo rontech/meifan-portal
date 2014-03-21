@@ -21,6 +21,7 @@
 	      		<input type = "checkbox" class="" name = "styleColor[@i]", value = "@stylePara.styleColor(i)">@stylePara.styleColor(i)
 	    	}
 	    }
+
 	    @input(field = styleSearchForm("styleImpression"),args = '_label ->Messages("hair.impression")){(id,name,value,args) =>
 	    	@for(i <- 0 to stylePara.styleImpression.length-1){
 	      		<input type = "checkbox" class="" name = "styleImpression[@i]", value = "@stylePara.styleImpression(i)">@stylePara.styleImpression(i)
@@ -46,6 +47,7 @@
 	      		<input type = "checkbox" class="" name = "styleDiameter[@i]", value = "@stylePara.styleDiameter(i)">@stylePara.styleDiameter(i)
 	    	}
 	    }
+
 	    @input(field = styleSearchForm("faceShape"),args = '_label ->Messages("hair.faceShape")){(id,name,value,args) =>
 	    	@for(i <- 0 to stylePara.faceShape.length-1){
 	      		<input type = "checkbox" class="" name = "faceShape[@i]" value = "@stylePara.faceShape(i)">@stylePara.faceShape(i)

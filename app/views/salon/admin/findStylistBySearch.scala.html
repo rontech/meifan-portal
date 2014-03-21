@@ -1,0 +1,53 @@
+@(navInSalon: String = "my-reservation", salon: Salon, stylist: Stylist, status: Int)
+
+@mySalonMain(navInSalon, salon){
+	<div>
+		<div class="mt">
+        	<ul class="tab">
+				<li clstag="click|keycount|myhome|tuangouqian" data-widget="tab-item" class="curr"><s></s><b></b>@Messages("stylist.searchResults")</li>
+            </ul>
+		</div>
+		
+	</div>
+	<div class="mysalon-stylist-search">
+		<form action="/searchStylistById" method="get">
+			@Messages("stylist.id")<input name="searchStylistById" id="stylist-search"/>&nbsp;&nbsp;&nbsp;
+				<input type="hidden" name="salonId" value="@salon.id">
+			<input type="submit" value="@Messages("stylist.search")">
+		</form>
+   		<div class="tabcon hide" data-widget="tab-content" style="display: block;">
+   			<div class="mc">
+   			<div class="w166 mHA">
+			    <div class="taC">
+			        <a href="@routes.Stylists.findStylistById(stylist.id)">
+			            <img src="@routes.Application.getPhoto(stylist.myPics.get(0).fileObjId)" class="bdImgGray w164 h219">
+			        </a>
+			    </div>
+			    <p class="mT10">
+			        <a href="#">
+			           <p>@stylist.publicId</p>
+			        </a>
+			    </p>
+			    <div class="bdDotT mT5 pT5 fs10">
+			        <span class="fgPink">
+			       
+			       
+			        </span>
+			  （@stylist.workYears
+			  @Messages("stylist.workYears")）
+			    </div>
+			    <div class="bdDotT mT5 pT5 fs10 hMin30">
+			    </div>
+			</div>
+			<div class="taC mT10">
+				@if(status == 1){
+				<a href="@routes.Reservations.reservHairView(stylist.id)" class="salon-stylist-reserv">@Messages("stylist.checkReserv")</a>
+				}
+				@if(status == 2){
+				<a href="/inviteStylist/@stylist.id/@salon.id" class="salon-stylist-reserv">@Messages("stylist.invite")</a>	
+				}
+			</div>
+			</div>
+		</div>
+    </div>
+}

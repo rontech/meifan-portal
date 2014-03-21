@@ -19,13 +19,12 @@
                 <td class="w554 bgWhite">
                     <div class="w534 p10">
                         <div class="">
-                            <div class="">
                                 <ul class="couponMenuIcons fs10 cFix">
-                                    @for(serviceType
-                                    <- coupon.serviceCategories) { <li class="couponMenuIcon mB5">
+                                    @for(service <- coupon.serviceItems) { 
+                                    	<li class="couponMenuIcon mB5">
                                         <font>
                                             <font>
-                                                @serviceType.serviceTypeName
+                                                @Messages("ServiceType.serviceTypeName." + service.serviceType)
                                             </font>
                                         </font>
                                         </li>

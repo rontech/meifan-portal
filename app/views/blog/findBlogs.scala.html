@@ -2,6 +2,10 @@
 @import views.html.user._
 
 @myPageMain(navInMyPage = "my-blog", user) {
+	             <div class="SpaceList BlogList">
+             <ul>
+			 @Blog.getBlogByUserId(user.userId).map { blog =>
+				@*
     <body>
 		<form>
 			<table border = 1>
@@ -43,6 +47,14 @@
 		
 	
 	</body>
+	*@
+					<li>
+				@views.html.blog.itemBlogBack(blog)
+				</li>
+				}
+				
+		    <a href = "@routes.Blogs.newBlog(user.userId)"><input type="button" value="newBlog" ></a>
+			@*<a href = "@routes.BlogCatagories.editBlogCatagory(user.userId)"><input type="button" value="editBlogCatagory(管理blog分类)" ></a>*@
 
 }
 

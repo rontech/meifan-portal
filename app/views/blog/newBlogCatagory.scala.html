@@ -1,13 +1,13 @@
-@(userId : ObjectId, formBlogCatagory : Form[(String)])
+@(user : User, formBlogCatagory : Form[(String)])
+@import helper._
+@import views.html.user._
 
-    @import helper._
+@myPageMain(navInMyPage = "my-blog", user) {
+ @* @form(action = routes.BlogCatagories.writeBlogCatagory(user.userId)) {*@
+    <fieldset>
+      @inputText(formBlogCatagory("catagory"),'_label -> "博客类型")
+    </fieldset>
 
-    @main("New a blogCatagory") {
-        @form(action = routes.BlogCatagories.writeBlogCatagory(userId)) {
-          <fieldset>
-            @inputText(formBlogCatagory("catagory"),'_label -> "博客类型")
-		  </fieldset>
-		  
-            <input type="submit" class = "buttons" value="确认创建" >
-           }
-    }
+    <input type="submit" class = "buttons" value="确认创建" >
+ @* }*@
+}

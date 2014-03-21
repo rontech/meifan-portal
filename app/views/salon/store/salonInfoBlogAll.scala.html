@@ -1,10 +1,10 @@
-@(salon: Salon, blogs: Seq[Blog])
+@(salon: Salon, blogs: List[Blog])
 
 @salonInfoMain(navInSalon = "salon-blog", salon) {
 
     <!-- Get All the Salons with all the styles.  -->
 
-    @views.html.blog.group(blogs)
+    @views.html.blog.group(blogs,salon)
 
 
 }
