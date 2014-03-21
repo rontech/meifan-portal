@@ -1,140 +1,21 @@
-@(blog : Blog, user : User, commentList : List[Comment])
-@import views.html.user._
+@(blog : Blog)
 
-@myPageMain(navInMyPage = "my-blog", user) {
-<script type="text/javascript">
-			function delete_blog(){
-		        var flag=confirm("文章删除后无法恢复，请确认是否删除此篇文章？");
-		        if(!flag){
-		        	return;
-		        }else{
-		            location.href="@routes.Blogs.deleteBlog(blog.id)";
-		        }		        
-		      }
-		    function delete_c(commentId, blogId){
-				alert("aaaaaaaaaa");
-		        if(!confirm("您确认要删除此篇评论？")){
-		        	return;
-		        }else{
-		            location.href="/delete/"+commentId+"/"+blogId;
-		        }		        
-		      }
-	        function test(){
-		      	alert("bbbbbbbbb");
-		      }
-</script>
-	
-
-<div class="BlogEntity">		
-      <div class="BlogTitle">
-        <h1><span class="icon" style="background:#44ac57;" title="原创博客">原</span>															@blog.title</h1>
-        <div class="BlogStat">
-    		    		@blog.createdTime.toLocaleString&nbsp;&nbsp;
-    		阅读（<span class="g">22</span>）&nbsp;|&nbsp;评论（<a href="#comments"><span class="g">@commentList.size</span></a>）
-    		|&nbsp;收藏 （<span class="g">0</span>）			    		<span class="admin">
-    			<a href="@routes.Blogs.editBlog(blog.id)">编辑</a>&nbsp;|&nbsp;
-                <a href="javascript:delete_blog()">删除</a>
-                                    		</span>
-    		    	</div>
-		
-      </div>
-	  
-	  <a name="ueditor"></a>
-	            <div class="BlogAbstracts">
-						<em class="corner">摘要</em>            
-						<div class="BlogTags">
-        	        	@blog.tags
-        	           </div>
-		   		  </div><br>
-	  	  	  <div class="BlogContent"><p>@blog.content</p></div>
-      	      	<div class="BlogShare">
-    	
-		<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a></div>
-           <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-	</div>	  
-      <div class="BlogLinks">
-    	<ul>
-                <li class="prev"><a href="" title="上一篇：test">« 上一篇</a></li>        
-                <li class="next"><a href="" title="下一篇：1">下一篇 »</a></li>    	
-        </ul>
-		      </div>
+<div class="mT20 cFix">
+	<div class="leftContents w557 fl">
+		<div class="cFix">
+			<div class="">（blog的类型）@blog.blogCategory</div>
+			<div class="fr fs10">投稿日：（blog的时间）@blog.createTime</div>
+		</div>
+		<div class="mT20">
+			<dl>
+				<dt class="fgPink b fs14">(blog的标题)@blog.title</dt>						
+				<dd class="mT10 wwbw">
+					<br>（blog的内容）@blog.content<br>
+					@*<br><a href = "@routes.Comments.addComment(id)"><input type = "button" value = "评论"></a><br>*@
+					</dd>
+			</dl>
+		</div>
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a></div>
+        <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 	</div>
-
-
-<div class="BlogComments">
-    <h2><a name="comments"></a>评论<em>@commentList.size</em></h2>    
-			<ul id="BlogComments">
-			@*@commentList.map { comment =>*@
-				@for(i <- 1 to commentList.size) {
-					@*var j = i+1;*@
-						<li id="">
-	<table class="ostable"><tbody><tr>
-	<td class="portrait">
-		<a href="/myPage/@commentList(i-1).userId" target="_blank"><img src="/img/portrait.gif" align="absmiddle" alt="" title="" class="SmallPortrait" user=""></a>			
-	</td>
-	<td class="body">
-		<div class="title">
-		@if(commentList(i-1).commentedType == 3){
-			
-		<div class="ref"><h4>引用来自“@Comment.findById(commentList(i-1).commentedId).userId”的评论</h4><p>@Comment.findById(commentList(i-1).commentedId).content</p></div>
-		}
-			@i 楼：<a href="" target="_blank" name="rpl_278991586" class="user">@commentList(i-1).userId</a> 发表于 @commentList(i-1).time.toLocaleString		
-        	        	  <a href="javascript:delete_c(@commentList(i-1).id, @blog.id);">删除</a>
-        	        	  <a href="javascript:test();">删除test</a>
-        	        	  <a href="javascript:ReplyInline()">回复此评论</a>
-								</div>
-		<div class="post" "="">@commentList(i-1).content</div>
-		
-		<div id="inline_reply_of_206931_1452044_278889672" class="inline_reply">
-<div class="BlogCommentForm">
-	<form id="form_inline_comment" action="@routes.Comments.huifu(commentList(i-1).id, blog.id)" method="POST">
-	  <!-- <input type="hidden" id="inline_reply_id" name="reply_id" value="1452044_278889672"> -->          
-      <textarea name="content" id="ccom_content" style="width:650px;height:60px;"></textarea><br>
-	  <p>
-		  <span style="float:right;">
-    	  <input type="button" value="关闭" class="blg_submit_btn" id="btn_close_inline_reply" style="background: rgba(255,255,255,0);color: #555;">
-    	  <input type="submit" value="回复" id="btn_comment" class="blg_submit_btn"> 
-		  </span>
-		  插入：
-				<a href="javascript:;" onclick="javascript:insert_emotions('ccom_content',this);" class="blog_emotion">表情</a>
-				<a href="javascript:insert_projects_c();" class="blog_soft">开源软件</a>
-		 <span class="NoData" id="ficmp_msg" style="color:#F00"></span>
-	  </p>
-    </form>
 </div>
-</div>
-    </td>
-	</tr></tbody></table>
-</li>
-
-   }
-   @if(commentList.size == 0){
-   	<p>尚无网友评论</p>
-   }
-				</ul>
-</div>
-
-
-
-
-
-<div class="BlogCommentForm">
-        <form id="form_comment" action="@routes.Comments.addC(blog.id,1)" method="POST">
-        	<div class="comment_portrait">
-        		<img src="/img/portrait.gif" align="absmiddle" alt="wzw1991" title="wzw1991" class="LargePortrait">        	</div>
-        	<div class="comment_form">
-        		<textarea name="content" id="wmd-input" style="width:650px;height:80px;" placeholder=""></textarea>
-				<p>
-					<button type="submit" class="blg_submit_btn" style="float:right;">发表评论</button>
-					插入：
-					<a href="javascript:insert_emotions();" class="blog_emotion">表情</a>
-					<span class="NoData" id="cmt_tip"></span>
-				</p>
-                </div>
-        </form>
-</div>
-
-
-}	
-
-

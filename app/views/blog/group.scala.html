@@ -1,0 +1,29 @@
+@(blogs: List[Blog] = Nil, salon: Salon)
+
+<div class="mT30">
+	<div class="yS mainContentsSecondTitleOuter">
+		<h2 class="yS mainContentsSecondTitleInner">@salon.salonName 博客</h2>
+	</div>
+</div>
+
+<ul>
+@for(blog <- blogs) {
+    <li>
+        @views.html.blog.item(blog, salon)
+    </li>
+}
+</ul>
+
+<dl class="rightContents fr w187">
+	<dt class="titleBlog">店员</dt>
+		<dd class="list p10">
+		@Stylist.findBySalon(salon.id).map { stylist =>
+			<p><a href="/salon/@salon.id/blogs/@stylist.id">@stylist.userId （博客是数量）</a></p>
+		}
+		</dd>
+	<dt class="titleBlog">历史博客</dt>
+	<dd class="list p10">
+		<p><a href="http://beauty.hotpepper.jp/slnH000231733/blog/201403/">年月（博客的数量）</a></p>
+	</dd>
+</dl>    
+
