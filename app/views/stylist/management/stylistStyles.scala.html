@@ -4,9 +4,9 @@
 	<div class="mysalon-stylist-group">
 		<div>
 			<form action="/stylistFindStylesByCondtion" method="get">
-				
-			
+					
 			</form>
+			<input tyle = "button" value="添加发型" onclick='location.href="/createStyleByStylist/@stylist.id"'>
 		</div>
 		@styles.map{style=>
 			@views.html.stylist.management.stylistStyleItem(style)
