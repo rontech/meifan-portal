@@ -10,7 +10,7 @@
 
         <font size =30px align = "center">@Messages("user.new")</font>
        
-        @form(routes.Users.doRegister, 'id -> "userForm") {
+        @form(routes.Users.register, 'id -> "userForm") {
           <fieldset>
             @inputText(userForm("userId"),'_label -> Messages("user.name"),
             	'_error -> userForm("userId").error.map(_.withMessage(Messages("user.regErr"))))

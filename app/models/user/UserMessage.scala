@@ -59,7 +59,7 @@ object UserMessage extends ModelCompanion[UserMessage, ObjectId] {
 
   def getQuery(requirement: String, userId: String) = {
     requirement match {
-      case "UnRead" => MongoDBObject("addressee" -> userId, "readStatus" -> "unRead")
+      case "unRead" => MongoDBObject("addressee" -> userId, "readStatus" -> "unRead")
       case "outBox" => MongoDBObject("seeder" -> userId, "outBoxStatus" -> "sended")
       case "inBox"  => MongoDBObject("addressee" -> userId, "inBoxStatus" -> "normal")
       case "drafts" => MongoDBObject("seeder" -> userId, "outBoxStatus" -> "saved")
@@ -67,9 +67,9 @@ object UserMessage extends ModelCompanion[UserMessage, ObjectId] {
 
   }
   
-  def sendFollowMsg(sender :User, followId : ObjectId,relationTypeId : Int) =  {
-    val letter = relationTypeId match{
-      case 1 => 
+  def sendFollowMsg(sender :User, followId : ObjectId,followObjType:String) =  {
+    val letter = followObjType match{
+      case "salon" => 
         val salon = Salon.findById(followId).get
         UserMessage(new ObjectId, sender.userId, sender.nickName, "zhenglu", "关雨", new ObjectId("531964e0d4d57d0a43771811"), "sended", "normal", "unRead", new Date)
       case _ =>
