@@ -1,0 +1,47 @@
+@(styles: Seq[Style], styleSearchForm: Form[Style], stylePara: models.StylePara)
+
+
+<!--
+    TODO
+    1. Need Structs which contains data for 
+       # search by Ranking of different type: General, Medium, Short, Semi-long, Long, Very-Short, Hair Set, Mature Women, Men 
+           [
+               {"General", [top1, top2, top3]},
+               {"Meduim", [top1, top2, top3]},
+               {"Short", [top1, top2, top3]},
+               ......
+           ]
+       # search for Create Time: The latest Style For women and men
+           [
+               {"Women", [top1, top2, top3...]},
+               {"Men", [top1, top2, top3...]},
+           ]
+ 
+
+-->
+
+
+
+@main(title = Messages("hair.tabName"), nav = "hair-style") {
+	
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/haircatalog.css")">
+
+    <!-- Style Search By Conditons. -->    
+    @views.html.style.general.styleSearch(styleSearchForm, stylePara)
+
+    <!-- Style Search By Ranking. -->    
+    @*views.html.style.general.searchByRanking(styles)*@
+
+    <!-- Style Search By Length. -->    
+    @views.html.style.general.searchByLength()
+
+    <!-- Style Search By Image. -->    
+    @views.html.style.general.searchByImage()
+
+    <!-- Style Search For Men. -->    
+    @*views.html.style.general.searchForMen()*@
+
+    <!-- Style Search By Create Time(Woman/Man). -->    
+    @views.html.style.general.searchLatest(styles)
+ 
+}

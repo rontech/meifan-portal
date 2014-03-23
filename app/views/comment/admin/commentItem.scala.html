@@ -1,9 +1,12 @@
 @(comment: Comment)
+
+@import java.text.DateFormat
+
 <div class="reportHeaderPickup">
 	<div class="shopInfo reportPickupTitle cFix">
 		<p class="fl w580 pL25"><span class="b">评论人昵称</span><span class="mL5 fs10 fgGray">评论人的一些特点</span></p>
 		<div class="fr mT2">
-			<p class="fs10 fgGray">[评论时间] @comment.createTime.toLocaleString</p>
+			<p class="fs10 fgGray">[评论时间] @DateFormat.getDateInstance.format(comment.createTime)</p>
 		</div>
 	</div>
 </div>
