@@ -1,5 +1,7 @@
 @(blog : Blog)
 	
+@import java.text.DateFormat
+
 	<div class="Blog">      
 		<div class="BlogTitle">
     		<div class="title">
@@ -19,7 +21,7 @@
     	</div>
 		<div class="bottom">
 			
-			@*发布于@blog.createTime.toLocaleString，阅读(12) | 评论(@Comments.clean@Comment.all(blog.id).size) |  投票(0) | 收藏(0)*@ 
+			@*发布于@DateFormat.getDateInstance.format(blog.createTime)，阅读(12) | 评论(@Comments.clean@Comment.all(blog.id).size) |  投票(0) | 收藏(0)*@ 
     		@*<a href="@routes.Blogs.showBlogById(blog.id)" class="fullcontent">阅读全文...</a>*@
     	</div>
     </div>

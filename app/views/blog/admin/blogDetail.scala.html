@@ -1,5 +1,8 @@
 @(blog : Blog, user : User, commentList : List[Comment])
+
 @import views.html.user._
+@import java.text.DateFormat
+
 
 @myPageMain(navInMyPage = "my-blog", user) {
 <script type="text/javascript">
@@ -40,12 +43,11 @@
       }
 </script>
 	
-
 <div class="BlogEntity">		
   <div class="BlogTitle">
     <h1><span class="icon" style="background:#44ac57;" title=""></span>@blog.title</h1>
     <div class="BlogStat">
-		@blog.createTime.toLocaleString&nbsp;&nbsp;评论（<a href="#comments"><span class="g">@commentList.size</span></a>）
+		@DateFormat.getDateInstance().format(blog.createTime)&nbsp;&nbsp;评论（<a href="#comments"><span class="g">@commentList.size</span></a>）
 		<span class="admin">
 			<a href="@routes.Blogs.editBlog(blog.id)">编辑</a>&nbsp;|&nbsp;
             <a href="javascript:deleteBlog()">删除</a>
@@ -94,7 +96,7 @@
 			
 		<div class="ref"><h4>引用来自“@Comment.findById(commentList(i-1).commentObjId).authorId”的评论</h4><p>@Comment.findById(commentList(i-1).commentObjId).content</p></div>
 		}
-			@i 楼：<a href="" target="_blank" name="rpl_278991586" class="user">@commentList(i-1).authorId</a> 发表于 @commentList(i-1).createTime.toLocaleString		
+			@i 楼：<a href="" target="_blank" name="rpl_278991586" class="user">@commentList(i-1).authorId</a> 发表于 @DateFormat.getDateInstance().format(commentList(i-1).createTime)
         	        	  <a href="javascript:delete_c(@commentList(i-1).id, @blog.id);">删除</a>
         	        	  <a href="javascript:test();">删除test</a>
         	        	  <a href="javascript:ReplyInline()">回复此评论</a>

@@ -1,4 +1,7 @@
 @(comment: Comment)
+
+@import java.text.DateFormat
+
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comment/comment_2.css")">
 
 <div class="mT20">
@@ -10,7 +13,7 @@
 												<div class="shopInfo reportPickupTitle cFix">
 													<p class="fl w580 pL25"><span class="b">(评论人)@comment.authorId</span><span class="mL5 fs10 fgGray">（评论人的基本信息）（女性/30代前半/会社員）</span></p>
 													<div class="fr mT2">
-														<p class="fs10 fgGray">[投稿日] （发表评论的日期）@comment.createTime.toLocaleString</p>
+														<p class="fs10 fgGray">[投稿日] （发表评论的日期）@DateFormat.getDateInstance.format(comment.createTime)</p>
 													</div>
 												</div>
 												<ul class="judgeList cFix">

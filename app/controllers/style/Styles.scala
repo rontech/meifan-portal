@@ -117,7 +117,10 @@ object Styles extends Controller {
   )
   
   def index = Action {
-	Ok(html.style.styleSearch(styleSearchForm,Style.findParaAll))
+      // TODO
+      // Should get Initial Ranked Data for ranking by popularity.  
+      
+      Ok(html.style.general.overview(Nil, styleSearchForm, Style.findParaAll))
   }
   
    /**
@@ -125,7 +128,7 @@ object Styles extends Controller {
    */
   def findById(styleId: ObjectId) = Action {
     val style: Option[Style] = Style.findOneById(styleId)
-    Ok(html.style.overview(style.toList))
+    Ok(html.style.general.overview(style.toList, styleSearchForm, Style.findParaAll))
   }
   
   def findBySalon(salonId: ObjectId) = Action {
@@ -164,7 +167,7 @@ object Styles extends Controller {
 //		    	Style.updateTest(sty)
 //		    }
             //尝试更新 end
-            Ok(html.style.styleSearchList(styleSearchForm.fill(styleSearch),styleSearchInfo,salon = salon.get,Style.findParaAll))
+            Ok(html.style.general.styleSearchList(styleSearchForm.fill(styleSearch),styleSearchInfo,salon = salon.get,Style.findParaAll))
           }
       }
     )
@@ -175,12 +178,8 @@ object Styles extends Controller {
     val styleId :ObjectId = new ObjectId("530d828cd7f2861457771c0b")
     val styleOne: Option[Style] = Style.findOneById(styleId)
     styleOne match {
-	    case Some(style) => {
-	    	Ok(html.style.styleLogin(styleLoginForm, Style.findParaAll,style))
-	    }
-	    case None => {
-	    	NotFound
-	    } 
+	    case Some(style) => Ok(html.style.styleLogin(styleLoginForm, Style.findParaAll,style))
+	    case None => NotFound 
     }
   }
 

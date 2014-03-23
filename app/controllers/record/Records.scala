@@ -11,6 +11,7 @@ import se.radley.plugin.salat.Binders._
 import models._
 import com.mongodb.casbah.commons.MongoDBObject
 import java.util.Date
+import java.util.GregorianCalendar
 import java.text.SimpleDateFormat
 
 
@@ -91,7 +92,11 @@ object Records extends Controller{
   	 /**
   	  *       店铺查看技师日程
   	  */ 	    
+         // TODO
+         // Please Use GregorianCalendar class when you want to process date/time.
   	 def checkStylistReserv = Action {
+
+
 	  var date:Date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2005-06-09 06:30")
 	  var list:List[java.util.Date]=Nil
 	  val from = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -100,9 +105,7 @@ object Records extends Controller{
 	    list:::=List(new Date(date.toString())) //error
 	  }
 	  Ok(views.html.storeReservation.checkStylistReserv(list.reverse))
-	} 		
-	      
-	    
+	}
   	
   	/**
   	 * 对某一条记录做详细查看
