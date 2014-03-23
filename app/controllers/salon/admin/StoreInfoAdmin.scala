@@ -31,8 +31,8 @@ object SalonInfo extends Controller{
 	        "establishDate" -> date("yyyy-MM-dd"),
 	        "salonAddress" -> mapping(
 	        	"province" -> text,
-	        	"city" -> text,
-	        	"region" -> text,
+	        	"city" -> optional(text),
+	        	"region" -> optional(text),
 	        	"town" -> optional(text),
 	        	"addrDetail" ->text,
 	        	"longitude" -> optional(bigDecimal),

@@ -1,6 +1,6 @@
-@(salon: Salon, blogs: List[Blog])
+@(salon: Salon, blogs: List[Blog], navBar: List[(String, String)] = Nil)
 
-@salonInfoMain(navInSalon = "salon-blog", salon) {
+@salonInfoMain(navInSalon = "salon-blog", salon, navBar) {
 
     <!-- Get All the Salons with all the styles.  -->
 

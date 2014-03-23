@@ -28,8 +28,8 @@ import java.util.Date
 */
 case class Address (
     province: String,
-    city: String,
-    region: String,
+    city: Option[String],       // The City May be Null when it is a [municipalities] like Beijing, Shanghai, Tianjin, Chongqing.  
+    region: Option[String],     // For Some City, There is no region.
     town: Option[String],
     addrDetail: String,
     longitude: Option[BigDecimal],

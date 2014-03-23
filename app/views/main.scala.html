@@ -1,4 +1,4 @@
-@(title: String, nav: String = "top")(content: Html)
+@(title: String, nav: String = "top", navBar: List[(String, String)] = Nil)(content: Html)
 
 <!DOCTYPE html>
 <html>
@@ -37,34 +37,22 @@
                     </ul>
                     <ul class="move cFix">
                         <li class="fl">
-                            <a href="@routes.Salons.index" class="@if(nav == "hair-salon") {cS salonCurrent} @if(nav != "hair-salon ") {cS salon}">
-                                @Messages("main.hairSalon")
-                            </a>
+                            <a href="@routes.Salons.index" class="cS @if(nav == "hair-salon") {salonCurrent} else {salon}"> @Messages("main.hairSalon") </a>
                         </li>
                         <li class="fl">
-                            <a href="@routes.Styles.index" class="@if(nav == "hair-catalog") {cS catalogCurrent} @if(nav != "hair-catalog ") {cS catalog}">
-                                @Messages("main.hairCatalog")
-                            </a>
+                            <a href="@routes.Styles.index" class="cS @if(nav == "hair-catalog") {catalogCurrent} else {catalog}"> @Messages("main.hairCatalog") </a>
                         </li>
                         <li class="fl">
-                            <a href="@routes.Salons.index" class="@if(nav == "nail-salon") {cS nailCurrent} @if(nav != "nail-salon ") {cS nail}">
-                                @Messages("main.nailSalon")
-                            </a>
+                            <a href="@routes.Application.index" class="cS @if(nav == "nail-salon") {nailCurrent} else {nail}"> @Messages("main.nailSalon") </a>
                         </li>
                         <li class="fl">
-                            <a href="@routes.Styles.index" class="@if(nav == "nail-catalog") {cS nailCatalogCurrent} @if(nav != "nail-catalog") {cS nailCatalog}">
-                                @Messages("main.nailCatalog")
-                            </a>
+                            <a href="@routes.Application.index" class="cS @if(nav == "nail-catalog") {nailCatalogCurrent} else {nailCatalog}"> @Messages("main.nailCatalog") </a>
                         </li>
                         <li class="fl">
-                            <a href="@routes.Salons.index" class="@if(nav == "relax-salon") {cS relaxCurrent} @if(nav != "relax-salon") {cS relax}">
-                                @Messages("main.relaxSalon")
-                            </a>
+                            <a href="@routes.Application.index" class="cS @if(nav == "relax-salon") {relaxCurrent} else {relax}"> @Messages("main.relaxSalon") </a>
                         </li>
                         <li class="fl">
-                            <a href="@routes.Salons.index" class="@if(nav == "esthe-salon") {cS estheCurrent} @if(nav != "esthe-salon") {cS esthe}">
-                                @Messages("main.estheSalon")
-                            </a>
+                            <a href="@routes.Application.index" class="cS @if(nav == "esthe-salon") {estheCurrent} else {esthe}"> @Messages("main.estheSalon") </a>
                         </li>
                     </ul>
                 </div>
@@ -77,7 +65,7 @@
 
             <!-- ↓preContents: navigation bar-->
             <!--TODO need a datat structure to keep the navigation path.-->
-            @views.html.common.navigationBar()
+            @views.html.common.navigationBar(navBar)
             <!-- ↓preContents: navigation bar-->
 
             <div id="contents" class="cFix">

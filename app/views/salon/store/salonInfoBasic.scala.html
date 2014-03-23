@@ -1,6 +1,6 @@
-@(salon: Salon)
+@(salon: Salon, navBar: List[(String, String)] = Nil)
 
-@salonInfoMain(navInSalon = "salon-basic", salon) {
+@salonInfoMain(navInSalon = "salon-basic", salon, navBar) {
 
     <div class="mT30">
         <div class="yS mainContentsSecondTitleOuter">
@@ -33,8 +33,8 @@
             </th>
             <td colspan="3" class="w620">
                 @(Messages("province.provinceName." + salon.salonAddress.province))
-                @(Messages("city.cityName." + salon.salonAddress.city))
-                @(Messages("region.regionName." + salon.salonAddress.region))
+                @(Messages("city.cityName." + salon.salonAddress.city.get)) @*TODO*@
+                @(Messages("region.regionName." + salon.salonAddress.region.get))@*TODO*@ 
                 @salon.salonAddress.addrDetail
             </td>
             </tr>

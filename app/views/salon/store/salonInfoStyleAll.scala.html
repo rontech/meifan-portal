@@ -1,6 +1,6 @@
-@(salon: Salon, styles: Seq[Style])
+@(salon: Salon, styles: List[Style], navBar: List[(String, String)] = Nil)
 
-@salonInfoMain(navInSalon = "salon-style", salon) {
+@salonInfoMain(navInSalon = "salon-style", salon, navBar) {
 
     <!-- Get All the Salons with all the styles.  -->
     @views.html.style.group(styles,salon)

@@ -55,7 +55,7 @@ object Comments extends Controller {
   def findBySalonAdmin(salonId: ObjectId) = Action {
     Comment.commentList = Nil
     val salon: Option[Salon] = Salon.findById(salonId)    
-    val comments: Seq[Comment] = Comment.findBySalon(salonId)    
+    val comments: List[Comment] = Comment.findBySalon(salonId)    
 
     // TODO: process the salon not exist pattern.
     Ok(views.html.salon.store.salonInfoCommentAll(salon = salon.get, comments = comments))
