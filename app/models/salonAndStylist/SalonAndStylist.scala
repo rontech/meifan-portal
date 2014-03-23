@@ -65,8 +65,10 @@ trait SalonAndStylistDAO extends ModelCompanion[SalonAndStylist, ObjectId]{
     		  MongoDBObject("leaveDate" -> new Date)++
     		  MongoDBObject("isValid" -> false)
       )))
+      // TODO
+      case None => None 
     }
-  }
+ }
    
 } 
 
