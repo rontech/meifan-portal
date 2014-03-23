@@ -1,6 +1,6 @@
-@(navInSalon: String = "my-reservation", salon: Salon, stylist: List[Stylist])
+@(navInSalon: String = "my-stylists", salon: Salon, stylist: List[Stylist], applyCount: Long)
 
-@mySalonMain(navInSalon, salon){
+@mySalonMain(navInSalon, salon, applyCount){
 	<div>
 		<div class="mt">
         	<ul class="tab">

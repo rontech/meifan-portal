@@ -9,44 +9,13 @@ import com.mongodb.casbah.commons.Imports._
 import models._
 import views._
 import java.util.Date
-import controllers._
-
 
 object Stylists extends Controller {
 
 
   def index = TODO
   
-  
-  val styleLoginForm:Form[Style] = Form(
-	    mapping(
-	        "styleName" -> text,
-	        "stylistId" -> text,
-	        "stylePic" -> list(text),
-	        "styleImpression" -> list(text),
-		    "serviceType" -> list(text),
-		    "styleLength" -> list(text),
-		    "styleColor" -> list(text),
-		    "styleAmount" -> list(text),
-		    "styleQuality" -> list(text),
-		    "styleDiameter" -> list(text),
-		    "faceShape" -> list(text),
-		    "description" -> text,
-		    "consumerAgeGroup" -> list(text),
-		    "consumerSex" -> list(text),
-		    "consumerSocialStatus" -> list(text)
-	        ){
-	      (styleName,stylistId,stylePic,styleImpression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceShape,description,consumerAgeGroup,consumerSex,consumerSocialStatus) =>
-	          Style(new ObjectId,styleName,new ObjectId(stylistId),stylePic,
-	           styleImpression,serviceType,styleLength,styleColor,styleAmount,styleQuality,styleDiameter,faceShape,description,consumerAgeGroup,consumerSex,consumerSocialStatus, new Date,true)
-	    }
-	    {
-	      style=> Some((style.styleName,style.stylistId.toString,style.stylePic,style.styleImpression,style.serviceType,
-	          style.styleLength,style.styleColor,style.styleAmount,style.styleQuality,
-	          style.styleDiameter,style.faceShape,style.description,style.consumerAgeGroup,style.consumerSex,style.consumerSocialStatus))
-	    }
-  )
-   /**
+  /**
    * 
    */
   def findById(stylistId: ObjectId) = Action { 
@@ -123,7 +92,7 @@ object Stylists extends Controller {
   }
   
   def updateStyleByStylist(styleId: ObjectId) = Action {
-    Ok(html.stylist.management) 
+     
   }
   
   def deleteStyleByStylist(styleId: ObjectId) = Action {

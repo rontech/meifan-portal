@@ -1,4 +1,4 @@
-@(salon: Salon)
+@(salon: Salon, applyCount: Long)
 	
 	<div class="m m3" id="userinfo">
 	<div class="user">
@@ -142,7 +142,7 @@
                 	@Messages("salonAdmin.fromStylistApply")
                 	(
                 		 <span id="reviewCount">
-                               @ApplyRecord.countStylistApply(salon.id)
+                               @applyCount
                          </span>
                 	)
                 	</a>
