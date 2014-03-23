@@ -28,7 +28,7 @@ $(function(){
         @*@inputText(newBlogForm("blogPics"), args = '_label -> "上传图片")*@   
 		@inputText(newBlogForm("tags"), args = '_label -> "标签", 'placeholder -> "请用逗号分割", 'name -> "tags")
 		@inputRadioGroup(newBlogForm("isVisible"),options = options("true" -> "公开", "false" -> "私密") , '_label -> "可见性")
-		@if(!user.userBehaviorLevel == "userLevel.0") {
+		@if(user.userBehaviorLevel != "userLevel.0") {
 		  @inputRadioGroup(newBlogForm("pushToSlaon"),options = options("true" -> "可见", "false" -> "不可见") , '_label -> "店铺可见性")
 		}
 		@inputRadioGroup(newBlogForm("allowComment"),options = options("true" -> "允许评论", "false" -> "不允许评论") , '_label -> "允许评论性")

@@ -41,7 +41,6 @@ GET     /addFollow/:followId             controllers.Users.addFollow(followId:Ob
 #FollowTypes
 GET     /FollowTypes/	            	controllers.FollowTypes.addFollowType
 GET     /FollowTypes/		           	controllers.FollowTypes.followTypeMain
-GET     /FollowTypes/		           	controllers.FollowTypes.addFollowType
 
 #Salon Management
 GET		/mySalon/:id					controllers.SalonsAdmin.mySalon(id: ObjectId)
