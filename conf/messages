@@ -312,6 +312,7 @@ user.female=女
 user.loginOut=退出
 user.cancleBothFollow=取消互粉
 user.addFollow=添加关注
+
 user.myMessages=消息
 
 #Letter
@@ -321,13 +322,17 @@ letter.time=时间
 
 
 
-
-
 #-------------------------------
 # Messages Area.
 #-------------------------------
 
-
+#Blog
+blog.newBlog=发表博客
+blog.title=博客标题
+blog.content=博客内容
+blog.blogCategory=博客类型
+blog.tags=标签
+blog.placeholder=请用逗号分割
 
 
 
@@ -370,4 +375,3 @@ city.cityName.Qingdao=青岛市
 
 # 区
 region.regionName.Gaoxin=高新区
-
