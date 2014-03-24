@@ -28,8 +28,8 @@ import java.util.Date
 */
 case class Address (
     province: String,
-    city: Option[String],
-    region: Option[String],
+    city: Option[String],       // The City May be Null when it is a [municipalities] like Beijing, Shanghai, Tianjin, Chongqing.  
+    region: Option[String],     // For Some City, There is no region.
     town: Option[String],
     addrDetail: String,
     longitude: Option[BigDecimal],
@@ -69,10 +69,7 @@ case class RestDay(
     restDay: Int
 )
 
-case class SalonAccount(
-    accountId:String,
-    password:String
-)
+
 
 /*----------------------------
  * Embed Structure of Salon.
@@ -83,7 +80,7 @@ case class SalonAccount(
 
 case class Salon(
     id: ObjectId = new ObjectId,   	
-    salonAccount: SalonAccount,
+    accountId:String,
     salonName: String,                  
     salonNameAbbr: Option[String],      
     salonIndustry: List[String],       // Ref to Master [Industry] table.           
@@ -126,8 +123,8 @@ object Salon {
     def create(salon: Salon): Option[ObjectId] = {
         SalonDAO.insert(
             Salon(
-                id = salon.id,                
-                salonAccount = salon.salonAccount,  
+                id = salon.id, 
+                salonAccount = salon.salonAccount,
                 salonName = salon.salonName,
                 salonNameAbbr = salon.salonNameAbbr,
                 salonIndustry = salon.salonIndustry,
@@ -153,7 +150,7 @@ object Salon {
         SalonDAO.save(
             Salon(
                 id = salon.id,
-                salonAccount = salon.salonAccount,               
+                salonAccount = salon.salonAccount,
                 salonName = salon.salonName,
                 salonNameAbbr = salon.salonNameAbbr,
                 salonIndustry = salon.salonIndustry,

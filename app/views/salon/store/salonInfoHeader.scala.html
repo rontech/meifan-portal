@@ -1,136 +1,125 @@
 @(navInSalon:String = "salon-basic", salon: Salon)
 
-    <div class="detailHeader cFix pr">
-	<div class="detailHeaderShopInfo detail2S cFix">
-	    <div class="fl pL10 pT10">
-		<a href="http://beauty.hotpepper.jp/slnH000231733/">
-		    <img src="http://imgbp.hotp.jp/CSP/IMG_SRC/05/00/B002710500/B002710500_100-100.jpg"
-		    alt="フレール　Freresのお店ロゴ">
-		</a>
-	    </div>
-	    <div class="fr sprtHeaderInnerR pa right0 w180">
-		<ul class="p10">
-		    <li class="pa top10 left10">
-			<a href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733"
-			class="btn btn1H60 w156">
-			    <span>
-				<span>
-				    空席確認・予約する
-				</span>
-			    </span>
-			</a>
-		    </li>
-		    <li class="mT50 pT15">
-			<div class="jscMySalonSaveLayer">
-			    <p class="jscMySlnSvStIdH000231733" style="height: 19px; overflow:hidden;">
-				<a href="@routes.Users.addFollow(salon.id,1)" class="bS addIntoMyPage jscBtnSaveToMySalon offL db">
-				    マイサロンに保存
-				</a>
-				<span class="btnSlnSaveToMySalonDone bS offL">
-				    マイサロンに保存済
-				</span>
-			    </p>
-			</div>
-		    </li>
-		    <li class="mT5">
-			<a href="https://beauty.hotpepper.jp/CSP/bt/salonSendMobile/?storeId=H000231733"
-			class="bS db sendToMobile offL salonSendMobileP">
-			    携帯に送る
-			</a>
-		    </li>
-		</ul>
-	    </div>
-	    <div class="pL10 oh">
-		<div class="sprtHeaderOuter">
-		    <div class="sprtHeaderInner pV10 pR10 ">
-			<p class="detailTitle">
-			    <a href="http://beauty.hotpepper.jp/slnH000231733/">
-				@salon.salonName	
-			    </a>
-			</p>
-			<p class="fs10 fgGray">
-			    @salon.salonNameAbbr 
-			</p>
-			<dl class="cFix pV5 pL10">
-			    <dt class="fl fs10 fgLGray2 b mR5">
-				ネット予約OK
-			    </dt>
-			    <dd class="fl iS offL listImmediately mR5">
-				即時予約OK
-			    </dd>
-			    <dd class="fl iS offL listNominate mR5">
-				指名予約OK
-			    </dd>
-			    <dd class="fl iS offL listTheDay mR5">
-				当日OK
-			    </dd>
-			    <dd class="fl iS offL listPoint mR5">
-				ポイント加盟店
-			    </dd>
-			    <dd class="fl iS offL listMensOK mR5">
-				メンズ利用OK
-			    </dd>
-			</dl>
-			<div class="cFix mT5 pT5 bdDotT">
-			    <div class="fr cFix qrcode">
-				<ul>
-				    <li>
-					<!--TODO-->
-					<!--<img src="/CSP/qrCode/?storeId=H000231733&amp;cellsize=1&amp;margine=5&amp;vos=hbt1082"
-					alt="フレール　Freresの2次元バーコード">-->
-				    </li>
-				</ul>
-			    </div>
-			    <ul class="fs10">
-				<li>
-                                    @(salon.salonAddress.province + salon.salonAddress.city + salon.salonAddress.region + salon.salonAddress.addrDetail) &nbsp;
-				</li>
-				<li>
-				    @salon.accessMethodDesc
-				</li>
-			    </ul>
-			</div>
-		    </div>
-		</div>
-	    </div>
-	    <ul class="bS menuBG cFix">
-		<li class="fl">
-		    <a href="/salon/@salon.id" class="@if(navInSalon == "salon-basic") {bS db salonInformationCurrent offL} else {bS db salonInformation offL}">
-			サロン情報
-		    </a>
-		</li>
-		<li class="fl">
-		    <a href="/salon/@salon.id/coupons" class="@if(navInSalon == "salon-coupon") {bS db couponAndMenuCurrent offL} else {bS db couponAndMenu offL}">
-			クーポン・メニュー
-		    </a>
-		</li>
-		<li class="fl">
-		    <a href="/salon/@salon.id/stylists" class="@if(navInSalon == "salon-stylist") {bS db stylistCurrent offL} else {bS db stylist offL}">
-			スタイリスト
-		    </a>
-		</li>
-		<li class="fl">
-		    <a href="/salon/@salon.id/styles" class="@if(navInSalon == "salon-style") {bS db styleCurrent offL} else {bS db style offL}">
-			スタイル
-		    </a>
-		</li>
-		<li class="fl">
-		    <a href="/salon/@salon.id/blogs" class="@if(navInSalon == "salon-blog") {bS db blogCurrent offL} else {bS db blog offL}">
-			ブログ
-		    </a>
-		</li>
-		<li class="fl">
-		    <a href="http://beauty.hotpepper.jp/slnH000231733/map/" class="@if(navInSalon == "salon-accessmap") {bS db accessMapCurrent offL} else {bS db accessMap offL}">
-			地図
-		    </a>
-		</li>
-		<li class="fr">
-		    <a href="/salon/@salon.id/comments" class="@if(navInSalon == "salon-comment") {bS db kuchikomiCurrent offL} else {bS db kuchikomi offL}">
-			口コミ
-		    </a>
-		</li>
-	    </ul>
-	</div>
+<div class="detailHeader cFix pr">
+    <div class="detailHeaderShopInfo detail2S cFix">
+        <div class="fl pL10 pT10">
+        <a href="http://beauty.hotpepper.jp/slnH000231733/">
+            <img src="http://imgbp.hotp.jp/CSP/IMG_SRC/05/00/B002710500/B002710500_100-100.jpg"
+            alt="フレール　Freresのお店ロゴ">
+        </a>
+        </div>
+        <div class="fr sprtHeaderInnerR pa right0 w180">
+        <ul class="p10">
+            <li class="pa top10 left10">
+            <a href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733"
+            class="btn btn1H60 w156">
+                <span>
+                <span>
+                    空席確認・予約する
+                </span>
+                </span>
+            </a>
+            </li>
+            <li class="mT50 pT15">
+            <div class="jscMySalonSaveLayer">
+                <p class="jscMySlnSvStIdH000231733" style="height: 19px; overflow:hidden;">
+                <a href="@routes.Users.addFollow(salon.id,"salon")" class="bS addIntoMyPage jscBtnSaveToMySalon offL db">
+                    マイサロンに保存
+                </a>
+                <span class="btnSlnSaveToMySalonDone bS offL">
+                    マイサロンに保存済
+                </span>
+                </p>
+            </div>
+            </li>
+            <li class="mT5">
+            <a href="https://beauty.hotpepper.jp/CSP/bt/salonSendMobile/?storeId=H000231733"
+            class="bS db sendToMobile offL salonSendMobileP">
+                携帯に送る
+            </a>
+            </li>
+        </ul>
+        </div>
+        <div class="pL10 oh">
+        <div class="sprtHeaderOuter">
+            <div class="sprtHeaderInner pV10 pR10 ">
+            <p class="detailTitle">
+                <a href="http://beauty.hotpepper.jp/slnH000231733/">
+                @salon.salonName    
+                </a>
+            </p>
+            <p class="fs10 fgGray">
+                @salon.salonNameAbbr 
+            </p>
+            <dl class="cFix pV5 pL10">
+                <dt class="fl fs10 fgLGray2 b mR5">
+                ネット予約OK
+                </dt>
+                <dd class="fl iS offL listImmediately mR5">
+                即時予約OK
+                </dd>
+                <dd class="fl iS offL listNominate mR5">
+                指名予約OK
+                </dd>
+                <dd class="fl iS offL listTheDay mR5">
+                当日OK
+                </dd>
+                <dd class="fl iS offL listPoint mR5">
+                ポイント加盟店
+                </dd>
+                <dd class="fl iS offL listMensOK mR5">
+                メンズ利用OK
+                </dd>
+            </dl>
+            <div class="cFix mT5 pT5 bdDotT">
+                <div class="fr cFix qrcode">
+                <ul>
+                    <li>
+                    <!--TODO-->
+                    <!--<img src="/CSP/qrCode/?storeId=H000231733&amp;cellsize=1&amp;margine=5&amp;vos=hbt1082"
+                    alt="フレール　Freresの2次元バーコード">-->
+                    </li>
+                </ul>
+                </div>
+                <ul class="fs10">
+                <li>
+                    @(Messages("province.provinceName." + salon.salonAddress.province))
+                    @(Messages("city.cityName." + salon.salonAddress.city.get)) @*TODO*@
+                    @(Messages("region.regionName." + salon.salonAddress.region.get)) @*TODO*@
+                    @salon.salonAddress.addrDetail
+                </li>
+                <li>
+                    @salon.accessMethodDesc
+                </li>
+                </ul>
+            </div>
+            </div>
+        </div>
+        </div>
+        <ul class="bS menuBG cFix">
+            <li class="fl">
+                <a href="/salon/@salon.id" class="bS db @if(navInSalon == "salon-basic") {salonInformationCurrent} else {salonInformation} offL"> サロン情報 </a>
+            </li>
+            <li class="fl">
+                <a href="/salon/@salon.id/coupons" class="bS db @if(navInSalon == "salon-coupon") {couponAndMenuCurrent} else {couponAndMenu} offL"> クーポン・メニュー </a>
+            </li>
+            <li class="fl">
+                <a href="/salon/@salon.id/stylists" class="bS db @if(navInSalon == "salon-stylist") {stylistCurrent} else {stylist} offL"> スタイリスト </a>
+            </li>
+            <li class="fl">
+                <a href="/salon/@salon.id/styles" class="bS db @if(navInSalon == "salon-style") {styleCurrent} else {style} offL"> スタイル </a>
+            </li>
+            <li class="fl">
+                <a href="/salon/@salon.id/blogs" class="bS db @if(navInSalon == "salon-blog") {blogCurrent} else {blog} offL"> ブログ </a>
+            </li>
+            <li class="fl">
+                <a href="#" class="bS db @if(navInSalon == "salon-accessmap") {accessMapCurrent} else {accessMap} offL"> 地図 </a>
+            </li>
+            <li class="fr">
+                <a href="/salon/@salon.id/comments" class="bS db @if(navInSalon == "salon-comment") {kuchikomiCurrent} else {kuchikomi} offL"> 口コミ </a>
+            </li>
+        </ul>
     </div>
+</div>
 
 

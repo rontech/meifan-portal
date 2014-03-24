@@ -1,17 +1,62 @@
 @* UserInfomation Template File *@
-@(userForm: Form[User],user:User)
+@(userForm: Form[User])
  @import helper._
  
-    @myPageMain(navInMyPage = "information", user)  {
+ 
+@accountField(field: Field, className: String = "account") = {
+    @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
+        <input type="text" name="@name" value="@value"> 
+        <a class="removeAccount">Remove</a>
+    }
+}
 
-        @form(routes.Users.update(user.id), 'id -> "userForm") {
+@informationGroup(field: Field, className: String = "profile") = {
+    <div class="twipsies well @className">
+        
+        <a class="removeProfile">Remove this profile</a>
+
+        @inputText(
+            field("contMethmodType"), 
+            '_label -> Messages("salon.contMethmodType")
+        )
+        
+        <div class="accounts">
+
+            @repeat(field("accounts"), min = 0) { account =>
+                
+                @accountField(account)
+    
+            }
+            
+            @**
+             * Keep an hidden block that will be used as template for Javascript copy code
+             **@
+            @accountField(
+                field("accounts[x]"),
+                className = "account_template"
+            )
+            
+            <div class="clearfix">
+                <div class="input">
+                    <a class="addAccount btn success">Add a account number</a>
+                </div>
+            </div>
+        
+        </div>
+
+    </div>
+}
+
+    @myPageMain(navInMyPage = "information", userForm.get)  {
+
+        @form(routes.Users.updateInfo(userForm.get.userId), 'id -> "userForm") {
           <fieldset>
            	
                   @inputText(userForm("userId"),'_label -> Messages("user.name"), 'readonly -> "true")
 
-                  <input type="hidden" name="password" value="@user.password">
+                  <input type="hidden" name="password" value="@userForm.get.password">
 
-                  @inputText(userForm("nickNm"),'_label -> Messages("user.nickNm"))
+                  @inputText(userForm("nickName"),'_label -> Messages("user.nickNm"))
 
                   @inputDate(userForm("birthDay"), '_label -> Messages("user.birthDay"))
 
@@ -20,36 +65,87 @@
 
                   @inputText(userForm("city"),'_label -> Messages("user.city"))
 
-                  @inputText(userForm("job"),'_label -> Messages("user.job"))
+                  @inputText(userForm("socialStatus"),'_label -> Messages("user.job"))
 
                   @inputText(userForm("email"), '_label -> Messages("user.email"))
 
                   @inputText(userForm("tel"), '_label -> Messages("user.tel"))
 
-                  @inputText(userForm("qq"), '_label -> "QQ")
+                  @*inputText(userForm("optContactMethod"), '_label -> "",'style -> "display: none")*@
 
-                  @inputText(userForm("msn"), '_label -> "MSN")
-
-                  @inputText(userForm("weChat"),'_label -> Messages("user.weChat"))
-
-                  @inputDate(userForm("added"),'_label -> "" ,'style -> "display: none")
+                  @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none")
+    
+                  @*inputText(userForm("userPics"),'_label -> "" ,'style -> "display: none")*@
                   
-                  <input type="hidden" name="userTyp" value="@user.userTyp">
-                  
-                  <input type="hidden" name="userBehaviorLevel" value="@user.userBehaviorLevel">
-                  
-                  <input type="hidden" name="point" value="@user.point">
-                  
-                  <input type="hidden" name="added" value="@user.added">
-                  
-                  <input type="hidden" name="status" value="@user.status">
-                  
-                  <input type="hidden" name="id" value="@user.id">
-
-			
-		  </fieldset>            
-
+                  <input type = "hidden" name="userPics" value="@userForm.get.userPics">
+		  </fieldset>    
+		  
+		  <fieldset>
+            <legend>@Messages("user.optContactMethod")</legend>
+            
+            <div id="profiles">
+            
+                @repeat(userForm("optContactMethod")) { optContactMethod =>
+                
+                    @informationGroup(optContactMethod)
+                
+                }
+                
+                @**
+                 * Keep an hidden block that will be used as template for Javascript copy code
+                 **@
+                @informationGroup(
+                    userForm("optContactMethod[x]"),
+                    className = "profile_template"
+                )
+                
+                <div class="manage">
+                    <a class="addProfile btn success">Add another profile</a>
+                </div>
+            
+            </div>
+            
+        </fieldset>
             <input type = "submit" class = "buttons" value="@Messages("service.update")">           
         }
+        
+        <script type="text/javascript" charset="utf-8">
+        
+        $('.removeProfile').live('click', function(e) {
+            $(this).parents('.profile').remove()
+            renumber()
+        })
+        
+        $('.removeAccount').live('click', function(e) {
+            var accounts = $(this).parents('.accounts')
+            $(this).parents('.account').remove()
+            renumber(accounts)
+        })
+        
+        $('.addAccount').live('click', function(e) {
+            var accounts = $(this).parents('.accounts')
+            var template = $('.account_template', accounts)
+            template.before('<div class="clearfix account">' + template.html() + '</div>')
+            renumber(accounts)
+        })
+        
+        $('.addProfile').live('click', function(e) {
+            var template = $('.profile_template')
+            template.before('<div class="twipsies well profile">' + template.html() + '</div>')
+            renumber()
+        })
+       
+        var renumber = function(accounts) {
+            $('.profile').each(function(i) {
+                $('input', this).each(function() {
+                    $(this).attr('name', $(this).attr('name').replace(/informations\[.+?\]/g, 'optContactMethod[' + i + ']'))
+                })
+                $('.account input', this).each(function(i) {
+                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
+                })
+            })
+        }
+        
+    </script>
 
     }

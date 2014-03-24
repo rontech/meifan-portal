@@ -20,8 +20,8 @@ object Stylists extends Controller {
    * 
    */
   def findById(stylistId: ObjectId) = Action { 
-    val stylist: Option[Stylist] = Stylist.findById(stylistId)
-    val salonId =  stylist.get.salonId
+    val stylist: Option[Stylist] = Stylist.findOneById(stylistId)
+    val salonId =  SalonAndStylist.findByStylistId(stylistId).get.salonId
     val salon: Option[Salon] = Salon.findById(salonId)
     Ok(html.salon.store.salonInfoStylist(salon.get, stylist.get))
   }
@@ -30,65 +30,50 @@ object Stylists extends Controller {
 
     val salon: Option[Salon] = Salon.findById(salonId)
     val nav: String = "style"
-    val stylistsOfSalon: Seq[Stylist] = Stylist.findBySalon(salonId)    
+    val stylistsOfSalon: List[Stylist] = Stylist.findBySalon(salonId)    
      // TODO
     Ok(html.salon.store.salonInfoStylistAll(salon.get, stylistsOfSalon))
 
   }
   
   def findStylistById(id: ObjectId) = Action {
-    val stylist = Stylist.findById(id)
-    val salon = Salon.findById(stylist.get.salonId)
+    val stylist = Stylist.findOneById(id)
+    val salonId =  SalonAndStylist.findByStylistId(id).get.salonId
+    val salon = Salon.findById(salonId)
     val style = Style.findByStylistId(id)
     Ok(html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, style = style))
   }
   
+  /**
+   *  同意salon邀请
+   */
   def agreeSalonApply(stylistId: ObjectId, salonId: ObjectId) = Action {
-    val record = ApplyRecord.findSalonAyRd(salonId, stylistId)
-    var userId: ObjectId = new ObjectId
+   val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, stylistId)
         record match {
           case Some(re) => {
-            val  rec = new ApplyRecord(re.id, re.stylistId, re.salonId, re.applyType,
-                re.createTime, Option(new Date), None, None, 1)
-            ApplyRecord.save(rec.copy(id = re.id))
-            val stylist = Stylist.findById(stylistId)
-            stylist match {
-              case Some(sty) => {
-                userId = sty.userId
-                val slt = new Stylist(sty.id, sty.label, salonId, sty.userId, sty.workYears, sty.stylistStyle,
-                    sty.imageId, sty.consumerId, sty.description, sty.pictureName, 1)
-                Stylist.save(slt.copy(id = sty.id))
-              }
-              case None => NotFound
-            }
-            Redirect(routes.Users.myPage(userId.toString))
+            SalonStylistApplyRecord.agreeStylistApply(re)
+            val stylist = Stylist.findOneById(re.stylistId)
+            Stylist.becomeStylist(stylistId)
+            SalonAndStylist.entrySalon(salonId, stylistId)
+            Redirect(routes.SalonsAdmin.myStylist(salonId))
           }
           case None => NotFound
         }
   }
   
+  /**
+   *  拒绝salon邀请
+   */
   def rejectSalonApply(stylistId: ObjectId, salonId: ObjectId) = Action {
-    val record = ApplyRecord.findStylistAyRd(salonId, stylistId)
-    var userId: ObjectId = new ObjectId
+	 val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, stylistId)
         record match {
           case Some(re) => {
-            val  rec = new ApplyRecord(re.id, re.stylistId, re.salonId, re.applyType,
-                re.createTime,None ,Option(new Date), None, 2)
-            ApplyRecord.save(rec.copy(id = re.id))
-            val stylist = Stylist.findById(stylistId)
-            stylist match {
-              case Some(sty) => {
-                userId = sty.userId
-                val slt = new Stylist(sty.id, sty.label, salonId, sty.userId, sty.workYears, sty.stylistStyle,
-                    sty.imageId, sty.consumerId, sty.description, sty.pictureName, 0)
-                Stylist.save(slt.copy(id = sty.id))
-              }
-              case None => NotFound
-            }
-            Redirect(routes.Users.myPage(userId.toString))
+            SalonStylistApplyRecord.agreeStylistApply(re)
+            val stylist = Stylist.findOneById(re.stylistId)
+            Redirect(routes.SalonsAdmin.myStylist(salonId))
           }
           case None => NotFound
-        }
+        } 
   }
   
 }

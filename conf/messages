@@ -15,6 +15,7 @@ common.edit=编辑
 common.delete=删除
 
 # Index page
+index.mainPage=网站首页
 index.reserve=24小时网上预约&空席确认
 index.pointPolicy=5%的积分制度
 index.appeal=国内首家P2C美容平台
@@ -44,6 +45,7 @@ main.myPage=我的主页
 
 # Salon
 salon.tabName=美发沙龙
+salon.salonMainPage=美容美发沙龙检索首页
 salon.show=展示所有沙龙
 salon.title=店铺基本信息管理
 salon.salonData={0}的基本信息
@@ -89,11 +91,9 @@ salon.hasParkingNearByMsg=有
 salon.hasNoParkingNearByMsg=无
 salon.pictures=展示图片
 salon.registerTime=美容平台注册日期
-salon.a=美容美发
-salon.b=瘦身健美
-salon.c=美甲美肤
 
 #salon management
+salonAdmin.mainPage = 店铺管理
 salonAdmin.myPage = 我的店铺
 salonAdmin.myBlog = 我的博客
 salonAdmin.welcome = 欢迎您
@@ -312,6 +312,13 @@ user.female=女
 user.loginOut=退出
 user.cancleBothFollow=取消互粉
 user.addFollow=添加关注
+user.myMessages=消息
+
+#Letter
+letter.addressee=收件人
+letter.sender=发件人
+letter.time=时间
+
 
 user.myMessages=消息
 

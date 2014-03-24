@@ -21,26 +21,20 @@
 			 @comments.map { comment =>
 			 	
 			 	
-			 	@if(comment.status == 0) {
-				<tr>
-				
-					
-					<td>@comment.userId</td>
-					<td>@comment.content</td>
-					<td>@comment.time</td>
-					<td>@comment.commentedId</td>
+			 	
+				<tr>				
 					<td>相关用户的id</td>
 					<td>该评论的状态</td>
 					<td>评论对象的类型</td>
 					<td>@comment.id</td>
-					<td><a href = "@routes.Comments.answer(comment.id, comment.commentedId)"><input type="button" value="（店铺向用户）解释，回复" ></a></td>
+					@*<td><a href = "@routes.Comments.answer(comment.id, comment.commentedId)"><input type="button" value="（店铺向用户）解释，回复" ></a></td>*@
 					<td><a href = "@routes.Comments.complaint(comment.id)"><input type="button" value="（店铺向后台进行）申诉" ></a></td>
-					<td><a href = "@controllers.Comments.delete(comment.id, comment.commentedId)"><input type="button" value="（管理员有“删除”的功能，改状态）删除" ></a></td>
+					@*<td><a href = "@controllers.Comments.delete(comment.id, comment.commentedId)"><input type="button" value="（管理员有“删除”的功能，改状态）删除" ></a></td>*@
 				</tr>
 				}
 				
 				
-			}
+			
 			</table>
 		
 			
