@@ -39,6 +39,9 @@ object Menus extends Controller {
 	  }
   }
   
+  /**
+   * 创建菜单
+   */
   def createMenu = Action {implicit request =>
     menuForm.bindFromRequest.fold(
         errors => BadRequest(views.html.error.errorMsg(errors)),
@@ -68,6 +71,23 @@ object Menus extends Controller {
 		    }
         }
     )
+  }
+  
+  def invalidMenu(menuId: ObjectId) = Action {
+    val menu: Option[Menu] = Menu.findOneById(menuId)
+    
+    menu match {
+      case Some(s) => val menuTemp = s.copy(isValid = false)
+                      Menu.save(menuTemp)
+                      val salon: Option[Salon] = Salon.findById(s.salonId)
+                      val menus: List[Menu] = Menu.findBySalon(s.salonId)
+                      salon match {
+                      	case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, menus))
+                      	case None => NotFound
+                      }
+                      
+      case None => NotFound
+    }
   }
   
 }

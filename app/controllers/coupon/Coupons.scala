@@ -56,7 +56,7 @@ object Coupons extends Controller {
   )
   
   def index = Action {
-    val coupons:Seq[Coupon] = Coupon.findAll
+    val coupons:Seq[Coupon] = Coupon.findAll().toList
     Ok(views.html.coupon.couponOverview(coupons))
   }
   
@@ -181,6 +181,23 @@ object Coupons extends Controller {
           
           Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus, servicesByTypes))
       })
+  }
+  
+  def invalidCoupon(couponId: ObjectId) = Action {
+    val coupon: Option[Coupon] = Coupon.findOneById(couponId)
+    
+    coupon match {
+      case Some(s) => val couponTemp = s.copy(isValid = false)
+                      Coupon.save(couponTemp)
+                      val salon: Option[Salon] = Salon.findById(s.salonId)
+                      val coupons: List[Coupon] = Coupon.findBySalon(s.salonId)
+                      salon match {
+                      	case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, coupons))
+                      	case None => NotFound
+                      }
+                      
+      case None => NotFound
+    }
   }
 
 }

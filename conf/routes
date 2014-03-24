@@ -55,7 +55,6 @@ GET		/searchStylistById								controllers.SalonsAdmin.searchStylistById
 GET		/inviteStylist/:stylistId/:salonId				controllers.SalonsAdmin.inviteStylist(stylistId: ObjectId, salonId: ObjectId)
 
 
-
 # Salon 
 GET     /salon                          controllers.Salons.index
 GET     /salon/:id                      controllers.Salons.getSalon(id: ObjectId)
@@ -68,7 +67,11 @@ GET     /salon/:salonId/coupons         controllers.Coupons.findBySalon(salonId:
 POST    /salon/:salonId/coupons/condtion   controllers.Coupons.findByCondtion(salonId: ObjectId)
 GET     /createCoupon                   controllers.Coupons.createCoupon
 GET     /showCoupons/:salonId           controllers.Coupons.showCoupons(salonId: ObjectId)
+GET     /invalidCoupon/:couponId     	controllers.Coupons.invalidCoupon(couponId: ObjectId)
+
+# Menu
 GET     /createMenu                     controllers.Menus.createMenu
+GET     /invalidMenu/:menuId     		controllers.Menus.invalidMenu(menuId: ObjectId)
 
 # Style
 GET     /style                          controllers.Styles.index
