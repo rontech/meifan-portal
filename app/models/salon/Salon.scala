@@ -28,8 +28,8 @@ import java.util.Date
 */
 case class Address (
     province: String,
-    city: String,
-    region: String,
+    city: Option[String],
+    region: Option[String],
     town: Option[String],
     addrDetail: String,
     longitude: Option[BigDecimal],
@@ -126,6 +126,7 @@ object Salon {
     def create(salon: Salon): Option[ObjectId] = {
         SalonDAO.insert(
             Salon(
+                id = salon.id,                
                 salonAccount = salon.salonAccount,  
                 salonName = salon.salonName,
                 salonNameAbbr = salon.salonNameAbbr,

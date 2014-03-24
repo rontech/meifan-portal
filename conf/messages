@@ -42,6 +42,7 @@ main.myPage=我的主页
 
 # Salon
 salon.show=展示所有沙龙
+salon.register=店铺注册
 salon.title=店铺基本信息管理
 salon.salonData={0}的基本信息
 salon.id=店铺ID
@@ -276,9 +277,9 @@ user.addFollow=添加关注
 # 主表字段翻译定义区
 #-------------------------------
 # 省份
-province.provinceName.Jiangsu=江苏省
+Jiangsu=江苏省
 province.provinceName.Jiangxi=江西省
-province.provinceName.Shangdong=山东省
+Shandong=山东省
 province.provinceName.Shangxi=山西省
 province.provinceName.Hubei=湖北省
 province.provinceName.Hunan=湖南省
@@ -293,12 +294,15 @@ city.cityName.Shanghai=上海市
 city.cityName.Beijing=北京市
 
 # 市
-city.cityName.Suzhou=苏州市
-city.cityName.Wuxi=无锡市
-city.cityName.Nanjing=南京市
-city.cityName.Jinan=济南市
-city.cityName.Qingdao=青岛市
+Suzhou=苏州市
+Wuxi=无锡市
+Nanjing=南京市
+Jinan=济南市
+Qingdao=青岛市
 
 
 # 区
 region.regionName.Gaoxin=高新区
+Xuan=玄武区
+Gulou=鼓楼区
+GaoXin=高新区

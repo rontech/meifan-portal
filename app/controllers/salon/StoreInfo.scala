@@ -30,13 +30,13 @@ object SalonInfo extends Controller{
 	        "contact" -> text,
 	        "optContactMethod" -> list(
 	            mapping(
-	                "contMethmodType" -> text,
-	                "account" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
+	                "contMethodType" -> text,
+	                "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
 	        "establishDate" -> date("yyyy-MM-dd"),
 	        "salonAddress" -> mapping(
 	        	"province" -> text,
-	        	"city" -> text,
-	        	"region" -> text,
+	        	"city" -> optional(text),
+	        	"region" -> optional(text),
 	        	"town" -> optional(text),
 	        	"addrDetail" ->text,
 	        	"longitude" -> optional(bigDecimal),
@@ -94,52 +94,124 @@ object SalonInfo extends Controller{
 
   val salonRegister:Form[Salon] = Form(
       mapping(
-	    "salonAccount" -> mapping(
-	    	"accountId" -> text,
-	    	"password" -> tuple(
-	    		"main" -> text,
-	    		"confirm" -> text).verifying(
-	    			"Passwords don't match", passwords => passwords._1 == passwords._2)
-	    	){
-	    	(accountId,password) => SalonAccount(accountId,password._1)
+	    	"salonAccount" -> mapping(
+	    		"accountId" -> nonEmptyText(6,16),
+	    		"password" -> tuple(
+	    			"main" -> text,
+	    			"confirm" -> text).verifying(
+	    					"Passwords don't match", passwords => passwords._1 == passwords._2)
+	    			){
+	    		(accountId,password) => SalonAccount(accountId,password._1)
 	    	}{
 	    	  salonAccount=>Some(salonAccount.accountId,(salonAccount.password, ""))
 	    	},
-    	"salonName" -> text,
-    	"mainPhone" -> text,
-    	"establishDate" -> date("yyyy-MM-dd"),
-    	"accept" -> checked("")
+	        "salonName" -> text,
+	        "salonNameAbbr" -> optional(text),
+	        "salonIndustry" -> list(text),
+	        "homepage" -> optional(text),
+	        "salonDescription" -> optional(text),
+	        "mainPhone" -> text,
+	        "contact" -> text,
+	        "optContactMethod" -> list(
+	            mapping(
+	                "contMethodType" -> text,
+	                "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
+	        "establishDate" -> date("yyyy-MM-dd"),
+	        "salonAddress" -> mapping(
+	        	"province" -> text,
+	        	"city" -> optional(text),
+	        	"region" -> optional(text),
+	        	"town" -> optional(text),
+	        	"addrDetail" ->text,
+	        	"longitude" -> optional(bigDecimal),
+	        	"latitude" -> optional(bigDecimal)
+	        	)
+	        	(Address.apply)(Address.unapply),
+	        "accessMethodDesc" -> text,
+	        "workTime" -> mapping(
+	            "openTime" -> text ,
+	            "closeTime" -> text
+	            )
+	            (WorkTime.apply)(WorkTime.unapply),
+	        "restDay" -> list(
+	            mapping(
+	                "restDayDivision" -> number,
+	                "restDay" -> number
+	                )
+	                (RestDay.apply)(RestDay.unapply)
+	            ),
+	        "seatNums" -> number,
+	        "salonFacilities" -> mapping(
+	            "canOnlineOrder" -> boolean,
+	            "canImmediatelyOrder" -> boolean,
+	            "canNominateOrder" -> boolean,
+	            "canCurntDayOrder" -> boolean,
+	            "canMaleUse" -> boolean,
+	            "isPointAvailable" -> boolean,
+	            "isPosAvailable" -> boolean,
+	            "isWifiAvailable" -> boolean,
+	            "hasParkingNearby" -> boolean,
+	            "parkingDesc" -> text)
+	            (SalonFacilities.apply)(SalonFacilities.unapply),
+	        "salonPics" -> list(
+	            mapping(
+	                "fileObjId" -> text,
+	                "picUse" -> text,
+	                "showPriority"-> optional(number),
+	                "description" -> optional(text)
+	                ){
+	              (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId(fileObjId),"",Option(0),Option(""))
+	              }{
+	                salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
+	              }),
+	        "registerDate" -> date
       ){
-        (salonAccount,salonName,mainPhone,establishDate,_) => Salon(new ObjectId, salonAccount, salonName,Option(""),List(""),Option(""),Option(""),mainPhone,"",List(OptContactMethod("",List(""))),establishDate,Address("Jiangsu", "Suzhou", "Gaoxin", Some(""), "竹园路209号", Some(100.0), Some(110.0)),"",
-            WorkTime("",""),List(RestDay(1,1)),0,SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"),List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d592"), "LOGO", Some(1), None)),new Date)
+        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, mainPhone, contact, optContactMethod, establishDate, salonAddress, accessMethodDesc,
+	       workTime, restDay, seatNums, salonFacilities,salonPics,registerDate) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, mainPhone, contact, optContactMethod, establishDate, salonAddress, accessMethodDesc,
+	       workTime, restDay, seatNums, salonFacilities,salonPics,registerDate)
       }{
-        salonRegister=> Some(salonRegister.salonAccount,salonRegister.salonName,salonRegister.mainPhone,salonRegister.establishDate,false)
+        salonRegister=> Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.mainPhone, 
+        		salonRegister.contact, salonRegister.optContactMethod, salonRegister.establishDate, salonRegister.salonAddress, salonRegister.accessMethodDesc,
+        		salonRegister.workTime, salonRegister.restDay, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics, salonRegister.registerDate)
       }
    )
 
+  /**
+   * 店铺注册页面
+   */
   def register = Action {
-    Ok(views.html.salon.salonRegister(SalonInfo.salonRegister))
+    val industry = Industry.findAll.toList
+    val provinces = Province.findAll.toList
+    val cities = City.findAll.toList
+    val regions = Region.findAll.toList
+    Ok(views.html.salon.salonRegister(salonRegister,industry,provinces,cities,regions))
   }   
   
+  /**
+   * 店铺注册
+   */
   def doRegister = Action { implicit request =>
     SalonInfo.salonRegister.bindFromRequest.fold(
       errors => BadRequest(views.html.error.errorMsg(errors)),
       {
         salonRegister =>
           Salon.create(salonRegister)
-          Ok("修改成功")
+          Redirect(routes.SalonsAdmin.mySalon(salonRegister.id))
       })
   }
+  
   /**
    * 店铺基本信息显示
    *
    */
-  def salonInfoBasic = Action {
-    val id: ObjectId = new ObjectId("530d7288d7f2861457771bdd")
+  def salonInfoBasic(id: ObjectId) = Action {
     val basic = Salon.findById(id).get
     val salon = SalonInfo.salonInfo.fill(basic)
     val industry = Industry.findAll.toList
-    Ok(views.html.salon.salonInfo(salon,industry))
+    val provinces = Province.findAll.toList
+    val cities = City.findAll.toList
+    val regions = Region.findAll.toList    
+    Ok(views.html.salon.salonInfo(salon,industry,provinces,cities,regions))
   }
 
   /**
@@ -149,9 +221,10 @@ object SalonInfo extends Controller{
     salonInfo.bindFromRequest.fold(
       errors => BadRequest(views.html.error.errorMsg(errors)),
       {
+        
         salon =>
           Salon.save(salon.copy(id = id))
-          Ok("修改成功")
+          Redirect(routes.SalonInfo.salonInfoBasic(id))
       })
   }
 }

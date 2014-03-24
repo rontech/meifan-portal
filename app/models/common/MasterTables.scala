@@ -65,6 +65,20 @@ object City extends ModelCompanion[City, ObjectId]{
   
 }
 
+/**
+ * [Master Table]
+ */
+case class Region(
+    regionId: ObjectId = new ObjectId,
+    regionName: String,
+    cityName: String                // Ref to the Master Table [Provice] on the [City] field.
+)
+
+object Region extends ModelCompanion[Region, ObjectId]{
+
+  val dao = new SalatDAO[Region, ObjectId](collection = mongoCollection("Region")){}
+  
+}
 
 /**
  * [Master Table]

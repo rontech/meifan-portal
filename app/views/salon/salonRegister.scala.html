@@ -1,41 +1,119 @@
-@(salonRegister: Form[Salon])
+@(salonRegister: Form[Salon],industry: List[Industry],provinces: List[Province],cities: List[City],regions: List[Region])
+@import helper._
+@import helper.twitterBootstrap._
 
-    @import helper._
-
-    @main(Messages("site.title")) {
-    	
-    	<head>
-			<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
-		</head>
-
-        <font size =30px align = "center">@Messages("user.new")</font>
-       
-        @form(routes.SalonInfo.doRegister, 'id -> "salonRegister") {
-          <fieldset>
-            @inputText(salonRegister("salonAccount.accountId"),'_label -> "注册ID",
-            	'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("user.regErr"))))
-
-			@inputPassword(salonRegister("salonAccount.password.main"),'_label -> Messages("user.pasword"))
-			
-			@inputPassword(salonRegister("salonAccount.password.confirm"),'_label -> Messages("user.confirmPas"),'_error -> salonRegister.error("password"))
-
-            @inputText(salonRegister("salonName"),'_label ->  Messages("salon.Name"))
-
-            @inputText(salonRegister("mainPhone"), '_label -> Messages("salon.mainPhone"))
-
-			@inputDate(salonRegister("establishDate"), '_label ->Messages("salon.establishDate"))
-
-			@checkbox(salonRegister("accept"), '_label -> None, '_text -> "I agree to the Terms and conditions",
-				'_error -> salonRegister("accept").error.map(_.withMessage(Messages("user.agree"))))
-	
-		  </fieldset>
-		  
-            <input type="submit" class = "buttons" value="@Messages("user.new")">
-            
-            <a href="login"><input type = "button" class = "buttons" value="@Messages("user.loginBtn")"></a>
-            
-            <input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
-           
-        }
-
+@phoneField(field: Field, className: String = "contact") = {
+    @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
+        <input type="text" name="@name" value="@value"> 
     }
+}
+
+@informationGroup(field: Field, className: String = "profile") = {
+    <div class="twipsies well @className">
+
+        @inputText(
+            field("contMethodType"), 
+            '_label -> Messages("salon.contMethmodType")
+        )
+        
+        <div class="phones">
+
+            @repeat(field("accounts"), min = 0) { accounts =>
+                
+                @phoneField(accounts)
+    
+            }        
+        </div>
+
+    </div>
+}
+
+@main("salonRegister"){
+
+<div class="salonRegister">
+	<div class="salonRegister">
+		<h2>@Messages("salon.register")</h2>
+
+		@helper.form(routes.SalonInfo.doRegister, 'id -> "salonRegister"){
+		 <fieldset >
+		 	@inputText(salonRegister("salonAccount.accountId"),'_label -> "注册ID")
+			@inputPassword(salonRegister("salonAccount.password.main"),'_label -> Messages("user.pasword"))			
+			@inputPassword(salonRegister("salonAccount.password.confirm"),'_label -> Messages("user.confirmPas"),'_error -> salonRegister.error("password"))		 	   		          
+            @inputText(salonRegister("salonName"),'_label ->  Messages("salon.Name"))           
+            @inputText(salonRegister("salonNameAbbr"),'_label -> Messages("salon.Abbr"))			
+			
+			@input(field = salonRegister("salonIndustry"),args = '_label -> Messages("salon.type")){(id,name,value,args) =>
+			 	@for(i <- 0 to industry.length-1){
+
+			 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages(industry(i).industryName)			 			
+			 		
+			 	}
+			  }
+					
+		 	@inputText(salonRegister("homepage"), '_label -> Messages("salon.homepage"))			
+			@inputText(salonRegister("salonDescription"), '_label -> Messages("salon.description"))
+			@inputText(salonRegister("mainPhone"), '_label -> Messages("salon.mainPhone"))
+			@inputText(salonRegister("contact"), '_label -> Messages("salon.contact"))
+			<div id="profiles">           
+                @repeat(salonRegister("optContactMethod")) { optContactMethod =>                
+                    @informationGroup(optContactMethod)
+                
+                }                               
+            </div>
+			@inputDate(salonRegister("establishDate"), '_label -> Messages("salon.establishDate"))
+				
+     		 
+			<lable>@Messages("salon.address")</lable>
+			<br>
+			<select name="salonAddress.province">
+     	    @for(i <- 0 to provinces.length-1){				
+       				@provinces.map{province=>
+        			<option value="@province.provinceName">@Messages(province.provinceName)</option>
+       			}
+    		</select>
+     		}
+     					       		 				
+			<select name="salonAddress.city">
+     	    @for(i <- 0 to cities.length-1){				
+       				@cities.map{cities=>
+        			<option value="@cities.cityName">@Messages(cities.cityName)</option>
+       			}
+    		</select>
+    		}
+    		
+			<select name="salonAddress.region">
+     	    @for(i <- 0 to regions.length-1){				
+        			<option value="@regions(i).regionName">@Messages(regions(i).regionName)</option>
+       			}
+    		</select>
+    		
+    		  		
+			@inputText(salonRegister("salonAddress.town"), '_label -> Messages("salon.town"))
+			@inputText(salonRegister("salonAddress.addrDetail"), '_label -> Messages("salon.addrDetail"))
+			@inputText(salonRegister("salonAddress.longitude"), '_label -> Messages("salon.longitude"))
+			@inputText(salonRegister("salonAddress.latitude"), '_label -> Messages("salon.latitude"))		
+			@inputText(salonRegister("accessMethodDesc"), '_label -> Messages("salon.accessMethod"))
+			@inputText(salonRegister("workTime.openTime"), '_label -> Messages("salon.openTime"))
+			@inputText(salonRegister("workTime.closeTime"), '_label -> Messages("salon.closeTime"))
+			@inputText(salonRegister("restDay(0).restDay"), '_label -> Messages("salon.restDay"))	
+			@inputText(salonRegister("seatNums"), '_label -> Messages("salon.seatNums"))	
+			@checkbox(salonRegister("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"))
+			@checkbox(salonRegister("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"))
+			@checkbox(salonRegister("salonFacilities.canNominateOrder"), '_label -> Messages("salon.canNominateOrder"))
+			@checkbox(salonRegister("salonFacilities.canCurntDayOrder"), '_label -> Messages("salon.canCurntDayOrder"))
+			@checkbox(salonRegister("salonFacilities.canMaleUse"), '_label -> Messages("salon.canMaleUse"))
+			@checkbox(salonRegister("salonFacilities.isPointAvailable"), '_label -> Messages("salon.isPointAvailable"))
+			@checkbox(salonRegister("salonFacilities.isPosAvailable"), '_label -> Messages("salon.isPosAvailable"))
+			@checkbox(salonRegister("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"))
+			@checkbox(salonRegister("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"))
+			@inputText(salonRegister("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"))
+			@inputText(salonRegister("salonPictures"), '_label -> Messages("salon.pictures"))
+			@inputDate(salonRegister("registerDate"), '_label -> Messages("salon.registerTime"))	
+		  </fieldset>            
+            <input type = "submit" class = "buttons" value=@Messages("user.registerBtn")>
+			<input type="reset" value=@Messages("common.reset")><a href = "/  "><input type="button" value=@Messages("common.backUp") ></a>                     
+		}
+		</div>
+</div>
+
+}
