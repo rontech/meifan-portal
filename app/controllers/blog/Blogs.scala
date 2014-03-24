@@ -97,7 +97,8 @@ object Blogs extends Controller {
   def showBlog(userId : String) = Action {
     val user: Option[User] = User.findOneByUserId(userId)
     val blogList = Blog.getBlogByUserId(userId)
-    Ok(views.html.blog.admin.findBlogs(user = user.get, blogList))
+    val followInfo = MyFollow.getAllFollowInfo(user.get.id)
+    Ok(views.html.blog.admin.findBlogs(user = user.get, blogList, followInfo))
   }
   
   
@@ -106,8 +107,9 @@ object Blogs extends Controller {
    */
   def newBlog(userId: String) = Action {
     val user: Option[User] = User.findOneByUserId(userId)
-    val listBlogCategory = BlogCategory.getCategory 
-    Ok(views.html.blog.admin.newBlog(newBlogForm(userId), listBlogCategory, user = user.get))
+    val listBlogCategory = BlogCategory.getCategory
+    val followInfo = MyFollow.getAllFollowInfo(user.get.id)
+    Ok(views.html.blog.admin.newBlog(newBlogForm(userId), listBlogCategory, user = user.get, followInfo))
   }
   
    /**
@@ -133,9 +135,10 @@ object Blogs extends Controller {
     val blog = Blog.findOneById(blogId)
     var list = BlogCategory.getCategory()    
     val user = User.findOneByUserId(blog.get.authorId).get
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
     blog.map { blog =>
       val formEditBlog = blogForm(user.userId).fill(blog)
-      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user, blog))
+      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user, blog, followInfo))
     } getOrElse {
       NotFound
     }
@@ -176,6 +179,7 @@ object Blogs extends Controller {
     val user = User.findOneByUserId(blog.authorId).get
     Comment.list = Nil
     val commentList = Comment.all(blogId)
-    Ok(views.html.blog.admin.blogDetail(blog, user, commentList))
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.blog.admin.blogDetail(blog, user, commentList, followInfo))
   }
 }

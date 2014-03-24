@@ -1,7 +1,7 @@
-@(user : User, blogList : List[Blog])
+@(user : User, blogList : List[Blog], followInfo:FollowInfomation)
 @import views.html.user._
 
-@myPageMain(navInMyPage = "my-blog", user) {
+@myPageMain(navInMyPage = "my-blog", user, followInfo) {
         <div class="SpaceList BlogList">
 			 @blogList.map { blog =>
 				<li>

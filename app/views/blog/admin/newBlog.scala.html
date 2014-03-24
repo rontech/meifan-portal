@@ -1,4 +1,4 @@
-@(newBlogForm: Form[Blog], listBlogCategory : List[String], user : User)
+@(newBlogForm: Form[Blog], listBlogCategory : List[String], user : User, followInfo:FollowInfomation)
 
 @import helper._
 @import views.html.user._
@@ -15,7 +15,7 @@ $(function(){
 })
 </script>*@
 
-@myPageMain(navInMyPage = "my-blog", user) {
+@myPageMain(navInMyPage = "my-blog", user, followInfo) {
   @form(action = routes.Blogs.writeBlog(user.userId)) {
       <fieldset>
         @inputText(newBlogForm("title"),'_label -> "标题")             

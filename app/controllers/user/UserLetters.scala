@@ -74,15 +74,17 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
     } else {
       pages = count.toInt / pageSize + 1
     }
-    Ok(views.html.user.myMessages(letters, count, pages, 1, user))
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.myMessages(letters, count, pages, 1, user, followInfo))
   }
   
   def showMessage(id : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
     val userMsg = UserMessage.findOneById(id).get
     val msg = Message.findOneById(userMsg.msgId).get
     UserMessage.readed(userMsg)
-    Ok(views.html.user.message(UserLetter(userMsg, msg),user))
+    Ok(views.html.user.message(UserLetter(userMsg, msg),user,followInfo))
   }
   
 }
