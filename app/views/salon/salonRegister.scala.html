@@ -68,7 +68,7 @@
 			<select name="salonAddress.province">
      	    @for(i <- 0 to provinces.length-1){				
        				@provinces.map{province=>
-        			<option value="@province.provinceName">@Messages(province.provinceName)</option>
+        			<option value="@province.provinceName">@Messages("province.provinceName."+province.provinceName)</option>
        			}
     		</select>
      		}
@@ -76,14 +76,14 @@
 			<select name="salonAddress.city">
      	    @for(i <- 0 to cities.length-1){				
        				@cities.map{cities=>
-        			<option value="@cities.cityName">@Messages(cities.cityName)</option>
+        			<option value="@cities.cityName">@Messages("city.cityName."+cities.cityName)</option>
        			}
     		</select>
     		}
     		
 			<select name="salonAddress.region">
      	    @for(i <- 0 to regions.length-1){				
-        			<option value="@regions(i).regionName">@Messages(regions(i).regionName)</option>
+        			<option value="@regions(i).regionName">@Messages("region.regionName."+regions(i).regionName)</option>
        			}
     		</select>
     		
