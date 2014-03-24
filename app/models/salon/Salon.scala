@@ -69,6 +69,14 @@ case class RestDay(
     restDay: Int
 )
 
+/**
+ * Embed Structure.
+*/
+case class SalonAccount(
+    accountId: String,
+    password: String
+)
+
 
 
 /*----------------------------
@@ -80,7 +88,7 @@ case class RestDay(
 
 case class Salon(
     id: ObjectId = new ObjectId,   	
-    accountId:String,
+    salonAccount:SalonAccount,
     salonName: String,                  
     salonNameAbbr: Option[String],      
     salonIndustry: List[String],       // Ref to Master [Industry] table.           

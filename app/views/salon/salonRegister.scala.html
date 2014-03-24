@@ -45,7 +45,7 @@
 			@input(field = salonRegister("salonIndustry"),args = '_label -> Messages("salon.type")){(id,name,value,args) =>
 			 	@for(i <- 0 to industry.length-1){
 
-			 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages(industry(i).industryName)			 			
+			 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
 			 		
 			 	}
 			  }

@@ -69,7 +69,8 @@ salon.town=镇
 salon.addrDetail=其他
 salon.longitude=店铺地理位置经度
 salon.latitude=店铺地理位置纬度
-salon.workTime=营业时间
+salon.openTime=营业开始
+salon.closeTime=营业结束
 salon.restDay=休息日
 salon.priceCutOnly=剪发价格
 salon.priceCutOnlyMsg={0} 元起
@@ -384,3 +385,10 @@ city.cityName.Qingdao=青岛市
 region.regionName.GaoXin=高新区
 region.regionName.Xuan=玄武区
 region.regionName.Gulou=鼓楼区
+
+
+#行业
+industry.industryName.Hairdressing=美发
+industry.industryName.Manicures=美甲
+industry.industryName.Healthcare=保健
+industry.industryName.Cosmetic=整形
