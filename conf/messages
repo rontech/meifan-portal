@@ -11,6 +11,8 @@ site.copyright=Copyright &copy; RONTECH Co., Ltd. All rights reserved.
 common.submit = 提交
 common.reset=重置
 common.backUp=返回
+common.edit=编辑
+common.delete=删除
 
 # Index page
 index.reserve=24小时网上预约&空席确认
@@ -41,6 +43,7 @@ main.myPage=我的主页
 
 
 # Salon
+salon.tabName=美发沙龙
 salon.show=展示所有沙龙
 salon.title=店铺基本信息管理
 salon.salonData={0}的基本信息
@@ -110,6 +113,7 @@ salonAdmin.menuManagement = 菜单管理
 salonAdmin.stateManagement = 动态管理
 
 # Hair
+hair.tabName=时尚靓发
 hair.salon=美发沙龙
 hair.style=发型
 hair.styleName=发型名
@@ -309,6 +313,12 @@ user.loginOut=退出
 user.cancleBothFollow=取消互粉
 user.addFollow=添加关注
 
+user.myMessages=消息
+
+#Letter
+letter.addressee=收件人
+letter.sender=发件人
+letter.time=时间
 
 
 
@@ -316,7 +326,13 @@ user.addFollow=添加关注
 # Messages Area.
 #-------------------------------
 
-
+#Blog
+blog.newBlog=发表博客
+blog.title=博客标题
+blog.content=博客内容
+blog.blogCategory=博客类型
+blog.tags=标签
+blog.placeholder=请用逗号分割
 
 
 

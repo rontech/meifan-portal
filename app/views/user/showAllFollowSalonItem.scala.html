@@ -8,10 +8,10 @@
 					<span class="city">@salon.salonAddress.province &nbsp;@salon.salonAddress.city</span>
 				</td>
 				<td class="opts">
-					@if(sessionUserId.nonEmpty && FollowCollect.checkIfFollowOnByName(sessionUserId.get,salon.id)){
-						<a href="@routes.Users.cancelFollow(sessionUserId.get,salon.id,1)">@Messages("user.cancelFollow")</a>
+					@if(sessionUserId.nonEmpty && MyFollows.checkIfFollowByName(sessionUserId.get,salon.id)){
+						<a href="@routes.Users.cancelFollow(sessionUserId.get,salon.id)">@Messages("user.cancelFollow")</a>
 					}else{
-						<a href="@routes.Users.addFollow(salon.id,1)">@Messages("user.addFollow")</a>
+						<a href="@routes.Users.addFollow(salon.id,"salon")">@Messages("user.addFollow")</a>
 					}
 					<a href="#">@Messages("user.sendMsg")</a>
 				</td>

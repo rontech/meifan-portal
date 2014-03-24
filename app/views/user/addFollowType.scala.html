@@ -1,17 +1,15 @@
-@(relationTypeForm: Form[RelationType])
+@(followTypeTypeForm: Form[FollowType])
 
 @import helper._
 
     @main(title = Messages("")) {
 
 		<body>
-        @form(routes.RelationTypes.addRelationType, 'id -> "relationTypeForm") {
+        @form(routes.FollowTypes.addFollowType, 'id -> "followTypeTypeForm") {
           <fieldset>
           
-            @inputText(relationTypeForm("relationTypeName"),'_label -> Messages("user.relation.type"))
+            @inputText(followTypeTypeForm("followTypeName"),'_label -> Messages("user.relation.type"))
       
-      		<input type="hidden" name="relationTypeId" value="@RelationType.relationTypeNewId">
-      		
 		  </fieldset>
 		  
             <input type="submit" class = "buttons" value="@Messages("service.addBton")">

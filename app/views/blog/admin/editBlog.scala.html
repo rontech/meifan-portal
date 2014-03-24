@@ -1,10 +1,10 @@
-@(formBlog: Form[Blog], list : List[String], user : User, blog : Blog)
+@(formBlog: Form[Blog], list : List[String], user : User)
 
 @import helper._
 @import views.html.user._
 
 @myPageMain(navInMyPage = "my-blog", user) {
-    @form(action = routes.Blogs.modBlog(blog.id)) {
+    @form(action = routes.Blogs.modBlog(formBlog.get.id)) {
       <fieldset>
         @inputText(formBlog("title"),'_label -> "标题")             
 		@textarea(formBlog("content"),'_label -> "内容")
@@ -16,11 +16,11 @@
         )	             
         @*@inputText(formBlog("blogPics"), args = '_label -> "上传图片")*@   
 		@inputText(formBlog("tags"), args = '_label -> "标签", 'placeholder -> "请用逗号分割")
-		@inputRadioGroup(formBlog("isVisible"),options = options("true" -> "公开", "false" -> "私密") , '_label -> "可见性")
-		@if(!user.userBehaviorLevel == "userLevel.0") {
-		  @inputRadioGroup(formBlog("pushToSlaon"),options = options("true" -> "可见", "false" -> "不可见") , '_label -> "店铺可见性")
+		@inputRadioGroup(formBlog("isVisible"),options = options("true" -> "公开", "false" -> "私密") , '_label -> "可见性", '_help -> "")
+		@if(user.userBehaviorLevel != "userLevel.0") {
+		  @inputRadioGroup(formBlog("pushToSlaon"),options = options("true" -> "可见", "false" -> "不可见") , '_label -> "店铺可见性", '_help -> "")
 		}
-		@inputRadioGroup(formBlog("allowComment"),options = options("true" -> "允许评论", "false" -> "不允许评论") , '_label -> "允许评论性")
+		@inputRadioGroup(formBlog("allowComment"),options = options("true" -> "允许评论", "false" -> "不允许评论") , '_label -> "允许评论性", '_help -> "")
         <input type="submit" class = "buttons" value="保存修改" >
      </fieldset>
     }

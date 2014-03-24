@@ -83,4 +83,3 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
     dao.update(MongoDBObject("_id" -> blog.id), MongoDBObject("$set" -> (MongoDBObject("isValid" -> false))))
   }
 }
-

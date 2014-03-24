@@ -4,39 +4,43 @@
 
 # Home page
 GET     /                               controllers.Application.index
-
+GET     /login                          controllers.Application.login
+GET     /register                       controllers.Application.register
 #get photo
 
 GET		/getPhoto/:name					controllers.Application.getPhoto(name: ObjectId)
 
 # User Management
-GET     /user                           controllers.Users.index
-GET     /login                          controllers.Application.login
-GET     /register                       controllers.Application.register
-POST    /login                          controllers.Users.doLogin
-POST    /register                       controllers.Users.doRegister
-POST    /update/:id                     controllers.Users.update(id: ObjectId)
-GET     /show/:userId                   controllers.Users.show(userId)
-GET     /myPage/:userId                 controllers.Users.myPage(userId)
-GET     /myPage/myReservation/:id       controllers.Users.myReservation(id: ObjectId)
-GET     /myPage/mySaveCoupon/:id        controllers.Users.mySaveCoupon(id: ObjectId)
-GET     /myPage/mySaveBlog/:id          controllers.Users.mySaveBlog(id: ObjectId)
-GET     /myPage/mySaveStyle/:id         controllers.Users.mySaveStyle(id: ObjectId)
-GET     /myPage/mySaveSalonActi/:id     controllers.Users.mySaveSalonActi(id: ObjectId)
+POST    /login                          controllers.Users.login
+GET     /logout							controllers.Users.logout
+POST    /register                       controllers.Users.register
+POST    /update/:userId             	controllers.Users.updateInfo(userId)
+GET     /myInfo/	                    controllers.Users.myInfo
+GET     /userInfo/:userId               controllers.Users.userInfo(userId)
+GET     /myPage/		                controllers.Users.myPage
+GET     /userPage/:userId               controllers.Users.userPage(userId)
+GET     /myPage/myReservation       	controllers.Users.myReservation
+GET     /myPage/myFollowedCoupon        controllers.Users.myFollowedCoupon
+GET     /myPage/myFollowedBlog 	        controllers.Users.myFollowedBlog
+GET     /myPage/myFollowedStyle			controllers.Users.myFollowedStyle
+GET     /myPage/myFollowedSalonActi	    controllers.Users.myFollowedSalonActi
+GET     /myPage/myFollowedSalon			controllers.Users.myFollowedSalon
+GET     /myPage/myFollowedStylist		controllers.Users.myFollowedStylist
+GET     /myPage/myFollowedUser			controllers.Users.myFollowedUser
+GET     /myPage/myFollowers				controllers.Users.myFollowers
+GET     /userPage/userBlog/:userId	    controllers.Users.userBlog(userId)
+GET     /userPage/userStyle/:userId     controllers.Users.userStyle(userId)
+GET     /myPage/messages/:req				controllers.UserLetters.messageList(req:String)
+GET     /myPage/message/:id				controllers.UserLetters.showMessage(id:ObjectId)
+
 GET     /applyStylist                   controllers.Users.applyStylist
 POST    /commitStylistApply             controllers.Users.commitStylistApply
-GET     /addRelationType                controllers.RelationTypes.addRelationType
-GET     /relationTypeMain               controllers.RelationTypes.relationTypeMain
-GET     /otherPage/:id                  controllers.Users.otherIndex(id: ObjectId)
-GET     /otherPage/SaveBlog/:id	        controllers.Users.SaveBlog(id: ObjectId)
-GET     /otherPage/SaveStyle/:id        controllers.Users.SaveStyle(id: ObjectId)
-GET     /showAllFollowSalon/:id         controllers.Users.showAllFollowSalon(id:ObjectId)
-GET     /showAllFollowStylist/:id       controllers.Users.showAllFollowStylist(id:ObjectId)
-GET     /showAllFollowUser/:id          controllers.Users.showAllFollowUser(id:ObjectId)
-GET     /showMyFollowers/:id            controllers.Users.showMyFollowers(id:ObjectId)
-GET     /loginout                       controllers.Users.loginout
-GET     /cancelFollow/:userName/:salonId         controllers.Users.cancelFollow(userName:String,salonId:ObjectId,relationTypeId:Int)
-GET     /addFollow/:followId             controllers.Users.addFollow(followId:ObjectId,relationTypeId:Int)
+GET     /cancelFollow/:userName/:salonId	controllers.Users.cancelFollow(userName:String,salonId:ObjectId)
+GET     /addFollow/:followId             controllers.Users.addFollow(followId:ObjectId,relationTypeId:String)
+
+#FollowTypes
+GET     /FollowTypes/	            	controllers.FollowTypes.addFollowType
+GET     /FollowTypes/		           	controllers.FollowTypes.followTypeMain
 
 #Salon Management
 GET		/mySalon/:id					controllers.SalonsAdmin.mySalon(id: ObjectId)
@@ -76,8 +80,13 @@ GET     /style/:id                      controllers.Styles.findById(id: ObjectId
 GET     /salon/:salonId/styles          controllers.Styles.findBySalon(salonId: ObjectId)
 GET     /salon/:slnId/style/:styId      controllers.Styles.getStyleInfoOfSalon(slnId: ObjectId, styId: ObjectId)
 POST    /styleSearchList                controllers.Styles.styleSearchList
-POST    /styleLogin                     controllers.Styles.styleLogin
-GET     /styleSearch                    controllers.Styles.styleSearch
+POST    /styleLoginNew                  controllers.Styles.styleLoginNew
+GET     /styleLogin                     controllers.Styles.styleLogin
+GET     /styleUpdate/:id                controllers.Styles.styleUpdate(id: ObjectId)
+POST    /styleUpdateNew                 controllers.Styles.styleUpdateNew
+GET     /backstageStyleSearch           controllers.Styles.backstageStyleSearch
+POST    /backstageStyleSearchList       controllers.Styles.backstageStyleSearchList
+GET     /styleDelete/:id                controllers.Styles.styleDelete(id: ObjectId)
 
 # Stylist
 GET		/stylistViews/:id				controllers.Stylists.findStylistById(id: ObjectId)
@@ -119,7 +128,7 @@ GET     /showService/:id                 controllers.Services.updateService(id: 
 GET     /comment/:commentObjId            controllers.Comments.find(commentObjId : ObjectId)
 GET     /answer/:id/:commentObjId         controllers.Comments.answer(id : ObjectId, commentObjId : ObjectId)
 POST    /reply/:commentObjId/:id/:commentObjType          controllers.Comments.reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int)
-#GET     /delete/:id/:commentObjId         controllers.Comments.delete(id : ObjectId, commentObjId : ObjectId)
+GET     /delete/:id/:commentObjId         controllers.Comments.delete(id : ObjectId, commentObjId : ObjectId)
 GET     /complaint/:cmId                 controllers.Comments.complaint(cmId : ObjectId)
 POST    /addComment/:commentObjId/:commentObjType        controllers.Comments.addComment(commentObjId : ObjectId, commentObjType : Int)
 

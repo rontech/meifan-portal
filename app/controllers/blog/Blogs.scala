@@ -81,6 +81,7 @@ object Blogs extends Controller {
   def getBlogInfoOfSalon(salonId: ObjectId, blogId: ObjectId) = Action {
     val salon: Option[Salon] = Salon.findById(salonId)
     val blog: Option[Blog] = Blog.findOneById(blogId)
+    println("----------"+salon.get.id)
     Ok(views.html.salon.store.salonInfoBlog(salon = salon.get, blog = blog.get))
   }
   /**
@@ -90,6 +91,8 @@ object Blogs extends Controller {
     Blog.blogList = Nil
     val salon: Option[Salon] = Salon.findById(salonId)
     val blogs: List[Blog] = Blog.findBySalon(salonId)
+    println("----------"+salon.get.id)
+    println("----------"+salon.get.id)
     // TODO: process the salon not exist pattern.
     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogs))
   }
@@ -121,7 +124,8 @@ object Blogs extends Controller {
         {
           blog =>
             Blog.save(blog, WriteConcern.Safe)
-	        Redirect(routes.Blogs.showBlog(userId))
+//	        Redirect(routes.Blogs.showBlog(userId))
+            Redirect(routes.Blogs.showBlogById(blog.id))
         }             
         )
   }  
@@ -135,7 +139,8 @@ object Blogs extends Controller {
     val user = User.findOneByUserId(blog.get.authorId).get
     blog.map { blog =>
       val formEditBlog = blogForm(user.userId).fill(blog)
-      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user, blog))
+//      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user, blog))
+      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user))
     } getOrElse {
       NotFound
     }
@@ -153,7 +158,8 @@ object Blogs extends Controller {
         {
           blog =>            
             Blog.save(blog, WriteConcern.Safe)
-	        Redirect(routes.Blogs.showBlog(userId))
+//	        Redirect(routes.Blogs.showBlog(userId))
+            Redirect(routes.Blogs.showBlogById(blogId))
         }             
         )
   }  

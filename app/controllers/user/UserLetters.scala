@@ -23,10 +23,11 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
         "sender" -> text,
         "senderNm" -> text,
         "addressee" -> text,
-        "addresseeNm" -> text) { (sender, senderNm, addressee, addresseeNm) =>
+        "addresseeNm" -> text,
+        "createdTime" -> text) { (sender, senderNm, addressee, addresseeNm, time) =>
           UserMessage(new ObjectId, sender, senderNm, addressee, addresseeNm, new ObjectId(), "sended", "normal", "unRead", new Date)
         } {
-          userMessage => Some((userMessage.sender, userMessage.senderNm, userMessage.addressee, userMessage.addresseeNm))
+          userMessage => Some((userMessage.sender, userMessage.senderNm, userMessage.addressee, userMessage.addresseeNm, userMessage.createdTime.toString()))
         },
       "message" -> mapping(
         "title" -> text,
@@ -53,17 +54,35 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
 
   def messageList(requirement: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    val userMsgs = UserMessage.findByQuery(requirement, user.userId, 1, pageSize)
+    val count = UserMessage.countByCondition(requirement, user.userId)
+    val unReadMsgs = UserMessage.findByQuery(requirement, user.userId, 1, pageSize)
+    var userMsgs:List[models.UserMessage] = Nil
+    if (unReadMsgs.isEmpty) {
+       val inBoxMsgs =UserMessage.findByQuery("inBox", user.userId, 1, pageSize)
+       userMsgs = inBoxMsgs
+    }
+    else{
+       userMsgs = unReadMsgs
+  }
     val letters = userMsgs.map(userMsg => 
       UserLetter(userMsg, Message.findOneById(userMsg.msgId).get)
       ) 
-    val count = UserMessage.countByCondition(requirement, user.userId)
+    
     var pages: Int = 0
     if (count % pageSize == 0) {
       pages = count.toInt / pageSize
     } else {
       pages = count.toInt / pageSize + 1
     }
-    Ok(views.html.user.myMessages(letters, count, pages, 1))
+    Ok(views.html.user.myMessages(letters, count, pages, 1, user))
   }
+  
+  def showMessage(id : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    val userMsg = UserMessage.findOneById(id).get
+    val msg = Message.findOneById(userMsg.msgId).get
+    UserMessage.readed(userMsg)
+    Ok(views.html.user.message(UserLetter(userMsg, msg),user))
+  }
+  
 }
