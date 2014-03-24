@@ -288,10 +288,10 @@ object InitialData {
       ).foreach(MyFollow.save)
     }
 
-    if(Blog.findAll.isEmpty){
+    if(Blog.findBySalon(new ObjectId("530d7288d7f2861457771bdd")).isEmpty){
       Seq(
-        Blog(new ObjectId("532a8ef4a89ee221d679bdc1"),"1111","1", "zhenglu", new Date(), new Date(), "分类2", Option(List("111", "2222")), List("111", "2222"),true,Option(false),false,true),
-        Blog(new ObjectId("532a8ef4a89ee221d679bdc2"),"2222","2", "zhenglu316", new Date(), new Date(), "分类1", Option(List("111", "2222")),List("2222"), true, Option(false),false,true)
+        Blog(new ObjectId("53195fb4a89e175858abce90"),"test01","test3333333333333333333333333333333333333333333333", "zhenglu", new Date(), new Date(), "分类2", Option(List("111", "2222")), List("111", "2222"),true,Option(false),false,true),
+        Blog(new ObjectId("53195fb4a89e175858abce91"),"test02","test2222222222222222222222222222222222222222222222", "zhenglu316", new Date(), new Date(), "分类1", Option(List("111", "2222")),List("2222"), true, Option(false),false,true)
       ).foreach(Blog.save)
     }
 

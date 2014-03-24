@@ -18,21 +18,21 @@ $(function(){
 @myPageMain(navInMyPage = "my-blog", user, followInfo) {
   @form(action = routes.Blogs.writeBlog(user.userId)) {
       <fieldset>
-        @inputText(newBlogForm("title"),'_label -> "标题")             
-		@textarea(newBlogForm("content"),'_label -> "内容")
+        @inputText(newBlogForm("title"),'_label -> Messages("blog.title"))             
+		@textarea(newBlogForm("content"),'_label -> Messages("blog.content"))
 		@select(
 	        field = newBlogForm("blogCategory"), 
 	        options = options(listBlogCategory),
-	        '_label -> "博客类型"
+	        '_label -> Messages("blog.blogCategory")
         )	             
         @*@inputText(newBlogForm("blogPics"), args = '_label -> "上传图片")*@   
-		@inputText(newBlogForm("tags"), args = '_label -> "标签", 'placeholder -> "请用逗号分割", 'name -> "tags")
-		@inputRadioGroup(newBlogForm("isVisible"),options = options("true" -> "公开", "false" -> "私密") , '_label -> "可见性")
+		@inputText(newBlogForm("tags"), args = '_label -> Messages("blog.tags"), 'placeholder -> Messages("blog.placeholder"), 'name -> "tags")
+		@inputRadioGroup(newBlogForm("isVisible"),options = options("true" -> "公开", "false" -> "私密") , '_label -> "可见性", '_help -> "")
 		@if(user.userBehaviorLevel != "userLevel.0") {
-		  @inputRadioGroup(newBlogForm("pushToSlaon"),options = options("true" -> "可见", "false" -> "不可见") , '_label -> "店铺可见性")
+		  @inputRadioGroup(newBlogForm("pushToSlaon"),options = options("true" -> "可见", "false" -> "不可见") , '_label -> "店铺可见性", '_help -> "")
 		}
-		@inputRadioGroup(newBlogForm("allowComment"),options = options("true" -> "允许评论", "false" -> "不允许评论") , '_label -> "允许评论性")
-        <input type="submit" class = "buttons" value="发博文" >
+		@inputRadioGroup(newBlogForm("allowComment"),options = options("true" -> "允许评论", "false" -> "不允许评论") , '_label -> "允许评论性", '_help -> "")
+        <input type="submit" class = "buttons" value="@Messages("blog.newBlog")" >
      </fieldset>
    }
 }

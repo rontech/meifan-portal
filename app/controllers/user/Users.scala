@@ -437,7 +437,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     	    Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user.get, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup, followInfo))
         }
       })
-      
+    	 
   }
 
 }
