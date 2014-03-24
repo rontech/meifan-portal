@@ -80,8 +80,13 @@ GET     /style/:id                      controllers.Styles.findById(id: ObjectId
 GET     /salon/:salonId/styles          controllers.Styles.findBySalon(salonId: ObjectId)
 GET     /salon/:slnId/style/:styId      controllers.Styles.getStyleInfoOfSalon(slnId: ObjectId, styId: ObjectId)
 POST    /styleSearchList                controllers.Styles.styleSearchList
-POST    /styleLogin                     controllers.Styles.styleLogin
-GET     /styleSearch                    controllers.Styles.styleSearch
+POST    /styleLoginNew                  controllers.Styles.styleLoginNew
+GET     /styleLogin                     controllers.Styles.styleLogin
+GET     /styleUpdate/:id                controllers.Styles.styleUpdate(id: ObjectId)
+POST    /styleUpdateNew                 controllers.Styles.styleUpdateNew
+GET     /backstageStyleSearch           controllers.Styles.backstageStyleSearch
+POST    /backstageStyleSearchList       controllers.Styles.backstageStyleSearchList
+GET     /styleDelete/:id                controllers.Styles.styleDelete(id: ObjectId)
 
 # Stylist
 GET		/stylistViews/:id				controllers.Stylists.findStylistById(id: ObjectId)

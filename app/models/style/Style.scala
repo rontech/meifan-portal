@@ -61,19 +61,30 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId]{
     	dao.find(DBObject("stylistId" -> stylistId)).toList
   }
 
-  def delete(id: String) {	
-        dao.remove(MongoDBObject("_id" -> new ObjectId(id)))
+  def delete(id: ObjectId) {	
+        dao.remove(MongoDBObject("_id" -> id))
   }
    
   def findByPara(style: models.Style) : List[Style] = {
         dao.find($and("styleDiameter" $in style.styleDiameter ,"styleImpression" $in style.styleImpression,"faceShape" $in style.faceShape)).toList	
   }
    
-  def updateTest(style: models.Style) = {
+  def updateStyle(style: models.Style) = {
 	   dao.update(MongoDBObject("_id" -> style.id), MongoDBObject("$set" -> (
-			   MongoDBObject("styleName" -> "海贼王发型")++
-			   MongoDBObject("styleLength" -> MongoDBList("中","长"))++
-			   MongoDBObject("styleQuality" -> MongoDBList("硬"))
+			   MongoDBObject("styleName" -> style.styleName)++
+			   MongoDBObject("stylePic" -> style.stylePic)++
+			   MongoDBObject("styleLength" -> style.styleLength)++
+			   MongoDBObject("styleColor" -> style.styleColor)++
+			   MongoDBObject("styleImpression" -> style.styleImpression)++
+			   MongoDBObject("serviceType" -> style.serviceType)++
+			   MongoDBObject("styleAmount" -> style.styleAmount)++
+			   MongoDBObject("styleQuality" -> style.styleQuality)++
+			   MongoDBObject("styleDiameter" -> style.styleDiameter)++
+			   MongoDBObject("faceShape" -> style.faceShape)++
+			   MongoDBObject("consumerSocialStatus" -> style.consumerSocialStatus)++
+			   MongoDBObject("consumerSex" -> style.consumerSex)++
+			   MongoDBObject("consumerAgeGroup" -> style.consumerAgeGroup)++
+			   MongoDBObject("description" -> style.description)
 			   ))
 	   )
    }
@@ -82,57 +93,57 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId]{
     * 获取发型检索字段的主表信息 
    */                
    def findParaAll = {
-	   val paraStyleImpression : List[StyleImpression] = StyleImpression.findAll()
+	   val paraStyleImpression = StyleImpression.findAll().toList
 	   var paraStyleImpressions: List[String] = Nil 
 		   paraStyleImpression.map{para=>
 		       paraStyleImpressions :::= List(para.styleImpression)
 	   	   }
-	   val paraServiceType : List[ServiceType] = ServiceType.findAll().toList
+	   val paraServiceType = ServiceType.findAll().toList
 	   var paraServiceTypes: List[String] = Nil 
 		   paraServiceType.map{para=>
 		       paraServiceTypes :::= List(para.serviceTypeName)
 	   	   }
-	   val paraStyleLength : List[StyleLength] = StyleLength.findAll()
+	   val paraStyleLength = StyleLength.findAll().toList
 	   var paraStyleLengths: List[String] = Nil 
 		   paraStyleLength.map{para=>
 		       paraStyleLengths :::= List(para.styleLength)
 	   	   }
-	   val paraStyleColor : List[StyleColor] = StyleColor.findAll()
+	   val paraStyleColor = StyleColor.findAll().toList
 	   var paraStyleColors: List[String] = Nil 
 		   paraStyleColor.map{para=>
 		       paraStyleColors :::= List(para.styleColor)
 	   	   }
-	   val paraStyleAmount : List[StyleAmount] = StyleAmount.findAll()
+	   val paraStyleAmount = StyleAmount.findAll().toList
 	   var paraStyleAmounts: List[String] = Nil 
 		   paraStyleAmount.map{para=>
 		       paraStyleAmounts :::= List(para.styleAmount)
 	   	   }
-	   val paraStyleQuality : List[StyleQuality] = StyleQuality.findAll()
+	   val paraStyleQuality = StyleQuality.findAll().toList
 	   var paraStyleQualitys: List[String] = Nil 
 		   paraStyleQuality.map{para=>
 		       paraStyleQualitys :::= List(para.styleQuality)
 	   	   }
-	   val paraStyleDiameter : List[StyleDiameter] = StyleDiameter.findAll()
+	   val paraStyleDiameter = StyleDiameter.findAll().toList
 	   var paraStyleDiameters: List[String] = Nil 
 		   paraStyleDiameter.map{para=>
 		       paraStyleDiameters :::= List(para.styleDiameter)
 	   	   }
-	   val paraFaceShape : List[FaceShape] = FaceShape.findAll()
+	   val paraFaceShape = FaceShape.findAll().toList
 	   var paraFaceShapes: List[String] = Nil 
 		   paraFaceShape.map{para=>
 		   paraFaceShapes :::= List(para.faceShape)
 	  }
-	   val paraConsumerAgeGroup : List[AgeGroup] = AgeGroup.findAll()
+	   val paraConsumerAgeGroup = AgeGroup.findAll().toList
 	   var paraConsumerAgeGroups: List[String] = Nil 
 		   paraConsumerAgeGroup.map{para=>
 		       paraConsumerAgeGroups :::= List(para.ageGroup)
 	   	   }
-	   val paraConsumerSex : List[Sex] = Sex.findAll()
+	   val paraConsumerSex = Sex.findAll().toList
 	   var paraConsumerSexs: List[String] = Nil 
 		   paraConsumerSex.map{para=>
 		       paraConsumerSexs :::= List(para.sex)
 	   	   }
-	   val paraConsumerSocialStatus : List[SocialStatus] = SocialStatus.findAll()
+	   val paraConsumerSocialStatus = SocialStatus.findAll().toList
 	   var paraConsumerSocialStatuss: List[String] = Nil 
 		   paraConsumerSocialStatus.map{para=>
 		       paraConsumerSocialStatuss :::= List(para.socialStatus)
