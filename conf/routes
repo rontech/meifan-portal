@@ -92,12 +92,15 @@ GET     /styleDelete/:id                controllers.Styles.styleDelete(id: Objec
 GET		/stylistViews/:id				controllers.Stylists.findStylistById(id: ObjectId)
 GET     /stylist/:id                    controllers.Stylists.findById(id: ObjectId)
 GET     /salon/:salonId/stylists        controllers.Stylists.findBySalon(salonId: ObjectId)
+GET		/mySalon/:stylistId				controllers.Stylists.mySalon(stylistId: ObjectId)
 GET		/updateStylistInfo/:stylistId				controllers.Stylists.updateStylistInfo(stylistId: ObjectId)
+POST	/toUpdateStylistInfo						controllers.Stylists.toUpdateStylistInfo
 GET 	/agreeSalonApply/:stylistId/:salonId		controllers.Stylists.agreeSalonApply(stylistId: ObjectId, salonId: ObjectId)
 GET		/rejectSalonApply/:stylistId/:salonId		controllers.Stylists.rejectSalonApply(stylistId: ObjectId, salonId: ObjectId)
-GET		/updateStyleByStylist/:styleId				controllers.Stylists.updateStyleByStylist(styleId: ObjectId)
-GET		/deleteStyleByStylist/:styleId				controllers.Stylists.deleteStyleByStylist(styleId: ObjectId)
-GET		/createStyleByStylist/:stylistId			controllers.Stylists.createStyleByStylist(stylistId : ObjectId)
+GET		/findSalonApply/:stylistId					controllers.Stylists.findSalonApply(stylistId: ObjectId)
+#GET		/updateStyleByStylist/:styleId				controllers.Stylists.updateStyleByStylist(styleId: ObjectId)
+#GET		/deleteStyleByStylist/:styleId				controllers.Stylists.deleteStyleByStylist(styleId: ObjectId)
+#GET		/createStyleByStylist/:stylistId			controllers.Stylists.createStyleByStylist(stylistId : ObjectId)
 
 # Reservations Management
 GET     /findReserv/:page               controllers.Records.findReserv(page:Int) 

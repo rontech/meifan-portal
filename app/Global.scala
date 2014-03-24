@@ -242,21 +242,13 @@ object InitialData {
       ).foreach(SalonAndStylist.save)
     }
     
-    if(Image.findAll.isEmpty) {
-      val file = new File(play.Play.application().path() + "/public/images/stylist")
-      val files = Image.listAllFiles(file)
-      val stylists = Stylist.findAll.toList
-      for(i <- 0 until files.length){
-        val stylistpicId = Image.save(files(i))
-        Stylist.updateImages(stylists(i),stylistpicId)
-      }
-   }
+    
 
    if(Style.findAll.isEmpty) { 
       Seq(
-        Style(new ObjectId("530d828cd7f2861457771c0b"), "四代火影发型式", new ObjectId("530d8010d7f2861457771bf8"), List("B002740532_164-219.jpg","B004689277_164-219.jpg","B004538417_164-219.jpg"),List("清新"),List("烫"),List("中"),List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("圆脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("男"),List("程序员"),date("2014-03-12"),true),
-        Style(new ObjectId("530d828cd7f2861457771c0c"), "六道仙人发型", new ObjectId("530d7288d7f2861457771bdd"), List("B004670057_164-219.jpg","B004670057_164-219.jpg","B004554657_164-219.jpg"),List("自然"),List("染"),List("长"),List("绿色","紫色"),List("少","多","一般"),List("软","硬"),List("适中","细"),List("标准","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("男"),List("程序员"),date("2014-03-12"),true),
-        Style(new ObjectId("530d828cd7f2861457771c0d"), "海贼王发型", new ObjectId("530d7292d7f2861457771bde"), List("B004554657_164-219.jpg"),List("清新"),List("烫"),List("中"),List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("女"),List("程序员"),date("2014-03-12"),true)
+        Style(new ObjectId("530d828cd7f2861457771c0b"), "四代火影发型式", new ObjectId("530d8010d7f2861457771bf6"), List("B002740532_164-219.jpg","B004689277_164-219.jpg","B004538417_164-219.jpg"),List("清新"),List("烫"),List("中"),List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("圆脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("男"),List("程序员"),date("2014-03-12"),true),
+        Style(new ObjectId("530d828cd7f2861457771c0c"), "六道仙人发型", new ObjectId("530d8010d7f2861457771bf6"), List("B004670057_164-219.jpg","B004670057_164-219.jpg","B004554657_164-219.jpg"),List("自然"),List("染"),List("长"),List("绿色","紫色"),List("少","多","一般"),List("软","硬"),List("适中","细"),List("标准","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("男"),List("程序员"),date("2014-03-12"),true),
+        Style(new ObjectId("530d828cd7f2861457771c0d"), "海贼王发型", new ObjectId("530d8010d7f2861457771bf6"), List("B004554657_164-219.jpg"),List("清新"),List("烫"),List("中"),List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("女"),List("程序员"),date("2014-03-12"),true)
       ).foreach(Style.save)
     }
 
@@ -316,14 +308,21 @@ object InitialData {
       Seq(
        User(new ObjectId("531964e0d4d57d0a43771411"),"zhenglu316","关雨1","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
        User(new ObjectId("53202c29d4d5e3cd47efffd3"),"zhenglu","关雨2","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd4"),"zhenglu3","关雨3","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true)
+       User(new ObjectId("53202c29d4d5e3cd47efffd4"),"zhenglu3","关雨3","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd9"),"zhenglu4","阿哲","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd8"),"zhenglu5","西门吹雪","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd7"),"zhenglu6","叶孤城","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd6"),"zhenglu7","陆小风","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd5"),"zhenglu8","花满楼","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true)
       ).foreach(User.save)
     }
 
     if(Blog.findAll.isEmpty){
       Seq(
         Blog(new ObjectId("532a8ef4a89ee221d679bdc1"),"1111","1", "zhenglu", new Date(), new Date(), "分类2", Option(List("111", "2222")), List("111", "2222"),true,Option(false),false,true),
-        Blog(new ObjectId("532a8ef4a89ee221d679bdc2"),"2222","2", "zhenglu316", new Date(), new Date(), "分类1", Option(List("111", "2222")),List("2222"), true, Option(false),false,true)
+        Blog(new ObjectId("532a8ef4a89ee221d679bdc2"),"2222","2", "zhenglu316", new Date(), new Date(), "分类1", Option(List("111", "2222")),List("2222"), true, Option(false),false,true),
+        Blog(new ObjectId("532a8ef4a89ee221d679bdc3"),"3333","2", "zhenglu5", new Date(), new Date(), "分类1", Option(List("111", "2222")),List("2222"), true, Option(false),false,true),
+        Blog(new ObjectId("532a8ef4a89ee221d679bdc4"),"4444","2", "zhenglu6", new Date(), new Date(), "分类1", Option(List("111", "2222")),List("2222"), true, Option(false),false,true)
       ).foreach(Blog.save)
     }
 

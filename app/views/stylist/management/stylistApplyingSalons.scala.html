@@ -1,0 +1,7 @@
+@(navInMyPage: String = "my-appingSalon", user: User, stylist: Stylist, salons: List[Salon])
+
+@stylistPageMain(navInMyPage, user, stylist){
+	@salons.map{salon =>
+		@views.html.stylist.management.stylistApplyingSalonItem(salon)
+	}
+}

@@ -41,7 +41,9 @@ object Stylists extends Controller {
     val salonId =  SalonAndStylist.findByStylistId(id).get.salonId
     val salon = Salon.findById(salonId)
     val style = Style.findByStylistId(id)
-    Ok(html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, style = style))
+    val user = Stylist.findUser(stylist.get.publicId)
+    val blog = Blog.getBlogByUserId(user.userId).last
+    Ok(html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, styles = style, blog = blog))
   }
   
   def mySalon(stylistId: ObjectId) = Action {
@@ -50,7 +52,7 @@ object Stylists extends Controller {
     stylist match {
       case Some(sty) => {
         val user = User.findOneById(sty.publicId)
-        Ok(html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, style = style))
+        Ok(html.stylist.management.stylistMySalon(user = user.get, stylist = sty, salon = salon))
       }
       case None => NotFound
     }
@@ -88,6 +90,18 @@ object Stylists extends Controller {
           }
           case None => NotFound
         } 
+  }
+  
+  def findSalonApply(stylistId: ObjectId) =  Action {
+    val applySalons = SalonStylistApplyRecord.findApplingSalon(stylistId)
+    val stylist = Stylist.findOneById(stylistId)
+    stylist match {
+      case Some(sty) => {
+        val user = User.findOneById(sty.publicId)
+        Ok(html.stylist.management.stylistApplyingSalons(user = user.get, stylist = sty, salons = applySalons))
+      }
+      case None => NotFound
+    }
   }
   
   def myStyles(stylistId: ObjectId) = Action {
@@ -149,11 +163,20 @@ object Stylists extends Controller {
 		)
   
   def updateStylistInfo(stylistId: ObjectId) = Action {
+    val user = User.findOneById(new ObjectId("53202c29d4d5e3cd47efffd4"))
+    val industry = Industry.findAll.toList
+    val position = Position.findAll.toList
+    val goodAtImage = StyleImpression.findAll.toList
+    val goodAtStatus = SocialStatus.findAll.toList
+    val goodAtService = Service.findAll.toList
+    val goodAtUser = Sex.findAll.toList
+    val goodAtAgeGroup = AgeGroup.findAll.toList
     val stylist = Stylist.findOneById(stylistId)
     stylist match {
       case Some(sty) => {
         val user = User.findOneById(sty.id)
-        Ok(html.stylist.management.updateStylistInfo(user = user.get, stylist = stylist, stylistForm = stylistForm))
+        Ok(html.stylist.management.updateStylistInfo(user = user.get, stylist = sty, stylistForm = stylistForm, position = position, industry = industry, 
+            goodAtImage = goodAtImage, goodAtStatus = goodAtStatus, goodAtService = goodAtService, goodAtUser = goodAtUser, goodAtAgeGroup = goodAtAgeGroup))
         
       }
       case None => NotFound
@@ -174,7 +197,7 @@ object Stylists extends Controller {
     
   }
   
-  def updateStyleByStylist(styleId: ObjectId) = Action {
+  /*def updateStyleByStylist(styleId: ObjectId) = Action {
      
   }
   
@@ -184,7 +207,7 @@ object Stylists extends Controller {
   
   def createStyleByStylist(stylistId: ObjectId) = Action {
     
-  }
+  }*/
   
   
 }

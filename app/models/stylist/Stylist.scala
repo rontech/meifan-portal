@@ -32,6 +32,16 @@ case class Stylist(
     isValid: Boolean
 )
 
+case class GoodAtStyle(
+    position: List[String],
+    industry: List[String],
+	goodAtImage: List[String],
+    goodAtStatus: List[String],
+    goodAtService: List[String],
+    goodAtUser: List[String],
+    goodAtAgeGroup: List[String]	
+)
+
 case class StylistApply(
 	stylist: Stylist,
 	salonId: ObjectId
@@ -48,6 +58,70 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
   )("Stylist")
   
   val dao = new SalatDAO[Stylist, ObjectId](collection){}
+  
+  def findGoodAt = {
+	   val position = Position.findAll().toList
+	   var positions: List[String] = Nil 
+		   position.map{para=>
+		       positions :::= List(para.positionName)
+	   	   }
+	   
+	   val industry = Industry.findAll.toList
+	   var industrys: List[String] = Nil
+	   industry.map{para=>
+		       positions :::= List(para.industryName)
+	   	   }
+    
+       val paraStyleImpression = StyleImpression.findAll().toList
+	   var paraStyleImpressions: List[String] = Nil 
+		   paraStyleImpression.map{para=>
+		       paraStyleImpressions :::= List(para.styleImpression)
+	   	   }
+
+       val paraConsumerSocialStatus = SocialStatus.findAll().toList
+	   var paraConsumerSocialStatuss: List[String] = Nil 
+		   paraConsumerSocialStatus.map{para=>
+		       paraConsumerSocialStatuss :::= List(para.socialStatus)
+	   	   }
+
+
+       val paraConsumerSex = Sex.findAll().toList
+	   var paraConsumerSexs: List[String] = Nil 
+		   paraConsumerSex.map{para=>
+		       paraConsumerSexs :::= List(para.sex)
+	   	   }
+
+       val paraConsumerAgeGroup = AgeGroup.findAll().toList
+	   var paraConsumerAgeGroups: List[String] = Nil 
+		   paraConsumerAgeGroup.map{para=>
+		       paraConsumerAgeGroups :::= List(para.ageGroup)
+	   	   }
+
+ 	   val paraServiceType = ServiceType.findAll().toList
+	   var paraServiceTypes: List[String] = Nil 
+		   paraServiceType.map{para=>
+		       paraServiceTypes :::= List(para.serviceTypeName)
+	   	   }
+ 	   val goodAtStyle = new GoodAtStyle(positions , industrys, paraStyleImpressions, paraConsumerSocialStatuss, 
+ 	       paraServiceTypes, paraConsumerSexs, paraConsumerAgeGroups)
+    
+  }
+  
+  def findUserName(publicId: ObjectId): String = {
+    val user = User.findOneById(publicId)
+    user match {
+      case Some(u) => u.nickName
+      case None => ""
+    }
+  }
+  
+  def findUser(publicId: ObjectId): User = {
+    val user = User.findOneById(publicId)
+    user match {
+      case Some(u) => u
+      case None => null
+    }
+  } 
   
   def updateImages(stylist: Stylist, imageId: ObjectId) = {
     dao.update(MongoDBObject("_id" -> stylist.id), MongoDBObject("$set" -> (MongoDBObject("myPics" ->  MongoDBList(imageId, "head", 1, None)))))

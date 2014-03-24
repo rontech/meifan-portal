@@ -237,6 +237,21 @@ stylist.empty = 暂无
 stylist.applyCreateTime = 申请时间
 stylist.acceptApply = 同意
 stylist.rejectApply = 拒绝
+stylist.followStylist = 关注此技师
+stylist.worked = 从事
+stylist.blog = 技师博客
+stylist.findAllBlog = 查看此技师所有博客
+stylist.haircatalog = 发型目录
+stylist.welcome = 期待你的光临
+stylist.selectForReserv = 指定预约
+stylist.createBlog = 发表于
+stylist.other = 其它
+stylist.storerecommend = 店铺推荐
+stylist.hello = 您好
+stylist.this = 这是
+stylist.is = 的
+stylist.findOtherBlog = 查看更多
+
 
 #Stylist Apply
 stylist.name = 昵称

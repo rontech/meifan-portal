@@ -1,5 +1,10 @@
-@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, stylistForm: Form[Stylist])
+@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, stylistForm: Form[Stylist],
+	position: List[Position], industry: List[Industry], 
+	goodAtImage: List[StyleImpression], goodAtStatus: List[SocialStatus], 
+	goodAtService: List[Service], goodAtUser: List[Sex], goodAtAgeGroup: List[AgeGroup]
+)
 
+@import helper._
 
 @stylistPageMain(navInMyPage, user, stylist){
 	<div class="container">
@@ -12,11 +17,9 @@
 
       <div class="row">
         <div class="span14">
-          	@form(routes.Users.commitStylistApply(), 'id -> "userForm"){
+          	@form(routes.Stylists.toUpdateStylistInfo, 'id -> "userForm"){
 		
-       		@inputText(stylistForm("stylist.label"), '_label -> Messages("stylist.name"), 'default ->user.nickName)
-			
-			@inputText(stylistForm("stylist.workYears"), '_label -> Messages("stylist.workYesrs"), 'class ->  "font1")
+       		@inputText(stylistForm("stylist.workYears"), '_label -> Messages("stylist.workYesrs"), 'class ->  "font1")
 			
 			@inputText(stylistForm("salonId"), '_label -> "salonId", 'class ->  "font1")
 			

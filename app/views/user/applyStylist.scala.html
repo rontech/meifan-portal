@@ -26,13 +26,15 @@
 			@input(field = stylistForm("stylist.position.industryName"),args = '_label ->Messages("stylist.industry")){(id,name,value,args) =>
 			 	@for(i <- 0 to industry.length-1){
 			 		<input type = "checkbox" class="" name = "stylist.position.industryName[@i]", value = "@industry(i).industryName">@industry(i).industryName
-			 		@Messages("stylist.position")<select name="stylist.position.positionName[@i]">
+			 		<select name="stylist.position.positionName[@i]">
+			 			<option>--</option>
 			 			@position.map{idy=>
 			 				<option value="@idy.positionName">@idy.positionName</option>
 			 			}
 			 		</select>
+			 		<br />
 			 	}
-			  }
+			 }
 			
 			@input(field = stylistForm("stylist.goodAtImage"),args = '_label ->Messages("stylist.goodAtImage")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtImage.length-1){
@@ -49,6 +51,9 @@
 			@input(field = stylistForm("stylist.goodAtService"),args = '_label ->Messages("stylist.goodAtService")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtService.length-1){
 			 		<input type = "checkbox" name = "stylist.goodAtService[@i]", value = "@goodAtService(i)">@goodAtService(i).serviceName
+			 		@if((i+1)%6==0){
+			 			<br />
+			 		}
 			 	}
 			  }
 			  
@@ -64,13 +69,13 @@
 			 	}
 			  }
 			
-			@textarea(field = stylistForm("stylist.myWords"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myWords"))
+			@textarea(field = stylistForm("stylist.myWords"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.myWords"))
 			
-			@textarea(field = stylistForm("stylist.mySpecial"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.mySpecial"))
+			@textarea(field = stylistForm("stylist.mySpecial"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.mySpecial"))
 			            
-            @textarea(field = stylistForm("stylist.myBoom"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myBoom"))
+            @textarea(field = stylistForm("stylist.myBoom"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.myBoom"))
  		
-		  	@textarea(field = stylistForm("stylist.myPR"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myPR"))
+		  	@textarea(field = stylistForm("stylist.myPR"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.myPR"))
 		  	
 		<input type="submit" class = "buttons" value="@Messages("stylist.submit")">
             
@@ -86,7 +91,7 @@
 	
 		
 	}
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">
+	
 	<script type="text/javascript" charset="utf-8">
 		$('.removePhone').live('click', function(e) {
 	        var phones = $(this).parents('.phones')

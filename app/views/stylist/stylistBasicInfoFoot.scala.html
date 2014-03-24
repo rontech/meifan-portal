@@ -1,0 +1,66 @@
+@(stylist: Stylist)
+
+<div class="mT30">
+    <div class="cFix p15 bgLGray">
+        <div class="fl w89">
+            <img src="http://imgbp.hotp.jp/CSP/IMG_SRC/19/34/B003961934/B003961934_89-119.jpg"
+            alt="弗里尔兄弟公司坂本隆文">
+        </div>
+        <div class="cFix fr w636">
+            <div class="detail2S waitTitle offL">
+                <font>
+                    <font>
+                      @Messages("stylist.welcome")  
+                    </font>
+                </font>
+            </div>
+            <div class="cFix bgDGray p10">
+                <div class="fl">
+                    <div class="fgPink fs10">
+                        <font>
+                            <font>
+                                @stylist.position.map{p=>
+                                	@p.indestryName&nbsp;
+                                }
+                            </font>
+                        </font>
+                    </div>
+                    <div class="fs14 b mT5">
+                        <font>
+                            <font>
+                               @Stylist.findUserName(stylist.publicId)
+                            </font>
+                        </font>
+                        <span class="fs10 mL5">
+                            <font>
+                                <font>
+                                    
+                                </font>
+                            </font>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <ul class="cFix mT10">
+                <li class="fr mL10">
+                    <a href="#" class="bS db nominatedReserve offL">
+                        <font>
+                            <font>
+                               @Messages("stylist.selectForReserv") 
+                            </font>
+                        </font>
+                    </a>
+                </li>
+                <li class="fr mL10 mT3">
+                    <a href="#" class="bS db addIntoMyStylist offL">
+                        <font>
+                            <font>
+                              @Messages("stylist.followStylist")
+                            </font>
+                        </font>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
