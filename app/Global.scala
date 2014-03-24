@@ -191,11 +191,7 @@ object InitialData {
    *--------------------------*/
   def insertSampleData() {
 
-    if(Image.findAll.isEmpty) {
-      val file = new File(play.Play.application().path() + "/public/images")
-      val files = Image.listAllFiles(file)
-        files.foreach(f=>Image.save(f)) 
-    }
+    
 
     if(Salon.findAll == Nil) { 
       Seq(
@@ -206,11 +202,55 @@ object InitialData {
       
     if(Stylist.findAll.isEmpty) { 
       Seq(
-         Stylist(new ObjectId("530d8010d7f2861457771bf8"), new ObjectId("530d7288d7f2861457771bdd"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+         Stylist(new ObjectId("530d8010d7f2861457771bf8"), new ObjectId("531964e0d4d57d0a43771411"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
             List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"","","","",
-            Option(List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), false, false )
+            Option(List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+         Stylist(new ObjectId("530d8010d7f2861457771bf9"), new ObjectId("53202c29d4d5e3cd47efffd3"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"","","","",
+            Option(List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+         Stylist(new ObjectId("530d8010d7f2861457771bf4"), new ObjectId("53202c29d4d5e3cd47efffd4"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"","","","",
+            Option(List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+         Stylist(new ObjectId("530d8010d7f2861457771bf5"), new ObjectId("53202c29d4d5e3cd47efffd9"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"","","","",
+            Option(List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+         Stylist(new ObjectId("530d8010d7f2861457771bf6"), new ObjectId("53202c29d4d5e3cd47efffd8"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"","","","",
+            Option(List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+         Stylist(new ObjectId("530d8010d7f2861457771bf7"), new ObjectId("53202c29d4d5e3cd47efffd7"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"","","","",
+            Option(List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+         Stylist(new ObjectId("530d8010d7f2861457771bf2"), new ObjectId("53202c29d4d5e3cd47efffd6"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"","","","",
+            Option(List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+         Stylist(new ObjectId("530d8010d7f2861457771bf1"), new ObjectId("53202c29d4d5e3cd47efffd5"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"","","","",
+            Option(List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ) 
       ).foreach(Stylist.save)
-    }      
+    }
+    
+    if(SalonAndStylist.findAll.isEmpty){
+      Seq(
+      SalonAndStylist(new ObjectId, new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf8"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true),
+      SalonAndStylist(new ObjectId, new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf9"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true),
+      SalonAndStylist(new ObjectId, new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf4"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true),
+      SalonAndStylist(new ObjectId, new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf5"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true),
+      SalonAndStylist(new ObjectId, new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf6"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true),
+      SalonAndStylist(new ObjectId, new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d8010d7f2861457771bf7"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true),
+      SalonAndStylist(new ObjectId, new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d8010d7f2861457771bf2"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true),
+      SalonAndStylist(new ObjectId, new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d8010d7f2861457771bf1"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true)
+      ).foreach(SalonAndStylist.save)
+    }
+    
+    if(Image.findAll.isEmpty) {
+      val file = new File(play.Play.application().path() + "/public/images/stylist")
+      val files = Image.listAllFiles(file)
+      val stylists = Stylist.findAll.toList
+      for(i <- 0 until files.length){
+        val stylistpicId = Image.save(files(i))
+        Stylist.updateImages(stylists(i),stylistpicId)
+      }
+   }
 
    if(Style.findAll.isEmpty) { 
       Seq(

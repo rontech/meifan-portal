@@ -48,6 +48,15 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
   )("Stylist")
   
   val dao = new SalatDAO[Stylist, ObjectId](collection){}
+  
+  def updateImages(stylist: Stylist, imageId: ObjectId) = {
+    dao.update(MongoDBObject("_id" -> stylist.id), MongoDBObject("$set" -> (MongoDBObject("myPics" ->  MongoDBList(imageId, "head", 1, None)))))
+  }
+  
+  def updateStylistInfo(stylist: Stylist, imageId: ObjectId) = {
+    dao.save(stylist.copy(id = stylist.id))
+    
+  }
  
   	/**
      *  根据salonId查找这个店铺所有技师
@@ -64,7 +73,19 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
       }
       stylists
     }
-
+  	
+    def mySalon(stylistId: ObjectId): Salon = {
+	    val releation = SalonAndStylist.findByStylistId(stylistId)
+	    releation match {
+	      case Some(re) => {
+	        val salon = Salon.findById(re.salonId)
+	        salon.get
+	        
+	      }
+	      case None => null
+	    }
+  	}
+    
     def becomeStylist(stylistId : ObjectId) =  {
     	dao.update(MongoDBObject("_id" -> stylistId), MongoDBObject("$set" -> (MongoDBObject("isVarified" -> true)++
                 MongoDBObject("isValid" -> true))))   

@@ -257,6 +257,7 @@ stylist.reset = 重置
 #Stylist management
 stylistMag.mySalon = 我的店铺
 stylistMag.salonApply = 来自店铺申请
+stylistMag.countSalonApply = 店铺申请
 stylistMag.myStyle = 我的作品
 stylistMag.showAllStyles = 显示所有发型
 stylistMag.findReserv = 查看预约
@@ -264,6 +265,7 @@ stylistMag.styleManage = 发型管理
 stylistMag.serviceManage = 服务管理
 stylistMag.salonHistory = 店铺历史
 stylistMag.totalReserv = 显示当天预约
+stylist.mySalon = 我的salon
 
 
 # User

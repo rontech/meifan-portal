@@ -1,6 +1,84 @@
-@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, userForm: Form[User], stylistForm: Form[Stylist])
+@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, stylistForm: Form[Stylist])
 
 
 @stylistPageMain(navInMyPage, user, stylist){
-	
+	<div class="container">
+
+    <div class="content">
+
+      <div class="page-header">
+        <h1>个人用户申请技师</h1>
+      </div>
+
+      <div class="row">
+        <div class="span14">
+          	@form(routes.Users.commitStylistApply(), 'id -> "userForm"){
+		
+       		@inputText(stylistForm("stylist.label"), '_label -> Messages("stylist.name"), 'default ->user.nickName)
+			
+			@inputText(stylistForm("stylist.workYears"), '_label -> Messages("stylist.workYesrs"), 'class ->  "font1")
+			
+			@inputText(stylistForm("salonId"), '_label -> "salonId", 'class ->  "font1")
+			
+			@input(field = stylistForm("stylist.position.industryName"),args = '_label ->Messages("stylist.industry")){(id,name,value,args) =>
+			 	@for(i <- 0 to industry.length-1){
+			 		<input type = "checkbox" class="" name = "stylist.position.industryName[@i]", value = "@industry(i).industryName">@industry(i).industryName
+			 		@Messages("stylist.position")<select name="stylist.position.positionName[@i]">
+			 			@position.map{idy=>
+			 				<option value="@idy.positionName">@idy.positionName</option>
+			 			}
+			 		</select>
+			 	}
+			  }
+			
+			@input(field = stylistForm("stylist.goodAtImage"),args = '_label ->Messages("stylist.goodAtImage")){(id,name,value,args) =>
+			 	@for(i <- 0 to goodAtImage.length-1){
+			 		<input type = "checkbox" name = "goodAtImage[@i]", value = "@goodAtImage(i)">@goodAtImage(i).styleImpression&nbsp;
+			 	}
+			  }
+			  
+			@input(field = stylistForm("stylist.goodAtStatus"),args = '_label ->Messages("stylist.goodAtStatus")){(id,name,value,args) =>
+			 	@for(i <- 0 to goodAtStatus.length-1){
+			 		<input type = "checkbox" name = "goodAtStatus[@i]", value = "@goodAtStatus(i)">@goodAtStatus(i).socialStatus
+			 	}
+			  }
+			  
+			@input(field = stylistForm("stylist.goodAtService"),args = '_label ->Messages("stylist.goodAtService")){(id,name,value,args) =>
+			 	@for(i <- 0 to goodAtService.length-1){
+			 		<input type = "checkbox" name = "stylist.goodAtService[@i]", value = "@goodAtService(i)">@goodAtService(i).serviceName
+			 	}
+			  }
+			  
+			@input(field = stylistForm("stylist.goodAtUser"),args = '_label ->Messages("stylist.goodAtUser")){(id,name,value,args) =>
+			 	@for(i <- 0 to goodAtUser.length-1){
+			 		<input type = "checkbox" name = "stylist.goodAtUser[@i]", value = "@goodAtUser(i)">@goodAtUser(i).sex
+			 	}
+			  }  
+			
+			@input(field = stylistForm("stylist.goodAtAgeGroup"),args = '_label ->Messages("stylist.goodAtAgeGroup")){(id,name,value,args) =>
+			 	@for(i <- 0 to goodAtAgeGroup.length-1){
+			 		<input type = "checkbox" name = "stylist.goodAtAgeGroup[@i]", value = "@goodAtAgeGroup(i)">@goodAtAgeGroup(i).ageGroup
+			 	}
+			  }
+			
+			@textarea(field = stylistForm("stylist.myWords"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myWords"))
+			
+			@textarea(field = stylistForm("stylist.mySpecial"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.mySpecial"))
+			            
+            @textarea(field = stylistForm("stylist.myBoom"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myBoom"))
+ 		
+		  	@textarea(field = stylistForm("stylist.myPR"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myPR"))
+		  	
+		<input type="submit" class = "buttons" value="@Messages("stylist.submit")">
+            
+        <input type = "reset" class = "buttons" value="@Messages("stylist.reset")">
+        </div>
+      </div>
+
+    </div>
+
+    
+
+  </div>
+  }
 }
