@@ -331,6 +331,10 @@ user.myMessages=消息
 user.contMethodType=联系工具
 user.optContactMethod=其他联系方式
 user.deleteFollow=取消收藏
+user.changePassword=修改密码
+user.oldPassword=原始密码
+user.newPassword=新密码
+user.confirmPassword=确认密码
 
 #Letter
 letter.addressee=收件人

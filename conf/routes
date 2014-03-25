@@ -7,7 +7,8 @@ GET     /                               controllers.Application.index
 #get photo
 
 GET		/getPhoto/:name					controllers.Application.getPhoto(name: ObjectId)
-
+POST	/upload				   	        controllers.Application.upload()
+GET     /saveImg/:id        	        controllers.Users.saveImg(id :ObjectId)
 
 
 # FollowTypes
@@ -213,3 +214,7 @@ GET     /reservConfirmInfo              controllers.Reservations.reservConfirmIn
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                   controllers.Assets.at(path="/public", file)
+
+
+# User (change log image)
+GET     /changeImage                    controllers.Users.changeImage

@@ -93,17 +93,17 @@ object MyFollow extends ModelCompanion[MyFollow, ObjectId] {
     	User.findOneById(userId).get
     )
     
-    val couponIdL: List[ObjectId] = getAllFollowObjId(FOLLOWCOUPON, id)
+    val couponIdL: List[ObjectId] = getAllFollowObjId(FOLLOW_COUPON, id)
     val couponL = couponIdL.map(couponId =>
     	Coupon.findOneById(couponId).get
     )
     
-    val blogIdL: List[ObjectId] = getAllFollowObjId(FOLLOWBLOG, id)
+    val blogIdL: List[ObjectId] = getAllFollowObjId(FOLLOW_BLOG, id)
     val blogL = blogIdL.map(blogId =>
     	Blog.findOneById(blogId).get
     )
     
-    val styleIdL: List[ObjectId] = getAllFollowObjId(FOLLOWSTYLE, id)
+    val styleIdL: List[ObjectId] = getAllFollowObjId(FOLLOW_STYLE, id)
     val styleL = styleIdL.map(styleId =>
     	Style.findOneByID(styleId).get
     )

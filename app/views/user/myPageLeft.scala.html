@@ -1,17 +1,17 @@
 @(user :User,followInfo:FollowInformation)
 			<div class ="Owner">
-				<a href="#" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")" align="absmiddle" alt="@user.userId" title="@user.userId" class="LargePortrait"/></a>
+				<a href="#" class='Img'><img src="@if(user.id.getTime.equals(user.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(user.userPics)"}"/></a>
 				<span class='U'>
       				<a href="@routes.Users.myPage" class='Name' title='female'>@user.userId</a>
 					<span class='opts'>
 						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='absmiddle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
-						<a href = "#">@Messages("user.changeImage")</a>
+						<a href = "/changeImage">@Messages("user.changeImage")</a>
 					</span>
 				</span>
     			<div class="clear"></div>
 				<div class ="sta">
 					<a href="@routes.MyFollows.followers(user.id)"><font color="gray">@Messages("user.myFollowers")<span>(@followInfo.follower.length)</span></font></a>
-					<a href="@routes.MyFollows.followers(user.id)"><font color="gray">@Messages("user.myFollowers")<span>(@followInfo.follower.length)</span></font></a>
+					<a href="@routes.UserLetters.messageList("unRead")"><font color="gray">@Messages("user.myMessages")<span>(@UserMessage.countByCondition("unRead",user.userId))</span></font></a>
 				</div>
 			</div>
 			<div class='RMod' id='UserSkills'>
@@ -75,3 +75,5 @@
 	  			<a href = "@routes.Users.logout">@Messages("user.loginOut")</a>
 	  		</div>
 	<!-- ↑mainContents -->
+	
+

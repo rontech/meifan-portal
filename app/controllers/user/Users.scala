@@ -10,6 +10,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc._
 import scala.concurrent._
+import play.api.templates.Html
 
 object Users extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
 
@@ -70,11 +71,12 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
         mapping(
           "contMethodType" -> text,
           "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
-      "socialStatus" -> text) {
-        (id, userId, password, nickName, sex, birthDay, city, tel, email, optContactMethods, socialStatus) =>
+      "socialStatus" -> text,
+      "userPics" -> text) {
+        (id, userId, password, nickName, sex, birthDay, city, tel, email, optContactMethods, socialStatus, userPics) =>
           User(new ObjectId, userId, nickName, password._1, sex, birthDay, city, new ObjectId, tel, email, optContactMethods, socialStatus, "NormalUser", "userLevel.0", 0, new Date(), LoggedIn.toString, false)
       } {
-        user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.sex, user.birthDay, user.city, user.tel, user.email, user.optContactMethods, user.socialStatus))
+        user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.sex, user.birthDay, user.city, user.tel, user.email, user.optContactMethods, user.socialStatus, user.userPics.toString()))
       }.verifying(
         "This userId is not available", user => !User.findOneByUserId(user.userId).nonEmpty))
 
@@ -177,7 +179,8 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def register = Action { implicit request =>
     Users.registerForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.user.register(errors)),
+//      errors => BadRequest(views.html.user.register(errors)),
+        errors => BadRequest(Html(errors.toString)),
       {
         user =>
           User.save(user, WriteConcern.Safe)
@@ -242,6 +245,20 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     }
   }
 
+  /**
+   * 保存图片
+   */
+  def saveImg(id :ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _){implicit request =>
+    val user = loggedIn
+    User.save(user.copy(userPics = id), WriteConcern.Safe)
+    Redirect(routes.Users.myPage())
+  }
+  
+  def changeImage = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.changeImg(user,followInfo))
+  }
   /**
    * 浏览他人主页
    */

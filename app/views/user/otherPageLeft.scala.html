@@ -1,11 +1,15 @@
-@(user :User, followInfo:FollowInfomation, loginUserId: ObjectId)
+@(user :User, followInfo:FollowInformation, loginUserId: ObjectId)
 			<div class ="Owner">
 				<a href="#" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")" align="absmiddle" alt="@user.userId" title="@user.userId" class="LargePortrait"/></a>
 				<span class='U'>
       				<a href="@routes.Users.myPage" class='Name' title='female'>@user.userId</a>
 					<span class='opts'>
 						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='absmiddle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
-						<a href = "#">@Messages("user.cancelFollow")</a>
+						@if(MyFollow.checkIfFollow(loginUserId,user.id)){
+						<a href="@routes.MyFollows.cancelFollow(user.id)">@Messages("user.cancelFollow")</a>
+						}else{
+						<a href="@routes.MyFollows.addFollow(user.id,"user")">@Messages("user.addFollow")</a>
+						}
 					</span>
 				</span>
     			<div class="clear"></div>
