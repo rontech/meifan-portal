@@ -161,27 +161,6 @@ object Styles extends Controller {
     Ok(html.style.general.overview(style.toList, styleSearchForm, Style.findParaAll))
   }
   
-  def findBySalon(salonId: ObjectId) = Action {
-    val salon: Option[Salon] = Salon.findById(salonId)
-    //此处由于豆平那技师和店铺关系的表还未确定，暂时固定写死，明日修改2014/03/18
-    //val styles: Seq[Style] = Style.findBySalon(salonId)    
-    val stylists = List("530d8010d7f2861457771bf8")
-    var styles: List[Style] = Nil
-    stylists.map{ sty =>
-    	var style = Style.findByStylistId(new ObjectId(sty))
-    	styles :::= style
-    }
-    // TODO: process the salon not exist pattern.
-    Ok(html.salon.store.salonInfoStyleAll(salon = salon.get, styles = styles))
-  }
-  
-  def getStyleInfoOfSalon(salonId: ObjectId, styleId: ObjectId) = Action {
-    val salon: Option[Salon] = Salon.findById(salonId)    
-    val style: Option[Style] = Style.findOneById(styleId)    
-    Ok(html.salon.store.salonInfoStyle(salon = salon.get, style = style.get))
-
- }
-  
   def styleSearchList = Action {
     implicit request => 
 	  styleSearchForm.bindFromRequest.fold(

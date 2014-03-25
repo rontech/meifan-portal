@@ -1,6 +1,6 @@
-@(salon: Salon, stylist: Stylist, style:List[Style])
+@(salon: Salon, stylist: Stylist, style:List[Style], navBar: List[(String, String)] = Nil)
 
-@salonInfoMain(navInSalon = "salon-stylist", salon){
+@salonInfoMain(navInSalon = "salon-stylist", salon, navBar){
 	<div id="mainContents">
 		<div class="mT30">
 			<div class="stylePageTileOuter">

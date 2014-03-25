@@ -72,7 +72,7 @@ object Blogs extends Controller {
      val stylist = Stylist.findOneById(stylistId)
      var user = User.findOneById(stylist.get.id).get
      var blogList = Blog.getBlogByUserId(user.userId)
-     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogList))
+     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogList))
    }    
       
   /**

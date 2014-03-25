@@ -4,6 +4,7 @@ import play.api._
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
+import play.api.i18n.Messages
 import com.mongodb.casbah.commons.Imports._
 import models._
 import views._
@@ -11,16 +12,20 @@ import java.util.Date
 import models.Salon
 
 object SalonsAdmin extends Controller {
-	def date(str: String) = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(str)
   
-	def mySalon(salonId: ObjectId) = Action {
+  def date(str: String) = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(str)
+ 
+  // Navigation Bar 
+  //val nav0 = (Messages("index.mainPage"), routes.Application.index.toString())
+  //val navBarList = nav0 :: Nil
 
-	   val salon: Salon = Salon.findById(salonId).get
-	    Ok(views.html.salon.admin.mySalonHome(salon = salon))
-	  }
+  def mySalon(salonId: ObjectId) = Action {
+    //val nav = (Messages("salonAdmin.mainPage"), routes.SalonsAdmin.mySalon(salonId))
+    //navBarList ::= nav
 
-   
-  
+    val salon: Salon = Salon.findById(salonId).get
+    Ok(views.html.salon.admin.mySalonHome(salon = salon))
+  }
   
   def myStylist(salonId: ObjectId) = Action {
 	val stylist = Stylist.findBySalon(salonId)
@@ -32,7 +37,7 @@ object SalonsAdmin extends Controller {
   }
   
   def myReserv(salonId: ObjectId) = Action {
-    Ok(views.html.salon.general.index(""))
+    Ok(views.html.salon.general.index(Nil))
   }
   
   def myComment(salonId: ObjectId) = Action {
@@ -45,7 +50,7 @@ object SalonsAdmin extends Controller {
   }
   
   def myService(salonId: ObjectId) = Action {
-    Ok(views.html.salon.general.index(""))
+    Ok(views.html.salon.general.index(Nil))
   }
   
   /**
