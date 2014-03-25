@@ -1,7 +1,5 @@
-@(letters: List[UserLetter], count: Long, pages: Int, page:Int, user:User, followInfo:FollowInfomation)
+@(letters: List[UserLetter], count: Long, pages: Int, page:Int, user:User, followInfo:FollowInformation)
 
-@import helper._
-@import helper.twitterBootstrap._
 @myPageMain(navInMyPage = "messages", user, followInfo){
 	<div class="content-core">
 		<input type="hidden" name="page" id="page" value="@page">

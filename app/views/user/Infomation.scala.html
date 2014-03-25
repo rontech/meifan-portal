@@ -1,5 +1,5 @@
 @* UserInfomation Template File *@
-@(userForm: Form[User], followInfo:FollowInfomation)
+@(userForm: Form[User], followInfo:FollowInformation)
  @import helper._
 
 @accountField(field: Field, className: String = "account") = {
@@ -12,7 +12,7 @@
 @optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
     <div class="twipsies well @className">
         
-        <a class="removeoptContactMethod btn danger pull-right">Remove this optContactMethod</a>
+        <a class="removeOptContactMethod btn danger pull-right">Remove this optContactMethod</a>
 
         @inputText(
             field("contMethodType"), 
@@ -99,7 +99,7 @@
                 )
                 
                 <div class="manage">
-                    <a class="addoptContactMethod btn success">Add another optContactMethod</a>
+                    <a class="addOptContactMethod btn success">Add another optContactMethod</a>
                 </div>
             
             </div>
@@ -110,7 +110,7 @@
         
         <script type="text/javascript" charset="utf-8">
         
-        $('.removeoptContactMethod').live('click', function(e) {
+        $('.removeOptContactMethod').live('click', function(e) {
             $(this).parents('.optContactMethod').remove()
             renumber()
         })
@@ -128,7 +128,7 @@
             renumber(accounts)
         })
         
-        $('.addoptContactMethod').live('click', function(e) {
+        $('.addOptContactMethod').live('click', function(e) {
             var template = $('.optContactMethod_template')
             template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
             renumber()

@@ -9,8 +9,7 @@ import models._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc._
-import scala.concurrent.Future
-import play.api.templates._
+import scala.concurrent._
 
 object Users extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
 
@@ -20,24 +19,24 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
 
   //关注沙龙
-  val FOLLOWSALON = "salon"
+  val FOLLOW_SALON = "salon"
   //关注技师
-  val FOLLOWSTYLIST = "stylist"
+  val FOLLOW_STYLIST = "stylist"
   //关注用户
-  val FOLLOWUSER = "user"
+  val FOLLOW_USER = "user"
   //收藏发型
-  val FOLLOWSTYLE = "style"
+  val FOLLOW_STYLE = "style"
   //收藏博客
-  val FOLLOWBLOG = "blog"
+  val FOLLOW_BLOG = "blog"
   //收藏优惠券
-  val FOLLOWCOUPON = "coupon"
+  val FOLLOW_COUPON = "coupon"
 
   /*
    * 用户类别
    */
 
   //普通用户
-  val NORMALUSER = "normalUser"
+  val NORMAL_USER = "normalUser"
   //专业技师
   val STYLIST = "stylist"
 
@@ -106,7 +105,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
         (id, userId, nickName, password, sex, birthDay, city, userPics, tel, email, optContactMethods, socialStatus, registerTime) => User(id, userId, password, nickName, sex, birthDay, city, new ObjectId(userPics), tel, email, optContactMethods, socialStatus, "NormalUser", "userLevel.0", 0, registerTime, "LoggedIn", false)
       } // Unbinding: Create the mapping values from an existing Hacker value
       {
-        user => Some((user.id, user.userId, user.password, user.nickName, user.sex, user.birthDay, user.city, user.userPics.toString(), user.tel, user.email, user.optContactMethods, user.socialStatus, user.registerTime))
+        user => Some((user.id, user.userId, user.password, user.nickName, user.sex, user.birthDay, user.city, user.userPics.toString, user.tel, user.email, user.optContactMethods, user.socialStatus, user.registerTime))
       }.verifying(
         "This userId is not available", user => User.findOneByNickNm(user.nickName).nonEmpty))
 
@@ -125,7 +124,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
 			    	){
 			    		(positionName, industryName) => IndustryAndPosition(new ObjectId, positionName, industryName)
 			    	}{
-			    		industryAndPosition => Some(industryAndPosition.positionName, industryAndPosition.indestryName)
+			    		industryAndPosition => Some(industryAndPosition.positionName, industryAndPosition.industryName)
 			    	}	
 			    ),
 			    "goodAtImage" -> list(text),
@@ -233,10 +232,9 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   def myPage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    if ((user.userTyp).equals(NORMALUSER)) {
+    if (user.userTyp.equals(NORMAL_USER)) {
       Ok(views.html.user.myPageRes(user,followInfo))
-    } else if ((user.userTyp).equals(STYLIST)) {
-      //TODO
+    } else if (user.userTyp.equals(STYLIST)) {
       val stylist = Stylist.findOneById(user.id)
       Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get))
     } else {
@@ -264,39 +262,6 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     Ok(views.html.user.myPageRes(user,followInfo))
   }
-/*
-  *//**
-   * 我收藏的优惠劵
-   *//*
-  def myFollowedCoupon() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user = loggedIn
-    Ok(views.html.user.myFollowCoupon(user))
-  }*/
-/*
-  *//**
-   * 我收藏的博客
-   *//*
-  def myFollowedBlog() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user = loggedIn
-    Ok(views.html.user.myFollowBlog(user))
-  }*/
-
-/*  *//**
-   * 我收藏的风格
-   *//*
-  def myFollowedStyle() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user = loggedIn
-    Ok(views.html.user.myFollowStyle(user))
-  }*/
-
-/*  *//**
-   * 我收藏的店铺动态
-   *//*
-  def myFollowedSalonActi() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user = loggedIn
-    //TODO
-    Ok(views.html.user.myFollowSalonActi(user))
-  }*/
 
   /**
    * 他人收藏的博客
@@ -319,80 +284,6 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
       NotFound
     }
   }
-
-/*  *//**
-   * 列表显示关注的沙龙
-   *//*
-  def myFollowedSalon(id:ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user = loggedIn
-    //TODO 关注表 userId 希望改成 String
-    val salonIdL: List[ObjectId] = MyFollow.getAllFollowObjId(FOLLOWSALON, user.id)
-    val salonL = salonIdL.map(salonId =>
-    	Salon.findById(salonId).get
-    )
-    //TODO view的显示
-    Ok(views.html.user.showAllFollowSalon(salonL, user, Option(user.userId)))
-  }*/
-
-/*  *//**
-   * 列表显示关注的技师
-   *//*
-  def myFollowedStylist() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user = loggedIn
-    val stylistIdL: List[ObjectId] = MyFollow.getAllFollowObjId(FOLLOWSTYLIST, user.id)
-    val stylistL = stylistIdL.map(stylistId =>
-    	Stylist.findOneById(stylistId).get
-    )
-    Ok(views.html.user.showAllFollowStylist(stylistL, user, Option(user.userId)))
-  }*/
-
-/*  *//**
-   * 列表显示关注的其他用户
-   *//*
-  def myFollowedUser() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user = loggedIn
-    val userIdL: List[ObjectId] = MyFollow.getAllFollowObjId(FOLLOWUSER, user.id)
-    val userL = userIdL.map(userId =>
-    	User.findOneById(userId).get
-    )
-    Ok(views.html.user.showAllFollowUser(userL, user, Option(user.userId)))
-  }*/
-
-/*  *//**
-   * 列表显示我的粉丝
-   *//*
-  def myFollowers() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user = loggedIn
-    val myFollowersIdL: List[ObjectId] = MyFollow.getFollowers(user.id)
-    val myFollowersL = myFollowersIdL.map(myFollowersId =>
-    	User.findOneById(myFollowersId).get
-    )
-    Ok(views.html.user.showMyFollowers(myFollowersL.toList, user, Option(user.userId)))
-  }*/
-////////////////////////////////////////////////////////////////
-/*  
-  *//**
-   * 取消关注
-   *//*
-  def cancelFollow(userName: String, salonId: ObjectId) = Action {
-    val userId = User.findOneByUserId(userName).get.id
-    MyFollow.delete(userId, salonId)
-//    Redirect(routes.Users.myFollowedSalon(userId))
-    Redirect(routes.MyFollows.followedSalon(userId))
-  }*/
-
-/*  *//**
-   * 添加关注或收藏
-   *//*
-  def addFollow(followId: ObjectId, followObjType: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user = loggedIn
-    if (!MyFollow.checkIfFollow(user.id, followId)) {
-      MyFollow.create(user.id, followId, followObjType)
-    }
-    if (followObjType == FOLLOWSALON || followObjType == FOLLOWSTYLIST || followObjType == FOLLOWUSER)
-      UserMessage.sendFollowMsg(user, followId, followObjType)
-    Redirect(routes.Users.myPage())
-  }*/
 
   /**
    * 申请成为技师

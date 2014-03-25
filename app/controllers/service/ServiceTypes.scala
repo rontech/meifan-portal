@@ -1,11 +1,7 @@
 package controllers
 
 import play.api.mvc._
-import play.api.libs.json._
 import models._
-import java.util.Date
-import com.mongodb.casbah.WriteConcern
-import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -29,7 +25,7 @@ object ServiceTypes extends Controller {
       errors => BadRequest(views.html.service.addServiceType(errors)),
       {
         serviceType =>
-          ServiceType.addserviceType(serviceType)
+          ServiceType.addServiceType(serviceType)
           Ok(Html("<p>添加成功！</p>"))                   
       })
   }

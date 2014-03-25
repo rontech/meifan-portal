@@ -58,7 +58,7 @@ salon.homepage=官方主页
 salon.description=店铺简介
 salon.mainPhone=联系电话
 salon.contact=联系人
-salon.contMethmodType=联系工具名
+salon.contMethodType=联系工具名
 salon.account=号码
 salon.establishDate=成立日期
 salon.address=地址
@@ -99,15 +99,15 @@ salonAdmin.mainPage = 店铺管理
 salonAdmin.myPage = 我的店铺
 salonAdmin.myBlog = 我的博客
 salonAdmin.welcome = 欢迎您
-salonAdmin.remindReserv = 预约提示：
-salonAdmin.needCommentReserv = 待评论
-salonAdmin.overtimeReserv = 已过期
-salonAdmin.expireReserv = 即将到期
+salonAdmin.remindRsv = 预约提示：
+salonAdmin.needCommentRsv = 待评论
+salonAdmin.overtimeRsv = 已过期
+salonAdmin.expireRsv = 即将到期
 salonAdmin.remindApply = 申请提示：
 salonAdmin.fromStylistApply = 来自技师申请
 salonAdmin.infoManagement = 信息管理
 salonAdmin.stylistManagement = 技师管理
-salonAdmin.reservManagement = 预约管理
+salonAdmin.reserveManagement = 预约管理
 salonAdmin.commentManagement = 评论管理
 salonAdmin.serviceManagement = 服务管理
 salonAdmin.couponManagement = 优惠劵管理
@@ -146,7 +146,7 @@ hair.consumerAgeGroup=适合年龄
 # Cosmetic
 cosmetic.salon=美容沙龙
 cosmetic.style=脸型
-hair.stylist=美容师
+cosmetic.stylist=美容师
 
 #
 reserve.name=预约
@@ -183,9 +183,6 @@ ServiceType.serviceTypeName.Other = 其他
 
 # Coupon&Menu
 coupon.title = {0} 的优惠券
-coupon.presentTime = 出示时间： 
-coupon.useConditions = 使用条件：
-coupon.endDate = 到期日：
 coupon.noCouponSearched = 没有找到您希望的优惠券！
 coupon.menu = 搜索条件
 coupon.searchOption = 搜索选项
@@ -195,8 +192,8 @@ coupon.appointment1 = 该优惠券
 coupon.appointment2 = 空缺查询
 coupon.addMenu = 增加菜单
 coupon.currency = 元
-coupon.newConpon = 新
-coupon.conpon = 券
+coupon.newCoupon = 新
+coupon.coupon = 券
 coupon.couponName = 优惠劵名
 coupon.perferentialPrice = 优惠价格（元）
 coupon.startDate = 开始时间
@@ -209,7 +206,7 @@ coupon.createCoupon = 创建优惠劵
 coupon.serviceArea = 服务选择区域
 coupon.serviceDuration = 服务时长
 coupon.modify = 修改
-coupon.invalid = 无效 
+coupon.invalid = 无效
 coupon.invalidCoupon = 该优惠劵已无效
 
 menu.title = {0} 的菜单
@@ -232,17 +229,16 @@ apply.termination = 3
 stylist.searchResults = 搜索结果
 stylist.search = 搜索
 stylist.id = 技师ID
-stylist.workYears = 年
-stylist.checkReserv = 查看日程
+stylist.checkRsv = 查看日程
 stylist.invite = 邀请
-stylist.empty = 暂无 
+stylist.empty = 暂无
 stylist.applyCreateTime = 申请时间
 stylist.acceptApply = 同意
 stylist.rejectApply = 拒绝
 
 #Stylist Apply
 stylist.name = 昵称
-stylist.workYesrs = 工作年数
+stylist.workYears = 工作年数
 stylist.industry = 类别
 stylist.position = 职位
 stylist.goodAtImage = 擅长风格
@@ -263,11 +259,11 @@ stylistMag.mySalon = 我的店铺
 stylistMag.salonApply = 来自店铺申请
 stylistMag.myStyle = 我的作品
 stylistMag.showAllStyles = 显示所有发型
-stylistMag.findReserv = 查看预约
+stylistMag.findRsv = 查看预约
 stylistMag.styleManage = 发型管理
 stylistMag.serviceManage = 服务管理
 stylistMag.salonHistory = 店铺历史
-stylistMag.totalReserv = 显示当天预约
+stylistMag.totalRsv = 显示当天预约
 
 
 # User
@@ -312,21 +308,11 @@ user.agree=必须同意!
 user.male=男
 user.female=女
 user.loginOut=退出
-user.cancleBothFollow=取消互粉
+user.cancelBothFollow=取消互粉
 user.addFollow=添加关注
-
 user.myMessages=消息
 user.contMethodType=联系工具
 user.optContactMethod=其他联系方式
-
-
-#Letter
-letter.addressee=收件人
-letter.sender=发件人
-letter.time=时间
-
-
-user.myMessages=消息
 
 #Letter
 letter.addressee=收件人

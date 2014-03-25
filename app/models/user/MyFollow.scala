@@ -1,16 +1,11 @@
 package models
 
 import play.api.Play.current
-import java.util.Date
-import com.novus.salat._
-import com.novus.salat.annotations._
 import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
 import scala.collection.mutable.ListBuffer
 
 case class MyFollow(
@@ -24,12 +19,12 @@ object MyFollow extends ModelCompanion[MyFollow, ObjectId] {
 
   val dao = new SalatDAO[MyFollow, ObjectId](collection = mongoCollection("MyFollow")) {}
 
-  val FOLLOWSALON = "salon"
-  val FOLLOWSTYLIST = "stylist"
-  val FOLLOWUSER= "user"
-  val FOLLOWSTYLE="style"
-  val FOLLOWBLOG="blog"
-  val FOLLOWCOUPON="coupon"
+  val FOLLOW_SALON = "salon"
+  val FOLLOW_STYLIST = "stylist"
+  val FOLLOW_USER= "user"
+  val FOLLOW_STYLE="style"
+  val FOLLOW_BLOG="blog"
+  val FOLLOW_COUPON="coupon"
   
   /**
    *根据用户Id和关系类型获取被关注或收藏的对象 
@@ -55,14 +50,14 @@ object MyFollow extends ModelCompanion[MyFollow, ObjectId] {
    *查看我被关注的对象，即我的粉丝 
    */
   def getFollowers(userId:ObjectId):
-	  List[ObjectId] = dao.find(MongoDBObject("followObjType" -> FOLLOWUSER, "followObjId" -> userId)).toList.map { myFollowers => myFollowers.userId }
+	  List[ObjectId] = dao.find(MongoDBObject("followObjType" -> FOLLOW_USER, "followObjId" -> userId)).toList.map { myFollowers => myFollowers.userId }
   
   /**
    *检验是否已关注或收藏 
    */
   def checkIfFollow(userId: ObjectId, followObjId:ObjectId): Boolean ={
     val isFollow = dao.findOne(MongoDBObject("userId" -> userId, "followObjId" -> followObjId))
-    return isFollow.nonEmpty
+    isFollow.nonEmpty
   }
   
   /**
@@ -76,19 +71,19 @@ object MyFollow extends ModelCompanion[MyFollow, ObjectId] {
   /**
    * 获取关注收藏信息
    */
-  def getAllFollowInfo(id:ObjectId): FollowInfomation = {
+  def getAllFollowInfo(id:ObjectId): FollowInformation = {
     //关注的店铺列表
-    val salonIdL: List[ObjectId] = getAllFollowObjId(FOLLOWSALON, id)
+    val salonIdL: List[ObjectId] = getAllFollowObjId(FOLLOW_SALON, id)
     val salonL = salonIdL.map(salonId =>
     	Salon.findById(salonId).get
     )
     //关注的技师列表
-    val stylistIdL: List[ObjectId] = getAllFollowObjId(FOLLOWSTYLIST, id)
+    val stylistIdL: List[ObjectId] = getAllFollowObjId(FOLLOW_STYLIST, id)
     val stylistL = stylistIdL.map(stylistId =>
     	Stylist.findOneById(stylistId).get
     )
     //关注的用户
-    val userIdL: List[ObjectId] = getAllFollowObjId(FOLLOWUSER, id)
+    val userIdL: List[ObjectId] = getAllFollowObjId(FOLLOW_USER, id)
     val userL = userIdL.map(userId =>
     	User.findOneById(userId).get
     )
@@ -102,11 +97,11 @@ object MyFollow extends ModelCompanion[MyFollow, ObjectId] {
     val blogList = ListBuffer[Blog]()
     val styleList = ListBuffer[Style]()
     
-    FollowInfomation(salonL,stylistL,userL,couponList.toList,blogList.toList,styleList.toList,followerL)
+    FollowInformation(salonL,stylistL,userL,couponList.toList,blogList.toList,styleList.toList,followerL)
   }
 }
 
-case class FollowInfomation(
+case class FollowInformation(
      followSalon: List[Salon],
      followStylist: List[Stylist],
      followUser: List[User],

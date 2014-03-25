@@ -1,6 +1,6 @@
 @(stylistForm: Form[StylistApply], user: User, position: List[Position], industry: List[Industry], 
 	goodAtImage: List[StyleImpression], goodAtStatus: List[SocialStatus], 
-	goodAtService: List[Service], goodAtUser: List[Sex], goodAtAgeGroup: List[AgeGroup], followInfo:FollowInfomation)
+	goodAtService: List[Service], goodAtUser: List[Sex], goodAtAgeGroup: List[AgeGroup], followInfo:FollowInformation)
 @import helper._
 
 @myPageMain(navInMyPage = "my-reservation",user, followInfo){
@@ -19,7 +19,7 @@
 		
        		@inputText(stylistForm("stylist.label"), '_label -> Messages("stylist.name"), 'default ->user.nickName)
 			
-			@inputText(stylistForm("stylist.workYears"), '_label -> Messages("stylist.workYesrs"), 'class ->  "font1")
+			@inputText(stylistForm("stylist.workYears"), '_label -> Messages("stylist.workYears"), 'class ->  "font1")
 			
 			@inputText(stylistForm("salonId"), '_label -> "salonId", 'class ->  "font1")
 			

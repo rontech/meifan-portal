@@ -2,10 +2,8 @@ package models
 
 import play.api.Play.current
 import play.api.PlayException
-import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.MongoConnection
-import com.novus.salat.Context
 import mongoContext._
 import com.mongodb.casbah.query.Imports._
 import java.util.Date
@@ -65,11 +63,11 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId]{
         dao.remove(MongoDBObject("_id" -> id))
   }
    
-  def findByPara(style: models.Style) : List[Style] = {
+  def findByPara(style: Style) : List[Style] = {
         dao.find($and("styleDiameter" $in style.styleDiameter ,"styleImpression" $in style.styleImpression,"faceShape" $in style.faceShape)).toList	
   }
    
-  def updateStyle(style: models.Style) = {
+  def updateStyle(style: Style) = {
 	   dao.update(MongoDBObject("_id" -> style.id), MongoDBObject("$set" -> (
 			   MongoDBObject("styleName" -> style.styleName)++
 			   MongoDBObject("stylePic" -> style.stylePic)++
