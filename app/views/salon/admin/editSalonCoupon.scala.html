@@ -1,0 +1,12 @@
+@(salon: Salon, couponForm: Form[Coupon], services: List[Service])
+
+@mySalonMain(navInSalon = "salon-coupon", salon) {
+	
+	<head>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">	
+	</head>
+	
+    <!-- Get the Salon with all the coupons.  -->
+    @views.html.coupon.editCoupon(couponForm, services)
+
+}

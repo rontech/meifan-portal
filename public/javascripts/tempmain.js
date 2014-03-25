@@ -87,6 +87,27 @@ $(function(){
 					}
 					});
 				});
+		
+		$('.deleteBlog').click(function(e) {
+		  e.preventDefault();
+		  blogId = $(this).data('blog');
+	      if(!confirm("文章删除后无法恢复，请确认是否删除此篇文章？")){
+        	return;
+	      }else{
+            location.href="/deleteBlog/" + blogId;
+	      } 
+		});
+		
+		$('.deleteComment').click(function(e) {
+		  e.preventDefault();
+		  commentId = $(this).data('comment');
+		  blogId = $(this).data('blog');
+	      if(!confirm("您确认要删除此篇评论？")){
+        	return;
+	      }else{
+        	location.href="/delete/" + commentId + "/" + blogId;
+	      } 
+		});
 
 
 })

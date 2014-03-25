@@ -8,9 +8,10 @@ import play.api.data.Forms._
 import play.api.templates._
 import models._
 import com.mongodb.casbah.Imports.ObjectId
+import jp.t2v.lab.play2.auth._
+import scala.concurrent.ExecutionContext.Implicits.global
 
-
-object Comments extends Controller {
+object Comments extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
   
 
   val formAddComment = Form((
@@ -64,16 +65,15 @@ object Comments extends Controller {
   /**
    * 增加评论，后台逻辑
    */
-  def addComment(commentObjId : ObjectId, commentObjType : Int) = Action {
+  def addComment(commentObjId : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
     implicit request =>
-//      val userId = request.session.get("userId").get
-      val userId = "test" //TODO
+      val user = loggedIn 
       formAddComment.bindFromRequest.fold(
         //处理错误
         errors => BadRequest(views.html.comment.errorMsg("")),
         {
           case (content) =>         
-	        Comment.addComment(userId, content, commentObjId, commentObjType)
+	        Comment.addComment(user.userId, content, commentObjId, commentObjType)
 	        if (commentObjType == 1) { 
 	          Redirect(routes.Blogs.showBlogById(commentObjId))
 	        }
@@ -102,19 +102,29 @@ object Comments extends Controller {
   /**
    * 回复，后台逻辑
    */
-  def reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = Action {
+  def reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
     implicit request =>
 //      val userId = request.session.get("userId").get
-      val userId = "test" //TODO
+      // TODO
+      val user = loggedIn
       formHuifuComment.bindFromRequest.fold(
         //处理错误
         errors => BadRequest(views.html.comment.errorMsg("")),
         {
           case (content) =>
-	        Comment.reply(userId, content, commentObjId, commentObjType) 
+	        Comment.reply(user.userId, content, commentObjId, commentObjType) 
 	        Redirect(routes.Blogs.showBlogById(id))	
         } 
       )
+  }
+  
+  /**
+   * blog的作者删除评论
+   */
+  def delete(id : ObjectId, commentObjId : ObjectId) = Action {
+    Comment.delete(id)
+//    Redirect(routes.Comments.find(commentedId))
+    Redirect(routes.Blogs.showBlogById(commentObjId))
   }
   
   
