@@ -3,8 +3,8 @@
 @import helper._
 
 @form(routes.Menus.createMenu, 'id -> "menuForm") {
-	<fieldset>
-		<legend>@Messages("menu.createMenuArea")</legend>
+	<legend class="mainTitle">@Messages("menu.createMenuArea")</legend>
+	<div class="menuInfo">
 		<input type="hidden" name="salonId" value="@salonId" />
 		
 		@inputText(menuForm("menuName"), '_label -> Messages("menu.menuName"),
@@ -12,20 +12,22 @@
             ,'_error -> menuForm.globalError
 		)
 		
-		<fieldset>
+		<fieldset class="serviceArea">
 			<legend>@Messages("coupon.serviceArea")</legend>
 			@input(field = menuForm("serviceItems"), args = '_label ->None){(id,name,value,args) =>
 			 	@for(service <- services) {
-			 		<input type = "checkbox" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
+			 		<div class="serviceItemArea">
+			 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
+			 		</div>
 			 	}
 			  }
 		</fieldset>
 		
 		@inputText(menuForm("description"), '_label -> Messages("coupon.description"))
-		
-	</fieldset>
-	
-	<input type = "submit" class = "buttons" value="@Messages("service.addBton")">
-            
-    <input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+	</div>	
+	<div class="btnArea">
+		<input type = "submit" class = "buttons" value="@Messages("service.addBton")">
+	            
+	    <input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+    </div>
 }

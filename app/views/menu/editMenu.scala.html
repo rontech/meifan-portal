@@ -1,0 +1,35 @@
+@(menuForm: Form[Menu], services: List[Service])
+
+@import helper._
+
+@form(routes.Menus.updateMenu(menuForm.get.id), 'id -> "menuForm") {
+	<legend class="mainTitle">@Messages("menu.createMenuArea")</legend>
+	<div class="menuInfo">
+		<input type="hidden" name="salonId" value="@menuForm.get.salonId"/>
+		
+		@inputText(menuForm("menuName"), '_label -> Messages("menu.menuName"), 'readonly -> true)
+		
+		<fieldset class="serviceArea">
+			<legend>@Messages("coupon.serviceArea")</legend>
+			@input(field = menuForm("serviceItems"), args = '_label ->None){(id,name,value,args) =>
+			 	@for(service <- services) {
+			 		<div class="serviceItemArea">
+				 		@if(menuForm.get.serviceItems.contains(service)) {
+				 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id" checked ="checked">@service.serviceName
+				 		} else {
+				 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
+				 		}
+			 		</div>
+			 	}
+			  }
+		</fieldset>
+		
+		@inputText(menuForm("description"), '_label -> Messages("coupon.description"))
+	</div>	
+	
+	<div class="btnArea">
+		<input type = "submit" class = "buttons" value="@Messages("common.submit")">
+	            
+	    <a href="/mySalon/@menuForm.get.salonId/menu"><input type = "button" class = "buttons" value="@Messages("common.backUp")"></a>
+	</div>
+}
