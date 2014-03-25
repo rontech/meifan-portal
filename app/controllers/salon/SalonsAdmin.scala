@@ -1,10 +1,6 @@
 package controllers
 
-import play.api._
 import play.api.mvc._
-import play.api.data._
-import play.api.data.Forms._
-import play.api.i18n.Messages
 import com.mongodb.casbah.commons.Imports._
 import models._
 import views._
@@ -85,9 +81,9 @@ object SalonsAdmin extends Controller {
    * 店铺查看申请中的技师
    */
   def checkHoldApply(salonId: ObjectId) = Action {
-    val records = SalonStylistApplyRecord.findApplingStylist(salonId)
+    val records = SalonStylistApplyRecord.findApplyingStylist(salonId)
     var stylists: List[Stylist] = Nil
-    records.map{re=>
+    records.map{re =>
       val stylist = Stylist.findOneById(re.stylistId)
       stylist match {
         case Some(sty) => stylists :::= List(sty)
@@ -154,12 +150,12 @@ object SalonsAdmin extends Controller {
     val stylist = Stylist.findOneById(stylistId)
     stylist match {
       case Some(sty) => {
-        if(!sty.isVarified || !sty.isValid) {
+        if(!sty.isVerified || !sty.isValid) {
           NotFound
         } else {
-          val stysecond = SalonAndStylist.findByStylistId(stylistId)
-          stysecond match {
-            case Some(styend) => NotFound
+          val stySecond = SalonAndStylist.findByStylistId(stylistId)
+          stySecond match {
+            case Some(styEnd) => NotFound
             case None => SalonStylistApplyRecord.save(new SalonStylistApplyRecord(new ObjectId, salonId, stylistId, 2, new Date, 0, None))
           }
         }

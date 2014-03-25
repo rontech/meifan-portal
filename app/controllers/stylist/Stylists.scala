@@ -26,7 +26,7 @@ object Stylists extends Controller {
 			    	){
 			    		(positionName, industryName) => IndustryAndPosition(new ObjectId, positionName, industryName)
 			    	}{
-			    		industryAndPosition => Some(industryAndPosition.positionName, industryAndPosition.indestryName)
+			    		industryAndPosition => Some(industryAndPosition.positionName, industryAndPosition.industryName)
 			    	}	
 			    ),
 			    "goodAtImage" -> list(text),

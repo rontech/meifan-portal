@@ -1,4 +1,4 @@
-@(followInfo:FollowInfomation,user:User,loginUserId:ObjectId)
+@(followInfo:FollowInformation,user:User,loginUserId:ObjectId)
 
 @main("") {
 	
@@ -11,7 +11,7 @@
         	@if(loginUserId.equals(user.id) ){
         		@views.html.user.myPageLeft(user, followInfo)
         	}else{
-        		@views.html.user.otherPageLeft(user)
+        		@views.html.user.otherPageLeft(user, followInfo, loginUserId: ObjectId)
         	}
         		
         	</div>

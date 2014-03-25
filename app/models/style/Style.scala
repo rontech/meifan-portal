@@ -1,14 +1,13 @@
 package models
 
-import play.api.Play.current
-import play.api.PlayException
-import com.novus.salat._
-import com.novus.salat.dao._
-import com.mongodb.casbah.MongoConnection
-import com.novus.salat.Context
-import mongoContext._
-import com.mongodb.casbah.query.Imports._
 import java.util.Date
+import com.novus.salat.dao._
+import com.mongodb.casbah.query.Imports._
+import mongoContext._
+import se.radley.plugin.salat.Binders._
+import com.mongodb.casbah.Imports.MongoConnection
+import play.api.Play._
+import play.api.PlayException
 
 case class StylePara(
     styleImpression: List[String],
@@ -183,6 +182,5 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         dao.update(MongoDBObject("_id" -> id), MongoDBObject("$set" -> (
             MongoDBObject("isValid" -> false))))
     }
-
 }
 
