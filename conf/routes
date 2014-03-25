@@ -83,13 +83,13 @@ GET     /invalidMenu/:menuId     		controllers.Menus.invalidMenu(menuId: ObjectI
 GET     /style                          controllers.Styles.index
 GET     /style/:id                      controllers.Styles.findById(id: ObjectId)
 POST    /styleSearchList                controllers.Styles.styleSearchList
-POST    /styleLoginNew                  controllers.Styles.styleLoginNew
-GET     /styleLogin                     controllers.Styles.styleLogin
+POST    /styleAddNew                  controllers.Styles.styleAddNew
+GET     /styleAdd                     controllers.Styles.styleAdd
 GET     /styleUpdate/:id                controllers.Styles.styleUpdate(id: ObjectId)
 POST    /styleUpdateNew                 controllers.Styles.styleUpdateNew
 GET     /backstageStyleSearch           controllers.Styles.backstageStyleSearch
 POST    /backstageStyleSearchList       controllers.Styles.backstageStyleSearchList
-GET     /styleDelete/:id                controllers.Styles.styleDelete(id: ObjectId)
+GET     /styleToInvalid/:id/:isValid    controllers.Styles.styleToInvalid(id: ObjectId, isValid: Boolean)
 
 # Stylist
 GET     /stylistViews/:id               controllers.Stylists.findStylistById(id: ObjectId)
