@@ -2,33 +2,51 @@
 @import helper._
 @import helper.twitterBootstrap._
 
-@phoneField(field: Field, className: String = "contact") = {
+@accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
         <input type="text" name="@name" value="@value"> 
+        <a class="removeAccount btn danger">@Messages("optContactMethod.Remove")</a>
     }
 }
 
-@informationGroup(field: Field, className: String = "profile") = {
+@optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
     <div class="twipsies well @className">
+        
+        <a class="removeoptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
 
         @inputText(
             field("contMethodType"), 
-            '_label -> Messages("salon.contMethmodType")
+            '_label -> Messages("user.contMethodType")
         )
         
-        <div class="phones">
+        <div class="accounts">
 
-            @repeat(field("accounts"), min = 0) { accounts =>
+            @repeat(field("accounts"), min = 0) { account =>
                 
-                @phoneField(accounts)
+                @accountField(account)
     
-            }        
+            }
+            
+            @**
+             * Keep an hidden block that will be used as template for Javascript copy code
+             **@
+            @accountField(
+                field("accounts[x]"),
+                className = "account_template"
+            )
+            
+            <div class="clearfix">
+                <div class="input">
+                    <a class="addAccount btn success">@Messages("optContactMethod.AddNumber")</a>
+                </div>
+            </div>
+        
         </div>
-
+ 
     </div>
 }
 
-@main("salonRegister"){
+@main(Messages("salon.register")){
 
 <div class="salonRegister">
 	<div class="salonRegister">
@@ -36,9 +54,12 @@
 
 		@helper.form(routes.SalonInfo.doRegister, 'id -> "salonRegister"){
 		 <fieldset >
-		 	@inputText(salonRegister("salonAccount.accountId"),'_label -> "注册ID")
-			@inputPassword(salonRegister("salonAccount.password.main"),'_label -> Messages("user.pasword"))			
-			@inputPassword(salonRegister("salonAccount.password.confirm"),'_label -> Messages("user.confirmPas"),'_error -> salonRegister.error("password"))		 	   		          
+		 	@inputText(salonRegister("salonAccount.accountId"),'_label -> Messages("salon.id"),
+		 		'_help -> Messages("salon.idMessage"),
+		 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("user.regErr"))))
+			@inputPassword(salonRegister("salonAccount.password.main"),'_label -> Messages("user.pasword"),'_help -> Messages("salon.passwordMessage"))			
+			@inputPassword(salonRegister("salonAccount.password.confirm"),'_label -> Messages("user.confirmPas"),
+				'_help -> Messages("salon.confirmMessage"),'_error -> salonRegister.error("password"))		 	   		          
             @inputText(salonRegister("salonName"),'_label ->  Messages("salon.Name"))           
             @inputText(salonRegister("salonNameAbbr"),'_label -> Messages("salon.Abbr"))			
 			
@@ -51,17 +72,10 @@
 			  }
 					
 		 	@inputText(salonRegister("homepage"), '_label -> Messages("salon.homepage"))			
-			@inputText(salonRegister("salonDescription"), '_label -> Messages("salon.description"))
+			@textarea(salonRegister("salonDescription"), '_label -> Messages("salon.description"),'cols -> 50,'_help -> Messages("salon.desMseeage"))
 			@inputText(salonRegister("mainPhone"), '_label -> Messages("salon.mainPhone"))
 			@inputText(salonRegister("contact"), '_label -> Messages("salon.contact"))
-			<div id="profiles">           
-                @repeat(salonRegister("optContactMethod")) { optContactMethod =>                
-                    @informationGroup(optContactMethod)
-                
-                }                               
-            </div>
-			@inputDate(salonRegister("establishDate"), '_label -> Messages("salon.establishDate"))
-				
+			@inputDate(salonRegister("establishDate"), '_label -> Messages("salon.establishDate"))				
      		 
 			<lable>@Messages("salon.address")</lable>
 			<br>
@@ -87,15 +101,15 @@
        			}
     		</select>
     		
-    		  		
 			@inputText(salonRegister("salonAddress.town"), '_label -> Messages("salon.town"))
-			@inputText(salonRegister("salonAddress.addrDetail"), '_label -> Messages("salon.addrDetail"))
+			@inputText(salonRegister("salonAddress.addrDetail"), '_label -> Messages("salon.addrDetail"),'cols -> 50)
 			@inputText(salonRegister("salonAddress.longitude"), '_label -> Messages("salon.longitude"))
 			@inputText(salonRegister("salonAddress.latitude"), '_label -> Messages("salon.latitude"))		
 			@inputText(salonRegister("accessMethodDesc"), '_label -> Messages("salon.accessMethod"))
 			@inputText(salonRegister("workTime.openTime"), '_label -> Messages("salon.openTime"))
 			@inputText(salonRegister("workTime.closeTime"), '_label -> Messages("salon.closeTime"))
-			@inputText(salonRegister("restDay(0).restDay"), '_label -> Messages("salon.restDay"))	
+			@inputText(salonRegister("restDay.restDayDivision"), '_label -> Messages("salon.restDay"))
+			@inputText(salonRegister("restDay.restDay"), '_label -> Messages("salon.restDay"))	
 			@inputText(salonRegister("seatNums"), '_label -> Messages("salon.seatNums"))	
 			@checkbox(salonRegister("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"))
 			@checkbox(salonRegister("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"))
@@ -106,14 +120,76 @@
 			@checkbox(salonRegister("salonFacilities.isPosAvailable"), '_label -> Messages("salon.isPosAvailable"))
 			@checkbox(salonRegister("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"))
 			@checkbox(salonRegister("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"))
-			@inputText(salonRegister("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"))
+			@inputText(salonRegister("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"),'cols -> 50)
 			@inputText(salonRegister("salonPictures"), '_label -> Messages("salon.pictures"))
 			@inputDate(salonRegister("registerDate"), '_label -> Messages("salon.registerTime"))	
-		  </fieldset>            
+		  </fieldset> 
+		  <fieldset>
+            <legend>@Messages("user.optContactMethod")</legend>
+            
+            <div id="optContactMethods">
+            
+                @repeat(salonRegister("optContactMethod")) { optContactMethod =>
+                
+                    @optContactMethodGroup(optContactMethod)
+                
+                }
+                
+                @**
+                 * Keep an hidden block that will be used as template for Javascript copy code
+                 **@
+                @optContactMethodGroup(
+                    salonRegister("optContactMethod[x]"),
+                    className = "optContactMethod_template"
+                )
+                
+                <div class="manage">
+                    <a class="addoptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
+                </div>
+            
+            </div>		  
+		  </fieldset>           
             <input type = "submit" class = "buttons" value=@Messages("user.registerBtn")>
 			<input type="reset" value=@Messages("common.reset")><a href = "/  "><input type="button" value=@Messages("common.backUp") ></a>                     
 		}
 		</div>
 </div>
-
+        <script type="text/javascript" charset="utf-8">
+        
+        $('.removeoptContactMethod').live('click', function(e) {
+            $(this).parents('.optContactMethod').remove()
+            renumber()
+        })
+        
+        $('.removeAccount').live('click', function(e) {
+            var accounts = $(this).parents('.accounts')
+            $(this).parents('.account').remove()
+            renumber(accounts)
+        })
+        
+        $('.addAccount').live('click', function(e) {
+            var accounts = $(this).parents('.accounts')
+            var template = $('.account_template', accounts)
+            template.before('<div class="clearfix account">' + template.html() + '</div>')
+            renumber(accounts)
+        })
+        
+        $('.addoptContactMethod').live('click', function(e) {
+            var template = $('.optContactMethod_template')
+            template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
+            renumber()
+        })
+       
+        var renumber = function(accounts) {
+            $('.optContactMethod').each(function(i) {
+                $('input', this).each(function() {
+                    $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
+                })
+                $('.account input', this).each(function(i) {
+                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
+                })
+            })
+        }
+        
+    </script>
 }
