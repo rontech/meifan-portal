@@ -45,21 +45,23 @@ object Salons extends Controller {
     /**
       * Get a specified stylist from a salon.
       */
-    def getOneStylist(stylistId: ObjectId) = Action { 
+    def getOneStylist(salonId: ObjectId, stylistId: ObjectId) = Action { 
         val stylist: Option[Stylist] = Stylist.findOneById(stylistId)
         val salonId =  SalonAndStylist.findByStylistId(stylistId).get.salonId
         val salon: Option[Salon] = Salon.findById(salonId)
         Ok(html.salon.store.salonInfoStylist(salon.get, stylist.get))
     }
   
-   def findStylistById(id: ObjectId) = Action {
-        val stylist = Stylist.findOneById(id)
-        val salonId =  SalonAndStylist.findByStylistId(id).get.salonId
-        val salon = Salon.findById(salonId)
-        val style = Style.findByStylistId(id)
-        Ok(html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, style = style))
-    }
-
+ def findStylistById(id: ObjectId) = Action {
+    val stylist = Stylist.findOneById(id)
+    val salonId =  SalonAndStylist.findByStylistId(id).get.salonId
+    val salon = Salon.findById(salonId)
+    val style = Style.findByStylistId(id)
+    val user = Stylist.findUser(stylist.get.publicId)
+    val blog = Blog.getBlogByUserId(user.userId).last
+    Ok(html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, styles = style, blog = blog))
+  }
+ 
     /**
      * Get all styles of a salon.
      */ 
@@ -128,6 +130,7 @@ object Salons extends Controller {
                 val menus: List[Menu] = Menu.findBySalon(sl.id)
                 val srvTypes: List[ServiceType] = ServiceType.findAll().toList
                 val serviceTypeNames: List[String] = Service.getServiceTypeList
+                val couponSchDefaultConds: CouponServiceType = CouponServiceType(Nil, Some("1"))
     
                 var servicesByTypes: List[ServiceByType] = Nil
                 for(serviceType <- serviceTypeNames) {
@@ -139,14 +142,77 @@ object Salons extends Controller {
                 // Navigation Bar
                 var navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.couponMenus"), ""))
                 // Jump
-                Ok(html.salon.store.salonInfoCouponAll(salon = sl, serviceTypes = srvTypes, coupons = coupons, menus = menus,
+                Ok(html.salon.store.salonInfoCouponAll(salon = sl, Coupons.conditionForm.fill(couponSchDefaultConds), serviceTypes = srvTypes, coupons = coupons, menus = menus,
                     serviceByTypes = servicesByTypes, navBar = navBar))
             }
             case None => NotFound
        }
     }
- 
 
+    /**
+     * Find coupons & menus & services by conditions from a salon.
+     */
+    def getCouponsByCondition(salonId: ObjectId) = Action { implicit request =>
+        import Coupons.conditionForm
+        conditionForm.bindFromRequest.fold(
+            errors => BadRequest(views.html.error.errorMsg(errors)),
+        {
+            serviceType =>
+                var coupons: List[Coupon] = Nil
+                var menus: List[Menu] = Nil
+                var serviceTypeNames: List[String] = Nil
+                var conditions: List[String] = Nil
+                var servicesByTypes: List[ServiceByType] = Nil
+                var typebySearchs: List[ServiceType] = Nil
+                var couponServiceType: CouponServiceType = CouponServiceType(Nil, serviceType.subMenuFlg)
+
+                for(serviceTypeOne <- serviceType.serviceTypes) {
+                    conditions = serviceTypeOne.serviceTypeName::conditions
+                    val serviceType: Option[ServiceType] = ServiceType.findOneByTypeName(serviceTypeOne.serviceTypeName)
+                    serviceType match {
+                        case Some(s) => typebySearchs = s::typebySearchs
+                        case None => NotFound
+                    }
+                }
+            
+                couponServiceType = couponServiceType.copy(serviceTypes = typebySearchs)
+            
+                val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+                if(serviceType.subMenuFlg == None) {
+                  //coupons = Coupon.findContainCondtions(serviceTypes)
+                } else {
+                    if(serviceType.serviceTypes.isEmpty) {
+                        coupons = Coupon.findBySalon(salonId)
+                        menus = Menu.findBySalon(salonId)
+                        serviceTypeNames = Service.getServiceTypeList
+                        for(serviceType <- serviceTypeNames) {
+                            var servicesByType: ServiceByType = ServiceByType("", Nil)
+                            val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(salonId, serviceType))
+                            servicesByTypes = y::servicesByTypes
+                        }
+                    } else {
+                        coupons = Coupon.findContainCondtions(conditions)
+                        menus = Menu.findContainCondtions(conditions)
+                        for(serviceTypeOne <- serviceType.serviceTypes) {
+                            var servicesByType: ServiceByType = ServiceByType("", Nil)
+                            val y = servicesByType.copy(serviceTypeName = serviceTypeOne.serviceTypeName, serviceItems = Service.getTypeListBySalonId(salonId, serviceTypeOne.serviceTypeName))
+                            servicesByTypes = y::servicesByTypes
+                       }
+                  }
+              }
+
+             val salon: Option[Salon] = Salon.findById(salonId)
+              salon match {
+                  case Some(s) => {
+                      // Navigation Bar
+                      var navBar = getSalonNavBar(Some(s)) ::: List((Messages("salon.couponMenus"), ""))
+                      Ok(html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, navBar))
+                  } 
+                  case None => NotFound
+              }
+          })
+     }
+     
     /*-------------------------
      * Common Functions. 
      -------------------------*/

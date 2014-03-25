@@ -42,38 +42,36 @@ GET     /FollowTypes/                   controllers.FollowTypes.followTypeMain
 # Salon
 GET     /salon                          controllers.Salons.index
 GET     /salon/:id                      controllers.Salons.getSalon(id: ObjectId)
-GET     /salonInfo/:id                      controllers.SalonInfo.salonInfoBasic(id: ObjectId)
 GET     /salonUpd/:id                      controllers.SalonInfo.update(id: ObjectId)
 GET     /salonRegister                  controllers.SalonInfo.register
 POST    /salonDoRegister                controllers.SalonInfo.doRegister
-GET     /salon/:salonId/styles          controllers.Salons.getAllStyles(salonId: ObjectId)
+
 GET     /salon/:slnId/style/:styId      controllers.Salons.getOneStyle(slnId: ObjectId, styId: ObjectId)
+GET     /salon/:salonId/styles          controllers.Salons.getAllStyles(salonId: ObjectId)
+
+GET     /salon/:slnId/stylist/:stlId    controllers.Salons.getOneStylist(slnId: ObjectId, stlId: ObjectId)
 GET     /salon/:salonId/stylists        controllers.Salons.getAllStylists(salonId: ObjectId)
+
 GET     /salon/:salonId/coupons         controllers.Salons.getAllCoupons(salonId: ObjectId)
+POST    /salon/:salonId/coupons/condition    controllers.Salons.getCouponsByCondition(salonId: ObjectId)
+
 #GET    /salon/:salonId/comments        controllers.Comments.findBySalon(salonId: ObjectId)
 #GET    /mySalon/:salonId/comment       controllers.Comments.findBySalonAdmin(salonId: ObjectId)
 GET     /salon/:salonId/blog/:blogId    controllers.Blogs.getBlogInfoOfSalon(salonId: ObjectId, blogId: ObjectId)
 GET     /salon/:salonId/blogs/:stylistId       controllers.Blogs.getBlogByStylist(salonId: ObjectId, stylistId: ObjectId)
 GET     /salon/:salonId/blogs           controllers.Blogs.findBySalon(salonId: ObjectId)
 
-POST    /salon/:salonId/coupons/condition    controllers.Coupons.findByCondition(salonId: ObjectId)
 
 # Style(Search)
-
-# TODO
-POST    /salon/:salonId/coupons/condtion    controllers.Coupons.findByCondtion(salonId: ObjectId)
-
 
 
 # Coupon
 GET     /coupon                         controllers.Coupons.index
-GET     /salon/:salonId/coupons         controllers.Coupons.findBySalon(salonId: ObjectId)
 GET     /createCoupon                   controllers.Coupons.createCoupon
 GET     /showCoupons/:salonId           controllers.Coupons.showCoupons(salonId: ObjectId)
 GET     /invalidCoupon/:couponId             controllers.Coupons.invalidCoupon(couponId: ObjectId)
 GET     /editCoupon/:couponId           controllers.Coupons.editCouponInfo(couponId: ObjectId)
 GET     /updateCoupon/:couponId         controllers.Coupons.updateCoupon(couponId: ObjectId)
-POST    /salon/:salonId/coupons/condtion   controllers.Coupons.findByCondtion(salonId: ObjectId)
 
 # Menu
 GET     /createMenu                     controllers.Menus.createMenu
@@ -94,9 +92,8 @@ POST    /backstageStyleSearchList       controllers.Styles.backstageStyleSearchL
 GET     /styleToInvalid/:id/:isValid    controllers.Styles.styleToInvalid(id: ObjectId, isValid: Boolean)
 
 # Stylist
-GET     /stylistViews/:id               controllers.Stylists.findStylistById(id: ObjectId)
-GET     /stylist/:id                    controllers.Stylists.findById(id: ObjectId)
-GET     /salon/:salonId/stylists        controllers.Stylists.findBySalon(salonId: ObjectId)
+#GET     /stylistViews/:id               controllers.Stylists.findStylistById(id: ObjectId)
+#GET     /stylist/:id                    controllers.Stylists.findById(id: ObjectId)
 GET     /stylist/mySalon/:stylistId             controllers.Stylists.mySalon(stylistId: ObjectId)
 GET     /updateStylistInfo/:stylistId           controllers.Stylists.updateStylistInfo(stylistId: ObjectId)
 POST    /toUpdateStylistInfo                    controllers.Stylists.toUpdateStylistInfo
@@ -211,7 +208,7 @@ GET     /rejectStylistApply/:stylistId/:salonId         controllers.SalonsAdmin.
 GET     /searchStylistById                              controllers.SalonsAdmin.searchStylistById
 GET     /inviteStylist/:stylistId/:salonId              controllers.SalonsAdmin.inviteStylist(stylistId: ObjectId, salonId: ObjectId)
 GET     /salonUpd/:id                                   controllers.SalonInfo.update(id: ObjectId)
-GET     /salonInfo/                     controllers.SalonInfo.salonInfoBasic
+GET     /salonInfo/                     controllers.SalonInfo.salonInfoBasic(id: ObjectId)
 
 # Salon Service 
 GET     /addServiceType                 controllers.ServiceTypes.addServiceType
