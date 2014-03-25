@@ -10,7 +10,7 @@
 
         <font size =30px align = "center">@Messages("user.new")</font>
        
-        @form(routes.Users.doRegister, 'id -> "userForm") {
+        @form(routes.Users.register, 'id -> "userForm") {
           <fieldset>
             @inputText(userForm("userId"),'_label -> Messages("user.name"),
             	'_error -> userForm("userId").error.map(_.withMessage(Messages("user.regErr"))))
@@ -19,7 +19,7 @@
 			
 			@inputPassword(userForm("password.confirm"),'_label -> Messages("user.confirmPas"),'_error -> userForm.error("password"))
 
-            @inputText(userForm("nickNm"),'_label -> Messages("user.nickNm"))
+            @inputText(userForm("nickName"),'_label -> Messages("user.nickNm"))
 
             @inputDate(userForm("birthDay"), '_label -> Messages("user.birthDay"))
 
@@ -27,21 +27,15 @@
 				'_error -> userForm("sex").error.map(_.withMessage(Messages("user.sexErr"))))
             @inputText(userForm("city"),'_label -> Messages("user.city"))
 
-            @inputText(userForm("job"),'_label -> Messages("user.job"))
+            @inputText(userForm("socialStatus"),'_label -> Messages("user.job"))
 
-              @inputText(userForm("email"), '_label -> Messages("user.email"))
+            @inputText(userForm("email"), '_label -> Messages("user.email"))
 
-              @inputText(userForm("tel"), '_label -> Messages("user.tel"))
+            @inputText(userForm("tel"), '_label -> Messages("user.tel"))
+            
+            @inputText(userForm("optContactMethod"), '_label -> "",'style -> "display: none")
+            
 
-              @inputText(userForm("qq"), '_label -> "QQ")
-
-              @inputText(userForm("msn"), '_label -> "MSN")
-
-              @inputText(userForm("weChat"),'_label -> Messages("user.weChat"))
-
-			@checkbox(userForm("accept"), '_label -> None, '_text -> "I agree to the Terms and conditions",
-				'_error -> userForm("accept").error.map(_.withMessage(Messages("user.agree"))))
-	
 		  </fieldset>
 		  
             <input type="submit" class = "buttons" value="@Messages("user.new")">

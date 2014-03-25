@@ -11,6 +11,8 @@ site.copyright=Copyright &copy; RONTECH Co., Ltd. All rights reserved.
 common.submit = 提交
 common.reset=重置
 common.backUp=返回
+common.edit=编辑
+common.delete=删除
 
 # Index page
 index.reserve=24小时网上预约&空席确认
@@ -41,6 +43,7 @@ main.myPage=我的主页
 
 
 # Salon
+salon.tabName=美发沙龙
 salon.show=展示所有沙龙
 salon.register=店铺注册
 salon.title=店铺基本信息管理
@@ -93,15 +96,37 @@ Manicures=美甲
 Healthcare =保健
 Cosmetic=整形
 
+#salon management
+salonAdmin.myPage = 我的店铺
+salonAdmin.myBlog = 我的博客
+salonAdmin.welcome = 欢迎您
+salonAdmin.remindReserv = 预约提示：
+salonAdmin.needCommentReserv = 待评论
+salonAdmin.overtimeReserv = 已过期
+salonAdmin.expireReserv = 即将到期
+salonAdmin.remindApply = 申请提示：
+salonAdmin.fromStylistApply = 来自技师申请
+salonAdmin.infoManagement = 信息管理
+salonAdmin.stylistManagement = 技师管理
+salonAdmin.reservManagement = 预约管理
+salonAdmin.commentManagement = 评论管理
+salonAdmin.serviceManagement = 服务管理
+salonAdmin.couponManagement = 优惠劵管理
+salonAdmin.menuManagement = 菜单管理
+salonAdmin.stateManagement = 动态管理
+
 # Hair
+hair.tabName=时尚靓发
 hair.salon=美发沙龙
 hair.style=发型
+hair.styleName=发型名
+hair.styleAdd=发型添加
 hair.stylist=发型师
 hair.impression=风格
 hair.styleQuality=发质
 hair.styleAmount=发量
 hair.styleDiameter=直径
-hair.faceType=脸型
+hair.faceShape=脸型
 hair.color=颜色
 hair.styleLength=长度
 hair.serviceItem=菜单内容
@@ -115,6 +140,9 @@ hair.styleForPerson=推荐人群
 hair.assessFromStylist=造型师评价
 hair.stylistToCollect=收藏该发型师
 hair.welcome=我们期待您的光临
+hair.consumerSocialStatus=适合人群
+hair.consumerSex=适合性别
+hair.consumerAgeGroup=适合年龄
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -142,6 +170,7 @@ service.operate=操作
 service.delete=删除
 service.back=返回
 service.update=更新
+service.minutes = 分钟
 
 #ServiceType
 ServiceType.serviceTypeName.Cut = 剪
@@ -177,13 +206,22 @@ coupon.useConditions = 使用条件
 coupon.presentTime = 出示时间
 coupon.description = 描述
 coupon.createCouponArea = 创建优惠劵区域
+coupon.createCoupon = 创建优惠劵
 coupon.serviceArea = 服务选择区域
+coupon.serviceDuration = 服务时长
+coupon.modify = 修改
+coupon.invalid = 无效 
+coupon.invalidCoupon = 该优惠劵已无效
 
 menu.title = {0} 的菜单
 menu.tip = 没有找到您希望的菜单！
 menu.addMark = +
 menu.appointment = 空缺查询·预约
 menu.todoMessage = 该位置显示服务的描述
+menu.createMenuArea = 创建菜单区域
+menu.menuName = 菜单名
+menu.createMenu = 创建菜单
+menu.invalidCoupon = 该菜单已无效
 
 #ApplyRecord.status
 apply.inApply = 0
@@ -203,10 +241,35 @@ stylist.applyCreateTime = 申请时间
 stylist.acceptApply = 同意
 stylist.rejectApply = 拒绝
 
+#Stylist Apply
+stylist.name = 昵称
+stylist.workYesrs = 工作年数
+stylist.industry = 类别
+stylist.position = 职位
+stylist.goodAtImage = 擅长风格
+stylist.goodAtStatus = 擅长人群
+stylist.goodAtService = 擅长服务
+stylist.goodAtUser = 擅长性别
+stylist.goodAtAgeGroup = 擅长年龄
+stylist.myWords = 我的话语
+stylist.mySpecial = 我的特长
+stylist.myBoom = 兴趣爱好
+stylist.myPR = 自我宣传
+stylist.submit = 提交申请
+stylist.reset = 重置
+
+
 #Stylist management
 stylistMag.mySalon = 我的店铺
 stylistMag.salonApply = 来自店铺申请
 stylistMag.myStyle = 我的作品
+stylistMag.showAllStyles = 显示所有发型
+stylistMag.findReserv = 查看预约
+stylistMag.styleManage = 发型管理
+stylistMag.serviceManage = 服务管理
+stylistMag.salonHistory = 店铺历史
+stylistMag.totalReserv = 显示当天预约
+
 
 # User
 user.relation.type=关系类型
@@ -253,6 +316,15 @@ user.loginOut=退出
 user.cancleBothFollow=取消互粉
 user.addFollow=添加关注
 
+user.myMessages=消息
+user.contMethodType=联系工具
+user.optContactMethod=其他联系方式
+
+
+#Letter
+letter.addressee=收件人
+letter.sender=发件人
+letter.time=时间
 
 
 
@@ -260,7 +332,13 @@ user.addFollow=添加关注
 # Messages Area.
 #-------------------------------
 
-
+#Blog
+blog.newBlog=发表博客
+blog.title=博客标题
+blog.content=博客内容
+blog.blogCategory=博客类型
+blog.tags=标签
+blog.placeholder=请用逗号分割
 
 
 

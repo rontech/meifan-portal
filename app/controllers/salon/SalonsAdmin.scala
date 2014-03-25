@@ -36,7 +36,12 @@ object SalonsAdmin extends Controller {
   }
   
   def myComment(salonId: ObjectId) = Action {
-    Ok(views.html.salon.general.index(""))
+	val commentList = Comment.findBySalon(salonId)
+	val salon = Salon.findById(salonId)
+	salon match{
+	  case Some(s) =>Ok(html.salon.admin.mySalonCommentAll(salon = s, commentList = commentList))
+	  case None => NotFound
+	}
   }
   
   def myService(salonId: ObjectId) = Action {
@@ -44,107 +49,118 @@ object SalonsAdmin extends Controller {
   }
   
   /**
+
+   *  
+   * 店铺优惠劵后台管理
+   */
+  def myCoupon(salonId: ObjectId) = Action {
+    val salon = Salon.findById(salonId)
+    val coupons = Coupon.findBySalon(salonId)
+    
+    salon match {
+      case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, coupons))
+      case None => NotFound
+    }
+  }
+  
+  /**
+   * 店铺菜单后台管理
+   */
+  def myMenu(salonId: ObjectId) = Action {
+    val salon = Salon.findById(salonId)
+    val menus = Menu.findBySalon(salonId)
+    
+    salon match {
+      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, menus))
+      case None => NotFound
+    }
+  }
+  
+  /**
    * 店铺查看申请中的技师
    */
   def checkHoldApply(salonId: ObjectId) = Action {
-    val stylists = ApplyRecord.findStylistApply(salonId)
-    
-    stylists.map{sty=>
-      
+    val records = SalonStylistApplyRecord.findApplingStylist(salonId)
+    var stylists: List[Stylist] = Nil
+    records.map{re=>
+      val stylist = Stylist.findOneById(re.stylistId)
+      stylist match {
+        case Some(sty) => stylists :::= List(sty)
+        case None => None
+      }
     }
     val salon = Salon.findById(salonId)
     salon match {
-      case Some(s) =>{
-    	 
-        Ok(views.html.salon.admin.mySalonApplyAll(stylist = stylists, salon = s))
-        
+      case Some(s) => Ok(views.html.salon.admin.mySalonApplyAll(stylist = stylists, salon = s))
+      case None => NotFound
+    }
+  }
+  
+  /**
+   *  同意技师申请
+   */
+  def agreeStylistApply(stylistId: ObjectId, salonId: ObjectId) = Action {
+	  val record = SalonStylistApplyRecord.findOneStylistApRd(stylistId)
+        record match {
+          case Some(re) => {
+            SalonStylistApplyRecord.save(re.copy(id=re.id, applyDate = new Date, verifiedResult = 1))
+            val stylist = Stylist.findOneById(re.stylistId)
+            Stylist.becomeStylist(stylistId)
+            SalonAndStylist.entrySalon(salonId, stylistId)
+            Redirect(routes.SalonsAdmin.myStylist(salonId))
+          }
+          case None => NotFound
+        }
+  }
+  
+  /**
+   *  店铺拒绝技师申请
+   */
+  def rejectStylistApply(stylistId: ObjectId, salonId: ObjectId) = Action {
+    val record = SalonStylistApplyRecord.findOneStylistApRd(stylistId)
+    record match {         
+      case Some(re) => {
+        SalonStylistApplyRecord.rejectStylistApply(re)
+        Redirect(routes.SalonsAdmin.myStylist(salonId))
       }
       case None => NotFound
     }
   }
   
   /**
-   * 同意技师申请
-   */
-  def agreeStylistApply(stylistId: ObjectId, salonId: ObjectId) = Action {
-	  val record = ApplyRecord.findStylistAyRd(salonId, stylistId)
-        record match {
-          case Some(re) => {
-            val  rec = new ApplyRecord(re.id, re.stylistId, re.salonId, re.applyType,
-                re.createTime, Option(new Date), None, None, 1)
-            ApplyRecord.save(rec.copy(id = re.id))
-            val stylist = Stylist.findById(stylistId)
-            stylist match {
-              case Some(sty) => {
-                val slt = new Stylist(sty.id, sty.label, salonId, sty.userId, sty.workYears, sty.stylistStyle,
-                    sty.imageId, sty.consumerId, sty.description, sty.pictureName, 1)
-                Stylist.save(slt.copy(id = sty.id))
-              }
-              case None => NotFound
-            }
-            Redirect(routes.SalonsAdmin.myStylist(salonId))
-          }
-          case None => NotFound
-        }
-  }
-  
-  /**
-   * 店铺拒绝技师申请
-   */
-  def rejectStylistApply(stylistId: ObjectId, salonId: ObjectId) = Action {
-    val record = ApplyRecord.findStylistAyRd(salonId, stylistId)
-        record match {
-          case Some(re) => {
-            val  rec = new ApplyRecord(re.id, re.stylistId, re.salonId, re.applyType,
-                re.createTime, None, Option(new Date), None, 2)
-            ApplyRecord.save(rec.copy(id = re.id))
-            val stylist = Stylist.findById(stylistId)
-            stylist match {
-              case Some(sty) => {
-                val slt = new Stylist(sty.id, sty.label, salonId, sty.userId, sty.workYears, sty.stylistStyle,
-                    sty.imageId, sty.consumerId, sty.description, sty.pictureName, 0)
-                Stylist.save(slt.copy(id = sty.id))
-              }
-              case None => NotFound
-            }
-            Redirect(routes.SalonsAdmin.myStylist(salonId))
-          }
-          case None => NotFound
-        }
-  }
-  
-  /**
-   * 根据Id查找技师
+   *  根据Id查找技师
    */
   def searchStylistById() = Action {implicit request =>
-    val stylistId = request.getQueryString("searchStylistById")
+    val stylistId = request.getQueryString("searchStylistById").get
     val salonId = request.getQueryString("salonId").get
 	val salon = Salon.findById(new ObjectId(salonId)).get
-    stylistId match {
-      case Some(styId) =>{ 
-        val stylist = Stylist.findById(new ObjectId(styId))
-	    stylist match {
-	      case Some(sty) =>{
-		    if(salonId == sty.salonId.toString && sty.status == 1) {
-		      Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 1))
-		    } else {
-		      Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 2))
-		    }
-	      }
-	      case None => Ok(html.salon.admin.findStylistBySearch(stylist = null, salon = salon, status = 1))
-	    }
-      }
-      case None => Ok(html.salon.admin.findStylistBySearch(stylist = null, salon = salon, status = 1))
+	val stylist = Stylist.findOneById(new ObjectId(stylistId))
+	stylist match {
+      case Some(sty) => Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 1))
+      case None => NotFound
     }
-   }
+    
+  }
   
   /**
    *店铺邀请技师 
    */
   def inviteStylist(stylistId: ObjectId, salonId: ObjectId) = Action {
-    val  record = new ApplyRecord(new ObjectId, stylistId, salonId, 0,
-                new Date, None , None, None, 0)
-    ApplyRecord.save(record)
+    val stylist = Stylist.findOneById(stylistId)
+    stylist match {
+      case Some(sty) => {
+        if(!sty.isVarified || !sty.isValid) {
+          NotFound
+        } else {
+          val stysecond = SalonAndStylist.findByStylistId(stylistId)
+          stysecond match {
+            case Some(styend) => NotFound
+            case None => SalonStylistApplyRecord.save(new SalonStylistApplyRecord(new ObjectId, salonId, stylistId, 2, new Date, 0, None))
+          }
+        }
+      }
+      case None => NotFound
+    }
     Redirect(routes.SalonsAdmin.myStylist(salonId))
   }
 }

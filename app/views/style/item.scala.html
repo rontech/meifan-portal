@@ -24,14 +24,14 @@
 		<div class="fl w273">
 			<div class="pr">
 				<span id="imgMain" >
-					<img src="@routes.Application.getPhoto(style.stylePic(0))">
+					<img src="">
 				</span>
 			</div>
 			<ul class="cFix mT10">
 				@style.stylePic.map {stylePic =>
 					<li class="fl w91">
 						<span id="img" style="cursor: pointer;">
-							<img src="@routes.Application.getPhoto(stylePic)" class="bdImgGray" onclick="changePic('img','imgMain')" height="89" width="65" >
+							<img src="#" class="bdImgGray" onclick="changePic('img','imgMain')" height="89" width="65" >
 						</span>
 						<div class="iS SV01 offL mHA mT5">
 						</div>
@@ -60,9 +60,8 @@
 				</div>
 				<div class="cFix mT10">
 					<div class="fl w99">
-						<a href="@routes.Stylists.findStylistById(Stylist.findById(style.stylistId).get.id)">
-							<img src="@routes.Application.getPhoto(Stylist.findById(style.stylistId).get.pictureName)"
-							alt="@Stylist.findById(style.stylistId).get.label">
+						<a href="@routes.Stylists.findStylistById(Stylist.findOneById(style.stylistId).get.id)">
+							@*<img src="@routes.Application.getPhoto(style.stylePic(0))">*@
 						</a>
 					</div>
 					<div class="fr w318">
@@ -71,8 +70,8 @@
 				</div>
 				<div class="cFix mT10 pT10 bdDotT">
 					<div class="fl" >
-						<a href="@routes.Stylists.findStylistById(Stylist.findById(style.stylistId).get.id)">
-							@Stylist.findById(style.stylistId).get.label
+						<a href="@routes.Stylists.findStylistById(Stylist.findOneById(style.stylistId).get.id)">
+							
 						</a>
 					</div>
 					<div class="fr" >
@@ -167,12 +166,12 @@
 					</div>
 					<dl class="fr w190 bdGrayL pL15" >
 						<dt class="fl fgPink w2em h106">
-							@Messages("hair.faceType")
+							@Messages("hair.faceShape")
 						</dt>
 						<dd class="fl" style="background:#24D3E2">
 							<span>
-								@style.faceType.map {faceType =>
-									@faceType
+								@style.faceShape.map {faceShape =>
+									@faceShape
 								}
 							</span>
 						</dd>
@@ -198,7 +197,7 @@
 						@if(stylistAll.id != style.id) {
 							<li>
 								<a href="@routes.Styles.getStyleInfoOfSalon(salon.id,stylistAll.id)"  class="db pr">
-									<img src="@routes.Application.getPhoto(stylistAll.stylePic(0))"
+									@*<img src="@routes.Application.getPhoto(stylistAll.stylePic(0))"*@
 									class="bdImgGray" oncontextmenu="return false;">
 								</a>
 							</li>
@@ -223,9 +222,9 @@
 	<div class="mT30">
 		<div class="cFix p15 bgLGray">
 			<div class="fl w89">
-				<a href="@routes.Stylists.findStylistById(Stylist.findById(style.stylistId).get.id)">
-					<img src="@routes.Application.getPhoto(Stylist.findById(style.stylistId).get.pictureName)"
-					alt="@Stylist.findById(style.stylistId).get.label">
+				<a href="@routes.Stylists.findStylistById(Stylist.findOneById(style.stylistId).get.id)">
+					<img src=""
+					alt="">
 				</a>
 			</div>
 			<div class="cFix fr w636">
@@ -235,11 +234,11 @@
 				<div class="cFix bgDGray p10">
 					<div class="fl">
 						<div class="fgPink fs10">
-							 @*店长@Stylist.findById(style.stylistId).get.stylist*@
+							 @*店长@Stylist.findOneById(style.stylistId).get.stylist*@
 						</div>
 						<div class="fs14 b mT5">
-							<a href="@routes.Stylists.findStylistById(Stylist.findById(style.stylistId).get.id)">
-							@Stylist.findById(style.stylistId).get.label
+							<a href="">
+							
 							</a>
 						</div>
 					</div>

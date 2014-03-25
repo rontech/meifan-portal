@@ -69,3 +69,17 @@ object Image {
 	  files
 	}
 }
+/*
+case class OnUsePicture(
+	fileObjId: ObjectId,
+	picUse: String,
+	showPriority: Int,
+	description: String
+)
+
+case class PictureUse(
+	id: ObjectId,
+	picUseName: String,
+	division: Int
+)
+*/

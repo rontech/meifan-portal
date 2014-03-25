@@ -15,8 +15,8 @@
                     得意なイメージ
                 </th>
                 <td>
-                  @stylist.stylistStyle.map{sty=>
-                  	@sty
+                  @stylist.position.map{sty=>
+                  	@sty.indestryName
                   	*
                   	
                   }
@@ -38,7 +38,7 @@
                     趣味・マイブーム
                 </th>
                 <td>
-                  @stylist.description
+                  @stylist.myWords
                 </td>
             </tr>
         </tbody>
