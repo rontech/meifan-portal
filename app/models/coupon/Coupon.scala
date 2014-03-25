@@ -49,7 +49,7 @@ object Coupon extends ModelCompanion[Coupon, ObjectId]{
   def findContainCondtions(serviceTypes: Seq[String]): List[Coupon] = {
     dao.find("serviceItems.serviceType" $all serviceTypes).toList
   }
-  
+
   def checkCoupon(CouponName:String): Boolean = dao.find(DBObject("couponName" -> CouponName)).hasNext
 
 }
