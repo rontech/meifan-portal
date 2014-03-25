@@ -100,7 +100,7 @@ object Blogs extends Controller {
          var blogDate = Calendar.getInstance()
          var ymd : SimpleDateFormat = new SimpleDateFormat("yyyy/MM/dd")
          var ym : SimpleDateFormat = new SimpleDateFormat("yyyyMM")
-         var blogUpdateTime = DateFormat.getDateInstance.format(row.updateTime)
+         var blogUpdateTime = DateFormat.getDateInstance.format(row.createTime)
          blogDate.setTime(ymd.parse(blogUpdateTime))
          var blogYM = ym.format(blogDate.getTime())
          if(blogYM.equals(yM)){

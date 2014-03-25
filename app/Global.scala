@@ -342,7 +342,7 @@ if(Salon.findAll == Nil) {
 
     if(Blog.findAll.isEmpty){
       Seq(
-        Blog(new ObjectId("53195fb4a89e175858abce92"),"test03","test1111111111111111111111111111111111111111111111", "zhenglu", new Date(), date("2014-02-18"), "分类2", None, List("111", "2222"),true,None,false,true),
+        Blog(new ObjectId("53195fb4a89e175858abce92"),"test03","test1111111111111111111111111111111111111111111111", "zhenglu", date("2014-02-18"), date("2014-02-18"), "分类2", None, List("111", "2222"),true,None,false,true),
     	Blog(new ObjectId("532a8ef4a89ee221d679bdc1"),"1111","1", "zhenglu", new Date(), new Date(), "分类2", None, List("111", "2222"),true,None,false,true),
         Blog(new ObjectId("532a8ef4a89ee221d679bdc2"),"2222","2", "zhenglu316", new Date(), new Date(), "分类1", None,List("2222"), true, None,false,true),
         Blog(new ObjectId("532a8ef4a89ee221d679bdc3"),"3333","2", "zhenglu5", new Date(), new Date(), "分类1", None,List("2222"), true, None,false,true),
