@@ -1,6 +1,6 @@
-@(salon: Salon, stylist: Stylist)
+@(salon: Salon, stylist: Stylist, navBar: List[(String, String)] = Nil)
 
-@salonInfoMain(navInSalon = "salon-basic", salon) {
+@salonInfoMain(navInSalon = "salon-basic", salon, navBar) {
 
     <!-- Get All the Salons with all the styles.  -->
     @views.html.stylist.stylistItem(stylist)

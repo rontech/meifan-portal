@@ -46,6 +46,7 @@ object Image {
 	def save(file: File) = {
 	  val uploadedFile = gridFs.createFile(file)
 	  uploadedFile.save()
+	  uploadedFile._id.get
 	}
 	/**
 	 * 将文件夹下所有图片都存放至文件集合

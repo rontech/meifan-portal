@@ -1,6 +1,6 @@
-@(salon: Salon, comments: List[Comment])
+@(salon: Salon, comments: List[Comment], navBar: List[(String, String)] = Nil)
 
-@salonInfoMain(navInSalon = "salon-comment", salon) {
+@salonInfoMain(navInSalon = "salon-comment", salon, navBar) {
 
     <!-- Get All the Salons with all the styles.  -->
     @views.html.comment.group(comments)

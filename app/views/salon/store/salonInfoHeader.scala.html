@@ -84,8 +84,8 @@
                 <ul class="fs10">
                 <li>
                     @(Messages("province.provinceName." + salon.salonAddress.province))
-                    @(Messages("city.cityName." + salon.salonAddress.city))
-                    @(Messages("region.regionName." + salon.salonAddress.region))
+                    @(Messages("city.cityName." + salon.salonAddress.city.get)) @*TODO*@
+                    @(Messages("region.regionName." + salon.salonAddress.region.get)) @*TODO*@
                     @salon.salonAddress.addrDetail
                 </li>
                 <li>

@@ -15,6 +15,7 @@ common.edit=编辑
 common.delete=删除
 
 # Index page
+index.mainPage=网站首页
 index.reserve=24小时网上预约&空席确认
 index.pointPolicy=5%的积分制度
 index.appeal=国内首家P2C美容平台
@@ -43,7 +44,9 @@ main.myPage=我的主页
 
 
 # Salon
+salon.register=店铺注册
 salon.tabName=美发沙龙
+salon.salonMainPage=美容美发沙龙检索首页
 salon.show=展示所有沙龙
 salon.title=店铺基本信息管理
 salon.salonData={0}的基本信息
@@ -67,7 +70,8 @@ salon.town=镇
 salon.addrDetail=其他
 salon.longitude=店铺地理位置经度
 salon.latitude=店铺地理位置纬度
-salon.workTime=营业时间
+salon.openTime=营业开始
+salon.closeTime=营业结束
 salon.restDay=休息日
 salon.priceCutOnly=剪发价格
 salon.priceCutOnlyMsg={0} 元起
@@ -89,11 +93,9 @@ salon.hasParkingNearByMsg=有
 salon.hasNoParkingNearByMsg=无
 salon.pictures=展示图片
 salon.registerTime=美容平台注册日期
-salon.a=美容美发
-salon.b=瘦身健美
-salon.c=美甲美肤
 
 #salon management
+salonAdmin.mainPage = 店铺管理
 salonAdmin.myPage = 我的店铺
 salonAdmin.myBlog = 我的博客
 salonAdmin.welcome = 欢迎您
@@ -237,6 +239,21 @@ stylist.empty = 暂无
 stylist.applyCreateTime = 申请时间
 stylist.acceptApply = 同意
 stylist.rejectApply = 拒绝
+stylist.followStylist = 关注此技师
+stylist.worked = 从事
+stylist.blog = 技师博客
+stylist.findAllBlog = 查看此技师所有博客
+stylist.haircatalog = 发型目录
+stylist.welcome = 期待你的光临
+stylist.selectForReserv = 指定预约
+stylist.createBlog = 发表于
+stylist.other = 其它
+stylist.storerecommend = 店铺推荐
+stylist.hello = 您好
+stylist.this = 这是
+stylist.is = 的
+stylist.findOtherBlog = 查看更多
+
 
 #Stylist Apply
 stylist.name = 昵称
@@ -259,6 +276,7 @@ stylist.reset = 重置
 #Stylist management
 stylistMag.mySalon = 我的店铺
 stylistMag.salonApply = 来自店铺申请
+stylistMag.countSalonApply = 店铺申请
 stylistMag.myStyle = 我的作品
 stylistMag.showAllStyles = 显示所有发型
 stylistMag.findReserv = 查看预约
@@ -266,6 +284,7 @@ stylistMag.styleManage = 发型管理
 stylistMag.serviceManage = 服务管理
 stylistMag.salonHistory = 店铺历史
 stylistMag.totalReserv = 显示当天预约
+stylist.mySalon = 我的salon
 
 
 # User
@@ -325,6 +344,12 @@ letter.sender=发件人
 letter.time=时间
 
 
+user.myMessages=消息
+
+#Letter
+letter.addressee=收件人
+letter.sender=发件人
+letter.time=时间
 
 #-------------------------------
 # Messages Area.
@@ -355,7 +380,7 @@ blog.placeholder=请用逗号分割
 # 省份
 province.provinceName.Jiangsu=江苏省
 province.provinceName.Jiangxi=江西省
-province.provinceName.Shangdong=山东省
+province.provinceName.Shandong=山东省
 province.provinceName.Shangxi=山西省
 province.provinceName.Hubei=湖北省
 province.provinceName.Hunan=湖南省
@@ -379,3 +404,12 @@ city.cityName.Qingdao=青岛市
 
 # 区
 region.regionName.Gaoxin=高新区
+region.regionName.Xuanwu=玄武区
+region.regionName.Gulou=鼓楼区
+
+
+#行业
+industry.industryName.Hairdressing=美发
+industry.industryName.Manicures=美甲
+industry.industryName.Healthcare=保健
+industry.industryName.Cosmetic=整形

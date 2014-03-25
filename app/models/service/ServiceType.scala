@@ -18,5 +18,7 @@ object ServiceType extends ModelCompanion[ServiceType, ObjectId]{
 
 	def addserviceType(serviceType : ServiceType) = dao.save(serviceType, WriteConcern.Safe)
 	
+	def findOneByTypeName(serviceTypeName: String): Option[ServiceType] = dao.findOne(MongoDBObject("serviceTypeName" -> serviceTypeName))
+	
 	def findOneByTypeId(id: ObjectId): Option[ServiceType] = dao.findOne(MongoDBObject("_id" -> id))
 }
