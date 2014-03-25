@@ -1,4 +1,4 @@
-@(salon:Form[Salon])
+@(salon:Form[Salon],industry: List[Industry],provinces: List[Province],cities: List[City],regions: List[Region])
 @import helper._
 @import helper.twitterBootstrap._
 
@@ -12,15 +12,15 @@
     <div class="twipsies well @className">
 
         @inputText(
-            field("contMethmodType"), 
+            field("contMethodType"), 
             '_label -> Messages("salon.contMethmodType")
         )
         
         <div class="phones">
 
-            @repeat(field("account"), min = 0) { account =>
+            @repeat(field("accounts"), min = 0) { accounts =>
                 
-                @phoneField(account)
+                @phoneField(accounts)
     
             }        
         </div>
@@ -28,25 +28,29 @@
     </div>
 }
 
-@main("basicInformation"){
+@main("salonInfo"){
 
 <div class="basicInformation-content">
 	<div class="basicInformation">
 		<h2>@Messages("salon.title")</h2>
 
 		@helper.form(action = routes.SalonInfo.update(salon.get.id), args = 'id -> "salonForm"){
-		 <fieldset >         
+		 <fieldset >
+		 	@inputText(salon("salonAccount.accountId"),'_label -> "注册ID", 'readonly -> "true" )
+		 	@inputText(salon("salonAccount.password"),'_label -> "密码", 'readonly -> "true" ) 		 	   		          
             @inputText(salon("salonName"),'_label ->  Messages("salon.Name"))           
             @inputText(salon("salonNameAbbr"),'_label -> Messages("salon.Abbr"))			
-			@select(
-            field = salon("salonIndst"), 
-            options = options(
-                "A" -> Messages("salon.a"),
-                "B" -> Messages("salon.b"),
-                "C" -> Messages("salon.c")
-            ),
-            args = '_label -> Messages("salon.type")
-        )		
+			
+			@input(field = salon("salonIndustry"),args = '_label -> Messages("salon.type")){(id,name,value,args) =>
+			 	@for(i <- 0 to industry.length-1){
+			 		@if(salon.get.salonIndustry.contains(industry(i).industryName)){
+			 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages(industry(i).industryName)
+			 		}else{
+			 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages(industry(i).industryName)			 			
+			 		}
+			 	}
+			  }
+					
 		 	@inputText(salon("homepage"), '_label -> Messages("salon.homepage"))			
 			@inputText(salon("salonDescription"), '_label -> Messages("salon.description"))
 			@inputText(salon("mainPhone"), '_label -> Messages("salon.mainPhone"))
@@ -58,17 +62,37 @@
                 }                               
             </div>
 			@inputDate(salon("establishDate"), '_label -> Messages("salon.establishDate"))			
-			@inputText(salon("address.province"), '_label -> Messages("salon.province"))
-			@inputText(salon("address.city"), '_label -> Messages("salon.city"))
-			@inputText(salon("address.region"), '_label -> Messages("salon.region"))
-			@inputText(salon("address.town"), '_label -> Messages("salon.town"))
-			@inputText(salon("address.addrDetail"), '_label -> Messages("salon.addrDetail"))
-			@inputText(salon("address.longitude"), '_label -> Messages("salon.longitude"))
-			@inputText(salon("address.latitude"), '_label -> Messages("salon.latitude"))			
-			@inputText(salon("accessMethodDesc"), '_label -> Messages("salon.accessMethodDesc"))
-			@inputText(salon("openTime"), '_label -> Messages("salon.openTime"))
-			@inputText(salon("closeTime"), '_label -> Messages("salon.closeTime"))
-			@inputText(salon("restDay"), '_label -> Messages("salon.restDay"))	
+			<lable>@Messages("salon.address")</lable>
+			<br>
+			<select name="salonAddress.province">
+     	    @for(i <- 0 to provinces.length-1){				
+       				@provinces.map{province=>
+        			<option value="@province.provinceName">@Messages("province.provinceName."+province.provinceName)</option>
+       			}
+    		</select>
+     		}
+     					       		 				
+			<select name="salonAddress.city">
+     	    @for(i <- 0 to cities.length-1){				
+       				@cities.map{cities=>
+        			<option value="@cities.cityName">@Messages("city.cityName."+cities.cityName)</option>
+       			}
+    		</select>
+    		}
+    		
+			<select name="salonAddress.region">
+     	    @for(i <- 0 to regions.length-1){				
+        			<option value="@regions(i).regionName">@Messages("region.regionName."+regions(i).regionName)</option>
+       			}
+    		</select>
+			@inputText(salon("salonAddress.town"), '_label -> Messages("salon.town"))
+			@inputText(salon("salonAddress.addrDetail"), '_label -> Messages("salon.addrDetail"))
+			@inputText(salon("salonAddress.longitude"), '_label -> Messages("salon.longitude"))
+			@inputText(salon("salonAddress.latitude"), '_label -> Messages("salon.latitude"))		
+			@inputText(salon("accessMethodDesc"), '_label -> Messages("salon.accessMethod"))
+			@inputText(salon("workTime.openTime"), '_label -> Messages("salon.openTime"))
+			@inputText(salon("workTime.closeTime"), '_label -> Messages("salon.closeTime"))
+			@inputText(salon("restDay(0).restDay"), '_label -> Messages("salon.restDay"))	
 			@inputText(salon("seatNums"), '_label -> Messages("salon.seatNums"))	
 			@checkbox(salon("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"))
 			@checkbox(salon("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"))

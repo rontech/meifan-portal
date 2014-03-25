@@ -41,6 +41,6 @@ trait OnUsePictureDAO extends ModelCompanion[OnUsePicture, ObjectId] {
  * Embed Structure.
 */
 case class OptContactMethod (
-    contMethmodType: String,
-    account: List[String]
+    contMethodType: String,
+    accounts: List[String]
 )

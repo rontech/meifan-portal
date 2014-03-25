@@ -72,7 +72,7 @@ object Blogs extends Controller {
      val stylist = Stylist.findOneById(stylistId)
      var user = User.findOneById(stylist.get.id).get
      var blogList = Blog.getBlogByUserId(user.userId)
-     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogList))
+     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogList))
    }    
       
   /**
@@ -81,6 +81,7 @@ object Blogs extends Controller {
   def getBlogInfoOfSalon(salonId: ObjectId, blogId: ObjectId) = Action {
     val salon: Option[Salon] = Salon.findById(salonId)
     val blog: Option[Blog] = Blog.findOneById(blogId)
+    println("----------"+salon.get.id)
     Ok(views.html.salon.store.salonInfoBlog(salon = salon.get, blog = blog.get))
   }
   /**
@@ -90,6 +91,8 @@ object Blogs extends Controller {
     Blog.blogList = Nil
     val salon: Option[Salon] = Salon.findById(salonId)
     val blogs: List[Blog] = Blog.findBySalon(salonId)
+    println("----------"+salon.get.id)
+    println("----------"+salon.get.id)
     // TODO: process the salon not exist pattern.
     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogs))
   }
@@ -97,7 +100,8 @@ object Blogs extends Controller {
   def showBlog(userId : String) = Action {
     val user: Option[User] = User.findOneByUserId(userId)
     val blogList = Blog.getBlogByUserId(userId)
-    Ok(views.html.blog.admin.findBlogs(user = user.get, blogList))
+    val followInfo = MyFollow.getAllFollowInfo(user.get.id)
+    Ok(views.html.blog.admin.findBlogs(user = user.get, blogList, followInfo))
   }
   
   
@@ -106,8 +110,9 @@ object Blogs extends Controller {
    */
   def newBlog(userId: String) = Action {
     val user: Option[User] = User.findOneByUserId(userId)
-    val listBlogCategory = BlogCategory.getCategory 
-    Ok(views.html.blog.admin.newBlog(newBlogForm(userId), listBlogCategory, user = user.get))
+    val listBlogCategory = BlogCategory.getCategory
+    val followInfo = MyFollow.getAllFollowInfo(user.get.id)
+    Ok(views.html.blog.admin.newBlog(newBlogForm(userId), listBlogCategory, user = user.get, followInfo))
   }
   
    /**
@@ -121,7 +126,8 @@ object Blogs extends Controller {
         {
           blog =>
             Blog.save(blog, WriteConcern.Safe)
-	        Redirect(routes.Blogs.showBlog(userId))
+//	        Redirect(routes.Blogs.showBlog(userId))
+            Redirect(routes.Blogs.showBlogById(blog.id))
         }             
         )
   }  
@@ -133,9 +139,11 @@ object Blogs extends Controller {
     val blog = Blog.findOneById(blogId)
     var list = BlogCategory.getCategory()    
     val user = User.findOneByUserId(blog.get.authorId).get
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
     blog.map { blog =>
       val formEditBlog = blogForm(user.userId).fill(blog)
-      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user, blog))
+//      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user, blog))
+      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user, followInfo))
     } getOrElse {
       NotFound
     }
@@ -153,7 +161,8 @@ object Blogs extends Controller {
         {
           blog =>            
             Blog.save(blog, WriteConcern.Safe)
-	        Redirect(routes.Blogs.showBlog(userId))
+//	        Redirect(routes.Blogs.showBlog(userId))
+            Redirect(routes.Blogs.showBlogById(blogId))
         }             
         )
   }  
@@ -176,6 +185,7 @@ object Blogs extends Controller {
     val user = User.findOneByUserId(blog.authorId).get
     Comment.list = Nil
     val commentList = Comment.all(blogId)
-    Ok(views.html.blog.admin.blogDetail(blog, user, commentList))
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.blog.admin.blogDetail(blog, user, commentList, followInfo))
   }
 }

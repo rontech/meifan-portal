@@ -63,8 +63,12 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
     dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, authorId = userId, isValid = true))      
   }
   
-  def findById(id : ObjectId) = {
-    dao.findOneById(id).get
+  override
+  def findOneById(id: ObjectId): Option[Comment] = dao.findOne(MongoDBObject("_id" -> id))
+  
+  def delete(id : ObjectId) = {
+    val comment = findOneById(id).get
+    dao.update(MongoDBObject("_id" -> comment.id), MongoDBObject("$set" -> (MongoDBObject("isValid" -> false))))
   }
 }
 

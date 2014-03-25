@@ -59,7 +59,7 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
   
   val dao = new SalatDAO[Stylist, ObjectId](collection){}
   
-  def findGoodAtStyle = {
+  def findGoodAtStyle: GoodAtStyle  = {
 	   val position = Position.findAll().toList
 	   var positions: List[String] = Nil 
 		   position.map{para=>
@@ -104,7 +104,7 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
 	   	   }
  	   val goodAtStyle = new GoodAtStyle(positions , industrys, paraStyleImpressions, paraConsumerSocialStatuss, 
  	       paraServiceTypes, paraConsumerSexs, paraConsumerAgeGroups)
-    
+    goodAtStyle
   }
   
   def findUserName(publicId: ObjectId): String = {

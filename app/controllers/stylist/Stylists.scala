@@ -16,6 +16,48 @@ object Stylists extends Controller {
 
   def index = TODO
   
+  val stylistForm: Form[Stylist] = Form(
+        mapping(
+		        "workYears" -> number,
+			    "position" -> list(
+			    	mapping(
+			    		"positionName" -> text,
+			    		"industryName" -> text
+			    	){
+			    		(positionName, industryName) => IndustryAndPosition(new ObjectId, positionName, industryName)
+			    	}{
+			    		industryAndPosition => Some(industryAndPosition.positionName, industryAndPosition.indestryName)
+			    	}	
+			    ),
+			    "goodAtImage" -> list(text),
+			    "goodAtStatus" -> list(text),
+			    "goodAtService" -> list(text),
+			    "goodAtUser" -> list(text),
+			    "goodAtAgeGroup" -> list(text),
+			    "myWords" -> text,
+			    "mySpecial" -> text,
+			    "myBoom" -> text,
+			    "myPR" -> text,
+			    "myPics" -> (list(mapping (
+			    	"picUse" -> text
+			    ){
+			      (picUse) => OnUsePicture(new ObjectId, picUse, Some(0), Some("技师头像"))
+			    }{
+			      onUsePicture => Some(onUsePicture.picUse)
+			    }))
+			){
+		      (workYears, position, goodAtImage, goodAtStatus, goodAtService,
+		          goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR, myPics)
+		      => Stylist(new ObjectId, new ObjectId(), 0, position, goodAtImage, goodAtStatus,
+		    	   goodAtService, goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR, 
+		           myPics, false, false)
+		    }{
+		      stylist => Some(stylist.workYears, stylist.position, 
+		          stylist.goodAtImage, stylist.goodAtStatus, stylist.goodAtService, stylist.goodAtUser,
+		          stylist.goodAtAgeGroup, stylist.myWords, stylist.mySpecial, stylist.myBoom, stylist.myPR, stylist.myPics)
+		    }
+		)
+  
   /**
    * 
    */
@@ -120,47 +162,7 @@ object Stylists extends Controller {
     }
   }
   
-  val stylistForm: Form[Stylist] = Form(
-        mapping(
-		        "workYears" -> number,
-			    "position" -> list(
-			    	mapping(
-			    		"positionName" -> text,
-			    		"industryName" -> text
-			    	){
-			    		(positionName, industryName) => IndustryAndPosition(new ObjectId, positionName, industryName)
-			    	}{
-			    		industryAndPosition => Some(industryAndPosition.positionName, industryAndPosition.indestryName)
-			    	}	
-			    ),
-			    "goodAtImage" -> list(text),
-			    "goodAtStatus" -> list(text),
-			    "goodAtService" -> list(text),
-			    "goodAtUser" -> list(text),
-			    "goodAtAgeGroup" -> list(text),
-			    "myWords" -> text,
-			    "mySpecial" -> text,
-			    "myBoom" -> text,
-			    "myPR" -> text,
-			    "myPics" -> (list(mapping (
-			    	"picUse" -> text
-			    ){
-			      (picUse) => OnUsePicture(new ObjectId, picUse, Some(0), Some("技师头像"))
-			    }{
-			      onUsePicture => Some(onUsePicture.picUse)
-			    }))
-			){
-		      (workYears, position, goodAtImage, goodAtStatus, goodAtService,
-		          goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR, myPics)
-		      => Stylist(new ObjectId, new ObjectId(), 0, position, goodAtImage, goodAtStatus,
-		    	   goodAtService, goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR, 
-		           myPics, false, false)
-		    }{
-		      stylist => Some(stylist.workYears, stylist.position, 
-		          stylist.goodAtImage, stylist.goodAtStatus, stylist.goodAtService, stylist.goodAtUser,
-		          stylist.goodAtAgeGroup, stylist.myWords, stylist.mySpecial, stylist.myBoom, stylist.myPR, stylist.myPics)
-		    }
-		)
+  
   
   def updateStylistInfo(stylistId: ObjectId) = Action {
     val user = User.findOneById(new ObjectId("53202c29d4d5e3cd47efffd4"))

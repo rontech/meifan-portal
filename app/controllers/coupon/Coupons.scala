@@ -56,7 +56,7 @@ object Coupons extends Controller {
   )
   
   def index = Action {
-    val coupons:Seq[Coupon] = Coupon.findAll
+    val coupons:List[Coupon] = Coupon.findAll
     Ok(views.html.coupon.couponOverview(coupons))
   }
   
@@ -105,10 +105,10 @@ object Coupons extends Controller {
    */
   def findBySalon(salonId: ObjectId) = Action {
     val salon: Option[Salon] = Salon.findById(salonId)
-    val coupons: Seq[Coupon] = Coupon.findBySalon(salonId)
-    val menus: Seq[Menu] = Menu.findBySalon(salonId)
-    val serviceTypes: Seq[ServiceType] = ServiceType.findAll().toList
-    val serviceTypeNames: Seq[String] = Service.getServiceTypeList
+    val coupons: List[Coupon] = Coupon.findBySalon(salonId)
+    val menus: List[Menu] = Menu.findBySalon(salonId)
+    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+    val serviceTypeNames: List[String] = Service.getServiceTypeList
     
     var servicesByTypes: List[ServiceByType] = Nil
     for(serviceType <- serviceTypeNames) {
@@ -118,7 +118,7 @@ object Coupons extends Controller {
     }
     
     // TODO: process the salon not exist pattern.
-    Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus, servicesByTypes))
+    Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus = menus, serviceByTypes = servicesByTypes))
   }
   
   /**
@@ -141,9 +141,9 @@ object Coupons extends Controller {
       {
         serviceType =>
           val subMenuFlg = serviceType.productElement(serviceType.productArity-1)
-          var coupons: Seq[Coupon] = Nil
-          var menus: Seq[Menu] = Nil
-          var serviceTypeNames: Seq[String] = Nil
+          var coupons: List[Coupon] = Nil
+          var menus: List[Menu] = Nil
+          var serviceTypeNames: List[String] = Nil
           var conditions: List[String] = Nil
           var servicesByTypes: List[ServiceByType] = Nil
 
@@ -154,7 +154,7 @@ object Coupons extends Controller {
             }
           }
           
-          val serviceTypes: Seq[ServiceType] = ServiceType.findAll().toList
+          val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
           if(subMenuFlg == None) {
             //coupons = Coupon.findContainCondtions(serviceTypes)
           } else {
@@ -179,7 +179,7 @@ object Coupons extends Controller {
           }
           val salon: Option[Salon] = Salon.findById(salonId)
           
-          Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus, servicesByTypes))
+          Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus = menus, serviceByTypes = servicesByTypes))
       })
   }
 

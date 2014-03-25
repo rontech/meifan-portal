@@ -1564,23 +1564,23 @@
     #UserSkills #OtherScore h1 a:hover {
       color: #000;
     }
-    #Profile li {
+    #optContactMethod li {
       margin: 10px 0 0 0;
       font-size: 9pt;
       color: #666666;
     }
-    #Profile li b {
+    #optContactMethod li b {
       display: block;
       color: #333333;
       margin-bottom: 2px;
     }
-    #Profile li b.inline {
+    #optContactMethod li b.inline {
       display: inline;
     }
-    #Profile li a {
+    #optContactMethod li a {
       color: #4466bb;
     }
-    #Profile li a:hover {
+    #optContactMethod li a:hover {
       color: #0000aa;
     }
     #FavorBox {
@@ -1735,15 +1735,15 @@
     #AdminBody .AdminHead .Tabs li a.active:hover {
       color: #fff;
     }
-    #ProfileForms .Langs strong {
+    #optContactMethodForms .Langs strong {
       display: block;
     }
-    #ProfileForms .Langs ul li {
+    #optContactMethodForms .Langs ul li {
       float: left;
       width: 160px;
       height: 25px;
     }
-    #ProfileForms .Fields ul li {
+    #optContactMethodForms .Fields ul li {
       float: left;
       width: 220px;
       height: 25px;
@@ -6071,7 +6071,8 @@ _height: 19px;
 }
 
 #userForm label {
-    font-size: 15px;
+    font-size: 10px;
+    padding-left: 5px;
 }
 
 .buttons {
@@ -6101,4 +6102,116 @@ font-weight: bold;
 .MMod li .opts {
 text-align: right;
 width: 50px;
+}
+
+
+.optContactMethod {
+    margin-left: 32px;
+}
+
+.optContactMethod:first-child > .danger {
+    display: none;
+}
+
+.accounts label {
+    display: none;
+}
+
+.accounts div:first-child label {
+    display: inline-block;
+}
+
+.account_template, .optContactMethod_template {
+    display: none;
+}
+
+.alert-message .btn {
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn {
+  cursor: pointer;
+  display: inline-block;
+  background-color: #e6e6e6;
+  background-repeat: no-repeat;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), color-stop(25%, #ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
+  background-image: -moz-linear-gradient(top, #ffffff, #ffffff 25%, #e6e6e6);
+  background-image: -ms-linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
+  background-image: -o-linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
+  background-image: linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
+  color: #333;
+  font-size: 10px;
+  line-height: normal;
+  border: 1px solid #ccc;
+  border-bottom-color: #bbb;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  -ms-transition: 0.1s linear all;
+  -o-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+}
+.btn.danger:hover,
+.btn.success,
+.btn.success:hover,
+.alert-message.success:hover,
+.btn.danger {
+  color: #A3A3A3;
+}
+.btn.success, .alert-message.success {
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#62c462', endColorstr='#57a957', GradientType=0);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #57a957 #57a957 #3d773d;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+.pull-right {
+  float: right;
+}
+form .clearfix {
+  margin-bottom: 18px;
+  zoom: 1;
+}
+form .clearfix:before, form .clearfix:after {
+  display: table;
+  content: "";
+  zoom: 1;
+}
+form .clearfix:after {
+  clear: both;
+}
+form .clearfix.error input, form .clearfix.error textarea {
+  color: #b94a48;
+  border-color: #ee5f5b;
+}
+form .clearfix.error input:focus, form .clearfix.error textarea:focus {
+  border-color: #e9322d;
+  -webkit-box-shadow: 0 0 6px #f8b9b7;
+  -moz-box-shadow: 0 0 6px #f8b9b7;
+  box-shadow: 0 0 6px #f8b9b7;
+}
+form .clearfix.warning input:focus, form .clearfix.warning textarea:focus {
+  border-color: #be9a3f;
+  -webkit-box-shadow: 0 0 6px #e5d6b1;
+  -moz-box-shadow: 0 0 6px #e5d6b1;
+  box-shadow: 0 0 6px #e5d6b1;
+}
+form .clearfix.success input:focus, form .clearfix.success textarea:focus {
+  border-color: #458845;
+  -webkit-box-shadow: 0 0 6px #9acc9a;
+  -moz-box-shadow: 0 0 6px #9acc9a;
+  box-shadow: 0 0 6px #9acc9a;
+}
+.manage {
+    margin-left: 32px;
+    margin-bottom: 20px;
 }
