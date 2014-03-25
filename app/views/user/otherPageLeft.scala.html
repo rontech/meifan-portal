@@ -1,4 +1,4 @@
-@(user :User)
+@(user :User, followInfo:FollowInfomation, loginUserId: ObjectId)
 			<div class ="Owner">
 				<a href="#" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")" align="absmiddle" alt="@user.userId" title="@user.userId" class="LargePortrait"/></a>
 				<span class='U'>
@@ -10,7 +10,7 @@
 				</span>
     			<div class="clear"></div>
 				<div class ="sta">
-					<a href="@routes.MyFollows.followers(user.id)"><font color="gray">@Messages("user.myFollowers")<span>(@MyFollow.getFollowers(user.id).length)</span></font></a>
+					<a href="@routes.MyFollows.followers(user.id)"><font color="gray">@Messages("user.myFollowers")<span>(@followInfo.follower.length)</span></font></a>
 				</div>
 			</div>
    			<div class='Opts clearfix'>
@@ -26,49 +26,40 @@
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("user.followSalon")</strong>
 	  			<ul class='clearfix'>
-	  				@for(i <- 0 to MyFollow.getAllFollowObjId("salon",user.id).length-1){
-	  					@Salon.findById(MyFollow.getAllFollowObjId("salon",user.id)(i)).map {salon =>
-	  					<li>
-    	 				<!--  <a href="#"><img src="#" align="absmiddle" alt="" title="" class="SmallPortrait"></a>-->
-    	 				<a href="#">@salon.salonName</a>&nbsp;&nbsp;&nbsp;&nbsp;
-    	 			     </li>
-	  					}
-	  				}
+	  				@followInfo.followSalon.map {salon =>
+	  						<li>
+    	 						<a href="/salon/@salon.id" target="blank">@salon.salonName</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 			     	</li>
+    	 			}
     			</ul>
 				<div class='more'>
-    				<a href="@routes.MyFollows.followedSalon(user.id)">@Messages("user.showAllFollow")@MyFollow.getAllFollowObjId("salon",user.id).length)</a>
+    				<a href="@routes.MyFollows.followedSalon(user.id)">@Messages("user.showAllFollow")@followInfo.followSalon.length)</a>
     			</div>
 			</div>
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("user.followStylist")</strong>
 	  			<ul class='clearfix'>
-    	 			@for(i <- 0 to MyFollow.getAllFollowObjId("stylist",user.id).length-1){
-	  					@Stylist.findOneById(MyFollow.getAllFollowObjId("stylist",user.id)(i)).map {stylist =>
+    	 			@followInfo.followStylist.map {stylist =>
 	  					<li>
-    	 				<!--  <a href="#"><img src="#" align="absmiddle" alt="" title="" class="SmallPortrait"></a>-->
-    	 				<a href="#">@stylist.publicId</a>&nbsp;&nbsp;&nbsp;&nbsp;
-    	 			     </li>
+    	 				       <a href="/stylistViews/@stylist.id">@stylist.publicId</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 			    </li>
 	  					}
-	  				}
     			</ul>
 				<div class='more'>
-    				<a href="@routes.MyFollows.followedStylist(user.id)">@Messages("user.showAllFollow")@MyFollow.getAllFollowObjId("stylist",user.id).length)</a>
+    				<a href="@routes.MyFollows.followedStylist(user.id)">@Messages("user.showAllFollow")@followInfo.followStylist.length)</a>
     			</div>
 			</div>
 			<div class='Mod Users' id='Fans'>
 	   			<strong>@Messages("user.followUser")</strong>
 	   			<ul class='clearfix'>
-      				@for(i <- 0 to MyFollow.getAllFollowObjId("user",user.id).length-1){
-	  					@User.findOneById(MyFollow.getAllFollowObjId("user",user.id)(i)).map {user =>
+      				@followInfo.followUser.map {user =>
 	  					<li>
-    	 				<!--  <a href="#"><img src="#" align="absmiddle" alt="" title="" class="SmallPortrait"></a>-->
-    	 				<a href="@routes.Users.userPage(user.userId)">@user.userId</a>&nbsp;&nbsp;&nbsp;&nbsp;
-    	 			     </li>
-	  					}
+    	 				       <a href="@routes.Users.userPage(user.userId)">@user.userId</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 			    </li>
 	  				}
 				</ul>
 		 		<div class='more'>
-       				<a href="@routes.MyFollows.followedUser(user.id)">@Messages("user.showAllFollow")@MyFollow.getAllFollowObjId("user",user.id).length)</a>
+       				<a href="@routes.MyFollows.followedUser(user.id)">@Messages("user.showAllFollow")@followInfo.followUser.length)</a>
      			</div>
 			</div>
 

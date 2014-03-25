@@ -82,7 +82,7 @@ object MyFollows extends Controller with AuthElement with AuthConfigImpl {
     def followers(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
         val user = loggedIn
         val followInfo = MyFollow.getAllFollowInfo(id)
-        Ok(views.html.user.showMyFollowers(followInfo, user, Option(user.userId)))
+        Ok(views.html.user.showMyFollowers(followInfo, user, user.id))
     }
 
     /**

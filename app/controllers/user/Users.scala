@@ -252,7 +252,8 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   def userPage(userId : String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val loginUser = loggedIn
     User.findOneByUserId(userId).map{user =>
-      Ok(views.html.user.otherPage(user))
+      val followInfo = MyFollow.getAllFollowInfo(user.id)
+      Ok(views.html.user.otherPage(user, followInfo,loginUser.id))
     }getOrElse{
       NotFound
     }
@@ -303,9 +304,11 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   /**
    * 他人收藏的博客
    */
-  def userBlog(userId: String) = Action {
+  def userBlog(userId: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val loginUser = loggedIn
     User.findOneByUserId(userId).map{user =>
-      Ok(views.html.user.otherFollowBlog(user))
+      val followInfo = MyFollow.getAllFollowInfo(user.id)
+      Ok(views.html.user.otherFollowBlog(user, followInfo, loginUser.id))
     }getOrElse{
       NotFound
     }
@@ -314,9 +317,11 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   /**
    * 他人收藏的风格
    */
-  def userStyle(userId: String) = Action {
+  def userStyle(userId: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val loginUser = loggedIn
     User.findOneByUserId(userId).map{user =>
-      Ok(views.html.user.otherFollowStyle(user))
+      val followInfo = MyFollow.getAllFollowInfo(user.id)
+      Ok(views.html.user.otherFollowStyle(user, followInfo, loginUser.id))
     }getOrElse{
       NotFound
     }

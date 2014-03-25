@@ -145,7 +145,7 @@ GET     /myPage/message/:id             controllers.UserLetters.showMessage(id:O
 GET     /applyStylist                   controllers.Users.applyStylist
 POST    /commitStylistApply             controllers.Users.commitStylistApply
 GET     /cancelFollow/:followedId    	controllers.MyFollows.cancelFollow(followedId:ObjectId)
-GET     /addFollow/:followId             controllers.MyFollows.addFollow(followId:ObjectId,relationTypeId:String)
+GET     /addFollow/:followId             controllers.MyFollows.addFollow(followId:ObjectId, followObjType: String)
 
 
 # Reservations Management

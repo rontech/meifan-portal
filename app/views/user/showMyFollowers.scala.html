@@ -1,4 +1,4 @@
-@(followInfo:FollowInfomation,user:User,sessionUserId:Option[String])
+@(followInfo:FollowInfomation,user:User, loginUserId:ObjectId)
 
 @main("") {
 	
@@ -8,10 +8,10 @@
 	
     <div id="OSC_Content">
         	<div id='SpaceLeft'>
-        	@if(sessionUserId.nonEmpty && sessionUserId.get.equals(user.userId) ){
+        	@if(loginUserId.equals(user.id) ){
         		@views.html.user.myPageLeft(user, followInfo)
         	}else{
-        		@views.html.user.otherPageLeft(user)
+        		@views.html.user.otherPageLeft(user, followInfo, loginUserId)
         	}
         	</div>
 			<div id='SpaceMain'>
