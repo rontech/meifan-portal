@@ -10,6 +10,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc._
 import scala.concurrent._
+import play.api.templates.Html
 
 object Users extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
 
@@ -70,7 +71,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
         mapping(
           "contMethodType" -> text,
           "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
-      "socialStatus" -> text) {
+      "socialStatus" -> text){
         (id, userId, password, nickName, sex, birthDay, city, tel, email, optContactMethods, socialStatus) =>
           User(new ObjectId, userId, nickName, password._1, sex, birthDay, city, new ObjectId, tel, email, optContactMethods, socialStatus, NORMAL_USER, HIGH, 0, new Date(), Permission.valueOf(LoggedIn), false)
       } {
@@ -199,7 +200,8 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def register = Action { implicit request =>
     Users.registerForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.user.register(errors)),
+//      errors => BadRequest(views.html.user.register(errors)),
+        errors => BadRequest(Html(errors.toString)),
       {
         user =>
           User.save(user, WriteConcern.Safe)
@@ -212,7 +214,8 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def password = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    Ok(views.html.user.changePassword(Users.changePassForm.fill((user,"")), user))
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.changePassword(Users.changePassForm.fill((user,"")), user, followInfo))
   }
 
   /**
@@ -220,13 +223,14 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def changePassword(userId :String) = StackAction(AuthorityKey -> User.isOwner(userId) _) { implicit request =>
     val loginUser = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     Users.changePassForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.user.changePassword(errors, loginUser)),
+      errors => BadRequest(views.html.user.changePassword(errors, loginUser, followInfo)),
     //errors => BadRequest(views.html.user.error(errors, loginUser)),
       {
         case (user, main) =>
           User.save(user.copy(password = main), WriteConcern.Safe)
-          Ok(views.html.user.changePassword(Users.changePassForm.fill((loginUser,"")), loginUser))
+          Redirect(routes.Users.logout)
     })
   }
 
@@ -289,12 +293,27 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   }
 
   /**
+   * 保存图片
+   */
+  def saveImg(id :ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _){implicit request =>
+    val user = loggedIn
+    User.save(user.copy(userPics = id), WriteConcern.Safe)
+    Redirect(routes.Users.myPage())
+  }
+  
+  def changeImage = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.changeImg(user,followInfo))
+  }
+  /**
    * 浏览他人主页
    */
   def userPage(userId : String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val loginUser = loggedIn
     User.findOneByUserId(userId).map{user =>
-      Ok(views.html.user.otherPage(user))
+      val followInfo = MyFollow.getAllFollowInfo(user.id)
+      Ok(views.html.user.otherPage(user, followInfo,loginUser.id))
     }getOrElse{
       NotFound
     }
@@ -312,9 +331,11 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   /**
    * 他人收藏的博客
    */
-  def userBlog(userId: String) = Action {
+  def userBlog(userId: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val loginUser = loggedIn
     User.findOneByUserId(userId).map{user =>
-      Ok(views.html.user.otherFollowBlog(user))
+      val followInfo = MyFollow.getAllFollowInfo(user.id)
+      Ok(views.html.user.otherFollowBlog(user, followInfo, loginUser.id))
     }getOrElse{
       NotFound
     }
@@ -323,9 +344,11 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   /**
    * 他人收藏的风格
    */
-  def userStyle(userId: String) = Action {
+  def userStyle(userId: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val loginUser = loggedIn
     User.findOneByUserId(userId).map{user =>
-      Ok(views.html.user.otherFollowStyle(user))
+      val followInfo = MyFollow.getAllFollowInfo(user.id)
+      Ok(views.html.user.otherFollowStyle(user, followInfo, loginUser.id))
     }getOrElse{
       NotFound
     }

@@ -70,13 +70,8 @@
 
                   @inputText(userForm("tel"), '_label -> Messages("user.tel"))
 
-                  @*inputText(userForm("optContactMethod"), '_label -> "",'style -> "display: none")*@
-
                   @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none")
-    
-                  @*inputText(userForm("userPics"),'_label -> "" ,'style -> "display: none")*@
-                  
-                  <input type = "hidden" name="userPics" value="@userForm.get.userPics">
+
 		  </fieldset>    
 		  
 		  <fieldset>

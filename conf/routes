@@ -6,7 +6,9 @@
 GET         /                                                controllers.Application.index
 #get photo
 
-GET         /getPhoto/:name                                  controllers.Application.getPhoto(name: ObjectId)
+GET		/getPhoto/:name					controllers.Application.getPhoto(name: ObjectId)
+POST	/upload				   	        controllers.Application.upload()
+GET     /saveImg/:id        	        controllers.Users.saveImg(id :ObjectId)
 
 
 
@@ -124,7 +126,7 @@ GET         /myPage/message/:id                              controllers.UserLet
 GET         /applyStylist                                    controllers.Users.applyStylist
 POST        /commitStylistApply                              controllers.Users.commitStylistApply
 GET         /cancelFollow/:followedId                        controllers.MyFollows.cancelFollow(followedId:ObjectId)
-GET         /addFollow/:followId                             controllers.MyFollows.addFollow(followId:ObjectId,relationTypeId:String)
+GET         /addFollow/:followId                             controllers.MyFollows.addFollow(followId:ObjectId,followObjType:String)
 
 
 # Reservations Management
@@ -216,4 +218,8 @@ POST        /changePassword/:userId                          controllers.Users.c
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                                    controllers.Assets.at(path="/public", file)
+GET     /assets/*file                                        controllers.Assets.at(path="/public", file)
+
+# User (change log image)
+GET     /changeImage                                         controllers.Users.changeImage
+
