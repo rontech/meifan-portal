@@ -1,6 +1,6 @@
-@* UserInfomation Template File *@
 @(userForm: Form[User])
  @import helper._
+
  
  
 @accountField(field: Field, className: String = "account") = {
@@ -16,8 +16,8 @@
         <a class="removeProfile">Remove this profile</a>
 
         @inputText(
-            field("contMethmodType"), 
-            '_label -> Messages("salon.contMethmodType")
+            field("contMethodType"), 
+            '_label -> Messages("salon.contMethodType")
         )
         
         <div class="accounts">
@@ -47,7 +47,7 @@
     </div>
 }
 
-    @myPageMain(navInMyPage = "information", userForm.get)  {
+    @myPageMain(navInMyPage = "information", userForm.get) {
 
         @form(routes.Users.updateInfo(userForm.get.userId), 'id -> "userForm") {
           <fieldset>

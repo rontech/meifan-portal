@@ -1,10 +1,8 @@
 package controllers
 
 import java.util.Date
-import scala.collection.mutable.ListBuffer
 import scala.concurrent.ExecutionContext.Implicits.global
 import com.mongodb.casbah.WriteConcern
-import com.mongodb.casbah.commons.Imports._
 import se.radley.plugin.salat.Binders._
 import jp.t2v.lab.play2.auth._
 import models._
@@ -70,7 +68,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
       "email" -> email,
       "optContactMethod" -> seq(
         mapping(
-          "contMethmodType" -> text,
+          "contMethodType" -> text,
           "account" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
       "socialStatus" -> text) {
         (id, userId, password, nickName, sex, birthDay, city, tel, email, optContactMethod, socialStatus) =>
@@ -99,7 +97,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
       "email" -> email,
       "optContactMethod" -> seq(
         mapping(
-          "contMethmodType" -> text,
+          "contMethodType" -> text,
           "account" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
       "socialStatus" -> text,
       "registerTime" -> date) {
@@ -107,7 +105,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
         (id, userId, nickName, password, sex, birthDay, city, userPics, tel, email, optContactMethod, socialStatus, registerTime) => User(id, userId, password, nickName, sex, birthDay, city, new ObjectId(userPics), tel, email, optContactMethod, socialStatus, "NormalUser", "userLevel.0", 0, registerTime, "LoggedIn", false)
       } // Unbinding: Create the mapping values from an existing Hacker value
       {
-        user => Some((user.id, user.userId, user.password, user.nickName, user.sex, user.birthDay, user.city, user.userPics.toString(), user.tel, user.email, user.optContactMethod, user.socialStatus, user.registerTime))
+        user => Some((user.id, user.userId, user.password, user.nickName, user.sex, user.birthDay, user.city, user.userPics.toString, user.tel, user.email, user.optContactMethod, user.socialStatus, user.registerTime))
       }.verifying(
         "This userId is not available", user => User.findOneByNickNm(user.nickName).nonEmpty))
 
@@ -207,6 +205,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   def myInfo() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val userForm = Users.userForm().fill(user)
+    userForm.get
     Ok(views.html.user.Infomation(userForm))
   }
 
@@ -229,9 +228,9 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def myPage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    if ((user.userTyp).equals(NORMALUSER)) {
+    if (user.userTyp.equals(NORMALUSER)) {
       Ok(views.html.user.myPageRes(user))
-    } else if ((user.userTyp).equals(STYLIST)) {
+    } else if (user.userTyp.equals(STYLIST)) {
       //TODO
       val stylist = Stylist.findOneById(user.id)
       Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get))

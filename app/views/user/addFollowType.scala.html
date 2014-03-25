@@ -5,7 +5,7 @@
     @main(title = Messages("")) {
 
 		<body>
-        @form(routes.FollowTypes.addFollowType, 'id -> "followTypeTypeForm") {
+        @form(routes.FollowTypes.addFollowType(), 'id -> "followTypeTypeForm") {
           <fieldset>
           
             @inputText(followTypeTypeForm("followTypeName"),'_label -> Messages("user.relation.type"))

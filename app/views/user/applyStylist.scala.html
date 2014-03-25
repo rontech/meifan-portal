@@ -23,9 +23,9 @@
 			
 			@inputText(stylistForm("salonId"), '_label -> "salonId", 'class ->  "font1")
 			
-			@input(field = stylistForm("stylist.position.industryName"),args = '_label ->Messages("stylist.industry")){(id,name,value,args) =>
+			@input(field = stylistForm("stylist.position.industryName"), '_label ->Messages("stylist.industry")){(id,name,value,args) =>
 			 	@for(i <- 0 to industry.length-1){
-			 		<input type = "checkbox" class="" name = "stylist.position.industryName[@i]", value = "@industry(i).industryName">@industry(i).industryName
+			 		<input type = "checkbox" class="" name = "stylist.position.industryName[@i]" value = "@industry(i).industryName">@industry(i).industryName
 			 		@Messages("stylist.position")<select name="stylist.position.positionName[@i]">
 			 			@position.map{idy=>
 			 				<option value="@idy.positionName">@idy.positionName</option>
@@ -36,31 +36,31 @@
 			
 			@input(field = stylistForm("stylist.goodAtImage"),args = '_label ->Messages("stylist.goodAtImage")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtImage.length-1){
-			 		<input type = "checkbox" name = "goodAtImage[@i]", value = "@goodAtImage(i)">@goodAtImage(i).styleImpression&nbsp;
+			 		<input type = "checkbox" name = "goodAtImage[@i]" value = "@goodAtImage(i)">@goodAtImage(i).styleImpression&nbsp;
 			 	}
 			  }
 			  
 			@input(field = stylistForm("stylist.goodAtStatus"),args = '_label ->Messages("stylist.goodAtStatus")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtStatus.length-1){
-			 		<input type = "checkbox" name = "goodAtStatus[@i]", value = "@goodAtStatus(i)">@goodAtStatus(i).socialStatus
+			 		<input type = "checkbox" name = "goodAtStatus[@i]" value = "@goodAtStatus(i)">@goodAtStatus(i).socialStatus
 			 	}
 			  }
 			  
 			@input(field = stylistForm("stylist.goodAtService"),args = '_label ->Messages("stylist.goodAtService")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtService.length-1){
-			 		<input type = "checkbox" name = "stylist.goodAtService[@i]", value = "@goodAtService(i)">@goodAtService(i).serviceName
+			 		<input type = "checkbox" name = "stylist.goodAtService[@i]" value = "@goodAtService(i)">@goodAtService(i).serviceName
 			 	}
 			  }
 			  
 			@input(field = stylistForm("stylist.goodAtUser"),args = '_label ->Messages("stylist.goodAtUser")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtUser.length-1){
-			 		<input type = "checkbox" name = "stylist.goodAtUser[@i]", value = "@goodAtUser(i)">@goodAtUser(i).sex
+			 		<input type = "checkbox" name = "stylist.goodAtUser[@i]" value = "@goodAtUser(i)">@goodAtUser(i).sex
 			 	}
 			  }  
 			
 			@input(field = stylistForm("stylist.goodAtAgeGroup"),args = '_label ->Messages("stylist.goodAtAgeGroup")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtAgeGroup.length-1){
-			 		<input type = "checkbox" name = "stylist.goodAtAgeGroup[@i]", value = "@goodAtAgeGroup(i)">@goodAtAgeGroup(i).ageGroup
+			 		<input type = "checkbox" name = "stylist.goodAtAgeGroup[@i]" value = "@goodAtAgeGroup(i)">@goodAtAgeGroup(i).ageGroup
 			 	}
 			  }
 			
