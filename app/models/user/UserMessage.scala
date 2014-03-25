@@ -2,15 +2,11 @@ package models
 
 import play.api.Play.current
 import java.util.Date
-import com.novus.salat._
-import com.novus.salat.annotations._
 import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
 
 case class UserMessage(
   id: ObjectId,
@@ -72,6 +68,10 @@ object UserMessage extends ModelCompanion[UserMessage, ObjectId] {
       case "salon" => 
         val salon = Salon.findById(followId).get
         UserMessage(new ObjectId, sender.userId, sender.nickName, "zhenglu", "关雨", new ObjectId("531964e0d4d57d0a43771811"), "sended", "normal", "unRead", new Date)
+      case "stylist" =>
+        val stylist = Stylist.findOneById(followId).get
+        val user = Stylist.findUser(stylist.publicId)
+        UserMessage(new ObjectId, sender.userId, sender.nickName, user.userId, user.nickName, new ObjectId("531964e0d4d57d0a43771813"), "sended", "normal", "unRead", new Date)
       case _ =>
         val addressee = User.findOneById(followId).get
         UserMessage(new ObjectId, sender.userId, sender.nickName, addressee.userId, addressee.nickName, new ObjectId("531964e0d4d57d0a43771812"), "sended", "normal", "unRead", new Date)

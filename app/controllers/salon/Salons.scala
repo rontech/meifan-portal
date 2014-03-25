@@ -1,14 +1,10 @@
 package controllers
 
-import play.api._
+
 import play.api.mvc._
-import play.api.data._
-import play.api.data.Forms._
 import play.api.i18n.Messages
 import com.mongodb.casbah.commons.Imports._
 import models._
-import views._
-import java.util.Date
 
 object Salons extends Controller {
 
@@ -16,7 +12,7 @@ object Salons extends Controller {
      * The Main Page of All Salon 
      -------------------------*/
     def index = Action {
-        Ok(views.html.salon.general.index(getSalonTopNavBar()))
+        Ok(views.html.salon.general.index(getSalonTopNavBar))
     }
 
 
@@ -39,7 +35,7 @@ object Salons extends Controller {
         val salon: Option[Salon] = Salon.findById(salonId)
         val stylistsOfSalon: List[Stylist] = Stylist.findBySalon(salonId)    
          // TODO
-        Ok(html.salon.store.salonInfoStylistAll(salon.get, stylistsOfSalon))
+        Ok(views.html.salon.store.salonInfoStylistAll(salon.get, stylistsOfSalon))
     }
   
     /**
@@ -49,7 +45,7 @@ object Salons extends Controller {
         val stylist: Option[Stylist] = Stylist.findOneById(stylistId)
         val salonId =  SalonAndStylist.findByStylistId(stylistId).get.salonId
         val salon: Option[Salon] = Salon.findById(salonId)
-        Ok(html.salon.store.salonInfoStylist(salon.get, stylist.get))
+        Ok(views.html.salon.store.salonInfoStylist(salon.get, stylist.get))
     }
   
  def findStylistById(id: ObjectId) = Action {
@@ -59,7 +55,7 @@ object Salons extends Controller {
     val style = Style.findByStylistId(id)
     val user = Stylist.findUser(stylist.get.publicId)
     val blog = Blog.getBlogByUserId(user.userId).last
-    Ok(html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, styles = style, blog = blog))
+    Ok(views.html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, styles = style, blog = blog))
   }
  
     /**
@@ -77,7 +73,7 @@ object Salons extends Controller {
                     styles :::= style
                 }
                 // 
-                Ok(html.salon.store.salonInfoStyleAll(salon = sl, styles = styles, navBar = getSalonNavBar(salon)))
+                Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = styles, navBar = getSalonNavBar(salon)))
             }
             case None => NotFound 
         }
@@ -100,17 +96,17 @@ object Salons extends Controller {
                         // Third, we need to check the relationship between slaon and stylist to check if the style is active.
                         if(SalonAndStylist.isStylistActive(salonId, st.stylistId)) {
                             // If style is active, jump to the style show page in salon.
-                            Ok(html.salon.store.salonInfoStyle(salon = sl, style = st, navBar = navBar))
+                            Ok(views.html.salon.store.salonInfoStyle(salon = sl, style = st, navBar = navBar))
                         } else {
                             // If style is not active, show nothing but must in the salon's page.
-                            Ok(html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar))
+                            Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar))
                         }
-                    }
+                   }
                     // If style is not exist, show nothing but must in the salon's page.
                     case None => {
                         val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), routes.Salons.getAllStyles(sl.id).toString()))
                         // TODO should with some message to show to user.
-                        Ok(html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar))
+                        Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar))
                     }
                 } 
             }
@@ -142,7 +138,7 @@ object Salons extends Controller {
                 // Navigation Bar
                 var navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.couponMenus"), ""))
                 // Jump
-                Ok(html.salon.store.salonInfoCouponAll(salon = sl, Coupons.conditionForm.fill(couponSchDefaultConds), serviceTypes = srvTypes, coupons = coupons, menus = menus,
+                Ok(views.html.salon.store.salonInfoCouponAll(salon = sl, Coupons.conditionForm.fill(couponSchDefaultConds), serviceTypes = srvTypes, coupons = coupons, menus = menus,
                     serviceByTypes = servicesByTypes, navBar = navBar))
             }
             case None => NotFound
@@ -206,7 +202,7 @@ object Salons extends Controller {
                   case Some(s) => {
                       // Navigation Bar
                       var navBar = getSalonNavBar(Some(s)) ::: List((Messages("salon.couponMenus"), ""))
-                      Ok(html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, navBar))
+                      Ok(views.html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, navBar))
                   } 
                   case None => NotFound
               }
@@ -219,9 +215,9 @@ object Salons extends Controller {
     /**
      * Get the Navigation Bar of the Salon Main Page.
      */
-    def getSalonTopNavBar() = {
-        var nav0 = (Messages("index.mainPage"), routes.Application.index.toString())
-        val nav1 = (Messages("salon.salonMainPage"), routes.Salons.index.toString())
+    def getSalonTopNavBar = {
+        val nav0 = (Messages("index.mainPage"), routes.Application.index.url.toString)
+        val nav1 = (Messages("salon.salonMainPage"), routes.Salons.index.url.toString)
         nav0 :: nav1 :: Nil 
     }
 
@@ -264,7 +260,6 @@ object Salons extends Controller {
                      case None => sl.salonName.toString()
                  }
                  val nav6 = List((Messages(abbrName), routes.Salons.getSalon(sl.id).toString()))
-
                  //List(nav2) ::: List(nav3) ::: List(nav4) ::: List(nav5) ::: List(nav6)
                  nav2 ::: nav3 ::: nav4 ::: nav5 ::: nav6 
             }
@@ -273,7 +268,7 @@ object Salons extends Controller {
         } 
 
         // print(navBar)
-        getSalonTopNavBar() ::: navBar 
+        getSalonTopNavBar ::: navBar
     } 
 
 }

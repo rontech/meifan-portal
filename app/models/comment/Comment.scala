@@ -2,17 +2,11 @@ package models
 
 import play.api.Play.current
 import java.util.Date
-import com.novus.salat._
-import com.novus.salat.annotations._
 import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import mongoContext._
-import models._
 
-
-
-    
 case class Comment(
     id : ObjectId = new ObjectId,
     commentObjType : Int,
@@ -68,7 +62,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
   
   def delete(id : ObjectId) = {
     val comment = findOneById(id).get
-    dao.update(MongoDBObject("_id" -> comment.id), MongoDBObject("$set" -> (MongoDBObject("isValid" -> false))))
+    dao.update(MongoDBObject("_id" -> comment.id), MongoDBObject("$set" -> MongoDBObject("isValid" -> false)))
   }
 }
 

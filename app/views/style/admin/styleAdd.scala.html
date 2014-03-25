@@ -23,20 +23,19 @@
 			@Messages("hair.stylist")<input type = "text" class="" name = "stylistId" field = styleAddForm("stylistId") value = "530d8010d7f2861457771bf8">	
 		</div>
 		<div align="left">	
-			@input(field = styleAddForm("styleLength"),args = '_label ->Messages("hair.styleLength")){(id,name,value,args) =>
+		@input(field = styleAddForm("styleLength"),args = '_label ->Messages("hair.styleLength")){(id,name,value,args) =>
             @for(i <- 0 to stylePara.styleLength.length-1){
-                  <input type = "checkbox" class="" name = "styleLength[@i]", value = "@stylePara.styleLength(i)">@stylePara.styleLength(i)
+                  <input type = "radio" class="" name = "styleLength", value = "@stylePara.styleLength(i)">@stylePara.styleLength(i)
+            }
+        }
+        @input(field = styleAddForm("styleImpression"),args = '_label ->Messages("hair.impression")){(id,name,value,args) =>
+            @for(i <- 0 to stylePara.styleImpression.length-1){
+                  <input type = "radio" class="" name = "styleImpression", value = "@stylePara.styleImpression(i)">@stylePara.styleImpression(i)
             }
         }
         @input(field = styleAddForm("styleColor"),args = '_label ->Messages("hair.color")){(id,name,value,args) =>
             @for(i <- 0 to stylePara.styleColor.length-1){
                   <input type = "checkbox" class="" name = "styleColor[@i]", value = "@stylePara.styleColor(i)">@stylePara.styleColor(i)
-            }
-        }
-
-        @input(field = styleAddForm("styleImpression"),args = '_label ->Messages("hair.impression")){(id,name,value,args) =>
-            @for(i <- 0 to stylePara.styleImpression.length-1){
-                  <input type = "checkbox" class="" name = "styleImpression[@i]", value = "@stylePara.styleImpression(i)">@stylePara.styleImpression(i)
             }
         }
         @input(field = styleAddForm("serviceType"),args = '_label ->Messages("hair.serviceType")){(id,name,value,args) =>
@@ -59,7 +58,6 @@
                   <input type = "checkbox" class="" name = "styleDiameter[@i]", value = "@stylePara.styleDiameter(i)">@stylePara.styleDiameter(i)
             }
         }
-
         @input(field = styleAddForm("faceShape"),args = '_label ->Messages("hair.faceShape")){(id,name,value,args) =>
             @for(i <- 0 to stylePara.faceShape.length-1){
                   <input type = "checkbox" class="" name = "faceShape[@i]" value = "@stylePara.faceShape(i)">@stylePara.faceShape(i)
@@ -72,7 +70,7 @@
         }
         @input(field = styleAddForm("consumerSex"),args = '_label ->Messages("hair.consumerSex")){(id,name,value,args) =>
             @for(i <- 0 to stylePara.consumerSex.length-1){
-                  <input type = "checkbox" class="" name = "consumerSex[@i]" value = "@stylePara.consumerSex(i)">@stylePara.consumerSex(i)
+                  <input type = "radio" class="" name = "consumerSex" value = "@stylePara.consumerSex(i)">@stylePara.consumerSex(i)
             }
         }
         @input(field = styleAddForm("consumerAgeGroup"),args = '_label ->Messages("hair.consumerAgeGroup")){(id,name,value,args) =>
