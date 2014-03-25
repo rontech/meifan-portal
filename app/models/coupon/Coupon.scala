@@ -77,4 +77,6 @@ object Coupon {
   }
   
   def checkCoupon(CouponName:String): Boolean = CouponDAO.find(com.mongodb.casbah.commons.Imports.DBObject("couponName" -> CouponName)).hasNext
+  ////////////////////
+  def findOneById(couponId :ObjectId) = CouponDAO.findOneById(couponId)
 }

@@ -18,18 +18,17 @@
 	  			<div id="OtherScore">
         			<h1><a href="http://www.oschina.net/question/3307_20931" target="_blank" title="@Messages("user.howToGetPoint")"><em>@user.point</em>@Messages("user.point")</a></h1>
     			</div> 
-				<div style="clear: both"></div>
 	  		</div>
    			<div class='Opts clearfix'>
-                                <a href="@routes.Users.myInfo" class='a2 admin'><i>.</i><span>@Messages("user.changeInfo")</span></a>
-				<a href="/showBlog/@user.userId" class='a1 blog'><i>.</i><span>@Messages("user.myBlog")</span></a>
+                <a href="@routes.Users.myInfo" class='a2 admin'><span>@Messages("user.changeInfo")</span></a>
+				<a href="/showBlog/@user.userId" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
 			</div>  			
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("user.followSalon")</strong>
 	  			<ul class='clearfix'>
 	  						@followInfo.followSalon.map {salon =>
 	  						<li>
-    	 						<a href="#">@salon.salonName</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 						<a href="/salon/@salon.id" target="blank">@salon.salonName</a>&nbsp;&nbsp;&nbsp;&nbsp;
     	 			     	</li>
 	  				}
     			</ul>
@@ -63,6 +62,15 @@
        				<a href="@routes.MyFollows.followedUser(user.id)">@Messages("user.showAllFollow")@followInfo.followUser.length)</a>
      			</div>
 			</div>
+			<div class='Mod Users' id='Fans'>
+				<strong>快速导航</strong>
+        		<ul class='clearfix'>
+        			<li><a href="/myPage/myReservation">@Messages("user.reservation")</a></li></br>
+        			<li><a href="/myPage/followedCoupon">@Messages("user.collectCoupon")</a></li></br>
+        			<li><a href="/myPage/followedBlog/@user.id">@Messages("user.collectBlog")</a></li></br>
+        			<li><a href="/myPage/followedStyle/@user.id">@Messages("user.collectStyle")</a></li>
+        		</ul>
+	  		</div>
 	  		<div class='RMod' id='UserSkills'>
 	  			<a href = "@routes.Users.logout">@Messages("user.loginOut")</a>
 	  		</div>
