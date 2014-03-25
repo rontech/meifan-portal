@@ -101,27 +101,6 @@ object Coupons extends Controller {
   }
   
   /**
-   * 根据店铺查找所有优惠劵，菜单和服务
-   */
-  def findBySalon(salonId: ObjectId) = Action {
-    val salon: Option[Salon] = Salon.findById(salonId)
-    val coupons: List[Coupon] = Coupon.findBySalon(salonId)
-    val menus: List[Menu] = Menu.findBySalon(salonId)
-    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
-    val serviceTypeNames: List[String] = Service.getServiceTypeList
-    
-    var servicesByTypes: List[ServiceByType] = Nil
-    for(serviceType <- serviceTypeNames) {
-      var servicesByType: ServiceByType = ServiceByType("", Nil)
-      val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(salonId, serviceType))
-      servicesByTypes = y::servicesByTypes
-    }
-    
-    // TODO: process the salon not exist pattern.
-    Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus = menus, serviceByTypes = servicesByTypes))
-  }
-  
-  /**
      * 显示店铺所有的优惠劵
      */
     def showCoupons(salonId: ObjectId) = Action {
@@ -135,7 +114,7 @@ object Coupons extends Controller {
    * 根据查找条件检索出符合的优惠劵
 
    */
-  def findByCondtion(salonId: ObjectId) = Action {implicit request =>
+  def findByCondition(salonId: ObjectId) = Action {implicit request =>
     condtionForm.bindFromRequest.fold(
       errors => BadRequest(views.html.error.errorMsg(errors)),
       {

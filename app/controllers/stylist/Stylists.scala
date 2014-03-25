@@ -16,34 +16,15 @@ object Stylists extends Controller {
 
   def index = TODO
   
-   /**
-   * 
-   */
-  def findById(stylistId: ObjectId) = Action { 
-    val stylist: Option[Stylist] = Stylist.findOneById(stylistId)
-    val salonId =  SalonAndStylist.findByStylistId(stylistId).get.salonId
-    val salon: Option[Salon] = Salon.findById(salonId)
-    Ok(html.salon.store.salonInfoStylist(salon.get, stylist.get))
-  }
-  
-  def findBySalon(salonId: ObjectId) = Action {
+ 
+   def findStylistById(id: ObjectId) = Action {
+        val stylist = Stylist.findOneById(id)
+        val salonId =  SalonAndStylist.findByStylistId(id).get.salonId
+        val salon = Salon.findById(salonId)
+        val style = Style.findByStylistId(id)
+        Ok(html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, style = style))
+    }
 
-    val salon: Option[Salon] = Salon.findById(salonId)
-    val nav: String = "style"
-    val stylistsOfSalon: List[Stylist] = Stylist.findBySalon(salonId)    
-     // TODO
-    Ok(html.salon.store.salonInfoStylistAll(salon.get, stylistsOfSalon))
-
-  }
-  
-  def findStylistById(id: ObjectId) = Action {
-    val stylist = Stylist.findOneById(id)
-    val salonId =  SalonAndStylist.findByStylistId(id).get.salonId
-    val salon = Salon.findById(salonId)
-    val style = Style.findByStylistId(id)
-    Ok(html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, style = style))
-  }
-  
   /**
    *  同意salon邀请
    */

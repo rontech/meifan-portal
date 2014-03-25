@@ -37,9 +37,19 @@ trait SalonAndStylistDAO extends ModelCompanion[SalonAndStylist, ObjectId]{
   }
    
   def findByStylistId(stylistId: ObjectId): Option[SalonAndStylist] = {
-	 dao.findOne(MongoDBObject("stylistId" -> stylistId, "isValid" -> true))
+    dao.findOne(MongoDBObject("stylistId" -> stylistId, "isValid" -> true))
   }
   
+  /**
+   * To Check that if a stylist is active in a salon. 
+   */
+  def isStylistActive(salonId: ObjectId, stylistId: ObjectId): Boolean = {
+    val stls: Option[SalonAndStylist] = dao.findOne(MongoDBObject("salonId" -> salonId, "stylistId" -> stylistId, "isValid" -> true))
+    stls match {
+      case Some(s) => true
+      case None => false 
+    }
+  }
   /**
    *  与店铺签约
    */
