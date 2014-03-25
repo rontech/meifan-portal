@@ -21,16 +21,7 @@ GET     /myPage/		                controllers.Users.myPage
 GET     /userPage/:userId               controllers.Users.userPage(userId)
 
 GET     /myPage/myReservation        	controllers.Users.myReservation
-GET     /myPage/followedCoupon          controllers.MyFollows.followedCoupon
-GET     /myPage/followedBlog/:id 	    controllers.MyFollows.followedBlog(id: ObjectId)
-GET     /myPage/followedStyle/:id		controllers.MyFollows.followedStyle(id: ObjectId)
-GET     /myPage/followedSalonActi       controllers.MyFollows.followedSalonActi
-GET     /myPage/followedSalon			controllers.MyFollows.followedSalon(id: ObjectId)
-GET     /myPage/followedStylist		    controllers.MyFollows.followedStylist(id: ObjectId)
-GET     /myPage/followedUser			controllers.MyFollows.followedUser(id:ObjectId)
-GET     /myPage/followers				controllers.MyFollows.followers(id:ObjectId)
-GET     /cancelFollow/:followedId    	controllers.MyFollows.cancelFollow(followedId:ObjectId)
-GET     /addFollow/:followId             controllers.MyFollows.addFollow(followId:ObjectId,relationTypeId:String)
+
 
 GET     /userPage/userBlog/:userId	    controllers.Users.userBlog(userId)
 GET     /userPage/userStyle/:userId     controllers.Users.userStyle(userId)
@@ -122,14 +113,14 @@ GET     /myInfo/                        controllers.Users.myInfo
 GET     /userInfo/:userId               controllers.Users.userInfo(userId)
 GET     /myPage/                        controllers.Users.myPage
 GET     /myPage/myReservation           controllers.Users.myReservation
-GET     /myPage/myFollowedCoupon        controllers.Users.myFollowedCoupon
-GET     /myPage/myFollowedBlog          controllers.Users.myFollowedBlog
-GET     /myPage/myFollowedStyle         controllers.Users.myFollowedStyle
-GET     /myPage/myFollowedSalonActi     controllers.Users.myFollowedSalonActi
-GET     /myPage/myFollowedSalon         controllers.Users.myFollowedSalon
-GET     /myPage/myFollowedStylist       controllers.Users.myFollowedStylist
-GET     /myPage/myFollowedUser          controllers.Users.myFollowedUser
-GET     /myPage/myFollowers             controllers.Users.myFollowers
+GET     /myPage/followedCoupon          controllers.MyFollows.followedCoupon
+GET     /myPage/followedBlog/:id 	controllers.MyFollows.followedBlog(id: ObjectId)
+GET     /myPage/followedStyle/:id	controllers.MyFollows.followedStyle(id: ObjectId)
+GET     /myPage/followedSalonActi       controllers.MyFollows.followedSalonActi
+GET     /myPage/followedSalon		controllers.MyFollows.followedSalon(id: ObjectId)
+GET     /myPage/followedStylist		controllers.MyFollows.followedStylist(id: ObjectId)
+GET     /myPage/followedUser		controllers.MyFollows.followedUser(id:ObjectId)
+GET     /myPage/followers		controllers.MyFollows.followers(id:ObjectId)
 GET     /userPage/userBlog/:userId      controllers.Users.userBlog(userId)
 GET     /userPage/userStyle/:userId     controllers.Users.userStyle(userId)
 GET     /myPage/messages/:req           controllers.UserLetters.messageList(req:String)
@@ -137,8 +128,8 @@ GET     /myPage/message/:id             controllers.UserLetters.showMessage(id:O
 
 GET     /applyStylist                   controllers.Users.applyStylist
 POST    /commitStylistApply             controllers.Users.commitStylistApply
-GET     /cancelFollow/:userName/:salonId    controllers.Users.cancelFollow(userName:String,salonId:ObjectId)
-GET     /addFollow/:followId            controllers.Users.addFollow(followId:ObjectId,relationTypeId:String)
+GET     /cancelFollow/:followedId    	controllers.MyFollows.cancelFollow(followedId:ObjectId)
+GET     /addFollow/:followId             controllers.MyFollows.addFollow(followId:ObjectId,relationTypeId:String)
 
 # Reservations Management
 GET     /findReserv/:page               controllers.Records.findReserv(page:Int) 

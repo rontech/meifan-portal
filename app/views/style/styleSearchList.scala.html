@@ -126,7 +126,7 @@
 <div>
  	@Messages("hair.style")
    	@for(i <- 0 to styles.length-1){
-   		<a href="@routes.Styles.getStyleInfoOfSalon(styles(i).id,salon.id)" >
+   		<a href="@routes.Salons.getOneStyle(salon.id, styles(i).id)" >
    			<img src="#" class="" alt="@styles(i).styleName" >
    		</a>
 		<div class="layer jscLayer jscFixPng">
@@ -139,7 +139,7 @@
 			<p><a href="">@Messages("hair.detailInfo")</a></p>
 		</div>
 		<div class="mT2">
-			<a href="@routes.Styles.getStyleInfoOfSalon(styles(i).id,salon.id)" class="rankingListInnerAnchor" >
+			<a href="@routes.Salons.getOneStyle(salon.id, styles(i).id)" class="rankingListInnerAnchor" >
 				<p><span class="photoCaption">@styles(i).styleName</span></p>
 				<div class="mT2">
 					<p class="rankingListShop">@salon.salonName</p>

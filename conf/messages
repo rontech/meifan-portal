@@ -44,6 +44,7 @@ main.myPage=我的主页
 
 
 # Salon
+salon.register=店铺注册
 salon.tabName=美发沙龙
 salon.salonMainPage=美容美发沙龙检索首页
 salon.show=展示所有沙龙
@@ -384,8 +385,8 @@ city.cityName.Qingdao=青岛市
 
 
 # 区
-region.regionName.GaoXin=高新区
-region.regionName.Xuan=玄武区
+region.regionName.Gaoxin=高新区
+region.regionName.Xuanwu=玄武区
 region.regionName.Gulou=鼓楼区
 
 
