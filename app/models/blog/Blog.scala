@@ -32,41 +32,65 @@ case class Blog(
 object Blog extends ModelCompanion[Blog, ObjectId] {
   val dao = new SalatDAO[Blog, ObjectId](collection = mongoCollection("Blog")) {}
   
-  /**
-   * 指定店铺和Blog的Id精确找到一篇blog
-   */
-  def findBySalon(salonId: ObjectId, blogId: ObjectId): Option[Blog] = {
-    val stylistList = Stylist.findBySalon(salonId)
-    var blog : Option[Blog] = None
-    stylistList.foreach(
-      {
-      row => 
-      blog = Blog.findOne(DBObject("authorId" -> row, "_id" -> blogId))
-      if(blog != None)
-        return blog  
-      }
-   )
-   blog
-   }
+//  /**
+//   * 指定店铺和Blog的Id精确找到一篇blog
+//   */
+//  def findBySalon(salonId: ObjectId, blogId: ObjectId): Option[Blog] = {
+//    val stylistList = Stylist.findBySalon(salonId)
+//    var blog : Option[Blog] = None
+//    stylistList.foreach(
+//      {
+//      row => 
+//      blog = Blog.findOne(DBObject("authorId" -> row, "_id" -> blogId))
+//      if(blog != None)
+//        return blog  
+//      }
+//   )
+//   blog
+//   }
   
   /**
    * 找到该店铺下面所有发型师的Blog
    */
-  var blogList : List[Blog] = Nil
   def findBySalon(salonId: ObjectId): List[Blog] = {
+    var blogList : List[Blog] = Nil
     val stylistList = Stylist.findBySalon(salonId)
     var blog : List[Blog] = Nil
     stylistList.foreach(
       {
       row => 
         var user = User.findOneById(row.publicId).get
-        blog = Blog.find(DBObject("authorId" -> user.userId)).toList
+        blog = Blog.find(DBObject("authorId" -> user.userId)).sort(MongoDBObject("updateTime" -> -1)).toList
         if(!blog.isEmpty)
           blogList :::= blog
       }
     )
     blogList
   }
+  
+  /**
+   * 查找店铺的最新blog（显示不多于5条）
+   */
+  def getNewestBlogsOfSalon(salonId: ObjectId) = {
+    if(findBySalon(salonId).size <= 5){
+      findBySalon(salonId)
+    }else{
+      findBySalon(salonId).dropRight(findBySalon(salonId).size-5)
+    }
+  }
+  
+//  /**
+//   * 显示店铺中有blog的店员的名字
+//   */
+//  def findUserHaveBlog(salonId: ObjectId) = {
+//    var blogList = findBySalon(salonId)
+//    var userList : List[User] = Nil
+//    blogList.foreach({
+//      row =>
+//        Blog.find(DBObject("authorId").toList
+//    })
+//  }
+  
 
   /**
    * 通过该用户的UserId找到该用户的blog

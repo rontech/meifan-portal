@@ -152,6 +152,10 @@ GET     /salon/:salonId/blogs/:stylistId       controllers.Blogs.getBlogByStylis
 
 GET     /salon/:salonId/blogs            controllers.Blogs.findBySalon(salonId: ObjectId)
 
+GET     /salon/:salonId/blogYM/:yM      controllers.Blogs.getBlogByYM(salonId: ObjectId, yM: String)
+
+GET     /salon/:salonId/stylist/:userId      controllers.Blogs.getBlogAuthor(salonId: ObjectId, userId: String)
+
 
 
 # Map static resources from the /public folder to the /assets URL path
