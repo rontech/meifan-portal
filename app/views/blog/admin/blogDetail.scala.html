@@ -1,10 +1,10 @@
-@(blog : Blog, user : User, commentList : List[Comment])
+@(blog : Blog, user : User, commentList : List[Comment], followInfo:FollowInfomation)
 
 @import views.html.user._
 @import java.text.DateFormat
 
 
-@myPageMain(navInMyPage = "my-blog", user) {
+@myPageMain(navInMyPage = "my-blog", user, followInfo) {
 <script type="text/javascript">
     @*function delete_c(commentId, blogId){
         if(!confirm("您确认要删除此篇评论？")){

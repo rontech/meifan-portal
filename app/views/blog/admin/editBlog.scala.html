@@ -1,9 +1,9 @@
-@(formBlog: Form[Blog], list : List[String], user : User)
+@(formBlog: Form[Blog], list : List[String], user : User, followInfo:FollowInfomation)
 
 @import helper._
 @import views.html.user._
 
-@myPageMain(navInMyPage = "my-blog", user) {
+@myPageMain(navInMyPage = "my-blog", user, followInfo) {
     @form(action = routes.Blogs.modBlog(formBlog.get.id)) {
       <fieldset>
         @inputText(formBlog("title"),'_label -> "标题")             
