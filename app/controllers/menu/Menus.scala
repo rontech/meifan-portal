@@ -73,11 +73,72 @@ object Menus extends Controller {
     )
   }
   
+  /**
+   * 进入修改菜单画面
+   */
+  def editMenuInfo(menuId: ObjectId) = Action {
+    val menu = Menu.findOneById(menuId)
+    
+    menu match {
+      case Some(s) => val salon = Salon.findById(s.salonId)
+                      salon match {
+                         case Some(k) => Ok(html.salon.admin.editSalonMenu(k, menuForm.fill(s), Service.findBySalonId(s.salonId)))
+                         case None => NotFound
+                      }
+      case None => NotFound
+    }
+  }
+  
+  /**
+   * 更新菜单信息
+   */
+  def updateMenu(menuId: ObjectId) = Action { implicit request =>
+    menuForm.bindFromRequest.fold(
+        errors => BadRequest(views.html.error.errorMsg(errors)),
+        {
+          menu =>
+            val oldMenu: Option[Menu] = Menu.findOneById(menuId)
+            var services: List[Service] = Nil
+            var originalPrice: BigDecimal = 0
+            var serviceDuration: Int = 0
+            
+            for(serviceItem <- menu.serviceItems) {
+              val service: Option[Service] = Service.findOneByServiceId(serviceItem.id)
+              service match {
+                case Some(s) => services = s::services
+                				originalPrice = s.price + originalPrice
+                				serviceDuration = s.duration + serviceDuration
+                case None => NotFound
+              }
+            }
+            
+            oldMenu match {
+              case Some(s) => val newMenu = s.copy(description = menu.description, serviceItems = services, originalPrice = originalPrice, serviceDuration = serviceDuration)
+                               println("newMenu = " + newMenu)
+              Menu.save(newMenu)
+              case None => NotFound
+            }
+            
+            
+            val salon: Option[Salon] = Salon.findById(menu.salonId)
+		    val menus: List[Menu] = Menu.findBySalon(menu.salonId)
+            salon match {
+		      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, menus))
+		      case None => NotFound
+		    }
+        }
+    )
+    
+  }
+  
+  /**
+   * 无效菜单
+   */
   def invalidMenu(menuId: ObjectId) = Action {
     val menu: Option[Menu] = Menu.findOneById(menuId)
     
     menu match {
-      case Some(s) => val menuTemp = s.copy(isValid = false)
+      case Some(s) => val menuTemp = s.copy(expireDate = Some(new Date()), isValid = false)
                       Menu.save(menuTemp)
                       val salon: Option[Salon] = Salon.findById(s.salonId)
                       val menus: List[Menu] = Menu.findBySalon(s.salonId)

@@ -5,6 +5,7 @@ import play.api.PlayException
 import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.commons.Imports._
+import se.radley.plugin.salat.Binders._
 import com.mongodb.casbah.MongoConnection
 import com.novus.salat.Context
 import mongoContext._
@@ -57,11 +58,16 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
       applyRe.map{app =>
         val stylist = dao.findOne(DBObject("_id" -> app.stylistId))
         stylist match {
-          case Some(sty) => stylists :: List(sty)
+          case Some(sty) => stylists :::= List(sty)
           case _ => stylists
         }
       }
       stylists
     }
-    
+
+    def becomeStylist(stylistId : ObjectId) =  {
+    	dao.update(MongoDBObject("_id" -> stylistId), MongoDBObject("$set" -> (MongoDBObject("isVarified" -> true)++
+                MongoDBObject("isValid" -> true))))   
+    }
 }
+

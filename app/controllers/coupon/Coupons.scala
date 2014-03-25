@@ -33,33 +33,28 @@ object Coupons extends Controller {
     {
       coupon => Some((coupon.couponName, coupon.salonId.toString(), coupon.serviceItems, coupon.perferentialPrice, coupon.startDate,
           coupon.endDate, coupon.useConditions, coupon.presentTime, coupon.description))
-    }.verifying(
-        "This name has been used!",
-        coupon => !Coupon.checkCoupon(coupon.couponName)   
-    )
+    }
   }
   
-  /**
-   * 定义一个搜索表单
-   */
-  val condtionForm = Form(tuple(
-      "mc0" -> optional(text),
-      "mc1" -> optional(text),
-      "mc2" -> optional(text),
-      "mc3" -> optional(text),
-      "mc4" -> optional(text),
-      "mc5" -> optional(text),
-      "mc6" -> optional(text),
-      "mc7" -> optional(text),
-      "subMenuFlg" -> optional(text)
-      )
-  )
+  def condtionForm: Form[CouponServiceType] = Form {
+      mapping(
+            "serviceTypes" -> list(
+             mapping (
+                 "serviceTypeName" -> text
+             ){(serviceTypeName) => ServiceType(new ObjectId(), serviceTypeName, "")}
+             {serviceType => Some((serviceType.serviceTypeName))}),
+            "subMenuFlg" -> optional(text) 
+      )(CouponServiceType.apply)(CouponServiceType.unapply)
+  }
   
   def index = Action {
     val coupons:Seq[Coupon] = Coupon.findAll().toList
     Ok(views.html.coupon.couponOverview(coupons))
   }
   
+  /**
+   * 进入创建优惠劵画面
+   */
   def couponMain(salonId: ObjectId) = Action{
 	  val salon: Option[Salon] = Salon.findById(salonId)
 	  
@@ -69,6 +64,9 @@ object Coupons extends Controller {
 	  }
   }
   
+  /**
+   * 创建优惠劵
+   */
   def createCoupon = Action {implicit request =>
     couponForm.bindFromRequest.fold(
         errors => BadRequest(views.html.error.errorMsg(errors)),
@@ -109,6 +107,7 @@ object Coupons extends Controller {
     val menus: Seq[Menu] = Menu.findBySalon(salonId)
     val serviceTypes: Seq[ServiceType] = ServiceType.findAll().toList
     val serviceTypeNames: Seq[String] = Service.getServiceTypeList
+    val couponServiceType: CouponServiceType = CouponServiceType(Nil, Some("1"))
     
     var servicesByTypes: List[ServiceByType] = Nil
     for(serviceType <- serviceTypeNames) {
@@ -117,8 +116,10 @@ object Coupons extends Controller {
       servicesByTypes = y::servicesByTypes
     }
     
-    // TODO: process the salon not exist pattern.
-    Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus, servicesByTypes))
+    salon match {
+        case Some(s) => Ok(html.salon.store.salonInfoCouponAll(s, condtionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes))
+        case None => NotFound
+    }
   }
   
   /**
@@ -128,7 +129,10 @@ object Coupons extends Controller {
       val salon: Option[Salon] = Salon.findById(salonId)
       val coupons: List[Coupon] = Coupon.findBySalon(salonId)
       
-      Ok(html.coupon.showCouponGroup(salon.get, coupons))
+      salon match {
+        case Some(s) => Ok(html.coupon.showCouponGroup(s, coupons))
+        case None => NotFound
+      }
     }
   
   /**
@@ -140,25 +144,30 @@ object Coupons extends Controller {
       errors => BadRequest(views.html.error.errorMsg(errors)),
       {
         serviceType =>
-          val subMenuFlg = serviceType.productElement(serviceType.productArity-1)
           var coupons: Seq[Coupon] = Nil
           var menus: Seq[Menu] = Nil
           var serviceTypeNames: Seq[String] = Nil
           var conditions: List[String] = Nil
           var servicesByTypes: List[ServiceByType] = Nil
+          var typebySearchs: List[ServiceType] = Nil
+          var couponServiceType: CouponServiceType = CouponServiceType(Nil, serviceType.subMenuFlg)
 
-          for(i <- 0 to serviceType.productArity-2) {
-            serviceType.productElement(i) match {
-              case Some(s) => conditions = (s.toString)::conditions
-              case None => NotFound
-            }
+          for(serviceTypeOne <- serviceType.serviceTypes) {
+              conditions = serviceTypeOne.serviceTypeName::conditions
+              val serviceType: Option[ServiceType] = ServiceType.findOneByTypeName(serviceTypeOne.serviceTypeName)
+              serviceType match {
+                  case Some(s) => typebySearchs = s::typebySearchs
+                  case None => NotFound
+              }
           }
-          
+            
+          couponServiceType = couponServiceType.copy(serviceTypes = typebySearchs)
+            
           val serviceTypes: Seq[ServiceType] = ServiceType.findAll().toList
-          if(subMenuFlg == None) {
+          if(serviceType.subMenuFlg == None) {
             //coupons = Coupon.findContainCondtions(serviceTypes)
           } else {
-            if(conditions.isEmpty) {
+            if(serviceType.serviceTypes.isEmpty) {
               coupons = Coupon.findBySalon(salonId)
               menus = Menu.findBySalon(salonId)
               serviceTypeNames = Service.getServiceTypeList
@@ -170,19 +179,76 @@ object Coupons extends Controller {
             } else {
               coupons = Coupon.findContainCondtions(conditions)
               menus = Menu.findContainCondtions(conditions)
-		      for(serviceType <- conditions) {
+		      for(serviceTypeOne <- serviceType.serviceTypes) {
 		        var servicesByType: ServiceByType = ServiceByType("", Nil)
-		        val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(salonId, serviceType))
+		        val y = servicesByType.copy(serviceTypeName = serviceTypeOne.serviceTypeName, serviceItems = Service.getTypeListBySalonId(salonId, serviceTypeOne.serviceTypeName))
 		        servicesByTypes = y::servicesByTypes
 		      }
             }
           }
           val salon: Option[Salon] = Salon.findById(salonId)
           
-          Ok(html.salon.store.salonInfoCouponAll(salon = salon.get, serviceTypes = serviceTypes, coupons = coupons, menus, servicesByTypes))
+          salon match {
+	          case Some(s) => Ok(html.salon.store.salonInfoCouponAll(s, condtionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes))
+	          case None => NotFound
+	      }
       })
   }
   
+  /**
+   * 进入修改优惠劵画面
+   */
+  def editCouponInfo(couponId: ObjectId) = Action {
+    val coupon = Coupon.findOneById(couponId)
+    
+    coupon match {
+      case Some(s) => val salon = Salon.findById(s.salonId)
+                      salon match {
+                         case Some(k) => Ok(html.salon.admin.editSalonCoupon(k, couponForm.fill(s), Service.findBySalonId(s.salonId)))
+                         case None => NotFound
+                      }
+      case None => NotFound
+    }
+  }
+  
+  /**
+   * 更新优惠劵信息
+   */
+  def updateCoupon(couponId: ObjectId) = Action { implicit request =>
+    couponForm.bindFromRequest.fold(
+        errors => BadRequest(views.html.error.errorMsg(errors)),
+        {
+          coupon =>
+            var services: List[Service] = Nil
+            var originalPrice: BigDecimal = 0
+            var serviceDuration: Int = 0
+            
+            for(serviceItem <- coupon.serviceItems) {
+              val service: Option[Service] = Service.findOneByServiceId(serviceItem.id)
+              service match {
+                case Some(s) => services = s::services
+                				originalPrice = s.price + originalPrice
+                				serviceDuration = s.duration + serviceDuration
+                case None => NotFound
+              }
+            }
+            val couponTemp = coupon.copy(id = couponId, couponId = couponId.toString(), salonId = coupon.salonId, serviceItems = services, originalPrice = originalPrice, serviceDuration = serviceDuration)
+            Coupon.save(couponTemp)
+            
+            val salon: Option[Salon] = Salon.findById(coupon.salonId)
+		    val coupons: List[Coupon] = Coupon.findBySalon(coupon.salonId)
+            salon match {
+		      case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, coupons))
+		      case None => NotFound
+		    }
+        }
+    )
+    
+  }
+  
+  /**
+   * 无效优惠劵
+   */
   def invalidCoupon(couponId: ObjectId) = Action {
     val coupon: Option[Coupon] = Coupon.findOneById(couponId)
     
@@ -199,5 +265,6 @@ object Coupons extends Controller {
       case None => NotFound
     }
   }
+  
 
 }

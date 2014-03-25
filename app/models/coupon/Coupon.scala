@@ -32,6 +32,11 @@ case class Coupon (
         isValid: Boolean
 )
 
+case class CouponServiceType (
+		serviceTypes: List[ServiceType],
+		subMenuFlg: Option[String]
+)
+
 object Coupon extends ModelCompanion[Coupon, ObjectId]{
 
   val dao = new SalatDAO[Coupon, ObjectId](collection = mongoCollection("Coupon")){}

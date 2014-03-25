@@ -61,8 +61,7 @@
 				<div class="cFix mT10">
 					<div class="fl w99">
 						<a href="@routes.Stylists.findStylistById(Stylist.findOneById(style.stylistId).get.id)">
-							<img src=""
-							alt="">
+							@*<img src="@routes.Application.getPhoto(style.stylePic(0))">*@
 						</a>
 					</div>
 					<div class="fr w318">
@@ -198,7 +197,7 @@
 						@if(stylistAll.id != style.id) {
 							<li>
 								<a href="@routes.Styles.getStyleInfoOfSalon(salon.id,stylistAll.id)"  class="db pr">
-									<img src=""
+									@*<img src="@routes.Application.getPhoto(stylistAll.stylePic(0))"*@
 									class="bdImgGray" oncontextmenu="return false;">
 								</a>
 							</li>

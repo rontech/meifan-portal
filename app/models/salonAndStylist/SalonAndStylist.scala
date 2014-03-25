@@ -14,9 +14,9 @@ case class SalonAndStylist(
 		id: ObjectId = new ObjectId,
 		salonId: ObjectId,
 		stylistId: ObjectId,
-		position: IndustryAndPosition,
-		entryTime: Date,
-		leaveTime: Option[Date],
+		position: List[IndustryAndPosition],
+		entryDate: Date,
+		leaveDate: Option[Date],
 		isValid: Boolean
 )
 
@@ -39,6 +39,36 @@ trait SalonAndStylistDAO extends ModelCompanion[SalonAndStylist, ObjectId]{
   def findByStylistId(stylistId: ObjectId): Option[SalonAndStylist] = {
 	 dao.findOne(MongoDBObject("stylistId" -> stylistId, "isValid" -> true))
   }
+  
+  /**
+   *  与店铺签约
+   */
+  def entrySalon(salonId: ObjectId,stylistId: ObjectId) = {
+    val stylist = Stylist.findOneById(stylistId)
+    stylist match {
+      case Some(sty) => {
+        dao.save(new SalonAndStylist(new ObjectId, salonId,
+          stylistId, sty.position, new Date, None,
+          true))
+      }
+      case None => None 
+    }
+  }
+  
+  /**
+   *  技师与店铺解约
+   */
+  def leaveSalon(salonId: ObjectId,stylistId: ObjectId) = {
+    val salonAndStylist = dao.findOne(MongoDBObject("salonId" -> salonId, "stylistId" -> stylistId, "isValid" -> true))
+    salonAndStylist match {
+      case Some(relation) => dao.update(MongoDBObject("_id" -> relation.id), MongoDBObject("$set" -> (
+    		  MongoDBObject("leaveDate" -> new Date)++
+    		  MongoDBObject("isValid" -> false)
+      )))
+      // TODO
+      case None => None 
+    }
+ }
    
 } 
 

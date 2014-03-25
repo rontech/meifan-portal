@@ -90,10 +90,10 @@ object InitialData {
 
     if(StyleColor.findAll.isEmpty) {
       Seq (
-          StyleColor(new ObjectId, "红", ""),
-          StyleColor(new ObjectId, "黄", ""),
-          StyleColor(new ObjectId, "黑色", ""),
-          StyleColor(new ObjectId, "其他颜色", "")
+          StyleColor(new ObjectId, "红", "红色"),
+          StyleColor(new ObjectId, "黄", "黄色"),
+          StyleColor(new ObjectId, "黑色", "黑色"),
+          StyleColor(new ObjectId, "其他颜色", "其他颜色")
         ).foreach(StyleColor.save)
     }
     
@@ -172,18 +172,7 @@ object InitialData {
           AgeGroup(new ObjectId, "31-80", "")
         ).foreach(AgeGroup.save)
     }
-    
-    if(RelationType.findAll.isEmpty){
-      Seq(
-       RelationType(new ObjectId("53217c2ed4d5c027e48dd978"), "关注店铺", 1),
-       RelationType(new ObjectId("53217c35d4d5c027e48dd97a"), "关注技师", 2),
-       RelationType(new ObjectId("53217c4cd4d5c027e48dd97c"), "收藏风格", 3),
-       RelationType(new ObjectId("53217c62d4d5c027e48dd97e"), "收藏优惠劵", 4),
-       RelationType(new ObjectId("53217c6fd4d5c027e48dd980"), "收藏博客", 5),
-       RelationType(new ObjectId("53217c6fd4d5c027e48dd981"), "关注用户", 6)
-      ).foreach(RelationType.save)
-    } 
-   
+
     if(BlogCategory.getCategory.isEmpty){
       Seq (
         BlogCategory(new ObjectId("53195fb4a89e175858abce82"),"分类1", true),
@@ -283,18 +272,6 @@ object InitialData {
         ).foreach(Service.save)
     }
 
-   if(FollowCollect.findAll.isEmpty){
-      Seq(
-       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a8"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d7288d7f2861457771bdd"),1,true),
-       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a9"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d7292d7f2861457771bde"),1,true),
-       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a0"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d8010d7f2861457771bfd"),2,true),
-       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a1"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d8010d7f2861457771c01"),2,true),
-       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a2"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d8010d7f2861457771c05"),2,true),
-       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a3"),new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("531964e0d4d57d0a43771411"),6,true),
-       FollowCollect(new ObjectId("531563e2d4d5b6a812c359a4"),new ObjectId("531964e0d4d57d0a43771411"),new ObjectId("53202c29d4d5e3cd47efffd3"),6,true)
-      ).foreach(FollowCollect.save)
-    }
-    
     if(User.findAll.isEmpty){
       Seq(
        User(new ObjectId("531964e0d4d57d0a43771411"),"zhenglu316","关雨1","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
