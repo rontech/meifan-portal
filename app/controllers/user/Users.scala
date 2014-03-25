@@ -214,7 +214,8 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def password = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    Ok(views.html.user.changePassword(Users.changePassForm.fill((user,"")), user))
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.changePassword(Users.changePassForm.fill((user,"")), user, followInfo))
   }
 
   /**
@@ -222,13 +223,14 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def changePassword(userId :String) = StackAction(AuthorityKey -> User.isOwner(userId) _) { implicit request =>
     val loginUser = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     Users.changePassForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.user.changePassword(errors, loginUser)),
+      errors => BadRequest(views.html.user.changePassword(errors, loginUser, followInfo)),
     //errors => BadRequest(views.html.user.error(errors, loginUser)),
       {
         case (user, main) =>
           User.save(user.copy(password = main), WriteConcern.Safe)
-          Ok(views.html.user.changePassword(Users.changePassForm.fill((loginUser,"")), loginUser))
+          Redirect(routes.Users.logout)
     })
   }
 

@@ -334,7 +334,8 @@ user.deleteFollow=取消收藏
 user.changePassword=修改密码
 user.oldPassword=原始密码
 user.newPassword=新密码
-user.confirmPassword=确认密码
+user.confirmPas=确认密码
+user.oldPasswordErr=原始密码不正确！
 
 #Letter
 letter.addressee=收件人
