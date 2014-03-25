@@ -1,6 +1,6 @@
-@(salon: Salon, stylist: Stylist, style:List[Style])
+@(salon: Salon, stylist: Stylist, style:List[Style], navBar: List[(String, String)] = Nil)
 
-@salonInfoMain(navInSalon = "salon-stylist", salon){
+@salonInfoMain(navInSalon = "salon-stylist", salon, navBar){
 	<div id="mainContents">
 		<div class="mT30">
 			<div class="stylePageTileOuter">
@@ -19,7 +19,7 @@
 			        	</a>
 			    	</div>
 				    <div class="mT20 pT10">
-				        <a href="@routes.Users.addFollow(stylist.id,"stylist")"
+				        <a href="@routes.MyFollows.addFollow(stylist.id,"stylist")"
 				        class="bS db addIntoMyStylist offL mHA">
 				            マイスタイリストに保存
 				        </a>

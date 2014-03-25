@@ -1,9 +1,9 @@
 @(stylistForm: Form[StylistApply], user: User, position: List[Position], industry: List[Industry], 
 	goodAtImage: List[StyleImpression], goodAtStatus: List[SocialStatus], 
-	goodAtService: List[Service], goodAtUser: List[Sex], goodAtAgeGroup: List[AgeGroup] )
+	goodAtService: List[Service], goodAtUser: List[Sex], goodAtAgeGroup: List[AgeGroup], followInfo:FollowInfomation)
 @import helper._
 
-@myPageMain(navInMyPage = "my-reservation",user){
+@myPageMain(navInMyPage = "my-reservation",user, followInfo){
 	
 	<div class="container">
 

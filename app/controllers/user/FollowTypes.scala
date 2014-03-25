@@ -28,9 +28,4 @@ object FollowTypes extends Controller {
           Ok(Html("successful!</p>"))                   
       })
   }
-  
-  def myFollowers(id:ObjectId) = {
-    val myFollowerList = MyFollows.getFollowers(id)
-    Ok(views.html.user.subModel.myFollows(id,myFollowerList))
-  }  
 }

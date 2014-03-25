@@ -21,7 +21,7 @@ case class User(
   userPics: ObjectId,
   tel: String,
   email: String,
-  optContactMethod: Seq[OptContactMethod],
+  optContactMethods: Seq[OptContactMethod],
   socialStatus: String,
   userTyp: String,
   userBehaviorLevel: String,

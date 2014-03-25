@@ -1,23 +1,22 @@
-@(userForm: Form[User])
+@* UserInfomation Template File *@
+@(userForm: Form[User], followInfo:FollowInfomation)
  @import helper._
 
- 
- 
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
         <input type="text" name="@name" value="@value"> 
-        <a class="removeAccount">Remove</a>
+        <a class="removeAccount btn danger">Remove</a>
     }
 }
 
-@informationGroup(field: Field, className: String = "profile") = {
+@optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
     <div class="twipsies well @className">
         
-        <a class="removeProfile">Remove this profile</a>
+        <a class="removeoptContactMethod btn danger pull-right">Remove this optContactMethod</a>
 
         @inputText(
             field("contMethodType"), 
-            '_label -> Messages("salon.contMethodType")
+            '_label -> Messages("user.contMethodType")
         )
         
         <div class="accounts">
@@ -43,11 +42,11 @@
             </div>
         
         </div>
-
+ 
     </div>
 }
 
-    @myPageMain(navInMyPage = "information", userForm.get) {
+    @myPageMain(navInMyPage = "information", userForm.get, followInfo)  {
 
         @form(routes.Users.updateInfo(userForm.get.userId), 'id -> "userForm") {
           <fieldset>
@@ -83,24 +82,24 @@
 		  <fieldset>
             <legend>@Messages("user.optContactMethod")</legend>
             
-            <div id="profiles">
+            <div id="optContactMethods">
             
-                @repeat(userForm("optContactMethod")) { optContactMethod =>
+                @repeat(userForm("optContactMethods")) { optContactMethod =>
                 
-                    @informationGroup(optContactMethod)
+                    @optContactMethodGroup(optContactMethod)
                 
                 }
                 
                 @**
                  * Keep an hidden block that will be used as template for Javascript copy code
                  **@
-                @informationGroup(
-                    userForm("optContactMethod[x]"),
-                    className = "profile_template"
+                @optContactMethodGroup(
+                    userForm("optContactMethods[x]"),
+                    className = "optContactMethod_template"
                 )
                 
                 <div class="manage">
-                    <a class="addProfile btn success">Add another profile</a>
+                    <a class="addoptContactMethod btn success">Add another optContactMethod</a>
                 </div>
             
             </div>
@@ -111,8 +110,8 @@
         
         <script type="text/javascript" charset="utf-8">
         
-        $('.removeProfile').live('click', function(e) {
-            $(this).parents('.profile').remove()
+        $('.removeoptContactMethod').live('click', function(e) {
+            $(this).parents('.optContactMethod').remove()
             renumber()
         })
         
@@ -129,16 +128,16 @@
             renumber(accounts)
         })
         
-        $('.addProfile').live('click', function(e) {
-            var template = $('.profile_template')
-            template.before('<div class="twipsies well profile">' + template.html() + '</div>')
+        $('.addoptContactMethod').live('click', function(e) {
+            var template = $('.optContactMethod_template')
+            template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
             renumber()
         })
        
         var renumber = function(accounts) {
-            $('.profile').each(function(i) {
+            $('.optContactMethod').each(function(i) {
                 $('input', this).each(function() {
-                    $(this).attr('name', $(this).attr('name').replace(/informations\[.+?\]/g, 'optContactMethod[' + i + ']'))
+                    $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
                 })
                 $('.account input', this).each(function(i) {
                     $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
@@ -147,5 +146,6 @@
         }
         
     </script>
+   
 
     }

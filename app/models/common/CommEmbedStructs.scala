@@ -18,6 +18,6 @@ case class OnUsePicture(
  * Embed Structure.
 */
 case class OptContactMethod (
-    contMethmodType: String,
-    account: List[String]
+    contMethodType: String,
+    accounts: List[String]
 )
