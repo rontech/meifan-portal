@@ -2,18 +2,11 @@ package models
 
 import play.api.Play.current
 import java.util.Date
-import com.novus.salat._
-import com.novus.salat.annotations._
 import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import mongoContext._
-import models._
 
-
-
-
-    
 case class Blog(
     id : ObjectId = new ObjectId,
     title : String, 
@@ -25,7 +18,7 @@ case class Blog(
     blogPics : Option[List[String]], // TODO
     tags : List[String],
     isVisible : Boolean,
-    pushToSlaon : Option[Boolean],
+    pushToSalon : Option[Boolean],
     allowComment : Boolean,
     isValid : Boolean)
 
@@ -59,7 +52,7 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
     stylistList.foreach(
       {
       row => 
-        var user = User.findOneById(row.publicId).get
+        val user = User.findOneById(row.publicId).get
         blog = Blog.find(DBObject("authorId" -> user.userId)).toList
         if(!blog.isEmpty)
           blogList :::= blog
@@ -80,6 +73,6 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
   
   def delete(id : ObjectId) = {
     val blog = findOneById(id).get
-    dao.update(MongoDBObject("_id" -> blog.id), MongoDBObject("$set" -> (MongoDBObject("isValid" -> false))))
+    dao.update(MongoDBObject("_id" -> blog.id), MongoDBObject("$set" -> MongoDBObject("isValid" -> false)))
   }
 }

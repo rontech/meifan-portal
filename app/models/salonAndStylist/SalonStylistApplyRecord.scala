@@ -2,11 +2,9 @@ package models
 
 import play.api.Play.current
 import play.api.PlayException
-import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.commons.Imports._
 import com.mongodb.casbah.MongoConnection
-import com.novus.salat.Context
 import mongoContext._
 import java.util.Date
 
@@ -35,7 +33,7 @@ trait SalonStylistApplyRecordDAO extends ModelCompanion[SalonStylistApplyRecord,
   /**
    *  根据店铺id查找申请中的技师
    */
-  def findApplingStylist(salonId: ObjectId): List[SalonStylistApplyRecord] = {
+  def findApplyingStylist(salonId: ObjectId): List[SalonStylistApplyRecord] = {
     dao.find(MongoDBObject("salonId" -> salonId, "applyType" -> 1, "verifiedResult" -> 0)).toList
   }
   

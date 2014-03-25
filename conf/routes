@@ -4,36 +4,15 @@
 
 # Home page
 GET     /                               controllers.Application.index
-GET     /login                          controllers.Application.login
-GET     /register                       controllers.Application.register
 #get photo
 
 GET		/getPhoto/:name					controllers.Application.getPhoto(name: ObjectId)
 
-# User Management
-POST    /login                          controllers.Users.login
-GET     /logout							controllers.Users.logout
-POST    /register                       controllers.Users.register
-POST    /update/:userId             	controllers.Users.updateInfo(userId)
-GET     /myInfo/	                    controllers.Users.myInfo
-GET     /userInfo/:userId               controllers.Users.userInfo(userId)
-GET     /myPage/		                controllers.Users.myPage
-GET     /userPage/:userId               controllers.Users.userPage(userId)
 
-GET     /myPage/myReservation        	controllers.Users.myReservation
-
-
-GET     /userPage/userBlog/:userId	    controllers.Users.userBlog(userId)
-GET     /userPage/userStyle/:userId     controllers.Users.userStyle(userId)
-GET     /myPage/messages/:req				controllers.UserLetters.messageList(req:String)
-GET     /myPage/message/:id				controllers.UserLetters.showMessage(id:ObjectId)
-
-GET     /applyStylist                   controllers.Users.applyStylist
-POST    /commitStylistApply             controllers.Users.commitStylistApply
 
 # FollowTypes
-GET     /FollowTypes/                   controllers.FollowTypes.addFollowType
-GET     /FollowTypes/                   controllers.FollowTypes.followTypeMain
+GET     /FollowTypes/add                  controllers.FollowTypes.addFollowType
+GET     /FollowTypes/main                   controllers.FollowTypes.followTypeMain
 
 #-------------------------------------------------
 # 能被未登录用户看到的跳转
@@ -83,13 +62,13 @@ GET     /invalidMenu/:menuId     		controllers.Menus.invalidMenu(menuId: ObjectI
 GET     /style                          controllers.Styles.index
 GET     /style/:id                      controllers.Styles.findById(id: ObjectId)
 POST    /styleSearchList                controllers.Styles.styleSearchList
-POST    /styleLoginNew                  controllers.Styles.styleLoginNew
-GET     /styleLogin                     controllers.Styles.styleLogin
+POST    /styleAddNew                  controllers.Styles.styleAddNew
+GET     /styleAdd                     controllers.Styles.styleAdd
 GET     /styleUpdate/:id                controllers.Styles.styleUpdate(id: ObjectId)
 POST    /styleUpdateNew                 controllers.Styles.styleUpdateNew
 GET     /backstageStyleSearch           controllers.Styles.backstageStyleSearch
 POST    /backstageStyleSearchList       controllers.Styles.backstageStyleSearchList
-GET     /styleDelete/:id                controllers.Styles.styleDelete(id: ObjectId)
+GET     /styleToInvalid/:id/:isValid    controllers.Styles.styleToInvalid(id: ObjectId, isValid: Boolean)
 
 # Stylist
 GET     /stylistViews/:id               controllers.Stylists.findStylistById(id: ObjectId)
@@ -130,13 +109,13 @@ GET     /userInfo/:userId               controllers.Users.userInfo(userId)
 GET     /myPage/                        controllers.Users.myPage
 GET     /myPage/myReservation           controllers.Users.myReservation
 GET     /myPage/followedCoupon          controllers.MyFollows.followedCoupon
-GET     /myPage/followedBlog/:id 	controllers.MyFollows.followedBlog(id: ObjectId)
-GET     /myPage/followedStyle/:id	controllers.MyFollows.followedStyle(id: ObjectId)
+GET     /myPage/followedBlog/:id 	    controllers.MyFollows.followedBlog(id: ObjectId)
+GET     /myPage/followedStyle/:id	    controllers.MyFollows.followedStyle(id: ObjectId)
 GET     /myPage/followedSalonActi       controllers.MyFollows.followedSalonActi
-GET     /myPage/followedSalon		controllers.MyFollows.followedSalon(id: ObjectId)
-GET     /myPage/followedStylist		controllers.MyFollows.followedStylist(id: ObjectId)
-GET     /myPage/followedUser		controllers.MyFollows.followedUser(id:ObjectId)
-GET     /myPage/followers		controllers.MyFollows.followers(id:ObjectId)
+GET     /myPage/followedSalon		    controllers.MyFollows.followedSalon(id: ObjectId)
+GET     /myPage/followedStylist		    controllers.MyFollows.followedStylist(id: ObjectId)
+GET     /myPage/followedUser		     controllers.MyFollows.followedUser(id:ObjectId)
+GET     /myPage/followers		        controllers.MyFollows.followers(id:ObjectId)
 GET     /userPage/userBlog/:userId      controllers.Users.userBlog(userId)
 GET     /userPage/userStyle/:userId     controllers.Users.userStyle(userId)
 GET     /myPage/messages/:req           controllers.UserLetters.messageList(req:String)
@@ -144,8 +123,9 @@ GET     /myPage/message/:id             controllers.UserLetters.showMessage(id:O
 
 GET     /applyStylist                   controllers.Users.applyStylist
 POST    /commitStylistApply             controllers.Users.commitStylistApply
-GET     /cancelFollow/:followedId    	controllers.MyFollows.cancelFollow(followedId:ObjectId)
-GET     /addFollow/:followId             controllers.MyFollows.addFollow(followId:ObjectId, followObjType: String)
+
+GET     /cancelFollow/:followedId    	 controllers.MyFollows.cancelFollow(followedId:ObjectId)
+GET     /addFollow/:followId             controllers.MyFollows.addFollow(followId:ObjectId,followObjType:String)
 
 
 # Reservations Management
@@ -209,7 +189,6 @@ GET     /agreeStylistApply/:stylistId/:salonId          controllers.SalonsAdmin.
 GET     /rejectStylistApply/:stylistId/:salonId         controllers.SalonsAdmin.rejectStylistApply(stylistId: ObjectId, salonId: ObjectId)
 GET     /searchStylistById                              controllers.SalonsAdmin.searchStylistById
 GET     /inviteStylist/:stylistId/:salonId              controllers.SalonsAdmin.inviteStylist(stylistId: ObjectId, salonId: ObjectId)
-GET     /salonUpd/:id                                   controllers.SalonInfo.update(id: ObjectId)
 
 # Salon Service 
 GET     /addServiceType                 controllers.ServiceTypes.addServiceType

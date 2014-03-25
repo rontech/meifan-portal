@@ -16,7 +16,7 @@ case class ServiceType(
 object ServiceType extends ModelCompanion[ServiceType, ObjectId]{
 	val dao = new SalatDAO[ServiceType, ObjectId](collection = mongoCollection("ServiceType")){}
 
-	def addserviceType(serviceType : ServiceType) = dao.save(serviceType, WriteConcern.Safe)
+	def addServiceType(serviceType : ServiceType) = dao.save(serviceType, WriteConcern.Safe)
 	
 	def findOneByTypeName(serviceTypeName: String): Option[ServiceType] = dao.findOne(MongoDBObject("serviceTypeName" -> serviceTypeName))
 	
