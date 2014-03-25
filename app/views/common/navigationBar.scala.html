@@ -1,4 +1,4 @@
-@(geoNav: Seq[(String, String)] = Nil)
+@(geoNavList: Seq[(String, String)] = Nil)
 
 <!-- parameters: Sequences of Map[String, String] 
     1. navigator path/geo area path.  for example: 総合トップ
@@ -12,13 +12,18 @@ TODO:
 <!-- ↓preContents -->
 <div id="preContents" class="cFix">
 <ol class="pankuzu cFix">
-    <li> <a href="http://beauty.hotpepper.jp/top/"> 総合トップ </a> &nbsp;&nbsp;&gt;&nbsp;&nbsp; </li>
-    <li> <a href="http://beauty.hotpepper.jp/"> 美容院・美容室・ヘアサロン検索トップ </a> &nbsp;&nbsp;&gt;&nbsp;&nbsp; </li>
-    <li> <a href="/svcSA/"> 関東トップ </a> &nbsp;&nbsp;&gt;&nbsp;&nbsp; </li>
-    <li> <a href="/svcSA/macAD/"> 渋谷・青山・表参道・原宿トップ </a> &nbsp;&nbsp;&gt;&nbsp;&nbsp; </li>
-    <li> <a href="/slnH000231733/"> フレール　Freres </a> &nbsp;&nbsp;&gt;&nbsp;&nbsp; </li>
 
-    <li> <strong> スタイリスト </strong> </li>
+   @for(((navKey, navValue), index) <- geoNavList.zipWithIndex) {
+        <li>
+            @if(index != (geoNavList.size -1)) {
+                <a href="@navValue">@navKey</a> &nbsp;&nbsp;&gt;&nbsp;&nbsp;
+            }
+            @if(index == (geoNavList.size -1)) {
+                <strong>@navKey</strong>
+            }
+        </li>
+    }
+
 </ol>
 </div>
 <!-- ↑preContents -->

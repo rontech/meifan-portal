@@ -3,8 +3,8 @@
 @import helper._
 
 @form(routes.Coupons.createCoupon, 'id -> "couponForm") {
-	<fieldset>
-		<legend>@Messages("coupon.createCouponArea")</legend>
+	<legend class="mainTitle">@Messages("coupon.createCouponArea")</legend>
+	<div class="couponInfo">
 		<input type="hidden" name="salonId" value="@salonId" />
 		
 		@inputText(couponForm("couponName"), '_label -> Messages("coupon.couponName"),
@@ -12,11 +12,13 @@
             ,'_error -> couponForm.globalError
 		)
 		
-		<fieldset>
+		<fieldset class="serviceArea">
 			<legend>@Messages("coupon.serviceArea")</legend>
 			@input(field = couponForm("serviceItems"), args = '_label ->None){(id,name,value,args) =>
 			 	@for(service <- services) {
-			 		<input type = "checkbox" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
+			 		<div class="serviceItemArea">
+			 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
+			 		</div>
 			 	}
 			  }
 		</fieldset>
@@ -33,9 +35,10 @@
 		
 		@inputText(couponForm("description"), '_label -> Messages("coupon.description"))
 		
-	</fieldset>
-	
-	<input type = "submit" class = "buttons" value="@Messages("service.addBton")">
+	</div>
+	<div class="btnArea">
+		<input type = "submit" class = "buttons" value="@Messages("service.addBton")">
             
-    <input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+    	<input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+    </div>
 }

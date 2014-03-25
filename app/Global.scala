@@ -57,6 +57,14 @@ object InitialData {
           City(new ObjectId("5317c0d1d4d57997ce3e6dce"), "Qingdao", "Shandong") 
       ).foreach(City.save)
     }
+    
+    if(Region.findAll.isEmpty) {
+      Seq(
+          Region(new ObjectId("5317c0d1d4d57997ce3e6dda"), "Xuanwu", "Shandong"),
+          Region(new ObjectId("5317c0d1d4d57997ce3e6ddb"), "Gulou", "Nanjing"),
+          Region(new ObjectId("5317c0d1d4d57997ce3e6ddc"), "Gaoxin", "Jinan")
+      ).foreach(Region.save)
+    }    
 
     if(Industry.findAll.isEmpty) {
       Seq(
@@ -191,32 +199,64 @@ object InitialData {
    *--------------------------*/
   def insertSampleData() {
 
-    if(Image.findAll.isEmpty) {
-      val file = new File(play.Play.application().path() + "/public/images")
-      val files = Image.listAllFiles(file)
-        files.foreach(f=>Image.save(f)) 
-    }
+    
 
     if(Salon.findAll == Nil) { 
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), "accountId", "火影忍者吧", Some("火吧"), List("Hairdressing"), Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "鸣人", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("Jiangsu", "Suzhou", "Gaoxin", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1, 7)), 25, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d592"), "logo", Some(1), None)), date("2014-03-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), "accountId", "海贼王吧", Some("海吧"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("Jiangsu", "Suzhou", "Gaoxin", Some(""), "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1, 6), RestDay(1, 7)), 9, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d593"), "logo", Some(1), None)), date("2014-03-12") )
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("accountId", "123456"), "火影忍者吧", Some("火吧"), List("Hairdressing"), Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "鸣人", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("Jiangsu", Option("Suzhou"), Option("Gaoxin"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1, 7)), 25, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d592"), "LOGO", Some(1), None)), date("2014-03-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("accountId", "123456"), "海贼王吧", Some("海吧"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("Jiangsu", Option("Suzhou"), Option("Gaoxin"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1, 6), RestDay(1, 7)), 9, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d593"), "LOGO", None, None)), date("2014-03-12") )
       ).foreach(Salon.save)
     }
       
     if(Stylist.findAll.isEmpty) { 
       Seq(
-         Stylist(new ObjectId("530d8010d7f2861457771bf8"), new ObjectId("530d7288d7f2861457771bdd"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
-            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"","","","",
-            Option(List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), false, false )
+         Stylist(new ObjectId("530d8010d7f2861457771bf8"), new ObjectId("531964e0d4d57d0a43771411"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"转作风，很容易在家里☆轻松治疗","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
+            (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+         Stylist(new ObjectId("530d8010d7f2861457771bf9"), new ObjectId("53202c29d4d5e3cd47efffd3"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"转作风，很容易在家里☆轻松治疗","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
+            (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+         Stylist(new ObjectId("530d8010d7f2861457771bf4"), new ObjectId("53202c29d4d5e3cd47efffd4"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"转作风，很容易在家里☆轻松治疗","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
+            (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+         Stylist(new ObjectId("530d8010d7f2861457771bf5"), new ObjectId("53202c29d4d5e3cd47efffd9"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"转作风，很容易在家里☆轻松治疗","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
+            (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+         Stylist(new ObjectId("530d8010d7f2861457771bf6"), new ObjectId("53202c29d4d5e3cd47efffd8"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"转作风，很容易在家里☆轻松治疗","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
+            (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+         Stylist(new ObjectId("530d8010d7f2861457771bf7"), new ObjectId("53202c29d4d5e3cd47efffd7"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"转作风，很容易在家里☆轻松治疗","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
+           (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+         Stylist(new ObjectId("530d8010d7f2861457771bf2"), new ObjectId("53202c29d4d5e3cd47efffd6"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"转作风，很容易在家里☆轻松治疗","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
+            (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+         Stylist(new ObjectId("530d8010d7f2861457771bf1"), new ObjectId("53202c29d4d5e3cd47efffd5"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
+            List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"转作风，很容易在家里☆轻松治疗","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
+            (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ) 
       ).foreach(Stylist.save)
-    }      
+    }
+    
+    if(SalonAndStylist.findAll.isEmpty){
+      Seq(
+      SalonAndStylist(new ObjectId, new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf8"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true),
+      SalonAndStylist(new ObjectId, new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf9"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true),
+      SalonAndStylist(new ObjectId, new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf4"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true),
+      SalonAndStylist(new ObjectId, new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf5"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true),
+      SalonAndStylist(new ObjectId, new ObjectId("530d7288d7f2861457771bdd"), new ObjectId("530d8010d7f2861457771bf6"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true),
+      SalonAndStylist(new ObjectId, new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d8010d7f2861457771bf7"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true),
+      SalonAndStylist(new ObjectId, new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d8010d7f2861457771bf2"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true),
+      SalonAndStylist(new ObjectId, new ObjectId("530d7292d7f2861457771bde"), new ObjectId("530d8010d7f2861457771bf1"), List(new IndustryAndPosition(new ObjectId,"美甲师","店长")), new Date, None, true)
+      ).foreach(SalonAndStylist.save)
+    }
+    
+    
 
    if(Style.findAll.isEmpty) { 
       Seq(
-        Style(new ObjectId("530d828cd7f2861457771c0b"), "四代火影发型式", new ObjectId("530d8010d7f2861457771bf8"), List("B002740532_164-219.jpg","B004689277_164-219.jpg","B004538417_164-219.jpg"),List("清新"),List("烫"),List("中"),List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("圆脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("男"),List("程序员"),date("2014-03-12"),true),
-        Style(new ObjectId("530d828cd7f2861457771c0c"), "六道仙人发型", new ObjectId("530d7288d7f2861457771bdd"), List("B004670057_164-219.jpg","B004670057_164-219.jpg","B004554657_164-219.jpg"),List("自然"),List("染"),List("长"),List("绿色","紫色"),List("少","多","一般"),List("软","硬"),List("适中","细"),List("标准","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("男"),List("程序员"),date("2014-03-12"),true),
-        Style(new ObjectId("530d828cd7f2861457771c0d"), "海贼王发型", new ObjectId("530d7292d7f2861457771bde"), List("B004554657_164-219.jpg"),List("清新"),List("烫"),List("中"),List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("女"),List("程序员"),date("2014-03-12"),true)
+        Style(new ObjectId("530d828cd7f2861457771c0b"), "四代火影发型式", new ObjectId("530d8010d7f2861457771bf6"), List("B002740532_164-219.jpg","B004689277_164-219.jpg","B004538417_164-219.jpg"),List("清新"),List("烫"),List("中"),List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("圆脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("男"),List("程序员"),date("2014-03-12"),true),
+        Style(new ObjectId("530d828cd7f2861457771c0c"), "六道仙人发型", new ObjectId("530d8010d7f2861457771bf6"), List("B004670057_164-219.jpg","B004670057_164-219.jpg","B004554657_164-219.jpg"),List("自然"),List("染"),List("长"),List("绿色","紫色"),List("少","多","一般"),List("软","硬"),List("适中","细"),List("标准","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("男"),List("程序员"),date("2014-03-12"),true),
+        Style(new ObjectId("530d828cd7f2861457771c0d"), "海贼王发型", new ObjectId("530d8010d7f2861457771bf6"), List("B004554657_164-219.jpg"),List("清新"),List("烫"),List("中"),List("黄色","绿色","紫色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),List("女"),List("程序员"),date("2014-03-12"),true)
       ).foreach(Style.save)
     }
 
@@ -274,17 +314,34 @@ object InitialData {
 
     if(User.findAll.isEmpty){
       Seq(
-       User(new ObjectId("531964e0d4d57d0a43771411"),"zhenglu316","关雨1","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd3"),"zhenglu","关雨2","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd4"),"zhenglu3","关雨3","123456","F", date("2014-03-18"),"苏州",new ObjectId,"123@123.com","15269845698",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true)
+       User(new ObjectId("531964e0d4d57d0a43771411"),"zhenglu316","关雨1","123456","F", date("2014-03-18"),"苏州",new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd3"),"zhenglu","关雨2","123456","F", date("2014-03-18"),"苏州",new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd4"),"zhenglu3","关雨3","123456","F", date("2014-03-18"),"苏州",new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd9"),"zhenglu4","阿哲","123456","F", date("2014-03-18"),"苏州",new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd8"),"zhenglu5","西门吹雪","123456","F", date("2014-03-18"),"苏州",new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd7"),"zhenglu6","叶孤城","123456","F", date("2014-03-18"),"苏州",new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd6"),"zhenglu7","陆小风","123456","F", date("2014-03-18"),"苏州",new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd5"),"zhenglu8","花满楼","123456","F", date("2014-03-18"),"苏州",new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true)
       ).foreach(User.save)
     }
-
-    if(Blog.findAll.isEmpty){
+    
+    if(MyFollow.findAll.isEmpty){
       Seq(
-        Blog(new ObjectId("532a8ef4a89ee221d679bdc1"),"1111","1", "zhenglu", new Date(), new Date(), "分类2", Option(List("111", "2222")), List("111", "2222"),true,Option(false),false,true),
-        Blog(new ObjectId("532a8ef4a89ee221d679bdc2"),"2222","2", "zhenglu316", new Date(), new Date(), "分类1", Option(List("111", "2222")),List("2222"), true, Option(false),false,true)
-      ).foreach(Blog.save)
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463fd"), new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("530d7288d7f2861457771bdd"),"salon"),
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463fe"), new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("53202c29d4d5e3cd47efffd4"),"user"),
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463ff"), new ObjectId("53202c29d4d5e3cd47efffd4"),new ObjectId("53202c29d4d5e3cd47efffd3"),"user")
+      ).foreach(MyFollow.save)
+    }
+
+    if(Blog.findBySalon(new ObjectId("530d7288d7f2861457771bdd")).isEmpty){
+      Seq(
+    	Blog(new ObjectId("532a8ef4a89ee221d679bdc1"),"1111","1", "zhenglu", new Date(), new Date(), "分类2", Option(List("111", "2222")), List("111", "2222"),true,Option(false),false,true),
+        Blog(new ObjectId("532a8ef4a89ee221d679bdc2"),"2222","2", "zhenglu316", new Date(), new Date(), "分类1", Option(List("111", "2222")),List("2222"), true, Option(false),false,true),
+        Blog(new ObjectId("532a8ef4a89ee221d679bdc3"),"3333","2", "zhenglu5", new Date(), new Date(), "分类1", Option(List("111", "2222")),List("2222"), true, Option(false),false,true),
+        Blog(new ObjectId("532a8ef4a89ee221d679bdc4"),"4444","2", "zhenglu6", new Date(), new Date(), "分类1", Option(List("111", "2222")),List("2222"), true, Option(false),false,true),
+        Blog(new ObjectId("53195fb4a89e175858abce90"),"test01","test3333333333333333333333333333333333333333333333", "zhenglu", new Date(), new Date(), "分类2", Option(List("111", "2222")), List("111", "2222"),true,Option(false),false,true),
+        Blog(new ObjectId("53195fb4a89e175858abce91"),"test02","test2222222222222222222222222222222222222222222222", "zhenglu316", new Date(), new Date(), "分类1", Option(List("111", "2222")),List("2222"), true, Option(false),false,true)
+    	).foreach(Blog.save)
     }
 
     if(Comment.findBySalon(new ObjectId("530d7288d7f2861457771bdd")).isEmpty){

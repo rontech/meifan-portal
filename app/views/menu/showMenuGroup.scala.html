@@ -22,9 +22,7 @@
 	</div>
 } else {
 	@for(menu <- menus) {
-		@if(menu.isValid) {
-			@views.html.menu.showMenuItem(menu)
-		}
+		@views.html.menu.showMenuItem(menu)
 	}
 }
 </div>

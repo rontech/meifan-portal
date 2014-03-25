@@ -142,7 +142,7 @@
                 	@Messages("salonAdmin.fromStylistApply")
                 	(
                 		 <span id="reviewCount">
-                               @ApplyRecord.countStylistApply(salon.id)
+                               @SalonStylistApplyRecord.applingStylistCount(salon.id)
                          </span>
                 	)
                 	</a>
@@ -165,7 +165,7 @@
 						</div>
 			            <dl tag="1">
 			                <dt tag="1">
-			                    <a href="/salonInfo/" >@Messages("salonAdmin.infoManagement")</a><b></b>
+			                    <a href="/salonInfo/@salon.id" >@Messages("salonAdmin.infoManagement")</a><b></b>
 			                </dt>
 			           </dl>
 			            <dl tag="4">
