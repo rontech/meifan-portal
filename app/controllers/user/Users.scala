@@ -12,6 +12,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc._
 import scala.concurrent.Future
+import play.api.templates._
 
 object Users extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
 
@@ -68,15 +69,15 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
       "city" -> text,
       "tel" -> text,
       "email" -> email,
-      "optContactMethod" -> seq(
+      "optContactMethods" -> seq(
         mapping(
-          "contMethmodType" -> text,
-          "account" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
+          "contMethodType" -> text,
+          "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
       "socialStatus" -> text) {
-        (id, userId, password, nickName, sex, birthDay, city, tel, email, optContactMethod, socialStatus) =>
-          User(new ObjectId, userId, nickName, password._1, sex, birthDay, city, new ObjectId, tel, email, optContactMethod, socialStatus, "NormalUser", "userLevel.0", 0, new Date(), LoggedIn.toString, false)
+        (id, userId, password, nickName, sex, birthDay, city, tel, email, optContactMethods, socialStatus) =>
+          User(new ObjectId, userId, nickName, password._1, sex, birthDay, city, new ObjectId, tel, email, optContactMethods, socialStatus, "NormalUser", "userLevel.0", 0, new Date(), LoggedIn.toString, false)
       } {
-        user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.sex, user.birthDay, user.city, user.tel, user.email, user.optContactMethod, user.socialStatus))
+        user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.sex, user.birthDay, user.city, user.tel, user.email, user.optContactMethods, user.socialStatus))
       }.verifying(
         "This userId is not available", user => !User.findOneByUserId(user.userId).nonEmpty))
 
@@ -97,17 +98,17 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
       "userPics" -> text,
       "tel" -> text,
       "email" -> email,
-      "optContactMethod" -> seq(
+      "optContactMethods" -> seq(
         mapping(
-          "contMethmodType" -> text,
-          "account" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
+          "contMethodType" -> text,
+          "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
       "socialStatus" -> text,
       "registerTime" -> date) {
         // Binding: Create a User from the mapping result (ignore the second password and the accept field)
-        (id, userId, nickName, password, sex, birthDay, city, userPics, tel, email, optContactMethod, socialStatus, registerTime) => User(id, userId, password, nickName, sex, birthDay, city, new ObjectId(userPics), tel, email, optContactMethod, socialStatus, "NormalUser", "userLevel.0", 0, registerTime, "LoggedIn", false)
+        (id, userId, nickName, password, sex, birthDay, city, userPics, tel, email, optContactMethods, socialStatus, registerTime) => User(id, userId, password, nickName, sex, birthDay, city, new ObjectId(userPics), tel, email, optContactMethods, socialStatus, "NormalUser", "userLevel.0", 0, registerTime, "LoggedIn", false)
       } // Unbinding: Create the mapping values from an existing Hacker value
       {
-        user => Some((user.id, user.userId, user.password, user.nickName, user.sex, user.birthDay, user.city, user.userPics.toString(), user.tel, user.email, user.optContactMethod, user.socialStatus, user.registerTime))
+        user => Some((user.id, user.userId, user.password, user.nickName, user.sex, user.birthDay, user.city, user.userPics.toString(), user.tel, user.email, user.optContactMethods, user.socialStatus, user.registerTime))
       }.verifying(
         "This userId is not available", user => User.findOneByNickNm(user.nickName).nonEmpty))
 
@@ -192,12 +193,14 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def updateInfo(userId: String) = StackAction(AuthorityKey -> User.isOwner(userId) _) { implicit request =>
     val loginUser = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     Users.userForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.user.Infomation(errors)),
+      errors => BadRequest(views.html.user.Infomation(errors,followInfo)),
       {
         user =>
           User.save(user.copy(id = loginUser.id), WriteConcern.Safe)
-          Ok(views.html.user.myPageRes(user))
+          val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
+          Ok(views.html.user.myPageRes(user,followInfo))
       })
   }
 
@@ -206,8 +209,9 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def myInfo() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
     val userForm = Users.userForm().fill(user)
-    Ok(views.html.user.Infomation(userForm))
+    Ok(views.html.user.Infomation(userForm,followInfo))
   }
 
   /**
@@ -215,9 +219,10 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def userInfo(userId: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val loginUser = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     User.findOneByUserId(userId).map{user =>
       val userForm = Users.userForm().fill(user)
-      Ok(views.html.user.Infomation(userForm))
+      Ok(views.html.user.Infomation(userForm, followInfo))
     }getOrElse{
       NotFound
     }
@@ -229,14 +234,15 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def myPage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
     if ((user.userTyp).equals(NORMALUSER)) {
-      Ok(views.html.user.myPageRes(user))
+      Ok(views.html.user.myPageRes(user,followInfo))
     } else if ((user.userTyp).equals(STYLIST)) {
       //TODO
       val stylist = Stylist.findOneById(user.id)
       Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get))
     } else {
-      Ok(views.html.user.myPageRes(user))
+      Ok(views.html.user.myPageRes(user,followInfo))
     }
   }
 
@@ -257,48 +263,49 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def myReservation() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    Ok(views.html.user.myPageRes(user))
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.myPageRes(user,followInfo))
   }
-
-  /**
+/*
+  *//**
    * 我收藏的优惠劵
-   */
+   *//*
   def myFollowedCoupon() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    Ok(views.html.user.mySaveCoupon(user))
-  }
-
-  /**
+    Ok(views.html.user.myFollowCoupon(user))
+  }*/
+/*
+  *//**
    * 我收藏的博客
-   */
+   *//*
   def myFollowedBlog() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    Ok(views.html.user.mySaveBlog(user))
-  }
+    Ok(views.html.user.myFollowBlog(user))
+  }*/
 
-  /**
+/*  *//**
    * 我收藏的风格
-   */
+   *//*
   def myFollowedStyle() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    Ok(views.html.user.mySaveStyle(user))
-  }
+    Ok(views.html.user.myFollowStyle(user))
+  }*/
 
-  /**
+/*  *//**
    * 我收藏的店铺动态
-   */
+   *//*
   def myFollowedSalonActi() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     //TODO
-    Ok(views.html.user.mySaveSalonActi(user))
-  }
+    Ok(views.html.user.myFollowSalonActi(user))
+  }*/
 
   /**
    * 他人收藏的博客
    */
   def userBlog(userId: String) = Action {
     User.findOneByUserId(userId).map{user =>
-      Ok(views.html.user.otherSaveBlog(user))
+      Ok(views.html.user.otherFollowBlog(user))
     }getOrElse{
       NotFound
     }
@@ -309,84 +316,85 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def userStyle(userId: String) = Action {
     User.findOneByUserId(userId).map{user =>
-      Ok(views.html.user.otherSaveStyle(user))
+      Ok(views.html.user.otherFollowStyle(user))
     }getOrElse{
       NotFound
     }
   }
 
-  /**
+/*  *//**
    * 列表显示关注的沙龙
-   */
-  def myFollowedSalon() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+   *//*
+  def myFollowedSalon(id:ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     //TODO 关注表 userId 希望改成 String
-    val salonIdL: List[ObjectId] = MyFollows.getAllFollowObjId(FOLLOWSALON, user.id)
+    val salonIdL: List[ObjectId] = MyFollow.getAllFollowObjId(FOLLOWSALON, user.id)
     val salonL = salonIdL.map(salonId =>
     	Salon.findById(salonId).get
     )
     //TODO view的显示
     Ok(views.html.user.showAllFollowSalon(salonL, user, Option(user.userId)))
-  }
+  }*/
 
-  /**
+/*  *//**
    * 列表显示关注的技师
-   */
+   *//*
   def myFollowedStylist() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    val stylistIdL: List[ObjectId] = MyFollows.getAllFollowObjId(FOLLOWSTYLIST, user.id)
+    val stylistIdL: List[ObjectId] = MyFollow.getAllFollowObjId(FOLLOWSTYLIST, user.id)
     val stylistL = stylistIdL.map(stylistId =>
     	Stylist.findOneById(stylistId).get
     )
     Ok(views.html.user.showAllFollowStylist(stylistL, user, Option(user.userId)))
-  }
+  }*/
 
-  /**
+/*  *//**
    * 列表显示关注的其他用户
-   */
+   *//*
   def myFollowedUser() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    val userIdL: List[ObjectId] = MyFollows.getAllFollowObjId(FOLLOWUSER, user.id)
+    val userIdL: List[ObjectId] = MyFollow.getAllFollowObjId(FOLLOWUSER, user.id)
     val userL = userIdL.map(userId =>
     	User.findOneById(userId).get
     )
     Ok(views.html.user.showAllFollowUser(userL, user, Option(user.userId)))
-  }
+  }*/
 
-  /**
+/*  *//**
    * 列表显示我的粉丝
-   */
+   *//*
   def myFollowers() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    val myFollowersIdL: List[ObjectId] = MyFollows.getFollowers(user.id)
+    val myFollowersIdL: List[ObjectId] = MyFollow.getFollowers(user.id)
     val myFollowersL = myFollowersIdL.map(myFollowersId =>
     	User.findOneById(myFollowersId).get
     )
     Ok(views.html.user.showMyFollowers(myFollowersL.toList, user, Option(user.userId)))
-  }
+  }*/
 ////////////////////////////////////////////////////////////////
-  
-  /**
+/*  
+  *//**
    * 取消关注
-   */
+   *//*
   def cancelFollow(userName: String, salonId: ObjectId) = Action {
     val userId = User.findOneByUserId(userName).get.id
-    MyFollows.delete(userId, salonId)
-    Redirect(routes.Users.myFollowedSalon())
-  }
+    MyFollow.delete(userId, salonId)
+//    Redirect(routes.Users.myFollowedSalon(userId))
+    Redirect(routes.MyFollows.followedSalon(userId))
+  }*/
 
-  /**
+/*  *//**
    * 添加关注或收藏
-   */
+   *//*
   def addFollow(followId: ObjectId, followObjType: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    if (!MyFollows.checkIfFollow(user.id, followId)) {
-      MyFollows.create(user.id, followId, followObjType)
+    if (!MyFollow.checkIfFollow(user.id, followId)) {
+      MyFollow.create(user.id, followId, followObjType)
     }
     if (followObjType == FOLLOWSALON || followObjType == FOLLOWSTYLIST || followObjType == FOLLOWUSER)
       UserMessage.sendFollowMsg(user, followId, followObjType)
     Redirect(routes.Users.myPage())
-  }
+  }*/
 
   /**
    * 申请成为技师
@@ -401,7 +409,8 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val goodAtService = Service.findAll.toList
     val goodAtUser = Sex.findAll.toList
     val goodAtAgeGroup = AgeGroup.findAll.toList
-    Ok(views.html.user.applyStylist(stylistApplyForm, user, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup))
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.applyStylist(stylistApplyForm, user, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup, followInfo))
   }
 
   /**
@@ -417,6 +426,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val goodAtService = Service.findAll.toList
     val goodAtUser = Sex.findAll.toList
     val goodAtAgeGroup = AgeGroup.findAll.toList
+    val followInfo = MyFollow.getAllFollowInfo(user.get.id)
     stylistApplyForm.bindFromRequest.fold(
       errors => BadRequest(views.html.index("")),
       {
@@ -424,10 +434,10 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
         	Stylist.save(stylistApply.stylist)
         	val applyRecord = new SalonStylistApplyRecord(new ObjectId, stylistApply.salonId, stylistApply.stylist.id, 1, new Date, 0, None)
     	    SalonStylistApplyRecord.save(applyRecord)
-    	    Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user.get, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup))
+    	    Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user.get, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup, followInfo))
         }
       })
-      
+    	 
   }
 
 }

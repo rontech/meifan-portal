@@ -10,9 +10,11 @@
 			        		<div class="outline">
 			            	  <span class="">
 													分类: 
-									<a href="">@blog.blogCategory			   							                			            		
-							  </span>		  
-			                  <span class="blog_admin">( <a href="@routes.Blogs.editBlog(blog.id)">修改</a> | <a href="javascript:deleteBlog();">删除</a> )</span> 
+									@blog.blogCategory			   							                			            		
+							  </span>
+							  <br />		  
+			                  @*<span class="blog_admin">( <a href="@routes.Blogs.editBlog(blog.id)">修改</a> | <a href="javascript:deleteBlog(@blog.id);">删除</a> )</span>*@ 
+			                  <span class="blog_admin">( <a href="@routes.Blogs.editBlog(blog.id)">@Messages("common.edit")</a> | <a href="" class="deleteBlog" data-blog="@blog.id">@Messages("common.delete")</a> )</span>
 			        	    </div>
 			    		</div>		
 					</div>
@@ -27,16 +29,6 @@
 			    	</div>
 			    	
 </div>
-
-<script type="text/javascript">
-	function deleteBlog(){
-        if(!confirm("文章删除后无法恢复，请确认是否删除此篇文章？@blog.id")){
-        	return;
-        }else{
-            location.href="@routes.Blogs.deleteBlog(blog.id)";
-        }	        
-      }
-</script>
    
 
 

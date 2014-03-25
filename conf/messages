@@ -313,7 +313,11 @@ user.female=女
 user.loginOut=退出
 user.cancleBothFollow=取消互粉
 user.addFollow=添加关注
+
 user.myMessages=消息
+user.contMethodType=联系工具
+user.optContactMethod=其他联系方式
+
 
 #Letter
 letter.addressee=收件人
@@ -327,8 +331,6 @@ user.myMessages=消息
 letter.addressee=收件人
 letter.sender=发件人
 letter.time=时间
-
-
 
 #-------------------------------
 # Messages Area.

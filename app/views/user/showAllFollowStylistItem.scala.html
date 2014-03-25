@@ -1,4 +1,4 @@
-@(stylist:Stylist,sessionUserId:Option[String])
+@(stylist:Stylist,loginUserId:ObjectId)
 	<li><table class="ostable">
 		<tbody>
 			<tr>
@@ -8,10 +8,10 @@
 					<span class="city">@stylist.myWords</span>
 				</td>
 				<td class="opts">
-					@if(sessionUserId.nonEmpty && MyFollows.checkIfFollowByName(sessionUserId.get,stylist.id)){
-						<a href="@routes.Users.cancelFollow(sessionUserId.get,stylist.id)">@Messages("user.cancelFollow")</a>
+					@if(MyFollow.checkIfFollow(loginUserId,stylist.id)){
+						<a href="@routes.MyFollows.cancelFollow(stylist.id)">@Messages("user.cancelFollow")</a>
 					}else{
-						<a href="@routes.Users.addFollow(stylist.id,"stylist")">@Messages("user.addFollow")</a>
+						<a href="@routes.MyFollows.addFollow(stylist.id,"stylist")">@Messages("user.addFollow")</a>
 					}
 					<a href="#">@Messages("user.sendMsg")</a>
 				</td>
