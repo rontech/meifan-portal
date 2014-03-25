@@ -125,6 +125,10 @@ object Salon {
     def findById(id: ObjectId): Option[Salon] = {
         SalonDAO.findOne(MongoDBObject("_id" -> id))
     }
+    
+    def findByAccountId(salonAccount: SalonAccount): Option[Salon] = {
+        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId))
+    }    
 
     def create(salon: Salon): Option[ObjectId] = {
         SalonDAO.insert(

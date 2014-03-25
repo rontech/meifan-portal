@@ -2,29 +2,47 @@
 @import helper._
 @import helper.twitterBootstrap._
 
-@phoneField(field: Field, className: String = "contact") = {
+@accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
         <input type="text" name="@name" value="@value"> 
+        <a class="removeAccount btn danger">@Messages("optContactMethod.Remove")</a>
     }
 }
 
-@informationGroup(field: Field, className: String = "profile") = {
+@optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
     <div class="twipsies well @className">
+        
+        <a class="removeoptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
 
         @inputText(
             field("contMethodType"), 
-            '_label -> Messages("salon.contMethmodType")
+            '_label -> Messages("user.contMethodType")
         )
         
-        <div class="phones">
+        <div class="accounts">
 
-            @repeat(field("accounts"), min = 0) { accounts =>
+            @repeat(field("accounts"), min = 0) { account =>
                 
-                @phoneField(accounts)
+                @accountField(account)
     
-            }        
+            }
+            
+            @**
+             * Keep an hidden block that will be used as template for Javascript copy code
+             **@
+            @accountField(
+                field("accounts[x]"),
+                className = "account_template"
+            )
+            
+            <div class="clearfix">
+                <div class="input">
+                    <a class="addAccount btn success">@Messages("optContactMethod.AddNumber")</a>
+                </div>
+            </div>
+        
         </div>
-
+ 
     </div>
 }
 
@@ -55,12 +73,6 @@
 			@inputText(salon("salonDescription"), '_label -> Messages("salon.description"))
 			@inputText(salon("mainPhone"), '_label -> Messages("salon.mainPhone"))
 			@inputText(salon("contact"), '_label -> Messages("salon.contact"))
-			<div id="profiles">           
-                @repeat(salon("optContactMethod")) { optContactMethod =>                
-                    @informationGroup(optContactMethod)
-                
-                }                               
-            </div>
 			@inputDate(salon("establishDate"), '_label -> Messages("salon.establishDate"))			
 			<lable>@Messages("salon.address")</lable>
 			<br>
@@ -106,11 +118,73 @@
 			@inputText(salon("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"))
 			@inputText(salon("salonPictures"), '_label -> Messages("salon.pictures"))
 			@inputDate(salon("registerDate"), '_label -> Messages("salon.registerTime"))	
-		  </fieldset>            
+		  </fieldset>
+		  <fieldset>
+            <legend>@Messages("user.optContactMethod")</legend>
+            
+            <div id="optContactMethods">
+            
+                @repeat(salon("optContactMethod")) { optContactMethod =>
+                
+                    @optContactMethodGroup(optContactMethod)
+                
+                }
+                
+                @**
+                 * Keep an hidden block that will be used as template for Javascript copy code
+                 **@
+                @optContactMethodGroup(
+                    salon("optContactMethod[x]"),
+                    className = "optContactMethod_template"
+                )
+                
+                <div class="manage">
+                    <a class="addoptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
+                </div>
+            
+            </div>		  
+		  </fieldset>                       
             <input type = "submit" class = "buttons" value=@Messages("common.submit")>
 			<input type="reset" value=@Messages("common.reset")><a href = "/  "><input type="button" value=@Messages("common.backUp") ></a>                     
 		}
 		</div>
 </div>
-
+        <script type="text/javascript" charset="utf-8">
+        
+        $('.removeoptContactMethod').live('click', function(e) {
+            $(this).parents('.optContactMethod').remove()
+            renumber()
+        })
+        
+        $('.removeAccount').live('click', function(e) {
+            var accounts = $(this).parents('.accounts')
+            $(this).parents('.account').remove()
+            renumber(accounts)
+        })
+        
+        $('.addAccount').live('click', function(e) {
+            var accounts = $(this).parents('.accounts')
+            var template = $('.account_template', accounts)
+            template.before('<div class="clearfix account">' + template.html() + '</div>')
+            renumber(accounts)
+        })
+        
+        $('.addoptContactMethod').live('click', function(e) {
+            var template = $('.optContactMethod_template')
+            template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
+            renumber()
+        })
+       
+        var renumber = function(accounts) {
+            $('.optContactMethod').each(function(i) {
+                $('input', this).each(function() {
+                    $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
+                })
+                $('.account input', this).each(function(i) {
+                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
+                })
+            })
+        }
+        
+    </script>
 }

@@ -97,7 +97,7 @@ object SalonInfo extends Controller{
 	    	"salonAccount" -> mapping(
 	    		"accountId" -> nonEmptyText(6,16),
 	    		"password" -> tuple(
-	    			"main" -> text,
+	    			"main" ->  text(minLength = 6),
 	    			"confirm" -> text).verifying(
 	    					"Passwords don't match", passwords => passwords._1 == passwords._2)
 	    			){
@@ -173,7 +173,9 @@ object SalonInfo extends Controller{
         salonRegister=> Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.mainPhone, 
         		salonRegister.contact, salonRegister.optContactMethod, salonRegister.establishDate, salonRegister.salonAddress, salonRegister.accessMethodDesc,
         		salonRegister.workTime, salonRegister.restDay, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics, salonRegister.registerDate)
-      }
+      }.verifying(
+        "This salonId is not available", salon => !Salon.findByAccountId(salon.salonAccount).nonEmpty)
+
    )
 
   /**
