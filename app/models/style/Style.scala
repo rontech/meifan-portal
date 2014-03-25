@@ -27,9 +27,9 @@ case class Style(
     styleName: String,
     stylistId: ObjectId,
     stylePic: List[String],
-    styleImpression: List[String],
+    styleImpression: String,
     serviceType: List[String],
-    styleLength: List[String],
+    styleLength: String,
     styleColor: List[String],
     styleAmount: List[String],
     styleQuality: List[String],
@@ -37,7 +37,7 @@ case class Style(
     faceShape: List[String],
     description: String,
     consumerAgeGroup: List[String],
-    consumerSex: List[String],
+    consumerSex: String,
     consumerSocialStatus: List[String],
     createDate: Date,
     isValid: Boolean)
@@ -61,18 +61,25 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         dao.remove(MongoDBObject("_id" -> id))
     }
 
+    def findByLength(styleLength: String, consumerSex: String): List[Style] = {
+        dao.find(MongoDBObject("styleLength" -> styleLength,"consumerSex" -> consumerSex,"isValid" -> true)).toList
+    }
+
+    def findByImpression(styleImpression: String): List[Style] = {
+        dao.find(MongoDBObject("styleImpression" -> styleImpression,"isValid" -> true)).toList
+    }
+    
     def findByPara(style: models.Style): List[Style] = {
-        
-        val styleLength = if(style.styleLength.isEmpty) {"styleLength" $in Style.findParaAll.styleLength}else {"styleLength" $in style.styleLength }
+        val styleLength = if(style.styleLength.equals("all")) {"styleLength" $in Style.findParaAll.styleLength}else { MongoDBObject("styleLength" -> style.styleLength) }
+        val styleImpression = if(style.styleImpression.equals("all")) {"styleImpression" $in Style.findParaAll.styleImpression}else { MongoDBObject("styleImpression" -> style.styleImpression) }
         val styleColor = if(style.styleColor.isEmpty) {"styleColor" $in Style.findParaAll.styleColor}else {"styleColor" $in style.styleColor }
-        val styleImpression = if(style.styleImpression.isEmpty) {"styleImpression" $in Style.findParaAll.styleImpression}else {"styleImpression" $in style.styleImpression }
         val serviceType = if(style.serviceType.isEmpty) {"serviceType" $in Style.findParaAll.serviceType}else {"serviceType" $in style.serviceType }
         val styleAmount = if(style.styleAmount.isEmpty) {"styleAmount" $in Style.findParaAll.styleAmount}else {"styleAmount" $in style.styleAmount }
         val styleQuality = if(style.styleQuality.isEmpty) {"styleQuality" $in Style.findParaAll.styleQuality}else {"styleQuality" $in style.styleQuality }
         val styleDiameter = if(style.styleDiameter.isEmpty) {"styleDiameter" $in Style.findParaAll.styleDiameter}else {"styleDiameter" $in style.styleDiameter }
         val faceShape = if(style.faceShape.isEmpty) {"faceShape" $in Style.findParaAll.faceShape}else {"faceShape" $in style.faceShape }
         val consumerSocialStatus = if(style.consumerSocialStatus.isEmpty) {"consumerSocialStatus" $in Style.findParaAll.consumerSocialStatus}else {"consumerSocialStatus" $in style.consumerSocialStatus }
-        val consumerSex = if(style.consumerSex.isEmpty) {"consumerSex" $in Style.findParaAll.consumerSex}else {"consumerSex" $in style.consumerSex }
+        val consumerSex = if(style.consumerSex.equals("all")) {"consumerSex" $in Style.findParaAll.consumerSex}else { MongoDBObject("consumerSex" -> style.consumerSex) }
         val consumerAgeGroup = if(style.consumerAgeGroup.isEmpty) {"consumerAgeGroup" $in Style.findParaAll.consumerAgeGroup}else {"consumerAgeGroup" $in style.consumerAgeGroup }
         
         dao.find($and(

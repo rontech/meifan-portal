@@ -17,16 +17,16 @@ object Styles extends Controller {
      */
     val styleSearchForm: Form[Style] = Form(
         mapping(
-            "styleImpression" -> list(text),
+            "styleImpression" -> text,
             "serviceType" -> list(text),
-            "styleLength" -> list(text),
+            "styleLength" -> text,
             "styleColor" -> list(text),
             "styleAmount" -> list(text),
             "styleQuality" -> list(text),
             "styleDiameter" -> list(text),
             "faceShape" -> list(text),
             "consumerAgeGroup" -> list(text),
-            "consumerSex" -> list(text),
+            "consumerSex" -> text,
             "consumerSocialStatus" -> list(text)) {
                 (styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, consumerAgeGroup, consumerSex, consumerSocialStatus) =>
                     Style(new ObjectId, "", new ObjectId, List(""),
@@ -46,9 +46,9 @@ object Styles extends Controller {
             "styleName" -> text,
             "stylistId" -> text,
             "stylePic" -> list(text),
-            "styleImpression" -> list(text),
+            "styleImpression" -> text,
             "serviceType" -> list(text),
-            "styleLength" -> list(text),
+            "styleLength" -> text,
             "styleColor" -> list(text),
             "styleAmount" -> list(text),
             "styleQuality" -> list(text),
@@ -56,7 +56,7 @@ object Styles extends Controller {
             "faceShape" -> list(text),
             "description" -> text,
             "consumerAgeGroup" -> list(text),
-            "consumerSex" -> list(text),
+            "consumerSex" -> text,
             "consumerSocialStatus" -> list(text)) {
                 (styleName, stylistId, stylePic, styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, description, consumerAgeGroup, consumerSex, consumerSocialStatus) =>
                     Style(new ObjectId, styleName, new ObjectId(stylistId), stylePic,
@@ -77,9 +77,9 @@ object Styles extends Controller {
             "styleName" -> text,
             "stylistId" -> text,
             "stylePic" -> list(text),
-            "styleImpression" -> list(text),
+            "styleImpression" -> text,
             "serviceType" -> list(text),
-            "styleLength" -> list(text),
+            "styleLength" -> text,
             "styleColor" -> list(text),
             "styleAmount" -> list(text),
             "styleQuality" -> list(text),
@@ -87,7 +87,7 @@ object Styles extends Controller {
             "faceShape" -> list(text),
             "description" -> text,
             "consumerAgeGroup" -> list(text),
-            "consumerSex" -> list(text),
+            "consumerSex" -> text,
             "consumerSocialStatus" -> list(text)) {
                 (id, styleName, stylistId, stylePic, styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, description, consumerAgeGroup, consumerSex, consumerSocialStatus) =>
                     Style(new ObjectId(id), styleName, new ObjectId(stylistId), stylePic,
@@ -131,21 +131,39 @@ object Styles extends Controller {
      * 前台发型检索
      */
     def index = Action {
-        // TODO
         Ok(html.style.general.overview(Nil, styleSearchForm, Style.findParaAll))
     }
-
+    
+    def findByLength(styleLength: String, consumerSex: String) = Action {
+        val styleSearchInfo = Style.findByLength(styleLength,consumerSex)
+        var styleSearchByLength: Style = Style(new ObjectId,"", new ObjectId, Nil, "", Nil, styleLength, Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
+        //此处由于豆平那技师和店铺关系取数据，暂时固定写死，待修改
+        val salonId: ObjectId = new ObjectId("530d7288d7f2861457771bdd")
+        val salon: Option[Salon] = Salon.findById(salonId)
+        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleSearchInfo, salon = salon.get, Style.findParaAll))
+    }
+    
+    def findByImpression(styleImpression: String) = Action {
+        val styleSearchInfo = Style.findByImpression(styleImpression)
+        var styleSearchByLength: Style = Style(new ObjectId,"", new ObjectId, Nil, styleImpression, Nil, "", Nil, Nil, Nil, Nil, Nil, "", Nil, "", Nil, new Date, true)
+        //此处由于豆平那技师和店铺关系取数据，暂时固定写死，待修改
+        val salonId: ObjectId = new ObjectId("530d7288d7f2861457771bdd")
+        val salon: Option[Salon] = Salon.findById(salonId)
+        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleSearchInfo, salon = salon.get, Style.findParaAll))
+        
+    }
+    
     def styleSearchList = Action {
         implicit request =>
             styleSearchForm.bindFromRequest.fold(
-                errors => BadRequest(html.index("")),
+                errors => BadRequest(html.style.test(errors)),
                 {
                     case (styleSearch) => {
                         val styleSearchInfo = Style.findByPara(styleSearch)
-                        //此处由于豆平那技师和店铺关系的表还未确定，暂时固定写死，明日修改2014/03/18
+                        //此处由于豆平那技师和店铺关系的表还未确定，暂时固定写死，待修改
                         val salonId: ObjectId = new ObjectId("530d7288d7f2861457771bdd")
                         val salon: Option[Salon] = Salon.findById(salonId)
-                        Ok(html.style.general.styleSearchList(styleSearchForm.fill(styleSearch), styleSearchInfo, salon = salon.get, Style.findParaAll))
+                        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearch), styleSearchInfo, salon = salon.get, Style.findParaAll))
                     }
                 })
     }
@@ -155,7 +173,7 @@ object Styles extends Controller {
      */
     def styleAdd = Action {
         //此处为新发型登录
-        Ok(html.style.styleAdd(styleAddForm, Style.findParaAll))
+        Ok(html.style.admin.styleAdd(styleAddForm, Style.findParaAll))
     }
 
     def styleAddNew = Action {
@@ -165,7 +183,8 @@ object Styles extends Controller {
                 {
                     case (styleAddForm) => {
                         Style.save(styleAddForm)
-                        Ok(html.style.test(styleAddForm))
+//                        Ok(html.style.test(styleAddForm))
+                        Ok(html.index(""))
                     }
                 })
     }
@@ -176,7 +195,7 @@ object Styles extends Controller {
     def styleUpdate(id: ObjectId) = Action {
         val styleOne: Option[Style] = Style.findOneById(id)
         styleOne match {
-            case Some(style) => Ok(html.style.styleUpdate(styleAddForm, Style.findParaAll, style))
+            case Some(style) => Ok(html.style.admin.styleUpdate(styleAddForm, Style.findParaAll, style))
             case None => NotFound
         }
     }
@@ -205,7 +224,7 @@ object Styles extends Controller {
             var style = Style.findByStylistId(new ObjectId(sty))
             styles :::= style
         }
-        Ok(html.style.backstageStyleSearchList(styleSearchForm, styles, Style.findParaAll, true))
+        Ok(html.style.admin.backstageStyleSearchList(styleSearchForm, styles, Style.findParaAll, true))
     }
 
     def backstageStyleSearchList = Action {
@@ -215,7 +234,7 @@ object Styles extends Controller {
                 {
                     case (styleSearch) => {
                         val styleSearchInfo = Style.findByPara(styleSearch)
-                        Ok(html.style.backstageStyleSearchList(styleSearchForm.fill(styleSearch), styleSearchInfo, Style.findParaAll, false))
+                        Ok(html.style.admin.backstageStyleSearchList(styleSearchForm.fill(styleSearch), styleSearchInfo, Style.findParaAll, false))
                     }
                 })
     }
@@ -227,4 +246,5 @@ object Styles extends Controller {
         Style.styleToInvalid(id, isValid)
         Redirect(routes.Styles.backstageStyleSearch)
     }
+    
 }

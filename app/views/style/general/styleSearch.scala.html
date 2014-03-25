@@ -2,34 +2,30 @@
 
 @import helper._
 
-
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
 
 <div>
     @form(routes.Styles.styleSearchList, 'id -> "styleSearchForm"){
-        @input(field = styleSearchForm("styleLength"),args = '_label ->Messages("hair.styleLength")){(id,name,value,args) =>
-            @for(i <- 0 to stylePara.styleLength.length-1){
-                  <input type = "checkbox" class = "" name = "styleLength[@i]", value = "@stylePara.styleLength(i)">@stylePara.styleLength(i)
-            }
-        }
+        <br/>@Messages("hair.styleLength")<br/>
+	              <input type = "radio" class = "" name = "styleLength", value = "all" checked="checked">@Messages("common.all")
+	        @for(i <- 0 to stylePara.styleLength.length-1){
+	              <input type = "radio" class = "" name = "styleLength", value = "@stylePara.styleLength(i)">@stylePara.styleLength(i)
+	        }
+        <br/>@Messages("hair.impression")<br/>
+                  <input type = "radio" class = "" name = "styleImpression", value = "all" checked="checked">@Messages("common.all")
+	        @for(i <- 0 to stylePara.styleImpression.length-1){
+	              <input type = "radio" class = "" name = "styleImpression", value = "@stylePara.styleImpression(i)">@stylePara.styleImpression(i)
+	        }
         @input(field = styleSearchForm("styleColor"),args = '_label ->Messages("hair.color")){(id,name,value,args) =>
             @for(i <- 0 to stylePara.styleColor.length-1){
                   <input type = "checkbox" class = "" name = "styleColor[@i]", value = "@stylePara.styleColor(i)">@stylePara.styleColor(i)
             }
         }
-
-        @input(field = styleSearchForm("styleImpression"),args = '_label ->Messages("hair.impression")){(id,name,value,args) =>
-            @for(i <- 0 to stylePara.styleImpression.length-1){
-                  <input type = "checkbox" class = "" name = "styleImpression[@i]", value = "@stylePara.styleImpression(i)">@stylePara.styleImpression(i)
-            }
-        }
-        <div class="w85 vaM taC nowrap">
         @input(field = styleSearchForm("serviceType"), args = '_label ->Messages("hair.serviceType"),'class ->"w85 vaM taC nowrap"){(id,name,value,args) =>
             @for(i <- 0 to stylePara.serviceType.length-1){
                   <input type = "checkbox" class = "dibBL mR2" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@stylePara.serviceType(i)
             }
         }
-        </div>
         @input(field = styleSearchForm("styleAmount"),args = '_label ->Messages("hair.styleAmount")){(id,name,value,args) =>
             @for(i <- 0 to stylePara.styleAmount.length-1){
                   <input type = "checkbox" class = "" name = "styleAmount[@i]", value = "@stylePara.styleAmount(i)">@stylePara.styleAmount(i)
@@ -45,7 +41,6 @@
                   <input type = "checkbox" class = "" name = "styleDiameter[@i]", value = "@stylePara.styleDiameter(i)">@stylePara.styleDiameter(i)
             }
         }
-
         @input(field = styleSearchForm("faceShape"),args = '_label ->Messages("hair.faceShape")){(id,name,value,args) =>
             @for(i <- 0 to stylePara.faceShape.length-1){
                   <input type = "checkbox" class = "" name = "faceShape[@i]" value = "@stylePara.faceShape(i)">@stylePara.faceShape(i)
@@ -57,8 +52,9 @@
             }
         }
         @input(field = styleSearchForm("consumerSex"),args = '_label ->Messages("hair.consumerSex")){(id,name,value,args) =>
+                  <input type = "radio" class = "" name = "consumerSex" value = "all" checked="checked">@Messages("common.all")
             @for(i <- 0 to stylePara.consumerSex.length-1){
-                  <input type = "checkbox" class = "" name = "consumerSex[@i]" value = "@stylePara.consumerSex(i)">@stylePara.consumerSex(i)
+                  <input type = "radio" class = "" name = "consumerSex" value = "@stylePara.consumerSex(i)">@stylePara.consumerSex(i)
             }
         }
         @input(field = styleSearchForm("consumerAgeGroup"),args = '_label ->Messages("hair.consumerAgeGroup")){(id,name,value,args) =>
