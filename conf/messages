@@ -13,6 +13,7 @@ common.reset=重置
 common.backUp=返回
 common.edit=编辑
 common.delete=删除
+common.all=全部
 
 # Index page
 index.mainPage=网站首页
