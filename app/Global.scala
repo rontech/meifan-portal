@@ -181,7 +181,7 @@ object InitialData {
         ).foreach(AgeGroup.save)
     }
 
-    if(BlogCategory.getCategory.isEmpty){
+    if(BlogCategory.findAll.isEmpty){
       Seq (
         BlogCategory(new ObjectId("53195fb4a89e175858abce82"),"分类1", true),
         BlogCategory(new ObjectId("53195fb4a89e175858abce83"),"分类2", true),
