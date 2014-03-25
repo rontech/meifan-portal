@@ -1,0 +1,14 @@
+@(salon: Salon)
+
+<div class="mysalon-stylist-group">
+		<div class="taC">
+	        <a href="/salon/@salon.id">
+	            @*<img src="@routes.Application.getPhoto(stylist.myPics.get(0).fileObjId)" class="bdImgGray w164 h219">*@
+	        </a>
+    	</div>
+	    <p class="mT10">
+	        <a href="/salon/@salon.id">
+	        	<p>@salon.salonName</p>
+	        </a>
+	    </p>
+</div>

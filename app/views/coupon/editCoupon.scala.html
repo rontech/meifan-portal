@@ -1,23 +1,24 @@
-@(salonId: ObjectId, couponForm: Form[Coupon], services: List[Service])
+@(couponForm: Form[Coupon], services: List[Service])
 
 @import helper._
 
-@form(routes.Coupons.createCoupon, 'id -> "couponForm") {
+@form(routes.Coupons.updateCoupon(couponForm.get.id), 'id -> "couponForm") {
 	<legend class="mainTitle">@Messages("coupon.createCouponArea")</legend>
 	<div class="couponInfo">
-		<input type="hidden" name="salonId" value="@salonId" />
+		<input type="hidden" name="salonId" value="@couponForm.get.salonId" />
 		
-		@inputText(couponForm("couponName"), '_label -> Messages("coupon.couponName"),
-			'_error -> couponForm("couponName").error.map(_.withMessage(Messages("coupon.addErrorMsg")))
-            ,'_error -> couponForm.globalError
-		)
+		@inputText(couponForm("couponName"), '_label -> Messages("coupon.couponName"), 'readonly -> true)
 		
 		<fieldset class="serviceArea">
 			<legend>@Messages("coupon.serviceArea")</legend>
 			@input(field = couponForm("serviceItems"), args = '_label ->None){(id,name,value,args) =>
 			 	@for(service <- services) {
 			 		<div class="serviceItemArea">
-			 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
+				 		@if(couponForm.get.serviceItems.contains(service)) {
+				 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id" checked="checked">@service.serviceName
+				 		} else {
+				 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
+				 		}
 			 		</div>
 			 	}
 			  }
@@ -34,11 +35,11 @@
 		@inputText(couponForm("presentTime"), '_label -> Messages("coupon.presentTime"))
 		
 		@inputText(couponForm("description"), '_label -> Messages("coupon.description"))
-		
-	</div>
+	</div>	
+	
 	<div class="btnArea">
-		<input type = "submit" class = "buttons" value="@Messages("service.addBton")">
-            
-    	<input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
-    </div>
+		<input type = "submit" class = "buttons" value="@Messages("common.submit")">
+	            
+	    <a href="/mySalon/@couponForm.get.salonId/coupon"><input type = "button" class = "buttons" value="@Messages("common.backUp")"></a>
+	</div>
 }

@@ -1,6 +1,4 @@
-@(stylistForm: Form[StylistApply], user: User, position: List[Position], industry: List[Industry], 
-	goodAtImage: List[StyleImpression], goodAtStatus: List[SocialStatus], 
-	goodAtService: List[Service], goodAtUser: List[Sex], goodAtAgeGroup: List[AgeGroup], followInfo:FollowInformation)
+@(stylistForm: Form[StylistApply], user: User, goodAtStylePara: GoodAtStyle,followInfo:FollowInformation )
 @import helper._
 
 @myPageMain(navInMyPage = "my-reservation",user, followInfo){
@@ -10,7 +8,7 @@
     <div class="content">
 
       <div class="page-header">
-        <h1>个人用户申请技师</h1>
+        <h1>普通会员申请技师</h1>
       </div>
 
       <div class="row">
@@ -23,54 +21,59 @@
 			
 			@inputText(stylistForm("salonId"), '_label -> "salonId", 'class ->  "font1")
 			
-			@input(field = stylistForm("stylist.position.industryName"), '_label ->Messages("stylist.industry")){(id,name,value,args) =>
-			 	@for(i <- 0 to industry.length-1){
-			 		<input type = "checkbox" class="" name = "stylist.position.industryName[@i]" value = "@industry(i).industryName">@industry(i).industryName
-			 		@Messages("stylist.position")<select name="stylist.position.positionName[@i]">
-			 			@position.map{idy=>
-			 				<option value="@idy.positionName">@idy.positionName</option>
+			@input(field = stylistForm("stylist.position.industryName"),args = '_label ->Messages("stylist.industry")){(id,name,value,args) =>
+			 	@for(i <- 0 to goodAtStylePara.industry.length-1){
+			 		<input type = "checkbox" class="" name = "stylist.position.industryName[@i]" value = "@goodAtStylePara.industry(i)">@goodAtStylePara.industry(i)
+			 		<select name="stylist.position.positionName[@i]">
+			 			<option>--</option>
+			 			@goodAtStylePara.position.map{idy=>
+			 				<option value="@idy">@idy</option>
 			 			}
 			 		</select>
+			 		<br />
 			 	}
-			  }
+			 }
 			
 			@input(field = stylistForm("stylist.goodAtImage"),args = '_label ->Messages("stylist.goodAtImage")){(id,name,value,args) =>
-			 	@for(i <- 0 to goodAtImage.length-1){
-			 		<input type = "checkbox" name = "goodAtImage[@i]" value = "@goodAtImage(i)">@goodAtImage(i).styleImpression&nbsp;
+			 	@for(i <- 0 to goodAtStylePara.goodAtImage.length-1){
+			 		<input type = "checkbox" name = "goodAtImage[@i]" value = "@goodAtStylePara.goodAtImage(i)">@goodAtStylePara.goodAtImage(i)&nbsp;
 			 	}
 			  }
 			  
 			@input(field = stylistForm("stylist.goodAtStatus"),args = '_label ->Messages("stylist.goodAtStatus")){(id,name,value,args) =>
-			 	@for(i <- 0 to goodAtStatus.length-1){
-			 		<input type = "checkbox" name = "goodAtStatus[@i]" value = "@goodAtStatus(i)">@goodAtStatus(i).socialStatus
+			 	@for(i <- 0 to goodAtStylePara.goodAtStatus.length-1){
+			 		<input type = "checkbox" name = "goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@goodAtStylePara.goodAtStatus(i)
 			 	}
 			  }
 			  
 			@input(field = stylistForm("stylist.goodAtService"),args = '_label ->Messages("stylist.goodAtService")){(id,name,value,args) =>
-			 	@for(i <- 0 to goodAtService.length-1){
-			 		<input type = "checkbox" name = "stylist.goodAtService[@i]" value = "@goodAtService(i)">@goodAtService(i).serviceName
+			 	@for(i <- 0 to goodAtStylePara.goodAtService.length-1){
+			 		<input type = "checkbox" name = "stylist.goodAtService[@i]" value = "@goodAtStylePara.goodAtService(i)">@goodAtStylePara.goodAtService(i)
+			 		@if((i+1)%6==0){
+			 			<br />
+			 		}
 			 	}
 			  }
 			  
 			@input(field = stylistForm("stylist.goodAtUser"),args = '_label ->Messages("stylist.goodAtUser")){(id,name,value,args) =>
-			 	@for(i <- 0 to goodAtUser.length-1){
-			 		<input type = "checkbox" name = "stylist.goodAtUser[@i]" value = "@goodAtUser(i)">@goodAtUser(i).sex
+			 	@for(i <- 0 to goodAtStylePara.goodAtUser.length-1){
+			 		<input type = "checkbox" name = "stylist.goodAtUser[@i]" value = "@goodAtStylePara.goodAtUser(i)">@goodAtStylePara.goodAtUser(i)
 			 	}
 			  }  
 			
 			@input(field = stylistForm("stylist.goodAtAgeGroup"),args = '_label ->Messages("stylist.goodAtAgeGroup")){(id,name,value,args) =>
-			 	@for(i <- 0 to goodAtAgeGroup.length-1){
-			 		<input type = "checkbox" name = "stylist.goodAtAgeGroup[@i]" value = "@goodAtAgeGroup(i)">@goodAtAgeGroup(i).ageGroup
+			 	@for(i <- 0 to goodAtStylePara.goodAtAgeGroup.length-1){
+			 		<input type = "checkbox" name = "stylist.goodAtAgeGroup[@i]" value = "@goodAtStylePara.goodAtAgeGroup(i)">@goodAtStylePara.goodAtAgeGroup(i)
 			 	}
 			  }
 			
-			@textarea(field = stylistForm("stylist.myWords"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myWords"))
+			@textarea(field = stylistForm("stylist.myWords"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.myWords"))
 			
-			@textarea(field = stylistForm("stylist.mySpecial"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.mySpecial"))
+			@textarea(field = stylistForm("stylist.mySpecial"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.mySpecial"))
 			            
-            @textarea(field = stylistForm("stylist.myBoom"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myBoom"))
+            @textarea(field = stylistForm("stylist.myBoom"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.myBoom"))
  		
-		  	@textarea(field = stylistForm("stylist.myPR"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myPR"))
+		  	@textarea(field = stylistForm("stylist.myPR"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.myPR"))
 		  	
 		<input type="submit" class = "buttons" value="@Messages("stylist.submit")">
             
@@ -79,27 +82,6 @@
       </div>
 
     </div>
-
-    
-
   </div>
-	
-		
 	}
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">
-	<script type="text/javascript" charset="utf-8">
-		$('.removePhone').live('click', function(e) {
-	        var phones = $(this).parents('.phones')
-	        $(this).parents('.phone').remove()
-	        renumber(phones)
-	    })
-	    
-	    $('.addPhone').live('click', function(e) {
-            var phones = $(this).parents('.phones')
-            var template = $('.phone_template', phones)
-            template.before('<div class="clearfix phone">' + template.html() + '</div>')
-            renumber(phones)
-        })
-	</script>
 }
-

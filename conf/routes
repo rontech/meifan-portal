@@ -14,9 +14,6 @@ GET		/getPhoto/:name					controllers.Application.getPhoto(name: ObjectId)
 GET     /FollowTypes/add                  controllers.FollowTypes.addFollowType
 GET     /FollowTypes/main                   controllers.FollowTypes.followTypeMain
 
-
-
-
 #-------------------------------------------------
 # 能被未登录用户看到的跳转
 # Pages Which can be seen by anonymous.
@@ -47,27 +44,46 @@ GET     /salon/:salonId/blogs           controllers.Blogs.findBySalon(salonId: O
 
 # Coupon
 GET     /coupon                         controllers.Coupons.index
+GET     /salon/:salonId/coupons         controllers.Coupons.findBySalon(salonId: ObjectId)
 GET     /createCoupon                   controllers.Coupons.createCoupon
 GET     /showCoupons/:salonId           controllers.Coupons.showCoupons(salonId: ObjectId)
+GET     /invalidCoupon/:couponId     	controllers.Coupons.invalidCoupon(couponId: ObjectId)
+GET     /editCoupon/:couponId           controllers.Coupons.editCouponInfo(couponId: ObjectId)
+GET     /updateCoupon/:couponId         controllers.Coupons.updateCoupon(couponId: ObjectId)
+POST    /salon/:salonId/coupons/condtion   controllers.Coupons.findByCondtion(salonId: ObjectId)
+
+# Menu
 GET     /createMenu                     controllers.Menus.createMenu
+GET     /editMenu/:menuId               controllers.Menus.editMenuInfo(menuId: ObjectId)
+GET     /updateMenu/:menuId             controllers.Menus.updateMenu(menuId: ObjectId)
+GET     /invalidMenu/:menuId     		controllers.Menus.invalidMenu(menuId: ObjectId)
 
 # Style
 GET     /style                          controllers.Styles.index
 GET     /style/:id                      controllers.Styles.findById(id: ObjectId)
 POST    /styleSearchList                controllers.Styles.styleSearchList
-POST    /styleLoginNew                  controllers.Styles.styleLoginNew
-GET     /styleLogin                     controllers.Styles.styleLogin
+POST    /styleAddNew                  controllers.Styles.styleAddNew
+GET     /styleAdd                     controllers.Styles.styleAdd
 GET     /styleUpdate/:id                controllers.Styles.styleUpdate(id: ObjectId)
 POST    /styleUpdateNew                 controllers.Styles.styleUpdateNew
 GET     /backstageStyleSearch           controllers.Styles.backstageStyleSearch
 POST    /backstageStyleSearchList       controllers.Styles.backstageStyleSearchList
-GET     /styleDelete/:id                controllers.Styles.styleDelete(id: ObjectId)
+GET     /styleToInvalid/:id/:isValid    controllers.Styles.styleToInvalid(id: ObjectId, isValid: Boolean)
 
 # Stylist
 GET     /stylistViews/:id               controllers.Stylists.findStylistById(id: ObjectId)
 GET     /stylist/:id                    controllers.Stylists.findById(id: ObjectId)
-GET     /agreeSalonApply/:stylistId/:salonId        controllers.Stylists.agreeSalonApply(stylistId: ObjectId, salonId: ObjectId)
-GET     /rejectSalonApply/:stylistId/:salonId       controllers.Stylists.rejectSalonApply(stylistId: ObjectId, salonId: ObjectId)
+GET     /salon/:salonId/stylists        controllers.Stylists.findBySalon(salonId: ObjectId)
+GET		/stylist/mySalon/:stylistId					controllers.Stylists.mySalon(stylistId: ObjectId)
+GET		/updateStylistInfo/:stylistId				controllers.Stylists.updateStylistInfo(stylistId: ObjectId)
+POST	/toUpdateStylistInfo						controllers.Stylists.toUpdateStylistInfo
+GET 	/agreeSalonApply/:stylistId/:salonId		controllers.Stylists.agreeSalonApply(stylistId: ObjectId, salonId: ObjectId)
+GET		/rejectSalonApply/:stylistId/:salonId		controllers.Stylists.rejectSalonApply(stylistId: ObjectId, salonId: ObjectId)
+GET		/findSalonApply/:stylistId					controllers.Stylists.findSalonApply(stylistId: ObjectId)
+#GET		/updateStyleByStylist/:styleId				controllers.Stylists.updateStyleByStylist(styleId: ObjectId)
+#GET		/deleteStyleByStylist/:styleId				controllers.Stylists.deleteStyleByStylist(styleId: ObjectId)
+#GET		/createStyleByStylist/:stylistId			controllers.Stylists.createStyleByStylist(stylistId : ObjectId)
+
 
 
 # User Login & Register & Public Info.
@@ -109,6 +125,7 @@ GET     /applyStylist                   controllers.Users.applyStylist
 POST    /commitStylistApply             controllers.Users.commitStylistApply
 GET     /cancelFollow/:followedId    	 controllers.MyFollows.cancelFollow(followedId:ObjectId)
 GET     /addFollow/:followId             controllers.MyFollows.addFollow(followId:ObjectId,relationTypeId:String)
+
 
 # Reservations Management
 GET     /findReserv/:page               controllers.Records.findReserv(page:Int) 
