@@ -75,6 +75,26 @@
        				<a href="@routes.MyFollows.followedUser(user.id)">@Messages("user.showAllFollow")@MyFollow.getAllFollowObjId("user",user.id).length</a>
      			</div>
 			</div>
+			<div class='Mod Users' id='Fans'>
+	   			@if(SalonAndStylist.findByStylistId(stylist.id).isEmpty){
+	   			<a href="@routes.Stylists.findSalonApply(stylist.id)">
+	   			<strong>@Messages("stylistMag.salonApply")</strong>
+	   			<div class='more'>
+		 			<a href="@routes.Stylists.findSalonApply(stylist.id)">@Messages("stylistMag.countSalonApply")
+		 			(@SalonStylistApplyRecord.applingSalonCount(stylist.id))
+		 			</a>
+		 		</div>
+		 		}else{
+		 			<a href="@routes.Stylists.mySalon(stylist.id)">
+	   			<strong>@Messages("stylistMag.mySalon")</strong>
+	   			<div class='more'>
+		 			<a href="@routes.Stylists.mySalon(stylist.id)">
+		 				<img src=""/>
+		 				<sapn>@Stylist.mySalon(stylist.id).salonName</sapn>
+		 			</a>
+		 		</div>	
+		 			}
+			</div>
 			<div class='RMod' id='UserSkills'>
 	  			<a href = "@routes.Users.logout">@Messages("user.loginOut")</a>
 	  		</div>

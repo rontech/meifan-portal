@@ -11,7 +11,8 @@
 	</div>
 	<div class="mc">
 		@if(stylist != Nil){
-		@Messages("stylist.id")<input name="id" id="stylist-search"/>&nbsp;&nbsp;&nbsp;<input type="button" value="@Messages("stylist.search")">
+		@Messages("stylist.id")<input name="id" id="stylist-search"/>&nbsp;&nbsp;&nbsp;
+		<input type="button" value="@Messages("stylist.search")">
    		<div class="tabcon hide" data-widget="tab-content" style="display: block;">
    			@views.html.stylist.mySalonStylistGroup(stylist , status)
         </div>
