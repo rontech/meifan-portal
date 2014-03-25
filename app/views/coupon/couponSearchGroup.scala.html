@@ -1,10 +1,11 @@
 @* couponSearchGroup Template File *@
-@(salon: Salon, serviceTypes: Seq[ServiceType])
+@(salon: Salon, condtionForm: Form[CouponServiceType], serviceTypes: Seq[ServiceType])
 
+@import helper._
 
 <div class="mT10 pr" id="couponList">
 <p class="narrowDownPanelArrow">◆</p>
-	<form name="bt_salonCouponActionForm" id="salonCouponConditionForm" method="post" action="/salon/@salon.id/coupons/condtion">
+@form(routes.Coupons.findByCondtion(salon.id), 'id -> "salonCouponConditionForm", 'name -> "bt_salonCouponActionForm") {
 	<div style="display:none;">
 		<input type="hidden" name="org.apache.struts.taglib.html.TOKEN" value="25a60a6adbc21e6f516eaa08c0cf87a6">
 	</div>
@@ -15,14 +16,30 @@
 				<th class="w100 vaT">@Messages("coupon.menu")</th>
 				<td>
 					<ul class="cFix w560" id="jsiMenuChecks">
-						@for(serviceType <- serviceTypes) {
+						@input(field = condtionForm("serviceTypes"), args = '_label ->None){(id,name,value,args) =>
+					 	@for(serviceType <- serviceTypes) {
+					 		<li class="fl w112">
+					 			@if(condtionForm != None) {
+					 				@if(condtionForm.get.serviceTypes.contains(serviceType)) {
+						 			<input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF" checked ="checked">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
+							 		} else {
+							 			<input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
+							 		}
+					 			} else {
+					 				<input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
+					 			}
+						 		
+					 		</li>
+					 	}
+					  }
+						@*for(serviceType <- serviceTypes) {
 							<li class="fl w112">
 								<input type="checkbox" name="mc@serviceTypes.indexOf(serviceType)" value="@serviceType.serviceTypeName" id="menuCategory@serviceTypes.indexOf(serviceType)" class="cbF">
 								<label for="menuCategory@serviceTypes.indexOf(serviceType)">
 									@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
 								</label>
 							</li>
-						}
+						}*@
 					</ul>
 				</td>
 				<td align="center" valign="middle" rowspan="2" class="w80 bgSBrown">
@@ -37,5 +54,5 @@
 			</tr>
 		</tbody>
 	</table>
-	</form>
+	}
 </div>
