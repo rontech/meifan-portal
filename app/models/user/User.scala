@@ -4,7 +4,6 @@ import play.api.Play.current
 import java.util.Date
 import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
-import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
 import play.api.PlayException
@@ -22,7 +21,7 @@ case class User(
   userPics: ObjectId,
   tel: String,
   email: String,
-  optContactMethod: Seq[OptContactMethod],
+  optContactMethods: Seq[OptContactMethod],
   socialStatus: String,
   userTyp: String,
   userBehaviorLevel: String,

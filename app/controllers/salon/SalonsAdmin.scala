@@ -1,9 +1,6 @@
 package controllers
 
-import play.api._
 import play.api.mvc._
-import play.api.data._
-import play.api.data.Forms._
 import com.mongodb.casbah.commons.Imports._
 import models._
 import views._
@@ -11,16 +8,20 @@ import java.util.Date
 import models.Salon
 
 object SalonsAdmin extends Controller {
-	def date(str: String) = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(str)
   
-	def mySalon(salonId: ObjectId) = Action {
+  def date(str: String) = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(str)
+ 
+  // Navigation Bar 
+  //val nav0 = (Messages("index.mainPage"), routes.Application.index.toString())
+  //val navBarList = nav0 :: Nil
 
-	   val salon: Salon = Salon.findById(salonId).get
-	    Ok(views.html.salon.admin.mySalonHome(salon = salon))
-	  }
+  def mySalon(salonId: ObjectId) = Action {
+    //val nav = (Messages("salonAdmin.mainPage"), routes.SalonsAdmin.mySalon(salonId))
+    //navBarList ::= nav
 
-   
-  
+    val salon: Salon = Salon.findById(salonId).get
+    Ok(views.html.salon.admin.mySalonHome(salon = salon))
+  }
   
   def myStylist(salonId: ObjectId) = Action {
 	val stylist = Stylist.findBySalon(salonId)
@@ -32,7 +33,7 @@ object SalonsAdmin extends Controller {
   }
   
   def myReserv(salonId: ObjectId) = Action {
-    Ok(views.html.salon.general.index(""))
+    Ok(views.html.salon.general.index(Nil))
   }
   
   def myComment(salonId: ObjectId) = Action {
@@ -45,7 +46,7 @@ object SalonsAdmin extends Controller {
   }
   
   def myService(salonId: ObjectId) = Action {
-    Ok(views.html.salon.general.index(""))
+    Ok(views.html.salon.general.index(Nil))
   }
   
   /**
@@ -80,9 +81,9 @@ object SalonsAdmin extends Controller {
    * 店铺查看申请中的技师
    */
   def checkHoldApply(salonId: ObjectId) = Action {
-    val records = SalonStylistApplyRecord.findApplingStylist(salonId)
+    val records = SalonStylistApplyRecord.findApplyingStylist(salonId)
     var stylists: List[Stylist] = Nil
-    records.map{re=>
+    records.map{re =>
       val stylist = Stylist.findOneById(re.stylistId)
       stylist match {
         case Some(sty) => stylists :::= List(sty)
@@ -149,12 +150,12 @@ object SalonsAdmin extends Controller {
     val stylist = Stylist.findOneById(stylistId)
     stylist match {
       case Some(sty) => {
-        if(!sty.isVarified || !sty.isValid) {
+        if(!sty.isVerified || !sty.isValid) {
           NotFound
         } else {
-          val stysecond = SalonAndStylist.findByStylistId(stylistId)
-          stysecond match {
-            case Some(styend) => NotFound
+          val stySecond = SalonAndStylist.findByStylistId(stylistId)
+          stySecond match {
+            case Some(styEnd) => NotFound
             case None => SalonStylistApplyRecord.save(new SalonStylistApplyRecord(new ObjectId, salonId, stylistId, 2, new Date, 0, None))
           }
         }

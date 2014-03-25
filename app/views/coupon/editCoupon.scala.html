@@ -1,0 +1,45 @@
+@(couponForm: Form[Coupon], services: List[Service])
+
+@import helper._
+
+@form(routes.Coupons.updateCoupon(couponForm.get.id), 'id -> "couponForm") {
+	<legend class="mainTitle">@Messages("coupon.createCouponArea")</legend>
+	<div class="couponInfo">
+		<input type="hidden" name="salonId" value="@couponForm.get.salonId" />
+		
+		@inputText(couponForm("couponName"), '_label -> Messages("coupon.couponName"), 'readonly -> true)
+		
+		<fieldset class="serviceArea">
+			<legend>@Messages("coupon.serviceArea")</legend>
+			@input(field = couponForm("serviceItems"), args = '_label ->None){(id,name,value,args) =>
+			 	@for(service <- services) {
+			 		<div class="serviceItemArea">
+				 		@if(couponForm.get.serviceItems.contains(service)) {
+				 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id" checked="checked">@service.serviceName
+				 		} else {
+				 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
+				 		}
+			 		</div>
+			 	}
+			  }
+		</fieldset>
+		
+		@inputText(couponForm("perferentialPrice"),'_label -> Messages("coupon.perferentialPrice"))
+		
+		@inputDate(couponForm("startDate"), '_label -> Messages("coupon.startDate"))
+		
+		@inputDate(couponForm("endDate"), '_label -> Messages("coupon.endDate"))
+		
+		@inputText(couponForm("useConditions"), '_label -> Messages("coupon.useConditions"))
+		
+		@inputText(couponForm("presentTime"), '_label -> Messages("coupon.presentTime"))
+		
+		@inputText(couponForm("description"), '_label -> Messages("coupon.description"))
+	</div>	
+	
+	<div class="btnArea">
+		<input type = "submit" class = "buttons" value="@Messages("common.submit")">
+	            
+	    <a href="/mySalon/@couponForm.get.salonId/coupon"><input type = "button" class = "buttons" value="@Messages("common.backUp")"></a>
+	</div>
+}

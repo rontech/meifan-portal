@@ -15,6 +15,7 @@ common.edit=编辑
 common.delete=删除
 
 # Index page
+index.mainPage=网站首页
 index.reserve=24小时网上预约&空席确认
 index.pointPolicy=5%的积分制度
 index.appeal=国内首家P2C美容平台
@@ -43,7 +44,9 @@ main.myPage=我的主页
 
 
 # Salon
+salon.register=店铺注册
 salon.tabName=美发沙龙
+salon.salonMainPage=美容美发沙龙检索首页
 salon.show=展示所有沙龙
 salon.title=店铺基本信息管理
 salon.salonData={0}的基本信息
@@ -55,7 +58,7 @@ salon.homepage=官方主页
 salon.description=店铺简介
 salon.mainPhone=联系电话
 salon.contact=联系人
-salon.contMethmodType=联系工具名
+salon.contMethodType=联系工具名
 salon.account=号码
 salon.establishDate=成立日期
 salon.address=地址
@@ -67,7 +70,8 @@ salon.town=镇
 salon.addrDetail=其他
 salon.longitude=店铺地理位置经度
 salon.latitude=店铺地理位置纬度
-salon.workTime=营业时间
+salon.openTime=营业开始
+salon.closeTime=营业结束
 salon.restDay=休息日
 salon.priceCutOnly=剪发价格
 salon.priceCutOnlyMsg={0} 元起
@@ -89,23 +93,21 @@ salon.hasParkingNearByMsg=有
 salon.hasNoParkingNearByMsg=无
 salon.pictures=展示图片
 salon.registerTime=美容平台注册日期
-salon.a=美容美发
-salon.b=瘦身健美
-salon.c=美甲美肤
 
 #salon management
+salonAdmin.mainPage = 店铺管理
 salonAdmin.myPage = 我的店铺
 salonAdmin.myBlog = 我的博客
 salonAdmin.welcome = 欢迎您
-salonAdmin.remindReserv = 预约提示：
-salonAdmin.needCommentReserv = 待评论
-salonAdmin.overtimeReserv = 已过期
-salonAdmin.expireReserv = 即将到期
+salonAdmin.remindRsv = 预约提示：
+salonAdmin.needCommentRsv = 待评论
+salonAdmin.overtimeRsv = 已过期
+salonAdmin.expireRsv = 即将到期
 salonAdmin.remindApply = 申请提示：
 salonAdmin.fromStylistApply = 来自技师申请
 salonAdmin.infoManagement = 信息管理
 salonAdmin.stylistManagement = 技师管理
-salonAdmin.reservManagement = 预约管理
+salonAdmin.reserveManagement = 预约管理
 salonAdmin.commentManagement = 评论管理
 salonAdmin.serviceManagement = 服务管理
 salonAdmin.couponManagement = 优惠劵管理
@@ -144,7 +146,7 @@ hair.consumerAgeGroup=适合年龄
 # Cosmetic
 cosmetic.salon=美容沙龙
 cosmetic.style=脸型
-hair.stylist=美容师
+cosmetic.stylist=美容师
 
 #
 reserve.name=预约
@@ -159,8 +161,8 @@ service.type=技术类别
 service.price=服务费用（单位：元）
 service.tsCost=服务耗时（单位：分钟）
 service.addErrorMsg=请输入服务技术名！
-service.addBton=添加
-service.resetBton=重置
+service.addBtn=添加
+service.resetBtn=重置
 service.addServiceType=添加服务类别
 service.serviceList=服务列表
 service.operate=操作
@@ -181,9 +183,6 @@ ServiceType.serviceTypeName.Other = 其他
 
 # Coupon&Menu
 coupon.title = {0} 的优惠券
-coupon.presentTime = 出示时间： 
-coupon.useConditions = 使用条件：
-coupon.endDate = 到期日：
 coupon.noCouponSearched = 没有找到您希望的优惠券！
 coupon.menu = 搜索条件
 coupon.searchOption = 搜索选项
@@ -193,8 +192,8 @@ coupon.appointment1 = 该优惠券
 coupon.appointment2 = 空缺查询
 coupon.addMenu = 增加菜单
 coupon.currency = 元
-coupon.newConpon = 新
-coupon.conpon = 券
+coupon.newCoupon = 新
+coupon.coupon = 券
 coupon.couponName = 优惠劵名
 coupon.perferentialPrice = 优惠价格（元）
 coupon.startDate = 开始时间
@@ -207,7 +206,7 @@ coupon.createCoupon = 创建优惠劵
 coupon.serviceArea = 服务选择区域
 coupon.serviceDuration = 服务时长
 coupon.modify = 修改
-coupon.invalid = 无效 
+coupon.invalid = 无效
 coupon.invalidCoupon = 该优惠劵已无效
 
 menu.title = {0} 的菜单
@@ -230,17 +229,31 @@ apply.termination = 3
 stylist.searchResults = 搜索结果
 stylist.search = 搜索
 stylist.id = 技师ID
-stylist.workYears = 年
-stylist.checkReserv = 查看日程
+stylist.checkRsv = 查看日程
 stylist.invite = 邀请
-stylist.empty = 暂无 
+stylist.empty = 暂无
 stylist.applyCreateTime = 申请时间
 stylist.acceptApply = 同意
 stylist.rejectApply = 拒绝
+stylist.followStylist = 关注此技师
+stylist.worked = 从事
+stylist.blog = 技师博客
+stylist.findAllBlog = 查看此技师所有博客
+stylist.haircatalog = 发型目录
+stylist.welcome = 期待你的光临
+stylist.selectForReserv = 指定预约
+stylist.createBlog = 发表于
+stylist.other = 其它
+stylist.storerecommend = 店铺推荐
+stylist.hello = 您好
+stylist.this = 这是
+stylist.is = 的
+stylist.findOtherBlog = 查看更多
+
 
 #Stylist Apply
 stylist.name = 昵称
-stylist.workYesrs = 工作年数
+stylist.workYears = 工作年数
 stylist.industry = 类别
 stylist.position = 职位
 stylist.goodAtImage = 擅长风格
@@ -259,13 +272,15 @@ stylist.reset = 重置
 #Stylist management
 stylistMag.mySalon = 我的店铺
 stylistMag.salonApply = 来自店铺申请
+stylistMag.countSalonApply = 店铺申请
 stylistMag.myStyle = 我的作品
 stylistMag.showAllStyles = 显示所有发型
-stylistMag.findReserv = 查看预约
+stylistMag.findRsv = 查看预约
 stylistMag.styleManage = 发型管理
 stylistMag.serviceManage = 服务管理
 stylistMag.salonHistory = 店铺历史
 stylistMag.totalReserv = 显示当天预约
+stylist.mySalon = 我的salon
 
 
 # User
@@ -299,7 +314,7 @@ user.email=电子邮箱
 user.tel=联系电话
 user.weChat=微信
 user.login=用户登录
-user.pasword=密码
+user.password=密码
 user.loginErr=用户名或密码错误，请重新输入!
 user.loginBtn=登录
 user.registerBtn=注册
@@ -310,17 +325,16 @@ user.agree=必须同意!
 user.male=男
 user.female=女
 user.loginOut=退出
-user.cancleBothFollow=取消互粉
+user.cancelBothFollow=取消互粉
 user.addFollow=添加关注
-
 user.myMessages=消息
+user.contMethodType=联系工具
+user.optContactMethod=其他联系方式
 
 #Letter
 letter.addressee=收件人
 letter.sender=发件人
 letter.time=时间
-
-
 
 #-------------------------------
 # Messages Area.
@@ -351,7 +365,7 @@ blog.placeholder=请用逗号分割
 # 省份
 province.provinceName.Jiangsu=江苏省
 province.provinceName.Jiangxi=江西省
-province.provinceName.Shangdong=山东省
+province.provinceName.Shandong=山东省
 province.provinceName.Shangxi=山西省
 province.provinceName.Hubei=湖北省
 province.provinceName.Hunan=湖南省
@@ -375,3 +389,12 @@ city.cityName.Qingdao=青岛市
 
 # 区
 region.regionName.Gaoxin=高新区
+region.regionName.Xuanwu=玄武区
+region.regionName.Gulou=鼓楼区
+
+
+#行业
+industry.industryName.Hairdressing=美发
+industry.industryName.Manicures=美甲
+industry.industryName.Healthcare=保健
+industry.industryName.Cosmetic=整形

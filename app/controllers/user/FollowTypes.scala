@@ -1,11 +1,7 @@
 package controllers
 
 import play.api.mvc._
-import play.api.libs.json._
 import models._
-import java.util.Date
-import com.mongodb.casbah.WriteConcern
-import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -23,7 +19,7 @@ object FollowTypes extends Controller {
   	  Ok(views.html.user.addFollowType(followTypeTypeForm()))
   }
   
-  def addFollowType = Action { implicit request =>
+  def addFollowType() = Action { implicit request =>
     followTypeTypeForm().bindFromRequest.fold(
         errors => BadRequest(Html(errors.toString)),
         {
@@ -32,9 +28,4 @@ object FollowTypes extends Controller {
           Ok(Html("successful!</p>"))                   
       })
   }
-  
-  def myFollowers(id:ObjectId) = {
-    val myFollowerList = MyFollows.getFollowers(id)
-    Ok(views.html.user.subModel.myFollows(id,myFollowerList))
-  }  
 }

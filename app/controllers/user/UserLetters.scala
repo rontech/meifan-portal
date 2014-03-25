@@ -7,11 +7,8 @@ import se.radley.plugin.salat.Binders._
 import play.api.data.Form
 import play.api.data.Forms._
 import models._
-import scala.collection.mutable.ListBuffer
-import com.mongodb.casbah.commons.Imports._
 import jp.t2v.lab.play2.auth._
-import jp.t2v.lab.play2.stackc.{ RequestWithAttributes, RequestAttributeKey, StackableController }
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent._
 import ExecutionContext.Implicits.global
 
 object UserLetters extends Controller with AuthElement with AuthConfigImpl {
@@ -27,11 +24,11 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
         "createdTime" -> text) { (sender, senderNm, addressee, addresseeNm, time) =>
           UserMessage(new ObjectId, sender, senderNm, addressee, addresseeNm, new ObjectId(), "sended", "normal", "unRead", new Date)
         } {
-          userMessage => Some((userMessage.sender, userMessage.senderNm, userMessage.addressee, userMessage.addresseeNm, userMessage.createdTime.toString()))
+          userMessage => Some((userMessage.sender, userMessage.senderNm, userMessage.addressee, userMessage.addresseeNm, userMessage.createdTime.toString))
         },
       "message" -> mapping(
         "title" -> text,
-        "content" -> text) { (title, content) => Message(new ObjectId, title, content, new Date) } { (message => Some((message.title, message.content))) })(UserLetter.apply)(UserLetter.unapply))
+        "content" -> text) { (title, content) => Message(new ObjectId, title, content, new Date) } { message => Some((message.title, message.content)) })(UserLetter.apply)(UserLetter.unapply))
 
   def sendMessage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     UserLetters.userLetterForm.bindFromRequest.fold(
@@ -45,7 +42,7 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
             msgId = userLetter.message.id,
             sender = sender.userId,
             senderNm = sender.nickName)
-          userMessage.setAddr
+          userMessage.setAddr()
 
           UserMessage.save(userMessage, WriteConcern.Safe)
           Ok("")
@@ -74,15 +71,17 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
     } else {
       pages = count.toInt / pageSize + 1
     }
-    Ok(views.html.user.myMessages(letters, count, pages, 1, user))
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.myMessages(letters, count, pages, 1, user, followInfo))
   }
   
   def showMessage(id : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
     val userMsg = UserMessage.findOneById(id).get
     val msg = Message.findOneById(userMsg.msgId).get
     UserMessage.readed(userMsg)
-    Ok(views.html.user.message(UserLetter(userMsg, msg),user))
+    Ok(views.html.user.message(UserLetter(userMsg, msg),user,followInfo))
   }
   
 }

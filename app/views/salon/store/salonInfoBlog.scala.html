@@ -1,6 +1,6 @@
-@(salon: Salon, blog: Blog, listYM : List[String], newestBlogsOfSalon : List[Blog], stylist : Stylist)
-
-@salonInfoMain(navInSalon = "salon-blog", salon) {
+@(salon: Salon, blog: Blog, navBar: List[(String, String)] = Nil, listYM : List[String], newestBlogsOfSalon : List[Blog], stylist : Stylist)
+@import java.text.DateFormat
+@salonInfoMain(navInSalon = "salon-blog", salon, navBar) {
 
     <div class="mT30">
 		<div class="yS mainContentsSecondTitleOuter">
@@ -9,7 +9,7 @@
 	</div>
 	
 	
-	
+	<div class="mT20 cFix">
     @views.html.blog.blogDetail(blog)
     
     
@@ -17,7 +17,7 @@
 		<dt class="titleBlogPublisher">博客作者</dt>
 		<dd class="list p10 bgDGray2">
 			<div class="taC"><img src="http://imgbp.hotp.jp/CSP/IMG_SRC/19/34/B003961934/B003961934_89-119.jpg" alt="フレール　Freres&nbsp;坂本 隆文"></div>
-				<p class="fgPink fs10 mT5">@stylist.position.map {position => @position.indestryName}</p>
+				<p class="fgPink fs10 mT5">@stylist.position.map {position => @position.industryName}</p>
 			<p class="mT5"><a href="/salon/@salon.id/blogs/@stylist.id">@User.findOneByUserId(blog.authorId).get.nickName</a></p>
 			@*<p class="fs10 mT5">サカモト タカフミ</p>*@
 				<p class="fs10 mT5">@stylist.myWords</p>
@@ -29,7 +29,7 @@
 					<dd class="list p10">
 					@newestBlogsOfSalon.map{ blog =>
 						<div>
-							<p class="fs10"><span class="fgPink mR3">●</span>@blog.updateTime</p>
+							<p class="fs10"><span class="fgPink mR3">●</span>@DateFormat.getDateInstance().format(blog.updateTime)</p>
 							<p class="wwbw"><a href="/salon/@salon.id/blog/@blog.id">@blog.title</a></p>
 							<p>博客作者：<a href="/salon/@salon.id/stylist/@blog.authorId">@User.findOneByUserId(blog.authorId).get.nickName</a></p>
 						</div>
@@ -55,5 +55,5 @@
 			}
 			</dd>
 		</dl>
-
+	</div>
 }

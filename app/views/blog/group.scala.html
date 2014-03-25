@@ -6,32 +6,35 @@
 	</div>
 </div>
 
-<ul>
-@for(blog <- blogs) {
-    <li>
-        @views.html.blog.item(blog, salon)
-    </li>
-}
-</ul>
+<div class="mT20 cFix">
+	<div class="leftContents w557 fl">
+	<ul id="listWrapper">
+	@for(blog <- blogs) {
+	   <li class="listCassette cFix">
+	       @views.html.blog.item(blog, salon)
+	   </li>
+	}
+	</ul>
+	</div>
 
-<dl class="rightContents fr w187">
-	<dt class="titleBlog">店员</dt>
+	<dl class="rightContents fr w187">
+		<dt class="titleBlog">店员</dt>
+			<dd class="list p10">
+				@Stylist.findBySalon(salon.id).map { stylist =>
+					@if(!Blog.getBlogByUserId(User.findOneById(Stylist.findOneById(stylist.id).get.publicId).get.userId).isEmpty){
+					<p><a href="/salon/@salon.id/blogs/@stylist.id">@User.findOneById(Stylist.findOneById(stylist.id).get.publicId).get.nickName （@Blog.getBlogByUserId(User.findOneById(Stylist.findOneById(stylist.id).get.publicId).get.userId).size）</a></p>
+					}
+				}
+			</dd>
+		<dt class="titleBlog">历史博客</dt>
 		<dd class="list p10">
-			@Stylist.findBySalon(salon.id).map { stylist =>
-				@if(!Blog.getBlogByUserId(User.findOneById(Stylist.findOneById(stylist.id).get.publicId).get.userId).isEmpty){
-				<p><a href="/salon/@salon.id/blogs/@stylist.id">@User.findOneById(Stylist.findOneById(stylist.id).get.publicId).get.nickName （@Blog.getBlogByUserId(User.findOneById(Stylist.findOneById(stylist.id).get.publicId).get.userId).size）</a></p>
+			@listYM.map { yM =>
+				@if(Blogs.getBlogBySalonAndYM(salon.id, yM).size != 0){
+				<p><a href="/salon/@salon.id/blogYM/@yM">@yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size）</a></p>
+				}else{
+				<p>@yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size）</p>
 				}
 			}
 		</dd>
-	<dt class="titleBlog">历史博客</dt>
-	<dd class="list p10">
-		@listYM.map { yM =>
-			@if(Blogs.getBlogBySalonAndYM(salon.id, yM).size != 0){
-			<p><a href="/salon/@salon.id/blogYM/@yM">@yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size）</a></p>
-			}else{
-			<p>@yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size）</p>
-			}
-		}
-	</dd>
-</dl>    
-
+	</dl>    
+</div>

@@ -1,6 +1,6 @@
-@(salon: Salon, stylists: Seq[Stylist])
+@(salon: Salon, stylists: List[Stylist], navBar: List[(String, String)] = Nil)
 
-@salonInfoMain(navInSalon = "salon-stylist", salon) {
+@salonInfoMain(navInSalon = "salon-stylist", salon, navBar) {
 	<div class="oh w745 mT20 pH10">
     <!-- Get All the Salons with all the styles.  -->
     @views.html.stylist.stylistGroup(stylists)

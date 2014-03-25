@@ -1,0 +1,27 @@
+@(stylist: Stylist)
+
+<div class="stylePageTileOuter">
+    <div class="fgPink b fs10">
+        <font>
+            <font>
+                @stylist.position.map{p=>
+                	@p.industryName&nbsp;
+                }
+            </font>
+        </font>
+    </div>
+    <h2 class="fs16 dibBL">
+        <font>
+            <font>
+                @Stylist.findUserName(stylist.publicId)
+            </font>
+        </font>
+    </h2>
+    <span class="fs10 mL5">
+        <font>
+            <font>
+                @Stylist.findUserName(stylist.publicId)
+            </font>
+        </font>
+    </span>
+</div>

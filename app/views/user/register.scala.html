@@ -10,12 +10,12 @@
 
         <font size =30px align = "center">@Messages("user.new")</font>
        
-        @form(routes.Users.register, 'id -> "userForm") {
+        @form(routes.Users.register(), 'id -> "userForm") {
           <fieldset>
             @inputText(userForm("userId"),'_label -> Messages("user.name"),
             	'_error -> userForm("userId").error.map(_.withMessage(Messages("user.regErr"))))
 
-			@inputPassword(userForm("password.main"),'_label -> Messages("user.pasword"))
+			@inputPassword(userForm("password.main"),'_label -> Messages("user.password"))
 			
 			@inputPassword(userForm("password.confirm"),'_label -> Messages("user.confirmPas"),'_error -> userForm.error("password"))
 
@@ -40,9 +40,9 @@
 		  
             <input type="submit" class = "buttons" value="@Messages("user.new")">
             
-            <a href="login"><input type = "button" class = "buttons" value="@Messages("user.loginBtn")"></a>
+            <a href="routes.Applicatin.login"><input type = "button" class = "buttons" value="@Messages("user.loginBtn")"></a>
             
-            <input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+            <input type = "reset" class = "buttons" value="@Messages("service.resetBtn")">
            
         }
 

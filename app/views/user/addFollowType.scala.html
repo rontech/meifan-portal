@@ -5,16 +5,16 @@
     @main(title = Messages("")) {
 
 		<body>
-        @form(routes.FollowTypes.addFollowType, 'id -> "followTypeTypeForm") {
+        @form(routes.FollowTypes.addFollowType(), 'id -> "followTypeTypeForm") {
           <fieldset>
           
             @inputText(followTypeTypeForm("followTypeName"),'_label -> Messages("user.relation.type"))
       
 		  </fieldset>
 		  
-            <input type="submit" class = "buttons" value="@Messages("service.addBton")">
+            <input type="submit" class = "buttons" value="@Messages("service.addBtn")">
             
-            <input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+            <input type = "reset" class = "buttons" value="@Messages("service.resetBtn")">
            
         }
         

@@ -1,4 +1,4 @@
-@(myFollowersList : List[User],user:User,sessionUserId:Option[String])
+@(followInfo:FollowInformation,user:User,sessionUserId:Option[String])
 
 @main("") {
 	
@@ -9,7 +9,7 @@
     <div id="OSC_Content">
         	<div id='SpaceLeft'>
         	@if(sessionUserId.nonEmpty && sessionUserId.get.equals(user.userId) ){
-        		@views.html.user.myPageLeft(user)
+        		@views.html.user.myPageLeft(user, followInfo)
         	}else{
         		@views.html.user.otherPageLeft(user)
         	}
@@ -17,7 +17,7 @@
 			<div id='SpaceMain'>
 	    		 <div class="MMod" id="Logs">
     				<ul>
-    					@myFollowersList.map{myFollower =>
+    					@followInfo.followUser.map{myFollower =>
     					
     						@views.html.user.showMyFollowersItem(myFollower)
     					

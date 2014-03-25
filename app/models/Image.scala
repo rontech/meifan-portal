@@ -3,19 +3,10 @@ package models
 import java.io.File
 import play.api.Play.current
 import play.api.PlayException
-
-import com.novus.salat._
 import com.novus.salat.dao._
-import com.novus.salat.Context
-import com.mongodb.casbah.gridfs.Imports._
 import com.mongodb.casbah.gridfs.GridFS
-
 import com.mongodb.casbah.commons.Imports._
 import com.mongodb.casbah.MongoConnection
-import play.api.libs.iteratee.Enumerator
-import scala.concurrent.ExecutionContext
-import play.api.mvc._
-
 import mongoContext._
 
 case class Image(
@@ -34,8 +25,7 @@ object ImageDAO extends SalatDAO[Image, ObjectId](
   
 object Image {
 	import com.mongodb.casbah.Implicits._
-    import ExecutionContext.Implicits.global
-    val db = MongoConnection()("picture")
+   val db = MongoConnection()("picture")
    val gridFs = GridFS(db)
    def findById(file: ObjectId) = {
     gridFs.findOne(Map("_id" -> file)) 
@@ -46,6 +36,7 @@ object Image {
 	def save(file: File) = {
 	  val uploadedFile = gridFs.createFile(file)
 	  uploadedFile.save()
+	  uploadedFile._id.get
 	}
 	/**
 	 * 将文件夹下所有图片都存放至文件集合
@@ -56,30 +47,11 @@ object Image {
 	      files:::=List(file)
 	    }
 	  if(file.isDirectory) {
-	    val subfiles = file.listFiles()
-	    for(sub <- subfiles){
+	    val subFiles = file.listFiles()
+	    for(sub <- subFiles){
 	      listAllFiles(sub)
 	    }
 	  }
-          /*
-	  files.map{f=>
-		  
-	  }
-          */
 	  files
 	}
 }
-/*
-case class OnUsePicture(
-	fileObjId: ObjectId,
-	picUse: String,
-	showPriority: Int,
-	description: String
-)
-
-case class PictureUse(
-	id: ObjectId,
-	picUseName: String,
-	division: Int
-)
-*/

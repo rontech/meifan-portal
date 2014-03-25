@@ -2,18 +2,10 @@ package models
 
 import play.api.Play.current
 import play.api.PlayException
-
-import com.novus.salat._
 import com.novus.salat.dao._
-import com.novus.salat.Context 
-
 import com.mongodb.casbah.commons.Imports._
 import com.mongodb.casbah.MongoConnection
-
-
 import mongoContext._
-
-import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import java.util.Date
 
@@ -28,8 +20,8 @@ import java.util.Date
 */
 case class Address (
     province: String,
-    city: String,
-    region: String,
+    city: Option[String],
+    region: Option[String],
     town: Option[String],
     addrDetail: String,
     longitude: Option[BigDecimal],
@@ -69,7 +61,13 @@ case class RestDay(
     restDay: Int
 )
 
-
+/**
+ * Embed Structure.
+*/
+case class SalonAccount(
+    accountId:String,
+    password:String
+)
 
 /*----------------------------
  * Embed Structure of Salon.
@@ -80,7 +78,7 @@ case class RestDay(
 
 case class Salon(
     id: ObjectId = new ObjectId,   	
-    accountId:String,
+    salonAccount: SalonAccount,
     salonName: String,                  
     salonNameAbbr: Option[String],      
     salonIndustry: List[String],       // Ref to Master [Industry] table.           
@@ -123,7 +121,8 @@ object Salon {
     def create(salon: Salon): Option[ObjectId] = {
         SalonDAO.insert(
             Salon(
-                accountId = salon.accountId,
+                id = salon.id,                
+                salonAccount = salon.salonAccount,  
                 salonName = salon.salonName,
                 salonNameAbbr = salon.salonNameAbbr,
                 salonIndustry = salon.salonIndustry,
@@ -149,7 +148,7 @@ object Salon {
         SalonDAO.save(
             Salon(
                 id = salon.id,
-                accountId = salon.accountId,
+                salonAccount = salon.salonAccount,               
                 salonName = salon.salonName,
                 salonNameAbbr = salon.salonNameAbbr,
                 salonIndustry = salon.salonIndustry,
@@ -177,3 +176,4 @@ object Salon {
     }
 
 } 
+

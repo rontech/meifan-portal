@@ -1,4 +1,4 @@
-@(salon:Salon,user:User,sessionUserId:Option[String])
+@(salon:Salon,loginUserId:ObjectId)
 	<li><table class="ostable">
 		<tbody>
 			<tr>
@@ -8,10 +8,10 @@
 					<span class="city">@salon.salonAddress.province &nbsp;@salon.salonAddress.city</span>
 				</td>
 				<td class="opts">
-					@if(sessionUserId.nonEmpty && MyFollows.checkIfFollowByName(sessionUserId.get,salon.id)){
-						<a href="@routes.Users.cancelFollow(sessionUserId.get,salon.id)">@Messages("user.cancelFollow")</a>
+					@if(MyFollow.checkIfFollow(loginUserId,salon.id)){
+						<a href="@routes.MyFollows.cancelFollow(salon.id)">@Messages("user.cancelFollow")</a>
 					}else{
-						<a href="@routes.Users.addFollow(salon.id,"salon")">@Messages("user.addFollow")</a>
+						<a href="@routes.MyFollows.addFollow(salon.id,"salon")">@Messages("user.addFollow")</a>
 					}
 					<a href="#">@Messages("user.sendMsg")</a>
 				</td>

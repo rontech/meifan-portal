@@ -1,19 +1,14 @@
 package models
 
-import play.api.Play.current
-import play.api.PlayException
 import java.util.Date
-import com.novus.salat._
-import com.novus.salat.annotations._
 import com.novus.salat.dao._
-import com.mongodb.casbah._ 
-import se.radley.plugin.salat._
-import se.radley.plugin.salat.Binders._
-import mongoContext._
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
-
 import com.mongodb.casbah.query.Imports._
+import mongoContext._
+import se.radley.plugin.salat.Binders._
+import com.mongodb.casbah.Imports.MongoConnection
+import play.api.Play._
+import play.api.PlayException
+
 
 case class Coupon (
         id: ObjectId = new ObjectId,
@@ -32,49 +27,29 @@ case class Coupon (
         isValid: Boolean
 )
 
+case class CouponServiceType (
+		serviceTypes: List[ServiceType],
+		subMenuFlg: Option[String]
+)
 
-object CouponDAO extends SalatDAO[Coupon, ObjectId](
-  collection = com.mongodb.casbah.MongoConnection()(
+object Coupon extends ModelCompanion[Coupon, ObjectId]{
+
+  def collection = MongoConnection()(
     current.configuration.getString("mongodb.default.db")
       .getOrElse(throw new PlayException(
-          "Configuration error",
-          "Could not find mongodb.default.db in settings"))
-  )("Coupon"))
+      "Configuration error",
+      "Could not find mongodb.default.db in settings")))("Coupon")
 
-object Coupon {
-  
-  def findAll(): List[Coupon] = {
-        CouponDAO.find(com.mongodb.casbah.commons.MongoDBObject.empty).toList
-    }
-  
+  val dao = new SalatDAO[Coupon, ObjectId](collection){}
+    
   def findBySalon(salonId: ObjectId): List[Coupon] = {
-    CouponDAO.find(com.mongodb.casbah.commons.Imports.DBObject("salonId" -> salonId)).toList
+    dao.find(DBObject("salonId" -> salonId)).toList
   }
-  
-  def save(coupon: Coupon) = {
-        CouponDAO.save(
-            Coupon(
-                id = coupon.id,
-                couponId = coupon.couponId,
-                couponName = coupon.couponName,
-                salonId = coupon.salonId,
-                serviceItems = coupon.serviceItems,
-                originalPrice = coupon.originalPrice,
-                perferentialPrice = coupon.perferentialPrice,
-                serviceDuration = coupon.serviceDuration,
-                startDate = coupon.startDate,
-                endDate = coupon.endDate,
-                useConditions = coupon.useConditions,
-                presentTime = coupon.presentTime,
-                description = coupon.description,
-                isValid = coupon.isValid
-            )
-        )
-    }
   
   def findContainCondtions(serviceTypes: Seq[String]): List[Coupon] = {
-    CouponDAO.find("serviceItems.serviceType" $all serviceTypes).toList
+    dao.find("serviceItems.serviceType" $all serviceTypes).toList
   }
   
-  def checkCoupon(CouponName:String): Boolean = CouponDAO.find(com.mongodb.casbah.commons.Imports.DBObject("couponName" -> CouponName)).hasNext
+  def checkCoupon(CouponName:String): Boolean = dao.find(DBObject("couponName" -> CouponName)).hasNext
+
 }

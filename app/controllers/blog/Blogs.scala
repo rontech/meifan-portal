@@ -1,19 +1,17 @@
 package controllers
 
-import play.api._
 import java.util.Date
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
-import play.api.templates._
 import models._
 import com.mongodb.casbah.WriteConcern
-import com.mongodb.casbah.Imports.ObjectId
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.text.ParseException
 import java.util.Calendar
 import com.mongodb.casbah.commons.MongoDBObject
+import se.radley.plugin.salat.Binders._
 
 object Blogs extends Controller {
   
@@ -27,13 +25,13 @@ object Blogs extends Controller {
       "blogPics" -> optional(list(text)), // TODO
       "tags" -> text,
       "isVisible" -> boolean,
-      "pushToSlaon" -> optional(default(boolean, true)),
+      "pushToSalon" -> optional(default(boolean, true)),
       "allowComment" -> boolean) {
-      (id, title, content, authorId, blogCategory, blogPics, tags, isVisible, pushToSlaon, allowComment)
-        => Blog(id, title, content, authorId, new Date(), new Date(), blogCategory, blogPics, tags.split(",").toList, isVisible, pushToSlaon, allowComment, true)
+      (id, title, content, authorId, blogCategory, blogPics, tags, isVisible, pushToSalon, allowComment)
+        => Blog(id, title, content, authorId, new Date(), new Date(), blogCategory, blogPics, tags.split(",").toList, isVisible, pushToSalon, allowComment, true)
       } 
       {
-        blog => Some((blog.id, blog.title, blog.content, blog.authorId, blog.blogCategory, blog.blogPics, listToString(blog.tags), blog.isVisible, blog.pushToSlaon, blog.allowComment))
+        blog => Some((blog.id, blog.title, blog.content, blog.authorId, blog.blogCategory, blog.blogPics, listToString(blog.tags), blog.isVisible, blog.pushToSalon, blog.allowComment))
       }
       )
       
@@ -59,13 +57,13 @@ object Blogs extends Controller {
       "blogPics" -> optional(list(text)), // TODO
       "tags" -> text,
       "isVisible" -> default(boolean, true),
-      "pushToSlaon" -> optional(default(boolean, true)),
+      "pushToSalon" -> optional(default(boolean, true)),
       "allowComment" -> default(boolean, true)) {
-      (id, title, content, authorId, createTime, blogCategory, blogPics, tags, isVisible, pushToSlaon, allowComment)
-        => Blog(id, title, content, authorId, createTime, new Date(), blogCategory, blogPics, tags.split(",").toList, isVisible, pushToSlaon, allowComment, true)
+      (id, title, content, authorId, createTime, blogCategory, blogPics, tags, isVisible, pushToSalon, allowComment)
+        => Blog(id, title, content, authorId, createTime, new Date(), blogCategory, blogPics, tags.split(",").toList, isVisible, pushToSalon, allowComment, true)
       } 
       {
-        blog => Some((blog.id, blog.title, blog.content, blog.authorId, blog.createTime, blog.blogCategory, blog.blogPics, listToString(blog.tags), blog.isVisible, blog.pushToSlaon, blog.allowComment))
+        blog => Some((blog.id, blog.title, blog.content, blog.authorId, blog.createTime, blog.blogCategory, blog.blogPics, listToString(blog.tags), blog.isVisible, blog.pushToSalon, blog.allowComment))
       }
       )
   
@@ -78,7 +76,7 @@ object Blogs extends Controller {
      var user = User.findOneById(stylist.get.publicId).get
      var blogList = Blog.getBlogByUserId(user.userId)
      val listYM = getListYM(salon)
-     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogList, listYM))
+     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogList, listYM = listYM))
    }    
    
    /**
@@ -88,7 +86,7 @@ object Blogs extends Controller {
      val salon: Option[Salon] = Salon.findById(salonId)
      var blogList = getBlogBySalonAndYM(salonId, yM)
      val listYM = getListYM(salon)
-     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogList, listYM))
+     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogList, listYM = listYM))
    }  
   
   /**
@@ -123,7 +121,7 @@ object Blogs extends Controller {
     val newestBlogsOfSalon = Blog.getNewestBlogsOfSalon(salonId)
     val user : Option[User] = User.findOneByUserId(blog.get.authorId)
     val stylist : Option[Stylist] = Stylist.findOne(MongoDBObject("publicId" -> user.get.id))
-    Ok(views.html.salon.store.salonInfoBlog(salon = salon.get, blog = blog.get, listYM, newestBlogsOfSalon, stylist.get))
+    Ok(views.html.salon.store.salonInfoBlog(salon = salon.get, blog = blog.get, listYM = listYM, newestBlogsOfSalon = newestBlogsOfSalon, stylist = stylist.get))
   }
   
   /**
@@ -178,13 +176,14 @@ object Blogs extends Controller {
     val blogs: List[Blog] = Blog.findBySalon(salonId)
     val listYM = getListYM(salon)
     // TODO: process the salon not exist pattern.
-    Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogs, listYM))
+    Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogs, listYM = listYM))
   }
 
   def showBlog(userId : String) = Action {
     val user: Option[User] = User.findOneByUserId(userId)
     val blogList = Blog.getBlogByUserId(userId)
-    Ok(views.html.blog.admin.findBlogs(user = user.get, blogList))
+    val followInfo = MyFollow.getAllFollowInfo(user.get.id)
+    Ok(views.html.blog.admin.findBlogs(user = user.get, blogList, followInfo))
   }
   
   
@@ -193,8 +192,9 @@ object Blogs extends Controller {
    */
   def newBlog(userId: String) = Action {
     val user: Option[User] = User.findOneByUserId(userId)
-    val listBlogCategory = BlogCategory.getCategory 
-    Ok(views.html.blog.admin.newBlog(newBlogForm(userId), listBlogCategory, user = user.get))
+    val listBlogCategory = BlogCategory.getCategory
+    val followInfo = MyFollow.getAllFollowInfo(user.get.id)
+    Ok(views.html.blog.admin.newBlog(newBlogForm(userId), listBlogCategory, user = user.get, followInfo))
   }
   
    /**
@@ -208,7 +208,6 @@ object Blogs extends Controller {
         {
           blog =>
             Blog.save(blog, WriteConcern.Safe)
-//	        Redirect(routes.Blogs.showBlog(userId))
             Redirect(routes.Blogs.showBlogById(blog.id))
         }             
         )
@@ -219,12 +218,13 @@ object Blogs extends Controller {
    */
   def editBlog(blogId : ObjectId) = Action {
     val blog = Blog.findOneById(blogId)
-    var list = BlogCategory.getCategory()    
+    val list = BlogCategory.getCategory
     val user = User.findOneByUserId(blog.get.authorId).get
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
     blog.map { blog =>
       val formEditBlog = blogForm(user.userId).fill(blog)
 //      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user, blog))
-      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user))
+      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user, followInfo))
     } getOrElse {
       NotFound
     }
@@ -266,6 +266,7 @@ object Blogs extends Controller {
     val user = User.findOneByUserId(blog.authorId).get
     Comment.list = Nil
     val commentList = Comment.all(blogId)
-    Ok(views.html.blog.admin.blogDetail(blog, user, commentList))
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.blog.admin.blogDetail(blog, user, commentList, followInfo))
   }
 }
