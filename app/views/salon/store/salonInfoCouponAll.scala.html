@@ -1,6 +1,6 @@
-@(salon: Salon, condtionForm: Form[CouponServiceType], serviceTypes: Seq[ServiceType], coupons: Seq[Coupon], menus: Seq[Menu], serviceByTypes: Seq[ServiceByType])
+@(salon: Salon, condtionForm: Form[CouponServiceType], serviceTypes: List[ServiceType], coupons: List[Coupon], menus: List[Menu], serviceByTypes: List[ServiceByType], navBar: List[(String, String)] = Nil)
 
-@salonInfoMain(navInSalon = "salon-coupon", salon) {
+@salonInfoMain(navInSalon = "salon-coupon", salon, navBar) {
 	
 	<head>
 		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">	

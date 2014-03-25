@@ -1,4 +1,4 @@
-@(salonList : List[Salon],user:User,sessionUserId:Option[String])
+@(followInfo:FollowInfomation,user:User,loginUserId:ObjectId)
 
 @main("") {
 	
@@ -8,8 +8,8 @@
 	
     <div id="OSC_Content">
         	<div id='SpaceLeft'>
-        		@if(sessionUserId.nonEmpty && sessionUserId.get.equals(user.userId) ){
-        			@views.html.user.myPageLeft(user)
+        		@if(loginUserId.equals(user.id) ){
+        			@views.html.user.myPageLeft(user,followInfo)
         		}else{
         			@views.html.user.otherPageLeft(user)
         		}
@@ -17,9 +17,9 @@
 			<div id='SpaceMain'>
 	    		 <div class="MMod" id="Logs">
     				<ul>
-    					@salonList.map{salon =>
+    					@followInfo.followSalon.map{salon =>
     					
-    						@views.html.user.showAllFollowSalonItem(salon,user,sessionUserId)
+    						@views.html.user.showAllFollowSalonItem(salon,loginUserId)
     					
     					}
     				</ul>

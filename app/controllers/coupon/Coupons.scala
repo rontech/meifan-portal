@@ -48,7 +48,7 @@ object Coupons extends Controller {
   }
   
   def index = Action {
-    val coupons:Seq[Coupon] = Coupon.findAll().toList
+    val coupons:List[Coupon] = Coupon.findAll().toList
     Ok(views.html.coupon.couponOverview(coupons))
   }
   
@@ -103,10 +103,10 @@ object Coupons extends Controller {
    */
   def findBySalon(salonId: ObjectId) = Action {
     val salon: Option[Salon] = Salon.findById(salonId)
-    val coupons: Seq[Coupon] = Coupon.findBySalon(salonId)
-    val menus: Seq[Menu] = Menu.findBySalon(salonId)
-    val serviceTypes: Seq[ServiceType] = ServiceType.findAll().toList
-    val serviceTypeNames: Seq[String] = Service.getServiceTypeList
+    val coupons: List[Coupon] = Coupon.findBySalon(salonId)
+    val menus: List[Menu] = Menu.findBySalon(salonId)
+    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+    val serviceTypeNames: List[String] = Service.getServiceTypeList
     val couponServiceType: CouponServiceType = CouponServiceType(Nil, Some("1"))
     
     var servicesByTypes: List[ServiceByType] = Nil
@@ -144,9 +144,9 @@ object Coupons extends Controller {
       errors => BadRequest(views.html.error.errorMsg(errors)),
       {
         serviceType =>
-          var coupons: Seq[Coupon] = Nil
-          var menus: Seq[Menu] = Nil
-          var serviceTypeNames: Seq[String] = Nil
+          var coupons: List[Coupon] = Nil
+          var menus: List[Menu] = Nil
+          var serviceTypeNames: List[String] = Nil
           var conditions: List[String] = Nil
           var servicesByTypes: List[ServiceByType] = Nil
           var typebySearchs: List[ServiceType] = Nil
@@ -163,7 +163,7 @@ object Coupons extends Controller {
             
           couponServiceType = couponServiceType.copy(serviceTypes = typebySearchs)
             
-          val serviceTypes: Seq[ServiceType] = ServiceType.findAll().toList
+          val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
           if(serviceType.subMenuFlg == None) {
             //coupons = Coupon.findContainCondtions(serviceTypes)
           } else {

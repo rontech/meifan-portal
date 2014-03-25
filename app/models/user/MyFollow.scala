@@ -13,16 +13,16 @@ import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import scala.collection.mutable.ListBuffer
 
-case class MyFollows(
+case class MyFollow(
   id: ObjectId = new ObjectId,
   userId: ObjectId,
   followObjId: ObjectId,
   followObjType: String   //关注店铺:salon；关注技师:stylist；收藏风格:style；收藏优惠劵:coupon；收藏博客:blog;关注用户:user
   )
 
-object MyFollows extends ModelCompanion[MyFollows, ObjectId] {
+object MyFollow extends ModelCompanion[MyFollow, ObjectId] {
 
-  val dao = new SalatDAO[MyFollows, ObjectId](collection = mongoCollection("MyFollows")) {}
+  val dao = new SalatDAO[MyFollow, ObjectId](collection = mongoCollection("MyFollow")) {}
 
   val FOLLOWSALON = "salon"
   val FOLLOWSTYLIST = "stylist"
@@ -35,13 +35,13 @@ object MyFollows extends ModelCompanion[MyFollows, ObjectId] {
    *根据用户Id和关系类型获取被关注或收藏的对象 
    */
   def getAllFollowObjId(followObjType: String, userId: ObjectId): 
-     List[ObjectId] = dao.find(MongoDBObject("followObjType" -> followObjType, "userId" -> userId)).toList.map { myFollows => myFollows.followObjId }
+     List[ObjectId] = dao.find(MongoDBObject("followObjType" -> followObjType, "userId" -> userId)).toList.map { MyFollow => MyFollow.followObjId }
 
   /**
    *添加收藏或关注 
    */
   def create(userId: ObjectId,followObjId: ObjectId, followObjType: String) {
-    dao.insert(MyFollows(userId = userId,followObjId = followObjId,followObjType = followObjType))
+    dao.insert(MyFollow(userId = userId,followObjId = followObjId,followObjType = followObjType))
   }
   
   /**
@@ -73,34 +73,45 @@ object MyFollows extends ModelCompanion[MyFollows, ObjectId] {
     checkIfFollow(userId,followObjId)
   }
   
+  /**
+   * 获取关注收藏信息
+   */
   def getAllFollowInfo(id:ObjectId): FollowInfomation = {
-    val salonIdList: List[ObjectId] = MyFollows.getAllFollowObjId(FOLLOWSALON,id)
-    val salonList = ListBuffer[Salon]()
-    for (i <- 0 to salonIdList.length - 1) {
-      val salon = Salon.findById(salonIdList(i)).get
-      salonList += salon
-    }
-    val stylistIdList: List[ObjectId] = MyFollows.getAllFollowObjId(FOLLOWSTYLIST,id)
-    val stylistList = ListBuffer[Stylist]()
-    for (i <- 0 to stylistIdList.length - 1) {
-      val stylist = Stylist.findOneById(stylistIdList(i)).get
-      stylistList += stylist
-    }
-    val userIdList: List[ObjectId] = MyFollows.getAllFollowObjId(FOLLOWUSER,id)
-    val userList = ListBuffer[User]()
-    for (i <- 0 to userIdList.length - 1) {
-      val followUser = User.findOneById(userIdList(i)).get
-      userList += followUser
-    } 
-    FollowInfomation(salonList.toList,stylistList.toList,userList.toList)
-     }
+    //关注的店铺列表
+    val salonIdL: List[ObjectId] = getAllFollowObjId(FOLLOWSALON, id)
+    val salonL = salonIdL.map(salonId =>
+    	Salon.findById(salonId).get
+    )
+    //关注的技师列表
+    val stylistIdL: List[ObjectId] = getAllFollowObjId(FOLLOWSTYLIST, id)
+    val stylistL = stylistIdL.map(stylistId =>
+    	Stylist.findOneById(stylistId).get
+    )
+    //关注的用户
+    val userIdL: List[ObjectId] = getAllFollowObjId(FOLLOWUSER, id)
+    val userL = userIdL.map(userId =>
+    	User.findOneById(userId).get
+    )
+    
+    val followerIdL: List[ObjectId] = getFollowers(id)
+    val followerL = followerIdL.map(userId =>
+    	User.findOneById(userId).get
+    )
+    
+    val couponList = ListBuffer[Coupon]()
+    val blogList = ListBuffer[Blog]()
+    val styleList = ListBuffer[Style]()
+    
+    FollowInfomation(salonL,stylistL,userL,couponList.toList,blogList.toList,styleList.toList,followerL)
+  }
 }
 
 case class FollowInfomation(
      followSalon: List[Salon],
      followStylist: List[Stylist],
-     followUser: List[User]
-//     followCoupon:List[Coupon],
-//     followBlog: List[Blog],
-//     followStyle: List[Style]
+     followUser: List[User],
+     followCoupon:List[Coupon],
+     followBlog: List[Blog],
+     followStyle: List[Style],
+     follower:List[User]
 )     

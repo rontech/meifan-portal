@@ -1,4 +1,4 @@
-@(navInSalon: String = "salon-basic", salon: Salon)(content: Html)
+@(navInSalon: String = "salon-basic", salon: Salon, navBar: List[(String, String)] = Nil)(content: Html)
 
 
 <!-- the main page of salon.
@@ -16,7 +16,7 @@ TODO
   -->
 
 
-@main("todo", "hair-salon") {
+@main(salon.salonName, "hair-salon", navBar) {
 
 <!-- ↓contents -->
 
