@@ -143,7 +143,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
 		          goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR)
 		      => Stylist(new ObjectId, new ObjectId(), 0, position, goodAtImage, goodAtStatus,
 		    	   goodAtService, goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR, 
-		           Option(List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), false, false)
+		           List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), false, false)
 		    }{
 		      stylist => Some(stylist.workYears, stylist.position, 
 		          stylist.goodAtImage, stylist.goodAtStatus, stylist.goodAtService, stylist.goodAtUser,
@@ -394,14 +394,8 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
 
   def applyStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    val industry = Industry.findAll.toList
-    val position = Position.findAll.toList
-    val goodAtImage = StyleImpression.findAll.toList
-    val goodAtStatus = SocialStatus.findAll.toList
-    val goodAtService = Service.findAll.toList
-    val goodAtUser = Sex.findAll.toList
-    val goodAtAgeGroup = AgeGroup.findAll.toList
-    Ok(views.html.user.applyStylist(stylistApplyForm, user, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup))
+    val goodAtStylePara = Stylist.findGoodAtStyle
+    Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara))
   }
 
   /**
@@ -410,13 +404,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
 
   def commitStylistApply() = Action {implicit request=>
     val user = User.findOneById(new ObjectId("53202c29d4d5e3cd47efffd4"))
-    val industry = Industry.findAll.toList
-    val position = Position.findAll.toList
-    val goodAtImage = StyleImpression.findAll.toList
-    val goodAtStatus = SocialStatus.findAll.toList
-    val goodAtService = Service.findAll.toList
-    val goodAtUser = Sex.findAll.toList
-    val goodAtAgeGroup = AgeGroup.findAll.toList
+    val goodAtStylePara = Stylist.findGoodAtStyle
     stylistApplyForm.bindFromRequest.fold(
       errors => BadRequest(views.html.index("")),
       {
@@ -424,7 +412,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
         	Stylist.save(stylistApply.stylist)
         	val applyRecord = new SalonStylistApplyRecord(new ObjectId, stylistApply.salonId, stylistApply.stylist.id, 1, new Date, 0, None)
     	    SalonStylistApplyRecord.save(applyRecord)
-    	    Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user.get, position, industry, goodAtImage, goodAtStatus, goodAtService, goodAtUser, goodAtAgeGroup))
+    	    Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), goodAtStylePara))
         }
       })
       

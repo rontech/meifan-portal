@@ -27,7 +27,7 @@ case class Stylist(
     mySpecial: String,
     myBoom: String,
     myPR: String,
-    myPics: Option[List[OnUsePicture]],
+    myPics: List[OnUsePicture],
     isVarified: Boolean,
     isValid: Boolean
 )
@@ -59,7 +59,7 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
   
   val dao = new SalatDAO[Stylist, ObjectId](collection){}
   
-  def findGoodAt = {
+  def findGoodAtStyle = {
 	   val position = Position.findAll().toList
 	   var positions: List[String] = Nil 
 		   position.map{para=>

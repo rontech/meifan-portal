@@ -14,11 +14,13 @@ import org.bson.types.ObjectId
  * Embed Structure.
 */
 case class OnUsePicture(
-    fileObjId: ObjectId = new ObjectId,
+    fileObjId: ObjectId,
     picUse: String,                           // Ref to the PictureUse Master Table, but we only use the [picUseName] field as a key.
     showPriority: Option[Int],
     description: Option[String]
 )
+
+object OnUsePicture extends OnUsePictureDAO
 
 trait OnUsePictureDAO extends ModelCompanion[OnUsePicture, ObjectId] {
       def collection = MongoConnection()(
@@ -30,7 +32,7 @@ trait OnUsePictureDAO extends ModelCompanion[OnUsePicture, ObjectId] {
   
   val dao = new SalatDAO[OnUsePicture, ObjectId](collection){}
       
-  collection.ensureIndex(DBObject("_id" -> 1), "id", unique = true)   
+  collection.ensureIndex(DBObject("fileObjId" -> 1), "id", unique = true)
   
 }
 

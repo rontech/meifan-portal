@@ -142,7 +142,7 @@ object Stylists extends Controller {
 			    "mySpecial" -> text,
 			    "myBoom" -> text,
 			    "myPR" -> text,
-			    "myPics" -> optional(list(mapping (
+			    "myPics" -> (list(mapping (
 			    	"picUse" -> text
 			    ){
 			      (picUse) => OnUsePicture(new ObjectId, picUse, Some(0), Some("技师头像"))
@@ -164,19 +164,12 @@ object Stylists extends Controller {
   
   def updateStylistInfo(stylistId: ObjectId) = Action {
     val user = User.findOneById(new ObjectId("53202c29d4d5e3cd47efffd4"))
-    val industry = Industry.findAll.toList
-    val position = Position.findAll.toList
-    val goodAtImage = StyleImpression.findAll.toList
-    val goodAtStatus = SocialStatus.findAll.toList
-    val goodAtService = Service.findAll.toList
-    val goodAtUser = Sex.findAll.toList
-    val goodAtAgeGroup = AgeGroup.findAll.toList
+    val goodAtStylePara = Stylist.findGoodAtStyle
     val stylist = Stylist.findOneById(stylistId)
     stylist match {
       case Some(sty) => {
         val user = User.findOneById(sty.id)
-        Ok(html.stylist.management.updateStylistInfo(user = user.get, stylist = sty, stylistForm = stylistForm, position = position, industry = industry, 
-            goodAtImage = goodAtImage, goodAtStatus = goodAtStatus, goodAtService = goodAtService, goodAtUser = goodAtUser, goodAtAgeGroup = goodAtAgeGroup))
+        Ok(html.stylist.management.updateStylistInfo(user = user.get, stylist = sty, stylistForm = stylistForm, goodAtStylePara = goodAtStylePara))
         
       }
       case None => NotFound

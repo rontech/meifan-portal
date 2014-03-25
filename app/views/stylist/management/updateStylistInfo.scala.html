@@ -1,8 +1,4 @@
-@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, stylistForm: Form[Stylist],
-	position: List[Position], industry: List[Industry], 
-	goodAtImage: List[StyleImpression], goodAtStatus: List[SocialStatus], 
-	goodAtService: List[Service], goodAtUser: List[Sex], goodAtAgeGroup: List[AgeGroup]
-)
+@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, stylistForm: Form[Stylist], goodAtStylePara: GoodAtStyle)
 
 @import helper._
 
@@ -26,55 +22,56 @@
 			@input(field = stylistForm("stylist.position.industryName"),args = '_label ->Messages("stylist.industry")){(id,name,value,args) =>
 			 	@for(i <- 0 to industry.length-1){
 			 		<input type = "checkbox" class="" name = "stylist.position.industryName[@i]", value = "@industry(i).industryName">@industry(i).industryName
-			 		@Messages("stylist.position")<select name="stylist.position.positionName[@i]">
+			 		<select name="stylist.position.positionName[@i]">
+			 			<option>-请选择-</option>
 			 			@position.map{idy=>
 			 				<option value="@idy.positionName">@idy.positionName</option>
 			 			}
 			 		</select>
+			 		<br />
 			 	}
-			  }
+			 }
 			
 			@input(field = stylistForm("stylist.goodAtImage"),args = '_label ->Messages("stylist.goodAtImage")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtImage.length-1){
-			 		<input type = "checkbox" name = "goodAtImage[@i]", value = "@goodAtImage(i)">@goodAtImage(i).styleImpression&nbsp;
+			 		<input type = "checkbox" name = "goodAtImage[@i]", value = "@goodAtImage(i)">@goodAtStylePara.goodAtImage(i)&nbsp;
 			 	}
 			  }
 			  
 			@input(field = stylistForm("stylist.goodAtStatus"),args = '_label ->Messages("stylist.goodAtStatus")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtStatus.length-1){
-			 		<input type = "checkbox" name = "goodAtStatus[@i]", value = "@goodAtStatus(i)">@goodAtStatus(i).socialStatus
+			 		<input type = "checkbox" name = "goodAtStatus[@i]", value = "@goodAtStatus(i)">@goodAtStylePara.goodAtStatus(i)
 			 	}
 			  }
 			  
 			@input(field = stylistForm("stylist.goodAtService"),args = '_label ->Messages("stylist.goodAtService")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtService.length-1){
-			 		<input type = "checkbox" name = "stylist.goodAtService[@i]", value = "@goodAtService(i)">@goodAtService(i).serviceName
+			 		<input type = "checkbox" name = "stylist.goodAtService[@i]", value = "@goodAtService(i)">@goodAtStylePara.goodAtService
+			 		@if((i+1)%6==0){
+			 			<br />
+			 		}
 			 	}
 			  }
 			  
 			@input(field = stylistForm("stylist.goodAtUser"),args = '_label ->Messages("stylist.goodAtUser")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtUser.length-1){
-			 		<input type = "checkbox" name = "stylist.goodAtUser[@i]", value = "@goodAtUser(i)">@goodAtUser(i).sex
+			 		<input type = "checkbox" name = "stylist.goodAtUser[@i]", value = "@goodAtUser(i)">@goodAtStylePara.goodAtUser
 			 	}
 			  }  
 			
 			@input(field = stylistForm("stylist.goodAtAgeGroup"),args = '_label ->Messages("stylist.goodAtAgeGroup")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtAgeGroup.length-1){
-			 		<input type = "checkbox" name = "stylist.goodAtAgeGroup[@i]", value = "@goodAtAgeGroup(i)">@goodAtAgeGroup(i).ageGroup
+			 		<input type = "checkbox" name = "stylist.goodAtAgeGroup[@i]", value = "@goodAtAgeGroup(i)">@goodAtStylePara.goodAtAgeGroup
 			 	}
 			  }
 			
-			@textarea(field = stylistForm("stylist.myWords"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myWords"))
+			@textarea(field = stylistForm("stylist.myWords"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.myWords"))
 			
-			@textarea(field = stylistForm("stylist.mySpecial"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.mySpecial"))
+			@textarea(field = stylistForm("stylist.mySpecial"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.mySpecial"))
 			            
-            @textarea(field = stylistForm("stylist.myBoom"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myBoom"))
+            @textarea(field = stylistForm("stylist.myBoom"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.myBoom"))
  		
-		  	@textarea(field = stylistForm("stylist.myPR"),'rows -> 4, 'cols -> 100, '_label -> Messages("stylist.myPR"))
-		  	
-		<input type="submit" class = "buttons" value="@Messages("stylist.submit")">
-            
-        <input type = "reset" class = "buttons" value="@Messages("stylist.reset")">
+		  	@textarea(field = stylistForm("stylist.myPR"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.myPR"))
         </div>
       </div>
 
