@@ -15,44 +15,6 @@ import play.api.i18n.Messages
 
 object Users extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
 
-  /*
-   * 关注与收藏类别
-   * collection： FollowType
-   */
-
-  //关注沙龙
-  val FOLLOW_SALON = "salon"
-  //关注技师
-  val FOLLOW_STYLIST = "stylist"
-  //关注用户
-  val FOLLOW_USER = "user"
-  //收藏发型
-  val FOLLOW_STYLE = "style"
-  //收藏博客
-  val FOLLOW_BLOG = "blog"
-  //收藏优惠券
-  val FOLLOW_COUPON = "coupon"
-
-  /*
-   * 用户类别
-   */
-
-  //普通用户
-  val NORMAL_USER = "normalUser"
-  //专业技师
-  val STYLIST = "stylist"
-
-  /*
-    * 用户行为等级
-    */
-
-  //高
-  val HIGH = "high"
-  //中
-  val MIDDLE = "middle"
-  //底
-  val LOW = "low"
-
   def registerForm(id: ObjectId = new ObjectId) = Form(
     mapping(
       "id" -> ignored(id),
@@ -81,7 +43,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
           "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
       "socialStatus" -> text){
         (id, userId, password, nickName, sex, birthDay, address, tel, email, optContactMethods, socialStatus) =>
-          User(new ObjectId, userId, nickName, password._1, sex, birthDay, address, new ObjectId, tel, email, optContactMethods, socialStatus, NORMAL_USER, HIGH, 0, new Date(), Permission.valueOf(LoggedIn), false)
+          User(new ObjectId, userId, nickName, password._1, sex, birthDay, address, new ObjectId, tel, email, optContactMethods, socialStatus, User.NORMAL_USER,  User.HIGH, 0, new Date(), Permission.valueOf(LoggedIn), false)
       } {
         user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.sex, user.birthDay, user.address, user.tel, user.email, user.optContactMethods, user.socialStatus))
       }.verifying(
@@ -294,9 +256,9 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   def myPage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    if (user.userTyp.equals(NORMAL_USER)) {
+    if (user.userTyp.equals(User.NORMAL_USER)) {
       Ok(views.html.user.myPageRes(user,followInfo))
-    } else if ((user.userTyp).equals(STYLIST)) {
+    } else if ((user.userTyp).equals(User.STYLIST)) {
       //TODO
       val stylist = Stylist.findByUserId(user.id)
       Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get))

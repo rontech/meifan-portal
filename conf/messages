@@ -352,6 +352,7 @@ user.oldPassword=原始密码
 user.newPassword=新密码
 user.confirmPas=确认密码
 user.oldPasswordErr=原始密码不正确！
+user.registerTime=注册时间
 user.twicePasswordError=两次密码不一致！
 user.birthDayErr=请选择出生日期！
 user.emailErr=邮箱无效！
@@ -361,6 +362,7 @@ user.telError=手机号码无效
 user.toBePassword=以字母开头，6~18位字符
 user.toBeUserId=6~16位字符
 user.nickNameErr=给个昵称吧！
+
 
 #Letter
 letter.addressee=收件人
