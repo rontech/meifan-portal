@@ -352,12 +352,13 @@ user.confirmPas=确认密码
 user.oldPasswordErr=原始密码不正确！
 user.twicePasswordError=两次密码不一致！
 user.birthDayErr=请选择出生日期！
-user.emailDayErr=邮箱无效！
+user.emailErr=邮箱无效！
 user.userIdNotAvailable=该用户名已被注册 
 user.passwordError=密码不合法，只能包含字母、数字和下划线！
 user.telError=手机号码无效
 user.toBePassword=以字母开头，6~18位字符
 user.toBeUserId=6~16位字符
+user.nickNameErr=给个昵称吧！
 
 #Letter
 letter.addressee=收件人

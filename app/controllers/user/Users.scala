@@ -65,7 +65,14 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
       "nickName" -> nonEmptyText,
       "sex" -> text,
       "birthDay" -> date,
-      "city" -> text,
+      "address" ->  mapping(
+         "province" -> text,
+         "city" -> optional(text),
+         "region" -> optional(text)){
+          (province,city,region) => Address(province,city,region,None,"NO NEED",None,None)
+      }{
+          address => Some(address.province,address.city,address.region)
+      },
       "tel" -> text.verifying(Messages("user.telError"), tel => tel.matches("""^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$""")),
       "email" -> email,
       "optContactMethods" -> seq(
@@ -73,10 +80,10 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
           "contMethodType" -> text,
           "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
       "socialStatus" -> text){
-        (id, userId, password, nickName, sex, birthDay, city, tel, email, optContactMethods, socialStatus) =>
-          User(new ObjectId, userId, nickName, password._1, sex, birthDay, city, new ObjectId, tel, email, optContactMethods, socialStatus, NORMAL_USER, HIGH, 0, new Date(), Permission.valueOf(LoggedIn), false)
+        (id, userId, password, nickName, sex, birthDay, address, tel, email, optContactMethods, socialStatus) =>
+          User(new ObjectId, userId, nickName, password._1, sex, birthDay, address, new ObjectId, tel, email, optContactMethods, socialStatus, NORMAL_USER, HIGH, 0, new Date(), Permission.valueOf(LoggedIn), false)
       } {
-        user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.sex, user.birthDay, user.city, user.tel, user.email, user.optContactMethods, user.socialStatus))
+        user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.sex, user.birthDay, user.address, user.tel, user.email, user.optContactMethods, user.socialStatus))
       }.verifying(
         Messages("user.userIdNotAvailable"), user => !User.findOneByUserId(user.userId).nonEmpty))
 
@@ -107,9 +114,16 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
       "password" -> text,
       "sex" -> nonEmptyText,
       "birthDay" -> date,
-      "city" -> nonEmptyText,
+      "address" ->  mapping(
+         "province" -> text,
+         "city" -> optional(text),
+         "region" -> optional(text)){
+          (province,city,region) => Address(province,city,region,None,"NO NEED",None,None)
+      }{
+          address => Some((address.province,address.city,address.region))
+      },
       "userPics" -> text,
-      "tel" -> nonEmptyText,
+      "tel" -> nonEmptyText.verifying(Messages("user.telError"), tel => tel.matches("""^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$""")),
       "email" -> email,
       "optContactMethods" -> seq(
         mapping(
@@ -124,14 +138,13 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
       "isValid" -> boolean
     ) {
         // Binding: Create a User from the mapping result (ignore the second password and the accept field)
-        (id, userId, nickName, password, sex, birthDay, city, userPics, tel, email, optContactMethods, socialStatus, registerTime, userTyp, userBehaviorLevel, point, permission, isValid)
-        => User(id, userId, password, nickName, sex, birthDay, city, new ObjectId(userPics), tel, email, optContactMethods, socialStatus, userTyp, userBehaviorLevel, point, registerTime, permission, isValid)
+        (id, userId, nickName, password, sex, birthDay, address, userPics, tel, email, optContactMethods, socialStatus, registerTime, userTyp, userBehaviorLevel, point, permission, isValid)
+        => User(id, userId, nickName, password,  sex, birthDay, address, new ObjectId(userPics), tel, email, optContactMethods, socialStatus, userTyp, userBehaviorLevel, point, registerTime, permission, isValid)
       } // Unbinding: Create the mapping values from an existing Hacker value
       {
-        user => Some((user.id, user.userId, user.nickName, user.password, user.sex, user.birthDay, user.city, user.userPics.toString, user.tel, user.email, user.optContactMethods, user.socialStatus, user.registerTime,
+        user => Some((user.id, user.userId, user.nickName, user.password, user.sex, user.birthDay, user.address, user.userPics.toString, user.tel, user.email, user.optContactMethods, user.socialStatus, user.registerTime,
         user.userTyp, user.userBehaviorLevel, user.point, user.permission, user.isValid))
-      }.verifying(
-        "This userId is not available", user => User.findOneByNickNm(user.nickName).nonEmpty))
+      })
 
   /**
    * 用户申请技师用表单
@@ -201,7 +214,8 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def register = Action { implicit request =>
     Users.registerForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.user.register(errors)),
+//      errors => BadRequest(views.html.user.register(errors)),
+        errors => BadRequest(Html(errors.toString)),
       {
         user =>
           User.save(user, WriteConcern.Safe)
@@ -241,7 +255,8 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val loginUser = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     Users.userForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.user.Infomation(errors,followInfo)),
+      //errors => BadRequest(views.html.user.Infomation(errors,followInfo)),
+      errors => BadRequest(Html(errors.toString)),
       {
         user =>
           User.save(user.copy(id = loginUser.id), WriteConcern.Safe)
