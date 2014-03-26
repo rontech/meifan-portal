@@ -12,24 +12,37 @@
        
         @form(routes.Users.register(), 'id -> "userForm") {
           <fieldset>
-            @inputText(userForm("userId"),'_label -> Messages("user.name"),
-            	'_error -> userForm("userId").error.map(_.withMessage(Messages("user.regErr"))))
+          
+            @if(userForm.hasGlobalErrors) { 
+              <div>
+                  @userForm.globalError.get.message
+              </div>
+            }
+          
+            @inputText(userForm("userId"),'_label -> Messages("user.name"), 'placeholder -> Messages("user.toBeUserId"),
+            	'_error -> userForm("userId").error.map(_.withMessage(Messages("user.userIdErr")))
+            	)
 
-			@inputPassword(userForm("password.main"),'_label -> Messages("user.password"))
+			@inputPassword(userForm("password.main"),'_label -> Messages("user.password"), 'placeholder -> Messages("user.toBePassword"))
 			
-			@inputPassword(userForm("password.confirm"),'_label -> Messages("user.confirmPas"),'_error -> userForm.error("password"))
+			@inputPassword(userForm("password.confirm"),'_label -> Messages("user.confirmPas"),'_error -> userForm.error("password"), 'placeholder -> Messages("user.toBePassword"))
 
             @inputText(userForm("nickName"),'_label -> Messages("user.nickNm"))
 
-            @inputDate(userForm("birthDay"), '_label -> Messages("user.birthDay"))
+            @inputDate(userForm("birthDay"), '_label -> Messages("user.birthDay"),
+            	'_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr")))
+            )
 
 			@inputRadioGroup(userForm("sex"),options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")) , '_label -> Messages("user.sex"),
 				'_error -> userForm("sex").error.map(_.withMessage(Messages("user.sexErr"))))
+				
             @inputText(userForm("city"),'_label -> Messages("user.city"))
 
             @inputText(userForm("socialStatus"),'_label -> Messages("user.job"))
 
-            @inputText(userForm("email"), '_label -> Messages("user.email"))
+            @inputText(userForm("email"), '_label -> Messages("user.email"),
+            	'_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.emailDayErr")))
+            )
 
             @inputText(userForm("tel"), '_label -> Messages("user.tel"))
             
