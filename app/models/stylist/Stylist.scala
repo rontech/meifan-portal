@@ -74,7 +74,7 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
 	   val industry = Industry.findAll.toList
 	   var industrys: List[String] = Nil
 	   industry.map{para=>
-		       positions :::= List(para.industryName)
+		       industrys :::= List(para.industryName)
 	   	   }
     
        val paraStyleImpression = StyleImpression.findAll().toList
@@ -118,6 +118,10 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
       case Some(u) => u.nickName
       case None => ""
     }
+  }
+  
+  def findByUserId(publicId: ObjectId) = {
+    dao.findOne(MongoDBObject("publicId" -> publicId))
   }
   
   def findUser(publicId: ObjectId): User = {
