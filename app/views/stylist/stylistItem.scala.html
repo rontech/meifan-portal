@@ -1,30 +1,48 @@
-@(stylist: Stylist)
-<head>
+@(stylist: Option[StylistDetailInfo])
+
+<!--TODO -->
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mySalon.css")">
-</head>
-<body>
-<div class="mysalon-stylist-search w166 mHA">
-    <div class="taC">
-        <a href="@*routes.Stylists.findStylistById(stylist.id)*@">
-        	<img src="#" class="bdImgGray w164 h219"/>
-        	<p>...</p>
-            @*<img src="@routes.Application.getPhoto(stylist.myPics.get(0).fileObjId)"
-            alt="弗里尔兄弟公司坂本隆文" class="bdImgGray w164 h219">*@
-        </a>
-    </div>
-    <div class="bdDotT mT5 pT5 fs10">
-        <span class="fgPink">
-       造型师
-        </span>
-  （历史@stylist.workYears
-  年）
-    </div>
-    <div class="bdDotT mT5 pT5 fs10 hMin30">
-    	<p>@Stylist.findUserName(stylist.id)</p>
-    </div>
-</div>
-<div class="taC mT10">
-	<a href="#" class="salon-stylist-reserv">指名して予約する</a>
-</div>
-</body>
+
+@stylist match {
+    case None => { <h1>Not Found</h1> }
+    case Some(st) => {
+        <div class="mysalon-stylist-search w166 mHA">
+            @st.workInfo match {
+                case None => {Not Found}
+                case Some(wk) => {
+                    <div class="taC">
+                        <a href="@routes.Salons.getOneStylist(st.workInfo.get.salonId, st.workInfo.get.stylistId)">
+                            <img src="" alt="@st.basicInfo.nickName" class="bdImgGray w164 h219">
+                        </a>
+                    </div>
+                }
+            }
+
+            @st.stylistInfo match {
+                case None => {Not Known}
+                case Some(sinfo) => {
+                    <div class="bdDotT mT5 pT5 fs10">
+                        <span class="fgPink">
+                            @sinfo.position.map { ps => @ps.positionName &nbsp;&nbsp; }
+                        </span>
+                        [@Messages("stylist.experienceYears", sinfo.workYears)] 
+                    </div>
+                }
+            }
+            <div class="bdDotT mT5 pT5 fs10 hMin30"> <p> @st.basicInfo.nickName </p> </div>
+            <!--Stylist's words-->
+            @st.stylistInfo match {
+                case None => {}
+                case Some(sinfo) => {<div class="bdDotT mT5 pT5 fs10 hMin30">@sinfo.myWords</div> }
+            }
+         </div>
+         <div class="taC mT10">
+             <a href="#" class="salon-stylist-reserv">@Messages("stylist.selectForReserv")</a>
+         </div>
+    }
+}
+
+
+
+

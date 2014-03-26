@@ -254,7 +254,7 @@ stylist.blog = 技师博客
 stylist.findAllBlog = 查看此技师所有博客
 stylist.haircatalog = 发型目录
 stylist.welcome = 期待你的光临
-stylist.selectForReserv = 指定预约
+stylist.selectForReserv = 指名预约
 stylist.createBlog = 发表于
 stylist.other = 其它
 stylist.storerecommend = 店铺推荐
@@ -262,9 +262,9 @@ stylist.hello = 您好
 stylist.this = 这是
 stylist.is = 的
 stylist.findOtherBlog = 查看更多
+stylist.experienceYears={0}年经验
 stylist.removeSalon = 离开店铺
 stylist.update = 更新
-
 
 
 #Stylist Apply

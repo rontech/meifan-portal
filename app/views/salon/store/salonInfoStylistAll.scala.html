@@ -1,9 +1,10 @@
-@(salon: Salon, stylists: List[Stylist], navBar: List[(String, String)] = Nil)
+@(salon: Salon, stylists: List[StylistDetailInfo] = Nil, navBar: List[(String, String)] = Nil)
 
 @salonInfoMain(navInSalon = "salon-stylist", salon, navBar) {
-	<div class="oh w745 mT20 pH10">
-    <!-- Get All the Salons with all the styles.  -->
-    @views.html.stylist.stylistGroup(stylists)
+
+    <!-- Get All stylists in a Salon with all the styles.  -->
+    <div class="oh w745 mT20 pH10">
+        @views.html.stylist.stylistGroup(stylists)
     </div>
 
 }

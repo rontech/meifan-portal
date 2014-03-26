@@ -1,8 +1,16 @@
-@(salon: Salon, stylist: Stylist, navBar: List[(String, String)] = Nil)
+@(salon: Salon, stylist: Option[StylistDetailInfo] = None, styles: List[Style] = Nil, latestBlog: Option[Blog] = None, navBar: List[(String, String)] = Nil)
 
-@salonInfoMain(navInSalon = "salon-basic", salon, navBar) {
+@salonInfoMain(navInSalon = "salon-stylist", salon, navBar){
 
-    <!-- Get All the Salons with all the styles.  -->
-    @views.html.stylist.stylistItem(stylist)
-
+    @stylist match {
+        case None => {<h1>Not Found</h1>}
+        case Some(dtl) => {
+            <div class="mT30">
+                @views.html.stylist.stylistBasicInfoHead(dtl)
+                @views.html.stylist.stylistBasicInfoContent(salon, dtl, styles, latestBlog)
+                @views.html.stylist.stylistBasicInfoStyles(dtl, styles)
+                @views.html.stylist.stylistBasicInfoFoot(dtl)    
+            </div>
+        }
+    }
 }
