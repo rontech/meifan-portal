@@ -1,4 +1,4 @@
-@(styleSearchForm: Form[Style], styles: List[models.Style], salon:Salon ,stylePara : models.StylePara)
+@(styleSearchForm: Form[Style], styleAndSalon: List[models.StyleAndSalon], stylePara : models.StylePara)
 
 
 
@@ -12,7 +12,7 @@
             <hr/>
             <hr/>
             <!-- Style Search Result Page, SearchList. -->    
-            @views.html.style.general.styleSearchList(styles, salon)
+            @views.html.style.general.styleSearchList(styleAndSalon)
             <hr/>
             
         </div>

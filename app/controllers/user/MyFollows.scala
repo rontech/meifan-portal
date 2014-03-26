@@ -10,13 +10,6 @@ import ExecutionContext.Implicits.global
 
 object MyFollows extends Controller with AuthElement with AuthConfigImpl {
 
-    val FOLLOW_SALON = "salon"
-    val FOLLOW_STYLIST = "stylist"
-    val FOLLOW_USER = "user"
-    val FOLLOW_STYLE = "style"
-    val FOLLOW_BLOG = "blog"
-    val FOLLOW_COUPON = "coupon"
-
     /**
      * 取消关注
      */
@@ -35,7 +28,7 @@ object MyFollows extends Controller with AuthElement with AuthConfigImpl {
         if (!MyFollow.checkIfFollow(user.id, followId)) {
             MyFollow.create(user.id, followId, followObjType)
         }
-        if (followObjType == FOLLOW_SALON || followObjType == FOLLOW_STYLIST || followObjType == FOLLOW_USER)
+        if (followObjType == FollowType.FOLLOW_SALON || followObjType == FollowType.FOLLOW_STYLIST || followObjType == FollowType.FOLLOW_USER)
             UserMessage.sendFollowMsg(user, followId, followObjType)
         Redirect(routes.Users.myPage())
     }
