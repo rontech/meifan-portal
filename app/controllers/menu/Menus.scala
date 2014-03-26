@@ -69,7 +69,7 @@ object Menus extends Controller {
 		    val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
 		    
             salon match {
-		      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.condtionForm.fill(couponServiceType), serviceTypes, menus))
+		      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))
 		      case None => NotFound
 		    }
         }
@@ -127,7 +127,7 @@ object Menus extends Controller {
 		    val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
 		    
             salon match {
-		      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.condtionForm.fill(couponServiceType), serviceTypes, menus))
+		      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))
 		      case None => NotFound
 		    }
         }
@@ -149,7 +149,7 @@ object Menus extends Controller {
                       val salon: Option[Salon] = Salon.findById(s.salonId)
                       val menus: List[Menu] = Menu.findBySalon(s.salonId)
                       salon match {
-                      	case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.condtionForm.fill(couponServiceType), serviceTypes, menus))
+                      	case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))
                       	case None => NotFound
                       }
                       

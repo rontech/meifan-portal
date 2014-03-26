@@ -61,7 +61,7 @@ object SalonsAdmin extends Controller {
     val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
     
     salon match {
-      case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, Coupons.condtionForm.fill(couponServiceType), serviceTypes, coupons))
+      case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, Coupons.conditionForm.fill(couponServiceType), serviceTypes, coupons))
       case None => NotFound
     }
   }
@@ -76,7 +76,7 @@ object SalonsAdmin extends Controller {
     val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
     
     salon match {
-      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.condtionForm.fill(couponServiceType), serviceTypes, menus))
+      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))
       case None => NotFound
     }
   }

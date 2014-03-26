@@ -8,7 +8,7 @@
 	<div class="taC">
 	@if(stylists.length<=1){
 		@stylists.map{st =>
-    	<p><a href="@routes.Stylists.findBySalon(st.id)">查看店铺所有技师</a></p>
+    	<p><a href="@routes.Salons.getAllStylists(st.id)">查看店铺所有技师</a></p>
     	}
     }
 	</div>

@@ -61,7 +61,7 @@
                 </div>
                 <div class="cFix mT10">
                     <div class="fl w99">
-                        <a href="@routes.Stylists.findStylistById(Stylist.findOneById(style.stylistId).get.id)">
+                        <a href="@routes.Salons.getOneStylist(salon.id, style.stylistId)">
                             @*<img src="@routes.Application.getPhoto(style.stylePic(0))">*@
                         </a>
                     </div>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="cFix mT10 pT10 bdDotT">
                     <div class="fl" >
-                        <a href="@routes.Stylists.findStylistById(Stylist.findOneById(style.stylistId).get.id)">
+                        <a href="@routes.Salons.getOneStylist(salon.id, style.stylistId)">
                             
                         </a>
                     </div>
@@ -223,7 +223,7 @@
     <div class="mT30">
         <div class="cFix p15 bgLGray">
             <div class="fl w89">
-                <a href="@routes.Stylists.findStylistById(Stylist.findOneById(style.stylistId).get.id)">
+                <a href="@routes.Salons.getOneStylist(salon.id, style.stylistId)">
                     <img src=""
                     alt="">
                 </a>

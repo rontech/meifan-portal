@@ -15,7 +15,7 @@ object CouponAdmin extends Controller {
    * 根据查找条件检索出符合的优惠劵
    */
   def findCoupons(salonId: ObjectId) = Action {implicit request =>
-    Coupons.condtionForm.bindFromRequest.fold(
+    Coupons.conditionForm.bindFromRequest.fold(
       errors => BadRequest(views.html.error.errorMsg(errors)),
       {
         serviceType =>
@@ -48,7 +48,7 @@ object CouponAdmin extends Controller {
           val salon: Option[Salon] = Salon.findById(salonId)
 
           salon match {
-	        case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, Coupons.condtionForm.fill(couponServiceType), serviceTypes, coupons))
+	        case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, Coupons.conditionForm.fill(couponServiceType), serviceTypes, coupons))
 	        case None => NotFound
 	      }
       })

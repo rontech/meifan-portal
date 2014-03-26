@@ -16,7 +16,7 @@ object MenuAdmin extends Controller {
    * 根据查找条件检索出符合的菜单
    */
   def findMenus(salonId: ObjectId) = Action {implicit request =>
-    Coupons.condtionForm.bindFromRequest.fold(
+    Coupons.conditionForm.bindFromRequest.fold(
       errors => BadRequest(views.html.error.errorMsg(errors)),
       {
         serviceType =>
@@ -49,7 +49,7 @@ object MenuAdmin extends Controller {
           val salon: Option[Salon] = Salon.findById(salonId)
 
           salon match {
-	        case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.condtionForm.fill(couponServiceType), serviceTypes, menus))
+	        case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))
 	        case None => NotFound
 	      }
       })

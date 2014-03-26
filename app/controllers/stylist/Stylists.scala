@@ -58,24 +58,17 @@ object Stylists extends Controller {
 		    }
 		)
   
-  /**
-   * 
-   */
-  def findById(stylistId: ObjectId) = Action { 
-    val stylist: Option[Stylist] = Stylist.findOneById(stylistId)
-    val salonId =  SalonAndStylist.findByStylistId(stylistId).get.salonId
-    val salon: Option[Salon] = Salon.findById(salonId)
-    Ok(html.salon.store.salonInfoStylist(salon.get, stylist.get))
-  }
-  
-  def findBySalon(salonId: ObjectId) = Action {
-
-    val salon: Option[Salon] = Salon.findById(salonId)
-    val nav: String = "style"
-    val stylistsOfSalon: List[Stylist] = Stylist.findBySalon(salonId)    
-     // TODO
-    Ok(html.salon.store.salonInfoStylistAll(salon.get, stylistsOfSalon))
-
+ 
+  def mySalon(stylistId: ObjectId) = Action {
+    val salon = Stylist.mySalon(stylistId)
+    val stylist = Stylist.findOneById(stylistId)
+    stylist match {
+      case Some(sty) => {
+        val user = User.findOneById(sty.publicId)
+        Ok(html.stylist.management.stylistMySalon(user = user.get, stylist = sty, salon = salon))
+      }
+      case None => NotFound
+    }
   }
   
   def findStylistById(id: ObjectId) = Action {
@@ -87,22 +80,8 @@ object Stylists extends Controller {
     val blog = Blog.getBlogByUserId(user.userId).last
     Ok(html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, styles = style, blog = blog))
   }
-  
-  def mySalon(stylistId: ObjectId) = Action {
-    val salon = Stylist.mySalon(stylistId)
-    val stylist = Stylist.findOneById(stylistId)
-    stylist match {
-      case Some(sty) => {
-        val user = User.findOneById(sty.publicId)
-        Ok(html.stylist.management.stylistMySalon(user = user.get, stylist = sty, salon = salon))
-      }
-      case None => NotFound
-    }
-    
-    
-  }
-  
-  /**
+
+   /**
    *  同意salon邀请
    */
   def agreeSalonApply(stylistId: ObjectId, salonId: ObjectId) = Action {

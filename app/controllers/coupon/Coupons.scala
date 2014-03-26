@@ -70,7 +70,7 @@ object Coupons extends Controller {
 	    }
   }
   
-  def condtionForm: Form[CouponServiceType] = Form {
+  def conditionForm: Form[CouponServiceType] = Form {
       mapping(
             "serviceTypes" -> list(
              mapping (
@@ -138,35 +138,11 @@ object Coupons extends Controller {
 		    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
             val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
             salon match {
-		      case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, condtionForm.fill(couponServiceType), serviceTypes, coupons))
+		      case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons))
 		      case None => NotFound
 		    }
         }
     )
-  }
-  
-  /**
-   * 根据店铺查找所有优惠劵，菜单和服务
-   */
-  def findBySalon(salonId: ObjectId) = Action {
-    val salon: Option[Salon] = Salon.findById(salonId)
-    val coupons: List[Coupon] = Coupon.findBySalon(salonId)
-    val menus: List[Menu] = Menu.findBySalon(salonId)
-    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
-    val serviceTypeNames: List[String] = Service.getServiceTypeList
-    val couponServiceType: CouponServiceType = CouponServiceType(Nil, Some("1"))
-    
-    var servicesByTypes: List[ServiceByType] = Nil
-    for(serviceType <- serviceTypeNames) {
-      var servicesByType: ServiceByType = ServiceByType("", Nil)
-      val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(salonId, serviceType))
-      servicesByTypes = y::servicesByTypes
-    }
-    
-    salon match {
-        case Some(s) => Ok(html.salon.store.salonInfoCouponAll(s, condtionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes))
-        case None => NotFound
-    }
   }
   
   /**
@@ -186,7 +162,7 @@ object Coupons extends Controller {
    * 根据查找条件检索出符合的优惠劵
    */
   def findByCondtion(salonId: ObjectId) = Action {implicit request =>
-    condtionForm.bindFromRequest.fold(
+    conditionForm.bindFromRequest.fold(
       errors => BadRequest(views.html.error.errorMsg(errors)),
       {
         serviceType =>
@@ -235,12 +211,12 @@ object Coupons extends Controller {
           val salon: Option[Salon] = Salon.findById(salonId)
           
           salon match {
-	          case Some(s) => Ok(html.salon.store.salonInfoCouponAll(s, condtionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes))
+	          case Some(s) => Ok(html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes))
 	          case None => NotFound
 	      }
       })
   }
-  
+
   /**
    * 进入修改优惠劵画面
    */
@@ -268,7 +244,7 @@ object Coupons extends Controller {
             var services: List[Service] = Nil
             var originalPrice: BigDecimal = 0
             var serviceDuration: Int = 0
-            
+			    
             for(serviceItem <- coupon.serviceItems) {
               val service: Option[Service] = Service.findOneByServiceId(serviceItem.id)
               service match {
@@ -287,7 +263,7 @@ object Coupons extends Controller {
 		    val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
 		    
             salon match {
-		      case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, condtionForm.fill(couponServiceType), serviceTypes, coupons))
+		      case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons))
 		      case None => NotFound
 		    }
         }
@@ -309,7 +285,7 @@ object Coupons extends Controller {
                       val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
                       val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
                       salon match {
-                      	case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, condtionForm.fill(couponServiceType), serviceTypes, coupons))
+                      	case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons))
                       	case None => NotFound
                       }
                       
