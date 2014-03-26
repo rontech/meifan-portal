@@ -88,6 +88,8 @@ $(function(){
 					});
 				});
 		
+		
+		
 		$('.deleteBlog').click(function(e) {
 		  e.preventDefault();
 		  blogId = $(this).data('blog');

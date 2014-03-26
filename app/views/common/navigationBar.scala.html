@@ -17,8 +17,7 @@ TODO:
         <li>
             @if(index != (geoNavList.size -1)) {
                 <a href="@navValue">@navKey</a> &nbsp;&nbsp;&gt;&nbsp;&nbsp;
-            }
-            @if(index == (geoNavList.size -1)) {
+            } else {
                 <strong>@navKey</strong>
             }
         </li>

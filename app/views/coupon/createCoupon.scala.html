@@ -1,4 +1,5 @@
 @(salonId: ObjectId, couponForm: Form[Coupon], services: List[Service])
+@*@(couponForm: Form[CreateCoupon])*@
 
 @import helper._
 
@@ -9,7 +10,6 @@
 		
 		@inputText(couponForm("couponName"), '_label -> Messages("coupon.couponName"),
 			'_error -> couponForm("couponName").error.map(_.withMessage(Messages("coupon.addErrorMsg")))
-            ,'_error -> couponForm.globalError
 		)
 		
 		<fieldset class="serviceArea">
@@ -37,8 +37,8 @@
 		
 	</div>
 	<div class="btnArea">
-		<input type = "submit" class = "buttons" value="@Messages("service.addBton")">
+		<input type = "submit" class = "buttons" value="@Messages("common.submit")">
             
-    	<input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+    	<input type = "reset" class = "buttons" value="@Messages("common.reset")">
     </div>
 }

@@ -19,13 +19,13 @@
    			<div class="mc">
    			<div class="w166 mHA">
 			    <div class="taC">
-			        <a href="@routes.Stylists.findStylistById(stylist.id)">
+			        <a href="@routes.Salons.getOneStylist(salon.id, stylist.id)">
 			            @*<img src="@routes.Application.getPhoto(stylist.myPics.get(0).fileObjId)" class="bdImgGray w164 h219">*@
 			        </a>
 			    </div>
 			    <p class="mT10">
 			        <a href="#">
-			           <p>@stylist.publicId</p>
+			           <p>@Stylist.findUserName(stylist.publicId)</p>
 			        </a>
 			    </p>
 			    <div class="bdDotT mT5 pT5 fs10">

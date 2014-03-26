@@ -1,5 +1,202 @@
 @(navInMyPage: String = "my-reservation", user: User, stylist: Stylist)
 
 @stylistPageMain(navInMyPage, user, stylist){
-	
+	<div class="mT30">
+            <table cellspacing="0" class="wFull bgThNml bdCell pCell10">
+                <tbody>
+                	<tr>
+                        <th class="w100">
+                            <font>
+                                <font>
+                                    @Messages("user.name")
+                                </font>
+                            </font>
+                        </th>
+                        <td>
+                            <font>
+                                <font>
+                                    @user.nickName
+                                </font>
+                            </font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="w100">
+                            <font>
+                                <font>
+                                    @Messages("stylist.worked")
+                                </font>
+                            </font>
+                        </th>
+                        <td>
+                            <font>
+                                <font>
+                                    @stylist.workYears
+                                    @Messages("stylist.workYears")
+                                </font>
+                            </font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="w100">
+                            <font>
+                                <font>
+                                    @Messages("stylist.goodAtImage")
+                                </font>
+                            </font>
+                        </th>
+                        <td>
+                            <font>
+                                <font>
+                                    @stylist.position.map{good =>
+                                    	<p>@good.positionName&nbsp;@good.industryName</p>
+                                    }
+                                </font>
+                            </font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="w100">
+                            <font>
+                                <font>
+                                    @Messages("stylist.goodAtImage")
+                                </font>
+                            </font>
+                        </th>
+                        <td>
+                            <font>
+                                <font>
+                                    @stylist.goodAtImage.map{good =>
+                                    	@good&nbsp;
+                                    }
+                                </font>
+                            </font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="w100">
+                            <font>
+                                <font>
+                                    @Messages("stylist.goodAtStatus")
+                                </font>
+                            </font>
+                        </th>
+                        <td>
+                            <font>
+                                <font>
+                                    @stylist.goodAtStatus.map{good =>
+                                    	@good&nbsp;
+                                    }
+                                </font>
+                            </font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="w100">
+                            <font>
+                                <font>
+                                    @Messages("stylist.goodAtService")
+                                </font>
+                            </font>
+                        </th>
+                        <td>
+                            <font>
+                                <font>
+                                    @stylist.goodAtService.map{good =>
+                                    	@good &nbsp;
+                                    }
+                                </font>
+                            </font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="w100">
+                            <font>
+                                <font>
+                                    @Messages("stylist.goodAtUser")
+                                </font>
+                            </font>
+                        </th>
+                        <td>
+                            <font>
+                                <font>
+                                    @stylist.goodAtUser.map{good =>
+                                    	@good &nbsp;
+                                    }
+                                </font>
+                            </font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="w100">
+                            <font>
+                                <font>
+                                    @Messages("stylist.goodAtAgeGroup")
+                                </font>
+                            </font>
+                        </th>
+                        <td>
+                            <font>
+                                <font>
+                                    @stylist.goodAtAgeGroup.map{good =>
+                                    	@good &nbsp;
+                                    }
+                                </font>
+                            </font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="w100">
+                            <font>
+                                <font>
+                                 @Messages("stylist.mySpecial")   
+                                </font>
+                            </font>
+                        </th>
+                        <td>
+                            <font>
+                                <font>
+                                   @stylist.mySpecial
+                                </font>
+                            </font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="w100">
+                            <font>
+                                <font>
+                                    @Messages("stylist.myBoom")
+                                </font>
+                            </font>
+                        </th>
+                        <td>
+                            <font>
+                                <font>
+                                    @stylist.myBoom
+                                </font>
+                            </font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="w100">
+                            <font>
+                                <font>
+                                    @Messages("stylist.myPR")
+                                </font>
+                            </font>
+                        </th>
+                        <td>
+                            <font>
+                                <font>
+                                    @stylist.myPR
+                                </font>
+                            </font>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+            	<a href="/updateStylistInfo/@stylist.id" class = "buttons">@Messages("stylist.update")</a>
+            </div>	
+        </div>
 }

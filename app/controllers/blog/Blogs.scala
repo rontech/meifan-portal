@@ -130,7 +130,7 @@ object Blogs extends Controller {
   def getBlogAuthor(salonId: ObjectId, userId: String) = Action {
     var user = User.findOneByUserId(userId).get
     var stylist = Stylist.findOne(MongoDBObject("publicId" -> user.id)).get
-    Redirect(routes.Stylists.findStylistById(stylist.id))
+    Redirect(routes.Salons.getOneStylist(salonId, stylist.id))
   }
   
   /**

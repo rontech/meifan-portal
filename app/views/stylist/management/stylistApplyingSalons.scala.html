@@ -2,6 +2,7 @@
 
 @stylistPageMain(navInMyPage, user, stylist){
 	@salons.map{salon =>
-		@views.html.stylist.management.stylistApplyingSalonItem(salon)
+		<h1>@salon</h1>
+		@views.html.stylist.management.stylistApplyingSalonItem(salon, stylist)
 	}
 }
