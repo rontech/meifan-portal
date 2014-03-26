@@ -13,6 +13,7 @@ common.reset=重置
 common.backUp=返回
 common.edit=编辑
 common.delete=删除
+common.sreach = 检索
 
 # Index page
 index.mainPage=网站首页
@@ -193,7 +194,7 @@ coupon.searchOptionContent = 包含上述所选条件
 coupon.search = 搜索
 coupon.appointment1 = 该优惠券
 coupon.appointment2 = 空缺查询
-coupon.addMenu = 增加菜单
+coupon.addMenu = 追加服务预约
 coupon.currency = 元
 coupon.newConpon = 新
 coupon.conpon = 券
@@ -211,6 +212,7 @@ coupon.serviceDuration = 服务时长
 coupon.modify = 修改
 coupon.invalid = 无效 
 coupon.invalidCoupon = 该优惠劵已无效
+coupon.addErrorMsg = 请输入优惠劵名！
 
 menu.title = {0} 的菜单
 menu.tip = 没有找到您希望的菜单！

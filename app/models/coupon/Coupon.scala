@@ -37,9 +37,24 @@ case class CouponServiceType (
 		subMenuFlg: Option[String]
 )
 
-object Coupon extends ModelCompanion[Coupon, ObjectId]{
+case class CreateCoupon (
+		couponItem: Coupon,
+		salon: Salon,
+		services: List[Service]
+)
 
-  val dao = new SalatDAO[Coupon, ObjectId](collection = mongoCollection("Coupon")){}
+object Coupon extends ModelCompanion[Coupon, ObjectId]{
+    
+  def collection = MongoConnection()(
+    current.configuration.getString("mongodb.default.db")
+      .getOrElse(throw new PlayException(
+        "Configuration error",
+        "Could not find mongodb.default.db in settings")))("Coupon")
+
+  val dao = new SalatDAO[Coupon, ObjectId](collection){}
+  
+  // Indexes
+  collection.ensureIndex(DBObject("couponName" -> 1), "couponName", unique = true)
     
   def findBySalon(salonId: ObjectId): List[Coupon] = {
     dao.find(com.mongodb.casbah.commons.Imports.DBObject("salonId" -> salonId)).toList

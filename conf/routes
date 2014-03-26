@@ -71,6 +71,7 @@ GET     /showCoupons/:salonId           controllers.Coupons.showCoupons(salonId:
 GET     /invalidCoupon/:couponId     	controllers.Coupons.invalidCoupon(couponId: ObjectId)
 GET     /editCoupon/:couponId           controllers.Coupons.editCouponInfo(couponId: ObjectId)
 GET     /updateCoupon/:couponId         controllers.Coupons.updateCoupon(couponId: ObjectId)
+GET     /mySalon/:salonId/sreachCoupon     controllers.CouponAdmin.findCoupons(salonId: ObjectId)
 POST    /salon/:salonId/coupons/condtion   controllers.Coupons.findByCondtion(salonId: ObjectId)
 
 # Menu
@@ -78,6 +79,7 @@ GET     /createMenu                     controllers.Menus.createMenu
 GET     /editMenu/:menuId               controllers.Menus.editMenuInfo(menuId: ObjectId)
 GET     /updateMenu/:menuId             controllers.Menus.updateMenu(menuId: ObjectId)
 GET     /invalidMenu/:menuId     		controllers.Menus.invalidMenu(menuId: ObjectId)
+GET     /mySalon/:salonId/sreachMenu    controllers.MenuAdmin.findMenus(salonId: ObjectId)
 
 # Style
 GET     /style                          controllers.Styles.index
