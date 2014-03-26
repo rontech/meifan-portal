@@ -1,0 +1,16 @@
+@(salon: Salon, blog: Blog, listYM : List[String], newestBlogsOfSalon : List[Blog], stylist : Stylist)
+
+<div class="mT30">
+	<div class="yS mainContentsSecondTitleOuter">
+		<h2 class="yS mainContentsSecondTitleInner">@Messages("blog.salonBlogTitle", salon.salonName)</h2>
+	</div>
+</div>
+
+<div class="mT20 cFix">
+
+	<!-- Get All the Salons with all the blogs.  -->
+	@views.html.blog.blogDetail(blog)
+    
+	<!-- the right column -->
+	@views.html.blog.rightBlogItemColumn(salon, blog, listYM, newestBlogsOfSalon, stylist)
+</div>
