@@ -1,11 +1,11 @@
-@(styles: List[models.Style], salon:Salon )
+@(styleAndSalon: List[models.StyleAndSalon])
 @import helper._
 
 <div>
  	@Messages("hair.style")
-   	@for(i <- 0 to styles.length-1){
-   		<a href="@routes.Salons.getOneStyle(salon.id, styles(i).id)" >
-   			<img src="#" class="" alt="@styles(i).styleName" >
+   	@for(i <- 0 to styleAndSalon.length-1){
+   		<a href="@routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" >
+   			<img src="#" class="" alt="@styleAndSalon(i).style.styleName" >
    		</a>
 		<div class="layer jscLayer jscFixPng">
 			<p>
@@ -17,10 +17,10 @@
 			<p><a href="">@Messages("hair.detailInfo")</a></p>
 		</div>
 		<div class="mT2">
-			<a href="@routes.Salons.getOneStyle(salon.id, styles(i).id)" class="rankingListInnerAnchor" >
-				<p><span class="photoCaption">@styles(i).styleName</span></p>
+			<a href="@routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" class="rankingListInnerAnchor" >
+				<p><span class="photoCaption">@styleAndSalon(i).style.styleName</span></p>
 				<div class="mT2">
-					<p class="rankingListShop">@salon.salonName</p>
+					<p class="rankingListShop">@styleAndSalon(i).salon.salonName</p>
 				</div>
 			</a>
 		</div>
