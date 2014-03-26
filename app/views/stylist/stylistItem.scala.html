@@ -7,22 +7,12 @@
 <div class="mysalon-stylist-search w166 mHA">
     <div class="taC">
         <a href="@routes.Stylists.findStylistById(stylist.id)">
-            <img src="@routes.Application.getPhoto(stylist.myPics.get(0).fileObjId)"
-            alt="弗里尔兄弟公司坂本隆文" class="bdImgGray w164 h219">
+        	<img src="#" class="bdImgGray w164 h219"/>
+        	<p>...</p>
+            @*<img src="@routes.Application.getPhoto(stylist.myPics.get(0).fileObjId)"
+            alt="弗里尔兄弟公司坂本隆文" class="bdImgGray w164 h219">*@
         </a>
     </div>
-    <p class="mT10">
-        <a href="http://beauty.hotpepper.jp/slnH000231733/stylist/T000188298/">
-            
-                   <p>@stylist.publicId</p>
-                
-        </a>
-        <span class="iS upLately offL dib vaM">
-           
-                    UP<p>@stylist.id</p>
-                
-        </span>
-    </p>
     <div class="bdDotT mT5 pT5 fs10">
         <span class="fgPink">
        造型师
@@ -31,9 +21,10 @@
   年）
     </div>
     <div class="bdDotT mT5 pT5 fs10 hMin30">
+    	<p>@Stylist.findUserName(stylist.id)</p>
     </div>
 </div>
 <div class="taC mT10">
-	<a href="@routes.Reservations.reservHairView(stylist.id)" class="salon-stylist-reserv">指名して予約する</a>
+	<a href="#" class="salon-stylist-reserv">指名して予約する</a>
 </div>
 </body>

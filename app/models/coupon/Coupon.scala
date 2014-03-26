@@ -1,19 +1,14 @@
 package models
 
-import play.api.Play.current
-import play.api.PlayException
 import java.util.Date
-import com.novus.salat._
-import com.novus.salat.annotations._
 import com.novus.salat.dao._
-import com.mongodb.casbah._ 
-import se.radley.plugin.salat._
-import se.radley.plugin.salat.Binders._
-import mongoContext._
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
-
 import com.mongodb.casbah.query.Imports._
+import mongoContext._
+import se.radley.plugin.salat.Binders._
+import com.mongodb.casbah.Imports.MongoConnection
+import play.api.Play._
+import play.api.PlayException
+
 
 case class Coupon (
         id: ObjectId = new ObjectId,
@@ -57,13 +52,13 @@ object Coupon extends ModelCompanion[Coupon, ObjectId]{
   collection.ensureIndex(DBObject("couponName" -> 1), "couponName", unique = true)
     
   def findBySalon(salonId: ObjectId): List[Coupon] = {
-    dao.find(com.mongodb.casbah.commons.Imports.DBObject("salonId" -> salonId)).toList
+    dao.find(DBObject("salonId" -> salonId)).toList
   }
   
   def findContainCondtions(serviceTypes: Seq[String]): List[Coupon] = {
     dao.find("serviceItems.serviceType" $all serviceTypes).toList
   }
-  
-  def checkCoupon(CouponName:String): Boolean = dao.find(com.mongodb.casbah.commons.Imports.DBObject("couponName" -> CouponName)).hasNext
+
+  def checkCoupon(CouponName:String): Boolean = dao.find(DBObject("couponName" -> CouponName)).hasNext
 
 }

@@ -66,3 +66,16 @@ padding-left: 28px;
 background: url(/assets/images/icons/icon_crown_other.png) no-repeat 0 0;
 }
 
+
+.mT30 {
+margin-top: 30px;
+}
+
+.skinHeading1 {
+line-height: 1;
+}
+
+.offL {
+text-indent: -9999px;
+overflow: hidden;
+}

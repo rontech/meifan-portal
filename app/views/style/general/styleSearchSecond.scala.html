@@ -1,44 +1,34 @@
-@(styleSearchForm: Form[Style], styles: List[models.Style], salon:Salon ,stylePara : models.StylePara)
+@(styleSearchForm: Form[Style], stylePara : models.StylePara)
 @import helper._
-	@*数据测试
-	<h2 class="fs16 fl">
-		@styles
-	</h2>
-	<h2 class="fs16 fl">
-		@styleSearchForm
-	</h2>
-	<h2 class="fs16 fl">
-		@salon
-	</h2>*@
 
 <div>
 	<h2>@Messages("hair.search")</h2>
 	<div>
 	@form(routes.Styles.styleSearchList, 'id -> "styleSearchForm"){
-	    @input(field = styleSearchForm("styleLength"),args = '_label ->Messages("hair.styleLength")){(id,name,value,args) =>
+	    <br/>@Messages("hair.styleLength")<br/>
+	                <input type = "radio" class = "" name = "styleLength" value = "all" checked="checked">@Messages("common.all")
 	    	@for(i <- 0 to stylePara.styleLength.length-1){
-	    		@if(styleSearchForm.get.styleLength.contains(stylePara.styleLength(i))){
-	      			<input type = "checkbox" class="" name = "styleLength[@i]", value = "@stylePara.styleLength(i)" checked="checked">@stylePara.styleLength(i)
+	    		@if(styleSearchForm.get.styleLength.equals(stylePara.styleLength(i))){
+	      			<input type = "radio" class= "" name = "styleLength", value = "@stylePara.styleLength(i)" checked="checked">@stylePara.styleLength(i)
 	    		}else{
-					<input type = "checkbox" class="" name = "styleLength[@i]", value = "@stylePara.styleLength(i)">@stylePara.styleLength(i)
+					<input type = "radio" class= "" name = "styleLength", value = "@stylePara.styleLength(i)">@stylePara.styleLength(i)
 				}
 	    	}
-	    }
+	    <br/>@Messages("hair.impression")<br/>
+                    <input type = "radio" class = "" name = "styleImpression" value = "all" checked="checked">@Messages("common.all")
+	    	@for(i <- 0 to stylePara.styleImpression.length-1){
+	      		@if(styleSearchForm.get.styleImpression.equals(stylePara.styleImpression(i))){
+	      			<input type = "radio" class="" name = "styleImpression", value = "@stylePara.styleImpression(i)" checked="checked">@stylePara.styleImpression(i)
+	    		}else{
+					<input type = "radio" class="" name = "styleImpression", value = "@stylePara.styleImpression(i)">@stylePara.styleImpression(i)
+				}
+	    	}
 	    @input(field = styleSearchForm("styleColor"),args = '_label ->Messages("hair.color")){(id,name,value,args) =>
 	    	@for(i <- 0 to stylePara.styleColor.length-1){
 	    		@if(styleSearchForm.get.styleColor.contains(stylePara.styleColor(i))){
 	      			<input type = "checkbox" class="" name = "styleColor[@i]", value = "@stylePara.styleColor(i)" checked="checked">@stylePara.styleColor(i)
 	    		}else{
 					<input type = "checkbox" class="" name = "styleColor[@i]", value = "@stylePara.styleColor(i)">@stylePara.styleColor(i)
-				}
-	    	}
-	    }
-	    @input(field = styleSearchForm("styleImpression"),args = '_label ->Messages("hair.impression")){(id,name,value,args) =>
-	    	@for(i <- 0 to stylePara.styleImpression.length-1){
-	      		@if(styleSearchForm.get.styleImpression.contains(stylePara.styleImpression(i))){
-	      			<input type = "checkbox" class="" name = "styleImpression[@i]", value = "@stylePara.styleImpression(i)" checked="checked">@stylePara.styleImpression(i)
-	    		}else{
-					<input type = "checkbox" class="" name = "styleImpression[@i]", value = "@stylePara.styleImpression(i)">@stylePara.styleImpression(i)
 				}
 	    	}
 	    }
@@ -97,11 +87,12 @@
 	    	}
 	    }
 	    @input(field = styleSearchForm("consumerSex"),args = '_label ->Messages("hair.consumerSex")){(id,name,value,args) =>
+	    	        <input type = "radio" class = "" name = "consumerSex" value = "all" checked="checked">@Messages("common.all")
 	    	@for(i <- 0 to stylePara.consumerSex.length-1){
-	      		@if(styleSearchForm.get.consumerSex.contains(stylePara.consumerSex(i))){
-	      			<input type = "checkbox" class="" name = "consumerSex[@i]", value = "@stylePara.consumerSex(i)" checked="checked">@stylePara.consumerSex(i)
+	      		@if(styleSearchForm.get.consumerSex.equals(stylePara.consumerSex(i))){
+	      			<input type = "radio" class="" name = "consumerSex", value = "@stylePara.consumerSex(i)" checked="checked">@stylePara.consumerSex(i)
 	    		}else{
-					<input type = "checkbox" class="" name = "consumerSex[@i]", value = "@stylePara.consumerSex(i)">@stylePara.consumerSex(i)
+					<input type = "radio" class="" name = "consumerSex", value = "@stylePara.consumerSex(i)">@stylePara.consumerSex(i)
 				}
 	    	}
 	    }
@@ -120,31 +111,4 @@
         </div>
      }	
 	</div>
-</div>
-<hr/>
-<hr/>
-<div>
- 	@Messages("hair.style")
-   	@for(i <- 0 to styles.length-1){
-   		<a href="@routes.Salons.getOneStyle(salon.id, styles(i).id)" >
-   			<img src="#" class="" alt="@styles(i).styleName" >
-   		</a>
-		<div class="layer jscLayer jscFixPng">
-			<p>
-				<a href="" >@Messages("hair.ToCollect")</a>
-				<a href="" class="btnSaveToMyStyleDone">
-					<span class="">@Messages("hair.BeCollected")</span>
-				</a>
-			</p>
-			<p><a href="">@Messages("hair.detailInfo")</a></p>
-		</div>
-		<div class="mT2">
-			<a href="@routes.Salons.getOneStyle(salon.id, styles(i).id)" class="rankingListInnerAnchor" >
-				<p><span class="photoCaption">@styles(i).styleName</span></p>
-				<div class="mT2">
-					<p class="rankingListShop">@salon.salonName</p>
-				</div>
-			</a>
-		</div>
-   	}
 </div>

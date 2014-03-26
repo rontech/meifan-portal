@@ -2,11 +2,9 @@ package models
 
 import play.api.Play.current
 import play.api.PlayException
-import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.commons.Imports._
 import com.mongodb.casbah.MongoConnection
-import com.novus.salat.Context
 import mongoContext._
 import java.util.Date
 
@@ -35,7 +33,7 @@ trait SalonStylistApplyRecordDAO extends ModelCompanion[SalonStylistApplyRecord,
   /**
    *  根据店铺id查找申请中的技师
    */
-  def findApplingStylist(salonId: ObjectId): List[SalonStylistApplyRecord] = {
+  def findApplyingStylist(salonId: ObjectId): List[SalonStylistApplyRecord] = {
     dao.find(MongoDBObject("salonId" -> salonId, "applyType" -> 1, "verifiedResult" -> 0)).toList
   }
   
@@ -62,8 +60,17 @@ trait SalonStylistApplyRecordDAO extends ModelCompanion[SalonStylistApplyRecord,
   /**
    *  根据技师id查找申请中的店铺
    */
-  def findApplingSalon(stylistId: ObjectId): List[SalonStylistApplyRecord] = {
-    dao.find(MongoDBObject("stylistId" -> stylistId, "applyType" -> 2, "verifiedResult" -> 0)).toList
+  def findApplingSalon(stylistId: ObjectId): List[Salon] = {
+    var salons: List[Salon] = Nil
+    val records = dao.find(MongoDBObject("stylistId" -> stylistId, "applyType" -> 2, "verifiedResult" -> 0)).toList
+    records.map{re =>
+      val salon = Salon.findById(re.salonId)
+      salon match {
+        case Some(s) => salons :::= List(s)
+        case None => None
+      }
+    }
+    salons
   }
   
   /**
