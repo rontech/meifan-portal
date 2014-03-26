@@ -6,7 +6,7 @@
 @form(routes.Coupons.createCoupon, 'id -> "couponForm") {
 	<legend class="mainTitle">@Messages("coupon.createCouponArea")</legend>
 	<div class="couponInfo">
-		<input type="hidden" name="salonId" value="@couponForm.get.salonId" />
+		<input type="hidden" name="salonId" value="@salonId" />
 		
 		@inputText(couponForm("couponName"), '_label -> Messages("coupon.couponName"),
 			'_error -> couponForm("couponName").error.map(_.withMessage(Messages("coupon.addErrorMsg")))
@@ -37,8 +37,8 @@
 		
 	</div>
 	<div class="btnArea">
-		<input type = "submit" class = "buttons" value="@Messages("service.addBton")">
+		<input type = "submit" class = "buttons" value="@Messages("common.submit")">
             
-    	<input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+    	<input type = "reset" class = "buttons" value="@Messages("common.reset")">
     </div>
 }

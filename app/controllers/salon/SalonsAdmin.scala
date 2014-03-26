@@ -141,7 +141,19 @@ object SalonsAdmin extends Controller {
 	val salon = Salon.findById(new ObjectId(salonId)).get
 	val stylist = Stylist.findOneById(new ObjectId(stylistId))
 	stylist match {
-      case Some(sty) => Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 1))
+      case Some(sty) => {
+        val isValid = SalonAndStylist.checkSalonAndStylistValid(new ObjectId(salonId), sty.id)
+        if(isValid) {
+          Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 1))
+        } else {
+          if(SalonAndStylist.findByStylistId(sty.id).isEmpty) {
+              Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 2))
+          } else { 
+            NotFound
+          }
+        }
+        
+      } 
       case None => NotFound
     }
     
@@ -151,21 +163,33 @@ object SalonsAdmin extends Controller {
    *店铺邀请技师 
    */
   def inviteStylist(stylistId: ObjectId, salonId: ObjectId) = Action {
-    val stylist = Stylist.findOneById(stylistId)
-    stylist match {
-      case Some(sty) => {
-        if(!sty.isVerified || !sty.isValid) {
-          NotFound
-        } else {
-          val stySecond = SalonAndStylist.findByStylistId(stylistId)
-          stySecond match {
-            case Some(styEnd) => NotFound
-            case None => SalonStylistApplyRecord.save(new SalonStylistApplyRecord(new ObjectId, salonId, stylistId, 2, new Date, 0, None))
-          }
+	SalonStylistApplyRecord.save(new SalonStylistApplyRecord(new ObjectId, salonId, stylistId, 2, new Date, 0, None))
+    Redirect(routes.SalonsAdmin.myStylist(salonId))
+  }
+  
+  /**
+   *  检查根据Id搜索技师是否有用
+   */
+  def checkStylistIsValid(salonId: String, stylistId: String) = Action {
+    val styId = new ObjectId(stylistId)
+    val salId = new ObjectId(salonId)
+    val record = SalonAndStylist.findByStylistId(styId)
+    record match {
+      case Some(re) => {
+        if(re.salonId == salonId) Ok("") else Ok("抱歉该技师已属于其它店铺")
+      }
+      case None => {
+        val stylist = Stylist.findOneById(styId)
+        stylist match {
+          case Some(sty) => if(!sty.isValid) Ok("暂无该技师") else Ok("ID 有效")
+          case None => Ok("暂无该技师")
         }
       }
-      case None => NotFound
     }
+  }
+  
+  def removeStylist(salonId: ObjectId, stylistId: ObjectId) = Action {
+    SalonAndStylist.leaveSalon(salonId,stylistId)
     Redirect(routes.SalonsAdmin.myStylist(salonId))
   }
 }
