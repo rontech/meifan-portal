@@ -3,23 +3,11 @@
 @import helper._
 @import views.html.user._
 
-@*<script type="text/javascript">
-$(function(){
-	$("#bogTags").blur(function(){
-		alert("aaaaaaaaa");
-		var str = this.val();
-		var arr = new Array();
-		arr = str.split(",");
-		this.val(arr);
-	});
-})
-</script>*@
-
 @myPageMain(navInMyPage = "my-blog", user, followInfo) {
   @form(action = routes.Blogs.writeBlog(user.userId)) {
       <fieldset>
-        @inputText(newBlogForm("title"),'_label -> Messages("blog.title"))             
-		@textarea(newBlogForm("content"),'_label -> Messages("blog.content"))
+        @inputText(newBlogForm("title"),'_label -> Messages("blog.title"), '_error -> newBlogForm("title").error.map(_.withMessage("请输入标题")))             
+		@textarea(newBlogForm("content"), '_label -> Messages("blog.content"), 'rows -> 5, 'cols -> 20, '_error -> newBlogForm("title").error.map(_.withMessage("请输入内容")))
 		@select(
 	        field = newBlogForm("blogCategory"), 
 	        options = options(listBlogCategory),
@@ -27,11 +15,14 @@ $(function(){
         )	             
         @*@inputText(newBlogForm("blogPics"), args = '_label -> "上传图片")*@   
 		@inputText(newBlogForm("tags"), args = '_label -> Messages("blog.tags"), 'placeholder -> Messages("blog.placeholder"), 'name -> "tags")
-		@inputRadioGroup(newBlogForm("isVisible"),options = options("true" -> "公开", "false" -> "私密") , '_label -> "可见性", '_help -> "")
+		@*@inputRadioGroup(newBlogForm("isVisible"),options = options("true" -> "公开", "false" -> "私密") , '_label -> "可见性", '_help -> "")*@
+		@inputRadioGroup(field = newBlogForm("isVisible").copy(value=newBlogForm("isVisible").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> "公开", "false" -> "私密") , '_label -> "可见性", '_help -> "")
 		@if(user.userBehaviorLevel != "userLevel.0") {
-		  @inputRadioGroup(newBlogForm("pushToSlaon"),options = options("true" -> "可见", "false" -> "不可见") , '_label -> "店铺可见性", '_help -> "")
+		  @*@inputRadioGroup(newBlogForm("pushToSlaon"),options = options("true" -> "可见", "false" -> "不可见") , '_label -> "店铺可见性", '_help -> "")*@
+		  @inputRadioGroup(field = newBlogForm("pushToSlaon").copy(value=newBlogForm("pushToSlaon").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> "可见", "false" -> "不可见") , '_label -> "店铺可见性", '_help -> "")
 		}
-		@inputRadioGroup(newBlogForm("allowComment"),options = options("true" -> "允许评论", "false" -> "不允许评论") , '_label -> "允许评论性", '_help -> "")
+		@*@inputRadioGroup(newBlogForm("allowComment"),options = options("true" -> "允许评论", "false" -> "不允许评论") , '_label -> "允许评论性", '_help -> "")*@
+		@inputRadioGroup(field = newBlogForm("allowComment").copy(value=newBlogForm("allowComment").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> "允许评论", "false" -> "不允许评论") , '_label -> "允许评论性", '_help -> "")
         <input type="submit" class = "buttons" value="@Messages("blog.newBlog")" >
      </fieldset>
    }

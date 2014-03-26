@@ -1,10 +1,12 @@
-@(salon: Salon, blogs: List[Blog], navBar: List[(String, String)] = Nil)
+
+@(salon: Salon, blogs: List[Blog], navBar: List[(String, String)] = Nil, listYM : List[String])
 
 @salonInfoMain(navInSalon = "salon-blog", salon, navBar) {
+	
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/blog/blog.css")">
 
-    <!-- Get All the Salons with all the styles.  -->
-
-    @views.html.blog.group(blogs,salon)
+    <!-- Get All the Salons with all the blogs.  -->
+    @views.html.blog.blogComponent(blogs, salon, listYM)
 
 
 }

@@ -55,22 +55,28 @@
 
                   <input type="hidden" name="password" value="@userForm.get.password">
 
-                  @inputText(userForm("nickName"),'_label -> Messages("user.nickNm"))
+                  @inputText(userForm("nickName"),'_label -> Messages("user.nickNm"),'_error -> userForm("nickName").error.map(_.withMessage(Messages("user.nickNameErr"))))
 
-                  @inputDate(userForm("birthDay"), '_label -> Messages("user.birthDay"))
+                  @inputDate(userForm("birthDay"), '_label -> Messages("user.birthDay"), '_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr"))))
 
                   @inputRadioGroup(userForm("sex"),options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")) , '_label -> Messages("user.sex"),
                   '_error -> userForm("sex").error.map(_.withMessage(Messages("user.sexErr"))))
 
-                  @inputText(userForm("city"),'_label -> Messages("user.city"))
-
                   @inputText(userForm("socialStatus"),'_label -> Messages("user.job"))
 
-                  @inputText(userForm("email"), '_label -> Messages("user.email"))
+                  @inputText(userForm("email"), '_label -> Messages("user.email"), '_error -> userForm("email").error.map(_.withMessage(Messages("user.emailErr"))))
 
                   @inputText(userForm("tel"), '_label -> Messages("user.tel"))
 
                   @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none")
+                  
+                  <input type="hidden" name="address.province" value="@userForm.get.address.province">
+                  <input type="hidden" name="address.city" value="@userForm.get.address.city">
+                  <input type="hidden" name="userPics" value="@userForm.get.userPics">
+                  <input type="hidden" name="userTyp" value="@userForm.get.userTyp">
+                  <input type="hidden" name="userBehaviorLevel" value="@userForm.get.userBehaviorLevel">
+                  <input type="hidden" name="point" value="@userForm.get.point">
+                  <input type="hidden" name="permission" value="@userForm.get.permission">
 
 		  </fieldset>    
 		  

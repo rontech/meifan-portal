@@ -65,8 +65,11 @@ object Menus extends Controller {
             
             val salon: Option[Salon] = Salon.findById(menu.salonId)
 		    val menus: List[Menu] = Menu.findBySalon(menu.salonId)
+		    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+		    val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
+		    
             salon match {
-		      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, menus))
+		      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))
 		      case None => NotFound
 		    }
         }
@@ -114,16 +117,17 @@ object Menus extends Controller {
             
             oldMenu match {
               case Some(s) => val newMenu = s.copy(description = menu.description, serviceItems = services, originalPrice = originalPrice, serviceDuration = serviceDuration)
-                               println("newMenu = " + newMenu)
-              Menu.save(newMenu)
+            		  		  Menu.save(newMenu)
               case None => NotFound
             }
             
-            
             val salon: Option[Salon] = Salon.findById(menu.salonId)
-		    val menus: List[Menu] = Menu.findBySalon(menu.salonId)
+            val menus: List[Menu] = Menu.findBySalon(menu.salonId)
+            val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+		    val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
+		    
             salon match {
-		      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, menus))
+		      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))
 		      case None => NotFound
 		    }
         }
@@ -136,6 +140,8 @@ object Menus extends Controller {
    */
   def invalidMenu(menuId: ObjectId) = Action {
     val menu: Option[Menu] = Menu.findOneById(menuId)
+    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+    val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
     
     menu match {
       case Some(s) => val menuTemp = s.copy(expireDate = Some(new Date()), isValid = false)
@@ -143,7 +149,7 @@ object Menus extends Controller {
                       val salon: Option[Salon] = Salon.findById(s.salonId)
                       val menus: List[Menu] = Menu.findBySalon(s.salonId)
                       salon match {
-                      	case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, menus))
+                      	case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))
                       	case None => NotFound
                       }
                       

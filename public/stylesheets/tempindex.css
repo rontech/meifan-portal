@@ -1978,3 +1978,6 @@ margin-top: 50px;
   }
 .mainContentsTitleInner h2		{ font-size: 18px; }
 
+.mainContentsSecondTitleOuter {
+background: none;
+}

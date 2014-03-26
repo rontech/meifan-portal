@@ -1,0 +1,12 @@
+@(salon: Salon, blog: Blog, listYM : List[String], newestBlogsOfSalon : List[Blog], stylist : Stylist)
+
+<dl class="rightContents fr w187">
+	<!-- the information of author -->
+	@views.html.blog.authorInfoColumn(salon, blog, stylist)
+	
+	<!-- the latest blogs -->	
+	@views.html.blog.latestBlogColumn(salon, blog, newestBlogsOfSalon)
+	
+	<!-- blogs by type -->
+	@views.html.blog.rightBlogColumn(salon, listYM)			
+</dl>
