@@ -18,8 +18,8 @@ object Blogs extends Controller {
   def newBlogForm(userId : String, id : ObjectId = new ObjectId) = Form(
       mapping(
       "id" -> ignored(id),
-      "title" -> text,
-      "content" -> text,
+      "title" -> nonEmptyText,
+      "content" -> nonEmptyText,
       "authorId" -> ignored(userId),
       "blogCategory" -> text,
       "blogPics" -> optional(list(text)), // TODO
@@ -202,9 +202,12 @@ object Blogs extends Controller {
    */
   def writeBlog(userId : String) = Action {   
     implicit request =>
+      val user: Option[User] = User.findOneByUserId(userId)
+      val listBlogCategory = BlogCategory.getCategory
+      val followInfo = MyFollow.getAllFollowInfo(user.get.id)
       newBlogForm(userId).bindFromRequest.fold(
         //处理错误        
-        errors => BadRequest(views.html.blog.errorMsg(errors)),
+        errors => BadRequest(views.html.blog.admin.newBlog(errors,listBlogCategory, user = user.get, followInfo)),
         {
           blog =>
             Blog.save(blog, WriteConcern.Safe)

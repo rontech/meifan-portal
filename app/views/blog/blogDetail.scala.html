@@ -1,5 +1,6 @@
 @(blog : Blog)
 @import java.text.DateFormat
+@import helper._
 
 	<div class="leftContents w557 fl">
 		<div class="cFix">
@@ -10,7 +11,8 @@
 			<dl>
 				<dt class="fgPink b fs14">@blog.title</dt>						
 				<dd class="mT10 wwbw">
-					<br>@blog.content<br>
+					@*<br>@blog.content<br>*@
+					@Html(blog.content)
 				</dd>
 			</dl>
 		</div>
