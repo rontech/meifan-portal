@@ -335,7 +335,7 @@ user.loginErr=用户名或密码错误，请重新输入!
 user.loginBtn=登录
 user.registerBtn=注册
 user.new=新用户
-user.regErr=请输入用户名!
+user.userIdErr=用户名不合法!
 user.confirmPas=确认密码
 user.agree=必须同意!
 user.male=男
@@ -352,6 +352,15 @@ user.oldPassword=原始密码
 user.newPassword=新密码
 user.confirmPas=确认密码
 user.oldPasswordErr=原始密码不正确！
+user.twicePasswordError=两次密码不一致！
+user.birthDayErr=请选择出生日期！
+user.emailErr=邮箱无效！
+user.userIdNotAvailable=该用户名已被注册 
+user.passwordError=密码不合法，只能包含字母、数字和下划线！
+user.telError=手机号码无效
+user.toBePassword=以字母开头，6~18位字符
+user.toBeUserId=6~16位字符
+user.nickNameErr=给个昵称吧！
 
 #Letter
 letter.addressee=收件人
