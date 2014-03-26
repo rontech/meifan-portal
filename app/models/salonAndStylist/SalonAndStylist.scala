@@ -2,11 +2,8 @@ package models
 
 import play.api.Play.current
 import play.api.PlayException
-import com.novus.salat._
 import com.novus.salat.dao._
-import com.mongodb.casbah.commons.Imports._
-import com.mongodb.casbah.MongoConnection
-import com.novus.salat.Context
+import com.mongodb.casbah.Imports._
 import mongoContext._
 import java.util.Date
 

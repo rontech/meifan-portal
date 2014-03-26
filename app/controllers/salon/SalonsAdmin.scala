@@ -1,10 +1,6 @@
 package controllers
 
-import play.api._
 import play.api.mvc._
-import play.api.data._
-import play.api.data.Forms._
-import play.api.i18n.Messages
 import com.mongodb.casbah.commons.Imports._
 import models._
 import views._
@@ -85,9 +81,9 @@ object SalonsAdmin extends Controller {
    * 店铺查看申请中的技师
    */
   def checkHoldApply(salonId: ObjectId) = Action {
-    val records = SalonStylistApplyRecord.findApplingStylist(salonId)
+    val records = SalonStylistApplyRecord.findApplyingStylist(salonId)
     var stylists: List[Stylist] = Nil
-    records.map{re=>
+    records.map{re =>
       val stylist = Stylist.findOneById(re.stylistId)
       stylist match {
         case Some(sty) => stylists :::= List(sty)
@@ -163,7 +159,7 @@ object SalonsAdmin extends Controller {
    *店铺邀请技师 
    */
   def inviteStylist(stylistId: ObjectId, salonId: ObjectId) = Action {
-    SalonStylistApplyRecord.save(new SalonStylistApplyRecord(new ObjectId, salonId, stylistId, 2, new Date, 0, None))
+	SalonStylistApplyRecord.save(new SalonStylistApplyRecord(new ObjectId, salonId, stylistId, 2, new Date, 0, None))
     Redirect(routes.SalonsAdmin.myStylist(salonId))
   }
   

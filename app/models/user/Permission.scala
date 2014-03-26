@@ -1,17 +1,16 @@
 package models
 
 sealed trait Permission
-case object Administrator extends Permission
-case object LoggedIn extends Permission
-case object GuestUser extends Permission
+object Administrator extends Permission
+object LoggedIn extends Permission
+object GuestUser extends Permission
 
 object Permission {
 
-  def valueOf(value: String): Permission = value match {
-    case "Administrator" => Administrator
-    case "Loggedin"      => LoggedIn
-    case "GuestUser"	 => GuestUser
-    case _ => throw new IllegalArgumentException()
+  def valueOf(value: Permission): String = value match {
+    case Administrator => "Administrator"
+    case LoggedIn      => "LoggedIn"
+    case GuestUser     => "GuestUser"
+    case  _ => throw new IllegalArgumentException()
   }
-
 }

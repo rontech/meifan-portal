@@ -1,14 +1,10 @@
 package controllers
 
-import play.api._
+
 import play.api.mvc._
-import play.api.data._
-import play.api.data.Forms._
 import play.api.i18n.Messages
 import com.mongodb.casbah.commons.Imports._
 import models._
-import views._
-import java.util.Date
 
 object Salons extends Controller {
 
@@ -16,7 +12,7 @@ object Salons extends Controller {
      * The Main Page of All Salon 
      -------------------------*/
     def index = Action {
-        Ok(views.html.salon.general.index(getSalonTopNavBar()))
+        Ok(views.html.salon.general.index(getSalonTopNavBar))
     }
 
 
@@ -47,7 +43,7 @@ object Salons extends Controller {
                     styles :::= style
                 }
                 // 
-                Ok(html.salon.store.salonInfoStyleAll(salon = sl, styles = styles, navBar = getSalonNavBar(salon)))
+                Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = styles, navBar = getSalonNavBar(salon)))
             }
             case None => NotFound 
         }
@@ -65,9 +61,9 @@ object Salons extends Controller {
                 val salon: Option[Salon] = Salon.findById(salonId)
                 salon match {
                     case Some(sl) => {
-                       val navBar = getSalonNavBar(Some(sl)) ::: List((st.styleName.toString(), ""))
+                       val navBar = getSalonNavBar(Some(sl)) ::: List((st.styleName.toString, ""))
                         // Jump to the show page.
-                        Ok(html.salon.store.salonInfoStyle(salon = sl, style = st, navBar = navBar))
+                        Ok(views.html.salon.store.salonInfoStyle(salon = sl, style = st, navBar = navBar))
                     }
                     case None => NotFound 
                 }
@@ -112,9 +108,9 @@ object Salons extends Controller {
     /**
      * Get the Navigation Bar of the Salon Main Page.
      */
-    def getSalonTopNavBar() = {
-        var nav0 = (Messages("index.mainPage"), routes.Application.index.toString())
-        val nav1 = (Messages("salon.salonMainPage"), routes.Salons.index.toString())
+    def getSalonTopNavBar = {
+        val nav0 = (Messages("index.mainPage"), routes.Application.index.url.toString)
+        val nav1 = (Messages("salon.salonMainPage"), routes.Salons.index.url.toString)
         nav0 :: nav1 :: Nil 
     }
 
@@ -153,8 +149,8 @@ object Salons extends Controller {
                  //val nav6 = (Messages(sl.salonName), "")
                  // If the salon Abbr Name is inputed, give priority to show it then the full name.
 		 val abbrName = sl.salonNameAbbr match {
-		     case Some(abbr) => abbr.toString()
-		     case None => sl.salonName.toString()
+		     case Some(abbr) => abbr.toString
+		     case None => sl.salonName.toString
 		 }
 	         val nav6 = List((Messages(abbrName), routes.Salons.getAllStyles(sl.id).toString()))
 
@@ -166,7 +162,7 @@ object Salons extends Controller {
         } 
 
         // print(navBar)
-        getSalonTopNavBar() ::: navBar 
+        getSalonTopNavBar ::: navBar
     } 
 
 }

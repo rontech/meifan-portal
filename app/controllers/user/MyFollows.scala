@@ -1,27 +1,21 @@
 package controllers
 
 import play.api.mvc._
-import java.util.Date
-import com.mongodb.casbah.WriteConcern
-import se.radley.plugin.salat.Binders._
-import play.api.data.Form
-import play.api.data.Forms._
 import models._
-import scala.collection.mutable.ListBuffer
-import com.mongodb.casbah.commons.Imports._
+import se.radley.plugin.salat.Binders._
 import jp.t2v.lab.play2.auth._
-import jp.t2v.lab.play2.stackc.{ RequestWithAttributes, RequestAttributeKey, StackableController }
-import scala.concurrent.{ ExecutionContext, Future }
+import jp.t2v.lab.play2.stackc._
+import scala.concurrent._
 import ExecutionContext.Implicits.global
 
 object MyFollows extends Controller with AuthElement with AuthConfigImpl {
 
-    val FOLLOWSALON = "salon"
-    val FOLLOWSTYLIST = "stylist"
-    val FOLLOWUSER = "user"
-    val FOLLOWSTYLE = "style"
-    val FOLLOWBLOG = "blog"
-    val FOLLOWCOUPON = "coupon"
+    val FOLLOW_SALON = "salon"
+    val FOLLOW_STYLIST = "stylist"
+    val FOLLOW_USER = "user"
+    val FOLLOW_STYLE = "style"
+    val FOLLOW_BLOG = "blog"
+    val FOLLOW_COUPON = "coupon"
 
     /**
      * 取消关注
@@ -41,7 +35,7 @@ object MyFollows extends Controller with AuthElement with AuthConfigImpl {
         if (!MyFollow.checkIfFollow(user.id, followId)) {
             MyFollow.create(user.id, followId, followObjType)
         }
-        if (followObjType == FOLLOWSALON || followObjType == FOLLOWSTYLIST || followObjType == FOLLOWUSER)
+        if (followObjType == FOLLOW_SALON || followObjType == FOLLOW_STYLIST || followObjType == FOLLOW_USER)
             UserMessage.sendFollowMsg(user, followId, followObjType)
         Redirect(routes.Users.myPage())
     }
@@ -80,9 +74,10 @@ object MyFollows extends Controller with AuthElement with AuthConfigImpl {
      * 列表显示我的粉丝
      */
     def followers(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-        val user = loggedIn
+        val loginUser = loggedIn
+        val user = User.findOneById(id).get
         val followInfo = MyFollow.getAllFollowInfo(id)
-        Ok(views.html.user.showMyFollowers(followInfo, user, Option(user.userId)))
+        Ok(views.html.user.showMyFollowers(followInfo, user, loginUser.id))
     }
 
     /**
