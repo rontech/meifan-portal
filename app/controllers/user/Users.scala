@@ -214,8 +214,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    */
   def register = Action { implicit request =>
     Users.registerForm().bindFromRequest.fold(
-//      errors => BadRequest(views.html.user.register(errors)),
-        errors => BadRequest(Html(errors.toString)),
+      errors => BadRequest(views.html.user.register(errors)),
       {
         user =>
           User.save(user, WriteConcern.Safe)
@@ -255,8 +254,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val loginUser = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     Users.userForm().bindFromRequest.fold(
-      //errors => BadRequest(views.html.user.Infomation(errors,followInfo)),
-      errors => BadRequest(Html(errors.toString)),
+      errors => BadRequest(views.html.user.Infomation(errors,followInfo)),
       {
         user =>
           User.save(user.copy(id = loginUser.id), WriteConcern.Safe)
