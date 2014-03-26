@@ -242,3 +242,12 @@ GET		/removeSalon/:salonId/:stylistId                     controllers.Stylists.r
 GET		/removeStylist/:salonId/:stylistId                   controllers.SalonsAdmin.removeStylist(salonId: ObjectId, stylistId: ObjectId)
 #Salons (Salon check stylist info)
 GET		/findStylistById/:stylistId                          controllers.Salons.findStylistById(stylistId: ObjectId)
+
+#add by sangsang-hu
+GET     /mySalon/:salonId/sreachCoupon                       controllers.CouponAdmin.findCoupons(salonId: ObjectId)
+GET     /mySalon/:salonId/sreachMenu                         controllers.MenuAdmin.findMenus(salonId: ObjectId)
+
+#add by wu
+GET    /salon/:salonId/comments                              controllers.Comments.findBySalon(salonId: ObjectId)
+GET    /salon/:salonId/blogYM/:yM                            controllers.Blogs.getBlogByYM(salonId: ObjectId, yM: String)
+GET    /salon/:salonId/stylistOne/:userId                    controllers.Blogs.getBlogAuthor(salonId: ObjectId, userId: String)

@@ -1,10 +1,11 @@
-@(salon: Salon, blogs: List[Blog], navBar: List[(String, String)] = Nil)
+
+@(salon: Salon, blogs: List[Blog], navBar: List[(String, String)] = Nil, listYM : List[String])
 
 @salonInfoMain(navInSalon = "salon-blog", salon, navBar) {
 
     <!-- Get All the Salons with all the styles.  -->
 
-    @views.html.blog.group(blogs,salon)
+    @views.html.blog.group(blogs,salon, listYM)
 
 
 }

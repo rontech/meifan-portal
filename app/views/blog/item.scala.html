@@ -14,7 +14,7 @@
 			<dl class="cFix">
 				<dt class="fl">投稿者：</dt>
 				<dd class="fl">
-				@*<a href="@routes.Stylists.findById(blog.authorId)">@blog.authorId</a>*@
+				<a href="/salon/@salon.id/stylistOne/@blog.authorId">@User.findOneByUserId(blog.authorId).get.nickName</a>
 				</dd>
 			</dl>
 		</div>
@@ -24,10 +24,8 @@
 			<div class="fs14 b wwbw">
 				<a href="/salon/@salon.id/blog/@blog.id">@blog.title</a>
 				<span class="iS upLately offL dib vaM">UP</span>
-				</div>
+			</div>
 		</div>
-		<div class="mT5 wwbw">@blog.content
-		</div>
+		<div class="mT5 wwbw">@Html(blog.content)</div>
 	</div>
-	<hr><!-- test -->
 </div>
