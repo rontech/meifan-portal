@@ -71,6 +71,7 @@ object Stylists extends Controller {
     }
   }
   
+  /*
   def findStylistById(id: ObjectId) = Action {
     val stylist = Stylist.findOneById(id)
     val salonId =  SalonAndStylist.findByStylistId(id).get.salonId
@@ -78,9 +79,9 @@ object Stylists extends Controller {
     val style = Style.findByStylistId(id)
     val user = Stylist.findUser(stylist.get.publicId)
     val blog = Blog.getBlogByUserId(user.userId).last
-    Ok(html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, styles = style, blog = blog))
+    Ok(html.salon.store.salonInfoStylist(salon = salon.get, stylist = stylist, styles = style, latestBlog = blog))
   }
-
+*/
    /**
    *  同意salon邀请
    */

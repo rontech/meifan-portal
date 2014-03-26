@@ -1,11 +1,11 @@
-@(stylist: Stylist, styles: List[Style])
+@(stylist: StylistDetailInfo, styles: List[Style])
 
 <div class="mT30">
     <div class="yS mainContentsSecondTitleOuter">
         <h3 class="yS mainContentsSecondTitleInner">
             <font>
                 <font>
-                    @Stylist.findUserName(stylist.publicId)
+                    @stylist.basicInfo.nickName
                     @Messages("stylist.haircatalog")
                 </font>
             </font>
