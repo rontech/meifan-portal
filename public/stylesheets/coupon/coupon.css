@@ -791,3 +791,9 @@ margin-top: 10px;
 .couponInfo .serviceArea dl {
 height: auto;
 }
+
+#sreachConditionArea {
+float: left;
+width: 730px;
+margin-bottom: 30px;
+}

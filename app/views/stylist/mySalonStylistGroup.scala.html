@@ -1,4 +1,4 @@
-@(stylists: Seq[Stylist], status: Int)
+@(stylists: Seq[Stylist], salon: Salon, status: Int)
 
 <!-- components to list the hair style. -->
 
@@ -8,21 +8,21 @@
 	<div class="taC">
 	@if(stylists.length<=1){
 		@stylists.map{st =>
-    	<p><a href="@routes.Stylists.findBySalon(st.id)">查看店铺所有技师</a></p>
-    	}
+			<p><a href="@routes.Salons.getOneStylist(salon.id, st.id)">@Messages("salonAdmin.findAllStylists")</a></p>
+		}
     }
 	</div>
 </div>
 <div class="mysalon-stylist-group">
 		<div class="mysalon-stylist-@(stylists.indexOf(sty)%4)">
-			@views.html.stylist.mySalonStylistItem(sty)
+			@views.html.stylist.mySalonStylistItem(sty, salon)
 		</div>
 </div>		
 	}
 }else{
 	@stylists.map{sty=>
 		<div class="mysalon-stylist-@(stylists.indexOf(sty)%4)">
-			@views.html.stylist.mySalonStylistApyItem(sty)
+			@views.html.stylist.mySalonStylistApyItem(sty, salon)
 		</div>
 	}
 }

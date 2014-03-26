@@ -1,4 +1,4 @@
-@(salon: Salon, coupons: List[Coupon])
+@(salon: Salon, condtionForm: Form[CouponServiceType], serviceTypes: List[ServiceType], coupons: List[Coupon])
 
 @mySalonMain(navInSalon = "salon-coupon", salon) {
 	
@@ -7,6 +7,7 @@
 	</head>
 	
 	@*@views.html.coupon.couponSearchGroup(salon, serviceTypes)*@
+	@views.html.coupon.sreachCoupon(salon, condtionForm, serviceTypes)
 
     <!-- Get the Salon with all the coupons.  -->
     @views.html.coupon.showCouponGroup(salon, coupons)

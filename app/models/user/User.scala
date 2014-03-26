@@ -17,7 +17,7 @@ case class User(
   password: String,
   sex: String,
   birthDay: Date,
-  city: String,
+  address: Address,
   userPics: ObjectId,
   tel: String,
   email: String,
