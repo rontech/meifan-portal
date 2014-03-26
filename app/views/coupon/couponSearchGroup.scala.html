@@ -5,7 +5,7 @@
 
 <div class="mT10 pr" id="couponList">
 <p class="narrowDownPanelArrow">◆</p>
-@form(routes.Coupons.findByCondtion(salon.id), 'id -> "salonCouponConditionForm", 'name -> "bt_salonCouponActionForm") {
+@form(routes.Salons.getCouponsByCondition(salon.id), 'id -> "salonCouponConditionForm", 'name -> "bt_salonCouponActionForm") {
 	<div style="display:none;">
 		<input type="hidden" name="org.apache.struts.taglib.html.TOKEN" value="25a60a6adbc21e6f516eaa08c0cf87a6">
 	</div>

@@ -8,6 +8,15 @@ import se.radley.plugin.salat.Binders._
 import com.mongodb.casbah.MongoConnection
 import mongoContext._
 
+/**
+ * A All Info structs of stylist including belows
+ *   1. basic info as a user.   
+ *   2. info as a stylist.
+ *   3. work info to a salon.
+ */
+case class StylistDetailInfo(basicInfo: User, stylistInfo: Option[Stylist], workInfo: Option[SalonAndStylist]) {
+  def apply(basicinfo: User, stylist: Option[Stylist], work: Option[SalonAndStylist]) = new StylistDetailInfo(basicinfo, stylist, work) 
+}
 
 case class Stylist(
     id: ObjectId = new ObjectId,
@@ -123,6 +132,50 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
     }
   } 
   
+  /**
+   * get a stylist by its publicId = the user Id.
+   */
+  def findStylistByPubId(pubId: ObjectId): Option[StylistDetailInfo] = {
+    // first, check that if the stylist as a basic User is exist.
+    val user = User.findOneById(pubId)
+    user match {
+      case Some(u) => {
+        // get the stylist info.
+        val stylist = findOneByUserPubId(pubId)
+
+        // get the work info.(there is something we should pay attention to avoid errors.
+        //    we should find the work info by Stylist table's real ObjectId not the publicId.
+        //    TODO, should be modified later.)
+        val work = stylist match {
+          case Some(st) => SalonAndStylist.findByStylistId(st.id)    // TODO?
+          case None => None
+        }
+        
+        // return 
+        Some(StylistDetailInfo(u, stylist, work))
+      }
+      case None => None
+    }
+  }
+
+  /**
+   * get a stylist by its user id.
+   */ 
+  def findStylistByUserId(uid: String): Option[StylistDetailInfo] = {
+    val user = User.findOneByUserId(uid)
+    user match {
+      case Some(u) => findStylistByPubId(u.id)
+      case None => None
+    }
+  }
+
+  /**
+   *
+   */
+  def findOneByUserPubId(pubId: ObjectId) :Option[Stylist] = {
+    dao.findOne(DBObject("publicId" -> pubId))
+  }
+
   def updateImages(stylist: Stylist, imageId: ObjectId) = {
     dao.update(MongoDBObject("_id" -> stylist.id), MongoDBObject("$set" -> (MongoDBObject("myPics" ->  MongoDBList(imageId, "head", 1, None)))))
   }

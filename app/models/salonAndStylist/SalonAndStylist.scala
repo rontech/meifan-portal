@@ -55,6 +55,40 @@ trait SalonAndStylistDAO extends ModelCompanion[SalonAndStylist, ObjectId] {
   }
 
   /**
+   * To Check that if a stylist is active in a salon. 
+   */
+  def getSalonStylistsInfo(salonId: ObjectId): List[StylistDetailInfo] = {
+    var stlDtls: List[StylistDetailInfo] = Nil
+
+    // TODO check if the salon is active.
+    // get all the stylists of the specified salon.
+    val stlsIn = findBySalonId(salonId)
+    stlsIn.map { work =>
+      val dtlinfo = Stylist.findStylistByPubId(work.stylistId)
+      dtlinfo match {
+        case Some(dtl) => stlDtls = dtl :: stlDtls
+        case None => stlDtls
+      }
+    } 
+    // return
+    //println("All stylist detail info in a salon: " + stlDtls) 
+    stlDtls
+  } 
+
+  /**
+   * To Check that if a stylist is active in a salon. 
+   */
+  def isStylistActive(salonId: ObjectId, stylistId: ObjectId): Boolean = {
+    val stls: Option[SalonAndStylist] = dao.findOne(MongoDBObject("salonId" -> salonId, "stylistId" -> stylistId, "isValid" -> true))
+    stls match {
+      case Some(s) => true
+      case None => false 
+    }
+  }
+
+
+
+  /**
    *  与店铺签约
    */
   def entrySalon(salonId: ObjectId, stylistId: ObjectId) = {

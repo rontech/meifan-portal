@@ -284,7 +284,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     if (user.userTyp.equals(NORMAL_USER)) {
       Ok(views.html.user.myPageRes(user,followInfo))
-    } else if ((user.userTyp).equals("STYLIST")) {
+    } else if ((user.userTyp).equals(STYLIST)) {
       //TODO
       val stylist = Stylist.findByUserId(user.id)
       Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get))

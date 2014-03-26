@@ -8,8 +8,8 @@
 	<div class="taC">
 	@if(stylists.length<=1){
 		@stylists.map{st =>
-    	<p><a href="@routes.Stylists.findBySalon(st.id)">@Messages("salonAdmin.findAllStylists")</a></p>
-    	}
+			<p><a href="@routes.Salons.getOneStylist(salon.id, st.id)">@Messages("salonAdmin.findAllStylists")</a></p>
+		}
     }
 	</div>
 </div>
