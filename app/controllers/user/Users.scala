@@ -127,7 +127,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
 			    	){
 			    		(positionName, industryName) => IndustryAndPosition(new ObjectId, positionName, industryName)
 			    	}{
-			    		industryAndPosition => Some(industryAndPosition.positionName, industryAndPosition.indestryName)
+			    		industryAndPosition => Some(industryAndPosition.positionName, industryAndPosition.industryName)
 			    	}	
 			    ),
 			    "goodAtImage" -> list(text),
@@ -142,7 +142,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
 			){
 		      (workYears, position, goodAtImage, goodAtStatus, goodAtService,
 		          goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR)
-		      => Stylist(new ObjectId, new ObjectId(), 0, position, goodAtImage, goodAtStatus,
+		      => Stylist(new ObjectId, new ObjectId(), workYears, position, goodAtImage, goodAtStatus,
 		    	   goodAtService, goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR, 
 		           List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), false, false)
 		    }{
@@ -237,9 +237,9 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     if ((user.userTyp).equals(NORMALUSER)) {
       Ok(views.html.user.myPageRes(user,followInfo))
-    } else if ((user.userTyp).equals(STYLIST)) {
+    } else if ((user.userTyp).equals("STYLIST")) {
       //TODO
-      val stylist = Stylist.findOneById(user.id)
+      val stylist = Stylist.findByUserId(user.id)
       Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get))
     } else {
       Ok(views.html.user.myPageRes(user,followInfo))
@@ -412,15 +412,16 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
    * 店长或店铺管理者确认后才录入数据库
    */
 
-  def commitStylistApply() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+  def commitStylistApply = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
      val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val goodAtStylePara = Stylist.findGoodAtStyle
     stylistApplyForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.index("")),
+      errors => BadRequest(views.html.fortest(errors)),
       {
         case(stylistApply) => {
-        	Stylist.save(stylistApply.stylist)
+            println("nian shu "+stylistApply)
+        	Stylist.save(stylistApply.stylist.copy(publicId = user.id))
         	val applyRecord = new SalonStylistApplyRecord(new ObjectId, stylistApply.salonId, stylistApply.stylist.id, 1, new Date, 0, None)
     	    SalonStylistApplyRecord.save(applyRecord)
             Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user, goodAtStylePara,followInfo))

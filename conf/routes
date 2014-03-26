@@ -210,6 +210,7 @@ GET     /rejectStylistApply/:stylistId/:salonId         controllers.SalonsAdmin.
 GET     /searchStylistById                              controllers.SalonsAdmin.searchStylistById
 GET     /inviteStylist/:stylistId/:salonId              controllers.SalonsAdmin.inviteStylist(stylistId: ObjectId, salonId: ObjectId)
 GET     /salonUpd/:id                                   controllers.SalonInfo.update(id: ObjectId)
+GET		/salonAdmin/checkStylistIsValid/:salonId/:stylistId  controllers.SalonsAdmin.checkStylistIsValid(salonId: String, stylistId: String)
 
 # Salon Service 
 GET     /addServiceType                 controllers.ServiceTypes.addServiceType
@@ -234,3 +235,11 @@ GET     /reservConfirmInfo              controllers.Reservations.reservConfirmIn
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                   controllers.Assets.at(path="/public", file)
+
+
+#add styles by stylistId in stylist management
+GET 	/findStylesByStylist/:stylistId	    controllers.Stylists.myStyles(stylistId: ObjectId)
+
+GET		/removeSalon/:salonId/:stylistId    controllers.Stylists.removeSalon(salonId: ObjectId, stylistId: ObjectId)
+
+GET		/removeStylist/:salonId/:stylistId  controllers.SalonsAdmin.removeStylist(salonId: ObjectId, stylistId: ObjectId)

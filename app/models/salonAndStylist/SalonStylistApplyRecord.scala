@@ -60,6 +60,28 @@ trait SalonStylistApplyRecordDAO extends ModelCompanion[SalonStylistApplyRecord,
   }
   
   /**
+   *  查看店铺是否已经申请过此技师
+   */
+  def checkSalonApplyStylist(salonId: ObjectId, stylistId: ObjectId): Boolean = {
+    val record = dao.findOne(MongoDBObject("salonId" -> salonId, "stylistId" -> stylistId , "verifiedResult" -> 0))
+    record match {
+      case Some(re) => true
+      case None => false
+    }
+  }
+  
+  /**
+   *  查看技师当前有无申请
+   */
+  def checkStylistApply(stylistId: ObjectId): Boolean = {
+    val record = dao.findOne(MongoDBObject("stylistId" -> stylistId , "verifiedResult" -> 0))
+    record match {
+      case Some(re) => true
+      case None => false
+    }
+  }
+  
+  /**
    *  根据技师id查找申请中的店铺
    */
   def findApplingSalon(stylistId: ObjectId): List[Salon] = {
@@ -79,15 +101,15 @@ trait SalonStylistApplyRecordDAO extends ModelCompanion[SalonStylistApplyRecord,
    *  根据技师id查找申请中的店铺个数
    */
   def applingSalonCount(stylistId: ObjectId): Long = {
-    dao.count(MongoDBObject("salonId" -> stylistId, "applyType" -> 2, "verifiedResult" -> 0))
+    dao.count(MongoDBObject("stylistId" -> stylistId, "applyType" -> 2, "verifiedResult" -> 0))
   }
   
   /**
    *  同意技师或者店铺申请
    */
   def agreeStylistApply(record: SalonStylistApplyRecord) = {
-    dao.update(MongoDBObject("_id" -> record.id), MongoDBObject("$set" -> (MongoDBObject("applyDate" -> new Date) ++
-                MongoDBObject("verifiedResult" -> 1))))
+    dao.update(MongoDBObject("_id" -> record.id), MongoDBObject("$set" -> (MongoDBObject("verifiedResult" -> 1) ++
+                MongoDBObject("verifiedDate" -> Option(new Date)))))
   }
   
   /**
@@ -95,6 +117,6 @@ trait SalonStylistApplyRecordDAO extends ModelCompanion[SalonStylistApplyRecord,
    */
   def rejectStylistApply(record: SalonStylistApplyRecord) = {
     dao.update(MongoDBObject("_id" -> record.id), MongoDBObject("$set" -> (MongoDBObject("verifiedResult" -> 2) ++
-                MongoDBObject("verifiedTime" -> new Date))))
+                MongoDBObject("verifiedDate" -> Option(new Date)))))
   }
 }

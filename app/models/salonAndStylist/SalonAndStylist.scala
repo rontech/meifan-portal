@@ -29,13 +29,31 @@ trait SalonAndStylistDAO extends ModelCompanion[SalonAndStylist, ObjectId] {
         "Could not find mongodb.default.db in settings")))("SalonAndStylist")
 
   val dao = new SalatDAO[SalonAndStylist, ObjectId](collection) {}
-
-  def findBySalonId(salonId: ObjectId): Seq[SalonAndStylist] = {
+  
+  
+  /**
+   * 查找已绑定店铺的所有技师记录
+   */
+  def findBySalonId(salonId: ObjectId): List[SalonAndStylist] = {
     dao.find(MongoDBObject("salonId" -> salonId, "isValid" -> true)).toList
   }
-
+  
+  /**
+   * 查找已绑定店铺的技师关系记录
+   */
   def findByStylistId(stylistId: ObjectId): Option[SalonAndStylist] = {
     dao.findOne(MongoDBObject("stylistId" -> stylistId, "isValid" -> true))
+  }
+  
+  /**
+   * 检查技师与店铺关系是否有效
+   */
+  def checkSalonAndStylistValid(salonId: ObjectId, stylistId: ObjectId): Boolean = {
+    val isValid = dao.findOne(MongoDBObject("salonId" -> salonId, "stylistId" ->stylistId, "isValid" -> true))
+    isValid match {
+      case Some(is) => true
+      case None => false
+    }
   }
 
   /**
@@ -72,7 +90,7 @@ trait SalonAndStylistDAO extends ModelCompanion[SalonAndStylist, ObjectId] {
 case class IndustryAndPosition(
   id: ObjectId,
   positionName: String,
-  indestryName: String)
+  industryName: String)
 
 object IndustryAndPosition extends IndustryAndPositionDAO
 
