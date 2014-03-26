@@ -4,6 +4,7 @@ import play.api.Play.current
 import play.api.PlayException
 import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
+import se.radley.plugin.salat.Binders._
 import mongoContext._
 import java.util.Date
 
@@ -26,14 +27,66 @@ trait SalonAndStylistDAO extends ModelCompanion[SalonAndStylist, ObjectId] {
         "Could not find mongodb.default.db in settings")))("SalonAndStylist")
 
   val dao = new SalatDAO[SalonAndStylist, ObjectId](collection) {}
-
-  def findBySalonId(salonId: ObjectId): Seq[SalonAndStylist] = {
+  
+  
+  /**
+   * 查找已绑定店铺的所有技师记录
+   */
+  def findBySalonId(salonId: ObjectId): List[SalonAndStylist] = {
     dao.find(MongoDBObject("salonId" -> salonId, "isValid" -> true)).toList
   }
-
+  
+  /**
+   * 查找已绑定店铺的技师关系记录
+   */
   def findByStylistId(stylistId: ObjectId): Option[SalonAndStylist] = {
     dao.findOne(MongoDBObject("stylistId" -> stylistId, "isValid" -> true))
   }
+  
+  /**
+   * 检查技师与店铺关系是否有效
+   */
+  def checkSalonAndStylistValid(salonId: ObjectId, stylistId: ObjectId): Boolean = {
+    val isValid = dao.findOne(MongoDBObject("salonId" -> salonId, "stylistId" ->stylistId, "isValid" -> true))
+    isValid match {
+      case Some(is) => true
+      case None => false
+    }
+  }
+
+  /**
+   * To Check that if a stylist is active in a salon. 
+   */
+  def getSalonStylistsInfo(salonId: ObjectId): List[StylistDetailInfo] = {
+    var stlDtls: List[StylistDetailInfo] = Nil
+
+    // TODO check if the salon is active.
+    // get all the stylists of the specified salon.
+    val stlsIn = findBySalonId(salonId)
+    stlsIn.map { work =>
+      val dtlinfo = Stylist.findStylistByPubId(work.stylistId)
+      dtlinfo match {
+        case Some(dtl) => stlDtls = dtl :: stlDtls
+        case None => stlDtls
+      }
+    } 
+    // return
+    //println("All stylist detail info in a salon: " + stlDtls) 
+    stlDtls
+  } 
+
+  /**
+   * To Check that if a stylist is active in a salon. 
+   */
+  def isStylistActive(salonId: ObjectId, stylistId: ObjectId): Boolean = {
+    val stls: Option[SalonAndStylist] = dao.findOne(MongoDBObject("salonId" -> salonId, "stylistId" -> stylistId, "isValid" -> true))
+    stls match {
+      case Some(s) => true
+      case None => false 
+    }
+  }
+
+
 
   /**
    *  与店铺签约

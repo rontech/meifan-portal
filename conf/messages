@@ -48,6 +48,11 @@ main.myPage=我的主页
 salon.register=店铺注册
 salon.tabName=美发沙龙
 salon.salonMainPage=美容美发沙龙检索首页
+salon.styles=发型
+salon.stylists=发型师
+salon.couponMenus=菜单 优惠券
+salon.blogs=博客
+salon.reviews=评论
 salon.show=展示所有沙龙
 salon.title=店铺基本信息管理
 salon.salonData={0}的基本信息
@@ -99,6 +104,7 @@ salon.registerTime=美容平台注册日期
 salonAdmin.mainPage = 店铺管理
 salonAdmin.myPage = 我的店铺
 salonAdmin.myBlog = 我的博客
+salonAdmin.myStylist = 我的技师
 salonAdmin.welcome = 欢迎您
 salonAdmin.remindRsv = 预约提示：
 salonAdmin.needCommentRsv = 待评论
@@ -114,6 +120,9 @@ salonAdmin.serviceManagement = 服务管理
 salonAdmin.couponManagement = 优惠劵管理
 salonAdmin.menuManagement = 菜单管理
 salonAdmin.stateManagement = 动态管理
+salonAdmin.findAllStylists = 查看店铺所有技师
+salonAdmin.applyStylists = 申请的技师
+salonAdmin.removeStylist = 解除关系
 
 # Hair
 hair.tabName=时尚靓发
@@ -227,6 +236,7 @@ apply.reject = 2
 apply.termination = 3
 
 #Stylist
+stylist.updateBasicInfo = 技师基本资料更新
 stylist.searchResults = 搜索结果
 stylist.search = 搜索
 stylist.id = 技师ID
@@ -250,6 +260,9 @@ stylist.hello = 您好
 stylist.this = 这是
 stylist.is = 的
 stylist.findOtherBlog = 查看更多
+stylist.removeSalon = 离开店铺
+stylist.update = 更新
+
 
 
 #Stylist Apply
