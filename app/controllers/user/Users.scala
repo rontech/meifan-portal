@@ -284,9 +284,9 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     if (user.userTyp.equals(NORMAL_USER)) {
       Ok(views.html.user.myPageRes(user,followInfo))
-    } else if (user.userTyp.equals(STYLIST)) {
-      val stylist = Stylist.findOneById(user.id)
-
+    } else if ((user.userTyp).equals("STYLIST")) {
+      //TODO
+      val stylist = Stylist.findByUserId(user.id)
       Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get))
     } else {
       Ok(views.html.user.myPageRes(user,followInfo))
@@ -376,15 +376,14 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val goodAtStylePara = Stylist.findGoodAtStyle
     stylistApplyForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.fortest(errors)),
+      errors => BadRequest(views.html.user.applyStylist(errors, user, goodAtStylePara, followInfo)),
       {
         case(stylistApply) => {
-            println("nian shu "+stylistApply)
-        	Stylist.save(stylistApply.stylist.copy(publicId = user.id))
-        	val applyRecord = new SalonStylistApplyRecord(new ObjectId, stylistApply.salonId, stylistApply.stylist.id, 1, new Date, 0, None)
-    	    SalonStylistApplyRecord.save(applyRecord)
-            Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user, goodAtStylePara,followInfo))
-      }
+          Stylist.save(stylistApply.stylist.copy(publicId = user.id))
+          val applyRecord = new SalonStylistApplyRecord(new ObjectId, stylistApply.salonId, stylistApply.stylist.id, 1, new Date, 0, None)
+    	  SalonStylistApplyRecord.save(applyRecord)
+          Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user, goodAtStylePara, followInfo))
+        }
       })
     	 
   }

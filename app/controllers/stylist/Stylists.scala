@@ -13,6 +13,12 @@ import play.api.data.Forms._
 import play.api.mvc._
 import scala.concurrent.Future
 import play.api.templates._
+import se.radley.plugin.salat._
+import com.mongodb.casbah.gridfs.Imports._
+import com.mongodb.casbah.gridfs.GridFS
+import play.api.libs.iteratee.Enumerator
+import scala.concurrent.ExecutionContext
+import com.mongodb.casbah.MongoConnection
 
 
 object Stylists extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
@@ -205,6 +211,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     Redirect(routes.Stylists.mySalon(stylistId))
     
   }
+  
   
   /*def updateStyleByStylist(styleId: ObjectId) = Action {
      
