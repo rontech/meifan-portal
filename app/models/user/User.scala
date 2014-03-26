@@ -30,9 +30,28 @@ case class User(
   permission: String,
   isValid: Boolean)
 
-object User extends UserDAO
+object User extends ModelCompanion[User, ObjectId] {
 
-trait UserDAO extends ModelCompanion[User, ObjectId] {
+  /*
+    * 用户类别
+    */
+
+  //普通用户
+  val NORMAL_USER = "normalUser"
+  //专业技师
+  val STYLIST = "stylist"
+
+  /*
+    * 用户行为等级
+    */
+
+  //高
+  val HIGH = "high"
+  //中
+  val MIDDLE = "middle"
+  //底
+  val LOW = "low"
+
   def collection = MongoConnection()(
     current.configuration.getString("mongodb.default.db")
       .getOrElse(throw new PlayException(
