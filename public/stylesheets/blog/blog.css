@@ -1,0 +1,91 @@
+@CHARSET "UTF-8";
+
+.titleBlog {
+text-align: center;
+font-weight: bold;
+color: #665555;
+background-color: #E4E0D9;
+padding: 3px;
+}
+
+.w187 {
+width: 187px;
+}
+
+.listCassette {
+margin-top: 20px;
+padding-top: 20px;
+border-top: 1px dotted #999;
+}
+
+.blogCategoryBL10 {
+background-position: -360px 0;
+display: block;
+width: 107px;
+height: 19px;
+text-align: center;
+color: white
+}
+
+.blogS {
+background-color: #7c25ff;
+}
+
+.hMin19 {
+min-height: 19px;
+_height: 19px;
+}
+
+.cFix dl {
+-webkit-margin-after: 0;
+-webkit-margin-before: 0;
+}
+
+.mR70 {
+	margin-right: 70px;
+}
+
+.fs18 {
+font-size: 18px;
+}
+
+.blogCategoryLargeBL10 {
+background-position: -2860px -40px;
+display: block;
+width: 232px;
+height: 34px;
+text-align: center;
+color: white
+}
+
+.fs21 {
+	font-size: 21px;
+}
+
+.titleBlogPublisher {
+text-align: center;
+font-weight: bold;
+color: #CC4466;
+background-color: #E4E0D9;
+padding: 3px;
+}
+
+.bgDGray2 {
+background-color: #F8F2EC;
+}
+
+.showDetailW131H30 {
+background-position: -310px -520px;
+width: 131px;
+height: 30px;
+}
+
+.nominatedReserve:hover {
+background-position: 0 -711px;
+}
+
+.nominatedReserve {
+background-position: 0 -680px;
+width: 132px;
+height: 31px;
+}
