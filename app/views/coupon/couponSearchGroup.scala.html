@@ -32,14 +32,6 @@
 					 		</li>
 					 	}
 					  }
-						@*for(serviceType <- serviceTypes) {
-							<li class="fl w112">
-								<input type="checkbox" name="mc@serviceTypes.indexOf(serviceType)" value="@serviceType.serviceTypeName" id="menuCategory@serviceTypes.indexOf(serviceType)" class="cbF">
-								<label for="menuCategory@serviceTypes.indexOf(serviceType)">
-									@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
-								</label>
-							</li>
-						}*@
 					</ul>
 				</td>
 				<td align="center" valign="middle" rowspan="2" class="w80 bgSBrown">
