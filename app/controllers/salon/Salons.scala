@@ -33,8 +33,16 @@ object Salons extends Controller {
       */
      def getAllStylists(salonId: ObjectId) = Action {
         val salon: Option[Salon] = Salon.findById(salonId)
+//        print(SalonAndStylist.getSalonStylistsInfo(salonId))
+ 
+        salon match {
+            case Some(sl) => {
+                val stylists = SalonAndStylist.getSalonStylistsInfo(salonId)
+            }
+            case None => NotFound
+        }
+
         val stylistsOfSalon: List[Stylist] = Stylist.findBySalon(salonId)    
-         // TODO
         Ok(views.html.salon.store.salonInfoStylistAll(salon.get, stylistsOfSalon))
     }
   
@@ -47,16 +55,19 @@ object Salons extends Controller {
         val salon: Option[Salon] = Salon.findById(salonId)
         Ok(views.html.salon.store.salonInfoStylist(salon.get, stylist.get))
     }
-  
- def findStylistById(id: ObjectId) = Action {
-    val stylist = Stylist.findOneById(id)
-    val salonId =  SalonAndStylist.findByStylistId(id).get.salonId
-    val salon = Salon.findById(salonId)
-    val style = Style.findByStylistId(id)
-    val user = Stylist.findUser(stylist.get.publicId)
-    val blog = Blog.getBlogByUserId(user.userId).last
-    Ok(views.html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, styles = style, blog = blog))
-  }
+
+    /**
+     * TODO
+     */
+    def findStylistById(id: ObjectId) = Action {
+        val stylist = Stylist.findOneById(id)
+        val salonId =  SalonAndStylist.findByStylistId(id).get.salonId
+        val salon = Salon.findById(salonId)
+        val style = Style.findByStylistId(id)
+        val user = Stylist.findUser(stylist.get.publicId)
+        val blog = Blog.getBlogByUserId(user.userId).last
+        Ok(views.html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, styles = style, blog = blog))
+    }
  
     /**
      * Get all styles of a salon.
