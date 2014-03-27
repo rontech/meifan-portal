@@ -1,6 +1,6 @@
-@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, styles: List[Style])
+@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, styles: List[Style], followInfo: FollowInformation)
 
-@stylistPageMain(navInMyPage, user, stylist){
+@stylistPageMain(navInMyPage, user, stylist, followInfo){
 	<div class="mysalon-stylist-group">
 		<div>
 			<form action="/stylistFindStylesByCondtion" method="get">

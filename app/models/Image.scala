@@ -21,11 +21,11 @@ object ImageDAO extends SalatDAO[Image, ObjectId](
       .getOrElse(throw new PlayException(
           "Configuration error",
           "Could not find mongodb.default.db in settings"))
-  )("picture"))
+  )("Picture"))
   
 object Image {
 	import com.mongodb.casbah.Implicits._
-   val db = MongoConnection()("picture")
+   val db = MongoConnection()("Picture")
    val gridFs = GridFS(db)
    def findById(file: ObjectId) = {
     gridFs.findOne(Map("_id" -> file)) 
@@ -33,7 +33,7 @@ object Image {
 	def findAll() = {
 	  gridFs.find(MongoDBObject.empty).toList
 	}
-	def save(file: File) = {
+	def save(file: File): ObjectId = {
 	  val uploadedFile = gridFs.createFile(file)
 	  uploadedFile.save()
 	  uploadedFile._id.get
