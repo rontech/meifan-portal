@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+.reportHeaderPickup {
+position: relative;
+background: #FFEEC8;
+border: 1px solid #DFDFDF;
+zoom: 1;
+}
+
+.shopInfo {
+padding: 11px 10px 9px;
+border-bottom: 2px solid #CE5075;
+}
+
+.reportPickupTitle {
+background: url("/assets/images/comment/icon_report_pickup.gif") no-repeat 5px 5px;
+}
+
+.pL25 {
+padding-left: 25px;
+}
+
+.couponMenuTitle {
+margin-right: 30px;
+padding: 4px 10px;
+background: #989898;
+font-size: 10px;
+color: #FFFFFF;
+line-height: 1;
+}
