@@ -384,7 +384,7 @@ letter.time=时间
 # Messages Area.
 #-------------------------------
 
-#Blog
+# Blog
 blog.newBlog=发表博客
 blog.title=博客标题
 blog.content=博客内容
@@ -406,6 +406,15 @@ blog.shareToWX = 微信
 blog.latestBlogForSalon = 沙龙最新的博客 
 blog.authorTitle = 投稿者
 blog.moreInfo = 查看详情
+
+# Comment
+comment.salonCommentTitle = {0} 的评论
+comment.noComment = 该店铺暂无评论
+comment.passDate = [投稿日]
+comment.usedCoupon = 预约时使用的优惠券
+comment.usedServices = [用到的技术]
+comment.reply = {0}的回复
+
 
 
 
