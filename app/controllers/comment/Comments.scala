@@ -95,7 +95,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
   }
   
   /**
-   * 回复，后台逻辑
+   * 博客回复，后台逻辑
    */
   def reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
 //      val userId = request.session.get("userId").get
@@ -108,6 +108,24 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
           case (content) =>
 	        Comment.reply(user.userId, content, commentObjId, commentObjType) 
 	        Redirect(routes.Blogs.showBlogById(id))	
+        } 
+      )
+  }
+  
+   /**
+   * 店铺回复消费者的评论，后台逻辑
+   */
+  def replyAdmin(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+//      val userId = request.session.get("userId").get
+      // TODO
+      val user = loggedIn
+      formHuifuComment.bindFromRequest.fold(
+        //处理错误
+        errors => BadRequest(views.html.comment.errorMsg("")),
+        {
+          case (content) =>
+	        Comment.reply(user.userId, content, commentObjId, commentObjType) 
+	        Redirect(routes.SalonsAdmin.myComment(id))	
         } 
       )
   }

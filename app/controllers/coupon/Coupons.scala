@@ -112,9 +112,9 @@ object Coupons extends Controller {
   /**
    * 创建优惠劵
    */
-  def createCoupon = Action {implicit request =>
+  def createCoupon(salonId: ObjectId) = Action {implicit request =>
     couponForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.error.errorMsg(errors)),
+          errors => BadRequest(html.salon.admin.createSalonCoupon(Salon.findById(salonId).get,errors,Service.findBySalonId(salonId))),
         {
           coupon =>
             var services: List[Service] = Nil
