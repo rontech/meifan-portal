@@ -1,0 +1,20 @@
+@(salonLogin: Form[Option[Salon]])
+
+	@import helper._
+	
+	 @main(title = "salonLogin") {
+	 	
+	 	<h2>@Messages("salon.salonLogin")</h2>
+	 	
+	 	@form(routes.SalonInfo.loginSalon, 'method ->"post"){
+	 		
+	 		@inputText(field = salonLogin("salonAccount.accountId"), '_label -> Messages("salon.id"), 'placeholder ->"SalonId")
+          
+			@inputPassword(field = salonLogin("salonAccount.password"), '_label -> Messages("user.password"), 'placeholder ->"Password" ,
+				'_error -> salonLogin.globalError.map(_.withMessage(Messages("user.loginErr"))))
+			
+            <a href = "@routes.SalonInfo.register"><input type="button" class = "buttons" value="@Messages("user.registerBtn")"></a>
+            
+            <input type= "submit" class = "buttons" value="@Messages("user.loginBtn")">
+	 	}
+	 }

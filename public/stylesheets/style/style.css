@@ -140,11 +140,6 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 0 20px;
 }
 
-/* マップArea */
-.bgRouteMapTitle	{ background: url("/CSP/img/bt/map/bg/bg_routemaptitle.gif") no-repeat; display: block; width: 291px; height: 25px; padding:5px 0 0 10px; }
-.btnSearchStation	{ background: url("/CSP/img/bt/map/button/btn_searchbystation.gif?switch=20140227") no-repeat 0 0; display: block; width: 143px; height: 24px; }
-.btnSearchStation:hover	{ background: url("/CSP/img/bt/map/button/btn_searchbystation.gif?switch=20140227") no-repeat 0 -24px; display: block; width: 143px; height: 24px; }
-
 /* コンテンツ */
 #contents {
 	margin-top: 10px;
@@ -1882,8 +1877,6 @@ h1, h2, h3, h4, h5, h6 {
  * スプライト画像 - 横長画像（y.png）
  ************************************************************/
 
-.yS		{ background-image: url(/CSP/img/bt/sprites/y.png?switch=20140227); }
-
 /* 見出し */
 .mainContentsTitleOuter { background: none; }
 .mainContentsTitleInner {
@@ -1900,17 +1893,6 @@ h1, h2, h3, h4, h5, h6 {
 .mainContentsTitleInner h2		{ font-size: 18px; }
 
 .mainContentsSecondTitleOuter	{ background: none; }
-.mainContentsSecondTitleInner	{
-	line-height: 21px;
-	border-bottom: 1px solid #666666;
-	background: url(/CSP/img/bt/icons/icon_heading.png?switch=20140227) no-repeat 0 1px;
-	padding-left: 25px;
-	padding-bottom: 1px;
-	font-size: 15px;
-	font-weight: bold;
-	color: #444444;
-	font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'ＭＳ Ｐゴシック', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
-}
 .mainContentsThirdTitle	{
 	color: #444444;
 	background-color: #F0EDDD;
@@ -2041,8 +2023,6 @@ h1, h2, h3, h4, h5, h6 {
 /************************************************************
  * スプライト画像 - 横長画像（y4.png）
  ************************************************************/
-
-.y4S		{ background-image: url(/CSP/img/bt/sprites/y4.png?switch=20140227);}
 
 .grayPointBodyHead {background-position: -324px top; background-repeat: no-repeat; padding-top: 6px;}
 .grayPointBodyBox {background-position: -648px bottom; background-repeat: no-repeat; padding-bottom: 6px;}
@@ -2652,7 +2632,6 @@ h1, h2, h3, h4, h5, h6 {
 .hairNormal				{ background-position: -40px -20px; width: 48px; height: 21px; display:block; }
 .hairNormalOn			{ background-position: -40px -41px; width: 48px; height: 21px; display:block; }
 .hairLittle				{ background-position: -120px -20px; width: 48px; height: 21px; display:block; }
-.hairLittleOn			{ background-position: -120px -41px; width: 48px; height: 21px; display:block; }
 .hairMuch				{ background-position: -200px -20px; width: 48px; height: 21px; display:block; }
 .hairMuchOn				{ background-position: -200px -41px; width: 48px; height: 21px; display:block; }
 .hairSoft				{ background-position: -280px -20px; width: 48px; height: 21px; display:block; }
@@ -3459,63 +3438,6 @@ td.bgPink8.fgWhite {
 	cursor: pointer;
 }
 
-/* btn1 */
-.btn1H30 {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat left -1734px;
-	line-height: 30px;
-}
-.btn1H30 > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat right -1794px;
-}
-.btn1H30 > span > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') repeat-x 0 -1854px;
-	color: #FFF;
-}
-.btn1H30:hover {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat left -1764px;
-}
-.btn1H30:hover > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat right -1824px;
-}
-.btn1H30:hover > span > span {
-	background-position: 0 -1884px;
-	color: #FFF;
-}
-.btn1H60 {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat left -1374px;
-	line-height: 60px;
-}
-.btn1H60 > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat right -1494px;
-}
-.btn1H60 > span > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') repeat-x 0 -1614px;
-	color: #FFF;
-	font-size: 15px;
-}
-.btn1H60:hover {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat left -1434px;
-}
-.btn1H60:hover > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat right -1554px;
-}
-.btn1H60:hover > span > span {
-	background-position: 0 -1674px;
-	color: #FFF;
-}
-
-/* btn2 */
-.btn2H24 {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat left -1230px;
-	line-height: 24px;
-}
-.btn2H24 > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat right -1278px;
-}
-.btn2H24 > span > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') repeat-x 0 -1326px;
-	color: #E53B4E;
-}
 .btn2H24:hover {
 	background-position: 0 -1254px;
 }
@@ -3719,4 +3641,49 @@ height: 20px;
 .reservation-step dd,.reservation-step dt{
 	background-color:#CC9933;
 	
+}
+
+.styleItem {
+float: left;
+padding-right: 10px;
+padding-bottom: 15px;
+border-bottom: 1px solid #DDDDDD;
+padding-top: 20px;
+}
+
+.w176 {
+	width: 176px;
+}
+
+.taM {
+	text-align: center;
+}
+
+.stylePageTileOuter {
+border-bottom: 3px solid #E4E0D9;
+padding: 0 0 8px 10px;
+}
+
+#imgMain img {
+width: 271px;
+}
+
+.titleStyle {
+font-weight: bold;
+color: #665555;
+background-color: #E4E0D9;
+padding: 3px 8px;
+}
+
+.hairLittleOn {
+background-color: #CC4466;
+width: 48px;
+height: 21px;
+display: block;
+color: white;
+text-align: center;
+}
+
+.h122 {
+	height: 122px;
 }

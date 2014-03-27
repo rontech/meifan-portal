@@ -1,0 +1,7 @@
+@(salon: Salon, serviceForm: Form[Service], serviceType: List[String])
+
+@mySalonMain(navInSalon = "salon-coupon", salon) {
+	
+    @views.html.service.createService(salon.id, serviceForm, serviceType)
+
+}

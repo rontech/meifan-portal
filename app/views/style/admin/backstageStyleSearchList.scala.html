@@ -184,7 +184,7 @@
 <div>
        @for(i <- 0 to styles.length-1){
            <a href="" >
-               <img src="#" class="" alt="@styles(i).styleName" >
+               <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" class="" alt="@styles(i).styleName" >
            </a>
         <div class="layer jscLayer jscFixPng">
             <p>

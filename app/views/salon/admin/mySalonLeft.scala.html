@@ -98,19 +98,19 @@
             <div class="oinfo">
                 <dl class="fore">
                     <dt>
-                       @Messages("salonAdmin.remindReserv")
+                       @Messages("salonAdmin.remindRsv")
                     </dt>
                     <dd>
                         <span id="orderCount" clstag="click|keycount|myhome|ordercount">
                             <a href="http://jd2008.jd.com/JdHome/OrderList.aspx?jdhome=myjd">
-                                @Messages("salonAdmin.needCommentReserv")
+                                @Messages("salonAdmin.needCommentRsv")
                                 (2)
                             </a>
                         </span>
                     </dd>
                     <dd>
                         <a id="reviewCountHref" clstag="click|keycount|myhome|commentscount" href="http://club.jd.com/mycomments.aspx">
-                           	 @Messages("salonAdmin.overtimeReserv")
+                           	 @Messages("salonAdmin.overtimeRsv")
                            	 (
                             <span id="reviewCount">
                                 1
@@ -120,10 +120,10 @@
                     </dd>
                     <dd>
                         <a id="reviewCountHref" clstag="click|keycount|myhome|commentscount" href="http://club.jd.com/mycomments.aspx">
-                           	@Messages("salonAdmin.expireReserv")
+                           	@Messages("salonAdmin.expireRsv")
                            	(
                             <span id="reviewCount">
-                               
+                               0
                             </span>
                             )
                         </a>
@@ -175,7 +175,12 @@
 			            </dl>
 			            <dl tag="2">
 			                <dt tag="2">
-			                    <a href="/mySalon/@salon.id/reserv">@Messages("salonAdmin.reservManagement")</a> 
+			                    <a href="#">@Messages("salonAdmin.styleManagement")</a> 
+			                 </dt>
+			            </dl>
+			            <dl tag="2">
+			                <dt tag="2">
+			                    <a href="/mySalon/@salon.id/reserv">@Messages("salonAdmin.reserveManagement")</a> 
 			                 </dt>
 			            </dl>
 			            <dl tag="3">

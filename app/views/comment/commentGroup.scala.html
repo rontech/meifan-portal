@@ -1,0 +1,22 @@
+@(comments: List[Comment] = Nil, salon: Salon)
+
+<div class="mT20">
+	<div class="yS mainContentsSecondTitleOuter">
+		<h2 class="yS mainContentsSecondTitleInner">@Messages("comment.salonCommentTitle", salon.salonName)</h2>
+	</div>
+</div>
+
+<div class="mT20">
+	@if(comments.size != 0){
+		<ul class="reportWrapper">
+			@for(comment <- comments) {
+			    <li class="reportDetailCassette mT30">
+			        @views.html.comment.commentItem(comment, salon)
+			    </li>
+			}
+		</ul>
+	}else{
+		<p>@Messages("comment.noComment")</p>
+	}
+</div>    
+
