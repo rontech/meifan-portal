@@ -1,59 +1,9 @@
 @(salon: Salon, blog: Blog, navBar: List[(String, String)] = Nil, listYM : List[String], newestBlogsOfSalon : List[Blog], stylist : Stylist)
-@import java.text.DateFormat
-@salonInfoMain(navInSalon = "salon-blog", salon, navBar) {
 
-    <div class="mT30">
-		<div class="yS mainContentsSecondTitleOuter">
-			<h2 class="yS mainContentsSecondTitleInner">@salon.salonName 博客</h2>
-		</div>
-	</div>
+@salonInfoMain(navInSalon = "salon-blog", salon, navBar) {
 	
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/blog/blog.css")">
 	
-	<div class="mT20 cFix">
-    @views.html.blog.blogDetail(blog)
-    
-    
-    <dl class="rightContents fr w187">
-		<dt class="titleBlogPublisher">博客作者</dt>
-		<dd class="list p10 bgDGray2">
-			<div class="taC"><img src="http://imgbp.hotp.jp/CSP/IMG_SRC/19/34/B003961934/B003961934_89-119.jpg" alt="フレール　Freres&nbsp;坂本 隆文"></div>
-				<p class="fgPink fs10 mT5">@stylist.position.map {position => @position.industryName}</p>
-			<p class="mT5"><a href="/salon/@salon.id/blogs/@stylist.id">@User.findOneByUserId(blog.authorId).get.nickName</a></p>
-			@*<p class="fs10 mT5">サカモト タカフミ</p>*@
-				<p class="fs10 mT5">@stylist.myWords</p>
-				<div class="mT5"><a href="/salon/@salon.id/blogs/@stylist.id" class="bS db showDetailW131H30 offL mHA">查看详情</a></div>
-				@*<div class="mT5 taC"><a href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733&amp;stylistId=T000188298" class="bS db nominatedReserve offL mHA">指名预约</a></div>*@
-				</dd>
-				@if(newestBlogsOfSalon.size != 0){
-					<dt class="titleBlog mT20">沙龙最新的博客</dt>
-					<dd class="list p10">
-					@newestBlogsOfSalon.map{ blog =>
-						<div>
-							<p class="fs10"><span class="fgPink mR3">●</span>@DateFormat.getDateInstance().format(blog.updateTime)</p>
-							<p class="wwbw"><a href="/salon/@salon.id/blog/@blog.id">@blog.title</a></p>
-							<p>博客作者：<a href="/salon/@salon.id/stylistOne/@blog.authorId">@User.findOneByUserId(blog.authorId).get.nickName</a></p>
-						</div>
-					}
-					</dd>
-				}
-		<dt class="titleBlog">店员</dt>
-			<dd class="list p10">
-			@Stylist.findBySalon(salon.id).map { stylist =>
-				@if(!Blog.getBlogByUserId(User.findOneById(Stylist.findOneById(stylist.id).get.publicId).get.userId).isEmpty){
-				<p><a href="/salon/@salon.id/blogs/@stylist.id">@User.findOneById(Stylist.findOneById(stylist.id).get.publicId).get.nickName （@Blog.getBlogByUserId(User.findOneById(Stylist.findOneById(stylist.id).get.publicId).get.userId).size）</a></p>
-				}
-			}
-			</dd>
-		<dt class="titleBlog">历史博客</dt>
-			<dd class="list p10">
-			@listYM.map { yM =>
-				@if(Blogs.getBlogBySalonAndYM(salon.id, yM).size != 0){
-				<p><a href="/salon/@salon.id/blogYM/@yM">@yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size）</a></p>
-				}else{
-				<p>@yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size）</p>
-				}
-			}
-			</dd>
-		</dl>
-	</div>
+	@views.html.blog.blogItemComponent(salon, blog, listYM, newestBlogsOfSalon, stylist)
+	
 }

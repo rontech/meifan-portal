@@ -29,7 +29,7 @@ object Styles extends Controller {
             "consumerSex" -> text,
             "consumerSocialStatus" -> list(text)) {
                 (styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, consumerAgeGroup, consumerSex, consumerSocialStatus) =>
-                    Style(new ObjectId, "", new ObjectId, List(""),
+                    Style(new ObjectId, "", new ObjectId, List(),
                         styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, "", consumerAgeGroup, consumerSex, consumerSocialStatus, new Date, true)
             } {
                 style =>
@@ -45,7 +45,15 @@ object Styles extends Controller {
         mapping(
             "styleName" -> text,
             "stylistId" -> text,
-            "stylePic" -> list(text),
+            "stylePic" -> (list(mapping(
+                "fileObjId" -> text,
+                "picUse" -> text,
+                "showPriority" -> optional(number),
+                "description" -> optional(text)) {
+                    (fileObjId, picUse, showPriority, description) => OnUsePicture(new ObjectId(fileObjId), picUse, showPriority, description)
+                } {
+                    onUsePicture => Some((onUsePicture.fileObjId.toString, onUsePicture.picUse, onUsePicture.showPriority, onUsePicture.description))
+                })),
             "styleImpression" -> text,
             "serviceType" -> list(text),
             "styleLength" -> text,
@@ -76,7 +84,15 @@ object Styles extends Controller {
             "id" -> text,
             "styleName" -> text,
             "stylistId" -> text,
-            "stylePic" -> list(text),
+            "stylePic" -> (list(mapping(
+                "fileObjId" -> text,
+                "picUse" -> text,
+                "showPriority" -> optional(number),
+                "description" -> optional(text)) {
+                    (fileObjId, picUse, showPriority, description) => OnUsePicture(new ObjectId(fileObjId), picUse, showPriority, description)
+                } {
+                    onUsePicture => Some((onUsePicture.fileObjId.toString, onUsePicture.picUse, onUsePicture.showPriority, onUsePicture.description))
+                })),
             "styleImpression" -> text,
             "serviceType" -> list(text),
             "styleLength" -> text,
@@ -109,50 +125,78 @@ object Styles extends Controller {
      */
     def findBySalon(salonId: ObjectId) = Action {
         val salon: Option[Salon] = Salon.findById(salonId)
-        //此处由于豆平那技师和店铺关系的表yi确定，暂时固定写死，明日修改2014/03/18
-        //val styles: Seq[Style] = Style.findBySalon(salonId)    
-        val stylists = List("530d8010d7f2861457771bf8")
+        val stylists = Style.findStylistBySalonId(salonId)
         var styles: List[Style] = Nil
         stylists.map { sty =>
-            var style = Style.findByStylistId(new ObjectId(sty))
+            var style = Style.findByStylistId(sty.id)
             styles :::= style
         }
-        // TODO: process the salon not exist pattern.
-        Ok(html.salon.store.salonInfoStyleAll(salon = salon.get, styles = styles))
+        salon match {
+            case Some(salon) => {
+                Ok(html.salon.store.salonInfoStyleAll(salon, styles))
+            }
+            case None => NotFound
+        }
     }
 
     def getStyleInfoOfSalon(salonId: ObjectId, styleId: ObjectId) = Action {
         val salon: Option[Salon] = Salon.findById(salonId)
         val style: Option[Style] = Style.findOneById(styleId)
-        Ok(html.salon.store.salonInfoStyle(salon = salon.get, style = style.get))
+        salon match {
+            case Some(salon) => {
+                style match {
+                    case Some(style) => {
+                        Ok(html.salon.store.salonInfoStyle(salon = salon, style = style))
+                    }
+                    case None => NotFound
+                }
+            }
+            case None => NotFound
+        }
     }
 
     /**
      * 前台发型检索
      */
     def index = Action {
+        //        val searchLength = List(List("短", "http://imgbp.hotp.jp/CSP/img/hc/top/photo/lengthHL03.jpg"), ("中", "http://imgbp.hotp.jp/CSP/img/hc/top/photo/lengthHL02.jpg"))
         Ok(html.style.general.overview(Nil, styleSearchForm, Style.findParaAll))
     }
-    
+
     def findByLength(styleLength: String, consumerSex: String) = Action {
-        val styleSearchInfo = Style.findByLength(styleLength,consumerSex)
-        var styleSearchByLength: Style = Style(new ObjectId,"", new ObjectId, Nil, "", Nil, styleLength, Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
-        //此处由于豆平那技师和店铺关系取数据，暂时固定写死，待修改
-        val salonId: ObjectId = new ObjectId("530d7288d7f2861457771bdd")
-        val salon: Option[Salon] = Salon.findById(salonId)
-        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleSearchInfo, salon = salon.get, Style.findParaAll))
+        val styleSearchInfo = Style.findByLength(styleLength, consumerSex)
+        var styleSearchByLength: Style = Style(new ObjectId, "", new ObjectId, Nil, "", Nil, styleLength, Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
+        var styleAndSalons: List[StyleAndSalon] = Nil
+        styleSearchInfo.map { styleInfo =>
+            val salonOne = Style.findSalonByStyle(styleInfo)
+            salonOne match {
+                case Some(salonOne) => {
+                    val styleAndSalon = new StyleAndSalon(styleInfo, salonOne)
+                    styleAndSalons :::= List(styleAndSalon)
+                }
+                case None => null
+            }
+        }
+        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleAndSalons, Style.findParaAll))
     }
-    
+
     def findByImpression(styleImpression: String) = Action {
         val styleSearchInfo = Style.findByImpression(styleImpression)
-        var styleSearchByLength: Style = Style(new ObjectId,"", new ObjectId, Nil, styleImpression, Nil, "", Nil, Nil, Nil, Nil, Nil, "", Nil, "", Nil, new Date, true)
-        //此处由于豆平那技师和店铺关系取数据，暂时固定写死，待修改
-        val salonId: ObjectId = new ObjectId("530d7288d7f2861457771bdd")
-        val salon: Option[Salon] = Salon.findById(salonId)
-        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleSearchInfo, salon = salon.get, Style.findParaAll))
-        
+        var styleSearchByLength: Style = Style(new ObjectId, "", new ObjectId, Nil, styleImpression, Nil, "", Nil, Nil, Nil, Nil, Nil, "", Nil, "", Nil, new Date, true)
+        var styleAndSalons: List[StyleAndSalon] = Nil
+        styleSearchInfo.map { styleInfo =>
+            val salonOne = Style.findSalonByStyle(styleInfo)
+            salonOne match {
+                case Some(salonOne) => {
+                    val styleAndSalon = new StyleAndSalon(styleInfo, salonOne)
+                    styleAndSalons :::= List(styleAndSalon)
+                }
+                case None => null
+            }
+        }
+        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleAndSalons, Style.findParaAll))
     }
-    
+
     def styleSearchList = Action {
         implicit request =>
             styleSearchForm.bindFromRequest.fold(
@@ -160,10 +204,18 @@ object Styles extends Controller {
                 {
                     case (styleSearch) => {
                         val styleSearchInfo = Style.findByPara(styleSearch)
-                        //此处由于豆平那技师和店铺关系的表还未确定，暂时固定写死，待修改
-                        val salonId: ObjectId = new ObjectId("530d7288d7f2861457771bdd")
-                        val salon: Option[Salon] = Salon.findById(salonId)
-                        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearch), styleSearchInfo, salon = salon.get, Style.findParaAll))
+                        var styleAndSalons: List[StyleAndSalon] = Nil
+                        styleSearchInfo.map { styleInfo =>
+                            val salonOne = Style.findSalonByStyle(styleInfo)
+                            salonOne match {
+                                case Some(salonOne) => {
+                                    val styleAndSalon = new StyleAndSalon(styleInfo, salonOne)
+                                    styleAndSalons :::= List(styleAndSalon)
+                                }
+                                case None => null
+                            }
+                        }
+                        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearch), styleAndSalons, Style.findParaAll))
                     }
                 })
     }
@@ -183,7 +235,7 @@ object Styles extends Controller {
                 {
                     case (styleAddForm) => {
                         Style.save(styleAddForm)
-//                        Ok(html.style.test(styleAddForm))
+                        //                        Ok(html.style.test(styleAddForm))
                         Ok(html.index(""))
                     }
                 })
@@ -221,7 +273,7 @@ object Styles extends Controller {
         val stylistId = List("530d8010d7f2861457771bf8")
         var styles: List[Style] = Nil
         stylistId.map { sty =>
-            var style = Style.findByStylistId(new ObjectId(sty))
+            val style = Style.findByStylistId(new ObjectId(sty))
             styles :::= style
         }
         Ok(html.style.admin.backstageStyleSearchList(styleSearchForm, styles, Style.findParaAll, true))
@@ -246,5 +298,5 @@ object Styles extends Controller {
         Style.styleToInvalid(id, isValid)
         Redirect(routes.Styles.backstageStyleSearch)
     }
-    
+
 }

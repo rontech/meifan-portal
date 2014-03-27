@@ -180,18 +180,4 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     
   }
   
-  
-  /*def updateStyleByStylist(styleId: ObjectId) = Action {
-     
-  }
-  
-  def deleteStyleByStylist(styleId: ObjectId) = Action {
-    
-  }
-  
-  def createStyleByStylist(stylistId: ObjectId) = Action {
-    
-  }*/
-  
-  
 }
