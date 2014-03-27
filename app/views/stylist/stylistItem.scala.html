@@ -4,6 +4,7 @@
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mySalon.css")">
 
+
 @stylist match {
     case None => { <h1>Not Found</h1> }
     case Some(st) => {
@@ -13,7 +14,7 @@
                 case Some(wk) => {
                     <div class="taC">
                         <a href="@routes.Salons.getOneStylist(st.workInfo.get.salonId, st.workInfo.get.stylistId)">
-                            <img src="" alt="@st.basicInfo.nickName" class="bdImgGray w164 h219">
+                            <img src="@routes.Application.getPhoto(stylist.get.stylistInfo.get.myPics(0).fileObjId)" alt="@st.basicInfo.nickName" class="bdImgGray w164 h219">
                         </a>
                     </div>
                 }
@@ -42,7 +43,3 @@
          </div>
     }
 }
-
-
-
-

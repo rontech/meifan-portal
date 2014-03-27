@@ -1,6 +1,6 @@
-@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, salon: Salon)
+@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, salon: Salon, followInfo:FollowInformation)
 
-@stylistPageMain(navInMyPage, user, stylist){
+@stylistPageMain(navInMyPage, user, stylist, followInfo){
 	<div class="mysalon-stylist-group">
 		<div class="taC">
 	        <a href="@routes.Salons.getOneStyle(salon.id, stylist.id)">

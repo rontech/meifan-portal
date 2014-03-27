@@ -117,6 +117,7 @@ salonAdmin.infoManagement = 信息管理
 salonAdmin.stylistManagement = 技师管理
 salonAdmin.reserveManagement = 预约管理
 salonAdmin.commentManagement = 评论管理
+salonAdmin.styleManagement = 发型管理
 salonAdmin.serviceManagement = 服务管理
 salonAdmin.couponManagement = 优惠劵管理
 salonAdmin.menuManagement = 菜单管理
@@ -265,6 +266,7 @@ stylist.findOtherBlog = 查看更多
 stylist.experienceYears={0}年经验
 stylist.removeSalon = 离开店铺
 stylist.update = 更新
+stylist.industry = 职位
 
 
 #Stylist Apply
