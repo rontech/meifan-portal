@@ -6,13 +6,6 @@
 
 @myPageMain(navInMyPage = "my-blog", user, followInfo) {
 <script type="text/javascript">
-    @*function delete_c(commentId, blogId){
-        if(!confirm("您确认要删除此篇评论？")){
-        	return;
-        }else{
-            location.href="/delete/"+commentId+"/"+blogId;
-        }		        
-      }*@
       
       function submitForm(){
       	var txt = document.getElementById("wmd-input").value;
@@ -26,24 +19,38 @@
       }
       
       function replyForm(){
-      	var txt = document.getElementById("ccom_content").value;
-      	if(txt.trim() == ""){  	
+      	var txt = document.getElementById(ccom_content).value;
+      	if(txt.trim() == ""){  
       		document.getElementById("ficmp_msg").innerHTML = "评论内容不能为空";
       		return false;
       	}
       	return true;
       }
+
+      function replyInline(divDisplay){
+          if(document.getElementById(divDisplay).style.display != "block")
+          {
+              document.getElementById(divDisplay).style.display = "block";
+          }
+          else
+          {
+              document.getElementById(divDisplay).style.display = "none";
+          }
+      }
 </script>
-	
+
+<div class="SpaceList">	
 <div class="BlogEntity">		
   <div class="BlogTitle">
     <h1><span class="icon" style="background:#44ac57;" title=""></span>@blog.title</h1>
     <div class="BlogStat">
 		@DateFormat.getDateInstance().format(blog.createTime)&nbsp;&nbsp;评论（<a href="#comments"><span class="g">@commentList.size</span></a>）
+		@if(blog.authorId.equals(user.userId)){
 		<span class="admin">
 			<a href="@routes.Blogs.editBlog(blog.id)">编辑</a>&nbsp;|&nbsp;
             <a href="" class="deleteBlog" data-blog="@blog.id">删除</a>
         </span>
+        }
    	</div>
 
   </div>
@@ -55,7 +62,7 @@
         	        	@blog.tags.mkString(",")
         	           </div>
 		   		  </div><br>
-	  	  	  <div class="BlogContent"><p>@blog.content</p></div>
+	  	  	  <div class="BlogContent"><p>@Html(blog.content)</p></div>
       	      	<div class="BlogShare">
     	
 		<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a></div>
@@ -68,9 +75,10 @@
         </ul>
       </div>
 	</div>
+</div>
 
 @if(blog.allowComment == true) {
-	
+<div class="SpaceList" style="margin-top:20px;">	
 <div class="BlogComments">
     <h2><a name="comments"></a>评论<em>@commentList.size</em></h2>    
     <ul id="BlogComments">
@@ -95,24 +103,27 @@
 			@i 楼：<a href="" target="_blank" name="rpl_278991586" class="user">@commentList(i-1).authorId</a> 发表于 @DateFormat.getDateInstance().format(commentList(i-1).createTime)
         	        	  @*<a href="javascript:delete_c(@commentList(i-1).id, @blog.id);">删除</a>*@
         	        	  @*<a href="javascript:test();">删除test</a>*@
+        	        	  @if(blog.authorId.equals(user.userId)){
         	        	  <a href="" class="deleteComment" data-comment="@commentList(i-1).id" data-blog="@blog.id">删除</a> 
-        	        	  <a href="javascript:ReplyInline()">回复此评论</a>
+        	        	  }
+        	        	  @*<a href="javascript:replyInline()">回复此评论</a>*@
+        	        	  <a onclick="return replyInline('reply_@commentList(i-1).id')" style="cursor:pointer;">回复此评论</a>
 		</div>
 		<div class="post" "="">@commentList(i-1).content</div>
 		
-		<div id="inline_reply_of_206931_1452044_278889672" class="inline_reply">
+		<div id="reply_@commentList(i-1).id" class="inline_reply" style="display:none;">
 		<div class="BlogCommentForm">
 			<form id="form_inline_comment" action="@routes.Comments.reply(commentList(i-1).id, blog.id, 3)" method="POST">
 			  <input type="hidden" id="inline_reply_id" name="reply_id" value="1452044_278889672">         
 		      <textarea name="content" id="ccom_content" style="width:650px;height:60px;"></textarea><br>
 			  <p>
-				  <span style="float:right;">
-		    	  <input type="button" value="关闭" class="blg_submit_btn" id="btn_close_inline_reply" style="background: rgba(255,255,255,0);color: #555;">
+				  <span style="float:left;">
+		    	  @*<input type="button" value="关闭" class="blg_submit_btn" id="btn_close_inline_reply" style="background: rgba(255,255,255,0);color: #555;">*@
 		    	  <input type="submit" value="回复" id="btn_comment" onclick="return replyForm();" class="blg_submit_btn"> 
 				  </span>
-				  插入：
+				  @*插入：
 						<a href="javascript:;" onclick="javascript:insert_emotions('ccom_content',this);" class="blog_emotion">表情</a>
-						<a href="javascript:insert_projects_c();" class="blog_soft">开源软件</a>
+						<a href="javascript:insert_projects_c();" class="blog_soft">开源软件</a>*@
 				 		<span class="NoData" id="ficmp_msg" style="color:#F00"></span>
 			  </p>
 		    </form>
@@ -123,18 +134,20 @@
     </td>
 	</tr></tbody></table>
 </li>
-
    }
+   
+   
    @if(commentList.size == 0){
    	<p>尚无网友评论</p>
    }
-				</ul>
+   </ul>
+</div>
+
 </div>
 
 
 
-
-
+<div class="SpaceList" style="margin-top:20px;">
 <div class="BlogCommentForm">
         <form id="form_comment" action="@routes.Comments.addComment(blog.id,1)" method="POST">
         	<div class="comment_portrait">
@@ -143,18 +156,15 @@
         		<textarea name="content" id="wmd-input" style="width:650px;height:80px;" placeholder=""></textarea>
 				<p>
 					<button type="submit" class="blg_submit_btn" onclick="return submitForm();" style="float:right;">发表评论</button>
-					插入：
-					<a href="javascript:insert_emotions();" class="blog_emotion">表情</a>
+					@*插入：
+					<a href="javascript:insert_emotions();" class="blog_emotion">表情</a>*@
 					<span class="NoData" id="cmt_tip"></span>
 				</p>
                 </div>
         </form>
 </div>
+</div>
 }
-
-
-
-
 }	
 
 

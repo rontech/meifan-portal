@@ -1,0 +1,10 @@
+@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, followInfo:FollowInformation)
+
+@import helper._
+
+@stylistPageMain(navInMyPage, user, stylist, followInfo){
+	@helper.form(routes.Stylists.toUpdateStylistImage, 'enctype -> "multipart/form-data") {
+        <input type="file" id="filePhoto" name="photo" style="width:50"  /> 
+        <button type="submit">@Messages("user.changeImage")</button>
+	}
+}

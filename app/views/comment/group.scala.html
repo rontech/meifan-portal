@@ -1,12 +1,33 @@
-@(comments: List[Comment] = Nil)
+@(comments: List[Comment] = Nil, salon: Salon)
 
-<ul>
+<div class="mT20">
+	<div class="yS mainContentsSecondTitleOuter">
+		<h2 class="yS mainContentsSecondTitleInner">@salon.salonName 的评论</h2>
+	</div>
+	@*<div class="pH10">
+		<p class="mT5 taR">&nbsp;</p>
+		<p class="mT5">この口コミは、ネット予約で実際に来店されたHotPepperBeauty会員の方の投稿です。<br>
+			口コミは、あくまでも個人の感想であり、個人差があります。</p>
+		<p>※口コミの掟に反するものは掲載しておりません。詳細は、<a href="javascript:void(0);" id="kuchikomi_okite">口コミの掟</a>をご覧ください。<br>
+			予約時のクーポンメニューを表示しているため、現在掲載がない、もしくは実際の施術内容と異なる場合があります。<br>
+			ご利用にあたってはご自身で十分に内容をご確認ください。</p>
+		<p class="mT25">（普通＝3が評価時の基準です）</p>
+	</div>*@
+</div>
+
+<div class="mT20">
+
+@if(comments.size != 0){
+<ul class="reportWrapper">
 @for(comment <- comments) {
-    <li>
-        @views.html.comment.item(comment)
+    <li class="reportDetailCassette mT30">
+        @views.html.comment.item(comment, salon)
     </li>
 }
 </ul>
+}else{
+<p>该店铺暂无评论</p>
+}
 
-    
+</div>    
 

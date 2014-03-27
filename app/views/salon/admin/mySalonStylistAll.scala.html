@@ -4,21 +4,23 @@
 	<div>
 		<div class="mt">
         	<ul class="tab">
-				<li clstag="click|keycount|myhome|tuangouqian" data-widget="tab-item" class="curr"><s></s><b></b>@Messages("salonAdmin.myStylist")</li>
+				<li clstag="click|keycount|myhome|tuangouqian" data-widget="tab-item" 
+				class="curr"><s></s><b></b>@Messages("salonAdmin.myStylist")</li>
             </ul>
 		</div>
 		<div class="mysalon-stylist-search">
 			<form action="/searchStylistById" method="get">
-				@Messages("stylist.id")<input name="searchStylistById" id="stylist-search"/>&nbsp;&nbsp;&nbsp;
-					<input type="hidden" name="salonId" value="@salon.id">
-				<input type="submit" value="@Messages("stylist.search")">
+				@Messages("stylist.id")<input name="searchStylistById" id="stylist-search-stylist"/>&nbsp;&nbsp;&nbsp;
+					<input type="hidden" name="salonId" id="stylist-search-salon" value="@salon.id">
+				<input type="submit" id="searchStylistToSubmit" value="@Messages("stylist.search")">
 			</form>
 		</div>
 	</div>
 	<div class="mc">
+		<span id="stylistSearchResult"></span>
    		<div class="tabcon hide" data-widget="tab-content" style="display: block;">
    			
-        	@views.html.stylist.mySalonStylistGroup(stylists = stylist, status = 1)
+        	@views.html.stylist.mySalonStylistGroup(stylists = stylist, salon = salon, status = 1)
         </div>
     </div>
 }

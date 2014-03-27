@@ -29,32 +29,28 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
     implicit request =>      
       val userId = request.session.get("userId").get
       val user_Id = User.findOneByUserId(userId).get.id
-    clean() 
     Ok(views.html.comment.comment(userId, user_Id, Comment.all(commentedId)))
   }
   
   /**
-   * 清除list
+   * 查找店铺下的评论，现在只是对coupon做评论，还没有对预约做评论
    */
-  implicit def clean() = {
-    Comment.list = Nil
-  }
-  
-  // 模块化代码
   def findBySalon(salonId: ObjectId) = Action {
-    Comment.commentList = Nil
     val salon: Option[Salon] = Salon.findById(salonId)    
     val comments: List[Comment] = Comment.findBySalon(salonId)    
-
+    println("comments" + comments)
     // TODO: process the salon not exist pattern.
     Ok(views.html.salon.store.salonInfoCommentAll(salon = salon.get, comments = comments))
+  }
+  
+  def clean() = {
+    Comment.list = Nil
   }
   
   /**
    * 店铺查看自己店铺的所有评论
    */
   def findBySalonAdmin(salonId: ObjectId) = Action {
-    Comment.commentList = Nil
     val salon: Option[Salon] = Salon.findById(salonId)    
     val comments: List[Comment] = Comment.findBySalon(salonId)    
 
@@ -65,8 +61,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
   /**
    * 增加评论，后台逻辑
    */
-  def addComment(commentObjId : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
-    implicit request =>
+  def addComment(commentObjId : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
       val user = loggedIn 
       formAddComment.bindFromRequest.fold(
         //处理错误
@@ -102,8 +97,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
   /**
    * 回复，后台逻辑
    */
-  def reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
-    implicit request =>
+  def reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
 //      val userId = request.session.get("userId").get
       // TODO
       val user = loggedIn

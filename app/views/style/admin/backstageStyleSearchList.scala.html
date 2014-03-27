@@ -63,7 +63,7 @@
                 }
             }
             <div align="center">
-                <input type = "reset" class = "buttons" value=@Messages("service.resetBton")>
+                <input type = "reset" class = "buttons" value=@Messages("common.reset")>
                 <input type="submit" class = "buttons" value=@Messages("hair.search")>
             </div>
          }    
@@ -172,7 +172,7 @@
                 }
             }
             <div align="center">
-                <input type = "reset" class = "buttons" value=@Messages("service.resetBton")>
+                <input type = "reset" class = "buttons" value=@Messages("common.reset")>
              <input type="submit" class = "buttons" value=@Messages("hair.search")>
                </div>
          }    
@@ -184,7 +184,7 @@
 <div>
        @for(i <- 0 to styles.length-1){
            <a href="" >
-               <img src="#" class="" alt="@styles(i).styleName" >
+               <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" class="" alt="@styles(i).styleName" >
            </a>
         <div class="layer jscLayer jscFixPng">
             <p>

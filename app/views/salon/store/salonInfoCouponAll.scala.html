@@ -1,12 +1,10 @@
 @(salon: Salon, condtionForm: Form[CouponServiceType], serviceTypes: List[ServiceType], coupons: List[Coupon], menus: List[Menu], serviceByTypes: List[ServiceByType], navBar: List[(String, String)] = Nil)
-
+    
 @salonInfoMain(navInSalon = "salon-coupon", salon, navBar) {
-	
-	<head>
-		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">	
-	</head>
-	
-	@views.html.coupon.couponSearchGroup(salon, condtionForm, serviceTypes)
+    
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">
+    
+    @views.html.coupon.couponSearchGroup(salon, condtionForm, serviceTypes)
 
     <!-- Get the Salon with all the coupons.  -->
     @views.html.coupon.couponComponent(salon, coupons)

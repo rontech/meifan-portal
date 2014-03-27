@@ -8,9 +8,9 @@
 	 	
 	 	@form(action = routes.Users.login(), 'method ->"post"){
 	 		
-	 		@inputText(field = loginForm("userId"), '_label -> Messages("user.name"), 'placeholder ->"UserId")
+	 		@inputText(field = loginForm("userId"), '_label -> Messages("user.name"), 'placeholder -> Messages("user.name"))
           
-			@inputPassword(field = loginForm("password"), '_label -> Messages("user.password"), 'placeholder ->"Password" ,
+			@inputPassword(field = loginForm("password"), '_label -> Messages("user.password"), 'placeholder ->Messages("user.password") ,
 				'_error -> loginForm.globalError.map(_.withMessage(Messages("user.loginErr"))))
 			
             <a href = "@routes.Application.register()"><input type="button" class = "buttons" value="@Messages("user.registerBtn")"></a>

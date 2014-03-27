@@ -22,7 +22,7 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
         "addressee" -> text,
         "addresseeNm" -> text,
         "createdTime" -> text) { (sender, senderNm, addressee, addresseeNm, time) =>
-          UserMessage(new ObjectId, sender, senderNm, addressee, addresseeNm, new ObjectId(), "sended", "normal", "unRead", new Date)
+          UserMessage(new ObjectId, sender, senderNm, addressee, addresseeNm, new ObjectId(), UserMessage.OUTBOX_SENT, UserMessage.INBOX_UNREAD, new Date)
         } {
           userMessage => Some((userMessage.sender, userMessage.senderNm, userMessage.addressee, userMessage.addresseeNm, userMessage.createdTime.toString))
         },
@@ -42,7 +42,7 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
             msgId = userLetter.message.id,
             sender = sender.userId,
             senderNm = sender.nickName)
-          userMessage.setAddr()
+          userMessage.setAdd()
 
           UserMessage.save(userMessage, WriteConcern.Safe)
           Ok("")
@@ -55,7 +55,7 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
     val unReadMsgs = UserMessage.findByQuery(requirement, user.userId, 1, pageSize)
     var userMsgs:List[models.UserMessage] = Nil
     if (unReadMsgs.isEmpty) {
-       val inBoxMsgs =UserMessage.findByQuery("inBox", user.userId, 1, pageSize)
+       val inBoxMsgs =UserMessage.findByQuery(UserMessage.INBOX_ALL, user.userId, 1, pageSize)
        userMsgs = inBoxMsgs
     }
     else{
@@ -80,7 +80,7 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val userMsg = UserMessage.findOneById(id).get
     val msg = Message.findOneById(userMsg.msgId).get
-    UserMessage.readed(userMsg)
+    UserMessage.read(userMsg)
     Ok(views.html.user.message(UserLetter(userMsg, msg),user,followInfo))
   }
   
