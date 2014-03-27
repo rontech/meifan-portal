@@ -9,24 +9,11 @@ import com.mongodb.casbah.Imports.MongoConnection
 import play.api.Play._
 import play.api.PlayException
 
-case class StylePara(
-    styleImpression: List[String],
-    serviceType: List[String],
-    styleLength: List[String],
-    styleColor: List[String],
-    styleAmount: List[String],
-    styleQuality: List[String],
-    styleDiameter: List[String],
-    faceShape: List[String],
-    consumerAgeGroup: List[String],
-    consumerSex: List[String],
-    consumerSocialStatus: List[String])
-
 case class Style(
     id: ObjectId = new ObjectId,
     styleName: String,
     stylistId: ObjectId,
-    stylePic: List[String],
+    stylePic: List[OnUsePicture],
     styleImpression: String,
     serviceType: List[String],
     styleLength: String,
@@ -42,6 +29,23 @@ case class Style(
     createDate: Date,
     isValid: Boolean)
 
+case class StylePara(
+    styleImpression: List[String],
+    serviceType: List[String],
+    styleLength: List[String],
+    styleColor: List[String],
+    styleAmount: List[String],
+    styleQuality: List[String],
+    styleDiameter: List[String],
+    faceShape: List[String],
+    consumerAgeGroup: List[String],
+    consumerSex: List[String],
+    consumerSocialStatus: List[String])
+
+case class StyleAndSalon(
+    style: Style,
+    salon: Salon)
+
 object Style extends StyleDAO
 
 trait StyleDAO extends ModelCompanion[Style, ObjectId] {
@@ -53,35 +57,55 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
 
     val dao = new SalatDAO[Style, ObjectId](collection) {}
 
+    /**
+     * 通过发型师ID检索该发型师所有发型
+     */
     def findByStylistId(stylistId: ObjectId): List[Style] = {
         dao.find(DBObject("stylistId" -> stylistId, "isValid" -> true)).toList
     }
 
-    def delete(id: ObjectId) {
-        dao.remove(MongoDBObject("_id" -> id))
+    /**
+     * 通过店铺ID检索该店铺所有签约的发型师
+     */
+    def findStylistBySalonId(salonId: ObjectId): List[models.Stylist] = {
+        val salonAndStylists = SalonAndStylist.findBySalonId(salonId)
+        var stylists: List[Stylist] = Nil
+        salonAndStylists.map { salonAndStylist =>
+            val stylist = Stylist.findOneById(salonAndStylist.stylistId)
+            stylist match {
+                case Some(stylist) => {
+                    stylists :: List(stylist)
+                }
+                case None => None
+            }
+        }
+        stylists
     }
 
+    /**
+     * 前台检索逻辑
+     */
     def findByLength(styleLength: String, consumerSex: String): List[Style] = {
-        dao.find(MongoDBObject("styleLength" -> styleLength,"consumerSex" -> consumerSex,"isValid" -> true)).toList
+        dao.find(MongoDBObject("styleLength" -> styleLength, "consumerSex" -> consumerSex, "isValid" -> true)).toList
     }
 
     def findByImpression(styleImpression: String): List[Style] = {
-        dao.find(MongoDBObject("styleImpression" -> styleImpression,"isValid" -> true)).toList
+        dao.find(MongoDBObject("styleImpression" -> styleImpression, "isValid" -> true)).toList
     }
-    
+
     def findByPara(style: models.Style): List[Style] = {
-        val styleLength = if(style.styleLength.equals("all")) {"styleLength" $in Style.findParaAll.styleLength}else { MongoDBObject("styleLength" -> style.styleLength) }
-        val styleImpression = if(style.styleImpression.equals("all")) {"styleImpression" $in Style.findParaAll.styleImpression}else { MongoDBObject("styleImpression" -> style.styleImpression) }
-        val styleColor = if(style.styleColor.isEmpty) {"styleColor" $in Style.findParaAll.styleColor}else {"styleColor" $in style.styleColor }
-        val serviceType = if(style.serviceType.isEmpty) {"serviceType" $in Style.findParaAll.serviceType}else {"serviceType" $in style.serviceType }
-        val styleAmount = if(style.styleAmount.isEmpty) {"styleAmount" $in Style.findParaAll.styleAmount}else {"styleAmount" $in style.styleAmount }
-        val styleQuality = if(style.styleQuality.isEmpty) {"styleQuality" $in Style.findParaAll.styleQuality}else {"styleQuality" $in style.styleQuality }
-        val styleDiameter = if(style.styleDiameter.isEmpty) {"styleDiameter" $in Style.findParaAll.styleDiameter}else {"styleDiameter" $in style.styleDiameter }
-        val faceShape = if(style.faceShape.isEmpty) {"faceShape" $in Style.findParaAll.faceShape}else {"faceShape" $in style.faceShape }
-        val consumerSocialStatus = if(style.consumerSocialStatus.isEmpty) {"consumerSocialStatus" $in Style.findParaAll.consumerSocialStatus}else {"consumerSocialStatus" $in style.consumerSocialStatus }
-        val consumerSex = if(style.consumerSex.equals("all")) {"consumerSex" $in Style.findParaAll.consumerSex}else { MongoDBObject("consumerSex" -> style.consumerSex) }
-        val consumerAgeGroup = if(style.consumerAgeGroup.isEmpty) {"consumerAgeGroup" $in Style.findParaAll.consumerAgeGroup}else {"consumerAgeGroup" $in style.consumerAgeGroup }
-        
+        val styleLength = if (style.styleLength.equals("all")) { "styleLength" $in Style.findParaAll.styleLength } else { MongoDBObject("styleLength" -> style.styleLength) }
+        val styleImpression = if (style.styleImpression.equals("all")) { "styleImpression" $in Style.findParaAll.styleImpression } else { MongoDBObject("styleImpression" -> style.styleImpression) }
+        val styleColor = if (style.styleColor.isEmpty) { "styleColor" $in Style.findParaAll.styleColor } else { "styleColor" $in style.styleColor }
+        val serviceType = if (style.serviceType.isEmpty) { "serviceType" $in Style.findParaAll.serviceType } else { "serviceType" $in style.serviceType }
+        val styleAmount = if (style.styleAmount.isEmpty) { "styleAmount" $in Style.findParaAll.styleAmount } else { "styleAmount" $in style.styleAmount }
+        val styleQuality = if (style.styleQuality.isEmpty) { "styleQuality" $in Style.findParaAll.styleQuality } else { "styleQuality" $in style.styleQuality }
+        val styleDiameter = if (style.styleDiameter.isEmpty) { "styleDiameter" $in Style.findParaAll.styleDiameter } else { "styleDiameter" $in style.styleDiameter }
+        val faceShape = if (style.faceShape.isEmpty) { "faceShape" $in Style.findParaAll.faceShape } else { "faceShape" $in style.faceShape }
+        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { "consumerSocialStatus" $in Style.findParaAll.consumerSocialStatus } else { "consumerSocialStatus" $in style.consumerSocialStatus }
+        val consumerSex = if (style.consumerSex.equals("all")) { "consumerSex" $in Style.findParaAll.consumerSex } else { MongoDBObject("consumerSex" -> style.consumerSex) }
+        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { "consumerAgeGroup" $in Style.findParaAll.consumerAgeGroup } else { "consumerAgeGroup" $in style.consumerAgeGroup }
+
         dao.find($and(
             styleLength,
             styleColor,
@@ -97,6 +121,21 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
             MongoDBObject("isValid" -> true))).toList
     }
 
+    def findSalonByStyle(style: models.Style): Option[models.Salon] = {
+        val salonAndStylist = SalonAndStylist.findByStylistId(style.stylistId)
+        var salonOne: Option[models.Salon] = None
+        salonAndStylist match {
+            case Some(salonAndStylist) => {
+                salonOne = Salon.findById(salonAndStylist.salonId)
+            }
+            case None => None
+        }
+        salonOne
+    }
+
+    /**
+     * 后台发型更新
+     */
     def updateStyle(style: models.Style) = {
         dao.update(MongoDBObject("_id" -> style.id), MongoDBObject("$set" -> (
             MongoDBObject("styleName" -> style.styleName) ++
@@ -178,9 +217,17 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         styleList
     }
 
+    /**
+     * 后台发型删除
+     */
     def styleToInvalid(id: ObjectId, isValid: Boolean) = {
         dao.update(MongoDBObject("_id" -> id), MongoDBObject("$set" -> (
             MongoDBObject("isValid" -> false))))
+    }
+    
+    def updateStyleImage(style: Style, imgId: ObjectId) = {
+      dao.update(MongoDBObject("_id" -> style.id, "stylePic.picUse" -> "logo"), 
+            MongoDBObject("$set" -> ( MongoDBObject("stylePic.$.fileObjId" ->  imgId))),false,true)
     }
 }
 

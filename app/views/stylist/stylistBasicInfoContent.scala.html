@@ -1,10 +1,9 @@
-@(salon: Salon, stylist: Stylist,style: List[Style], blog: Blog)
-	
+@(salon: Salon, stylist: StylistDetailInfo, style: List[Style], blog: Option[Blog])
+        
 <div class="cFix mT30 pH10">
     <div class="fl w224 taC">
         <div>
-            <img src="http://imgbp.hotp.jp/CSP/IMG_SRC/19/34/B003961934/B003961934_164-219.jpg"
-            alt="弗里尔兄弟公司坂本隆文">
+            <img src="http://imgbp.hotp.jp/CSP/IMG_SRC/19/34/B003961934/B003961934_164-219.jpg" >
         </div>
         <div class="mT20 pT10">
             <a href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733&amp;stylistId=T000188298"
@@ -17,7 +16,7 @@
             </a>
         </div>
         <div class="mT20 pT10">
-            <a href="@routes.MyFollows.addFollow(stylist.id,"stylist")"
+            <a href="@routes.MyFollows.addFollow(stylist.stylistInfo.get.id,"stylist")"
             class="bS db addIntoMyStylist offL mHA">
                 <font>
                     <font>
@@ -33,58 +32,60 @@
                 <dt class="fgPink b fs14">
                     <font>
                         <font>
-                            @stylist.myWords
+                            @stylist.stylistInfo.get.myWords
                         </font>
                     </font>
                 </dt>
                 <dd class="mT10">
                     <font>
                         <font>
-                           @stylist.myPR
+                           @stylist.stylistInfo.get.myPR
                         </font>
                     </font>
                 </dd>
             </dl>
         </div>
+        <!--ST. Stylist Appeal. -->
         <div class="mT30">
             <ul class="cFix">
-            	@if(style.length < 4){
-            		@style.map{sty=>
-	                <li class="fl cFix w240">
-	                    <div class="fl w89">
-	                        <img src="#">
-	                    </div>
-	                    <div class="fr w151 pr hMin119">
-	                        <p class="mL10 mR20 fs10 pa bottom0 left0">
-	                            <font>
-	                                <font>
-	                                   @sty.description 
-	                                </font>
-	                            </font>
-	                        </p>
-	                    </div>
-	                </li>
-                	}
+                    @if(style.length < 4){
+                            @style.map{sty=>
+                        <li class="fl cFix w240">
+                            <div class="fl w89">
+                                <img src="#">
+                            </div>
+                            <div class="fr w151 pr hMin119">
+                                <p class="mL10 mR20 fs10 pa bottom0 left0">
+                                    <font>
+                                        <font>
+                                           @sty.description 
+                                        </font>
+                                    </font>
+                                </p>
+                            </div>
+                        </li>
+                        }
                 }else{
-                	@for(i<-0 until 3){
-                		<li class="fl cFix w240">
-	                    <div class="fl w89">
-	                        <img src="#">
-	                    </div>
-	                    <div class="fr w151 pr hMin119">
-	                        <p class="mL10 mR20 fs10 pa bottom0 left0">
-	                            <font>
-	                                <font>
-	                                   @style(i).description 
-	                                </font>
-	                            </font>
-	                        </p>
-	                    </div>
-	                </li>
-                	}
+                        @for(i<-0 until 3){
+                                <li class="fl cFix w240">
+                            <div class="fl w89">
+                                <img src="#">
+                            </div>
+                            <div class="fr w151 pr hMin119">
+                                <p class="mL10 mR20 fs10 pa bottom0 left0">
+                                    <font>
+                                        <font>
+                                           @style(i).description 
+                                        </font>
+                                    </font>
+                                </p>
+                            </div>
+                        </li>
+                        }
                 }
             </ul>
         </div>
+        <!--ST. Stylist Appeal. -->
         <div class="mT30">
             <table cellspacing="0" class="wFull bgThNml bdCell pCell10">
                 <tbody>
@@ -99,7 +100,7 @@
                         <td>
                             <font>
                                 <font>
-                                    @stylist.workYears
+                                    @stylist.stylistInfo.get.workYears
                                     @Messages("stylist.workYears")
                                 </font>
                             </font>
@@ -116,7 +117,7 @@
                         <td>
                             <font>
                                 <font>
-                                    @stylist.goodAtImage.foreach(f=> f +"|")
+                                    @stylist.stylistInfo.get.goodAtImage.foreach(f=> f +"|")
                                 </font>
                             </font>
                         </td>
@@ -132,7 +133,7 @@
                         <td>
                             <font>
                                 <font>
-                                   @stylist.mySpecial
+                                   @stylist.stylistInfo.get.mySpecial
                                 </font>
                             </font>
                         </td>
@@ -148,7 +149,7 @@
                         <td>
                             <font>
                                 <font>
-                                    @stylist.myBoom
+                                    @stylist.stylistInfo.get.myBoom
                                 </font>
                             </font>
                         </td>
@@ -156,86 +157,95 @@
                 </tbody>
             </table>
         </div>
-        <div class="mT30">
-            <div class="pr">
-                <div class="latestBlogtitle">
-                    <font>
-                        <font>
-                            @Messages("stylist.blog")
-                        </font>
-                    </font>
-                </div>
-                <p class="pa right10 topHalf fs10">
-                    <a href="#">
-                        <font>
+        <!--END. Stylist Resume. -->
+        <!--END. Stylist Resume. -->
+        <!--ST. Stylist's latest Blog. -->
+        @blog match {
+            case None => {}
+            case Some(blg) => {
+                <div class="mT30">
+                    <div class="pr">
+                        <div class="latestBlogtitle">
                             <font>
-                               @Messages("stylist.findAllBlog")
+                                <font>
+                                    @Messages("stylist.blog")
+                                </font>
                             </font>
-                        </font>
-                    </a>
-                </p>
-            </div>
-            <div class="bdGray p20 cFix">
-                <div class="fl w120 mR10">
-                    <img src="#"
-                    alt="商店弗里尔兄弟公司推荐的（^ ^）">
-                </div>
-                <div class="fl w320">
-                    <div class="cFix">
-                        <div class="fl">
-                            <span class="blogS blogCategoryBL11 offL">
+                        </div>
+                        <p class="pa right10 topHalf fs10">
+                            <a href="#">
                                 <font>
                                     <font>
-                                    @Messages("stylist.other")
+                                       @Messages("stylist.findAllBlog")
                                     </font>
                                 </font>
-                            </span>
+                            </a>
+                        </p>
+                    </div>
+                    <div class="bdGray p20 cFix">
+                        <div class="fl w120 mR10">
+                            <img src="#"
+                            alt="商店弗里尔兄弟公司推荐的（^ ^）">
                         </div>
-                        <div class="fr">
-                            <font>
-                                <font>
-                                    @Messages("stylist.createBlog")：@blog.createTime.format("yyyy-MM-dd HH:mm")
-                                </font>
-                            </font>
+                        <div class="fl w320">
+                            <div class="cFix">
+                                <div class="fl">
+                                    <span class="blogS blogCategoryBL11 offL">
+                                        <font>
+                                            <font>
+                                            @Messages("stylist.other")
+                                            </font>
+                                        </font>
+                                    </span>
+                                </div>
+                                <div class="fr">
+                                    <font>
+                                        <font>
+                                            @Messages("stylist.createBlog")：@blg.createTime.format("yyyy-MM-dd HH:mm")
+                                        </font>
+                                    </font>
+                                </div>
+                            </div>
+                            <dl class="mT10">
+                                <dt class="fs14 b wwbw">
+                                    <a href="#">
+                                        <font>
+                                            <font>
+                                            @Messages("stylist.storerecommend")    
+                                            </font>
+                                        </font>
+                                    </a>
+                                </dt>
+                                <dd class="mT10 wwbw">
+                                    <font>
+                                        <font>
+                                          @Messages("stylist.hello")
+                                        </font>
+                                        <font>
+                                            @Messages("stylist.this")
+                                            @salon.salonName
+                                            @Messages("stylist.is")
+                                            @stylist.basicInfo.nickName
+                                        </font>
+                                        <font>
+                                            @Html(blg.content)
+                                        </font>
+                                    </font>
+                                    <a href="#">
+                                        <font>
+                                            <font>
+                                               @Messages("stylist.findOtherBlog")
+                                            </font>
+                                        </font>
+                                    </a>
+                                </dd>
+                            </dl>
                         </div>
                     </div>
-                    <dl class="mT10">
-                        <dt class="fs14 b wwbw">
-                            <a href="#">
-                                <font>
-                                    <font>
-                                    @Messages("stylist.storerecommend")    
-                                    </font>
-                                </font>
-                            </a>
-                        </dt>
-                        <dd class="mT10 wwbw">
-                            <font>
-                                <font>
-                                  @Messages("stylist.hello")
-                                </font>
-                                <font>
-                                    @Messages("stylist.this")
-                                    @salon.salonName
-                                    @Messages("stylist.is")
-                                    @Stylist.findUserName(stylist.publicId) 
-                                </font>
-                                <font>
-                                    @blog.content
-                                </font>
-                            </font>
-                            <a href="#">
-                                <font>
-                                    <font>
-                                       @Messages("stylist.findOtherBlog")
-                                    </font>
-                                </font>
-                            </a>
-                        </dd>
-                    </dl>
                 </div>
-            </div>
-        </div>
+            }
+        }
+        <!--END. Stylist's latest Blog. -->
     </div>
 </div>
 

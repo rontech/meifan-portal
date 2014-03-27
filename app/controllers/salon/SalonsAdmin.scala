@@ -57,9 +57,11 @@ object SalonsAdmin extends Controller {
   def myCoupon(salonId: ObjectId) = Action {
     val salon = Salon.findById(salonId)
     val coupons = Coupon.findBySalon(salonId)
+    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+    val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
     
     salon match {
-      case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, coupons))
+      case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, Coupons.conditionForm.fill(couponServiceType), serviceTypes, coupons))
       case None => NotFound
     }
   }
@@ -68,11 +70,13 @@ object SalonsAdmin extends Controller {
    * 店铺菜单后台管理
    */
   def myMenu(salonId: ObjectId) = Action {
-    val salon = Salon.findById(salonId)
-    val menus = Menu.findBySalon(salonId)
+    val salon: Option[Salon] = Salon.findById(salonId)
+    val menus: List[Menu] = Menu.findBySalon(salonId)
+    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+    val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
     
     salon match {
-      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, menus))
+      case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))
       case None => NotFound
     }
   }

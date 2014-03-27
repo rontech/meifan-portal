@@ -163,7 +163,6 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
         val stylistUpdate = stylistForm.fill(sty)
         println("stylist  ......"+sty)
         Ok(views.html.stylist.management.updateStylistInfo(user = user, stylist = sty, stylistForm = stylistUpdate, goodAtStylePara = goodAtStylePara, followInfo = followInfo))
-        
       }
       case None => NotFound
     }
@@ -177,8 +176,9 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
       {
         case(stylist) => {
           println("stylist ..."+stylist)
-        	Stylist.updateStylistInfo(stylist, stylistId) //需修改图片更新
-        	Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist, followInfo = followInfo))
+          val newStylist = stylist.copy(id = stylistId)
+        	Stylist.save(newStylist) //需修改图片更新
+        	Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = newStylist, followInfo = followInfo))
         }
       })
     
@@ -191,6 +191,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     
   }
   
+
   def updateStylistImage(stylistId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
@@ -236,6 +237,4 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
   def createStyleByStylist(stylistId: ObjectId) = Action {
     
   }*/
-  
-  
 }

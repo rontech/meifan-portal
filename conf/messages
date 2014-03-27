@@ -13,6 +13,7 @@ common.reset=重置
 common.backUp=返回
 common.edit=编辑
 common.delete=删除
+common.sreach = 检索
 common.all=全部
 
 # Index page
@@ -200,7 +201,7 @@ coupon.searchOptionContent = 包含上述所选条件
 coupon.search = 搜索
 coupon.appointment1 = 该优惠券
 coupon.appointment2 = 空缺查询
-coupon.addMenu = 增加菜单
+coupon.addMenu = 追加服务预约
 coupon.currency = 元
 coupon.newCoupon = 新
 coupon.coupon = 券
@@ -218,6 +219,7 @@ coupon.serviceDuration = 服务时长
 coupon.modify = 修改
 coupon.invalid = 无效
 coupon.invalidCoupon = 该优惠劵已无效
+coupon.addErrorMsg = 请输入优惠劵名！
 
 menu.title = {0} 的菜单
 menu.tip = 没有找到您希望的菜单！
@@ -252,7 +254,7 @@ stylist.blog = 技师博客
 stylist.findAllBlog = 查看此技师所有博客
 stylist.haircatalog = 发型目录
 stylist.welcome = 期待你的光临
-stylist.selectForReserv = 指定预约
+stylist.selectForReserv = 指名预约
 stylist.createBlog = 发表于
 stylist.other = 其它
 stylist.storerecommend = 店铺推荐
@@ -260,10 +262,10 @@ stylist.hello = 您好
 stylist.this = 这是
 stylist.is = 的
 stylist.findOtherBlog = 查看更多
+stylist.experienceYears={0}年经验
 stylist.removeSalon = 离开店铺
 stylist.update = 更新
 stylist.industry = 职位
-
 
 
 #Stylist Apply
@@ -334,7 +336,7 @@ user.loginErr=用户名或密码错误，请重新输入!
 user.loginBtn=登录
 user.registerBtn=注册
 user.new=新用户
-user.regErr=请输入用户名!
+user.userIdErr=用户名不合法!
 user.confirmPas=确认密码
 user.agree=必须同意!
 user.male=男
@@ -351,6 +353,17 @@ user.oldPassword=原始密码
 user.newPassword=新密码
 user.confirmPas=确认密码
 user.oldPasswordErr=原始密码不正确！
+user.registerTime=注册时间
+user.twicePasswordError=两次密码不一致！
+user.birthDayErr=请选择出生日期！
+user.emailErr=邮箱无效！
+user.userIdNotAvailable=该用户名已被注册 
+user.passwordError=密码不合法，只能包含字母、数字和下划线！
+user.telError=手机号码无效
+user.toBePassword=以字母开头，6~18位字符
+user.toBeUserId=6~16位字符
+user.nickNameErr=给个昵称吧！
+
 
 #Letter
 letter.addressee=收件人
@@ -368,6 +381,22 @@ blog.content=博客内容
 blog.blogCategory=博客类型
 blog.tags=标签
 blog.placeholder=请用逗号分割
+blog.salonBlogTitle = {0} 的博客
+blog.staff = 工作人员
+blog.oldBlogs = 历史博客
+blog.latestBlog = 最新博客一览
+blog.author = 投稿者：
+blog.passDate = 投稿日：
+blog.shareTo = 分享到:
+blog.shareToQQ = QQ空间
+blog.shareToXL = 新浪微博
+blog.shareToTX = 腾讯微博
+blog.shareToRR = 人人网
+blog.shareToWX = 微信
+blog.latestBlogForSalon = 沙龙最新的博客 
+blog.authorTitle = 投稿者
+blog.moreInfo = 查看详情
+
 
 
 

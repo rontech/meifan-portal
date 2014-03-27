@@ -1,4 +1,4 @@
-@(stylist: Stylist)
+@(stylist: StylistDetailInfo)
 
 <div class="mT30">
     <div class="cFix p15 bgLGray">
@@ -19,8 +19,8 @@
                     <div class="fgPink fs10">
                         <font>
                             <font>
-                                @stylist.position.map{p=>
-                                	@p.industryName&nbsp;
+                                @stylist.workInfo.get.position.map { p=>
+                                	@p.positionName &nbsp;
                                 }
                             </font>
                         </font>
@@ -28,7 +28,7 @@
                     <div class="fs14 b mT5">
                         <font>
                             <font>
-                               @Stylist.findUserName(stylist.publicId)
+                               @stylist.basicInfo.nickName
                             </font>
                         </font>
                         <span class="fs10 mL5">

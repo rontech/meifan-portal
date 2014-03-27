@@ -39,6 +39,7 @@ trait OnUsePictureDAO extends ModelCompanion[OnUsePicture, ObjectId] {
       
   collection.ensureIndex(DBObject("fileObjId" -> 1), "id", unique = true)
   
+  
 }
 
 

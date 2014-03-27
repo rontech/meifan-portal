@@ -52,3 +52,10 @@ margin-top: 10px;
 
 .menuInfo .serviceArea dl {
 height: auto;
+}
+
+#sreachConditionArea {
+float: left;
+width: 730px;
+margin-bottom: 30px;
+}

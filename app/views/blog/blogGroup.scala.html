@@ -1,0 +1,10 @@
+@(blogs: List[Blog] = Nil, salon: Salon)
+
+<div class="leftContents w557 fl">
+	<div class="pH10"><h3 class="fs18 b">@Messages("blog.latestBlog")</h3></div>
+    <ul id="listWrapper">
+        @for(blog <- blogs) { 
+            @views.html.blog.blogItem(blog, salon)
+        }
+    </ul>
+</div>
