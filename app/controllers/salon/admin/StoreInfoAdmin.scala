@@ -13,8 +13,9 @@ import com.mongodb.casbah.WriteConcern
 import play.api.templates._
 import java.util.Date
 
-
 object SalonInfo extends Controller{        
+  
+  //店铺信息管理Form
   val salonInfo:Form[Salon] = Form(
 	    mapping(
 	    	"salonAccount" -> mapping(
@@ -49,10 +50,10 @@ object SalonInfo extends Controller{
 	            "closeTime" -> text
 	            )
 	            (WorkTime.apply)(WorkTime.unapply),
-	        "restDay" -> list(
+	        "restDays" -> list(
 	            mapping(
 	                "restDayDivision" -> number,
-	                "restDay" -> number
+	                "restDay" -> list(number)
 	                )
 	                (RestDay.apply)(RestDay.unapply)
 	            ),
@@ -88,10 +89,11 @@ object SalonInfo extends Controller{
 	    }
 	    {
 	      salon=> Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonDescription, salon.mainPhone, salon.contact, salon.optContactMethod, salon.establishDate, salon.salonAddress, salon.accessMethodDesc,
-	          salon.workTime, salon.restDay, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
+	          salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
 	    }
 	)
 
+	//店铺注册Form
   val salonRegister:Form[Salon] = Form(
       mapping(
 	    	"salonAccount" -> mapping(
@@ -133,10 +135,10 @@ object SalonInfo extends Controller{
 	            "closeTime" -> text
 	            )
 	            (WorkTime.apply)(WorkTime.unapply),
-	        "restDay" -> list(
+	        "restDays" -> list(
 	            mapping(
 	                "restDayDivision" -> number,
-	                "restDay" -> number
+	                "restDay" -> list(number)
 	                )
 	                (RestDay.apply)(RestDay.unapply)
 	            ),
@@ -167,17 +169,38 @@ object SalonInfo extends Controller{
 	        "registerDate" -> date
       ){
         (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, mainPhone, contact, optContactMethod, establishDate, salonAddress, accessMethodDesc,
-	       workTime, restDay, seatNums, salonFacilities,salonPics,registerDate) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, mainPhone, contact, optContactMethod, establishDate, salonAddress, accessMethodDesc,
-	       workTime, restDay, seatNums, salonFacilities,salonPics,registerDate)
+	       workTime, restDays, seatNums, salonFacilities,salonPics,registerDate) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, mainPhone, contact, optContactMethod, establishDate, salonAddress, accessMethodDesc,
+	       workTime, restDays, seatNums, salonFacilities,salonPics,registerDate)
       }{
         salonRegister=> Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.mainPhone, 
         		salonRegister.contact, salonRegister.optContactMethod, salonRegister.establishDate, salonRegister.salonAddress, salonRegister.accessMethodDesc,
-        		salonRegister.workTime, salonRegister.restDay, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics, salonRegister.registerDate)
+        		salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics, salonRegister.registerDate)
       }.verifying(
         "This salonId is not available", salon => !Salon.findByAccountId(salon.salonAccount).nonEmpty)
 
    )
 
+   //店铺登录Form
+  val salonLogin = Form(mapping(
+      "salonAccount" -> mapping(
+          "accountId"-> nonEmptyText,
+          "password" -> nonEmptyText)(SalonAccount.apply)(SalonAccount.unapply)
+          )(Salon.loginCheck)(_.map(s => (s.salonAccount))).verifying("Invalid userId or password", result => result.isDefined))
+
+  /**
+   * 用户登录
+   */
+  def loginSalon = Action { implicit request =>
+    salonLogin.bindFromRequest.fold(
+      errors => BadRequest(views.html.error.errorMsg(errors)),
+      {
+        salonLogin =>
+          val getId = Salon.findByAccountId(salonLogin.get.salonAccount)
+          Redirect(routes.SalonInfo.salonInfoBasic(getId.get.id))
+      })
+
+  }
+  
   /**
    * 店铺注册页面
    */
@@ -198,7 +221,7 @@ object SalonInfo extends Controller{
       {
         salonRegister =>
           Salon.create(salonRegister)
-          Redirect(routes.SalonsAdmin.mySalon(salonRegister.id))
+          Redirect(routes.Application.salonLogin())
       })
   }
   
@@ -213,7 +236,7 @@ object SalonInfo extends Controller{
     val provinces = Province.findAll.toList
     val cities = City.findAll.toList
     val regions = Region.findAll.toList    
-    Ok(views.html.salon.salonInfo(salon,industry,provinces,cities,regions))
+    Ok(views.html.salon.salonInfo(salon = salon,industry = industry,provinces = provinces,cities =cities,regions = regions))
   }
 
   /**

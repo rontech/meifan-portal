@@ -27,6 +27,10 @@ object Application extends Controller {
         Ok(views.html.user.register(Users.registerForm()))
     }
 
+    def salonLogin() = Action {
+        Ok(views.html.salon.salonLogin(SalonInfo.salonLogin))
+    }
+    
     def getPhoto(file: ObjectId) = Action {
 
         import com.mongodb.casbah.Implicits._

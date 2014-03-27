@@ -1,6 +1,7 @@
-@(salon:Form[Salon],industry: List[Industry],provinces: List[Province],cities: List[City],regions: List[Region])
+@(navInSalon: String = "my-salonInfo",salon:Form[Salon],industry: List[Industry],provinces: List[Province],cities: List[City],regions: List[Region])
 @import helper._
 @import helper.twitterBootstrap._
+@import views.html.salon.admin._
 
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
@@ -46,7 +47,7 @@
     </div>
 }
 
-@main("salonInfo"){
+@mySalonMain(navInSalon, salon.get){
 
 <div class="basicInformation-content">
 	<div class="basicInformation">
@@ -54,8 +55,8 @@
 
 		@helper.form(action = routes.SalonInfo.update(salon.get.id), args = 'id -> "salonForm"){
 		 <fieldset >
-		 	@inputText(salon("salonAccount.accountId"),'_label -> "注册ID", 'readonly -> "true" )
-		 	@inputText(salon("salonAccount.password"),'_label -> "密码", 'readonly -> "true" ) 		 	   		          
+		 	@inputText(salon("salonAccount.accountId"),'_label -> Messages("salon.id"), 'readonly -> "true" )
+		 	@inputText(salon("salonAccount.password"),'_label -> Messages("salon.password"), 'readonly -> "true" ) 		 	   		          
             @inputText(salon("salonName"),'_label ->  Messages("salon.Name"))           
             @inputText(salon("salonNameAbbr"),'_label -> Messages("salon.Abbr"))			
 			

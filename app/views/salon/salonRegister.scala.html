@@ -46,6 +46,46 @@
     </div>
 }
 
+@restDayField(field: Field, className: String = "restDay") = {
+    @input(field, '_label -> Messages("salon.restDays"), '_class -> className) { (id, name, value, _) =>
+    	@for(i <- 0 to 6){
+			<input type="checkbox" name="restDays[0].restDay[@i]" value="@i"> @Messages("restDay.restDay.1."+i) 
+			   		
+    	}
+
+    }
+}
+
+@restDayGroup(field: Field, className: String = "restDays") = {
+    <div class="twipsies well @className">        
+		@select(
+            field ("restDayDivision"), 
+            options = options(
+                "0" -> Messages("restDay.restDayDivision.0"),
+                "1" -> Messages("restDay.restDayDivision.1")
+            ),
+            args = '_label -> Messages("salon.restDayDivision")
+        )	        
+        <div class="restDay">
+
+            @repeat(field("restDay"), min = 0) { restDay =>
+                
+                @restDayField(restDay)
+    
+            }
+            
+            @**
+             * Keep an hidden block that will be used as template for Javascript copy code
+             **@
+            @restDayField(
+                field("restDay[x]"),
+                className = "restDay_template"
+            )                    
+        </div>
+ 
+    </div>
+}
+
 @main(Messages("salon.register")){
 
 <div class="salonRegister">
@@ -57,7 +97,7 @@
 		 	@inputText(salonRegister("salonAccount.accountId"),'_label -> Messages("salon.id"),
 		 		'_help -> Messages("salon.idMessage"),
 		 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("user.regErr"))))
-			@inputPassword(salonRegister("salonAccount.password.main"),'_label -> Messages("user.pasword"),'_help -> Messages("salon.passwordMessage"))			
+			@inputPassword(salonRegister("salonAccount.password.main"),'_label -> Messages("salon.password"),'_help -> Messages("salon.passwordMessage"))			
 			@inputPassword(salonRegister("salonAccount.password.confirm"),'_label -> Messages("user.confirmPas"),
 				'_help -> Messages("salon.confirmMessage"),'_error -> salonRegister.error("password"))		 	   		          
             @inputText(salonRegister("salonName"),'_label ->  Messages("salon.Name"))           
@@ -65,12 +105,9 @@
 			
 			@input(field = salonRegister("salonIndustry"),args = '_label -> Messages("salon.type")){(id,name,value,args) =>
 			 	@for(i <- 0 to industry.length-1){
-
-			 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
-			 		
+			 		<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 						 		
 			 	}
-			  }
-					
+			  }	
 		 	@inputText(salonRegister("homepage"), '_label -> Messages("salon.homepage"))			
 			@textarea(salonRegister("salonDescription"), '_label -> Messages("salon.description"),'cols -> 50,'_help -> Messages("salon.desMseeage"))
 			@inputText(salonRegister("mainPhone"), '_label -> Messages("salon.mainPhone"))
@@ -107,9 +144,7 @@
 			@inputText(salonRegister("salonAddress.latitude"), '_label -> Messages("salon.latitude"))		
 			@inputText(salonRegister("accessMethodDesc"), '_label -> Messages("salon.accessMethod"))
 			@inputText(salonRegister("workTime.openTime"), '_label -> Messages("salon.openTime"))
-			@inputText(salonRegister("workTime.closeTime"), '_label -> Messages("salon.closeTime"))
-			@inputText(salonRegister("restDay.restDayDivision"), '_label -> Messages("salon.restDay"))
-			@inputText(salonRegister("restDay.restDay"), '_label -> Messages("salon.restDay"))	
+			@inputText(salonRegister("workTime.closeTime"), '_label -> Messages("salon.closeTime"))	
 			@inputText(salonRegister("seatNums"), '_label -> Messages("salon.seatNums"))	
 			@checkbox(salonRegister("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"))
 			@checkbox(salonRegister("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"))
@@ -121,7 +156,7 @@
 			@checkbox(salonRegister("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"))
 			@checkbox(salonRegister("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"))
 			@inputText(salonRegister("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"),'cols -> 50)
-			@inputText(salonRegister("salonPictures"), '_label -> Messages("salon.pictures"))
+			@inputFile(salonRegister("salonPictures"), '_label -> Messages("salon.pictures"))
 			@inputDate(salonRegister("registerDate"), '_label -> Messages("salon.registerTime"))	
 		  </fieldset> 
 		  <fieldset>
@@ -148,6 +183,12 @@
                 </div>
             
             </div>		  
+		  </fieldset>
+		  <fieldset>
+		  <legend>@Messages("salon.restDay")</legend>
+                @repeat(salonRegister("restDays")) { restDay =>
+                    @restDayGroup(restDay)      
+                }            
 		  </fieldset>           
             <input type = "submit" class = "buttons" value=@Messages("user.registerBtn")>
 			<input type="reset" value=@Messages("common.reset")><a href = "/  "><input type="button" value=@Messages("common.backUp") ></a>                     
@@ -155,6 +196,18 @@
 		</div>
 </div>
         <script type="text/javascript" charset="utf-8">
+        
+        function check() {
+            var arr = new Array();
+            var op = document.getElementsByTagName("option");
+            for (var i = 0; i < op.length; i++) {
+                if (op[i].selected) {
+         op[i].selected;
+                    arr.push(op[i].value+"---"+op[i].innerText);
+                }
+            }
+            alert(arr);
+        }
         
         $('.removeoptContactMethod').live('click', function(e) {
             $(this).parents('.optContactMethod').remove()
