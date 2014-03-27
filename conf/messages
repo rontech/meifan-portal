@@ -109,6 +109,7 @@ salon.passwordMessage=请输入至少6位密码！
 salon.confirmMessage=请再次输入密码！
 salon.desMseeage=您最多可以输入50个字符！
 salon.salonLogin=店铺登录
+salon.stylistsList={0}的发型师
 
 #salon management
 salonAdmin.mainPage = 店铺管理
@@ -263,7 +264,7 @@ stylist.followStylist = 关注此技师
 stylist.worked = 从事
 stylist.blog = 技师博客
 stylist.findAllBlog = 查看此技师所有博客
-stylist.haircatalog = 发型目录
+stylist.haircatalog = {0} 的发型目录
 stylist.welcome = 期待你的光临
 stylist.selectForReserv = 指名预约
 stylist.createBlog = 发表于

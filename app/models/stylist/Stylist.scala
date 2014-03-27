@@ -133,7 +133,34 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
   } 
   
   /**
+   * get a stylist by its publicId = the user.id.
+   */
+  def findStylistByPublicId(pubId: ObjectId): Option[StylistDetailInfo] = {
+    // first, check that if the stylist as a basic User is exist.
+    val user = User.findOneById(pubId)
+    user match {
+      case Some(u) => {
+        // get the stylist info.
+        val stylist = findOneByUserPubId(pubId)
+
+        // get the work info.(there is something we should pay attention to avoid errors.
+        //    we should find the work info by Stylist table's real ObjectId not the publicId.
+        //    TODO, should be modified later.)
+        val work = stylist match {
+          case Some(st) => SalonAndStylist.findByStylistId(st.publicId)    // TODO?
+          case None => None
+        }
+        
+        // return 
+        Some(StylistDetailInfo(u, stylist, work))
+      }
+      case None => None
+    }
+  }
+
+  /**
    * get a stylist by its publicId = the user Id.
+   * TODO to be delete.
    */
   def findStylistByPubId(pubId: ObjectId): Option[StylistDetailInfo] = {
     // first, check that if the stylist as a basic User is exist.
