@@ -61,8 +61,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
   /**
    * 增加评论，后台逻辑
    */
-  def addComment(commentObjId : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
-    implicit request =>
+  def addComment(commentObjId : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
       val user = loggedIn 
       formAddComment.bindFromRequest.fold(
         //处理错误
@@ -98,8 +97,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
   /**
    * 回复，后台逻辑
    */
-  def reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
-    implicit request =>
+  def reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
 //      val userId = request.session.get("userId").get
       // TODO
       val user = loggedIn
