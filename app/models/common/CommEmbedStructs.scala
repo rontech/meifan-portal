@@ -9,6 +9,11 @@ import com.mongodb.casbah.MongoConnection
 import com.novus.salat.Context
 import mongoContext._
 import org.bson.types.ObjectId
+import java.io.File
+import com.mongodb.casbah.gridfs.Imports._
+import com.mongodb.casbah.gridfs.GridFS
+import play.api.libs.iteratee.Enumerator
+import scala.concurrent.ExecutionContext
 
 /**
  * Embed Structure.
@@ -33,6 +38,7 @@ trait OnUsePictureDAO extends ModelCompanion[OnUsePicture, ObjectId] {
   val dao = new SalatDAO[OnUsePicture, ObjectId](collection){}
       
   collection.ensureIndex(DBObject("fileObjId" -> 1), "id", unique = true)
+  
   
 }
 

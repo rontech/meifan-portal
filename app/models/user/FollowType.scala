@@ -13,6 +13,14 @@ case class FollowType(
 		)
 
 object FollowType extends ModelCompanion[FollowType, ObjectId]{
+
+  val FOLLOW_SALON = "salon"
+  val FOLLOW_STYLIST = "stylist"
+  val FOLLOW_USER = "user"
+  val FOLLOW_STYLE = "style"
+  val FOLLOW_BLOG = "blog"
+  val FOLLOW_COUPON = "coupon"
+
 	val dao = new SalatDAO[FollowType, ObjectId](collection = mongoCollection("FollowType")){}
 	
 	def addFollowType(FollowType : FollowType) = dao.save(FollowType, WriteConcern.Safe)

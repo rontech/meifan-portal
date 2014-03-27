@@ -1,27 +1,23 @@
-@(stylist: Stylist)
+@(stylist: StylistDetailInfo)
 
-<div class="stylePageTileOuter">
-    <div class="fgPink b fs10">
-        <font>
-            <font>
-                @stylist.position.map{p=>
-                	@p.industryName&nbsp;
-                }
-            </font>
-        </font>
-    </div>
-    <h2 class="fs16 dibBL">
-        <font>
-            <font>
-                @Stylist.findUserName(stylist.publicId)
-            </font>
-        </font>
-    </h2>
-    <span class="fs10 mL5">
-        <font>
-            <font>
-                @Stylist.findUserName(stylist.publicId)
-            </font>
-        </font>
-    </span>
-</div>
+
+
+@stylist.stylistInfo match {
+    case None => {<h1>Not a Stylist.</h1>}    
+    case Some(dtl) => {
+        <div class="stylePageTileOuter">
+            <div class="fgPink b fs10">
+                <font>
+                    <font>
+                        @dtl.position.map { p => @p.positionName &nbsp; }
+                    </font>
+                </font>
+            </div>
+            <h2 class="fs16 dibBL">
+                <font>
+                    <font> @stylist.basicInfo.nickName </font>
+                </font>
+            </h2>
+       </div>
+    } 
+}

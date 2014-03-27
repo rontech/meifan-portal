@@ -1,6 +1,6 @@
-@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist)
+@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, followInfo:FollowInformation)
 
-@stylistPageMain(navInMyPage, user, stylist){
+@stylistPageMain(navInMyPage, user, stylist,followInfo){
 	<div class="mT30">
             <table cellspacing="0" class="wFull bgThNml bdCell pCell10">
                 <tbody>
@@ -41,7 +41,7 @@
                         <th class="w100">
                             <font>
                                 <font>
-                                    @Messages("stylist.goodAtImage")
+                                    @Messages("stylist.industry")
                                 </font>
                             </font>
                         </th>

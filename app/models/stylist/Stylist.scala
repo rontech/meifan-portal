@@ -176,12 +176,10 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
     dao.findOne(DBObject("publicId" -> pubId))
   }
 
-  def updateImages(stylist: Stylist, imageId: ObjectId) = {
-    dao.update(MongoDBObject("_id" -> stylist.id), MongoDBObject("$set" -> (MongoDBObject("myPics" ->  MongoDBList(imageId, "head", 1, None)))))
-  }
   
-  def updateStylistInfo(stylist: Stylist, imageId: ObjectId) = {
-    dao.save(stylist.copy(id = stylist.id))
+  
+  def updateStylistInfo(stylist: Stylist,stylistId: ObjectId) = {
+    dao.save(stylist.copy(id = stylistId))
     
   }
  
@@ -217,5 +215,13 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
     	dao.update(MongoDBObject("_id" -> stylistId), MongoDBObject("$set" -> (MongoDBObject("isVarified" -> true)++
                 MongoDBObject("isValid" -> true))))   
     }
+    
+    def updateImages(stylist: Stylist, imgId: ObjectId) = {
+        dao.update(MongoDBObject("_id" -> stylist.id, "myPics.picUse" -> "logo"), 
+            MongoDBObject("$set" -> ( MongoDBObject("myPics.$.fileObjId" ->  imgId))),false,true)   
+    }
+    
+    def countStyleByStylist(stylistId: ObjectId): Long = {
+        Style.count(MongoDBObject("stylistId" -> stylistId))
+    }
 }
-

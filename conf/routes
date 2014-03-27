@@ -76,7 +76,7 @@ GET         /findByImpression/:styleImpression               controllers.Styles.
 #GET        /stylist/:id                                     controllers.Stylists.findById(id: ObjectId)
 GET         /stylist/mySalon/:stylistId                      controllers.Stylists.mySalon(stylistId: ObjectId)
 GET         /updateStylistInfo/:stylistId                    controllers.Stylists.updateStylistInfo(stylistId: ObjectId)
-POST        /toUpdateStylistInfo                             controllers.Stylists.toUpdateStylistInfo
+POST        /toUpdateStylistInfo                             controllers.Stylists.toUpdateStylistInfo(stylistId: ObjectId)
 GET         /agreeSalonApply/:stylistId/:salonId             controllers.Stylists.agreeSalonApply(stylistId: ObjectId, salonId: ObjectId)
 GET         /rejectSalonApply/:stylistId/:salonId            controllers.Stylists.rejectSalonApply(stylistId: ObjectId, salonId: ObjectId)
 GET         /findSalonApply/:stylistId                       controllers.Stylists.findSalonApply(stylistId: ObjectId)
@@ -240,8 +240,9 @@ GET		/removeSalon/:salonId/:stylistId                     controllers.Stylists.r
 
 #salonAdmin	(to remove stylist)
 GET		/removeStylist/:salonId/:stylistId                   controllers.SalonsAdmin.removeStylist(salonId: ObjectId, stylistId: ObjectId)
-#Salons (Salon check stylist info)
-GET		/findStylistById/:stylistId                          controllers.Salons.findStylistById(stylistId: ObjectId)
+	
+
+#GET		/findStylistById/:stylistId                          controllers.Salons.findStylistById(stylistId: ObjectId)
 
 #add by sangsang-hu
 GET     /mySalon/:salonId/sreachCoupon                       controllers.CouponAdmin.findCoupons(salonId: ObjectId)
@@ -251,3 +252,8 @@ GET     /mySalon/:salonId/sreachMenu                         controllers.MenuAdm
 GET    /salon/:salonId/comments                              controllers.Comments.findBySalon(salonId: ObjectId)
 GET    /salon/:salonId/blogYM/:yM                            controllers.Blogs.getBlogByYM(salonId: ObjectId, yM: String)
 GET    /salon/:salonId/stylistOne/:userId                    controllers.Blogs.getBlogAuthor(salonId: ObjectId, userId: String)
+
+#Salons (Salon check stylist info) Add by pingdou
+GET		/updateStylistImage/:stylistId						 controllers.Stylists.updateStylistImage(stylistId: ObjectId)
+POST	/toUpdateStylistImage								 controllers.Stylists.toUpdateStylistImage
+GET		/saveStylistImg/:imgId								 controllers.Stylists.saveStylistImg(imgId: ObjectId)
