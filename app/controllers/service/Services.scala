@@ -20,21 +20,19 @@ object Services extends Controller {
       "serviceType" -> text,
       "salonId" -> text,
       "price" -> bigDecimal,
-      "duration" -> number,
-      "createdTime" -> date,
-      "expireTime" -> date
+      "duration" -> number
       )
-      {(id, serviceName, description, serviceType, salonId, price, duration, createdTime, expireTime) => Service(new ObjectId(),  serviceName,
-          description, serviceType, new ObjectId(salonId), price, duration, createdTime, Some(expireTime), true)}
+      {(id, serviceName, description, serviceType, salonId, price, duration) => Service(new ObjectId(),  serviceName,
+          description, serviceType, new ObjectId(salonId), price, duration, new Date(), None, true)}
       {
-        service => Some((service.id, service.serviceName, service.description, service.serviceType, service.salonId.toString(), service.price, service.duration, service.createdTime, service.expireTime.get))
+        service => Some((service.id, service.serviceName, service.description, service.serviceType, service.salonId.toString(), service.price, service.duration))
       }.verifying(
         "This name has been used!",
         service => !Service.checkService(service.serviceName)   
     )
   )
   
-  def serviceShowForm(id: ObjectId = new ObjectId): Form[Service] = Form(
+  def serviceUpdateForm(id: ObjectId = new ObjectId): Form[Service] = Form(
     mapping(
       "id" -> ignored(id),
       "serviceName" -> nonEmptyText,
@@ -42,56 +40,67 @@ object Services extends Controller {
       "serviceType" -> text,
       "salonId" -> text,
       "price" -> bigDecimal,
-      "duration" -> number,
-      "createdTime" -> date,
-      "expireTime" -> date
+      "duration" -> number
       )
-      {(id, serviceName, description, serviceType, salonId, price, duration, createdTime, expireTime) => Service(new ObjectId(),  serviceName,
-          description, serviceType, new ObjectId(salonId), price, duration, createdTime, Some(expireTime), true)}
+      {(id, serviceName, description, serviceType, salonId, price, duration) => Service(new ObjectId(),  serviceName,
+          description, serviceType, new ObjectId(salonId), price, duration, new Date(), None, true)}
       {
-        service => Some((service.id, service.serviceName, service.description, service.serviceType, service.salonId.toString(), service.price, service.duration, service.createdTime, service.expireTime.get))
-      }
-  )
-  
-  def serviceMain = Action{
-  	  Ok(views.html.service.addService(serviceForm(),Service.getServiceTypeList))
-  }
-  
-  def addService = Action { implicit request =>
+        service => Some((service.id, service.serviceName, service.description, service.serviceType, service.salonId.toString(), service.price, service.duration))
+      }  
+    )
+/**
+ * 添加服务
+ */
+  def addService(salonId: ObjectId) = Action { implicit request =>
     serviceForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.service.addService(errors,Service.getServiceTypeList)),
+      errors => BadRequest(views.html.salon.admin.createSalonService(Salon.findById(salonId).get, errors, ServiceType.findAll.toList.map{serviceType =>serviceType.serviceTypeName})),
       {
         service =>
           Service.addService(service)
-          Redirect(routes.Services.servicesList)                  
+          Redirect(routes.SalonsAdmin.myService(salonId))                  
       })
   }
   
-  def servicesList = Action {
-    Ok(views.html.service.showAllServices())
+/**
+ *删除服务 
+ */
+  def deleteService(id: ObjectId, salonId: ObjectId) = Action{
+    Service.deleteService(id)
+    Redirect(routes.SalonsAdmin.myService(salonId))
   }
   
-  def deleteService(id: ObjectId) = Action{
-    Service.deleteService(id)
-    Ok(views.html.service.showAllServices())
-  }
-
-  def showService(id: ObjectId) = Action{
-    Service.findOneByServiceId(id).map { service =>
-      val serviceForm = Services.serviceShowForm().fill(service)
-      Ok(views.html.service.serviceInformation(serviceForm,service))
+ /**
+  *更新服务  
+  */ 
+  def showService(id: ObjectId, salonId: ObjectId) = Action{
+    Service.findOneById(id).map { service =>
+      val serviceUpdateForm = Services.serviceUpdateForm().fill(service)
+      Ok(views.html.service.updateService(Salon.findById(salonId).get,serviceUpdateForm,service))
     } getOrElse {
       NotFound
     }
   }
   
-  def updateService(id: ObjectId) = Action { implicit request =>
-    serviceShowForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.error.errorMsg(errors)),
+/**
+ * 更新服务动作
+ */  
+  def updateService(id: ObjectId, salonId: ObjectId) = Action { implicit request =>
+    serviceUpdateForm().bindFromRequest.fold(
+      errors => BadRequest(views.html.service.updateService(Salon.findById(salonId).get,errors,Service.findOneByID(id).get)),
       {
         service =>
           Service.save(service.copy(id = id), WriteConcern.Safe)
-          Ok(views.html.service.showAllServices())
+          Redirect(routes.SalonsAdmin.myService(salonId))
       })
+  }
+  
+   def serviceMain(salonId: ObjectId) = Action{
+	  val salon: Option[Salon] = Salon.findById(salonId)
+	  val serviceType = ServiceType.findAll.toList.map{serviceType =>serviceType.serviceTypeName}
+	  
+	  salon match {
+	    case Some(s) => Ok(views.html.salon.admin.createSalonService(s, serviceForm(), serviceType))
+        case None => NotFound
+	  }
   }
 }

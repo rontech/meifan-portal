@@ -1,5 +1,5 @@
 @* UserInfomation Template File *@
-@(userForm: Form[User], followInfo:FollowInformation)
+@(userForm: Form[User], user: User,  followInfo:FollowInformation)
  @import helper._
 
 @accountField(field: Field, className: String = "account") = {
@@ -46,16 +46,16 @@
     </div>
 }
 
-    @myPageMain(navInMyPage = "information", userForm.get, followInfo)  {
+    @myPageMain(navInMyPage = "information", user, followInfo)  {
 
-        @form(routes.Users.updateInfo(userForm.get.userId), 'id -> "userForm") {
+        @form(routes.Users.updateInfo(user.userId), 'id -> "userForm") {
           <fieldset>
            	
                   @inputText(userForm("userId"),'_label -> Messages("user.name"), 'readonly -> "true")
 
-                  <input type="hidden" name="password" value="@userForm.get.password">
+                  <input type="hidden" name="password" value="@user.password">
 
-                  @inputText(userForm("nickName"),'_label -> Messages("user.nickNm"),'_error -> userForm("nickName").error.map(_.withMessage(Messages("user.nickNameErr"))))
+                  @inputText(userForm("nickName"),'_label -> Messages("user.nickNm"), '_error -> userForm("nickName").error.map(_.withMessage(Messages("user.nickNameErr"))))
 
                   @inputDate(userForm("birthDay"), '_label -> Messages("user.birthDay"), '_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr"))))
 
@@ -70,13 +70,13 @@
 
                   @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none")
                   
-                  <input type="hidden" name="address.province" value="@userForm.get.address.province">
-                  <input type="hidden" name="address.city" value="@userForm.get.address.city">
-                  <input type="hidden" name="userPics" value="@userForm.get.userPics">
-                  <input type="hidden" name="userTyp" value="@userForm.get.userTyp">
-                  <input type="hidden" name="userBehaviorLevel" value="@userForm.get.userBehaviorLevel">
-                  <input type="hidden" name="point" value="@userForm.get.point">
-                  <input type="hidden" name="permission" value="@userForm.get.permission">
+                  <input type="hidden" name="address.province" value="@user.address.province">
+                  <input type="hidden" name="address.city" value="@user.address.city">
+                  <input type="hidden" name="userPics" value="@user.userPics">
+                  <input type="hidden" name="userTyp" value="@user.userTyp">
+                  <input type="hidden" name="userBehaviorLevel" value="@user.userBehaviorLevel">
+                  <input type="hidden" name="point" value="@user.point">
+                  <input type="hidden" name="permission" value="@user.permission">
 
 		  </fieldset>    
 		  

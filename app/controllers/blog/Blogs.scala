@@ -27,7 +27,7 @@ object Blogs extends Controller with LoginLogout with AuthElement with AuthConfi
       "blogPics" -> optional(list(text)), // TODO
       "tags" -> text,
       "isVisible" -> boolean,
-      "pushToSalon" -> optional(default(boolean, true)),
+      "pushToSalon" -> optional(boolean),
       "allowComment" -> boolean) {
       (id, title, content, authorId, blogCategory, blogPics, tags, isVisible, pushToSalon, allowComment)
         => Blog(id, title, content, authorId, new Date(), new Date(), blogCategory, blogPics, tags.split(",").toList, isVisible, pushToSalon, allowComment, true)
@@ -51,16 +51,16 @@ object Blogs extends Controller with LoginLogout with AuthElement with AuthConfi
    def blogForm(userId : String, id : ObjectId = new ObjectId) = Form(
       mapping(
       "id" -> ignored(id),
-      "title" -> text,
-      "content" -> text,
+      "title" -> nonEmptyText,
+      "content" -> nonEmptyText,
       "authorId" -> ignored(userId),
       "createTime" -> date,
       "blogCategory" -> text,
       "blogPics" -> optional(list(text)), // TODO
       "tags" -> text,
-      "isVisible" -> default(boolean, true),
-      "pushToSalon" -> optional(default(boolean, true)),
-      "allowComment" -> default(boolean, true)) {
+      "isVisible" -> boolean,
+      "pushToSalon" -> optional(boolean),
+      "allowComment" -> boolean) {
       (id, title, content, authorId, createTime, blogCategory, blogPics, tags, isVisible, pushToSalon, allowComment)
         => Blog(id, title, content, authorId, createTime, new Date(), blogCategory, blogPics, tags.split(",").toList, isVisible, pushToSalon, allowComment, true)
       } 
@@ -76,7 +76,7 @@ object Blogs extends Controller with LoginLogout with AuthElement with AuthConfi
      val salon: Option[Salon] = Salon.findById(salonId)
      val stylist = Stylist.findOneById(stylistId)
      var user = User.findOneById(stylist.get.publicId).get
-     var blogList = Blog.getBlogByUserId(user.userId)
+     var blogList = Blog.getStylistBlogByUserId(user.userId)
      val listYM = getListYM(salon.get)
      Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogList, listYM = listYM))
    }    
@@ -195,8 +195,11 @@ object Blogs extends Controller with LoginLogout with AuthElement with AuthConfi
     // TODO: process the salon not exist pattern.
     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogs, listYM = listYM))
   }
-
-  def showBlog(userId : String) = Action {
+  
+  /**
+   * 查看用户的blog
+   */
+  def showBlog(userId : String) = Action { implicit request =>
     val user: Option[User] = User.findOneByUserId(userId)
     user match {
       case Some(user) => {
@@ -233,20 +236,25 @@ object Blogs extends Controller with LoginLogout with AuthElement with AuthConfi
    /**
    * 新建blog，后台逻辑
    */
-  def writeBlog(userId : String) = Action {   
-    implicit request =>
+  def writeBlog(userId : String) = Action { implicit request =>
       val user: Option[User] = User.findOneByUserId(userId)
-      val listBlogCategory = BlogCategory.getCategory
-      val followInfo = MyFollow.getAllFollowInfo(user.get.id)
-      newBlogForm(userId).bindFromRequest.fold(
+      user match {
+        case Some(user) => {
+          val listBlogCategory = BlogCategory.getCategory
+	      val followInfo = MyFollow.getAllFollowInfo(user.id)
+	      newBlogForm(userId).bindFromRequest.fold(
         //处理错误        
-        errors => BadRequest(views.html.blog.admin.newBlog(errors,listBlogCategory, user = user.get, followInfo)),
+        errors => BadRequest(views.html.blog.admin.newBlog(errors,listBlogCategory, user = user, followInfo)),
         {
           blog =>
             Blog.save(blog, WriteConcern.Safe)
             Redirect(routes.Blogs.showBlogById(blog.id))
         }             
         )
+          
+        }
+        case None => NotFound
+      }
   }  
   
    /**
@@ -255,12 +263,12 @@ object Blogs extends Controller with LoginLogout with AuthElement with AuthConfi
   def editBlog(blogId : ObjectId) = Action {
     val blog = Blog.findOneById(blogId)
     val list = BlogCategory.getCategory
-    val user = User.findOneByUserId(blog.get.authorId).get
-    val followInfo = MyFollow.getAllFollowInfo(user.id)
     blog.map { blog =>
+      val user = User.findOneByUserId(blog.authorId).get
+      val followInfo = MyFollow.getAllFollowInfo(user.id)
       val formEditBlog = blogForm(user.userId).fill(blog)
 //      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user, blog))
-      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user, followInfo))
+      Ok(views.html.blog.admin.editBlog(formEditBlog, list, user, followInfo,blog))
     } getOrElse {
       NotFound
     }
@@ -269,41 +277,59 @@ object Blogs extends Controller with LoginLogout with AuthElement with AuthConfi
    /**
    * 编辑blog，后台逻辑
    */
-  def modBlog(blogId : ObjectId) = Action {   
-    implicit request =>
-      val userId = Blog.findOneById(blogId).get.authorId
-      blogForm(userId,blogId).bindFromRequest.fold(
-        //处理错误        
-        errors => BadRequest(views.html.blog.errorMsg(errors)),
-        {
-          blog =>            
-            Blog.save(blog, WriteConcern.Safe)
-//	        Redirect(routes.Blogs.showBlog(userId))
-            Redirect(routes.Blogs.showBlogById(blogId))
-        }             
-        )
+  def modBlog(blogId : ObjectId) = Action { implicit request =>
+      val blog = Blog.findOneById(blogId)
+      blog match {
+        case Some(blog) => {
+          val user: Option[User] = User.findOneByUserId(blog.authorId)
+	      val listBlogCategory = BlogCategory.getCategory
+	      val followInfo = MyFollow.getAllFollowInfo(user.get.id)
+	      blogForm(blog.authorId,blogId).bindFromRequest.fold(
+	        //处理错误        
+	        errors => BadRequest(views.html.blog.admin.editBlog(errors,listBlogCategory,user.get, followInfo, blog)),
+	        {
+	          blog =>            
+	            Blog.save(blog, WriteConcern.Safe)
+	//	        Redirect(routes.Blogs.showBlog(userId))
+	            Redirect(routes.Blogs.showBlogById(blogId))
+	        }             
+        )         
+        }
+        case None => NotFound
+        
+      }
   }  
   
    /**
    * 用户删除blog
    */
   def deleteBlog(blogId : ObjectId) = Action {
-    var userId = Blog.findOneById(blogId).get.authorId
-    Blog.delete(blogId)
-    Redirect(routes.Blogs.showBlog(userId))
+    var blog = Blog.findOneById(blogId)
+    blog match {
+      case Some(blog) => {
+		Blog.delete(blogId)
+		Redirect(routes.Blogs.showBlog(blog.authorId))
+      }
+      case None => NotFound
+    }
   }
   
    /**
    * 显示某一条blog
    * 通过blog的id找到blog
    */
-  def showBlogById(blogId: ObjectId) = StackAction(AuthorityKey -> authorization(GuestUser) _) { implicit request =>
-    val blog = Blog.findOneById(blogId).get
-//    val user = User.findOneByUserId(blog.authorId).get
-    val user = loggedIn
-    Comment.list = Nil
-    val commentList = Comment.all(blogId)
-    val followInfo = MyFollow.getAllFollowInfo(user.id)
-    Ok(views.html.blog.admin.blogDetail(blog, user, commentList, followInfo))
+  def showBlogById(blogId: ObjectId) = Action { implicit request =>
+    val blog = Blog.findOneById(blogId)
+    blog match {
+      case Some(blog) => {
+    	val user = User.findOneByUserId(blog.authorId).get
+	    Comment.list = Nil
+	    val commentList = Comment.all(blogId)
+	    val followInfo = MyFollow.getAllFollowInfo(user.id)
+	    Ok(views.html.blog.admin.blogDetail(blog, user, commentList, followInfo))
+      }
+      case None => NotFound
+    } 
+
   }
 }

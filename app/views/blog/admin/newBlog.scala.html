@@ -8,8 +8,8 @@
 @myPageMain(navInMyPage = "my-blog", user, followInfo) {
   @form(action = routes.Blogs.writeBlog(user.userId)) {
       <fieldset>
-        @inputText(newBlogForm("title"),'_label -> Messages("blog.title"), '_error -> newBlogForm("title").error.map(_.withMessage("请输入标题")))             
-		@textarea(newBlogForm("content"), '_label -> Messages("blog.content"), 'rows -> 5, 'cols -> 20, '_error -> newBlogForm("title").error.map(_.withMessage("请输入内容")))
+        @inputText(newBlogForm("title"),'_label -> Messages("blog.title"), '_error -> newBlogForm("title").error.map(_.withMessage(Messages("blog.titleErr"))), '_help -> "")             
+		@textarea(newBlogForm("content"), '_label -> Messages("blog.content"), 'rows -> 5, 'cols -> 20, '_error -> newBlogForm("content").error.map(_.withMessage(Messages("blog.contentErr"))), '_help -> "")
 		@select(
 	        field = newBlogForm("blogCategory"), 
 	        options = options(listBlogCategory),
@@ -17,14 +17,11 @@
         )	             
         @*@inputText(newBlogForm("blogPics"), args = '_label -> "上传图片")*@   
 		@inputText(newBlogForm("tags"), args = '_label -> Messages("blog.tags"), 'placeholder -> Messages("blog.placeholder"), 'name -> "tags")
-		@*@inputRadioGroup(newBlogForm("isVisible"),options = options("true" -> "公开", "false" -> "私密") , '_label -> "可见性", '_help -> "")*@
-		@inputRadioGroup(field = newBlogForm("isVisible").copy(value=newBlogForm("isVisible").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> "公开", "false" -> "私密") , '_label -> "可见性", '_help -> "")
-		@if(user.userBehaviorLevel != "userLevel.0") {
-		  @*@inputRadioGroup(newBlogForm("pushToSlaon"),options = options("true" -> "可见", "false" -> "不可见") , '_label -> "店铺可见性", '_help -> "")*@
-		  @inputRadioGroup(field = newBlogForm("pushToSlaon").copy(value=newBlogForm("pushToSlaon").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> "可见", "false" -> "不可见") , '_label -> "店铺可见性", '_help -> "")
+		@inputRadioGroup(field = newBlogForm("isVisible").copy(value=newBlogForm("isVisible").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> Messages("blog.visible"), "false" -> Messages("blog.unVisible")) , '_label -> Messages("blog.isVisible"), '_help -> "")
+		@if(user.userTyp.equals(User.STYLIST)) {
+		  @inputRadioGroup(field = newBlogForm("pushToSalon").copy(value=newBlogForm("pushToSalon").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> Messages("blog.pushToSalon"), "false" -> Messages("blog.notPushToSalon")) , '_label -> Messages("blog.isPushToSalon"), '_help -> "")
 		}
-		@*@inputRadioGroup(newBlogForm("allowComment"),options = options("true" -> "允许评论", "false" -> "不允许评论") , '_label -> "允许评论性", '_help -> "")*@
-		@inputRadioGroup(field = newBlogForm("allowComment").copy(value=newBlogForm("allowComment").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> "允许评论", "false" -> "不允许评论") , '_label -> "允许评论性", '_help -> "")
+		@inputRadioGroup(field = newBlogForm("allowComment").copy(value=newBlogForm("allowComment").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> Messages("blog.allowComment"), "false" -> Messages("blog.notAllowComment")) , '_label -> Messages("blog.isAllowComment"), '_help -> "")
         <input type="submit" class = "buttons" value="@Messages("blog.newBlog")" >
      </fieldset>
      
