@@ -169,12 +169,12 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val loginUser = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     Users.userForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.user.Infomation(errors,followInfo)),
+      errors => BadRequest(views.html.user.Infomation(errors, loginUser, followInfo)),
       {
         user =>
           User.save(user.copy(id = loginUser.id), WriteConcern.Safe)
           val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
-          Ok(views.html.user.myPageRes(user, loginUser, followInfo))
+          Ok(views.html.user.myPageRes(user, followInfo))
       })
   }
 
