@@ -74,7 +74,7 @@ object InitialData {
           Industry(new ObjectId("5317c0d1d4d57997ce3e6ec4"), "Cosmetic")         // 整形 Face, plastic 
       ).foreach(Industry.save)
     }
-     
+    
     if(Position.findAll.isEmpty){
       Seq(
        Position(new ObjectId("531964e0d4d57d0a43771411"),"店长"),
@@ -208,8 +208,8 @@ object InitialData {
 if(Salon.findAll == Nil) { 
 
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("accountId", "123456"), "火影忍者吧", Some("火吧"), List("Hairdressing"), Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "鸣人", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("Jiangsu", Option("Suzhou"), Option("Gaoxin"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1, 7)), 25, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d592"), "LOGO", Some(1), None)), date("2014-01-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("accountId", "123456"), "海贼王吧", Some("海吧"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("Jiangsu", Option("Suzhou"), Option("Gaoxin"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1, 6), RestDay(1, 7)), 9, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d593"), "LOGO", None, None)), date("2014-03-12") )
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("accountId", "123456"), "火影忍者吧", Some("火吧"), List("Hairdressing"), Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "鸣人", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("Jiangsu", Option("Suzhou"), Option("Gaoxin"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1,List(2))), 25, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d592"), "LOGO", Some(1), None)), date("2014-03-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("testId", "123456"), "海贼王吧", Some("海吧"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("Jiangsu", Option("Suzhou"), Option("Gaoxin"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(2,List(1))), 9, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d593"), "LOGO", None, None)), date("2014-03-12") )
       ).foreach(Salon.save)
     }
       
@@ -217,28 +217,28 @@ if(Salon.findAll == Nil) {
       Seq(
          Stylist(new ObjectId("531964e0d4d57d0a43771401"), new ObjectId("530d8010d7f2861457771bf8"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
             List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"有乐趣的环境能滋养创意，没有人工作只是为了好玩，但并不意味工作不能变得有趣。 ","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
-            (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+            (List(new OnUsePicture(new ObjectId, "logo", Some(1), Some("根据每位顾客的发质脸型来为您设计独特的发型")))), true, true ),
          Stylist(new ObjectId("530d8010d7f2861457771bf9"), new ObjectId("53202c29d4d5e3cd47efffd3"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
             List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"一切节省，归根到底都归结为时间的节省。","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
-            (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+            (List(new OnUsePicture(new ObjectId, "logo", Some(1), Some("推荐年轻女性选择颜色浅亮的发色系列")))), true, true ),
          Stylist(new ObjectId("530d8010d7f2861457771bf4"), new ObjectId("53202c29d4d5e3cd47efffd4"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
             List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"细节源于态度，细节体现素质","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
-            (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+            (List(new OnUsePicture(new ObjectId, "logo", Some(1), Some("坚持学习不断创新新潮发型设计")))), true, true ),
          Stylist(new ObjectId("530d8010d7f2861457771bf5"), new ObjectId("53202c29d4d5e3cd47efffd9"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
             List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"生命有如铁砧，愈被敲打，愈能发出火花。","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
-            (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+            (List(new OnUsePicture(new ObjectId, "logo", Some(1), Some("最擅长剪干练清爽的短发系列")))), true, true ),
          Stylist(new ObjectId("530d8010d7f2861457771bf6"), new ObjectId("53202c29d4d5e3cd47efffd8"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
             List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"不积跬步，无以致千里","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
-            (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+            (List(new OnUsePicture(new ObjectId, "logo", Some(1), Some("充分利用业余时间不断学习创新新发型！")))), true, true ),
          Stylist(new ObjectId("530d8010d7f2861457771bf7"), new ObjectId("53202c29d4d5e3cd47efffd7"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
             List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"成功并不能用一个人达到什么地位来衡量，而是依据他在迈向成功的过程中，到底克服了多少困难和障碍","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
-           (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+           (List(new OnUsePicture(new ObjectId, "logo", Some(1), Some("儿童发型也非常擅长！")))), true, true ),
          Stylist(new ObjectId("530d8010d7f2861457771bf2"), new ObjectId("53202c29d4d5e3cd47efffd6"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
             List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"自信是向成功迈出的第一步","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
-            (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ),
+            (List(new OnUsePicture(new ObjectId, "logo", Some(1), Some("个人最擅长清新自然风格！")))), true, true ),
          Stylist(new ObjectId("530d8010d7f2861457771bf1"), new ObjectId("53202c29d4d5e3cd47efffd5"), 5, List(new IndustryAndPosition(new ObjectId,"美甲师","店长")),
             List("小清新"), List("少年"), List("烫发", "染发", "卷发"), List("男", "女"), List("1~10", "10~20", "20~30", "30~40"),"兴趣是最好的老师","按照头皮通过样式建议☆脑袋矿泉根据（季节）的麻烦的建议，一个健康的状态样式建议☆日本四季可再生按照客户的后顾之忧，即使从后面的房子，改善☆（头按摩）","*（自主开发，本作的，运动员都特别喜欢）（印象系统，人类系统特别喜欢）阅读*电影DVD观看是一个（*易清洁，整齐*厨师，健康食物卡在）","建议适合女性的身材和喜好的麻烦，希望每一位客户，下一次不只是这一次，它建的故事，包括发型到下一个，但一☆砍你强​​调“易用性对待”，风格建议♪",
-            (List(new OnUsePicture(new ObjectId, "logo", Some(1), None))), true, true ) 
+            (List(new OnUsePicture(new ObjectId, "logo", Some(1), Some("最近买了一块新的手表，亲们过来围观一下哦！")))), true, true ) 
       ).foreach(Stylist.save)
     }
     
@@ -400,7 +400,6 @@ if(Salon.findAll == Nil) {
 	        for(styf <- stylefiles){
 		        val styleImgId = Image.save(styf)
 		        val style = Style.findAll.toList(stylefiles.indexOf(styf))
-		        println(style.id)
 		        Style.updateStyleImage(style,styleImgId)
 	        }
 	        

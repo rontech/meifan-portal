@@ -1,22 +1,16 @@
 @(stylist: StylistDetailInfo)
 
 
-
+<!-- Detail info of stylist in a salon. -->
 @stylist.stylistInfo match {
     case None => {<h1>Not a Stylist.</h1>}    
     case Some(dtl) => {
         <div class="stylePageTileOuter">
             <div class="fgPink b fs10">
-                <font>
-                    <font>
-                        @dtl.position.map { p => @p.positionName &nbsp; }
-                    </font>
-                </font>
+                @dtl.position.map { p => @p.positionName &nbsp; }
             </div>
             <h2 class="fs16 dibBL">
-                <font>
-                    <font> @stylist.basicInfo.nickName </font>
-                </font>
+                @stylist.basicInfo.nickName
             </h2>
        </div>
     } 
