@@ -399,7 +399,6 @@ if(Salon.findAll == Nil) {
 	        val stylefiles = Image.listAllFiles(stylefile)
 	        for(styf <- stylefiles){
 		        val styleImgId = Image.save(styf)
-		        println("indexof " + stylefiles.indexOf(styf)+" filename "+ styf.getName())
 		        val style = Style.findAll.toList(stylefiles.indexOf(styf))
 		        println(style.id)
 		        Style.updateStyleImage(style,styleImgId)
@@ -412,7 +411,6 @@ if(Salon.findAll == Nil) {
 	        for(f <- stylistfiles){
 		        val stylistImgId = Image.save(f)
 		        val stylist = Stylist.findAll.toList(stylistfiles.indexOf(f))
-		        println("stylistId" + stylist.myPics)
 		        Stylist.updateImages(stylist, stylistImgId)
 	        }
 	      
