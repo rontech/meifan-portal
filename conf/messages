@@ -167,7 +167,7 @@ reserve.information=详情查看
 
 # Service
 service.addService=添加服务
-service.name=服务技术
+service.name=服务名
 service.type=技术类别
 service.price=服务费用（单位：元）
 service.tsCost=服务耗时（单位：分钟）
@@ -181,6 +181,10 @@ service.delete=删除
 service.back=返回
 service.update=更新
 service.minutes = 分钟
+service.title = {0} 的服务
+service.createServiceArea = 创建服务区域
+service.addErrorMsg = 请输入服务名！
+service.description = 服务描述
 
 #ServiceType
 ServiceType.serviceTypeName.Cut = 剪

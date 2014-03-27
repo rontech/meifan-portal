@@ -216,7 +216,8 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val loginUser = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     Users.userForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.user.Infomation(errors,followInfo)),
+      errors => BadRequest(views.html.user.Infomation(errors, loginUser,followInfo)),
+//        errors => BadRequest(Html(errors.toString)),    
       {
         user =>
           User.save(user.copy(id = loginUser.id), WriteConcern.Safe)
@@ -232,7 +233,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val userForm = Users.userForm().fill(user)
-    Ok(views.html.user.Infomation(userForm,followInfo))
+    Ok(views.html.user.Infomation(userForm, user, followInfo))
   }
 
   /**
@@ -243,7 +244,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     User.findOneByUserId(userId).map{user =>
       val userForm = Users.userForm().fill(user)
-      Ok(views.html.user.Infomation(userForm, followInfo))
+      Ok(views.html.user.Infomation(userForm, loginUser, followInfo))
     }getOrElse{
       NotFound
     }
