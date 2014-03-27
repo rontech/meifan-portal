@@ -1,0 +1,34 @@
+@(salonId: ObjectId, serviceForm: Form[Service], serviceType: List[String])
+
+@import helper._
+
+@form(routes.Services.addService(salonId), 'id -> "serviceForm") {
+	<legend class="mainTitle">@Messages("service.createServiceArea")</legend>
+	<div class="menuInfo">
+		<input type="hidden" name="salonId" value="@salonId" />
+		
+		@inputText(serviceForm("serviceName"), '_label -> Messages("service.name"),
+			'_error -> serviceForm("serviceName").error.map(_.withMessage(Messages("service.addErrorMsg")))
+            ,'_error -> serviceForm.globalError
+		)
+		
+		@select(
+             	serviceForm("serviceType"),
+             	options = options(serviceType),
+             	'_label -> Messages("service.type")
+             )
+            
+		@inputText(serviceForm("description"),'_label -> Messages("service.description"))
+		
+		@inputText(serviceForm("price"),'_label -> Messages("service.price"))
+		
+		@inputText(serviceForm("duration"),'_label -> Messages("service.tsCost"))
+		
+		
+	</div>	
+	<div class="btnArea">
+		<input type="submit" class = "buttons" value="@Messages("service.addBton")">
+            
+        <input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+    </div>
+}

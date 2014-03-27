@@ -3,7 +3,7 @@
 
 @import helper._
 
-@form(routes.Coupons.createCoupon, 'id -> "couponForm") {
+@form(routes.Coupons.createCoupon(salonId), 'id -> "couponForm") {
 	<legend class="mainTitle">@Messages("coupon.createCouponArea")</legend>
 	<div class="couponInfo">
 		<input type="hidden" name="salonId" value="@salonId" />
