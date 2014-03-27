@@ -47,6 +47,45 @@
     </div>
 }
 
+@restDayField(field: Field, restDaysTyp : String, className: String = "restDay") = {
+    @input(field, '_label -> Messages("salon.restDays"), '_class -> className) { (id, name, value, _) =>
+    	@if(restDaysTyp == "0"){
+    		@for(i <- 0 to 6){
+    			@if(salon.get.restDays(0).restDay.contains(i)){
+					<input type="checkbox" name="restDays[0].restDay[@i]" value="@i" checked="checked"> @Messages("restDay.restDay.1."+i)     			
+    			}else{
+    				<input type="checkbox" name="restDays[0].restDay[@i]" value="@i"> @Messages("restDay.restDay.1."+i)     			
+    			}
+    		}
+    	}else{
+    		@for(i <- 0 to 30){
+    			@if(salon.get.restDays(0).restDay.contains(i)){
+					<input type="checkbox" name="restDays[0].restDay[@i]" value="@i" checked="checked"> @Messages("restDay.restDay.1."+i)     			
+    			}else{
+    				<input type="checkbox" name="restDays[0].restDay[@i]" value="@i"> @Messages("restDay.restDay.1."+i)     			
+    			}
+    		}
+		}
+    }
+}
+
+@restDayGroup(field: Field, className: String = "restDays") = {
+    <div class="twipsies well @className">        
+		@select(
+            field ("restDayDivision"), 
+            options = options(
+                "0" -> Messages("restDay.restDayDivision.0"),
+                "1" -> Messages("restDay.restDayDivision.1")
+            ),
+            args = '_label -> Messages("salon.restDayDivision")
+        )	        
+        <div class="restDay">
+                @restDayField(field("restDay"),field("restDayDivision").value.get)                
+        </div>
+ 
+    </div>
+}
+
 @mySalonMain(navInSalon, salon.get){
 
 <div class="basicInformation-content">
@@ -63,9 +102,9 @@
 			@input(field = salon("salonIndustry"),args = '_label -> Messages("salon.type")){(id,name,value,args) =>
 			 	@for(i <- 0 to industry.length-1){
 			 		@if(salon.get.salonIndustry.contains(industry(i).industryName)){
-			 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages(industry(i).industryName)
+			 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
 			 		}else{
-			 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages(industry(i).industryName)			 			
+			 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
 			 		}
 			 	}
 			  }
@@ -104,8 +143,7 @@
 			@inputText(salon("salonAddress.latitude"), '_label -> Messages("salon.latitude"))		
 			@inputText(salon("accessMethodDesc"), '_label -> Messages("salon.accessMethod"))
 			@inputText(salon("workTime.openTime"), '_label -> Messages("salon.openTime"))
-			@inputText(salon("workTime.closeTime"), '_label -> Messages("salon.closeTime"))
-			@inputText(salon("restDay(0).restDay"), '_label -> Messages("salon.restDay"))	
+			@inputText(salon("workTime.closeTime"), '_label -> Messages("salon.closeTime"))	
 			@inputText(salon("seatNums"), '_label -> Messages("salon.seatNums"))	
 			@checkbox(salon("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"))
 			@checkbox(salon("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"))
@@ -144,7 +182,13 @@
                 </div>
             
             </div>		  
-		  </fieldset>                       
+		  </fieldset>  
+		  <fieldset>
+		  <legend>@Messages("salon.restDay")</legend>
+                @repeat(salon("restDays")) { restDay =>
+                    @restDayGroup(restDay)      
+                }            
+		  </fieldset>  		                       
             <input type = "submit" class = "buttons" value=@Messages("common.submit")>
 			<input type="reset" value=@Messages("common.reset")><a href = "/  "><input type="button" value=@Messages("common.backUp") ></a>                     
 		}
