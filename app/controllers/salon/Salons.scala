@@ -37,7 +37,7 @@ object Salons extends Controller {
             case Some(sl) => {
                 val stylists = SalonAndStylist.getSalonStylistsInfo(salonId)
                 // navigation bar
-                val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylist"), routes.Salons.getAllStylists(sl.id).toString()))
+                val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylists"), routes.Salons.getAllStylists(sl.id).toString()))
                 // Jump to stylists page in salon. 
                 Ok(views.html.salon.store.salonInfoStylistAll(salon = sl, stylists = stylists, navBar = navBar))
             }
@@ -56,7 +56,7 @@ object Salons extends Controller {
             // when salon is exist
             case Some(sl) => {
                 // navigation bar
-                val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylist"), routes.Salons.getAllStylists(sl.id).toString()))
+                val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylists"), routes.Salons.getAllStylists(sl.id).toString()))
 
                 val stylist: Option[Stylist] = Stylist.findOneById(stylistId)
                 stylist match {
