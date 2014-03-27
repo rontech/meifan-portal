@@ -74,7 +74,7 @@ object InitialData {
           Industry(new ObjectId("5317c0d1d4d57997ce3e6ec4"), "Cosmetic")         // 整形 Face, plastic 
       ).foreach(Industry.save)
     }
-     
+    
     if(Position.findAll.isEmpty){
       Seq(
        Position(new ObjectId("531964e0d4d57d0a43771411"),"店长"),
@@ -208,8 +208,8 @@ object InitialData {
 if(Salon.findAll == Nil) { 
 
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("accountId", "123456"), "火影忍者吧", Some("火吧"), List("Hairdressing"), Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "鸣人", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("Jiangsu", Option("Suzhou"), Option("Gaoxin"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1, 7)), 25, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d592"), "LOGO", Some(1), None)), date("2014-01-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("accountId", "123456"), "海贼王吧", Some("海吧"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("Jiangsu", Option("Suzhou"), Option("Gaoxin"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1, 6), RestDay(1, 7)), 9, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d593"), "LOGO", None, None)), date("2014-03-12") )
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("accountId", "123456"), "火影忍者吧", Some("火吧"), List("Hairdressing"), Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "鸣人", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("Jiangsu", Option("Suzhou"), Option("Gaoxin"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1,List(2))), 25, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d592"), "LOGO", Some(1), None)), date("2014-03-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("testId", "123456"), "海贼王吧", Some("海吧"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("Jiangsu", Option("Suzhou"), Option("Gaoxin"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(2,List(1))), 9, SalonFacilities(true, true, true, true, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d593"), "LOGO", None, None)), date("2014-03-12") )
       ).foreach(Salon.save)
     }
       
