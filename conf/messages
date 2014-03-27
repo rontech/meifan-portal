@@ -163,6 +163,7 @@ hair.welcome=我们期待您的光临
 hair.consumerSocialStatus=适合人群
 hair.consumerSex=适合性别
 hair.consumerAgeGroup=适合年龄
+hair.salonStyleTitle = {0}的发型
 
 # Cosmetic
 cosmetic.salon=美容沙龙

@@ -1,8 +1,9 @@
 @(salon: Salon, styles: List[Style], navBar: List[(String, String)] = Nil)
 
 @salonInfoMain(navInSalon = "salon-style", salon, navBar) {
+	
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
 
     <!-- Get All the Salons with all the styles.  -->
-    @views.html.style.group(styles,salon)
-
+    @views.html.style.styleGroup(styles,salon)
 }
