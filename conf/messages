@@ -280,7 +280,7 @@ stylist.industry = 职位
 
 #Stylist Apply
 stylist.name = 昵称
-stylist.workYears = 工作年数
+stylist.workYears = {0} 年
 stylist.industry = 类别
 stylist.position = 职位
 stylist.goodAtImage = 擅长风格
