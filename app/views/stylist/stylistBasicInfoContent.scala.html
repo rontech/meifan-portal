@@ -1,164 +1,85 @@
 @(salon: Salon, stylist: StylistDetailInfo, style: List[Style], blog: Option[Blog])
         
 <div class="cFix mT30 pH10">
+    <!-- ST left side info for Stylist picture.-->
     <div class="fl w224 taC">
         <div>
-            <img src="http://imgbp.hotp.jp/CSP/IMG_SRC/19/34/B003961934/B003961934_164-219.jpg" >
+            <img src="@routes.Application.getPhoto(stylist.stylistInfo.get.myPics(0).fileObjId)" alt="@stylist.basicInfo.nickName" class="bdImgGray w164 h219">
         </div>
+        <!-- TODO ST Reserve this sytlist. -->
         <div class="mT20 pT10">
-            <a href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733&amp;stylistId=T000188298"
-            class="bS db nominatedReserve offL mHA">
-                <font>
-                    <font>
-                        本书通过预约
-                    </font>
-                </font>
+            <a href="" class="bS db nominatedReserve offL mHA">@Messages("stylist.selectForReserv")</a>
+        </div>
+        <!-- TODO END Reserve this sytlist. -->
+
+        <!-- ST Follow this stylist. -->
+        <div class="mT20 pT10">
+            <a href="@routes.MyFollows.addFollow(stylist.stylistInfo.get.id,"stylist")" 
+                class="bS db addIntoMyStylist offL mHA"> @Messages("stylist.followStylist")
             </a>
         </div>
-        <div class="mT20 pT10">
-            <a href="@routes.MyFollows.addFollow(stylist.stylistInfo.get.id,"stylist")"
-            class="bS db addIntoMyStylist offL mHA">
-                <font>
-                    <font>
-                        @Messages("stylist.followStylist")
-                    </font>
-                </font>
-            </a>
-        </div>
+        <!-- END Follow this stylist. -->
     </div>
+    <!-- END left side info for Stylist picture.-->
+
     <div class="fr w501">
+
+        <!--ST. Stylist's Words. -->
         <div>
             <dl>
-                <dt class="fgPink b fs14">
-                    <font>
-                        <font>
-                            @stylist.stylistInfo.get.myWords
-                        </font>
-                    </font>
-                </dt>
-                <dd class="mT10">
-                    <font>
-                        <font>
-                           @stylist.stylistInfo.get.myPR
-                        </font>
-                    </font>
-                </dd>
+                <dt class="fgPink b fs14"> @stylist.stylistInfo.get.myWords </dt>
+                <dd class="mT10"> @stylist.stylistInfo.get.myPR </dd>
             </dl>
         </div>
+        <!--END. Stylist's Words. -->
+
         <!--ST. Stylist Appeal. -->
         <div class="mT30">
             <ul class="cFix">
-                    @if(style.length < 4){
-                            @style.map{sty=>
-                        <li class="fl cFix w240">
-                            <div class="fl w89">
-                                <img src="#">
-                            </div>
-                            <div class="fr w151 pr hMin119">
-                                <p class="mL10 mR20 fs10 pa bottom0 left0">
-                                    <font>
-                                        <font>
-                                           @sty.description 
-                                        </font>
-                                    </font>
-                                </p>
-                            </div>
-                        </li>
-                        }
-                }else{
-                        @for(i<-0 until 3){
-                                <li class="fl cFix w240">
-                            <div class="fl w89">
-                                <img src="#">
-                            </div>
-                            <div class="fr w151 pr hMin119">
-                                <p class="mL10 mR20 fs10 pa bottom0 left0">
-                                    <font>
-                                        <font>
-                                           @style(i).description 
-                                        </font>
-                                    </font>
-                                </p>
-                            </div>
-                        </li>
-                        }
+                <!--@*show max 4 appeal pic here.*@ -->
+                @for(i <- 0 until (if(stylist.stylistInfo.get.myPics.length > 4) 3 else stylist.stylistInfo.get.myPics.length)) {
+                    <li class="fl cFix w240 mT30">
+                        <div class="fl w89">
+                            <!--@*TODO, should show appeal picture here.*@-->
+                            <img src="@routes.Application.getPhoto(stylist.stylistInfo.get.myPics(i).fileObjId)"
+                            alt="@stylist.stylistInfo.get.myPics(i).description" oncontextmenu="return false;">
+                        </div>
+                        <div class="fr w151 pr hMin119">
+                            <p class="mL10 mR20 fs10 pa bottom0 left0">
+                                @stylist.stylistInfo.get.myPics(i).description
+                            </p>
+                        </div>
+                    </li>
                 }
             </ul>
         </div>
         <!--ST. Stylist Appeal. -->
+
+        <!--ST. Stylist Resume. -->
         <div class="mT30">
             <table cellspacing="0" class="wFull bgThNml bdCell pCell10">
                 <tbody>
                     <tr>
-                        <th class="w100">
-                            <font>
-                                <font>
-                                    @Messages("stylist.worked")
-                                </font>
-                            </font>
-                        </th>
-                        <td>
-                            <font>
-                                <font>
-                                    @stylist.stylistInfo.get.workYears
-                                    @Messages("stylist.workYears")
-                                </font>
-                            </font>
-                        </td>
+                        <th class="w100"> @Messages("stylist.worked")</th>
+                        <td>@Messages("stylist.workYears", stylist.stylistInfo.get.workYears) </td>
+                    </tr>
+                                
+                    <tr> <th class="w100">@Messages("stylist.goodAtImage") </th>
+                        <td> @stylist.stylistInfo.get.goodAtImage.foreach(f=> f +"|")</td>
                     </tr>
                     <tr>
-                        <th class="w100">
-                            <font>
-                                <font>
-                                    @Messages("stylist.goodAtImage")
-                                </font>
-                            </font>
-                        </th>
-                        <td>
-                            <font>
-                                <font>
-                                    @stylist.stylistInfo.get.goodAtImage.foreach(f=> f +"|")
-                                </font>
-                            </font>
-                        </td>
+                        <th class="w100"> @Messages("stylist.mySpecial") </th>
+                        <td> @stylist.stylistInfo.get.mySpecial </td>
                     </tr>
                     <tr>
-                        <th class="w100">
-                            <font>
-                                <font>
-                                 @Messages("stylist.mySpecial")   
-                                </font>
-                            </font>
-                        </th>
-                        <td>
-                            <font>
-                                <font>
-                                   @stylist.stylistInfo.get.mySpecial
-                                </font>
-                            </font>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="w100">
-                            <font>
-                                <font>
-                                    @Messages("stylist.myBoom")
-                                </font>
-                            </font>
-                        </th>
-                        <td>
-                            <font>
-                                <font>
-                                    @stylist.stylistInfo.get.myBoom
-                                </font>
-                            </font>
-                        </td>
+                        <th class="w100"> @Messages("stylist.myBoom") </th>
+                        <td> @stylist.stylistInfo.get.myBoom </td> 
                     </tr>
                 </tbody>
             </table>
         </div>
         <!--END. Stylist Resume. -->
-        <!--END. Stylist Resume. -->
+
         <!--ST. Stylist's latest Blog. -->
         @blog match {
             case None => {}

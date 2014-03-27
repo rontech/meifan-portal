@@ -1,8 +1,10 @@
 @(salon: Salon, comments: List[Comment], navBar: List[(String, String)] = Nil)
 
 @salonInfoMain(navInSalon = "salon-comment", salon, navBar) {
+	
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comment/comment.css")">
 
     <!-- Get All the Salons with all the styles.  -->
-    @views.html.comment.group(comments, salon)
+    @views.html.comment.commentGroup(comments, salon)
 
 }

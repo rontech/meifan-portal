@@ -58,6 +58,7 @@ salon.show=展示所有沙龙
 salon.title=店铺基本信息管理
 salon.salonData={0}的基本信息
 salon.id=店铺ID
+salon.password=密码
 salon.Name=店铺名
 salon.Abbr=店铺名略称
 salon.type=店铺行业种类
@@ -77,9 +78,12 @@ salon.town=镇
 salon.addrDetail=其他
 salon.longitude=店铺地理位置经度
 salon.latitude=店铺地理位置纬度
+salon.workTime=营业时间
 salon.openTime=营业开始
 salon.closeTime=营业结束
 salon.restDay=休息日
+salon.restDayDivision=请选择休息方式
+salon.restDays=请选择日期
 salon.priceCutOnly=剪发价格
 salon.priceCutOnlyMsg={0} 元起
 salon.seatNums=席位数
@@ -100,6 +104,11 @@ salon.hasParkingNearByMsg=有
 salon.hasNoParkingNearByMsg=无
 salon.pictures=展示图片
 salon.registerTime=美容平台注册日期
+salon.idMessage=请输入至少6位有效店铺ID！
+salon.passwordMessage=请输入至少6位密码！
+salon.confirmMessage=请再次输入密码！
+salon.desMseeage=您最多可以输入50个字符！
+salon.salonLogin=店铺登录
 
 #salon management
 salonAdmin.mainPage = 店铺管理
@@ -117,6 +126,7 @@ salonAdmin.infoManagement = 信息管理
 salonAdmin.stylistManagement = 技师管理
 salonAdmin.reserveManagement = 预约管理
 salonAdmin.commentManagement = 评论管理
+salonAdmin.styleManagement = 发型管理
 salonAdmin.serviceManagement = 服务管理
 salonAdmin.couponManagement = 优惠劵管理
 salonAdmin.menuManagement = 菜单管理
@@ -153,6 +163,7 @@ hair.welcome=我们期待您的光临
 hair.consumerSocialStatus=适合人群
 hair.consumerSex=适合性别
 hair.consumerAgeGroup=适合年龄
+hair.salonStyleTitle = {0}的发型
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -269,11 +280,12 @@ stylist.findOtherBlog = 查看更多
 stylist.experienceYears={0}年经验
 stylist.removeSalon = 离开店铺
 stylist.update = 更新
+stylist.industry = 职位
 
 
 #Stylist Apply
 stylist.name = 昵称
-stylist.workYears = 工作年数
+stylist.workYears = {0} 年
 stylist.industry = 类别
 stylist.position = 职位
 stylist.goodAtImage = 擅长风格
@@ -377,7 +389,7 @@ letter.time=时间
 # Messages Area.
 #-------------------------------
 
-#Blog
+# Blog
 blog.newBlog=发表博客
 blog.title=博客标题
 blog.content=博客内容
@@ -399,6 +411,15 @@ blog.shareToWX = 微信
 blog.latestBlogForSalon = 沙龙最新的博客 
 blog.authorTitle = 投稿者
 blog.moreInfo = 查看详情
+
+# Comment
+comment.salonCommentTitle = {0} 的评论
+comment.noComment = 该店铺暂无评论
+comment.passDate = [投稿日]
+comment.usedCoupon = 预约时使用的优惠券
+comment.usedServices = [用到的技术]
+comment.reply = {0}的回复
+
 
 
 
@@ -451,3 +472,22 @@ industry.industryName.Hairdressing=美发
 industry.industryName.Manicures=美甲
 industry.industryName.Healthcare=保健
 industry.industryName.Cosmetic=整形
+
+#额外联系方式
+optContactMethod.Remove = 删除号码
+optContactMethod.RemoveOptContactMethod = 删除此联系方式
+optContactMethod.AddNumber =添加号码
+optContactMethod.AddOptContactMethod =添加联系方式
+
+#休息日
+restDay.restDayDivision.0=星期
+restDay.restDayDivision.1=日期
+restDay.restDay.1.0=星期一
+restDay.restDay.1.1=星期二
+restDay.restDay.1.2=星期三
+restDay.restDay.1.3=星期四
+restDay.restDay.1.4=星期五
+restDay.restDay.1.5=星期六
+restDay.restDay.1.6=星期日
+restDay.message=
+

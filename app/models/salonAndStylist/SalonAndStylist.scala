@@ -64,12 +64,31 @@ trait SalonAndStylistDAO extends ModelCompanion[SalonAndStylist, ObjectId] {
     // get all the stylists of the specified salon.
     val stlsIn = findBySalonId(salonId)
     stlsIn.map { work =>
+
+      // TODO begin  should be modified later!!!
+      // because now the SalonAndStylist table is wrong!
+      val stlTmp = Stylist.findOneById(work.stylistId)
+      stlTmp match {
+        case Some(tmp) => {
+          val dtlinfo = Stylist.findStylistByPubId(tmp.publicId)    //work.stylistId
+          dtlinfo match {
+            case Some(dtl) => stlDtls = dtl :: stlDtls
+            case None => stlDtls
+          }
+        }
+        case None => stlDtls
+
+      } 
+      // TODO end should be modified later!!!
+/*
       val dtlinfo = Stylist.findStylistByPubId(work.stylistId)
       dtlinfo match {
         case Some(dtl) => stlDtls = dtl :: stlDtls
         case None => stlDtls
       }
+*/
     } 
+
     // return
     //println("All stylist detail info in a salon: " + stlDtls) 
     stlDtls
