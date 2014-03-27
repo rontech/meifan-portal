@@ -3,12 +3,12 @@
 @mySalonMain(navInSalon, salon){
 	<div class="mt">
        	<ul class="tab">
-			<li clstag="click|keycount|myhome|tuangouqian" data-widget="tab-item" class="curr"><s></s><b></b>@Messages("salonAdmin.comment")</li>
+			<li clstag="click|keycount|myhome|tuangouqian" data-widget="tab-item" class="curr"><s></s><b></b>@Messages("salonAdmin.myComment")</li>
            </ul>
 	</div>
 	<div class="mc">
    		<div class="tabcon hide" data-widget="tab-content" style="display: block;">  			
-        	@views.html.comment.admin.commentGroup(commentList)
+        	@views.html.comment.admin.mySalonCommentGroup(salon, commentList)
         </div>
     </div>
 }

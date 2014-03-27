@@ -1,7 +1,29 @@
-@(comment: Comment)
+@(salon : Salon, comment: Comment)
+
+<script type="text/javascript">     
+      function replyForm(contId, showBlockId){
+      	var txt = document.getElementById(contId).value;
+      	if(txt.trim() == ""){  
+      		document.getElementById(showBlockId).innerHTML = "评论内容不能为空";
+      		return false;
+      	}
+      	return true;
+      }
+
+      function replyInline(divDisplay){
+          if(document.getElementById(divDisplay).style.display != "block")
+          {
+              document.getElementById(divDisplay).style.display = "block";
+          }
+          else
+          {
+              document.getElementById(divDisplay).style.display = "none";
+          }
+      }
+</script>
 
 @import java.text.DateFormat
-
+@if(comment.commentObjType == 1) {
 <div class="reportHeaderPickup">
 	<div class="shopInfo reportPickupTitle cFix">
 		<p class="fl w580 pL25"><span class="b">评论人昵称</span><span class="mL5 fs10 fgGray">评论人的一些特点</span></p>
@@ -11,29 +33,37 @@
 	</div>
 </div>
 
+<a onclick="return replyInline('reply_@comment.id')" style="cursor:pointer;">@Messages("blog.replyComment")</a>
+<a onclick="return replyInline('reply_@comment.id')" style="cursor:pointer;">我要申诉</a>
+
 <div class="mT10 pH10">
-	<p class="mT10 wwbw">评论的内容，要实现所见即所得</p>
+	<p class="mT10 wwbw">@comment.content</p>
 	<dl class="mT25">
 		<dt class="couponMenuTitle fl">预约的优惠券和菜单</dt>
 		<dd class="oh zoom1">
-			<p>评论的对象，是哪一个coupon</p>
-			<p class="fs10">[菜单]哪些菜单</p>
+			<p>@Coupon.findOneById(comment.commentObjId).get.couponName</p>
+			<p class="fs10">[用到的技术]
+				@Coupon.findOneById(comment.commentObjId).get.serviceItems.map { service => @service.serviceName}
+			</p>
 			</dd>
 	</dl>
 </div>
 
+<div id="reply_@comment.id" class="inline_reply" style="display:none;">
 <div class="BlogCommentForm">
-	@*<form id="form_inline_comment" action="@routes.Comments.reply(comment.id, blog.id, 3)" method="POST">*@
-	  <!-- <input type="hidden" id="inline_reply_id" name="reply_id" value="1452044_278889672"> -->          
-      <textarea name="content" id="ccom_content" style="width:650px;height:60px;"></textarea><br>
+	<form id="form_inline_comment" action="@routes.Comments.replyAdmin(comment.id, salon.id, 3)" method="GET">
+	  <input type="hidden" id="inline_reply_id" name="reply_id" value="1452044_278889672">         
+      <textarea name="content" id="ccom_content_@comment.id" style="width:650px;height:60px;"></textarea><br>
 	  <p>
 		  <span style="float:right;">
-    	  <input type="button" value="关闭" class="blg_submit_btn" id="btn_close_inline_reply" style="background: rgba(255,255,255,0);color: #555;">
-    	  <input type="submit" value="回复" id="btn_comment" class="blg_submit_btn"> 
+    	  @*<input type="button" value="关闭" class="blg_submit_btn" id="btn_close_inline_reply" style="background: rgba(255,255,255,0);color: #555;">*@
+    	  <input type="submit" value="@Messages("blog.reply")" id="btn_comment" onclick="return replyForm('ccom_content_@comment.id', 'ficmp_msg_@comment.id');" class="blg_submit_btn"> 
 		  </span>
-		  插入：
-				<a href="javascript:;" onclick="javascript:insert_emotions('ccom_content',this);" class="blog_emotion">表情</a>
-		 <span class="NoData" id="ficmp_msg" style="color:#F00"></span>
+		  @*插入：
+				<a href="javascript:;" onclick="javascript:insert_emotions('ccom_content',this);" class="blog_emotion">表情</a>*@
+		 <span class="NoData" id="ficmp_msg_@comment.id" style="color:#F00"></span>
 	  </p>
     </form>
 </div>
+</div>
+}
