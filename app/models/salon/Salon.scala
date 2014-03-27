@@ -58,7 +58,7 @@ case class WorkTime(
 */
 case class RestDay(
     restDayDivision: Int,
-    restDay: Int
+    restDay: List[Int]
 )
 
 /**
@@ -91,7 +91,7 @@ case class Salon(
     salonAddress: Address,
     accessMethodDesc: String,
     workTime: WorkTime,
-    restDay: List[RestDay],                    
+    restDays: List[RestDay],                    
     seatNums: Int,
     salonFacilities: SalonFacilities,    
     salonPics: List[OnUsePicture],             
@@ -122,6 +122,10 @@ object Salon {
         SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId))
     }    
 
+    def loginCheck(salonAccount: SalonAccount): Option[Salon] = {
+        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId,"salonAccount.password" -> salonAccount.password))
+    }
+    
     def create(salon: Salon): Option[ObjectId] = {
         SalonDAO.insert(
             Salon(
@@ -139,7 +143,7 @@ object Salon {
                 salonAddress = salon.salonAddress,
                 accessMethodDesc = salon.accessMethodDesc,
                 workTime = salon.workTime,
-                restDay = salon.restDay,
+                restDays = salon.restDays,
                 seatNums = salon.seatNums,
                 salonFacilities = salon.salonFacilities,
                 salonPics = salon.salonPics,
@@ -165,7 +169,7 @@ object Salon {
                 salonAddress = salon.salonAddress,
                 accessMethodDesc = salon.accessMethodDesc,
                 workTime = salon.workTime,
-                restDay = salon.restDay,
+                restDays = salon.restDays,
                 seatNums = salon.seatNums,
                 salonFacilities = salon.salonFacilities,
                 salonPics = salon.salonPics,
