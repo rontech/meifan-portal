@@ -266,8 +266,8 @@ if(Salon.findAll == Nil) {
         Style(new ObjectId("533134b69aa6b4dfc54a02ee"), "齐白石的虾", new ObjectId("530d8010d7f2861457771bf1"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"自然",List("Supple","Perm"),"中",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗","细","适中"),List("标准","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("31-80","21-30","1-10","11-20"),"男",List("程序员","茶艺","教师"),date("2014-03-12"),true),
         Style(new ObjectId("533133f29aa6b4dfc54a021d"), "达芬奇的蛋", new ObjectId("530d8010d7f2861457771bf1"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple","Perm"),"短",List("黄","红"),List("少","多","一般"),List("柔顺","软","硬"),List("粗"),List("标准","圆脸","鹅蛋脸"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"女",List("程序员","工程师","茶艺"),date("2014-03-12"),true),
         Style(new ObjectId("533134b69aa6b4dfc54a021e"), "路飞的草帽", new ObjectId("530d8010d7f2861457771bf1"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"淡雅",List("Supple","Perm"),"长",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","适中","硬"),List("粗","细","适中"),List("标准","圆脸"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("31-80","21-30","1-10","11-20"),"男",List("程序员","工程师","教师"),date("2014-03-12"),true),
-        Style(new ObjectId("533133f29aa6b4dfc54a021d"), "乌索普的弹弓", new ObjectId("530d8010d7f2861457771bf1"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple","Perm"),"短",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("31-80","21-30","1-10","11-20"),"女",List("程序员","工程师","茶艺"),date("2014-03-12"),true),
-        Style(new ObjectId("533134b69aa6b4dfc54a021e"), "佐罗的三刀流", new ObjectId("530d8010d7f2861457771bf1"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple","Perm"),"长",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗","细"),List("标准"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"男",List("程序员","工程师","教师"),date("2014-03-12"),true),
+        Style(new ObjectId("533133f29aa6b4dfc54a023d"), "乌索普的弹弓", new ObjectId("530d8010d7f2861457771bf1"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple","Perm"),"短",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("31-80","21-30","1-10","11-20"),"女",List("程序员","工程师","茶艺"),date("2014-03-12"),true),
+        Style(new ObjectId("533134b69aa6b4dfc54a023e"), "佐罗的三刀流", new ObjectId("530d8010d7f2861457771bf1"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple","Perm"),"长",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗","细"),List("标准"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"男",List("程序员","工程师","教师"),date("2014-03-12"),true),
         Style(new ObjectId("533134db9aa6b4dfc54a02ef"), "青春短寸无敌", new ObjectId("530d8010d7f2861457771bf7"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple"),"中",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"女",List("程序员","工程师","茶艺","教师"),date("2014-03-12"),true),
         Style(new ObjectId("533151209aa6b4dfc54a0374"), "斜刘海披肩发型", new ObjectId("530d8010d7f2861457771bf8"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"自然",List("Supple","Perm"),"短",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("31-80","21-30","1-10","11-20"),"男",List("程序员","工程师","茶艺"),date("2014-03-12"),true),
         Style(new ObjectId("533134db9aa6b4dfc54a022f"), "齐刘海内扣发型", new ObjectId("530d8010d7f2861457771bf8"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple","Perm"),"长",List("黄","黑色"),List("少","多","一般"),List("柔顺","软","适中","硬"),List("粗","细","适中"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"女",List("程序员"),date("2014-03-12"),true),
@@ -393,25 +393,30 @@ if(Salon.findAll == Nil) {
     
     if(!Stylist.findAll.isEmpty){
 	    if(Image.findAll.isEmpty) {
-	      val stylistfile = new File(play.Play.application().path() + "/public/images/stylist")
-	      val stylistfiles = Image.listAllFiles(stylistfile)
-	      for(f <- stylistfiles){
-	        val stylistImgId = Image.save(f)
-	        val stylist = Stylist.findAll.toList(stylistfiles.indexOf(f))
-	        println("stylistId" + stylist.myPics)
-	        Stylist.updateImages(stylist, stylistImgId)
-	      }
+	    	
+	        // save picture of style
+	        val stylefile = new File(play.Play.application().path() + "/public/images/style")
+	        val stylefiles = Image.listAllFiles(stylefile)
+	        for(styf <- stylefiles){
+		        val styleImgId = Image.save(styf)
+		        println("indexof " + stylefiles.indexOf(styf)+" filename "+ styf.getName())
+		        val style = Style.findAll.toList(stylefiles.indexOf(styf))
+		        println(style.id)
+		        Style.updateStyleImage(style,styleImgId)
+	        }
+	        
+	        // save picture of stylist
+	        val stylistfile = new File(play.Play.application().path() + "/public/images/stylist")
+	        Image.files = Nil
+	        val stylistfiles = Image.listAllFiles(stylistfile)
+	        for(f <- stylistfiles){
+		        val stylistImgId = Image.save(f)
+		        val stylist = Stylist.findAll.toList(stylistfiles.indexOf(f))
+		        println("stylistId" + stylist.myPics)
+		        Stylist.updateImages(stylist, stylistImgId)
+	        }
 	      
-	      val stylefile = new File(play.Play.application().path() + "/public/images/style")
-	      val stylefiles = Image.listAllFiles(stylefile)
-	      for(f <- stylefiles){
-	        val styleImgId = Image.save(f)
-	        println("indexof " + stylefiles.indexOf(f))
-	        val style = Style.findAll.toList(stylefiles.indexOf(f))
-	        Style.updateStyleImage(style,styleImgId)
-	      }
-	      
-	    }
+	     }
     }
   }
   

@@ -5,7 +5,7 @@
  	@Messages("hair.style")
    	@for(i <- 0 to styleAndSalon.length-1){
    		<a href="@routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" >
-   			<img src="#" class="" alt="@styleAndSalon(i).style.styleName" >
+   			<img src="@routes.Application.getPhoto(styleAndSalon(i).style.stylePic(0).fileObjId)" class="" alt="@styleAndSalon(i).style.styleName" >
    		</a>
 		<div class="layer jscLayer jscFixPng">
 			<p>
