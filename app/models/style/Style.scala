@@ -224,5 +224,10 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         dao.update(MongoDBObject("_id" -> id), MongoDBObject("$set" -> (
             MongoDBObject("isValid" -> false))))
     }
+    
+    def updateStyleImage(style: Style, imgId: ObjectId) = {
+      dao.update(MongoDBObject("_id" -> style.id, "stylePic.picUse" -> "logo"), 
+            MongoDBObject("$set" -> ( MongoDBObject("stylePic.$.fileObjId" ->  imgId))),false,true)
+    }
 }
 

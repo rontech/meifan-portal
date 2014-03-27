@@ -3,6 +3,8 @@
 @import helper._
 @import views.html.user._
 
+<script src="@routes.Assets.at("javascripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+
 @myPageMain(navInMyPage = "my-blog", user, followInfo) {
     @form(action = routes.Blogs.modBlog(formBlog.get.id)) {
       <fieldset>
@@ -26,6 +28,9 @@
 		@inputRadioGroup(field = formBlog("allowComment").copy(value=formBlog("allowComment").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> "允许评论", "false" -> "不允许评论") , '_label -> "允许评论性", '_help -> "")
         <input type="submit" class = "buttons" value="保存修改" >
      </fieldset>
+      <script>
+     	CKEDITOR.replace( 'content' );
+     </script>
     }
 }
 

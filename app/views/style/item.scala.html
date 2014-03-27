@@ -32,7 +32,7 @@
                 @style.stylePic.map {stylePic =>
                     <li class="fl w91">
                         <span id="img" style="cursor: pointer;">
-                            <img src="#" class="bdImgGray" onclick="changePic('img','imgMain')" height="89" width="65" >
+                            <img src="@routes.Application.getPhoto(stylePic.fileObjId)" class="bdImgGray" onclick="changePic('img','imgMain')" height="89" width="65" >
                         </span>
                         <div class="iS SV01 offL mHA mT5">
                         </div>
@@ -62,7 +62,7 @@
                 <div class="cFix mT10">
                     <div class="fl w99">
                         <a href="@routes.Salons.getOneStylist(salon.id, style.stylistId)">
-                            @*<img src="@routes.Application.getPhoto(style.stylePic(0))">*@
+                            <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)">
                         </a>
                     </div>
                     <div class="fr w318">
@@ -198,7 +198,7 @@
                         @if(stylistAll.id != style.id) {
                             <li>
                                 <a href="@routes.Salons.getOneStyle(salon.id, stylistAll.id)"  class="db pr">
-                                    @*<img src="@routes.Application.getPhoto(stylistAll.stylePic(0))"*@
+                                    <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)"
                                     class="bdImgGray" oncontextmenu="return false;">
                                 </a>
                             </li>
