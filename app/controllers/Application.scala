@@ -13,6 +13,7 @@ import com.mongodb.casbah.gridfs.GridFS
 import java.text.SimpleDateFormat
 import play.api.libs.iteratee.Enumerator
 import scala.concurrent.ExecutionContext
+import controllers.noAuth._
 
 object Application extends Controller {
     def index = Action {
@@ -20,11 +21,11 @@ object Application extends Controller {
     }
 
     def login() = Action { implicit request =>
-        Ok(views.html.user.login(Users.loginForm))
+        Ok(views.html.user.login(auth.Users.loginForm))
     }
 
     def register() = Action {
-        Ok(views.html.user.register(Users.registerForm()))
+        Ok(views.html.user.register(noAuth.Users.registerForm()))
     }
 
     def getPhoto(file: ObjectId) = Action {
@@ -55,7 +56,7 @@ object Application extends Controller {
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull
                 uploadedFile.save()
-                Redirect(routes.Users.saveImg(uploadedFile._id.get))
+                Redirect(auth.routes.Users.saveImg(uploadedFile._id.get))
             case None => BadRequest("no photo")
         }
     }

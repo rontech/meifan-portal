@@ -9,7 +9,7 @@ GET         /                                                controllers.Applica
 # get photo
 GET         /getPhoto/:name                                  controllers.Application.getPhoto(name: ObjectId)
 POST        /upload                                          controllers.Application.upload()
-GET         /saveImg/:id                                     controllers.Users.saveImg(id :ObjectId)
+GET         /saveImg/:id                                     controllers.auth.Users.saveImg(id :ObjectId)
 
 
 # FollowTypes
@@ -89,10 +89,10 @@ GET         /findSalonApply/:stylistId                       controllers.Stylist
 GET         /login                                           controllers.Application.login
 GET         /register                                        controllers.Application.register
 
-POST        /login                                           controllers.Users.login
-GET         /logout                                          controllers.Users.logout
-POST        /register                                        controllers.Users.register
-GET         /userPage/:userId                                controllers.Users.userPage(userId)
+POST        /login                                           controllers.auth.Users.login
+GET         /logout                                          controllers.auth.Users.logout
+POST        /register                                        controllers.noAuth.Users.register
+GET         /userPage/:userId                                controllers.noAuth.Users.userPage(userId)
 
 
 
@@ -101,28 +101,28 @@ GET         /userPage/:userId                                controllers.Users.u
 # Pages Which can only be seen by logined user.
 #-------------------------------------------------
 # User Management
-POST        /update/:userId                                  controllers.Users.updateInfo(userId)
-GET         /myInfo/                                         controllers.Users.myInfo
-GET         /userInfo/:userId                                controllers.Users.userInfo(userId)
-GET         /myPage/                                         controllers.Users.myPage
-GET         /myPage/myReservation                            controllers.Users.myReservation
-GET         /myPage/followedCoupon                           controllers.MyFollows.followedCoupon
-GET         /myPage/followedBlog/:id                         controllers.MyFollows.followedBlog(id: ObjectId)
-GET         /myPage/followedStyle/:id                        controllers.MyFollows.followedStyle(id: ObjectId)
-GET         /myPage/followedSalonActi                        controllers.MyFollows.followedSalonActi
-GET         /myPage/followedSalon                            controllers.MyFollows.followedSalon(id: ObjectId)
-GET         /myPage/followedStylist                          controllers.MyFollows.followedStylist(id: ObjectId)
-GET         /myPage/followedUser                             controllers.MyFollows.followedUser(id:ObjectId)
-GET         /myPage/followers                                controllers.MyFollows.followers(id:ObjectId)
-GET         /userPage/userBlog/:userId                       controllers.Users.userBlog(userId)
-GET         /userPage/userStyle/:userId                      controllers.Users.userStyle(userId)
+POST        /update/:userId                                  controllers.auth.Users.updateInfo(userId)
+GET         /myInfo/                                         controllers.auth.Users.myInfo
+GET         /userInfo/:userId                                controllers.auth.Users.userInfo(userId)
+GET         /myPage/                                         controllers.auth.Users.myPage
+GET         /myPage/myReservation                            controllers.auth.Users.myReservation
+GET         /myPage/followedCoupon                           controllers.auth.MyFollows.followedCoupon
+GET         /myPage/followedBlog        		             controllers.auth.MyFollows.followedBlog
+GET         /myPage/followedStyle		                     controllers.auth.MyFollows.followedStyle
+GET         /myPage/followedSalonActi                        controllers.auth.MyFollows.followedSalonActi
+GET         /myPage/followedSalon                            controllers.noAuth.MyFollows.followedSalon(id: ObjectId)
+GET         /myPage/followedStylist                          controllers.noAuth.MyFollows.followedStylist(id: ObjectId)
+GET         /myPage/followedUser                             controllers.noAuth.MyFollows.followedUser(id:ObjectId)
+GET         /myPage/followers                                controllers.noAuth.MyFollows.followers(id:ObjectId)
+GET         /userPage/userBlog/:userId                       controllers.noAuth.Users.userBlog(userId)
+GET         /userPage/userStyle/:userId                      controllers.noAuth.Users.userStyle(userId)
 GET         /myPage/messages/:req                            controllers.UserLetters.messageList(req:String)
 GET         /myPage/message/:id                              controllers.UserLetters.showMessage(id:ObjectId)
 
-GET         /applyStylist                                    controllers.Users.applyStylist
-POST        /commitStylistApply                              controllers.Users.commitStylistApply
-GET         /cancelFollow/:followedId                        controllers.MyFollows.cancelFollow(followedId:ObjectId)
-GET         /addFollow/:followId                             controllers.MyFollows.addFollow(followId:ObjectId,followObjType:String)
+GET         /applyStylist                                    controllers.auth.Users.applyStylist
+POST        /commitStylistApply                              controllers.auth.Users.commitStylistApply
+GET         /cancelFollow/:followedId                        controllers.auth.MyFollows.cancelFollow(followedId:ObjectId)
+GET         /addFollow/:followId                             controllers.auth.MyFollows.addFollow(followId:ObjectId,followObjType:String)
 
 
 # Reservations Management
@@ -215,8 +215,8 @@ GET         /reservConfirmInfo                               controllers.Reserva
 
 
 #add by ys-han
-GET         /password                                        controllers.Users.password
-POST        /changePassword/:userId                          controllers.Users.changePassword(userId)
+GET         /password                                        controllers.auth.Users.password
+POST        /changePassword/:userId                          controllers.auth.Users.changePassword(userId)
 
 
 # Map static resources from the /public folder to the /assets URL path
@@ -224,7 +224,7 @@ GET         /assets/*file                                    controllers.Assets.
 
 
 # User (change log image)
-GET         /changeImage                                     controllers.Users.changeImage
+GET         /changeImage                                     controllers.auth.Users.changeImage
 
 #salon (update information)
 GET     /salonUpd/:id                                        controllers.SalonInfo.update(id: ObjectId)
