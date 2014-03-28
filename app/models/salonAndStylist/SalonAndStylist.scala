@@ -92,7 +92,7 @@ trait SalonAndStylistDAO extends ModelCompanion[SalonAndStylist, ObjectId] {
    *  与店铺签约
    */
   def entrySalon(salonId: ObjectId, stylistId: ObjectId) = {
-    val stylist = Stylist.findOneById(stylistId)
+    val stylist = Stylist.findOneByStylistId(stylistId)
     stylist match {
       case Some(sty) => {
         dao.save(new SalonAndStylist(new ObjectId, salonId,

@@ -260,7 +260,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
       Ok(views.html.user.myPageRes(user,followInfo))
     } else if ((user.userTyp).equals(User.STYLIST)) {
       //TODO
-      val stylist = Stylist.findByUserId(user.id)
+      val stylist = Stylist.findOneByStylistId(user.id)
       Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get, followInfo = followInfo))
     } else {
       Ok(views.html.user.myPageRes(user,followInfo))
@@ -356,8 +356,8 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
       errors => BadRequest(views.html.user.applyStylist(errors, user, goodAtStylePara, followInfo)),
       {
         case(stylistApply) => {
-          Stylist.save(stylistApply.stylist.copy(publicId = user.id))
-          val applyRecord = new SalonStylistApplyRecord(new ObjectId, stylistApply.salonId, stylistApply.stylist.id, 1, new Date, 0, None)
+          Stylist.save(stylistApply.stylist.copy(stylistId = user.id))
+          val applyRecord = new SalonStylistApplyRecord(new ObjectId, stylistApply.salonId, stylistApply.stylist.stylistId, 1, new Date, 0, None)
     	  SalonStylistApplyRecord.save(applyRecord)
           Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user, goodAtStylePara, followInfo))
         }

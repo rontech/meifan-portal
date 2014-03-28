@@ -52,7 +52,7 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
     stylistList.foreach(
       {
       row => 
-        var user = User.findOneById(row.publicId).get
+        var user = User.findOneById(row.stylistId).get
         blog = Blog.find(DBObject("authorId" -> user.userId)).sort(MongoDBObject("updateTime" -> -1)).toList
         if(!blog.isEmpty)
           blogList :::= blog

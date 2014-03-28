@@ -72,8 +72,8 @@ object Blogs extends Controller {
    */    
   def getBlogByStylist(salonId: ObjectId, stylistId: ObjectId) = Action {
      val salon: Option[Salon] = Salon.findById(salonId)
-     val stylist = Stylist.findOneById(stylistId)
-     var user = User.findOneById(stylist.get.publicId).get
+     val stylist = Stylist.findOneByStylistId(stylistId)
+     var user = User.findOneById(stylist.get.stylistId).get
      var blogList = Blog.getBlogByUserId(user.userId)
      val listYM = getListYM(salon)
      Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogList, listYM = listYM))
@@ -120,7 +120,7 @@ object Blogs extends Controller {
     val listYM = getListYM(salon)
     val newestBlogsOfSalon = Blog.getNewestBlogsOfSalon(salonId)
     val user : Option[User] = User.findOneByUserId(blog.get.authorId)
-    val stylist : Option[Stylist] = Stylist.findOne(MongoDBObject("publicId" -> user.get.id))
+    val stylist : Option[Stylist] = Stylist.findOne(MongoDBObject("stylistId" -> user.get.id))
     Ok(views.html.salon.store.salonInfoBlog(salon = salon.get, blog = blog.get, listYM = listYM, newestBlogsOfSalon = newestBlogsOfSalon, stylist = stylist.get))
   }
   
@@ -129,8 +129,8 @@ object Blogs extends Controller {
    */
   def getBlogAuthor(salonId: ObjectId, userId: String) = Action {
     var user = User.findOneByUserId(userId).get
-    var stylist = Stylist.findOne(MongoDBObject("publicId" -> user.id)).get
-    Redirect(routes.Salons.getOneStylist(salonId, stylist.id))
+    var stylist = Stylist.findOne(MongoDBObject("stylistId" -> user.id)).get
+    Redirect(routes.Salons.getOneStylist(salonId, stylist.stylistId))
   }
   
   /**

@@ -11,7 +11,7 @@
 	</div>
 	<div class="mysalon-stylist-search">
 		<form action="/searchStylistById" method="get">
-			@Messages("stylist.id")<input name="searchStylistById" id="stylist-search"/>&nbsp;&nbsp;&nbsp;
+			@Messages("stylist.stylistId")<input name="searchStylistById" id="stylist-search"/>&nbsp;&nbsp;&nbsp;
 				<input type="hidden" name="salonId" value="@salon.id">
 			<input type="submit" value="@Messages("stylist.search")">
 		</form>
@@ -19,13 +19,13 @@
    			<div class="mc">
    			<div class="w166 mHA">
 			    <div class="taC">
-			        <a href="@routes.Salons.getOneStylist(salon.id, stylist.id)">
+			        <a href="@routes.Salons.getOneStylist(salon.id, stylist.stylistId)">
 			            @*<img src="@routes.Application.getPhoto(stylist.myPics.get(0).fileObjId)" class="bdImgGray w164 h219">*@
 			        </a>
 			    </div>
 			    <p class="mT10">
 			        <a href="#">
-			           <p>@Stylist.findUserName(stylist.publicId)</p>
+			           <p>@Stylist.findUserName(stylist.stylistId)</p>
 			        </a>
 			    </p>
 			    <div class="bdDotT mT5 pT5 fs10">
@@ -41,10 +41,10 @@
 			</div>
 			<div class="taC mT10">
 				@if(status == 1){
-				<a href="@routes.Reservations.reservHairView(stylist.id)" class="salon-stylist-reserv">@Messages("stylist.checkReserv")</a>
+				<a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv">@Messages("stylist.checkReserv")</a>
 				}
 				@if(status == 2){
-				<a href="/inviteStylist/@stylist.id/@salon.id" class="salon-stylist-reserv">@Messages("stylist.invite")</a>	
+				<a href="/inviteStylist/@stylist.stylistId/@salon.id" class="salon-stylist-reserv">@Messages("stylist.invite")</a>	
 				}
 			</div>
 			</div>

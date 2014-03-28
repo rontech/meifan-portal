@@ -20,7 +20,7 @@ case class StylistDetailInfo(basicInfo: User, stylistInfo: Option[Stylist], work
 
 case class Stylist(
     id: ObjectId = new ObjectId,
-    publicId: ObjectId,
+    stylistId: ObjectId,
     workYears: Int,
     position: List[IndustryAndPosition],
     goodAtImage: List[String],
@@ -63,6 +63,8 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
   )("Stylist")
   
   val dao = new SalatDAO[Stylist, ObjectId](collection){}
+  
+  collection.ensureIndex(DBObject("stylistId" -> 1), "userId", unique = true)
   
   def findGoodAtStyle: GoodAtStyle  = {
 	   val position = Position.findAll().toList
@@ -112,28 +114,31 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
     goodAtStyle
   }
   
-  def findUserName(publicId: ObjectId): String = {
-    val user = User.findOneById(publicId)
+  def findUserName(stylistId: ObjectId): String = {
+    val user = User.findOneById(stylistId)
     user match {
       case Some(u) => u.nickName
       case None => ""
     }
   }
   
-  def findByUserId(publicId: ObjectId) = {
-    dao.findOne(MongoDBObject("publicId" -> publicId))
+  def findByUserId(stylistId: ObjectId) = {
+    dao.findOne(MongoDBObject("stylistId" -> stylistId))
   }
   
-  def findUser(publicId: ObjectId): User = {
-    val user = User.findOneById(publicId)
+  def findUser(stylistId: ObjectId): User = {
+    val user = User.findOneById(stylistId)
     user match {
       case Some(u) => u
       case None => null
     }
   } 
   
+  def findOneByStylistId(stylistId: ObjectId) = {
+	  dao.findOne(MongoDBObject("stylistId" -> stylistId))
+  }
   /**
-   * get a stylist by its publicId = the user Id.
+   * get a stylist by its stylistId = the user Id.
    */
   def findStylistByPubId(pubId: ObjectId): Option[StylistDetailInfo] = {
     // first, check that if the stylist as a basic User is exist.
@@ -144,7 +149,7 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
         val stylist = findOneByUserPubId(pubId)
 
         // get the work info.(there is something we should pay attention to avoid errors.
-        //    we should find the work info by Stylist table's real ObjectId not the publicId.
+        //    we should find the work info by Stylist table's real ObjectId not the stylistId.
         //    TODO, should be modified later.)
         val work = stylist match {
           case Some(st) => SalonAndStylist.findByStylistId(st.id)    // TODO?
@@ -172,14 +177,14 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
   /**
    *
    */
-  def findOneByUserPubId(pubId: ObjectId) :Option[Stylist] = {
-    dao.findOne(DBObject("publicId" -> pubId))
+  def findOneByUserPubId(stylistId: ObjectId) :Option[Stylist] = {
+    dao.findOne(DBObject("stylistId" -> stylistId))
   }
 
   
   
-  def updateStylistInfo(stylist: Stylist,stylistId: ObjectId) = {
-    dao.save(stylist.copy(id = stylistId))
+  def updateStylistInfo(stylist: Stylist, stylistId: ObjectId) = {
+    dao.save(stylist.copy(stylistId = stylistId))
     
   }
  
@@ -212,12 +217,12 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
   	}
     
     def becomeStylist(stylistId : ObjectId) =  {
-    	dao.update(MongoDBObject("_id" -> stylistId), MongoDBObject("$set" -> (MongoDBObject("isVarified" -> true)++
+    	dao.update(MongoDBObject("stylistId" -> stylistId), MongoDBObject("$set" -> (MongoDBObject("isVarified" -> true)++
                 MongoDBObject("isValid" -> true))))   
     }
     
     def updateImages(stylist: Stylist, imgId: ObjectId) = {
-        dao.update(MongoDBObject("_id" -> stylist.id, "myPics.picUse" -> "logo"), 
+        dao.update(MongoDBObject("stylistId" -> stylist.stylistId, "myPics.picUse" -> "logo"), 
             MongoDBObject("$set" -> ( MongoDBObject("myPics.$.fileObjId" ->  imgId))),false,true)   
     }
     

@@ -67,7 +67,7 @@ object ApplyRecord{
     var stylists: List[Stylist] = Nil
     val records = ApplyRecordDAO.find(MongoDBObject("salonId" -> salonId, "acceptTime" -> None, "applyType" -> 1, "status" -> 0)).toList
     records.map {re =>
-       val stylist = Stylist.findOneById(re.stylistId)
+       val stylist = Stylist.findOneByStylistId(re.stylistId)
        stylist match {
          case Some(s) => stylists:::=List(s)
          case None => None
