@@ -137,6 +137,11 @@ salonAdmin.stateManagement = 动态管理
 salonAdmin.findAllStylists = 查看店铺所有技师
 salonAdmin.applyStylists = 申请的技师
 salonAdmin.removeStylist = 解除关系
+salonAdmin.CheckComment = 查看所有评论
+salonAdmin.checkService = 查看所有服务
+salonAdmin.checkCoupon = 查看所有优惠
+salonAdmin.checkMenu = 查看所有套餐
+salonAdmin.checkState = 我的动态
 
 # Hair
 hair.tabName=时尚靓发
@@ -166,6 +171,7 @@ hair.welcome=我们期待您的光临
 hair.consumerSocialStatus=适合人群
 hair.consumerSex=适合性别
 hair.consumerAgeGroup=适合年龄
+hair.addStyle = 添加发型
 hair.salonStyleTitle = {0}的发型
 hair.styleCatalogTitle = Hair Catalog  发型目录
 hair.menStyleTitle = Mens 男性
