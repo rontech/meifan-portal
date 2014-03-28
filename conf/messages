@@ -167,6 +167,19 @@ hair.consumerSocialStatus=适合人群
 hair.consumerSex=适合性别
 hair.consumerAgeGroup=适合年龄
 hair.salonStyleTitle = {0}的发型
+hair.styleCatalogTitle = Hair Catalog  发型目录
+hair.menStyleTitle = Mens 男性
+hair.styleImage = Image 检索
+hair.styleRanking = Ranking 人气发型排行榜
+hair.rankingAll = 综合
+hair.rankingMedium = 中长发
+hair.rankingShort = 短发
+hair.rankingSemiLong = 稍长发
+hair.rankingLong = 长发
+hair.rankingVeryShort = 超短发
+hair.rankingHairSet = 盘发
+hair.rankingMrs = 成熟发型
+hair.rankingMens = 男士发型
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -521,4 +534,5 @@ restDay.restDay.1.4=星期五
 restDay.restDay.1.5=星期六
 restDay.restDay.1.6=星期日
 restDay.message=
+salon.image=添加图片
 
