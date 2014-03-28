@@ -110,35 +110,25 @@
 			 		}
 			 	}
 			  }
-					
 		 	@inputText(salon("homepage"), '_label -> Messages("salon.homepage"))			
 			@inputText(salon("salonDescription"), '_label -> Messages("salon.description"))
 			@inputText(salon("mainPhone"), '_label -> Messages("salon.mainPhone"))
 			@inputText(salon("contact"), '_label -> Messages("salon.contact"))
-			@inputDate(salon("establishDate"), '_label -> Messages("salon.establishDate"))			
-			<lable>@Messages("salon.address")</lable>
-			<br>
-			<select name="salonAddress.province">
-     	    @for(i <- 0 to provinces.length-1){				
-       				@provinces.map{province=>
-        			<option value="@province.provinceName">@Messages("province.provinceName."+province.provinceName)</option>
-       			}
-    		</select>
-     		}
-     					       		 				
-			<select name="salonAddress.city">
-     	    @for(i <- 0 to cities.length-1){				
-       				@cities.map{cities=>
-        			<option value="@cities.cityName">@Messages("city.cityName."+cities.cityName)</option>
-       			}
-    		</select>
-    		}
-    		
-			<select name="salonAddress.region">
-     	    @for(i <- 0 to regions.length-1){				
-        			<option value="@regions(i).regionName">@Messages("region.regionName."+regions(i).regionName)</option>
-       			}
-    		</select>
+			@inputDate(salon("establishDate"), '_label -> Messages("salon.establishDate"))
+			<input type="hidden" id="procince" value= "@salon.get.salonAddress.province"/>
+			<input type="hidden" id="city" value= "@salon.get.salonAddress.city"/>	
+			<input type="hidden" id="region" value= "@salon.get.salonAddress.region"/>			
+            <div>
+            <span align = left>@Messages("salon.address")</span>
+            <br>
+				@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province"></select>
+				@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.get.salonAddress.city"></select>
+				@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.get.salonAddress.region"></select>
+				<script type="text/javascript">
+					addressInit('Select1', 'Select2', 'Select3','procince','city','region');
+				</script>
+			</div>
+    		<br>
 			@inputText(salon("salonAddress.town"), '_label -> Messages("salon.town"))
 			@inputText(salon("salonAddress.addrDetail"), '_label -> Messages("salon.addrDetail"))
 			@inputText(salon("salonAddress.longitude"), '_label -> Messages("salon.longitude"))
