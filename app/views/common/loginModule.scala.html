@@ -19,58 +19,57 @@ TODO
                             <li class="myMenuItemsCassette">
                                 <div class="mT11 taC">
                                     <img src="@routes.Assets.at("images/recruit_point_155.gif")" width="155"
-                                    alt="リクルートポイント（旧じゃらん×HOT PEPPER）" title="リクルートポイント（旧じゃらん×HOT PEPPER）">
+                                    alt="@Messages("point.pointDesc")" title="@Messages("point.pointDesc")">
                                 </div>
                                 <div class="grayPointBodyHead y4S mT8">
                                     <div class="grayPointBodyBox y4S">
                                         <div class="grayPointBody y4S taC">
                                             <p>
-                                                ホットペッパービューティー
+                                                @Messages("point.policyCond") 
                                                 <br>
-                                                なら
                                                 <span>
-                                                    &nbsp;2%&nbsp;
+                                                    @Messages("point.policies", "5%") 
                                                 </span>
-                                                貯まる
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="loginArea mT7 taC">
                                     <p>
-                                        ようこそ、ゲストさん。
+                                        @user match {
+                                            case None => {@Messages("user.welcome", Messages("user.guestName"))}
+                                            case Some(usr) => {@Messages("user.welcome", usr.nickName)}
+                                        }
                                     </p>
                                     <a href="@routes.Application.login" class="btn btn2H30 mT3 tdn">
                                         <span>
                                             <span class="b">
-                                                ログインする
+                                               @Messages("user.loginBtn") 
                                             </span>
                                         </span>
                                     </a>
                                     <p class="mT5">
-                                        <a href="@routes.Application.login" />
-                                        会員登録する（無料）
-                                        </a>
+                                        <a href="@routes.Application.login" />@Messages("user.pleaseSignUp")</a>
                                     </p>
                                     <ul class="taL mT7">
                                         <li>
-                                            <a href="javascript:void(0);" onclick="window.open('http://point.recruit.co.jp/');"
+                                            <a href="javascript:void(0);" @*onclick="window.open('http://point.recruit.co.jp/');"*@
                                             class="iS rPoint">
-                                                リクルートポイントとは
+                                               @Messages("point.scoreRules") 
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" onclick="window.open('http://point.recruit.co.jp/?tab=pointUseServise');"
+                                            <a href="javascript:void(0);" @*onclick="window.open('http://point.recruit.co.jp/?tab=pointUseServise');"*@
                                             class="iS rPoint">
-                                                参画サービス一覧
+                                               @Messages("point.howToUse") 
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                                 <p class="mT10">
-                                    <a class="iS arrowR" title="2億円ポイント山分けキャンペーン実施中！" href="/doc/cp/2oku/"
+                                    <a class="iS arrowR" title="@Messages("point.promotions")" @*href="/doc/cp/2oku/"*@
                                     target="_blank">
-                                        2億円ポイント山分けキャンペーン実施中！
+                                        @Messages("point.promotions") 
                                     </a>
                                 </p>
                             </li>
