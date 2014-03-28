@@ -140,11 +140,6 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 0 20px;
 }
 
-/* マップArea */
-.bgRouteMapTitle	{ background: url("/CSP/img/bt/map/bg/bg_routemaptitle.gif") no-repeat; display: block; width: 291px; height: 25px; padding:5px 0 0 10px; }
-.btnSearchStation	{ background: url("/CSP/img/bt/map/button/btn_searchbystation.gif?switch=20140227") no-repeat 0 0; display: block; width: 143px; height: 24px; }
-.btnSearchStation:hover	{ background: url("/CSP/img/bt/map/button/btn_searchbystation.gif?switch=20140227") no-repeat 0 -24px; display: block; width: 143px; height: 24px; }
-
 /* コンテンツ */
 #contents {
 	margin-top: 10px;
@@ -1882,8 +1877,6 @@ h1, h2, h3, h4, h5, h6 {
  * スプライト画像 - 横長画像（y.png）
  ************************************************************/
 
-.yS		{ background-image: url(/CSP/img/bt/sprites/y.png?switch=20140227); }
-
 /* 見出し */
 .mainContentsTitleOuter { background: none; }
 .mainContentsTitleInner {
@@ -1900,17 +1893,6 @@ h1, h2, h3, h4, h5, h6 {
 .mainContentsTitleInner h2		{ font-size: 18px; }
 
 .mainContentsSecondTitleOuter	{ background: none; }
-.mainContentsSecondTitleInner	{
-	line-height: 21px;
-	border-bottom: 1px solid #666666;
-	background: url(/CSP/img/bt/icons/icon_heading.png?switch=20140227) no-repeat 0 1px;
-	padding-left: 25px;
-	padding-bottom: 1px;
-	font-size: 15px;
-	font-weight: bold;
-	color: #444444;
-	font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'ＭＳ Ｐゴシック', 'MS P Gothic', 'Osaka', arial, sans-serif, verdana, Helvetica;
-}
 .mainContentsThirdTitle	{
 	color: #444444;
 	background-color: #F0EDDD;
@@ -2041,8 +2023,6 @@ h1, h2, h3, h4, h5, h6 {
 /************************************************************
  * スプライト画像 - 横長画像（y4.png）
  ************************************************************/
-
-.y4S		{ background-image: url(/CSP/img/bt/sprites/y4.png?switch=20140227);}
 
 .grayPointBodyHead {background-position: -324px top; background-repeat: no-repeat; padding-top: 6px;}
 .grayPointBodyBox {background-position: -648px bottom; background-repeat: no-repeat; padding-bottom: 6px;}
@@ -2508,12 +2488,7 @@ h1, h2, h3, h4, h5, h6 {
 	text-align: center;
 	padding: 6px 0 8px;
 }
-.imgFrame {
-	background-position: -1100px -20px;
-	width: 218px;
-	text-align: center;
-	padding: 3px 0 4px;
-}
+
 .photoFrameSmall {
 	background-position: -1340px -20px;
 	width: 162px;
@@ -2652,7 +2627,6 @@ h1, h2, h3, h4, h5, h6 {
 .hairNormal				{ background-position: -40px -20px; width: 48px; height: 21px; display:block; }
 .hairNormalOn			{ background-position: -40px -41px; width: 48px; height: 21px; display:block; }
 .hairLittle				{ background-position: -120px -20px; width: 48px; height: 21px; display:block; }
-.hairLittleOn			{ background-position: -120px -41px; width: 48px; height: 21px; display:block; }
 .hairMuch				{ background-position: -200px -20px; width: 48px; height: 21px; display:block; }
 .hairMuchOn				{ background-position: -200px -41px; width: 48px; height: 21px; display:block; }
 .hairSoft				{ background-position: -280px -20px; width: 48px; height: 21px; display:block; }
@@ -3459,63 +3433,6 @@ td.bgPink8.fgWhite {
 	cursor: pointer;
 }
 
-/* btn1 */
-.btn1H30 {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat left -1734px;
-	line-height: 30px;
-}
-.btn1H30 > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat right -1794px;
-}
-.btn1H30 > span > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') repeat-x 0 -1854px;
-	color: #FFF;
-}
-.btn1H30:hover {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat left -1764px;
-}
-.btn1H30:hover > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat right -1824px;
-}
-.btn1H30:hover > span > span {
-	background-position: 0 -1884px;
-	color: #FFF;
-}
-.btn1H60 {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat left -1374px;
-	line-height: 60px;
-}
-.btn1H60 > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat right -1494px;
-}
-.btn1H60 > span > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') repeat-x 0 -1614px;
-	color: #FFF;
-	font-size: 15px;
-}
-.btn1H60:hover {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat left -1434px;
-}
-.btn1H60:hover > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat right -1554px;
-}
-.btn1H60:hover > span > span {
-	background-position: 0 -1674px;
-	color: #FFF;
-}
-
-/* btn2 */
-.btn2H24 {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat left -1230px;
-	line-height: 24px;
-}
-.btn2H24 > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') no-repeat right -1278px;
-}
-.btn2H24 > span > span {
-	background: url('/CSP/img/bt/sprites/btn2.png?switch=20140227') repeat-x 0 -1326px;
-	color: #E53B4E;
-}
 .btn2H24:hover {
 	background-position: 0 -1254px;
 }
@@ -3720,3 +3637,248 @@ height: 20px;
 	background-color:#CC9933;
 	
 }
+
+.styleItem {
+float: left;
+padding-right: 10px;
+padding-bottom: 15px;
+border-bottom: 1px solid #DDDDDD;
+padding-top: 20px;
+}
+
+.w176 {
+	width: 176px;
+}
+
+.taM {
+	text-align: center;
+}
+
+.stylePageTileOuter {
+border-bottom: 3px solid #E4E0D9;
+padding: 0 0 8px 10px;
+}
+
+#imgMain img {
+width: 271px;
+}
+
+.titleStyle {
+font-weight: bold;
+color: #665555;
+background-color: #E4E0D9;
+padding: 3px 8px;
+}
+
+.hairLittleOn {
+background-color: #CC4466;
+width: 48px;
+height: 21px;
+display: block;
+color: white;
+text-align: center;
+}
+
+.h122 {
+	height: 122px;
+}
+
+.wP80 {
+	width: 80%;
+}
+
+.sreachtabBody {
+	padding: 20px 10px;
+	background-color: #F2F2F2;
+	zoom: 1;
+}
+
+div.skinHeadingWrapper2 {
+height: 22px;
+border-bottom: 1px dotted #D5D5D5;
+padding: 0;
+}
+
+.skinTbl1 {
+border-collapse: collapse;
+border: 1px solid #FFFFFF;
+background-color: #FFFFFF;
+}
+
+.pCell1 th {
+padding: 5px 0;
+}
+
+.skinTbl1 th {
+background-color: #E5E1DD;
+color: #6E6E6E;
+font-weight: bold;
+}
+
+.skinTbl1 {
+border-collapse: collapse;
+}
+
+.dibBL {
+display: inline-block !important;
+zoom: 1;
+}
+
+.mR2 {
+margin-right: 2px;
+}
+
+.cbF {
+height: 1.5em;
+vertical-align: middle;
+margin: 0 5px 0 5px;
+padding: 0;
+}
+
+.pCell1 td {
+padding: 5px 3px;
+}
+
+.pH0 {
+padding-left: 0 !important;
+padding-right: 0 !important;
+}
+
+.pV1 {
+padding-top: 1px !important;
+padding-bottom: 1px !important;
+}
+
+.bdTblSprt {
+border-top: 1px dotted #D5D5D5;
+font-size: 0;
+height: 0;
+}
+
+.skinTbl1Wrapper {
+border: 1px solid #DED9D6;
+}
+
+.skinHeadingWrapper1 {
+height: 18px;
+border-bottom: 1px dotted #959595;
+background: url('/assets/images/style_icon_heading.png') no-repeat 2px 0;
+padding-left: 14px;
+padding-top: 11px;
+}
+
+.headingLength {
+background: url('/assets/images/heading_length.jpg') no-repeat 0 0;
+width: 172px;
+height: 17px;
+}
+
+a:hover .imgFrame {
+border: 1px solid #999999;
+-webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, .05);
+}
+
+a .imgFrame {
+-webkit-transition: border .2s linear;
+-moz-transition: border .2s linear;
+-ms-transition: border .2s linear;
+-o-transition: border .2s linear;
+transition: border .2s linear;
+}
+
+.headingSearch {
+background: url('/assets/images/heading_search.jpg') no-repeat 0 0;
+width: 138px;
+height: 15px;
+}
+
+.hcHeader {
+padding: 10px 12px 8px;
+background: url('/assets/images/bg_contents_heading.png') repeat 0 0;
+margin-bottom: 33px;
+}
+
+.hcHeading {
+position: relative;
+top: 7px;
+left: 2px;
+width: 216px;
+height: 26px;
+background: url(/assets/images/text_hair_catalog.jpg?) no-repeat 0 0;
+}
+
+.hcHeaderTopPage {
+height: 62px;
+}
+
+.hcHeadingCaption {
+font-size: 10px;
+color: #666666;
+font-weight: normal;
+}
+
+.headingMens {
+background: url(/assets/images/heading_mens.jpg) no-repeat 0 0;
+width: 84px;
+height: 14px;
+}
+
+.headingImage {
+background: url(/assets/images/heading_image.jpg) no-repeat 0 0;
+width: 130px;
+height: 17px;
+}
+
+.headingRanking {
+background: url(/assets/images/heading_ranking.jpg) no-repeat 0 0;
+width: 206px;
+height: 17px;
+}
+
+.mB10 {
+margin-bottom: 10px;
+}
+
+.tabRanking a {
+display: block;
+height: 30px;
+background-image: url(/assets/images/tab_ranking.png);
+background-repeat: no-repeat;
+text-align: center;
+}
+
+.current .tabRankingAll {
+background-position: 0 -30px;
+}
+
+.tabRankingAll {
+	width: 82px;
+}
+
+.tabRankingAll					{ background-position: 0 0; width: 82px;}
+.tabRankingAll:hover				{ background-position: 0 -30px; }
+.current .tabRankingAll			{ background-position: 0 -30px; }
+.tabRankingMedium					{ background-position: -100px 0; width: 80px; }
+.tabRankingMedium:hover			{ background-position: -100px -30px; }
+.current .tabRankingMedium		{ background-position: -100px -30px; }
+.tabRankingSemiLong				{ background-position: -200px 0; width: 80px; }
+.tabRankingSemiLong:hover		{ background-position: -200px -30px; }
+.current .tabRankingSemiLong	{ background-position: -200px -30px; }
+.tabRankingLong					{ background-position: -300px 0; width: 80px; }
+.tabRankingLong:hover			{ background-position: -300px -30px; }
+.current .tabRankingLong			{ background-position: -300px -30px; }
+.tabRankingShort					{ background-position: -400px 0; width: 80px; }
+.tabRankingShort:hover			{ background-position: -400px -30px; }
+.current .tabRankingShort		{ background-position: -400px -30px; }
+.tabRankingVeryShort				{ background-position: -500px 0; width: 80px; }
+.tabRankingVeryShort:hover		{ background-position: -500px -30px; }
+.current .tabRankingVeryShort	{ background-position: -500px -30px; }
+.tabRankingHairSet				{ background-position: -600px 0; width: 80px; }
+.tabRankingHairSet:hover			{ background-position: -600px -30px; }
+.current .tabRankingHairSet		{ background-position: -600px -30px; }
+.tabRankingMrs					{ background-position: -700px 0; width: 80px; }
+.tabRankingMrs:hover				{ background-position: -700px -30px; }
+.current .tabRankingMrs			{ background-position: -700px -30px; }
+.tabRankingMens					{ background-position: -800px 0; width: 82px; }
+.tabRankingMens:hover			{ background-position: -800px -30px; }
+.current .tabRankingMens			{ background-position: -800px -30px; }

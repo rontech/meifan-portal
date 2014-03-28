@@ -2,6 +2,10 @@
 
 @salonInfoMain(navInSalon = "salon-stylist", salon, navBar) {
 
+    <div class="yS mainContentsSecondTitleOuter">
+        <h2 class="yS mainContentsSecondTitleInner">@Messages("salon.stylistsList", salon.salonName)</h2>
+    </div>
+
     <!-- Get All stylists in a Salon with all the styles.  -->
     <div class="oh w745 mT20 pH10">
         @views.html.stylist.stylistGroup(stylists)

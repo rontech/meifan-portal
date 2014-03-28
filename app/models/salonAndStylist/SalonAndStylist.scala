@@ -61,17 +61,16 @@ trait SalonAndStylistDAO extends ModelCompanion[SalonAndStylist, ObjectId] {
     var stlDtls: List[StylistDetailInfo] = Nil
 
     // TODO check if the salon is active.
+
     // get all the stylists of the specified salon.
-    val stlsIn = findBySalonId(salonId)
-    stlsIn.map { work =>
-      val dtlinfo = Stylist.findStylistByPubId(work.stylistId)
-      dtlinfo match {
-        case Some(dtl) => stlDtls = dtl :: stlDtls
-        case None => stlDtls
-      }
-    } 
-    // return
-    //println("All stylist detail info in a salon: " + stlDtls) 
+    val employ = SalonAndStylist.findBySalonId(salonId)
+    employ.map { emp =>
+       val dtlinfo = Stylist.findStylistDtlByUserObjId(emp.stylistId)
+       dtlinfo match {
+           case None => stlDtls
+           case Some(dtl) => stlDtls = dtl :: stlDtls
+       } 
+    }
     stlDtls
   } 
 
@@ -123,40 +122,3 @@ trait SalonAndStylistDAO extends ModelCompanion[SalonAndStylist, ObjectId] {
 
 }
 
-case class IndustryAndPosition(
-  id: ObjectId,
-  positionName: String,
-  industryName: String)
-
-object IndustryAndPosition extends IndustryAndPositionDAO
-
-trait IndustryAndPositionDAO extends ModelCompanion[IndustryAndPosition, ObjectId] {
-  def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-        "Configuration error",
-        "Could not find mongodb.default.db in settings")))("IndustryAndPosition")
-
-  val dao = new SalatDAO[IndustryAndPosition, ObjectId](collection) {}
-
-  collection.ensureIndex(DBObject("_id" -> 1), "id", unique = true)
-
-}
-
-case class Position(
-  id: ObjectId,
-  positionName: String
- )
-
-object Position extends PositionDAO
-
-trait PositionDAO extends ModelCompanion[Position, ObjectId] {
-  def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-        "Configuration error",
-        "Could not find mongodb.default.db in settings")))("Position")
-
-  val dao = new SalatDAO[Position, ObjectId](collection) {}
-
-}

@@ -5,9 +5,9 @@ import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
 import com.mongodb.casbah.commons.Imports._
-
 import models._
 import views._
+import play.api.templates.Html
 
 object CouponAdmin extends Controller {
 	
@@ -16,7 +16,7 @@ object CouponAdmin extends Controller {
    */
   def findCoupons(salonId: ObjectId) = Action {implicit request =>
     Coupons.conditionForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.error.errorMsg(errors)),
+      errors => BadRequest(Html(errors.toString)),
       {
         serviceType =>
           var coupons: List[Coupon] = Nil

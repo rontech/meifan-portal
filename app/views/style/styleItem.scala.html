@@ -1,0 +1,244 @@
+@(style: Style, salon:Salon)
+<html>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+<div class="mT30" id="jsiHoverAlphaLayerScope">
+    <div class="stylePageTileOuter cFix">
+        <h2 class="fs16 fl">
+            @style.styleName
+        </h2>
+        <div class="jscHoverTarget">
+            <div class="jscLayer">
+                <p id="mysId01L000544169" style="position: relative; zoom: 1;" class="bS db addIntoMyStylePink offL fr mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
+                    <a id="mysIdh01L000544169" href="javascript:void(0);" >
+                        @Messages("hair.ToCollect")
+                    </a>
+                    <a href="" class="btnSaveToMyStyleDone jscRadius3px offL fr mR10">
+                        <span class="btnSaveToMyStyleDoneInner jscRadius3px">
+                            @Messages("hair.BeCollected")
+                        </span>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="cFix mT30 pH10">
+        <div class="fl w273">
+            <div class="pr">
+                <span id="imgMain" >
+                    <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)">
+                </span>
+            </div>
+            <ul class="cFix mT10">
+                @style.stylePic.map {stylePic =>
+                    <li class="fl w91">
+                        <span id="img" style="cursor: pointer;">
+                            <img src="@routes.Application.getPhoto(stylePic.fileObjId)" class="bdImgGray" onclick="changePic('img','imgMain')" height="89" width="65" >
+                        </span>
+                        <div class="iS SV01 offL mHA mT5">
+                        </div>
+                    </li>    
+                }
+            </ul>
+            <div class="mT20 pT10 bdDotT" align="center">
+	            <div class="jscHoverTarget">
+	                <div class="jscLayer">
+	                    <p id="mysId01L000544169" style="position: relative; zoom: 1;" class="bS db addIntoMyStylePink offL mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
+	                        <a id="mysIdh01L000544169" href="javascript:void(0);" >
+	                            @Messages("hair.ToCollect")
+	                        </a>
+	                        <a href="" class="btnSaveToMyStyleDone jscRadius3px offL fr mR10">
+	                            <span class="btnSaveToMyStyleDoneInner jscRadius3px">
+	                                @Messages("hair.BeCollected")
+	                            </span>
+	                        </a>
+	                    </p>
+	                </div>
+	            </div>
+            </div>
+        </div>
+        <div class="fr w427">
+            <div>
+                <div class="titleStyle">
+                    @Messages("hair.assessFromStylist")
+                </div>
+                <div class="cFix mT10">
+                    <div class="fl w99">
+                        <a href="@routes.Salons.getOneStylist(salon.id, style.stylistId)">
+                            <img src="@*routes.Application.getPhoto(Stylist.findOneById(style.stylistId).get.myPics(0).fileObjId)*@" class="w89">
+                        </a>
+                    </div>
+                    <div class="fr w318">
+                        @style.description
+                    </div>
+                </div>
+                <div class="cFix mT10 pT10 bdDotT">
+                    <div class="fl" >
+                        <a href="@routes.Salons.getOneStylist(salon.id, style.stylistId)">
+                        </a>
+                    </div>
+                    <div class="fr" >
+                        <a href="#" class="bS db nominatedReserve offL" width="200px">
+                            @Messages("reserve.name")
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mT30">
+                <div class="titleStyle">
+                    @Messages("hair.style")
+                </div>
+                <dl class="cFix mT10">
+                    <dt class="fl w8em fgPink">
+                        @Messages("hair.styleLength")
+                    </dt>
+                    <dd class="fl">
+                        @style.styleLength
+                    </dd>
+                </dl>
+                <dl class="cFix bdDotT mT5 pT5">
+                    <dt class="fl w8em fgPink">
+                        @Messages("hair.color")
+                    </dt>
+                    <dd class="fl">
+                        @style.styleColor.map {color =>
+                            @color  
+                        }
+                    </dd>
+                </dl>
+                <dl class="cFix bdDotT mT5 pT5">
+                    <dt class="fl w8em fgPink">
+                        @Messages("hair.impression")
+                    </dt>
+                    <dd class="fl">
+                        @style.styleImpression
+                    </dd>
+                </dl>
+                <dl class="cFix bdDotT mT5 pT5">
+                    <dt class="fl w8em fgPink">
+                        @Messages("hair.serviceItem")
+                    </dt>
+                    <dd class="fl w318">
+                        @style.serviceType
+                    </dd>
+                </dl>
+            </div>
+            <div class="mT30">
+                <div class="titleStyle">
+                    @Messages("hair.styleForPerson")
+                </div>
+                <div class="cFix p10 bgLGray">
+                    <div class="fl w190">
+                        <dl class="cFix">
+                            <dt class="fl fgPink w2em">
+                                @Messages("hair.styleAmount")
+                            </dt>
+                           	@style.styleAmount.map {styleAmount =>
+                           		<dd class="fl">
+                       				<span class="detail2S hairLittleOn mL5">
+                               			@styleAmount  
+                               		</span>
+                  			 	</dd>
+                           	}
+                        </dl>
+                        <dl class="cFix mT5">
+                            <dt class="fl fgPink w2em">
+                                @Messages("hair.styleQuality")
+                            </dt>
+                            @style.styleQuality.map {styleQuality =>
+                           		<dd class="fl">
+                       				<span class="detail2S hairLittleOn mL5">
+                               			@styleQuality  
+                               		</span>
+                  			 	</dd>
+                           	}
+                        </dl>
+                        <dl class="cFix mT5">
+                            <dt class="fl fgPink w2em">
+                                @Messages("hair.styleDiameter")
+                            </dt>
+                            @style.styleDiameter.map {styleDiameter =>
+                           		<dd class="fl">
+                       				<span class="detail2S hairLittleOn mL5">
+                               			@styleDiameter  
+                               		</span>
+                  			 	</dd>
+                           	}
+                        </dl>
+                    </div>
+                    <dl class="fr w190 bdGrayL pL15" >
+                        <dt class="fl fgPink w2em h106">
+                            @Messages("hair.faceShape")
+                        </dt>
+                        @style.faceShape.map {faceShape =>
+                        	<dd class="fl">
+                            	<span class="detail2S hairLittleOn mL5">
+                                    @faceShape
+                                </span>
+                        	</dd>
+                       }
+                            
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ↓carousel -->
+    <div class="w785 mT30">
+        <div class="yS mainContentsSecondTitleOuter" id="jsiCarouselPaging" style="position: relative;">
+            <h2 class="yS mainContentsSecondTitleInner">
+                @Messages("hair.styleOfStylist")
+            </h2>
+            <div style="position: absolute; top: 6px; right: 20px; color: rgb(255, 255, 255); font-size: 14px;">
+                7 / 7
+            </div>
+        </div>
+        <div class="mT20 carouselWrapper h122" id="jsiCarouselWrapper">
+            <div class="carouselInnerWrapper" id="jsiCarouselInnerWrapper">
+                <ul class="carousel" id="jsiCarousel" style="left: -4284px;">
+                    @Style.findByStylistId(style.stylistId).map { stylistAll =>
+                        @if(stylistAll.id != style.id) {
+                            <li>
+                                <a href="@routes.Salons.getOneStyle(salon.id, stylistAll.id)"  class="db pr">
+                                    <img class="w89" src="@routes.Application.getPhoto(stylistAll.stylePic(0).fileObjId)"
+                                    class="bdImgGray" oncontextmenu="return false;">
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <p class="carouselPrev">
+                <a href="javascript: void(0);" class="db bS btnCarouselPrev offL" id="jsiBtnCarouselPrev"
+                style="opacity: 1; cursor: pointer;">
+                    pre
+                </a>
+            </p>
+            <p class="carouselNext disabled">
+                <a href="javascript: void(0);" class="db bS btnCarouselNext offL" id="jsiBtnCarouselNext"
+                style="opacity: 0.5; cursor: default;">
+                    fut
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <!--↓ Stylist's Works: All the styles.  -->
+    @Stylist.findStylistDtlByUserObjId(style.stylistId) match {
+        case None => {Stylist's Followe Me module Not Found}
+        case Some(dtl) => { @views.html.stylist.pleaseReserveMe(dtl)}
+    }
+    <!--↑ Stylist's Works: All the styles.  -->
+
+</div>
+<script language="JavaScript">
+	function changePic(img, imgMain) {
+		alert("haha");
+		alert(document.getElementById(imgMain).innerHTML);
+		alert(document.getElementById(img).innerHTML);
+		//document.getElementById(imgMain).innerHTML = document.getElementById(img).innerHTML;
+		document.getElementById(imgMain).innerHTML = <img src="/getPhoto/B004554657_164-219.jpg">
+		alert(document.getElementById(imgMain).innerHTML);
+		alert("wokao");
+	}
+</script>
+</html>

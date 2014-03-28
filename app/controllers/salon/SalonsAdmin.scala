@@ -45,8 +45,18 @@ object SalonsAdmin extends Controller {
 	}
   }
   
+  /**
+   * 店铺服务后台管理
+   */
   def myService(salonId: ObjectId) = Action {
-    Ok(views.html.salon.general.index(Nil))
+    val salon = Salon.findById(salonId)
+    val serviceList = Service.findBySalonId(salonId)
+    
+    salon match{
+        case Some(s) =>Ok(html.salon.admin.mySalonServiceAll(salon = s, serviceList = serviceList))
+        case None => NotFound
+    }
+    
   }
   
   /**

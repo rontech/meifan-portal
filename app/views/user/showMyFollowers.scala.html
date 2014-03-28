@@ -1,4 +1,4 @@
-@(followInfo:FollowInformation,user:User, loginUserId:ObjectId)
+@(user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
 
 @main("") {
 	
@@ -11,7 +11,7 @@
         	@if(loginUserId.equals(user.id) ){
         		@views.html.user.myPageLeft(user, followInfo)
         	}else{
-        		@views.html.user.otherPageLeft(user, followInfo, loginUserId)
+        		@views.html.user.otherPageLeft(user, followInfo, loginUserId, logged)
         	}
         	</div>
 			<div id='SpaceMain'>

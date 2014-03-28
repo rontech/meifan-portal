@@ -1,0 +1,14 @@
+@(service: Service, salon: Salon)
+
+<table width=80%>
+			<tr>
+				<td width=10%>@Messages(service.serviceName)</td>
+				<td width=10%>@service.price</td>
+				<td width=10%>@service.duration</td>
+				<td width=10%>@service.serviceType</td>
+				<td width=60%>
+				<a href = "@routes.Services.deleteService(service.id, salon.id)"><input type="button" class = "buttons" value="@Messages("service.delete")"></a>
+				<a href = "@routes.Services.showService(service.id, salon.id)"><input type="button" class = "buttons" value="@Messages("service.update")"></a>
+				</td>
+			</tr>
+</table>
