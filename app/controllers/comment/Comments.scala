@@ -70,7 +70,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
           case (content) =>         
 	        Comment.addComment(user.userId, content, commentObjId, commentObjType)
 	        if (commentObjType == 1) { 
-	          Redirect(routes.Blogs.showBlogById(commentObjId))
+	          Redirect(noAuth.routes.Blogs.showBlogById(commentObjId))
 	        }
 	        else {
 	          Ok("")
@@ -107,7 +107,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
         {
           case (content) =>
 	        Comment.reply(user.userId, content, commentObjId, commentObjType) 
-	        Redirect(routes.Blogs.showBlogById(id))	
+	        Redirect(noAuth.routes.Blogs.showBlogById(id))	
         } 
       )
   }
@@ -133,11 +133,15 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
   /**
    * blog的作者删除评论
    */
-  def delete(id : ObjectId, commentObjId : ObjectId) = Action {
+  def delete(id : ObjectId, commentObjId : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     Comment.delete(id)
 //    Redirect(routes.Comments.find(commentedId))
-    Redirect(routes.Blogs.showBlogById(commentObjId))
+    Redirect(noAuth.routes.Blogs.showBlogById(commentObjId))
   }
   
+  /**
+   * 管理员删除后台删除评论
+   */
+  def deleteAdmin() = TODO
   
 }
