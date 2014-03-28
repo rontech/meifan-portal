@@ -32,10 +32,8 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
     var blogList : List[Blog] = Nil
     val stylistList = Stylist.findBySalon(salonId)
     var blog : List[Blog] = Nil
-    stylistList.foreach(
-      {
-      row => 
-        var user = User.findOneById(row.publicId).get
+    stylistList.foreach({ row => 
+        var user = User.findOneById(row.stylistId).get
         blog = Blog.find(DBObject("authorId" -> user.userId, "isValid" -> true, "pushToSalon" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
         if(!blog.isEmpty)
           blogList :::= blog
@@ -81,7 +79,18 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
     dao.update(MongoDBObject("_id" -> blog.id), MongoDBObject("$set" -> MongoDBObject("isValid" -> false)))
   }
   
-    /**
+  /**
+   * 通过User ObjectId 找到该发型师的blog
+   */
+  def getStylistBlogByStylistId(objId: ObjectId) = {
+    val user = User.findOneById(objId)
+    user match {
+      case None => Nil
+      case Some(usr) => getStylistBlogByUserId(usr.userId)
+    }
+  }
+
+  /**
    * 通过UserId找到该发型师的blog
    */
   def getStylistBlogByUserId(userId : String) = {

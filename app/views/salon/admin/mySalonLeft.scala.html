@@ -1,144 +1,46 @@
 @(salon: Salon)
-	
-	<div class="m m3" id="userinfo">
-	<div class="user">
-        <div class="u-icon picture">
-            <div id="modifyheader" class="hide" style="display: none;">
-                <div id="modUserImgBox" class="upper fore">
-                </div>
-                <a href="javascript:void(0)" class="fore">
-                    @Messages("salonAdmin.updateHeadPortrait")
-                </a>
-            </div>
-            <img onerror="this.src='http://i.jd.com/commons/img/no-img_mid_.jpg'"
-            id="userImg" src="http://i.jd.com/commons/img/no-img_mid_.jpg" alt="用户头像">
-        </div>
-        <div class="extra">
-            <a target="_blank" href="#">
-                @Messages("salonAdmin.myPage")
-            </a>
-        </div>
-        <div class="extra">
-            <a target="_blank" href="#">
-                @Messages("salonAdmin.myBlog")
-            </a>
-        </div>
-    </div>
-    <!--user-->
-    <div id="i-userinfo">
-        <div class="username">
-            <div class="fl ftx-03" id="userinfodisp">
-                <strong>
-                    <a target="_blank" href="http://me.jd.com">
-                        @salon.salonName
-                    </a>
-                </strong>
-                ,
-                <span id="welcome">
-                    @Messages("salonAdmin.welcome")
-                </span>
-            </div>
-            <div class="extra" id="jdTask">
-            </div>
-        </div>
-        <div class="account">
-            <div id="memberInfo" class="member">
-                <div class="rank r4" clstag="click|keycount|myhome|currentclass">
-                    <s>
-                    </s>
-                    <a target="_blank" href="http://usergrade.jd.com/user/grade">
-                        铜牌会员
-                    </a>
-                </div>
-                <div class="memb-info" style="display: block;">
-                    您的
-                    <a target="_blank" href="http://usergrade.jd.com/user/usergrade/userjoy">
-                        成长值
-                    </a>
-                    为50，再获得1950成长值可升级到
-                    <a target="_blank" href="http://help.jd.com/help/question-57.html">
-                        银牌会员
-                    </a>
-                </div>
-                <div class="close">
-                </div>
-            </div>
-            <div class="fl" style="display:none" id="double_href">
-                <a clstag="click|keycount|myhome|vip" href="http://usergrade.jd.com/user/grade"
-                target="_blank">
-                    <s>
-                    </s>
-                    查看贵宾专线
-                </a>
-            </div>
-        </div>
-        <div class="acco-safe">
-            <span>
-                账户安全：
-            </span>
-            <strong class="rank-text ftx-01">
-                很危险
-            </strong>
-            <i id="cla" class="icon-rank01">
-            </i>
-            <a href="#"
-            class="teln">
-                <s>
-                </s>
-                手机未验证
-            </a>
-            <a href="#" class="mailn">
-                <s>
-                </s>
-                邮箱未验证
-            </a>
-        </div>
-        <!--end-->
-        <div id="remind">
-            <div class="oinfo">
-                <dl class="fore">
-                    <dt>
-                       @Messages("salonAdmin.remindRsv")
-                    </dt>
-                    <dd>
-                        <span id="orderCount" clstag="click|keycount|myhome|ordercount">
-                            <a href="http://jd2008.jd.com/JdHome/OrderList.aspx?jdhome=myjd">
-                                @Messages("salonAdmin.needCommentRsv")
-                                (2)
-                            </a>
-                        </span>
-                    </dd>
-                    <dd>
-                        <a id="reviewCountHref" clstag="click|keycount|myhome|commentscount" href="http://club.jd.com/mycomments.aspx">
-                           	 @Messages("salonAdmin.overtimeRsv")
-                           	 (
-                            <span id="reviewCount">
-                                1
-                            </span>
-                            )
-                        </a>
-                    </dd>
-                    <dd>
-                        <a id="reviewCountHref" clstag="click|keycount|myhome|commentscount" href="http://club.jd.com/mycomments.aspx">
-                           	@Messages("salonAdmin.expireRsv")
-                           	(
-                            <span id="reviewCount">
-                               0
-                            </span>
-                            )
-                        </a>
-                    </dd>
-                </dl>
-            </div>
-        </div>
-        <div id="remind">
-        	<div class="oinfo">
-                <dl class="fore">
-                	<dt>
-                       	@Messages("salonAdmin.remindApply")
-                    </dt>
-                    <dd>
-                	<a href="@routes.SalonsAdmin.checkHoldApply(salon.id)">
+
+			<div class ="Owner">
+				<a href="#" class='Img'><img src="http://imgbp.hotp.jp/CSP/IMG_SRC/05/00/B002710500/B002710500_100-100.jpg"/></a>
+				<span class='U'>
+      				<a href="" class='Name' title='female'></a>
+					<span class='opts'>
+						<a href = "/updateSalonlogo/@salon.id">@Messages("user.changeImage")</a>
+					</span>
+				</span>
+    				<div class="clear"></div>
+				
+			</div>
+			<div class='RMod' id='UserSkills'>
+	  			<div id="OtherScore">
+        			<h1><a href="#" target="_blank" title="@Messages("user.howToGetPoint")"><em></em>@Messages("salon.level")</a></h1>
+    			</div> 
+	  		</div>
+   			<div class='Opts clearfix'>
+                <a href="#" class='a2 admin'><span>@Messages("user.changeInfo")</span></a>
+				<a href="/showBlog/@salon.id" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
+			</div>
+			<!-- 店铺基本信息管理 -->
+			<div class='Mod Users' id='Fans'>
+	   			<strong>@Messages("salonAdmin.infoManagement")</strong>
+	   			<div class='more'>
+		 			<a href="/salonInfo/@salon.id">
+		 				<span>@salon.salonName</span>
+		 			</a>
+		 		</div>	
+		 		
+			</div>
+			<!-- 技师管理 -->
+			<div class='Mod Users' id='Fellows'>
+    			<strong>@Messages("salonAdmin.stylistManagement")</strong>
+				<ul class='clearfix'>
+	  				<li>
+    	 			</li>
+	  			</ul>
+	  			<div class='more'>
+    				<a href="/mySalon/@salon.id/stylist">@Messages("salonAdmin.myStylist")
+    				(@SalonAndStylist.countStylistBySalon(salon.id))</a><br />
+    				<a href="@routes.SalonsAdmin.checkHoldApply(salon.id)">
                 	@Messages("salonAdmin.fromStylistApply")
                 	(
                 		 <span id="reviewCount">
@@ -146,71 +48,99 @@
                          </span>
                 	)
                 	</a>
-                	</dd>
-                </dl>
-            </div>
-        </div>
-    </div>
-</div>
-	<!-- ↓mainContents -->
-			<div class="left">
-	    		<div id="myjd" class="m">
-			        <div class="mc">
-			        	<div class='RMod' id='UserSkills'>
-				  			<div id="OtherScore">
-			        			<h1><a href="http://www.oschina.net/question/3307_20931" target="_blank" title="如何获得积分？"><em>50</em>活跃积分:</a></h1>
-			        			<h1><a href="http://www.oschina.net/question/3307_20931" target="_blank" title="如何获得积分？"><em>463</em>可用积分:</a></h1>
-			    			</div> 
-							<div style="clear: both"></div>
-						</div>
-			            <dl tag="1">
-			                <dt tag="1">
-			                    <a href="/salonInfo/@salon.id" >@Messages("salonAdmin.infoManagement")</a><b></b>
-			                </dt>
-			           </dl>
-			            <dl tag="4">
-			                <dt tag="4">
-			                     <a href="/mySalon/@salon.id/stylist">@Messages("salonAdmin.stylistManagement")</a>
-			                </dt>
-			            </dl>
-			            <dl tag="2">
-			                <dt tag="2">
-			                    <a href="#">@Messages("salonAdmin.styleManagement")</a> 
-			                 </dt>
-			            </dl>
-			            <dl tag="2">
-			                <dt tag="2">
-			                    <a href="/mySalon/@salon.id/reserv">@Messages("salonAdmin.reserveManagement")</a> 
-			                 </dt>
-			            </dl>
-			            <dl tag="3">
-			                <dt tag="3">
-			                    <a href="/mySalon/@salon.id/comment">@Messages("salonAdmin.commentManagement")</a> 
-			                 </dt>
-			            </dl>
-					    <dl tag="3">
-				                <dt tag="3">
-				                   <a href="/mySalon/@salon.id/service">@Messages("salonAdmin.serviceManagement")</a> 
-				                </dt>
-				            </dl>
-					    <dl tag="3">
-				                <dt tag="3">
-				                   <a href="/mySalon/@salon.id/coupon">@Messages("salonAdmin.couponManagement")</a> 
-				                </dt>
-				        </dl>
-				        <dl tag="3">
-				                <dt tag="3">
-				                   <a href="/mySalon/@salon.id/menu">@Messages("salonAdmin.menuManagement")</a> 
-				                </dt>
-				        </dl>
-					    <dl tag="3">
-				                <dt tag="3">
-				                 <a href="#">@Messages("salonAdmin.stateManagement")</a>
-				                    <b>
-				                    </b>
-				                </dt>
-				        </dl>
-			        </div>
-	   		 	</div>
-	   		</div>
-<!-- ↑mainContents -->
+    				</div>
+			</div>  			
+			<div class='Mod Users' id='Fellows'>
+    			<strong>@Messages("salonAdmin.styleManagement")</strong>
+	  			<ul class='clearfix'>
+	  				<li>
+    	 			</li>
+	  			</ul>
+				<div class='more'>
+    				<a href="/getAllStylesBySalon/@salon.id/salon">@Messages("stylistMag.showAllStyles")
+    				（10）</a>
+    			</div>
+			</div>
+			<div class='Mod Users' id='Fellows'>
+    			<strong>@Messages("salonAdmin.reserveManagement")</strong>
+	  			<ul class='clearfix'>
+	  				<li>
+    	 				<a href="/mySalon/@salon.id/reserv"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 			</li>
+	  					
+    			</ul>
+				<div class='more'>
+					
+    			<a href="#">@Messages("salonAdmin.needCommentRsv")
+    							(
+                            	<span id="reviewCount">
+                                0
+                            	</span>
+                            	)</a><br />
+				<a href="#">@Messages("salonAdmin.overtimeRsv")
+                           	 (
+                            	<span id="reviewCount">
+                                1
+                            	</span>
+				)</a><br />
+				
+				<a href="#">@Messages("salonAdmin.expireRsv")
+                           	(
+                            	<span id="reviewCount">
+                                0
+                            	</span>
+                            	)</a><br />
+				
+    			</div>
+			</div>
+			<div class='Mod Users' id='Fans'>
+	   			<strong>@Messages("salonAdmin.commentManagement")</strong>
+	   			<ul class='clearfix'>
+      				<li>
+    	 			</li>
+	  			</ul>
+		 		<div class='more'>
+       					<a href="/mySalon/@salon.id/comment">@Messages("salonAdmin.CheckComment")</a>
+     				</div>
+			</div>
+			<div class='Mod Users' id='Fans'>
+	   			<strong>@Messages("salonAdmin.serviceManagement")</strong>
+	   			<ul class='clearfix'>
+      				<li>
+    	 			</li>
+	  			</ul>
+		 		<div class='more'>
+       					<a href="/mySalon/@salon.id/service">@Messages("salonAdmin.checkService")</a>
+     				</div>
+			</div>
+			<div class='Mod Users' id='Fans'>
+	   			<strong>@Messages("salonAdmin.couponManagement")</strong>
+	   			<ul class='clearfix'>
+      				<li>
+    	 			</li>
+	  			</ul>
+		 		<div class='more'>
+       					<a href="/mySalon/@salon.id/coupon">@Messages("salonAdmin.checkCoupon")</a>
+     				</div>
+			</div>
+			<div class='Mod Users' id='Fans'>
+	   			<strong>@Messages("salonAdmin.menuManagement")</strong>
+	   			<ul class='clearfix'>
+      				<li>
+    	 			</li>
+	  			</ul>
+		 		<div class='more'>
+       					<a href="/mySalon/@salon.id/menu">@Messages("salonAdmin.checkMenu")</a>
+     				</div>
+			</div>
+			<div class='Mod Users' id='Fans'>
+	   			<strong>@Messages("salonAdmin.stateManagement")</strong>
+	   			<ul class='clearfix'>
+      				<li>
+    	 			</li>
+	  			</ul>
+		 		<div class='more'>
+       					<a href="#">@Messages("salonAdmin.checkState")</a>
+     				</div>
+			</div>
+	<!-- ↑mainContents -->	

@@ -122,7 +122,7 @@ object Coupons extends Controller {
             var serviceDuration: Int = 0
             
             for(serviceItem <- coupon.serviceItems) {
-              val service: Option[Service] = Service.findOneByServiceId(serviceItem.id)
+              val service: Option[Service] = Service.findOneById(serviceItem.id)
               service match {
                 case Some(s) => services = s::services
                 				originalPrice = s.price + originalPrice
@@ -246,7 +246,7 @@ object Coupons extends Controller {
             var serviceDuration: Int = 0
 			    
             for(serviceItem <- coupon.serviceItems) {
-              val service: Option[Service] = Service.findOneByServiceId(serviceItem.id)
+              val service: Option[Service] = Service.findOneById(serviceItem.id)
               service match {
                 case Some(s) => services = s::services
                 				originalPrice = s.price + originalPrice

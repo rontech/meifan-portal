@@ -1,4 +1,4 @@
-@(salon: Salon, serviceList: List[Service])
+@(salon: Salon, serviceList: List[Service], serviceTypeNameList: List[String], serviceTypeInserviceList : List[String])
 
 <div class="showMenu">
 <div class="taC fr">
@@ -16,34 +16,26 @@
 </div>
 
 <div>
-@*if(menus.isEmpty) {
-	<div class="bgAlertMsg mT20">
-		<p class="alertMsg">@Messages("menu.tip")</p>
-	</div>
-} else {
-	@for(menu <- menus) {
-		@views.html.menu.showMenuItem(menu)
-	}
-}*@
-
   @if(serviceList.isEmpty){
   	<div class="bgAlertMsg mT20">
-		<p class="alertMsg">@Messages("menu.tip")</p>
+		<p class="alertMsg">@Messages("service.tip")</p>
 	</div>
   }else{
-  
-<table width=80%>
-			<tr>
-				<td width=10%>@Messages("service.name")</td>
-				<td width=10%>@Messages("service.price")</td>
-				<td width=10%>@Messages("service.tsCost")</td>
-				<td width=10%>@Messages("service.type")</td>
-				<td width=60%>@Messages("service.operate")</td>
-			</tr>  
-    @for(service <- serviceList){
-    	@views.html.service.showServiceItem(service, salon)
-    }
-  }  
-</table>
+  @for(i <- 0 to serviceTypeNameList.length-1) {
+  	
+  	<div>
+  		@if(serviceTypeInserviceList.exists(serviceType => serviceType.equals(serviceTypeNameList(i)))){
+  		  <div  class="singleMenuHead mT30 cFix"
+  		  <p class="b fl"><span><font><font>@Messages("ServiceType.serviceTypeName." + serviceTypeNameList(i))</font></font></span></p>
+  		  </div>
+  		}
+    </div>
+  	@for(service <- serviceList){
+  		@if(service.serviceType == serviceTypeNameList(i)){
+  			@views.html.service.showServiceItem(service, salon)
+  		}
+  	}
+}
+  }
 </div>
 </div>

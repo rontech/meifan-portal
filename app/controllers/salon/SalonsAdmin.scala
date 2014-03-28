@@ -6,6 +6,7 @@ import models._
 import views._
 import java.util.Date
 import models.Salon
+import models.ServiceType
 
 object SalonsAdmin extends Controller {
   
@@ -51,9 +52,11 @@ object SalonsAdmin extends Controller {
   def myService(salonId: ObjectId) = Action {
     val salon = Salon.findById(salonId)
     val serviceList = Service.findBySalonId(salonId)
+    val serviceTypeNameList = ServiceType.findAllServiceType
+    val serviceTypeInserviceList = serviceList.map(service => service.serviceType)
     
     salon match{
-        case Some(s) =>Ok(html.salon.admin.mySalonServiceAll(salon = s, serviceList = serviceList))
+        case Some(s) =>Ok(html.salon.admin.mySalonServiceAll(salon = s, serviceList = serviceList, serviceTypeNameList = serviceTypeNameList, serviceTypeInserviceList = serviceTypeInserviceList))
         case None => NotFound
     }
     
@@ -98,7 +101,7 @@ object SalonsAdmin extends Controller {
     val records = SalonStylistApplyRecord.findApplyingStylist(salonId)
     var stylists: List[Stylist] = Nil
     records.map{re =>
-      val stylist = Stylist.findOneById(re.stylistId)
+      val stylist = Stylist.findOneByStylistId(re.stylistId)
       stylist match {
         case Some(sty) => stylists :::= List(sty)
         case None => None
@@ -119,7 +122,7 @@ object SalonsAdmin extends Controller {
         record match {
           case Some(re) => {
             SalonStylistApplyRecord.save(re.copy(id=re.id, applyDate = new Date, verifiedResult = 1))
-            val stylist = Stylist.findOneById(re.stylistId)
+            val stylist = Stylist.findOneByStylistId(re.stylistId)
             Stylist.becomeStylist(stylistId)
             SalonAndStylist.entrySalon(salonId, stylistId)
             Redirect(routes.SalonsAdmin.myStylist(salonId))
@@ -149,14 +152,14 @@ object SalonsAdmin extends Controller {
     val stylistId = request.getQueryString("searchStylistById").get
     val salonId = request.getQueryString("salonId").get
 	val salon = Salon.findById(new ObjectId(salonId)).get
-	val stylist = Stylist.findOneById(new ObjectId(stylistId))
+	val stylist = Stylist.findOneByStylistId(new ObjectId(stylistId))
 	stylist match {
       case Some(sty) => {
-        val isValid = SalonAndStylist.checkSalonAndStylistValid(new ObjectId(salonId), sty.id)
+        val isValid = SalonAndStylist.checkSalonAndStylistValid(new ObjectId(salonId), sty.stylistId)
         if(isValid) {
           Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 1))
         } else {
-          if(SalonAndStylist.findByStylistId(sty.id).isEmpty) {
+          if(SalonAndStylist.findByStylistId(sty.stylistId).isEmpty) {
               Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 2))
           } else { 
             NotFound
@@ -189,7 +192,7 @@ object SalonsAdmin extends Controller {
         if(re.salonId == salonId) Ok("") else Ok("抱歉该技师已属于其它店铺")
       }
       case None => {
-        val stylist = Stylist.findOneById(styId)
+        val stylist = Stylist.findOneByStylistId(styId)
         stylist match {
           case Some(sty) => if(!sty.isValid) Ok("暂无该技师") else Ok("ID 有效")
           case None => Ok("暂无该技师")
@@ -202,4 +205,22 @@ object SalonsAdmin extends Controller {
     SalonAndStylist.leaveSalon(salonId,stylistId)
     Redirect(routes.SalonsAdmin.myStylist(salonId))
   }
+  
+  def getAllStylesBySalon(salonId: ObjectId) = Action {
+    val salon: Option[Salon] = Salon.findById(salonId)
+        val stylists = SalonAndStylist.getStylistsBySalon(salonId)
+        var styles: List[Style] = Nil
+        stylists.map { sty =>
+            var style = Style.findByStylistId(sty.stylistId)
+            styles :::= style
+        }
+    println("styles"+styles)
+        salon match {
+            case Some(sa) => {
+                Ok(html.salon.admin.mySalonStyles(salon = sa , styles = styles))
+            }
+            case None => NotFound
+        }
+  }
+  
 }

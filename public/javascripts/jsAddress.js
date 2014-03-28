@@ -1,8 +1,12 @@
-﻿var addressInit = function(_cmbProvince, _cmbCity, _cmbArea, defaultProvince, defaultCity, defaultArea)
+﻿var addressInit = function(_cmbProvince, _cmbCity, _cmbArea, _Province, _City, _Area)
 {
 	var cmbProvince = document.getElementById(_cmbProvince);
 	var cmbCity = document.getElementById(_cmbCity);
 	var cmbArea = document.getElementById(_cmbArea);
+	
+	var province = document.getElementById(_Province).value;
+	var city = document.getElementById(_cmbCity).value;
+	var area = document.getElementById(_Area).value;
 	
 	function cmbSelect(cmb, str)
 	{
@@ -33,7 +37,7 @@
 		{
 			cmbAddOption(cmbArea, item.areaList[i], null);
 		}
-		cmbSelect(cmbArea, defaultArea);
+		cmbSelect(cmbArea, area);
 	}
 	function changeProvince()
 	{
@@ -45,7 +49,7 @@
 		{
 			cmbAddOption(cmbCity, item.cityList[i].name, item.cityList[i]);
 		}
-		cmbSelect(cmbCity, defaultCity);
+		cmbSelect(cmbCity, city);
 		changeCity();
 		cmbCity.onchange = changeCity;
 	}
@@ -54,7 +58,7 @@
 	{
 		cmbAddOption(cmbProvince, provinceList[i].name, provinceList[i]);
 	}
-	cmbSelect(cmbProvince, defaultProvince);
+	cmbSelect(cmbProvince, province);
 	changeProvince();
 	cmbProvince.onchange = changeProvince;
 }

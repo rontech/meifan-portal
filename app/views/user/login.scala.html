@@ -4,8 +4,13 @@
 	
 	 @main(title = "login") {
 	 	
-	 	<h2>@Messages("user.login")</h2>
+	 	<head>
+			<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
+		</head>
 	 	
+	 	<p><font size=8px>@Messages("user.login")</font></p>
+	 	
+	 	<div class = "loginForm">
 	 	@form(action = auth.routes.Users.login(), 'method ->"post"){
 	 		
 	 		@inputText(field = loginForm("userId"), '_label -> Messages("user.name"), 'placeholder -> Messages("user.name"))
@@ -13,8 +18,9 @@
 			@inputPassword(field = loginForm("password"), '_label -> Messages("user.password"), 'placeholder ->Messages("user.password") ,
 				'_error -> loginForm.globalError.map(_.withMessage(Messages("user.loginErr"))))
 			
-            <a href = "@routes.Application.register()"><input type="button" class = "buttons" value="@Messages("user.registerBtn")"></a>
+            <a href = "@routes.Application.register()"><input type="button" class = "loginbuttons" value="@Messages("user.registerBtn")"></a>
             
-            <input type= "submit" class = "buttons" value="@Messages("user.loginBtn")">
+            <input type= "submit" class = "loginbuttons" value="@Messages("user.loginBtn")">
 	 	}
+	 	</div>
 	 }

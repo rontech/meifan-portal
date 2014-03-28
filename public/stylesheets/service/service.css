@@ -1,3 +1,58 @@
-.info{
+.info,
+.OSC_Content .SpaceMain .info{
 	display:none;
+}
+
+.serviceInfo,
+.OSC_Content .SpaceMain .serviceInfo {
+margin-left: 250px;
+margin-top: 10px;
+}
+
+.serviceInfo dt,
+.OSC_Content .SpaceMain .serviceInfo dt {
+float: left;
+font-size: 13px;
+margin: 4px 8px 0 0;
+width: 200px;
+}
+
+.serviceInfo dl,
+.OSC_Content .SpaceMain .serviceInfo dl {
+margin-bottom: 6px;
+width: 710px;
+height: 30px;
+}
+
+.serviceInfo dl dd,
+.OSC_Content .SpaceMain .serviceInfo dl dd {
+margin-left: 20px;
+float: left;
+}
+
+.mainTitle {
+font-size: 15px;
+width: 76%;
+border-bottom: 1px solid #dedddc;
+}
+
+.btnArea {
+margin-left: 230px;
+border-top: 1px solid #dedddc;
+margin-top: 10px;
+}
+
+div.btnArea .buttons{
+background: #feeedf;
+margin-top: 10px;
+}
+
+.btnAreaUpdate {
+border-top: 1px solid #dedddc;
+margin-top: 10px;
+}
+
+.btnAreaUpdate .buttons{
+background: #feeedf;
+margin-top: 10px;	
 }

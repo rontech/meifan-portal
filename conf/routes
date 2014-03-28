@@ -192,7 +192,6 @@ GET         /salonRegister                                   controllers.SalonIn
 POST        /salonDoRegister                                 controllers.SalonInfo.doRegister
 
 
-
 # Salon Service 
 GET         /addServiceType                                  controllers.ServiceTypes.addServiceType
 GET         /serviceTypeMain                                 controllers.ServiceTypes.serviceTypeMain
@@ -226,8 +225,6 @@ GET         /assets/*file                                    controllers.Assets.
 # User (change log image)
 GET         /changeImage                                     controllers.auth.Users.changeImage
 
-#salon (update information)
-GET     /salonUpd/:id                                        controllers.SalonInfo.update(id: ObjectId)
 
 #salonAdmin (check stylist is activity)
 GET		/salonAdmin/checkStylistIsValid/:salonId/:stylistId  controllers.SalonsAdmin.checkStylistIsValid(salonId: String, stylistId: String)
@@ -266,10 +263,16 @@ GET		/saveStylistImg/:imgId								 controllers.Stylists.saveStylistImg(imgId: O
 #add by hz-han
 GET		/salonLogin				     controllers.Application.salonLogin
 POST      	/loginSalon                                  controllers.SalonInfo.loginSalon
-GET         /salonInfo/:id                                   controllers.SalonInfo.salonInfoBasic(id: ObjectId)
-GET         /salonUpd/:id                                    controllers.SalonInfo.update(id: ObjectId)
-GET         /salonRegister                                   controllers.SalonInfo.register
-POST        /salonDoRegister                                 controllers.SalonInfo.doRegister
+
+
 #add bu lu-zheng
 GET         /mySalon/:id/createService                       controllers.Services.serviceMain(id: ObjectId)
+
+GET		/styleAddNewStyle									 controllers.Stylists.styleAddNewStyle
+POST	/styleToAddNewStyle									 controllers.Stylists.styleToAddNewStyle(styleId: ObjectId)
+
+
+#add by pingdou (styles of stylist)
+GET		/findMyStylesByStylist/:stylistId					 controllers.Stylists.findMyStylesByStylist(stylistId: ObjectId)
+GET		/getAllStylesBySalon/:salonId/salon				     controllers.SalonsAdmin.getAllStylesBySalon(salonId: ObjectId)
 
