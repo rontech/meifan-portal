@@ -116,30 +116,18 @@
 			@inputText(salonRegister("contact"), '_label -> Messages("salon.contact"))
 			@inputDate(salonRegister("establishDate"), '_label -> Messages("salon.establishDate"))				
      		 
-			<lable>@Messages("salon.address")</lable>
-			<br>
-			<select name="salonAddress.province">
-     	    @for(i <- 0 to provinces.length-1){				
-       				@provinces.map{province=>
-        			<option value="@province.provinceName">@Messages("province.provinceName."+province.provinceName)</option>
-       			}
-    		</select>
-     		}
-     					       		 				
-			<select name="salonAddress.city">
-     	    @for(i <- 0 to cities.length-1){				
-       				@cities.map{cities=>
-        			<option value="@cities.cityName">@Messages("city.cityName."+cities.cityName)</option>
-       			}
-    		</select>
-    		}
-    		
-			<select name="salonAddress.region">
-     	    @for(i <- 0 to regions.length-1){				
-        			<option value="@regions(i).regionName">@Messages("region.regionName."+regions(i).regionName)</option>
-       			}
-    		</select>
-    		
+
+            <div>
+            <span align = left>@Messages("salon.address")</span>
+            <br>
+				@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province"></select>
+				@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city"></select>
+				@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region"></select>
+				<script type="text/javascript">
+					addressInit('Select1', 'Select2', 'Select3','Select1', 'Select2', 'Select3');
+				</script>
+			</div>
+    		<br>
 			@inputText(salonRegister("salonAddress.town"), '_label -> Messages("salon.town"))
 			@inputText(salonRegister("salonAddress.addrDetail"), '_label -> Messages("salon.addrDetail"),'cols -> 50)
 			@inputText(salonRegister("salonAddress.longitude"), '_label -> Messages("salon.longitude"))
@@ -158,7 +146,7 @@
 			@checkbox(salonRegister("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"))
 			@checkbox(salonRegister("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"))
 			@inputText(salonRegister("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"),'cols -> 50)
-			@inputFile(salonRegister("salonPictures"), '_label -> Messages("salon.pictures"))
+			<a href="/addImage">@Messages("salon.image")</a>
 			@inputDate(salonRegister("registerDate"), '_label -> Messages("salon.registerTime"))	
 		  </fieldset> 
 		  <fieldset>
