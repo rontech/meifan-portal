@@ -3,9 +3,10 @@
 <div class="mT30">
     <div class="cFix p15 bgLGray">
         <div class="fl w89">
-            <img src="http://imgbp.hotp.jp/CSP/IMG_SRC/19/34/B003961934/B003961934_89-119.jpg"
-            alt="弗里尔兄弟公司坂本隆文">
-        </div>
+            <a href="@routes.Salons.getOneStylist(stylist.workInfo.get.salonId, stylist.basicInfo.id)">
+                <img src="@routes.Application.getPhoto(stylist.stylistInfo.get.myPics(0).fileObjId)" class="w89">
+            </a>
+       </div>
         <div class="cFix fr w636">
             <div class="detail2S waitTitle offL">
                 <font>
