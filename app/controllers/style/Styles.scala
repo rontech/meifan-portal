@@ -207,7 +207,7 @@ object Styles extends Controller {
     def styleSearchList = Action {
         implicit request =>
             styleSearchForm.bindFromRequest.fold(
-                errors => BadRequest(html.style.test(errors)),
+                errors => BadRequest(html.index("")),
                 {
                     case (styleSearch) => {
                         val styleSearchInfo = Style.findByPara(styleSearch)
@@ -242,8 +242,8 @@ object Styles extends Controller {
                 {
                     case (styleAddForm) => {
                         Style.save(styleAddForm)
-                        //                        Ok(html.style.test(styleAddForm))
-                        Ok(html.index(""))
+                                                Ok(html.style.test(styleAddForm))
+//                        Ok(html.index(""))
                     }
                 })
     }
