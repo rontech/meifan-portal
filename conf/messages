@@ -196,7 +196,11 @@ service.minutes = 分钟
 service.title = {0} 的服务
 service.createServiceArea = 创建服务区域
 service.addErrorMsg = 请输入服务名！
+service.priceErrorMsg = 请输入单价！
+service.durationErrorMsg = 请输入估计的耗时！
 service.description = 服务描述
+service.serviceNameNotAvalid=该服务名已登录
+service.tip = 还没有服务哦，赶快去添加吧！
 
 #ServiceType
 ServiceType.serviceTypeName.Cut = 剪

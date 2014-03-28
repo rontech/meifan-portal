@@ -2,6 +2,10 @@
 
 @mySalonMain(navInSalon = "salon-coupon", salon) {
 	
+	<head>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/service/service.css")">	
+	</head>
+	
     @views.html.service.createService(salon.id, serviceForm, serviceType)
 
 }

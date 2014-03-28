@@ -6,6 +6,7 @@
 	<head>
 		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mySalon.css")">
 		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/service/service.css")">
 		<script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"> </script>
 		<script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/stylist.js")" type="text/javascript"> </script>
@@ -18,26 +19,33 @@
         		@views.html.salon.admin.mySalonLeft(salon)
         	</div>
 			<div id='SpaceMain'>
+			   <div class="serviceInfo">
 	    		  @form(routes.Services.updateService(service.id,salon.id), 'id -> "serviceForm") {
-	                  <div class="menuInfo">
 						<input type="hidden" name="salonId" value="@salon.id" />
 		
 						@inputText(serviceForm("serviceName"),'_label -> Messages("service.name"), 'readonly ->"true")
         	
-        				@inputText(serviceForm("serviceType"),'_label -> Messages("service.type"), 'readonly ->"true")
-            
-						@inputText(serviceForm("description"),'_label -> Messages("service.description"))
+                        <input type="hidden" name="serviceType" value="@service.serviceType">
+                        <dl>
+                        	<dt>@Messages("service.type")</dt>
+                            <dd>
+                        	   <input type = "text" name = "" value = @Messages("ServiceType.serviceTypeName."+ service.serviceType) readonly="readonly">
+                            </dd>
+                        </dl>
+                        
+						@inputText(serviceForm("price"),'_label -> Messages("service.price"),
+			                '_error -> serviceForm("price").error.map(_.withMessage(Messages("service.priceErrorMsg"))))
 		
-						@inputText(serviceForm("price"),'_label -> Messages("service.price"))
+						@inputText(serviceForm("duration"),'_label -> Messages("service.tsCost"),
+			                '_error -> serviceForm("duration").error.map(_.withMessage(Messages("service.durationErrorMsg"))))
+			                
+			            @textarea(field = serviceForm("description"),'rows -> 2, 'cols -> 20, '_label -> Messages("service.description"))
 		
-						@inputText(serviceForm("duration"),'_label -> Messages("service.tsCost"))
-		
-		
-			</div>	
-			<div class="btnArea">
-				<input type="submit" class = "buttons" value="@Messages("service.update")">
-    		</div>
+			   <div class="btnAreaUpdate">
+				  <input type="submit" class = "buttons" value="@Messages("service.update")">
+    		   </div>
   }
+              </div>
        		</div>	        
         </div>
 <!-- ↑contents -->

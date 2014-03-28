@@ -16,9 +16,20 @@ case class ServiceType(
 object ServiceType extends ModelCompanion[ServiceType, ObjectId]{
 	val dao = new SalatDAO[ServiceType, ObjectId](collection = mongoCollection("ServiceType")){}
 
+	/**
+	 * 添加服务类型
+	 */
 	def addServiceType(serviceType : ServiceType) = dao.save(serviceType, WriteConcern.Safe)
 	
+	/**
+	 * 根据服务类型名获得此服务
+	 */
 	def findOneByTypeName(serviceTypeName: String): Option[ServiceType] = dao.findOne(MongoDBObject("serviceTypeName" -> serviceTypeName))
 	
-	def findOneByTypeId(id: ObjectId): Option[ServiceType] = dao.findOne(MongoDBObject("_id" -> id))
+	/**
+	 * 获取所有服务类型名
+	 */
+	def findAllServiceType = dao.find(MongoDBObject.empty).toList.map {
+		serviceType =>serviceType.serviceTypeName
+	}
 }

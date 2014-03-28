@@ -48,7 +48,7 @@
 
     @myPageMain(navInMyPage = "information", user, followInfo)  {
 
-        @form(auth.routes.Users.updateInfo(userForm.get.userId), 'id -> "userForm") {
+        @form(auth.routes.Users.updateInfo(user.userId), 'id -> "userForm") {
           <fieldset>
            	
                   @inputText(userForm("userId"),'_label -> Messages("user.name"), 'readonly -> "true")

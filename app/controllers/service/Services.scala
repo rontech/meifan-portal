@@ -10,6 +10,7 @@ import se.radley.plugin.salat.Binders._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.templates._
+import play.api.i18n.Messages
 
 object Services extends Controller {
   def serviceForm(id: ObjectId = new ObjectId): Form[Service] = Form(
@@ -27,8 +28,8 @@ object Services extends Controller {
       {
         service => Some((service.id, service.serviceName, service.description, service.serviceType, service.salonId.toString(), service.price, service.duration))
       }.verifying(
-        "This name has been used!",
-        service => !Service.checkService(service.serviceName)   
+        Messages("service.serviceNameNotAvalid"),
+        service => !Service.checkService(service.serviceName, service.salonId)   
     )
   )
   
@@ -86,7 +87,7 @@ object Services extends Controller {
  */  
   def updateService(id: ObjectId, salonId: ObjectId) = Action { implicit request =>
     serviceUpdateForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.service.updateService(Salon.findById(salonId).get,errors,Service.findOneByID(id).get)),
+      errors => BadRequest(views.html.service.updateService(Salon.findById(salonId).get,errors,Service.findOneById(id).get)),
       {
         service =>
           Service.save(service.copy(id = id), WriteConcern.Safe)
