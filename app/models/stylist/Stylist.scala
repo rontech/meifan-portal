@@ -133,48 +133,21 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
   } 
   
   /**
-   * get a stylist by its publicId = the user.id.
-   */
-  def findStylistByPublicId(pubId: ObjectId): Option[StylistDetailInfo] = {
-    // first, check that if the stylist as a basic User is exist.
-    val user = User.findOneById(pubId)
-    user match {
-      case Some(u) => {
-        // get the stylist info.
-        val stylist = findOneByUserPubId(pubId)
-
-        // get the work info.(there is something we should pay attention to avoid errors.
-        //    we should find the work info by Stylist table's real ObjectId not the publicId.
-        //    TODO, should be modified later.)
-        val work = stylist match {
-          case Some(st) => SalonAndStylist.findByStylistId(st.publicId)    // TODO?
-          case None => None
-        }
-        
-        // return 
-        Some(StylistDetailInfo(u, stylist, work))
-      }
-      case None => None
-    }
-  }
-
-  /**
    * get a stylist by its publicId = the user Id.
-   * TODO to be delete.
+   * 
    */
-  def findStylistByPubId(pubId: ObjectId): Option[StylistDetailInfo] = {
+  def findStylistByUserObjId(userObjId: ObjectId): Option[StylistDetailInfo] = {
     // first, check that if the stylist as a basic User is exist.
-    val user = User.findOneById(pubId)
+    val user = User.findOneById(userObjId)
     user match {
       case Some(u) => {
         // get the stylist info.
-        val stylist = findOneByUserPubId(pubId)
+        val stylist = Stylist.findOneByUserPubId(userObjId)
 
         // get the work info.(there is something we should pay attention to avoid errors.
-        //    we should find the work info by Stylist table's real ObjectId not the publicId.
-        //    TODO, should be modified later.)
+        // NOTICE:  we should find the work info by Stylist table's real ObjectId not the publicId.
         val work = stylist match {
-          case Some(st) => SalonAndStylist.findByStylistId(st.id)    // TODO?
+          case Some(st) => SalonAndStylist.findByStylistId(userObjId)
           case None => None
         }
         
@@ -186,12 +159,12 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
   }
 
   /**
-   * get a stylist by its user id.
+   * get a stylist by its user id, NOT the ObjectId.
    */ 
   def findStylistByUserId(uid: String): Option[StylistDetailInfo] = {
     val user = User.findOneByUserId(uid)
     user match {
-      case Some(u) => findStylistByPubId(u.id)
+      case Some(u) => findStylistByUserObjId(u.id)
       case None => None
     }
   }
@@ -203,7 +176,13 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
     dao.findOne(DBObject("publicId" -> pubId))
   }
 
-  
+  /**
+   * To avoid errors, we should never use the objectId of a stylist.
+   */
+  override 
+  def findOneById(id: ObjectId) = {
+    dao.findOne(DBObject("publicId" -> pubId))
+  }
   
   def updateStylistInfo(stylist: Stylist,stylistId: ObjectId) = {
     dao.save(stylist.copy(id = stylistId))
