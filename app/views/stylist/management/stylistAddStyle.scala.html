@@ -17,7 +17,7 @@
 				@*}*@
 			</div>
 			<div>
-				@Messages("hair.stylist")<input type = "text" class="" name = "stylistId" field = styleAddForm("stylistId") value = "530d8010d7f2861457771bf1">	
+				@Messages("hair.stylist")<input type = "text" class="" name = "stylistId" field = styleAddForm("stylistId") value = "@style.stylistId">	
 			</div>
 		<div align="left">	
 			<br/>@Messages("hair.styleLength")<br/>
@@ -170,7 +170,7 @@
 			@*}*@
 		</div>
 		<div>
-			@Messages("hair.stylist")<input type = "text" class="" name = "stylistId" field = styleAddForm("stylistId") value = "530d8010d7f2861457771bf1">	
+			@Messages("hair.stylist")<input type = "text" class="" name = "stylistId" field = styleAddForm("stylistId") value = "53202c29d4d5e3cd47efffd3">	
 		</div>
 		<div align="left">	
 		@input(field = styleAddForm("styleLength"),args = '_label ->Messages("hair.styleLength")){(id,name,value,args) =>
@@ -275,7 +275,7 @@
         <a class="removeOptContactMethod btn danger pull-right">Remove this stylePic</a>
         @inputText(
             field("fileObjId"), 
-            '_label -> "fileObjId"
+            '_label -> "fileObjId",'default -> new ObjectId
         )
         @inputText(
             field("picUse"), 

@@ -360,7 +360,7 @@ object InitialData {
             for(f <- stylistfiles){
                 val stylistImgId = Image.save(f)
                 val stylist = Stylist.findAll.toList(stylistfiles.indexOf(f))
-                println("stylistid  >>>>"stylist.id)
+                println("stylistid  >>>>"+stylist.id)
                 Stylist.updateImages(stylist, stylistImgId)
             }
           

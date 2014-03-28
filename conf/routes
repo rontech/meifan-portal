@@ -259,3 +259,8 @@ POST	/toUpdateStylistImage								 controllers.Stylists.toUpdateStylistImage
 GET		/saveStylistImg/:imgId								 controllers.Stylists.saveStylistImg(imgId: ObjectId)
 GET		/styleAddNewStyle									 controllers.Stylists.styleAddNewStyle
 POST	/styleToAddNewStyle									 controllers.Stylists.styleToAddNewStyle(styleId: ObjectId)
+
+
+#add by pingdou (styles of stylist)
+GET		/findMyStylesByStylist/:stylistId					 controllers.Stylists.findMyStylesByStylist(stylistId: ObjectId)
+
