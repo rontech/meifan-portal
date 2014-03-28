@@ -6,6 +6,7 @@ import models._
 import views._
 import java.util.Date
 import models.Salon
+import models.ServiceType
 
 object SalonsAdmin extends Controller {
   
@@ -51,9 +52,11 @@ object SalonsAdmin extends Controller {
   def myService(salonId: ObjectId) = Action {
     val salon = Salon.findById(salonId)
     val serviceList = Service.findBySalonId(salonId)
+    val serviceTypeNameList = ServiceType.findAllServiceType
+    val serviceTypeInserviceList = serviceList.map(service => service.serviceType)
     
     salon match{
-        case Some(s) =>Ok(html.salon.admin.mySalonServiceAll(salon = s, serviceList = serviceList))
+        case Some(s) =>Ok(html.salon.admin.mySalonServiceAll(salon = s, serviceList = serviceList, serviceTypeNameList = serviceTypeNameList, serviceTypeInserviceList = serviceTypeInserviceList))
         case None => NotFound
     }
     
