@@ -115,6 +115,10 @@ trait SalonAndStylistDAO extends ModelCompanion[SalonAndStylist, ObjectId] {
       case None => None
     }
   }
+  
+  def countStylistBySalon(salonId: ObjectId): Long = {
+    dao.count(MongoDBObject("salonId" -> salonId, "isValid" -> true))
+  }
 
 }
 

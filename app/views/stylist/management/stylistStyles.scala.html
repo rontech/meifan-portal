@@ -6,10 +6,16 @@
 			<form action="/stylistFindStylesByCondtion" method="get">
 					
 			</form>
-			<input tyle = "button" value="添加发型" onclick='location.href="/styleLogin/@stylist.stylistId"'>
+			
 		</div>
-		@styles.map{style=>
-			@views.html.stylist.management.stylistStyleItem(style)
-		}
+		<div class="stylist-stylist-group">
+			<input type = "button" class="stylist-addstyle-button" value="@Messages("hair.addStyle")" onclick='location.href="/styleLogin/@stylist.stylistId"'>
+			<div class="stylist-styles-map">
+			@styles.map{style=>
+				@views.html.stylist.management.stylistStyleItem(style)
+			}
+			</div>
+		</div>
 	</div>
 }
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">

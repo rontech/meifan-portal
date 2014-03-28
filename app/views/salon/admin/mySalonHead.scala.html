@@ -1,0 +1,47 @@
+@(navInMyPage:String = "my-reservation", salon :Salon)
+
+	<!-- ↓mainContents -->
+    	<ul class="bS menuBG cFix">
+		<li class="fl">
+			<a href="/salonInfo/@salon.id" >
+		    	@Messages("salonAdmin.infoManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+		<li class="fl">
+			<a href="/mySalon/@salon.id/stylist">
+		    	@Messages("salonAdmin.stylistManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+		<li class="fl">
+			<a href="#">
+				@Messages("salonAdmin.styleManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+		<li class="fl">
+			<a href="/mySalon/@salon.id/reserv">
+				@Messages("salonAdmin.reserveManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+		<li class="fl">
+			<a href="/mySalon/@salon.id/comment">
+				@Messages("salonAdmin.commentManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+		<li class="fl">
+			<a href="/mySalon/@salon.id/service">
+				@Messages("salonAdmin.serviceManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+		<li class="fl">
+			<a href="/mySalon/@salon.id/coupon">
+				@Messages("salonAdmin.couponManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+		<li class="fl">
+			<a href="/mySalon/@salon.id/menu">
+				@Messages("salonAdmin.menuManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+  			
+  		</ul>
+	<!-- ↑mainContents -->

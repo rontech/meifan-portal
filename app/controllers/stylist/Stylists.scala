@@ -268,7 +268,15 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
             case None => BadRequest("no photo")
         }
     
- }
+  }
+  
+  def findMyStylesByStylist(stylistId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val styles = Style.findByStylistId(stylistId)
+    val user = loggedIn
+    val stylist = Stylist.findOneByStylistId(stylistId)
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo))
+  }
   /*def updateStyleByStylist(styleId: ObjectId) = Action {
      
   }
