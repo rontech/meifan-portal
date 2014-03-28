@@ -269,3 +269,8 @@ GET         /mySalon/:id/createService                       controllers.Service
 
 GET		/styleAddNewStyle									 controllers.Stylists.styleAddNewStyle
 POST	/styleToAddNewStyle									 controllers.Stylists.styleToAddNewStyle(styleId: ObjectId)
+
+
+#add by pingdou (styles of stylist)
+GET		/findMyStylesByStylist/:stylistId					 controllers.Stylists.findMyStylesByStylist(stylistId: ObjectId)
+

@@ -15,7 +15,7 @@
 						<td colspan="3" style="width: 633px;">
 						<ul class="cFix" id="jsiLengthPanel">
 							<li class="dibBL mR2">
-								<input type="radio" class="cbF" name="lengthCd" id="lengthCd_ALL"  value = "" checked="checked">
+								<input type="radio" class="cbF" name="styleLength" id="lengthCd_ALL"  value = "all" checked="checked">
 								<label for="lengthCd_ALL">@Messages("common.all")</label>
 							</li>
 							@for(i <- 0 to stylePara.styleLength.length-1){
@@ -93,7 +93,7 @@
 							@input(field = styleSearchForm("styleAmount"), args = '_label -> None){(id,name,value,args) =>
 					            @for(i <- 0 to stylePara.styleAmount.length-1){
 					            	<li class="dibBL mR2">
-					            		<input type = "checkbox" class = "cbF" name = "serviceType[@i]" id="hairColorCd_HA@i" value = "@stylePara.styleAmount(i)">
+					            		<input type = "checkbox" class = "cbF" name = "styleAmount[@i]" id="hairColorCd_HA@i" value = "@stylePara.styleAmount(i)">
 						        		<label for="hairColorCd_HA@i">@stylePara.styleAmount(i)</label>
 					            	</li>
 					            }
@@ -181,9 +181,13 @@
 						<td colspan="3" style="padding-right: 0 !important;">
 						<ul>
 							@input(field = styleSearchForm("consumerSex"), args = '_label -> None){(id,name,value,args) =>
+							    <li class="dibBL mR2">
+                                    <input type="radio" class="cbF" name="consumerSex" id="sexCd_ALL"  value = "all" checked="checked">
+                                    <label for="sexCd_ALL">@Messages("common.all")</label>
+                                </li>
 					            @for(i <- 0 to stylePara.consumerSex.length-1){
 					            	<li class="dibBL mR2">
-					            		<input type = "radio" class = "cbF" name = "consumerSex[@i]" id="hairColorCd_HX@i" value = "@stylePara.consumerSex(i)">
+					            		<input type = "radio" class = "cbF" name = "consumerSex" id="hairColorCd_HX@i" value = "@stylePara.consumerSex(i)">
 						        		<label for="hairColorCd_HX@i">@stylePara.consumerSex(i)</label>
 					            	</li>
 					            }
