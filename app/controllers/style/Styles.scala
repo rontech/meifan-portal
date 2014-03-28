@@ -128,7 +128,7 @@ object Styles extends Controller {
         val stylists = Style.findStylistBySalonId(salonId)
         var styles: List[Style] = Nil
         stylists.map { sty =>
-            var style = Style.findByStylistId(sty.id)
+            var style = Style.findByStylistId(sty.stylistId)
             styles :::= style
         }
         salon match {
@@ -159,8 +159,14 @@ object Styles extends Controller {
      * 前台发型检索
      */
     def index = Action {
-        //        val searchLength = List(List("短", "http://imgbp.hotp.jp/CSP/img/hc/top/photo/lengthHL03.jpg"), ("中", "http://imgbp.hotp.jp/CSP/img/hc/top/photo/lengthHL02.jpg"))
-        Ok(html.style.general.overview(Nil, styleSearchForm, Style.findParaAll))
+        //检索画面Ranking数据暂时写死以便，数据画面显示；
+        val stylistId = List("53202c29d4d5e3cd47efffd9")
+        var styles: List[Style] = Nil
+        stylistId.map { sty =>
+            val style = Style.findByStylistId(new ObjectId(sty))
+            styles :::= style
+        }
+        Ok(html.style.general.overview(styles, styleSearchForm, Style.findParaAll))
     }
 
     def findByLength(styleLength: String, consumerSex: String) = Action {
@@ -200,7 +206,7 @@ object Styles extends Controller {
     def styleSearchList = Action {
         implicit request =>
             styleSearchForm.bindFromRequest.fold(
-                errors => BadRequest(html.style.test(errors)),
+                errors => BadRequest(html.index("")),
                 {
                     case (styleSearch) => {
                         val styleSearchInfo = Style.findByPara(styleSearch)
@@ -235,8 +241,8 @@ object Styles extends Controller {
                 {
                     case (styleAddForm) => {
                         Style.save(styleAddForm)
-                        //                        Ok(html.style.test(styleAddForm))
-                        Ok(html.index(""))
+                                                Ok(html.style.test(styleAddForm))
+//                        Ok(html.index(""))
                     }
                 })
     }

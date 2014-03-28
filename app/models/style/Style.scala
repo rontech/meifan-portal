@@ -71,7 +71,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         val salonAndStylists = SalonAndStylist.findBySalonId(salonId)
         var stylists: List[Stylist] = Nil
         salonAndStylists.map { salonAndStylist =>
-            val stylist = Stylist.findOneById(salonAndStylist.stylistId)
+            val stylist = Stylist.findOneByStylistId(salonAndStylist.stylistId)
             stylist match {
                 case Some(stylist) => {
                     stylists :: List(stylist)
@@ -227,6 +227,13 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
     
     def updateStyleImage(style: Style, imgId: ObjectId) = {
       dao.update(MongoDBObject("_id" -> style.id, "stylePic.picUse" -> "logo"), 
+            MongoDBObject("$set" -> ( MongoDBObject("stylePic.$.fileObjId" ->  imgId))),false,true)
+    }
+    
+    def saveStyleImage(style: Style, imgId: ObjectId) = {
+      println("stylepic"+style.stylePic.last.showPriority)
+      println("style id+++"+style.id)
+      dao.update(MongoDBObject("_id" -> style.id, "stylePic.showPriority" -> style.stylePic.last.showPriority.get), 
             MongoDBObject("$set" -> ( MongoDBObject("stylePic.$.fileObjId" ->  imgId))),false,true)
     }
 }

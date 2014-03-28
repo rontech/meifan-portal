@@ -6,5 +6,25 @@
 	@helper.form(routes.Stylists.toUpdateStylistImage, 'enctype -> "multipart/form-data") {
         <input type="file" id="filePhoto" name="photo" style="width:50"  /> 
         <button type="submit">@Messages("user.changeImage")</button>
+        <div id="target">
+        	
+        </div>
 	}
 }
+
+<script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#target').append('<img src='+e.target.result+' style="float:left;width:150px;margin-left:30px;margin-top:40px;"'+'>');
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#filePhoto").change(function() {
+    readURL(this);
+});
+</script>

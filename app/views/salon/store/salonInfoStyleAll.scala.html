@@ -2,8 +2,13 @@
 
 @salonInfoMain(navInSalon = "salon-style", salon, navBar) {
 	
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
 
-    <!-- Get All the Salons with all the styles.  -->
-    @views.html.style.styleGroup(styles,salon)
+    <div class="yS mainContentsSecondTitleOuter">
+        <h2 class="yS mainContentsSecondTitleInner">@Messages("hair.salonStyleTitle", salon.salonName)</h2>
+    </div>
+
+    <!-- get all the salons with all the styles.  -->
+    @views.html.style.styleGroup(styles, salon)
+
 }
