@@ -1,4 +1,4 @@
-@(user: User, followInfo:FollowInformation, seesionId: ObjectId)(content: Html)
+@(user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)(content: Html)
 
 @main(Messages("site.title")) {
 	
@@ -11,7 +11,7 @@
 
         <div id="OSC_Content">
         	<div id='SpaceLeft'>
-        		@views.html.user.otherPageLeft(user, followInfo, seesionId)
+        		@views.html.user.otherPageLeft(user, followInfo, loginUserId, logged)
         	</div>
 			<div id='SpaceMain'>
        		 	@content

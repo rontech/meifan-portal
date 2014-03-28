@@ -80,7 +80,7 @@ object MyFollow extends ModelCompanion[MyFollow, ObjectId] {
     //关注的技师列表
     val stylistIdL: List[ObjectId] = getAllFollowObjId(FOLLOW_STYLIST, id)
     val stylistL = stylistIdL.map(stylistId =>
-    	Stylist.findOneById(stylistId).get
+    	Stylist.findOneByStylistId(stylistId).get
     )
     //关注的用户
     val userIdL: List[ObjectId] = getAllFollowObjId(FOLLOW_USER, id)
@@ -105,7 +105,7 @@ object MyFollow extends ModelCompanion[MyFollow, ObjectId] {
     
     val styleIdL: List[ObjectId] = getAllFollowObjId(FOLLOW_STYLE, id)
     val styleL = styleIdL.map(styleId =>
-    	Style.findOneByID(styleId).get
+    	Style.findOneById(styleId).get
     )
     
     FollowInformation(salonL,stylistL,userL,couponL,blogL,styleL,followerL)

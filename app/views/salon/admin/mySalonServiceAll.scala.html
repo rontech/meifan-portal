@@ -1,0 +1,10 @@
+@(navInSalon: String = "my-service", salon: Salon, serviceList: List[Service])
+
+@mySalonMain(navInSalon, salon){
+	
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/menu.css")">
+	
+	@views.html.service.showServiceGroup(salon, serviceList)
+	
+}

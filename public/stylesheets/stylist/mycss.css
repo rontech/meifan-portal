@@ -44,7 +44,19 @@ a{
 	font-size:14pt;
 	font-weight:bold;
 }
+.stylist-addstyle-button{
+	float:right;
+	margin-right:30px;
+}
+.stylist-styles-map{
+	clear:right;
+}
 .mysalon-stylist-1{
 	float:left;
 }
+
+.stylist-stylist-group{
+	width:600px;
+}
+
 

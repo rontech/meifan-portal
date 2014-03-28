@@ -1,8 +1,8 @@
 # General
-site.welcome=悦美月容网，欢迎您！
-site.intro=宇宙首家动漫人物美发美容沙龙检索预约平台
+site.welcome=美范网，欢迎您！
+site.intro=中国首家美发美容检索预约平台
 site.powerby=苏州隆泰信息技术有限公司
-site.title=中国首家美发美容查询&预约网站｜美范网
+site.title=中国首家美发美容检索预约平台｜美范网
 site.description=美容院・美容室・ヘアサロン・ネイルサロン・エステサロン・リラクゼーションサロンが見つか中国国最大級の美容・キレイ総合情報サイト、......。スタイル、ブログ、口コミをチェックして、気になるサロンへ２４時間いつでもネット予約OK。美容・キレイサロンを検索・予約するなら......。
 site.keywords=美容,キレイ,美容院,美容室,ヘアサロン,ネイルサロン,まつげサロン,リラクサロン,エステサロン,ヘアカタログ,ネイルカタログ
 site.copyright=Copyright &copy; RONTECH Co., Ltd. All rights reserved.
@@ -15,6 +15,7 @@ common.edit=编辑
 common.delete=删除
 common.sreach = 检索
 common.all=全部
+common.backToTop=返回顶部
 
 # Index page
 index.mainPage=网站首页
@@ -58,6 +59,7 @@ salon.show=展示所有沙龙
 salon.title=店铺基本信息管理
 salon.salonData={0}的基本信息
 salon.id=店铺ID
+salon.password=密码
 salon.Name=店铺名
 salon.Abbr=店铺名略称
 salon.type=店铺行业种类
@@ -77,9 +79,12 @@ salon.town=镇
 salon.addrDetail=其他
 salon.longitude=店铺地理位置经度
 salon.latitude=店铺地理位置纬度
+salon.workTime=营业时间
 salon.openTime=营业开始
 salon.closeTime=营业结束
 salon.restDay=休息日
+salon.restDayDivision=请选择休息方式
+salon.restDays=请选择日期
 salon.priceCutOnly=剪发价格
 salon.priceCutOnlyMsg={0} 元起
 salon.seatNums=席位数
@@ -100,12 +105,19 @@ salon.hasParkingNearByMsg=有
 salon.hasNoParkingNearByMsg=无
 salon.pictures=展示图片
 salon.registerTime=美容平台注册日期
+salon.idMessage=请输入至少6位有效店铺ID！
+salon.passwordMessage=请输入至少6位密码！
+salon.confirmMessage=请再次输入密码！
+salon.desMseeage=您最多可以输入50个字符！
+salon.salonLogin=店铺登录
+salon.stylistsList={0}的发型师
 
 #salon management
 salonAdmin.mainPage = 店铺管理
 salonAdmin.myPage = 我的店铺
 salonAdmin.myBlog = 我的博客
 salonAdmin.myStylist = 我的技师
+salonAdmin.myComment = 我的评论
 salonAdmin.welcome = 欢迎您
 salonAdmin.remindRsv = 预约提示：
 salonAdmin.needCommentRsv = 待评论
@@ -125,6 +137,11 @@ salonAdmin.stateManagement = 动态管理
 salonAdmin.findAllStylists = 查看店铺所有技师
 salonAdmin.applyStylists = 申请的技师
 salonAdmin.removeStylist = 解除关系
+salonAdmin.CheckComment = 查看所有评论
+salonAdmin.checkService = 查看所有服务
+salonAdmin.checkCoupon = 查看所有优惠
+salonAdmin.checkMenu = 查看所有套餐
+salonAdmin.checkState = 我的动态
 
 # Hair
 hair.tabName=时尚靓发
@@ -154,6 +171,21 @@ hair.welcome=我们期待您的光临
 hair.consumerSocialStatus=适合人群
 hair.consumerSex=适合性别
 hair.consumerAgeGroup=适合年龄
+hair.addStyle = 添加发型
+hair.salonStyleTitle = {0}的发型
+hair.styleCatalogTitle = Hair Catalog  发型目录
+hair.menStyleTitle = Mens 男性
+hair.styleImage = Image 检索
+hair.styleRanking = Ranking 人气发型排行榜
+hair.rankingAll = 综合
+hair.rankingMedium = 中长发
+hair.rankingShort = 短发
+hair.rankingSemiLong = 稍长发
+hair.rankingLong = 长发
+hair.rankingVeryShort = 超短发
+hair.rankingHairSet = 盘发
+hair.rankingMrs = 成熟发型
+hair.rankingMens = 男士发型
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -168,7 +200,7 @@ reserve.information=详情查看
 
 # Service
 service.addService=添加服务
-service.name=服务技术
+service.name=服务名
 service.type=技术类别
 service.price=服务费用（单位：元）
 service.tsCost=服务耗时（单位：分钟）
@@ -182,6 +214,10 @@ service.delete=删除
 service.back=返回
 service.update=更新
 service.minutes = 分钟
+service.title = {0} 的服务
+service.createServiceArea = 创建服务区域
+service.addErrorMsg = 请输入服务名！
+service.description = 服务描述
 
 #ServiceType
 ServiceType.serviceTypeName.Cut = 剪
@@ -253,7 +289,7 @@ stylist.followStylist = 关注此技师
 stylist.worked = 从事
 stylist.blog = 技师博客
 stylist.findAllBlog = 查看此技师所有博客
-stylist.haircatalog = 发型目录
+stylist.haircatalog = {0} 的发型目录
 stylist.welcome = 期待你的光临
 stylist.selectForReserv = 指名预约
 stylist.createBlog = 发表于
@@ -271,7 +307,7 @@ stylist.industry = 职位
 
 #Stylist Apply
 stylist.name = 昵称
-stylist.workYears = 工作年数
+stylist.workYears = {0} 年
 stylist.industry = 类别
 stylist.position = 职位
 stylist.goodAtImage = 擅长风格
@@ -375,7 +411,7 @@ letter.time=时间
 # Messages Area.
 #-------------------------------
 
-#Blog
+# Blog
 blog.newBlog=发表博客
 blog.title=博客标题
 blog.content=博客内容
@@ -389,14 +425,51 @@ blog.latestBlog = 最新博客一览
 blog.author = 投稿者：
 blog.passDate = 投稿日：
 blog.shareTo = 分享到:
-blog.shareToQQ = QQ空间
-blog.shareToXL = 新浪微博
-blog.shareToTX = 腾讯微博
-blog.shareToRR = 人人网
-blog.shareToWX = 微信
+blog.QQ = QQ空间
+blog.XL = 新浪微博
+blog.TX = 腾讯微博
+blog.RR = 人人网
+blog.WX = 微信
 blog.latestBlogForSalon = 沙龙最新的博客 
 blog.authorTitle = 投稿者
 blog.moreInfo = 查看详情
+blog.shareToQQ = 分享到QQ空间
+blog.shareToXL = 分享到新浪微博
+blog.shareToTX = 分享到腾讯微博
+blog.shareToRR = 分享到人人网
+blog.shareToWX = 分享到微信
+blog.comment = 评论
+blog.reply = 回复
+blog.replyComment = 回复此评论
+blog.noComment = 尚无网友评论
+blog.postComment = 发表评论
+blog.titleErr = 请输入标题
+blog.contentErr = 请输入内容
+blog.isVisible = 是否他人可见
+blog.visible = 可见
+blog.unVisible = 不可见 
+blog.isPushToSalon = 是否推送到店铺
+blog.pushToSalon = 推送
+blog.notPushToSalon = 不推送
+blog.isAllowComment = 是否允许评论
+blog.allowComment = 允许
+blog.notAllowComment = 不允许
+blog.saveBlog = 保存修改
+blog.readFullBlog = 阅读全文...
+blog.createAt = 发布于 {0} 
+blog.floor = {0} 楼
+blog.quoteComment = 引用来自" {0} "的评论
+
+
+# Comment
+comment.salonCommentTitle = {0} 的评论
+comment.noComment = 该店铺暂无评论
+comment.passDate = [投稿日]
+comment.usedCoupon = 预约时使用的优惠券
+comment.usedServices = [用到的技术]
+comment.reply = {0}的回复
+
+
 
 
 
@@ -449,3 +522,23 @@ industry.industryName.Hairdressing=美发
 industry.industryName.Manicures=美甲
 industry.industryName.Healthcare=保健
 industry.industryName.Cosmetic=整形
+
+#额外联系方式
+optContactMethod.Remove = 删除号码
+optContactMethod.RemoveOptContactMethod = 删除此联系方式
+optContactMethod.AddNumber =添加号码
+optContactMethod.AddOptContactMethod =添加联系方式
+
+#休息日
+restDay.restDayDivision.0=星期
+restDay.restDayDivision.1=日期
+restDay.restDay.1.0=星期一
+restDay.restDay.1.1=星期二
+restDay.restDay.1.2=星期三
+restDay.restDay.1.3=星期四
+restDay.restDay.1.4=星期五
+restDay.restDay.1.5=星期六
+restDay.restDay.1.6=星期日
+restDay.message=
+salon.image=添加图片
+

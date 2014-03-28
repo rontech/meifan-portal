@@ -49,15 +49,12 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
     var blogList : List[Blog] = Nil
     val stylistList = Stylist.findBySalon(salonId)
     var blog : List[Blog] = Nil
-    stylistList.foreach(
-      {
-      row => 
-        var user = User.findOneById(row.publicId).get
-        blog = Blog.find(DBObject("authorId" -> user.userId)).sort(MongoDBObject("updateTime" -> -1)).toList
+    stylistList.foreach({ row => 
+        var user = User.findOneById(row.stylistId).get
+        blog = Blog.find(DBObject("authorId" -> user.userId, "isValid" -> true, "pushToSalon" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
         if(!blog.isEmpty)
-          blogList :::= blog
-      }
-    )
+            blogList :::= blog
+    })
     blogList
   }
   
@@ -95,8 +92,29 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
   override
   def findOneById(id: ObjectId): Option[Blog] = dao.findOne(MongoDBObject("_id" -> id))
   
+  /**
+   * 删除指定的blog
+   */
   def delete(id : ObjectId) = {
     val blog = findOneById(id).get
     dao.update(MongoDBObject("_id" -> blog.id), MongoDBObject("$set" -> MongoDBObject("isValid" -> false)))
+  }
+  
+  /**
+   * 通过User ObjectId 找到该发型师的blog
+   */
+  def getStylistBlogByStylistId(objId: ObjectId) = {
+    val user = User.findOneById(objId)
+    user match {
+      case None => Nil
+      case Some(usr) => getStylistBlogByUserId(usr.userId)
+    }
+  }
+
+  /**
+   * 通过UserId找到该发型师的blog
+   */
+  def getStylistBlogByUserId(userId : String) = {
+    dao.find(MongoDBObject("authorId" -> userId, "isValid" -> true, "pushToSalon" -> true)).toList
   }
 }

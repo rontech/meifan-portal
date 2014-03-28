@@ -128,7 +128,7 @@ object Styles extends Controller {
         val stylists = Style.findStylistBySalonId(salonId)
         var styles: List[Style] = Nil
         stylists.map { sty =>
-            var style = Style.findByStylistId(sty.id)
+            var style = Style.findByStylistId(sty.stylistId)
             styles :::= style
         }
         salon match {
@@ -159,8 +159,15 @@ object Styles extends Controller {
      * 前台发型检索
      */
     def index = Action {
-        //        val searchLength = List(List("短", "http://imgbp.hotp.jp/CSP/img/hc/top/photo/lengthHL03.jpg"), ("中", "http://imgbp.hotp.jp/CSP/img/hc/top/photo/lengthHL02.jpg"))
-        Ok(html.style.general.overview(Nil, styleSearchForm, Style.findParaAll))
+        //检索画面Ranking数据暂时写死以便，数据画面显示；
+        val salonId = "530d7292d7f2861457771bde"
+        val stylists = Style.findStylistBySalonId(new ObjectId(salonId))
+        var styles: List[Style] = Nil
+        stylists.map { sty =>
+            var style = Style.findByStylistId(sty.id)
+            styles :::= style
+        }
+        Ok(html.style.general.overview(styles, styleSearchForm, Style.findParaAll))
     }
 
     def findByLength(styleLength: String, consumerSex: String) = Action {

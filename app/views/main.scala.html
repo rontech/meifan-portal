@@ -34,7 +34,7 @@
                             <a href="javascript:void(0);" id="faq" class="iS arrowR"> @Messages("main.help") </a>
                         </li>
                         <li class="fr pL15">
-                            <a href="@routes.Users.myPage" class="iS arrowR"> @Messages("main.myPage") </a>
+                            <a href="@auth.routes.Users.myPage" class="iS arrowR"> @Messages("main.myPage") </a>
                        </li>
                     </ul>
                     <ul class="move cFix">
@@ -133,7 +133,7 @@
                         </div>
                         <div class="postSalonInfo">
                             @Messages("main.toSalonOwners")
-                            <a target="_blank" title="@Messages("main.wantToJoin")" href="/salonRegister"
+                            <a target="_blank" title="@Messages("main.wantToJoin")" href="/salonLogin"
                             onclick="customLinkLog('Footer Salon Link');">
                                 @Messages("main.wantToJoin")
                             </a>

@@ -37,7 +37,7 @@ object Salons extends Controller {
             case Some(sl) => {
                 val stylists = SalonAndStylist.getSalonStylistsInfo(salonId)
                 // navigation bar
-                val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylist"), routes.Salons.getAllStylists(sl.id).toString()))
+                val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylists"), routes.Salons.getAllStylists(sl.id).toString()))
                 // Jump to stylists page in salon. 
                 Ok(views.html.salon.store.salonInfoStylistAll(salon = sl, stylists = stylists, navBar = navBar))
             }
@@ -56,24 +56,27 @@ object Salons extends Controller {
             // when salon is exist
             case Some(sl) => {
                 // navigation bar
-                val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylist"), routes.Salons.getAllStylists(sl.id).toString()))
+                val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylists"), routes.Salons.getAllStylists(sl.id).toString()))
 
-                val stylist: Option[Stylist] = Stylist.findOneById(stylistId)
+                val stylist: Option[Stylist] = Stylist.findOneByStylistId(stylistId)
                 stylist match {
                     // when stylist is exist, jump to the stylist page in salon.
                     case Some(st) => {
-                        val dtl = Stylist.findStylistByPubId(st.publicId)
+                        val dtl = Stylist.findStylistDtlByUserObjId(st.stylistId)
                         // check if the stylist has a work ship with the salon?
                         dtl.get.workInfo match {
                             case Some(ship) => {
                                 // get Styles of a stylist.
                                 val styles = Style.findByStylistId(stylistId)
+
                                 // get a latest blog of a stylist.
-                                val blog = Blog.getBlogByUserId(dtl.get.basicInfo.userId).last
+                                val blgs = Blog.getBlogByUserId(dtl.get.basicInfo.userId)
+                                val blog = if(blgs.length > 0) Some(blgs.last) else None 
+
                                 // navigation item
                                 val lastNav = List((dtl.get.basicInfo.nickName, ""))
                                 Ok(views.html.salon.store.salonInfoStylist(salon = sl, stylist = dtl, 
-                                        styles = styles, latestBlog = Some(blog), navBar = navBar ::: lastNav))
+                                        styles = styles, latestBlog = blog, navBar = navBar ::: lastNav))
                             }
                             case None => {
                                 // if not a worker of a salon. show nothing, for now, Jump to stylists page in salon. 
@@ -88,21 +91,6 @@ object Salons extends Controller {
             case None => NotFound // TODO
         } 
     }
-
-    /**
-     * TODO
-     */
-    /*
-    def findStylistById(id: ObjectId) = Action {
-        val stylist = Stylist.findOneById(id)
-        val salonId =  SalonAndStylist.findByStylistId(id).get.salonId
-        val salon = Salon.findById(salonId)
-        val style = Style.findByStylistId(id)
-        val user = Stylist.findUser(stylist.get.publicId)
-        val blog = Blog.getBlogByUserId(user.userId).last
-        Ok(views.html.salon.store.salonInfoStylistInfo(salon = salon.get, stylist = stylist.get, styles = style, blog = blog))
-    }
-    */
 
     /**
      * Get all styles of a salon.

@@ -1,0 +1,40 @@
+@(styles: Seq[Style] = Nil, salon: Salon)
+
+
+<ol>
+    @for(style <- styles) {
+	<table class="styleItem">
+	    <tbody>
+		<tr>
+		    <td class="vaT bdGrayR">
+			<div class="w176 mHA">
+			    <div class="mT10 fs16 taM">
+				<a href="@routes.Salons.getOneStyle(salon.id, style.id)">
+				    <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)">
+				</a>
+			    </div>
+			    <p class="mT10 lh13 taM">
+				<a href="@routes.Salons.getOneStyle(salon.id, style.id)">
+				    @style.styleName
+				</a>
+			    </p>
+			</div>
+			<div class="w156 mHA">
+			    <div class="bdDotT mT10 pT5">
+			    </div>
+			</div>
+		    </td>
+		</tr>
+	    </tbody>
+	    <tbody>
+		<tr>
+		    <td colspan="4">
+			<div class="separateLine">
+			    &nbsp;
+			</div>
+		    </td>
+		</tr>
+	    </tbody>
+	</table>
+    }
+</ol>
