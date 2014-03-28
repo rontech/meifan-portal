@@ -263,12 +263,14 @@ POST	/toUpdateStylistImage								 controllers.Stylists.toUpdateStylistImage
 GET		/saveStylistImg/:imgId								 controllers.Stylists.saveStylistImg(imgId: ObjectId)
 
 #add by hz-han
-GET		/salonLogin				     controllers.Application.salonLogin
-POST      	/loginSalon                                  controllers.SalonInfo.loginSalon
+GET			/salonLogin				     					 controllers.Application.salonLogin
+POST      	/loginSalon                                	     controllers.SalonInfo.loginSalon
 GET         /salonInfo/:id                                   controllers.SalonInfo.salonInfoBasic(id: ObjectId)
 GET         /salonUpd/:id                                    controllers.SalonInfo.update(id: ObjectId)
 GET         /salonRegister                                   controllers.SalonInfo.register
 POST        /salonDoRegister                                 controllers.SalonInfo.doRegister
+GET         /salonImage                                      controllers.Application.addImage
+GET         /saveSalonImg/:id                                controllers.Users.saveImg(id :ObjectId)
 #add bu lu-zheng
 GET         /mySalon/:id/createService                       controllers.Services.serviceMain(id: ObjectId)
 

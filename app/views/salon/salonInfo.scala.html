@@ -96,7 +96,8 @@
 
 		@helper.form(action = routes.SalonInfo.update(salon.get.id), args = 'id -> "salonForm"){
 		 <fieldset >
-		 	@inputText(salon("salonAccount.accountId"),'_label -> Messages("salon.id"), 'readonly -> "true" )
+		 	@inputText(salon("salonAccount.accountId"),'_label -> Messages("salon.id"), 'readonly -> "true", 
+		 		'_help -> Messages("salon.accountIdMessage"))
 		 	@inputText(salon("salonAccount.password"),'_label -> Messages("salon.password"), 'readonly -> "true" ) 		 	   		          
             @inputText(salon("salonName"),'_label ->  Messages("salon.Name"))           
             @inputText(salon("salonNameAbbr"),'_label -> Messages("salon.Abbr"))			
@@ -148,7 +149,8 @@
 			@checkbox(salon("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"))
 			@inputText(salon("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"))
 			@inputText(salon("salonPictures"), '_label -> Messages("salon.pictures"))
-			@inputDate(salon("registerDate"), '_label -> Messages("salon.registerTime"))	
+			@inputDate(salon("registerDate"), '_label -> Messages("salon.registerTime"), 'readonly -> "true")
+			<a herf="/salonImage ">展示图片上传</a>	
 		  </fieldset>
 		  <fieldset>
             <legend>@Messages("user.optContactMethod")</legend>

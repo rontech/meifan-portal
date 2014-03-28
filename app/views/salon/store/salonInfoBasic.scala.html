@@ -1,7 +1,47 @@
 @(salon: Salon, navBar: List[(String, String)] = Nil)
 
 @salonInfoMain(navInSalon = "salon-basic", salon, navBar) {
+	
+	<div class="cFix">
+		<div class="fl w349">
+			<div id="jsViewer">
+				<img src="http://imgbp.hotp.jp/CSP/IMG_SRC/74/97/B002997497/B002997497_349-262.jpg" width="349" height="262"  oncontextmenu="return false;" />
+				<img src="http://imgbp.hotp.jp/CSP/IMG_SRC/19/22/B003961922/B003961922_349-262.jpg" width="349" height="262" style="display:none" oncontextmenu="return false;" />
+				<img src="http://imgbp.hotp.jp/CSP/IMG_SRC/75/07/B002997507/B002997507_349-262.jpg" width="349" height="262" style="display:none" oncontextmenu="return false;" />
+			</div>
+		</div>
+		<div class="fr w349">
+			<p class="shopCatchCopy"><b><strong>【原宿OPEN】超注目サロン！オーガニックにこだわりながら、ここまで魅せる☆あなたの本当の『美』とは？</strong></b></p>
+			<p class="mT10">有名店出身、雑誌などのメディアでも活躍してきたスタイリストが集まるお店☆たしかな技術で『可愛く』なるのは当たり前☆髪、肌、身体にやさしいオーガニックにこだわるのは１０年、２０年後もずっと可愛くいてほしいから♪本当の赤ちゃんのような髪や肌はナチュラルから生まれる☆</p>
+			<p class="mT20 b">４席のみの小さなサロン♪あなただけに用意された特別な時間を体験して★</p>
+		</div>
+	</div>
+	
 
+						
+	<div class="mT30">
+		<div class="yS mainContentsSecondTitleOuter">
+			<h2 class="yS mainContentsSecondTitleInner">フレール　Freresの雰囲気</h2>
+		</div>
+		<div class="pH10 mT20 oh w745">
+			<ul class="cFix w786">
+			<li class="fl w221 bdGrayR mR20 pR20">
+				<div class="taC"><img src="http://imgbp.hotp.jp/CSP/IMG_SRC/75/27/B002997527/B002997527_219-164.jpg" class="bdImgGray" alt="フレール　Freresの雰囲気（緑もたくさんあります＾＾♪）" /></div>
+				<p class="fgGray fs10 mT10">緑もたくさんあります＾＾♪</p>
+			</li>
+			<li class="fl w221 bdGrayR mR20 pR20">
+				<div class="taC"><img src="http://imgbp.hotp.jp/CSP/IMG_SRC/11/99/B003281199/B003281199_219-164.jpg" class="bdImgGray" alt="フレール　Freresの雰囲気（お子様連れも大歓迎です＾０＾☆おもちゃもあります♪）" /></div>
+				<p class="fgGray fs10 mT10">お子様連れも大歓迎です＾０＾☆おもちゃもあります♪</p>
+			</li>
+			<li class="fl w221">
+				<div class="taC"><img src="http://imgbp.hotp.jp/CSP/IMG_SRC/07/46/B003030746/B003030746_219-164.jpg" class="bdImgGray" alt="フレール　Freresの雰囲気（４種類のオーガニックティーをお召し上がりください＾ー＾）" /></div>
+				<p class="fgGray fs10 mT10">４種類のオーガニックティーをお召し上がりください＾ー＾</p>
+			</li>
+			</ul>
+		</div>
+			<p class="mT5 taR"><i><em class="seoCaption">フレール　Freres</em></i></p>
+	</div>
+				
     <div class="mT30">
         <div class="yS mainContentsSecondTitleOuter">
         <h2 class="yS mainContentsSecondTitleInner">
@@ -23,7 +63,7 @@
             </th>
             <td colspan="3" class="w620">
                 <a href="#"/>
-                番号を表示: @salon.mainPhone
+                 @salon.mainPhone
                 </a>
             </td>
             </tr>
@@ -51,7 +91,7 @@
                 @Messages("salon.workTime")
             </th>
             <td colspan="3" class="w620">
-                平日・土10：00～21：00　日祝10：00～20：00&nbsp;
+               @salon.workTime.openTime--@salon.workTime.closeTime&nbsp;
             </td>
             </tr>
             <tr>
@@ -59,7 +99,9 @@
                 @Messages("salon.restDay")
             </th>
             <td colspan="3" class="w620">
-                毎週火曜日　&nbsp;
+				@for(i <-0 to salon.restDays(0).restDay.size-1){
+                	@Messages("restDay.restDay.1." + salon.restDays(0).restDay(i))					
+				}                
             </td>
             </tr>
             <tr>
@@ -67,7 +109,7 @@
                 @Messages("salon.isPosAvailable")
             </th>
             <td colspan="3" class="w620">
-                可&nbsp;
+                @Messages("salon."+salon.salonFacilities.isPosAvailable)&nbsp;
             </td>
             </tr>
             <tr>
