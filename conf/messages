@@ -186,6 +186,7 @@ hair.rankingVeryShort = 超短发
 hair.rankingHairSet = 盘发
 hair.rankingMrs = 成熟发型
 hair.rankingMens = 男士发型
+hair.headingAllMore = 综合排行榜  可见前20名
 
 # Cosmetic
 cosmetic.salon=美容沙龙
