@@ -111,6 +111,8 @@ salon.confirmMessage=请再次输入密码！
 salon.desMseeage=您最多可以输入50个字符！
 salon.salonLogin=店铺登录
 salon.stylistsList={0}的发型师
+salon.true=可
+salon.accountIdMessage=注册时设定，无法修改!
 
 #salon management
 salonAdmin.mainPage = 店铺管理

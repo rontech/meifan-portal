@@ -145,9 +145,7 @@
 			@checkbox(salonRegister("salonFacilities.isPosAvailable"), '_label -> Messages("salon.isPosAvailable"))
 			@checkbox(salonRegister("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"))
 			@checkbox(salonRegister("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"))
-			@inputText(salonRegister("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"),'cols -> 50)
-			<a href="/addImage">@Messages("salon.image")</a>
-			@inputDate(salonRegister("registerDate"), '_label -> Messages("salon.registerTime"))	
+			@inputText(salonRegister("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"),'cols -> 50)	
 		  </fieldset> 
 		  <fieldset>
             <legend>@Messages("user.optContactMethod")</legend>

@@ -1,11 +1,11 @@
-@(navInSalon: String = "my-salonInfo",salon:Form[Salon])
+@(salon:Form[Salon])
 @import helper._
 @import helper.twitterBootstrap._
 @import views.html.salon.admin._
 
-@mySalonMain(navInSalon, salon.get){
+@mySalonMain(navInSalon = "", salon.get){
 		@helper.form(routes.Application.upload, 'enctype -> "multipart/form-data") {
-                              <input type="file" id="filePhoto" name="photo" style="width:50"  /> 
+                              <input type="file" id="filePhoto" name="logo" style="width:50"  /> 
                               <button type="submit">@Messages("user.changeImage")</button>
      }
 }
