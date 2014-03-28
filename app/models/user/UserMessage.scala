@@ -75,8 +75,8 @@ object UserMessage extends ModelCompanion[UserMessage, ObjectId] {
         val salon = Salon.findById(followId).get
         UserMessage(new ObjectId, sender.userId, sender.nickName, "zhenglu", "关雨", new ObjectId("531964e0d4d57d0a43771811"), OUTBOX_SENT, INBOX_UNREAD, new Date)
       case FollowType.FOLLOW_STYLIST =>
-        val stylist = Stylist.findOneById(followId).get
-        val user = Stylist.findUser(stylist.publicId)
+        val stylist = Stylist.findOneByStylistId(followId).get
+        val user = Stylist.findUser(stylist.stylistId)
         UserMessage(new ObjectId, sender.userId, sender.nickName, user.userId, user.nickName, new ObjectId("531964e0d4d57d0a43771813"), OUTBOX_SENT, INBOX_UNREAD, new Date)
       case FollowType.FOLLOW_USER =>
         val addressee = User.findOneById(followId).get

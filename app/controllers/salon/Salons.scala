@@ -58,11 +58,11 @@ object Salons extends Controller {
                 // navigation bar
                 val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylists"), routes.Salons.getAllStylists(sl.id).toString()))
 
-                val stylist: Option[Stylist] = Stylist.findOneById(stylistId)
+                val stylist: Option[Stylist] = Stylist.findOneByStylistId(stylistId)
                 stylist match {
                     // when stylist is exist, jump to the stylist page in salon.
                     case Some(st) => {
-                        val dtl = Stylist.findStylistByPubId(st.publicId)
+                        val dtl = Stylist.findStylistDtlByUserObjId(st.stylistId)
                         // check if the stylist has a work ship with the salon?
                         dtl.get.workInfo match {
                             case Some(ship) => {

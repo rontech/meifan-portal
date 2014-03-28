@@ -223,7 +223,7 @@
     </div>
 
     <!--↓ Stylist's Works: All the styles.  -->
-    @Stylist.findStylistByPubId(style.stylistId) match {
+    @Stylist.findStylistDtlByUserObjId(style.stylistId) match {
         case None => {Stylist's Followe Me module Not Found}
         case Some(dtl) => { @views.html.stylist.pleaseReserveMe(dtl)}
     }

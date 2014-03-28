@@ -74,10 +74,10 @@ object Blogs extends Controller with LoginLogout with AuthElement with AuthConfi
    */    
   def getBlogByStylist(salonId: ObjectId, stylistId: ObjectId) = Action {
      val salon: Option[Salon] = Salon.findById(salonId)
-     val stylist = Stylist.findOneById(stylistId)
-     var user = User.findOneById(stylist.get.publicId).get
-     var blogList = Blog.getStylistBlogByUserId(user.userId)
+    
+     var blogList = Blog.getStylistBlogByStylistId(stylistId)
      val listYM = getListYM(salon.get)
+
      Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogList, listYM = listYM))
    }    
    
@@ -114,40 +114,43 @@ object Blogs extends Controller with LoginLogout with AuthElement with AuthConfi
   }
       
   /**
-   * 取得指定店铺的指定blog
+   * 店铺的单篇博客显示画面:
+   * 除了本篇博客内容外，还需要显示：最新博客列表，按店铺技师分类，按日期分类等数据...
    */
   def getBlogInfoOfSalon(salonId: ObjectId, blogId: ObjectId) = Action {
-    val salon: Option[Salon] = Salon.findById(salonId)
-    val blog: Option[Blog] = Blog.findOneById(blogId)
-    salon match {
-      case Some(salon) => {
-        val listYM = getListYM(salon)
-		val newestBlogsOfSalon = Blog.getNewestBlogsOfSalon(salonId)
-		blog match {
-          case Some(blog) => {
-	          val user : Option[User] = User.findOneByUserId(blog.authorId)
-			  val stylist : Option[Stylist] = Stylist.findOne(MongoDBObject("publicId" -> user.get.id))
-			  Ok(views.html.salon.store.salonInfoBlog(salon = salon, blog = blog, listYM = listYM, newestBlogsOfSalon = newestBlogsOfSalon, stylist = stylist.get))
-          }
+      val salon: Option[Salon] = Salon.findById(salonId)
+      // Check If the salon is exist or active.
+      salon match {
           case None => NotFound
-        }       
+          case Some(sl) => {
+              // get the required blog.
+              val blog: Option[Blog] = Blog.findOneById(blogId)
+              blog match {
+                  case None => NotFound
+                  case Some(blog) => {
+                      // get the blog category by [DATE].  
+                      val listYM = getListYM(sl)
+                      // get the blog category by [SALON NEWEST] 
+                      val newest = Blog.getNewestBlogsOfSalon(salonId)
+                      val user: Option[User] = User.findOneByUserId(blog.authorId)
+                      val stylist: Option[Stylist] = Stylist.findOneByStylistId(user.get.id)
+                      // Jump
+                      Ok(views.html.salon.store.salonInfoBlog(salon = sl, blog = blog, listYM = listYM, 
+                          newestBlogsOfSalon = newest, stylist = stylist.get))
+                  }
+              }
+          }
       }
-      case None => NotFound
-    }
-//    val listYM = getListYM(salon)
-//    val newestBlogsOfSalon = Blog.getNewestBlogsOfSalon(salonId)
-//    val user : Option[User] = User.findOneByUserId(blog.get.authorId)
-//    val stylist : Option[Stylist] = Stylist.findOne(MongoDBObject("publicId" -> user.get.id))
-//    Ok(views.html.salon.store.salonInfoBlog(salon = salon.get, blog = blog.get, listYM = listYM, newestBlogsOfSalon = newestBlogsOfSalon, stylist = stylist.get))
-  }
-  
+ }
+
+ 
   /**
    * 查找blog的作者
    */
   def getBlogAuthor(salonId: ObjectId, userId: String) = Action {
     var user = User.findOneByUserId(userId).get
-    var stylist = Stylist.findOne(MongoDBObject("publicId" -> user.id)).get
-    Redirect(routes.Salons.getOneStylist(salonId, stylist.id))
+    var stylist = Stylist.findOne(MongoDBObject("stylistId" -> user.id)).get
+    Redirect(routes.Salons.getOneStylist(salonId, stylist.stylistId))
   }
   
   /**
