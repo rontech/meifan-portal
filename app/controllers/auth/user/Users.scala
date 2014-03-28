@@ -11,7 +11,7 @@ import play.api.data.Forms._
 import play.api.mvc._
 import scala.concurrent._
 import play.api.i18n.Messages
-import controllers.{routes, AuthConfigImpl}
+import controllers.AuthConfigImpl
 
 object Users extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
 
