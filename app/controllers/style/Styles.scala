@@ -128,7 +128,7 @@ object Styles extends Controller {
         val stylists = Style.findStylistBySalonId(salonId)
         var styles: List[Style] = Nil
         stylists.map { sty =>
-            var style = Style.findByStylistId(sty.id)
+            var style = Style.findByStylistId(sty.stylistId)
             styles :::= style
         }
         salon match {

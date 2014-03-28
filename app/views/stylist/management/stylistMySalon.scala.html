@@ -3,7 +3,7 @@
 @stylistPageMain(navInMyPage, user, stylist, followInfo){
 	<div class="mysalon-stylist-group">
 		<div class="taC">
-	        <a href="@routes.Salons.getOneStyle(salon.id, stylist.id)">
+	        <a href="@routes.Salons.getOneStyle(salon.id, stylist.stylistId)">
 	            @*<img src="@routes.Application.getPhoto(stylist.myPics.get(0).fileObjId)" class="bdImgGray w164 h219">*@
 	        </a>
     	</div>
@@ -13,7 +13,7 @@
 	        </a>
 	    </p>
 	    <p>
-	    	<a href="/removeSalon/@salon.id/@stylist.id">
+	    	<a href="/removeSalon/@salon.id/@stylist.stylistId">
 	    		@Messages("stylist.removeSalon")
 	    	</a>
 	    </p>
