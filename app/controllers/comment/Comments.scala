@@ -38,7 +38,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
   def findBySalon(salonId: ObjectId) = Action {
     val salon: Option[Salon] = Salon.findById(salonId)    
     val comments: List[Comment] = Comment.findBySalon(salonId)    
-    println("comments" + comments)
+    //println("comments" + comments)
     // TODO: process the salon not exist pattern.
     Ok(views.html.salon.store.salonInfoCommentAll(salon = salon.get, comments = comments))
   }

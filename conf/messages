@@ -1,8 +1,8 @@
 # General
-site.welcome=悦美月容网，欢迎您！
-site.intro=宇宙首家动漫人物美发美容沙龙检索预约平台
+site.welcome=美范网，欢迎您！
+site.intro=中国首家美发美容检索预约平台
 site.powerby=苏州隆泰信息技术有限公司
-site.title=中国首家美发美容查询&预约网站｜美范网
+site.title=中国首家美发美容检索预约平台｜美范网
 site.description=美容院・美容室・ヘアサロン・ネイルサロン・エステサロン・リラクゼーションサロンが見つか中国国最大級の美容・キレイ総合情報サイト、......。スタイル、ブログ、口コミをチェックして、気になるサロンへ２４時間いつでもネット予約OK。美容・キレイサロンを検索・予約するなら......。
 site.keywords=美容,キレイ,美容院,美容室,ヘアサロン,ネイルサロン,まつげサロン,リラクサロン,エステサロン,ヘアカタログ,ネイルカタログ
 site.copyright=Copyright &copy; RONTECH Co., Ltd. All rights reserved.
@@ -15,6 +15,7 @@ common.edit=编辑
 common.delete=删除
 common.sreach = 检索
 common.all=全部
+common.backToTop=返回顶部
 
 # Index page
 index.mainPage=网站首页
@@ -26,6 +27,10 @@ index.hairSalonRsv=美发沙龙预约
 index.nailSalonRsv=美甲沙龙预约
 index.cosmSalonRsv=美容院预约
 index.massageSalonRsv=按摩院预约
+index.editoralColl=美范编辑的推荐特辑
+
+
+
 
 # Main Page Framework
 main.headSummary=中国首家美容美发沙龙・整形按摩院检索・预约平台
@@ -39,7 +44,7 @@ main.idUsePolicy=ID利用约定
 main.usePolicy=使用须知
 main.securityPolicy=个人情报保护方针
 main.userGuide=使用指南
-main.wantToJoin=您想登录贵沙龙的信息?
+main.wantToJoin=沙龙用户登录入口
 main.toSalonOwners=致沙龙
 main.help=常见问题
 main.myPage=我的主页
@@ -109,6 +114,7 @@ salon.passwordMessage=请输入至少6位密码！
 salon.confirmMessage=请再次输入密码！
 salon.desMseeage=您最多可以输入50个字符！
 salon.salonLogin=店铺登录
+salon.stylistsList={0}的发型师
 
 #salon management
 salonAdmin.mainPage = 店铺管理
@@ -135,6 +141,11 @@ salonAdmin.stateManagement = 动态管理
 salonAdmin.findAllStylists = 查看店铺所有技师
 salonAdmin.applyStylists = 申请的技师
 salonAdmin.removeStylist = 解除关系
+salonAdmin.CheckComment = 查看所有评论
+salonAdmin.checkService = 查看所有服务
+salonAdmin.checkCoupon = 查看所有优惠
+salonAdmin.checkMenu = 查看所有套餐
+salonAdmin.checkState = 我的动态
 
 # Hair
 hair.tabName=时尚靓发
@@ -164,7 +175,22 @@ hair.welcome=我们期待您的光临
 hair.consumerSocialStatus=适合人群
 hair.consumerSex=适合性别
 hair.consumerAgeGroup=适合年龄
+hair.addStyle = 添加发型
 hair.salonStyleTitle = {0}的发型
+hair.styleCatalogTitle = Hair Catalog  发型目录
+hair.menStyleTitle = Mens 男性
+hair.styleImage = Image 检索
+hair.styleRanking = Ranking 人气发型排行榜
+hair.rankingAll = 综合
+hair.rankingMedium = 中长发
+hair.rankingShort = 短发
+hair.rankingSemiLong = 稍长发
+hair.rankingLong = 长发
+hair.rankingVeryShort = 超短发
+hair.rankingHairSet = 盘发
+hair.rankingMrs = 成熟发型
+hair.rankingMens = 男士发型
+hair.headingAllMore = 综合排行榜  可见前20名
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -272,7 +298,7 @@ stylist.followStylist = 关注此技师
 stylist.worked = 从事
 stylist.blog = 技师博客
 stylist.findAllBlog = 查看此技师所有博客
-stylist.haircatalog = 发型目录
+stylist.haircatalog = {0} 的发型目录
 stylist.welcome = 期待你的光临
 stylist.selectForReserv = 指名预约
 stylist.createBlog = 发表于
@@ -383,6 +409,10 @@ user.telError=手机号码无效
 user.toBePassword=以字母开头，6~18位字符
 user.toBeUserId=6~16位字符
 user.nickNameErr=给个昵称吧！
+user.welcome=欢迎您，{0}
+user.guestName=游客
+user.pleaseSignUp=免费会员注册
+
 
 
 #Letter
@@ -453,10 +483,20 @@ comment.usedServices = [用到的技术]
 comment.reply = {0}的回复
 
 
+# Point
+point.pointDesc=美范网积分制
+point.policyCond=使用美范网
+point.policies=尽享 {0} 积分！
+point.scoreRules=美范积分规则
+point.howToUse=美范积分使用
+point.promotions=网站上线积分大酬宾！
 
 
 
+# Messages
+system.siteMessages=系统通知
 
+# Special Collections
 
 
 
@@ -523,4 +563,5 @@ restDay.restDay.1.4=星期五
 restDay.restDay.1.5=星期六
 restDay.restDay.1.6=星期日
 restDay.message=
+salon.image=添加图片
 

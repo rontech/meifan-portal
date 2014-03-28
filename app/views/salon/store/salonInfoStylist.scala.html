@@ -2,14 +2,47 @@
 
 @salonInfoMain(navInSalon = "salon-stylist", salon, navBar){
 
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+
     @stylist match {
         case None => {<h1>Not Found</h1>}
         case Some(dtl) => {
             <div class="mT30">
-                @views.html.stylist.stylistBasicInfoHead(dtl)
+
+                <!--↓ Get stylist's work positons.--> 
+                @dtl.stylistInfo match {
+                    case None => {<h1>Not a Stylist.</h1>}    
+                    case Some(info) => {
+                        <div class="stylePageTileOuter">
+                            <div class="fgPink b fs10">
+                                @info.position.map { p => @p.positionName &nbsp; }
+                            </div>
+                            <h2 class="fs16 dibBL">
+                                @dtl.basicInfo.nickName
+                            </h2>
+                       </div>
+                    } 
+                }
+                <!--↑ Get stylist's work positons.--> 
+                
+                <!--↓ Get stylist's self introductions.--> 
                 @views.html.stylist.stylistBasicInfoContent(salon, dtl, styles, latestBlog)
-                @views.html.stylist.stylistBasicInfoStyles(dtl, styles)
-                @views.html.stylist.stylistBasicInfoFoot(dtl)    
+                <!--↑ Get stylist's self introductions.--> 
+
+                <!--↓ Stylist's Works: All the styles.  -->
+                <div class="yS mainContentsSecondTitleOuter">
+                    <h3 class="yS mainContentsSecondTitleInner">
+                        @Messages("stylist.haircatalog", dtl.basicInfo.nickName)
+                    </h3>
+                </div>
+                <!-- get all the salons with all the styles.  -->
+                @views.html.style.styleGroup(styles, salon)
+                <!--↑ Stylist's Works: All the styles.  -->
+
+                <!--↓ Stylist's Works: All the styles.  -->
+                @views.html.stylist.pleaseReserveMe(dtl)    
+                <!--↑ Stylist's Works: All the styles.  -->
+
             </div>
         }
     }

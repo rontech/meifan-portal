@@ -62,6 +62,7 @@ object Application extends Controller {
                 uploadedFile.save()
                 Redirect(auth.routes.Users.saveImg(uploadedFile._id.get))
             case None => BadRequest("no photo")
+        
         }
     }
 

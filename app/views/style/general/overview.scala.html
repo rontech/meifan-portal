@@ -1,6 +1,5 @@
 @(styles: Seq[Style], styleSearchForm: Form[Style], stylePara: models.StylePara)
 
-
 <!--
     TODO
     1. Need Structs which contains data for 
@@ -20,34 +19,37 @@
 
 -->
 
+@main(title = Messages("hair.tabName"), nav = "hair-catalog") {
 
-
-@main(title = Messages("hair.tabName"), nav = "hair-style") {
-
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/sye.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
     <div>
-        <div style="float:left;width:80%">
+        <div class="fl wP80">
+        	<!-- The title of Style. -->
+        	<div class="hcHeader">
+				<div class="pr hcHeaderTopPage">
+					<h2 class="hcHeading offL">@Messages("hair.styleCatalogTitle")</h2>
+					<h3 class="pa right0 bottom0 hcHeadingCaption">@Messages("site.title")</h3>
+				</div>
+			</div>
+        
             <!-- Style Search By Conditons. -->    
             @views.html.style.general.styleSearch(styleSearchForm, stylePara)
-            <hr/>
+            
             <!-- Style Search By Ranking. -->    
             @views.html.style.general.searchByRanking(styles)
-            <hr/>
+
             <!-- Style Search By Length For Women. -->    
             @views.html.style.general.searchByLengthForF()
-            <hr/>
+
             <!-- Style Search By Length For Men. -->    
             @views.html.style.general.searchByLengthForM()
-            <hr/>
+
             <!-- Style Search By Impression. -->    
             @views.html.style.general.searchByImpression()
             
         </div>
-        <div style="">
             <!-- ↓generalContentRightColumn -->
             @views.html.salon.general.rightColumn(None)
             <!-- ↑generalContentRightColumn -->
-        </div>
-        @routes.Styles.backstageStyleSearch
     </div>
 }
