@@ -119,6 +119,18 @@ trait SalonAndStylistDAO extends ModelCompanion[SalonAndStylist, ObjectId] {
   def countStylistBySalon(salonId: ObjectId): Long = {
     dao.count(MongoDBObject("salonId" -> salonId, "isValid" -> true))
   }
-
+  
+  def getStylistsBySalon(salonId: ObjectId): List[Stylist] = {
+    var stylists: List[Stylist] = Nil
+    val record = SalonAndStylist.findBySalonId(salonId)
+    record.map{re=>
+      val stylist = Stylist.findOneByStylistId(re.stylistId)
+      stylist match {
+        case Some(sty) => stylists:::=List(sty)
+        case None => None
+      }
+    }
+    stylists
+  }
 }
 

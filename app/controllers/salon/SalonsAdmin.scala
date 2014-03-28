@@ -202,4 +202,22 @@ object SalonsAdmin extends Controller {
     SalonAndStylist.leaveSalon(salonId,stylistId)
     Redirect(routes.SalonsAdmin.myStylist(salonId))
   }
+  
+  def getAllStylesBySalon(salonId: ObjectId) = Action {
+    val salon: Option[Salon] = Salon.findById(salonId)
+        val stylists = SalonAndStylist.getStylistsBySalon(salonId)
+        var styles: List[Style] = Nil
+        stylists.map { sty =>
+            var style = Style.findByStylistId(sty.stylistId)
+            styles :::= style
+        }
+    println("styles"+styles)
+        salon match {
+            case Some(sa) => {
+                Ok(html.salon.admin.mySalonStyles(salon = sa , styles = styles))
+            }
+            case None => NotFound
+        }
+  }
+  
 }
