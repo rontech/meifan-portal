@@ -1,4 +1,4 @@
-@(comments: List[Comment])
+@(salon: Salon, comments: List[Comment])
 
 <ol>
 @if(comments.isEmpty) {
@@ -8,7 +8,7 @@
 } else {
     @for(comment <- comments) {
         <li class="couponItem">
-            @views.html.comment.admin.commentItem(comment)
+            @views.html.comment.admin.commentItem(salon, comment)
         </li>
     }
 }

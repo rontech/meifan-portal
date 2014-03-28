@@ -1,4 +1,4 @@
-@(style: Style,salon:Salon)
+@(style: Style, salon:Salon)
 <html>
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
 <div class="mT30" id="jsiHoverAlphaLayerScope">
@@ -221,44 +221,14 @@
             </p>
         </div>
     </div>
-    <div class="mT30">
-        <div class="cFix p15 bgLGray">
-            <div class="fl w89">
-                <a href="@routes.Salons.getOneStylist(salon.id, style.stylistId)">
-                    <img src="@*routes.Application.getPhoto(Stylist.findOneById(style.stylistId).get.myPics(0).fileObjId)*@" class="w89">
-                </a>
-            </div>
-            <div class="cFix fr w636">
-                <div class="detail2S waitTitle offL">
-                    @Messages("hair.welcome")
-                </div>
-                <div class="cFix bgDGray p10">
-                    <div class="fl">
-                        <div class="fgPink fs10">
-                             @*店长@Stylist.findOneById(style.stylistId).get.stylist*@
-                        </div>
-                        <div class="fs14 b mT5">
-                            <a href="">
-                            
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <ul class="cFix mT10">
-                    <li class="fr mL10">
-                        <a href="#" class="bS db nominatedReserve offL">
-                            @Messages("reserve.name")
-                        </a>
-                    </li>
-                    <li class="fr mL10 mT3">
-                        <a href="#" class="bS db addIntoMyStylist offL">
-                            @Messages("hair.stylistToCollect")
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+
+    <!--↓ Stylist's Works: All the styles.  -->
+    @Stylist.findStylistByPubId(style.stylistId) match {
+        case None => {Stylist's Followe Me module Not Found}
+        case Some(dtl) => { @views.html.stylist.pleaseReserveMe(dtl)}
+    }
+    <!--↑ Stylist's Works: All the styles.  -->
+
 </div>
 <script language="JavaScript">
 	function changePic(img, imgMain) {

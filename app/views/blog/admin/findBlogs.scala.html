@@ -2,13 +2,11 @@
 @import views.html.user._
 
 @myPageMain(navInMyPage = "my-blog", user, followInfo) {
-        <div class="SpaceList BlogList">
 			 @blogList.map { blog =>
-				<li>
+				<li class="Blog">
 				  @views.html.blog.admin.itemBlog(blog)				
 				</li>
 				}			
 		    <a href = "@routes.Blogs.newBlog(user.userId)"><input type="button" value="@Messages("blog.newBlog")" ></a>
-	    </div>
 }
 

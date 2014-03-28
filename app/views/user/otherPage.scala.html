@@ -1,6 +1,6 @@
-@(user: User, followInfo:FollowInformation, loginUserId: ObjectId)
+@(user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
 
-@otherPageMain(user, followInfo, loginUserId) {
+@otherPageMain(user, followInfo, loginUserId, logged) {
 	
     <div class="MMod" id="Logs">
     	This is @user.userId  homePage!

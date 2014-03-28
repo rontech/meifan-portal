@@ -6,7 +6,7 @@
 	 	
 	 	<h2>@Messages("user.login")</h2>
 	 	
-	 	@form(action = routes.Users.login(), 'method ->"post"){
+	 	@form(action = auth.routes.Users.login(), 'method ->"post"){
 	 		
 	 		@inputText(field = loginForm("userId"), '_label -> Messages("user.name"), 'placeholder -> Messages("user.name"))
           

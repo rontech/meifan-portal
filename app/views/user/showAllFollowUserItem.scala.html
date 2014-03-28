@@ -1,4 +1,4 @@
-@(followUser:User,loginUserId:ObjectId)
+@(followUser:User, loginUserId:ObjectId)
 	<li><table class="ostable">
 		<tbody>
 			<tr>
@@ -9,9 +9,9 @@
 				</td>
 				<td class="opts">
 					@if(MyFollow.checkIfFollow(loginUserId,followUser.id)){
-						<a href="@routes.MyFollows.cancelFollow(followUser.id)">@Messages("user.cancelFollow")</a>
+						<a href="@auth.routes.MyFollows.cancelFollow(followUser.id)">@Messages("user.cancelFollow")</a>
 					}else{
-						<a href="@routes.MyFollows.addFollow(followUser.id,"user")">@Messages("user.addFollow")</a>
+						<a href="@auth.routes.MyFollows.addFollow(followUser.id,"user")">@Messages("user.addFollow")</a>
 					}
 					<a href="#">@Messages("user.sendMsg")</a>
 				</td>

@@ -1,4 +1,4 @@
-package controllers
+package controllers.auth
 
 import java.util.Date
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -10,44 +10,10 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc._
 import scala.concurrent._
-import play.api.templates.Html
 import play.api.i18n.Messages
+import controllers.{routes, AuthConfigImpl}
 
 object Users extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
-
-  def registerForm(id: ObjectId = new ObjectId) = Form(
-    mapping(
-      "id" -> ignored(id),
-      "userId" -> nonEmptyText(6, 16),
-      "password" -> tuple(
-        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[a-zA-Z]\w{5,17}$""")),
-        "confirm" -> text).verifying(
-          // Add an additional constraint: both passwords must match
-            Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2),
-      "nickName" -> nonEmptyText,
-      "sex" -> text,
-      "birthDay" -> date,
-      "address" ->  mapping(
-         "province" -> text,
-         "city" -> optional(text),
-         "region" -> optional(text)){
-          (province,city,region) => Address(province,city,region,None,"NO NEED",None,None)
-      }{
-          address => Some(address.province,address.city,address.region)
-      },
-      "tel" -> text.verifying(Messages("user.telError"), tel => tel.matches("""^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$""")),
-      "email" -> email,
-      "optContactMethods" -> seq(
-        mapping(
-          "contMethodType" -> text,
-          "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
-      "socialStatus" -> text){
-        (id, userId, password, nickName, sex, birthDay, address, tel, email, optContactMethods, socialStatus) =>
-          User(new ObjectId, userId, nickName, password._1, sex, birthDay, address, new ObjectId, tel, email, optContactMethods, socialStatus, User.NORMAL_USER,  User.HIGH, 0, new Date(), Permission.valueOf(LoggedIn), false)
-      } {
-        user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.sex, user.birthDay, user.address, user.tel, user.email, user.optContactMethods, user.socialStatus))
-      }.verifying(
-        Messages("user.userIdNotAvailable"), user => !User.findOneByUserId(user.userId).nonEmpty))
 
   val loginForm = Form(mapping(
     "userId" -> nonEmptyText,
@@ -170,19 +136,6 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
       "success" -> "You've been logged out"
     ))
   }
-  
-  /**
-   * 用户注册
-   */
-  def register = Action { implicit request =>
-    Users.registerForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.user.register(errors)),
-      {
-        user =>
-          User.save(user, WriteConcern.Safe)
-          Ok(views.html.user.login(Users.loginForm))
-      })
-  }
 
   /**
    * 跳转至密码修改页面
@@ -216,12 +169,12 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val loginUser = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     Users.userForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.user.Infomation(errors,followInfo)),
+      errors => BadRequest(views.html.user.Infomation(errors, loginUser, followInfo)),
       {
         user =>
           User.save(user.copy(id = loginUser.id), WriteConcern.Safe)
           val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
-          Ok(views.html.user.myPageRes(user,followInfo))
+          Ok(views.html.user.myPageRes(user, followInfo))
       })
   }
 
@@ -232,7 +185,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val userForm = Users.userForm().fill(user)
-    Ok(views.html.user.Infomation(userForm,followInfo))
+    Ok(views.html.user.Infomation(userForm, user, followInfo))
   }
 
   /**
@@ -243,7 +196,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     User.findOneByUserId(userId).map{user =>
       val userForm = Users.userForm().fill(user)
-      Ok(views.html.user.Infomation(userForm, followInfo))
+      Ok(views.html.user.Infomation(userForm, user, followInfo))
     }getOrElse{
       NotFound
     }
@@ -284,18 +237,6 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     Ok(views.html.user.changeImg(user,followInfo))
   }
-  /**
-   * 浏览他人主页
-   */
-  def userPage(userId : String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val loginUser = loggedIn
-    User.findOneByUserId(userId).map{user =>
-      val followInfo = MyFollow.getAllFollowInfo(user.id)
-      Ok(views.html.user.otherPage(user, followInfo,loginUser.id))
-    }getOrElse{
-      NotFound
-    }
-  }
 
   /**
    * 我的预约
@@ -304,32 +245,6 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     Ok(views.html.user.myPageRes(user,followInfo))
-  }
-
-  /**
-   * 他人收藏的博客
-   */
-  def userBlog(userId: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val loginUser = loggedIn
-    User.findOneByUserId(userId).map{user =>
-      val followInfo = MyFollow.getAllFollowInfo(user.id)
-      Ok(views.html.user.otherFollowBlog(user, followInfo, loginUser.id))
-    }getOrElse{
-      NotFound
-    }
-  }
-
-  /**
-   * 他人收藏的风格
-   */
-  def userStyle(userId: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val loginUser = loggedIn
-    User.findOneByUserId(userId).map{user =>
-      val followInfo = MyFollow.getAllFollowInfo(user.id)
-      Ok(views.html.user.otherFollowStyle(user, followInfo, loginUser.id))
-    }getOrElse{
-      NotFound
-    }
   }
 
   /**

@@ -1,4 +1,6 @@
 @(salon: Salon, stylist: StylistDetailInfo, style: List[Style], blog: Option[Blog])
+
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/blog/blog.css")">
         
 <div class="cFix mT30 pH10">
     <!-- ST left side info for Stylist picture.-->
@@ -14,7 +16,7 @@
 
         <!-- ST Follow this stylist. -->
         <div class="mT20 pT10">
-            <a href="@routes.MyFollows.addFollow(stylist.stylistInfo.get.id,"stylist")" 
+            <a href="@auth.routes.MyFollows.addFollow(stylist.stylistInfo.get.id,"stylist")" 
                 class="bS db addIntoMyStylist offL mHA"> @Messages("stylist.followStylist")
             </a>
         </div>
@@ -86,84 +88,19 @@
             case Some(blg) => {
                 <div class="mT30">
                     <div class="pr">
-                        <div class="latestBlogtitle">
-                            <font>
-                                <font>
-                                    @Messages("stylist.blog")
-                                </font>
-                            </font>
-                        </div>
+                        <div class="latestBlogtitle"> @Messages("stylist.blog") </div>
                         <p class="pa right10 topHalf fs10">
-                            <a href="#">
-                                <font>
-                                    <font>
+                            <a href="">
                                        @Messages("stylist.findAllBlog")
-                                    </font>
-                                </font>
                             </a>
                         </p>
                     </div>
-                    <div class="bdGray p20 cFix">
-                        <div class="fl w120 mR10">
-                            <img src="#"
-                            alt="商店弗里尔兄弟公司推荐的（^ ^）">
-                        </div>
-                        <div class="fl w320">
-                            <div class="cFix">
-                                <div class="fl">
-                                    <span class="blogS blogCategoryBL11 offL">
-                                        <font>
-                                            <font>
-                                            @Messages("stylist.other")
-                                            </font>
-                                        </font>
-                                    </span>
-                                </div>
-                                <div class="fr">
-                                    <font>
-                                        <font>
-                                            @Messages("stylist.createBlog")：@blg.createTime.format("yyyy-MM-dd HH:mm")
-                                        </font>
-                                    </font>
-                                </div>
-                            </div>
-                            <dl class="mT10">
-                                <dt class="fs14 b wwbw">
-                                    <a href="#">
-                                        <font>
-                                            <font>
-                                            @Messages("stylist.storerecommend")    
-                                            </font>
-                                        </font>
-                                    </a>
-                                </dt>
-                                <dd class="mT10 wwbw">
-                                    <font>
-                                        <font>
-                                          @Messages("stylist.hello")
-                                        </font>
-                                        <font>
-                                            @Messages("stylist.this")
-                                            @salon.salonName
-                                            @Messages("stylist.is")
-                                            @stylist.basicInfo.nickName
-                                        </font>
-                                        <font>
-                                            @Html(blg.content)
-                                        </font>
-                                    </font>
-                                    <a href="#">
-                                        <font>
-                                            <font>
-                                               @Messages("stylist.findOtherBlog")
-                                            </font>
-                                        </font>
-                                    </a>
-                                </dd>
-                            </dl>
-                        </div>
-                    </div>
+
+                    <!--ST. Blog item. -->
+                    @views.html.blog.blogItem(blg, salon)
+                    <!--END. Blog item. -->
                 </div>
+
             }
         }
         <!--END. Stylist's latest Blog. -->

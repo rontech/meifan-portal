@@ -1,27 +1,27 @@
-@(user :User, followInfo:FollowInformation, loginUserId: ObjectId)
+@(user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
 			<div class ="Owner">
 				<a href="#" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")" align="absmiddle" alt="@user.userId" title="@user.userId" class="LargePortrait"/></a>
 				<span class='U'>
-      				<a href="@routes.Users.myPage" class='Name' title='female'>@user.userId</a>
+      				<a href="@auth.routes.Users.myPage" class='Name' title='female'>@user.userId</a>
 					<span class='opts'>
 						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='absmiddle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
-						@if(MyFollow.checkIfFollow(loginUserId,user.id)){
-						<a href="@routes.MyFollows.cancelFollow(user.id)">@Messages("user.cancelFollow")</a>
+						@if(logged == true && MyFollow.checkIfFollow(loginUserId,user.id)){
+						<a href="@auth.routes.MyFollows.cancelFollow(user.id)">@Messages("user.cancelFollow")</a>
 						}else{
-						<a href="@routes.MyFollows.addFollow(user.id,"user")">@Messages("user.addFollow")</a>
+						<a href="@auth.routes.MyFollows.addFollow(user.id,FollowType.FOLLOW_USER)">@Messages("user.addFollow")</a>
 						}
 					</span>
 				</span>
     			<div class="clear"></div>
 				<div class ="sta">
-					<a href="@routes.MyFollows.followers(user.id)"><font color="gray">@Messages("user.myFollowers")<span>(@followInfo.follower.length)</span></font></a>
+					<a href="@noAuth.routes.MyFollows.followers(user.id)"><font color="gray">@Messages("user.myFollowers")<span>(@followInfo.follower.length)</span></font></a>
 				</div>
 			</div>
    			<div class='Opts clearfix'>
                 <a href="#" class='a2 admin'><span>@Messages("user.sendMsg")</span></a>
-				<a href="/showBlog/@user.id" class='a1 blog'><span>@Messages("user.otherBlog")</span></a>
+				<a href="/showBlog/@user.userId" class='a1 blog'><span>@Messages("user.otherBlog")</span></a>
 			</div> 
-						<div class='Mod Users' id='Fellows'>
+			<div class='Mod Users' id='Fellows'>
     			<a href = "/otherPage/SaveBlog/@user.id"><strong>@Messages("user.collectBlog")</strong></a>
 			</div>
 			<div class='Mod Users' id='Fellows'>
@@ -37,7 +37,7 @@
     	 			}
     			</ul>
 				<div class='more'>
-    				<a href="@routes.MyFollows.followedSalon(user.id)">@Messages("user.showAllFollow")@followInfo.followSalon.length)</a>
+    				<a href="@noAuth.routes.MyFollows.followedSalon(user.id)">@Messages("user.showAllFollow")@followInfo.followSalon.length)</a>
     			</div>
 			</div>
 			<div class='Mod Users' id='Fellows'>
@@ -50,7 +50,7 @@
 	  					}
     			</ul>
 				<div class='more'>
-    				<a href="@routes.MyFollows.followedStylist(user.id)">@Messages("user.showAllFollow")@followInfo.followStylist.length)</a>
+    				<a href="@noAuth.routes.MyFollows.followedStylist(user.id)">@Messages("user.showAllFollow")@followInfo.followStylist.length)</a>
     			</div>
 			</div>
 			<div class='Mod Users' id='Fans'>
@@ -58,12 +58,12 @@
 	   			<ul class='clearfix'>
       				@followInfo.followUser.map {user =>
 	  					<li>
-    	 				       <a href="@routes.Users.userPage(user.userId)">@user.userId</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 				       <a href="@noAuth.routes.Users.userPage(user.userId)">@user.userId</a>&nbsp;&nbsp;&nbsp;&nbsp;
     	 			    </li>
 	  				}
 				</ul>
 		 		<div class='more'>
-       				<a href="@routes.MyFollows.followedUser(user.id)">@Messages("user.showAllFollow")@followInfo.followUser.length)</a>
+       				<a href="@noAuth.routes.MyFollows.followedUser(user.id)">@Messages("user.showAllFollow")@followInfo.followUser.length)</a>
      			</div>
 			</div>
 
