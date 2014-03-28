@@ -24,7 +24,7 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
   def getBlogByStylist(salonId: ObjectId, stylistId: ObjectId) = Action {
      val salon: Option[Salon] = Salon.findById(salonId)
      val stylist = Stylist.findOneById(stylistId)
-     var user = User.findOneById(stylist.get.publicId).get
+     var user = User.findOneById(stylist.get.stylistId).get
      var blogList = Blog.getStylistBlogByUserId(user.userId)
      val listYM = getListYM(salon.get)
      Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogList, listYM = listYM))
