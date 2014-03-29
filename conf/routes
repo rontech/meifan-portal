@@ -32,11 +32,11 @@ GET         /salon/:salonId/stylists                                   controlle
 GET         /salon/:salonId/coupons                                    controllers.Salons.getAllCoupons(salonId: ObjectId)
 POST        /salon/:salonId/coupons/condition                          controllers.Salons.getCouponsByCondition(salonId: ObjectId)
 
-#GET        /salon/:salonId/comments                         controllers.Comments.findBySalon(salonId: ObjectId)
-#GET        /mySalon/:salonId/comment                        controllers.Comments.findBySalonAdmin(salonId: ObjectId)
-GET         /salon/:salonId/blog/:blogId                     controllers.noAuth.Blogs.getBlogInfoOfSalon(salonId: ObjectId, blogId: ObjectId)
-GET         /salon/:salonId/blogs/:stylistId                 controllers.noAuth.Blogs.getBlogByStylist(salonId: ObjectId, stylistId: ObjectId)
-GET         /salon/:salonId/blogs                            controllers.noAuth.Blogs.findBySalon(salonId: ObjectId)
+#GET        /salon/:salonId/comments                                   controllers.Comments.findBySalon(salonId: ObjectId)
+#GET        /mySalon/:salonId/comment                                  controllers.Comments.findBySalonAdmin(salonId: ObjectId)
+GET         /salon/:salonId/blog/:blogId                               controllers.noAuth.Blogs.getBlogInfoOfSalon(salonId: ObjectId, blogId: ObjectId)
+GET         /salon/:salonId/blogs/:stylistId                           controllers.noAuth.Blogs.getBlogByStylist(salonId: ObjectId, stylistId: ObjectId)
+GET         /salon/:salonId/blogs                                      controllers.noAuth.Blogs.findBySalon(salonId: ObjectId)
 
 
 
