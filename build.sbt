@@ -1,4 +1,4 @@
-name := "gomelon"
+name := "customer-portal"
 
 version := "1.0-SNAPSHOT"
 
@@ -6,7 +6,7 @@ libraryDependencies ++= Seq(
   jdbc,
   anorm,
   cache
-)     
+)
 
 // add by rontech@2014/02/20
 // For mongodb operation.
