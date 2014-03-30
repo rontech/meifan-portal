@@ -14,6 +14,7 @@
         </p>
     </div>
     <p class="fs10 fgLGray wwbw">
-        @commentOfSalon.commentInfo.content
+        @Html(commentOfSalon.commentInfo.content.slice(0, 100))
+        @if(commentOfSalon.commentInfo.content.length > 100) {...}
     </p>
 </li>

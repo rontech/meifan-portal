@@ -188,7 +188,7 @@ hair.addStyle = 添加发型
 hair.salonStyleTitle = {0}的发型
 hair.styleCatalogTitle = Hair Catalog  发型目录
 hair.menStyleTitle = Mens 男性
-hair.styleImage = Image 检索
+hair.styleImage = 印象 检索
 hair.styleRanking = Ranking 人气发型排行榜
 hair.rankingAll = 综合
 hair.rankingMedium = 中长发
@@ -200,6 +200,8 @@ hair.rankingHairSet = 盘发
 hair.rankingMrs = 成熟发型
 hair.rankingMens = 男士发型
 hair.headingAllMore = 综合排行榜  可见前20名
+hair.searchByF = 女士发型检索
+hair.searchByM = 男士发型检索
 
 # Cosmetic
 cosmetic.salon=美容沙龙
