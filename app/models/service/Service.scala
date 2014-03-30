@@ -57,6 +57,17 @@ object Service extends ModelCompanion[Service, ObjectId]{
 	def getTypeList(serviceType:String) : List[Service] = {
 		findAllServices.filter(s => s.serviceType == serviceType)
 	}
+
+        /**
+         * 获取某店铺指定服务类型的最低价格，比如取得最低剪发价格。
+         * Get the lowest price of a serviceType in a salon. 
+         *     for example, get the lowest CUT price.
+         */
+        def getLowestPriceOfSrvType(salonId: ObjectId, srvType: String): Option[BigDecimal] = {
+               val srvs = dao.find(MongoDBObject("salonId" -> salonId, "serviceType" -> srvType)).sort(MongoDBObject("price" -> -1)).toList
+               if(srvs.length > 0) Some(srvs(0).price) else None
+        }
+
 	
 	/**
 	 * 根据服务类型和店铺ID获取服务列表

@@ -95,9 +95,12 @@ salon.restDayDivision=请选择休息方式
 salon.restDays=请选择日期
 salon.priceCutOnly=剪发价格
 salon.priceCutOnlyMsg={0} 元起
+salon.priceCutOnlyUndefinded=价格未定义
 salon.seatNums=席位数
 salon.seatNumsMsg={0} 席
 salon.stylistNums=发型师人数
+slaon.stylistNumUnit={0} 人
+slaon.stylistNumUndefined=人数未定义
 salon.canOnlineOrder=可否网上预约
 salon.canImmediatelyOrder=可否即时预约
 salon.canNominateOrder=可否指名预约
@@ -476,6 +479,7 @@ blog.readFullBlog = 阅读全文...
 blog.createAt = 发布于 {0} 
 blog.floor = {0} 楼
 blog.quoteComment = 引用来自" {0} "的评论
+blog.new = 新博客
 
 
 # Comment
@@ -485,6 +489,7 @@ comment.passDate = [投稿日]
 comment.usedCoupon = 预约时使用的优惠券
 comment.usedServices = [用到的技术]
 comment.reply = {0}的回复
+comment.new = 新评论
 
 
 # Point
