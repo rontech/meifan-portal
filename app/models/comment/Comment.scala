@@ -86,7 +86,6 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
   def findCommentForHome(num : Int) : List[CommentOfSalon]= {
     var commentOfSalonList : List[CommentOfSalon] = Nil
     val commentList= dao.find(MongoDBObject("isValid" -> true, "commentObjType" -> 2)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
-    println("commentList" + commentList)
     commentList.foreach({
       row =>
         val coupon = Coupon.findOneById(row.commentObjId)
