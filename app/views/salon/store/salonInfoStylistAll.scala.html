@@ -1,6 +1,9 @@
 @(salon: Salon, stylists: List[StylistDetailInfo] = Nil, navBar: List[(String, String)] = Nil)
 
 @salonInfoMain(navInSalon = "salon-stylist", salon, navBar) {
+	
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">
 
     <div class="yS mainContentsSecondTitleOuter">
         <h2 class="yS mainContentsSecondTitleInner">@Messages("salon.stylistsList", salon.salonName)</h2>

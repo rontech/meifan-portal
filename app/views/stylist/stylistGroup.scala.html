@@ -3,7 +3,8 @@
 <!-- components to list the hair style. -->
 <div class="mysalon-stylist-group">
     @stylists.map { sty =>
-        <div class="mysalon-stylist-@(stylists.indexOf(sty)%4)">
+        @* <div class="mysalon-stylist-@(stylists.indexOf(sty)%4)"> *@
+        <div class="mysalon-stylist hMin399">
             @views.html.stylist.stylistItem(Some(sty))
         </div>
     }
