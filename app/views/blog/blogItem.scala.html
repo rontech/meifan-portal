@@ -26,7 +26,10 @@
 					<span class="iS upLately offL dib vaM">UP</span>
 				</div>
 			</div>
-			<div class="mT5 wwbw">@Html(blog.content)</div>
+			<div class="mT5 wwbw">
+				@Html(blog.content.slice(0, 100))
+                @if(blog.content.length > 100) {...}
+			</div>
 		</div>
 	</div>
 </li>

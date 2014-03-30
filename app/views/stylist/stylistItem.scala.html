@@ -1,14 +1,10 @@
 @(stylist: Option[StylistDetailInfo])
 
-<!--TODO -->
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mySalon.css")">
-
 
 @stylist match {
     case None => { <h1>Not Found</h1> }
     case Some(st) => {
-        <div class="mysalon-stylist-search w166 mHA">
+        <div class="mysalon-stylist-search w166 mHA p10">
             @st.workInfo match {
                 case None => {Not Found}
                 case Some(wk) => {
@@ -31,15 +27,20 @@
                     </div>
                 }
             }
-            <div class="bdDotT mT5 pT5 fs10 hMin30"> <p> @st.basicInfo.nickName </p> </div>
+            <div class="bdDotT mT5 pT5 fs10 hMin20"> <p> @st.basicInfo.nickName </p> </div>
             <!--Stylist's words-->
-            @st.stylistInfo match {
+             @st.stylistInfo match {
                 case None => {}
-                case Some(sinfo) => {<div class="bdDotT mT5 pT5 fs10 hMin30">@sinfo.myWords</div> }
+                case Some(sinfo) => {
+                    <div class="bdDotT mT5 pT5 fs10 hMin35">
+                        @sinfo.myWords.slice(0, 20)
+                        @if(sinfo.myWords.length > 20) {...}
+                    </div> 
+                }
             }
         </div>
         <div class="taC mT10">
-            <a href="#" class="salon-stylist-reserv">@Messages("stylist.selectForReserv")</a>
+            <a href="#" class="bS db nominatedReserve offL mHA">@Messages("stylist.selectForReserv")</a>
         </div>
     }
 }
