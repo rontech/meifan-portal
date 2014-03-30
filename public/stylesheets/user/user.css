@@ -22,11 +22,6 @@
     textarea {
       resize: none;
     }
-    body {
-      background: #f9f9f9;
-      text-align: center;
-      font-size: 10pt;
-    }
     label.SELECTED {
       color: #A00;
       font-weight: bold;
@@ -2970,59 +2965,7 @@
     }
 @charset "utf-8";
 
-body, form, img, div, p, ul, ol, li, dl, dt, dd, h1, h2, h3 ,h4 , h5, h6{
-	margin: 1;
-	padding: 1;
-	-webkit-text-size-adjust:none;
-}
-ul, ol	{ list-style: none; }
-img		{ border: none; vertical-align: bottom; }
-table	{ border-spacing: 0; }
-th		{ text-align: left; }
 
-iframe	{ vertical-align: middle; }
-
-/* clearfix */
-.cFix:after {
-	content: "";
-	display: block;
-	clear: both;
-	height: 0;
-	visibility: hidden;
-}
-.cFix	{ min-height: 1px; _height: 1px; }
-
-a:link			{ color: #4C4C80; }
-a:visited		{ color: #896958; }
-a:hover,
-a:active		{ color: #7878CC; text-decoration: none; }
-
-.linkPink:link		{ color: #CD4D72; }
-.linkPink:visited	{ color: #CD4D72; }
-.linkPink:hover,
-.linkPink:active	{ color: #CD4D72; text-decoration: none; }
-
-.linkGray:link		{ color: #555555; }
-.linkGray:visited	{ color: #555555; }
-.linkGray:hover,
-.linkGray:active	{ color: #555555; text-decoration: none; }
-
-.linkWhite:link		{ color: #FFFFFF; }
-.linkWhite:visited	{ color: #FFFFFF; }
-.linkWhite:hover,
-.linkWhite:active	{ color: #FFFFFF; text-decoration: none; }
-
-body, input, select, textarea, table, th, td, li ,a {
-	font-family:  'MS P Gothic',  'Hiragino Kaku Gothic Pro', Meiryo, 'Osaka', arial, sans-serif, verdana, Helvetica;
-}
-body, input, textarea {
-	color: #333333;
-	font-size: 12px;
-	line-height: 1.5;
-}
-h1, h2, h3, h4, h5, h6 {
-	font-size: 12px;
-}
 #headerWrapper {
 	border-bottom: 2px solid #998a8a;
 	border-top: 16px solid #BFB4AB;
@@ -4838,20 +4781,20 @@ table td.demandTdOuter table.demandTbInner th {
 .deleteMySalon				{ background-position: 0px -180px; width: 165px; height: 24px; }
 .deleteMySalon:hover		{ background-position: 0px -204px; }
 
-.toReserveList					{ background-position: -170px -180px; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*莠育ｴ�ｸ�ｦｧ(繝槭う繝壹�繧ｸ繝医ャ繝励∈)*/
+.toReserveList					{ background-position: -170px -180px; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*闔�ご�ｴ�ｽ�ｸ�ｽ�ｦ�ｧ(郢晄ｧｭ縺�ｹ晏｣ｹ�ｽ郢ｧ�ｸ郢晏現繝｣郢晏干竏�*/
 .toReserveList:hover			{ background-position: -170px -204px; }
-.reservationHistory				{ background-position: -1560px -120px; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}/*莠育ｴ�ｱ･豁ｴ縺ｸ*/
+.reservationHistory				{ background-position: -1560px -120px; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}/*闔�ご�ｴ�ｽ�ｱ�･雎�ｽｴ邵ｺ�ｸ*/
 .reservationHistory:hover		{ background-position: -1560px -144px; }
-.reservationHistorySalon		{ background-position: -1030px 0; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}/*繧ｵ繝ｭ繝ｳ莠育ｴ�ｱ･豁ｴ縺ｸ*/
+.reservationHistorySalon		{ background-position: -1030px 0; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}/*郢ｧ�ｵ郢晢ｽｭ郢晢ｽｳ闔�ご�ｴ�ｽ�ｱ�･雎�ｽｴ邵ｺ�ｸ*/
 .reservationHistorySalon:hover	{ background-position: -1030px -24px; }
 
-.reservationCancel				{ background-position: -1215px 0; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*縺薙�莠育ｴ�ｒ繧ｭ繝｣繝ｳ繧ｻ繝ｫ縺吶ｋ*/
+.reservationCancel				{ background-position: -1215px 0; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*邵ｺ阮呻ｿｽ闔�ご�ｴ�ｽ�堤ｹｧ�ｭ郢晢ｽ｣郢晢ｽｳ郢ｧ�ｻ郢晢ｽｫ邵ｺ蜷ｶ��/
 .reservationCancel:hover		{ background-position: -1215px -24px; }
-.reservationHistoryList         { background-position: -450px -240px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*莠育ｴ�ｱ･豁ｴ&繧ｯ繝ｪ繝��縺ｮ莠育ｴ�ｱ･豁ｴ*/
+.reservationHistoryList         { background-position: -450px -240px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*闔�ご�ｴ�ｽ�ｱ�･雎�ｽｴ&郢ｧ�ｯ郢晢ｽｪ郢晢ｿｽ�ｽ邵ｺ�ｮ闔�ご�ｴ�ｽ�ｱ�･雎�ｽｴ*/
 .reservationHistoryList:hover   { background-position: -450px -264px; }
 .reservationHistoryListCurrent  { background-position: -450px -288px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }
 .reservationHistoryListDisabled  { background-position: -450px -312px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }
-.clipList         				{ background-position: -528px -240px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*莠育ｴ�ｱ･豁ｴ&繧ｯ繝ｪ繝��縺ｮ繧ｯ繝ｪ繝��*/
+.clipList         				{ background-position: -528px -240px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*闔�ご�ｴ�ｽ�ｱ�･雎�ｽｴ&郢ｧ�ｯ郢晢ｽｪ郢晢ｿｽ�ｽ邵ｺ�ｮ郢ｧ�ｯ郢晢ｽｪ郢晢ｿｽ�ｽ*/
 .clipList:hover   				{ background-position: -528px -264px; }
 .clipListCurrent         		{ background-position: -528px -288px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }
 .clipListDisabled         		{ background-position: -528px -312px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }
