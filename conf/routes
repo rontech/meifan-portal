@@ -284,3 +284,8 @@ POST	/styleToAddNewStyle									 controllers.Stylists.styleToAddNewStyle(styleI
 GET		/findMyStylesByStylist/:stylistId					 controllers.Stylists.findMyStylesByStylist(stylistId: ObjectId)
 GET		/getAllStylesBySalon/:salonId/salon				     controllers.SalonsAdmin.getAllStylesBySalon(salonId: ObjectId)
 
+
+# Questions add by jie-zhang (for common questions)
+GET         /question/:qid                                             controllers.Questions.getOneQuestion(qid: ObjectId)
+GET         /questions/                                                controllers.Questions.getAllQuestions()
+
