@@ -277,7 +277,7 @@ GET         /salonUpd/:id                                    controllers.SalonIn
 GET         /salonRegister                                   controllers.SalonInfo.register
 POST        /salonDoRegister                                 controllers.SalonInfo.doRegister
 GET         /salonImage                                      controllers.Application.addImage
-GET         /saveSalonImg/:id                                controllers.Users.saveImg(id :ObjectId)
+GET         /updateSalonlogo/:id                                controllers.SalonInfo.saveSalonImg(id :ObjectId)
 
 #add bu lu-zheng
 GET         /mySalon/:id/createService                                 controllers.Services.serviceMain(id: ObjectId)

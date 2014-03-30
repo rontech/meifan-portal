@@ -78,7 +78,7 @@ object Application extends Controller {
                 val uploadedFile = gridFs.createFile(logo.ref.file)
                 uploadedFile.contentType = logo.contentType.orNull
                 uploadedFile.save()
-                Redirect(routes.Users.saveImg(uploadedFile._id.get))
+                Redirect(routes.SalonInfo.saveSalonImg(uploadedFile._id.get))
             case None => BadRequest("no photo")
         }
     }    

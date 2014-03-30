@@ -1,19 +1,27 @@
 package controllers
 
-import play.api._
-import play.api.mvc._
-import play.api.data._
-import play.api.data.Forms._
-import org.bson.types.ObjectId
-import models._
-import controllers._
-import views._
-import se.radley.plugin.salat.Binders._
-import com.mongodb.casbah.WriteConcern
-import play.api.templates._
 import java.util.Date
+import scala.collection.mutable.ListBuffer
+import scala.concurrent.ExecutionContext.Implicits.global
+import com.mongodb.casbah.WriteConcern
+import com.mongodb.casbah.commons.Imports._
+import se.radley.plugin.salat.Binders._
+import jp.t2v.lab.play2.auth._
+import models._
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.mvc._
+import scala.concurrent.Future
+import play.api.templates._
+import se.radley.plugin.salat._
+import com.mongodb.casbah.gridfs.Imports._
+import com.mongodb.casbah.gridfs.GridFS
+import play.api.libs.iteratee.Enumerator
+import scala.concurrent.ExecutionContext
+import com.mongodb.casbah.MongoConnection
+import controllers._
 
-object SalonInfo extends Controller{        
+object SalonInfo extends Controller with LoginLogout with AuthElement with AuthConfigImpl{        
   
   //店铺信息管理Form
   val salonInfo:Form[Salon] = Form(
@@ -250,5 +258,19 @@ object SalonInfo extends Controller{
           Salon.save(salon.copy(id = id))
           Redirect(routes.SalonInfo.salonInfoBasic(id))
       })
+  }
+  
+  def saveSalonImg(imgId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _){implicit request =>
+    val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    val stylist = Stylist.findOneByStylistId(user.id)
+    stylist match {
+      case Some(sty) => {
+        Stylist.updateImages(sty, imgId)
+        Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = sty, followInfo = followInfo))
+      }
+      case None => NotFound
+    }
+    
   }
 }
