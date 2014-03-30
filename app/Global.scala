@@ -323,9 +323,10 @@ object InitialData {
     
     if(Comment.findAll.isEmpty){
       Seq (
-        Comment(new ObjectId("53195fb4a89e175858abce85"), 1, new ObjectId("5317c0d1d4d57997ce3e6d6a"), "布置的很精致，温馨。价格很适中，好地方，强力推荐", "demo07", date("2014-02-18"), true),
+       Comment(new ObjectId("53195fb4a89e175858abce85"), 2, new ObjectId("5317c0d1d4d57997ce3e6d6a"), "布置的很精致，温馨。价格很适中，好地方，强力推荐", "demo07", date("2014-02-18"), true),
         Comment(new ObjectId("53195fb4a89e175858abce87"), 3, new ObjectId("53195fb4a89e175858abce85"), "谢谢惠顾本店，您的满意是我们最大的幸福", "demo01", date("2014-02-19"), true),
-        Comment(new ObjectId("53195fb4a89e175858abce86"), 1, new ObjectId("5317c0d1d4d57997ce3e6d6b"), "真的的不错，下次还会来的。", "demo08", date("2014-03-19"), true)
+        Comment(new ObjectId("53195fb4a89e175858abce86"), 2, new ObjectId("5317c0d1d4d57997ce3e6d6b"), "发型师能根据我的脸型，发质提出多种方案供选择。最后剪出的发型非常适合自己。真的不错，下次还会来的。", "demo08", date("2014-03-19"), true),
+        Comment(new ObjectId, 2, new ObjectId("5317c0d1d4d57997ce3e6d6b"), "环境优雅，服务态度好。最重要的是发型师的技术非常不错。非常满意，下次还会来的。", "demo07", date("2014-03-19"), true)
       ).foreach(Comment.save)
     }
     if(Message.findAll.isEmpty){

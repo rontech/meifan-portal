@@ -1,0 +1,15 @@
+@(commentOfSalonList : List[CommentOfSalon] = Comment.findCommentForHome(2))
+
+<div class="mT41">
+    <div class="skinHeadingWrapper">
+        <h3>
+            @Messages("comment.new")
+        </h3>
+    </div>
+    <div class="oh zoom1">
+        <ul class="sideShortcutSearchBox">
+            @for(commentOfSalon
+            <- commentOfSalonList){ @views.html.comment.commentForHomeItem(commentOfSalon)
+            } </ul>
+    </div>
+</div>
