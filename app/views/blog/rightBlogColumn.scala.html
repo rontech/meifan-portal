@@ -5,11 +5,11 @@
     @Messages("blog.staff")
 </dt>
 <dd class="list p10">
-    @Stylist.findBySalon(salon.id).map { stylist => @if(!Blog.getBlogByUserId(User.findOneById(Stylist.findOneById(stylist.stylistId).get.stylistId).get.userId).isEmpty){
+    @Stylist.findBySalon(salon.id).map { stylist => @if(!Blog.getStylistBlogByUserId(User.findOneById(Stylist.findOneById(stylist.stylistId).get.stylistId).get.userId).isEmpty){
     <p>
         <a href="/salon/@salon.id/blogs/@stylist.stylistId">
             @User.findOneById(Stylist.findOneById(stylist.stylistId).get.stylistId).get.nickName
-            （@Blog.getBlogByUserId(User.findOneById(Stylist.findOneById(stylist.stylistId).get.stylistId).get.userId).size）
+            （@Blog.getStylistBlogByUserId(User.findOneById(Stylist.findOneById(stylist.stylistId).get.stylistId).get.userId).size）
         </a>
     </p>
     } }

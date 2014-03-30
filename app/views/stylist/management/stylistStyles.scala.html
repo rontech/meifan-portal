@@ -1,21 +1,11 @@
-@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, styles: List[Style], followInfo: FollowInformation)
+@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, styles: List[Style], followInfo: FollowInformation, styleSearchForm: Form[models.Style], styleParaAll: models.StylePara, isFirstSearch: Boolean)
 
 @stylistPageMain(navInMyPage, user, stylist, followInfo){
-	<div class="mysalon-stylist-group">
-		<div>
-			<form action="/stylistFindStylesByCondtion" method="get">
-					
-			</form>
-			
-		</div>
-		<div class="stylist-stylist-group">
-			<input type = "button" class="stylist-addstyle-button" value="@Messages("hair.addStyle")" onclick='location.href="/styleLogin/@stylist.stylistId"'>
-			<div class="stylist-styles-map">
-			@styles.map{style=>
-				@views.html.stylist.management.stylistStyleItem(style)
-			}
-			</div>
-		</div>
-	</div>
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+	@views.html.style.admin.backstageStyleSearch(styleSearchForm, styleParaAll, isFirstSearch)
+	<hr/>
+	<hr/>
+	@views.html.style.admin.backstageStyleSearchList(styles)
+	
 }
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
