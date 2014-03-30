@@ -35,7 +35,12 @@
             <!--Stylist's words-->
             @st.stylistInfo match {
                 case None => {}
-                case Some(sinfo) => {<div class="bdDotT mT5 pT5 fs10 hMin30">@sinfo.myWords</div> }
+                case Some(sinfo) => {
+                    <div class="bdDotT mT5 pT5 fs10 hMin30">
+                        @sinfo.myWords.slice(0, 40)
+                        @if(sinfo.myWords.length > 40) {...}
+                    </div>
+                }
             }
         </div>
         <div class="taC mT10">
