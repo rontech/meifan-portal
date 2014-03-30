@@ -325,9 +325,10 @@ object InitialData {
     
     if(Comment.findAll.isEmpty){
       Seq (
-        Comment(new ObjectId("53195fb4a89e175858abce85"), 1, new ObjectId("5317c0d1d4d57997ce3e6d6a"), "布置的很精致，温馨。价格很适中，好地方，强力推荐", "zhenglu7", date("2014-02-18"), true),
+        Comment(new ObjectId("53195fb4a89e175858abce85"), 2, new ObjectId("5317c0d1d4d57997ce3e6d6a"), "布置的很精致，温馨。价格很适中，好地方，强力推荐", "zhenglu7", date("2014-02-18"), true),
         Comment(new ObjectId("53195fb4a89e175858abce87"), 3, new ObjectId("53195fb4a89e175858abce85"), "谢谢惠顾本店，您的满意是我们最大的幸福", "zhenglu316", date("2014-02-19"), true),
-        Comment(new ObjectId("53195fb4a89e175858abce86"), 1, new ObjectId("5317c0d1d4d57997ce3e6d6b"), "真的的不错，下次还会来的。", "zhenglu8", date("2014-03-19"), true)
+        Comment(new ObjectId("53195fb4a89e175858abce86"), 2, new ObjectId("5317c0d1d4d57997ce3e6d6b"), "真的的不错，下次还会来的。", "zhenglu8", date("2014-03-19"), true),
+        Comment(new ObjectId, 2, new ObjectId("5317c0d1d4d57997ce3e6d6b"), "这家店不错，下次还会来的。", "zhenglu7", date("2014-03-19"), true)
       ).foreach(Comment.save)
     }
     if(Message.findAll.isEmpty){

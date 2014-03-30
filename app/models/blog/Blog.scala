@@ -7,6 +7,15 @@ import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import mongoContext._
 
+/**
+ * A All Info structs of blog including belows
+ *   1. basic info as a user.   
+ *   2. basic info as a salon.
+ */
+case class BlogOfSalon(blogInfo: Blog, salonInfo: Option[Salon]) {
+  def apply(blogInfo: Blog, salonInfo: Option[Salon]) = new BlogOfSalon(blogInfo, salonInfo) 
+}
+
 case class Blog(
     id : ObjectId = new ObjectId,
     title : String, 
@@ -94,14 +103,45 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
    * 通过UserId找到该发型师的blog
    */
   def getStylistBlogByUserId(userId : String) = {
-    dao.find(MongoDBObject("authorId" -> userId, "isValid" -> true, "pushToSalon" -> true)).toList
+    dao.find(MongoDBObject("authorId" -> userId, "isValid" -> true, "pushToSalon" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
   }
   
   /**
-   * 查找blog表中最新的3条blog
+   * 查找blog表中最新的num条blog
+   * 这边这是查找发型师的blog，并且他人可见和推送至店铺
    */
   // TODO
-  def findBlogForHome() = {
-    dao.find(MongoDBObject("isVisible" -> true, "isValid" -> true, "pushToSalon" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
+  def findBlogForHome(num : Int) : List[BlogOfSalon]= {
+    var blogOfSalonList : List[BlogOfSalon] = Nil
+    val blogList= dao.find(MongoDBObject("isVisible" -> true, "isValid" -> true, "pushToSalon" -> true)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
+    blogList.foreach({
+      row =>
+        val user = User.findOneByUserId(row.authorId)
+		user match {
+		    case None => None
+		    case Some(u) => {
+		      val stylist = Stylist.findOneById(u.id)
+		      stylist match {
+			      case None => None
+			      case Some(st) => {
+			        val salonAndStylist= SalonAndStylist.findByStylistId(st.stylistId)
+			        salonAndStylist match {
+			          case None => None
+			          case Some(salonSt) => {
+			            val salon = Salon.findById(salonSt.salonId)
+			            val blogOfSalon = BlogOfSalon(row, salon)			            
+			            blogOfSalonList :::= List(blogOfSalon)
+			          }
+			        }
+			        }
+			      }
+		      }
+		    }
+        }    
+    )
+    blogOfSalonList
   }
+  
+  
+  
 }
