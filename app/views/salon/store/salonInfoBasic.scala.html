@@ -8,123 +8,77 @@
             @Messages("salon.salonData", salon.salonName)
         </h2>
         </div>
-        <p class="mT5 taR">
-        <i>
-            <em class="seoCaption">
-            @salon.salonName 
-            </em>
-        </i>
-        </p>
+        <p class="mT5 taR"> <i> <em class="seoCaption"> @salon.salonName </em> </i> </p>
         <table cellspacing="0" class="wFull bdCell bgThNml fgThNml vaThT pCellV10H12">
         <tbody>
             <tr>
-            <th class="w120">
-                @Messages("salon.mainPhone")
-            </th>
-            <td colspan="3" class="w620">
-                <a href="#"/>
-                番号を表示: @salon.mainPhone
-                </a>
-            </td>
+                <th class="w120"> @Messages("salon.mainPhone") </th>
+                <td colspan="3" class="w620"> <a href="#"/> @salon.mainPhone </a> </td>
             </tr>
             <tr>
-            <th class="w120">
-                @Messages("salon.address")
-            </th>
-            <td colspan="3" class="w620">
-                @(Messages("province.provinceName." + salon.salonAddress.province))
-                @(Messages("city.cityName." + salon.salonAddress.city.get)) @*TODO*@
-                @(Messages("region.regionName." + salon.salonAddress.region.get))@*TODO*@ 
-                @salon.salonAddress.addrDetail
-            </td>
+                <th class="w120"> @Messages("salon.address") </th>
+                <td colspan="3" class="w620">
+                    @(Messages("province.provinceName." + salon.salonAddress.province))
+                    @(Messages("city.cityName." + salon.salonAddress.city.get)) @*TODO*@
+                    @(Messages("region.regionName." + salon.salonAddress.region.get))@*TODO*@ 
+                    @salon.salonAddress.addrDetail
+                </td>
             </tr>
             <tr>
-            <th class="w120">
-               @Messages("salon.accessMethod") 
-            </th>
-            <td colspan="3" class="w620">
-               @salon.accessMethodDesc &nbsp; 
-            </td>
+                <th class="w120"> @Messages("salon.accessMethod") </th>
+                <td colspan="3" class="w620"> @salon.accessMethodDesc </td>
             </tr>
             <tr>
-            <th class="w120">
-                @Messages("salon.workTime")
-            </th>
-            <td colspan="3" class="w620">
-                平日・土10：00～21：00　日祝10：00～20：00&nbsp;
-            </td>
+                <th class="w120"> @Messages("salon.workTime") </th>
+                <td colspan="3" class="w620"> @salon.workTime.openTime -- @salon.workTime.closeTime </td>
             </tr>
             <tr>
-            <th class="w120">
-                @Messages("salon.restDay")
-            </th>
-            <td colspan="3" class="w620">
-                毎週火曜日　&nbsp;
-            </td>
+                <th class="w120"> @Messages("salon.restDay") </th>
+                <td colspan="3" class="w620">
+                    @for(i <- 0 to salon.restDays(0).restDay.size - 1){
+                        @Messages("restDay.restDay.1." + salon.restDays(0).restDay(i))					
+                    } 
+                </td>
             </tr>
             <tr>
-            <th class="w120">
-                @Messages("salon.isPosAvailable")
-            </th>
-            <td colspan="3" class="w620">
-                可&nbsp;
-            </td>
+                <th class="w120"> @Messages("salon.isPosAvailable") </th>
+                <td colspan="3" class="w620">
+                    @if(salon.salonFacilities.isPosAvailable) {@Messages("salon.posAvailable")} 
+                    else {@Messages("salon.posNotAvailable")}
+                </td>
             </tr>
             <tr>
-            <th class="w120">
-               @Messages("salon.homepage") 
-            </th>
-            <td colspan="3" class="w620">
-                <p>
-                <i>
-                    <em class="seoCaption">
-                    @salon.salonName
-                    </em>
-                </i>
-                </p>
-                <a href="javascript:void(0);" id="store_hp">
-                @salon.homepage                
-                </a>
-            </td>
+                <th class="w120"> @Messages("salon.homepage") </th>
+                <td colspan="3" class="w620">
+                    <p> <i> <em class="seoCaption"> @salon.salonName </em> </i> </p>
+                    <a href="javascript:void(0);" id="store_hp"> @salon.homepage</a>
+                </td>
             </tr>
             <tr>
-            <th class="w120">
-                @Messages("salon.priceCutOnly")
-            </th>
-            <td class="w208 vaT">
-                @Salon.getLowestPriceOfCut(salon.id) match {
-                   case None => { @Messages("salon.priceCutOnlyNotFound")}
-                   case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
-                }
-            </td>
-            <th class="w120">
-                @Messages("salon.seatNums")
-            </th>
-            <td class="w208 vaT">
-                @Messages("salon.seatNumsMsg", salon.seatNums)
-            </td>
+                <th class="w120"> @Messages("salon.priceCutOnly") </th>
+                <td class="w208 vaT">
+                    @Salon.getLowestPriceOfCut(salon.id) match {
+                       case None => { @Messages("salon.priceCutOnlyNotFound")}
+                       case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
+                    }
+                </td>
+                <th class="w120"> @Messages("salon.seatNums") </th>
+                <td class="w208 vaT"> @Messages("salon.seatNumsMsg", salon.seatNums) </td>
             </tr>
             <tr>
-            <th class="w120">
-                @Messages("salon.stylistNums")
-            </th>
-            <td class="w208 vaT">
-                @Messages("slaon.stylistNumUnit", Salon.getCountOfStylists(salon.id))
-            </td>
-            <th class="w120">
-                @Messages("salon.parkingDesc")
-            </th>
-            <td class="w208 vaT">
-                @if(salon.salonFacilities.hasParkingNearby) { @salon.salonFacilities.parkingDesc &nbsp;} else { @Messages("salon.hasNoParkingNearByMsg")}
-            </td>
+                <th class="w120"> @Messages("salon.stylistNums") </th>
+                <td class="w208 vaT">
+                    @Messages("slaon.stylistNumUnit", Salon.getCountOfStylists(salon.id))
+                </td>
+                <th class="w120"> @Messages("salon.parkingDesc") </th>
+                <td class="w208 vaT">
+                    @if(salon.salonFacilities.hasParkingNearby) { @salon.salonFacilities.parkingDesc} 
+                    else { @Messages("salon.hasNoParkingNearByMsg")}
+                </td>
             </tr>
             <tr>
-            <th class="w120">
-                @Messages("salon.description")
-            </th>
-            <td colspan="3" class="w620">
-               @salon.salonDescription 
-            </td>
+                <th class="w120"> @Messages("salon.description") </th>
+                <td colspan="3" class="w620"> @salon.salonDescription </td>
             </tr>
         </tbody>
         </table>
