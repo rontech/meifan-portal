@@ -10,6 +10,7 @@ import models._
 import jp.t2v.lab.play2.auth._
 import scala.concurrent._
 import ExecutionContext.Implicits.global
+import play.api.templates.Html
 
 object UserLetters extends Controller with AuthElement with AuthConfigImpl {
   val pageSize: Int = 5 //每页显示记录
@@ -20,11 +21,10 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
         "sender" -> text,
         "senderNm" -> text,
         "addressee" -> text,
-        "addresseeNm" -> text,
-        "createdTime" -> text) { (sender, senderNm, addressee, addresseeNm, time) =>
+        "addresseeNm" -> text) { (sender, senderNm, addressee, addresseeNm) =>
           UserMessage(new ObjectId, sender, senderNm, addressee, addresseeNm, new ObjectId(), UserMessage.OUTBOX_SENT, UserMessage.INBOX_UNREAD, new Date)
         } {
-          userMessage => Some((userMessage.sender, userMessage.senderNm, userMessage.addressee, userMessage.addresseeNm, userMessage.createdTime.toString))
+          userMessage => Some((userMessage.sender, userMessage.senderNm, userMessage.addressee, userMessage.addresseeNm))
         },
       "message" -> mapping(
         "title" -> text,
@@ -83,5 +83,22 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
     UserMessage.read(userMsg)
     Ok(views.html.user.message(UserLetter(userMsg, msg),user,followInfo))
   }
-  
+
+  def sendLetterPage(id : String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val loginUser = loggedIn
+    val user = User.findOneById(new ObjectId(id)).get
+    Ok(views.html.user.myLetters(user,loginUser))
+  }
+
+  def sendLetter() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    UserLetters.userLetterForm.bindFromRequest.fold(
+    errors => BadRequest("发送失败，请重试！"),
+    {
+      userLetter =>
+        Message.save(userLetter.message, WriteConcern.Safe)
+        val userMessage = userLetter.userMessage.copy(msgId = userLetter.message.id)
+        UserMessage.save(userMessage, WriteConcern.Safe)
+        Ok(Html("<p><strong>圣旨已送到！！</strong></p>"))
+    })
+  }
 }

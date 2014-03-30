@@ -12,7 +12,10 @@ object Salons extends Controller {
      * The Main Page of All Salon 
      -------------------------*/
     def index = Action {
-        Ok(views.html.salon.general.index(getSalonTopNavBar))
+        // get common questions to show the common questions module.
+        // val quests = Question.findAll().toList
+        // Ok(views.html.salon.general.index(navBar = getSalonTopNavBar, user = None, questions = quests))
+        Ok(views.html.salon.general.index(navBar = getSalonTopNavBar, user = None))
     }
 
 

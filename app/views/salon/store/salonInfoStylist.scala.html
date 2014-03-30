@@ -3,6 +3,7 @@
 @salonInfoMain(navInSalon = "salon-stylist", salon, navBar){
 
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">
 
     @stylist match {
         case None => {<h1>Not Found</h1>}
@@ -30,11 +31,14 @@
                 <!--↑ Get stylist's self introductions.--> 
 
                 <!--↓ Stylist's Works: All the styles.  -->
-                <div class="yS mainContentsSecondTitleOuter">
-                    <h3 class="yS mainContentsSecondTitleInner">
-                        @Messages("stylist.haircatalog", dtl.basicInfo.nickName)
-                    </h3>
+                <div class="mT30">
+                	<div class="yS mainContentsSecondTitleOuter">
+	                    <h3 class="yS mainContentsSecondTitleInner">
+	                        @Messages("stylist.haircatalog", dtl.basicInfo.nickName)
+	                    </h3>
+	                </div>
                 </div>
+                
                 <!-- get all the salons with all the styles.  -->
                 @views.html.style.styleGroup(styles, salon)
                 <!--↑ Stylist's Works: All the styles.  -->

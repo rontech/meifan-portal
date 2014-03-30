@@ -82,7 +82,6 @@ h1, h2 {
 	width: 1000px;
 	margin: 0 auto -2px;
 	position: relative;
-	border-bottom: 2px solid #998a8a;
 }
 #headSummary {
 	font-size: 10px;
@@ -117,7 +116,7 @@ h1, h2 {
 }
 .move {
 	position: absolute;
-	bottom: -2px;
+	bottom: -0.2px;
 	_bottom: -3px;
 	right: 20px;
 	z-index: 3;
@@ -1753,17 +1752,6 @@ padding: 0px 15px;
 border: 1px solid #BFB4AB;
 }
 
-
-/* for rightColumn menu. */
-dl {
-display: block;
--webkit-margin-before: 1em;
--webkit-margin-after: 1em;
--webkit-margin-start: 0px;
--webkit-margin-end: 0px;
-}
-
-
 /* add by jie-zhang@2014/03/08
  * for Salon Page.
  *
@@ -1987,3 +1975,291 @@ padding-left: 9px;
 padding-right: 9px;
 }
 
+.sprtHeaderOuter {
+margin-right: 180px;
+}
+
+/* BORDER */
+.sp {
+	border-right: 1px solid #CCC;
+	margin-right: 10px;
+	padding-right: 10px;
+}
+
+.sp_l {
+    border-left: 1px solid #CCC;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+
+.bd0			{ border: 0 !important;}
+.bdN			{ border: none !important; }
+.bdN			{ border: none !important; }
+
+.bdWhiteL		{ border-left: 1px solid #FFFFFF; }
+.bdGrayR2		{ border-right: 1px solid #A6A39B; }
+
+.bdGray			{ border: 1px solid #DDDDDD; }
+.bdGrayT		{ border-top: 1px solid #DDDDDD; }
+.bdGrayR		{ border-right: 1px solid #DDDDDD; }
+.bdGrayB		{ border-bottom: 1px dotted #DDDDDD; }
+.bdGrayB2		{ border-bottom: 1px solid #DDDDDD; }
+.bdGrayB3		{ border-bottom: 2px solid #666666; }
+.bdGrayL		{ border-left: 1px solid #DDDDDD; }
+.bdGrayL2		{ border-left: 1px solid #A6A39B; }
+
+.bdGray2		{ border: 1px solid #A6A6A6; }
+.bdGray3		{ border: 1px solid #7F7F7F; }
+.bdGray4		{ border: 1px solid #D9D9D9; }
+.bdGray5L		{ border-left: 1px solid #999999; }
+
+.bdDotGrayT		{ border-top: 1px dotted #999999; }
+.bdDotGrayB		{ border-bottom: 1px dotted #999999; }
+
+.bdLGray		{ border: 1px solid #CCCCCC; }
+.bdLGrayT		{ border-top: 1px solid #CCCCCC; }
+.bdLGrayR		{ border-right: 1px solid #CCCCCC; }
+.bdLGrayB		{ border-bottom: 1px solid #CCCCCC; }
+.bdLGrayL		{ border-left: 1px solid #CCCCCC; }
+
+.bdWhite		{ border: 1px solid #FFFFFF; }
+.bdWhiteL		{ border-left: 1px solid #FFFFFF; }
+
+.bdPink			{ border: 1px solid #FF7799; }
+.bdPinkB		{ border-bottom: 1px solid #FF7799; }
+.bdPinkR		{ border-right: 1px solid #EC98AB; }
+.bdPinkL		{ border-left: 1px solid #EC98AB; }
+
+.bdDPink	{ border: 1px solid #E6BBBB; }
+.bdDPinkB	{ border-bottom: 1px solid #E6BBBB; }
+
+.bdDotPinkB	{ border-bottom: 1px dotted #E6BBBB; }
+
+.bdCouponGrayR	{ border-right: 1px solid #DDD7D2; }
+.bdCouponGrayL	{ border-left: 1px solid #DDD7D2; }
+
+.bdCouponGreenR	{ border-right: 1px solid #91AC8A; }
+.bdCouponGreenL	{ border-left: 1px solid #91AC8A; }
+
+.bdDotT			{ border-top: 1px dotted #999999; }
+.bdDotR			{ border-right: 1px dotted #999999; }
+.bdDotB			{ border-bottom: 1px dotted #999999; }
+
+.bdOrangeR		{ border-right:1px solid #FFCB9E; }
+.bdOrangeB		{ border-bottom:1px solid #FFCB9E; }
+.bdOrangeT		{ border-top:1px solid #FFCB9E; }
+.bdOrange5		{ border:5px solid #FFCFA3; }
+
+.bdGreenR		{ border-right:1px solid #91AC8A; }
+
+.bdRedB			{ border-bottom: 2px solid #AA3355; }
+
+.bdWRedB3		{ border-bottom:3px solid #AA3355; }
+
+.bdPurpleB2		{ border-bottom: 2px solid #663399; }
+.bdBlue			{ border: 1px solid #B4C4C4; }
+.bdDotPurpleB	{ border-bottom: 1px dotted #A36FA2; }
+
+.bdCGrayB		{ border-bottom: 1px solid #666666; }
+
+/************************************************************
+ * スプライト画像 - ボタン（b.png）
+ ************************************************************/
+
+
+.addIntoMyPage				{ background-position: 0 0; width: 160px; height: 19px; }
+.addIntoMyPage:hover		{ background-position: 0 -24px; }
+.sendToMobile				{ background-position: -180px 0; width: 160px; height: 19px; }
+.sendToMobile:hover			{ background-position: -180px -24px; }
+.rsvWithCoupon				{ background-position: -360px 0; width: 105px; height: 20px; }
+.rsvWithCoupon:hover		{ background-position: -360px -20px; }
+
+.viewMore					{ background-position: 0 -60px; display: block; width: 79px; height: 24px; }
+.viewMore:hover				{ background-position: 0 -84px; }
+.return						{ background-position: -90px -60px; width:80px; height:24px; }
+.return:hover				{ background-position: -90px -84px; }
+.showAll					{ background-position: -180px -60px; width: 80px; height: 24px; }
+.showAll:hover				{ background-position: -180px -84px; }
+.sendMobile					{ background-position: -270px -60px; width: 80px; height: 24px; }
+.sendMobile:hover			{ background-position: -270px -84px; }
+.contributeKuchikomi		{ background-position: -360px -60px; width: 80px; height: 24px; }
+.contributeKuchikomi:hover	{ background-position: -360px -84px; }
+.yes						{ background-position: -450px -60px; width: 80px; height: 24px; }
+.yes:hover					{ background-position: -450px -84px; }
+.amend						{ background-position: -540px -60px; width:80px; height:24px; }
+.amend:hover				{ background-position: -540px -84px; }
+.toBack						{ background-position: -630px -60px; width: 80px; height: 24px; }
+.toBack:hover				{ background-position: -630px -84px; }
+.showDetailW80H24			{ background-position: -720px -60px; width: 80px; height: 24px; }
+.showDetailW80H24:hover		{ background-position: -720px -84px; }
+.showDetailW80H24Purple		{ background-position: -810px -60px; width: 80px; height: 24px; }
+.showDetailW80H24Purple:hover	{ background-position: -810px -84px; }
+
+.toMyStylist				{ background-position: 0px -120px; width:115px; height:24px; }
+.toMyStylist:hover			{ background-position: 0px -144px; }
+.toMySalon					{ background-position: -120px -120px; width:115px; height:24px; }
+.toMySalon:hover			{ background-position: -120px -144px; }
+.confirmEntryContent		{ background-position: -240px -120px; width:115px; height:24px; }
+.confirmEntryContent:hover	{ background-position: -240px -144px; }
+.submitKuchikomi			{ background-position: -360px -120px; width: 115px; height: 24px; }
+.submitKuchikomi:hover		{ background-position: -360px -144px; }
+.backRailway				{ background-position: -480px -120px; width: 115px; height: 24px; }
+.backRailway:hover			{ background-position: -480px -144px; }
+.showMapPrintPage			{ background-position: -600px -120px; width: 115px; height: 24px; }
+.showMapPrintPage:hover		{ background-position: -600px -144px; }
+.toMyStyle					{ background-position: -720px -120px; width:115px; height:24px; }
+.toMyStyle:hover			{ background-position: -720px -144px; }
+.howToUse					{ background-position: -840px -120px; width: 115px; height: 24px; }
+.howToUse:hover				{ background-position: -840px -144px; }
+.changeBtn					{ background-position: -960px -120px; width: 115px; height: 24px; }
+.changeBtn:hover			{ background-position: -960px -144px; }
+.goBackSalon				{ background-position: -1080px -120px; width: 115px; height: 24px; }
+.goBackSalon:hover			{ background-position: -1080px -144px; }
+.returnPreviousPage			{ background-position: -1200px -120px; width:115px; height:24px; }
+.returnPreviousPage:hover	{ background-position: -1200px -144px; }
+.addIntoMySalon				{ background-position: -1320px -120px; width: 115px; height: 24px; }
+.addIntoMySalon:hover		{ background-position: -1320px -144px; }
+.addIntoMyStyle				{ background-position: -1440px -120px; width: 115px; height: 24px; margin:0 5px;}
+.addIntoMyStyle:hover		{ background-position: -1440px -144px; }
+.addIntoMyStylePink			{ background-position: -1220px -760px; width: 145px; height: 32px; margin:0 5px;}
+.addIntoMyStylePink:hover	{ background-position: -1220px -792px; }
+.carouselPrev				{ background-position: -1600px -120px; width: 24px; height: 24px;}
+.carouselPrev:hover			{ background-position: -1600px -144px; }
+.carouselNext				{ background-position: -1634px -120px; width: 24px; height: 24px;}
+.carouselNext:hover			{ background-position: -1634px -144px; }
+
+.deleteMySalon				{ background-position: 0px -180px; width: 165px; height: 24px; }
+.deleteMySalon:hover		{ background-position: 0px -204px; }
+.toReserveList				{ background-position: -170px -180px; width:165px; height:24px; }
+.toReserveList:hover		{ background-position: -170px -204px; }
+.contriButionButton			{ background-position: -340px -180px; width:165px; height:24px; }
+.contriButionButton:hover	{ background-position: -340px -204px; }
+.showCouponPrintPage		{ background-position: -510px -180px; width: 165px; height: 24px; }
+.showCouponPrintPage:hover	{ background-position: -510px -204px; }
+.deleteMyStyle				{ background-position: -680px -180px; width: 165px; height: 24px; }
+.deleteMyStyle:hover		{ background-position: -680px -204px; }
+.deleteMyStylist			{ background-position: -850px -180px; width: 165px; height: 24px; }
+.deleteMyStylist:hover		{ background-position: -850px -204px; }
+.cancelReserve				{ background-position: -1020px -180px; width:165px; height:24px; }
+.cancelReserve:hover		{ background-position: -1020px -204px; }
+.entryOrderSheet			{ background-position: -1190px -180px; width:165px; height:24px; }
+.entryOrderSheet:hover		{ background-position: -1190px -204px; }
+.backSelectDate				{ background-position: -1360px -180px; width:165px; height:24px; }
+.backSelectDate:hover		{ background-position: -1360px -204px; }
+.addIntoMyStylist			{ background-position: -1530px -180px; width: 165px; height: 24px; }
+.addIntoMyStylist:hover		{ background-position: -1530px -204px; }
+
+.searchSalon				{ background-position: 0 -250px; width: 73px; height: 21px; }
+.searchSalon:hover			{ background-position: 0 -271px; }
+.showNearestStation			{ background-position: -80px -250px; width:80px; height:34px; }
+.showNearestStation:hover	{ background-position: -80px -284px; }
+.addIntoMyPageW110H40		{ background-position: -170px -250px; width: 110px; height: 40px; }
+.addIntoMyPageW110H40:hover	{ background-position: -170px -290px; }
+
+.narrows					{ background-position: 0 -360px; width: 90px; height: 27px; }
+.narrows:hover				{ background-position: 0 -387px; }
+.showDetailW208H27			{ background-position: -100px -360px; width: 208px; height: 27px; }
+.showDetailW208H27:hover	{ background-position: -100px -387px; }
+.showDetailW156H27			{ background-position: -320px -360px; width: 156px; height: 27px; }
+.showDetailW156H27:hover	{ background-position: -320px -387px; }
+
+
+.addIntoMyPageW156H27		{ background-position: 0 -440px; width: 156px; height: 27px; }
+.addIntoMyPageW156H27:hover	{ background-position: 0 -467px; }
+.addIntoMyStyleW156H27		{ background-position: -180px -440px; width: 156px; height: 27px; }
+.addIntoMyStyleW156H27:hover	{ background-position: -180px -467px; }
+.richArrowL					{ background-position: -350px -440px; width: 23px; height: 23px; margin-right: 10px; }
+.richArrowL:hover			{ background-position: -350px -463px; }
+.richArrowR					{ background-position: -390px -440px; width: 23px; height: 23px; margin-left: 10px; }
+.richArrowR:hover			{ background-position: -390px -463px; }
+
+.sort						{ background-position: 0 -520px; width: 80px; height: 30px; }
+.sort:hover					{ background-position: 0 -550px; }
+.search						{ background-position: -1034px -864px; width: 80px; height: 30px; }
+.search:hover				{ background-position: -1034px -894px; }
+.reserveW80H30				{ background-position: -90px -520px; width: 80px; height: 30px; }
+.reserveW80H30:hover		{ background-position: -90px -550px; }
+.oNext						{ background-position: -180px -520px; width: 120px; height: 30px; }
+.oNext:hover				{ background-position: -180px -550px; }
+.showDetailW131H30			{ background-position: -310px -520px; width: 131px; height: 30px; }
+.showDetailW131H30:hover	{ background-position: -310px -550px; }
+.searchByStation			{ background-position: -450px -520px; width: 150px; height: 30px; }
+.searchByStation:hover		{ background-position: -450px -550px; }
+.noNext						{ background-position: -610px -520px; width: 150px; height: 30px; }
+.noNext:hover				{ background-position: -610px -550px; }
+.selectMenu					{ background-position: -770px -520px; width: 150px; height: 30px; }
+.selectMenu:hover			{ background-position: -770px -550px; }
+.searchByArea				{ background-position: -930px -520px; display: block; width:190px; height:32px; }
+.searchByArea:hover			{ background-position: -930px -552px; }
+.searchByStation2			{ background-position: -300px -250px; display: block; width:139px; height:28px; position: relative; left: 16px;}
+.searchByStation2:hover		{ background-position: -300px -278px; }
+.change						{ background-position: -1660px -520px; width: 80px; height: 30px; }
+.change:hover				{ background-position: -1660px -550px; }
+
+.next						{ background-position: 0 -600px; width: 150px; height: 30px; }
+.next:hover					{ background-position: 0 -630px; }
+.next2						{ background-position: -160px -600px; width: 150px; height: 30px; }
+.next2:hover				{ background-position: -160px -630px; }
+.confirm					{ background-position: -320px -600px; width: 150px; height: 30px; }
+.confirm:hover				{ background-position: -320px -630px; }
+.reserveW80H30S				{ background-position: -480px -600px; width: 80px; height: 30px; }
+.reserveW80H30S:hover		{ background-position: -480px -630px; }
+.submitBtn					{ background-position: -630px -600px; width: 150px; height: 50px; }
+.submitBtn:hover			{ background-position: -630px -650px; }
+.submitBtn2					{ background-position: -790px -600px; width: 150px; height: 50px; }
+.submitBtn2:hover			{ background-position: -790px -650px; }
+.reserveW100H40				{ background-position: -950px -600px; width: 100px; height: 40px; }
+.reserveW100H40:hover		{ background-position: -950px -640px; }
+.reserveDesignate			{ background-position: -1060px -600px; width: 125px; height: 40px; }
+.reserveDesignate:hover		{ background-position: -1060px -640px; }
+.reserveL					{ background-position: -1200px -600px; width: 161px; height: 60px; }
+.reserveL:hover				{ background-position: -1200px -660px; }
+.reserveSalon				{ background-position: -1371px -600px; width: 194px; height: 30px; }
+.reserveSalon:hover			{ background-position: -1371px -630px; }
+.reserveSalon2				{ background-position: -1578px -600px; width: 194px; height: 30px; }
+.reserveSalon2:hover		{ background-position: -1578px -630px; }
+
+.nominatedReserve			{ background-position: 0 -680px; width: 132px; height: 31px; }
+.nominatedReserve:hover		{ background-position: 0 -711px; }
+.nominatedReserveN			{ background-position: -160px -680px; width: 80px; height: 24px; }
+.nominatedReserveN:hover	{ background-position: -160px -704px; }
+.nominatedReserveW115H24	{ background-position: -260px -680px; width: 115px; height: 24px; }
+.nominatedReserveW115H24:hover	{ background-position: -260px -704px; }
+.reserveW115H24				{ background-position: -380px -680px; width: 115px; height: 24px; }
+.reserveW115H24:hover		{ background-position: -380px -704px; }
+.reserveW115H24Purple		{ background-position: -500px -680px; width: 115px; height: 24px; }
+.reserveW115H24Purple:hover	{ background-position: -500px -704px; }
+.confirmL					{ background-position: -1380px -680px; width: 150px; height: 50px; }
+.confirmL:hover				{ background-position: -1380px -730px; }
+
+
+.reserveCoupon				{ background-position: -880px -760px; width: 150px; height: 50px; }
+.reserveCoupon:hover		{ background-position: -880px -810px; }
+.reserveSMenu				{ background-position: -880px -865px; width: 150px; height: 50px; }
+.reserveSMenu:hover			{ background-position: -880px -915px; }
+.reserveMenu				{ background-position: -1460px -520px; width: 190px; height: 32px; }
+.reserveMenu:hover			{ background-position: -1460px -552px; }
+.reserveSingleMenu			{ background-position: -1118px -864px; width: 120px; height: 30px; }
+.reserveSingleMenu:hover	{ background-position: -1118px -894px; }
+.reserveTel					{ background-position: -1050px -760px; width: 35px; height: 32px; }
+.reserveImpossible			{ background-position: -1090px -760px; width: 35px; height: 32px; }
+.reserveImmediately			{ background-position: -1130px -760px; width: 35px; height: 32px; }
+.reserveImmediately:hover	{ background-position: -1130px -792px; }
+.reserveTemporary			{ background-position: -1170px -760px; width: 35px; height: 32px; }
+.reserveTemporary:hover		{ background-position: -1170px -792px; }
+.reserveTemporaryStay		{ background-position: -1170px -760px; width: 35px; height: 32px; }
+
+.reserveSMenu				{ background-position: -880px -865px; width: 150px; height: 50px; }
+.reserveSMenu:hover			{ background-position: -880px -915px; }
+.search						{ background-position: -1034px -864px; width: 80px; height: 30px; }
+.search:hover				{ background-position: -1034px -894px; }
+.submitBtn3					{ background-position: -1540px -680px; width: 150px; height: 50px; }
+.submitBtn3:hover			{ background-position: -1540px -730px; }
+
+.checkCoupon				{ background-position: -900px -60px; width: 100px; height: 24px; }
+.checkCoupon:hover			{ background-position: -900px -84px; }
+
+.hMin30 {
+min-height: 30px;
+_height: 30px;
+}

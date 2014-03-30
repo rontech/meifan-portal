@@ -160,11 +160,10 @@ object Styles extends Controller {
      */
     def index = Action {
         //检索画面Ranking数据暂时写死以便，数据画面显示；
-        val salonId = "530d7292d7f2861457771bde"
-        val stylists = Style.findStylistBySalonId(new ObjectId(salonId))
+        val stylistId = List("53202c29d4d5e3cd47efffd9")
         var styles: List[Style] = Nil
-        stylists.map { sty =>
-            var style = Style.findByStylistId(sty.id)
+        stylistId.map { sty =>
+            val style = Style.findByStylistId(new ObjectId(sty))
             styles :::= style
         }
         Ok(html.style.general.overview(styles, styleSearchForm, Style.findParaAll))
@@ -207,7 +206,7 @@ object Styles extends Controller {
     def styleSearchList = Action {
         implicit request =>
             styleSearchForm.bindFromRequest.fold(
-                errors => BadRequest(html.style.test(errors)),
+                errors => BadRequest(html.index("")),
                 {
                     case (styleSearch) => {
                         val styleSearchInfo = Style.findByPara(styleSearch)
@@ -242,8 +241,8 @@ object Styles extends Controller {
                 {
                     case (styleAddForm) => {
                         Style.save(styleAddForm)
-                        //                        Ok(html.style.test(styleAddForm))
-                        Ok(html.index(""))
+                                                Ok(html.style.test(styleAddForm))
+//                        Ok(html.index(""))
                     }
                 })
     }

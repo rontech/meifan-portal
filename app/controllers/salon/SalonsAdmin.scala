@@ -6,6 +6,7 @@ import models._
 import views._
 import java.util.Date
 import models.Salon
+import models.ServiceType
 
 object SalonsAdmin extends Controller {
   
@@ -33,7 +34,7 @@ object SalonsAdmin extends Controller {
   }
   
   def myReserv(salonId: ObjectId) = Action {
-    Ok(views.html.salon.general.index(Nil))
+    Ok(views.html.salon.general.index(navBar = Nil, user = None))
   }
   
   def myComment(salonId: ObjectId) = Action {
@@ -51,9 +52,11 @@ object SalonsAdmin extends Controller {
   def myService(salonId: ObjectId) = Action {
     val salon = Salon.findById(salonId)
     val serviceList = Service.findBySalonId(salonId)
+    val serviceTypeNameList = ServiceType.findAllServiceType
+    val serviceTypeInserviceList = serviceList.map(service => service.serviceType)
     
     salon match{
-        case Some(s) =>Ok(html.salon.admin.mySalonServiceAll(salon = s, serviceList = serviceList))
+        case Some(s) =>Ok(html.salon.admin.mySalonServiceAll(salon = s, serviceList = serviceList, serviceTypeNameList = serviceTypeNameList, serviceTypeInserviceList = serviceTypeInserviceList))
         case None => NotFound
     }
     
@@ -202,4 +205,22 @@ object SalonsAdmin extends Controller {
     SalonAndStylist.leaveSalon(salonId,stylistId)
     Redirect(routes.SalonsAdmin.myStylist(salonId))
   }
+  
+  def getAllStylesBySalon(salonId: ObjectId) = Action {
+    val salon: Option[Salon] = Salon.findById(salonId)
+        val stylists = SalonAndStylist.getStylistsBySalon(salonId)
+        var styles: List[Style] = Nil
+        stylists.map { sty =>
+            var style = Style.findByStylistId(sty.stylistId)
+            styles :::= style
+        }
+    println("styles"+styles)
+        salon match {
+            case Some(sa) => {
+                Ok(html.salon.admin.mySalonStyles(salon = sa , styles = styles))
+            }
+            case None => NotFound
+        }
+  }
+  
 }

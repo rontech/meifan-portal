@@ -1,19 +1,15 @@
 @(styleSearchForm: Form[Style], styleAndSalon: List[models.StyleAndSalon], stylePara : models.StylePara)
 
+@main(title = Messages("hair.tabName"), nav = "hair-catalog") {
 
-
-@main(title = Messages("hair.tabName"), nav = "hair-style") {
-
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/sye.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
     <div>
         <div style="float:left;width:80%">
             <!-- Style Search Result Page , Search. -->    
             @views.html.style.general.styleSearchSecond(styleSearchForm, stylePara)
-            <hr/>
-            <hr/>
+            
             <!-- Style Search Result Page, SearchList. -->    
             @views.html.style.general.styleSearchList(styleAndSalon)
-            <hr/>
             
         </div>
         <div style="">

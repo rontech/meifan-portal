@@ -4,31 +4,43 @@
 
 @form(routes.Services.addService(salonId), 'id -> "serviceForm") {
 	<legend class="mainTitle">@Messages("service.createServiceArea")</legend>
-	<div class="menuInfo">
+	<div class="serviceInfo">
+	
+        @if(serviceForm.hasGlobalErrors) { 
+              <div>
+                  <p align = center>@serviceForm.globalError.get.message<p>
+              </div>
+            }	
+	
 		<input type="hidden" name="salonId" value="@salonId" />
 		
 		@inputText(serviceForm("serviceName"), '_label -> Messages("service.name"),
 			'_error -> serviceForm("serviceName").error.map(_.withMessage(Messages("service.addErrorMsg")))
-            ,'_error -> serviceForm.globalError
+		)
+
+        @input(field=serviceForm("serviceType"),'_label -> Messages("service.type")) { (id, name, value,_) =>
+          <select name= "serviceType">
+            @serviceType.map { serviceTypeNm =>
+                  <option value= @serviceTypeNm>@Messages("ServiceType.serviceTypeName."+ serviceTypeNm)</option>
+            }
+          </select>
+        }
+        
+		@inputText(serviceForm("price"),'_label -> Messages("service.price"),
+			'_error -> serviceForm("price").error.map(_.withMessage(Messages("service.priceErrorMsg")))
 		)
 		
-		@select(
-             	serviceForm("serviceType"),
-             	options = options(serviceType),
-             	'_label -> Messages("service.type")
-             )
-            
-		@inputText(serviceForm("description"),'_label -> Messages("service.description"))
+		@inputText(serviceForm("duration"),'_label -> Messages("service.tsCost"),
+			'_error -> serviceForm("duration").error.map(_.withMessage(Messages("service.durationErrorMsg")))
+		)
 		
-		@inputText(serviceForm("price"),'_label -> Messages("service.price"))
-		
-		@inputText(serviceForm("duration"),'_label -> Messages("service.tsCost"))
+		@textarea(field = serviceForm("description"),'rows -> 2, 'cols -> 20, '_label -> Messages("service.description"))
 		
 		
 	</div>	
 	<div class="btnArea">
-		<input type="submit" class = "buttons" value="@Messages("service.addBton")">
+		<input type="submit" class = "buttons" value="@Messages("service.addBtn")">
             
-        <input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+        <input type = "reset" class = "buttons" value="@Messages("service.resetBtn")">
     </div>
 }
