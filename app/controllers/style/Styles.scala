@@ -253,7 +253,8 @@ object Styles extends Controller {
     def styleUpdate(id: ObjectId) = Action {
         val styleOne: Option[Style] = Style.findOneById(id)
         styleOne match {
-            case Some(style) => Ok(html.style.admin.styleUpdate(styleAddForm, Style.findParaAll, style))
+//            case Some(style) => Ok(html.style.admin.styleUpdate(styleAddForm, Style.findParaAll, style))
+            case Some(style) => Ok(html.index(""))
             case None => NotFound
         }
     }

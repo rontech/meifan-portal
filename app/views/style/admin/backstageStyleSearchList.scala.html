@@ -7,25 +7,21 @@
 		    <tbody>
 			<tr>
 			    <td class="vaT bdGrayR">
-				<div class="w176 mHA">
+				<div class="w137 mHA">
 				    <div class="mT10 fs16 taM">
-					<a href="" >
-		               <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" >
-		           </a>
+					<a href="@routes.Styles.styleUpdate(styles(i).id)" >
+		               <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150">
+		           	</a>
 				    </div>
-				     <p>
-		                <a href="@routes.Styles.styleUpdate(styles(i).id)" >@Messages("common.edit")</a>
-		                <a href="@routes.Styles.styleToInvalid(styles(i).id,styles(i).isValid)" >@Messages("common.delete")</a>
-		            </p>
-				</div>
-				<div class="mT2">
-		            <a href="" class="rankingListInnerAnchor" >
-		                <p><span class="photoCaption">@styles(i).styleName</span></p>
-		            </a>
-		        </div>
-				<div class="w156 mHA">
-				    <div class="bdDotT mT10 pT5">
-				    </div>
+				    <div class="mT2 txtC">
+		            	<p><span >@styles(i).styleName</span></p>
+		        	</div>
+		        	<div class="txtC">
+					    <p>
+			                <a href="@routes.Stylists.styleUpdateByStylist(styles(i).id)" >@Messages("common.edit")</a>
+			                <a href="@routes.Styles.styleToInvalid(styles(i).id,styles(i).isValid)" >@Messages("common.delete")</a>
+			            </p>
+		            </div>
 				</div>
 			    </td>
 			</tr>

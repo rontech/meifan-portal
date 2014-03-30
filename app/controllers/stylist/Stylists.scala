@@ -269,6 +269,9 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     
   }
   
+  /**
+   * 后台发型检索
+   */
   def findMyStylesByStylist(stylistId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val styles = Style.findByStylistId(stylistId)
     val user = loggedIn
@@ -291,6 +294,38 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                     }
                 })
     }
+  
+    /**
+     * 后台发型更新
+     */
+    def styleUpdateByStylist(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
+        implicit request =>
+    	val styleOne: Option[Style] = Style.findOneById(id)
+        val user = loggedIn
+        val stylist = Stylist.findOneByStylistId(user.id)
+        val followInfo = MyFollow.getAllFollowInfo(user.id)
+        styleOne match {
+            case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user = user, stylist = stylist.get, style = style, followInfo = followInfo, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll, isStylist = true))
+            case None => NotFound
+        }
+    }
+    
+    def styleUpdateNewByStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
+        implicit request =>
+        val user = loggedIn
+        val stylist = Stylist.findOneByStylistId(user.id)
+        val followInfo = MyFollow.getAllFollowInfo(user.id)
+            Styles.styleUpdateForm.bindFromRequest.fold(
+                errors => BadRequest(views.html.test(errors)),
+                {
+                    case (styleUpdateForm) => {
+                        Style.updateStyle(styleUpdateForm)
+//                        views.html.index("")
+                        Redirect(routes.Stylists.findMyStylesByStylist(stylist.get.stylistId))
+                    }
+                })
+    }
+  
   /*def updateStyleByStylist(styleId: ObjectId) = Action {
      
   }

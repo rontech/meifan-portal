@@ -1,0 +1,6 @@
+@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, style: models.Style, followInfo: FollowInformation, styleUpdateForm: Form[models.Style], styleParaAll: models.StylePara, isStylist: Boolean)
+
+@stylistPageMain(navInMyPage, user, stylist, followInfo){
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+	@views.html.style.admin.styleUpdate(styleUpdateForm, styleParaAll, style, isStylist)
+}

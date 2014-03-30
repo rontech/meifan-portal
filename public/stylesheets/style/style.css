@@ -3415,3 +3415,7 @@ background: url(/assets/images/icon_crown_other.png) no-repeat 0 0;
 background-image: url(/assets/images/i.png);
 background-repeat: no-repeat;
 }
+
+.txtC{
+	text-align: center;
+}
