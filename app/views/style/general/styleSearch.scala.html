@@ -76,7 +76,7 @@
 					            @for(i <- 0 to stylePara.serviceType.length-1){
 					            	<li class="dibBL mR2">
 					            		<input type = "checkbox" class = "cbF" name = "serviceType[@i]" id="hairColorCd_HT@i" value = "@stylePara.serviceType(i)">
-						        		<label for="hairColorCd_HT@i">@stylePara.serviceType(i)</label>
+						        		<label for="hairColorCd_HT@i">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))</label>
 					            	</li>
 					            }
 					        }
