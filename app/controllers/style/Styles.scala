@@ -253,7 +253,8 @@ object Styles extends Controller {
     def styleUpdate(id: ObjectId) = Action {
         val styleOne: Option[Style] = Style.findOneById(id)
         styleOne match {
-            case Some(style) => Ok(html.style.admin.styleUpdate(styleAddForm, Style.findParaAll, style))
+//            case Some(style) => Ok(html.style.admin.styleUpdate(styleAddForm, Style.findParaAll, style))
+            case Some(style) => Ok(html.index(""))
             case None => NotFound
         }
     }
@@ -282,7 +283,8 @@ object Styles extends Controller {
             val style = Style.findByStylistId(new ObjectId(sty))
             styles :::= style
         }
-        Ok(html.style.admin.backstageStyleSearchList(styleSearchForm, styles, Style.findParaAll, true))
+        Ok(html.index(""))
+//        Ok(html.style.admin.backstageStyleSearchList(styleSearchForm, styles, Style.findParaAll, true))
     }
 
     def backstageStyleSearchList = Action {
@@ -292,7 +294,8 @@ object Styles extends Controller {
                 {
                     case (styleSearch) => {
                         val styleSearchInfo = Style.findByPara(styleSearch)
-                        Ok(html.style.admin.backstageStyleSearchList(styleSearchForm.fill(styleSearch), styleSearchInfo, Style.findParaAll, false))
+                        Ok(html.index(""))
+//                        Ok(html.style.admin.backstageStyleSearchList(styleSearchForm.fill(styleSearch), styleSearchInfo, Style.findParaAll, false))
                     }
                 })
     }

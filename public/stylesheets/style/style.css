@@ -1,45 +1,5 @@
 @charset "utf-8";
 
-/* clearfix */
-.cFix:after {
-	content: "";
-	display: block;
-	clear: both;
-	height: 0;
-	visibility: hidden;
-}
-.cFix	{ min-height: 1px; _height: 1px; }
-
-/************************************************************
- * アンカー
- ************************************************************/
-
-a:link			{ color: #4c4c80; }
-a:visited		{ color: #896958; }
-a:hover,
-a:active		{ color: #7878CC; text-decoration: none; }
-
-.linkPink:link		{ color: #CD4D72; }
-.linkPink:visited	{ color: #CD4D72; }
-.linkPink:hover,
-.linkPink:active	{ color: #CD4D72; text-decoration: none; }
-
-.linkGray:link		{ color: #555555; }
-.linkGray:visited	{ color: #555555; }
-.linkGray:hover,
-.linkGray:active	{ color: #555555; text-decoration: none; }
-
-.linkWhite:link		{ color: #FFFFFF; }
-.linkWhite:visited	{ color: #FFFFFF; }
-.linkWhite:hover,
-.linkWhite:active	{ color: #FFFFFF; text-decoration: none; }
-
-
-/************************************************************
- * IDS
- ************************************************************/
-
-
 /* ヘッダー */
 #headerWrapper {
 	border-bottom: 2px solid #998a8a;
@@ -3453,4 +3413,8 @@ background: url(/assets/images/icon_crown_other.png) no-repeat 0 0;
 .iS {
 background-image: url(/assets/images/i.png);
 background-repeat: no-repeat;
+}
+
+.txtC{
+	text-align: center;
 }

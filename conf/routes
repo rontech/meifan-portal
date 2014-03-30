@@ -237,7 +237,7 @@ GET         /changeImage                                               controlle
 GET         /salonAdmin/checkStylistIsValid/:salonId/:stylistId        controllers.SalonsAdmin.checkStylistIsValid(salonId: String, stylistId: String)
 
 #add styles by stylistId in stylist management
-GET         /findStylesByStylist/:stylistId                            controllers.Stylists.myStyles(stylistId: ObjectId)
+#GET         /findStylesByStylist/:stylistId                            controllers.Stylists.myStyles(stylistId: ObjectId)
 
 #stylist (to remove salon)
 GET         /removeSalon/:salonId/:stylistId                           controllers.Stylists.removeSalon(salonId: ObjectId, stylistId: ObjectId)
@@ -282,7 +282,10 @@ POST	/styleToAddNewStyle									 controllers.Stylists.styleToAddNewStyle(styleI
 
 #add by pingdou (styles of stylist)
 GET		/findMyStylesByStylist/:stylistId					 controllers.Stylists.findMyStylesByStylist(stylistId: ObjectId)
+POST	/findMyStylesBySerach					             controllers.Stylists.findMyStylesBySerach
 GET		/getAllStylesBySalon/:salonId/salon				     controllers.SalonsAdmin.getAllStylesBySalon(salonId: ObjectId)
+GET     /styleUpdateByStylist/:id                            controllers.Stylists.styleUpdateByStylist(id: ObjectId)
+POST    /styleUpdateNewByStylist/                            controllers.Stylists.styleUpdateNewByStylist
 
 
 # Questions add by jie-zhang (for common questions)
