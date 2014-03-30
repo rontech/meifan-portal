@@ -1,4 +1,4 @@
-@(navBar: List[(String, String)])
+@(navBar: List[(String, String)], user: Option[User] = None)
 
 @main(Messages("site.title"), nav = "hair-salon", navBar) {
 
@@ -15,7 +15,7 @@
 	            <!-- ↑generalContentMiddleColumn -->
 
 		    <!-- ↓generalContentRightColumn -->
-		    @views.html.salon.general.rightColumn(None)
+		    @views.html.salon.general.rightColumn(user = user)
 		    <!-- ↑generalContentRightColumn -->
 		</div>
 	    </div>
