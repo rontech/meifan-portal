@@ -1,7 +1,7 @@
 @(salon: Salon, navBar: List[(String, String)] = Nil)
 
 @salonInfoMain(navInSalon = "salon-basic", salon, navBar) {
-				
+
     <div class="mT30">
         <div class="yS mainContentsSecondTitleOuter">
         <h2 class="yS mainContentsSecondTitleInner">
@@ -61,7 +61,7 @@
             <td colspan="3" class="w620">
 				@for(i <-0 to salon.restDays(0).restDay.size-1){
                 	@Messages("restDay.restDay.1." + salon.restDays(0).restDay(i))					
-				}                
+				} 
             </td>
             </tr>
             <tr>
@@ -94,7 +94,10 @@
                 @Messages("salon.priceCutOnly")
             </th>
             <td class="w208 vaT">
-                @Messages("salon.priceCutOnlyMsg", "TODO")
+                @Salon.getLowestPriceOfCut(salon.id) match {
+                   case None => { @Messages("salon.priceCutOnlyNotFound")}
+                   case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
+                }
             </td>
             <th class="w120">
                 @Messages("salon.seatNums")
@@ -108,7 +111,7 @@
                 @Messages("salon.stylistNums")
             </th>
             <td class="w208 vaT">
-                TODO ２人&nbsp;
+                @Messages("slaon.stylistNumUnit", Salon.getCountOfStylists(salon.id))
             </td>
             <th class="w120">
                 @Messages("salon.parkingDesc")
