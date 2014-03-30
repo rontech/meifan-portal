@@ -472,6 +472,7 @@ blog.readFullBlog = 阅读全文...
 blog.createAt = 发布于 {0} 
 blog.floor = {0} 楼
 blog.quoteComment = 引用来自" {0} "的评论
+blog.new = 新博客
 
 
 # Comment
@@ -481,6 +482,7 @@ comment.passDate = [投稿日]
 comment.usedCoupon = 预约时使用的优惠券
 comment.usedServices = [用到的技术]
 comment.reply = {0}的回复
+comment.new = 新评论
 
 
 # Point
