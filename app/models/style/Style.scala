@@ -220,7 +220,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
     /**
      * 后台发型删除
      */
-    def styleToInvalid(id: ObjectId, isValid: Boolean) = {
+    def styleToInvalid(id: ObjectId) = {
         dao.update(MongoDBObject("_id" -> id), MongoDBObject("$set" -> (
             MongoDBObject("isValid" -> false))))
     }

@@ -320,12 +320,23 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                 {
                     case (styleUpdateForm) => {
                         Style.updateStyle(styleUpdateForm)
-//                        views.html.index("")
                         Redirect(routes.Stylists.findMyStylesByStylist(stylist.get.stylistId))
                     }
                 })
     }
-  
+    
+    /**
+     * 后台发型删除，使之无效即可
+     */
+    def styleToInvalidByStylist(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
+        implicit request =>
+        val user = loggedIn
+        val stylist = Stylist.findOneByStylistId(user.id)
+        val followInfo = MyFollow.getAllFollowInfo(user.id)
+        Style.styleToInvalid(id)
+        Redirect(routes.Stylists.findMyStylesByStylist(stylist.get.stylistId))
+    }
+
   /*def updateStyleByStylist(styleId: ObjectId) = Action {
      
   }

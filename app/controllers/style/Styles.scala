@@ -303,8 +303,8 @@ object Styles extends Controller {
     /**
      * 后台发型删除，使之无效即可
      */
-    def styleToInvalid(id: ObjectId, isValid: Boolean) = Action {
-        Style.styleToInvalid(id, isValid)
+    def styleToInvalid(id: ObjectId) = Action {
+        Style.styleToInvalid(id)
         Redirect(routes.Styles.backstageStyleSearch)
     }
 
