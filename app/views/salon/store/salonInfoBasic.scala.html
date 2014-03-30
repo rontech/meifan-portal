@@ -57,7 +57,7 @@
                 <th class="w120"> @Messages("salon.priceCutOnly") </th>
                 <td class="w208 vaT">
                     @Salon.getLowestPriceOfCut(salon.id) match {
-                       case None => { @Messages("salon.priceCutOnlyNotFound")}
+                       case None => { @Messages("salon.priceCutOnlyUndefined")}
                        case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
                     }
                 </td>
