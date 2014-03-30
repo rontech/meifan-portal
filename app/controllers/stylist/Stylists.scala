@@ -133,23 +133,23 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     }
   }
   
-  def myStyles(stylistId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _){implicit request =>
-    val user = loggedIn
-    val followInfo = MyFollow.getAllFollowInfo(user.id)
-    val styles = Style.findByStylistId(stylistId)
-    val stylist = Stylist.findOneByStylistId(stylistId)
-    
-    stylist match {
-      case Some(sty) => {
-        val user = User.findOneById(sty.stylistId)
-        user match {
-          case Some(u) => Ok(views.html.stylist.management.stylistStyles(user = u, stylist = sty, styles = styles, followInfo = followInfo))
-          case None => NotFound
-        }
-      }
-      case None => NotFound
-    }
-  }
+//  def myStyles(stylistId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _){implicit request =>
+//    val user = loggedIn
+//    val followInfo = MyFollow.getAllFollowInfo(user.id)
+//    val styles = Style.findByStylistId(stylistId)
+//    val stylist = Stylist.findOneByStylistId(stylistId)
+//    
+//    stylist match {
+//      case Some(sty) => {
+//        val user = User.findOneById(sty.stylistId)
+//        user match {
+//          case Some(u) => Ok(views.html.stylist.management.stylistStyles(user = user.get, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll))
+//          case None => NotFound
+//        }
+//      }
+//      case None => NotFound
+//    }
+//  }
   
   
   
@@ -232,7 +232,6 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val stylist = Stylist.findOneByStylistId(user.id)
-    print("+++++++++++++++++++++++++++++=")
     Ok(views.html.stylist.management.stylistAddStyle( styleAddForm = Styles.styleAddForm,stylePara = Style.findParaAll, style = null, false))
     
   }
@@ -275,8 +274,23 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     val user = loggedIn
     val stylist = Stylist.findOneByStylistId(stylistId)
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo))
+    Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true))
   }
+  
+  def findMyStylesBySerach = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
+        implicit request =>
+          	val user = loggedIn
+          	val stylist = Stylist.findOneByStylistId(user.id)
+          	val followInfo = MyFollow.getAllFollowInfo(user.id)
+            Styles.styleSearchForm.bindFromRequest.fold(
+                errors => BadRequest(views.html.index("")),
+                {
+                    case (styleSearch) => {
+                        val styles = Style.findByPara(styleSearch)
+                        Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false))
+                    }
+                })
+    }
   /*def updateStyleByStylist(styleId: ObjectId) = Action {
      
   }
