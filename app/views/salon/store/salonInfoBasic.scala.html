@@ -43,8 +43,7 @@
             <tr>
                 <th class="w120"> @Messages("salon.isPosAvailable") </th>
                 <td colspan="3" class="w620">
-                    @if(salon.salonFacilities.isPosAvailable) {@Messages("salon.posAvailable")} 
-                    else {@Messages("salon.posNotAvailable")}
+                    @if(salon.salonFacilities.isPosAvailable) {@Messages("salon.posAvailable")} else {@Messages("salon.posNotAvailable")}
                 </td>
             </tr>
             <tr>
@@ -72,8 +71,7 @@
                 </td>
                 <th class="w120"> @Messages("salon.parkingDesc") </th>
                 <td class="w208 vaT">
-                    @if(salon.salonFacilities.hasParkingNearby) { @salon.salonFacilities.parkingDesc} 
-                    else { @Messages("salon.hasNoParkingNearByMsg")}
+                    @if(salon.salonFacilities.hasParkingNearby) { @salon.salonFacilities.parkingDesc} else { @Messages("salon.hasNoParkingNearByMsg")}
                 </td>
             </tr>
             <tr>
