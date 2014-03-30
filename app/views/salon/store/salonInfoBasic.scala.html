@@ -134,7 +134,10 @@
                 @Messages("salon.priceCutOnly")
             </th>
             <td class="w208 vaT">
-                @Messages("salon.priceCutOnlyMsg", "TODO")
+                @Salon.getLowestPriceOfCut(salon.id) match {
+                   case None => { @Messages("salon.priceCutOnlyNotFound")}
+                   case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
+                }
             </td>
             <th class="w120">
                 @Messages("salon.seatNums")
@@ -148,7 +151,7 @@
                 @Messages("salon.stylistNums")
             </th>
             <td class="w208 vaT">
-                TODO ２人&nbsp;
+                @Messages("slaon.stylistNumUnit", Salon.getCountOfStylists(salon.id))
             </td>
             <th class="w120">
                 @Messages("salon.parkingDesc")

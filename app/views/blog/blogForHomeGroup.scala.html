@@ -1,0 +1,13 @@
+@(blogOfSalonList : List[BlogOfSalon] = Blog.findBlogForHome(2))
+
+<div class="mT20">
+    <div class="skinHeadingWrapper">
+        <h3>
+            @Messages("blog.new")
+        </h3>
+    </div>
+    <div class="oh zoom1">
+        <ul class="sideShortcutSearchBox">
+            @for(blogOfSalon <- blogOfSalonList){ @views.html.blog.blogForHomeItem(blogOfSalon) } </ul>
+    </div>
+</div>
