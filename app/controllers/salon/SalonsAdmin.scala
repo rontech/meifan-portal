@@ -34,7 +34,7 @@ object SalonsAdmin extends Controller {
   }
   
   def myReserv(salonId: ObjectId) = Action {
-    Ok(views.html.salon.general.index(Nil))
+    Ok(views.html.salon.general.index(navBar = Nil, user = None))
   }
   
   def myComment(salonId: ObjectId) = Action {
