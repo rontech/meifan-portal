@@ -2263,3 +2263,15 @@ margin-right: 180px;
 min-height: 30px;
 _height: 30px;
 }
+
+.detailTitle,
+.detailTitle a {
+	font-size: 18px;
+	font-weight: bold;
+	color: #333333 !important;
+	text-decoration: none !important;
+}
+
+.w765 {
+	width: 765px;
+}

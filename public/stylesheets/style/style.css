@@ -1,21 +1,5 @@
 @charset "utf-8";
 
-/************************************************************
- * 初期化
- ************************************************************/
-
-body, form, img, div, p, ul, ol, li, dl, dt, dd, h1, h2, h3 ,h4 , h5, h6, table, th ,td ,select {
-	margin: 0;
-	padding: 0;
-	-webkit-text-size-adjust:none;
-}
-ul, ol	{ list-style: none; }
-img		{ border: 0 !important; vertical-align: bottom; }
-table	{ border-spacing: 0; }
-th		{ text-align: left; }
-
-iframe	{ vertical-align: middle; }
-
 /* clearfix */
 .cFix:after {
 	content: "";
@@ -50,29 +34,7 @@ a:active		{ color: #7878CC; text-decoration: none; }
 .linkWhite:hover,
 .linkWhite:active	{ color: #FFFFFF; text-decoration: none; }
 
-/************************************************************
- * フォント
- ************************************************************/
 
-body, input, select, textarea, table, th, td, li ,a {
-	font-family: 'ＭＳ Ｐゴシック', 'MS P Gothic', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', Meiryo, 'Osaka', arial, sans-serif, verdana, Helvetica;
-}
-body, input, select, textarea, table {
-	color: #333333;
-	font-size: 12px;
-	line-height: 1.5;
-}
-h1, h2, h3, h4, h5, h6 {
-	font-size: 12px;
-}
-
-.fFg {
-	font-family: 'ＭＳ Ｐゴシック', 'MS P Gothic', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', Meiryo, 'Osaka', arial, sans-serif, verdana, Helvetica;
-}
-
-.fFm {
-	font-family: 'メイリオ',Meiryo,'ヒラギノ角ゴ Pro W3','ＭＳ Ｐゴシック',MS PGothic,sans-serif;
-}
 /************************************************************
  * IDS
  ************************************************************/
