@@ -17,6 +17,7 @@
         @blogOfSalon.salonInfo.get.salonName
     </p>
     <p class="fs10 fgLGray wwbw mT5">
-        @Html(blogOfSalon.blogInfo.content)
+        @Html(blogOfSalon.blogInfo.content.slice(0, 100))
+        @if(blogOfSalon.blogInfo.content.length > 100) {...}
     </p>
 </li>
