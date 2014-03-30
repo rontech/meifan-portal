@@ -28,7 +28,11 @@ index.nailSalonRsv=美甲沙龙预约
 index.cosmSalonRsv=美容院预约
 index.massageSalonRsv=按摩院预约
 index.editoralColl=美范编辑的推荐特辑
-
+index.latestComments=最新评论
+index.latestBlogs=最新博客
+index.searchByStyle=按发型检索
+index.hotestSalon=最热沙龙
+index.specialCollections=专题特辑
 
 
 
@@ -501,8 +505,8 @@ system.siteMessages=系统通知
 # Special Collections
 
 
-
-
+# Common Questions
+questions.common=常见问题
 
 
 

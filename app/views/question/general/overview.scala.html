@@ -1,0 +1,11 @@
+@(questions: List[Question])
+
+<ul>
+@for(qust <- questions) {
+    <li>
+        <h1>@qust.questName</h1>
+        <br/>
+        <p>@Html(qust.questContent)</p>
+        </li>
+}
+</ul>

@@ -2258,3 +2258,8 @@ margin-right: 180px;
 
 .checkCoupon				{ background-position: -900px -60px; width: 100px; height: 24px; }
 .checkCoupon:hover			{ background-position: -900px -84px; }
+
+.hMin30 {
+min-height: 30px;
+_height: 30px;
+}
