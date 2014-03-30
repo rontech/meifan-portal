@@ -1,7 +1,5 @@
 @(salon: Salon, stylist: StylistDetailInfo, style: List[Style], blog: Option[Blog])
 
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/blog/blog.css")">
-        
 <div class="cFix mT30 pH10">
     <!-- ST left side info for Stylist picture.-->
     <div class="fl w224 taC">
@@ -36,15 +34,16 @@
         <!--END. Stylist's Words. -->
 
         <!--ST. Stylist Appeal. -->
-        <div class="mT30">
+        @if(stylist.stylistInfo.get.myPics != null) {
+        	<div class="mT30">
             <ul class="cFix">
                 <!--@*show max 4 appeal pic here.*@ -->
-                @for(i <- 0 until (if(stylist.stylistInfo.get.myPics.length > 4) 3 else stylist.stylistInfo.get.myPics.length)) {
-                    <li class="fl cFix w240 mT30">
+                @for(i <- 0 until (if(stylist.stylistInfo.get.myPics.length > 4) 4 else stylist.stylistInfo.get.myPics.length)) {
+                    <li class="fl cFix w240">
                         <div class="fl w89">
                             <!--@*TODO, should show appeal picture here.*@-->
                             <img src="@routes.Application.getPhoto(stylist.stylistInfo.get.myPics(i).fileObjId)"
-                            alt="@stylist.stylistInfo.get.myPics(i).description" oncontextmenu="return false;">
+                            alt="@stylist.stylistInfo.get.myPics(i).description" oncontextmenu="return false;" class="w89">
                         </div>
                         <div class="fr w151 pr hMin119">
                             <p class="mL10 mR20 fs10 pa bottom0 left0">
@@ -55,6 +54,7 @@
                 }
             </ul>
         </div>
+        }
         <!--ST. Stylist Appeal. -->
 
         <!--ST. Stylist Resume. -->
@@ -97,7 +97,9 @@
                     </div>
 
                     <!--ST. Blog item. -->
-                    @views.html.blog.blogItem(blg, salon)
+                    <ul>
+                    	@views.html.blog.blogItem(blg, salon)
+                    </ul>
                     <!--END. Blog item. -->
                 </div>
 
