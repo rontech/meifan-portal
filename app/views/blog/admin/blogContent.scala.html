@@ -84,7 +84,7 @@
 						<li id="">
 	<table class="ostable"><tbody><tr>
 	<td class="portrait">
-	@if(user.userId.equals(commentList(i-1).authorId)){
+	@if(User.findOneByUserId(commentList(i-1).authorId).get.id.equals(loggedId)){
 	    <a href="/myPage/" target="_blank"><img src="/img/portrait.gif" align="absmiddle" alt="" title="" class="SmallPortrait" user=""></a>
     }else{
 		<a href="/userPage/@commentList(i-1).authorId" target="_blank"><img src="/img/portrait.gif" align="absmiddle" alt="" title="" class="SmallPortrait" user=""></a>
@@ -96,7 +96,8 @@
 		@if(commentList(i-1).commentObjType == 3){	
 		  <div class="ref"><h4>@Messages("blog.quoteComment",Comment.findOneById(commentList(i-1).commentObjId).get.authorId)</h4><p>@Comment.findOneById(commentList(i-1).commentObjId).get.content</p></div>	  
 		}
-			@Messages("blog.floor",i)：<a href="" target="_blank" name="rpl_278991586" class="user">@commentList(i-1).authorId</a> @Messages("blog.createAt",DateFormat.getDateInstance().format(commentList(i-1).createTime))
+			@*@Messages("blog.floor",i)：<a href="" target="_blank" name="rpl_278991586" class="user">@commentList(i-1).authorId</a> @Messages("blog.createAt",DateFormat.getDateInstance().format(commentList(i-1).createTime))*@
+			@Messages("blog.floor",i)：@commentList(i-1).authorId  @Messages("blog.createAt",DateFormat.getDateInstance().format(commentList(i-1).createTime))
         	        	  @if(loggedId.equals(user.id)){                      
         	        	  <a href="" class="deleteComment" data-comment="@commentList(i-1).id" data-blog="@blog.id">@Messages("common.delete")</a> 
         	        	  }

@@ -126,6 +126,21 @@ object Salon {
         SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId,"salonAccount.password" -> salonAccount.password))
     }
     
+    /**
+     * Get the stylists count of a salon.
+     */
+    def getCountOfStylists(salonId: ObjectId) = {
+       SalonAndStylist.findBySalonId(salonId).length 
+    }
+
+    /**
+     * Get the lowest price of CUT of a salon.
+     */
+    def getLowestPriceOfCut(salonId: ObjectId): Option[BigDecimal] = {
+       val cutSrvKey = "Cut"
+       Service.getLowestPriceOfSrvType(salonId, cutSrvKey) 
+    } 
+
     def create(salon: Salon): Option[ObjectId] = {
         SalonDAO.insert(
             Salon(

@@ -1,0 +1,23 @@
+@(blogOfSalon: BlogOfSalon)
+
+@import java.text.DateFormat
+
+<li class="sideShortcutSearchCassette bdDotGrayT ">
+    <div class="cFix">
+        <p class="fl fs10 fgLLGray b mR30 mT2">
+            @DateFormat.getDateInstance.format(blogOfSalon.blogInfo.createTime)
+        </p>
+        <p class="mT5 mB5 wwbw">
+            <a href="@noAuth.routes.Blogs.getBlogInfoOfSalon(blogOfSalon.salonInfo.get.id, blogOfSalon.blogInfo.id)">
+                @blogOfSalon.blogInfo.title
+            </a>
+        </p>
+    </div>
+    <p>
+        @blogOfSalon.salonInfo.get.salonName
+    </p>
+    <p class="fs10 fgLGray wwbw mT5">
+        @Html(blogOfSalon.blogInfo.content.slice(0, 100))
+        @if(blogOfSalon.blogInfo.content.length > 100) {...}
+    </p>
+</li>
