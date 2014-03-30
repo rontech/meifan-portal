@@ -6214,3 +6214,37 @@ form .clearfix.success input:focus, form .clearfix.success textarea:focus {
     margin-left: 32px;
     margin-bottom: 20px;
 }
+
+.loginForm {
+margin-left: 250px;
+margin-top: 10px;
+}
+
+.loginForm dt{
+float: left;
+font-size: 18px;
+margin: 4px 8px 0 0;
+width: 200px;
+}
+
+.loginForm dl {
+margin-bottom: 6px;
+width: 710px;
+height: 30px;
+font-size: 18px;
+}
+
+.loginForm dl dd {
+margin-left: 20px;
+float: left;
+}
+
+.info{
+display:none;
+}
+
+.loginbuttons{
+background: #feeedf;
+margin-top: 10px;
+font-size: 18px
+}

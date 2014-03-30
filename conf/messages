@@ -27,6 +27,10 @@ index.hairSalonRsv=美发沙龙预约
 index.nailSalonRsv=美甲沙龙预约
 index.cosmSalonRsv=美容院预约
 index.massageSalonRsv=按摩院预约
+index.editoralColl=美范编辑的推荐特辑
+
+
+
 
 # Main Page Framework
 main.headSummary=中国首家美容美发沙龙・整形按摩院检索・预约平台
@@ -40,7 +44,7 @@ main.idUsePolicy=ID利用约定
 main.usePolicy=使用须知
 main.securityPolicy=个人情报保护方针
 main.userGuide=使用指南
-main.wantToJoin=您想登录贵沙龙的信息?
+main.wantToJoin=沙龙用户登录入口
 main.toSalonOwners=致沙龙
 main.help=常见问题
 main.myPage=我的主页
@@ -186,6 +190,7 @@ hair.rankingVeryShort = 超短发
 hair.rankingHairSet = 盘发
 hair.rankingMrs = 成熟发型
 hair.rankingMens = 男士发型
+hair.headingAllMore = 综合排行榜  可见前20名
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -217,7 +222,11 @@ service.minutes = 分钟
 service.title = {0} 的服务
 service.createServiceArea = 创建服务区域
 service.addErrorMsg = 请输入服务名！
+service.priceErrorMsg = 请输入单价！
+service.durationErrorMsg = 请输入估计的耗时！
 service.description = 服务描述
+service.serviceNameNotAvalid=该服务名已登录
+service.tip = 还没有服务哦，赶快去添加吧！
 
 #ServiceType
 ServiceType.serviceTypeName.Cut = 剪
@@ -400,6 +409,10 @@ user.telError=手机号码无效
 user.toBePassword=以字母开头，6~18位字符
 user.toBeUserId=6~16位字符
 user.nickNameErr=给个昵称吧！
+user.welcome=欢迎您，{0}
+user.guestName=游客
+user.pleaseSignUp=免费会员注册
+
 
 
 #Letter
@@ -470,10 +483,20 @@ comment.usedServices = [用到的技术]
 comment.reply = {0}的回复
 
 
+# Point
+point.pointDesc=美范网积分制
+point.policyCond=使用美范网
+point.policies=尽享 {0} 积分！
+point.scoreRules=美范积分规则
+point.howToUse=美范积分使用
+point.promotions=网站上线积分大酬宾！
 
 
 
+# Messages
+system.siteMessages=系统通知
 
+# Special Collections
 
 
 

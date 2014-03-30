@@ -209,7 +209,7 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
       var stylists: List[Stylist] = Nil
       val applyRe = SalonAndStylist.findBySalonId(salonId)
       applyRe.map{app =>
-        val stylist = dao.findOne(DBObject("_id" -> app.stylistId))
+        val stylist = dao.findOne(DBObject("stylistId" -> app.stylistId))
         stylist match {
           case Some(sty) => stylists :::= List(sty)
           case _ => stylists
