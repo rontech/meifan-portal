@@ -5,14 +5,14 @@
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
         <input type="text" name="@name" value="@value"> 
-        <a class="removeAccount btn danger">Remove</a>
+        <a class="removeAccount btn danger">@Messages("optContactMethod.Remove")</a>
     }
 }
 
 @optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
     <div class="twipsies well @className">
         
-        <a class="removeOptContactMethod btn danger pull-right">Remove this optContactMethod</a>
+        <a class="removeOptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
 
         @inputText(
             field("contMethodType"), 
@@ -37,7 +37,7 @@
             
             <div class="clearfix">
                 <div class="input">
-                    <a class="addAccount btn success">Add a account number</a>
+                    <a class="addAccount btn success">@Messages("optContactMethod.AddNumber")</a>
                 </div>
             </div>
         
@@ -100,7 +100,7 @@
                 )
                 
                 <div class="manage">
-                    <a class="addOptContactMethod btn success">Add another optContactMethod</a>
+                    <a class="addOptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
                 </div>
             
             </div>
