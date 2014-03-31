@@ -277,7 +277,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     val user = loggedIn
     val stylist = Stylist.findOneByStylistId(stylistId)
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true))
+    Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true, isStylist = true))
   }
   
   def findMyStylesBySerach = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
@@ -290,7 +290,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                 {
                     case (styleSearch) => {
                         val styles = Style.findByPara(styleSearch)
-                        Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false))
+                        Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = true))
                     }
                 })
     }
@@ -305,7 +305,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
         val stylist = Stylist.findOneByStylistId(user.id)
         val followInfo = MyFollow.getAllFollowInfo(user.id)
         styleOne match {
-            case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user = user, stylist = stylist.get, style = style, followInfo = followInfo, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll, isStylist = true))
+            case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user = user, stylist = stylist.get, style = style, followInfo = followInfo, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll))
             case None => NotFound
         }
     }
@@ -337,6 +337,35 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
         Redirect(routes.Stylists.findMyStylesByStylist(stylist.get.stylistId))
     }
 
+    /**
+     * 后台发型新建
+     */
+    def styleAddByStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
+        //此处为新发型登录
+        implicit request =>
+        val user = loggedIn
+        val stylist = Stylist.findOneByStylistId(user.id)
+        val followInfo = MyFollow.getAllFollowInfo(user.id)
+        var stylists: List[Stylist] = Nil
+        
+        stylists :::= stylist.toList
+        Ok(views.html.stylist.management.addStyleByStylist(user = user, stylist = stylist.get, followInfo = followInfo, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, stylists = stylists, isStylist = true))
+      
+        
+    }
+
+//    def styleAddNew = Action {
+//        implicit request =>
+//            styleAddForm.bindFromRequest.fold(
+//                errors => BadRequest(html.index("")),
+//                {
+//                    case (styleAddForm) => {
+//                        Style.save(styleAddForm)
+//                                                Ok(html.style.test(styleAddForm))
+////                        Ok(html.index(""))
+//                    }
+//                })
+//    }
   /*def updateStyleByStylist(styleId: ObjectId) = Action {
      
   }
