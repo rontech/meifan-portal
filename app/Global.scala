@@ -32,30 +32,30 @@ object InitialData {
     // If you have some errors about the DB, try to drop the database [fashion-mongo] which store the site data, and 
     //     the [Picture] db which store all of the pictures the site using.
 
-   if(Province.findAll.isEmpty) {
-      Seq(
-          Province(new ObjectId("5317c0d1d4d57997ce3e6daa"), "江苏省"),
-          Province(new ObjectId("5317c0d1d4d57997ce3e6dab"), "Shandong")
-      ).foreach(Province.save)
-    }
-    
-    if(City.findAll.isEmpty) {
-      Seq(
-          City(new ObjectId("5317c0d1d4d57997ce3e6dca"), "Nanjing", "江苏省"),
-          City(new ObjectId("5317c0d1d4d57997ce3e6dcb"), "苏州市", "江苏省"),
-          City(new ObjectId("5317c0d1d4d57997ce3e6dcc"), "Wuxi", "江苏省"),
-          City(new ObjectId("5317c0d1d4d57997ce3e6dcd"), "Jinan", "Shandong"), 
-          City(new ObjectId("5317c0d1d4d57997ce3e6dce"), "Qingdao", "Shandong") 
-      ).foreach(City.save)
-    }
-    
-    if(Region.findAll.isEmpty) {
-      Seq(
-          Region(new ObjectId("5317c0d1d4d57997ce3e6dda"), "Xuanwu", "Shandong"),
-          Region(new ObjectId("5317c0d1d4d57997ce3e6ddb"), "Gulou", "Nanjing"),
-          Region(new ObjectId("5317c0d1d4d57997ce3e6ddc"), "高新区", "Jinan")
-      ).foreach(Region.save)
-    }    
+//   if(Province.findAll.isEmpty) {
+//      Seq(
+//          Province(new ObjectId("5317c0d1d4d57997ce3e6daa"), "江苏省"),
+//          Province(new ObjectId("5317c0d1d4d57997ce3e6dab"), "Shandong")
+//      ).foreach(Province.save)
+//    }
+//    
+//    if(City.findAll.isEmpty) {
+//      Seq(
+//          City(new ObjectId("5317c0d1d4d57997ce3e6dca"), "Nanjing", "江苏省"),
+//          City(new ObjectId("5317c0d1d4d57997ce3e6dcb"), "苏州市", "江苏省"),
+//          City(new ObjectId("5317c0d1d4d57997ce3e6dcc"), "Wuxi", "江苏省"),
+//          City(new ObjectId("5317c0d1d4d57997ce3e6dcd"), "Jinan", "Shandong"), 
+//          City(new ObjectId("5317c0d1d4d57997ce3e6dce"), "Qingdao", "Shandong") 
+//      ).foreach(City.save)
+//    }
+//    
+//    if(Region.findAll.isEmpty) {
+//      Seq(
+//          Region(new ObjectId("5317c0d1d4d57997ce3e6dda"), "Xuanwu", "Shandong"),
+//          Region(new ObjectId("5317c0d1d4d57997ce3e6ddb"), "Gulou", "Nanjing"),
+//          Region(new ObjectId("5317c0d1d4d57997ce3e6ddc"), "高新区", "Jinan")
+//      ).foreach(Region.save)
+//    }    
     if(Industry.findAll.isEmpty) {
       Seq(
           Industry(new ObjectId("5317c0d1d4d57997ce3e6ec1"), "Hairdressing"),    // 美发 Hair
@@ -189,8 +189,8 @@ object InitialData {
     
     if(Salon.findAll == Nil) { 
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("salon01", "123456"), "悦美月容吧", Some("悦容吧"), List("Hairdressing"), Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "鸣人", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1,List(2))), 25, SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d592"), "LOGO", Some(1), None)), date("2014-01-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("salon02", "123456"), "千美千寻吧", Some("美寻吧"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(2,List(1))), 9, SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有"), List(OnUsePicture(new ObjectId("531efde7018cdb5d9e63d593"), "LOGO", None, None)), date("2014-03-12") )
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("salon01", "123456"), "悦美月容吧", Some("悦容吧"), List("Hairdressing"), Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "鸣人", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1,List(2))), 25, SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有"), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None)), date("2014-01-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("salon02", "123456"), "千美千寻吧", Some("美寻吧"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(2,List(1))), 9, SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有"), List(new OnUsePicture(new ObjectId, "LOGO", None, None)), date("2014-03-12") )
      ).foreach(Salon.save)
     }
       
@@ -209,16 +209,16 @@ object InitialData {
     
    if(User.findAll.isEmpty){
       Seq(
-       User(new ObjectId("530d8010d7f2861457771bf8"),"demo01","维达沙宣","123456","F", date("2014-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd3"),"demo02","苏小魂","123456","F", date("2014-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"Administrator", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd4"),"demo03","阿哲","123456","F", date("2014-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd9"),"demo04","李莫愁","123456","F", date("2014-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd8"),"demo05","西门吹雪","123456","F", date("2014-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd7"),"demo06","叶孤城","123456","F", date("2014-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd6"),"demo07","陆小风","123456","F", date("1990-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("530d8010d7f2861457771bf8"),"demo01","维达沙宣","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"Administrator", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd3"),"demo02","苏小魂","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"Administrator", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd4"),"demo03","阿哲","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd9"),"demo04","李莫愁","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd8"),"demo05","西门吹雪","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd7"),"demo06","叶孤城","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd6"),"demo07","陆小风","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
        User(new ObjectId("53202c29d4d5e3cd47efffd5"),"demo08","花满楼","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd0"),"demo09","独孤求败","123456","F", date("2014-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffe1"),"demo10","中原一点红","123456","F", date("2014-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true)
+       User(new ObjectId("53202c29d4d5e3cd47efffd0"),"demo09","独孤求败","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffe1"),"demo10","中原一点红","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normal","userLevel.0",20,date("2014-03-18"),"LoggedIn", true)
       ).foreach(User.save)
     }
     
@@ -299,8 +299,18 @@ object InitialData {
     if(MyFollow.findAll.isEmpty){
       Seq(
         MyFollow(new ObjectId("532f9889d4d5f03ea49463fd"), new ObjectId("530d8010d7f2861457771bf8"),new ObjectId("530d7288d7f2861457771bdd"),"salon"),
-        MyFollow(new ObjectId("532f9889d4d5f03ea49463fe"), new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("53202c29d4d5e3cd47efffd4"),"user"),
-        MyFollow(new ObjectId("532f9889d4d5f03ea49463ff"), new ObjectId("53202c29d4d5e3cd47efffd4"),new ObjectId("53202c29d4d5e3cd47efffd3"),"user"),
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463fe"), new ObjectId("53202c29d4d5e3cd47efffd0"),new ObjectId("53202c29d4d5e3cd47efffe1"),"user"),
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463e1"), new ObjectId("53202c29d4d5e3cd47efffd0"),new ObjectId("530d7288d7f2861457771bdd"),"salon"),
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463e2"), new ObjectId("53202c29d4d5e3cd47efffd0"),new ObjectId("530d8010d7f2861457771bf8"),"stylist"),
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463a3"), new ObjectId("53202c29d4d5e3cd47efffd0"),new ObjectId("53202c29d4d5e3cd47efffd3"),"stylist"),
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463e4"), new ObjectId("53202c29d4d5e3cd47efffd0"),new ObjectId("5317c0d1d4d57997ce3e6d6a"),"coupon"),
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463e5"), new ObjectId("53202c29d4d5e3cd47efffd0"),new ObjectId("5317c0d1d4d57997ce3e6d6b"),"coupon"),
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463e6"), new ObjectId("53202c29d4d5e3cd47efffd0"),new ObjectId("53195fb4a89e175858abce92"),"blog"),
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463e7"), new ObjectId("53202c29d4d5e3cd47efffd0"),new ObjectId("532a8ef4a89ee221d679bdc1"),"blog"),
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463e8"), new ObjectId("53202c29d4d5e3cd47efffd0"),new ObjectId("532a8ef4a89ee221d679bdc2"),"blog"),
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463e9"), new ObjectId("53202c29d4d5e3cd47efffd0"),new ObjectId("530d828cd7f2861457771c0b"),"style"),
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463e0"), new ObjectId("53202c29d4d5e3cd47efffd0"),new ObjectId("530d828cd7f2861457771c0c"),"style"),
+        MyFollow(new ObjectId("532f9889d4d5f03ea49463ff"), new ObjectId("53202c29d4d5e3cd47efffe1"),new ObjectId("53202c29d4d5e3cd47efffd0"),"user"),
         MyFollow(new ObjectId("532f9889d4d5f03ea49463ed"), new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("5317c0d1d4d57997ce3e6d6a"),"coupon"),
         MyFollow(new ObjectId("532f9889d4d5f03ea49463e1"), new ObjectId("53202c29d4d5e3cd47efffd3"),new ObjectId("5317c0d1d4d57997ce3e6d6b"),"coupon"),
         MyFollow(new ObjectId("532f9889d4d5f03ea49463e3"), new ObjectId("530d8010d7f2861457771bf8"),new ObjectId("53195fb4a89e175858abce90"),"blog"),
@@ -369,7 +379,15 @@ object InitialData {
                 val stylist = Stylist.findAll.toList(stylistfiles.indexOf(f))
                 Stylist.updateImages(stylist, stylistImgId)
             }
-          
+            
+            //save picture of salon
+            val logofile = new File(play.Play.application().path() + "/public/images/store")
+            val logofiles = Image.listAllFiles(logofile)
+            for(l <- logofiles){
+                val logoImgId = Image.save(l)
+                val logo = Salon.findAll.toList(logofiles.indexOf(l))
+                Salon.updateSalonLogo(logo,logoImgId)
+            }       
          }
     }
   }

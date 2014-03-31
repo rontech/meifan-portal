@@ -293,18 +293,19 @@ object SalonsAdmin extends Controller {
         
     }
     
-    //    def styleAddNew = Action {
-//        implicit request =>
-//            styleAddForm.bindFromRequest.fold(
-//                errors => BadRequest(html.index("")),
-//                {
-//                    case (styleAddForm) => {
-//                        Style.save(styleAddForm)
-//                                                Ok(html.style.test(styleAddForm))
-////                        Ok(html.index(""))
-//                    }
-//                })
-//    }
+    def newStyleAddBySalon = Action {
+    implicit request =>
+        Styles.styleAddForm.bindFromRequest.fold(
+            errors => BadRequest(html.index("")),
+            {
+                case (styleAddForm) => {
+                    Style.save(styleAddForm)
+                    //权限控制时会获取salonID,暂写死
+                    val salonId = new ObjectId("530d7288d7f2861457771bdd")
+                    Redirect(routes.SalonsAdmin.styleUpdateBySalon(salonId))
+                }
+            })
+    }
     
   
 }

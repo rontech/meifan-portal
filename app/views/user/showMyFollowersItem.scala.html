@@ -6,7 +6,7 @@
                     <img src="@if(followUser.id.getTime.equals(followUser.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(followUser.userPics)"}"
                     align="middle" alt="" title="@followUser.userId" class="SmallPortrait" user="1435017"></a></td>
 				<td class="update">
-					<span class="name"><a href="/userPage/@followUser.userId" target="_blank">@followUser.userId</a></span><br>
+					<span class="name"><a href="/userPage/@followUser.userId" target="_blank">@followUser.nickName</a></span><br>
 					<span class="city">@followUser.point</span>
 				</td>
 				<td class="opts">
