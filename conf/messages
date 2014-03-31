@@ -126,6 +126,8 @@ salon.salonLogin=店铺登录
 salon.stylistsList={0}的发型师
 salon.true=可
 salon.accountIdMessage=注册时设定，无法修改!
+salon.addPicture=添加一张图片
+salon.removePicture=删除一张图片
 
 #salon management
 salonAdmin.mainPage = 店铺管理
