@@ -80,6 +80,7 @@ object Salons extends Controller {
                                 val lastNav = List((dtl.get.basicInfo.nickName, ""))
                                 Ok(views.html.salon.store.salonInfoStylist(salon = sl, stylist = dtl, 
                                         styles = styles, latestBlog = blog, navBar = navBar ::: lastNav))
+                               
                             }
                             case None => {
                                 // if not a worker of a salon. show nothing, for now, Jump to stylists page in salon. 

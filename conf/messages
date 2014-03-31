@@ -122,6 +122,7 @@ salon.confirmMessage=请再次输入密码！
 salon.desMseeage=您最多可以输入50个字符！
 salon.salonLogin=店铺登录
 salon.stylistsList={0}的发型师
+salon.level = 等级 Lv5
 
 #salon management
 salonAdmin.mainPage = 店铺管理
@@ -153,6 +154,7 @@ salonAdmin.checkService = 查看所有服务
 salonAdmin.checkCoupon = 查看所有优惠
 salonAdmin.checkMenu = 查看所有套餐
 salonAdmin.checkState = 我的动态
+salonAdmin.admin = 店铺
 
 # Hair
 hair.tabName=时尚靓发
@@ -319,11 +321,12 @@ stylist.experienceYears={0}年经验
 stylist.removeSalon = 离开店铺
 stylist.update = 更新
 stylist.industry = 职位
+stylist.stylistId = 用户ID
 
 
 #Stylist Apply
 stylist.name = 昵称
-stylist.workYears = {0} 年
+stylist.workYears = 年
 stylist.industry = 类别
 stylist.position = 职位
 stylist.goodAtImage = 擅长风格

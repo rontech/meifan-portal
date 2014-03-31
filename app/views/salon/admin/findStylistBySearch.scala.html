@@ -20,7 +20,7 @@
    			<div class="w166 mHA">
 			    <div class="taC">
 			        <a href="@routes.Salons.getOneStylist(salon.id, stylist.stylistId)">
-			            @*<img src="@routes.Application.getPhoto(stylist.myPics.get(0).fileObjId)" class="bdImgGray w164 h219">*@
+			            <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" class="bdImgGray w164 h219">
 			        </a>
 			    </div>
 			    <p class="mT10">
@@ -29,10 +29,13 @@
 			        </a>
 			    </p>
 			    <div class="bdDotT mT5 pT5 fs10">
-			        <span class="fgPink">
+			       <p class="mT10">
+        			@stylist.position.map{po=>
+			           	@po.positionName&nbsp;@po.industryName
+			           }
+        			</p>
 			       
-			       
-			        </span>
+			        
 			  （@stylist.workYears
 			  @Messages("stylist.workYears")）
 			    </div>
@@ -41,7 +44,7 @@
 			</div>
 			<div class="taC mT10">
 				@if(status == 1){
-				<a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv">@Messages("stylist.checkReserv")</a>
+				<a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv">@Messages("stylist.checkRsv")</a>
 				}
 				@if(status == 2){
 				<a href="/inviteStylist/@stylist.stylistId/@salon.id" class="salon-stylist-reserv">@Messages("stylist.invite")</a>	

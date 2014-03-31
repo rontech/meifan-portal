@@ -326,6 +326,29 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                 })
     }
   
+    def checkStylist(stylistId: ObjectId) = {
+      
+    }
+    
+    def fileUploadAction = Action(parse.multipartFormData) { implicit request =>
+    request.body.file("photo") match {
+            case Some(photo) =>{
+            	println("get photo")
+            	
+                val db = MongoConnection()("Picture")
+                val gridFs = GridFS(db)
+                val uploadedFile = gridFs.createFile(photo.ref.file)
+                uploadedFile.contentType = photo.contentType.orNull
+                uploadedFile.save()
+                println("files id "+uploadedFile._id.get.toString)
+                Ok(uploadedFile._id.get.toString)
+                
+		      
+            }    
+            case None => BadRequest("no photo")
+        }
+    
+  }
   /*def updateStyleByStylist(styleId: ObjectId) = Action {
      
   }

@@ -1,26 +1,27 @@
 @(salon: Salon)
 
 			<div class ="Owner">
-				<a href="#" class='Img'><img src="http://imgbp.hotp.jp/CSP/IMG_SRC/05/00/B002710500/B002710500_100-100.jpg"/></a>
+				<a href="#" class='Img'><img src="#"/></a>
 				<span class='U'>
+					<p class='opts'>
+						<span style="font-size:16px;">@Messages("stylist.hello")&nbsp;</span> @Messages("salonAdmin.admin")
+					</p>
       				<a href="" class='Name' title='female'></a>
-					<span class='opts'>
+      				<p class='opts'>
+						@salon.salonName
+					</p>
+					<p class='opts'>
 						<a href = "/updateSalonlogo/@salon.id">@Messages("user.changeImage")</a>
-					</span>
+					</p>
 				</span>
     				<div class="clear"></div>
 				
 			</div>
-			<div class='RMod' id='UserSkills'>
-	  			<div id="OtherScore">
-        			<h1><a href="#" target="_blank" title="@Messages("user.howToGetPoint")"><em></em>@Messages("salon.level")</a></h1>
-    			</div> 
-	  		</div>
-   			<div class='Opts clearfix'>
+			<div class='Opts clearfix'>
                 <a href="#" class='a2 admin'><span>@Messages("user.changeInfo")</span></a>
-				<a href="/showBlog/@salon.id" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
+				<a href="#" class='a1 blog'><span>@Messages("salon.level")</a>
 			</div>
-			<!-- 店铺基本信息管理 -->
+   			<!-- 店铺基本信息管理 -->
 			<div class='Mod Users' id='Fans'>
 	   			<strong>@Messages("salonAdmin.infoManagement")</strong>
 	   			<div class='more'>
@@ -58,7 +59,7 @@
 	  			</ul>
 				<div class='more'>
     				<a href="/getAllStylesBySalon/@salon.id/salon">@Messages("stylistMag.showAllStyles")
-    				（10）</a>
+    				</a>
     			</div>
 			</div>
 			<div class='Mod Users' id='Fellows'>

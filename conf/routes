@@ -286,6 +286,7 @@ POST	/findMyStylesBySerach					             controllers.Stylists.findMyStylesByS
 GET		/getAllStylesBySalon/:salonId/salon				     controllers.SalonsAdmin.getAllStylesBySalon(salonId: ObjectId)
 GET     /styleUpdateByStylist/:id                            controllers.Stylists.styleUpdateByStylist(id: ObjectId)
 POST    /styleUpdateNewByStylist/                            controllers.Stylists.styleUpdateNewByStylist
+POST	/fileUploadAction									 controllers.Stylists.fileUploadAction
 
 
 # Questions add by jie-zhang (for common questions)
