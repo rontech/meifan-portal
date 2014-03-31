@@ -15,6 +15,7 @@
 		 <fieldset >
 		 	@inputText(salon("salonAccount.accountId"),'_label -> Messages("salon.id"), 'readonly -> "true", 
 		 		'_help -> Messages("salon.accountIdMessage"))
+		 	@inputText(salon("salonAccount.password"),'_label -> Messages("salon.password"), 'readonly -> "true" )
 		 	<input type="hidden" name="password" value="@salon.get.salonAccount.password"> 		 	   		          
             @inputText(salon("salonName"),'_label ->  Messages("salon.Name"))           
             @inputText(salon("salonNameAbbr"),'_label -> Messages("salon.Abbr"))			
