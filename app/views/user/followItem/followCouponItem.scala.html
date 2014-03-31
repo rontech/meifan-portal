@@ -97,12 +97,13 @@
                 </td>
                 <td class="bdWhite bgLLGray2 vaM">
                     <div class="pV10 fs12">
+                    @if(coupon.isValid && coupon.endDate.after(new java.util.Date()) && coupon.startDate.before(new java.util.Date())){
                         <div>
                             <a href="#"
                             class="btn btn2H50 btnWlines w146 mHA">
                                 <span>
                                     <span>
-                                        <font>
+                                    	<font>
                                             <font>
                                                 @Messages("coupon.appointment1")
                                             </font>
@@ -128,16 +129,43 @@
                             </a>
                         </div>
                         <div class="mT8 taC">
-                            <a href="@auth.routes.MyFollows.addFollow(coupon.id,"coupon")"
+                            <a href="@auth.routes.MyFollows.cancelFollow(coupon.id)"
                             class="iS arrowR">
                                 <font>
                                     <font>
-                                        @Messages("user.followThisCoupon")
+                                        @Messages("user.deleteFollow")
                                     </font>
                                 </font>
                             </a>
                         </div>
                     </div>
+                    }else{
+                    <div>
+                            <a href="#"
+                            class="btn btn2H50 btnWlines w146 mHA">
+                                <span>
+                                    <span>
+                                    	<font>
+                                            <font>
+                                                @Messages("coupon.invalidCoupon")
+                                            </font>
+                                        </font>  
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="mT8 taC">
+                            <a href="@auth.routes.MyFollows.cancelFollow(coupon.id)"
+                            class="iS arrowR">
+                                <font>
+                                    <font>
+                                        @Messages("user.deleteFollow")
+                                    </font>
+                                </font>
+                            </a>
+                        </div>
+                    </div>
+                    }
                 </td>
             </tr>
         </tbody>

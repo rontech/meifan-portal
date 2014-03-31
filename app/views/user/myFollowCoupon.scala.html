@@ -8,13 +8,9 @@
     </div>
 } else {
     @for(coupon <- followInfo.followCoupon) {
-        @if(coupon.isValid && coupon.endDate.after(new java.util.Date()) && coupon.startDate.before(new java.util.Date())) {
     		<li class="couponItem">
-            	@views.html.coupon.couponItem(coupon)
-            	<p align = "right"><a href="@auth.routes.MyFollows.cancelFollow(coupon.id)">@Messages("user.deleteFollow")</a></p>
+    		   @views.html.user.followItem.followCouponItem(coupon)
         	</li>	
     	}
     }
-}
-
 }
