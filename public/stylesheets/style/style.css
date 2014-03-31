@@ -445,26 +445,6 @@
 	margin: 20px auto 0;
 }
 
-/************************************************************
- * CLASSES(コンポーネント)
- ************************************************************/
-
-/* パンクズ */
-.pankuzu {
-	float: left;
-	font-size: 10px;
-	padding: 12px 0;
-}
-.pankuzu li {
-	display: inline;
-}
-.pankuzuShort {
-	width: 626px;
-}
-.pankuzu strong {
-	font-weight: normal;
-}
-
 /* 検索結果表示 */
 .numberOfResult {
 	font-size: 20px;
@@ -3268,19 +3248,6 @@ width: 172px;
 height: 17px;
 }
 
-a:hover .imgFrame {
-border: 1px solid #999999;
--webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, .05);
-}
-
-a .imgFrame {
--webkit-transition: border .2s linear;
--moz-transition: border .2s linear;
--ms-transition: border .2s linear;
--o-transition: border .2s linear;
-transition: border .2s linear;
-}
-
 .headingSearch {
 background: url('/assets/images/heading_search.jpg') no-repeat 0 0;
 width: 138px;
@@ -3417,4 +3384,28 @@ background-repeat: no-repeat;
 
 .txtC{
 	text-align: center;
+}
+
+ol {
+-webkit-margin-before: 0;
+-webkit-margin-after: 0;
+-webkit-padding-start: 0;
+}
+
+.imgFrame {
+border: 1px solid #EEEEEE;
+padding: 1px;
+}
+
+a .imgFrame {
+-webkit-transition: border .2s linear;
+-moz-transition: border .2s linear;
+-ms-transition: border .2s linear;
+-o-transition: border .2s linear;
+transition: border .2s linear;
+}
+
+a:hover .imgFrame {
+	border: 1px solid #999999;
+	-webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, .05);
 }
