@@ -124,6 +124,10 @@ salon.confirmMessage=请再次输入密码！
 salon.desMseeage=您最多可以输入50个字符！
 salon.salonLogin=店铺登录
 salon.stylistsList={0}的发型师
+salon.newSalon = 新沙龙用户
+salon.registerMessage1 = 如果您还不是该网站的沙龙会员，再次注册沙龙会员。
+salon.registerMessage2 = 我们会核实您注册后提交的申请，尽快为您开通沙龙会员！
+salon.loginMessage = 如果你已经是本网站的沙龙会员，请在下面输入店铺名和密码登录！
 salon.true=可
 salon.accountIdMessage=注册时设定，无法修改!
 
@@ -425,6 +429,13 @@ user.nickNameErr=给个昵称吧！
 user.welcome=欢迎您，{0}
 user.guestName=游客
 user.pleaseSignUp=免费会员注册
+user.newUser = 新用户
+user.registerMessage1 = 如果您还不是该网站的会员，免费会员注册。
+user.registerMessage2 = 我们将提供24小时网上预约&空席确认和5%的积分制度！
+user.registerMessage3 = 新用户还可以免费得到20个积分点哦！
+user.userLogin = 会员登录
+user.loginMessage = 如果你已经是本网站的会员，请在下面输入用户名和密码登录！
+user.forgetPassword = 如果你忘记密码，请点击这里
 
 
 
