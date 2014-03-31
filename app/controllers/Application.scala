@@ -32,7 +32,7 @@ object Application extends Controller {
         Ok(views.html.salon.salonLogin(SalonInfo.salonLogin))
     }
 
-    def addImage = Action {
+    def addImage(id: ObjectId) = Action {
         Ok(views.html.salon.salonImage(SalonInfo.salonInfo))
     }
     
@@ -70,16 +70,5 @@ object Application extends Controller {
         }
     }
 
-    def imageUpload = Action(parse.multipartFormData) { request =>
-        request.body.file("logo") match {
-            case Some(logo) =>
-                val db = MongoConnection()("Picture")
-                val gridFs = GridFS(db)
-                val uploadedFile = gridFs.createFile(logo.ref.file)
-                uploadedFile.contentType = logo.contentType.orNull
-                uploadedFile.save()
-                Redirect(routes.SalonInfo.saveSalonImg(uploadedFile._id.get))
-            case None => BadRequest("no photo")
-        }
-    }    
+        
 }

@@ -1,7 +1,7 @@
 @(salon: Salon, navBar: List[(String, String)] = Nil)
 
 @salonInfoMain(navInSalon = "salon-basic", salon, navBar) {
-				
+
     <div class="mT30">
         <div class="yS mainContentsSecondTitleOuter">
         <h2 class="yS mainContentsSecondTitleInner">
@@ -19,9 +19,9 @@
             <tr>
                 <th class="w120"> @Messages("salon.address") </th>
                 <td colspan="3" class="w620">
-                    @(Messages("province.provinceName." + salon.salonAddress.province))
-                    @(Messages("city.cityName." + salon.salonAddress.city.get)) @*TODO*@
-                    @(Messages("region.regionName." + salon.salonAddress.region.get))@*TODO*@ 
+                    @(Messages(salon.salonAddress.province))
+                    @(Messages(salon.salonAddress.city.get))
+                    @(Messages(salon.salonAddress.region.get))
                     @salon.salonAddress.addrDetail
                 </td>
             </tr>

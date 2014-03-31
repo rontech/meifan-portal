@@ -273,9 +273,9 @@ GET         /salonInfo/:id                                   controllers.SalonIn
 GET         /salonUpd/:id                                    controllers.SalonInfo.update(id: ObjectId)
 GET         /salonRegister                                   controllers.SalonInfo.register
 POST        /salonDoRegister                                 controllers.SalonInfo.doRegister
-GET         /salonImage                                      controllers.Application.addImage
-GET         /updateSalonlogo/:id                                controllers.SalonInfo.saveSalonImg(id :ObjectId)
-
+GET         /salonImage/:id                                     controllers.Application.addImage(id: ObjectId)
+GET         /updateSalonlogo/                             	controllers.SalonInfo.saveSalonImg(salonId: ObjectId,imgId: ObjectId)
+POST		/imageUpload									controllers.SalonInfo.imageUpload(salonId: ObjectId)
 #add bu lu-zheng
 GET         /mySalon/:id/createService                                 controllers.Services.serviceMain(id: ObjectId)
 
