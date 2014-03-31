@@ -16,10 +16,11 @@
 					<dt class="fl">@Messages("blog.author")</dt>
 					<dd class="fl">
 					@if(salon != null){
-					<a href="/salon/@salon.id/stylistOne/@blog.authorId">@User.findOneByUserId(blog.authorId).get.nickName</a>
+					    <a href="@noAuth.routes.Blogs.getAuthorOfSalonBlog(salon.id, blog.authorId)">
 					}else{
-					<a href="@noAuth.routes.Blogs.showBlog(blog.authorId)">@User.findOneByUserId(blog.authorId).get.nickName</a>
+					    <a href="@noAuth.routes.Blogs.showBlog(blog.authorId)">
 					}
+                                        @User.findOneByUserId(blog.authorId).get.nickName</a>
 					
 					</dd>
 				</dl>
