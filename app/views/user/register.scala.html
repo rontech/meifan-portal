@@ -7,68 +7,175 @@
     	<head>
 			<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
 		</head>
-
-        <font size =30px align = "center">@Messages("user.new")</font>
+		
+		<div class="contentsTitleWrapper">
+			<h2 class="contentsTitleInner">@Messages("user.new")</h2>
+		</div>
        
         @form(noAuth.routes.Users.register(), 'id -> "userForm") {
-          <fieldset>
-          
-            @if(userForm.hasGlobalErrors) { 
-              <div>
-                  @userForm.globalError.get.message
-              </div>
-            }
-          
-            @inputText(userForm("userId"),'_label -> Messages("user.name"), 'placeholder -> Messages("user.toBeUserId"),
-            	'_error -> userForm("userId").error.map(_.withMessage(Messages("user.userIdErr")))
-            	)
-
-			@inputPassword(userForm("password.main"),'_label -> Messages("user.password"), 'placeholder -> Messages("user.toBePassword"))
-			
-			@inputPassword(userForm("password.confirm"),'_label -> Messages("user.confirmPas"),'_error -> userForm.error("password"), 'placeholder -> Messages("user.toBePassword"))
-
-            @inputText(userForm("nickName"),'_label -> Messages("user.nickNm"),
-            	'_error -> userForm("nickName").error.map(_.withMessage(Messages("user.nickNameErr")))
-            )
-
-            @inputDate(userForm("birthDay"), '_label -> Messages("user.birthDay"),
-            	'_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr")))
-            )
-
-			@inputRadioGroup(field = userForm("sex").copy(value=userForm("sex").value.map{Some(_)}.getOrElse(Some("M"))),options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")) , '_label -> Messages("user.sex"),
-				'_error -> userForm("sex").error.map(_.withMessage(Messages("user.sexErr"))))
+        	
+	      	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+			    <tbody>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("user.name")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@inputText(userForm("userId"),'_label -> None, 'placeholder -> Messages("user.toBeUserId"),
+							            	'_error -> userForm("userId").error.map(_.withMessage(Messages("user.userIdErr")))
+							            	)
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("user.password")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@inputPassword(userForm("password.main"),'_label -> None, 'placeholder -> Messages("user.toBePassword"))
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("user.confirmPas")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@inputPassword(userForm("password.confirm"),'_label -> None,'_error -> userForm.error("password"), 'placeholder -> Messages("user.toBePassword"))
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("user.nickNm")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@inputText(userForm("nickName"),'_label -> None,
+							            	'_error -> userForm("nickName").error.map(_.withMessage(Messages("user.nickNameErr")))
+							            )
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("user.birthDay")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@inputDate(userForm("birthDay"), '_label -> None,
+							            	'_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr")))
+							            )
+	
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("user.sex")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@inputRadioGroup(field = userForm("sex").copy(value=userForm("sex").value.map{Some(_)}.getOrElse(Some("M"))),options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")) , '_label -> None,
+												'_error -> userForm("sex").error.map(_.withMessage(Messages("user.sexErr"))))
+	
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("salon.address")
+			                </div>
+			            </th>
+			            <td>
+			                <div class="mL50">
+			                	@Messages("salon.province"):  <select id="Select1" name = "address.province"></select>
+								@Messages("salon.city"):  <select id="Select2" name = "address.city"></select>
+								@Messages("salon.region"):  <select id="Select3" name = "address.region"></select>
+								<script type="text/javascript">
+									addressInit('Select1', 'Select2', 'Select3');
+								</script>
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("user.job")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@inputText(userForm("socialStatus"),'_label -> None)
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("user.email")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@inputText(userForm("email"), '_label -> None,
+					            	'_error -> userForm("email").error.map(_.withMessage(Messages("user.emailErr")))
+					            )
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("user.tel")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@inputText(userForm("tel"), '_label -> None)
+			                </div>
+			            </td>
+			        </tr>
+				</tbody>
+			</table>
 				
-            @*inputText(userForm("city"),'_label -> Messages("user.city"))*@
-            
-            <div>
-            <span align = left>@Messages("salon.address")</span>
-				@Messages("salon.province"):  <select id="Select1" name = "address.province"></select>
-				@Messages("salon.city"):  <select id="Select2" name = "address.city"></select>
-				@Messages("salon.region"):  <select id="Select3" name = "address.region"></select>
-				<script type="text/javascript">
-					addressInit('Select1', 'Select2', 'Select3');
-				</script>
-			</div>
-
-            @inputText(userForm("socialStatus"),'_label -> Messages("user.job"))
-
-            @inputText(userForm("email"), '_label -> Messages("user.email"),
-            	'_error -> userForm("email").error.map(_.withMessage(Messages("user.emailErr")))
-            )
-
-            @inputText(userForm("tel"), '_label -> Messages("user.tel"))
-            
             @inputText(userForm("optContactMethod"), '_label -> "",'style -> "display: none")
             
             @inputText(userForm("userPics"), '_label -> "",'style -> "display: none")
 
-		  </fieldset>
-		  
-            <input type="submit" class = "buttons" value="@Messages("user.new")">
+		  	<div class="mT20 txtC">
+		  		<input type="submit" class = "buttons" value="@Messages("user.new")">
             
-            <a href="@auth.routes.Users.login"><input type = "button" class = "buttons" value="@Messages("user.loginBtn")"></a>
-            
-            <input type = "reset" class = "buttons" value="@Messages("service.resetBtn")">
+	            <a href="@auth.routes.Users.login"><input type = "button" class = "buttons" value="@Messages("user.loginBtn")"></a>
+	            
+	            <input type = "reset" class = "buttons" value="@Messages("service.resetBtn")">
+		  	</div>
            
         }
 
