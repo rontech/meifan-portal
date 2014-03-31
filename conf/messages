@@ -486,7 +486,8 @@ blog.createAt = 发布于 {0}
 blog.floor = {0} 楼
 blog.quoteComment = 引用来自" {0} "的评论
 blog.new = 新博客
-
+blog.toCollect=收藏此博客
+blog.noCollect = 暂无收藏的博客！
 
 # Comment
 comment.salonCommentTitle = {0} 的评论

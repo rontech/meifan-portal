@@ -231,7 +231,8 @@ object Styles extends Controller {
      */
     def styleAdd = Action {
         //此处为新发型登录
-        Ok(html.style.admin.styleAdd(styleAddForm, Style.findParaAll))
+//        Ok(html.style.admin.styleAdd(styleAddForm, Style.findParaAll))
+        Ok(html.index(""))
     }
 
     def styleAddNew = Action {
@@ -241,8 +242,8 @@ object Styles extends Controller {
                 {
                     case (styleAddForm) => {
                         Style.save(styleAddForm)
-                                                Ok(html.style.test(styleAddForm))
-//                        Ok(html.index(""))
+//                                                Ok(html.style.test(styleAddForm))
+                        Ok(html.index(""))
                     }
                 })
     }
@@ -303,8 +304,8 @@ object Styles extends Controller {
     /**
      * 后台发型删除，使之无效即可
      */
-    def styleToInvalid(id: ObjectId, isValid: Boolean) = Action {
-        Style.styleToInvalid(id, isValid)
+    def styleToInvalid(id: ObjectId) = Action {
+        Style.styleToInvalid(id)
         Redirect(routes.Styles.backstageStyleSearch)
     }
 

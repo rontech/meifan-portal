@@ -71,7 +71,7 @@ object Salons extends Controller {
 
                                 // get a latest blog of a stylist.
                                 val blgs = Blog.getBlogByUserId(dtl.get.basicInfo.userId)
-                                val blog = if(blgs.length > 0) Some(blgs.last) else None 
+                                val blog = if(blgs.length > 0) Some(blgs.head) else None 
 
                                 // navigation item
                                 val lastNav = List((dtl.get.basicInfo.nickName, ""))
