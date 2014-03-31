@@ -38,8 +38,8 @@
 	                                <div class="mT2">
 	                                    <p class="rankingListInnerAnchor">@styles(i).styleName</p>
 	                                    <div class="mT2">
-	                                        <p class="rankingListShop">@styles(i).styleName</p>
-	                                        <p class="rankingListStylist">@styles(i).styleName</p>
+	                                        <p class="rankingListShop">@Style.findSalonByStyle(styles(i).stylistId).get.salonName</p>
+	                                        <p class="rankingListStylist">@Stylist.findUser(styles(i).stylistId).nickName</p>
 	                                    </div>
 	                                </div>
 	                            </div>

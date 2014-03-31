@@ -174,7 +174,7 @@ object Styles extends Controller {
         var styleSearchByLength: Style = Style(new ObjectId, "", new ObjectId, Nil, "", Nil, styleLength, Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
         var styleAndSalons: List[StyleAndSalon] = Nil
         styleSearchInfo.map { styleInfo =>
-            val salonOne = Style.findSalonByStyle(styleInfo)
+            val salonOne = Style.findSalonByStyle(styleInfo.stylistId)
             salonOne match {
                 case Some(salonOne) => {
                     val styleAndSalon = new StyleAndSalon(styleInfo, salonOne)
@@ -191,7 +191,7 @@ object Styles extends Controller {
         var styleSearchByLength: Style = Style(new ObjectId, "", new ObjectId, Nil, styleImpression, Nil, "", Nil, Nil, Nil, Nil, Nil, "", Nil, "", Nil, new Date, true)
         var styleAndSalons: List[StyleAndSalon] = Nil
         styleSearchInfo.map { styleInfo =>
-            val salonOne = Style.findSalonByStyle(styleInfo)
+            val salonOne = Style.findSalonByStyle(styleInfo.stylistId)
             salonOne match {
                 case Some(salonOne) => {
                     val styleAndSalon = new StyleAndSalon(styleInfo, salonOne)
@@ -212,7 +212,7 @@ object Styles extends Controller {
                         val styleSearchInfo = Style.findByPara(styleSearch)
                         var styleAndSalons: List[StyleAndSalon] = Nil
                         styleSearchInfo.map { styleInfo =>
-                            val salonOne = Style.findSalonByStyle(styleInfo)
+                            val salonOne = Style.findSalonByStyle(styleInfo.stylistId)
                             salonOne match {
                                 case Some(salonOne) => {
                                     val styleAndSalon = new StyleAndSalon(styleInfo, salonOne)

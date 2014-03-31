@@ -121,8 +121,8 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
             MongoDBObject("isValid" -> true))).toList
     }
 
-    def findSalonByStyle(style: models.Style): Option[models.Salon] = {
-        val salonAndStylist = SalonAndStylist.findByStylistId(style.stylistId)
+    def findSalonByStyle(stylistId: ObjectId): Option[models.Salon] = {
+        val salonAndStylist = SalonAndStylist.findByStylistId(stylistId)
         var salonOne: Option[models.Salon] = None
         salonAndStylist match {
             case Some(salonAndStylist) => {
