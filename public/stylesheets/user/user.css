@@ -5606,17 +5606,3 @@ margin-top: 10px;
 font-size: 18px
 }
 
-.contentsTitleWrapper {
-background: none;
-}
-
-.contentsTitleInner {
-height: 15px;
-border-bottom: 1px solid #988989;
-background: url("/assets/images/icon_heading.png") no-repeat 0 1px;
-padding-left: 25px;
-padding-bottom: 7px;
-font-size: 15px;
-font-weight: bold;
-color: #444444;
-}
