@@ -2,7 +2,7 @@
 			<div class ="Owner">
 				<a href="#" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")" align="absmiddle" alt="@user.userId" title="@user.userId" class="LargePortrait"/></a>
 				<span class='U'>
-      				<a href="@auth.routes.Users.myPage" class='Name' title='female'>@user.userId</a>
+      				<a href="@auth.routes.Users.myPage" class='Name' title='female'>@user.nickName</a>
 					<span class='opts'>
 						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='absmiddle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
 						@if(MyFollow.checkIfFollow(loginUserId,user.id)){
@@ -45,7 +45,7 @@
 	  			<ul class='clearfix'>
     	 			@followInfo.followStylist.map {stylist =>
 	  					<li>
-    	 				       <a href="/stylistViews/@stylist.stylistId">@stylist.stylistId</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 				       <a href="/stylistViews/@stylist.stylistId">@Stylist.findUserName(stylist.stylistId)</a>&nbsp;&nbsp;&nbsp;&nbsp;
     	 			    </li>
 	  					}
     			</ul>
@@ -58,7 +58,7 @@
 	   			<ul class='clearfix'>
       				@followInfo.followUser.map {user =>
 	  					<li>
-    	 				       <a href="@noAuth.routes.Users.userPage(user.userId)">@user.userId</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 				       <a href="@noAuth.routes.Users.userPage(user.userId)">@user.nickName</a>&nbsp;&nbsp;&nbsp;&nbsp;
     	 			    </li>
 	  				}
 				</ul>
