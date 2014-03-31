@@ -85,7 +85,7 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
 	                "showPriority"-> optional(number),
 	                "description" -> optional(text)
 	                ){
-	              (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId(fileObjId),"",Option(0),Option(""))
+	              (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId(fileObjId),picUse,showPriority,description)
 	              }{
 	                salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
 	              }),
@@ -259,16 +259,31 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
           Redirect(routes.SalonInfo.salonInfoBasic(id))
       })
   }
+
+  /**
+   * 店铺Logo更新页面
+   */
+  def addImage(id: ObjectId) = Action {
+    val salon = Salon.findById(id).get
+    Ok(views.html.salon.salonImage(salon))
+  }
   
+  /**
+   * 店铺图片保存
+   */
   def saveSalonImg(id: ObjectId, imgId: ObjectId) = Action{implicit request =>
    	val salon = Salon.findById(id).get
     Salon.updateSalonLogo(salon, imgId)
+    println("Salon imgid "+ salon.salonPics.map{img=>img.fileObjId})
     Redirect(routes.SalonInfo.salonInfoBasic(id))
     
     
   }
   
-  def imageUpload(salonId: ObjectId) = Action(parse.multipartFormData) { request =>
+  /**
+   * 店铺图片上传
+   */
+  def imageUpload(id: ObjectId) = Action(parse.multipartFormData) { request =>
         request.body.file("logo") match {
             case Some(logo) =>
                 val db = MongoConnection()("Picture")
@@ -276,7 +291,8 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
                 val uploadedFile = gridFs.createFile(logo.ref.file)
                 uploadedFile.contentType = logo.contentType.orNull
                 uploadedFile.save()
-                Redirect(routes.SalonInfo.saveSalonImg(salonId,uploadedFile._id.get))
+                println("uploadfile " + uploadedFile._id.get)
+                Redirect(routes.SalonInfo.saveSalonImg(id,uploadedFile._id.get))
             case None => BadRequest("no photo")
         }
     }
