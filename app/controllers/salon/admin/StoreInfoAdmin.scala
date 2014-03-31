@@ -274,8 +274,6 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
   def saveSalonImg(id: ObjectId, imgId: ObjectId) = Action{implicit request =>
    	val salon = Salon.findById(id).get
     Salon.updateSalonLogo(salon, imgId)
-    
-    println("Salon imgid "+ Salon.findById(id).get.salonPics.map{img=>img.fileObjId})
     Redirect(routes.SalonInfo.salonInfoBasic(id))
     
     
@@ -292,7 +290,6 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
                 val uploadedFile = gridFs.createFile(logo.ref.file)
                 uploadedFile.contentType = logo.contentType.orNull
                 uploadedFile.save()
-                println("uploadfile " + uploadedFile._id.get)
                 Redirect(routes.SalonInfo.saveSalonImg(id,uploadedFile._id.get))
             case None => BadRequest("no photo")
         }
