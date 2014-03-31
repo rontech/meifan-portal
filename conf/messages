@@ -156,7 +156,7 @@ salonAdmin.stateManagement = 动态管理
 salonAdmin.findAllStylists = 查看店铺所有技师
 salonAdmin.applyStylists = 申请的技师
 salonAdmin.removeStylist = 解除关系
-salonAdmin.CheckComment = 查看所有评论
+salonAdmin.checkComment = 查看所有评论
 salonAdmin.checkService = 查看所有服务
 salonAdmin.checkCoupon = 查看所有优惠
 salonAdmin.checkMenu = 查看所有套餐
@@ -510,6 +510,7 @@ comment.usedCoupon = 预约时使用的优惠券
 comment.usedServices = [用到的技术]
 comment.reply = {0}的回复
 comment.new = 新评论
+comment.complain = 我要申诉
 
 
 # Point

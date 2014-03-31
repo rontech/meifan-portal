@@ -7,7 +7,7 @@
 		<div class="shopInfo reportPickupTitle cFix">
 			<p class="fl w580 pL25">
 				<span class="b">@User.findOneByUserId(comment.authorId).get.nickName</span>
-				<span class="mL5 fs10 fgGray"> （@User.findOneByUserId(comment.authorId).get.sex/@User.findOneByUserId(comment.authorId).get.birthDay/@User.findOneByUserId(comment.authorId).get.socialStatus）</span>
+				<span class="mL5 fs10 fgGray"> （@User.findOneByUserId(comment.authorId).get.sex/@Application.getAge(User.findOneByUserId(comment.authorId).get.birthDay)/@User.findOneByUserId(comment.authorId).get.socialStatus）</span>
 			</p>
 			<div class="fr mT2">
 				<p class="fs10 fgGray">@Messages("comment.passDate") @DateFormat.getDateInstance.format(comment.createTime)</p>
