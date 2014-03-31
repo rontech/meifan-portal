@@ -95,7 +95,7 @@ salon.restDayDivision=请选择休息方式
 salon.restDays=请选择日期
 salon.priceCutOnly=剪发价格
 salon.priceCutOnlyMsg={0} 元起
-salon.priceCutOnlyUndefinded=价格未定义
+salon.priceCutOnlyUndefined=价格未定义
 salon.seatNums=席位数
 salon.seatNumsMsg={0} 席
 salon.stylistNums=发型师人数
@@ -108,6 +108,8 @@ salon.canCurntDayOrder=可否当日预约
 salon.canMaleUse=是否男性可用
 salon.isPointAvailable=是否Point加盟店
 salon.isPosAvailable=可刷卡
+salon.posAvailable=可
+salon.posNotAvailable=不可
 salon.isWifiAvailable=wifi
 salon.hasParkingNearby=附近有无停车场
 salon.parkingDesc=停车场状况描述
@@ -122,6 +124,8 @@ salon.confirmMessage=请再次输入密码！
 salon.desMseeage=您最多可以输入50个字符！
 salon.salonLogin=店铺登录
 salon.stylistsList={0}的发型师
+salon.true=可
+salon.accountIdMessage=注册时设定，无法修改!
 
 #salon management
 salonAdmin.mainPage = 店铺管理
@@ -512,43 +516,6 @@ system.siteMessages=系统通知
 
 # Common Questions
 questions.common=常见问题
-
-
-
-
-#-------------------------------
-# Master Table Translation Area.
-# 主表字段翻译定义区
-#-------------------------------
-# 省份
-province.provinceName.Jiangsu=江苏省
-province.provinceName.Jiangxi=江西省
-province.provinceName.Shandong=山东省
-province.provinceName.Shangxi=山西省
-province.provinceName.Hubei=湖北省
-province.provinceName.Hunan=湖南省
-province.provinceName.Sichuan=四川省
-province.provinceName.Hebei=河北省
-province.provinceName.Henan=河南省
-
-
-
-# 直辖市
-city.cityName.Shanghai=上海市
-city.cityName.Beijing=北京市
-
-# 市
-city.cityName.Suzhou=苏州市
-city.cityName.Wuxi=无锡市
-city.cityName.Nanjing=南京市
-city.cityName.Jinan=济南市
-city.cityName.Qingdao=青岛市
-
-
-# 区
-region.regionName.Gaoxin=高新区
-region.regionName.Xuanwu=玄武区
-region.regionName.Gulou=鼓楼区
 
 
 #行业

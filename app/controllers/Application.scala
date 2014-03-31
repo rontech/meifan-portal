@@ -31,6 +31,10 @@ object Application extends Controller {
     def salonLogin() = Action {
         Ok(views.html.salon.salonLogin(SalonInfo.salonLogin))
     }
+
+    def addImage(id: ObjectId) = Action {
+        Ok(views.html.salon.salonImage(SalonInfo.salonInfo))
+    }
     
     def getPhoto(file: ObjectId) = Action {
 
@@ -66,4 +70,5 @@ object Application extends Controller {
         }
     }
 
+        
 }

@@ -3,9 +3,11 @@
 <dt class="titleBlogPublisher">@Messages("blog.authorTitle")</dt>
 <dd class="list p10 bgDGray2">
 	<div class="taC">
-		<img src="http://imgbp.hotp.jp/CSP/IMG_SRC/19/34/B003961934/B003961934_89-119.jpg" alt="フレール　Freres&nbsp;">
+            <a href="@routes.Salons.getOneStylist(salon.id, stylist.stylistId)">
+		<img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" alt="salon.salonName">
+            </a>
 	</div>
-	<p class="fgPink fs10 mT5">@stylist.position.map {position => @position.industryName}</p>
+	<p class="fgPink fs10 mT5">@stylist.position.map {position => @position.positionName}</p>
 	<p class="mT5">
 		<a href="/salon/@salon.id/blogs/@stylist.stylistId">@User.findOneByUserId(blog.authorId).get.nickName</a>
 	</p>
