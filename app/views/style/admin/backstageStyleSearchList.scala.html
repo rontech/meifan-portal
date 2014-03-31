@@ -1,4 +1,4 @@
-@(styles: List[models.Style])
+@(styles: List[models.Style], isStylist: Boolean)
 @import helper._
 
 <div>
@@ -9,18 +9,24 @@
 			    <td class="vaT bdGrayR">
 				<div class="w137 mHA">
 				    <div class="mT10 fs16 taM">
-					<a href="@routes.Styles.styleUpdate(styles(i).id)" >
 		               <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150">
-		           	</a>
 				    </div>
 				    <div class="mT2 txtC">
 		            	<p><span >@styles(i).styleName</span></p>
 		        	</div>
 		        	<div class="txtC">
-					    <p>
-			                <a href="@routes.Stylists.styleUpdateByStylist(styles(i).id)" >@Messages("common.edit")</a>
-			                <a href="@routes.Styles.styleToInvalid(styles(i).id,styles(i).isValid)" >@Messages("common.delete")</a>
-			            </p>
+                        @if(isStylist) {
+    					    <p>
+    			                <a href="@routes.Stylists.styleUpdateByStylist(styles(i).id)" >@Messages("common.edit")</a>
+    			                <a href="@routes.Stylists.styleToInvalidByStylist(styles(i).id)" >@Messages("common.delete")</a>
+    			            </p>
+                            
+                        }else{
+                            <p>
+                                <a href="@routes.SalonsAdmin.styleUpdateBySalon(styles(i).id)" >@Messages("common.edit")</a>
+                                <a href="@routes.SalonsAdmin.styleToInvalidBySalon(styles(i).id)" >@Messages("common.delete")</a>
+                            </p>
+                        }
 		            </div>
 				</div>
 			    </td>

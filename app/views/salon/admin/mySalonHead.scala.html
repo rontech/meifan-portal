@@ -1,8 +1,13 @@
 @(navInMyPage:String = "my-reservation", salon :Salon)
 
 	<!-- ↓mainContents -->
-    	<ul class="bS menuBG cFix">
-		
+
+    	<ul class="menuBG cFix">
+		<li class="fl">
+			<a href="/salonInfo/@salon.id" >
+		    	@Messages("salonAdmin.infoManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
 		<li class="fl">
 			<a href="/mySalon/@salon.id/stylist">
 		    	@Messages("salonAdmin.stylistManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -19,7 +24,7 @@
 		    </a>
 		</li>
 		<li class="fl">
-			<a href="/mySalon/@salon.id/comment">
+			<a href="@routes.SalonsAdmin.myComment(salon.id)">
 				@Messages("salonAdmin.commentManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>

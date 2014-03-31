@@ -5,6 +5,7 @@ import java.util.Date
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
+import play.api.i18n.Messages
 import play.api.templates._
 import models._
 import com.mongodb.casbah.Imports.ObjectId
@@ -37,10 +38,12 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
    */
   def findBySalon(salonId: ObjectId) = Action {
     val salon: Option[Salon] = Salon.findById(salonId)    
-    val comments: List[Comment] = Comment.findBySalon(salonId)    
-    //println("comments" + comments)
-    // TODO: process the salon not exist pattern.
-    Ok(views.html.salon.store.salonInfoCommentAll(salon = salon.get, comments = comments))
+    val comments: List[Comment] = Comment.findBySalon(salonId) 
+     // navigation bar
+     val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.comments"), ""))
+     // Jump to blogs page in salon. 
+     // TODO: process the salon not exist pattern.
+    Ok(views.html.salon.store.salonInfoCommentAll(salon = salon.get, comments = comments, navBar = navBar))
   }
   
   def clean() = {

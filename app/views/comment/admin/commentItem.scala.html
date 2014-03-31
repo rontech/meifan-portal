@@ -23,26 +23,26 @@
 </script>
 
 @import java.text.DateFormat
-@if(comment.commentObjType == 1) {
+@if(comment.commentObjType == 2) {
 <div class="reportHeaderPickup">
 	<div class="shopInfo reportPickupTitle cFix">
-		<p class="fl w580 pL25"><span class="b">评论人昵称</span><span class="mL5 fs10 fgGray">评论人的一些特点</span></p>
+		<p class="fl w580 pL25"><span class="b">@User.findOneByUserId(comment.authorId).get.nickName</span><span class="mL5 fs10 fgGray">（@User.findOneByUserId(comment.authorId).get.sex/@Application.getAge(User.findOneByUserId(comment.authorId).get.birthDay)/@User.findOneByUserId(comment.authorId).get.socialStatus）</span></p>
 		<div class="fr mT2">
-			<p class="fs10 fgGray">[评论时间] @DateFormat.getDateInstance.format(comment.createTime)</p>
+			<p class="fs10 fgGray">@Messages("comment.passDate") @DateFormat.getDateInstance.format(comment.createTime)</p>
 		</div>
 	</div>
 </div>
 
 <a onclick="return replyInline('reply_@comment.id')" style="cursor:pointer;">@Messages("blog.replyComment")</a>
-<a onclick="return replyInline('reply_@comment.id')" style="cursor:pointer;">我要申诉</a>
+<a onclick="return replyInline('reply_@comment.id')" style="cursor:pointer;">@Messages("comment.complain")</a>
 
 <div class="mT10 pH10">
 	<p class="mT10 wwbw">@comment.content</p>
 	<dl class="mT25">
-		<dt class="couponMenuTitle fl">预约的优惠券和菜单</dt>
+		<dt class="couponMenuTitle fl">@Messages("comment.usedCoupon")</dt>
 		<dd class="oh zoom1">
 			<p>@Coupon.findOneById(comment.commentObjId).get.couponName</p>
-			<p class="fs10">[用到的技术]
+			<p class="fs10">@Messages("comment.usedServices")
 				@Coupon.findOneById(comment.commentObjId).get.serviceItems.map { service => @service.serviceName}
 			</p>
 			</dd>

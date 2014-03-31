@@ -1,18 +1,19 @@
 @(salon: Salon)
 
 			<div class ="Owner">
-				<a href="#" class='Img'><img src="#"/></a>
+
+				<a href="#" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"/></a>
+
 				<span class='U'>
 					<p class='opts'>
 						<span style="font-size:16px;">@Messages("stylist.hello")&nbsp;</span> @Messages("salonAdmin.admin")
 					</p>
       				<a href="" class='Name' title='female'></a>
-      				<p class='opts'>
-						@salon.salonName
-					</p>
-					<p class='opts'>
-						<a href = "/updateSalonlogo/@salon.id">@Messages("user.changeImage")</a>
-					</p>
+
+					<span class='opts'>
+						<a href = "/addImage/@salon.id">@Messages("user.changeImage")</a>
+					</span>
+
 				</span>
     				<div class="clear"></div>
 				
@@ -20,6 +21,7 @@
 			<div class='Opts clearfix'>
                 <a href="#" class='a2 admin'><span>@Messages("user.changeInfo")</span></a>
 				<a href="#" class='a1 blog'><span>@Messages("salon.level")</a>
+
 			</div>
    			<!-- 店铺基本信息管理 -->
 			<div class='Mod Users' id='Fans'>
@@ -58,9 +60,8 @@
     	 			</li>
 	  			</ul>
 				<div class='more'>
-    				<a href="/getAllStylesBySalon/@salon.id/salon">@Messages("stylistMag.showAllStyles")
-    				</a>
-    			</div>
+					<a href="/getAllStylesBySalon/@salon.id">@Messages("stylistMag.showAllStyles")</a>
+				</div>
 			</div>
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("salonAdmin.reserveManagement")</strong>
@@ -101,7 +102,7 @@
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-       					<a href="/mySalon/@salon.id/comment">@Messages("salonAdmin.CheckComment")</a>
+       					<a href="@routes.SalonsAdmin.myComment(salon.id)">@Messages("salonAdmin.checkComment")</a>
      				</div>
 			</div>
 			<div class='Mod Users' id='Fans'>

@@ -1,8 +1,11 @@
-@(navInSalon: String = "my-stylists", salon: Salon, styles: List[Style])
+@(navInSalon: String = "my-stylists", salon: Salon, styles: List[Style], styleSearchForm: Form[models.Style], styleParaAll: models.StylePara, isFirstSearch: Boolean, isStylist: Boolean,stylists: List[models.Stylist])
 
 @mySalonMain(navInSalon, salon){
-	@styles.map{style=>
-		@views.html.style.styleItem@(style, salon)
-	}
+	@*<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">*@
+    @views.html.style.admin.backstageStyleSearch(styleSearchForm, styleParaAll, isFirstSearch, isStylist, stylists)
+    <hr/>
+    <a href="@routes.SalonsAdmin.styleAddBySalon(salon.id)" >@Messages("hair.addStyle")</a>
+    <hr/>
+    @views.html.style.admin.backstageStyleSearchList(styles, isStylist)
 	
 }

@@ -1,19 +1,27 @@
 package controllers
 
-import play.api._
-import play.api.mvc._
-import play.api.data._
-import play.api.data.Forms._
-import org.bson.types.ObjectId
-import models._
-import controllers._
-import views._
-import se.radley.plugin.salat.Binders._
-import com.mongodb.casbah.WriteConcern
-import play.api.templates._
 import java.util.Date
+import scala.collection.mutable.ListBuffer
+import scala.concurrent.ExecutionContext.Implicits.global
+import com.mongodb.casbah.WriteConcern
+import com.mongodb.casbah.commons.Imports._
+import se.radley.plugin.salat.Binders._
+import jp.t2v.lab.play2.auth._
+import models._
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.mvc._
+import scala.concurrent.Future
+import play.api.templates._
+import se.radley.plugin.salat._
+import com.mongodb.casbah.gridfs.Imports._
+import com.mongodb.casbah.gridfs.GridFS
+import play.api.libs.iteratee.Enumerator
+import scala.concurrent.ExecutionContext
+import com.mongodb.casbah.MongoConnection
+import controllers._
 
-object SalonInfo extends Controller{        
+object SalonInfo extends Controller with LoginLogout with AuthElement with AuthConfigImpl{        
   
   //店铺信息管理Form
   val salonInfo:Form[Salon] = Form(
@@ -77,7 +85,7 @@ object SalonInfo extends Controller{
 	                "showPriority"-> optional(number),
 	                "description" -> optional(text)
 	                ){
-	              (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId(fileObjId),"",Option(0),Option(""))
+	              (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId(fileObjId),picUse,showPriority,description)
 	              }{
 	                salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
 	              }),
@@ -165,16 +173,15 @@ object SalonInfo extends Controller{
 	              (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId(fileObjId),"",Option(0),Option(""))
 	              }{
 	                salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
-	              }),
-	        "registerDate" -> date
+	              })
       ){
         (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, mainPhone, contact, optContactMethod, establishDate, salonAddress, accessMethodDesc,
-	       workTime, restDays, seatNums, salonFacilities,salonPics,registerDate) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, mainPhone, contact, optContactMethod, establishDate, salonAddress, accessMethodDesc,
-	       workTime, restDays, seatNums, salonFacilities,salonPics,registerDate)
+	       workTime, restDays, seatNums, salonFacilities,salonPics) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, mainPhone, contact, optContactMethod, establishDate, salonAddress, accessMethodDesc,
+	       workTime, restDays, seatNums, salonFacilities,salonPics,new Date())
       }{
         salonRegister=> Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.mainPhone, 
         		salonRegister.contact, salonRegister.optContactMethod, salonRegister.establishDate, salonRegister.salonAddress, salonRegister.accessMethodDesc,
-        		salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics, salonRegister.registerDate)
+        		salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics)
       }.verifying(
         "This salonId is not available", salon => !Salon.findByAccountId(salon.salonAccount).nonEmpty)
 
@@ -252,4 +259,39 @@ object SalonInfo extends Controller{
           Redirect(routes.SalonInfo.salonInfoBasic(id))
       })
   }
+
+  /**
+   * 店铺Logo更新页面
+   */
+  def addImage(id: ObjectId) = Action {
+    val salon = Salon.findById(id).get
+    Ok(views.html.salon.salonImage(salon))
+  }
+  
+  /**
+   * 店铺图片保存
+   */
+  def saveSalonImg(id: ObjectId, imgId: ObjectId) = Action{implicit request =>
+   	val salon = Salon.findById(id).get
+    Salon.updateSalonLogo(salon, imgId)
+    Redirect(routes.SalonInfo.salonInfoBasic(id))
+    
+    
+  }
+  
+  /**
+   * 店铺图片上传
+   */
+  def imageUpload(id: ObjectId) = Action(parse.multipartFormData) { request =>
+        request.body.file("logo") match {
+            case Some(logo) =>
+                val db = MongoConnection()("Picture")
+                val gridFs = GridFS(db)
+                val uploadedFile = gridFs.createFile(logo.ref.file)
+                uploadedFile.contentType = logo.contentType.orNull
+                uploadedFile.save()
+                Redirect(routes.SalonInfo.saveSalonImg(id,uploadedFile._id.get))
+            case None => BadRequest("no photo")
+        }
+    }
 }

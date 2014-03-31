@@ -2263,3 +2263,50 @@ margin-right: 180px;
 min-height: 30px;
 _height: 30px;
 }
+
+.detailTitle,
+.detailTitle a {
+	font-size: 18px;
+	font-weight: bold;
+	color: #333333 !important;
+	text-decoration: none !important;
+}
+
+.w765 {
+	width: 765px;
+}
+
+.w380 {
+	width: 380px;
+}
+
+.w370 {
+	width: 370px;
+}
+
+.txtC {
+	text-align: center;
+}
+
+.mL50 {
+	margin-left: 50px;
+}
+
+.w222 {
+width: 222px;
+}
+
+.contentsTitleWrapper {
+background: none;
+}
+
+.contentsTitleInner {
+height: 15px;
+border-bottom: 1px solid #988989;
+background: url("/assets/images/icon_heading.png") no-repeat 0 1px;
+padding-left: 25px;
+padding-bottom: 7px;
+font-size: 15px;
+font-weight: bold;
+color: #444444;
+}

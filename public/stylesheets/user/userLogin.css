@@ -1,0 +1,101 @@
+@CHARSET "UTF-8";
+
+.contentsTitleWrapper {
+background: none;
+}
+
+.contentsTitleInner {
+height: 15px;
+border-bottom: 1px solid #988989;
+background: url("/assets/images/icon_heading.png") no-repeat 0 1px;
+padding-left: 25px;
+padding-bottom: 7px;
+font-size: 15px;
+font-weight: bold;
+color: #444444;
+}
+
+.loginRBox {
+background-image: url("/assets/images/bg_loginbox.gif");
+background-repeat: repeat-y;
+background-position: left top;
+width: 460px;
+}
+
+.loginRBoxTop {
+background-image: url("/assets/images/bg_loginbox.gif");
+background-repeat: no-repeat;
+background-position: -460px top;
+width: 460px;
+}
+
+.loginRBoxBottom {
+background-image: url("/assets/images/bg_loginbox.gif");
+background-repeat: no-repeat;
+background-position: right bottom;
+width: 430px;
+padding: 10px 15px;
+}
+
+.w280 {
+width: 280px;
+}
+
+.w150 {
+width: 150px;
+}
+
+.dibBL dd {
+float: left;
+}
+
+dd.info {
+display: none;
+}
+
+.btn2H32:hover {
+background-position-y: -332px;
+}
+
+.btn2H32 {
+background: url('/assets/images/btn2.png') no-repeat left -300px;
+line-height: 32px;
+}
+
+.btn2H32 > span > input {
+height: 32px;
+}
+
+.btn2H32 > span > a > input, .btn2H32 > span > span, .btn2H32 > span > input {
+background: url('/assets/images/btn2.png') repeat-x 0 -428px;
+color: #E53B4E;
+}
+
+.btn2H32:hover > span > input, .btn2H32:hover > span > a > span {
+background-position-y: -460px;
+color: #F26F7E;
+}
+
+.btn2H32 > span {
+background: url('/assets/images/btn2.png') no-repeat right -364px;
+}
+
+.w194 {
+width: 194px;
+}
+
+.inputField {
+width: 200px;
+}
+
+.btn > span > a > input, .btn > span > a > span {
+width: 100%;
+height: 100%;
+border: none;
+font-weight: bold;
+cursor: pointer;
+}
+
+.btn2H32 > span > a > input {
+height: 32px;
+}

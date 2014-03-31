@@ -8,7 +8,7 @@
             @DateFormat.getDateInstance.format(blogOfSalon.blogInfo.createTime)
         </p>
         <p class="mT5 mB5 wwbw">
-            <a href="@noAuth.routes.Blogs.getBlogInfoOfSalon(blogOfSalon.salonInfo.get.id, blogOfSalon.blogInfo.id)">
+            <a href="@noAuth.routes.Blogs.getOneBlogOfSalon(blogOfSalon.salonInfo.get.id, blogOfSalon.blogInfo.id)">
                 @blogOfSalon.blogInfo.title
             </a>
         </p>
@@ -17,6 +17,7 @@
         @blogOfSalon.salonInfo.get.salonName
     </p>
     <p class="fs10 fgLGray wwbw mT5">
-        @Html(blogOfSalon.blogInfo.content)
+        @Html(blogOfSalon.blogInfo.content.slice(0, 100))
+        @if(blogOfSalon.blogInfo.content.length > 100) {...}
     </p>
 </li>

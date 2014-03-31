@@ -17,13 +17,7 @@
 	background-color: #E8E8E2;
 	border: 1px solid #999999;
 }
-.detailTitle,
-.detailTitle a {
-	font-size: 18px;
-	font-weight: bold;
-	color: #333333 !important;
-	text-decoration: none !important;
-}
+
 .bookmarks {
 	color: #999999;
 	font-size: 10px;
@@ -703,7 +697,7 @@ float: left;
 
 .showCoupon, .showMenu {
 float: left;
-width: 76%;
+width: 100%;
 }
 
 .mainContentsSecondTitleOuter {
@@ -745,13 +739,11 @@ border-bottom: 1px solid #dedddc;
 }
 
 .btnArea {
-margin-left: 250px;
 border-top: 1px solid #dedddc;
 margin-top: 10px;	
 }
 
 .couponInfo {
-margin-left: 250px;
 margin-top: 10px;
 }
 
@@ -792,8 +784,3 @@ margin-top: 10px;
 height: auto;
 }
 
-#sreachConditionArea {
-float: left;
-width: 730px;
-margin-bottom: 30px;
-}

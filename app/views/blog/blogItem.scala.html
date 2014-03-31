@@ -1,6 +1,7 @@
-@(blog: Blog, salon: Salon)
+@(blog: Blog, salon: Salon = null)
 
 @import java.text.DateFormat
+
 
 <li class="listCassette cFix">
 	<div class="fr w557">
@@ -14,7 +15,13 @@
 				<dl class="cFix">
 					<dt class="fl">@Messages("blog.author")</dt>
 					<dd class="fl">
-					<a href="/salon/@salon.id/stylistOne/@blog.authorId">@User.findOneByUserId(blog.authorId).get.nickName</a>
+					@if(salon != null){
+					    <a href="@noAuth.routes.Blogs.getAuthorOfSalonBlog(salon.id, blog.authorId)">
+					}else{
+					    <a href="@noAuth.routes.Blogs.showBlog(blog.authorId)">
+					}
+                                        @User.findOneByUserId(blog.authorId).get.nickName</a>
+					
 					</dd>
 				</dl>
 			</div>
@@ -22,8 +29,12 @@
 		<div class="mT10">
 			<div class="cFix">
 				<div class="fs14 b wwbw">
-					<a href="/salon/@salon.id/blog/@blog.id">@blog.title</a>
+				@if(salon != null){
+					<a href="@noAuth.routes.Blogs.getOneBlogOfSalon(salon.id, blog.id)">@blog.title</a>
 					<span class="iS upLately offL dib vaM">UP</span>
+				}else{
+					<a href="@noAuth.routes.Blogs.showBlogById(blog.id)">@blog.title</a>
+				}
 				</div>
 			</div>
 			<div class="mT5 wwbw">
@@ -33,3 +44,4 @@
 		</div>
 	</div>
 </li>
+

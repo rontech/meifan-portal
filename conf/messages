@@ -62,7 +62,7 @@ salon.styles=发型
 salon.stylists=发型师
 salon.couponMenus=菜单 优惠券
 salon.blogs=博客
-salon.reviews=评论
+salon.comments=评论
 salon.show=展示所有沙龙
 salon.title=店铺基本信息管理
 salon.salonData={0}的基本信息
@@ -95,7 +95,7 @@ salon.restDayDivision=请选择休息方式
 salon.restDays=请选择日期
 salon.priceCutOnly=剪发价格
 salon.priceCutOnlyMsg={0} 元起
-salon.priceCutOnlyUndefinded=价格未定义
+salon.priceCutOnlyUndefined=价格未定义
 salon.seatNums=席位数
 salon.seatNumsMsg={0} 席
 salon.stylistNums=发型师人数
@@ -108,6 +108,8 @@ salon.canCurntDayOrder=可否当日预约
 salon.canMaleUse=是否男性可用
 salon.isPointAvailable=是否Point加盟店
 salon.isPosAvailable=可刷卡
+salon.posAvailable=可
+salon.posNotAvailable=不可
 salon.isWifiAvailable=wifi
 salon.hasParkingNearby=附近有无停车场
 salon.parkingDesc=停车场状况描述
@@ -122,7 +124,14 @@ salon.confirmMessage=请再次输入密码！
 salon.desMseeage=您最多可以输入50个字符！
 salon.salonLogin=店铺登录
 salon.stylistsList={0}的发型师
+salon.newSalon = 新沙龙用户
+salon.registerMessage1 = 如果您还不是该网站的沙龙会员，再次注册沙龙会员。
+salon.registerMessage2 = 我们会核实您注册后提交的申请，尽快为您开通沙龙会员！
+salon.loginMessage = 如果你已经是本网站的沙龙会员，请在下面输入店铺名和密码登录！
+salon.true=可
+salon.accountIdMessage=注册时设定，无法修改!
 salon.level = 等级 Lv5
+
 
 #salon management
 salonAdmin.mainPage = 店铺管理
@@ -149,7 +158,7 @@ salonAdmin.stateManagement = 动态管理
 salonAdmin.findAllStylists = 查看店铺所有技师
 salonAdmin.applyStylists = 申请的技师
 salonAdmin.removeStylist = 解除关系
-salonAdmin.CheckComment = 查看所有评论
+salonAdmin.checkComment = 查看所有评论
 salonAdmin.checkService = 查看所有服务
 salonAdmin.checkCoupon = 查看所有优惠
 salonAdmin.checkMenu = 查看所有套餐
@@ -188,7 +197,7 @@ hair.addStyle = 添加发型
 hair.salonStyleTitle = {0}的发型
 hair.styleCatalogTitle = Hair Catalog  发型目录
 hair.menStyleTitle = Mens 男性
-hair.styleImage = Image 检索
+hair.styleImage = 风格 检索
 hair.styleRanking = Ranking 人气发型排行榜
 hair.rankingAll = 综合
 hair.rankingMedium = 中长发
@@ -200,6 +209,8 @@ hair.rankingHairSet = 盘发
 hair.rankingMrs = 成熟发型
 hair.rankingMens = 男士发型
 hair.headingAllMore = 综合排行榜  可见前20名
+hair.searchByF = 女士发型检索
+hair.searchByM = 男士发型检索
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -371,11 +382,11 @@ user.point=可用积分
 user.cancelFollow=取消关注
 user.sendMsg=发送留言
 user.otherBlog=他的博客
-user.collectCoupon=收藏の优惠劵
-user.collectBlog=收藏の博客
-user.collectStyle=收藏の风格
+user.collectCoupon=收藏的优惠劵
+user.collectBlog=收藏的博客
+user.collectStyle=收藏的风格
 user.reservation=我的预约
-user.salonAct=店铺の动态
+user.salonAct=店铺的动态
 user.name=用户名
 user.nickNm=昵称
 user.birthDay=出生日期
@@ -422,6 +433,15 @@ user.nickNameErr=给个昵称吧！
 user.welcome=欢迎您，{0}
 user.guestName=游客
 user.pleaseSignUp=免费会员注册
+user.tobeStylist = 申请为技师
+user.followThisCoupon = 收藏此优惠劵
+user.newUser = 新用户
+user.registerMessage1 = 如果您还不是该网站的会员，免费会员注册。
+user.registerMessage2 = 我们将提供24小时网上预约&空席确认和5%的积分制度！
+user.registerMessage3 = 新用户还可以免费得到20个积分点哦！
+user.userLogin = 会员登录
+user.loginMessage = 如果你已经是本网站的会员，请在下面输入用户名和密码登录！
+user.forgetPassword = 如果你忘记密码，请点击这里
 
 
 
@@ -483,7 +503,8 @@ blog.createAt = 发布于 {0}
 blog.floor = {0} 楼
 blog.quoteComment = 引用来自" {0} "的评论
 blog.new = 新博客
-
+blog.toCollect=收藏此博客
+blog.noCollect = 暂无收藏的博客！
 
 # Comment
 comment.salonCommentTitle = {0} 的评论
@@ -493,6 +514,7 @@ comment.usedCoupon = 预约时使用的优惠券
 comment.usedServices = [用到的技术]
 comment.reply = {0}的回复
 comment.new = 新评论
+comment.complain = 我要申诉
 
 
 # Point
@@ -516,42 +538,10 @@ questions.common=常见问题
 
 
 
-
 #-------------------------------
 # Master Table Translation Area.
 # 主表字段翻译定义区
 #-------------------------------
-# 省份
-province.provinceName.Jiangsu=江苏省
-province.provinceName.Jiangxi=江西省
-province.provinceName.Shandong=山东省
-province.provinceName.Shangxi=山西省
-province.provinceName.Hubei=湖北省
-province.provinceName.Hunan=湖南省
-province.provinceName.Sichuan=四川省
-province.provinceName.Hebei=河北省
-province.provinceName.Henan=河南省
-
-
-
-# 直辖市
-city.cityName.Shanghai=上海市
-city.cityName.Beijing=北京市
-
-# 市
-city.cityName.Suzhou=苏州市
-city.cityName.Wuxi=无锡市
-city.cityName.Nanjing=南京市
-city.cityName.Jinan=济南市
-city.cityName.Qingdao=青岛市
-
-
-# 区
-region.regionName.Gaoxin=高新区
-region.regionName.Xuanwu=玄武区
-region.regionName.Gulou=鼓楼区
-
-
 #行业
 industry.industryName.Hairdressing=美发
 industry.industryName.Manicures=美甲

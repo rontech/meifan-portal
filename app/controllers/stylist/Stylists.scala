@@ -162,7 +162,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     stylist match {
       case Some(sty) => {
         val stylistUpdate = stylistForm.fill(sty)
-        println("stylist  ......"+sty)
+        
         Ok(views.html.stylist.management.updateStylistInfo(user = user, stylist = sty, stylistForm = stylistUpdate, goodAtStylePara = goodAtStylePara, followInfo = followInfo))
       }
       case None => NotFound
@@ -176,7 +176,6 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
       errors => BadRequest(views.html.index("")),
       {
         case(stylist) => {
-          println("stylist ..."+stylist)
           val newStylist = stylist.copy(id = stylistId)
         	Stylist.save(newStylist) //需修改图片更新
         	Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = newStylist, followInfo = followInfo))
@@ -239,9 +238,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
   def styleToAddNewStyle(styleId: ObjectId) = Action(parse.multipartFormData) { implicit request =>
     request.body.file("photo") match {
             case Some(photo) =>{
-            	println("get photo")
-            	println("dddd"+ styleId)
-                val db = MongoConnection()("Picture")
+            	val db = MongoConnection()("Picture")
                 val gridFs = GridFS(db)
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull
@@ -251,11 +248,8 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
 		      errors => BadRequest(views.html.fortest(errors)),
 		      {
 		        case(style) => {
-		          println("stylist ..."+style)
-//		          val styleAddForm = Styles.styleAddForm.fill(style)
+		          val styleAddForm = Styles.styleAddForm.fill(style)
 		          val newStyle = style
-		          
-		          println("style ...." + style)
 		          Style.save(newStyle.copy(id = styleId)) //需修改图片更新
 		          
 		          Style.saveStyleImage(newStyle.copy(id = styleId), uploadedFile._id.get)
@@ -277,7 +271,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     val user = loggedIn
     val stylist = Stylist.findOneByStylistId(stylistId)
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true))
+    Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true, isStylist = true))
   }
   
   def findMyStylesBySerach = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
@@ -289,8 +283,8 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                 errors => BadRequest(views.html.index("")),
                 {
                     case (styleSearch) => {
-                        val styles = Style.findByPara(styleSearch)
-                        Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false))
+                        val styles = Style.findStylesByStylistBack(styleSearch,stylist.get.stylistId)
+                        Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = true))
                     }
                 })
     }
@@ -305,7 +299,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
         val stylist = Stylist.findOneByStylistId(user.id)
         val followInfo = MyFollow.getAllFollowInfo(user.id)
         styleOne match {
-            case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user = user, stylist = stylist.get, style = style, followInfo = followInfo, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll, isStylist = true))
+            case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user = user, stylist = stylist.get, style = style, followInfo = followInfo, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll))
             case None => NotFound
         }
     }
@@ -320,30 +314,69 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                 {
                     case (styleUpdateForm) => {
                         Style.updateStyle(styleUpdateForm)
-//                        views.html.index("")
                         Redirect(routes.Stylists.findMyStylesByStylist(stylist.get.stylistId))
                     }
                 })
     }
-  
-    def checkStylist(stylistId: ObjectId) = {
-      
+
+    
+    /**
+     * 后台发型删除，使之无效即可
+     */
+    def styleToInvalidByStylist(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
+        implicit request =>
+        val user = loggedIn
+        val stylist = Stylist.findOneByStylistId(user.id)
+        val followInfo = MyFollow.getAllFollowInfo(user.id)
+        Style.styleToInvalid(id)
+        Redirect(routes.Stylists.findMyStylesByStylist(stylist.get.stylistId))
     }
+
+    /**
+     * 后台发型新建
+     */
+    def styleAddByStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
+        //此处为新发型登录
+        implicit request =>
+        val user = loggedIn
+        val stylist = Stylist.findOneByStylistId(user.id)
+        val followInfo = MyFollow.getAllFollowInfo(user.id)
+        var stylists: List[Stylist] = Nil
+        stylists :::= stylist.toList
+        Ok(views.html.stylist.management.addStyleByStylist(user = user, stylist = stylist.get, followInfo = followInfo, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, stylists = stylists, isStylist = true))
+      
+        
+    }
+
+    def newStyleAddByStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
+        implicit request =>
+            val user = loggedIn
+            val stylist = Stylist.findOneByStylistId(user.id)
+            val followInfo = MyFollow.getAllFollowInfo(user.id)
+            Styles.styleAddForm.bindFromRequest.fold(
+                errors => BadRequest(views.html.index("")),
+                {
+                    case (styleAddForm) => {
+                        Style.save(styleAddForm)
+                        Redirect(routes.Stylists.findMyStylesByStylist(stylist.get.stylistId))
+                    }
+                })
+    }
+    
+
+	def checkStylist(stylistId: ObjectId) = {
+	      
+	    }
     
     def fileUploadAction = Action(parse.multipartFormData) { implicit request =>
     request.body.file("photo") match {
             case Some(photo) =>{
-            	println("get photo")
-            	
-                val db = MongoConnection()("Picture")
+            	val db = MongoConnection()("Picture")
                 val gridFs = GridFS(db)
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull
                 uploadedFile.save()
-                println("files id "+uploadedFile._id.get.toString)
                 Ok(uploadedFile._id.get.toString)
-                
-		      
             }    
             case None => BadRequest("no photo")
         }
