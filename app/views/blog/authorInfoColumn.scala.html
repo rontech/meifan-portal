@@ -9,7 +9,7 @@
 	</div>
 	<p class="fgPink fs10 mT5">@stylist.position.map {position => @position.positionName}</p>
 	<p class="mT5">
-		<a href="@noAuth.routes.Blogs.getAllBlogsOfStylist(salon.id, stylist.stylistId)">@User.findOneByUserId(blog.authorId).get.nickName</a>
+		<a href="@routes.Salons.getOneStylist(salon.id, stylist.stylistId)">@User.findOneByUserId(blog.authorId).get.nickName</a>
 	</p>
 	<p class="fs10 mT5">@stylist.myWords</p>
 	<div class="mT5">
