@@ -128,6 +128,8 @@ salon.newSalon = 新沙龙用户
 salon.registerMessage1 = 如果您还不是该网站的沙龙会员，再次注册沙龙会员。
 salon.registerMessage2 = 我们会核实您注册后提交的申请，尽快为您开通沙龙会员！
 salon.loginMessage = 如果你已经是本网站的沙龙会员，请在下面输入店铺名和密码登录！
+salon.true=可
+salon.accountIdMessage=注册时设定，无法修改!
 
 #salon management
 salonAdmin.mainPage = 店铺管理
@@ -495,7 +497,8 @@ blog.createAt = 发布于 {0}
 blog.floor = {0} 楼
 blog.quoteComment = 引用来自" {0} "的评论
 blog.new = 新博客
-
+blog.toCollect=收藏此博客
+blog.noCollect = 暂无收藏的博客！
 
 # Comment
 comment.salonCommentTitle = {0} 的评论
@@ -525,43 +528,6 @@ system.siteMessages=系统通知
 
 # Common Questions
 questions.common=常见问题
-
-
-
-
-#-------------------------------
-# Master Table Translation Area.
-# 主表字段翻译定义区
-#-------------------------------
-# 省份
-province.provinceName.Jiangsu=江苏省
-province.provinceName.Jiangxi=江西省
-province.provinceName.Shandong=山东省
-province.provinceName.Shangxi=山西省
-province.provinceName.Hubei=湖北省
-province.provinceName.Hunan=湖南省
-province.provinceName.Sichuan=四川省
-province.provinceName.Hebei=河北省
-province.provinceName.Henan=河南省
-
-
-
-# 直辖市
-city.cityName.Shanghai=上海市
-city.cityName.Beijing=北京市
-
-# 市
-city.cityName.Suzhou=苏州市
-city.cityName.Wuxi=无锡市
-city.cityName.Nanjing=南京市
-city.cityName.Jinan=济南市
-city.cityName.Qingdao=青岛市
-
-
-# 区
-region.regionName.Gaoxin=高新区
-region.regionName.Xuanwu=玄武区
-region.regionName.Gulou=鼓楼区
 
 
 #行业

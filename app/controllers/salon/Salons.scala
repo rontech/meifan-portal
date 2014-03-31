@@ -74,7 +74,7 @@ object Salons extends Controller {
 
                                 // get a latest blog of a stylist.
                                 val blgs = Blog.getBlogByUserId(dtl.get.basicInfo.userId)
-                                val blog = if(blgs.length > 0) Some(blgs.last) else None 
+                                val blog = if(blgs.length > 0) Some(blgs.head) else None 
 
                                 // navigation item
                                 val lastNav = List((dtl.get.basicInfo.nickName, ""))
@@ -268,19 +268,19 @@ object Salons extends Controller {
              case Some(sl) => {
                  // Province is not Null
                  //val nav2 = (Messages("province.provinceName." + sl.salonAddress.province), "")
-                 val nav2 = List((Messages("province.provinceName." + sl.salonAddress.province), ""))
+                 val nav2 = List((Messages(sl.salonAddress.province), ""))
 
                  // The City May be Null when it is a [municipalities] like Beijing, Shanghai, Tianjin, Chongqing.
                  val nav3 = sl.salonAddress.city match {
                      //case Some(city) => (Messages("city.cityName." + city), "")
-                     case Some(city) => List((Messages("city.cityName." + city), ""))
+                     case Some(city) => List((Messages(city), ""))
                      case None => Nil  
                  }
                  
                  // The region May be Null.
                  val nav4 = sl.salonAddress.region match {
                      //case Some(region) => (Messages("region.regionName." + region), "")
-                     case Some(region) => List((Messages("region.regionName." + region), ""))
+                     case Some(region) => List((Messages(region), ""))
                      case None => Nil 
                  }
 
