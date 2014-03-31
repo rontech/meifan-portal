@@ -150,26 +150,32 @@ object SalonsAdmin extends Controller {
    *  根据Id查找技师
    */
   def searchStylistById() = Action {implicit request =>
-    val stylistId = request.getQueryString("searchStylistById").get
+    val userId = request.getQueryString("searchStylistById").get
     val salonId = request.getQueryString("salonId").get
 	val salon = Salon.findById(new ObjectId(salonId)).get
-	val stylist = Stylist.findOneByStylistId(new ObjectId(stylistId))
-	stylist match {
-      case Some(sty) => {
-        val isValid = SalonAndStylist.checkSalonAndStylistValid(new ObjectId(salonId), sty.stylistId)
-        if(isValid) {
-          Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 1))
-        } else {
-          if(SalonAndStylist.findByStylistId(sty.stylistId).isEmpty) {
-              Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 2))
-          } else { 
-            NotFound
-          }
-        }
-        
-      } 
+	val user = User.findOneByUserId(userId)
+	user match {
+      case Some(u) =>
+        val stylist = Stylist.findOneByStylistId(u.id)
+	      stylist match {
+	      case Some(sty) => {
+	        val isValid = SalonAndStylist.checkSalonAndStylistValid(new ObjectId(salonId), sty.stylistId)
+	        if(isValid) {
+	          Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 1))
+	        } else {
+	          if(SalonAndStylist.findByStylistId(sty.stylistId).isEmpty) {
+	              Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 2))
+	          } else { 
+	            NotFound
+	          }
+	        }
+	        
+	      } 
+	      case None => NotFound
+	    }
       case None => NotFound
     }
+	
     
   }
   

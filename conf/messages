@@ -141,8 +141,7 @@ salon.accountIdMessage=注册时设定，无法修改!
 salon.followSalon = 关注此沙龙
 salon.savedAsMySalon = 已保存为我的店铺
 salon.pushToMobile = 发送到手机
-
-
+salon.level = 等级 Lv5
 
 #salon management
 salonAdmin.mainPage = 店铺管理
@@ -174,6 +173,7 @@ salonAdmin.checkService = 查看所有服务
 salonAdmin.checkCoupon = 查看所有优惠
 salonAdmin.checkMenu = 查看所有套餐
 salonAdmin.checkState = 我的动态
+salonAdmin.admin = 店铺
 
 # Hair
 hair.tabName=时尚靓发
@@ -343,11 +343,12 @@ stylist.experienceYears={0}年经验
 stylist.removeSalon = 离开店铺
 stylist.update = 更新
 stylist.industry = 职位
+stylist.stylistId = 用户ID
 
 
 #Stylist Apply
 stylist.name = 昵称
-stylist.workYears = {0} 年
+stylist.workYears = 年
 stylist.industry = 类别
 stylist.position = 职位
 stylist.goodAtImage = 擅长风格

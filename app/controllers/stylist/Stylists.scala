@@ -162,7 +162,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     stylist match {
       case Some(sty) => {
         val stylistUpdate = stylistForm.fill(sty)
-        println("stylist  ......"+sty)
+        
         Ok(views.html.stylist.management.updateStylistInfo(user = user, stylist = sty, stylistForm = stylistUpdate, goodAtStylePara = goodAtStylePara, followInfo = followInfo))
       }
       case None => NotFound
@@ -176,7 +176,6 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
       errors => BadRequest(views.html.index("")),
       {
         case(stylist) => {
-          println("stylist ..."+stylist)
           val newStylist = stylist.copy(id = stylistId)
         	Stylist.save(newStylist) //需修改图片更新
         	Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = newStylist, followInfo = followInfo))
@@ -239,9 +238,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
   def styleToAddNewStyle(styleId: ObjectId) = Action(parse.multipartFormData) { implicit request =>
     request.body.file("photo") match {
             case Some(photo) =>{
-            	println("get photo")
-            	println("dddd"+ styleId)
-                val db = MongoConnection()("Picture")
+            	val db = MongoConnection()("Picture")
                 val gridFs = GridFS(db)
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull
@@ -251,11 +248,8 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
 		      errors => BadRequest(views.html.fortest(errors)),
 		      {
 		        case(style) => {
-		          println("stylist ..."+style)
-//		          val styleAddForm = Styles.styleAddForm.fill(style)
+		          val styleAddForm = Styles.styleAddForm.fill(style)
 		          val newStyle = style
-		          
-		          println("style ...." + style)
 		          Style.save(newStyle.copy(id = styleId)) //需修改图片更新
 		          
 		          Style.saveStyleImage(newStyle.copy(id = styleId), uploadedFile._id.get)
@@ -324,6 +318,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                     }
                 })
     }
+
     
     /**
      * 后台发型删除，使之无效即可
@@ -368,6 +363,25 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                 })
     }
     
+
+	def checkStylist(stylistId: ObjectId) = {
+	      
+	    }
+    
+    def fileUploadAction = Action(parse.multipartFormData) { implicit request =>
+    request.body.file("photo") match {
+            case Some(photo) =>{
+            	val db = MongoConnection()("Picture")
+                val gridFs = GridFS(db)
+                val uploadedFile = gridFs.createFile(photo.ref.file)
+                uploadedFile.contentType = photo.contentType.orNull
+                uploadedFile.save()
+                Ok(uploadedFile._id.get.toString)
+            }    
+            case None => BadRequest("no photo")
+        }
+    
+  }
   /*def updateStyleByStylist(styleId: ObjectId) = Action {
      
   }
