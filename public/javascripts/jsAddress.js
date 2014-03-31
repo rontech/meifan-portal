@@ -1,66 +1,62 @@
-﻿var addressInit = function(_cmbProvince, _cmbCity, _cmbArea, _Province, _City, _Area)
+﻿var addressInit = function(_cmbProvince, _cmbCity, _cmbArea)
 {
-	var cmbProvince = document.getElementById(_cmbProvince);
-	var cmbCity = document.getElementById(_cmbCity);
-	var cmbArea = document.getElementById(_cmbArea);
-	
-	var province = document.getElementById(_Province).value;
-	var city = document.getElementById(_cmbCity).value;
-	var area = document.getElementById(_Area).value;
-	
-	function cmbSelect(cmb, str)
-	{
-		for(var i=0; i<cmb.options.length; i++)
-		{
-			if(cmb.options[i].value == str)
-			{
-				cmb.selectedIndex = i;
-				return;
-			}
-		}
-	}
-	function cmbAddOption(cmb, str, obj)
-	{
-		var option = document.createElement("OPTION");
-		cmb.options.add(option);
-		option.innerHTML = str;
-		option.value = str;
-		option.obj = obj;
-	}
-	
-	function changeCity()
-	{
-		cmbArea.options.length = 0;
-		if(cmbCity.selectedIndex == -1)return;
-		var item = cmbCity.options[cmbCity.selectedIndex].obj;
-		for(var i=0; i<item.areaList.length; i++)
-		{
-			cmbAddOption(cmbArea, item.areaList[i], null);
-		}
-		cmbSelect(cmbArea, area);
-	}
-	function changeProvince()
-	{
-		cmbCity.options.length = 0;
-		cmbCity.onchange = null;
-		if(cmbProvince.selectedIndex == -1)return;
-		var item = cmbProvince.options[cmbProvince.selectedIndex].obj;
-		for(var i=0; i<item.cityList.length; i++)
-		{
-			cmbAddOption(cmbCity, item.cityList[i].name, item.cityList[i]);
-		}
-		cmbSelect(cmbCity, city);
-		changeCity();
-		cmbCity.onchange = changeCity;
-	}
-	
-	for(var i=0; i<provinceList.length; i++)
-	{
-		cmbAddOption(cmbProvince, provinceList[i].name, provinceList[i]);
-	}
-	cmbSelect(cmbProvince, province);
-	changeProvince();
-	cmbProvince.onchange = changeProvince;
+ var cmbProvince = document.getElementById(_cmbProvince);
+ var cmbCity = document.getElementById(_cmbCity);
+ var cmbArea = document.getElementById(_cmbArea);
+ 
+ function cmbSelect(cmb, str)
+ {
+  for(var i=0; i<cmb.options.length; i++)
+  {
+   if(cmb.options[i].value == str)
+   {
+    cmb.selectedIndex = i;
+    return;
+   }
+  }
+ }
+ function cmbAddOption(cmb, str, obj)
+ {
+  var option = document.createElement("OPTION");
+  cmb.options.add(option);
+  option.innerHTML = str;
+  option.value = str;
+  option.obj = obj;
+ }
+ 
+ function changeCity()
+ {
+  cmbArea.options.length = 0;
+  if(cmbCity.selectedIndex == -1)return;
+  var item = cmbCity.options[cmbCity.selectedIndex].obj;
+  for(var i=0; i<item.areaList.length; i++)
+  {
+   cmbAddOption(cmbArea, item.areaList[i], null);
+  }
+  cmbSelect(cmbArea, cmbArea.getAttribute("value"));
+ }
+ function changeProvince()
+ {
+  cmbCity.options.length = 0;
+  cmbCity.onchange = null;
+  if(cmbProvince.selectedIndex == -1)return;
+  var item = cmbProvince.options[cmbProvince.selectedIndex].obj;
+  for(var i=0; i<item.cityList.length; i++)
+  {
+   cmbAddOption(cmbCity, item.cityList[i].name, item.cityList[i]);
+  }
+  cmbSelect(cmbCity, cmbCity.getAttribute("value"));
+  changeCity();
+  cmbCity.onchange = changeCity;
+ }
+ 
+ for(var i=0; i<provinceList.length; i++)
+ {
+  cmbAddOption(cmbProvince, provinceList[i].name, provinceList[i]);
+ }
+ cmbSelect(cmbProvince, cmbProvince.getAttribute("value"));
+ changeProvince();
+ cmbProvince.onchange = changeProvince;
 }
 
 var provinceList = [

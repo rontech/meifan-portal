@@ -115,10 +115,7 @@
 			@inputText(salon("salonDescription"), '_label -> Messages("salon.description"))
 			@inputText(salon("mainPhone"), '_label -> Messages("salon.mainPhone"))
 			@inputText(salon("contact"), '_label -> Messages("salon.contact"))
-			@inputDate(salon("establishDate"), '_label -> Messages("salon.establishDate"))
-			<input type="hidden" id="procince" value= "@salon.get.salonAddress.province"/>
-			<input type="hidden" id="city" value= "@salon.get.salonAddress.city"/>	
-			<input type="hidden" id="region" value= "@salon.get.salonAddress.region"/>			
+			@inputDate(salon("establishDate"), '_label -> Messages("salon.establishDate"))		
             <div>
             <span align = left>@Messages("salon.address")</span>
             <br>
@@ -126,7 +123,7 @@
 				@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.get.salonAddress.city"></select>
 				@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.get.salonAddress.region"></select>
 				<script type="text/javascript">
-					addressInit('Select1', 'Select2', 'Select3','procince','city','region');
+					addressInit('Select1', 'Select2', 'Select3');
 				</script>
 			</div>
     		<br>
