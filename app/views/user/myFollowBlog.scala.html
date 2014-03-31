@@ -2,14 +2,14 @@
 
 @myPageMain(navInMyPage = "my-sava-blog", user, followInfo) {
 	
-  @if(followInfo.followCoupon.isEmpty) {
+  @if(followInfo.followBlog.isEmpty) {
     <div class="bgAlertMsg mT20">
-        <p class="alertMsg">@Messages("coupon.noCouponSearched")</p>
+        <p class="alertMsg">@Messages("blog.noCollect")</p>
     </div>
 } else {
 	<ul id="listWrapper">
     @for(blog <- followInfo.followBlog) {
-    		@*views.html.blog.blogItem(blog, salon: Salon = new Salon())*@
+    		@views.html.blog.blogItem(blog)
     	}
     </ul>
     }

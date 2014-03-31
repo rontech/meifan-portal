@@ -90,7 +90,7 @@
                     <div class="pr">
                         <div class="latestBlogtitle"> @Messages("stylist.blog") </div>
                         <p class="pa right10 topHalf fs10">
-                            <a href="">
+                            <a href="@noAuth.routes.Blogs.getBlogByStylist(salon.id, stylist.stylistInfo.get.stylistId)">
                                        @Messages("stylist.findAllBlog")
                             </a>
                         </p>
