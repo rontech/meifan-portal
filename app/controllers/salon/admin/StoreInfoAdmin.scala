@@ -274,7 +274,8 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
   def saveSalonImg(id: ObjectId, imgId: ObjectId) = Action{implicit request =>
    	val salon = Salon.findById(id).get
     Salon.updateSalonLogo(salon, imgId)
-    println("Salon imgid "+ salon.salonPics.map{img=>img.fileObjId})
+    
+    println("Salon imgid "+ Salon.findById(id).get.salonPics.map{img=>img.fileObjId})
     Redirect(routes.SalonInfo.salonInfoBasic(id))
     
     
