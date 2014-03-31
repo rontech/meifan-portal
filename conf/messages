@@ -62,7 +62,7 @@ salon.styles=发型
 salon.stylists=发型师
 salon.couponMenus=菜单 优惠券
 salon.blogs=博客
-salon.reviews=评论
+salon.comments=评论
 salon.show=展示所有沙龙
 salon.title=店铺基本信息管理
 salon.salonData={0}的基本信息
@@ -486,7 +486,8 @@ blog.createAt = 发布于 {0}
 blog.floor = {0} 楼
 blog.quoteComment = 引用来自" {0} "的评论
 blog.new = 新博客
-
+blog.toCollect=收藏此博客
+blog.noCollect = 暂无收藏的博客！
 
 # Comment
 comment.salonCommentTitle = {0} 的评论
@@ -518,6 +519,11 @@ system.siteMessages=系统通知
 questions.common=常见问题
 
 
+
+#-------------------------------
+# Master Table Translation Area.
+# 主表字段翻译定义区
+#-------------------------------
 #行业
 industry.industryName.Hairdressing=美发
 industry.industryName.Manicures=美甲

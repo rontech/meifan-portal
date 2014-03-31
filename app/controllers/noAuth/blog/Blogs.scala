@@ -4,7 +4,7 @@ import java.util.Date
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
-import models._
+import play.api.i18n.Messages
 import com.mongodb.casbah.WriteConcern
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -16,6 +16,8 @@ import se.radley.plugin.salat.Binders._
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
+import models._
+
 
 object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
 
@@ -35,16 +37,23 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
    * 取得店铺指定理发师的blogs
    * Get all the blogs of a required stylist salon.
    */    
-  def getBlogByStylist(salonId: ObjectId, stylistId: ObjectId) = Action {
+  def getAllBlogsOfStylist(salonId: ObjectId, stylistId: ObjectId) = Action {
       val salon: Option[Salon] = Salon.findById(salonId)
-    
-      val stylistDtl = Stylist.findStylistDtlByUserObjId(stylistId)
-      stylistDtl match {
+      salon match {
           case None => NotFound
-          case Some(st) => { 
-              var blogList = Blog.getStylistBlogByUserId(st.basicInfo.userId)
-              val listYM = getYMCatesOfSalon(salon.get)    // TODO
-              Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogList, listYM = listYM))
+          case Some(sl) => {
+              val stylistDtl = Stylist.findStylistDtlByUserObjId(stylistId)
+              stylistDtl match {
+                  case None => NotFound
+                  case Some(st) => { 
+                      var blogList = Blog.getStylistBlogByUserId(st.basicInfo.userId)
+                      val listYM = getYMCatesOfSalon(sl)    // TODO
+                      // navigation bar
+                      val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.blogs"), controllers.noAuth.Blogs.getAllBlogsOfSalon(sl.id).toString()))
+                      // Jump to blogs page in salon. 
+                      Ok(views.html.salon.store.salonInfoBlogAll(salon = sl, blogs = blogList, listYM = listYM, navBar = navBar))
+                  }
+              }
           }
       }
   }    
@@ -53,11 +62,14 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
    * 取得店铺指定年月的所有博客
    * Get all the blogs of the required month of a salon.
    */    
-  def getBlogByYM(salonId: ObjectId, yM: String) = Action {
+  def getAllBlogsOfSalonByMonth(salonId: ObjectId, yyyymm: String) = Action {
      val salon: Option[Salon] = Salon.findById(salonId)
-     var blogList = getBlogBySalonAndYM(salonId, yM)
+     var blogList = getBlogBySalonAndYM(salonId, yyyymm)
      val listYM = getYMCatesOfSalon(salon.get)
-     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogList, listYM = listYM))
+     // navigation bar
+     val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.blogs"), controllers.noAuth.Blogs.getAllBlogsOfSalon(salon.get.id).toString()))
+     // Jump to blogs page in salon. 
+     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogList, listYM = listYM, navBar = navBar))
   }  
 
      
@@ -65,7 +77,7 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
      * 店铺的单篇博客显示画面:
      * 除了本篇博客内容外，还需要显示：最新博客列表，按店铺技师分类，按日期分类等数据...
      */
-    def getBlogInfoOfSalon(salonId: ObjectId, blogId: ObjectId) = Action {
+    def getOneBlogOfSalon(salonId: ObjectId, blogId: ObjectId) = Action {
         val salon: Option[Salon] = Salon.findById(salonId)
         // Check If the salon is exist or active.
         salon match {
@@ -82,9 +94,12 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
                         val newest = Blog.getNewestBlogsOfSalon(salonId)
                         val user: Option[User] = User.findOneByUserId(blg.authorId)
                         val stylist: Option[Stylist] = Stylist.findOneByStylistId(user.get.id)
-                        // Jump
+                        // navigation bar
+                        val navBar = SalonNavigation.getSalonNavBar(salon) ::: 
+                                List((Messages("salon.blogs"), controllers.noAuth.Blogs.getAllBlogsOfSalon(salon.get.id).toString()))
+                        // Jump to blogs page in salon. 
                         Ok(views.html.salon.store.salonInfoBlog(salon = sl, blog = blg, listYM = listYM,
-                            newestBlogsOfSalon = newest, stylist = stylist.get))
+                            newestBlogsOfSalon = newest, stylist = stylist.get, navBar = navBar))
                     }
                 }
             }
@@ -94,7 +109,7 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
     /**
      * 查找blog的作者
      */
-    def getBlogAuthor(salonId: ObjectId, userId: String) = Action {
+    def getAuthorOfSalonBlog(salonId: ObjectId, userId: String) = Action {
       var stylist = Stylist.findStylistDtlByUserId(userId)
       stylist match {
           case None => NotFound
@@ -114,12 +129,15 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
    /**
     * 取得店铺所有的blog
     */
-   def findBySalon(salonId: ObjectId) = Action {
+   def getAllBlogsOfSalon(salonId: ObjectId) = Action {
      val salon: Option[Salon] = Salon.findById(salonId)
      val blogs: List[Blog] = Blog.findBySalon(salonId)
      val listYM = getYMCatesOfSalon(salon.get)
+     // navigation bar
+     val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.blogs"), ""))
+     // Jump to blogs page in salon. 
      // TODO: process the salon not exist pattern.
-     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogs, listYM = listYM))
+     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogs, listYM = listYM, navBar = navBar))
    }
    
    /**

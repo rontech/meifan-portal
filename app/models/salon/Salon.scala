@@ -199,7 +199,7 @@ object Salon {
     }
 
     def updateSalonLogo(salon: Salon, imgId: ObjectId) = {
-      SalonDAO.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "logo", "salonPics.stylePic.showPriority" -> 0), 
+      SalonDAO.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "LOGO"), 
             MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgId))),false,true)
     }
 } 
