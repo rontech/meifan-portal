@@ -67,7 +67,7 @@
   float: right;
 }
 form .clearfix {
-  margin-bottom: 18px;
+  margin: 8px 5px;
   zoom: 1;
 }
 form .clearfix:before, form .clearfix:after {
@@ -121,3 +121,4 @@ form .clearfix.success input:focus, form .clearfix.success textarea:focus {
 .fl		{ float: left; }
 .fr		{ float: right; }
 .cb		{ clear: both; }
+

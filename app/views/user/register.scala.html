@@ -7,8 +7,10 @@
     	<head>
 			<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
 		</head>
-
-        <font size =30px align = "center">@Messages("user.new")</font>
+		
+		<div class="contentsTitleWrapper">
+			<h2 class="contentsTitleInner">@Messages("user.new")</h2>
+		</div>
        
         @form(noAuth.routes.Users.register(), 'id -> "userForm") {
           <fieldset>
