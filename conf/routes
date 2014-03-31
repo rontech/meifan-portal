@@ -69,7 +69,7 @@ GET         /styleUpdate/:id                                           controlle
 POST        /styleUpdateNew                                            controllers.Styles.styleUpdateNew
 GET         /backstageStyleSearch                                      controllers.Styles.backstageStyleSearch
 POST        /backstageStyleSearchList                                  controllers.Styles.backstageStyleSearchList
-GET         /styleToInvalid/:id/:isValid                               controllers.Styles.styleToInvalid(id: ObjectId, isValid: Boolean)
+GET         /styleToInvalid/:id                                        controllers.Styles.styleToInvalid(id: ObjectId)
 GET         /findByLength/:styleLength/:consumerSex                    controllers.Styles.findByLength(styleLength: String, consumerSex: String)
 GET         /findByImpression/:styleImpression                         controllers.Styles.findByImpression(styleImpression: String)
 
@@ -269,7 +269,13 @@ GET         /saveStylistImg/:imgId                                     controlle
 #add by hz-han
 GET		/salonLogin				     controllers.Application.salonLogin
 POST      	/loginSalon                                  controllers.SalonInfo.loginSalon
-
+GET         /salonInfo/:id                                   controllers.SalonInfo.salonInfoBasic(id: ObjectId)
+GET         /salonUpd/:id                                    controllers.SalonInfo.update(id: ObjectId)
+GET         /salonRegister                                   controllers.SalonInfo.register
+POST        /salonDoRegister                                 controllers.SalonInfo.doRegister
+GET         /salonImage/:id                                     controllers.Application.addImage(id: ObjectId)
+GET         /updateSalonlogo/                             	controllers.SalonInfo.saveSalonImg(salonId: ObjectId,imgId: ObjectId)
+POST		/imageUpload									controllers.SalonInfo.imageUpload(salonId: ObjectId)
 #add bu lu-zheng
 GET         /mySalon/:id/createService                                 controllers.Services.serviceMain(id: ObjectId)
 
@@ -280,9 +286,19 @@ POST	/styleToAddNewStyle									 controllers.Stylists.styleToAddNewStyle(styleI
 #add by pingdou (styles of stylist)
 GET		/findMyStylesByStylist/:stylistId					 controllers.Stylists.findMyStylesByStylist(stylistId: ObjectId)
 POST	/findMyStylesBySerach					             controllers.Stylists.findMyStylesBySerach
-GET		/getAllStylesBySalon/:salonId/salon				     controllers.SalonsAdmin.getAllStylesBySalon(salonId: ObjectId)
 GET     /styleUpdateByStylist/:id                            controllers.Stylists.styleUpdateByStylist(id: ObjectId)
 POST    /styleUpdateNewByStylist/                            controllers.Stylists.styleUpdateNewByStylist
+GET     /styleToInvalidByStylist/:id                         controllers.Stylists.styleToInvalidByStylist(id: ObjectId)
+GET     /styleAddByStylist/                                  controllers.Stylists.styleAddByStylist
+
+
+#add by hui-fan (styles of salon)
+GET     /getAllStylesBySalon/:salonId                        controllers.SalonsAdmin.getAllStylesBySalon(salonId: ObjectId)
+POST    /getAllStylesListBySalon/                            controllers.SalonsAdmin.getAllStylesListBySalon
+GET     /styleUpdateBySalon/:id                              controllers.SalonsAdmin.styleUpdateBySalon(id: ObjectId)
+POST    /styleUpdateNewBySalon/                              controllers.SalonsAdmin.styleUpdateNewBySalon
+GET     /styleToInvalidBySalon/:id                           controllers.SalonsAdmin.styleToInvalidBySalon(id: ObjectId)
+GET     /styleAddBySalon/:salonId                           controllers.SalonsAdmin.styleAddBySalon(salonId: ObjectId)
 
 
 # Questions add by jie-zhang (for common questions)

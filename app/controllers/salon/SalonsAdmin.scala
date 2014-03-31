@@ -7,6 +7,7 @@ import views._
 import java.util.Date
 import models.Salon
 import models.ServiceType
+import controllers._
 
 object SalonsAdmin extends Controller {
   
@@ -206,21 +207,104 @@ object SalonsAdmin extends Controller {
     Redirect(routes.SalonsAdmin.myStylist(salonId))
   }
   
+  /**
+   * 查看店铺所有发型
+   */
   def getAllStylesBySalon(salonId: ObjectId) = Action {
-    val salon: Option[Salon] = Salon.findById(salonId)
+        val salon: Option[Salon] = Salon.findById(salonId)
         val stylists = SalonAndStylist.getStylistsBySalon(salonId)
         var styles: List[Style] = Nil
         stylists.map { sty =>
             var style = Style.findByStylistId(sty.stylistId)
             styles :::= style
         }
-    println("styles"+styles)
         salon match {
             case Some(sa) => {
-                Ok(html.salon.admin.mySalonStyles(salon = sa , styles = styles))
+                Ok(html.salon.admin.mySalonStyles(salon = sa , styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true, isStylist = false))
             }
             case None => NotFound
         }
   }
+  
+  def getAllStylesListBySalon = Action {
+        implicit request =>
+            Styles.styleSearchForm.bindFromRequest.fold(
+                errors => BadRequest(views.html.index("")),
+                {
+                    case (styleSearch) => {
+                        val styles = Style.findByPara(styleSearch)
+                        //权限控制时会获取salonID,暂写死
+                        val salon = Salon.findById(new ObjectId("530d7288d7f2861457771bdd"))
+                        Ok(html.salon.admin.mySalonStyles(salon = salon.get , styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = false))
+                    }
+                })
+    }
+  
+      /**
+     * 后台发型更新
+     */
+    def styleUpdateBySalon(id: ObjectId) = Action {
+        implicit request =>
+        val styleOne: Option[Style] = Style.findOneById(id)
+        //权限控制时会获取salonID,暂写死
+        val salon = Salon.findById(new ObjectId("530d7288d7f2861457771bdd"))
+        val stylists = SalonAndStylist.getStylistsBySalon(new ObjectId("530d7288d7f2861457771bdd"))
+        styleOne match {
+            case Some(style) => Ok(views.html.salon.admin.mySalonStyleUpdate(salon = salon.get, style = styleOne.get, stylists = stylists, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll))
+            case None => NotFound
+        }
+    }
+    
+    def styleUpdateNewBySalon = Action {
+        implicit request =>
+            Styles.styleUpdateForm.bindFromRequest.fold(
+                errors => BadRequest(views.html.test(errors)),
+                {
+                    case (styleUpdateForm) => {
+                        Style.updateStyle(styleUpdateForm)
+                        //权限控制时会获取salonID,暂写死
+                        val salonId = new ObjectId("530d7288d7f2861457771bdd")
+                        Redirect(routes.SalonsAdmin.styleUpdateBySalon(salonId))
+                    }
+                })
+    }
+    
+    /**
+     * 后台发型删除，使之无效即可
+     */
+    def styleToInvalidBySalon(id: ObjectId) = Action {
+        implicit request =>
+        Style.styleToInvalid(id)
+        //权限控制时会获取salonID,暂写死
+        val salonId = new ObjectId("530d7288d7f2861457771bdd")
+        Redirect(routes.SalonsAdmin.styleUpdateBySalon(salonId))
+    }
+    
+     /**
+     * 后台发型新建
+     */
+    def styleAddBySalon(salonId: ObjectId) = Action {
+        //此处为新发型登录
+        implicit request =>
+        val salon = Salon.findById(new ObjectId("530d7288d7f2861457771bdd"))
+        val stylists = SalonAndStylist.getStylistsBySalon(salonId)
+        Ok(views.html.salon.admin.mySalonStyleAdd(salon = salon.get, stylists = stylists, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, isStylist = false))
+      
+        
+    }
+    
+    //    def styleAddNew = Action {
+//        implicit request =>
+//            styleAddForm.bindFromRequest.fold(
+//                errors => BadRequest(html.index("")),
+//                {
+//                    case (styleAddForm) => {
+//                        Style.save(styleAddForm)
+//                                                Ok(html.style.test(styleAddForm))
+////                        Ok(html.index(""))
+//                    }
+//                })
+//    }
+    
   
 }
