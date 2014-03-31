@@ -19,8 +19,8 @@ object SalonNavigation extends Controller {
      * Get the Navigation Bar of the Salon Main Page.
      */
     def getSalonTopNavBar = {
-        val nav0 = (Messages("index.mainPage"), routes.Application.index.url.toString)
-        val nav1 = (Messages("salon.salonMainPage"), routes.Salons.index.url.toString)
+        val nav0 = (Messages("index.mainPage"), routes.Application.index.toString)
+        val nav1 = (Messages("salon.salonMainPage"), routes.Salons.index.toString)
         nav0 :: nav1 :: Nil 
     }
 
@@ -32,26 +32,26 @@ object SalonNavigation extends Controller {
              case Some(sl) => {
                  // Province is not Null
                  //val nav2 = (Messages("province.provinceName." + sl.salonAddress.province), "")
-                 val nav2 = List((Messages("province.provinceName." + sl.salonAddress.province), ""))
+                 val nav2 = List((sl.salonAddress.province, ""))
 
                  // The City May be Null when it is a [municipalities] like Beijing, Shanghai, Tianjin, Chongqing.
                  val nav3 = sl.salonAddress.city match {
                      //case Some(city) => (Messages("city.cityName." + city), "")
-                     case Some(city) => List((Messages("city.cityName." + city), ""))
+                     case Some(city) => List((city, ""))
                      case None => Nil  
                  }
                  
                  // The region May be Null.
                  val nav4 = sl.salonAddress.region match {
                      //case Some(region) => (Messages("region.regionName." + region), "")
-                     case Some(region) => List((Messages("region.regionName." + region), ""))
+                     case Some(region) => List((region, ""))
                      case None => Nil 
                  }
 
                  // The town May be Null.
                  val nav5 = sl.salonAddress.town match {
                      //case Some(town) => (Messages("town.townName." + town), "")
-                     case Some(town) => List((Messages("town.townName." + town), ""))
+                     case Some(town) => List((town, ""))
                      case None => Nil 
                  }
 
@@ -73,5 +73,4 @@ object SalonNavigation extends Controller {
         // print(navBar)
         getSalonTopNavBar ::: navBar
     } 
-
 }
