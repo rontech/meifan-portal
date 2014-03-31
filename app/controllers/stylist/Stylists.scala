@@ -289,7 +289,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                 errors => BadRequest(views.html.index("")),
                 {
                     case (styleSearch) => {
-                        val styles = Style.findByPara(styleSearch)
+                        val styles = Style.findStylesByStylistBack(styleSearch,stylist.get.stylistId)
                         Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = true))
                     }
                 })
@@ -347,7 +347,6 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
         val stylist = Stylist.findOneByStylistId(user.id)
         val followInfo = MyFollow.getAllFollowInfo(user.id)
         var stylists: List[Stylist] = Nil
-        
         stylists :::= stylist.toList
         Ok(views.html.stylist.management.addStyleByStylist(user = user, stylist = stylist.get, followInfo = followInfo, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, stylists = stylists, isStylist = true))
       

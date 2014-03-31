@@ -256,7 +256,7 @@
         var renumber = function(accounts) {
             $('.optContactMethod').each(function(i) {
                 $('input', this).each(function() {
-                    $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'stylePic[' + i + ']'))
+                    $(this).attr('name', $(this).attr('name').replace(/stylePic\[.+?\]/g, 'stylePic[' + i + ']'))
                 })
             })
         }
