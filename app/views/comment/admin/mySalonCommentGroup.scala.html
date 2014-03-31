@@ -3,7 +3,7 @@
 <ol>
 @if(comments.isEmpty) {
     <div class="bgAlertMsg mT20">
-        <p class="alertMsg">暂无评论</p>
+        <p class="alertMsg">@Messages("comment.noComment")</p>
     </div>
 } else {
     @for(comment <- comments) {

@@ -30,7 +30,7 @@
 			<div class="cFix">
 				<div class="fs14 b wwbw">
 				@if(salon != null){
-					<a href="/salon/@salon.id/blog/@blog.id">@blog.title</a>
+					<a href="@noAuth.routes.Blogs.getOneBlogOfSalon(salon.id, blog.id)">@blog.title</a>
 					<span class="iS upLately offL dib vaM">UP</span>
 				}else{
 					<a href="@noAuth.routes.Blogs.showBlogById(blog.id)">@blog.title</a>
