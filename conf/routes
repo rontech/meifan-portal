@@ -23,21 +23,23 @@ GET         /FollowTypes/main                                          controlle
 # Salon
 GET         /salon                                                     controllers.Salons.index
 GET         /salon/:id                                                 controllers.Salons.getSalon(id: ObjectId)
+# Salon.style
 GET         /salon/:slnId/style/:styId                                 controllers.Salons.getOneStyle(slnId: ObjectId, styId: ObjectId)
 GET         /salon/:salonId/styles                                     controllers.Salons.getAllStyles(salonId: ObjectId)
-
+# Salon.stylist
 GET         /salon/:slnId/stylist/:stlId                               controllers.Salons.getOneStylist(slnId: ObjectId, stlId: ObjectId)
 GET         /salon/:salonId/stylists                                   controllers.Salons.getAllStylists(salonId: ObjectId)
-
+# Salon.coupon
 GET         /salon/:salonId/coupons                                    controllers.Salons.getAllCoupons(salonId: ObjectId)
 POST        /salon/:salonId/coupons/condition                          controllers.Salons.getCouponsByCondition(salonId: ObjectId)
-
+# Salon.comment
 GET         /salon/:salonId/comments                                   controllers.Comments.findBySalon(salonId: ObjectId)
-GET         /salon/:salonId/blog/:blogId                               controllers.noAuth.Blogs.getBlogInfoOfSalon(salonId: ObjectId, blogId: ObjectId)
-GET         /salon/:salonId/blogs/:stylistId                           controllers.noAuth.Blogs.getBlogByStylist(salonId: ObjectId, stylistId: ObjectId)
-GET         /salon/:salonId/blogs                                      controllers.noAuth.Blogs.findBySalon(salonId: ObjectId)
-GET         /salon/:salonId/blogYM/:yM                                 controllers.noAuth.Blogs.getBlogByYM(salonId: ObjectId, yM: String)
-GET         /salon/:salonId/stylistOne/:userId                         controllers.noAuth.Blogs.getBlogAuthor(salonId: ObjectId, userId: String)
+# Salon.blog
+GET         /salon/:salonId/blogs                                      controllers.noAuth.Blogs.getAllBlogsOfSalon(salonId: ObjectId)
+GET         /salon/:sid/blogsinmonth/:yyyymm                           controllers.noAuth.Blogs.getAllBlogsOfSalonByMonth(sid: ObjectId, yyyymm: String)
+GET         /salon/:salonId/blogs/:stylistId                           controllers.noAuth.Blogs.getAllBlogsOfStylist(salonId: ObjectId, stylistId: ObjectId)
+GET         /salon/:salonId/stylist/:userId                            controllers.noAuth.Blogs.getAuthorOfSalonBlog(salonId: ObjectId, userId: String)
+GET         /salon/:salonId/blog/:blogId                               controllers.noAuth.Blogs.getOneBlogOfSalon(salonId: ObjectId, blogId: ObjectId)
 
 
 

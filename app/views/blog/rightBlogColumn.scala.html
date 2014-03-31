@@ -16,7 +16,7 @@
     
     @Blog.getBlogsOfStylistInSalon(salon.id).map { blogOfStylist => @if(!blogOfStylist.blogListOfStylist.isEmpty){
   		<p>
-	        <a href="@noAuth.routes.Blogs.getBlogByStylist(salon.id, blogOfStylist.stylistInfo.stylistId)">
+	        <a href="@noAuth.routes.Blogs.getAllBlogsOfStylist(salon.id, blogOfStylist.stylistInfo.stylistId)">
 	            @blogOfStylist.userInfo.nickName
 	            	（@blogOfStylist.blogListOfStylist.size）
 	        </a>
@@ -28,18 +28,14 @@
     @Messages("blog.oldBlogs")
 </dt>
 <dd class="list p10">
-    @listYM.map { yM => @if(Blogs.getBlogBySalonAndYM(salon.id, yM).size !=
-    0){
-    <p>
-        @*<a href="/salon/@salon.id/blogYM/@yM">*@
-        <a href="@noAuth.routes.Blogs.getBlogByYM(salon.id, yM)">
-            @yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size）
-        </a>
-    </p>
-    }else{
-    <p>
-        @yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size）
-    </p>
+    @listYM.map { yM => @if(Blogs.getBlogBySalonAndYM(salon.id, yM).size != 0) {
+        <p>
+            <a href="@noAuth.routes.Blogs.getAllBlogsOfSalonByMonth(salon.id, yM)">
+                @yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size）
+            </a>
+        </p>
+    } else {
+        <p> @yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size） </p>
     } }
 </dd>
 
