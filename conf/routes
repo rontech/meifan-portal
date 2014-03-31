@@ -290,6 +290,7 @@ GET     /styleUpdateByStylist/:id                            controllers.Stylist
 POST    /styleUpdateNewByStylist/                            controllers.Stylists.styleUpdateNewByStylist
 GET     /styleToInvalidByStylist/:id                         controllers.Stylists.styleToInvalidByStylist(id: ObjectId)
 GET     /styleAddByStylist/                                  controllers.Stylists.styleAddByStylist
+POST    /newStyleAddByStylist/                               controllers.Stylists.newStyleAddByStylist
 
 
 #add by hui-fan (styles of salon)
@@ -298,7 +299,8 @@ POST    /getAllStylesListBySalon/                            controllers.SalonsA
 GET     /styleUpdateBySalon/:id                              controllers.SalonsAdmin.styleUpdateBySalon(id: ObjectId)
 POST    /styleUpdateNewBySalon/                              controllers.SalonsAdmin.styleUpdateNewBySalon
 GET     /styleToInvalidBySalon/:id                           controllers.SalonsAdmin.styleToInvalidBySalon(id: ObjectId)
-GET     /styleAddBySalon/:salonId                           controllers.SalonsAdmin.styleAddBySalon(salonId: ObjectId)
+GET     /styleAddBySalon/:salonId                            controllers.SalonsAdmin.styleAddBySalon(salonId: ObjectId)
+POST    /newStyleAddBySalon/                                 controllers.SalonsAdmin.newStyleAddBySalon
 
 
 # Questions add by jie-zhang (for common questions)
