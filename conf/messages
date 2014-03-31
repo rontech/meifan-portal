@@ -143,8 +143,7 @@ salon.removePicture=删除一张图片
 salon.followSalon = 关注此沙龙
 salon.savedAsMySalon = 已保存为我的店铺
 salon.pushToMobile = 发送到手机
-
-
+salon.iss=店铺功能
 
 #salon management
 salonAdmin.mainPage = 店铺管理

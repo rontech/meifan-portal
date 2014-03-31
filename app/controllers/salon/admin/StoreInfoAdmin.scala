@@ -239,11 +239,8 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
   def salonInfoBasic(id: ObjectId) = Action {
     val basic = Salon.findById(id).get
     val salon = SalonInfo.salonInfo.fill(basic)
-    val industry = Industry.findAll.toList
-    val provinces = Province.findAll.toList
-    val cities = City.findAll.toList
-    val regions = Region.findAll.toList    
-    Ok(views.html.salon.salonInfo(salon = salon,industry = industry,provinces = provinces,cities =cities,regions = regions))
+    val industry = Industry.findAll.toList   
+    Ok(views.html.salon.salonInfo(salon = salon,industry = industry))
   }
 
   /**
