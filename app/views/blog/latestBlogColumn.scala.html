@@ -6,8 +6,8 @@
 	@newestBlogsOfSalon.map{ blog =>
 		<div>
 			<p class="fs10"><span class="fgPink mR3">●</span > @DateFormat.getDateInstance().format(blog.updateTime) </p>
-			<p class="wwbw"><a href="/salon/@salon.id/blog/@blog.id ">@blog.title</a></p>
-			<p>@Messages("blog.author")<a href="/salon/@salon.id/stylistOne/@blog.authorId ">@User.findOneByUserId(blog.authorId).get.nickName</a></p>
+			<p class="wwbw"><a href="@noAuth.routes.Blogs.getOneBlogOfSalon(salon.id, blog.id)">@blog.title</a></p>
+			<p>@Messages("blog.author")<a href="@noAuth.routes.Blogs.getAuthorOfSalonBlog(salon.id, blog.authorId)">@User.findOneByUserId(blog.authorId).get.nickName</a></p>
 		</div>
 	}
 	</dd>

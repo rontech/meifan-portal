@@ -9,11 +9,11 @@
 	</div>
 	<p class="fgPink fs10 mT5">@stylist.position.map {position => @position.positionName}</p>
 	<p class="mT5">
-		<a href="/salon/@salon.id/blogs/@stylist.stylistId">@User.findOneByUserId(blog.authorId).get.nickName</a>
+		<a href="@noAuth.routes.Blogs.getAllBlogsOfStylist(salon.id, stylist.stylistId)">@User.findOneByUserId(blog.authorId).get.nickName</a>
 	</p>
 	<p class="fs10 mT5">@stylist.myWords</p>
 	<div class="mT5">
-		<a href="/salon/@salon.id/blogs/@stylist.stylistId" class="bS db showDetailW131H30 offL mHA">@Messages("blog.moreInfo")</a>
+		<a href="@routes.Salons.getOneStylist(salon.id, stylist.stylistId)" class="bS db showDetailW131H30 offL mHA">@Messages("blog.moreInfo")</a>
 	</div>
 	<div class="mT5 taC">
 		<a href="#" class="bS db nominatedReserve offL mHA">@Messages("reserve.name")</a>
