@@ -354,18 +354,21 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
         
     }
 
-//    def styleAddNew = Action {
-//        implicit request =>
-//            styleAddForm.bindFromRequest.fold(
-//                errors => BadRequest(html.index("")),
-//                {
-//                    case (styleAddForm) => {
-//                        Style.save(styleAddForm)
-//                                                Ok(html.style.test(styleAddForm))
-////                        Ok(html.index(""))
-//                    }
-//                })
-//    }
+    def newStyleAddByStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
+        implicit request =>
+            val user = loggedIn
+            val stylist = Stylist.findOneByStylistId(user.id)
+            val followInfo = MyFollow.getAllFollowInfo(user.id)
+            Styles.styleAddForm.bindFromRequest.fold(
+                errors => BadRequest(views.html.index("")),
+                {
+                    case (styleAddForm) => {
+                        Style.save(styleAddForm)
+                        Redirect(routes.Stylists.findMyStylesByStylist(stylist.get.stylistId))
+                    }
+                })
+    }
+    
   /*def updateStyleByStylist(styleId: ObjectId) = Action {
      
   }

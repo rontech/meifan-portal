@@ -12,10 +12,7 @@ object Salons extends Controller {
      * The Main Page of All Salon 
      -------------------------*/
     def index = Action {
-        // get common questions to show the common questions module.
-        // val quests = Question.findAll().toList
-        // Ok(views.html.salon.general.index(navBar = getSalonTopNavBar, user = None, questions = quests))
-        Ok(views.html.salon.general.index(navBar = getSalonTopNavBar, user = None))
+        Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = None))
     }
 
 
@@ -26,7 +23,7 @@ object Salons extends Controller {
     def getSalon(salonId: ObjectId) = Action {
         val salon: Option[Salon] = Salon.findById(salonId)
         salon match {
-            case Some(sl) => Ok(views.html.salon.store.salonInfoBasic(sl, getSalonNavBar(salon)))
+            case Some(sl) => Ok(views.html.salon.store.salonInfoBasic(sl, SalonNavigation.getSalonNavBar(salon)))
             case _ => NotFound
         }
     }
@@ -40,7 +37,7 @@ object Salons extends Controller {
             case Some(sl) => {
                 val stylists = SalonAndStylist.getSalonStylistsInfo(salonId)
                 // navigation bar
-                val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylists"), routes.Salons.getAllStylists(sl.id).toString()))
+                val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylists"), routes.Salons.getAllStylists(sl.id).toString()))
                 // Jump to stylists page in salon. 
                 Ok(views.html.salon.store.salonInfoStylistAll(salon = sl, stylists = stylists, navBar = navBar))
             }
@@ -59,7 +56,7 @@ object Salons extends Controller {
             // when salon is exist
             case Some(sl) => {
                 // navigation bar
-                val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylists"), routes.Salons.getAllStylists(sl.id).toString()))
+                val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylists"), routes.Salons.getAllStylists(sl.id).toString()))
 
                 val stylist: Option[Stylist] = Stylist.findOneByStylistId(stylistId)
                 stylist match {
@@ -110,7 +107,7 @@ object Salons extends Controller {
                     styles :::= style
                 }
                 // navigation bar
-                val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), routes.Salons.getAllStyles(sl.id).toString()))
+                val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), routes.Salons.getAllStyles(sl.id).toString()))
                 // Jump to stylists page in salon. 
                 Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = styles, navBar = navBar))
             }
@@ -130,7 +127,7 @@ object Salons extends Controller {
                 val style: Option[Style] = Style.findOneById(styleId)    
                 style match {
                     case Some(st) => {
-                        val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), routes.Salons.getAllStyles(sl.id).toString())) :::
+                        val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), routes.Salons.getAllStyles(sl.id).toString())) :::
                                 List((st.styleName.toString(), ""))
                         // Third, we need to check the relationship between slaon and stylist to check if the style is active.
                         if(SalonAndStylist.isStylistActive(salonId, st.stylistId)) {
@@ -143,7 +140,7 @@ object Salons extends Controller {
                    }
                     // If style is not exist, show nothing but must in the salon's page.
                     case None => {
-                        val navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), routes.Salons.getAllStyles(sl.id).toString()))
+                        val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), routes.Salons.getAllStyles(sl.id).toString()))
                         // TODO should with some message to show to user.
                         Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar))
                     }
@@ -175,7 +172,7 @@ object Salons extends Controller {
                 }
 
                 // Navigation Bar
-                var navBar = getSalonNavBar(Some(sl)) ::: List((Messages("salon.couponMenus"), ""))
+                var navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.couponMenus"), ""))
                 // Jump
                 Ok(views.html.salon.store.salonInfoCouponAll(salon = sl, Coupons.conditionForm.fill(couponSchDefaultConds), serviceTypes = srvTypes, coupons = coupons, menus = menus,
                     serviceByTypes = servicesByTypes, navBar = navBar))
@@ -240,74 +237,11 @@ object Salons extends Controller {
               salon match {
                   case Some(s) => {
                       // Navigation Bar
-                      var navBar = getSalonNavBar(Some(s)) ::: List((Messages("salon.couponMenus"), ""))
+                      var navBar = SalonNavigation.getSalonNavBar(Some(s)) ::: List((Messages("salon.couponMenus"), ""))
                       Ok(views.html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, navBar))
                   } 
                   case None => NotFound
               }
           })
      }
-     
-    /*-------------------------
-     * Common Functions. 
-     -------------------------*/
-    /**
-     * Get the Navigation Bar of the Salon Main Page.
-     */
-    def getSalonTopNavBar = {
-        val nav0 = (Messages("index.mainPage"), routes.Application.index.url.toString)
-        val nav1 = (Messages("salon.salonMainPage"), routes.Salons.index.url.toString)
-        nav0 :: nav1 :: Nil 
-    }
-
-    /**
-     * Get the Navigation Bar of the Individual Salon page.
-     */
-     def getSalonNavBar(salon: Option[Salon]) = {
-         val navBar: List[(String, String)] = salon match {
-             case Some(sl) => {
-                 // Province is not Null
-                 //val nav2 = (Messages("province.provinceName." + sl.salonAddress.province), "")
-                 val nav2 = List((Messages(sl.salonAddress.province), ""))
-
-                 // The City May be Null when it is a [municipalities] like Beijing, Shanghai, Tianjin, Chongqing.
-                 val nav3 = sl.salonAddress.city match {
-                     //case Some(city) => (Messages("city.cityName." + city), "")
-                     case Some(city) => List((Messages(city), ""))
-                     case None => Nil  
-                 }
-                 
-                 // The region May be Null.
-                 val nav4 = sl.salonAddress.region match {
-                     //case Some(region) => (Messages("region.regionName." + region), "")
-                     case Some(region) => List((Messages(region), ""))
-                     case None => Nil 
-                 }
-
-                 // The town May be Null.
-                 val nav5 = sl.salonAddress.town match {
-                     //case Some(town) => (Messages("town.townName." + town), "")
-                     case Some(town) => List((Messages("town.townName." + town), ""))
-                     case None => Nil 
-                 }
-
-                 // At last, The salon Name.
-                 //val nav6 = (Messages(sl.salonName), "")
-                 // If the salon Abbr Name is inputed, give priority to show it then the full name.
-                 val abbrName = sl.salonNameAbbr match {
-                     case Some(abbr) => abbr.toString()
-                     case None => sl.salonName.toString()
-                 }
-                 val nav6 = List((Messages(abbrName), routes.Salons.getSalon(sl.id).toString()))
-                 //List(nav2) ::: List(nav3) ::: List(nav4) ::: List(nav5) ::: List(nav6)
-                 nav2 ::: nav3 ::: nav4 ::: nav5 ::: nav6 
-            }
-
-            case None => Nil
-        } 
-
-        // print(navBar)
-        getSalonTopNavBar ::: navBar
-    } 
-
 }

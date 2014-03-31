@@ -3,89 +3,6 @@
 @import helper.twitterBootstrap._
 @import views.html.salon.admin._
 
-@accountField(field: Field, className: String = "account") = {
-    @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
-        <input type="text" name="@name" value="@value"> 
-        <a class="removeAccount btn danger">@Messages("optContactMethod.Remove")</a>
-    }
-}
-
-@optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
-    <div class="twipsies well @className">
-        
-        <a class="removeoptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
-
-        @inputText(
-            field("contMethodType"), 
-            '_label -> Messages("user.contMethodType")
-        )
-        
-        <div class="accounts">
-
-            @repeat(field("accounts"), min = 0) { account =>
-                
-                @accountField(account)
-    
-            }
-            
-            @**
-             * Keep an hidden block that will be used as template for Javascript copy code
-             **@
-            @accountField(
-                field("accounts[x]"),
-                className = "account_template"
-            )
-            
-            <div class="clearfix">
-                <div class="input">
-                    <a class="addAccount btn success">@Messages("optContactMethod.AddNumber")</a>
-                </div>
-            </div>
-        
-        </div>
- 
-    </div>
-}
-
-@restDayField(field: Field, restDaysTyp : String, className: String = "restDay") = {
-    @input(field, '_label -> Messages("salon.restDays"), '_class -> className) { (id, name, value, _) =>
-    	@if(restDaysTyp == "0"){
-    		@for(i <- 0 to 6){
-    			@if(salon.get.restDays(0).restDay.contains(i)){
-					<input type="checkbox" name="restDays[0].restDay[@i]" value="@i" checked="checked"> @Messages("restDay.restDay.1."+i)     			
-    			}else{
-    				<input type="checkbox" name="restDays[0].restDay[@i]" value="@i"> @Messages("restDay.restDay.1."+i)     			
-    			}
-    		}
-    	}else{
-    		@for(i <- 0 to 30){
-    			@if(salon.get.restDays(0).restDay.contains(i)){
-					<input type="checkbox" name="restDays[0].restDay[@i]" value="@i" checked="checked"> @Messages("restDay.restDay.1."+i)     			
-    			}else{
-    				<input type="checkbox" name="restDays[0].restDay[@i]" value="@i"> @Messages("restDay.restDay.1."+i)     			
-    			}
-    		}
-		}
-    }
-}
-
-@restDayGroup(field: Field, className: String = "restDays") = {
-    <div class="twipsies well @className">        
-		@select(
-            field ("restDayDivision"), 
-            options = options(
-                "0" -> Messages("restDay.restDayDivision.0"),
-                "1" -> Messages("restDay.restDayDivision.1")
-            ),
-            args = '_label -> Messages("salon.restDayDivision")
-        )	        
-        <div class="restDay">
-                @restDayField(field("restDay"),field("restDayDivision").value.get)                
-        </div>
- 
-    </div>
-}
-
 @mySalonMain(navInSalon, salon.get){
 	
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
@@ -525,6 +442,111 @@
                 })
             })
         }
-        
     </script>
 }
+
+@accountField(field: Field, className: String = "account") = {
+    @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
+        <input type="text" name="@name" value="@value"> 
+        <a class="removeAccount btn danger">@Messages("optContactMethod.Remove")</a>
+    }
+}
+
+@optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
+    <div class="twipsies well @className">
+        
+        <a class="removeoptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
+
+        @inputText(
+            field("contMethodType"), 
+            '_label -> Messages("user.contMethodType")
+        )
+        
+        <div class="accounts">
+
+            @repeat(field("accounts"), min = 0) { account =>
+                
+                @accountField(account)
+    
+            }
+            
+            @**
+             * Keep an hidden block that will be used as template for Javascript copy code
+             **@
+            @accountField(
+                field("accounts[x]"),
+                className = "account_template"
+            )
+            
+            <div class="clearfix">
+                <div class="input">
+                    <a class="addAccount btn success">@Messages("optContactMethod.AddNumber")</a>
+                </div>
+            </div>
+        
+        </div>
+ 
+    </div>
+}
+
+@pictureGroup(field: Field, className: String = "optContactMethod") = {
+    <div class="twipsies well @className">
+        <a class="removeOptContactMethod btn danger pull-right">Remove this stylePic</a>
+        @inputText(
+            field("fileObjId"), 
+            '_label -> "fileObjId",'default -> new ObjectId
+        )
+        @inputText(
+            field("picUse"), 
+            '_label -> "picUse"
+        )
+        @inputText(
+            field("showPriority"), 
+            '_label -> "showPriority"
+        )
+        @inputText(
+            field("description"), 
+            '_label -> "description"
+        )
+    </div>
+    }  
+    
+@restDayField(field: Field, restDaysTyp : String, className: String = "restDay") = {
+    @input(field, '_label -> Messages("salon.restDays"), '_class -> className) { (id, name, value, _) =>
+    	@if(restDaysTyp == "0"){
+    		@for(i <- 0 to 6){
+    			@if(salon.get.restDays(0).restDay.contains(i)){
+					<input type="checkbox" name="restDays[0].restDay[@i]" value="@i" checked="checked"> @Messages("restDay.restDay.1."+i)     			
+    			}else{
+    				<input type="checkbox" name="restDays[0].restDay[@i]" value="@i"> @Messages("restDay.restDay.1."+i)     			
+    			}
+    		}
+    	}else{
+    		@for(i <- 0 to 30){
+    			@if(salon.get.restDays(0).restDay.contains(i)){
+					<input type="checkbox" name="restDays[0].restDay[@i]" value="@i" checked="checked"> @Messages("restDay.restDay.1."+i)     			
+    			}else{
+    				<input type="checkbox" name="restDays[0].restDay[@i]" value="@i"> @Messages("restDay.restDay.1."+i)     			
+    			}
+    		}
+		}
+    }
+}
+
+@restDayGroup(field: Field, className: String = "restDays") = {
+    <div class="twipsies well @className">        
+		@select(
+            field ("restDayDivision"), 
+            options = options(
+                "0" -> Messages("restDay.restDayDivision.0"),
+                "1" -> Messages("restDay.restDayDivision.1")
+            ),
+            args = '_label -> Messages("salon.restDayDivision")
+        )	        
+        <div class="restDay">
+                @restDayField(field("restDay"),field("restDayDivision").value.get)                
+        </div>
+ 
+    </div>
+}
+
