@@ -2,9 +2,7 @@ package controllers
 
 import play.api.mvc._
 import play.api._
-
 import models._
-
 import se.radley.plugin.salat.Binders._
 import se.radley.plugin.salat._
 import com.mongodb.casbah.Imports._
@@ -14,6 +12,7 @@ import java.text.SimpleDateFormat
 import play.api.libs.iteratee.Enumerator
 import scala.concurrent.ExecutionContext
 import controllers.noAuth._
+import java.util.Date
 
 object Application extends Controller {
     def index = Action {
@@ -64,6 +63,17 @@ object Application extends Controller {
             case None => BadRequest("no photo")
         
         }
+    }
+    
+    /**
+     * 根据出生年月得到相应日期的年龄
+     */
+    def getAge(birthday : Date) : Long ={
+      val currentTime = new Date().getTime()
+      val birthdayTime = birthday.getTime()
+      val time = currentTime - birthdayTime
+      val age = time/1000/3600/24/365
+      age
     }
 
         

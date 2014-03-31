@@ -220,7 +220,8 @@ object SalonsAdmin extends Controller {
         }
         salon match {
             case Some(sa) => {
-                Ok(html.salon.admin.mySalonStyles(salon = sa , styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true, isStylist = false))
+                val stylists = Style.findStylistBySalonId(sa.id)
+                Ok(html.salon.admin.mySalonStyles(salon = sa , styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true, isStylist = false, stylists = stylists))
             }
             case None => NotFound
         }
@@ -232,10 +233,11 @@ object SalonsAdmin extends Controller {
                 errors => BadRequest(views.html.index("")),
                 {
                     case (styleSearch) => {
-                        val styles = Style.findByPara(styleSearch)
                         //权限控制时会获取salonID,暂写死
                         val salon = Salon.findById(new ObjectId("530d7288d7f2861457771bdd"))
-                        Ok(html.salon.admin.mySalonStyles(salon = salon.get , styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = false))
+                        val stylists = Style.findStylistBySalonId(salon.get.id)
+                        val styles = Style.findStylesBySalonBack(styleSearch,salon.get.id)
+                        Ok(html.salon.admin.mySalonStyles(salon = salon.get , styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = false, stylists = stylists))
                     }
                 })
     }

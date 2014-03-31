@@ -58,11 +58,13 @@ main.myPage=我的主页
 salon.register=店铺注册
 salon.tabName=美发沙龙
 salon.salonMainPage=美容美发沙龙检索首页
+salon.salonBasic=沙龙信息
 salon.styles=发型
 salon.stylists=发型师
 salon.couponMenus=菜单 优惠券
 salon.blogs=博客
 salon.comments=评论
+salon.accessMap=地图
 salon.show=展示所有沙龙
 salon.title=店铺基本信息管理
 salon.salonData={0}的基本信息
@@ -102,11 +104,17 @@ salon.stylistNums=发型师人数
 slaon.stylistNumUnit={0} 人
 slaon.stylistNumUndefined=人数未定义
 salon.canOnlineOrder=可否网上预约
+salon.canOnlineOrderValue=网上预约OK
 salon.canImmediatelyOrder=可否即时预约
+salon.canImmediatelyOrderValue=即时预约OK
 salon.canNominateOrder=可否指名预约
+salon.canNominateOrderValue=指名预约OK
 salon.canCurntDayOrder=可否当日预约
+salon.canCurntDayOrderValue=当日预约OK
 salon.canMaleUse=是否男性可用
+salon.canMaleUseValue=男性使用OK
 salon.isPointAvailable=是否Point加盟店
+salon.isPointAvailValue=Point加盟店
 salon.isPosAvailable=可刷卡
 salon.posAvailable=可
 salon.posNotAvailable=不可
@@ -132,6 +140,11 @@ salon.true=可
 salon.accountIdMessage=注册时设定，无法修改!
 salon.addPicture=添加一张图片
 salon.removePicture=删除一张图片
+salon.followSalon = 关注此沙龙
+salon.savedAsMySalon = 已保存为我的店铺
+salon.pushToMobile = 发送到手机
+
+
 
 #salon management
 salonAdmin.mainPage = 店铺管理
@@ -158,7 +171,7 @@ salonAdmin.stateManagement = 动态管理
 salonAdmin.findAllStylists = 查看店铺所有技师
 salonAdmin.applyStylists = 申请的技师
 salonAdmin.removeStylist = 解除关系
-salonAdmin.CheckComment = 查看所有评论
+salonAdmin.checkComment = 查看所有评论
 salonAdmin.checkService = 查看所有服务
 salonAdmin.checkCoupon = 查看所有优惠
 salonAdmin.checkMenu = 查看所有套餐
@@ -220,6 +233,7 @@ cosmetic.stylist=美容师
 reserve.name=预约
 reserve.finish=预约完成
 reserve.information=详情查看
+reserve.confirmAndReserve=空位确认・预约
 
 
 # Service
@@ -512,6 +526,7 @@ comment.usedCoupon = 预约时使用的优惠券
 comment.usedServices = [用到的技术]
 comment.reply = {0}的回复
 comment.new = 新评论
+comment.complain = 我要申诉
 
 
 # Point
