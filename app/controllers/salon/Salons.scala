@@ -244,5 +244,4 @@ object Salons extends Controller {
               }
           })
      }
-     
 }

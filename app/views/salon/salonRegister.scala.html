@@ -124,7 +124,7 @@
 				@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city"></select>
 				@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region"></select>
 				<script type="text/javascript">
-					addressInit('Select1', 'Select2', 'Select3','Select1', 'Select2', 'Select3');
+					addressInit('Select1', 'Select2', 'Select3');
 				</script>
 			</div>
     		<br>
@@ -145,9 +145,7 @@
 			@checkbox(salonRegister("salonFacilities.isPosAvailable"), '_label -> Messages("salon.isPosAvailable"))
 			@checkbox(salonRegister("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"))
 			@checkbox(salonRegister("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"))
-			@inputText(salonRegister("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"),'cols -> 50)
-			<a href="/addImage">@Messages("salon.image")</a>
-			@inputDate(salonRegister("registerDate"), '_label -> Messages("salon.registerTime"))	
+			@inputText(salonRegister("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"),'cols -> 50)	
 		  </fieldset> 
 		  <fieldset>
             <legend>@Messages("user.optContactMethod")</legend>

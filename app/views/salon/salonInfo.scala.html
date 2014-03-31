@@ -96,7 +96,8 @@
 
 		@helper.form(action = routes.SalonInfo.update(salon.get.id), args = 'id -> "salonForm"){
 		 <fieldset >
-		 	@inputText(salon("salonAccount.accountId"),'_label -> Messages("salon.id"), 'readonly -> "true" )
+		 	@inputText(salon("salonAccount.accountId"),'_label -> Messages("salon.id"), 'readonly -> "true", 
+		 		'_help -> Messages("salon.accountIdMessage"))
 		 	@inputText(salon("salonAccount.password"),'_label -> Messages("salon.password"), 'readonly -> "true" ) 		 	   		          
             @inputText(salon("salonName"),'_label ->  Messages("salon.Name"))           
             @inputText(salon("salonNameAbbr"),'_label -> Messages("salon.Abbr"))			
@@ -114,18 +115,15 @@
 			@inputText(salon("salonDescription"), '_label -> Messages("salon.description"))
 			@inputText(salon("mainPhone"), '_label -> Messages("salon.mainPhone"))
 			@inputText(salon("contact"), '_label -> Messages("salon.contact"))
-			@inputDate(salon("establishDate"), '_label -> Messages("salon.establishDate"))
-			<input type="hidden" id="procince" value= "@salon.get.salonAddress.province"/>
-			<input type="hidden" id="city" value= "@salon.get.salonAddress.city"/>	
-			<input type="hidden" id="region" value= "@salon.get.salonAddress.region"/>			
+			@inputDate(salon("establishDate"), '_label -> Messages("salon.establishDate"))		
             <div>
             <span align = left>@Messages("salon.address")</span>
             <br>
-				@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province"></select>
+				@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province" value = "@salon.get.salonAddress.province"></select>
 				@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.get.salonAddress.city"></select>
 				@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.get.salonAddress.region"></select>
 				<script type="text/javascript">
-					addressInit('Select1', 'Select2', 'Select3','procince','city','region');
+					addressInit('Select1', 'Select2', 'Select3');
 				</script>
 			</div>
     		<br>
@@ -148,7 +146,8 @@
 			@checkbox(salon("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"))
 			@inputText(salon("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"))
 			@inputText(salon("salonPictures"), '_label -> Messages("salon.pictures"))
-			@inputDate(salon("registerDate"), '_label -> Messages("salon.registerTime"))	
+			@inputDate(salon("registerDate"), '_label -> Messages("salon.registerTime"), 'readonly -> "true")
+			<a herf="/salonImage ">展示图片上传</a>	
 		  </fieldset>
 		  <fieldset>
             <legend>@Messages("user.optContactMethod")</legend>
