@@ -38,7 +38,7 @@ GET         /salon/:salonId/comments                                   controlle
 GET         /salon/:salonId/blogs                                      controllers.noAuth.Blogs.getAllBlogsOfSalon(salonId: ObjectId)
 GET         /salon/:sid/blogsByMonth/:yyyymm                           controllers.noAuth.Blogs.getAllBlogsOfSalonByMonth(sid: ObjectId, yyyymm: String)
 GET         /salon/:salonId/blogs/:stylistId                           controllers.noAuth.Blogs.getAllBlogsOfStylist(salonId: ObjectId, stylistId: ObjectId)
-GET         /salon/:salonId/stylistBlogs/:userId                            controllers.noAuth.Blogs.getAuthorOfSalonBlog(salonId: ObjectId, userId: String)
+GET         /salon/:salonId/stylistBlogs/:userId                       controllers.noAuth.Blogs.getAuthorOfSalonBlog(salonId: ObjectId, userId: String)
 GET         /salon/:salonId/blog/:blogId                               controllers.noAuth.Blogs.getOneBlogOfSalon(salonId: ObjectId, blogId: ObjectId)
 
 
