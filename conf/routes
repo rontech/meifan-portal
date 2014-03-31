@@ -197,11 +197,6 @@ GET         /agreeStylistApply/:stylistId/:salonId                     controlle
 GET         /rejectStylistApply/:stylistId/:salonId                    controllers.SalonsAdmin.rejectStylistApply(stylistId: ObjectId, salonId: ObjectId)
 GET         /searchStylistById                                         controllers.SalonsAdmin.searchStylistById
 GET         /inviteStylist/:stylistId/:salonId                         controllers.SalonsAdmin.inviteStylist(stylistId: ObjectId, salonId: ObjectId)
-GET         /salonInfo/:id                                             controllers.SalonInfo.salonInfoBasic(id: ObjectId)
-GET         /salonUpd/:id                                              controllers.SalonInfo.update(id: ObjectId)
-GET         /salonRegister                                             controllers.SalonInfo.register
-POST        /salonDoRegister                                           controllers.SalonInfo.doRegister
-
 
 # Salon Service 
 GET         /addServiceType                                            controllers.ServiceTypes.addServiceType

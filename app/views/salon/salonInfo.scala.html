@@ -412,7 +412,12 @@
             $(this).parents('.optContactMethod').remove()
             renumber()
         })
-        
+
+        $('.removeSalonPic').live('click', function(e) {
+            $(this).parents('.salonPic').remove()
+            renumber()
+        })
+                
         $('.removeAccount').live('click', function(e) {
             var accounts = $(this).parents('.accounts')
             $(this).parents('.account').remove()
@@ -431,7 +436,13 @@
             template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
             renumber()
         })
-       
+
+        $('.addSalonPic').live('click', function(e) {
+            var template = $('.salonPic_template')
+            template.before('<div class="twipsies well salonPic">' + template.html() + '</div>')
+            renumber()
+        })
+                
         var renumber = function(accounts) {
             $('.optContactMethod').each(function(i) {
                 $('input', this).each(function() {
@@ -442,6 +453,7 @@
                 })
             })
         }
+            
     </script>
 }
 
@@ -489,9 +501,9 @@
     </div>
 }
 
-@pictureGroup(field: Field, className: String = "optContactMethod") = {
+@pictureGroup(field: Field, className: String = "salonPic") = {
     <div class="twipsies well @className">
-        <a class="removeOptContactMethod btn danger pull-right">Remove this stylePic</a>
+        <a class="removeSalonPic btn danger pull-right">@Messages("salon.removePicture")</a>
         @inputText(
             field("fileObjId"), 
             '_label -> "fileObjId",'default -> new ObjectId

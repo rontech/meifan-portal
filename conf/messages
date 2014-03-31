@@ -130,6 +130,8 @@ salon.registerMessage2 = 我们会核实您注册后提交的申请，尽快为�
 salon.loginMessage = 如果你已经是本网站的沙龙会员，请在下面输入店铺名和密码登录！
 salon.true=可
 salon.accountIdMessage=注册时设定，无法修改!
+salon.addPicture=添加一张图片
+salon.removePicture=删除一张图片
 
 #salon management
 salonAdmin.mainPage = 店铺管理
