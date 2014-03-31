@@ -18,17 +18,16 @@
     @Messages("blog.oldBlogs")
 </dt>
 <dd class="list p10">
-    @listYM.map { yM => @if(Blogs.getBlogBySalonAndYM(salon.id, yM).size !=
-    0){
-    <p>
-        <a href="/salon/@salon.id/blogYM/@yM">
+    @listYM.map { yM => @if(Blogs.getBlogBySalonAndYM(salon.id, yM).size != 0) {
+        <p>
+            <a href="@noAuth.routes.Blogs.getAllBlogsOfSalonByMonth(salon.id, yM)">
+                @yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size）
+            </a>
+        </p>
+    } else {
+        <p>
             @yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size）
-        </a>
-    </p>
-    }else{
-    <p>
-        @yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size）
-    </p>
+        </p>
     } }
 </dd>
 
