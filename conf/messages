@@ -514,43 +514,6 @@ system.siteMessages=系统通知
 questions.common=常见问题
 
 
-
-
-#-------------------------------
-# Master Table Translation Area.
-# 主表字段翻译定义区
-#-------------------------------
-# 省份
-province.provinceName.Jiangsu=江苏省
-province.provinceName.Jiangxi=江西省
-province.provinceName.Shandong=山东省
-province.provinceName.Shangxi=山西省
-province.provinceName.Hubei=湖北省
-province.provinceName.Hunan=湖南省
-province.provinceName.Sichuan=四川省
-province.provinceName.Hebei=河北省
-province.provinceName.Henan=河南省
-
-
-
-# 直辖市
-city.cityName.Shanghai=上海市
-city.cityName.Beijing=北京市
-
-# 市
-city.cityName.Suzhou=苏州市
-city.cityName.Wuxi=无锡市
-city.cityName.Nanjing=南京市
-city.cityName.Jinan=济南市
-city.cityName.Qingdao=青岛市
-
-
-# 区
-region.regionName.Gaoxin=高新区
-region.regionName.Xuanwu=玄武区
-region.regionName.Gulou=鼓楼区
-
-
 #行业
 industry.industryName.Hairdressing=美发
 industry.industryName.Manicures=美甲

@@ -260,17 +260,24 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
       })
   }
   
-  def saveSalonImg(imgId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _){implicit request =>
-    val user = loggedIn
-    val followInfo = MyFollow.getAllFollowInfo(user.id)
-    val stylist = Stylist.findOneByStylistId(user.id)
-    stylist match {
-      case Some(sty) => {
-        Stylist.updateImages(sty, imgId)
-        Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = sty, followInfo = followInfo))
-      }
-      case None => NotFound
-    }
+  def saveSalonImg(id: ObjectId, imgId: ObjectId) = Action{implicit request =>
+   	val salon = Salon.findById(id).get
+    Salon.updateSalonLogo(salon, imgId)
+    Redirect(routes.SalonInfo.salonInfoBasic(id))
+    
     
   }
+  
+  def imageUpload(salonId: ObjectId) = Action(parse.multipartFormData) { request =>
+        request.body.file("logo") match {
+            case Some(logo) =>
+                val db = MongoConnection()("Picture")
+                val gridFs = GridFS(db)
+                val uploadedFile = gridFs.createFile(logo.ref.file)
+                uploadedFile.contentType = logo.contentType.orNull
+                uploadedFile.save()
+                Redirect(routes.SalonInfo.saveSalonImg(salonId,uploadedFile._id.get))
+            case None => BadRequest("no photo")
+        }
+    }
 }

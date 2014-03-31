@@ -32,9 +32,9 @@
                 @Messages("salon.address")
             </th>
             <td colspan="3" class="w620">
-                @(Messages("province.provinceName." + salon.salonAddress.province))
-                @(Messages("city.cityName." + salon.salonAddress.city.get)) @*TODO*@
-                @(Messages("region.regionName." + salon.salonAddress.region.get))@*TODO*@ 
+                @(Messages(salon.salonAddress.province))
+                @(Messages(salon.salonAddress.city.get)) 
+                @(Messages(salon.salonAddress.region.get))
                 @salon.salonAddress.addrDetail
             </td>
             </tr>
