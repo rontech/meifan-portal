@@ -1,11 +1,12 @@
-@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, styles: List[Style], followInfo: FollowInformation, styleSearchForm: Form[models.Style], styleParaAll: models.StylePara, isFirstSearch: Boolean)
+@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, styles: List[Style], followInfo: FollowInformation, styleSearchForm: Form[models.Style], styleParaAll: models.StylePara, isFirstSearch: Boolean, isStylist: Boolean)
 
 @stylistPageMain(navInMyPage, user, stylist, followInfo){
 	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
-	@views.html.style.admin.backstageStyleSearch(styleSearchForm, styleParaAll, isFirstSearch)
+	@views.html.style.admin.backstageStyleSearch(styleSearchForm, styleParaAll, isFirstSearch, isStylist)
+    <hr/>
+    <a href="@routes.Stylists.styleAddByStylist" >@Messages("hair.addStyle")</a>
 	<hr/>
-	<hr/>
-	@views.html.style.admin.backstageStyleSearchList(styles)
+	@views.html.style.admin.backstageStyleSearchList(styles, isStylist)
 	
 }
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">

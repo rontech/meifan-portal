@@ -19,7 +19,8 @@
 					</div>
 					
 			    	<div class="BlogContent" id="">
-						@Html(blog.content)
+						@Html(blog.content.slice(0, 100))
+                		@if(blog.content.length > 100) {...}
 			    	</div>
 			    	
 					<div class="bottom">	

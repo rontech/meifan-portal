@@ -198,5 +198,9 @@ object Salon {
         SalonDAO.remove(MongoDBObject("_id" -> new ObjectId(id)))
     }
 
+    def updateSalonLogo(salon: Salon, imgId: ObjectId) = {
+      SalonDAO.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "LOGO"), 
+            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgId))),false,true)
+    }
 } 
 

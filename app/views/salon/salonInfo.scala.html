@@ -3,6 +3,154 @@
 @import helper.twitterBootstrap._
 @import views.html.salon.admin._
 
+@mySalonMain(navInSalon, salon.get){
+	
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
+
+<div class="basicInformation-content">
+	<div class="basicInformation">
+		<h2>@Messages("salon.title")</h2>
+
+		@helper.form(action = routes.SalonInfo.update(salon.get.id), args = 'id -> "salonForm"){
+		 <fieldset >
+		 	@inputText(salon("salonAccount.accountId"),'_label -> Messages("salon.id"), 'readonly -> "true", 
+		 		'_help -> Messages("salon.accountIdMessage"))
+		 	@inputText(salon("salonAccount.password"),'_label -> Messages("salon.password"), 'readonly -> "true" )
+		 	<input type="hidden" name="password" value="@salon.get.salonAccount.password"> 		 	   		          
+            @inputText(salon("salonName"),'_label ->  Messages("salon.Name"))           
+            @inputText(salon("salonNameAbbr"),'_label -> Messages("salon.Abbr"))			
+			
+			@input(field = salon("salonIndustry"),args = '_label -> Messages("salon.type")){(id,name,value,args) =>
+			 	@for(i <- 0 to industry.length-1){
+			 		@if(salon.get.salonIndustry.contains(industry(i).industryName)){
+			 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
+			 		}else{
+			 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
+			 		}
+			 	}
+			  }
+		 	@inputText(salon("homepage"), '_label -> Messages("salon.homepage"))			
+			@inputText(salon("salonDescription"), '_label -> Messages("salon.description"))
+			@inputText(salon("mainPhone"), '_label -> Messages("salon.mainPhone"))
+			@inputText(salon("contact"), '_label -> Messages("salon.contact"))
+			@inputDate(salon("establishDate"), '_label -> Messages("salon.establishDate"))		
+            <div>
+            <span align = left>@Messages("salon.address")</span>
+            <br>
+				@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province" value = "@salon.get.salonAddress.province"></select>
+				@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.get.salonAddress.city"></select>
+				@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.get.salonAddress.region"></select>
+				<script type="text/javascript">
+					addressInit('Select1', 'Select2', 'Select3');
+				</script>
+			</div>
+    		<br>
+			@inputText(salon("salonAddress.town"), '_label -> Messages("salon.town"))
+			@inputText(salon("salonAddress.addrDetail"), '_label -> Messages("salon.addrDetail"))
+			@inputText(salon("salonAddress.longitude"), '_label -> Messages("salon.longitude"))
+			@inputText(salon("salonAddress.latitude"), '_label -> Messages("salon.latitude"))		
+			@inputText(salon("accessMethodDesc"), '_label -> Messages("salon.accessMethod"))
+			@inputText(salon("workTime.openTime"), '_label -> Messages("salon.openTime"))
+			@inputText(salon("workTime.closeTime"), '_label -> Messages("salon.closeTime"))	
+			@inputText(salon("seatNums"), '_label -> Messages("salon.seatNums"))	
+			@checkbox(salon("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"))
+			@checkbox(salon("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"))
+			@checkbox(salon("salonFacilities.canNominateOrder"), '_label -> Messages("salon.canNominateOrder"))
+			@checkbox(salon("salonFacilities.canCurntDayOrder"), '_label -> Messages("salon.canCurntDayOrder"))
+			@checkbox(salon("salonFacilities.canMaleUse"), '_label -> Messages("salon.canMaleUse"))
+			@checkbox(salon("salonFacilities.isPointAvailable"), '_label -> Messages("salon.isPointAvailable"))
+			@checkbox(salon("salonFacilities.isPosAvailable"), '_label -> Messages("salon.isPosAvailable"))
+			@checkbox(salon("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"))
+			@checkbox(salon("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"))
+			@inputText(salon("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"))
+			@inputDate(salon("registerDate"), '_label -> Messages("salon.registerTime"), 'readonly -> "true")
+		  </fieldset>
+		  <fieldset>
+            <legend>@Messages("user.optContactMethod")</legend>
+            
+            <div id="optContactMethods">
+            
+                @repeat(salon("optContactMethod")) { optContactMethod =>
+                
+                    @optContactMethodGroup(optContactMethod)
+                
+                }
+                
+                @**
+                 * Keep an hidden block that will be used as template for Javascript copy code
+                 **@
+                @optContactMethodGroup(
+                    salon("optContactMethod[x]"),
+                    className = "optContactMethod_template"
+                )
+                
+                <div class="manage">
+                    <a class="addoptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
+                </div>
+            
+            </div>		  
+		  </fieldset>  
+		  <fieldset>
+		  <legend>@Messages("salon.restDay")</legend>
+                @repeat(salon("restDays")) { restDay =>
+                    @restDayGroup(restDay)      
+                }            
+		  </fieldset>  	
+	    <fieldset>
+                <legend>@Messages("salon.pictures")</legend>
+                <div id="optContactMethods">
+                    @repeat(salon("salonPics"), min = 0) { salonPic =>
+                        @pictureGroup(salonPic)
+                    }
+                    <div class="manage">
+                        <a class="addOptContactMethod btn success">Add another stylePic</a>
+                    </div>
+                </div>
+            </fieldset>  	                       
+            <input type = "submit" class = "buttons" value=@Messages("common.submit")>
+			<input type="reset" value=@Messages("common.reset")><a href = "/  "><input type="button" value=@Messages("common.backUp") ></a>                     
+		}
+		</div>
+</div>
+        <script type="text/javascript" charset="utf-8">
+        
+        $('.removeoptContactMethod').live('click', function(e) {
+            $(this).parents('.optContactMethod').remove()
+            renumber()
+        })
+        
+        $('.removeAccount').live('click', function(e) {
+            var accounts = $(this).parents('.accounts')
+            $(this).parents('.account').remove()
+            renumber(accounts)
+        })
+        
+        $('.addAccount').live('click', function(e) {
+            var accounts = $(this).parents('.accounts')
+            var template = $('.account_template', accounts)
+            template.before('<div class="clearfix account">' + template.html() + '</div>')
+            renumber(accounts)
+        })
+        
+        $('.addoptContactMethod').live('click', function(e) {
+            var template = $('.optContactMethod_template')
+            template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
+            renumber()
+        })
+       
+        var renumber = function(accounts) {
+            $('.optContactMethod').each(function(i) {
+                $('input', this).each(function() {
+                    $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
+                })
+                $('.account input', this).each(function(i) {
+                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
+                })
+            })
+        }
+    </script>
+}
+
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
         <input type="text" name="@name" value="@value"> 
@@ -47,6 +195,28 @@
     </div>
 }
 
+@pictureGroup(field: Field, className: String = "optContactMethod") = {
+    <div class="twipsies well @className">
+        <a class="removeOptContactMethod btn danger pull-right">Remove this stylePic</a>
+        @inputText(
+            field("fileObjId"), 
+            '_label -> "fileObjId",'default -> new ObjectId
+        )
+        @inputText(
+            field("picUse"), 
+            '_label -> "picUse"
+        )
+        @inputText(
+            field("showPriority"), 
+            '_label -> "showPriority"
+        )
+        @inputText(
+            field("description"), 
+            '_label -> "description"
+        )
+    </div>
+    }  
+    
 @restDayField(field: Field, restDaysTyp : String, className: String = "restDay") = {
     @input(field, '_label -> Messages("salon.restDays"), '_class -> className) { (id, name, value, _) =>
     	@if(restDaysTyp == "0"){
@@ -86,142 +256,3 @@
     </div>
 }
 
-@mySalonMain(navInSalon, salon.get){
-	
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
-
-<div class="basicInformation-content">
-	<div class="basicInformation">
-		<h2>@Messages("salon.title")</h2>
-
-		@helper.form(action = routes.SalonInfo.update(salon.get.id), args = 'id -> "salonForm"){
-		 <fieldset >
-		 	@inputText(salon("salonAccount.accountId"),'_label -> Messages("salon.id"), 'readonly -> "true" )
-		 	@inputText(salon("salonAccount.password"),'_label -> Messages("salon.password"), 'readonly -> "true" ) 		 	   		          
-            @inputText(salon("salonName"),'_label ->  Messages("salon.Name"))           
-            @inputText(salon("salonNameAbbr"),'_label -> Messages("salon.Abbr"))			
-			
-			@input(field = salon("salonIndustry"),args = '_label -> Messages("salon.type")){(id,name,value,args) =>
-			 	@for(i <- 0 to industry.length-1){
-			 		@if(salon.get.salonIndustry.contains(industry(i).industryName)){
-			 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
-			 		}else{
-			 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
-			 		}
-			 	}
-			  }
-		 	@inputText(salon("homepage"), '_label -> Messages("salon.homepage"))			
-			@inputText(salon("salonDescription"), '_label -> Messages("salon.description"))
-			@inputText(salon("mainPhone"), '_label -> Messages("salon.mainPhone"))
-			@inputText(salon("contact"), '_label -> Messages("salon.contact"))
-			@inputDate(salon("establishDate"), '_label -> Messages("salon.establishDate"))
-			<input type="hidden" id="procince" value= "@salon.get.salonAddress.province"/>
-			<input type="hidden" id="city" value= "@salon.get.salonAddress.city"/>	
-			<input type="hidden" id="region" value= "@salon.get.salonAddress.region"/>			
-            <div>
-            <span align = left>@Messages("salon.address")</span>
-            <br>
-				@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province"></select>
-				@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.get.salonAddress.city"></select>
-				@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.get.salonAddress.region"></select>
-				<script type="text/javascript">
-					addressInit('Select1', 'Select2', 'Select3','procince','city','region');
-				</script>
-			</div>
-    		<br>
-			@inputText(salon("salonAddress.town"), '_label -> Messages("salon.town"))
-			@inputText(salon("salonAddress.addrDetail"), '_label -> Messages("salon.addrDetail"))
-			@inputText(salon("salonAddress.longitude"), '_label -> Messages("salon.longitude"))
-			@inputText(salon("salonAddress.latitude"), '_label -> Messages("salon.latitude"))		
-			@inputText(salon("accessMethodDesc"), '_label -> Messages("salon.accessMethod"))
-			@inputText(salon("workTime.openTime"), '_label -> Messages("salon.openTime"))
-			@inputText(salon("workTime.closeTime"), '_label -> Messages("salon.closeTime"))	
-			@inputText(salon("seatNums"), '_label -> Messages("salon.seatNums"))	
-			@checkbox(salon("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"))
-			@checkbox(salon("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"))
-			@checkbox(salon("salonFacilities.canNominateOrder"), '_label -> Messages("salon.canNominateOrder"))
-			@checkbox(salon("salonFacilities.canCurntDayOrder"), '_label -> Messages("salon.canCurntDayOrder"))
-			@checkbox(salon("salonFacilities.canMaleUse"), '_label -> Messages("salon.canMaleUse"))
-			@checkbox(salon("salonFacilities.isPointAvailable"), '_label -> Messages("salon.isPointAvailable"))
-			@checkbox(salon("salonFacilities.isPosAvailable"), '_label -> Messages("salon.isPosAvailable"))
-			@checkbox(salon("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"))
-			@checkbox(salon("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"))
-			@inputText(salon("salonFacilities.parkingDesc"), '_label -> Messages("salon.parkingDesc"))
-			@inputText(salon("salonPictures"), '_label -> Messages("salon.pictures"))
-			@inputDate(salon("registerDate"), '_label -> Messages("salon.registerTime"))	
-		  </fieldset>
-		  <fieldset>
-            <legend>@Messages("user.optContactMethod")</legend>
-            
-            <div id="optContactMethods">
-            
-                @repeat(salon("optContactMethod")) { optContactMethod =>
-                
-                    @optContactMethodGroup(optContactMethod)
-                
-                }
-                
-                @**
-                 * Keep an hidden block that will be used as template for Javascript copy code
-                 **@
-                @optContactMethodGroup(
-                    salon("optContactMethod[x]"),
-                    className = "optContactMethod_template"
-                )
-                
-                <div class="manage">
-                    <a class="addoptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
-                </div>
-            
-            </div>		  
-		  </fieldset>  
-		  <fieldset>
-		  <legend>@Messages("salon.restDay")</legend>
-                @repeat(salon("restDays")) { restDay =>
-                    @restDayGroup(restDay)      
-                }            
-		  </fieldset>  		                       
-            <input type = "submit" class = "buttons" value=@Messages("common.submit")>
-			<input type="reset" value=@Messages("common.reset")><a href = "/  "><input type="button" value=@Messages("common.backUp") ></a>                     
-		}
-		</div>
-</div>
-        <script type="text/javascript" charset="utf-8">
-        
-        $('.removeoptContactMethod').live('click', function(e) {
-            $(this).parents('.optContactMethod').remove()
-            renumber()
-        })
-        
-        $('.removeAccount').live('click', function(e) {
-            var accounts = $(this).parents('.accounts')
-            $(this).parents('.account').remove()
-            renumber(accounts)
-        })
-        
-        $('.addAccount').live('click', function(e) {
-            var accounts = $(this).parents('.accounts')
-            var template = $('.account_template', accounts)
-            template.before('<div class="clearfix account">' + template.html() + '</div>')
-            renumber(accounts)
-        })
-        
-        $('.addoptContactMethod').live('click', function(e) {
-            var template = $('.optContactMethod_template')
-            template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
-            renumber()
-        })
-       
-        var renumber = function(accounts) {
-            $('.optContactMethod').each(function(i) {
-                $('input', this).each(function() {
-                    $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
-                })
-                $('.account input', this).each(function(i) {
-                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
-                })
-            })
-        }
-        
-    </script>
-}

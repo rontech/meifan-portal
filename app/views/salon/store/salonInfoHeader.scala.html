@@ -4,7 +4,7 @@
     <div class="detailHeaderShopInfo detail2S cFix">
         <div class="fl pL10 pT10">
         <a href="http://beauty.hotpepper.jp/slnH000231733/">
-            <img src="http://imgbp.hotp.jp/CSP/IMG_SRC/05/00/B002710500/B002710500_100-100.jpg"
+            <img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"
             alt="フレール　Freresのお店ロゴ">
         </a>
         </div>
@@ -83,9 +83,9 @@
                 </div>
                 <ul class="fs10">
                 <li>
-                    @(Messages("province.provinceName." + salon.salonAddress.province))
-                    @(Messages("city.cityName." + salon.salonAddress.city.get)) @*TODO*@
-                    @(Messages("region.regionName." + salon.salonAddress.region.get)) @*TODO*@
+                    @(Messages(salon.salonAddress.province))
+                    @(Messages(salon.salonAddress.city.get))
+                    @(Messages(salon.salonAddress.region.get))
                     @salon.salonAddress.addrDetail
                 </li>
                 <li>

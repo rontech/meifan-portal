@@ -23,21 +23,23 @@ GET         /FollowTypes/main                                          controlle
 # Salon
 GET         /salon                                                     controllers.Salons.index
 GET         /salon/:id                                                 controllers.Salons.getSalon(id: ObjectId)
+# Salon.style
 GET         /salon/:slnId/style/:styId                                 controllers.Salons.getOneStyle(slnId: ObjectId, styId: ObjectId)
 GET         /salon/:salonId/styles                                     controllers.Salons.getAllStyles(salonId: ObjectId)
-
+# Salon.stylist
 GET         /salon/:slnId/stylist/:stlId                               controllers.Salons.getOneStylist(slnId: ObjectId, stlId: ObjectId)
 GET         /salon/:salonId/stylists                                   controllers.Salons.getAllStylists(salonId: ObjectId)
-
+# Salon.coupon
 GET         /salon/:salonId/coupons                                    controllers.Salons.getAllCoupons(salonId: ObjectId)
 POST        /salon/:salonId/coupons/condition                          controllers.Salons.getCouponsByCondition(salonId: ObjectId)
-
+# Salon.comment
 GET         /salon/:salonId/comments                                   controllers.Comments.findBySalon(salonId: ObjectId)
-GET         /salon/:salonId/blog/:blogId                               controllers.noAuth.Blogs.getBlogInfoOfSalon(salonId: ObjectId, blogId: ObjectId)
-GET         /salon/:salonId/blogs/:stylistId                           controllers.noAuth.Blogs.getBlogByStylist(salonId: ObjectId, stylistId: ObjectId)
-GET         /salon/:salonId/blogs                                      controllers.noAuth.Blogs.findBySalon(salonId: ObjectId)
-GET         /salon/:salonId/blogYM/:yM                                 controllers.noAuth.Blogs.getBlogByYM(salonId: ObjectId, yM: String)
-GET         /salon/:salonId/stylistOne/:userId                         controllers.noAuth.Blogs.getBlogAuthor(salonId: ObjectId, userId: String)
+# Salon.blog
+GET         /salon/:salonId/blogs                                      controllers.noAuth.Blogs.getAllBlogsOfSalon(salonId: ObjectId)
+GET         /salon/:sid/blogsByMonth/:yyyymm                           controllers.noAuth.Blogs.getAllBlogsOfSalonByMonth(sid: ObjectId, yyyymm: String)
+GET         /salon/:salonId/blogs/:stylistId                           controllers.noAuth.Blogs.getAllBlogsOfStylist(salonId: ObjectId, stylistId: ObjectId)
+GET         /salon/:salonId/stylistBlogs/:userId                            controllers.noAuth.Blogs.getAuthorOfSalonBlog(salonId: ObjectId, userId: String)
+GET         /salon/:salonId/blog/:blogId                               controllers.noAuth.Blogs.getOneBlogOfSalon(salonId: ObjectId, blogId: ObjectId)
 
 
 
@@ -69,7 +71,7 @@ GET         /styleUpdate/:id                                           controlle
 POST        /styleUpdateNew                                            controllers.Styles.styleUpdateNew
 GET         /backstageStyleSearch                                      controllers.Styles.backstageStyleSearch
 POST        /backstageStyleSearchList                                  controllers.Styles.backstageStyleSearchList
-GET         /styleToInvalid/:id/:isValid                               controllers.Styles.styleToInvalid(id: ObjectId, isValid: Boolean)
+GET         /styleToInvalid/:id                                        controllers.Styles.styleToInvalid(id: ObjectId)
 GET         /findByLength/:styleLength/:consumerSex                    controllers.Styles.findByLength(styleLength: String, consumerSex: String)
 GET         /findByImpression/:styleImpression                         controllers.Styles.findByImpression(styleImpression: String)
 
@@ -267,9 +269,15 @@ POST        /toUpdateStylistImage                                      controlle
 GET         /saveStylistImg/:imgId                                     controllers.Stylists.saveStylistImg(imgId: ObjectId)
 
 #add by hz-han
-GET		/salonLogin				     controllers.Application.salonLogin
-POST      	/loginSalon                                  controllers.SalonInfo.loginSalon
-
+GET			/salonLogin				     					 controllers.Application.salonLogin
+POST      	/loginSalon                                  	 controllers.SalonInfo.loginSalon
+GET         /salonInfo/:id                                   controllers.SalonInfo.salonInfoBasic(id: ObjectId)
+GET         /salonUpd/:id                                    controllers.SalonInfo.update(id: ObjectId)
+GET         /salonRegister                                   controllers.SalonInfo.register
+POST        /salonDoRegister                                 controllers.SalonInfo.doRegister
+GET         /updateSalonlogo/                             	 controllers.SalonInfo.saveSalonImg(id: ObjectId,imgId: ObjectId)
+POST		/imageUpload/:id  		               			 controllers.SalonInfo.imageUpload(id: ObjectId)
+GET         /addImage/:id 									 controllers.SalonInfo.addImage(id: ObjectId)
 #add bu lu-zheng
 GET         /mySalon/:id/createService                                 controllers.Services.serviceMain(id: ObjectId)
 
@@ -280,9 +288,19 @@ POST	/styleToAddNewStyle									 controllers.Stylists.styleToAddNewStyle(styleI
 #add by pingdou (styles of stylist)
 GET		/findMyStylesByStylist/:stylistId					 controllers.Stylists.findMyStylesByStylist(stylistId: ObjectId)
 POST	/findMyStylesBySerach					             controllers.Stylists.findMyStylesBySerach
-GET		/getAllStylesBySalon/:salonId/salon				     controllers.SalonsAdmin.getAllStylesBySalon(salonId: ObjectId)
 GET     /styleUpdateByStylist/:id                            controllers.Stylists.styleUpdateByStylist(id: ObjectId)
 POST    /styleUpdateNewByStylist/                            controllers.Stylists.styleUpdateNewByStylist
+GET     /styleToInvalidByStylist/:id                         controllers.Stylists.styleToInvalidByStylist(id: ObjectId)
+GET     /styleAddByStylist/                                  controllers.Stylists.styleAddByStylist
+
+
+#add by hui-fan (styles of salon)
+GET     /getAllStylesBySalon/:salonId                        controllers.SalonsAdmin.getAllStylesBySalon(salonId: ObjectId)
+POST    /getAllStylesListBySalon/                            controllers.SalonsAdmin.getAllStylesListBySalon
+GET     /styleUpdateBySalon/:id                              controllers.SalonsAdmin.styleUpdateBySalon(id: ObjectId)
+POST    /styleUpdateNewBySalon/                              controllers.SalonsAdmin.styleUpdateNewBySalon
+GET     /styleToInvalidBySalon/:id                           controllers.SalonsAdmin.styleToInvalidBySalon(id: ObjectId)
+GET     /styleAddBySalon/:salonId                           controllers.SalonsAdmin.styleAddBySalon(salonId: ObjectId)
 
 
 # Questions add by jie-zhang (for common questions)

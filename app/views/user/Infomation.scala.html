@@ -70,6 +70,18 @@
 
                   @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none")
                   
+                  <div>
+                  <span align = left>@Messages("salon.address")</span>
+                  <br>
+                  @Messages("salon.province"):  <select id="Select1" name = "address.province" value = "@user.address.province"></select>
+                  @Messages("salon.city"):  <select id="Select2" name = "address.city" value = "@user.address.city"></select>
+                  @Messages("salon.region"):  <select id="Select3" name = "address.region" value = "@user.address.region"></select>
+                  <script type="text/javascript">
+                  addressInit('Select1', 'Select2', 'Select3');
+                  </script>
+                  </div>
+                  <br>
+                  
                   <input type="hidden" name="address.province" value="@user.address.province">
                   <input type="hidden" name="address.city" value="@user.address.city">
                   <input type="hidden" name="userPics" value="@user.userPics">
