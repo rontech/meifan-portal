@@ -97,7 +97,7 @@ GET         /register                                                  controlle
 POST        /login                                                     controllers.auth.Users.login
 GET         /logout                                                    controllers.auth.Users.logout
 POST        /register                                                  controllers.noAuth.Users.register
-GET         /userPage/:userId                                          controllers.noAuth.Users.userPage(userId)
+GET         /user/:userId                                                   controllers.noAuth.Users.userPage(userId)
 
 
 
@@ -111,16 +111,13 @@ GET         /myInfo/                                                   controlle
 GET         /userInfo/:userId                                          controllers.auth.Users.userInfo(userId)
 GET         /myPage/                                                   controllers.auth.Users.myPage
 GET         /myPage/myReservation                                      controllers.auth.Users.myReservation
-GET         /myPage/followedCoupon                                     controllers.auth.MyFollows.followedCoupon
-GET         /myPage/followedBlog                                       controllers.auth.MyFollows.followedBlog
-GET         /myPage/followedStyle                                      controllers.auth.MyFollows.followedStyle
-#GET         /myPage/followedSalonActi                                  controllers.auth.MyFollows.followedSalonActi
-GET         /myPage/followedSalon                                      controllers.noAuth.MyFollows.followedSalon(id: ObjectId)
-GET         /myPage/followedStylist                                    controllers.noAuth.MyFollows.followedStylist(id: ObjectId)
-GET         /myPage/followedUser                                       controllers.noAuth.MyFollows.followedUser(id:ObjectId)
-GET         /myPage/followers                                          controllers.noAuth.MyFollows.followers(id:ObjectId)
-GET         /userPage/userBlog/:userId                                 controllers.noAuth.Users.userBlog(userId)
-GET         /userPage/userStyle/:userId                                controllers.noAuth.Users.userStyle(userId)
+GET         /userPage/followedCoupon                                   controllers.auth.MyFollows.followedCoupon(id: ObjectId)
+GET         /userPage/followedBlog                                     controllers.auth.MyFollows.followedBlog(id: ObjectId)
+GET         /userPage/followedStyle                                    controllers.auth.MyFollows.followedStyle(id: ObjectId)
+GET         /userPage/followedSalon                                    controllers.noAuth.MyFollows.followedSalon(id: ObjectId)
+GET         /userPage/followedStylist                                  controllers.noAuth.MyFollows.followedStylist(id: ObjectId)
+GET         /userPage/followedUser                                     controllers.noAuth.MyFollows.followedUser(id:ObjectId)
+GET         /userPage/followers                                        controllers.noAuth.MyFollows.followers(id:ObjectId)
 GET         /myPage/messages/:req                                      controllers.UserLetters.messageList(req:String)
 GET         /myPage/message/:id                                        controllers.UserLetters.showMessage(id:ObjectId)
 GET         /sendMessage                                               controllers.UserLetters.sendMessage
@@ -165,7 +162,7 @@ GET        /addComment/:commentObjId/:commentObjType         controllers.Comment
 # add Blog
 GET         /newBlog/:userId                                 controllers.auth.Blogs.newBlog(userId : String)
 GET         /deleteBlog/:blogId                              controllers.auth.Blogs.deleteBlog(blogId : ObjectId)
-GET         /showBlog/:userId                                controllers.noAuth.Blogs.showBlog(userId : String)
+GET         /:userId/showBlog                                controllers.noAuth.Blogs.showBlog(userId : String)
 GET         /showBlogById/:blogId                            controllers.noAuth.Blogs.showBlogById(blogId : ObjectId)
 POST        /writeBlog/:userId                               controllers.auth.Blogs.writeBlog(userId : String)
 GET         /editBlog/:blogId                                controllers.auth.Blogs.editBlog(blogId : ObjectId)
@@ -286,7 +283,7 @@ POST	/styleToAddNewStyle									 controllers.Stylists.styleToAddNewStyle(styleI
 
 
 #add by pingdou (styles of stylist)
-GET		/findMyStylesByStylist/:stylistId					 controllers.Stylists.findMyStylesByStylist(stylistId: ObjectId)
+GET		/userPage/styles/:stylistId					         controllers.Stylists.findMyStylesByStylist(stylistId: ObjectId)
 POST	/findMyStylesBySerach					             controllers.Stylists.findMyStylesBySerach
 GET     /styleUpdateByStylist/:id                            controllers.Stylists.styleUpdateByStylist(id: ObjectId)
 POST    /styleUpdateNewByStylist/                            controllers.Stylists.styleUpdateNewByStylist

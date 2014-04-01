@@ -1,14 +1,18 @@
 @(user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
 			<div class ="Owner">
-				<a href="#" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")" align="absmiddle" alt="@user.userId" title="@user.userId" class="LargePortrait"/></a>
+				<a href="#" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")" align="middle" alt="@user.userId" title="@user.userId" class="LargePortrait"/></a>
 				<span class='U'>
-      				<a href="@auth.routes.Users.myPage" class='Name' title='female'>@user.nickName</a>
+      				<a href="@noAuth.routes.Users.userPage(user.userId)" class='Name' title='female'>@user.nickName</a>
 					<span class='opts'>
-						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='absmiddle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
-						@if(MyFollow.checkIfFollow(loginUserId,user.id)){
+						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='middle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
+					@if(MyFollow.checkIfFollow(loginUserId,user.id)){
                         <a href="@auth.routes.MyFollows.cancelFollow(user.id)">@Messages("user.cancelFollow")</a>
                     }else{
-                        <a href="@auth.routes.MyFollows.addFollow(user.id,FollowType.FOLLOW_USER)">@Messages("user.addFollow")</a>
+                        @if(user.userTyp.equals(User.NORMAL_USER)){
+                            <a href="@auth.routes.MyFollows.addFollow(user.id,FollowType.FOLLOW_USER)">@Messages("user.addFollow")</a>
+                        }else{
+                            <a href="@auth.routes.MyFollows.addFollow(user.id,FollowType.FOLLOW_STYLIST)">@Messages("user.addFollow")</a>
+                        }
                     }
 					</span>
 				</span>
@@ -18,15 +22,37 @@
 				</div>
 			</div>
    			<div class='Opts clearfix'>
-                <a class='a2 admin' id="sendMsg"><span>@Messages("user.sendMsg")</span></a>
+                <a class='a2 admin' id="sendMsg" value="@user.id"><span>@Messages("user.sendMsg")</span></a>
 				<a href="@noAuth.routes.Blogs.showBlog(user.userId)" class='a1 blog'><span>@Messages("user.otherBlog")</span></a>
-			</div> 
-			<div class='Mod Users' id='Fellows'>
-    			<a href = "#"><strong>@Messages("user.collectBlog")</strong></a>
 			</div>
-			<div class='Mod Users' id='Fellows'>
-    			<a href = "#"><strong>@Messages("user.collectStyle")</strong></a>
-			</div> 			
+@if(user.userTyp.equals(User.STYLIST)){
+    <!-- 我的沙龙，如果没有则显示来自沙龙的邀请 -->
+    <div class='Mod Users' id='Fans'>
+    @if(SalonAndStylist.findByStylistId(user.id).isEmpty){
+            <strong>@Messages("stylistMag.mySalon")</strong>
+            <div class='more'>
+                    <span>@Messages("stylistMag.noSalon")</span>
+            </div>
+            }else{
+        <a href="@routes.Stylists.mySalon(user.id)">
+            <strong>@Messages("stylistMag.mySalon")</strong>
+            <div class='more'>
+                <a href="@routes.Stylists.mySalon(user.id)">
+                    <img src="#"/>
+                    <span>@Stylist.mySalon(user.id).salonName</span>
+                </a>
+            </div>
+            }
+    </div>
+    <!-- 我的发型 -->
+    <div class='Mod Users' id='Fellows'>
+        <strong>@Messages("stylistMag.myStyle")</strong>
+        <div class='more'>
+            <a href="@routes.Stylists.findMyStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
+                (@Stylist.countStyleByStylist(user.id))</a>
+        </div>
+    </div>
+}
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("user.followSalon")</strong>
 	  			<ul class='clearfix'>
@@ -47,7 +73,7 @@
 	  			<ul class='clearfix'>
 	  				@followInfo.followStylist.slice(0,8).map {stylist =>
 	  					<li>
-    	 				       <a href="#">
+    	 				       <a href="@noAuth.routes.Users.userPage(User.findOneById(stylist.stylistId).get.userId)">
     	 				           <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" alt="@Stylist.findUserName(stylist.stylistId)" title="@Stylist.findUserName(stylist.stylistId)" align="absmiddle" class = "SmallPortrait">
     	 				       </a>
     	 			    </li>
@@ -72,13 +98,4 @@
        				<a href="@noAuth.routes.MyFollows.followedUser(user.id)">@Messages("user.showAllFollow")@followInfo.followUser.length)</a>
      			</div>
 			</div>
-<input type="hidden" id="addressee" value="@user.id">
-<script type="text/javascript">
-
-$("#sendMsg").click(function() {
-var userId = document.getElementById("addressee" ).getAttribute("value");
-var url = "/sendLetterPage/"+userId;
-window.open(url,"","width=600,height=400");
-});
-</script>
 	<!-- ↑mainContents -->

@@ -46,7 +46,7 @@
     </div>
 }
 
-    @myPageMain(navInMyPage = "information", user, followInfo)  {
+    @myPageMain(navInMyPage = "information", user, followInfo, user.id, true)  {
 
         @form(auth.routes.Users.updateInfo(user.userId), 'id -> "userForm") {
           <fieldset>

@@ -1,5 +1,5 @@
-@(stylist:Stylist, loginUserId:ObjectId)
-<head>
+@(stylist:Stylist, loginUserId:ObjectId, logged: Boolean)
+	<head>
 	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
 	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">
 </head>
@@ -7,7 +7,7 @@
 	<div class="mysalon-stylist hMin399">
 		<div class="mysalon-stylist-search w166 mHA p10">
                     <div class="taC">
-                        <a href="#">
+                        <a href="@noAuth.routes.Users.userPage(User.findOneById(stylist.stylistId).get.userId)">
                             <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" align="absmiddle" alt="" title="@Stylist.findUserName(stylist.stylistId)" class="bdImgGray w164 h219">
                         </a>
                     </div>
@@ -25,12 +25,12 @@
                     </div> 
         </div>
         <div class="taC mT10">
-            @if(MyFollow.checkIfFollow(loginUserId,stylist.stylistId)){
-					<a href="@auth.routes.MyFollows.cancelFollow(stylist.stylistId)">@Messages("user.cancelFollow")</a>
-				}else{
-					<a href="@auth.routes.MyFollows.addFollow(stylist.stylistId,"stylist")">@Messages("user.addFollow")</a>
-				}
-					<a href="#">@Messages("user.sendMsg")</a>
+            @if(logged.equals(false) || MyFollow.checkIfFollow(loginUserId,stylist.stylistId)){
+						<a href="@auth.routes.MyFollows.cancelFollow(stylist.stylistId)">@Messages("user.cancelFollow")</a>
+					}else{
+						<a href="@auth.routes.MyFollows.addFollow(stylist.stylistId,"stylist")">@Messages("user.addFollow")</a>
+					}
+            <a id="sendMsg" value="@stylist.stylistId">@Messages("user.sendMsg")</a>
 		</div>
 	</div>
 </li>
