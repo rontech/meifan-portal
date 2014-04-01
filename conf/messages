@@ -240,7 +240,6 @@ service.name=服务名
 service.type=技术类别
 service.price=服务费用（单位：元）
 service.tsCost=服务耗时（单位：分钟）
-service.addErrorMsg=请输入服务技术名！
 service.addBtn=添加
 service.resetBtn=重置
 service.addServiceType=添加服务类别
@@ -342,15 +341,14 @@ stylist.findOtherBlog = 查看更多
 stylist.experienceYears={0}年经验
 stylist.removeSalon = 离开店铺
 stylist.update = 更新
-stylist.industry = 职位
 stylist.stylistId = 用户ID
-stylist.workYesrs = 工作年数
+stylist.workYears = 工作年数
 
 
 
 #Stylist Apply
 stylist.name = 昵称
-stylist.workYears = 年
+stylist.years = 年
 stylist.industry = 类别
 stylist.position = 职位
 stylist.goodAtImage = 擅长风格
@@ -417,7 +415,6 @@ user.loginBtn=登录
 user.registerBtn=注册
 user.new=新用户
 user.userIdErr=用户名不合法!
-user.confirmPas=确认密码
 user.agree=必须同意!
 user.male=男
 user.female=女
@@ -455,9 +452,15 @@ user.registerMessage3 = 新用户还可以免费得到20个积分点哦！
 user.userLogin = 会员登录
 user.loginMessage = 如果你已经是本网站的会员，请在下面输入用户名和密码登录！
 user.forgetPassword = 如果你忘记密码，请点击这里
+<<<<<<< HEAD
+user.fansOf=的粉丝
+user.followedUser=关注的达人
+user.followedSalon=关注的沙龙
+user.followedStylist=关注的技师
+user.noBlogSearched=没有收藏的博客……
+user.noStyleSearched=没有收藏的发型……
+user.noCouponSearched=没有收藏的优惠券……
 user.applyStylist = 普通会员申请技师
-
-
 
 #Letter
 letter.addressee=收件人
