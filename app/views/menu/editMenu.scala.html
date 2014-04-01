@@ -1,20 +1,25 @@
-@(menuForm: Form[Menu], services: List[Service])
+@(salon: Salon, menuForm: Form[Menu], services: List[Service], menu: Menu)
 
 @import helper._
 
-@form(routes.Menus.updateMenu(menuForm.get.id), 'id -> "menuForm") {
+@form(routes.Menus.updateMenu(menu.id, salon.id), 'id -> "menuForm") {
 	<legend class="mainTitle">@Messages("menu.createMenuArea")</legend>
 	<div class="menuInfo">
-		<input type="hidden" name="salonId" value="@menuForm.get.salonId"/>
+		<input type="hidden" name="salonId" value="@salon.id"/>
+		@if(menuForm.hasGlobalErrors) { 
+              <div>
+                  <p align = center>@menuForm.globalError.get.message<p>
+              </div>
+         }
 		
 		@inputText(menuForm("menuName"), '_label -> Messages("menu.menuName"), 'readonly -> true)
 		
 		<fieldset class="serviceArea">
 			<legend>@Messages("coupon.serviceArea")</legend>
-			@input(field = menuForm("serviceItems"), args = '_label ->None){(id,name,value,args) =>
+			@input(field = menuForm("serviceItems"), args = '_label ->None, '_error -> menuForm("serviceItems").error.map(_.withMessage(Messages("menu.menuServiceRequired")))){(id,name,value,args) =>
 			 	@for(service <- services) {
 			 		<div class="serviceItemArea">
-				 		@if(menuForm.get.serviceItems.contains(service)) {
+				 		@if(Service.getServiceIdList(menu.serviceItems).contains(service.id)) {
 				 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id" checked ="checked">@service.serviceName
 				 		} else {
 				 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
@@ -24,12 +29,12 @@
 			  }
 		</fieldset>
 		
-		@inputText(menuForm("description"), '_label -> Messages("coupon.description"))
+		@textarea(menuForm("description"), '_label -> Messages("coupon.description"), '_error -> menuForm("description").error.map(_.withMessage(Messages("menu.menuDiscriptionErr"))))
 	</div>	
 	
 	<div class="btnArea">
 		<input type = "submit" class = "buttons" value="@Messages("common.submit")">
 	            
-	    <a href="/mySalon/@menuForm.get.salonId/menu"><input type = "button" class = "buttons" value="@Messages("common.backUp")"></a>
+	    <a href="@routes.SalonsAdmin.myMenu(salon.id)"><input type = "button" class = "buttons" value="@Messages("common.backUp")"></a>
 	</div>
 }

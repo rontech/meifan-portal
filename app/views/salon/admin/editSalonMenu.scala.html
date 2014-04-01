@@ -1,4 +1,4 @@
-@(salon: Salon, menuForm: Form[Menu], services: List[Service])
+@(salon: Salon, menuForm: Form[Menu], services: List[Service], menu: Menu)
 
 @mySalonMain(navInSalon = "salon-coupon", salon) {
 	
@@ -7,6 +7,6 @@
 	</head>
 	
     <!-- Get the Salon with all the coupons.  -->
-    @views.html.menu.editMenu(menuForm, services)
+    @views.html.menu.editMenu(salon, menuForm, services, menu)
 
 }

@@ -18,9 +18,9 @@ object MyFollows extends Controller with OptionalAuthElement with AuthConfigImpl
         val user = User.findOneById(id).get
         val followInfo = MyFollow.getAllFollowInfo(id)
         loggedIn.map{loginUser =>
-        Ok(views.html.user.showAllFollowSalon(user, followInfo, loginUser.id, true))
+        Ok(views.html.user.followedSalon(user, followInfo, loginUser.id, true))
       }getOrElse{
-    	Ok(views.html.user.showAllFollowSalon(user, followInfo))
+    	Ok(views.html.user.followedSalon(user, followInfo))
       }
     }
 
@@ -31,9 +31,9 @@ object MyFollows extends Controller with OptionalAuthElement with AuthConfigImpl
       	val user = User.findOneById(id).get
         val followInfo = MyFollow.getAllFollowInfo(id)
         loggedIn.map{loginUser =>
-        Ok(views.html.user.showAllFollowStylist(user, followInfo, loginUser.id, true))
+        Ok(views.html.user.followedStylist(user, followInfo, loginUser.id, true))
       }getOrElse{
-    	Ok(views.html.user.showAllFollowStylist(user, followInfo))
+    	Ok(views.html.user.followedStylist(user, followInfo))
       }
     }
 
@@ -44,9 +44,9 @@ object MyFollows extends Controller with OptionalAuthElement with AuthConfigImpl
        val user = User.findOneById(id).get
         val followInfo = MyFollow.getAllFollowInfo(id)
         loggedIn.map{loginUser =>
-        Ok(views.html.user.showAllFollowUser(user, followInfo, loginUser.id, true))
+        Ok(views.html.user.followedUser(user, followInfo, false, loginUser.id, true))
       }getOrElse{
-    	Ok(views.html.user.showAllFollowUser(user, followInfo))
+    	Ok(views.html.user.followedUser(user, followInfo, false))
       }
     }
     
@@ -57,10 +57,10 @@ object MyFollows extends Controller with OptionalAuthElement with AuthConfigImpl
         val user = User.findOneById(id).get
         val followInfo = MyFollow.getAllFollowInfo(id)
         loggedIn.map{loginUser =>
-        Ok(views.html.user.showMyFollowers(user, followInfo, loginUser.id, true))
-      }getOrElse{
-    	Ok(views.html.user.showMyFollowers(user, followInfo))
-      }
+            Ok(views.html.user.followedUser(user, followInfo, true, loginUser.id, true))
+        }getOrElse{
+            Ok(views.html.user.followedUser(user, followInfo, true))
+        }
     }
 
 }

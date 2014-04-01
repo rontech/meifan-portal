@@ -5,7 +5,7 @@
 
 <script src="@routes.Assets.at("javascripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
 
-@myPageMain(navInMyPage = "my-blog", user, followInfo) {
+@myPageMain(navInMyPage = "my-blog", user, followInfo, user.id, true) {
     @form(action = auth.routes.Blogs.modBlog(blog.id)) {
       <fieldset>
         @inputText(formBlog("title"), '_label -> Messages("blog.title"), '_error -> formBlog("title").error.map(_.withMessage(Messages("blog.titleErr"))), '_help -> "")             

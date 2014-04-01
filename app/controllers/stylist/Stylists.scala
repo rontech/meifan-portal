@@ -245,7 +245,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                 uploadedFile.save()
                 println("img id .."+ uploadedFile._id.get)
                 Styles.styleAddForm.bindFromRequest.fold(
-		      errors => BadRequest(views.html.fortest(errors)),
+		      errors => BadRequest(views.html.index("")),
 		      {
 		        case(style) => {
 		          val styleAddForm = Styles.styleAddForm.fill(style)
@@ -310,7 +310,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
         val stylist = Stylist.findOneByStylistId(user.id)
         val followInfo = MyFollow.getAllFollowInfo(user.id)
             Styles.styleUpdateForm.bindFromRequest.fold(
-                errors => BadRequest(views.html.test(errors)),
+                errors => BadRequest(views.html.index("")),
                 {
                     case (styleUpdateForm) => {
                         Style.updateStyle(styleUpdateForm)
@@ -376,6 +376,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull
                 uploadedFile.save()
+                println("upload image id "+uploadedFile._id.get)
                 Ok(uploadedFile._id.get.toString)
             }    
             case None => BadRequest("no photo")

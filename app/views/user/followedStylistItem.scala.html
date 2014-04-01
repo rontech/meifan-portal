@@ -1,0 +1,22 @@
+@(stylist:Stylist, loginUserId:ObjectId, logged: Boolean)
+	<li><table class="ostable">
+		<tbody>
+			<tr>
+				<td class="avatar"><a href="@noAuth.routes.Users.userPage(User.findOneById(stylist.stylistId).get.userId)">
+                    <img src="#"></a></td>
+				<td class="update">
+					<span class="name"><a href="@noAuth.routes.Users.userPage(User.findOneById(stylist.stylistId).get.userId)">@Stylist.findUserName(stylist.stylistId)</a></span><br>
+					<span class="city">@stylist.myWords</span>
+				</td>
+				<td class="opts">
+					@if(logged.equals(false) || MyFollow.checkIfFollow(loginUserId,stylist.stylistId)){
+						<a href="@auth.routes.MyFollows.cancelFollow(stylist.stylistId)">@Messages("user.cancelFollow")</a>
+					}else{
+						<a href="@auth.routes.MyFollows.addFollow(stylist.stylistId,"stylist")">@Messages("user.addFollow")</a>
+					}
+                    <a id="sendMsg" value="@stylist.stylistId">@Messages("user.sendMsg")</a>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+</li>

@@ -78,4 +78,10 @@ object User extends ModelCompanion[User, ObjectId] {
    * 用于判断userId是否为当前用户
    */
   def isOwner(userId:String)(user:User) : Future[Boolean] = Future{User.findOneByUserId(userId).map(_ == user).get}
+
+    /**
+     * 权限认证
+     * 用于判断userId与当前用户是否互相关注(强关系)
+     */
+  def isFriend(userId:ObjectId)(user:User) : Future[Boolean] = Future{(userId == user.id)||MyFollow.followEachOther(userId,user.id)}
 }
