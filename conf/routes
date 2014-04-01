@@ -53,12 +53,12 @@ GET         /createCoupon                                              controlle
 GET         /showCoupons/:salonId                                      controllers.Coupons.showCoupons(salonId: ObjectId)
 GET         /invalidCoupon/:couponId                                   controllers.Coupons.invalidCoupon(couponId: ObjectId)
 GET         /editCoupon/:couponId                                      controllers.Coupons.editCouponInfo(couponId: ObjectId)
-GET         /updateCoupon/:couponId                                    controllers.Coupons.updateCoupon(couponId: ObjectId)
+GET         /updateCoupon/:couponId                                    controllers.Coupons.updateCoupon(couponId: ObjectId, salonId: ObjectId)
 
 # Menu
-GET         /createMenu                                                controllers.Menus.createMenu
+GET         /createMenu/:salonId                                       controllers.Menus.createMenu(salonId: ObjectId)
 GET         /editMenu/:menuId                                          controllers.Menus.editMenuInfo(menuId: ObjectId)
-GET         /updateMenu/:menuId                                        controllers.Menus.updateMenu(menuId: ObjectId)
+GET         /updateMenu/:menuId                                        controllers.Menus.updateMenu(menuId: ObjectId, salonId: ObjectId)
 GET         /invalidMenu/:menuId                                       controllers.Menus.invalidMenu(menuId: ObjectId)
 
 # Style

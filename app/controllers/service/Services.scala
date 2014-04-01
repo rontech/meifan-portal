@@ -76,7 +76,7 @@ object Services extends Controller {
   def showService(id: ObjectId, salonId: ObjectId) = Action{
     Service.findOneById(id).map { service =>
       val serviceUpdateForm = Services.serviceUpdateForm().fill(service)
-      Ok(views.html.service.updateService(Salon.findById(salonId).get,serviceUpdateForm,service))
+      Ok(views.html.salon.admin.editSalonService(Salon.findById(salonId).get,serviceUpdateForm,service))
     } getOrElse {
       NotFound
     }

@@ -90,4 +90,11 @@ object Service extends ModelCompanion[Service, ObjectId]{
 	 * 检验该店铺是否已登录此服务
 	 */
 	def checkService(serviceNm:String, salonId: ObjectId): Boolean = dao.find(MongoDBObject("serviceName" -> serviceNm, "salonId"->salonId)).hasNext
+
+	/**
+   * 获取服务列表中的所有服务id
+   */
+	def getServiceIdList(service: List[Service]) : List[ObjectId] = service.map {
+		service => service.id
+	}
 }

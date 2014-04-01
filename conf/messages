@@ -296,7 +296,15 @@ coupon.serviceDuration = 服务时长
 coupon.modify = 修改
 coupon.invalid = 无效
 coupon.invalidCoupon = 该优惠劵已无效
-coupon.addErrorMsg = 请输入优惠劵名！
+coupon.couponNameRequired = 优惠劵名必须填写！
+coupon.couponNameRepeat = 优惠劵名已存在，请重新填写！
+coupon.couponServiceRequired = 请至少选择一个服务！
+coupon.perferentialPriceErr = 优惠价格必须填写并且必须为数字！
+coupon.startDateRequired = 开始时间必须填写！
+coupon.endDateRequired = 截至时间必须填写！
+coupon.useConditionsRequired = 使用条件必须填写！
+coupon.presentTimeRequired = 出示时间必须填写！
+coupon.couponDiscriptionErr = 填写必须10到100以内的字！
 
 menu.title = {0} 的菜单
 menu.tip = 没有找到您希望的菜单！
@@ -307,6 +315,10 @@ menu.createMenuArea = 创建菜单区域
 menu.menuName = 菜单名
 menu.createMenu = 创建菜单
 menu.invalidCoupon = 该菜单已无效
+menu.menuNameRequired = 菜单名必须填写！
+menu.menuNameRepeat = 菜单名已存在，请重新填写！
+menu.menuServiceRequired = 请至少选择一个服务！
+menu.menuDiscriptionErr = 填写必须10到100以内的字！
 
 #ApplyRecord.status
 apply.inApply = 0
