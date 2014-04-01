@@ -5,108 +5,92 @@
 	<head>
 		<script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
 		<script src="@routes.Assets.at("javascripts/ajaxfileupload.js")" type="text/javascript"></script>
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
-<script type="text/javascript">
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#target').append('<img src='+e.target.result+' style="float:left;width:156px;height:205px;margin-left:30px;margin-top:40px;"'+'>');
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-	$("#filePhoto").change(function() {
-	    readURL(this);
-	});
-
-	$('.removeOptContactMethod').live('click', function(e) {
-	    $(this).parents('.optContactMethod').remove()
-	    renumber()
-	})
-	
-	$('.addOptContactMethod').live('click', function(e) {
-	    var template = $('.optContactMethod_template')
-	    template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
-	    renumber()
-	})
-	
-	var renumber = function(accounts) {
-	    $('.optContactMethod').each(function(i) {
-	        $('input', this).each(function() {
-	            $(this).attr('name', $(this).attr('name').replace(/stylePic\[.+?\]/g, 'stylePic[' + i + ']'))
-	        })
-	        $('.account input', this).each(function(i) {
-	            $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
-	        })
-	    })
-	}
-
-	function ajaxFileUpload() {
-	    $("#loading").ajaxStart(function() {
-	        $(this).show();
-	    }) @*开始上传文件时显示一个图片 *@ 
-	           
-		.ajaxComplete(function(){ 
-	    	$(this).hide();
-	     });
-	     alert("action upload");                   
-		$.ajaxFileUpload({                  
-		url:"/fileUploadAction",                
-		secureuri:false,                  
-		fileElementId:'file',
-		dataType:'text/html',
-		success: function (data, status){ 
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+		<script type="text/javascript">
+			function readURL(input) {
+			    if (input.files && input.files[0]) {
+			        var reader = new FileReader();
+			        reader.onload = function(e) {
+			            $('#target').append('<img src='+e.target.result+' style="float:left;width:150px;margin-left:30px;margin-top:40px;"'+'>');
+			        }
+			        reader.readAsDataURL(input.files[0]);
+			    }
+			}
 		
-		alert("callback message" + data);
-		 var reg = /<pre.+?>(.+)<\/pre>/g;  
-        var result = data.match(reg); 
+			$("#file").change(function() {
+			    readURL(this);
+			});
 		
-		alert(RegExp.$1);
-		var objvalue=RegExp.$1;
-		var $obj=$('.imageoffileobjid');
-		var sizes=$obj.size();
-		alert(sizes);
-		if(sizes==2){
-		alert('11111111111');
-		var value1=$obj.eq(1).val(objvalue);
-		alert(value);
-		$obj.eq(1).val(objvalue);
+			$('.removeOptContactMethod').live('click', function(e) {
+			    $(this).parents('.optContactMethod').remove()
+			    renumber()
+			})
 		
-		}else{
-			var value2=$obj.eq(size-2).val(objvalue);
-			alert("2222"+value2);
-		}
+			$('.addOptContactMethod').live('click', function(e) {
+			    var template = $('.optContactMethod_template')
+			    template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
+			    renumber()
+			})
 		
+			var renumber = function(accounts) {
+			    $('.optContactMethod').each(function(i) {
+			        $('input', this).each(function() {
+			            $(this).attr('name', $(this).attr('name').replace(/stylePic\[.+?\]/g, 'stylePic[' + i + ']'))
+			        })
+			        $('.account input', this).each(function(i) {
+			            $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
+			        })
+			    })
+			}
 		
-		alert("obj.value"+$obj.val());
-		alert("szies"+sizes);
-		var arr1=$obj.get(0);
-		alert("arr1"+arr1.value);
+			function ajaxFileUpload() {
+			    $("#loading").ajaxStart(function() {
+			        $(this).show();
+			    }) @*开始上传文件时显示一个图片 *@ 
+			           
+				.ajaxComplete(function(){ 
+			    	$(this).hide();
+			     });
+			    $.ajaxFileUpload({                  
+				url:"/fileUploadAction",                
+				secureuri:false,                  
+				fileElementId:'file',
+				dataType:'text/html',
+				success: function (data, status){ 
+				var reg = /<pre.+?>(.+)<\/pre>/g;  
+		        var result = data.match(reg); 
+				var objvalue=RegExp.$1;
+				var $obj=$('.imageoffileobjid');
+				alert("obj length "+$obj.length);
+				$obj.each(function(i){
+					var index=$obj.index($(this));
+					alert(index);
+					if(index==($obj.length-2)){
+					$(this).val(objvalue);
+						alert("ok .."+index);
+					}
+				});
+				var sizes=$obj.size();
+				var arr1=$obj.get(0);
+				if(typeof(data.error) != 'undefined'){
+					if(data.error != ''){   
+						alert(data.error);                
+					}else{
+						alert(data.message);    
+					}           
+				}                 
+				},
+				error: function (data, status, e){
+					alert("files error"); 
+					alert(e);  
+				}             
+				})                   
+				return false;      
+			}    
 		
-		alert("getvalue"+getvalue);
-		                    
-		
-		alert("objId "+objId);
-		if(typeof(data.error) != 'undefined'){
-			if(data.error != ''){   
-				alert(data.error);                
-			}else{
-				alert(data.message);    
-			}           
-		}                 
-		},
-		error: function (data, status, e){
-			alert("files error"); 
-			alert(e);  
-		}             
-		})                   
-		return false;      
-	}    
-
-</script>
-	</head>
+			</script>
+		</head>
 	<body>
 	@form(routes.Stylists.styleToAddNewStyle(if(style == null){new ObjectId}else{style.id}), 'enctype -> "multipart/form-data", 'id -> "styleAddForms"){
 		@if(bool){
@@ -233,7 +217,7 @@ function readURL(input) {
 		    	<input type="file" id="file" name="photo" /><br />
 		    	<input type="button" value="上传" onclick="return ajaxFileUpload();">
 	            <legend>@Messages("user.optContactMethod")</legend>
-        </form>
+        		</form>
 	    	<div id="optContactMethods">
                 @repeat(styleAddForm("stylePic")) { stylePicOne =>
                     @stylePicOneGroup(stylePicOne)
@@ -262,7 +246,30 @@ function readURL(input) {
 	        	}
         	}
         </div>
-        
+        <div class="image-insert-style-group" id="target">
+        	<ul>
+        		<li>
+        			<div class="image-insert-style-index-item">
+        				
+        			</div>
+        		</li>
+        		<li>
+        			<div class="image-insert-style-index-item">
+        				
+        			</div>
+        		</li>
+        		<li>
+        			<div class="image-insert-style-index-item">
+        				
+        			</div>
+        		</li>
+        		<li>
+        			<div class="image-insert-style-index-item">
+        				
+        			</div>
+        		</li>
+        	</ul>
+        </div>
 	    <div align="center">
 	        <input type = "reset" class = "buttons" value=@Messages("common.reset")>
 		    <input type="submit" class = "buttons" value=@Messages("common.submit")>
@@ -376,6 +383,30 @@ function readURL(input) {
 	        	}
         	}
         </div>
+        <div class="image-insert-style-group" id="target">
+        	<ul>
+        		<li>
+        			<div class="image-insert-style-index-item">
+        				
+        			</div>
+        		</li>
+        		<li>
+        			<div class="image-insert-style-index-item">
+        				
+        			</div>
+        		</li>
+        		<li>
+        			<div class="image-insert-style-index-item">
+        				
+        			</div>
+        		</li>
+        		<li>
+        			<div class="image-insert-style-index-item">
+        				
+        			</div>
+        		</li>
+        	</ul>
+        </div>
         
 	    <div align="center">
 	        <input type = "reset" class = "buttons" value=@Messages("common.reset")>
@@ -387,15 +418,14 @@ function readURL(input) {
      </body>
      
 @stylePicOneGroup(field: Field, className: String = "optContactMethod") = {
-    <div class="twipsies well @className">
+    <div class="twipsies well @className" id="imgGroupsUploadfield">
         <a class="removeOptContactMethod btn danger pull-right">Remove this stylePic</a>
         @inputText(
             field("fileObjId"), 
-            '_label -> "fileObjId",'placeholder -> new ObjectId, 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
+            '_label -> "fileObjId",'placeholder -> new ObjectId, 'id -> "imageoffileobjid", 'class ->"imageoffileobjid",'type -> "hidden"
         )
         @inputText(
-            field("picUse"), 
-            '_label -> "picUse"
+            field("picUse"),'_label -> "picUse",'class -> "imagepictureuse"
         )
         @inputText(
             field("showPriority"), 
