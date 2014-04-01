@@ -65,14 +65,6 @@ object MyFollow extends ModelCompanion[MyFollow, ObjectId] {
   }
   
   /**
-   *根据用户名检验是否已关注或收藏并且有效 
-   */
-  def checkIfFollowByName(userName:String,followObjId:ObjectId): Boolean={
-    val userId = User.findOneByUserId(userName).get.id
-    checkIfFollow(userId,followObjId)
-  }
-  
-  /**
    * 获取关注收藏信息
    */
   def getAllFollowInfo(id:ObjectId): FollowInformation = {

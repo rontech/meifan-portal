@@ -4,11 +4,11 @@
     <div id="content_head">
         <p><strong>@user.nickName@Messages("user.followedStylist")</strong></p>
     </div>
-        <div class="MMod" id="Logs">
+    <div>
             <ul>
             @followInfo.followStylist.map{stylist =>
                 @views.html.user.followedStylistItem(stylist,loginUserId,logged)
             }
             </ul>
-        </div>
+	</div>
     }

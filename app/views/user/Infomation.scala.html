@@ -51,24 +51,25 @@
         @form(auth.routes.Users.updateInfo(user.userId), 'id -> "userForm") {
           <fieldset>
            	
-                  @inputText(userForm("userId"),'_label -> Messages("user.name"), 'readonly -> "true")
+                  @inputText(userForm("userId"),'_label -> Messages("user.name"), 'readonly -> "true", '_help -> Messages(""))
 
                   <input type="hidden" name="password" value="@user.password">
 
-                  @inputText(userForm("nickName"),'_label -> Messages("user.nickNm"), '_error -> userForm("nickName").error.map(_.withMessage(Messages("user.nickNameErr"))))
+                  @inputText(userForm("nickName"),'_label -> Messages("user.nickNm"), '_error -> userForm("nickName").error.map(_.withMessage(Messages("user.nickNameErr"))), '_help -> Messages(""))
 
-                  @inputDate(userForm("birthDay"), '_label -> Messages("user.birthDay"), '_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr"))))
+                  @inputDate(userForm("birthDay"), '_label -> Messages("user.birthDay"), '_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr"))), '_help -> Messages(""))
 
                   @inputRadioGroup(userForm("sex"),options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")) , '_label -> Messages("user.sex"),
-                  '_error -> userForm("sex").error.map(_.withMessage(Messages("user.sexErr"))))
+                  '_error -> userForm("sex").error.map(_.withMessage(Messages("user.sexErr"))), '_help -> Messages(""))
 
                   @inputText(userForm("socialStatus"),'_label -> Messages("user.job"))
 
-                  @inputText(userForm("email"), '_label -> Messages("user.email"), '_error -> userForm("email").error.map(_.withMessage(Messages("user.emailErr"))))
+                  @inputText(userForm("email"), '_label -> Messages("user.email"), '_help -> Messages(""), '_error -> userForm("email").error.map(_.withMessage(Messages("user.emailErr"))))
 
-                  @inputText(userForm("tel"), '_label -> Messages("user.tel"))
+                  @inputText(userForm("tel"), '_label -> Messages("user.tel"), '_help -> Messages(""))
 
-                  @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none")
+                  @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none" ,'_help -> Messages(""))
+                  
                   <div>
                   <span align = left>@Messages("salon.address")</span>
                   <br>

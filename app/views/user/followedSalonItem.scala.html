@@ -2,9 +2,9 @@
 	<li><table class="ostable">
 		<tbody>
 			<tr>
-				<td class="avatar"><a href="/salon/@salon.id" target="blank"><img src="#" align="middle" alt="" title="@salon.salonName" class="SmallPortrait" user="1435017"></a></td>
+				<td class="avatar"><a href="@routes.Salons.getSalon(salon.id)" target="blank"><img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)" align="absmiddle" alt="" title="@salon.salonName" class="SmallPortrait"></a></td>
 				<td class="update">
-					<span class="name"><a href="/salon/@salon.id" target="blank">@salon.salonName</a></span><br>
+					<span class="name"><a href="@routes.Salons.getSalon(salon.id)" target="blank">@salon.salonName</a></span><br>
 					<span class="city">@salon.salonAddress.province &nbsp;@salon.salonAddress.city</span>
 				</td>
 				<td class="opts">

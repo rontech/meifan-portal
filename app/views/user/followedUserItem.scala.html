@@ -5,10 +5,10 @@
 				<td class="avatar"><a href="@noAuth.routes.Users.userPage(followUser.userId)" title=""><img src="@routes.Application.getPhoto(followUser.userPics)" align="middle"></a></td>
 				<td class="update">
 					<span class="name"><a href="@noAuth.routes.Users.userPage(followUser.userId)">@followUser.nickName</a></span><br>
-					<span class="city">@followUser.point</span>
+					<span class="city">@followUser.address.province &nbsp;@followUser.address.city</span>
 				</td>
 				<td class="opts">
-					@if(logged.equals(true) || MyFollow.checkIfFollow(loginUserId,followUser.id)){
+					@if(logged.equals(true) &&  MyFollow.checkIfFollow(loginUserId,followUser.id)){
 						<a href="@auth.routes.MyFollows.cancelFollow(followUser.id)">@Messages("user.cancelFollow")</a>
 					}else{
 						<a href="@auth.routes.MyFollows.addFollow(followUser.id,"user")">@Messages("user.addFollow")</a>

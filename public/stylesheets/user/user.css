@@ -604,8 +604,8 @@
       margin: 1px 1px 0 0;
     }
     .Users ul li img {
-      width: 36px;
-      height: 36px;
+      width: 45px;
+      height: 50px;
       border: 1px solid #EAEAEA;
     }
     .Users ul li a:hover img {
@@ -5460,12 +5460,12 @@ _height: 19px;
 }
 
 #userForm dd.info{
-	display:none;
+
 }
 
 #userForm dt {
     display: inline-block;
-    width: 160px;
+    width: 80px;
     float: left;
 }
 
@@ -5606,3 +5606,20 @@ margin-top: 10px;
 font-size: 18px
 }
 
+.registerButtons{
+display: inline-block;
+border: 0 none;
+font-size: 14px;
+font-weight: bold;
+text-align: center;
+color: #b94a48;
+width: 270px;
+height: 36px;
+overflow: hidden;
+}
+
+.MMod li .avatar img {
+      width: 32px;
+      height: 32px;
+      margin-top: 5px;
+    }
