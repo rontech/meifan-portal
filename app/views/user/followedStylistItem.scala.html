@@ -2,18 +2,19 @@
 	<li><table class="ostable">
 		<tbody>
 			<tr>
-				<td class="avatar"><a href="/stylistViews/@stylist.stylistId" title=""><img src="#" align="absmiddle" alt="" title="1" class="SmallPortrait" user="1435017"></a></td>
+				<td class="avatar"><a href="@noAuth.routes.Users.userPage(User.findOneById(stylist.stylistId).get.userId)">
+                    <img src="#"></a></td>
 				<td class="update">
-					<span class="name"><a href="/stylistViews/@stylist.stylistId" target="_blank">@stylist.stylistId</a></span><br>
+					<span class="name"><a href="@noAuth.routes.Users.userPage(User.findOneById(stylist.stylistId).get.userId)">@Stylist.findUserName(stylist.stylistId)</a></span><br>
 					<span class="city">@stylist.myWords</span>
 				</td>
 				<td class="opts">
 					@if(logged.equals(false) || MyFollow.checkIfFollow(loginUserId,stylist.stylistId)){
-						<a href="@*routes.auth.MyFollows.cancelFollow(stylist.stylistId)*@">@Messages("user.cancelFollow")</a>
+						<a href="@auth.routes.MyFollows.cancelFollow(stylist.stylistId)">@Messages("user.cancelFollow")</a>
 					}else{
-						<a href="@*routes.auth.MyFollows.addFollow(stylist.stylistId,"stylist")*@">@Messages("user.addFollow")</a>
+						<a href="@auth.routes.MyFollows.addFollow(stylist.stylistId,"stylist")">@Messages("user.addFollow")</a>
 					}
-					<a id="sendMsg">@Messages("user.sendMsg")</a>
+                    <a id="sendMsg" value="@stylist.stylistId">@Messages("user.sendMsg")</a>
 				</td>
 			</tr>
 		</tbody>

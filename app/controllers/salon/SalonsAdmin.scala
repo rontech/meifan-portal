@@ -150,26 +150,32 @@ object SalonsAdmin extends Controller {
    *  根据Id查找技师
    */
   def searchStylistById() = Action {implicit request =>
-    val stylistId = request.getQueryString("searchStylistById").get
+    val userId = request.getQueryString("searchStylistById").get
     val salonId = request.getQueryString("salonId").get
 	val salon = Salon.findById(new ObjectId(salonId)).get
-	val stylist = Stylist.findOneByStylistId(new ObjectId(stylistId))
-	stylist match {
-      case Some(sty) => {
-        val isValid = SalonAndStylist.checkSalonAndStylistValid(new ObjectId(salonId), sty.stylistId)
-        if(isValid) {
-          Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 1))
-        } else {
-          if(SalonAndStylist.findByStylistId(sty.stylistId).isEmpty) {
-              Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 2))
-          } else { 
-            NotFound
-          }
-        }
-        
-      } 
+	val user = User.findOneByUserId(userId)
+	user match {
+      case Some(u) =>
+        val stylist = Stylist.findOneByStylistId(u.id)
+	      stylist match {
+	      case Some(sty) => {
+	        val isValid = SalonAndStylist.checkSalonAndStylistValid(new ObjectId(salonId), sty.stylistId)
+	        if(isValid) {
+	          Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 1))
+	        } else {
+	          if(SalonAndStylist.findByStylistId(sty.stylistId).isEmpty) {
+	              Ok(html.salon.admin.findStylistBySearch(stylist = sty, salon = salon, status = 2))
+	          } else { 
+	            NotFound
+	          }
+	        }
+	        
+	      } 
+	      case None => NotFound
+	    }
       case None => NotFound
     }
+	
     
   }
   
@@ -220,7 +226,8 @@ object SalonsAdmin extends Controller {
         }
         salon match {
             case Some(sa) => {
-                Ok(html.salon.admin.mySalonStyles(salon = sa , styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true, isStylist = false))
+                val stylists = Style.findStylistBySalonId(sa.id)
+                Ok(html.salon.admin.mySalonStyles(salon = sa , styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true, isStylist = false, stylists = stylists))
             }
             case None => NotFound
         }
@@ -232,10 +239,11 @@ object SalonsAdmin extends Controller {
                 errors => BadRequest(views.html.index("")),
                 {
                     case (styleSearch) => {
-                        val styles = Style.findByPara(styleSearch)
                         //权限控制时会获取salonID,暂写死
                         val salon = Salon.findById(new ObjectId("530d7288d7f2861457771bdd"))
-                        Ok(html.salon.admin.mySalonStyles(salon = salon.get , styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = false))
+                        val stylists = Style.findStylistBySalonId(salon.get.id)
+                        val styles = Style.findStylesBySalonBack(styleSearch,salon.get.id)
+                        Ok(html.salon.admin.mySalonStyles(salon = salon.get , styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = false, stylists = stylists))
                     }
                 })
     }
@@ -293,18 +301,19 @@ object SalonsAdmin extends Controller {
         
     }
     
-    //    def styleAddNew = Action {
-//        implicit request =>
-//            styleAddForm.bindFromRequest.fold(
-//                errors => BadRequest(html.index("")),
-//                {
-//                    case (styleAddForm) => {
-//                        Style.save(styleAddForm)
-//                                                Ok(html.style.test(styleAddForm))
-////                        Ok(html.index(""))
-//                    }
-//                })
-//    }
+    def newStyleAddBySalon = Action {
+    implicit request =>
+        Styles.styleAddForm.bindFromRequest.fold(
+            errors => BadRequest(html.index("")),
+            {
+                case (styleAddForm) => {
+                    Style.save(styleAddForm)
+                    //权限控制时会获取salonID,暂写死
+                    val salonId = new ObjectId("530d7288d7f2861457771bdd")
+                    Redirect(routes.SalonsAdmin.styleUpdateBySalon(salonId))
+                }
+            })
+    }
     
   
 }

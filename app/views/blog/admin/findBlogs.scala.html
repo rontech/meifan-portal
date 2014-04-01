@@ -1,8 +1,6 @@
 @(user : User, blogList : List[Blog], followInfo:FollowInformation, loggedId : ObjectId = new ObjectId, logged:Boolean = false)
 @import views.html.user._
 
-@if(loggedId.equals(user.id)){
-	
 	@myPageMain(navInMyPage = "my-blog", user, followInfo, loggedId, logged) {
 		@blogList.map { blog =>
 		<li class="Blog">
@@ -11,15 +9,3 @@
 		}			
     <a href = "@auth.routes.Blogs.newBlog(user.userId)"><input type="button" value="@Messages("blog.newBlog")" ></a>
 	}
-	
-}else{
-	
-	@otherPageMain(user, followInfo) {
-		@blogList.map { blog =>
-			<li class="Blog">
-			  @views.html.blog.admin.itemBlog(blog)				
-			</li>
-		}
-	}			
-}
-

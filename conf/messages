@@ -58,11 +58,13 @@ main.myPage=我的主页
 salon.register=店铺注册
 salon.tabName=美发沙龙
 salon.salonMainPage=美容美发沙龙检索首页
+salon.salonBasic=沙龙信息
 salon.styles=发型
 salon.stylists=发型师
 salon.couponMenus=菜单 优惠券
 salon.blogs=博客
-salon.reviews=评论
+salon.comments=评论
+salon.accessMap=地图
 salon.show=展示所有沙龙
 salon.title=店铺基本信息管理
 salon.salonData={0}的基本信息
@@ -102,11 +104,17 @@ salon.stylistNums=发型师人数
 slaon.stylistNumUnit={0} 人
 slaon.stylistNumUndefined=人数未定义
 salon.canOnlineOrder=可否网上预约
+salon.canOnlineOrderValue=网上预约OK
 salon.canImmediatelyOrder=可否即时预约
+salon.canImmediatelyOrderValue=即时预约OK
 salon.canNominateOrder=可否指名预约
+salon.canNominateOrderValue=指名预约OK
 salon.canCurntDayOrder=可否当日预约
+salon.canCurntDayOrderValue=当日预约OK
 salon.canMaleUse=是否男性可用
+salon.canMaleUseValue=男性使用OK
 salon.isPointAvailable=是否Point加盟店
+salon.isPointAvailValue=Point加盟店
 salon.isPosAvailable=可刷卡
 salon.posAvailable=可
 salon.posNotAvailable=不可
@@ -124,8 +132,16 @@ salon.confirmMessage=请再次输入密码！
 salon.desMseeage=您最多可以输入50个字符！
 salon.salonLogin=店铺登录
 salon.stylistsList={0}的发型师
+salon.newSalon = 新沙龙用户
+salon.registerMessage1 = 如果您还不是该网站的沙龙会员，再次注册沙龙会员。
+salon.registerMessage2 = 我们会核实您注册后提交的申请，尽快为您开通沙龙会员！
+salon.loginMessage = 如果你已经是本网站的沙龙会员，请在下面输入店铺名和密码登录！
 salon.true=可
 salon.accountIdMessage=注册时设定，无法修改!
+salon.followSalon = 关注此沙龙
+salon.savedAsMySalon = 已保存为我的店铺
+salon.pushToMobile = 发送到手机
+salon.level = 等级 Lv5
 
 #salon management
 salonAdmin.mainPage = 店铺管理
@@ -152,11 +168,12 @@ salonAdmin.stateManagement = 动态管理
 salonAdmin.findAllStylists = 查看店铺所有技师
 salonAdmin.applyStylists = 申请的技师
 salonAdmin.removeStylist = 解除关系
-salonAdmin.CheckComment = 查看所有评论
+salonAdmin.checkComment = 查看所有评论
 salonAdmin.checkService = 查看所有服务
 salonAdmin.checkCoupon = 查看所有优惠
 salonAdmin.checkMenu = 查看所有套餐
 salonAdmin.checkState = 我的动态
+salonAdmin.admin = 店铺
 
 # Hair
 hair.tabName=时尚靓发
@@ -190,7 +207,7 @@ hair.addStyle = 添加发型
 hair.salonStyleTitle = {0}的发型
 hair.styleCatalogTitle = Hair Catalog  发型目录
 hair.menStyleTitle = Mens 男性
-hair.styleImage = 印象 检索
+hair.styleImage = 风格 检索
 hair.styleRanking = Ranking 人气发型排行榜
 hair.rankingAll = 综合
 hair.rankingMedium = 中长发
@@ -214,6 +231,7 @@ cosmetic.stylist=美容师
 reserve.name=预约
 reserve.finish=预约完成
 reserve.information=详情查看
+reserve.confirmAndReserve=空位确认・预约
 
 
 # Service
@@ -222,7 +240,6 @@ service.name=服务名
 service.type=技术类别
 service.price=服务费用（单位：元）
 service.tsCost=服务耗时（单位：分钟）
-service.addErrorMsg=请输入服务技术名！
 service.addBtn=添加
 service.resetBtn=重置
 service.addServiceType=添加服务类别
@@ -324,12 +341,12 @@ stylist.findOtherBlog = 查看更多
 stylist.experienceYears={0}年经验
 stylist.removeSalon = 离开店铺
 stylist.update = 更新
-stylist.industry = 职位
+stylist.stylistId = 用户ID
 
 
 #Stylist Apply
 stylist.name = 昵称
-stylist.workYears = {0} 年
+stylist.workYears = 年
 stylist.industry = 类别
 stylist.position = 职位
 stylist.goodAtImage = 擅长风格
@@ -374,11 +391,11 @@ user.point=可用积分
 user.cancelFollow=取消关注
 user.sendMsg=发送留言
 user.otherBlog=他的博客
-user.collectCoupon=收藏の优惠劵
-user.collectBlog=收藏の博客
-user.collectStyle=收藏の风格
+user.collectCoupon=收藏的优惠劵
+user.collectBlog=收藏的博客
+user.collectStyle=收藏的风格
 user.reservation=我的预约
-user.salonAct=店铺の动态
+user.salonAct=店铺的动态
 user.name=用户名
 user.nickNm=昵称
 user.birthDay=出生日期
@@ -396,7 +413,6 @@ user.loginBtn=登录
 user.registerBtn=注册
 user.new=新用户
 user.userIdErr=用户名不合法!
-user.confirmPas=确认密码
 user.agree=必须同意!
 user.male=男
 user.female=女
@@ -425,7 +441,22 @@ user.nickNameErr=给个昵称吧！
 user.welcome=欢迎您，{0}
 user.guestName=游客
 user.pleaseSignUp=免费会员注册
-
+user.tobeStylist = 申请为技师
+user.followThisCoupon = 收藏此优惠劵
+user.newUser = 新用户
+user.registerMessage1 = 如果您还不是该网站的会员，免费会员注册。
+user.registerMessage2 = 我们将提供24小时网上预约&空席确认和5%的积分制度！
+user.registerMessage3 = 新用户还可以免费得到20个积分点哦！
+user.userLogin = 会员登录
+user.loginMessage = 如果你已经是本网站的会员，请在下面输入用户名和密码登录！
+user.forgetPassword = 如果你忘记密码，请点击这里
+user.fansOf=的粉丝
+user.followedUser=关注的达人
+user.followedSalon=关注的沙龙
+user.followedStylist=关注的技师
+user.noBlogSearched=没有收藏的博客……
+user.noStyleSearched=没有收藏的发型……
+user.noCouponSearched=没有收藏的优惠券……
 
 
 #Letter
@@ -486,7 +517,8 @@ blog.createAt = 发布于 {0}
 blog.floor = {0} 楼
 blog.quoteComment = 引用来自" {0} "的评论
 blog.new = 新博客
-
+blog.toCollect=收藏此博客
+blog.noCollect = 暂无收藏的博客！
 
 # Comment
 comment.salonCommentTitle = {0} 的评论
@@ -496,6 +528,7 @@ comment.usedCoupon = 预约时使用的优惠券
 comment.usedServices = [用到的技术]
 comment.reply = {0}的回复
 comment.new = 新评论
+comment.complain = 我要申诉
 
 
 # Point
@@ -518,6 +551,11 @@ system.siteMessages=系统通知
 questions.common=常见问题
 
 
+
+#-------------------------------
+# Master Table Translation Area.
+# 主表字段翻译定义区
+#-------------------------------
 #行业
 industry.industryName.Hairdressing=美发
 industry.industryName.Manicures=美甲

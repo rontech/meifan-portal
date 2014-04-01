@@ -61,6 +61,6 @@ object MyFollows extends Controller with AuthElement with AuthConfigImpl {
         val loginUser = loggedIn
         val user = User.findOneById(userId).get
         val followInfo = MyFollow.getAllFollowInfo(user.id)
-    	Ok(views.html.user.myFollowStyle(user, followInfo, loginUser.id))
+    	Ok(views.html.user.followedStyle(user, followInfo, loginUser.id))
     }
 }

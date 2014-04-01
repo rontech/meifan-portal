@@ -16,6 +16,19 @@ case class BlogOfSalon(blogInfo: Blog, salonInfo: Option[Salon]) {
   def apply(blogInfo: Blog, salonInfo: Option[Salon]) = new BlogOfSalon(blogInfo, salonInfo) 
 }
 
+/**
+ * A All Info structs of blog including belows
+ *   1. basic info as a user.   
+ *   2. basic info as a stylist linked the user above.
+ *   3. a blog list of the stylist above
+ */
+case class BlogOfStylist(userInfo : User, stylistInfo : Stylist, blogListOfStylist : List[Blog]) {
+  def apply(userInfo : User, stylistInfo : Stylist, blogListOfStylist : List[Blog]) = new BlogOfStylist(userInfo, stylistInfo, blogListOfStylist)
+}
+
+
+
+
 case class Blog(
     id : ObjectId = new ObjectId,
     title : String, 
@@ -141,6 +154,30 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
     )
     blogOfSalonList
   }
+  
+  /**
+   * 这边也是通过店铺找到该店铺下技师的blog，这边返回的是一个BlogOfStylist的对象
+   */
+  //TODO 上面取的店铺的blog的方法可能需要重构
+  def getBlogsOfStylistInSalon(salonId: ObjectId) : List[BlogOfStylist] = {
+    var blogsOfStylistList : List[BlogOfStylist] = Nil
+    val stylistList = Stylist.findBySalon(salonId)
+    stylistList.foreach({ stl => 
+        var user = User.findOneById(stl.stylistId)
+        user match {
+          case None => None
+          case Some(u) => {
+            val blogList = getStylistBlogByUserId(u.userId)
+            val blogOfStylist = BlogOfStylist(u, stl, blogList)
+            blogsOfStylistList :::= List(blogOfStylist)
+          }
+        }
+      }
+    )
+    
+    blogsOfStylistList
+  }
+  
   
   
   

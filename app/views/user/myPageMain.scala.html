@@ -27,6 +27,15 @@
        		</div>	        
        		 	
        </div>
-
+    <div id = "hidden for sendMessage">
+    <input type="hidden" id="addressee" value="@user.id">
+    </div>
+    <script type="text/javascript">
+    $("#sendMsg").click(function() {
+    var userId =this.getAttribute("value");
+    var url = "/sendLetterPage/"+userId;
+    window.open(url,"","width=600,height=400");
+    });
+    </script>
 <!-- ↑contents -->
 }

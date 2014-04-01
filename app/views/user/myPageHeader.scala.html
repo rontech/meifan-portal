@@ -3,30 +3,24 @@
 	<!-- ↓mainContents -->
     	<ul class="bS menuBG cFix">
 		<li class="fl">
-		    <a href="/myPage/myReservation">
+		    <a href="@auth.routes.Users.myReservation">
 				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.reservation")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
 		<li class="fl">
-		    <a href="/myPage/followedCoupon">
+		    <a href="@auth.routes.MyFollows.followedCoupon(user.id)">
 				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.collectCoupon")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
 		<li class="fl">
-		    <a href="/myPage/followedBlog/@user.id">
+		    <a href="@auth.routes.MyFollows.followedBlog(user.id)">
 				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.collectBlog")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
 		<li class="fl">
-		    <a href="/myPage/followedStyle/@user.id">
+		    <a href="@auth.routes.MyFollows.followedStyle(user.id)">
 				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.collectStyle")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
-		<li class="fl">
-		    <a href="/myPage/followedSalonActi">
-				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.salonAct")&nbsp&nbsp&nbsp&nbsp&nbsp
-		    </a>
-		</li>
-  			
   		</ul>
 	<!-- ↑mainContents -->

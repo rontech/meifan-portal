@@ -81,7 +81,7 @@ object User extends ModelCompanion[User, ObjectId] {
 
     /**
      * 权限认证
-     * 用于判断userId与当前用户是否互相关注
+     * 用于判断userId与当前用户是否互相关注(强关系)
      */
-  def isFriend(userId:ObjectId)(user:User) : Future[Boolean] = Future{MyFollow.followEachOther(userId,user.id)}
+  def isFriend(userId:ObjectId)(user:User) : Future[Boolean] = Future{(userId == user.id)||MyFollow.followEachOther(userId,user.id)}
 }

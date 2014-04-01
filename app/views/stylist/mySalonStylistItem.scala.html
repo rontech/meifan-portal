@@ -2,14 +2,21 @@
 <body>
 <div class="mysalon-stylist-search w166 mHA">
     <div class="taC">
-		<a href="@routes.Salons.getOneStylist(salon.id, stylist.stylistId)">
+		@*<a href="@routes.Salons.getOneStylist(salon.id, stylist.stylistId)">*@
         	<img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" class="bdImgGray w164 h219">
-		</a>
+		@*</a>*@
     </div>
     <p class="mT10">
-        <a href="http://beauty.hotpepper.jp/slnH000231733/stylist/T000188298/">
+        <a href="#">
            <p>@Stylist.findUserName(stylist.stylistId)</p>
         </a>
+    </p>
+    <p class="mT10">
+        
+           @stylist.position.map{po=>
+           	@po.positionName&nbsp;@po.industryName
+           }
+        
     </p>
     <div class="bdDotT mT5 pT5 fs10">
         <span class="fgPink">
@@ -19,8 +26,6 @@
         </span>
   （@stylist.workYears
   年）
-    </div>
-    <div class="bdDotT mT5 pT5 fs10 hMin30">
     </div>
 </div>
 <div class="taC mT10">

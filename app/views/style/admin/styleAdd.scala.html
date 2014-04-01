@@ -12,7 +12,7 @@
 @if(isStylist){
     <body>
         <div>
-        @form(routes.Styles.styleAddNew, 'id -> "styleAddForm"){
+        @form(routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm"){
             <div>
                 @Messages("hair.styleName")<input type = "text" class="" name = "styleName" value = "">
             </div>
@@ -111,7 +111,7 @@
 }else{
     <body>
     	<div>
-    	@form(routes.Styles.styleAddNew, 'id -> "styleAddForm"){
+    	@form(routes.SalonsAdmin.newStyleAddBySalon, 'id -> "styleAddForm"){
     		<div>
     			@Messages("hair.styleName")<input type = "text" class="" name = "styleName" value = "">
     		</div>
@@ -256,7 +256,7 @@
         var renumber = function(accounts) {
             $('.optContactMethod').each(function(i) {
                 $('input', this).each(function() {
-                    $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'stylePic[' + i + ']'))
+                    $(this).attr('name', $(this).attr('name').replace(/stylePic\[.+?\]/g, 'stylePic[' + i + ']'))
                 })
             })
         }

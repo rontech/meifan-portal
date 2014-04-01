@@ -2,13 +2,17 @@
 			<div class ="Owner">
 				<a href="#" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")" align="middle" alt="@user.userId" title="@user.userId" class="LargePortrait"/></a>
 				<span class='U'>
-      				<a href="@auth.routes.Users.myPage" class='Name' title='female'>@user.userId</a>
+      				<a href="@noAuth.routes.Users.userPage(user.userId)" class='Name' title='female'>@user.nickName</a>
 					<span class='opts'>
 						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='middle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
-						@if(MyFollow.checkIfFollow(loginUserId,user.id)){
+					@if(MyFollow.checkIfFollow(loginUserId,user.id)){
                         <a href="@auth.routes.MyFollows.cancelFollow(user.id)">@Messages("user.cancelFollow")</a>
                     }else{
-                        <a href="@auth.routes.MyFollows.addFollow(user.id,FollowType.FOLLOW_USER)">@Messages("user.addFollow")</a>
+                        @if(user.userTyp.equals(User.NORMAL_USER)){
+                            <a href="@auth.routes.MyFollows.addFollow(user.id,FollowType.FOLLOW_USER)">@Messages("user.addFollow")</a>
+                        }else{
+                            <a href="@auth.routes.MyFollows.addFollow(user.id,FollowType.FOLLOW_STYLIST)">@Messages("user.addFollow")</a>
+                        }
                     }
 					</span>
 				</span>
@@ -18,7 +22,7 @@
 				</div>
 			</div>
    			<div class='Opts clearfix'>
-                <a class='a2 admin' id="sendMsg"><span>@Messages("user.sendMsg")</span></a>
+                <a class='a2 admin' id="sendMsg" value="@user.id"><span>@Messages("user.sendMsg")</span></a>
 				<a href="@noAuth.routes.Blogs.showBlog(user.userId)" class='a1 blog'><span>@Messages("user.otherBlog")</span></a>
 			</div>
 @if(user.userTyp.equals(User.STYLIST)){
@@ -44,23 +48,17 @@
     <div class='Mod Users' id='Fellows'>
         <strong>@Messages("stylistMag.myStyle")</strong>
         <div class='more'>
-            <a href="/findMyStylesByStylist/@user.id">@Messages("stylistMag.showAllStyles")
+            <a href="@routes.Stylists.findMyStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
                 (@Stylist.countStyleByStylist(user.id))</a>
         </div>
     </div>
 }
 			<div class='Mod Users' id='Fellows'>
-    			<a href = "/otherPage/SaveBlog/@user.id"><strong>@Messages("user.collectBlog")</strong></a>
-			</div>
-			<div class='Mod Users' id='Fellows'>
-    			<a href = "/otherPage/SaveStyle/@user.id"><strong>@Messages("user.collectStyle")</strong></a>
-			</div> 			
-			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("user.followSalon")</strong>
 	  			<ul class='clearfix'>
 	  				@followInfo.followSalon.map {salon =>
 	  						<li>
-    	 						<a href="/salon/@salon.id" target="blank">@salon.salonName</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 						<a href="@routes.Salons.getSalon(salon.id)">@salon.salonName</a>&nbsp;&nbsp;&nbsp;&nbsp;
     	 			     	</li>
     	 			}
     			</ul>
@@ -73,7 +71,7 @@
 	  			<ul class='clearfix'>
     	 			@followInfo.followStylist.map {stylist =>
 	  					<li>
-    	 				       <a href="/stylistViews/@stylist.stylistId">@stylist.stylistId</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 				       <a href="@noAuth.routes.Users.userPage(User.findOneById(stylist.stylistId).get.userId)">@Stylist.findUserName(stylist.stylistId)</a>&nbsp;&nbsp;&nbsp;&nbsp;
     	 			    </li>
 	  					}
     			</ul>
@@ -86,7 +84,7 @@
 	   			<ul class='clearfix'>
       				@followInfo.followUser.map {user =>
 	  					<li>
-    	 				       <a href="@noAuth.routes.Users.userPage(user.userId)">@user.userId</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 				       <a href="@noAuth.routes.Users.userPage(user.userId)">@user.nickName</a>&nbsp;&nbsp;&nbsp;&nbsp;
     	 			    </li>
 	  				}
 				</ul>
@@ -94,13 +92,4 @@
        				<a href="@noAuth.routes.MyFollows.followedUser(user.id)">@Messages("user.showAllFollow")@followInfo.followUser.length)</a>
      			</div>
 			</div>
-<input type="hidden" id="addressee" value="@user.id">
-<script type="text/javascript">
-
-$("#sendMsg").click(function() {
-var userId = document.getElementById("addressee" ).getAttribute("value");
-var url = "/sendLetterPage/"+userId;
-window.open(url,"","width=600,height=400");
-});
-</script>
 	<!-- ↑mainContents -->

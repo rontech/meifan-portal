@@ -1,6 +1,9 @@
 @(user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
 
 @myPageMain("followedSalon", user, followInfo, loginUserId, logged) {
+    <div id="content_head">
+        <p><strong>@user.nickName@Messages("user.followedSalon")</strong></p>
+    </div>
 	  <div class="MMod" id="Logs">
     	  <ul>
     		  @followInfo.followSalon.map{salon =>

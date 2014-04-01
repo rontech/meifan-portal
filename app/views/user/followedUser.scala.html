@@ -1,16 +1,23 @@
 @(user :User, followInfo:FollowInformation, isFans: Boolean ,loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
 
 @myPageMain("followedUser", user, followInfo, loginUserId, logged) {
+    <div id="content_head">
     @if(isFans.equals(true)){
-        <p><strong>@user.nickName@Messages("user.fans")</strong></p>
+        <p><strong>@user.nickName@Messages("user.fansOf")</strong></p>
     }else{
         <p><strong>@user.nickName@Messages("user.followedUser")</strong></p>
     }
-
+    </div>
     <div class="MMod" id="Logs">
         <ul>
-        @followInfo.followUser.map{user =>
-            @views.html.user.followedUserItem(user,loginUserId,logged)
+        @if(isFans.equals(true)){
+            @followInfo.follower.map{user =>
+                @views.html.user.followedUserItem(user,loginUserId,logged)
+            }
+        }else{
+            @followInfo.followUser.map{user =>
+                @views.html.user.followedUserItem(user,loginUserId,logged)
+            }
         }
         </ul>
     </div>

@@ -3,20 +3,18 @@
 <div class="detailHeader cFix pr">
     <div class="detailHeaderShopInfo detail2S cFix">
         <div class="fl pL10 pT10">
-        <a href="http://beauty.hotpepper.jp/slnH000231733/">
-            <img src="http://imgbp.hotp.jp/CSP/IMG_SRC/05/00/B002710500/B002710500_100-100.jpg"
-            alt="フレール　Freresのお店ロゴ">
+        <a href="@routes.Salons.getSalon(salon.id)">
+            <img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"
+            alt="@salon.salonNameAbbr">
         </a>
         </div>
         <div class="fr sprtHeaderInnerR pa right0 w180">
         <ul class="p10">
             <li class="pa top10 left10">
-            <a href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733"
+            <a href=""
             class="btn btn1H60 w156">
                 <span>
-                <span>
-                    空席確認・予約する
-                </span>
+                    <span>@Messages("reserve.confirmAndReserve")</span>
                 </span>
             </a>
             </li>
@@ -24,18 +22,18 @@
             <div class="jscMySalonSaveLayer">
                 <p class="jscMySlnSvStIdH000231733" style="height: 19px; overflow:hidden;">
                 <a href="@auth.routes.MyFollows.addFollow(salon.id,"salon")" class="bS addIntoMyPage jscBtnSaveToMySalon offL db">
-                    マイサロンに保存
+                    @Messages("salon.followSalon") 
                 </a>
                 <span class="btnSlnSaveToMySalonDone bS offL">
-                    マイサロンに保存済
+                    @Messages("salon.savedAsMysalon")
                 </span>
                 </p>
             </div>
             </li>
             <li class="mT5">
-            <a href="https://beauty.hotpepper.jp/CSP/bt/salonSendMobile/?storeId=H000231733"
+            <a href=""
             class="bS db sendToMobile offL salonSendMobileP">
-                携帯に送る
+               @Messages("salon.pushToMobile") 
             </a>
             </li>
         </ul>
@@ -44,32 +42,30 @@
         <div class="sprtHeaderOuter">
             <div class="sprtHeaderInner pV10 pR10 ">
             <p class="detailTitle">
-                <a href="http://beauty.hotpepper.jp/slnH000231733/">
-                @salon.salonName    
-                </a>
+                <a href="@routes.Salons.getSalon(salon.id)"> @salon.salonName</a>
             </p>
             <p class="fs10 fgGray">
                 @salon.salonNameAbbr 
             </p>
             <dl class="cFix pV5 pL10">
-                <dt class="fl fs10 fgLGray2 b mR5">
-                ネット予約OK
-                </dt>
-                <dd class="fl iS offL listImmediately mR5">
-                即時予約OK
-                </dd>
-                <dd class="fl iS offL listNominate mR5">
-                指名予約OK
-                </dd>
-                <dd class="fl iS offL listTheDay mR5">
-                当日OK
-                </dd>
-                <dd class="fl iS offL listPoint mR5">
-                ポイント加盟店
-                </dd>
-                <dd class="fl iS offL listMensOK mR5">
-                メンズ利用OK
-                </dd>
+                @if(salon.salonFacilities.canOnlineOrder) {
+                    <dt class="fl fs10 fgLGray2 b mR5">@Messages("salon.canOnlineOrderValue")</dt>
+                }
+                @if(salon.salonFacilities.canImmediatelyOrder) {
+                    <dd class="fl iS offL listImmediately mR5">@Messages("salon.canImmediatelyOrderValue")</dd>
+                }
+                @if(salon.salonFacilities.canNominateOrder) {
+                    <dd class="fl iS offL listNominate mR5">@Messages("salon.canNominateOrderValue")</dd>
+                }
+                @if(salon.salonFacilities.canCurntDayOrder) {
+                    <dd class="fl iS offL listTheDay mR5">@Messages("salon.canCurntDayOrderValue")</dd>
+                }
+                @if(salon.salonFacilities.isPointAvailable) {
+                    <dd class="fl iS offL listPoint mR5">@Messages("salon.isPointAvaliableValue")</dd>
+                }
+                @if(salon.salonFacilities.canMaleUse) {
+                    <dd class="fl iS offL listMensOK mR5">@Messages("salon.canMaleUseValue")</dd>
+                }
             </dl>
             <div class="cFix mT5 pT5 bdDotT">
                 <div class="fr cFix qrcode">
@@ -98,25 +94,25 @@
         </div>
         <ul class="bS menuBG cFix">
             <li class="fl">
-                <a href="/salon/@salon.id" class="bS db @if(navInSalon == "salon-basic") {salonInformationCurrent} else {salonInformation} offL"> サロン情報 </a>
+                <a href="@routes.Salons.getSalon(salon.id)" class="bS db @if(navInSalon == "salon-basic") {salonInformationCurrent} else {salonInformation} offL">@Messages("salon.salonBasic")</a>
             </li>
             <li class="fl">
-                <a href="/salon/@salon.id/coupons" class="bS db @if(navInSalon == "salon-coupon") {couponAndMenuCurrent} else {couponAndMenu} offL"> クーポン・メニュー </a>
+                <a href="@routes.Salons.getAllCoupons(salon.id)" class="bS db @if(navInSalon == "salon-coupon") {couponAndMenuCurrent} else {couponAndMenu} offL">@Messages("salon.couponMenus") </a>
             </li>
             <li class="fl">
-                <a href="/salon/@salon.id/stylists" class="bS db @if(navInSalon == "salon-stylist") {stylistCurrent} else {stylist} offL"> スタイリスト </a>
+                <a href="@routes.Salons.getAllStylists(salon.id)" class="bS db @if(navInSalon == "salon-stylist") {stylistCurrent} else {stylist} offL">@Messages("salon.stylists")</a>
             </li>
             <li class="fl">
-                <a href="/salon/@salon.id/styles" class="bS db @if(navInSalon == "salon-style") {styleCurrent} else {style} offL"> スタイル </a>
+                <a href="@routes.Salons.getAllStyles(salon.id)" class="bS db @if(navInSalon == "salon-style") {styleCurrent} else {style} offL">@Messages("salon.styles")</a>
             </li>
             <li class="fl">
-                <a href="/salon/@salon.id/blogs" class="bS db @if(navInSalon == "salon-blog") {blogCurrent} else {blog} offL"> ブログ </a>
+                <a href="@noAuth.routes.Blogs.getAllBlogsOfSalon(salon.id)" class="bS db @if(navInSalon == "salon-blog") {blogCurrent} else {blog} offL">@Messages("salon.blogs")</a>
             </li>
             <li class="fl">
-                <a href="#" class="bS db @if(navInSalon == "salon-accessmap") {accessMapCurrent} else {accessMap} offL"> 地図 </a>
+                <a href="#" class="bS db @if(navInSalon == "salon-accessmap") {accessMapCurrent} else {accessMap} offL">@Messages("salon.accessMap")</a>
             </li>
             <li class="fr">
-                <a href="/salon/@salon.id/comments" class="bS db @if(navInSalon == "salon-comment") {kuchikomiCurrent} else {kuchikomi} offL"> 口コミ </a>
+                <a href="@routes.Comments.findBySalon(salon.id)" class="bS db @if(navInSalon == "salon-comment") {kuchikomiCurrent} else {kuchikomi} offL">@Messages("salon.comments")</a>
             </li>
         </ul>
     </div>
