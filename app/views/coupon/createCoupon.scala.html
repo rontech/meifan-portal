@@ -8,13 +8,20 @@
 	<div class="couponInfo">
 		<input type="hidden" name="salonId" value="@salonId" />
 		
+		@if(couponForm.hasGlobalErrors) { 
+              <div>
+                  <p align = center>@couponForm.globalError.get.message<p>
+              </div>
+         }
+		
 		@inputText(couponForm("couponName"), '_label -> Messages("coupon.couponName"),
-			'_error -> couponForm("couponName").error.map(_.withMessage(Messages("coupon.addErrorMsg")))
+			'_error -> couponForm("couponName").error.map(_.withMessage(Messages("coupon.couponNameRequired")))
 		)
 		
 		<fieldset class="serviceArea">
 			<legend>@Messages("coupon.serviceArea")</legend>
-			@input(field = couponForm("serviceItems"), args = '_label ->None){(id,name,value,args) =>
+			@input(field = couponForm("serviceItems"), args = '_label ->None, 
+				'_error -> couponForm("serviceItems").error.map(_.withMessage(Messages("coupon.couponServiceRequired")))){(id,name,value,args) =>
 			 	@for(service <- services) {
 			 		<div class="serviceItemArea">
 			 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
@@ -23,17 +30,23 @@
 			  }
 		</fieldset>
 		
-		@inputText(couponForm("perferentialPrice"),'_label -> Messages("coupon.perferentialPrice"))
+		@inputText(couponForm("perferentialPrice"),'_label -> Messages("coupon.perferentialPrice"),
+			 '_error -> couponForm("perferentialPrice").error.map(_.withMessage(Messages("coupon.perferentialPriceErr"))))
 		
-		@inputDate(couponForm("startDate"), '_label -> Messages("coupon.startDate"))
+		@inputDate(couponForm("startDate"), '_label -> Messages("coupon.startDate"),
+			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.startDateRequired"))))
 		
-		@inputDate(couponForm("endDate"), '_label -> Messages("coupon.endDate"))
+		@inputDate(couponForm("endDate"), '_label -> Messages("coupon.endDate"),
+			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.endDateRequired"))))
 		
-		@inputText(couponForm("useConditions"), '_label -> Messages("coupon.useConditions"))
+		@inputText(couponForm("useConditions"), '_label -> Messages("coupon.useConditions"), 
+			'_error -> couponForm("useConditions").error.map(_.withMessage(Messages("coupon.useConditionsRequired"))))
 		
-		@inputText(couponForm("presentTime"), '_label -> Messages("coupon.presentTime"))
+		@inputText(couponForm("presentTime"), '_label -> Messages("coupon.presentTime"), 
+			'_error -> couponForm("presentTime").error.map(_.withMessage(Messages("coupon.presentTimeRequired"))))
 		
-		@inputText(couponForm("description"), '_label -> Messages("coupon.description"))
+		@inputText(couponForm("description"), '_label -> Messages("coupon.description"), 
+			'_error -> couponForm("description").error.map(_.withMessage(Messages("coupon.couponDiscriptionErr"))))
 		
 	</div>
 	<div class="btnArea">
