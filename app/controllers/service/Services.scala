@@ -87,7 +87,7 @@ object Services extends Controller {
  */  
   def updateService(id: ObjectId, salonId: ObjectId) = Action { implicit request =>
     serviceUpdateForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.service.updateService(Salon.findById(salonId).get,errors,Service.findOneById(id).get)),
+      errors => BadRequest(views.html.salon.admin.editSalonService(Salon.findById(salonId).get,errors,Service.findOneById(id).get)),
       {
         service =>
           Service.save(service.copy(id = id), WriteConcern.Safe)
