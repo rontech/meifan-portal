@@ -266,7 +266,7 @@ object SalonsAdmin extends Controller {
     def styleUpdateNewBySalon = Action {
         implicit request =>
             Styles.styleUpdateForm.bindFromRequest.fold(
-                errors => BadRequest(views.html.test(errors)),
+                errors => BadRequest(views.html.index("")),
                 {
                     case (styleUpdateForm) => {
                         Style.updateStyle(styleUpdateForm)

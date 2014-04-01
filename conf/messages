@@ -356,6 +356,8 @@ stylist.removeSalon = 离开店铺
 stylist.update = 更新
 stylist.industry = 职位
 stylist.stylistId = 用户ID
+stylist.workYesrs = 工作年数
+
 
 
 #Stylist Apply
@@ -387,7 +389,7 @@ stylistMag.styleManage = 发型管理
 stylistMag.serviceManage = 服务管理
 stylistMag.salonHistory = 店铺历史
 stylistMag.totalReserv = 显示当天预约
-stylist.mySalon = 我的salon
+stylist.mySalon = 我的店铺
 
 
 # User
@@ -465,6 +467,7 @@ user.registerMessage3 = 新用户还可以免费得到20个积分点哦！
 user.userLogin = 会员登录
 user.loginMessage = 如果你已经是本网站的会员，请在下面输入用户名和密码登录！
 user.forgetPassword = 如果你忘记密码，请点击这里
+user.applyStylist = 普通会员申请技师
 
 
 
@@ -589,4 +592,25 @@ restDay.restDay.1.5=星期六
 restDay.restDay.1.6=星期日
 restDay.message=
 salon.image=添加图片
+
+#industy
+industy = 行业
+ChooseIndustry = --选择行业--
+ChoosePosition = --选择职位--
+positionName = 职位
+addPositionAndIndusty = 添加行业与职位
+removePositionAndIndusty = 移除
+Cosmetic = 美容
+Healthcare = 护理
+Manicures = 美甲
+Hairdressing = 美发
+Other = 其它
+Supple = 软发
+Perm = 烫发
+Care = 护理
+Dye = 染发
+Blow = 吹发
+Wash = 洗发
+Cut = 剪发
+salonAccountId = 店铺账号
 

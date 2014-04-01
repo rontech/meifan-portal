@@ -8,32 +8,39 @@
     <div class="content">
 
       <div class="page-header">
-        <h1>普通会员申请技师</h1>
+        <h1>@Messages("user.applyStylist")</h1>
       </div>
 
       <div class="row">
         <div class="span14">
           	@form(auth.routes.Users.commitStylistApply(), 'id -> "userForm"){
 		
-       		@inputText(stylistForm("stylist.label"), '_label -> Messages("stylist.name"), 'default ->user.nickName)
+       		@inputText(stylistForm("stylist.label"), '_label -> Messages("stylist.name"), '_default ->user.nickName)
 			
 			@inputText(stylistForm("stylist.workYears"), '_label -> Messages("stylist.workYears"), 'class ->  "font1")
 
 			
-			@inputText(stylistForm("salonId"), '_label -> "salonId", 'class ->  "font1")
+			@inputText(stylistForm("salonId"), '_label -> Messages("salonAccountId"), 'class ->  "font1")
 			
-			@input(field = stylistForm("stylist.position.industryName"),args = '_label ->Messages("stylist.industry")){(id,name,value,args) =>
-			 	@for(i <- 0 to goodAtStylePara.industry.length-1){
-			 		<input type = "checkbox" class="" name = "stylist.position.industryName[@i]" value = "@goodAtStylePara.industry(i)">@goodAtStylePara.industry(i)
-			 		<select name="stylist.position.positionName[@i]">
-			 			<option>--</option>
-			 			@goodAtStylePara.position.map{idy=>
-			 				<option value="@idy">@idy</option>
-			 			}
-			 		</select>
-			 		<br />
-			 	}
-			 }
+			
+				<div id="optContactMethods">
+				@repeat(stylistForm("position")){position=>
+					@stylistPosition(position)
+				}
+				@**
+	                 * Keep an hidden block that will be used as template for Javascript copy code
+	                 **@
+	                @stylistPosition(
+	                    stylistForm("position[x]"),
+	                    className = "optContactMethod_template"
+	                )
+	                
+	                <div class="manage">
+	                    <a class="addOptContactMethod btn success">@Messages("addPositionAndIndusty")</a>
+	                </div>
+	            
+	            </div>
+            
 			
 			@input(field = stylistForm("stylist.goodAtImage"),args = '_label ->Messages("stylist.goodAtImage")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtStylePara.goodAtImage.length-1){
@@ -49,7 +56,7 @@
 			  
 			@input(field = stylistForm("stylist.goodAtService"),args = '_label ->Messages("stylist.goodAtService")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtStylePara.goodAtService.length-1){
-			 		<input type = "checkbox" name = "stylist.goodAtService[@i]" value = "@goodAtStylePara.goodAtService(i)">@goodAtStylePara.goodAtService(i)
+			 		<input type = "checkbox" name = "stylist.goodAtService[@i]" value = "@goodAtStylePara.goodAtService(i)">@Messages(goodAtStylePara.goodAtService(i))
 			 		@if((i+1)%6==0){
 			 			<br />
 			 		}
@@ -68,13 +75,13 @@
 			 	}
 			  }
 			
-			@textarea(field = stylistForm("stylist.myWords"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.myWords"))
+			@textarea(field = stylistForm("stylist.myWords"),'rows -> 4, 'cols -> 40, '_label -> Messages("stylist.myWords"))
 			
-			@textarea(field = stylistForm("stylist.mySpecial"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.mySpecial"))
+			@textarea(field = stylistForm("stylist.mySpecial"),'rows -> 4, 'cols -> 40, '_label -> Messages("stylist.mySpecial"))
 			            
-            @textarea(field = stylistForm("stylist.myBoom"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.myBoom"))
+            @textarea(field = stylistForm("stylist.myBoom"),'rows -> 4, 'cols -> 40, '_label -> Messages("stylist.myBoom"))
  		
-		  	@textarea(field = stylistForm("stylist.myPR"),'rows -> 2, 'cols -> 20, '_label -> Messages("stylist.myPR"))
+		  	@textarea(field = stylistForm("stylist.myPR"),'rows -> 4, 'cols -> 40, '_label -> Messages("stylist.myPR"))
 		  	
 		<input type="submit" class = "buttons" value="@Messages("stylist.submit")">
             
@@ -86,3 +93,50 @@
   </div>
 	}
 }
+
+@stylistPosition(field: Field, className: String = "optContactMethod") ={
+	<div class="twipsies well @className">
+		<a class="removeOptContactMethod btn danger pull-right">@Messages("removePositionAndIndusty")</a>
+		<div class="industry">
+        @select(
+                field("industryName"), 
+                options = options(goodAtStylePara.industry),
+                '_default -> Messages("ChooseIndustry"),
+                '_label -> Messages("industy")
+                
+            )
+        &nbsp;&nbsp;
+        @select(
+                field("positionName"), 
+                options = options(goodAtStylePara.position),
+                '_default -> Messages("ChoosePosition"),
+                '_label -> Messages("positionName")
+                
+            )
+        </div>
+        <div></div>    
+ 	</div>
+}
+<script type="text/javascript" charset="utf-8">
+        
+        $('.removeOptContactMethod').live('click', function(e) {
+            $(this).parents('.optContactMethod').remove()
+            renumber()
+        })
+        
+        $('.addOptContactMethod').live('click', function(e) {
+            var template = $('.optContactMethod_template')
+            template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
+            renumber()
+        })
+       
+        var renumber = function(accounts) {
+            $('.optContactMethod').each(function(i) {
+                $('select', this).each(function() {
+                    $(this).attr('name', $(this).attr('name').replace(/position\[.+?\]/g, 'position[' + i + ']'))
+                })
+                
+            })
+        }
+        
+</script>
