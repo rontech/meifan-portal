@@ -26,9 +26,11 @@
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("user.followSalon")</strong>
 	  			<ul class='clearfix'>
-	  						@followInfo.followSalon.map {salon =>
+	  					@followInfo.followSalon.slice(0,8).map {salon =>
 	  						<li>
-    	 						<a href="@routes.Salons.getSalon(salon.id)" target="blank">@salon.salonName</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 						<a href="@routes.Salons.getSalon(salon.id)">
+                                    <img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)" alt="@salon.salonNameAbbr" title="@salon.salonNameAbbr" align="absmiddle" class = "SmallPortrait">
+                                </a>
     	 			     	</li>
 	  				}
     			</ul>
@@ -39,9 +41,11 @@
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("user.followStylist")</strong>
 	  			<ul class='clearfix'>
-	  					@followInfo.followStylist.map {stylist =>
+	  				@followInfo.followStylist.slice(0,8).map {stylist =>
 	  					<li>
-    	 				       <a href="#">@Stylist.findUserName(stylist.stylistId)</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 				       <a href="#">
+    	 				           <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" alt="@Stylist.findUserName(stylist.stylistId)" title="@Stylist.findUserName(stylist.stylistId)" align="absmiddle" class = "SmallPortrait">
+    	 				       </a>
     	 			    </li>
 	  					}
     			</ul>
@@ -52,9 +56,11 @@
 			<div class='Mod Users' id='Fans'>
 	   			<strong>@Messages("user.followUser")</strong>
 	   			<ul class='clearfix'>
-      				@followInfo.followUser.map {user =>
+      				@followInfo.followUser.slice(0,8).map {user =>
 	  					<li>
-    	 				       <a href="@noAuth.routes.Users.userPage(user.userId)">@user.nickName</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 				       <a href="@noAuth.routes.Users.userPage(user.userId)">
+    	 				            <img src="@routes.Application.getPhoto(user.userPics)" alt="@user.nickName" title="@user.nickName" align="absmiddle" class = "SmallPortrait">
+    	 				       </a>
     	 			    </li>
 	  					}
 				</ul>
@@ -63,7 +69,7 @@
      			</div>
 			</div>
 			<div class='Mod Users' id='Fans'>
-				<strong>快速导航</strong>
+				<strong>@Messages("user.quickNavigation")</strong>
         		<ul class='clearfix'>
 
                     <li><a href="@auth.routes.Users.myReservation">@Messages("user.reservation")</a></li><br>

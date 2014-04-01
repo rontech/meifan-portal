@@ -42,16 +42,6 @@ object MyFollows extends Controller with AuthElement with AuthConfigImpl {
         val followInfo = MyFollow.getAllFollowInfo(user.id)
         Ok(views.html.user.myFollowCoupon(user,followInfo))
     }
-
-    /**
-     * 我收藏的店铺动态
-     */
-    def followedSalonActi() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-        val user = loggedIn
-        //TODO
-        val followInfo = MyFollow.getAllFollowInfo(user.id)
-        Ok(views.html.user.myFollowSalonActi(user,followInfo))
-    }
     
     /**
      * 收藏的博客

@@ -2,10 +2,10 @@
 	<li><table class="ostable">
 		<tbody>
 			<tr>
-				<td class="avatar"><a href="#" title=""><img src="#" align="absmiddle" alt="" title="1" class="SmallPortrait" user="1435017"></a></td>
+				<td class="avatar"><a href="@noAuth.routes.Users.userPage(followUser.userId)" title=""><img src="@routes.Application.getPhoto(followUser.userPics)" align="absmiddle" alt="" title="1" class="SmallPortrait" user="1435017"></a></td>
 				<td class="update">
-					<span class="name"><a href="#" target="_blank">@followUser.nickName</a></span><br>
-					<span class="city">@followUser.point</span>
+					<span class="name"><a href="@noAuth.routes.Users.userPage(followUser.userId)" target="_blank">@followUser.nickName</a></span><br>
+					<span class="city">@followUser.address.province &nbsp;@followUser.address.city</span>
 				</td>
 				<td class="opts">
 					@if(MyFollow.checkIfFollow(loginUserId,followUser.id)){

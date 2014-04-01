@@ -114,7 +114,7 @@ GET         /myPage/myReservation                                      controlle
 GET         /myPage/followedCoupon                                     controllers.auth.MyFollows.followedCoupon
 GET         /myPage/followedBlog                                       controllers.auth.MyFollows.followedBlog
 GET         /myPage/followedStyle                                      controllers.auth.MyFollows.followedStyle
-GET         /myPage/followedSalonActi                                  controllers.auth.MyFollows.followedSalonActi
+#GET         /myPage/followedSalonActi                                  controllers.auth.MyFollows.followedSalonActi
 GET         /myPage/followedSalon                                      controllers.noAuth.MyFollows.followedSalon(id: ObjectId)
 GET         /myPage/followedStylist                                    controllers.noAuth.MyFollows.followedStylist(id: ObjectId)
 GET         /myPage/followedUser                                       controllers.noAuth.MyFollows.followedUser(id:ObjectId)
