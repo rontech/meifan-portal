@@ -9,6 +9,7 @@ import com.mongodb.casbah.commons.Imports._
 import java.util.Date
 import models._
 import views._
+import play.api.i18n.Messages
 
 object Coupons extends Controller {
     
@@ -16,17 +17,47 @@ object Coupons extends Controller {
     mapping(
         "couponName" -> nonEmptyText,
         "salonId" -> text,
-        "serviceItems" -> seq(
+        "serviceItems" -> list(
          mapping(
            "id" -> text
          ){(id) => Service(new ObjectId(id), "", "", "", new ObjectId(), BigDecimal(0), 0, null, null, true)}
-         {service => Some((service.id.toString()))}),
+         {service => Some((service.id.toString()))}
+         ).verifying(Messages("coupon.couponServiceRequired"), serviceItems => !serviceItems.isEmpty),
           "perferentialPrice" -> bigDecimal,
           "startDate" -> date,
           "endDate" -> date,
-          "useConditions" -> text,
-          "presentTime" -> text,
-          "description" -> text
+          "useConditions" -> nonEmptyText,
+          "presentTime" -> nonEmptyText,
+          "description" -> nonEmptyText
+    ){
+      (couponName, salonId, serviceItems, perferentialPrice, startDate, endDate, useConditions, presentTime, description) => Coupon(new ObjectId, "", couponName,
+          new ObjectId(salonId), serviceItems, BigDecimal(0), perferentialPrice, 0, startDate, endDate, useConditions, presentTime, description, true)
+    }
+    {
+      coupon => Some((coupon.couponName, coupon.salonId.toString(), coupon.serviceItems, coupon.perferentialPrice, coupon.startDate,
+          coupon.endDate, coupon.useConditions, coupon.presentTime, coupon.description))
+    }.verifying(
+        Messages("coupon.couponNameRepeat"),
+        coupon => !Coupon.checkCouponIsExit(coupon.couponName, coupon.salonId)   
+    )
+  }
+  
+  def couponUpdateForm: Form[Coupon] = Form {
+    mapping(
+        "couponName" -> nonEmptyText,
+        "salonId" -> text,
+        "serviceItems" -> list(
+         mapping(
+           "id" -> text
+         ){(id) => Service(new ObjectId(id), "", "", "", new ObjectId(), BigDecimal(0), 0, null, null, true)}
+         {service => Some((service.id.toString()))}
+         ).verifying(Messages("coupon.couponServiceRequired"), serviceItems => !serviceItems.isEmpty),
+          "perferentialPrice" -> bigDecimal,
+          "startDate" -> date,
+          "endDate" -> date,
+          "useConditions" -> nonEmptyText,
+          "presentTime" -> nonEmptyText,
+          "description" -> nonEmptyText
     ){
       (couponName, salonId, serviceItems, perferentialPrice, startDate, endDate, useConditions, presentTime, description) => Coupon(new ObjectId, "", couponName,
           new ObjectId(salonId), serviceItems, BigDecimal(0), perferentialPrice, 0, startDate, endDate, useConditions, presentTime, description, true)
@@ -35,39 +66,6 @@ object Coupons extends Controller {
       coupon => Some((coupon.couponName, coupon.salonId.toString(), coupon.serviceItems, coupon.perferentialPrice, coupon.startDate,
           coupon.endDate, coupon.useConditions, coupon.presentTime, coupon.description))
     }
-  }
-  
-  def createCouponForm: Form[CreateCoupon] = Form {
-      mapping(
-         "couponItem" -> 
-         mapping(
-        "couponName" -> nonEmptyText,
-        "salonId" -> text,
-        "serviceItems" -> seq(
-         mapping(
-           "id" -> text
-         ){(id) => Service(new ObjectId(id), "", "", "", new ObjectId(), BigDecimal(0), 0, null, null, true)}
-         {service => Some((service.id.toString()))}),
-          "perferentialPrice" -> bigDecimal,
-          "startDate" -> date,
-          "endDate" -> date,
-          "useConditions" -> text,
-          "presentTime" -> text,
-          "description" -> text
-	    ){
-	      (couponName, salonId, serviceItems, perferentialPrice, startDate, endDate, useConditions, presentTime, description) => Coupon(new ObjectId, "", couponName,
-	          new ObjectId(salonId), serviceItems, BigDecimal(0), perferentialPrice, 0, startDate, endDate, useConditions, presentTime, description, true)
-	    }
-	    {
-	      coupon => Some((coupon.couponName, coupon.salonId.toString(), coupon.serviceItems, coupon.perferentialPrice, coupon.startDate,
-	          coupon.endDate, coupon.useConditions, coupon.presentTime, coupon.description))
-	    }
-	    ){
-	      (couponItem) => CreateCoupon(couponItem, null, Nil)
-	    }
-	    {
-	      createCoupon => Some((createCoupon.couponItem))
-	    }
   }
   
   def conditionForm: Form[CouponServiceType] = Form {
@@ -98,16 +96,6 @@ object Coupons extends Controller {
         case None => NotFound
 	  }
   }
-  /*def couponMain(salonId: ObjectId) = Action{
-	  val salon: Option[Salon] = Salon.findById(salonId)
-	  val coupon: Coupon = Coupon(new ObjectId, "", "", salonId, Nil, BigDecimal(0), BigDecimal(0), 0, new Date, new Date, "", "", "", true)
-	  
-	  salon match {
-	    case Some(s) => var createCoupon: CreateCoupon = CreateCoupon(coupon, s, Service.findBySalonId(salonId))
-	                    Ok(html.salon.admin.createSalonCoupon(createCouponForm.fill(createCoupon)))
-        case None => NotFound
-	  }
-  }*/
   
   /**
    * 创建优惠劵
@@ -226,7 +214,7 @@ object Coupons extends Controller {
     coupon match {
       case Some(s) => val salon = Salon.findById(s.salonId)
                       salon match {
-                         case Some(k) => Ok(html.salon.admin.editSalonCoupon(k, couponForm.fill(s), Service.findBySalonId(s.salonId)))
+                         case Some(k) => Ok(html.salon.admin.editSalonCoupon(k, couponForm.fill(s), Service.findBySalonId(s.salonId), s))
                          case None => NotFound
                       }
       case None => NotFound
@@ -236,9 +224,9 @@ object Coupons extends Controller {
   /**
    * 更新优惠劵信息
    */
-  def updateCoupon(couponId: ObjectId) = Action { implicit request =>
-    couponForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.error.errorMsg(errors)),
+  def updateCoupon(couponId: ObjectId, salonId: ObjectId) = Action { implicit request =>
+    couponUpdateForm.bindFromRequest.fold(
+        errors => BadRequest(html.salon.admin.editSalonCoupon(Salon.findById(salonId).get, errors, Service.findBySalonId(salonId), Coupon.findOneById(couponId).get)),
         {
           coupon =>
             var services: List[Service] = Nil

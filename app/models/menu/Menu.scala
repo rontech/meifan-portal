@@ -14,7 +14,7 @@ case class Menu (
         menuName: String,
         description: String,
         salonId: ObjectId,
-        serviceItems: Seq[Service],
+        serviceItems: List[Service],
         serviceDuration: Int,
         originalPrice: BigDecimal,
         createDate: Date,
@@ -40,6 +40,9 @@ object Menu extends ModelCompanion[Menu, ObjectId]{
     def findAllMenus : List[Menu] = dao.find(MongoDBObject.empty).toList
     
     def findBySalon(salonId: ObjectId): List[Menu] = dao.find(MongoDBObject("salonId" -> salonId)).toList
+    
+    // 查找沙龙中是否已存在该菜单
+    def checkMenuIsExit(menuName: String, salonId: ObjectId) = dao.find(DBObject("menuName" -> menuName, "salonId" -> salonId)).hasNext
     
     def findContainCondtions(serviceTypes: Seq[String]): List[Menu] = {
     	dao.find("serviceItems.serviceType" $all serviceTypes).toList

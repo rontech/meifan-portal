@@ -1,0 +1,36 @@
+@(salon: Salon, serviceForm: Form[Service], service: Service)
+
+@import helper._
+
+@mySalonMain(navInSalon = "salon-coupon", salon){
+	
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/service/service.css")">
+	
+   <div class="serviceInfo">
+  		  @form(routes.Services.updateService(service.id,salon.id), 'id -> "serviceForm") {
+			<input type="hidden" name="salonId" value="@salon.id" />
+
+			@inputText(serviceForm("serviceName"),'_label -> Messages("service.name"), 'readonly ->"true")
+     	
+                     <input type="hidden" name="serviceType" value="@service.serviceType">
+                     <dl>
+                     	<dt>@Messages("service.type")</dt>
+                         <dd>
+                     	   <input type = "text" name = "" value = @Messages("ServiceType.serviceTypeName."+ service.serviceType) readonly="readonly">
+                         </dd>
+                     </dl>
+                     
+			@inputText(serviceForm("price"),'_label -> Messages("service.price"),
+                '_error -> serviceForm("price").error.map(_.withMessage(Messages("service.priceErrorMsg"))))
+
+			@inputText(serviceForm("duration"),'_label -> Messages("service.tsCost"),
+                '_error -> serviceForm("duration").error.map(_.withMessage(Messages("service.durationErrorMsg"))))
+                
+            @textarea(field = serviceForm("description"),'rows -> 2, 'cols -> 20, '_label -> Messages("service.description"))
+
+   			<div class="btnAreaUpdate">
+	  			<input type="submit" class = "buttons" value="@Messages("service.update")">
+ 		   </div>
+  		}
+  </div>
+}
