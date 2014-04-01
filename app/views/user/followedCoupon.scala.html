@@ -1,6 +1,6 @@
-@(user: User,followInfo:FollowInformation)
+@(user: User,followInfo:FollowInformation, loginUserId:ObjectId)
 
-@myPageMain(navInMyPage = "my-save-coupon", user, followInfo) {
+@myPageMain(navInMyPage = "followCoupon", user, followInfo, loginUserId, true) {
 	
     @if(followInfo.followCoupon.isEmpty) {
     <div class="bgAlertMsg mT20">

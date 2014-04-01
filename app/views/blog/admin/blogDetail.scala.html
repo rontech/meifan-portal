@@ -4,7 +4,7 @@
 @import java.text.DateFormat
 
 @if(loggedId.equals(user.id)){
-	@myPageMain(navInMyPage = "my-blog", user, followInfo) {
+	@myPageMain(navInMyPage = "my-blog", user, followInfo, loggedId, logged) {
 		@views.html.blog.admin.blogContent(blog, user, commentList, followInfo, loggedId, logged)
 	}
 }else{	

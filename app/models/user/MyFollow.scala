@@ -59,6 +59,10 @@ object MyFollow extends ModelCompanion[MyFollow, ObjectId] {
     val isFollow = dao.findOne(MongoDBObject("userId" -> userId, "followObjId" -> followObjId))
     isFollow.nonEmpty
   }
+
+  def followEachOther(useId : ObjectId, followObjId:ObjectId) :Boolean ={
+    checkIfFollow(useId, followObjId)&&checkIfFollow(followObjId,useId)
+  }
   
   /**
    *根据用户名检验是否已关注或收藏并且有效 

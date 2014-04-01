@@ -4,7 +4,7 @@
 				<span class='U'>
       				<a href="@auth.routes.Users.myPage" class='Name' title='female'>@user.userId</a>
 					<span class='opts'>
-						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='absmiddle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
+						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='middle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
 						<a href = "/changeImage">@Messages("user.changeImage")</a>
 					</span>
 				</span>
@@ -21,8 +21,39 @@
 	  		</div>
    			<div class='Opts clearfix'>
                 <a href="@auth.routes.Users.myInfo" class='a2 admin'><span>@Messages("user.changeInfo")</span></a>
-				<a href="/showBlog/@user.userId" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
-			</div>  			
+				<a href="@noAuth.routes.Blogs.showBlog(user.userId)" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
+			</div>
+            @if(user.userTyp.equals(User.STYLIST)){
+                <!-- 我的沙龙，如果没有则显示来自沙龙的邀请 -->
+                <div class='Mod Users' id='Fans'>
+                @if(SalonAndStylist.findByStylistId(user.id).isEmpty){
+                    <a href="@routes.Stylists.findSalonApply(user.id)">
+                        <strong>@Messages("stylistMag.salonApply")</strong>
+                        <div class='more'>
+                            <a href="@routes.Stylists.findSalonApply(user.id)">@Messages("stylistMag.countSalonApply")
+                                (@SalonStylistApplyRecord.applingSalonCount(user.id))
+                            </a>
+                        </div>
+                        }else{
+                    <a href="@routes.Stylists.mySalon(user.id)">
+                        <strong>@Messages("stylistMag.mySalon")</strong>
+                        <div class='more'>
+                            <a href="@routes.Stylists.mySalon(user.id)">
+                                <img src="#"/>
+                                <span>@Stylist.mySalon(user.id).salonName</span>
+                            </a>
+                        </div>
+                        }
+                </div>
+                <!-- 我的发型 -->
+                <div class='Mod Users' id='Fellows'>
+                    <strong>@Messages("stylistMag.myStyle")</strong>
+                    <div class='more'>
+                        <a href="/findMyStylesByStylist/@user.id">@Messages("stylistMag.showAllStyles")
+                            (@Stylist.countStyleByStylist(user.id))</a>
+                    </div>
+                </div>
+            }
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("user.followSalon")</strong>
 	  			<ul class='clearfix'>
@@ -40,9 +71,11 @@
     			<strong>@Messages("user.followStylist")</strong>
 	  			<ul class='clearfix'>
 	  					@followInfo.followStylist.map {stylist =>
+                                @{ val user = User.findOneById(stylist.stylistId).get
 	  					<li>
-    	 				       <a href="/stylistViews/@stylist.stylistId">@stylist.stylistId</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 				       <a href="@noAuth.routes.Users.userPage(user.userId)">@user.nickName</a>&nbsp;&nbsp;&nbsp;&nbsp;
     	 			    </li>
+                                }
 	  					}
     			</ul>
 				<div class='more'>
@@ -54,7 +87,7 @@
 	   			<ul class='clearfix'>
       				@followInfo.followUser.map {user =>
 	  					<li>
-    	 				       <a href="@noAuth.routes.Users.userPage(user.userId)">@user.userId</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 				       <a href="@noAuth.routes.Users.userPage(user.userId)">@user.nickName</a>&nbsp;&nbsp;&nbsp;&nbsp;
     	 			    </li>
 	  					}
 				</ul>
@@ -65,10 +98,10 @@
 			<div class='Mod Users' id='Fans'>
 				<strong>快速导航</strong>
         		<ul class='clearfix'>
-                    <li><a href="/myPage/myReservation">@Messages("user.reservation")</a></li><br>
-        			<li><a href="/myPage/followedCoupon">@Messages("user.collectCoupon")</a></li><br>
-        			<li><a href="/myPage/followedBlog/@user.id">@Messages("user.collectBlog")</a></li><br>
-        			<li><a href="/myPage/followedStyle/@user.id">@Messages("user.collectStyle")</a></li><br>
+                    <li><a href="@auth.routes.Users.myReservation">@Messages("user.reservation")</a></li><br>
+        			<li><a href="@auth.routes.MyFollows.followedCoupon(user.id)">@Messages("user.collectCoupon")</a></li><br>
+        			<li><a href="@auth.routes.MyFollows.followedBlog(user.id)">@Messages("user.collectBlog")</a></li><br>
+        			<li><a href="@auth.routes.MyFollows.followedStyle(user.id)">@Messages("user.collectStyle")</a></li><br>
         			<li><a href="@auth.routes.Users.password">@Messages("user.changePassword")</a></li>
         		</ul>
 	  		</div>
@@ -76,5 +109,3 @@
 	  			<a href = "@auth.routes.Users.logout">@Messages("user.loginOut")</a>
 	  		</div>
 	<!-- ↑mainContents -->
-	
-

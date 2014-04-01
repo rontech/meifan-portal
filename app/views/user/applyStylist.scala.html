@@ -1,7 +1,7 @@
 @(stylistForm: Form[StylistApply], user: User, goodAtStylePara: GoodAtStyle,followInfo:FollowInformation )
 @import helper._
 
-@myPageMain(navInMyPage = "my-reservation",user, followInfo){
+@myPageMain(navInMyPage = "my-reservation",user, followInfo, user.id, true){
 	
 	<div class="container">
 

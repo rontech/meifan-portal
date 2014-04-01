@@ -109,16 +109,13 @@ GET         /myInfo/                                                   controlle
 GET         /userInfo/:userId                                          controllers.auth.Users.userInfo(userId)
 GET         /myPage/                                                   controllers.auth.Users.myPage
 GET         /myPage/myReservation                                      controllers.auth.Users.myReservation
-GET         /myPage/followedCoupon                                     controllers.auth.MyFollows.followedCoupon
-GET         /myPage/followedBlog                                       controllers.auth.MyFollows.followedBlog
-GET         /myPage/followedStyle                                      controllers.auth.MyFollows.followedStyle
-GET         /myPage/followedSalonActi                                  controllers.auth.MyFollows.followedSalonActi
-GET         /myPage/followedSalon                                      controllers.noAuth.MyFollows.followedSalon(id: ObjectId)
-GET         /myPage/followedStylist                                    controllers.noAuth.MyFollows.followedStylist(id: ObjectId)
-GET         /myPage/followedUser                                       controllers.noAuth.MyFollows.followedUser(id:ObjectId)
-GET         /myPage/followers                                          controllers.noAuth.MyFollows.followers(id:ObjectId)
-GET         /userPage/userBlog/:userId                                 controllers.noAuth.Users.userBlog(userId)
-GET         /userPage/userStyle/:userId                                controllers.noAuth.Users.userStyle(userId)
+POST        /userPage/followedCoupon                                   controllers.auth.MyFollows.followedCoupon(id: ObjectId)
+POST        /userPage/followedBlog                                     controllers.auth.MyFollows.followedBlog(id: ObjectId)
+POST        /userPage/followedStyle                                    controllers.auth.MyFollows.followedStyle(id: ObjectId)
+POST        /userPage/followedSalon                                    controllers.noAuth.MyFollows.followedSalon(id: ObjectId)
+POST        /userPage/followedStylist                                  controllers.noAuth.MyFollows.followedStylist(id: ObjectId)
+POST        /userPage/followedUser                                     controllers.noAuth.MyFollows.followedUser(id:ObjectId)
+POST        /userPage/followers                                        controllers.noAuth.MyFollows.followers(id:ObjectId)
 GET         /myPage/messages/:req                                      controllers.UserLetters.messageList(req:String)
 GET         /myPage/message/:id                                        controllers.UserLetters.showMessage(id:ObjectId)
 GET         /sendMessage                                               controllers.UserLetters.sendMessage

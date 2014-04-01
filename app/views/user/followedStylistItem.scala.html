@@ -1,4 +1,4 @@
-@(stylist:Stylist, loginUserId:ObjectId)
+@(stylist:Stylist, loginUserId:ObjectId, logged: Boolean)
 	<li><table class="ostable">
 		<tbody>
 			<tr>
@@ -8,12 +8,12 @@
 					<span class="city">@stylist.myWords</span>
 				</td>
 				<td class="opts">
-					@if(MyFollow.checkIfFollow(loginUserId,stylist.stylistId)){
+					@if(logged.equals(false) || MyFollow.checkIfFollow(loginUserId,stylist.stylistId)){
 						<a href="@*routes.auth.MyFollows.cancelFollow(stylist.stylistId)*@">@Messages("user.cancelFollow")</a>
 					}else{
 						<a href="@*routes.auth.MyFollows.addFollow(stylist.stylistId,"stylist")*@">@Messages("user.addFollow")</a>
 					}
-					<a href="#">@Messages("user.sendMsg")</a>
+					<a id="sendMsg">@Messages("user.sendMsg")</a>
 				</td>
 			</tr>
 		</tbody>

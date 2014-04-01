@@ -1,0 +1,11 @@
+@(user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
+
+@myPageMain("followedSalon", user, followInfo, loginUserId, logged) {
+	  <div class="MMod" id="Logs">
+    	  <ul>
+    		  @followInfo.followSalon.map{salon =>
+    			  @views.html.user.followedSalonItem(salon,loginUserId,logged)
+    		  }
+    	  </ul>
+   	  </div>
+}

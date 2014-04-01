@@ -87,42 +87,16 @@ object Users extends Controller with OptionalAuthElement with AuthConfigImpl{
    * 浏览他人主页
    */
   def userPage(userId : String) = StackAction{ implicit request =>
-    User.findOneByUserId(userId).map{user =>
+   /* User.findOneByUserId(userId).map{user =>
       val userFollowInfo = MyFollow.getAllFollowInfo(user.id)
       loggedIn.map{loggedUser =>
-         Ok(views.html.user.otherPage(user, userFollowInfo, loggedUser.id, true))      
+         Ok(views.html.user.otherPage(user, userFollowInfo, loggedUser.id, true))
       }getOrElse{
     	 Ok(views.html.user.otherPage(user, userFollowInfo))
       }
     }getOrElse{
       NotFound
-    }
+    }*/
+      Redirect(controllers.noAuth.routes.Blogs.showBlog(userId))
   }
-
-  /**
-   * 他人收藏的博客
-   */
-  def userBlog(userId: String) = StackAction{ implicit request =>
-    val loginUser = loggedIn
-    User.findOneByUserId(userId).map{user =>
-      val followInfo = MyFollow.getAllFollowInfo(user.id)
-      Ok(views.html.user.otherFollowBlog(user, followInfo))
-    }getOrElse{
-      NotFound
-    }
-  }
-
-  /**
-   * 他人收藏的风格
-   */
-  def userStyle(userId: String) = StackAction { implicit request =>
-    val loginUser = loggedIn
-    User.findOneByUserId(userId).map{user =>
-      val followInfo = MyFollow.getAllFollowInfo(user.id)
-      Ok(views.html.user.otherFollowStyle(user, followInfo))
-    }getOrElse{
-      NotFound
-    }
-  }
-
 }
