@@ -12,7 +12,7 @@
 @if(isStylist){
     <body>
         <div>
-        @form(routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm"){
+        @form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm"){
             <div>
                 @Messages("hair.styleName")<input type = "text" class="" name = "styleName" value = "">
             </div>

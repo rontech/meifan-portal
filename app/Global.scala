@@ -382,6 +382,7 @@ object InitialData {
             
             //save picture of salon
             val logofile = new File(play.Play.application().path() + "/public/images/store")
+            Image.files = Nil
             val logofiles = Image.listAllFiles(logofile)
             for(l <- logofiles){
                 val logoImgId = Image.save(l)

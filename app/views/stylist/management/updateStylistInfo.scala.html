@@ -59,7 +59,7 @@
       </div>
 		<div class="row">
         <div class="span14">
-          	@form(routes.Stylists.toUpdateStylistInfo(stylist.stylistId), 'id -> "userForm"){
+          	@form(auth.routes.Stylists.toUpdateStylistInfo(stylist.stylistId), 'id -> "userForm"){
 		
        		@inputText(stylistForm("workYears"), '_label -> Messages("stylist.workYesrs"), 'readOnly -> true, 'class ->  "font1")
 			<fieldset>

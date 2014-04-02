@@ -1,4 +1,4 @@
-package controllers
+package controllers.auth
 
 import java.util.Date
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -68,249 +68,148 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
             }
         )
   
-  def mySalon(stylistId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(stylistId) _){implicit request =>
-    val loginUser = loggedIn
-    val user = User.findOneById(stylistId).get
-    val followInfo = MyFollow.getAllFollowInfo(stylistId)
-    val salon = Stylist.mySalon(stylistId)
-    val stylist = Stylist.findOneByStylistId(stylistId)
-    stylist match {
-      case Some(sty) => {
-        Ok(views.html.stylist.management.stylistMySalon("mySalonPage",user,followInfo,loginUser.id,true,sty,salon))
-      }
-      case None => NotFound
-    }
-  }
+	 
+	  /**
+	   *  同意salon邀请
+	   */
+	 def agreeSalonApply(stylistId: ObjectId, salonId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) {implicit request =>
+	      val user = loggedIn
+	      
+	      val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, stylistId)
+	        record match {
+	          case Some(re) => {
+	            SalonStylistApplyRecord.agreeStylistApply(re)
+	            val stylist = Stylist.findOneByStylistId(re.stylistId)
+	            Stylist.becomeStylist(stylistId)
+	            SalonAndStylist.entrySalon(salonId, stylistId)
+	            Redirect(noAuth.routes.Stylists.mySalon(stylistId))
+	          }
+	          case None => NotFound
+	        }
+	  }
+	  
+	  /**
+	   *  拒绝salon邀请
+	   */
+	 def rejectSalonApply(stylistId: ObjectId, salonId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) {implicit request =>
+	     val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, stylistId)
+	        record match {
+	          case Some(re) => {
+	            SalonStylistApplyRecord.agreeStylistApply(re)
+	            val stylist = Stylist.findOneByStylistId(re.stylistId)
+	            Redirect(noAuth.routes.Stylists.mySalon(stylistId))
+	          }
+	          case None => NotFound
+	        } 
+	  }
+	  
+	 def findSalonApply(stylistId: ObjectId) =  StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _){implicit request =>
+	    val user = loggedIn
+	    val followInfo = MyFollow.getAllFollowInfo(user.id)
+	    val applySalons = SalonStylistApplyRecord.findApplingSalon(user.id)
+	    val stylist = Stylist.findOneByStylistId(stylistId)
+	    stylist match {
+	      case Some(sty) => {
+	        Ok(views.html.stylist.management.stylistApplyingSalons(user, followInfo, loggedIn.id, true, applySalons, sty))
+	      }
+	      case None => NotFound
+	    }
+	  }
+	  
+	 def updateStylistInfo(stylistId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) { implicit request =>
+	    val loginUser = loggedIn
+	    val user = User.findOneById(stylistId).get
+	    val followInfo = MyFollow.getAllFollowInfo(stylistId)
+	    val goodAtStylePara = Stylist.findGoodAtStyle
+	    val stylist = Stylist.findOneByStylistId(stylistId)
+	    
+	    stylist match {
+	      case Some(sty) => {
+	        val stylistUpdate = stylistForm.fill(sty)
+	        Ok(views.html.stylist.management.updateStylistInfo(user, followInfo, loginUser.id, true, sty, stylistUpdate, goodAtStylePara))
+	      }
+	      case None => NotFound
+	    }
+	  }
+	  
+	 def toUpdateStylistInfo(stylistId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) { implicit request =>
+	    val user = loggedIn
+	    val followInfo = MyFollow.getAllFollowInfo(user.id)
+	    stylistForm.bindFromRequest.fold(
+	      errors => BadRequest(views.html.index("")),
+	      {
+	        case(stylist) => {
+	          val newStylist = stylist.copy(id = stylistId)
+	            Stylist.save(newStylist) //需修改图片更新
+	            Redirect(auth.routes.Users.myPage())
+	        }
+	      })
+	    
+	    
+	  }
+	  
+	 def removeSalon(salonId: ObjectId, stylistId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) {implicit request =>
+	    val user = loggedIn
+	    val followInfo = MyFollow.getAllFollowInfo(user.id)
+	    SalonAndStylist.leaveSalon(salonId,stylistId)
+	    Redirect(noAuth.routes.Stylists.mySalon(stylistId))
+	    
+	  }
+	  
+	
+	 def updateStylistImage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+	    val user = loggedIn
+	    val followInfo = MyFollow.getAllFollowInfo(user.id)
+	    val stylist = Stylist.findOneByStylistId(user.id).get
+	    Ok(views.html.stylist.management.updateStylistImage(user = user, stylist = stylist, followInfo = followInfo))
+	  }
+	  
+	 def toUpdateStylistImage = Action(parse.multipartFormData) { request =>
+	        request.body.file("photo") match {
+	            case Some(photo) =>
+	                val db = MongoConnection()("Picture")
+	                val gridFs = GridFS(db)
+	                val uploadedFile = gridFs.createFile(photo.ref.file)
+	                uploadedFile.contentType = photo.contentType.orNull
+	                uploadedFile.save()
+	                Redirect(routes.Stylists.saveStylistImg(uploadedFile._id.get))
+	            case None => BadRequest("no photo")
+	        }
+	    
+	  }
+	  
+	 def saveStylistImg(imgId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _){implicit request =>
+	     val user = loggedIn
+	     val followInfo = MyFollow.getAllFollowInfo(user.id)
+	     val stylist = Stylist.findOneByStylistId(user.id)
+	     stylist match {
+	        case Some(sty) => {
+	        Stylist.updateImages(sty, imgId)
+	        Redirect(noAuth.routes.Stylists.goStylistHomePage(user.id))
+	       }
+	      case None => NotFound
+	    }
+	    
+	  }
   
-  /**
-   *  同意salon邀请
-   */
-  def agreeSalonApply(stylistId: ObjectId, salonId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(stylistId) _) {implicit request =>
-      val loginUser = loggedIn
-      val user = User.findOneById(stylistId).get
-      val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, stylistId)
-        record match {
-          case Some(re) => {
-            SalonStylistApplyRecord.agreeStylistApply(re)
-            val stylist = Stylist.findOneByStylistId(re.stylistId)
-            Stylist.becomeStylist(stylistId)
-            SalonAndStylist.entrySalon(salonId, stylistId)
-            Redirect(routes.Stylists.mySalon(re.stylistId))
-          }
-          case None => NotFound
-        }
-  }
-  
-  /**
-   *  拒绝salon邀请
-   */
-  def rejectSalonApply(stylistId: ObjectId, salonId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(stylistId) _) {implicit request =>
-     val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, stylistId)
-        record match {
-          case Some(re) => {
-            SalonStylistApplyRecord.agreeStylistApply(re)
-            val stylist = Stylist.findOneByStylistId(re.stylistId)
-            Redirect(routes.Stylists.mySalon(re.stylistId))
-          }
-          case None => NotFound
-        } 
-  }
-  
-  def findSalonApply(stylistId: ObjectId) =  StackAction(AuthorityKey -> User.isFriend(stylistId) _){implicit request =>
-    val user = loggedIn
-    val followInfo = MyFollow.getAllFollowInfo(user.id)
-    val applySalons = SalonStylistApplyRecord.findApplingSalon(stylistId)
-    val stylist = Stylist.findOneByStylistId(stylistId)
-    stylist match {
-      case Some(sty) => {
-        val user = User.findOneById(sty.stylistId)
-        Ok(views.html.stylist.management.stylistApplyingSalons(user = user.get, stylist = sty, salons = applySalons, followInfo = followInfo))
-      }
-      case None => NotFound
-    }
-  }
-  
-  def updateStylistInfo(stylistId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val loginUser = loggedIn
-    val user = User.findOneById(stylistId).get
-    val followInfo = MyFollow.getAllFollowInfo(stylistId)
-    val goodAtStylePara = Stylist.findGoodAtStyle
-    val stylist = Stylist.findOneByStylistId(stylistId)
-    
-    stylist match {
-      case Some(sty) => {
-        val stylistUpdate = stylistForm.fill(sty)
-        
-        Ok(views.html.stylist.management.updateStylistInfo(user, followInfo, loginUser.id, true, sty, stylistUpdate, goodAtStylePara))
-      }
-      case None => NotFound
-    }
-  }
-  
-  def toUpdateStylistInfo(stylistId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user = loggedIn
-    val followInfo = MyFollow.getAllFollowInfo(user.id)
-    stylistForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.index("")),
-      {
-        case(stylist) => {
-          val newStylist = stylist.copy(id = stylistId)
-            Stylist.save(newStylist) //需修改图片更新
-            Redirect(controllers.routes.auth.Users.myPage())
-        }
-      })
-    
-    
-  }
-  
-  def removeSalon(salonId: ObjectId, stylistId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(stylistId) _) {implicit request =>
-    SalonAndStylist.leaveSalon(salonId,stylistId)
-    Redirect(routes.Stylists.mySalon(stylistId))
-    
-  }
-  
-
-  def updateStylistImage(stylistId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user = loggedIn
-    val followInfo = MyFollow.getAllFollowInfo(user.id)
-    val stylist = Stylist.findOneByStylistId(user.id).get
-    Ok(views.html.stylist.management.updateStylistImage(user = user, stylist = stylist, followInfo = followInfo))
-  }
-  
-  def toUpdateStylistImage = Action(parse.multipartFormData) { request =>
-        request.body.file("photo") match {
-            case Some(photo) =>
-                val db = MongoConnection()("Picture")
-                val gridFs = GridFS(db)
-                val uploadedFile = gridFs.createFile(photo.ref.file)
-                uploadedFile.contentType = photo.contentType.orNull
-                uploadedFile.save()
-                Redirect(routes.Stylists.saveStylistImg(uploadedFile._id.get))
-            case None => BadRequest("no photo")
-        }
-    
-  }
-  
-  def saveStylistImg(imgId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _){implicit request =>
-    val user = loggedIn
-    val followInfo = MyFollow.getAllFollowInfo(user.id)
-    val stylist = Stylist.findOneByStylistId(user.id)
-    stylist match {
-      case Some(sty) => {
-        Stylist.updateImages(sty, imgId)
-        Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = sty, followInfo = followInfo))
-      }
-      case None => NotFound
-    }
-    
-  }
-  
-  def styleAddNewStyle = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user = loggedIn
-    val followInfo = MyFollow.getAllFollowInfo(user.id)
-    val stylist = Stylist.findOneByStylistId(user.id)
-    Ok(views.html.stylist.management.stylistAddStyle( styleAddForm = Styles.styleAddForm,stylePara = Style.findParaAll, style = null, false))
-    
-  }
-  
-  def styleToAddNewStyle(styleId: ObjectId) = Action(parse.multipartFormData) { implicit request =>
-    request.body.file("photo") match {
-            case Some(photo) =>{
-                val db = MongoConnection()("Picture")
-                val gridFs = GridFS(db)
-                val uploadedFile = gridFs.createFile(photo.ref.file)
-                uploadedFile.contentType = photo.contentType.orNull
-                uploadedFile.save()
-                println("img id .."+ uploadedFile._id.get)
-                Styles.styleAddForm.bindFromRequest.fold(
-              errors => BadRequest(views.html.index("")),
-              {
-                case(style) => {
-                  val styleAddForm = Styles.styleAddForm.fill(style)
-                  val newStyle = style
-                  Style.save(newStyle.copy(id = styleId)) //需修改图片更新
-                  
-                  Style.saveStyleImage(newStyle.copy(id = styleId), uploadedFile._id.get)
-                  val upStyle = Style.findOneById(styleId)
-                  Ok(views.html.stylist.management.stylistAddStyle( Styles.styleAddForm.fill(upStyle.get) , Style.findParaAll, upStyle.get, true))
-                }
-              })
-            }    
-            case None => BadRequest("no photo")
-        }
-    
-  }
-  
-  def styleToAddNewStyle(styleId: ObjectId) = Action(parse.multipartFormData) { implicit request =>
-    request.body.file("photo") match {
-            case Some(photo) =>{
-                val db = MongoConnection()("Picture")
-                val gridFs = GridFS(db)
-                val uploadedFile = gridFs.createFile(photo.ref.file)
-                uploadedFile.contentType = photo.contentType.orNull
-                uploadedFile.save()
-                println("img id .."+ uploadedFile._id.get)
-                Styles.styleAddForm.bindFromRequest.fold(
-              errors => BadRequest(views.html.index("")),
-              {
-                case(style) => {
-                  val styleAddForm = Styles.styleAddForm.fill(style)
-                  val newStyle = style
-                  Style.save(newStyle.copy(id = styleId)) //需修改图片更新
-                  
-                  Style.saveStyleImage(newStyle.copy(id = styleId), uploadedFile._id.get)
-                  val upStyle = Style.findOneById(styleId)
-                  Ok(views.html.stylist.management.stylistAddStyle( Styles.styleAddForm.fill(upStyle.get) , Style.findParaAll, upStyle.get, true))
-                }
-              })
-            }    
-            case None => BadRequest("no photo")
-        }
-    
-  }
-  
-  /**
-   * 后台发型检索
-   */
-  def findMyStylesByStylist(stylistId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(stylistId) _) { implicit request =>
-    val loginUser = loggedIn
-    val styles = Style.findByStylistId(stylistId)
-    val user = loggedIn
-    val stylist = Stylist.findOneByStylistId(stylistId)
-    val followInfo = MyFollow.getAllFollowInfo(user.id)
-    Ok(views.html.stylist.management.stylistStyles(user, followInfo,loginUser.id, true, stylist.get, styles, Styles.styleSearchForm, Style.findParaAll, true, true))
-  }
-  
-  def findMyStylesBySerach = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
-        implicit request =>
-            val user = loggedIn
-            val stylist = Stylist.findOneByStylistId(user.id)
-            val followInfo = MyFollow.getAllFollowInfo(user.id)
-            Styles.styleSearchForm.bindFromRequest.fold(
-                errors => BadRequest(views.html.index("")),
-                {
-                    case (styleSearch) => {
-                        val styles = Style.findStylesByStylistBack(styleSearch,stylist.get.stylistId)
-                        Ok(views.html.stylist.management.stylistStyles(user, followInfo, true, stylist.get, styles, Styles.styleSearchForm, Style.findParaAll, true, true))
-                    }
-                })
-    }
-  
-    /**
-     * 后台发型更新
+  	/**
+     *  跳转到技师发型更新页面
      */
-    def styleUpdateByStylist(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
+    def styleUpdateByStylist(styleId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
         implicit request =>
-        val styleOne: Option[Style] = Style.findOneById(id)
+        val styleOne: Option[Style] = Style.findOneById(styleId)
         val user = loggedIn
         val stylist = Stylist.findOneByStylistId(user.id)
         val followInfo = MyFollow.getAllFollowInfo(user.id)
         styleOne match {
-            case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user, followInfo, user.id, true, stylist.get, style, followInfo , Styles.styleUpdateForm.fill(style), Style.findParaAll))
+            case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = stylist.get, style = style, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll))
             case None => NotFound
         }
     }
     
+    /**
+     *  发型更新后台处理
+     */
     def styleUpdateNewByStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
         implicit request =>
         val user = loggedIn
@@ -321,7 +220,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                 {
                     case (styleUpdateForm) => {
                         Style.updateStyle(styleUpdateForm)
-                        Redirect(routes.Stylists.findMyStylesByStylist(stylist.get.stylistId))
+                        Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
                     }
                 })
     }
@@ -330,17 +229,16 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     /**
      * 后台发型删除，使之无效即可
      */
-    def styleToInvalidByStylist(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
-        implicit request =>
+    def styleToInvalidByStylist(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {implicit request =>
         val user = loggedIn
         val stylist = Stylist.findOneByStylistId(user.id)
         val followInfo = MyFollow.getAllFollowInfo(user.id)
         Style.styleToInvalid(id)
-        Redirect(routes.Stylists.findMyStylesByStylist(stylist.get.stylistId))
+        Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
     }
 
     /**
-     * 后台发型新建
+     *  跳转至技师发型新建页面
      */
     def styleAddByStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
         //此处为新发型登录
@@ -350,11 +248,12 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
         val followInfo = MyFollow.getAllFollowInfo(user.id)
         var stylists: List[Stylist] = Nil
         stylists :::= stylist.toList
-        Ok(views.html.stylist.management.addStyleByStylist(user = user, stylist = stylist.get, followInfo = followInfo, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, stylists = stylists, isStylist = true))
-      
-        
+        Ok(views.html.stylist.management.addStyleByStylist(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = stylist.get, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, stylists = stylists, isStylist = true))
     }
-
+    
+    /**
+     *  技师新建发型后台处理
+     */
     def newStyleAddByStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
         implicit request =>
             val user = loggedIn
@@ -365,7 +264,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                 {
                     case (styleAddForm) => {
                         Style.save(styleAddForm)
-                        Redirect(routes.Stylists.findMyStylesByStylist(stylist.get.stylistId))
+                        Redirect(noAuth.routes.Stylists.findStylesByStylist(stylist.get.stylistId))
                     }
                 })
     }
@@ -375,6 +274,9 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
           
         }
     
+    /**
+     *  ajax fileupload 输出图片id到页面对应区域
+     */
     def fileUploadAction = Action(parse.multipartFormData) { implicit request =>
     request.body.file("photo") match {
             case Some(photo) =>{

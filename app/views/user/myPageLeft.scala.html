@@ -27,18 +27,18 @@
                 <!-- 我的沙龙，如果没有则显示来自沙龙的邀请 -->
                 <div class='Mod Users' id='Fans'>
                 @if(SalonAndStylist.findByStylistId(user.id).isEmpty){
-                    <a href="@routes.Stylists.findSalonApply(user.id)">
+                    <a href="@auth.routes.Stylists.findSalonApply(user.id)">
                         <strong>@Messages("stylistMag.salonApply")</strong>
                         <div class='more'>
-                            <a href="@routes.Stylists.findSalonApply(user.id)">@Messages("stylistMag.countSalonApply")
+                            <a href="@auth.routes.Stylists.findSalonApply(user.id)">@Messages("stylistMag.countSalonApply")
                                 (@SalonStylistApplyRecord.applingSalonCount(user.id))
                             </a>
                         </div>
                         }else{
-                    <a href="@routes.Stylists.mySalon(user.id)">
+                    <a href="@noAuth.routes.Stylists.mySalon(user.id)">
                         <strong>@Messages("stylistMag.mySalon")</strong>
                         <div class='more'>
-                            <a href="@routes.Stylists.mySalon(user.id)">
+                            <a href="@noAuth.routes.Stylists.mySalon(user.id)">
                                 <img src="#"/>
                                 <span>@Stylist.mySalon(user.id).salonName</span>
                             </a>
@@ -49,7 +49,7 @@
                 <div class='Mod Users' id='Fellows'>
                     <strong>@Messages("stylistMag.myStyle")</strong>
                     <div class='more'>
-                        <a href="@routes.Stylists.findMyStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
+                        <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
                             (@Stylist.countStyleByStylist(user.id))</a>
                     </div>
                 </div>

@@ -17,8 +17,8 @@
 		        	<div class="txtC">
                         @if(isStylist) {
     					    <p>
-    			                <a href="@routes.Stylists.styleUpdateByStylist(styles(i).id)" >@Messages("common.edit")</a>
-    			                <a href="@routes.Stylists.styleToInvalidByStylist(styles(i).id)" >@Messages("common.delete")</a>
+    			                <a href="@auth.routes.Stylists.styleUpdateByStylist(styles(i).id)" >@Messages("common.edit")</a>
+    			                <a href="@auth.routes.Stylists.styleToInvalidByStylist(styles(i).id)" >@Messages("common.delete")</a>
     			            </p>
                             
                         }else{
