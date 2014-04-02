@@ -5,14 +5,17 @@ import play.api.mvc._
 import play.api.i18n.Messages
 import com.mongodb.casbah.commons.Imports._
 import models._
+import jp.t2v.lab.play2.auth._
+import scala.concurrent.ExecutionContext.Implicits.global
 
-object Salons extends Controller {
+object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
 
     /*-------------------------
      * The Main Page of All Salon 
      -------------------------*/
-    def index = Action {
-        Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = None))
+    def index = StackAction{ implicit request =>
+        val user = loggedIn
+        Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user))
     }
 
 

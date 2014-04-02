@@ -38,19 +38,34 @@ TODO
                                     <p>
                                         @user match {
                                             case None => {@Messages("user.welcome", Messages("user.guestName"))}
-                                            case Some(usr) => {@Messages("user.welcome", usr.nickName)}
+                                            case Some(user) => {@Messages("user.welcome", user.nickName)}
                                         }
                                     </p>
-                                    <a href="@routes.Application.login" class="btn btn2H30 mT3 tdn">
-                                        <span>
-                                            <span class="b">
-                                               @Messages("user.loginBtn") 
-                                            </span>
-                                        </span>
-                                    </a>
-                                    <p class="mT5">
-                                        <a href="@routes.Application.login" />@Messages("user.pleaseSignUp")</a>
-                                    </p>
+                                    
+                                    @user match {
+                                    	case None => {
+                                    	   <a href="@routes.Application.login" class="btn btn2H30 mT3 tdn">
+                                             <span>
+                                                <span class="b">
+                                                   @Messages("user.loginBtn") 
+                                                </span>
+                                             </span>
+                                           </a>
+                                           <p class="mT5">
+                                               <a href="@routes.Application.login" />@Messages("user.pleaseSignUp")</a>
+                                           </p>
+                                        }
+                                        case Some(user) =>{
+                                           <a href="@auth.routes.Users.logout" class="btn btn2H30 mT3 tdn">
+                                             <span>
+                                                <span class="b">
+                                                   @Messages("user.loginOut")
+                                                </span>
+                                             </span>
+                                           </a>
+                                        }
+                                    }
+                                    
                                     <ul class="taL mT7">
                                         <li>
                                             <a href="javascript:void(0);" @*onclick="window.open('http://point.recruit.co.jp/');"*@
