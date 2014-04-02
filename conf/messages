@@ -402,6 +402,8 @@ stylistMag.serviceManage = 服务管理
 stylistMag.salonHistory = 店铺历史
 stylistMag.totalReserv = 显示当天预约
 stylist.mySalon = 我的店铺
+stylist.salon = 所属店铺
+stylist.style = 他的作品
 
 
 # User
@@ -464,7 +466,7 @@ user.userIdNotAvailable=该用户名已被注册
 user.passwordError=密码不合法！
 user.telError=手机号码无效!
 user.toBePassword= 可输入6~18位,以字母开头，包含字母、数字和下划线!
-user.toBeUserId= 可输入6~16位字。包含数字，英文和中文！
+user.toBeUserId= 可输入6~16位字。包含数字，英文！
 user.nickNameErr=给个昵称吧！
 user.welcome=欢迎您，{0}
 user.guestName=游客
