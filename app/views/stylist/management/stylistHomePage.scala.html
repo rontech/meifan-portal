@@ -197,8 +197,10 @@
                     </tr>
                 </tbody>
             </table>
-            <div>
-            	<a href="/updateStylistInfo/@stylist.stylistId" class = "buttons">@Messages("stylist.update")</a>
-            </div>	
+            @if(user.id == loginUserId){
+            	<div>
+            		<a href="/updateStylistInfo/@stylist.stylistId" class = "buttons">@Messages("stylist.update")</a>
+            	</div>
+            }
         </div>
 }

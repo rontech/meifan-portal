@@ -1,4 +1,4 @@
-@(salon: Salon, stylist: Stylist)
+@(user: User, loginUserId: ObjectId, salon: Salon, stylist: Stylist)
 
 <div class="mysalon-stylist-group">
 		<div class="taC">
@@ -11,8 +11,10 @@
 	        	<p>@salon.salonName</p>
 	        </a>
 	    </p>
-	    <p>
-	    	<a href="@auth.Stylists.agreeSalonApply(stylist.stylistId, salon.id)">@Messages("stylist.acceptApply")</a>|
-	    	<a href="@auth.Stylists.rejectSalonApply(stylist.stylistId, salon.id)">@Messages("stylist.rejectApply")</a>
-	    </p>
+	    @if(user.id == loginUserId){
+		    <p>
+		    	<a href="@auth.Stylists.agreeSalonApply(stylist.stylistId, salon.id)">@Messages("stylist.acceptApply")</a>|
+		    	<a href="@auth.Stylists.rejectSalonApply(stylist.stylistId, salon.id)">@Messages("stylist.rejectApply")</a>
+		    </p>
+	    }
 </div>

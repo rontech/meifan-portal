@@ -272,7 +272,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
 
     def checkStylist(stylistId: ObjectId) = {
           
-        }
+    }
     
     /**
      *  ajax fileupload 输出图片id到页面对应区域

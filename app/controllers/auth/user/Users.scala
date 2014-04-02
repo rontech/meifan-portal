@@ -214,7 +214,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     } else if ((user.userTyp).equals(User.STYLIST)) {
       //TODO
       val stylist = Stylist.findOneByStylistId(user.id)
-      Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get, followInfo = followInfo))
+      Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = stylist.get, loginUserId = user.id, followInfo = followInfo, logged = true))
     } else {
       Ok(views.html.user.myPageRes(user,followInfo))
     }
