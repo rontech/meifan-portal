@@ -1,6 +1,6 @@
 @(user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
 			<div class ="Owner">
-				<a href="#" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")" align="middle" alt="@user.userId" title="@user.userId" class="LargePortrait"/></a>
+				<a href="#" class='Img'><img src="@if(user.id.getTime.equals(user.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(user.userPics)"}"/></a>
 				<span class='U'>
       				<a href="@noAuth.routes.Users.userPage(user.userId)" class='Name' title='female'>@user.nickName</a>
 					<span class='opts'>
@@ -29,16 +29,16 @@
     <!-- 我的沙龙，如果没有则显示来自沙龙的邀请 -->
     <div class='Mod Users' id='Fans'>
     @if(SalonAndStylist.findByStylistId(user.id).isEmpty){
-            <strong>@Messages("stylistMag.mySalon")</strong>
+            <strong>@Messages("stylist.salon")</strong>
             <div class='more'>
                     <span>@Messages("stylistMag.noSalon")</span>
             </div>
             }else{
         <a href="@routes.Stylists.mySalon(user.id)">
-            <strong>@Messages("stylistMag.mySalon")</strong>
+            <strong>@Messages("stylist.salon")</strong>
             <div class='more'>
                 <a href="@routes.Stylists.mySalon(user.id)">
-                    <img src="#"/>
+                    <img src="@routes.Application.getPhoto(Stylist.mySalon(user.id).salonPics(0).fileObjId)" alt="@Stylist.mySalon(user.id).salonNameAbbr" title="@Stylist.mySalon(user.id).salonNameAbbr" align="absmiddle" class = "SmallPortrait"/>
                     <span>@Stylist.mySalon(user.id).salonName</span>
                 </a>
             </div>
@@ -46,7 +46,7 @@
     </div>
     <!-- 我的发型 -->
     <div class='Mod Users' id='Fellows'>
-        <strong>@Messages("stylistMag.myStyle")</strong>
+        <strong>@Messages("stylist.style")</strong>
         <div class='more'>
             <a href="@routes.Stylists.findMyStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
                 (@Stylist.countStyleByStylist(user.id))</a>
@@ -89,7 +89,7 @@
 	  				@followInfo.followUser.slice(0,8).map {user =>
 	  					<li>
     	 				       <a href="@noAuth.routes.Users.userPage(user.userId)">
-    	 				            <img src="@routes.Application.getPhoto(user.userPics)" alt="@user.nickName" title="@user.nickName" align="absmiddle" class = "SmallPortrait">
+    	 				            <img src="@if(user.id.getTime.equals(user.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(user.userPics)"}" alt="@user.nickName" title="@user.nickName" align="absmiddle" class = "SmallPortrait"/>
     	 				       </a>
     	 			    </li>
 	  					}

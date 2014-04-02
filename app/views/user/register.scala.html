@@ -76,8 +76,8 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@inputText(userForm("nickName"),'_label -> None,'_help -> Messages("user.nickNameErr"), 'placeholder -> Messages("user.nickNm"),
-							            	'_error -> userForm("nickName").error.map(_.withMessage(""))
+			                	@inputText(userForm("nickName"),'_label -> None,'_help -> Messages(""), 'placeholder -> Messages("user.nickNm"),
+							            	'_error -> userForm("nickName").error.map(_.withMessage("user.nickNameErr"))
 							            )
 			                </div>
 			            </td>
