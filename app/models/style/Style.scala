@@ -65,6 +65,17 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         dao.find(DBObject("stylistId" -> stylistId, "isValid" -> true)).toList
     }
 
+        /**
+     * 通过发型师ID和发型适合性别检索该发型师所有发型
+     */
+    def findByStylistIdAndSex(stylistId: ObjectId, sex: String): List[Style] = {
+        if(sex.equals("all")) {
+            dao.find(DBObject("stylistId" -> stylistId, "isValid" -> true)).toList
+        }else {
+            dao.find(DBObject("stylistId" -> stylistId, "consumerSex" -> sex, "isValid" -> true)).toList
+        }
+    }
+
     /**
      * 通过店铺ID检索该店铺所有签约的发型师
      */
@@ -75,7 +86,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
             val stylist = Stylist.findOneByStylistId(salonAndStylist.stylistId)
             stylist match {
                 case Some(stylist) => {
-                    stylists :: List(stylist)
+                    stylists :::= List(stylist)
                 }
                 case None => None
             }

@@ -231,7 +231,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val stylist = Stylist.findOneByStylistId(user.id)
-    Ok(views.html.stylist.management.stylistAddStyle( styleAddForm = Styles.styleAddForm,stylePara = Style.findParaAll, style = null, false))
+    Ok(views.html.stylist.management.stylistAddStyle( styleAddForm = Styles.styleAddForm,stylePara = Style.findParaAll))
     
   }
   
@@ -254,7 +254,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
 		          
 		          Style.saveStyleImage(newStyle.copy(id = styleId), uploadedFile._id.get)
 		          val upStyle = Style.findOneById(styleId)
-		          Ok(views.html.stylist.management.stylistAddStyle( Styles.styleAddForm.fill(upStyle.get) , Style.findParaAll, upStyle.get, true))
+		          Ok(views.html.stylist.management.stylistAddStyle( Styles.styleAddForm.fill(upStyle.get) , Style.findParaAll))
 		        }
 		      })
             }    

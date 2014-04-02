@@ -1,4 +1,4 @@
-@(salon: Salon, styles: List[Style], navBar: List[(String, String)] = Nil)
+@(salon: Salon, styles: List[Style], navBar: List[(String, String)] = Nil, sex: String = "all")
 
 @salonInfoMain(navInSalon = "salon-style", salon, navBar) {
 	
@@ -7,7 +7,8 @@
     <div class="yS mainContentsSecondTitleOuter">
         <h2 class="yS mainContentsSecondTitleInner">@Messages("hair.salonStyleTitle", salon.salonName)</h2>
     </div>
-
+    <!-- styleGroupMenu -->
+    @views.html.style.styleGroupMenu(sex, salon)
     <!-- get all the salons with all the styles.  -->
     @views.html.style.styleGroup(styles, salon)
 
