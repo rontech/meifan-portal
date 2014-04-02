@@ -2,19 +2,23 @@
 
 @import helper._
 
-@form(routes.Menus.createMenu, 'id -> "menuForm") {
+@form(routes.Menus.createMenu(salonId), 'id -> "menuForm") {
 	<legend class="mainTitle">@Messages("menu.createMenuArea")</legend>
 	<div class="menuInfo">
 		<input type="hidden" name="salonId" value="@salonId" />
 		
+		@if(menuForm.hasGlobalErrors) { 
+              <div>
+                  <p align = center>@menuForm.globalError.get.message<p>
+              </div>
+         }
+		
 		@inputText(menuForm("menuName"), '_label -> Messages("menu.menuName"),
-			'_error -> menuForm("menuName").error.map(_.withMessage(Messages("menu.addErrorMsg")))
-            ,'_error -> menuForm.globalError
-		)
+			'_error -> menuForm("menuName").error.map(_.withMessage(Messages("menu.menuNameRequired"))))
 		
 		<fieldset class="serviceArea">
 			<legend>@Messages("coupon.serviceArea")</legend>
-			@input(field = menuForm("serviceItems"), args = '_label ->None){(id,name,value,args) =>
+			@input(field = menuForm("serviceItems"), args = '_label ->None, '_error -> menuForm("serviceItems").error.map(_.withMessage(Messages("menu.menuServiceRequired")))){(id,name,value,args) =>
 			 	@for(service <- services) {
 			 		<div class="serviceItemArea">
 			 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
@@ -23,7 +27,9 @@
 			  }
 		</fieldset>
 		
-		@inputText(menuForm("description"), '_label -> Messages("coupon.description"))
+		@textarea(menuForm("description"), '_label -> Messages("coupon.description"),
+			 '_error -> menuForm("description").error.map(_.withMessage(Messages("menu.menuDiscriptionErr"))),
+			 '_help -> Messages("menu.menuDiscriptionErr"))
 	</div>	
 	<div class="btnArea">
 		<input type = "submit" class = "buttons" value="@Messages("common.submit")">

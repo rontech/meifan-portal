@@ -9,6 +9,7 @@ import java.util.Date
 
 import models._
 import views._
+import play.api.i18n.Messages
 
 object Menus extends Controller {
   
@@ -16,12 +17,35 @@ object Menus extends Controller {
     mapping(
         "menuName" -> nonEmptyText,
         "salonId" -> text,
-        "serviceItems" -> seq(
+        "serviceItems" -> list(
          mapping(
            "id" -> text
          ){(id) => Service(new ObjectId(id), "", "", "", new ObjectId(), BigDecimal(0), 0, null, null, true)}
-         {service => Some((service.id.toString()))}),
-          "description" -> text
+         {service => Some((service.id.toString()))}
+         ).verifying(Messages("menu.menuServiceRequired"), serviceItems => !serviceItems.isEmpty),
+          "description" -> nonEmptyText(10, 100)
+    ){
+      (menuName, salonId, serviceItems, description) => Menu(new ObjectId, menuName, description, new ObjectId(salonId), serviceItems, 0, BigDecimal(0), new Date(), None, true)
+    }
+    {
+      menu => Some((menu.menuName, menu.salonId.toString(), menu.serviceItems, menu.description))
+    }.verifying(
+        Messages("menu.menuNameRepeat"),
+        menu => !Menu.checkMenuIsExit(menu.menuName, menu.salonId)   
+    )
+  }
+  
+  def menuUpdateForm: Form[Menu] = Form {
+    mapping(
+        "menuName" -> nonEmptyText,
+        "salonId" -> text,
+        "serviceItems" -> list(
+         mapping(
+           "id" -> text
+         ){(id) => Service(new ObjectId(id), "", "", "", new ObjectId(), BigDecimal(0), 0, null, null, true)}
+         {service => Some((service.id.toString()))}
+         ).verifying(Messages("menu.menuServiceRequired"), serviceItems => !serviceItems.isEmpty),
+          "description" -> nonEmptyText(10, 100)
     ){
       (menuName, salonId, serviceItems, description) => Menu(new ObjectId, menuName, description, new ObjectId(salonId), serviceItems, 0, BigDecimal(0), new Date(), None, true)
     }
@@ -42,15 +66,16 @@ object Menus extends Controller {
   /**
    * 创建菜单
    */
-  def createMenu = Action {implicit request =>
+  def createMenu(salonId: ObjectId) = Action {implicit request =>
     menuForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.error.errorMsg(errors)),
+        errors => BadRequest(html.salon.admin.createSalonMenu(Salon.findById(salonId).get, errors, Service.findBySalonId(salonId))),
         {
           menu =>
             var services: List[Service] = Nil
             var originalPrice: BigDecimal = 0
             var serviceDuration: Int = 0
             
+            println("menu.serviceItems = " + menu.serviceItems)
             for(serviceItem <- menu.serviceItems) {
               val service: Option[Service] = Service.findOneById(serviceItem.id)
               service match {
@@ -85,7 +110,7 @@ object Menus extends Controller {
     menu match {
       case Some(s) => val salon = Salon.findById(s.salonId)
                       salon match {
-                         case Some(k) => Ok(html.salon.admin.editSalonMenu(k, menuForm.fill(s), Service.findBySalonId(s.salonId)))
+                         case Some(k) => Ok(html.salon.admin.editSalonMenu(k, menuForm.fill(s), Service.findBySalonId(s.salonId), s))
                          case None => NotFound
                       }
       case None => NotFound
@@ -95,9 +120,9 @@ object Menus extends Controller {
   /**
    * 更新菜单信息
    */
-  def updateMenu(menuId: ObjectId) = Action { implicit request =>
-    menuForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.error.errorMsg(errors)),
+  def updateMenu(menuId: ObjectId, salonId: ObjectId) = Action { implicit request =>
+    menuUpdateForm.bindFromRequest.fold(
+        errors => BadRequest(html.salon.admin.editSalonMenu(Salon.findById(salonId).get, errors, Service.findBySalonId(salonId), Menu.findOneById(menuId).get)),
         {
           menu =>
             val oldMenu: Option[Menu] = Menu.findOneById(menuId)
