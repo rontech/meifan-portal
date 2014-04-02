@@ -1,6 +1,6 @@
 @* message Template File *@
 @(letter: UserLetter, user: User, followInfo:FollowInformation)
-@myPageMain(navInMyPage = "message", user, followInfo){
+@myPageMain(navInMyPage = "message", user, followInfo, user.id, true){
 	<div>
 	<h1>@letter.message.title</h1>
 	<p>@Messages("letter.sender"):@letter.userMessage.senderNm</p>

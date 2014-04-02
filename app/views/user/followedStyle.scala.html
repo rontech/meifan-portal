@@ -1,0 +1,19 @@
+@(user: User, followInfo:FollowInformation, loginUserId:ObjectId)
+
+@myPageMain("followedStyle", user, followInfo, loginUserId, true){
+	
+     @if(followInfo.followStyle.isEmpty){
+    <div class="bgAlertMsg mT20">
+        <p class="alertMsg">@Messages("user.noStyleSearched")</p>
+    </div>
+    } else {
+        @for(style <- followInfo.followStyle){
+    		<li class="couponItem">
+    		<div class = "styleResult">
+    		   @views.html.user.followItem.followStyleItem(style)
+            	<a href="@auth.routes.MyFollows.cancelFollow(style.id)">@Messages("user.deleteFollow")</a>
+            </div>
+        	</li>	
+        }
+    }
+}

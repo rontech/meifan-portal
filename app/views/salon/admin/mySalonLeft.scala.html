@@ -7,10 +7,15 @@
 					<a href="#" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>				
 				}
 				<span class='U'>
+					<p class='opts'>
+						<span style="font-size:16px;">@Messages("stylist.hello")&nbsp;</span> @Messages("salonAdmin.admin")
+					</p>
       				<a href="" class='Name' title='female'></a>
+
 					<span class='opts'>
 						<a href = "@routes.SalonInfo.addImage(salon.id)">@Messages("user.changeImage")</a>
 					</span>
+
 				</span>
     				<div class="clear"></div>
 				
@@ -24,7 +29,7 @@
                 <a href="@routes.SalonInfo.salonInfoManage(salon.id)" class='a2 admin w220'><span>@Messages("user.changeInfo")</span></a>
 				<a href="/showBlog/@salon.id" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
 			</div>
-			<!-- 店铺基本信息管理 -->
+   			<!-- 店铺基本信息管理 -->
 			<div class='Mod Users' id='Fans'>
 	   			<strong>@Messages("salonAdmin.infoManagement")</strong>
 	   			<div class='more'>
@@ -61,9 +66,8 @@
     	 			</li>
 	  			</ul>
 				<div class='more'>
-    				<a href="/getAllStylesBySalon/@salon.id">@Messages("stylistMag.showAllStyles")
-    				（10）</a>
-    			</div>
+					<a href="/getAllStylesBySalon/@salon.id">@Messages("stylistMag.showAllStyles")</a>
+				</div>
 			</div>
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("salonAdmin.reserveManagement")</strong>

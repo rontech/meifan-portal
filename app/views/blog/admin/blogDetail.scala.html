@@ -1,16 +1,8 @@
 @(blog : Blog, user : User, commentList : List[Comment], followInfo:FollowInformation, loggedId : ObjectId = new ObjectId, logged : Boolean = false)
 
 @import views.html.user._
-@import java.text.DateFormat
 
-@if(loggedId.equals(user.id)){
-	@myPageMain(navInMyPage = "my-blog", user, followInfo) {
+	@myPageMain(navInMyPage = "my-blog", user, followInfo, loggedId, logged) {
 		@views.html.blog.admin.blogContent(blog, user, commentList, followInfo, loggedId, logged)
 	}
-}else{	
-	@otherPageMain(user, followInfo) {
-		@views.html.blog.admin.blogContent(blog, user, commentList, followInfo, loggedId, logged)
-	}
-
-}
 
