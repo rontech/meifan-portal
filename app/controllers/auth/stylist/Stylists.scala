@@ -1,87 +1,82 @@
 package controllers
 
 import java.util.Date
-import scala.collection.mutable.ListBuffer
 import scala.concurrent.ExecutionContext.Implicits.global
 import com.mongodb.casbah.WriteConcern
-import com.mongodb.casbah.commons.Imports._
 import se.radley.plugin.salat.Binders._
 import jp.t2v.lab.play2.auth._
 import models._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc._
-import scala.concurrent.Future
-import play.api.templates._
-import se.radley.plugin.salat._
+import scala.concurrent._
+import play.api.i18n.Messages
+import controllers.AuthConfigImpl
+import com.mongodb.casbah.MongoConnection
 import com.mongodb.casbah.gridfs.Imports._
 import com.mongodb.casbah.gridfs.GridFS
 import play.api.libs.iteratee.Enumerator
-import scala.concurrent.ExecutionContext
-import com.mongodb.casbah.MongoConnection
 import controllers._
+import models._
 
-
-object Stylists extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
-
-
-  def index = TODO
-  
-  val stylistForm: Form[Stylist] = Form(
+object Stylists extends Controller with LoginLogout with AuthElement with AuthConfigImpl{
+    
+    val stylistForm: Form[Stylist] = Form(
         mapping(
-		        "workYears" -> number,
-			    "position" -> list(
-			    	mapping(
-			    		"positionName" -> text,
-			    		"industryName" -> text
-			    	){
-			    		(positionName, industryName) => IndustryAndPosition(new ObjectId, positionName, industryName)
-			    	}{
-			    		industryAndPosition => Some(industryAndPosition.positionName, industryAndPosition.industryName)
-			    	}	
-			    ),
-			    "goodAtImage" -> list(text),
-			    "goodAtStatus" -> list(text),
-			    "goodAtService" -> list(text),
-			    "goodAtUser" -> list(text),
-			    "goodAtAgeGroup" -> list(text),
-			    "myWords" -> text,
-			    "mySpecial" -> text,
-			    "myBoom" -> text,
-			    "myPR" -> text,
-			    "myPics" -> list(
-			        mapping(
-			    	"fileObjId" -> text,
-			    	"picUse" -> text,
-			    	"showPriotiry" -> optional(number),
-			    	"description" -> optional(text)
-			    ){
-			      (fileObjId, picUse, showPriotiry, description) => OnUsePicture(new ObjectId(fileObjId), picUse, showPriotiry, description)
-			    }{
-			      onUsePicture => Some((onUsePicture.fileObjId.toString, onUsePicture.picUse, onUsePicture.showPriority, onUsePicture.description))
-			    })
-			   
-			){
-		      (workYears, position, goodAtImage, goodAtStatus, goodAtService,
-		          goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR, myPics)
-		      => Stylist(new ObjectId, new ObjectId(), workYears, position, goodAtImage, goodAtStatus,
-		    	   goodAtService, goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR, 
-		           myPics, false, false)
-		    }{
-		      stylist => Some(stylist.workYears, stylist.position, 
-		          stylist.goodAtImage, stylist.goodAtStatus, stylist.goodAtService, stylist.goodAtUser,
-		          stylist.goodAtAgeGroup, stylist.myWords, stylist.mySpecial, stylist.myBoom, stylist.myPR, stylist.myPics)
-		    }
-		)
+                "workYears" -> number,
+                "position" -> list(
+                    mapping(
+                        "positionName" -> text,
+                        "industryName" -> text
+                    ){
+                        (positionName, industryName) => IndustryAndPosition(new ObjectId, positionName, industryName)
+                    }{
+                        industryAndPosition => Some(industryAndPosition.positionName, industryAndPosition.industryName)
+                    }   
+                ),
+                "goodAtImage" -> list(text),
+                "goodAtStatus" -> list(text),
+                "goodAtService" -> list(text),
+                "goodAtUser" -> list(text),
+                "goodAtAgeGroup" -> list(text),
+                "myWords" -> text,
+                "mySpecial" -> text,
+                "myBoom" -> text,
+                "myPR" -> text,
+                "myPics" -> list(
+                    mapping(
+                    "fileObjId" -> text,
+                    "picUse" -> text,
+                    "showPriotiry" -> optional(number),
+                    "description" -> optional(text)
+                ){
+                  (fileObjId, picUse, showPriotiry, description) => OnUsePicture(new ObjectId(fileObjId), picUse, showPriotiry, description)
+                }{
+                  onUsePicture => Some((onUsePicture.fileObjId.toString, onUsePicture.picUse, onUsePicture.showPriority, onUsePicture.description))
+                })
+               
+            ){
+              (workYears, position, goodAtImage, goodAtStatus, goodAtService,
+                  goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR, myPics)
+              => Stylist(new ObjectId, new ObjectId(), workYears, position, goodAtImage, goodAtStatus,
+                   goodAtService, goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR, 
+                   myPics, false, false)
+            }{
+              stylist => Some(stylist.workYears, stylist.position, 
+                  stylist.goodAtImage, stylist.goodAtStatus, stylist.goodAtService, stylist.goodAtUser,
+                  stylist.goodAtAgeGroup, stylist.myWords, stylist.mySpecial, stylist.myBoom, stylist.myPR, stylist.myPics)
+            }
+        )
   
-  def mySalon(stylistId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _){implicit request =>
-    val user = loggedIn
-    val followInfo = MyFollow.getAllFollowInfo(user.id)
+  def mySalon(stylistId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(stylistId) _){implicit request =>
+    val loginUser = loggedIn
+    val user = User.findOneById(stylistId).get
+    val followInfo = MyFollow.getAllFollowInfo(stylistId)
     val salon = Stylist.mySalon(stylistId)
     val stylist = Stylist.findOneByStylistId(stylistId)
     stylist match {
       case Some(sty) => {
-        Ok(views.html.stylist.management.stylistMySalon(user = user, stylist = sty, salon = salon, followInfo = followInfo))
+        Ok(views.html.stylist.management.stylistMySalon("mySalonPage",user,followInfo,loginUser.id,true,sty,salon))
       }
       case None => NotFound
     }
@@ -90,8 +85,10 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
   /**
    *  同意salon邀请
    */
-  def agreeSalonApply(stylistId: ObjectId, salonId: ObjectId) = Action {
-   val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, stylistId)
+  def agreeSalonApply(stylistId: ObjectId, salonId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(stylistId) _) {implicit request =>
+      val loginUser = loggedIn
+      val user = User.findOneById(stylistId).get
+      val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, stylistId)
         record match {
           case Some(re) => {
             SalonStylistApplyRecord.agreeStylistApply(re)
@@ -107,8 +104,8 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
   /**
    *  拒绝salon邀请
    */
-  def rejectSalonApply(stylistId: ObjectId, salonId: ObjectId) = Action {
-	 val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, stylistId)
+  def rejectSalonApply(stylistId: ObjectId, salonId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(stylistId) _) {implicit request =>
+     val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, stylistId)
         record match {
           case Some(re) => {
             SalonStylistApplyRecord.agreeStylistApply(re)
@@ -119,7 +116,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
         } 
   }
   
-  def findSalonApply(stylistId: ObjectId) =  StackAction(AuthorityKey -> authorization(LoggedIn) _){implicit request =>
+  def findSalonApply(stylistId: ObjectId) =  StackAction(AuthorityKey -> User.isFriend(stylistId) _){implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val applySalons = SalonStylistApplyRecord.findApplingSalon(stylistId)
@@ -133,29 +130,10 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     }
   }
   
-//  def myStyles(stylistId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _){implicit request =>
-//    val user = loggedIn
-//    val followInfo = MyFollow.getAllFollowInfo(user.id)
-//    val styles = Style.findByStylistId(stylistId)
-//    val stylist = Stylist.findOneByStylistId(stylistId)
-//    
-//    stylist match {
-//      case Some(sty) => {
-//        val user = User.findOneById(sty.stylistId)
-//        user match {
-//          case Some(u) => Ok(views.html.stylist.management.stylistStyles(user = user.get, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll))
-//          case None => NotFound
-//        }
-//      }
-//      case None => NotFound
-//    }
-//  }
-  
-  
-  
   def updateStylistInfo(stylistId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user = loggedIn
-    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    val loginUser = loggedIn
+    val user = User.findOneById(stylistId).get
+    val followInfo = MyFollow.getAllFollowInfo(stylistId)
     val goodAtStylePara = Stylist.findGoodAtStyle
     val stylist = Stylist.findOneByStylistId(stylistId)
     
@@ -163,7 +141,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
       case Some(sty) => {
         val stylistUpdate = stylistForm.fill(sty)
         
-        Ok(views.html.stylist.management.updateStylistInfo(user = user, stylist = sty, stylistForm = stylistUpdate, goodAtStylePara = goodAtStylePara, followInfo = followInfo))
+        Ok(views.html.stylist.management.updateStylistInfo(user, followInfo, loginUser.id, true, sty, stylistUpdate, goodAtStylePara))
       }
       case None => NotFound
     }
@@ -177,15 +155,15 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
       {
         case(stylist) => {
           val newStylist = stylist.copy(id = stylistId)
-        	Stylist.save(newStylist) //需修改图片更新
-        	Ok(views.html.stylist.management.stylistHomePage(user = user, stylist = newStylist, followInfo = followInfo))
+            Stylist.save(newStylist) //需修改图片更新
+            Redirect(controllers.routes.auth.Users.myPage())
         }
       })
     
     
   }
   
-  def removeSalon(salonId: ObjectId, stylistId: ObjectId) = Action {
+  def removeSalon(salonId: ObjectId, stylistId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(stylistId) _) {implicit request =>
     SalonAndStylist.leaveSalon(salonId,stylistId)
     Redirect(routes.Stylists.mySalon(stylistId))
     
@@ -238,25 +216,53 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
   def styleToAddNewStyle(styleId: ObjectId) = Action(parse.multipartFormData) { implicit request =>
     request.body.file("photo") match {
             case Some(photo) =>{
-            	val db = MongoConnection()("Picture")
+                val db = MongoConnection()("Picture")
                 val gridFs = GridFS(db)
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull
                 uploadedFile.save()
                 println("img id .."+ uploadedFile._id.get)
                 Styles.styleAddForm.bindFromRequest.fold(
-		      errors => BadRequest(views.html.index("")),
-		      {
-		        case(style) => {
-		          val styleAddForm = Styles.styleAddForm.fill(style)
-		          val newStyle = style
-		          Style.save(newStyle.copy(id = styleId)) //需修改图片更新
-		          
-		          Style.saveStyleImage(newStyle.copy(id = styleId), uploadedFile._id.get)
-		          val upStyle = Style.findOneById(styleId)
-		          Ok(views.html.stylist.management.stylistAddStyle( Styles.styleAddForm.fill(upStyle.get) , Style.findParaAll, upStyle.get, true))
-		        }
-		      })
+              errors => BadRequest(views.html.index("")),
+              {
+                case(style) => {
+                  val styleAddForm = Styles.styleAddForm.fill(style)
+                  val newStyle = style
+                  Style.save(newStyle.copy(id = styleId)) //需修改图片更新
+                  
+                  Style.saveStyleImage(newStyle.copy(id = styleId), uploadedFile._id.get)
+                  val upStyle = Style.findOneById(styleId)
+                  Ok(views.html.stylist.management.stylistAddStyle( Styles.styleAddForm.fill(upStyle.get) , Style.findParaAll, upStyle.get, true))
+                }
+              })
+            }    
+            case None => BadRequest("no photo")
+        }
+    
+  }
+  
+  def styleToAddNewStyle(styleId: ObjectId) = Action(parse.multipartFormData) { implicit request =>
+    request.body.file("photo") match {
+            case Some(photo) =>{
+                val db = MongoConnection()("Picture")
+                val gridFs = GridFS(db)
+                val uploadedFile = gridFs.createFile(photo.ref.file)
+                uploadedFile.contentType = photo.contentType.orNull
+                uploadedFile.save()
+                println("img id .."+ uploadedFile._id.get)
+                Styles.styleAddForm.bindFromRequest.fold(
+              errors => BadRequest(views.html.index("")),
+              {
+                case(style) => {
+                  val styleAddForm = Styles.styleAddForm.fill(style)
+                  val newStyle = style
+                  Style.save(newStyle.copy(id = styleId)) //需修改图片更新
+                  
+                  Style.saveStyleImage(newStyle.copy(id = styleId), uploadedFile._id.get)
+                  val upStyle = Style.findOneById(styleId)
+                  Ok(views.html.stylist.management.stylistAddStyle( Styles.styleAddForm.fill(upStyle.get) , Style.findParaAll, upStyle.get, true))
+                }
+              })
             }    
             case None => BadRequest("no photo")
         }
@@ -266,25 +272,26 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
   /**
    * 后台发型检索
    */
-  def findMyStylesByStylist(stylistId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+  def findMyStylesByStylist(stylistId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(stylistId) _) { implicit request =>
+    val loginUser = loggedIn
     val styles = Style.findByStylistId(stylistId)
     val user = loggedIn
     val stylist = Stylist.findOneByStylistId(stylistId)
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true, isStylist = true))
+    Ok(views.html.stylist.management.stylistStyles(user, followInfo,loginUser.id, true, stylist.get, styles, Styles.styleSearchForm, Style.findParaAll, true, true))
   }
   
   def findMyStylesBySerach = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
         implicit request =>
-          	val user = loggedIn
-          	val stylist = Stylist.findOneByStylistId(user.id)
-          	val followInfo = MyFollow.getAllFollowInfo(user.id)
+            val user = loggedIn
+            val stylist = Stylist.findOneByStylistId(user.id)
+            val followInfo = MyFollow.getAllFollowInfo(user.id)
             Styles.styleSearchForm.bindFromRequest.fold(
                 errors => BadRequest(views.html.index("")),
                 {
                     case (styleSearch) => {
                         val styles = Style.findStylesByStylistBack(styleSearch,stylist.get.stylistId)
-                        Ok(views.html.stylist.management.stylistStyles(user = user, stylist = stylist.get, styles = styles, followInfo = followInfo, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = true))
+                        Ok(views.html.stylist.management.stylistStyles(user, followInfo, true, stylist.get, styles, Styles.styleSearchForm, Style.findParaAll, true, true))
                     }
                 })
     }
@@ -294,12 +301,12 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
      */
     def styleUpdateByStylist(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
         implicit request =>
-    	val styleOne: Option[Style] = Style.findOneById(id)
+        val styleOne: Option[Style] = Style.findOneById(id)
         val user = loggedIn
         val stylist = Stylist.findOneByStylistId(user.id)
         val followInfo = MyFollow.getAllFollowInfo(user.id)
         styleOne match {
-            case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user = user, stylist = stylist.get, style = style, followInfo = followInfo, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll))
+            case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user, followInfo, user.id, true, stylist.get, style, followInfo , Styles.styleUpdateForm.fill(style), Style.findParaAll))
             case None => NotFound
         }
     }
@@ -364,14 +371,14 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
     }
     
 
-	def checkStylist(stylistId: ObjectId) = {
-	      
-	    }
+    def checkStylist(stylistId: ObjectId) = {
+          
+        }
     
     def fileUploadAction = Action(parse.multipartFormData) { implicit request =>
     request.body.file("photo") match {
             case Some(photo) =>{
-            	val db = MongoConnection()("Picture")
+                val db = MongoConnection()("Picture")
                 val gridFs = GridFS(db)
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull
@@ -383,15 +390,5 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
         }
     
   }
-  /*def updateStyleByStylist(styleId: ObjectId) = Action {
-     
-  }
-  
-  def deleteStyleByStylist(styleId: ObjectId) = Action {
     
-  }
-  
-  def createStyleByStylist(stylistId: ObjectId) = Action {
-    
-  }*/
 }

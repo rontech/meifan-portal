@@ -49,7 +49,7 @@ case class GoodAtStyle(
 
 case class StylistApply(
     stylist: Stylist,
-    salonId: ObjectId
+    salonAccountId: String
 )
 
 object Stylist extends StylistDAO

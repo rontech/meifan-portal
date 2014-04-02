@@ -112,11 +112,11 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
 		          stylist.goodAtImage, stylist.goodAtStatus, stylist.goodAtService, stylist.goodAtUser,
 		          stylist.goodAtAgeGroup, stylist.myWords, stylist.mySpecial, stylist.myBoom, stylist.myPR)
 		    },
-		    "salonId" -> text
+		    "salonAccountId" -> text
 		    ){
-		      (stylist, salonId) => StylistApply(stylist, new ObjectId(salonId))
+		      (stylist, salonAccountId) => StylistApply(stylist, salonAccountId)
 		    }{
-		      stylistApply => Some((stylistApply.stylist, stylistApply.salonId.toString))
+		      stylistApply => Some((stylistApply.stylist, stylistApply.salonAccountId))
 		    }
 		)
   /**
@@ -272,9 +272,13 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
       {
         case(stylistApply) => {
           Stylist.save(stylistApply.stylist.copy(stylistId = user.id))
-          val applyRecord = new SalonStylistApplyRecord(new ObjectId, stylistApply.salonId, stylistApply.stylist.stylistId, 1, new Date, 0, None)
-    	  SalonStylistApplyRecord.save(applyRecord)
-          Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user, goodAtStylePara, followInfo))
+          Salon.findByAccountId(stylistApply.salonAccountId).map{salon=>
+            val applyRecord = new SalonStylistApplyRecord(new ObjectId, salon.id, stylistApply.stylist.stylistId, 1, new Date, 0, None)
+            SalonStylistApplyRecord.save(applyRecord)
+            Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user, goodAtStylePara, followInfo))
+          }getOrElse{
+        	  NotFound
+          }
         }
       })
     	 
