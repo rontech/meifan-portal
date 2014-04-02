@@ -240,7 +240,6 @@ service.name=服务名
 service.type=技术类别
 service.price=服务费用（单位：元）
 service.tsCost=服务耗时（单位：分钟）
-service.addErrorMsg=请输入服务技术名！
 service.addBtn=添加
 service.resetBtn=重置
 service.addServiceType=添加服务类别
@@ -296,7 +295,15 @@ coupon.serviceDuration = 服务时长
 coupon.modify = 修改
 coupon.invalid = 无效
 coupon.invalidCoupon = 该优惠劵已无效
-coupon.addErrorMsg = 请输入优惠劵名！
+coupon.couponNameRequired = 优惠劵名必须填写！
+coupon.couponNameRepeat = 优惠劵名已存在，请重新填写！
+coupon.couponServiceRequired = 请至少选择一个服务！
+coupon.perferentialPriceErr = 优惠价格必须填写并且必须为数字！
+coupon.startDateRequired = 开始时间必须填写！
+coupon.endDateRequired = 截至时间必须填写！
+coupon.useConditionsRequired = 使用条件必须填写！
+coupon.presentTimeRequired = 出示时间必须填写！
+coupon.couponDiscriptionErr = 填写必须10到100以内的字！
 
 menu.title = {0} 的菜单
 menu.tip = 没有找到您希望的菜单！
@@ -307,6 +314,10 @@ menu.createMenuArea = 创建菜单区域
 menu.menuName = 菜单名
 menu.createMenu = 创建菜单
 menu.invalidCoupon = 该菜单已无效
+menu.menuNameRequired = 菜单名必须填写！
+menu.menuNameRepeat = 菜单名已存在，请重新填写！
+menu.menuServiceRequired = 请至少选择一个服务！
+menu.menuDiscriptionErr = 填写必须10到100以内的字！
 
 #ApplyRecord.status
 apply.inApply = 0
@@ -342,13 +353,14 @@ stylist.findOtherBlog = 查看更多
 stylist.experienceYears={0}年经验
 stylist.removeSalon = 离开店铺
 stylist.update = 更新
-stylist.industry = 职位
 stylist.stylistId = 用户ID
+stylist.workYears = 工作年数
+
 
 
 #Stylist Apply
 stylist.name = 昵称
-stylist.workYears = 年
+stylist.years = 年
 stylist.industry = 类别
 stylist.position = 职位
 stylist.goodAtImage = 擅长风格
@@ -375,7 +387,7 @@ stylistMag.styleManage = 发型管理
 stylistMag.serviceManage = 服务管理
 stylistMag.salonHistory = 店铺历史
 stylistMag.totalReserv = 显示当天预约
-stylist.mySalon = 我的salon
+stylist.mySalon = 我的店铺
 
 
 # User
@@ -415,7 +427,6 @@ user.loginBtn=登录
 user.registerBtn=注册
 user.new=新用户
 user.userIdErr=用户名不合法!
-user.confirmPas=确认密码
 user.agree=必须同意!
 user.male=男
 user.female=女
@@ -436,10 +447,10 @@ user.twicePasswordError=两次密码不一致！
 user.birthDayErr=请选择出生日期！
 user.emailErr=邮箱无效！
 user.userIdNotAvailable=该用户名已被注册 
-user.passwordError=密码不合法，只能包含字母、数字和下划线！
-user.telError=手机号码无效
-user.toBePassword=以字母开头，6~18位字符
-user.toBeUserId=6~16位字符
+user.passwordError=密码不合法！
+user.telError=手机号码无效!
+user.toBePassword= 可输入6~18位,以字母开头，包含字母、数字和下划线!
+user.toBeUserId= 可输入6~16位字。包含数字，英文和中文！
 user.nickNameErr=给个昵称吧！
 user.welcome=欢迎您，{0}
 user.guestName=游客
@@ -453,8 +464,19 @@ user.registerMessage3 = 新用户还可以免费得到20个积分点哦！
 user.userLogin = 会员登录
 user.loginMessage = 如果你已经是本网站的会员，请在下面输入用户名和密码登录！
 user.forgetPassword = 如果你忘记密码，请点击这里
-
-
+user.quickNavigation=快速导航
+user.hasUserId = 已有美范账号？
+user.chooseEdit=选填
+user.agreeToRegister=同意协议并注册
+user.agreement=《美范网用户协议》
+user.fansOf=的粉丝
+user.followedUser=关注的达人
+user.followedSalon=关注的沙龙
+user.followedStylist=关注的技师
+user.noBlogSearched=没有收藏的博客……
+user.noStyleSearched=没有收藏的发型……
+user.noCouponSearched=没有收藏的优惠券……
+user.applyStylist = 普通会员申请技师
 
 #Letter
 letter.addressee=收件人
@@ -577,4 +599,25 @@ restDay.restDay.1.5=星期六
 restDay.restDay.1.6=星期日
 restDay.message=
 salon.image=添加图片
+
+#industy
+industy = 行业
+ChooseIndustry = --选择行业--
+ChoosePosition = --选择职位--
+positionName = 职位
+addPositionAndIndusty = 添加行业与职位
+removePositionAndIndusty = 移除
+Cosmetic = 美容
+Healthcare = 护理
+Manicures = 美甲
+Hairdressing = 美发
+Other = 其它
+Supple = 软发
+Perm = 烫发
+Care = 护理
+Dye = 染发
+Blow = 吹发
+Wash = 洗发
+Cut = 剪发
+salonAccountId = 店铺账号
 

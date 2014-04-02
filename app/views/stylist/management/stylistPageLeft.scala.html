@@ -5,7 +5,7 @@
 				<span class='U'>
       				<a href="@auth.routes.Users.myPage" class='Name' title='female'>@user.userId</a>
 					<span class='opts'>
-						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='absmiddle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
+						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='middle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
 						<a href = "/updateStylistImage/@stylist.stylistId">@Messages("user.changeImage")</a>
 					</span>
 				</span>
