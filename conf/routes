@@ -162,8 +162,8 @@ GET        /addComment/:commentObjId/:commentObjType         controllers.Comment
 # add Blog
 GET         /newBlog/:userId                                 controllers.auth.Blogs.newBlog(userId : String)
 GET         /deleteBlog/:blogId                              controllers.auth.Blogs.deleteBlog(blogId : ObjectId)
-GET         /:userId/showBlog                                controllers.noAuth.Blogs.showBlog(userId : String)
-GET         /showBlogById/:blogId                            controllers.noAuth.Blogs.showBlogById(blogId : ObjectId)
+GET         /:userId/showBlog                                controllers.noAuth.Blogs.getAllBlogsOfUser(userId : String)
+GET         /showBlogById/:blogId                            controllers.noAuth.Blogs.getOneBlogById(blogId : ObjectId)
 POST        /writeBlog/:userId                               controllers.auth.Blogs.writeBlog(userId : String)
 GET         /editBlog/:blogId                                controllers.auth.Blogs.editBlog(blogId : ObjectId)
 POST        /modBlog/:blogId                                 controllers.auth.Blogs.modBlog(blogId : ObjectId)

@@ -143,21 +143,21 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
    /**
     * 查看用户的blog
     */
-   def showBlog(userId : String) = StackAction { implicit request =>
+   def getAllBlogsOfUser(userId : String) = StackAction { implicit request =>
      var blogList : List[Blog] = Nil
      val user: Option[User] = User.findOneByUserId(userId)
      user match {
        case Some(user) => {
          val followInfo = MyFollow.getAllFollowInfo(user.id)
-         loggedIn.map{ LoggedUser => 
-           if(LoggedUser.id.equals(user.id))
-         	blogList = Blog.getBlogByUserId(userId)
-     	  else
-     	    blogList = Blog.getOtherBlogByUserId(userId)    	    
-           Ok(views.html.blog.admin.findBlogs(user, blogList, followInfo, LoggedUser.id, true))
+         loggedIn.map{ loginUser => 
+           if(loginUser.id.equals(user.id))
+         	 blogList = Blog.getBlogByUserId(userId)
+     	   else
+     	     blogList = Blog.getOtherBlogByUserId(userId)    	    
+           Ok(views.html.blog.admin.searchBlogsOfUser(user, blogList, followInfo, loginUser.id, loginUser.id.equals(user.id)))
          }getOrElse{
            blogList = Blog.getOtherBlogByUserId(userId)
-     	  Ok(views.html.blog.admin.findBlogs(user, blogList, followInfo))
+     	  Ok(views.html.blog.admin.searchBlogsOfUser(user, blogList, followInfo))
          }
        }
        case None => NotFound
@@ -169,19 +169,25 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
     * 显示某一条blog
     * 通过blog的id找到blog
     */
-   def showBlogById(blogId: ObjectId) = StackAction { implicit request =>
+   def getOneBlogById(blogId: ObjectId) = StackAction { implicit request =>
      val blog = Blog.findOneById(blogId)
+     var blogList : List[Blog] = Nil
      blog match {
        case Some(blog) => {
      	val user = User.findOneByUserId(blog.authorId).get
              Comment.list = Nil
-             val commentList = Comment.all(blogId)
+             val commentList = Comment.all(blogId).sortBy(blog => blog.createTime)
              val followInfo = MyFollow.getAllFollowInfo(user.id)
-             loggedIn.map{ LoggedUser => 
-               Ok(views.html.blog.admin.blogDetail(blog, user, commentList, followInfo, LoggedUser.id, true))
+             loggedIn.map{ loginUser => 
+               if(loginUser.id.equals(user.id))
+                 blogList = Blog.getBlogByUserId(user.userId)
+     	       else
+     	         blogList = Blog.getOtherBlogByUserId(user.userId) 
+               Ok(views.html.blog.admin.blogDetailOfUser(blogList, blog, user, commentList, followInfo, loginUser.id, true))
              }getOrElse{
-     	  Ok(views.html.blog.admin.blogDetail(blog, user, commentList, followInfo))
-         }
+               blogList = Blog.getOtherBlogByUserId(user.userId)
+    		   Ok(views.html.blog.admin.blogDetailOfUser(blogList, blog, user, commentList, followInfo))
+             }
        }
        case None => NotFound
      } 

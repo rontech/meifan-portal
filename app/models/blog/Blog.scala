@@ -56,7 +56,7 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
     var blog : List[Blog] = Nil
     stylistList.foreach({ row => 
         var user = User.findOneById(row.stylistId).get
-        blog = Blog.find(DBObject("authorId" -> user.userId, "isValid" -> true, "pushToSalon" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
+        blog = Blog.find(DBObject("authorId" -> user.userId, "isValid" -> true, "pushToSalon" -> true)).toList
         if(!blog.isEmpty)
           blogList :::= blog
       }

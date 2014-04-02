@@ -29,7 +29,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
    */
   var list = List.empty[Comment]
   def all(id : ObjectId): List[Comment] = {   
-    val l = dao.find(MongoDBObject("commentObjId" -> id, "isValid" -> true)).sort(MongoDBObject("time" -> 1)).toList
+    val l = dao.find(MongoDBObject("commentObjId" -> id, "isValid" -> true)).toList
      if (!l.isEmpty){
      l.foreach(
        {
@@ -58,7 +58,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
           commentList :::= comment
       }
     )
-    commentList
+    commentList.sortBy(comment => comment.createTime).reverse
   }
   
   def addComment(userId : String, content : String, commentObjId : ObjectId, commentObjType : Int) = {
@@ -99,7 +99,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
         }
         }    
     )
-    commentOfSalonList
+    commentOfSalonList.sortBy(commentOfSalon => commentOfSalon.commentInfo.createTime).reverse
   }
   
 }

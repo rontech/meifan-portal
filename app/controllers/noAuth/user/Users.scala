@@ -97,6 +97,6 @@ object Users extends Controller with OptionalAuthElement with AuthConfigImpl{
     }getOrElse{
       NotFound
     }*/
-      Redirect(controllers.noAuth.routes.Blogs.showBlog(userId))
+      Redirect(controllers.noAuth.routes.Blogs.getAllBlogsOfUser(userId))
   }
 }

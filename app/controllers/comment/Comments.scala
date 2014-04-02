@@ -73,7 +73,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
           case (content) =>         
 	        Comment.addComment(user.userId, content, commentObjId, commentObjType)
 	        if (commentObjType == 1) { 
-	          Redirect(noAuth.routes.Blogs.showBlogById(commentObjId))
+	          Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
 	        }
 	        else {
 	          Ok("")
@@ -110,7 +110,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
         {
           case (content) =>
 	        Comment.reply(user.userId, content, commentObjId, commentObjType) 
-	        Redirect(noAuth.routes.Blogs.showBlogById(id))	
+	        Redirect(noAuth.routes.Blogs.getOneBlogById(id))	
         } 
       )
   }
@@ -118,6 +118,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
    /**
    * 店铺回复消费者的评论，后台逻辑
    */
+  // 这边的权限有点问题啊，应该需要的是店铺登陆的权限
   def replyAdmin(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
 //      val userId = request.session.get("userId").get
       // TODO
@@ -139,7 +140,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
   def delete(id : ObjectId, commentObjId : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     Comment.delete(id)
 //    Redirect(routes.Comments.find(commentedId))
-    Redirect(noAuth.routes.Blogs.showBlogById(commentObjId))
+    Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
   }
   
   /**

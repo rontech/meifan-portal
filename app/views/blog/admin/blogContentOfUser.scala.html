@@ -1,4 +1,4 @@
-@(blog : Blog, user : User, commentList : List[Comment], followInfo:FollowInformation, loggedId : ObjectId = new ObjectId, logged : Boolean = false)
+@(blogList : List[Blog], blog : Blog, user : User, commentList : List[Comment], followInfo:FollowInformation, loginUserId : ObjectId, logged : Boolean)
 @import views.html.user._
 @import java.text.DateFormat
 
@@ -36,12 +36,21 @@
       }
 </script>
 
+<ul id="allposts" style="display:none">
+	@blogList.map { blog =>
+	    <li uid="@noAuth.routes.Blogs.getOneBlogById(blog.id)">
+	    @blog.title
+	    </li>
+    }
+</ul>
+
+
 <div class="BlogEntity">		
   <div class="BlogTitle">
     <h1><span class="icon" style="background:#44ac57;" title=""></span>@blog.title</h1>
     <div class="BlogStat">
 		@DateFormat.getDateInstance().format(blog.createTime)&nbsp;&nbsp;@Messages("blog.comment") （<a href="#comments"><span class="g">@commentList.size</span></a>）
-		@if(loggedId.equals(user.id)){
+		@if(loginUserId.equals(user.id)){
 		<span class="admin">
 			<a href="@auth.routes.Blogs.editBlog(blog.id)">@Messages("common.edit")</a>&nbsp;|&nbsp;
             <a href="" class="deleteBlog" data-blog="@blog.id">@Messages("common.delete")</a>
@@ -65,12 +74,55 @@
 		 <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">@Messages("blog.shareTo")</a><a href="#" class="bds_qzone" data-cmd="qzone" title="@Messages("blog.shareToQQ")">@Messages("blog.QQ")</a><a href="#" class="bds_tsina" data-cmd="tsina" title="@Messages("blog.shareToXL")">@Messages("blog.XL")</a><a href="#" class="bds_tqq" data-cmd="tqq" title="@Messages("blog.shareToTX")">@Messages("blog.TX")</a><a href="#" class="bds_renren" data-cmd="renren" title="@Messages("blog.shareToRR")">@Messages("blog.RR")</a><a href="#" class="bds_weixin" data-cmd="weixin" title="@Messages("blog.shareToWX")">@Messages("blog.WX")</a></div>
         <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 	</div>	  
-      <div class="BlogLinks">
+      @*<div class="BlogLinks">
     	<ul>
                 <li class="prev"><a href="" title="上一篇：test">« 上一篇</a></li>        
                 <li class="next"><a href="" title="下一篇：1">下一篇 »</a></li>    	
         </ul>
-      </div>
+      </div>*@
+      
+      <script language="javascript" type="text/javascript">
+    var postList = document.getElementById('allposts');
+    var curUrl = "@noAuth.routes.Blogs.getOneBlogById(blog.id)";
+    var prePost = {
+                    title:'没有啦',
+                    url:''
+    };
+    var nextPost = {
+                    title:'没有啦',
+                    url:curUrl
+    };
+    var getNextPost = false;
+    for(var i=0;i<postList.childNodes.length;i++)
+    {
+        var post = postList.childNodes[i];
+        if(post.tagName == 'LI')
+        {
+            var url = post.attributes['uid'].value;
+            var title = post.firstChild.nodeValue;
+            if(url != curUrl )
+            {
+                if(!getNextPost)
+                {
+                    nextPost.title = title;
+                    nextPost.url = url;
+                }
+                else
+                {
+                    prePost.title = title;
+                    prePost.url = url;
+                    break;
+                }
+            }
+            else
+            {
+                getNextPost = true;
+            }
+        }
+    }
+    document.write("<ul><li><b>前一篇: </b>" + "<a href='" + prePost.url + "'>" + prePost.title + "</a></li>");
+    document.write("<li><b>后一篇: </b>"+"<a href='"+nextPost.url+"'>"+nextPost.title+"</a></li></ul>");
+</script>
       
 	</div>
 
@@ -85,7 +137,7 @@
 						<li id="">
 	<table class="ostable"><tbody><tr>
 	<td class="portrait">
-	@if(User.findOneByUserId(commentList(i-1).authorId).get.id.equals(loggedId)){
+	@if(User.findOneByUserId(commentList(i-1).authorId).get.id.equals(loginUserId)){
 	    <a href="@auth.routes.Users.myPage" target="_blank"><img src="/img/portrait.gif" align="absmiddle" alt="" title="" class="SmallPortrait" user=""></a>
     }else{
 		<a href="@noAuth.routes.Users.userPage(commentList(i-1).authorId)" target="_blank"><img src="/img/portrait.gif" align="absmiddle" alt="" title="" class="SmallPortrait" user=""></a>
@@ -99,7 +151,7 @@
 		}
 			@*@Messages("blog.floor",i)：<a href="" target="_blank" name="rpl_278991586" class="user">@commentList(i-1).authorId</a> @Messages("blog.createAt",DateFormat.getDateInstance().format(commentList(i-1).createTime))*@
 			@Messages("blog.floor",i)：@commentList(i-1).authorId  @Messages("blog.createAt",DateFormat.getDateInstance().format(commentList(i-1).createTime))
-        	        	  @if(loggedId.equals(user.id)){                      
+        	        	  @if(loginUserId.equals(user.id)){                      
         	        	  <a href="" class="deleteComment" data-comment="@commentList(i-1).id" data-blog="@blog.id">@Messages("common.delete")</a> 
         	        	  }
         	        	  <a onclick="return replyInline('reply_@commentList(i-1).id')" style="cursor:pointer;">@Messages("blog.replyComment")</a>   
