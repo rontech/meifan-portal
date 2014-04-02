@@ -464,7 +464,6 @@ user.registerMessage3 = 新用户还可以免费得到20个积分点哦！
 user.userLogin = 会员登录
 user.loginMessage = 如果你已经是本网站的会员，请在下面输入用户名和密码登录！
 user.forgetPassword = 如果你忘记密码，请点击这里
-<<<<<<< HEAD
 user.fansOf=的粉丝
 user.followedUser=关注的达人
 user.followedSalon=关注的沙龙
