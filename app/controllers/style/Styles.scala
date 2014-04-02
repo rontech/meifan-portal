@@ -133,12 +133,29 @@ object Styles extends Controller {
         }
         salon match {
             case Some(salon) => {
-                Ok(html.salon.store.salonInfoStyleAll(salon, styles))
+                Ok(html.salon.store.salonInfoStyleAll(salon = salon, styles = styles))
             }
             case None => NotFound
         }
     }
 
+    def findBySalonAndSex(salonId: ObjectId, sex: String) = Action {
+        val salon: Option[Salon] = Salon.findById(salonId)
+        val stylists = Style.findStylistBySalonId(salonId)
+        var styles: List[Style] = Nil
+        stylists.map { sty =>
+            var style = Style.findByStylistIdAndSex(sty.stylistId, sex)
+            styles :::= style
+        }
+        salon match {
+            case Some(salon) => {
+                Ok(html.salon.store.salonInfoStyleAll(salon = salon, styles = styles, sex = sex))
+            }
+            case None => NotFound
+        }
+    }
+    
+    
     def getStyleInfoOfSalon(salonId: ObjectId, styleId: ObjectId) = Action {
         val salon: Option[Salon] = Salon.findById(salonId)
         val style: Option[Style] = Style.findOneById(styleId)
@@ -224,89 +241,6 @@ object Styles extends Controller {
                         Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearch), styleAndSalons, Style.findParaAll))
                     }
                 })
-    }
-
-    /**
-     * 后台发型新建
-     */
-    def styleAdd = Action {
-        //此处为新发型登录
-//        Ok(html.style.admin.styleAdd(styleAddForm, Style.findParaAll))
-        Ok(html.index(""))
-    }
-
-    def styleAddNew = Action {
-        implicit request =>
-            styleAddForm.bindFromRequest.fold(
-                errors => BadRequest(html.index("")),
-                {
-                    case (styleAddForm) => {
-                        Style.save(styleAddForm)
-//                                                Ok(html.style.test(styleAddForm))
-                        Ok(html.index(""))
-                    }
-                })
-    }
-
-    /**
-     * 后台发型更新
-     */
-    def styleUpdate(id: ObjectId) = Action {
-        val styleOne: Option[Style] = Style.findOneById(id)
-        styleOne match {
-//            case Some(style) => Ok(html.style.admin.styleUpdate(styleAddForm, Style.findParaAll, style))
-            case Some(style) => Ok(html.index(""))
-            case None => NotFound
-        }
-    }
-
-    def styleUpdateNew = Action {
-        implicit request =>
-            styleUpdateForm.bindFromRequest.fold(
-                errors => BadRequest(html.index("")),
-                {
-                    case (styleUpdateForm) => {
-                        Style.updateStyle(styleUpdateForm)
-                        //              Ok(html.style.test(styleUpdateForm))
-                        Redirect(routes.Styles.styleUpdate(styleUpdateForm.id))
-                    }
-                })
-    }
-
-    /**
-     * 后台发型检索
-     */
-    def backstageStyleSearch = Action {
-        //该处暂时固定写死发型师ID,查询其所有发型
-        val stylistId = List("530d8010d7f2861457771bf8")
-        var styles: List[Style] = Nil
-        stylistId.map { sty =>
-            val style = Style.findByStylistId(new ObjectId(sty))
-            styles :::= style
-        }
-        Ok(html.index(""))
-//        Ok(html.style.admin.backstageStyleSearchList(styleSearchForm, styles, Style.findParaAll, true))
-    }
-
-    def backstageStyleSearchList = Action {
-        implicit request =>
-            styleSearchForm.bindFromRequest.fold(
-                errors => BadRequest(html.index("")),
-                {
-                    case (styleSearch) => {
-                        val styleSearchInfo = Style.findByPara(styleSearch)
-                        Ok(html.index(""))
-//                        Ok(html.style.admin.backstageStyleSearchList(styleSearchForm.fill(styleSearch), styleSearchInfo, Style.findParaAll, false))
-                    }
-                })
-    }
-
-    /**
-     * 后台发型删除，使之无效即可
-     */
-    def styleToInvalid(id: ObjectId) = Action {
-        Style.styleToInvalid(id)
-        Redirect(routes.Styles.backstageStyleSearch)
     }
 
 }
