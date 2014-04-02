@@ -152,7 +152,7 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
 		    }
         }    
     )
-    blogOfSalonList
+    blogOfSalonList.sortBy(blogOfSalon => blogOfSalon.blogInfo.createTime).reverse
   }
   
   /**
