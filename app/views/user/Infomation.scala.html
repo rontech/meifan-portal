@@ -47,79 +47,159 @@
 }
 
     @myPageMain(navInMyPage = "information", user, followInfo)  {
-
-        @form(auth.routes.Users.updateInfo(user.userId), 'id -> "userForm") {
-          <fieldset>
-           	
-                  @inputText(userForm("userId"),'_label -> Messages("user.name"), 'readonly -> "true")
-
-                  <input type="hidden" name="password" value="@user.password">
-
-                  @inputText(userForm("nickName"),'_label -> Messages("user.nickNm"), '_error -> userForm("nickName").error.map(_.withMessage(Messages("user.nickNameErr"))))
-
-                  @inputDate(userForm("birthDay"), '_label -> Messages("user.birthDay"), '_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr"))))
-
-                  @inputRadioGroup(userForm("sex"),options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")) , '_label -> Messages("user.sex"),
-                  '_error -> userForm("sex").error.map(_.withMessage(Messages("user.sexErr"))))
-
-                  @inputText(userForm("socialStatus"),'_label -> Messages("user.job"))
-
-                  @inputText(userForm("email"), '_label -> Messages("user.email"), '_error -> userForm("email").error.map(_.withMessage(Messages("user.emailErr"))))
-
-                  @inputText(userForm("tel"), '_label -> Messages("user.tel"))
-
-                  @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none")
-                  
-                  <div>
-                  <span align = left>@Messages("salon.address")</span>
-                  <br>
-                  @Messages("salon.province"):  <select id="Select1" name = "address.province" value = "@user.address.province"></select>
-                  @Messages("salon.city"):  <select id="Select2" name = "address.city" value = "@user.address.city"></select>
-                  @Messages("salon.region"):  <select id="Select3" name = "address.region" value = "@user.address.region"></select>
-                  <script type="text/javascript">
-                  addressInit('Select1', 'Select2', 'Select3');
-                  </script>
-                  </div>
-                  <br>
-                  
-                  <input type="hidden" name="address.province" value="@user.address.province">
-                  <input type="hidden" name="address.city" value="@user.address.city">
-                  <input type="hidden" name="userPics" value="@user.userPics">
-                  <input type="hidden" name="userTyp" value="@user.userTyp">
-                  <input type="hidden" name="userBehaviorLevel" value="@user.userBehaviorLevel">
-                  <input type="hidden" name="point" value="@user.point">
-                  <input type="hidden" name="permission" value="@user.permission">
-
-		  </fieldset>    
-		  
-		  <fieldset>
-            <legend>@Messages("user.optContactMethod")</legend>
-            
-            <div id="optContactMethods">
-            
-                @repeat(userForm("optContactMethods")) { optContactMethod =>
+    	
+		<div class="mT10 pH10">
+			@form(auth.routes.Users.updateInfo(user.userId), 'id -> "userForm") {
+				
+				<input type="hidden" name="password" value="@user.password">
+				<input type="hidden" name="address.province" value="@user.address.province">
+                <input type="hidden" name="address.city" value="@user.address.city">
+                <input type="hidden" name="userPics" value="@user.userPics">
+                <input type="hidden" name="userTyp" value="@user.userTyp">
+                <input type="hidden" name="userBehaviorLevel" value="@user.userBehaviorLevel">
+                <input type="hidden" name="point" value="@user.point">
+                <input type="hidden" name="permission" value="@user.permission">
                 
-                    @optContactMethodGroup(optContactMethod)
-                
-                }
-                
-                @**
-                 * Keep an hidden block that will be used as template for Javascript copy code
-                 **@
-                @optContactMethodGroup(
-                    userForm("optContactMethods[x]"),
-                    className = "optContactMethod_template"
-                )
-                
-                <div class="manage">
-                    <a class="addOptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
-                </div>
+				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
+				    <tbody>
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("user.name")
+				                </div>
+				            </th>
+				            <td>
+				               @inputText(userForm("userId"),'_label -> None, 'readonly -> "true")
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("user.nickNm")
+				                </div>
+				            </th>
+				            <td>
+				               @inputText(userForm("nickName"),'_label -> None, '_error -> userForm("nickName").error.map(_.withMessage(Messages("user.nickNameErr"))))
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("user.birthDay")
+				                </div>
+				            </th>
+				            <td>
+				               @inputDate(userForm("birthDay"), '_label -> None, '_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr"))))
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("user.sex")
+				                </div>
+				            </th>
+				            <td>
+				               @inputRadioGroup(userForm("sex"),options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")) , '_label -> None,
+                  								'_error -> userForm("sex").error.map(_.withMessage(Messages("user.sexErr"))))
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("user.job")
+				                </div>
+				            </th>
+				            <td>
+				               @inputText(userForm("socialStatus"),'_label -> None)
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("user.email")
+				                </div>
+				            </th>
+				            <td>
+				               @inputText(userForm("email"), '_label -> None, '_error -> userForm("email").error.map(_.withMessage(Messages("user.emailErr"))))
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("user.tel")
+				                </div>
+				            </th>
+				            <td>
+				               @inputText(userForm("tel"), '_label -> None)
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("user.tel")
+				                </div>
+				            </th>
+				            <td>
+				               @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none")
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("salon.address")
+				                </div>
+				            </th>
+				            <td>
+				            	@Messages("salon.province"):  <select id="Select1" name = "address.province" value = "@user.address.province"></select>
+				                @Messages("salon.city"):  <select id="Select2" name = "address.city" value = "@user.address.city"></select>
+				                @Messages("salon.region"):  <select id="Select3" name = "address.region" value = "@user.address.region"></select>
+				                <script type="text/javascript">
+				                	addressInit('Select1', 'Select2', 'Select3');
+				                </script>
+				            </td>
+				        </tr>
+					</tbody>
+				</table>
+				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+				    <tbody>
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("user.optContactMethod")
+				                </div>
+				            </th>
+				            <td>
+				               <div id="optContactMethods">
             
-            </div>
-            
-        </fieldset>
-            <input type = "submit" class = "buttons" value="@Messages("service.update")">           
-        }
+					                @repeat(userForm("optContactMethods")) { optContactMethod =>
+					                
+					                    @optContactMethodGroup(optContactMethod)
+					                
+					                }
+					                
+					                @**
+					                 * Keep an hidden block that will be used as template for Javascript copy code
+					                 **@
+					                @optContactMethodGroup(
+					                    userForm("optContactMethods[x]"),
+					                    className = "optContactMethod_template"
+					                )
+					                
+					                <div class="manage">
+					                    <a class="addOptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
+					                </div>
+					            
+					            </div>
+				            </td>
+				        </tr>
+					</tbody>
+				</table>
+				
+				<div class="mT20 txtC">
+					<input type = "submit" class = "buttons" value="@Messages("service.update")">
+				</div>
+			}
+		</div>
         
         <script type="text/javascript" charset="utf-8">
         

@@ -296,6 +296,7 @@ coupon.serviceDuration = 服务时长
 coupon.modify = 修改
 coupon.invalid = 无效
 coupon.invalidCoupon = 该优惠劵已无效
+coupon.expiredCoupon = 该优惠劵已过期
 coupon.couponNameRequired = 优惠劵名必须填写！
 coupon.couponNameRepeat = 优惠劵名已存在，请重新填写！
 coupon.couponServiceRequired = 请至少选择一个服务！

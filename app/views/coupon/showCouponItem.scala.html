@@ -159,7 +159,12 @@
                         <div>
                            <span class ="txtM">
                              <font class="fgRed">
-                                 @Messages("coupon.invalidCoupon")
+                             	 @if(coupon.endDate.before(new java.util.Date())) {
+               	   					@Messages("coupon.expiredCoupon")	
+               	   				 } 
+								 @if(!coupon.isValid){
+               	   				 	@Messages("coupon.invalidCoupon")
+               	   				 }
                              </font>
                            </span>
                         </div>
