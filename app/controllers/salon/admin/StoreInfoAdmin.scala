@@ -255,7 +255,7 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
             case Some(sl) => 
                   val salon = SalonInfo.salonInfo.fill(sl)
                   val industry = Industry.findAll.toList  
-                  Ok(views.html.salon.admin.salonManage(salon = salon,industry = industry))
+                  Ok(views.html.salon.admin.salonManage("",salon ,industry , sl))
             case _ => NotFound
         }    
  
@@ -266,10 +266,11 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
    * 店铺基本信息更新
    */
   def update(id: ObjectId) = Action { implicit request =>
+    val salon = Salon.findById(id).get
+    val industry = Industry.findAll.toList     
     salonInfo.bindFromRequest.fold(
-      errors => BadRequest(views.html.error.errorMsg(errors)),
-      {
-        
+      errors => BadRequest(views.html.salon.admin.salonManage("",errors,industry,salon)),
+      {       
         salon =>
           Salon.save(salon.copy(id = id))
           Redirect(routes.SalonInfo.salonInfoBasic(id))
