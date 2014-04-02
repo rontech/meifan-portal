@@ -1,26 +1,23 @@
-@(salonRegister: Form[Salon],industry: List[Industry])
+@(navInSalon: String = "my-salonInfo",salon:Form[Salon],industry: List[Industry])
 @import helper._
 @import helper.twitterBootstrap._
+@import views.html.salon.admin._
 
-@main(Messages("salon.register")){
+@mySalonMain(navInSalon, salon.get){
 	
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
 
-<div class="salonRegister">
-	<div class="salonRegister">
+<div class="basicInformation-content">
+	<div class="basicInformation">
 		<div class="contentsTitleWrapper">
-			<h2 class="contentsTitleInner">@Messages("salon.register")</h2>
+			<h2 class="contentsTitleInner">@Messages("salon.title")</h2>
 		</div>
 
 		<div class="mT10 pH10">
-			@helper.form(routes.SalonInfo.doRegister, 'id -> "salonRegister"){
+			@helper.form(action = routes.SalonInfo.update(salon.get.id), args = 'id -> "salonForm"){
+				
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
-				    	@if(salonRegister.hasGlobalErrors){
-             			 <div>
-                 			 @salonRegister.globalError.get.message
-              			 </div>				    		
-				    	}
 				        <tr>
 				            <th class="w222">
 				                <div class="dibBL vaM w160">
@@ -28,10 +25,8 @@
 				                </div>
 				            </th>
 				            <td>
-				                @inputText(salonRegister("salonAccount.accountId"),'_label -> None,
-									 		'placeholder -> Messages("salon.register.accountId"),
-									 		'_help -> Messages("*"),
-									 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("user.userIdErr"))))
+				                @inputText(salon("salonAccount.accountId"),'_label -> None, 'readonly -> "true", 
+			 								'_help -> Messages("salon.accountIdMessage"), 'class -> "inputField")
 				            </td>
 				        </tr>
 				        <tr>
@@ -43,21 +38,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,'_help -> Messages("*"),'placeholder -> Messages("salon.register.password"))
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("user.confirmPas")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputPassword(salonRegister("salonAccount.password.confirm"),'_label -> None,'_help -> Messages("*"),'placeholder -> Messages("salon.confirmMessage"),
-													'_error -> salonRegister.error("salonAccount.password"))
+				                	<input type="password" name="salonAccount.password" readonly="readonly" value="@salon.get.salonAccount.password">
+				                	
 				                </div>
 				            </td>
 				        </tr>
@@ -70,8 +52,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("salonName"),'_label ->  None,'_help -> Messages("*"),
-				                		'_error -> salonRegister("salonName").error.map(_.withMessage(Messages("salon.register.salonName"))))				             	
+				                	@inputText(salon("salonName"),'_label ->  None, '_help -> Messages("*"),'readonly -> "true")
 				                </div>
 				            </td>
 				        </tr>
@@ -84,7 +65,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("salonNameAbbr"),'_label -> None)
+				                	@inputText(salon("salonNameAbbr"),'_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -97,9 +78,13 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None){(id,name,value,args) =>
+				                	@input(field = salon("salonIndustry"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to industry.length-1){
-								 		<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
+								 		@if(salon.get.salonIndustry.contains(industry(i).industryName)){
+								 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
+								 		}else{
+								 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
+								 		}
 								 	}
 								  }
 				                </div>
@@ -114,7 +99,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("homepage"), '_label -> None)
+				                	@inputText(salon("homepage"), '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -127,7 +112,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@textarea(salonRegister("salonDescription"), '_label -> None,'cols -> 50,'placeholder -> Messages("salon.desMseeage"))
+				                	@textarea(salon("salonDescription"), '_label -> None,'cols -> 50,'placeholder -> Messages("salon.desMseeage"))
 				                </div>
 				            </td>
 				        </tr>
@@ -140,8 +125,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("mainPhone"), '_label -> None,'_help -> Messages("*"),
-				                		'_error -> salonRegister("mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
+				                	@inputText(salon("mainPhone"), '_label -> None, '_help -> Messages("*"),
+				                		'_error -> salon("mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
 				                </div>
 				            </td>
 				        </tr>
@@ -154,8 +139,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contact"), '_label -> None,'_help -> Messages("*"),
-				                		'_error -> salonRegister("contact").error.map(_.withMessage(Messages("salon.register.contact"))))
+				                	@inputText(salon("contact"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salon("contact").error.map(_.withMessage(Messages("salon.register.contact"))))
 				                </div>
 				            </td>
 				        </tr>
@@ -168,8 +153,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputDate(salonRegister("establishDate"), '_label -> None,'_help -> Messages("*")
-				                		,'_error -> salonRegister("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate"))))
+				                	@inputDate(salon("establishDate"), '_label -> None, '_help -> Messages("*"),
+				                		'_error -> salon("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate"))))
 				                </div>
 				            </td>
 				        </tr>
@@ -182,9 +167,9 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province"></select>
-									@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city"></select>
-									@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region"></select>
+				                	@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province" value = "@salon.get.salonAddress.province"></select>
+									@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.get.salonAddress.city"></select>
+									@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.get.salonAddress.region"></select>
 									<script type="text/javascript">
 										addressInit('Select1', 'Select2', 'Select3');
 									</script>
@@ -200,7 +185,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("salonAddress.town"), '_label -> None)
+				                	@inputText(salon("salonAddress.town"), '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -213,7 +198,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("salonAddress.addrDetail"), '_label -> None)
+				                	@inputText(salon("salonAddress.addrDetail"), '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -226,7 +211,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("salonAddress.longitude"), '_label -> None,'_help -> Messages(""))
+				                	@inputText(salon("salonAddress.longitude"), '_label -> None,'_help -> Messages(""))
 				                </div>
 				            </td>
 				        </tr>
@@ -239,7 +224,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("salonAddress.latitude"), '_label -> None,'_help -> Messages(""))
+				                	@inputText(salon("salonAddress.latitude"), '_label -> None,'_help -> Messages(""))
 				                </div>
 				            </td>
 				        </tr>
@@ -252,7 +237,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("accessMethodDesc"), '_label -> None)
+				                	@inputText(salon("accessMethodDesc"), '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -265,7 +250,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("workTime.openTime"), '_label -> None)
+				                	@inputText(salon("workTime.openTime"), '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -278,7 +263,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("workTime.closeTime"), '_label -> None)
+				                	@inputText(salon("workTime.closeTime"), '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -291,9 +276,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("seatNums"), '_label -> None,'_help -> Messages("*"),
-				                		'_error -> salonRegister("seatNums").error.map(_.withMessage(Messages("salon.register.seatNums")))
-				                	)
+				                	@inputText(salon("seatNums"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salon("seatNums").error.map(_.withMessage(Messages("salon.register.seatNums"))))
 				                </div>
 				            </td>
 				        </tr>
@@ -306,15 +290,15 @@
 				            </th>
 				            <td>
 				                <div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"),'_help -> Messages(""))</div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"),'_help -> Messages(""))</div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.canNominateOrder"), '_label -> Messages("salon.canNominateOrder"),'_help -> Messages(""))</div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.canCurntDayOrder"), '_label -> Messages("salon.canCurntDayOrder"),'_help -> Messages(""))</div>
-									<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.canMaleUse"), '_label -> Messages("salon.canMaleUse"),'_help -> Messages(""))</div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.isPointAvailable"), '_label -> Messages("salon.isPointAvailable"),'_help -> Messages(""))</div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.isPosAvailable"), '_label -> Messages("salon.isPosAvailable"),'_help -> Messages(""))</div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"),'_help -> Messages(""))</div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"),'_help -> Messages(""))</div>
+				                	@checkbox(salon("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"),'_help -> Messages(""))
+				                	@checkbox(salon("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"),'_help -> Messages(""))
+									@checkbox(salon("salonFacilities.canNominateOrder"), '_label -> Messages("salon.canNominateOrder"),'_help -> Messages(""))
+									@checkbox(salon("salonFacilities.canCurntDayOrder"), '_label -> Messages("salon.canCurntDayOrder"),'_help -> Messages(""))
+									@checkbox(salon("salonFacilities.canMaleUse"), '_label -> Messages("salon.canMaleUse"),'_help -> Messages(""))
+									@checkbox(salon("salonFacilities.isPointAvailable"), '_label -> Messages("salon.isPointAvailable"),'_help -> Messages(""))
+									@checkbox(salon("salonFacilities.isPosAvailable"), '_label -> Messages("salon.isPosAvailable"),'_help -> Messages(""))
+									@checkbox(salon("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"),'_help -> Messages(""))
+									@checkbox(salon("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"),'_help -> Messages(""))
 				                </div>
 				            </td>
 				        </tr>
@@ -327,14 +311,27 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("salonFacilities.parkingDesc"), '_label -> None, 'cols -> 50)
+				                	@inputText(salon("salonFacilities.parkingDesc"), '_label -> None,'_help -> Messages(""))
+				                </div>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.registerTime")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputDate(salon("registerDate"), '_label -> None, 'readonly -> "true")
 				                </div>
 				            </td>
 				        </tr>
 				    </tbody>
 				</table>
-				
-				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+		            
+	            <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
 				    <tbody>
 				        <tr>
 				            <th class="w222">
@@ -344,12 +341,12 @@
 				            </th>
 				            <td>
 				            	<div id="optContactMethods">
-				            		 @repeat(salonRegister("optContactMethod")) { optContactMethod =>
+				            		 @repeat(salon("optContactMethod")) { optContactMethod =>
 					                    @optContactMethodGroup(optContactMethod)
 					                }
 					                
 					                @optContactMethodGroup(
-					                    salonRegister("optContactMethod[x]"),
+					                    salon("optContactMethod[x]"),
 					                    className = "optContactMethod_template"
 					                )
 		                
@@ -371,43 +368,62 @@
 				                </div>
 				            </th>
 				            <td>
-				            	@repeat(salonRegister("restDays")) { restDay =>
+				            	@repeat(salon("restDays")) { restDay =>
 				                    @restDayGroup(restDay)      
 				                } 
 				            </td>
 				        </tr>
 					</tbody>
 				</table>
-				
+				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+				    <tbody>
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("salon.pictures")
+				                </div>
+				            </th>
+				            <td>
+			            	<div id="salonPics">				            
+				            	@repeat(salon("salonPics")) { salonPic =>
+				                    @pictureGroup(salonPic)      
+				                }
+				                
+					            @pictureGroup(
+					                salon("salonPic[x]"),
+					                className = "salonPic_template"
+					            )
+		                
+					            <div class="manage">
+					                 <a class="addSalonPic btn success">@Messages("salon.addPicture")</a>
+					            </div>
+					        </div>				                 
+				            </td>
+				        </tr>
+					</tbody>
+				</table>				
 				<div class="mT20 txtC">
-					<input type = "hidden" name="salonPics[0].fileObjId" />
-					<input type = "hidden" name="salonPics[0].picUse" value="LOGO"/>
-					<input type = "submit" class = "buttons" value=@Messages("user.registerBtn")>
-					<input type="reset" value=@Messages("common.reset")><a href = "/  "><input type="button" value=@Messages("common.backUp") ></a>
+					<input type = "submit" class = "buttons" value=@Messages("common.submit")>
+					<input type="reset" value=@Messages("common.reset")>
+					<a href = "/  "><input type="button" value=@Messages("common.backUp") ></a> 
 				</div>
 			}
-                                 
 		</div>
+		
+	</div>
 </div>
         <script type="text/javascript" charset="utf-8">
-        
-        function check() {
-            var arr = new Array();
-            var op = document.getElementsByTagName("option");
-            for (var i = 0; i < op.length; i++) {
-                if (op[i].selected) {
-         op[i].selected;
-                    arr.push(op[i].value+"---"+op[i].innerText);
-                }
-            }
-            alert(arr);
-        }
         
         $('.removeoptContactMethod').live('click', function(e) {
             $(this).parents('.optContactMethod').remove()
             renumber()
         })
-        
+
+        $('.removeSalonPic').live('click', function(e) {
+            $(this).parents('.salonPic').remove()
+            renumber()
+        })
+                
         $('.removeAccount').live('click', function(e) {
             var accounts = $(this).parents('.accounts')
             $(this).parents('.account').remove()
@@ -426,7 +442,13 @@
             template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
             renumber()
         })
-       
+
+        $('.addSalonPic').live('click', function(e) {
+            var template = $('.salonPic_template')
+            template.before('<div class="twipsies well salonPic">' + template.html() + '</div>')
+            renumber()
+        })
+                
         var renumber = function(accounts) {
             $('.optContactMethod').each(function(i) {
                 $('input', this).each(function() {
@@ -436,8 +458,7 @@
                     $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
                 })
             })
-        }
-        
+        }      
     </script>
 }
 
@@ -485,13 +506,47 @@
     </div>
 }
 
-@restDayField(field: Field, className: String = "restDay") = {
+@pictureGroup(field: Field, className: String = "salonPic") = {
+    <div class="twipsies well @className">
+        <a class="removeSalonPic btn danger pull-right">@Messages("salon.removePicture")</a>
+        @inputText(
+            field("fileObjId"), 
+            '_label -> "fileObjId",'default -> new ObjectId
+        )
+        @inputText(
+            field("picUse"), 
+            '_label -> "picUse"
+        )
+        @inputText(
+            field("showPriority"), 
+            '_label -> "showPriority"
+        )
+        @inputText(
+            field("description"), 
+            '_label -> "description"
+        )
+    </div>
+    }  
+    
+@restDayField(field: Field, restDaysTyp : String, className: String = "restDay") = {
     @input(field, '_label -> Messages("salon.restDays"), '_class -> className) { (id, name, value, _) =>
-    	@for(i <- 0 to 6){
-			<input type="checkbox" name="restDays[0].restDay[@i]" value="@i"> @Messages("restDay.restDay.1."+i) 
-			   		
-    	}
-
+    	@if(restDaysTyp == "0"){
+    		@for(i <- 0 to 6){
+    			@if(salon.get.restDays(0).restDay.contains(i)){
+					<input type="checkbox" name="restDays[0].restDay[@i]" value="@i" checked="checked"> @Messages("restDay.restDay.1."+i)     			
+    			}else{
+    				<input type="checkbox" name="restDays[0].restDay[@i]" value="@i"> @Messages("restDay.restDay.1."+i)     			
+    			}
+    		}
+    	}else{
+    		@for(i <- 0 to 30){
+    			@if(salon.get.restDays(0).restDay.contains(i)){
+					<input type="checkbox" name="restDays[0].restDay[@i]" value="@i" checked="checked"> @Messages("restDay.restDay.1."+i)     			
+    			}else{
+    				<input type="checkbox" name="restDays[0].restDay[@i]" value="@i"> @Messages("restDay.restDay.1."+i)     			
+    			}
+    		}
+		}
     }
 }
 
@@ -506,21 +561,9 @@
             args = '_label -> Messages("salon.restDayDivision")
         )	        
         <div class="restDay">
-
-            @repeat(field("restDay"), min = 0) { restDay =>
-                
-                @restDayField(restDay)
-    
-            }
-            
-            @**
-             * Keep an hidden block that will be used as template for Javascript copy code
-             **@
-            @restDayField(
-                field("restDay[x]"),
-                className = "restDay_template"
-            )                    
+                @restDayField(field("restDay"),field("restDayDivision").value.get)                
         </div>
  
     </div>
 }
+

@@ -1,565 +1,119 @@
-@(navInSalon: String = "my-salonInfo",salon:Form[Salon],industry: List[Industry])
+@(navInSalon: String = "my-salonInfo",salon:Salon,industry: List[Industry])
 @import helper._
 @import helper.twitterBootstrap._
 @import views.html.salon.admin._
 
-@mySalonMain(navInSalon, salon.get){
+@mySalonMain(navInSalon, salon){
 	
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
 
-<div class="basicInformation-content">
-	<div class="basicInformation">
-		<div class="contentsTitleWrapper">
-			<h2 class="contentsTitleInner">@Messages("salon.title")</h2>
-		</div>
-
-		<div class="mT10 pH10">
-			@helper.form(action = routes.SalonInfo.update(salon.get.id), args = 'id -> "salonForm"){
-				
-				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
-				    <tbody>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("salon.id")
-				                </div>
-				            </th>
-				            <td>
-				                @inputText(salon("salonAccount.accountId"),'_label -> None, 'readonly -> "true", 
-			 								'_help -> Messages("salon.accountIdMessage"), 'class -> "inputField")
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.password")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	<input type="hidden" name="password" value="@salon.get.salonAccount.password">
-				                	<a href="@auth.routes.Users.password">@Messages("user.changePassword")</a>
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.Name")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("salonName"),'_label ->  None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.Abbr")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("salonNameAbbr"),'_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.type")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@input(field = salon("salonIndustry"),args = '_label -> None){(id,name,value,args) =>
-								 	@for(i <- 0 to industry.length-1){
-								 		@if(salon.get.salonIndustry.contains(industry(i).industryName)){
-								 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
-								 		}else{
-								 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
-								 		}
-								 	}
-								  }
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.homepage")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("homepage"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.description")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("salonDescription"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.mainPhone")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("mainPhone"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.contact")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("contact"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.establishDate")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputDate(salon("establishDate"), '_label -> None,'_help -> Messages(""))
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.address")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province" value = "@salon.get.salonAddress.province"></select>
-									@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.get.salonAddress.city"></select>
-									@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.get.salonAddress.region"></select>
-									<script type="text/javascript">
-										addressInit('Select1', 'Select2', 'Select3');
-									</script>
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.town")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("salonAddress.town"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.addrDetail")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("salonAddress.addrDetail"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.longitude")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("salonAddress.longitude"), '_label -> None,'_help -> Messages(""))
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.latitude")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("salonAddress.latitude"), '_label -> None,'_help -> Messages(""))
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.accessMethod")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("accessMethodDesc"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.openTime")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("workTime.openTime"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.closeTime")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("workTime.closeTime"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.seatNums")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("seatNums"), '_label -> None,'_help -> Messages(""))
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.iss")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@checkbox(salon("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"),'_help -> Messages(""))
-				                	@checkbox(salon("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"),'_help -> Messages(""))
-									@checkbox(salon("salonFacilities.canNominateOrder"), '_label -> Messages("salon.canNominateOrder"),'_help -> Messages(""))
-									@checkbox(salon("salonFacilities.canCurntDayOrder"), '_label -> Messages("salon.canCurntDayOrder"),'_help -> Messages(""))
-									@checkbox(salon("salonFacilities.canMaleUse"), '_label -> Messages("salon.canMaleUse"),'_help -> Messages(""))
-									@checkbox(salon("salonFacilities.isPointAvailable"), '_label -> Messages("salon.isPointAvailable"),'_help -> Messages(""))
-									@checkbox(salon("salonFacilities.isPosAvailable"), '_label -> Messages("salon.isPosAvailable"),'_help -> Messages(""))
-									@checkbox(salon("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"),'_help -> Messages(""))
-									@checkbox(salon("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"),'_help -> Messages(""))
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.parkingDesc")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salon("salonFacilities.parkingDesc"), '_label -> None,'_help -> Messages(""))
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.registerTime")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputDate(salon("registerDate"), '_label -> None, 'readonly -> "true")
-				                </div>
-				            </td>
-				        </tr>
-				    </tbody>
-				</table>
-		            
-	            <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-				    <tbody>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("user.optContactMethod")
-				                </div>
-				            </th>
-				            <td>
-				            	<div id="optContactMethods">
-				            		 @repeat(salon("optContactMethod")) { optContactMethod =>
-					                    @optContactMethodGroup(optContactMethod)
-					                }
-					                
-					                @optContactMethodGroup(
-					                    salon("optContactMethod[x]"),
-					                    className = "optContactMethod_template"
-					                )
-		                
-					                <div class="manage">
-					                    <a class="addoptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
-					                </div>
-				            	</div>
-				            </td>
-				        </tr>
-					</tbody>
-				</table>
-				
-				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-				    <tbody>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("salon.restDay")
-				                </div>
-				            </th>
-				            <td>
-				            	@repeat(salon("restDays")) { restDay =>
-				                    @restDayGroup(restDay)      
-				                } 
-				            </td>
-				        </tr>
-					</tbody>
-				</table>
-				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-				    <tbody>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("salon.pictures")
-				                </div>
-				            </th>
-				            <td>
-			            	<div id="salonPics">				            
-				            	@repeat(salon("salonPics")) { salonPic =>
-				                    @pictureGroup(salonPic)      
-				                }
-				                
-					            @pictureGroup(
-					                salon("salonPic[x]"),
-					                className = "salonPic_template"
-					            )
-		                
-					            <div class="manage">
-					                 <a class="addSalonPic btn success">@Messages("salon.addPicture")</a>
-					            </div>
-					        </div>				                 
-				            </td>
-				        </tr>
-					</tbody>
-				</table>				
-				<div class="mT20 txtC">
-					<input type = "submit" class = "buttons" value=@Messages("common.submit")>
-					<input type="reset" value=@Messages("common.reset")>
-					<a href = "/  "><input type="button" value=@Messages("common.backUp") ></a> 
-				</div>
-			}
-		</div>
-		
-	</div>
-</div>
-        <script type="text/javascript" charset="utf-8">
-        
-        $('.removeoptContactMethod').live('click', function(e) {
-            $(this).parents('.optContactMethod').remove()
-            renumber()
-        })
-
-        $('.removeSalonPic').live('click', function(e) {
-            $(this).parents('.salonPic').remove()
-            renumber()
-        })
-                
-        $('.removeAccount').live('click', function(e) {
-            var accounts = $(this).parents('.accounts')
-            $(this).parents('.account').remove()
-            renumber(accounts)
-        })
-        
-        $('.addAccount').live('click', function(e) {
-            var accounts = $(this).parents('.accounts')
-            var template = $('.account_template', accounts)
-            template.before('<div class="clearfix account">' + template.html() + '</div>')
-            renumber(accounts)
-        })
-        
-        $('.addoptContactMethod').live('click', function(e) {
-            var template = $('.optContactMethod_template')
-            template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
-            renumber()
-        })
-
-        $('.addSalonPic').live('click', function(e) {
-            var template = $('.salonPic_template')
-            template.before('<div class="twipsies well salonPic">' + template.html() + '</div>')
-            renumber()
-        })
-                
-        var renumber = function(accounts) {
-            $('.optContactMethod').each(function(i) {
-                $('input', this).each(function() {
-                    $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
-                })
-                $('.account input', this).each(function(i) {
-                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
-                })
-            })
-        }      
-    </script>
-}
-
-@accountField(field: Field, className: String = "account") = {
-    @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
-        <input type="text" name="@name" value="@value"> 
-        <a class="removeAccount btn danger">@Messages("optContactMethod.Remove")</a>
-    }
-}
-
-@optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
-    <div class="twipsies well @className">
-        
-        <a class="removeoptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
-
-        @inputText(
-            field("contMethodType"), 
-            '_label -> Messages("user.contMethodType")
-        )
-        
-        <div class="accounts">
-
-            @repeat(field("accounts"), min = 0) { account =>
-                
-                @accountField(account)
-    
-            }
-            
-            @**
-             * Keep an hidden block that will be used as template for Javascript copy code
-             **@
-            @accountField(
-                field("accounts[x]"),
-                className = "account_template"
-            )
-            
-            <div class="clearfix">
-                <div class="input">
-                    <a class="addAccount btn success">@Messages("optContactMethod.AddNumber")</a>
-                </div>
-            </div>
-        
+    <div class="mT30">
+        <div class="yS mainContentsSecondTitleOuter">
+        <h2 class="yS mainContentsSecondTitleInner">
+            @Messages("salon.salonData", salon.salonName)
+        </h2>
         </div>
- 
+        <p class="mT5 taR"> <i> <em class="seoCaption"> @salon.salonName </em> </i> </p>
+        <table cellspacing="0" class="wFull bdCell bgThNml fgThNml vaThT pCellV10H12">
+        <tbody>
+            <tr>
+                <th class="w120"> @Messages("salon.id") </th>
+                <td colspan="3" class="w620"> @salon.salonAccount.accountId </a> </td>
+            </tr> 
+            <tr>
+                <th class="w120"> @Messages("salon.password") </th>
+                <td colspan="3" class="w620"><a href="#"/> @Messages("user.changePassword") </a> </td>
+            </tr>             
+             <tr>
+                <th class="w120">@Messages("salon.Name") </th>
+                <td class="w208 vaT">
+						@salon.salonName 
+                </td>
+                <th class="w120">@Messages("salon.Abbr")  </th>
+                <td class="w208 vaT"> @salon.salonNameAbbr </td>
+            </tr>              
+            <tr>
+                <th class="w120"> @Messages("salon.type") </th>
+                <td colspan="3" class="w620">
+                	@for(i <- 0 to industry.length-1){
+						@if(salon.salonIndustry.contains(industry(i).industryName)){
+							@Messages("industry.industryName."+ industry(i).industryName)
+						}              		                		
+                	}  </a> </td>
+            </tr>                                                        
+            <tr>
+                <th class="w120"> @Messages("salon.address") </th>
+                <td colspan="3" class="w620">
+                    @(Messages(salon.salonAddress.province))
+                    @(Messages(salon.salonAddress.city.get))
+                    @(Messages(salon.salonAddress.region.get))
+                    @salon.salonAddress.addrDetail
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("salon.accessMethod") </th>
+                <td colspan="3" class="w620"> @salon.accessMethodDesc </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("salon.workTime") </th>
+                <td colspan="3" class="w620"> @salon.workTime.openTime -- @salon.workTime.closeTime </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("salon.restDay") </th>
+                <td colspan="3" class="w620">
+                    @for(i <- 0 to salon.restDays(0).restDay.size - 1){
+                        @Messages("restDay.restDay.1." + salon.restDays(0).restDay(i))					
+                    } 
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("salon.isPosAvailable") </th>
+                <td colspan="3" class="w620">
+                    @if(salon.salonFacilities.isPosAvailable) {@Messages("salon.posAvailable")} else {@Messages("salon.posNotAvailable")}
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("salon.homepage") </th>
+                <td colspan="3" class="w620">
+                    <p> <i> <em class="seoCaption"> @salon.salonName </em> </i> </p>
+                    <a href="javascript:void(0);" id="store_hp"> @salon.homepage</a>
+                </td>
+            </tr>
+             <tr>
+                <th class="w120">@Messages("salon.mainPhone") </th>
+                <td class="w208 vaT"><a href="#"/> @salon.mainPhone </td>
+                <th class="w120">@Messages("salon.contact")  </th>
+                <td class="w208 vaT"> @salon.contact </td>
+            </tr>              
+            <tr>
+                <th class="w120"> @Messages("salon.priceCutOnly") </th>
+                <td class="w208 vaT">
+                    @Salon.getLowestPriceOfCut(salon.id) match {
+                       case None => { @Messages("salon.priceCutOnlyUndefined")}
+                       case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
+                    }
+                </td>
+                <th class="w120"> @Messages("salon.seatNums") </th>
+                <td class="w208 vaT"> @Messages("salon.seatNumsMsg", salon.seatNums) </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("salon.stylistNums") </th>
+                <td class="w208 vaT">
+                    @Messages("slaon.stylistNumUnit", Salon.getCountOfStylists(salon.id))
+                </td>
+                <th class="w120"> @Messages("salon.parkingDesc") </th>
+                <td class="w208 vaT">
+                    @if(salon.salonFacilities.hasParkingNearby) { @salon.salonFacilities.parkingDesc} else { @Messages("salon.hasNoParkingNearByMsg")}
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("salon.description") </th>
+                <td colspan="3" class="w620"> @salon.salonDescription </td>
+            </tr>
+        </tbody>
+        </table>
     </div>
-}
 
-@pictureGroup(field: Field, className: String = "salonPic") = {
-    <div class="twipsies well @className">
-        <a class="removeSalonPic btn danger pull-right">@Messages("salon.removePicture")</a>
-        @inputText(
-            field("fileObjId"), 
-            '_label -> "fileObjId",'default -> new ObjectId
-        )
-        @inputText(
-            field("picUse"), 
-            '_label -> "picUse"
-        )
-        @inputText(
-            field("showPriority"), 
-            '_label -> "showPriority"
-        )
-        @inputText(
-            field("description"), 
-            '_label -> "description"
-        )
-    </div>
-    }  
-    
-@restDayField(field: Field, restDaysTyp : String, className: String = "restDay") = {
-    @input(field, '_label -> Messages("salon.restDays"), '_class -> className) { (id, name, value, _) =>
-    	@if(restDaysTyp == "0"){
-    		@for(i <- 0 to 6){
-    			@if(salon.get.restDays(0).restDay.contains(i)){
-					<input type="checkbox" name="restDays[0].restDay[@i]" value="@i" checked="checked"> @Messages("restDay.restDay.1."+i)     			
-    			}else{
-    				<input type="checkbox" name="restDays[0].restDay[@i]" value="@i"> @Messages("restDay.restDay.1."+i)     			
-    			}
-    		}
-    	}else{
-    		@for(i <- 0 to 30){
-    			@if(salon.get.restDays(0).restDay.contains(i)){
-					<input type="checkbox" name="restDays[0].restDay[@i]" value="@i" checked="checked"> @Messages("restDay.restDay.1."+i)     			
-    			}else{
-    				<input type="checkbox" name="restDays[0].restDay[@i]" value="@i"> @Messages("restDay.restDay.1."+i)     			
-    			}
-    		}
-		}
-    }
-}
 
-@restDayGroup(field: Field, className: String = "restDays") = {
-    <div class="twipsies well @className">        
-		@select(
-            field ("restDayDivision"), 
-            options = options(
-                "0" -> Messages("restDay.restDayDivision.0"),
-                "1" -> Messages("restDay.restDayDivision.1")
-            ),
-            args = '_label -> Messages("salon.restDayDivision")
-        )	        
-        <div class="restDay">
-                @restDayField(field("restDay"),field("restDayDivision").value.get)                
-        </div>
- 
-    </div>
-}
 
+}

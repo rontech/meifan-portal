@@ -267,6 +267,7 @@ GET         /saveStylistImg/:imgId                                     controlle
 GET			/salonLogin				     					 controllers.Application.salonLogin
 POST      	/loginSalon                                  	 controllers.SalonInfo.loginSalon
 GET         /salonInfo/:id                                   controllers.SalonInfo.salonInfoBasic(id: ObjectId)
+GET         /salonInfoManage/:id                             controllers.SalonInfo.salonInfoManage(id: ObjectId)
 GET         /salonUpd/:id                                    controllers.SalonInfo.update(id: ObjectId)
 GET         /salonRegister                                   controllers.SalonInfo.register
 POST        /salonDoRegister                                 controllers.SalonInfo.doRegister
