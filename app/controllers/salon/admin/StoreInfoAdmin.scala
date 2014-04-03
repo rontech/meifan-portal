@@ -185,9 +185,9 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
         		salonRegister.contact, salonRegister.optContactMethod, salonRegister.establishDate, salonRegister.salonAddress, salonRegister.accessMethodDesc,
         		salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics)
       }.verifying(
-       Messages("user.userIdNotAvailable"), salon => !Salon.findByAccountId(salon.salonAccount).nonEmpty)
 
-   )
+       Messages("user.userIdNotAvailable"), salon => !Salon.findByAccountId(salon.salonAccount.accountId).nonEmpty)
+	)
 
    //店铺登录Form
   val salonLogin = Form(mapping(
@@ -219,7 +219,7 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
       errors => BadRequest(views.html.salon.salonLogin(errors)),
       {
         salonLogin =>
-          val getId = Salon.findByAccountId(salonLogin.get.salonAccount)
+          val getId = Salon.findByAccountId(salonLogin.get.salonAccount.accountId)
           Redirect(routes.SalonInfo.salonInfoBasic(getId.get.id))
       })
 

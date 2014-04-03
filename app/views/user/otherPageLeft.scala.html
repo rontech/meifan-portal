@@ -34,12 +34,13 @@
                     <span>@Messages("stylistMag.noSalon")</span>
             </div>
             }else{
-        <a href="@routes.Stylists.mySalon(user.id)">
+
+        <a href="@noAuth.routes.Stylists.mySalon(user.id)">
             <strong>@Messages("stylist.salon")</strong>
             <div class='more'>
-                <a href="@routes.Stylists.mySalon(user.id)">
+                <a href="@noAuth.routes.Stylists.mySalon(user.id)">
                     <img src="@routes.Application.getPhoto(Stylist.mySalon(user.id).salonPics(0).fileObjId)" alt="@Stylist.mySalon(user.id).salonNameAbbr" title="@Stylist.mySalon(user.id).salonNameAbbr" align="absmiddle" class = "SmallPortrait"/>
-                    <span>@Stylist.mySalon(user.id).salonName</span>
+					<span>@Stylist.mySalon(user.id).salonName</span>
                 </a>
             </div>
             }
@@ -48,7 +49,7 @@
     <div class='Mod Users' id='Fellows'>
         <strong>@Messages("stylist.style")</strong>
         <div class='more'>
-            <a href="@routes.Stylists.findMyStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
+            <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
                 (@Stylist.countStyleByStylist(user.id))</a>
         </div>
     </div>

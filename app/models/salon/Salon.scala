@@ -118,8 +118,8 @@ object Salon {
         SalonDAO.findOne(MongoDBObject("_id" -> id))
     }
     
-    def findByAccountId(salonAccount: SalonAccount): Option[Salon] = {
-        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId))
+    def findByAccountId(salonAccountId: String): Option[Salon] = {
+        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccountId))
     }    
 
     def loginCheck(salonAccount: SalonAccount): Option[Salon] = {
@@ -206,5 +206,6 @@ object Salon {
       SalonDAO.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "LOGO"), 
             MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgId))),false,true)
     }
+    
 } 
 
