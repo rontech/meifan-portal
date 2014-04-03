@@ -196,6 +196,21 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
           "password" -> nonEmptyText)(SalonAccount.apply)(SalonAccount.unapply)
           )(Salon.loginCheck)(_.map(s => (s.salonAccount))).verifying("Invalid userId or password", result => result.isDefined))
 
+  val changePassword = Form(
+    mapping(
+      "salonLogin" ->mapping(
+          "salonAccount" -> mapping(
+            "accountId" -> text,
+            "password" -> nonEmptyText
+              )(SalonAccount.apply)(SalonAccount.unapply))(Salon.loginCheck)(_.map(s => (s.salonAccount))).verifying("Invalid userId or password", result => result.isDefined),        
+      "newPassword" -> tuple(
+        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[a-zA-Z]\w{5,17}$""")),
+        "confirm" -> text).verifying(
+        // Add an additional constraint: both passwords must match
+        Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2)
+    ){(salonLogin, newPassword) => (salonLogin.get, newPassword._1)}{salonLogin => Some((Option(salonLogin._1),("","")))}
+  )
+  
   /**
    * 用户登录
    */
@@ -277,6 +292,29 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
       })
   }
 
+  /**
+   * 密码修改页面
+   */
+  def password(id: ObjectId) = Action { implicit request =>
+    val salon = Salon.findById(id).get   
+    val salonForm = SalonInfo.salonInfo.fill(salon)    
+    Ok(views.html.salon.admin.salonChangePassword("", salonForm, salon))
+  }
+  
+//  /**
+//   * 密码修改
+//   */
+//  def salonChangePassword(id :ObjectId) = Action { implicit request =>
+//    val salon = Salon.findById(id).get    
+//    changePassword.bindFromRequest.fold(
+//      errors => BadRequest(views.html.error.errorMsg(errors)),
+//      {
+//        case (salonLogin, main) =>
+//          Salon.save(salonLogin.copy(salonLogin.salonAccount.password = main))
+//           Redirect(routes.SalonInfo.salonInfoBasic(id))
+//    })
+//  }
+//  
   /**
    * 店铺Logo更新页面
    */

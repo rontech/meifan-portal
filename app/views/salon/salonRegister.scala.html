@@ -29,8 +29,8 @@
 				            </th>
 				            <td>
 				                @inputText(salonRegister("salonAccount.accountId"),'_label -> None,
-									 		'placeholder -> Messages("salon.register.accountId"),
-									 		'_help -> Messages("*"),
+									 		'placeholder -> Messages("salon.login.accountId"),
+									 		'_help -> Messages("salon.register.accountId"),
 									 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("user.userIdErr"))))
 				            </td>
 				        </tr>
@@ -43,7 +43,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,'_help -> Messages("*"),'placeholder -> Messages("salon.register.password"))
+				                	@inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,'_help -> Messages("salon.register.password"),'placeholder -> Messages("salon.login.password"))
 				                </div>
 				            </td>
 				        </tr>
@@ -383,7 +383,8 @@
 					<input type = "hidden" name="salonPics[0].fileObjId" />
 					<input type = "hidden" name="salonPics[0].picUse" value="LOGO"/>
 					<input type = "submit" class = "buttons" value=@Messages("user.registerBtn")>
-					<input type="reset" value=@Messages("common.reset")><a href = "/  "><input type="button" value=@Messages("common.backUp") ></a>
+					<input type="reset" value=@Messages("common.reset")>
+					<a href = "@routes.Application.salonLogin"><input type="button" value=@Messages("common.backUp") ></a>
 				</div>
 			}
                                  
