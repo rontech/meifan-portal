@@ -18,9 +18,9 @@ object Users extends Controller with OptionalAuthElement with AuthConfigImpl{
   def registerForm(id: ObjectId = new ObjectId) = Form(
     mapping(
       "id" -> ignored(id),
-      "userId" -> nonEmptyText(6, 16).verifying(Messages("user.userIdErr"), userId => userId.matches("""^[A-Za-z0-9]+$ 或 ^[A-Za-z0-9]{4,40}$""")),
+      "userId" -> nonEmptyText(6, 16).verifying(Messages("user.userIdErr"), userId => userId.matches("""^\w+$""")),
       "password" -> tuple(
-        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[a-zA-Z]\w{5,17}$""")),
+        "main" -> text(6, 18).verifying(Messages("user.passwordError"), main => main.matches("""^[A-Za-z0-9]+$""")),
         "confirm" -> text).verifying(
           // Add an additional constraint: both passwords must match
             Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2),
