@@ -1,4 +1,4 @@
-@(navInMyPage: String = "my-reservation", user: User,followInfo:FollowInformation)(content: Html)
+@(navInMyPage: String = "my-reservation", user :User, followInfo :FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false)(content: Html)
 
 @main(Messages("site.title")) {
 	
@@ -11,14 +11,31 @@
 
         <div id="OSC_Content">
         	<div id='SpaceLeft'>
+            @if(loginUserId.equals(user.id)){
         		@views.html.user.myPageLeft(user, followInfo)
+            }else{
+                @views.html.user.otherPageLeft(user, followInfo, loginUserId, logged)
+            }
         	</div>
 			<div id='SpaceMain'>
-	    		@views.html.user.myPageHeader(navInMyPage, user)
+                @if(loginUserId.equals(user.id)){
+                    @views.html.user.myPageHeader(navInMyPage, user)
+                }else{
+                    @views.html.user.myPageHeader(navInMyPage, user)
+                }
 	    		@content
        		</div>	        
        		 	
        </div>
-
+    <div id = "hidden for sendMessage">
+    <input type="hidden" id="addressee" value="@user.id">
+    </div>
+    <script type="text/javascript">
+    $("#sendMsg").click(function() {
+    var userId =this.getAttribute("value");
+    var url = "/sendLetterPage/"+userId;
+    window.open(url,"","width=600,height=400");
+    });
+    </script>
 <!-- ↑contents -->
 }

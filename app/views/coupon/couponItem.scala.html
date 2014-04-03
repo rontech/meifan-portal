@@ -1,10 +1,16 @@
-@(coupon: Coupon)
+@(coupon: Coupon, beforeSevernDate: java.util.Date)
 <div>
     <table summary="summary" cellspacing="1" class="mT2 wFull bgLGray2 fs10 couponTable">
         <tbody>
             <tr>
                 <td class="bgPink8 fgWhite bd0 taC p5 fs12 b">
-                    <font> @Messages("coupon.newCoupon") </font>
+                    <font> 
+                    @if(beforeSevernDate.after(coupon.startDate)) {
+                    	@Messages("coupon.oldCoupon")
+                    } else {
+                    	@Messages("coupon.newCoupon")
+                    }
+                    </font>
                     <br>
                     <font> @Messages("coupon.coupon") </font>
                 </td>

@@ -9,6 +9,9 @@ import scala.concurrent._
 import ExecutionContext.Implicits.global
 import controllers._
 
+import java.util.Date
+import java.util.Calendar
+
 object MyFollows extends Controller with AuthElement with AuthConfigImpl {
 
     /**
@@ -35,39 +38,38 @@ object MyFollows extends Controller with AuthElement with AuthConfigImpl {
     }
 
     /**
-     * 我收藏的优惠劵
+     * 收藏的优惠劵
      */
-    def followedCoupon() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-        val user = loggedIn
-        val followInfo = MyFollow.getAllFollowInfo(user.id)
-        Ok(views.html.user.myFollowCoupon(user,followInfo))
-    }
-
-    /**
-     * 我收藏的店铺动态
-     */
-    def followedSalonActi() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-        val user = loggedIn
-        //TODO
-        val followInfo = MyFollow.getAllFollowInfo(user.id)
-        Ok(views.html.user.myFollowSalonActi(user,followInfo))
+    def followedCoupon(userId : ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
+        val loginUser = loggedIn
+        val user = User.findOneById(userId).get
+        val followInfo = MyFollow.getAllFollowInfo(userId)
+        
+        // 获取当前时间的前7天的日期，用于判断是否为新券还是旧券
+        var beforeSevernDate = Calendar.getInstance()
+        beforeSevernDate.setTime(new Date())
+        beforeSevernDate.add(Calendar.DAY_OF_YEAR, -7)
+        
+        Ok(views.html.user.followedCoupon(user,followInfo,loginUser.id,beforeSevernDate.getTime()))
     }
     
     /**
      * 收藏的博客
      */
-    def followedBlog() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-       	val user = loggedIn
+    def followedBlog(userId : ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
+        val loginUser = loggedIn
+        val user = User.findOneById(userId).get
         val followInfo = MyFollow.getAllFollowInfo(user.id)
-    	Ok(views.html.user.myFollowBlog(user, followInfo))
+    	Ok(views.html.user.followedBlog(user, followInfo, loginUser.id))
     }
 
     /**
      * 收藏的风格
      */
-    def followedStyle() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-        val user = loggedIn
+    def followedStyle(userId : ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
+        val loginUser = loggedIn
+        val user = User.findOneById(userId).get
         val followInfo = MyFollow.getAllFollowInfo(user.id)
-    	Ok(views.html.user.myFollowStyle(user, followInfo))
+    	Ok(views.html.user.followedStyle(user, followInfo, loginUser.id))
     }
 }

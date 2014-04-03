@@ -6,6 +6,9 @@ import play.api.i18n.Messages
 import com.mongodb.casbah.commons.Imports._
 import models._
 
+import java.util.Date
+import java.util.Calendar
+
 object Salons extends Controller {
 
     /*-------------------------
@@ -171,12 +174,17 @@ object Salons extends Controller {
                     val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(sl.id, serviceType))
                     servicesByTypes = y::servicesByTypes
                 }
+                
+                // 获取当前时间的前7天的日期，用于判断是否为新券还是旧券
+                var beforeSevernDate = Calendar.getInstance()
+                beforeSevernDate.setTime(new Date())
+                beforeSevernDate.add(Calendar.DAY_OF_YEAR, -7)
 
                 // Navigation Bar
                 var navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.couponMenus"), ""))
                 // Jump
                 Ok(views.html.salon.store.salonInfoCouponAll(salon = sl, Coupons.conditionForm.fill(couponSchDefaultConds), serviceTypes = srvTypes, coupons = coupons, menus = menus,
-                    serviceByTypes = servicesByTypes, navBar = navBar))
+                    serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), navBar = navBar))
             }
             case None => NotFound
        }
@@ -233,13 +241,18 @@ object Salons extends Controller {
                        }
                   }
               }
+                
+              // 获取当前时间的前7天的日期，用于判断是否为新券还是旧券
+              var beforeSevernDate = Calendar.getInstance()
+              beforeSevernDate.setTime(new Date())
+              beforeSevernDate.add(Calendar.DAY_OF_YEAR, -7)
 
              val salon: Option[Salon] = Salon.findById(salonId)
               salon match {
                   case Some(s) => {
                       // Navigation Bar
                       var navBar = SalonNavigation.getSalonNavBar(Some(s)) ::: List((Messages("salon.couponMenus"), ""))
-                      Ok(views.html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, navBar))
+                      Ok(views.html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), navBar))
                   } 
                   case None => NotFound
               }

@@ -46,14 +46,12 @@
     </div>
 }
 
-    @myPageMain(navInMyPage = "information", user, followInfo)  {
+    @myPageMain(navInMyPage = "information", user, followInfo, user.id, true)  {
     	
 		<div class="mT10 pH10">
 			@form(auth.routes.Users.updateInfo(user.userId), 'id -> "userForm") {
 				
 				<input type="hidden" name="password" value="@user.password">
-				<input type="hidden" name="address.province" value="@user.address.province">
-                <input type="hidden" name="address.city" value="@user.address.city">
                 <input type="hidden" name="userPics" value="@user.userPics">
                 <input type="hidden" name="userTyp" value="@user.userTyp">
                 <input type="hidden" name="userBehaviorLevel" value="@user.userBehaviorLevel">
@@ -69,7 +67,7 @@
 				                </div>
 				            </th>
 				            <td>
-				               @inputText(userForm("userId"),'_label -> None, 'readonly -> "true")
+				               @inputText(userForm("userId"),'_label -> None, 'readonly -> "true", '_help -> Messages(""))
 				            </td>
 				        </tr>
 				        <tr>
@@ -79,7 +77,7 @@
 				                </div>
 				            </th>
 				            <td>
-				               @inputText(userForm("nickName"),'_label -> None, '_error -> userForm("nickName").error.map(_.withMessage(Messages("user.nickNameErr"))))
+				               @inputText(userForm("nickName"),'_label -> None, '_error -> userForm("nickName").error.map(_.withMessage(Messages("user.nickNameErr"))), '_help -> Messages(""))
 				            </td>
 				        </tr>
 				        <tr>
@@ -89,7 +87,7 @@
 				                </div>
 				            </th>
 				            <td>
-				               @inputDate(userForm("birthDay"), '_label -> None, '_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr"))))
+				               @inputDate(userForm("birthDay"), '_label -> None, '_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr"))), '_help -> Messages(""))
 				            </td>
 				        </tr>
 				        <tr>
@@ -120,7 +118,7 @@
 				                </div>
 				            </th>
 				            <td>
-				               @inputText(userForm("email"), '_label -> None, '_error -> userForm("email").error.map(_.withMessage(Messages("user.emailErr"))))
+				               @inputText(userForm("email"), '_label -> None, '_error -> userForm("email").error.map(_.withMessage(Messages("user.emailErr"))), '_help -> Messages(""))
 				            </td>
 				        </tr>
 				        <tr>
@@ -136,11 +134,11 @@
 				        <tr>
 				            <th class="w222">
 				                <div class="dibBL vaM w160">
-				                    @Messages("user.tel")
+				                    @Messages(" ")
 				                </div>
 				            </th>
 				            <td>
-				               @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none")
+				               @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
 				            </td>
 				        </tr>
 				        <tr>

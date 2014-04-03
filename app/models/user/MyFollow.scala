@@ -50,7 +50,7 @@ object MyFollow extends ModelCompanion[MyFollow, ObjectId] {
    *查看我被关注的对象，即我的粉丝 
    */
   def getFollowers(userId:ObjectId):
-	  List[ObjectId] = dao.find(MongoDBObject("followObjType" -> FOLLOW_USER, "followObjId" -> userId)).toList.map { myFollowers => myFollowers.userId }
+	  List[ObjectId] = dao.find(MongoDBObject("followObjId" -> userId)).toList.map { myFollowers => myFollowers.userId }
   
   /**
    *检验是否已关注或收藏 
@@ -59,13 +59,9 @@ object MyFollow extends ModelCompanion[MyFollow, ObjectId] {
     val isFollow = dao.findOne(MongoDBObject("userId" -> userId, "followObjId" -> followObjId))
     isFollow.nonEmpty
   }
-  
-  /**
-   *根据用户名检验是否已关注或收藏并且有效 
-   */
-  def checkIfFollowByName(userName:String,followObjId:ObjectId): Boolean={
-    val userId = User.findOneByUserId(userName).get.id
-    checkIfFollow(userId,followObjId)
+
+  def followEachOther(useId : ObjectId, followObjId:ObjectId) :Boolean ={
+    checkIfFollow(useId, followObjId)&&checkIfFollow(followObjId,useId)
   }
   
   /**

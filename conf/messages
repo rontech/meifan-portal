@@ -240,7 +240,6 @@ service.name=服务名
 service.type=技术类别
 service.price=服务费用（单位：元）
 service.tsCost=服务耗时（单位：分钟）
-service.addErrorMsg=请输入服务技术名！
 service.addBtn=添加
 service.resetBtn=重置
 service.addServiceType=添加服务类别
@@ -281,6 +280,7 @@ coupon.appointment2 = 空缺查询
 coupon.addMenu = 追加服务预约
 coupon.currency = 元
 coupon.newCoupon = 新
+coupon.oldCoupon = 旧
 coupon.coupon = 券
 coupon.couponName = 优惠劵名
 coupon.perferentialPrice = 优惠价格（元）
@@ -355,15 +355,14 @@ stylist.findOtherBlog = 查看更多
 stylist.experienceYears={0}年经验
 stylist.removeSalon = 离开店铺
 stylist.update = 更新
-stylist.industry = 职位
 stylist.stylistId = 用户ID
-stylist.workYesrs = 工作年数
+stylist.workYears = 工作年数
 
 
 
 #Stylist Apply
 stylist.name = 昵称
-stylist.workYears = 年
+stylist.years = 年
 stylist.industry = 类别
 stylist.position = 职位
 stylist.goodAtImage = 擅长风格
@@ -430,7 +429,6 @@ user.loginBtn=登录
 user.registerBtn=注册
 user.new=新用户
 user.userIdErr=用户名不合法!
-user.confirmPas=确认密码
 user.agree=必须同意!
 user.male=男
 user.female=女
@@ -451,10 +449,10 @@ user.twicePasswordError=两次密码不一致！
 user.birthDayErr=请选择出生日期！
 user.emailErr=邮箱无效！
 user.userIdNotAvailable=该用户名已被注册 
-user.passwordError=密码不合法，只能包含字母、数字和下划线！
-user.telError=手机号码无效
-user.toBePassword=以字母开头，6~18位字符
-user.toBeUserId=6~16位字符
+user.passwordError=密码不合法！
+user.telError=手机号码无效!
+user.toBePassword= 可输入6~18位,以字母开头，包含字母、数字和下划线!
+user.toBeUserId= 可输入6~16位字。包含数字，英文和中文！
 user.nickNameErr=给个昵称吧！
 user.welcome=欢迎您，{0}
 user.guestName=游客
@@ -468,9 +466,19 @@ user.registerMessage3 = 新用户还可以免费得到20个积分点哦！
 user.userLogin = 会员登录
 user.loginMessage = 如果你已经是本网站的会员，请在下面输入用户名和密码登录！
 user.forgetPassword = 如果你忘记密码，请点击这里
+user.quickNavigation=快速导航
+user.hasUserId = 已有美范账号？
+user.chooseEdit=选填
+user.agreeToRegister=同意协议并注册
+user.agreement=《美范网用户协议》
+user.fansOf=的粉丝
+user.followedUser=关注的达人
+user.followedSalon=关注的沙龙
+user.followedStylist=关注的技师
+user.noBlogSearched=没有收藏的博客……
+user.noStyleSearched=没有收藏的发型……
+user.noCouponSearched=没有收藏的优惠券……
 user.applyStylist = 普通会员申请技师
-
-
 
 #Letter
 letter.addressee=收件人

@@ -1,0 +1,16 @@
+@(user: User,followInfo:FollowInformation, loginUserId:ObjectId, beforeSevernDate: java.util.Date)
+
+@myPageMain(navInMyPage = "followedCoupon", user, followInfo, loginUserId, true) {
+	
+    @if(followInfo.followCoupon.isEmpty) {
+    <div class="bgAlertMsg mT20">
+        <p class="alertMsg">@Messages("user.noCouponSearched")</p>
+    </div>
+} else {
+    @for(coupon <- followInfo.followCoupon) {
+    		<li class="couponItem">
+    		   @views.html.user.followItem.followCouponItem(coupon, beforeSevernDate)
+        	</li>	
+    	}
+    }
+}

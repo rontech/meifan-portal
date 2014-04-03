@@ -7,6 +7,7 @@ import play.api.data.Forms._
 import com.mongodb.casbah.commons.Imports._
 
 import java.util.Date
+import java.util.Calendar
 import models._
 import views._
 import play.api.i18n.Messages
@@ -81,7 +82,13 @@ object Coupons extends Controller {
   
   def index = Action {
     val coupons:List[Coupon] = Coupon.findAll().toList
-    Ok(views.html.coupon.couponOverview(coupons))
+    
+    // 获取当前时间的前7天的日期，用于判断是否为新券还是旧券
+    var beforeSevernDate = Calendar.getInstance()
+    beforeSevernDate.setTime(new Date())
+    beforeSevernDate.add(Calendar.DAY_OF_YEAR, -7)
+    
+    Ok(views.html.coupon.couponOverview(coupons, beforeSevernDate.getTime()))
   }
   
   /**
@@ -146,65 +153,6 @@ object Coupons extends Controller {
       }
     }
   
-  /**
-   * 根据查找条件检索出符合的优惠劵
-   */
-  def findByCondtion(salonId: ObjectId) = Action {implicit request =>
-    conditionForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.error.errorMsg(errors)),
-      {
-        serviceType =>
-          var coupons: List[Coupon] = Nil
-          var menus: List[Menu] = Nil
-          var serviceTypeNames: List[String] = Nil
-          var conditions: List[String] = Nil
-          var servicesByTypes: List[ServiceByType] = Nil
-          var typebySearchs: List[ServiceType] = Nil
-          var couponServiceType: CouponServiceType = CouponServiceType(Nil, serviceType.subMenuFlg)
-
-          for(serviceTypeOne <- serviceType.serviceTypes) {
-              conditions = serviceTypeOne.serviceTypeName::conditions
-              val serviceType: Option[ServiceType] = ServiceType.findOneByTypeName(serviceTypeOne.serviceTypeName)
-              serviceType match {
-                  case Some(s) => typebySearchs = s::typebySearchs
-                  case None => NotFound
-              }
-          }
-            
-          couponServiceType = couponServiceType.copy(serviceTypes = typebySearchs)
-            
-          val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
-          if(serviceType.subMenuFlg == None) {
-            //coupons = Coupon.findContainCondtions(serviceTypes)
-          } else {
-            if(serviceType.serviceTypes.isEmpty) {
-              coupons = Coupon.findBySalon(salonId)
-              menus = Menu.findBySalon(salonId)
-              serviceTypeNames = Service.getServiceTypeList
-		      for(serviceType <- serviceTypeNames) {
-		        var servicesByType: ServiceByType = ServiceByType("", Nil)
-		        val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(salonId, serviceType))
-		        servicesByTypes = y::servicesByTypes
-		      }
-            } else {
-              coupons = Coupon.findContainCondtions(conditions)
-              menus = Menu.findContainCondtions(conditions)
-		      for(serviceTypeOne <- serviceType.serviceTypes) {
-		        var servicesByType: ServiceByType = ServiceByType("", Nil)
-		        val y = servicesByType.copy(serviceTypeName = serviceTypeOne.serviceTypeName, serviceItems = Service.getTypeListBySalonId(salonId, serviceTypeOne.serviceTypeName))
-		        servicesByTypes = y::servicesByTypes
-		      }
-            }
-          }
-          val salon: Option[Salon] = Salon.findById(salonId)
-          
-          salon match {
-	          case Some(s) => Ok(html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes))
-	          case None => NotFound
-	      }
-      })
-  }
-
   /**
    * 进入修改优惠劵画面
    */
