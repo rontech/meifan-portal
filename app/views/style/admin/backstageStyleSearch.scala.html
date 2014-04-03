@@ -1,4 +1,4 @@
-@(styleSearchForm: Form[Style], stylePara : models.StylePara, isFirstSearch : Boolean, isStylist: Boolean, stylist: List[models.Stylist] = Nil)
+@(styleSearchForm: Form[Style], stylePara : models.StylePara, isFirstSearch : Boolean, isStylist: Boolean, stylist: Stylist, stylists: List[models.Stylist] = Nil)
 @import helper._
 
 <div>
@@ -7,7 +7,7 @@
     @if(isFirstSearch){
     <div>
         <div class="sreachtabBody">
-        @form(routes.Stylists.findMyStylesBySerach, 'id -> "styleSearchForm"){
+        @form(noAuth.routes.Stylists.findStylesBySerach(stylist.stylistId), 'id -> "styleSearchForm"){
             <div class="skinHeadingWrapper2 mB15 cFix pr">
                 <h3 class="fl skinHeading1 headingSearch offL">@Messages("hair.search")</h3>
             </div>
@@ -228,7 +228,7 @@
     </div>
     }else{
     <div>
-        @form(routes.Stylists.findMyStylesBySerach, 'id -> "styleSearchForm"){
+        @form(noAuth.routes.Stylists.findStylesBySerach(stylist.stylistId), 'id -> "styleSearchForm"){
             <br/>@Messages("hair.styleLength")<br/>
                         <input type = "radio" class = "" name = "styleLength" value = "all" checked="checked">@Messages("common.all")
                 @for(i <- 0 to stylePara.styleLength.length-1){

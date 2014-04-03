@@ -1,8 +1,9 @@
-@(navInMyPage: String = "my-appingSalon", user: User, stylist: Stylist, salons: List[Salon], followInfo:FollowInformation)
+@(user :User, followInfo:FollowInformation, loginUserId :ObjectId =new ObjectId, logged:Boolean = false, salons: List[Salon], stylist: Stylist)
 
-@stylistPageMain(navInMyPage, user, stylist, followInfo){
+@import views.html.user._
+
+@myPageMain("applingSalons", user, followInfo, loginUserId, logged){
 	@salons.map{salon =>
-		<h1>@salon</h1>
-		@views.html.stylist.management.stylistApplyingSalonItem(salon, stylist)
+		@views.html.stylist.management.stylistApplyingSalonItem(user, loginUserId, salon, stylist)
 	}
 }

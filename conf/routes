@@ -73,12 +73,13 @@ GET         /style/:salonId/:sex                                       controlle
 # Stylist
 #GET        /stylistViews/:id                                controllers.Stylists.findStylistById(id: ObjectId)
 #GET        /stylist/:id                                     controllers.Stylists.findById(id: ObjectId)
-GET         /stylist/mySalon/:stylistId                                controllers.Stylists.mySalon(stylistId: ObjectId)
-GET         /updateStylistInfo/:stylistId                              controllers.Stylists.updateStylistInfo(stylistId: ObjectId)
-POST        /toUpdateStylistInfo                                       controllers.Stylists.toUpdateStylistInfo(stylistId: ObjectId)
-GET         /agreeSalonApply/:stylistId/:salonId                       controllers.Stylists.agreeSalonApply(stylistId: ObjectId, salonId: ObjectId)
-GET         /rejectSalonApply/:stylistId/:salonId                      controllers.Stylists.rejectSalonApply(stylistId: ObjectId, salonId: ObjectId)
-GET         /findSalonApply/:stylistId                                 controllers.Stylists.findSalonApply(stylistId: ObjectId)
+GET         /stylist/mySalon/:stylistId                                controllers.noAuth.Stylists.mySalon(stylistId: ObjectId)
+
+GET         /updateStylistInfo/:stylistId                              controllers.auth.Stylists.updateStylistInfo(stylistId: ObjectId)
+POST        /toUpdateStylistInfo                                       controllers.auth.Stylists.toUpdateStylistInfo(stylistId: ObjectId)
+GET         /agreeSalonApply/:stylistId/:salonId                       controllers.auth.Stylists.agreeSalonApply(stylistId: ObjectId, salonId: ObjectId)
+GET         /rejectSalonApply/:stylistId/:salonId                      controllers.auth.Stylists.rejectSalonApply(stylistId: ObjectId, salonId: ObjectId)
+GET         /findSalonApply/:stylistId                                 controllers.auth.Stylists.findSalonApply(stylistId: ObjectId)
 #GET        /updateStyleByStylist/:styleId                   controllers.Stylists.updateStyleByStylist(styleId: ObjectId)
 #GET        /deleteStyleByStylist/:styleId                   controllers.Stylists.deleteStyleByStylist(styleId: ObjectId)
 #GET        /createStyleByStylist/:stylistId                 controllers.Stylists.createStyleByStylist(stylistId : ObjectId)
@@ -230,7 +231,7 @@ GET         /salonAdmin/checkStylistIsValid/:salonId/:stylistId        controlle
 #GET         /findStylesByStylist/:stylistId                            controllers.Stylists.myStyles(stylistId: ObjectId)
 
 #stylist (to remove salon)
-GET         /removeSalon/:salonId/:stylistId                           controllers.Stylists.removeSalon(salonId: ObjectId, stylistId: ObjectId)
+GET         /removeSalon/:salonId/:stylistId                           controllers.auth.Stylists.removeSalon(salonId: ObjectId, stylistId: ObjectId)
 
 #salonAdmin	(to remove stylist)
 GET         /removeStylist/:salonId/:stylistId                         controllers.SalonsAdmin.removeStylist(salonId: ObjectId, stylistId: ObjectId)
@@ -250,9 +251,9 @@ GET    /replyAdmin/:commentObjId/:id/:commentObjType         controllers.Comment
 
 
 #Salons (Salon check stylist info) Add by pingdou
-GET         /updateStylistImage/:stylistId                             controllers.Stylists.updateStylistImage(stylistId: ObjectId)
-POST        /toUpdateStylistImage                                      controllers.Stylists.toUpdateStylistImage
-GET         /saveStylistImg/:imgId                                     controllers.Stylists.saveStylistImg(imgId: ObjectId)
+GET         /updateStylistImage                             		   controllers.auth.Stylists.updateStylistImage
+POST        /toUpdateStylistImage                                      controllers.auth.Stylists.toUpdateStylistImage
+GET         /saveStylistImg/:imgId                                     controllers.auth.Stylists.saveStylistImg(imgId: ObjectId)
 
 #add by hz-han
 GET			/salonLogin				     					 controllers.Application.salonLogin
@@ -268,19 +269,21 @@ GET         /addImage/:id 									 controllers.SalonInfo.addImage(id: ObjectId)
 #add bu lu-zheng
 GET         /mySalon/:id/createService                                 controllers.Services.serviceMain(id: ObjectId)
 
-GET		/styleAddNewStyle									 controllers.Stylists.styleAddNewStyle
-POST	/styleToAddNewStyle									 controllers.Stylists.styleToAddNewStyle(styleId: ObjectId)
 
 
 #add by pingdou (styles of stylist)
-GET		/userPage/styles/:stylistId					         controllers.Stylists.findMyStylesByStylist(stylistId: ObjectId)
-POST	/findMyStylesBySerach					             controllers.Stylists.findMyStylesBySerach
-GET     /styleUpdateByStylist/:id                            controllers.Stylists.styleUpdateByStylist(id: ObjectId)
-POST    /styleUpdateNewByStylist/                            controllers.Stylists.styleUpdateNewByStylist
-GET     /styleToInvalidByStylist/:id                         controllers.Stylists.styleToInvalidByStylist(id: ObjectId)
-GET     /styleAddByStylist/                                  controllers.Stylists.styleAddByStylist
-POST    /newStyleAddByStylist/                               controllers.Stylists.newStyleAddByStylist
-POST	/fileUploadAction									 controllers.Stylists.fileUploadAction
+GET		/userPage/styles/:stylistId					         controllers.noAuth.Stylists.findStylesByStylist(stylistId: ObjectId)
+POST	/findStylesBySerach/:stylistId				         controllers.noAuth.Stylists.findStylesBySerach(stylistId: ObjectId)
+GET		/goStylistHomePage/:stylistId						 controllers.noAuth.Stylists.goStylistHomePage(stylistId: ObjectId)	
+
+
+GET     /styleUpdateByStylist/:styleId                       controllers.auth.Stylists.styleUpdateByStylist(styleId: ObjectId)
+POST    /styleUpdateNewByStylist/                            controllers.auth.Stylists.styleUpdateNewByStylist
+GET     /styleToInvalidByStylist/:styleId                    controllers.auth.Stylists.styleToInvalidByStylist(styleId: ObjectId)
+GET     /styleAddByStylist/                                  controllers.auth.Stylists.styleAddByStylist
+POST    /newStyleAddByStylist/                               controllers.auth.Stylists.newStyleAddByStylist
+POST	/fileUploadAction									 controllers.auth.Stylists.fileUploadAction
+				
 
 #add by hui-fan (styles of salon)
 GET     /getAllStylesBySalon/:salonId                        controllers.SalonsAdmin.getAllStylesBySalon(salonId: ObjectId)
