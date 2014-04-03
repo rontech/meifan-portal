@@ -1,21 +1,118 @@
 @(salon:Salon, loginUserId:ObjectId, logged : Boolean)
-	<li><table class="ostable">
-		<tbody>
-			<tr>
-				<td class="avatar"><a href="@routes.Salons.getSalon(salon.id)" target="blank"><img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)" align="absmiddle" alt="" title="@salon.salonName" class="SmallPortrait"></a></td>
-				<td class="update">
-					<span class="name"><a href="@routes.Salons.getSalon(salon.id)" target="blank">@salon.salonName</a></span><br>
-					<span class="city">@salon.salonAddress.province &nbsp;@salon.salonAddress.city</span>
-				</td>
-				<td class="opts">
-					@if(logged.equals(false) || MyFollow.checkIfFollow(loginUserId,salon.id)){
-						<a href="@auth.routes.MyFollows.cancelFollow(salon.id)">@Messages("user.cancelFollow")</a>
-					}else{
-						<a href="@auth.routes.MyFollows.addFollow(salon.id,"salon")">@Messages("user.addFollow")</a>
-					}
-					<a href="#">@Messages("user.sendMsg")</a>
-				</td>
-			</tr>
-		</tbody>
-		</table>
+<li class="mT20">
+	<div class="shopInformationHead ympS">
+		<div class="shopInformationBottom ympS">
+			<!-- ↓shopContentsInnerMysalon -->
+			<div class="shopInformationMysalon ympS">
+				<div class="shopContentsInnerMysalon">
+				<!-- ↓cassetteHeading -->
+					<div class="cassetteHeading cFix">
+						<div>
+							<h4 class="fs18 lh16 dibBL w500 vaM"><a href="@routes.Salons.getSalon(salon.id)">@salon.salonName</a></h4>
+						</div>
+						<div class="mT10 cFix">
+							<div class="fl cFix">
+								<p class="fl fgLGray2 b mT2 mR8">@salon.accessMethodDesc</p>
+							</div>
+							<p class="fr">
+								@if(logged.equals(false) || MyFollow.checkIfFollow(loginUserId,salon.id)){
+						           <a href="@auth.routes.MyFollows.cancelFollow(salon.id)">@Messages("user.cancelFollow")</a>
+					            }else{
+						           <a href="@auth.routes.MyFollows.addFollow(salon.id,"salon")">@Messages("user.addFollow")</a>
+					            }
+							</p>
+						</div>
+					</div>
+					<!-- ↑cassetteHeading -->
+					<!-- ↓listBody -->
+					<div class="listBody cFix">
+						<div class="fl w221 mR10 taC">
+							<div class="mHA">
+								<a href="@routes.Salons.getSalon(salon.id)" target="blank"><img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)" align="absmiddle" alt="" title="@salon.salonName" class="SmallPortrait"></a>
+							</div>
+						</div>
+						<div class="fr w464">
+							<div>
+								<p class="mT10 pB10">
+									@if(salon.salonDescription.nonEmpty){
+										@salon.salonDescription.get.slice(0, 100)
+										@if(salon.salonDescription.get.length > 100) {...}
+									}								
+								</p>
+							</div>
+							<div>
+								<dl class="cFix mB2">
+								<dt class="fl fgLGray2 b">@Messages("salon.priceCutOnly")</dt>
+								<dd class="fl w100">
+									<div class="mL10">
+										@Salon.getLowestPriceOfCut(salon.id) match {
+                       						case None => { @Messages("salon.priceCutOnlyUndefined")}
+                       						case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
+                    					}
+									</div>
+								</dd>
+								<dt class="fl fgLGray2 b">@Messages("salon.seatNums")</dt>
+								<dd class="fl w80"><div class="mL10">@Messages("salon.seatNumsMsg", salon.seatNums)</div></dd>
+								</dl>
+								<dl class="cFix mB2">
+								<dt class="fl fgLGray2 b">@Messages("salon.stylistNums")</dt>
+								<dd class="fl w100">
+									<div class="mL10">
+										@Messages("slaon.stylistNumUnit", Salon.getCountOfStylists(salon.id))
+									</div>
+								</dd>
+								<dt class="fl fgLGray2 b">@Messages("salon.parkingDesc")</dt>
+								<dd class="fl w80">
+									<div class="mL10">
+									 @if(salon.salonFacilities.hasParkingNearby) { @salon.salonFacilities.parkingDesc} else { @Messages("salon.hasNoParkingNearByMsg")}
+									</div>
+								</dd>
+								</dl>
+								<ul class="cFix">
+									<li class="fr"><a href = "#"><input type = "button" class = ""  value = "@Messages("reserve.name")"></a></li>
+								</ul>
+							</div>
+							<div class="mT20 w451">
+								<h3 class="cassetteContentsHeading mT14 mL2">@Messages("user.salonBlogTitle", salon.salonName)</h3>
+									<div class="CouponArea zoom1">
+										<div class="CouponAreaCoupon cFix">
+											<div class="CouponAreaInner">
+												<dl class="cFix">
+												@if(Blog.findBySalon(salon.id).length > 0){
+													<dd class="fr b mL10">@User.findOneByUserId(Blog.findBySalon(salon.id).head.authorId).get.nickName</dd>
+													<dd class="oh"><a href="@noAuth.routes.Blogs.getOneBlogOfSalon(salon.id, Blog.findBySalon(salon.id).head.id)">@Blog.findBySalon(salon.id).head.title</a></dd>
+												}else{
+													@Messages("blog.salonNoBlog")
+												}
+												</dl>
+											</div>
+										</div>
+									</div>
+							</div>
+							
+							<div class="mT20 w451">
+								<h3 class="cassetteContentsHeading mT14 mL2">@Messages("user.salonCouponTitle", salon.salonName)</h3>
+									<div class="CouponArea zoom1">
+										<div class="CouponAreaCoupon cFix">
+											<div class="CouponAreaInner">
+												<dl class="cFix">
+												@if(Coupon.findBySalon(salon.id).length > 0){
+													<dt class="iS couponTypeSmallCT02 offL CouponMark fl"></dt><dd class="fr b mL10">@Coupon.findBySalon(salon.id).last.perferentialPrice</dd>
+													<dd class="oh"><a href="#">@Coupon.findBySalon(salon.id).last.description</a></dd>
+												}else{
+													@Messages("user.salonCouponNoFound")
+												}
+												</dl>
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+					</div>
+						<!-- ↑listBody -->
+				</div>
+			</div>
+			<!-- ↑shopContentsInnerMysalon -->
+		</div>
+	</div>
 </li>
