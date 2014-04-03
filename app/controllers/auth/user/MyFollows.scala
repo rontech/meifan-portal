@@ -34,7 +34,8 @@ object MyFollows extends Controller with AuthElement with AuthConfigImpl {
         }
         if (followObjType == FollowType.FOLLOW_SALON || followObjType == FollowType.FOLLOW_STYLIST || followObjType == FollowType.FOLLOW_USER)
             UserMessage.sendFollowMsg(user, followId, followObjType)
-        Redirect(auth.routes.Users.myPage())
+//        Redirect(auth.routes.Users.myPage())
+          Redirect(request.headers.get("Referer").getOrElse(""))
     }
 
     /**
