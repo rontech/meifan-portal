@@ -61,7 +61,7 @@
         <div class="span14">
           	@form(auth.routes.Stylists.toUpdateStylistInfo(stylist.stylistId), 'id -> "userForm"){
 		
-       		@inputText(stylistForm("workYears"), '_label -> Messages("stylist.workYesrs"), 'readOnly -> true, 'class ->  "font1")
+       		@inputText(stylistForm("workYears"), '_label -> Messages("stylist.workYears"), 'readOnly -> true, 'class ->  "font1")
 			<fieldset>
 			 <div id="optContactMethods">
 			@repeat(stylistForm("position")){position=>
