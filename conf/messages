@@ -138,10 +138,24 @@ salon.registerMessage2 = 我们会核实您注册后提交的申请，尽快为�
 salon.loginMessage = 如果你已经是本网站的沙龙会员，请在下面输入店铺名和密码登录！
 salon.true=可
 salon.accountIdMessage=注册时设定，无法修改!
+salon.addPicture=添加一张图片
+salon.removePicture=删除一张图片
 salon.followSalon = 关注此沙龙
 salon.savedAsMySalon = 已保存为我的店铺
 salon.pushToMobile = 发送到手机
+salon.iss=店铺功能
+salon.login.accountId=请输入您的店铺Id
+salon.login.password=请输入您的密码
+salon.register.accountId=请输入6-16位字符
+salon.register.password=字母开头6-18位字符
+salon.register.salonName = 请重新输入店铺名
+salon.register.mainPhone = 请输入联系电话
+salon.register.contact=请输入联系人
+salon.register.establishDate=请输入店铺成立时间
+salon.register.seatNums=请输入店铺席位
+salon.salonNameNotAvaible=该店铺已存在
 salon.level = 等级 Lv5
+
 
 #salon management
 salonAdmin.mainPage = 店铺管理

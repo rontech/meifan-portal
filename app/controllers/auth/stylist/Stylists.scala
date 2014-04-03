@@ -285,7 +285,6 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull
                 uploadedFile.save()
-                println("upload image id "+uploadedFile._id.get)
                 Ok(uploadedFile._id.get.toString)
             }    
             case None => BadRequest("no photo")

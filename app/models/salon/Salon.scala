@@ -125,6 +125,10 @@ object Salon {
     def loginCheck(salonAccount: SalonAccount): Option[Salon] = {
         SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId,"salonAccount.password" -> salonAccount.password))
     }
+
+    def findOneBySalonName(salonName: String): Option[Salon] = {
+        SalonDAO.findOne(MongoDBObject("salonName" -> salonName))
+    }
     
     /**
      * Get the stylists count of a salon.
