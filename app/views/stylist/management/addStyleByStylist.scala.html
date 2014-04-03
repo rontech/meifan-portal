@@ -1,6 +1,8 @@
-@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, followInfo: FollowInformation, styleAddForm: Form[models.Style], styleParaAll: models.StylePara,stylists: List[models.Stylist], isStylist: Boolean)
+@(user :User, followInfo :FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false, stylist: Stylist, styleAddForm: Form[models.Style], styleParaAll: models.StylePara, stylists: List[models.Stylist] = Nil, isStylist: Boolean)
 
-@stylistPageMain(navInMyPage, user, stylist, followInfo){
+@import views.html.user._
+
+@myPageMain("addStyleByStylist", user, followInfo, loginUserId, logged ){
 	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
 	@views.html.style.admin.styleAdd(styleAddForm, styleParaAll, stylists, isStylist)
 }
