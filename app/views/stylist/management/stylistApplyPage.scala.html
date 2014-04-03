@@ -1,0 +1,42 @@
+@(user: User, followInfo: FollowInformation, loginUserId: ObjectId, logged: Boolean, salon: Option[Salon])
+
+@import helper._
+@import views.html.user._
+
+@myPageMain("followedStylist", user, followInfo, loginUserId, logged){
+	@form(auth.routes.Stylists.findSalonBySalonAccountId, 'id -> "userForm"){
+		@Messages("salon.id")&nbsp;<input name="salonId" id="stylist-search-salon">
+		<span id="nameMsg"></span>
+		<input type="submit" id="searchStylistToSubmit" onclick="return toSubmit();" value="@Messages("stylist.search")">
+	}
+	@salon.map{ sa=>
+		<div class="fl w349">
+    	<div id="jsViewer">
+        <img src="@routes.Application.getPhoto(sa.salonPics(0).fileObjId)"
+        width="349" height="262" style="display: block; opacity: 1;" oncontextmenu="return false;">
+        
+    </div>
+    <p>@sa.salonName</p>
+    <a href="@auth.routes.Stylists.toApplySalon(sa.id)">
+    	<p>@Messages("stylistMag.wantToApply")</p>
+    </a>	
+</div>
+	}
+}
+<script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8">
+	function toSubmit(){
+		val salonAccountId = $("#stylist-search-salon").val();
+		$.get(
+				"/checkSalonIsexitBySalonAccountId/"+salonAccountId,
+				function(data){
+					if(data == yes){
+						$("#nameMsg").text("有效店铺");
+					}else{
+						$("#nameMsg").text("没有该店铺");
+					}
+					
+				});
+
+	}
+</script>

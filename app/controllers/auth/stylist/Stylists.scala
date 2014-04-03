@@ -185,7 +185,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
 	     stylist match {
 	        case Some(sty) => {
 	        Stylist.updateImages(sty, imgId)
-	        Redirect(noAuth.routes.Stylists.goStylistHomePage(user.id))
+	        Redirect(routes.Stylists.myHomePage())
 	       }
 	      case None => NotFound
 	    }
@@ -290,6 +290,80 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
             case None => BadRequest("no photo")
         }
     
+  }
+    
+  def findStylistApplying(stylistId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) { implicit request =>
+	  val user = loggedIn
+      val stylist = Stylist.findOneByStylistId(user.id)
+      val followInfo = MyFollow.getAllFollowInfo(user.id)
+      val record = SalonStylistApplyRecord.findOneStylistApRd(user.id)
+      record.map{re=>
+        val salon = Salon.findById(re.salonId)
+        salon.map{ sa =>
+        	Ok(views.html.stylist.management.stylistApplyingItem(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, salon = sa))
+        }getOrElse{
+        	NotFound
+        }
+        
+	  }getOrElse{
+	    NotFound
+	  }
+      
+  }
+  
+  def wantToApply(stylistId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) { implicit request =>
+      val user = loggedIn
+      val followInfo = MyFollow.getAllFollowInfo(user.id)
+      val salon = Salon.findById(new ObjectId)
+      Ok(views.html.stylist.management.stylistApplyPage(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, salon = salon))
+  }
+  
+  def myHomePage = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+	  val user = loggedIn
+	  val followInfo = MyFollow.getAllFollowInfo(user.id)
+	  val stylist = Stylist.findOneByStylistId(user.id)
+	  val blgs = Blog.getBlogByUserId(user.userId)
+      val blog = if(blgs.length > 0) Some(blgs.head) else None
+	  stylist.map{sty=>
+	      Ok(views.html.stylist.management.myPageHome(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = sty, lastBlog = blog))
+	  }getOrElse{
+	      NotFound
+	  }
+      
+  }
+  
+  def cancelMyApplying = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+      val user = loggedIn
+      val followInfo = MyFollow.getAllFollowInfo(user.id)
+      val record = SalonStylistApplyRecord.findOneStylistApRd(user.id)
+      record.map{ re =>
+        SalonStylistApplyRecord.removeById(re.id, WriteConcern.Safe)
+        Redirect(routes.Stylists.myHomePage)
+      }getOrElse{
+        NotFound
+      }
+  }
+  
+  def toApplySalon(salonId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+      val user = loggedIn
+      Salon.findById(salonId).map{ salon =>
+    	  val applyRecord = new SalonStylistApplyRecord(new ObjectId, salonId, user.id, 1, new Date, 0, None)
+    	  SalonStylistApplyRecord.save(applyRecord)
+    	  Redirect(routes.Stylists.myHomePage)  
+      }getOrElse{
+    	  Redirect(routes.Stylists.myHomePage)
+      }
+      
+  }
+  
+  def findSalonBySalonAccountId = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+      val salonAccountId = request.getQueryString("salonId").get
+      val user = loggedIn
+      val followInfo = MyFollow.getAllFollowInfo(user.id)
+      val salon = Salon.findByAccountId(salonAccountId)
+      Ok(views.html.stylist.management.stylistApplyPage(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, salon = salon))  
+      
+      
   }
     
 }

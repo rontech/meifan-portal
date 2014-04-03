@@ -265,7 +265,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
         case(stylistApply) => {
           Stylist.save(stylistApply.stylist.copy(stylistId = user.id))
           Salon.findByAccountId(stylistApply.salonAccountId).map{salon=>
-            val applyRecord = new SalonStylistApplyRecord(new ObjectId, salon.id, stylistApply.stylist.stylistId, 1, new Date, 0, None)
+            val applyRecord = new SalonStylistApplyRecord(new ObjectId, salon.id, user.id, 1, new Date, 0, None)
             SalonStylistApplyRecord.save(applyRecord)
             Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user, goodAtStylePara, followInfo))
           }getOrElse{
