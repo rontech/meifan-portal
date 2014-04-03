@@ -9,11 +9,15 @@
 		</head>
 		
 		<div class="contentsTitleWrapper">
-			<h2 class="contentsTitleInner">@Messages("user.new")</h2>
+			<h2 class="contentsTitleInner">@Messages("user.registerBtn")</h2>
 		</div>
        
         @form(noAuth.routes.Users.register(), 'id -> "userForm") {
-        	
+        	@if(userForm.hasGlobalErrors) { 
+              <div>
+                  @userForm.globalError.get.message
+              </div>
+            }
 	      	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
 			    <tbody>
 			        <tr>
@@ -25,10 +29,16 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@inputText(userForm("userId"),'_label -> None, 'placeholder -> Messages("user.toBeUserId"),
+			                	@inputText(userForm("userId"),'_label -> None, 'placeholder -> Messages("user.name"), '_help -> Messages("user.toBeUserId"),
 							            	'_error -> userForm("userId").error.map(_.withMessage(Messages("user.userIdErr")))
 							            	)
 			                </div>
+			            </td>
+			            <td rowspan="10">
+			            	<div class="mT20 txtC">
+			            		<span>@Messages("user.hasUserId")</span><br>
+			            		<a href="@auth.routes.Users.login"><span>@Messages("user.loginBtn")</span></a>
+			            	</div>
 			            </td>
 			        </tr>
 			        <tr>
@@ -40,7 +50,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@inputPassword(userForm("password.main"),'_label -> None, 'placeholder -> Messages("user.toBePassword"))
+			                	@inputPassword(userForm("password.main"),'_label -> None, 'placeholder -> Messages("user.password"), '_help -> Messages("user.toBePassword"))
 			                </div>
 			            </td>
 			        </tr>
@@ -53,7 +63,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@inputPassword(userForm("password.confirm"),'_label -> None,'_error -> userForm.error("password"), 'placeholder -> Messages("user.toBePassword"))
+			                	@inputPassword(userForm("password.confirm"),'_label -> None,'_error -> userForm.error("password"), 'placeholder -> Messages("user.confirmPas"))
 			                </div>
 			            </td>
 			        </tr>
@@ -66,8 +76,8 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@inputText(userForm("nickName"),'_label -> None,
-							            	'_error -> userForm("nickName").error.map(_.withMessage(Messages("user.nickNameErr")))
+			                	@inputText(userForm("nickName"),'_label -> None,'_help -> Messages(""), 'placeholder -> Messages("user.nickNm"),
+							            	'_error -> userForm("nickName").error.map(_.withMessage("user.nickNameErr"))
 							            )
 			                </div>
 			            </td>
@@ -81,7 +91,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@inputDate(userForm("birthDay"), '_label -> None,
+			                	@inputDate(userForm("birthDay"), '_label -> None, '_help -> Messages(""),
 							            	'_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr")))
 							            )
 	
@@ -130,7 +140,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@inputText(userForm("socialStatus"),'_label -> None)
+			                	@inputText(userForm("socialStatus"),'_label -> None, '_help -> Messages("user.chooseEdit"))
 			                </div>
 			            </td>
 			        </tr>
@@ -143,7 +153,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@inputText(userForm("email"), '_label -> None,
+			                	@inputText(userForm("email"), '_label -> None,'_help -> Messages(""),
 					            	'_error -> userForm("email").error.map(_.withMessage(Messages("user.emailErr")))
 					            )
 			                </div>
@@ -170,13 +180,13 @@
             @inputText(userForm("userPics"), '_label -> "",'style -> "display: none")
 
 		  	<div class="mT20 txtC">
-		  		<input type="submit" class = "buttons" value="@Messages("user.new")">
-            
-	            <a href="@auth.routes.Users.login"><input type = "button" class = "buttons" value="@Messages("user.loginBtn")"></a>
-	            
-	            <input type = "reset" class = "buttons" value="@Messages("service.resetBtn")">
+		  		<input type="submit" class = "registerButtons" value="@Messages("user.agreeToRegister")">
 		  	</div>
-           
+		  	
+		  	
+		  	<div class="mT20 txtC">
+				<a href= "#"><p>@Messages("user.agreement")</p></a>
+		  	</div>
         }
 
     }

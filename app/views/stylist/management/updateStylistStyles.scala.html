@@ -1,6 +1,8 @@
-@(navInMyPage: String = "my-reservation", user: User, stylist: Stylist, style: models.Style, followInfo: FollowInformation, styleUpdateForm: Form[models.Style], styleParaAll: models.StylePara)
+@(user :User, followInfo :FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false, stylist: Stylist, style: models.Style, styleUpdateForm: Form[models.Style], styleParaAll: models.StylePara)
 
-@stylistPageMain(navInMyPage, user, stylist, followInfo){
+@import views.html.user._
+
+@myPageMain("followedStylist", user, followInfo, loginUserId, logged){
 	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
 	@views.html.style.admin.styleUpdateByStylist(styleUpdateForm, styleParaAll, style)
 }

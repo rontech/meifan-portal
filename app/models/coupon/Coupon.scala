@@ -15,7 +15,7 @@ case class Coupon (
         couponId: String,
         couponName: String,
         salonId: ObjectId,
-        serviceItems: Seq[Service],
+        serviceItems: List[Service],
         originalPrice: BigDecimal,
         perferentialPrice: BigDecimal,
         serviceDuration: Int,            // Unit: Minutes.
@@ -59,6 +59,6 @@ object Coupon extends ModelCompanion[Coupon, ObjectId]{
     dao.find("serviceItems.serviceType" $all serviceTypes).toList
   }
 
-  def checkCoupon(CouponName:String): Boolean = dao.find(DBObject("couponName" -> CouponName)).hasNext
+  def checkCouponIsExit(CouponName: String, salonId: ObjectId): Boolean = dao.find(DBObject("couponName" -> CouponName, "salonId" -> salonId)).hasNext
 
 }

@@ -15,10 +15,7 @@
 	   		</a>
 			<div class="layer jscLayer jscFixPng">
 				<p>
-					<a href="" >@Messages("hair.ToCollect")</a>
-					<a href="" class="btnSaveToMyStyleDone">
-						<span class="">@Messages("hair.BeCollected")</span>
-					</a>
+					<a href="@auth.routes.MyFollows.addFollow(styleAndSalon(i).style.id,"style")" >@Messages("hair.ToCollect")</a>
 				</p>
 				<p><a href="">@Messages("hair.detailInfo")</a></p>
 			</div>

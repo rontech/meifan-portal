@@ -3409,3 +3409,21 @@ a:hover .imgFrame {
 	border: 1px solid #999999;
 	-webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, .05);
 }
+
+
+
+.image-insert-style-group li{
+	float:left;
+}
+.image-insert-style-index-item{
+	border:1px solid gray;
+	width:90px;
+	height:120px;
+	margin:10px 0 0 15px;
+}
+
+.imageUploadToViewsdiv{
+	float:left;
+	width:80px;
+	height:110px;
+}

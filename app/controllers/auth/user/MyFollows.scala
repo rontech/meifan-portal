@@ -31,43 +31,37 @@ object MyFollows extends Controller with AuthElement with AuthConfigImpl {
         }
         if (followObjType == FollowType.FOLLOW_SALON || followObjType == FollowType.FOLLOW_STYLIST || followObjType == FollowType.FOLLOW_USER)
             UserMessage.sendFollowMsg(user, followId, followObjType)
-        Redirect(auth.routes.Users.myPage())
+//        Redirect(auth.routes.Users.myPage())
+          Redirect(request.headers.get("Referer").getOrElse(""))
     }
 
     /**
-     * 我收藏的优惠劵
+     * 收藏的优惠劵
      */
-    def followedCoupon() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-        val user = loggedIn
-        val followInfo = MyFollow.getAllFollowInfo(user.id)
-        Ok(views.html.user.myFollowCoupon(user,followInfo))
-    }
-
-    /**
-     * 我收藏的店铺动态
-     */
-    def followedSalonActi() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-        val user = loggedIn
-        //TODO
-        val followInfo = MyFollow.getAllFollowInfo(user.id)
-        Ok(views.html.user.myFollowSalonActi(user,followInfo))
+    def followedCoupon(userId : ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
+        val loginUser = loggedIn
+        val user = User.findOneById(userId).get
+        val followInfo = MyFollow.getAllFollowInfo(userId)
+        Ok(views.html.user.followedCoupon(user,followInfo,loginUser.id))
     }
     
     /**
      * 收藏的博客
      */
-    def followedBlog() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-       	val user = loggedIn
+    def followedBlog(userId : ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
+        val loginUser = loggedIn
+        val user = User.findOneById(userId).get
         val followInfo = MyFollow.getAllFollowInfo(user.id)
-    	Ok(views.html.user.myFollowBlog(user, followInfo))
+    	Ok(views.html.user.followedBlog(user, followInfo, loginUser.id))
     }
 
     /**
      * 收藏的风格
      */
-    def followedStyle() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-        val user = loggedIn
+    def followedStyle(userId : ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
+        val loginUser = loggedIn
+        val user = User.findOneById(userId).get
         val followInfo = MyFollow.getAllFollowInfo(user.id)
-    	Ok(views.html.user.myFollowStyle(user, followInfo))
+    	Ok(views.html.user.followedStyle(user, followInfo, loginUser.id))
     }
 }
