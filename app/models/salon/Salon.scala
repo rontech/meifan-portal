@@ -8,6 +8,7 @@ import com.mongodb.casbah.MongoConnection
 import mongoContext._
 import se.radley.plugin.salat.Binders._
 import java.util.Date
+import org.mindrot.jbcrypt.BCrypt
 
 
 
@@ -123,7 +124,13 @@ object Salon {
     }    
 
     def loginCheck(salonAccount: SalonAccount): Option[Salon] = {
-        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId,"salonAccount.password" -> salonAccount.password))
+//        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId,"salonAccount.password" -> salonAccount.password))
+        val salon = SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId))
+        if(salon.nonEmpty && BCrypt.checkpw(salonAccount.password, salon.get.salonAccount.password)){
+            return salon
+        }else{
+            return None
+        }
     }
 
     def findOneBySalonName(salonName: String): Option[Salon] = {

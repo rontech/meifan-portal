@@ -11,12 +11,13 @@ object ApplicationBuild extends Build {
     "se.radley" %% "play-plugins-salat" % "1.3.0",
     //ADD BY YS-HAN 2014-03-20 FOR AUTH
     "jp.t2v" %% "play2-auth"      % "0.11.0",
-    "jp.t2v" %% "play2-auth-test" % "0.11.0" % "test"
+    "jp.t2v" %% "play2-auth-test" % "0.11.0" % "test",
+    
+    "org.mindrot" % "jbcrypt" % "0.3m"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
     routesImport += "se.radley.plugin.salat.Binders._",
     templatesImport += "org.bson.types.ObjectId"
   )
-
 }

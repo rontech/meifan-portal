@@ -21,6 +21,7 @@ import scala.concurrent.ExecutionContext
 import com.mongodb.casbah.MongoConnection
 import play.api.i18n.Messages
 import controllers._
+import org.mindrot.jbcrypt.BCrypt
 
 object SalonInfo extends Controller with LoginLogout with AuthElement with AuthConfigImpl{        
   
@@ -113,7 +114,7 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
           // Add an additional constraint: both passwords must match
             Messages("user.twicePasswordError"), password => password._1 == password._2)
 	    			){
-	    		(accountId,password) => SalonAccount(accountId,password._1)
+	    		(accountId,password) => SalonAccount(accountId,BCrypt.hashpw(password._1, BCrypt.gensalt()))
 	    	}{
 	    	  salonAccount=>Some(salonAccount.accountId,(salonAccount.password, ""))
 	    	},
