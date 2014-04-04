@@ -99,7 +99,7 @@
 				                <div>
 				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to industry.length-1){
-								 		<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
+								 		<input type = "checkbox" class="" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
 								 	}
 								  }
 				                </div>
@@ -333,7 +333,7 @@
 				        </tr>
 				    </tbody>
 				</table>
-				
+
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
 				    <tbody>
 				        <tr>
@@ -347,12 +347,12 @@
 				            		 @repeat(salonRegister("optContactMethod")) { optContactMethod =>
 					                    @optContactMethodGroup(optContactMethod)
 					                }
-					                
+
 					                @optContactMethodGroup(
 					                    salonRegister("optContactMethod[x]"),
 					                    className = "optContactMethod_template"
 					                )
-		                
+
 					                <div class="manage">
 					                    <a class="addoptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
 					                </div>
@@ -361,7 +361,7 @@
 				        </tr>
 					</tbody>
 				</table>
-				
+
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
 				    <tbody>
 				        <tr>
@@ -371,62 +371,91 @@
 				                </div>
 				            </th>
 				            <td>
-				            	@repeat(salonRegister("restDays")) { restDay =>
-				                    @restDayGroup(restDay)      
-				                } 
+                                <div class="restDays">
+                                @inputRadioGroup(salonRegister("restDays.restWay").copy(value=salonRegister("restDays.restWay").value.map{Some(_)}.getOrElse(Some("Fixed"))),
+                                    options = options("Fixed" -> Messages("restWay.fixed"), "Indefinite" -> Messages("restWay.indefinite")) , '_label -> None)
+                                @if(salonRegister("restDays").value.map{_.equals("Fixed")}.getOrElse(true)){
+                                    <div id="restDays_div">
+                                        @Messages("salon.selectRestDays")
+                                        <input type="checkbox" name="restDays.restDay1[0]" value="Monday">@Messages("Monday")
+                                        <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday">@Messages("Tuesday")
+                                        <input type="checkbox" name="restDays.restDay1[2]" value="Wednesday">@Messages("Wednesday")
+                                        <input type="checkbox" name="restDays.restDay1[3]" value="Thursday">@Messages("Thursday")
+                                        <input type="checkbox" name="restDays.restDay1[4]" value="Friday">@Messages("Friday")
+                                        <input type="checkbox" name="restDays.restDay1[5]" value="Saturday">@Messages("Saturday")
+                                        <input type="checkbox" name="restDays.restDay1[6]" value="Sunday">@Messages("Sunday")
+                                    </div>
+                                    <div id="noRestDays_div" style="display: none;">
+                                        @Messages("salon.EnterRestDays")
+                                        <input type="text" name="restDays.restDay2[0]">
+                                    </div>
+                                }else{
+                                    <div id="restDays_div" style="display: none;">
+                                        @Messages("salon.selectRestDays")
+                                        <input type="checkbox" name="restDays.restDay1[0]" value="Monday">@Messages("Monday")
+                                        <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday">@Messages("Tuesday")
+                                        <input type="checkbox" name="restDays.restDay1[2]" value="Wednesday">@Messages("Wednesday")
+                                        <input type="checkbox" name="restDays.restDay1[3]" value="Thursday">@Messages("Thursday")
+                                        <input type="checkbox" name="restDays.restDay1[4]" value="Friday">@Messages("Friday")
+                                        <input type="checkbox" name="restDays.restDay1[5]" value="Saturday">@Messages("Saturday")
+                                        <input type="checkbox" name="restDays.restDay1[6]" value="Sunday">@Messages("Sunday")
+                                    </div>
+                                    <div id="noRestDays_div" >
+                                        @inputText(salonRegister("restDays.restDay2"), '_label -> Messages("salon.EnterRestDays"))
+                                    </div>
+                                    }
+                                </div>
 				            </td>
 				        </tr>
 					</tbody>
 				</table>
-				
+
 				<div class="mT20 txtC">
 					<input type = "hidden" name="salonPics[0].fileObjId" />
 					<input type = "hidden" name="salonPics[0].picUse" value="LOGO"/>
 					<input type = "submit" class = "buttons" value=@Messages("user.registerBtn")>
-					<input type="reset" value=@Messages("common.reset")><a href = "/  "><input type="button" value=@Messages("common.backUp") ></a>
+					<input type="reset" value=@Messages("common.reset")><a href = "/"><input type="button" value=@Messages("common.backUp") ></a>
 				</div>
 			}
-                                 
+
 		</div>
 </div>
         <script type="text/javascript" charset="utf-8">
-        
-        function check() {
-            var arr = new Array();
-            var op = document.getElementsByTagName("option");
-            for (var i = 0; i < op.length; i++) {
-                if (op[i].selected) {
-         op[i].selected;
-                    arr.push(op[i].value+"---"+op[i].innerText);
-                }
-            }
-            alert(arr);
-        }
-        
+
+        $ ('#restDays_restWay_Fixed').live('click', function(e) {
+            $('#noRestDays_div' ).hide();
+            $('#restDays_div' ).show();
+        })
+
+        $('#restDays_restWay_Indefinite').live('click', function(e) {
+            $('#noRestDays_div' ).show();
+            $('#restDays_div' ).hide();
+        })
+
         $('.removeoptContactMethod').live('click', function(e) {
             $(this).parents('.optContactMethod').remove()
             renumber()
         })
-        
+
         $('.removeAccount').live('click', function(e) {
             var accounts = $(this).parents('.accounts')
             $(this).parents('.account').remove()
             renumber(accounts)
         })
-        
+
         $('.addAccount').live('click', function(e) {
             var accounts = $(this).parents('.accounts')
             var template = $('.account_template', accounts)
             template.before('<div class="clearfix account">' + template.html() + '</div>')
             renumber(accounts)
         })
-        
+
         $('.addoptContactMethod').live('click', function(e) {
             var template = $('.optContactMethod_template')
             template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
             renumber()
         })
-       
+
         var renumber = function(accounts) {
             $('.optContactMethod').each(function(i) {
                 $('input', this).each(function() {
@@ -437,35 +466,35 @@
                 })
             })
         }
-        
+
     </script>
 }
 
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
-        <input type="text" name="@name" value="@value"> 
+        <input type="text" name="@name" value="@value">
         <a class="removeAccount btn danger">@Messages("optContactMethod.Remove")</a>
     }
 }
 
 @optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
     <div class="twipsies well @className">
-        
+
         <a class="removeoptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
 
         @inputText(
-            field("contMethodType"), 
+            field("contMethodType"),
             '_label -> Messages("user.contMethodType")
         )
-        
+
         <div class="accounts">
 
             @repeat(field("accounts"), min = 0) { account =>
-                
+
                 @accountField(account)
-    
+
             }
-            
+
             @**
              * Keep an hidden block that will be used as template for Javascript copy code
              **@
@@ -473,53 +502,13 @@
                 field("accounts[x]"),
                 className = "account_template"
             )
-            
+
             <div class="clearfix">
                 <div class="input">
                     <a class="addAccount btn success">@Messages("optContactMethod.AddNumber")</a>
                 </div>
             </div>
-        
-        </div>
- 
-    </div>
-}
 
-@restDayField(field: Field, className: String = "restDay") = {
-    @input(field, '_label -> Messages("salon.restDays"), '_class -> className) { (id, name, value, _) =>
-    	@for(i <- 0 to 6){
-			<input type="checkbox" name="restDays[0].restDay[@i]" value="@i"> @Messages("restDay.restDay.1."+i) 
-			   		
-    	}
-
-    }
-}
-
-@restDayGroup(field: Field, className: String = "restDays") = {
-    <div class="twipsies well @className">        
-		@select(
-            field ("restDayDivision"), 
-            options = options(
-                "0" -> Messages("restDay.restDayDivision.0"),
-                "1" -> Messages("restDay.restDayDivision.1")
-            ),
-            args = '_label -> Messages("salon.restDayDivision")
-        )	        
-        <div class="restDay">
-
-            @repeat(field("restDay"), min = 0) { restDay =>
-                
-                @restDayField(restDay)
-    
-            }
-            
-            @**
-             * Keep an hidden block that will be used as template for Javascript copy code
-             **@
-            @restDayField(
-                field("restDay[x]"),
-                className = "restDay_template"
-            )                    
         </div>
  
     </div>
