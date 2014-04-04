@@ -1,4 +1,4 @@
-@(user: User,followInfo:FollowInformation, loginUserId:ObjectId)
+@(user: User,followInfo:FollowInformation, loginUserId:ObjectId, beforeSevernDate: java.util.Date)
 
 @myPageMain(navInMyPage = "followedCoupon", user, followInfo, loginUserId, true) {
 	
@@ -9,7 +9,7 @@
 } else {
     @for(coupon <- followInfo.followCoupon) {
     		<li class="couponItem">
-    		   @views.html.user.followItem.followCouponItem(coupon)
+    		   @views.html.user.followItem.followCouponItem(coupon, beforeSevernDate)
         	</li>	
     	}
     }

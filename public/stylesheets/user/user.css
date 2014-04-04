@@ -5606,6 +5606,10 @@ margin-top: 10px;
 font-size: 18px
 }
 
+.bS {
+	background: none;
+}
+
 .registerButtons{
 display: inline-block;
 border: 0 none;

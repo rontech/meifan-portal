@@ -12,6 +12,7 @@ import scala.concurrent._
 import play.api.i18n.Messages
 import jp.t2v.lab.play2.auth._
 import controllers.AuthConfigImpl
+import org.mindrot.jbcrypt.BCrypt
 
 object Users extends Controller with OptionalAuthElement with AuthConfigImpl{
 
@@ -43,7 +44,7 @@ object Users extends Controller with OptionalAuthElement with AuthConfigImpl{
           "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
       "socialStatus" -> text){
         (id, userId, password, nickName, sex, birthDay, address, tel, email, optContactMethods, socialStatus) =>
-          User(new ObjectId, userId, nickName, password._1, sex, birthDay, address, new ObjectId, tel, email, optContactMethods, socialStatus, User.NORMAL_USER,  User.HIGH, 0, new Date(), Permission.valueOf(LoggedIn), false)
+          User(new ObjectId, userId, nickName, BCrypt.hashpw(password._1, BCrypt.gensalt()), sex, birthDay, address, new ObjectId, tel, email, optContactMethods, socialStatus, User.NORMAL_USER,  User.HIGH, 0, new Date(), Permission.valueOf(LoggedIn), false)
       } {
         user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.sex, user.birthDay, user.address, user.tel, user.email, user.optContactMethods, user.socialStatus))
       }.verifying(

@@ -1,4 +1,4 @@
-@(coupons: Seq[Coupon])
+@(coupons: Seq[Coupon], beforeSevernDate: java.util.Date)
 
     <!-- Get All the coupons.  -->
-    @views.html.coupon.couponGroup(coupons)
+    @views.html.coupon.couponGroup(coupons, beforeSevernDate)

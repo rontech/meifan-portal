@@ -8,6 +8,7 @@ import com.mongodb.casbah.MongoConnection
 import mongoContext._
 import se.radley.plugin.salat.Binders._
 import java.util.Date
+import org.mindrot.jbcrypt.BCrypt
 
 
 
@@ -57,8 +58,8 @@ case class WorkTime(
  * Embed Structure.
 */
 case class RestDay(
-    restDayDivision: Int,
-    restDay: List[Int]
+    restWay: String,
+    restDay: List[String]
 )
 
 /**
@@ -91,7 +92,7 @@ case class Salon(
     salonAddress: Address,
     accessMethodDesc: String,
     workTime: WorkTime,
-    restDays: List[RestDay],                    
+    restDays: RestDay,
     seatNums: Int,
     salonFacilities: SalonFacilities,    
     salonPics: List[OnUsePicture],             
@@ -123,7 +124,13 @@ object Salon {
     }    
 
     def loginCheck(salonAccount: SalonAccount): Option[Salon] = {
-        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId,"salonAccount.password" -> salonAccount.password))
+//        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId,"salonAccount.password" -> salonAccount.password))
+        val salon = SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId))
+        if(salon.nonEmpty && BCrypt.checkpw(salonAccount.password, salon.get.salonAccount.password)){
+            return salon
+        }else{
+            return None
+        }
     }
 
     def findOneBySalonName(salonName: String): Option[Salon] = {
