@@ -22,9 +22,10 @@ import com.mongodb.casbah.MongoConnection
 import play.api.i18n.Messages
 import controllers._
 import org.mindrot.jbcrypt.BCrypt
+import utils._
 
-object SalonInfo extends Controller with LoginLogout with AuthElement with AuthConfigImpl{        
-  
+object SalonInfo extends Controller with LoginLogout with AuthElement with AuthConfigImpl{
+
   //店铺信息管理Form
   val salonInfo:Form[Salon] = Form(
 	    mapping(
@@ -60,13 +61,14 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
 	            "closeTime" -> text
 	            )
 	            (WorkTime.apply)(WorkTime.unapply),
-	        "restDays" -> list(
-	            mapping(
-	                "restDayDivision" -> number,
-	                "restDay" -> list(number)
-	                )
-	                (RestDay.apply)(RestDay.unapply)
-	            ),
+            "restDays" -> mapping(
+                "restWay" -> text,
+                "restDay1" -> list(text),
+                "restDay2" -> list(text)
+            ){
+                (restWay, restDay1, restDay2) => Tools.getRestDays(restWay,restDay1,restDay2)
+            }{
+                restDay => Some(Tools.setRestDays(restDay))},
 	        "seatNums" -> number,
 	        "salonFacilities" -> mapping(
 	            "canOnlineOrder" -> boolean,
@@ -146,13 +148,14 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
 	            "closeTime" -> text
 	            )
 	            (WorkTime.apply)(WorkTime.unapply),
-	        "restDays" -> list(
-	            mapping(
-	                "restDayDivision" -> number,
-	                "restDay" -> list(number)
-	                )
-	                (RestDay.apply)(RestDay.unapply)
-	            ),
+	        "restDays" -> mapping(
+	                "restWay" -> text,
+	                "restDay1" -> list(text),
+                    "restDay2" -> list(text)
+            ){
+                (restWay, restDay1, restDay2) => Tools.getRestDays(restWay,restDay1,restDay2)
+            }{
+                restDay => Some(Tools.setRestDays(restDay))},
 	        "seatNums" -> number,
 	        "salonFacilities" -> mapping(
 	            "canOnlineOrder" -> boolean,

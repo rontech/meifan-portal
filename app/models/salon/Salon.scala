@@ -58,8 +58,8 @@ case class WorkTime(
  * Embed Structure.
 */
 case class RestDay(
-    restDayDivision: Int,
-    restDay: List[Int]
+    restWay: String,
+    restDay: List[String]
 )
 
 /**
@@ -92,7 +92,7 @@ case class Salon(
     salonAddress: Address,
     accessMethodDesc: String,
     workTime: WorkTime,
-    restDays: List[RestDay],                    
+    restDays: RestDay,
     seatNums: Int,
     salonFacilities: SalonFacilities,    
     salonPics: List[OnUsePicture],             

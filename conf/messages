@@ -155,6 +155,17 @@ salon.register.establishDate=请输入店铺成立时间
 salon.register.seatNums=请输入店铺席位
 salon.salonNameNotAvaible=该店铺已存在
 salon.level = 等级 Lv5
+restWay.fixed = 固定休息（如：每周星期三休息）
+restWay.indefinite = 不定休（如：每月第一、三周星期三休息）
+salon.selectRestDays = 请选择固定休息日
+salon.EnterRestDays = 请输入休息规则
+Monday = 星期一
+Tuesday = 星期二
+Wednesday = 星期三
+Thursday = 星期四
+Friday = 星期五
+Saturday = 星期六
+Sunday = 星期日
 
 
 #salon management
@@ -294,7 +305,6 @@ coupon.appointment2 = 空缺查询
 coupon.addMenu = 追加服务预约
 coupon.currency = 元
 coupon.newCoupon = 新
-coupon.oldCoupon = 旧
 coupon.coupon = 券
 coupon.couponName = 优惠劵名
 coupon.perferentialPrice = 优惠价格（元）
@@ -310,7 +320,6 @@ coupon.serviceDuration = 服务时长
 coupon.modify = 修改
 coupon.invalid = 无效
 coupon.invalidCoupon = 该优惠劵已无效
-coupon.expiredCoupon = 该优惠劵已过期
 coupon.couponNameRequired = 优惠劵名必须填写！
 coupon.couponNameRepeat = 优惠劵名已存在，请重新填写！
 coupon.couponServiceRequired = 请至少选择一个服务！
