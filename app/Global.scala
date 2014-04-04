@@ -189,8 +189,8 @@ object InitialData {
     
     if(Salon.findAll == Nil) { 
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("salon01", "123456"), "悦美月容吧", Some("悦容吧"), List("Hairdressing"), Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "鸣人", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(1,List(2))), 25, SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有"), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None)), date("2014-01-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("salon02", "123456"), "千美千寻吧", Some("美寻吧"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), List(RestDay(2,List(1))), 9, SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有"), List(new OnUsePicture(new ObjectId, "LOGO", None, None)), date("2014-03-12") )
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("salon01", "123456"), "悦美月容吧", Some("悦容吧"), List("Hairdressing"), Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "鸣人", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), RestDay("Fixed",List("Monday")), 25, SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有"), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None)), date("2014-01-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("salon02", "123456"), "千美千寻吧", Some("美寻吧"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), RestDay("Fixed",List("Sunday")), 9, SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有"), List(new OnUsePicture(new ObjectId, "LOGO", None, None)), date("2014-03-12") )
      ).foreach(Salon.save)
     }
       
@@ -357,40 +357,62 @@ object InitialData {
 
     }
     
-    if(!Stylist.findAll.isEmpty){
-        if(Image.findAll.isEmpty) {
-            
+    /*
+    val stfile = new File(play.Play.application().path() + "/public/images/style")
+    val stfiles = Image.listFilesInFolder(stfile)
+    println("stfiles = " + stfiles)
+    println("style Names = " + Image.fuzzyFindByName("004287051_154"))
+    */
+
+    /*
+     * TODO TEST DATA: Pictures.
+     */
+    if(!Style.findAll.isEmpty){
+        if(Image.fuzzyFindByName("style").isEmpty) {
             // save picture of style
             val stylefile = new File(play.Play.application().path() + "/public/images/style")
-            val stylefiles = Image.listAllFiles(stylefile)
-            for(styf <- stylefiles){
-                val styleImgId = Image.save(styf)
-                val style = Style.findAll.toList(stylefiles.indexOf(styf))
-                //println(style.id)
-                Style.updateStyleImage(style,styleImgId)
+            val stylefiles = Image.listFilesInFolder(stylefile)
+            for((styf, index) <- stylefiles.zipWithIndex){
+                if(index < Style.findAll.toList.length) {
+                    val styleImgId = Image.save(styf)
+                    val style = Style.findAll.toList(index)
+                    Style.updateStyleImage(style,styleImgId)
+                }
             }
-            
+        }
+    }
+
+    if(!Stylist.findAll.isEmpty){
+        if(Image.fuzzyFindByName("stylist").isEmpty) {
             // save picture of stylist
             val stylistfile = new File(play.Play.application().path() + "/public/images/stylist")
-            Image.files = Nil
-            val stylistfiles = Image.listAllFiles(stylistfile)
-            for(f <- stylistfiles){
-                val stylistImgId = Image.save(f)
-                val stylist = Stylist.findAll.toList(stylistfiles.indexOf(f))
-                Stylist.updateImages(stylist, stylistImgId)
+            val stylistfiles = Image.listFilesInFolder(stylistfile)
+            for((f, index) <- stylistfiles.zipWithIndex){
+                if(index < Stylist.findAll.length) { 
+                    val stylistImgId = Image.save(f)
+                    val stylist = Stylist.findAll.toList(index)
+                    Stylist.updateImages(stylist, stylistImgId)
+                }
             }
             
-            //save picture of salon
+        }
+    }
+
+    if(!Salon.findAll.isEmpty){
+        if(Image.fuzzyFindByName("salon").isEmpty) {
+          //save picture of salon
             val logofile = new File(play.Play.application().path() + "/public/images/store")
-            Image.files = Nil
-            val logofiles = Image.listAllFiles(logofile)
-            for(l <- logofiles){
-                val logoImgId = Image.save(l)
-                val logo = Salon.findAll.toList(logofiles.indexOf(l))
-                Salon.updateSalonLogo(logo,logoImgId)
+            val logofiles = Image.listFilesInFolder(logofile)
+            for((l, index) <- logofiles.zipWithIndex){
+                if(index < Salon.findAll.length) {
+                    val logoImgId = Image.save(l)
+                    val logo = Salon.findAll.toList(index)
+                    Salon.updateSalonLogo(logo, logoImgId)
+                }
             }       
          }
     }
+
   }
   
 }
