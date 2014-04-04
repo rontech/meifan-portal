@@ -357,40 +357,62 @@ object InitialData {
 
     }
     
-    if(!Stylist.findAll.isEmpty){
-        if(Image.findAll.isEmpty) {
-            
+    /*
+    val stfile = new File(play.Play.application().path() + "/public/images/style")
+    val stfiles = Image.listFilesInFolder(stfile)
+    println("stfiles = " + stfiles)
+    println("style Names = " + Image.fuzzyFindByName("004287051_154"))
+    */
+
+    /*
+     * TODO TEST DATA: Pictures.
+     */
+    if(!Style.findAll.isEmpty){
+        if(Image.fuzzyFindByName("style").isEmpty) {
             // save picture of style
             val stylefile = new File(play.Play.application().path() + "/public/images/style")
-            val stylefiles = Image.listAllFiles(stylefile)
-            for(styf <- stylefiles){
-                val styleImgId = Image.save(styf)
-                val style = Style.findAll.toList(stylefiles.indexOf(styf))
-                //println(style.id)
-                Style.updateStyleImage(style,styleImgId)
+            val stylefiles = Image.listFilesInFolder(stylefile)
+            for((styf, index) <- stylefiles.zipWithIndex){
+                if(index < Style.findAll.toList.length) {
+                    val styleImgId = Image.save(styf)
+                    val style = Style.findAll.toList(index)
+                    Style.updateStyleImage(style,styleImgId)
+                }
             }
-            
+        }
+    }
+
+    if(!Stylist.findAll.isEmpty){
+        if(Image.fuzzyFindByName("stylist").isEmpty) {
             // save picture of stylist
             val stylistfile = new File(play.Play.application().path() + "/public/images/stylist")
-            Image.files = Nil
-            val stylistfiles = Image.listAllFiles(stylistfile)
-            for(f <- stylistfiles){
-                val stylistImgId = Image.save(f)
-                val stylist = Stylist.findAll.toList(stylistfiles.indexOf(f))
-                Stylist.updateImages(stylist, stylistImgId)
+            val stylistfiles = Image.listFilesInFolder(stylistfile)
+            for((f, index) <- stylistfiles.zipWithIndex){
+                if(index < Stylist.findAll.length) { 
+                    val stylistImgId = Image.save(f)
+                    val stylist = Stylist.findAll.toList(index)
+                    Stylist.updateImages(stylist, stylistImgId)
+                }
             }
             
-            //save picture of salon
+        }
+    }
+
+    if(!Salon.findAll.isEmpty){
+        if(Image.fuzzyFindByName("salon").isEmpty) {
+          //save picture of salon
             val logofile = new File(play.Play.application().path() + "/public/images/store")
-            Image.files = Nil
-            val logofiles = Image.listAllFiles(logofile)
-            for(l <- logofiles){
-                val logoImgId = Image.save(l)
-                val logo = Salon.findAll.toList(logofiles.indexOf(l))
-                Salon.updateSalonLogo(logo,logoImgId)
+            val logofiles = Image.listFilesInFolder(logofile)
+            for((l, index) <- logofiles.zipWithIndex){
+                if(index < Salon.findAll.length) {
+                    val logoImgId = Image.save(l)
+                    val logo = Salon.findAll.toList(index)
+                    Salon.updateSalonLogo(logo, logoImgId)
+                }
             }       
          }
     }
+
   }
   
 }
