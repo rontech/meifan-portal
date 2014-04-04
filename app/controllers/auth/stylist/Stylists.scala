@@ -47,10 +47,10 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
                     mapping(
                     "fileObjId" -> text,
                     "picUse" -> text,
-                    "showPriotiry" -> optional(number),
+                    "showPriority" -> optional(number),
                     "description" -> optional(text)
                 ){
-                  (fileObjId, picUse, showPriotiry, description) => OnUsePicture(new ObjectId(fileObjId), picUse, showPriotiry, description)
+                  (fileObjId, picUse, showPriority, description) => OnUsePicture(new ObjectId(fileObjId), picUse, showPriority, description)
                 }{
                   onUsePicture => Some((onUsePicture.fileObjId.toString, onUsePicture.picUse, onUsePicture.showPriority, onUsePicture.description))
                 })
