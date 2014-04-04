@@ -1,0 +1,50 @@
+﻿/* 评分css */
+*{margin:0;padding:0}
+.rating{
+	width:154px;
+	height:30px;
+	padding:0;
+	margin:0 0 7px 0;
+	list-style:none;
+	clear:both;
+	position:relative;
+	background: url(../../images/comment_dialog/stars.png) no-repeat 0 0;
+}
+.nostar {background-position:0 0}
+.onestar {background-position:0 -30px}
+.twostar {background-position:0 -60px}
+.threestar {background-position:0 -90px}
+.fourstar {background-position:0 -120px}
+.fivestar {background-position:0 -150px}
+ul.rating li {
+	cursor: pointer;
+	float:left;
+	text-indent:-999em;
+}
+ul.rating li a {
+	position:absolute;
+	left:0;
+	top:0;
+	width:30px;
+	height:30px;
+	text-decoration:none;
+	z-index: 200;
+}
+ul.rating li.one a {left:0}
+ul.rating li.two a {left:30px;}
+ul.rating li.three a {left:60px;}
+ul.rating li.four a {left:90px;}
+ul.rating li.five a {left:120px;}
+ul.rating li a:hover {
+	z-index:2;
+	width:154px;
+	height:30px;
+	overflow:hidden;
+	left:0;	
+	background: url(../../images/comment_dialog/stars.png) no-repeat 0 0
+}
+ul.rating li.one a:hover {background-position:0 -30px;}
+ul.rating li.two a:hover {background-position:0 -60px;}
+ul.rating li.three a:hover {background-position:0 -90px}
+ul.rating li.four a:hover {background-position:0 -120px}
+ul.rating li.five a:hover {background-position:0 -150px}

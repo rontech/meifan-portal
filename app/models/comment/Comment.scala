@@ -16,6 +16,11 @@ case class Comment(
     commentObjType : Int,
     commentObjId : ObjectId, 
     content : String,
+    complex : Int,
+    atmosphere : Int,
+    service : Int,
+    skill : Int,
+    price : Int,
     authorId : String, 
     createTime : Date = new Date,
     isValid : Boolean)
@@ -62,11 +67,15 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
   }
   
   def addComment(userId : String, content : String, commentObjId : ObjectId, commentObjType : Int) = {
-    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, authorId = userId, isValid = true))    
+    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = 0, atmosphere = 0, service = 0, skill = 0, price = 0, authorId = userId, isValid = true))    
   }
   
   def reply(userId : String, content : String, commentObjId : ObjectId, commentObjType : Int) = {
-    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, authorId = userId, isValid = true))      
+    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = 0, atmosphere = 0, service = 0, skill = 0, price = 0, authorId = userId, isValid = true))      
+  }
+  
+  def addCommentToCoupon(userId : String, content : String, commentObjId : ObjectId, commentObjType : Int, complex : Int, atmosphere : Int, service : Int, skill : Int, price : Int) = {
+    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = complex, atmosphere = atmosphere, service = service, skill = skill, price = price, authorId = userId, isValid = true))      
   }
   
   override

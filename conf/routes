@@ -149,7 +149,8 @@ GET        /reply/:commentObjId/:id/:commentObjType          controllers.Comment
 GET         /delete/:id/:commentObjId                        controllers.Comments.delete(id : ObjectId, commentObjId : ObjectId)
 GET         /complaint/:cmId                                 controllers.Comments.complaint(cmId : ObjectId)
 GET        /addComment/:commentObjId/:commentObjType         controllers.Comments.addComment(commentObjId : ObjectId, commentObjType : Int)
-
+GET       /addCommentToCoupon/:commentObjId/:commentObjType           controllers.Comments.addCommentToCoupon(commentObjId : ObjectId, commentObjType : Int)
+ 
 
 
 
