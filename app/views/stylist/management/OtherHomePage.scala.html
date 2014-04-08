@@ -74,7 +74,7 @@
                     <div class="pr">
                         <div class="latestBlogtitle"> @Messages("stylist.blog") </div>
                         <p class="pa right10 topHalf fs10">
-                            <a href="@noAuth.routes.Blogs.showBlog(user.userId)">
+                            <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(user.userId)">
                                        @Messages("stylist.findAllBlog")
                             </a>
                         </p>

@@ -16,6 +16,11 @@ case class Comment(
     commentObjType : Int,
     commentObjId : ObjectId, 
     content : String,
+    complex : Int,
+    atmosphere : Int,
+    service : Int,
+    skill : Int,
+    price : Int,
     authorId : String, 
     createTime : Date = new Date,
     isValid : Boolean)
@@ -29,7 +34,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
    */
   var list = List.empty[Comment]
   def all(id : ObjectId): List[Comment] = {   
-    val l = dao.find(MongoDBObject("commentObjId" -> id, "isValid" -> true)).sort(MongoDBObject("time" -> 1)).toList
+    val l = dao.find(MongoDBObject("commentObjId" -> id, "isValid" -> true)).toList
      if (!l.isEmpty){
      l.foreach(
        {
@@ -58,15 +63,19 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
           commentList :::= comment
       }
     )
-    commentList
+    commentList.sortBy(comment => comment.createTime).reverse
   }
   
   def addComment(userId : String, content : String, commentObjId : ObjectId, commentObjType : Int) = {
-    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, authorId = userId, isValid = true))    
+    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = 0, atmosphere = 0, service = 0, skill = 0, price = 0, authorId = userId, isValid = true))    
   }
   
   def reply(userId : String, content : String, commentObjId : ObjectId, commentObjType : Int) = {
-    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, authorId = userId, isValid = true))      
+    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = 0, atmosphere = 0, service = 0, skill = 0, price = 0, authorId = userId, isValid = true))      
+  }
+  
+  def addCommentToCoupon(userId : String, content : String, commentObjId : ObjectId, commentObjType : Int, complex : Int, atmosphere : Int, service : Int, skill : Int, price : Int) = {
+    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = complex, atmosphere = atmosphere, service = service, skill = skill, price = price, authorId = userId, isValid = true))      
   }
   
   override
@@ -99,7 +108,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
         }
         }    
     )
-    commentOfSalonList
+    commentOfSalonList.sortBy(commentOfSalon => commentOfSalon.commentInfo.createTime).reverse
   }
   
 }
