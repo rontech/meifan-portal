@@ -17,6 +17,7 @@ object Styles extends Controller {
      */
     val styleSearchForm: Form[Style] = Form(
         mapping(
+            "stylistId" -> text,
             "styleImpression" -> text,
             "serviceType" -> list(text),
             "styleLength" -> text,
@@ -28,12 +29,12 @@ object Styles extends Controller {
             "consumerAgeGroup" -> list(text),
             "consumerSex" -> text,
             "consumerSocialStatus" -> list(text)) {
-                (styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, consumerAgeGroup, consumerSex, consumerSocialStatus) =>
-                    Style(new ObjectId, "", new ObjectId, List(),
+                (stylistId,styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, consumerAgeGroup, consumerSex, consumerSocialStatus) =>
+                    Style(new ObjectId, "", new ObjectId(stylistId), List(),
                         styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, "", consumerAgeGroup, consumerSex, consumerSocialStatus, new Date, true)
             } {
                 style =>
-                    Some((style.styleImpression, style.serviceType,
+                    Some((style.stylistId.toString, style.styleImpression, style.serviceType,
                         style.styleLength, style.styleColor, style.styleAmount, style.styleQuality,
                         style.styleDiameter, style.faceShape, style.consumerAgeGroup, style.consumerSex, style.consumerSocialStatus))
             })

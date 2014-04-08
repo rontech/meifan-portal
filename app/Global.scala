@@ -72,6 +72,7 @@ object InitialData {
        Position(new ObjectId("531964e0d4d57d0a43771412"),"助手")
       ).foreach(Position.save)
     }
+    
     if(ServiceType.findAll.isEmpty) {
         Seq (
           ServiceType(new ObjectId("5316798cd4d5cb7e816db34b"), "Cut", "剪"),
@@ -84,88 +85,103 @@ object InitialData {
           ServiceType(new ObjectId("5316c443d4d57997ce3e6d68"), "Other", "其他")
         ).foreach(ServiceType.save)
     }
+    
     if(StyleColor.findAll.isEmpty) {
       Seq (
-          StyleColor(new ObjectId, "红", "红色"),
-          StyleColor(new ObjectId, "黄", "黄色"),
-          StyleColor(new ObjectId, "黑色", "黑色"),
-          StyleColor(new ObjectId, "其他颜色", "其他颜色")
+          StyleColor(new ObjectId, "black", "黑色"),
+          StyleColor(new ObjectId, "chocolate", "巧克力色"),
+          StyleColor(new ObjectId, "brown", "棕色"),
+          StyleColor(new ObjectId, "flax", "亚麻"),
+          StyleColor(new ObjectId, "red", "红色"),
+          StyleColor(new ObjectId, "alternative", "另类")
         ).foreach(StyleColor.save)
     }
     
     if(StyleLength.findAll.isEmpty) {
       Seq (
-          StyleLength(new ObjectId, "长", ""),
-          StyleLength(new ObjectId, "中", ""),
-          StyleLength(new ObjectId, "短", "")
+          StyleLength(new ObjectId, "super-short", "超短"),
+          StyleLength(new ObjectId, "short", "短"),
+          StyleLength(new ObjectId, "near-shoulder-length", "及肩"),
+          StyleLength(new ObjectId, "shoulder-length", "齐肩"),
+          StyleLength(new ObjectId, "mid-length", "中长"),
+          StyleLength(new ObjectId, "long", "长")
         ).foreach(StyleLength.save)
     }
     
     if(StyleImpression.findAll.isEmpty) {
       Seq (
-          StyleImpression(new ObjectId, "清新", ""),
-          StyleImpression(new ObjectId, "自然", ""),
-          StyleImpression(new ObjectId, "淡雅", ""),
-          StyleImpression(new ObjectId, "其他印象", "")
+          StyleImpression(new ObjectId, "natural", "自然"),
+          StyleImpression(new ObjectId, "intellectual", "知性"),
+          StyleImpression(new ObjectId, "sweet", "甜美"),
+          StyleImpression(new ObjectId, "fashion", "时尚"),
+          StyleImpression(new ObjectId, "fresh", "清新"),
+          StyleImpression(new ObjectId, "gorgeous", "华丽"),
+          StyleImpression(new ObjectId, "personality", "个性")
         ).foreach(StyleImpression.save)
     }
     
     if(StyleAmount.findAll.isEmpty) {
       Seq (
-          StyleAmount(new ObjectId, "多", ""),
-          StyleAmount(new ObjectId, "一般", ""),
-          StyleAmount(new ObjectId, "少", "")
+          StyleAmount(new ObjectId, "much", "多"),
+          StyleAmount(new ObjectId, "moderate", "适中"),
+          StyleAmount(new ObjectId, "few", "少")
         ).foreach(StyleAmount.save)
     }
     
     if(StyleQuality.findAll.isEmpty) {
       Seq (
-          StyleQuality(new ObjectId, "软", ""),
-          StyleQuality(new ObjectId, "适中", ""),
-          StyleQuality(new ObjectId, "硬", ""),
-          StyleQuality(new ObjectId, "柔顺", "")
+          StyleQuality(new ObjectId, "silky", "柔顺"),
+          StyleQuality(new ObjectId, "greasy", "油性"),
+          StyleQuality(new ObjectId, "dry", "干性"),
+          StyleQuality(new ObjectId, "general", "一般")
         ).foreach(StyleQuality.save)
     }
     
     if(StyleDiameter.findAll.isEmpty) {
       Seq (
-          StyleDiameter(new ObjectId, "细", ""),
-          StyleDiameter(new ObjectId, "适中", ""),
-          StyleDiameter(new ObjectId, "粗", "")
+          StyleDiameter(new ObjectId, "bold", "偏粗"),
+          StyleDiameter(new ObjectId, "moderate", "适中"),
+          StyleDiameter(new ObjectId, "thin", "偏细")
         ).foreach(StyleDiameter.save)
     }
      
     if(FaceShape.findAll.isEmpty) {
       Seq (
-          FaceShape(new ObjectId, "标准", ""),
-          FaceShape(new ObjectId, "圆形", ""),
-          FaceShape(new ObjectId, "鹅蛋脸", ""),
-          FaceShape(new ObjectId, "四角", "")
+          FaceShape(new ObjectId, "oval-face", "椭圆脸"),
+          FaceShape(new ObjectId, "round-face", "圆脸"),
+          FaceShape(new ObjectId, "long-face", "长脸"),
+          FaceShape(new ObjectId, "square-face", "方脸"),
+          FaceShape(new ObjectId, "pointed-face", "尖脸"),
+          FaceShape(new ObjectId, "diamond-face", "菱形")
         ).foreach(FaceShape.save)
     }
     
     if(SocialStatus.findAll.isEmpty) {
       Seq (
-          SocialStatus(new ObjectId, "程序员", ""),
-          SocialStatus(new ObjectId, "教师", ""),
-          SocialStatus(new ObjectId, "茶艺", ""),
-          SocialStatus(new ObjectId, "工程师", "")
+          SocialStatus(new ObjectId, "evening-wear", "晚装"),
+          SocialStatus(new ObjectId, "brief", "简约"),
+          SocialStatus(new ObjectId, "star", "明星"),
+          SocialStatus(new ObjectId, "street", "街拍"),
+          SocialStatus(new ObjectId, "T-stage", "T台"),
+          SocialStatus(new ObjectId, "others", "其它")
         ).foreach(SocialStatus.save)
     }
     
     if(Sex.findAll.isEmpty) {
       Seq (
-          Sex(new ObjectId, "男"),
-          Sex(new ObjectId, "女")
+          Sex(new ObjectId, "male"),
+          Sex(new ObjectId, "female")
         ).foreach(Sex.save)
     }
     
     if(AgeGroup.findAll.isEmpty) {
       Seq (
-          AgeGroup(new ObjectId, "1-10", ""),
-          AgeGroup(new ObjectId, "11-20", ""),
-          AgeGroup(new ObjectId, "21-30", ""),
-          AgeGroup(new ObjectId, "31-80", "")
+          AgeGroup(new ObjectId, "one--fifteen", "1—15"),
+          AgeGroup(new ObjectId, "one--twenty-five", "15—25"),
+          AgeGroup(new ObjectId, "twenty-five--thirty-five", "25—35"),
+          AgeGroup(new ObjectId, "thirty-five--forty-five", "35—45"),
+          AgeGroup(new ObjectId, "forty-five--fifty-five", "45—55"),
+          AgeGroup(new ObjectId, "fifty-five--", "55以上")
         ).foreach(AgeGroup.save)
     }
     if(BlogCategory.findAll.isEmpty){
@@ -238,27 +254,27 @@ object InitialData {
     
     if(Style.findAll.isEmpty) { 
       Seq(
-        Style(new ObjectId("530d828cd7f2861457771c0b"), "毛寸发型", new ObjectId("530d8010d7f2861457771bf8"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple"),"中",List("黄","红","黑色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("圆脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"男",List("程序员"),date("2014-03-12"),true),
-        Style(new ObjectId("530d828cd7f2861457771c0c"), "分头发型", new ObjectId("530d8010d7f2861457771bf8"), List(new OnUsePicture(new ObjectId, "main", Some(1), None)),"自然",List("Supple"),"长",List("红","黑色"),List("少","多","一般"),List("软","硬"),List("适中","细"),List("标准","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"男",List("程序员"),date("2014-03-12"),true),
-        Style(new ObjectId("530d828cd7f2861457771c0d"), "男生纹理烫发型", new ObjectId("53202c29d4d5e3cd47efffd3"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple"),"中",List("黄","红","黑色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("31-80","21-30","1-10","11-20"),"女",List("程序员"),date("2014-03-12"),true),
-        Style(new ObjectId("533133f29aa6b4dfc54a02ed"), "背头发型", new ObjectId("53202c29d4d5e3cd47efffd3"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple","Perm"),"短",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗"),List("标准","圆脸","鹅蛋脸","四角"),"凌乱中带有一丝淡淡的忧伤！",List("31-80","21-30","1-10","11-20"),"女",List("程序员","茶艺","教师"),date("2014-03-12"),true),
-        Style(new ObjectId("533134b69aa6b4dfc54a02ee"), "皮卡路发型", new ObjectId("53202c29d4d5e3cd47efffd3"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"自然",List("Supple","Perm"),"中",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗","细","适中"),List("标准","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("31-80","21-30","1-10","11-20"),"男",List("程序员","茶艺","教师"),date("2014-03-12"),true),
-        Style(new ObjectId("533133f29aa6b4dfc54a021d"), "板寸发型", new ObjectId("53202c29d4d5e3cd47efffd3"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple","Perm"),"短",List("黄","红"),List("少","多","一般"),List("柔顺","软","硬"),List("粗"),List("标准","圆脸","鹅蛋脸"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"女",List("程序员","工程师","茶艺"),date("2014-03-12"),true),
-        Style(new ObjectId("533134b69aa6b4dfc54a021e"), "男生烟花烫发型", new ObjectId("53202c29d4d5e3cd47efffd9"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"淡雅",List("Supple","Perm"),"长",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","适中","硬"),List("粗","细","适中"),List("标准","圆脸"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("31-80","21-30","1-10","11-20"),"男",List("程序员","工程师","教师"),date("2014-03-12"),true),
-        Style(new ObjectId("533133f29aa6b4dfc54a023d"), "朋克发型", new ObjectId("53202c29d4d5e3cd47efffd9"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple","Perm"),"短",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("31-80","21-30","1-10","11-20"),"女",List("程序员","工程师","茶艺"),date("2014-03-12"),true),
-        Style(new ObjectId("533134b69aa6b4dfc54a023e"), "蓬松定位烫发型", new ObjectId("53202c29d4d5e3cd47efffd9"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple","Perm"),"长",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗","细"),List("标准"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"男",List("程序员","工程师","教师"),date("2014-03-12"),true),
-        Style(new ObjectId("533134db9aa6b4dfc54a02ef"), "青春短寸无敌", new ObjectId("53202c29d4d5e3cd47efffd9"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple"),"中",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"女",List("程序员","工程师","茶艺","教师"),date("2014-03-12"),true),
-        Style(new ObjectId("533151209aa6b4dfc54a0374"), "斜刘海披肩发型", new ObjectId("53202c29d4d5e3cd47efffd8"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"自然",List("Supple","Perm"),"短",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("31-80","21-30","1-10","11-20"),"男",List("程序员","工程师","茶艺"),date("2014-03-12"),true),
-        Style(new ObjectId("533134db9aa6b4dfc54a022f"), "齐刘海内扣发型", new ObjectId("53202c29d4d5e3cd47efffd8"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple","Perm"),"长",List("黄","黑色"),List("少","多","一般"),List("柔顺","软","适中","硬"),List("粗","细","适中"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"女",List("程序员"),date("2014-03-12"),true),
-        Style(new ObjectId("533151209aa6b4dfc54a0324"), "斜刘海中短发型", new ObjectId("53202c29d4d5e3cd47efffd8"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"自然",List("Supple","Perm"),"短",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗","细","适中"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"男",List("程序员"),date("2014-03-12"),true),
-        Style(new ObjectId("533133f29aa6b4dfc54a022d"), "偏分刘海披肩发", new ObjectId("53202c29d4d5e3cd47efffd8"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"淡雅",List("Supple","Perm"),"长",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗"),List("标准"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("31-80","21-30","1-10","11-20"),"女",List("程序员"),date("2014-03-12"),true),
-        Style(new ObjectId("533134b69aa6b4dfc54a022e"), "偏分刘海中长发", new ObjectId("53202c29d4d5e3cd47efffd7"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple"),"中",List("黄","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗","细"),List("标准","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("31-80","21-30","1-10","11-20"),"男",List("程序员"),date("2014-03-12"),true),
-        Style(new ObjectId("533151209aa6b4dfc54a0375"), "碎发", new ObjectId("53202c29d4d5e3cd47efffd7"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple"),"中",List("黄","黑色"),List("少","多","一般"),List("软","硬"),List("粗","细"),List("标准","圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"男",List("程序员","工程师","教师"),date("2014-03-12"),true),
-        Style(new ObjectId("533151209aa6b4dfc54a0376"), "波波头", new ObjectId("53202c29d4d5e3cd47efffd7"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"自然",List("Supple","Perm"),"中",List("黄","红"),List("少","多","一般"),List("柔顺","软","硬"),List("粗","细","适中"),List("圆脸","鹅蛋脸"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"女",List("程序员","茶艺","教师"),date("2014-03-12"),true),
-        Style(new ObjectId("533151209aa6b4dfc54a0377"), "丸子头梳法", new ObjectId("53202c29d4d5e3cd47efffd5"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple","Perm"),"短",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","适中","硬"),List("粗","细"),List("标准","鹅蛋脸"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"男",List("程序员","工程师","教师"),date("2014-03-12"),true),
-        Style(new ObjectId("533151209aa6b4dfc54a0378"), "清纯发型", new ObjectId("53202c29d4d5e3cd47efffd5"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"淡雅",List("Supple","Perm"),"短",List("黄","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗","细","适中"),List("圆脸","鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"女",List("程序员","工程师","茶艺"),date("2014-03-12"),true),
-        Style(new ObjectId("533151209aa6b4dfc54a0379"), "可爱梨花头", new ObjectId("53202c29d4d5e3cd47efffd5"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple"),"长",List("黄","红","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗"),List("鹅蛋脸","四角"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"男",List("程序员","茶艺","教师"),date("2014-03-12"),true),
-        Style(new ObjectId("533151209aa6b4dfc54a0373"), "大卷发型", new ObjectId("53202c29d4d5e3cd47efffd5"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"清新",List("Supple","Perm"),"长",List("黄","黑色"),List("少","多","一般"),List("柔顺","软","硬"),List("粗"),List("标准","圆脸"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("1-10","11-20"),"女",List("程序员"),date("2014-03-12"),true)
+        Style(new ObjectId("530d828cd7f2861457771c0b"), "毛寸发型", new ObjectId("530d8010d7f2861457771bf8"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"fresh",List("Supple"),"super-short",List("black","chocolate","brown","flax","red","alternative"),List("much","moderate","few"),List("greasy","general"),List("bold","thin"),List("round-face","diamond-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--twenty-five","twenty-five--thirty-five"),"male",List("star"),date("2014-03-12"),true),
+        Style(new ObjectId("530d828cd7f2861457771c0c"), "分头发型", new ObjectId("530d8010d7f2861457771bf8"), List(new OnUsePicture(new ObjectId, "main", Some(1), None)),"gorgeous",List("Supple"),"short",List("black","chocolate","brown"),List("much","moderate","few"),List("greasy","general"),List("moderate","thin"),List("long-face","diamond-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--twenty-five","twenty-five--thirty-five"),"male",List("star"),date("2014-03-12"),true),
+        Style(new ObjectId("530d828cd7f2861457771c0d"), "male生纹理烫发型", new ObjectId("53202c29d4d5e3cd47efffd3"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"fresh",List("Supple"),"short",List("black","chocolate","brown"),List("much","moderate","few"),List("greasy","general"),List("bold","thin"),List("long-face","round-face","oval-face","diamond-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--fifteen","fifty-five--","one--twenty-five","twenty-five--thirty-five"),"female",List("star"),date("2014-03-12"),true),
+        Style(new ObjectId("533133f29aa6b4dfc54a02ed"), "背头发型", new ObjectId("53202c29d4d5e3cd47efffd3"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"fresh",List("Supple","Perm"),"long",List("flax","red","alternative"),List("much","moderate","few"),List("silky","greasy","general"),List("bold"),List("long-face","round-face","oval-face","diamond-face"),"凌乱中带有一丝淡淡的忧伤！",List("one--fifteen","fifty-five--","one--twenty-five","twenty-five--thirty-five"),"female",List("star","evening-wear","others"),date("2014-03-12"),true),
+        Style(new ObjectId("533134b69aa6b4dfc54a02ee"), "皮卡路发型", new ObjectId("53202c29d4d5e3cd47efffd3"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"fresh",List("Supple","Perm"),"long",List("flax","red","alternative"),List("much","moderate","few"),List("silky","greasy","general"),List("bold","thin","moderate"),List("long-face","oval-face","diamond-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--fifteen","fifty-five--","one--twenty-five","twenty-five--thirty-five"),"male",List("star","evening-wear","others"),date("2014-03-12"),true),
+        Style(new ObjectId("533133f29aa6b4dfc54a021d"), "板寸发型", new ObjectId("53202c29d4d5e3cd47efffd3"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"sweet",List("Supple","Perm"),"super-short",List("flax","red","alternative"),List("much","moderate","few"),List("silky","greasy","general"),List("bold"),List("long-face","round-face","oval-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--twenty-five","twenty-five--thirty-five"),"female",List("star","street","evening-wear"),date("2014-03-12"),true),
+        Style(new ObjectId("533134b69aa6b4dfc54a021e"), "male生烟花烫发型", new ObjectId("53202c29d4d5e3cd47efffd9"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"natural",List("Supple","Perm"),"long",List("flax"),List("much","moderate","few"),List("silky","greasy","dry","general"),List("bold","thin","moderate"),List("long-face","round-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--fifteen","fifty-five--","one--twenty-five","twenty-five--thirty-five"),"male",List("star","street","others"),date("2014-03-12"),true),
+        Style(new ObjectId("533133f29aa6b4dfc54a023d"), "朋克发型", new ObjectId("53202c29d4d5e3cd47efffd9"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"fresh",List("Supple","Perm"),"short",List("flax","red","alternative"),List("much","moderate","few"),List("silky","greasy","general"),List("bold","thin"),List("long-face","round-face","oval-face","diamond-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--fifteen","fifty-five--","one--twenty-five","twenty-five--thirty-five"),"female",List("star","street","evening-wear"),date("2014-03-12"),true),
+        Style(new ObjectId("533134b69aa6b4dfc54a023e"), "蓬松定位烫发型", new ObjectId("53202c29d4d5e3cd47efffd9"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"sweet",List("Supple","Perm"),"mid-length",List("black","chocolate"),List("much","moderate","few"),List("silky","greasy","general"),List("bold","thin"),List("long-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--twenty-five","twenty-five--thirty-five"),"male",List("star","street","others"),date("2014-03-12"),true),
+        Style(new ObjectId("533134db9aa6b4dfc54a02ef"), "青春短寸无敌", new ObjectId("53202c29d4d5e3cd47efffd9"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"natural",List("Supple"),"short",List("black","chocolate"),List("much","moderate","few"),List("silky","greasy","general"),List("bold","thin"),List("long-face","round-face","oval-face","diamond-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--twenty-five","twenty-five--thirty-five"),"female",List("star","street","evening-wear","others"),date("2014-03-12"),true),
+        Style(new ObjectId("533151209aa6b4dfc54a0374"), "斜刘海披肩发型", new ObjectId("53202c29d4d5e3cd47efffd8"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"sweet",List("Supple","Perm"),"super-short",List("black","chocolate"),List("much","moderate","few"),List("silky","greasy","general"),List("bold"),List("long-face","round-face","oval-face","diamond-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--fifteen","fifty-five--","one--twenty-five","twenty-five--thirty-five"),"male",List("star","street","evening-wear"),date("2014-03-12"),true),
+        Style(new ObjectId("533134db9aa6b4dfc54a022f"), "齐刘海内扣发型", new ObjectId("53202c29d4d5e3cd47efffd8"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"natural",List("Supple","Perm"),"short",List("black","chocolate"),List("much","moderate","few"),List("silky","greasy","dry","general"),List("bold","thin","moderate"),List("long-face","round-face","oval-face","diamond-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--twenty-five","twenty-five--thirty-five"),"female",List("star"),date("2014-03-12"),true),
+        Style(new ObjectId("533151209aa6b4dfc54a0324"), "斜刘海中短发型", new ObjectId("53202c29d4d5e3cd47efffd8"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"intellectual",List("Supple","Perm"),"short",List("red"),List("moderate","few"),List("silky","greasy","general"),List("bold","thin","moderate"),List("long-face","round-face","oval-face","diamond-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--twenty-five","twenty-five--thirty-five"),"male",List("star"),date("2014-03-12"),true),
+        Style(new ObjectId("533133f29aa6b4dfc54a022d"), "偏分刘海披肩发", new ObjectId("53202c29d4d5e3cd47efffd8"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"intellectual",List("Supple","Perm"),"shoulder-length",List("red"),List("moderate","few"),List("silky","greasy","general"),List("bold"),List("long-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--fifteen","fifty-five--","one--twenty-five","twenty-five--thirty-five"),"female",List("star"),date("2014-03-12"),true),
+        Style(new ObjectId("533134b69aa6b4dfc54a022e"), "偏分刘海中长发", new ObjectId("53202c29d4d5e3cd47efffd7"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"natural",List("Supple"),"mid-length",List("red"),List("moderate","few"),List("silky","greasy","general"),List("bold","thin"),List("long-face","oval-face","diamond-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--fifteen","fifty-five--","one--twenty-five","twenty-five--thirty-five"),"male",List("star"),date("2014-03-12"),true),
+        Style(new ObjectId("533151209aa6b4dfc54a0375"), "碎发", new ObjectId("53202c29d4d5e3cd47efffd7"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"intellectual",List("Supple"),"mid-length",List("brown","flax"),List("moderate","few"),List("greasy","general"),List("bold","thin"),List("long-face","round-face","oval-face","diamond-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--twenty-five","twenty-five--thirty-five"),"male",List("star","street","others"),date("2014-03-12"),true),
+        Style(new ObjectId("533151209aa6b4dfc54a0376"), "波波头", new ObjectId("53202c29d4d5e3cd47efffd7"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"personality",List("Supple","Perm"),"super-short",List("brown","flax"),List("much"),List("silky","greasy","general"),List("bold","thin","moderate"),List("round-face","oval-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--twenty-five","twenty-five--thirty-five"),"female",List("star","evening-wear","others"),date("2014-03-12"),true),
+        Style(new ObjectId("533151209aa6b4dfc54a0377"), "丸子头梳法", new ObjectId("53202c29d4d5e3cd47efffd5"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"sweet",List("Supple","Perm"),"short",List("chocolate","brown","flax","red"),List("much"),List("silky","greasy","dry","general"),List("bold","thin"),List("long-face","oval-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--twenty-five","twenty-five--thirty-five"),"male",List("star","street","others"),date("2014-03-12"),true),
+        Style(new ObjectId("533151209aa6b4dfc54a0378"), "清纯发型", new ObjectId("53202c29d4d5e3cd47efffd5"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"personality",List("Supple","Perm"),"short",List("chocolate","brown","flax","red"),List("much"),List("silky","greasy","general"),List("bold","thin","moderate"),List("round-face","oval-face","diamond-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--twenty-five","twenty-five--thirty-five"),"female",List("star","street","evening-wear"),date("2014-03-12"),true),
+        Style(new ObjectId("533151209aa6b4dfc54a0379"), "可爱梨花头", new ObjectId("53202c29d4d5e3cd47efffd5"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"natural",List("Supple"),"shoulder-length",List("chocolate","brown","flax","red"),List("much"),List("silky","greasy","general"),List("bold"),List("oval-face","diamond-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--twenty-five","twenty-five--thirty-five"),"male",List("star","evening-wear","others"),date("2014-03-12"),true),
+        Style(new ObjectId("533151209aa6b4dfc54a0373"), "大卷发型", new ObjectId("53202c29d4d5e3cd47efffd5"), List(new OnUsePicture(new ObjectId, "logo", Some(1), None)),"personality",List("Supple","Perm"),"shoulder-length",List("chocolate","brown","flax","red"),List("much"),List("silky","greasy","general"),List("bold"),List("long-face","round-face"),"此种发型清爽怡人，迎面而过，回眸一笑百媚生",List("one--twenty-five","twenty-five--thirty-five"),"female",List("star"),date("2014-03-12"),true)
       ).foreach(Style.save)
     }
     if(Coupon.findAll.isEmpty) {
