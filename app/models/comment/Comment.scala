@@ -42,7 +42,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
            all(r.id)
        })
      }
-     list.reverse
+     list
     }
   
   /**
@@ -63,7 +63,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
           commentList :::= comment
       }
     )
-    commentList.sortBy(comment => comment.createTime).reverse
+    commentList
   }
   
   def addComment(userId : String, content : String, commentObjId : ObjectId, commentObjType : Int) = {

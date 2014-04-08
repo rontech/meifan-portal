@@ -13,6 +13,58 @@
 				<p class="fs10 fgGray">@Messages("comment.passDate") @DateFormat.getDateInstance.format(comment.createTime)</p>
 			</div>
 		</div>
+		
+		<ul class="judgeList cFix">
+			    <li class="bdN fgGray b">
+			        综合
+			        <span class="mL5 mR10 fgPink">
+			            @comment.complex
+			        </span>
+			        @for(i <- 0 until comment.complex){
+		        	 	<span class="iconStarOn">
+				           	 ★
+				        </span>
+			        }
+			        @for(i <- comment.complex until 5){			     
+				        <span class="iconStarOff">
+				           	 ★
+				        </span>
+			        }
+			    </li>
+			    <li>
+			        <span class="fgGray">
+			            氛围
+			        </span>
+			        <span class="mL10 fgPink b">
+			            @comment.atmosphere
+			        </span>
+			    </li>
+			    <li>
+			        <span class="fgGray">
+			            服务
+			        </span>
+			        <span class="mL10 fgPink b">
+			            @comment.service
+			        </span>
+			    </li>
+			    <li>
+			        <span class="fgGray">
+			            技术
+			        </span>
+			        <span class="mL10 fgPink b">
+			            @comment.skill
+			        </span>
+			    </li>
+			    <li class="bdN">
+			        <span class="fgGray">
+			            价格
+			        </span>
+			        <span class="mL10 fgPink b">
+			            @comment.price
+			        </span>
+			    </li>
+			</ul>
+		
 	</div>
 	
 	<div class="mT10 pH10">

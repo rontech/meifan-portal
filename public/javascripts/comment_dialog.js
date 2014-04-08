@@ -15,17 +15,16 @@ function create_comment_dialog(commentObjId, commentObjType) {
     var headDiv = jQuery("<div id='title_bar' style='cursor:move;position:absolute;width:100%;height:35px;background:url(../images/comment_dialog/bar.jpg);'></div>");
     var title = jQuery("<div style='margin-top:8px;margin-left:30px;font-weight:bold;font-size:large'>评价</div>");
     var contentDiv = jQuery("<div style='width:100%;position:absolute;top:35px;padding:20px;font-weight:bold';color:#494949;></div>");
-//    var form = jQuery("<form action='/addCommentToCoupon/530d8010d7f2861457771bf8/2' id = 'myForm' method = 'get'></form>");
-//    var form = jQuery("<form action='/addCommentToCoupon/commentObjId/commentObjType' id = 'myForm' method = 'get'></form>");
-    var form = jQuery("<form action='' id = 'myForm' method = 'GET'></form>");
+    var form = jQuery("<form action='' id = 'myForm' method = 'get'></form>");
     var table = jQuery("<table></table>");
-    var firstLine = jQuery("<tr><td align='right'>综合</td><td><div id='complex' ><ul class='rating nostar'><li class='one'><a href='#' title='1 '>1</a></li><li class='two'><a href='#' title='2 '>2</a></li><li class='three'><a href='#' title='3 '>3</a></li><li class='four'><a href='#' title='4 '>4</a></li><li class='five'><a href='#' title='5 '>5</a></li></ul></div></td></tr>");
-    var secondLine = jQuery("<tr><td align='right'>氛围</td><td><div id='atmosphere'><ul class='rating nostar'><li class='one'><a href='#' title='1 '>1</a></li><li class='two'><a href='#' title='2 '>2</a></li><li class='three'><a href='#' title='3 '>3</a></li><li class='four'><a href='#' title='4 '>4</a></li><li class='five'><a href='#' title='5 '>5</a></li></ul></div></td></tr>");
-    var thirdLine = jQuery("<tr><td align='right'>服务</td><td><div id='service' ><ul class='rating nostar'><li class='one'><a href='#' title='1 '>1</a></li><li class='two'><a href='#' title='2 '>2</a></li><li class='three'><a href='#' title='3 '>3</a></li><li class='four'><a href='#' title='4 '>4</a></li><li class='five'><a href='#' title='5 '>5</a></li></ul></div></td></tr>");
-    var skillLine = jQuery("<tr><td align='right'>技术</td><td><div id='skill' ><ul class='rating nostar'><li class='one'><a href='#' title='1 '>1</a></li><li class='two'><a href='#' title='2 '>2</a></li><li class='three'><a href='#' title='3 '>3</a></li><li class='four'><a href='#' title='4 '>4</a></li><li class='five'><a href='#' title='5 '>5</a></li></ul></div></td></tr>");
-    var priceLine = jQuery("<tr><td align='right'>价格</td><td><div id='price' ><ul class='rating nostar'><li class='one'><a href='#' title='1 '>1</a></li><li class='two'><a href='#' title='2 '>2</a></li><li class='three'><a href='#' title='3 '>3</a></li><li class='four'><a href='#' title='4 '>4</a></li><li class='five'><a href='#' title='5 '>5</a></li></ul></div></td></tr>");
-    var fourthLine = jQuery("<tr><td colspan='2' align='center'><textarea id='content'  style='width:320px;height:60px'></textarea></td></tr>");
+    var firstLine = jQuery("<tr><td align='right'>综合</td><td><div id='complex2' ><ul class='rating nostar'><li class='one'><a href='#' title='1 '>1</a></li><li class='two'><a href='#' title='2 '>2</a></li><li class='three'><a href='#' title='3 '>3</a></li><li class='four'><a href='#' title='4 '>4</a></li><li class='five'><a href='#' title='5 '>5</a></li></ul></div></td></tr>");
+    var secondLine = jQuery("<tr><td align='right'>氛围</td><td><div id='atmosphere2'><ul class='rating nostar'><li class='one'><a href='#' title='1 '>1</a></li><li class='two'><a href='#' title='2 '>2</a></li><li class='three'><a href='#' title='3 '>3</a></li><li class='four'><a href='#' title='4 '>4</a></li><li class='five'><a href='#' title='5 '>5</a></li></ul></div></td></tr>");
+    var thirdLine = jQuery("<tr><td align='right'>服务</td><td><div id='service2' ><ul class='rating nostar'><li class='one'><a href='#' title='1 '>1</a></li><li class='two'><a href='#' title='2 '>2</a></li><li class='three'><a href='#' title='3 '>3</a></li><li class='four'><a href='#' title='4 '>4</a></li><li class='five'><a href='#' title='5 '>5</a></li></ul></div></td></tr>");
+    var skillLine = jQuery("<tr><td align='right'>技术</td><td><div id='skill2' ><ul class='rating nostar'><li class='one'><a href='#' title='1 '>1</a></li><li class='two'><a href='#' title='2 '>2</a></li><li class='three'><a href='#' title='3 '>3</a></li><li class='four'><a href='#' title='4 '>4</a></li><li class='five'><a href='#' title='5 '>5</a></li></ul></div></td></tr>");
+    var priceLine = jQuery("<tr><td align='right'>价格</td><td><div id='price2' ><ul class='rating nostar'><li class='one'><a href='#' title='1 '>1</a></li><li class='two'><a href='#' title='2 '>2</a></li><li class='three'><a href='#' title='3 '>3</a></li><li class='four'><a href='#' title='4 '>4</a></li><li class='five'><a href='#' title='5 '>5</a></li></ul></div></td></tr>");
+    var fourthLine = jQuery("<tr><td colspan='2' align='center'><textarea id='content2'  style='width:320px;height:60px'></textarea></td></tr>");
    
+//    var f1 = jQuery("<input type='hidden'  id='complex1' name='complex'>");
     var f1 = jQuery("<input type='hidden'  id='complex1' name='complex'>");
     var f2 = jQuery("<input type='hidden'  id='atmosphere1' name='atmosphere'>");
     var f3 = jQuery("<input type='hidden'  id='service1' name='service'>");
@@ -69,86 +68,74 @@ function create_comment_dialog(commentObjId, commentObjType) {
     });
     /*评 效果,,通过修改样式来显示不同的星级*/
     jQuery("ul.rating li a").click(function () {
-        var title = jQuery(this).attr("title");
+        var title = jQuery(this).attr("title").trim();
         var parentDiv_id = jQuery(this).parent().parent().parent().attr("id");
         //将3个评 结果保存到对应的变量中
-        if (parentDiv_id == "complex") {
+        if (parentDiv_id == "complex2") {
             complex = title;
+            $("#complex1").val(complex);
         }
-        if (parentDiv_id == "atmosphere") {
+        if (parentDiv_id == "atmosphere2") {
             atmosphere = title;
+            $("#atmosphere1").val(atmosphere);
         }
-        if (parentDiv_id == "service") {
+        if (parentDiv_id == "service2") {
             service = title;
+            $("#service1").val(service);
         }
-        if (parentDiv_id == "skill") {
+        if (parentDiv_id == "skill2") {
             skill = title;
+            $("#skill1").val(skill);
         }
-        if (parentDiv_id == "price") {
+        if (parentDiv_id == "price2") {
             price = title;
+            $("#price1").val(price);
         }
-        
-        var formDiv_id = jQuery(this).parent().parent().parent().parent().parent().parent().parent().parent().attr("id");
-        if (formDiv_id == "myForm") {
-        	
-        	var content = jQuery("#content").val();
-        	$("#complex1").val(complex);
-        	$("#atmosphere1").val(atmosphere);
-        	$("#service1").val(service);
-        	$("#skill1").val(skill);
-        	$("#price1").val(price);
-        	$("#content1").val(content);
-//        	alert(content);
-        	
-            var url = "/addCommentToCoupon/" + commentObjId + "/" + commentObjType;
-        	$("#myForm").attr("action", url);
-//        	alert($("#myForm").attr("action"));
-        }
-
-    	
-    	
-
-    	
         
         var cl = jQuery(this).parent().attr("class");
         jQuery(this).parent().parent().removeClass().addClass("rating " + cl + "star");
         jQuery(this).blur(); //去掉超链接的虚线框
         return false;
     })
+    
+    jQuery("#content2").blur(function () {    	
+        	var content = jQuery("#content2").val();
+        	$("#content1").val(content);
+    })
     //为send按钮注册点击事件
     jQuery("#send_message").click(function () {
-//        alert("11111");
-//        addCom(commentObjId, complex, atmosphere, service, skill, price, commentObjType);
     	
-//    	var content = jQuery("#content").val();
-//    	$("#complex1").val(complex);
-//    	$("#atmosphere1").val(atmosphere);
-//    	$("#service1").val(service);
-//    	$("#skill1").val(skill);
-//    	$("#price1").val(price);
-//    	$("#content1").val(content);
+    	var url = "/addCommentToCoupon/" + commentObjId + "/" + commentObjType;
+    	$("#myForm").attr("action", url);
+    	if(complex == 0) {
+    		alert("您还没有给第一项打分呢！");
+    		return false;
+    	}
+    	if(atmosphere == 0) {
+    		alert("您还没有给第二项打分呢！");
+    		return false;
+    	}
+    	if(service == 0) {
+    		alert("您还没有给第三项打分呢！");
+    		return false;
+    	}
+    	if(skill == 0) {
+    		alert("您还没有给第四项打分呢！");
+    		return false;
+    	}
+    	if(price == 0) {
+    		alert("您还没有给第五项打分呢！");
+    		return false;
+    	}
+    	if($("#content1").val().trim() == "") {
+    		alert("请输入评论的内容");
+    		return false;
+    	}
+    
     	
-    	
-//    	alert(content);
-//    	var url = "/addCommentToCoupon/" + commentObjId + "/" + commentObjType;
-//    	$("#myForm").attr("action", url);
-//    	alert($("#myForm").attr("action"));
-    	
-    	
-//    	var url = "/addCommentToCoupon/" + commentObjId + "/" + commentObjType;
-//    	$("#myForm").attr("action", url);
-    	
-//    	alert($("#myForm").attr("action"));
     	$("#myForm").submit();
 
-
-    	
-//    	alert("评论结果： 综合："+complex +" 氛围 :" +atmosphere +" 服务:"+ service+" 技术:"+ skill+" 价格:"+ price+"内容："+content+"   此处可根据这些值进行相应的数据库操作");
-    	
-    	
-//        alert("22222");
         Dialog_remove();
-//        alert("aaaa");
     });
     //消息对话框拖动相关操作
     var messageDiv = jQuery("#messageDialog"); //获得消息对话框对象
@@ -168,18 +155,6 @@ function create_comment_dialog(commentObjId, commentObjType) {
     });
 }
 
-//function addCom(commentObjId, complex, atmosphere, service, skill, price, commentObjType) {
-////	alert("3333");
-////	alert("commentObjId　"　＋　commentObjId);
-////	alert(commentObjId);
-////	alert(commentObjType);
-////	alert("commentObjType"　＋　commentObjType);
-//    var content = jQuery("#content").val();
-////    alert("4444");
-//    alert("评论结果： 综合："+complex +" 氛围 :" +atmosphere +" 服务:"+ service+" 技术:"+ skill+" 价格:"+ price+"内容："+content+"   此处可根据这些值进行相应的数据库操作");
-//    location.href="/addCommentToCoupon/" + commentObjId + "/" + commentObjType;
-////    alert("555");
-//}
 // 创建遮罩层
 function createShadeDiv() { 
     var shadeDiv = jQuery("<div id='shadeDiv' style='position: absolute;z-index: 100;top: 0px;left: 0px;background-color:#000;filter: alpha(opacity=70);-moz-opacity: 0.7;opacity: 0.7;'></div>");

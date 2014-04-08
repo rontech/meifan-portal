@@ -28,3 +28,35 @@ font-size: 10px;
 color: #FFFFFF;
 line-height: 1;
 }
+
+.judgeList {
+padding: 5px 10px 3px;
+}
+
+.judgeList li {
+display: inline;
+margin-right: 10px;
+padding-top: 2px;
+padding-right: 10px;
+border-right: 1px solid #666666;
+}
+
+.iconStarOn {
+background-image: url("/assets/images/comment/icon_star_on.gif");
+}
+
+.iconStarOff {
+background-image: url("/assets/images/comment/icon_star_off.gif");
+}
+
+.iconStarOn, .iconStarOff {
+display: inline-block;
+width: 15px;
+height: 16px;
+margin-top: -4px;
+background-repeat: no-repeat;
+background-position: center top;
+vertical-align: middle;
+overflow: hidden;
+text-indent: -9999px;
+}
