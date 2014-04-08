@@ -210,6 +210,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     Ok(views.html.user.myPageRes(user,followInfo))
+
   }
 
   /**

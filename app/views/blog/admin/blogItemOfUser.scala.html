@@ -1,10 +1,10 @@
-@(blog : Blog, logged : Boolean = false)
+@(blog : Blog, logged : Boolean)
 
 @import java.text.DateFormat
      
 					<div class="BlogTitle">
 			    		<div class="title">
-			            	<h2><span class="icon" style="background:#44ac57;" title=""></span>	<a href="@noAuth.routes.Blogs.showBlogById(blog.id)">@blog.title</a></h2>			    	
+			            	<h2><span class="icon" style="background:#44ac57;" title=""></span>	<a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)">@blog.title</a></h2>			    	
 			        		<div class="outline">
 			            	  <span class="">
 													@Messages("blog.blogCategory"): 
@@ -25,7 +25,7 @@
 			    	
 					<div class="bottom">	
 						@Messages("blog.createAt",DateFormat.getDateInstance.format(blog.createTime)), | @Messages("blog.comment") (@Comments.clean @Comment.all(blog.id).size)@*| 收藏(0)*@
-			    		<a href="@noAuth.routes.Blogs.showBlogById(blog.id)" class="fullcontent">@Messages("blog.readFullBlog")</a>
+			    		<a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)" class="fullcontent">@Messages("blog.readFullBlog")</a>
 			    	</div>
 			    	
    

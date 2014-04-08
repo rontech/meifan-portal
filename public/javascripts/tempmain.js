@@ -110,6 +110,8 @@ $(function(){
         	location.href="/delete/" + commentId + "/" + blogId;
 	      } 
 		});
+		
+
 
 
 })
