@@ -87,7 +87,7 @@ trait SalonStylistApplyRecordDAO extends ModelCompanion[SalonStylistApplyRecord,
     var salons: List[Salon] = Nil
     val records = dao.find(MongoDBObject("stylistId" -> stylistId, "applyType" -> 2, "verifiedResult" -> 0)).toList
     records.map{re =>
-      val salon = Salon.findById(re.salonId)
+      val salon = Salon.findOneById(re.salonId)
       salon match {
         case Some(s) => salons :::= List(s)
         case None => None

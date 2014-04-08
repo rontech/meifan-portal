@@ -72,7 +72,7 @@ object UserMessage extends ModelCompanion[UserMessage, ObjectId] {
   def sendFollowMsg(sender :User, followId : ObjectId, followObjType:String) =  {
     val letter = followObjType match{
       case FollowType.FOLLOW_SALON =>
-        val salon = Salon.findById(followId).get
+        val salon = Salon.findOneById(followId).get
         UserMessage(new ObjectId, sender.userId, sender.nickName, "zhenglu", "关雨", new ObjectId("531964e0d4d57d0a43771811"), OUTBOX_SENT, INBOX_UNREAD, new Date)
       case FollowType.FOLLOW_STYLIST =>
         val stylist = Stylist.findOneByStylistId(followId).get

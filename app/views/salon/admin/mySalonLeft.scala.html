@@ -1,11 +1,15 @@
 @(salon: Salon)
 
 			<div class ="Owner">
-				@if(!salon.id.getTime.equals(salon.salonPics.map{a=> a.fileObjId.getTime})){
-					<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"/></a>
+				@if(salon.salonPics.exists{a => a.picUse == "LOGO"}){
+					@for(i <- 0 to salon.salonPics.size-1){
+						@if(salon.salonPics(i).picUse == "LOGO" ){
+							<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>												
+						}								
+					}										
 				}else{
-					<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>				
-				}
+					<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
+				}	
 				<span class='U'>
 					<p class='opts'>
 						<span style="font-size:16px;">@Messages("stylist.hello")&nbsp;</span> @salon.salonName

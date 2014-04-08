@@ -159,7 +159,18 @@ salon.level = 等级 Lv5
 salon.oldPassword=请输入原始密码
 salon.newPassword=请输入新密码
 salon.confirmNewPassword=请再次输入新密码
-
+salon.picUse=用途
+salon.fileId=图片ID
+salon.showPriority=显示顺序
+salon.PicDescription=图片描述
+salon.picUse.logo=店铺头像
+salon.picUse.Navigate=店铺展示图片
+salon.picUse.Atmosphere=店铺环境
+salon.salonPics.upload = 上传
+salon.pic.title=图片标题
+salon.pic.content=图片简介
+salon.pic.foot=图片结尾
+salon.showPic=首页图片描述
 
 #salon management
 salonAdmin.mainPage = 店铺管理

@@ -24,9 +24,9 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
      * Include the Styles, Stylists, Coupons, Blogs, Comments..... 
      *------------------------*/
     def getSalon(salonId: ObjectId) = Action {
-        val salon: Option[Salon] = Salon.findById(salonId)
+        val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
-            case Some(sl) => Ok(views.html.salon.store.salonInfoBasic(sl, SalonNavigation.getSalonNavBar(salon)))
+            case Some(sl) => Ok(views.html.salon.store.salonContent(sl, SalonNavigation.getSalonNavBar(salon)))
             case _ => NotFound
         }
     }
@@ -35,7 +35,7 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
       * Get All stylists of a salon.
       */
      def getAllStylists(salonId: ObjectId) = Action {
-        val salon: Option[Salon] = Salon.findById(salonId)
+        val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
             case Some(sl) => {
                 val stylists = SalonAndStylist.getSalonStylistsInfo(salonId)
@@ -54,7 +54,7 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
       */
     def getOneStylist(salonId: ObjectId, stylistId: ObjectId) = Action { 
         // first, check that if the salon is exist.
-        val salon = Salon.findById(salonId)
+        val salon = Salon.findOneById(salonId)
         salon match {
             // when salon is exist
             case Some(sl) => {
@@ -100,7 +100,7 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
      * Get all styles of a salon.
      */ 
     def getAllStyles(salonId: ObjectId) = Action {
-        val salon: Option[Salon] = Salon.findById(salonId)
+        val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
             case Some(sl) => {
                 // find styles of all stylists via the relationship between [salon] and [stylist]. 
@@ -124,7 +124,7 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
      */ 
     def getOneStyle(salonId: ObjectId, styleId: ObjectId) = Action {
         // First of all, check that if the salon is acitve.
-        val salon: Option[Salon] = Salon.findById(salonId)
+        val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
             case Some(sl) => {
                 // Second, check if the style is exist.
@@ -159,7 +159,7 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
      * Find All the coupons, menus, and services of a salon.  
      */
     def getAllCoupons(salonId: ObjectId) = Action {
-        val salon: Option[Salon] = Salon.findById(salonId)
+        val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
             case Some(sl) => {
                 val coupons: List[Coupon] = Coupon.findBySalon(sl.id)
@@ -237,7 +237,7 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
                   }
               }
 
-             val salon: Option[Salon] = Salon.findById(salonId)
+             val salon: Option[Salon] = Salon.findOneById(salonId)
               salon match {
                   case Some(s) => {
                       // Navigation Bar

@@ -88,7 +88,7 @@ object Coupons extends Controller {
    * 进入创建优惠劵画面
    */
   def couponMain(salonId: ObjectId) = Action{
-	  val salon: Option[Salon] = Salon.findById(salonId)
+	  val salon: Option[Salon] = Salon.findOneById(salonId)
 	  var createCoupon: CreateCoupon = CreateCoupon(null, salon.get, Service.findBySalonId(salonId))
 	  
 	  salon match {
@@ -102,7 +102,7 @@ object Coupons extends Controller {
    */
   def createCoupon(salonId: ObjectId) = Action {implicit request =>
     couponForm.bindFromRequest.fold(
-          errors => BadRequest(html.salon.admin.createSalonCoupon(Salon.findById(salonId).get,errors,Service.findBySalonId(salonId))),
+          errors => BadRequest(html.salon.admin.createSalonCoupon(Salon.findOneById(salonId).get,errors,Service.findBySalonId(salonId))),
         {
           coupon =>
             var services: List[Service] = Nil
@@ -121,7 +121,7 @@ object Coupons extends Controller {
             val couponTemp = coupon.copy(couponId = coupon.id.toString(), salonId = coupon.salonId, serviceItems = services, originalPrice = originalPrice, serviceDuration = serviceDuration)
             Coupon.save(couponTemp)
             
-            val salon: Option[Salon] = Salon.findById(coupon.salonId)
+            val salon: Option[Salon] = Salon.findOneById(coupon.salonId)
 		    val coupons: List[Coupon] = Coupon.findBySalon(coupon.salonId)
 		    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
             val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
@@ -137,7 +137,7 @@ object Coupons extends Controller {
      * 显示店铺所有的优惠劵
      */
     def showCoupons(salonId: ObjectId) = Action {
-      val salon: Option[Salon] = Salon.findById(salonId)
+      val salon: Option[Salon] = Salon.findOneById(salonId)
       val coupons: List[Coupon] = Coupon.findBySalon(salonId)
       
       salon match {
@@ -196,7 +196,7 @@ object Coupons extends Controller {
 		      }
             }
           }
-          val salon: Option[Salon] = Salon.findById(salonId)
+          val salon: Option[Salon] = Salon.findOneById(salonId)
           
           salon match {
 	          case Some(s) => Ok(html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes))
@@ -212,7 +212,7 @@ object Coupons extends Controller {
     val coupon = Coupon.findOneById(couponId)
     
     coupon match {
-      case Some(s) => val salon = Salon.findById(s.salonId)
+      case Some(s) => val salon = Salon.findOneById(s.salonId)
                       salon match {
                          case Some(k) => Ok(html.salon.admin.editSalonCoupon(k, couponForm.fill(s), Service.findBySalonId(s.salonId), s))
                          case None => NotFound
@@ -226,7 +226,7 @@ object Coupons extends Controller {
    */
   def updateCoupon(couponId: ObjectId, salonId: ObjectId) = Action { implicit request =>
     couponUpdateForm.bindFromRequest.fold(
-        errors => BadRequest(html.salon.admin.editSalonCoupon(Salon.findById(salonId).get, errors, Service.findBySalonId(salonId), Coupon.findOneById(couponId).get)),
+        errors => BadRequest(html.salon.admin.editSalonCoupon(Salon.findOneById(salonId).get, errors, Service.findBySalonId(salonId), Coupon.findOneById(couponId).get)),
         {
           coupon =>
             var services: List[Service] = Nil
@@ -245,7 +245,7 @@ object Coupons extends Controller {
             val couponTemp = coupon.copy(id = couponId, couponId = couponId.toString(), salonId = coupon.salonId, serviceItems = services, originalPrice = originalPrice, serviceDuration = serviceDuration)
             Coupon.save(couponTemp)
             
-            val salon: Option[Salon] = Salon.findById(coupon.salonId)
+            val salon: Option[Salon] = Salon.findOneById(coupon.salonId)
 		    val coupons: List[Coupon] = Coupon.findBySalon(coupon.salonId)
 		    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
 		    val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
@@ -268,7 +268,7 @@ object Coupons extends Controller {
     coupon match {
       case Some(s) => val couponTemp = s.copy(isValid = false)
                       Coupon.save(couponTemp)
-                      val salon: Option[Salon] = Salon.findById(s.salonId)
+                      val salon: Option[Salon] = Salon.findOneById(s.salonId)
                       val coupons: List[Coupon] = Coupon.findBySalon(s.salonId)
                       val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
                       val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)

@@ -228,7 +228,7 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
       val releation = SalonAndStylist.findByStylistId(stylistId)
       releation match {
         case Some(re) => {
-          val salon = Salon.findById(re.salonId)
+          val salon = Salon.findOneById(re.salonId)
           salon.get
           
         }

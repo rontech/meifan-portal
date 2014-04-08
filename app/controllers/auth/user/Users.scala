@@ -46,7 +46,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
          "province" -> text,
          "city" -> optional(text),
          "region" -> optional(text)){
-          (province,city,region) => Address(province,city,region,None,"NO NEED",None,None)
+          (province,city,region) => Address(province,city,region,None,"NO NEED",None,None,"No NEED")
       }{
           address => Some((address.province,address.city,address.region))
       },

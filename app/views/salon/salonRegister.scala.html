@@ -252,7 +252,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("accessMethodDesc"), '_label -> None)
+				                	@inputText(salonRegister("salonAddress.accessMethodDesc"), '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -331,6 +331,21 @@
 				                </div>
 				            </td>
 				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.showPic")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonRegister("picDescription.picTitle"), '_label -> None, 'placeholder -> Messages("salon.pic.title"),'cols -> 50)
+				                	@inputText(salonRegister("picDescription.picContent"), '_label -> None, 'placeholder -> Messages("salon.pic.content"),'cols -> 50)
+				                	@inputText(salonRegister("picDescription.picFoot"), '_label -> None, 'placeholder -> Messages("salon.pic.foot"),'cols -> 50)
+				                </div>
+				            </td>
+				        </tr>				        
 				    </tbody>
 				</table>
 				
@@ -391,19 +406,7 @@
 		</div>
 </div>
         <script type="text/javascript" charset="utf-8">
-        
-        function check() {
-            var arr = new Array();
-            var op = document.getElementsByTagName("option");
-            for (var i = 0; i < op.length; i++) {
-                if (op[i].selected) {
-         op[i].selected;
-                    arr.push(op[i].value+"---"+op[i].innerText);
-                }
-            }
-            alert(arr);
-        }
-        
+              
         $('.removeoptContactMethod').live('click', function(e) {
             $(this).parents('.optContactMethod').remove()
             renumber()

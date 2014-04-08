@@ -38,7 +38,6 @@ object Application extends Controller {
 
         val db = MongoConnection()("Picture")
         val gridFs = GridFS(db)
-        println("get photo id "+ file)
         gridFs.findOne(Map("_id" -> file)) match {
             case Some(f) => SimpleResult(
                 ResponseHeader(OK, Map(
