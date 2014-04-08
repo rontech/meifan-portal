@@ -73,7 +73,7 @@ trait SalonStylistApplyRecordDAO extends ModelCompanion[SalonStylistApplyRecord,
    *  查看技师当前有无申请
    */
   def checkStylistApply(stylistId: ObjectId): Boolean = {
-    val record = dao.findOne(MongoDBObject("stylistId" -> stylistId , "verifiedResult" -> 0))
+    val record = dao.findOne(MongoDBObject("stylistId" -> stylistId, "applyType" -> 1, "verifiedResult" -> 0))
     record match {
       case Some(re) => true
       case None => false
@@ -118,4 +118,5 @@ trait SalonStylistApplyRecordDAO extends ModelCompanion[SalonStylistApplyRecord,
     dao.update(MongoDBObject("_id" -> record.id), MongoDBObject("$set" -> (MongoDBObject("verifiedResult" -> 2) ++
                 MongoDBObject("verifiedDate" -> Option(new Date)))))
   }
+  
 }

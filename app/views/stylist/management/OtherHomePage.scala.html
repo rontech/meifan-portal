@@ -1,53 +1,35 @@
-@(salon: Salon, stylist: StylistDetailInfo, style: List[Style], blog: Option[Blog])
+@(user :User, followInfo :FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false, stylist: Stylist, styles: List[Style], latestBlog: Option[Blog])
 
-<div class="cFix mT30 pH10">
-    <!-- ST left side info for Stylist picture.-->
-    <div class="fl w224 taC">
-        <div>
-            <img src="@routes.Application.getPhoto(stylist.stylistInfo.get.myPics(0).fileObjId)" alt="@stylist.basicInfo.nickName" class="bdImgGray w164 h219">
-        </div>
-        <!-- TODO ST Reserve this sytlist. -->
-        <div class="mT20 pT10">
-            <a href="" class="bS db nominatedReserve offL mHA">@Messages("stylist.selectForReserv")</a>
-        </div>
-        <!-- TODO END Reserve this sytlist. -->
+@import views.html.user._
 
-        <!-- ST Follow this stylist. -->
-        <div class="mT20 pT10">
-            <a href="@auth.routes.MyFollows.addFollow(stylist.stylistInfo.get.stylistId,"stylist")" 
-                class="bS db addIntoMyStylist offL mHA"> @Messages("stylist.followStylist")
-            </a>
-        </div>
-        <!-- END Follow this stylist. -->
-    </div>
-    <!-- END left side info for Stylist picture.-->
-
-    <div class="fr w501">
+@myPageMain("stylistHomepage",user,followInfo,loginUserId,logged){
+	<div class="cFix mT30 pH10">
+		<div class="fr w501">
 
         <!--ST. Stylist's Words. -->
         <div>
             <dl>
-                <dt class="fgPink b fs14"> @stylist.stylistInfo.get.myWords </dt>
-                <dd class="mT10"> @stylist.stylistInfo.get.myPR </dd>
+                <dt class="fgPink b fs14"> @stylist.myWords </dt>
+                <dd class="mT10"> @stylist.myPR </dd>
             </dl>
         </div>
         <!--END. Stylist's Words. -->
 
         <!--ST. Stylist Appeal. -->
-        @if(stylist.stylistInfo.get.myPics != null) {
+        @if(stylist.myPics != null) {
         	<div class="mT30">
             <ul class="cFix">
                 <!--@*show max 4 appeal pic here.*@ -->
-                @for(i <- 0 until (if(stylist.stylistInfo.get.myPics.length > 4) 4 else stylist.stylistInfo.get.myPics.length)) {
+                @for(i <- 0 until (if(stylist.myPics.length > 4) 4 else stylist.myPics.length)) {
                     <li class="fl cFix w240">
                         <div class="fl w89">
                             <!--@*TODO, should show appeal picture here.*@-->
-                            <img src="@routes.Application.getPhoto(stylist.stylistInfo.get.myPics(i).fileObjId)"
-                            alt="@stylist.stylistInfo.get.myPics(i).description" oncontextmenu="return false;" class="w89">
+                            <img src="@routes.Application.getPhoto(stylist.myPics(i).fileObjId)"
+                            alt="@stylist.myPics(i).description" oncontextmenu="return false;" class="w89">
                         </div>
                         <div class="fr w151 pr hMin119">
                             <p class="mL10 mR20 fs10 pa bottom0 left0">
-                                @stylist.stylistInfo.get.myPics(i).description
+                                @stylist.myPics(i).description
                             </p>
                         </div>
                     </li>
@@ -63,21 +45,21 @@
                 <tbody>
                     <tr>
                         <th class="w100"> @Messages("stylist.worked")</th>
-                        <td>@Messages("stylist.workYears", stylist.stylistInfo.get.workYears) </td>
+                        <td>@Messages("stylist.workYears", stylist.workYears) </td>
                     </tr>
                                 
                     <tr> <th class="w100">@Messages("stylist.goodAtImage") </th>
-                        <td> @stylist.stylistInfo.get.goodAtImage.map{image=>
+                        <td> @stylist.goodAtImage.map{image=>
                         	@image&nbsp;
                         }</td>
                     </tr>
                     <tr>
                         <th class="w100"> @Messages("stylist.mySpecial") </th>
-                        <td> @stylist.stylistInfo.get.mySpecial </td>
+                        <td> @stylist.mySpecial </td>
                     </tr>
                     <tr>
                         <th class="w100"> @Messages("stylist.myBoom") </th>
-                        <td> @stylist.stylistInfo.get.myBoom </td> 
+                        <td> @stylist.myBoom </td> 
                     </tr>
                 </tbody>
             </table>
@@ -85,14 +67,14 @@
         <!--END. Stylist Resume. -->
 
         <!--ST. Stylist's latest Blog. -->
-        @blog match {
+        @latestBlog match {
             case None => {}
             case Some(blg) => {
                 <div class="mT30">
                     <div class="pr">
                         <div class="latestBlogtitle"> @Messages("stylist.blog") </div>
                         <p class="pa right10 topHalf fs10">
-                            <a href="@noAuth.routes.Blogs.getAllBlogsOfStylist(salon.id, stylist.stylistInfo.get.stylistId)">
+                            <a href="@noAuth.routes.Blogs.showBlog(user.userId)">
                                        @Messages("stylist.findAllBlog")
                             </a>
                         </p>
@@ -100,7 +82,7 @@
 
                     <!--ST. Blog item. -->
                     <ul>
-                    	@views.html.blog.blogItem(blg, salon)
+                    	@views.html.blog.blogItem(blg)
                     </ul>
                     <!--END. Blog item. -->
                 </div>
@@ -109,5 +91,18 @@
         }
         <!--END. Stylist's latest Blog. -->
     </div>
-</div>
-
+    <div class="mT30">
+        <div class="yS mainContentsSecondTitleOuter">
+	        <h3 class="yS mainContentsSecondTitleInner">
+	        @Messages("stylist.haircatalog")
+	        </h3>&nbsp;&nbsp;&nbsp;
+	        <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")</a>
+	    </div>
+    </div>
+                
+    <!-- get all the salons with all the styles.  -->
+       @views.html.stylist.styleGroup(styles)
+	</div>
+}
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">

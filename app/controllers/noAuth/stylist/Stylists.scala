@@ -66,20 +66,6 @@ object Stylists extends Controller with OptionalAuthElement with AuthConfigImpl{
   }
   
   /**
-  *  查看技师个人主页
-  */
-  def goStylistHomePage(stylistId: ObjectId) = StackAction { implicit request =>
-    val user = User.findOneById(stylistId).get
-    val stylist = Stylist.findOneByStylistId(stylistId).get
-    val followInfo = MyFollow.getAllFollowInfo(stylistId)
-    loggedIn.map{loginUser =>
-	Ok(views.html.stylist.management.stylistHomePage(user = user, followInfo = followInfo, loginUserId = loginUser.id , logged = true, stylist = stylist))
-    }getOrElse{
-	Ok(views.html.stylist.management.stylistHomePage(user = user, followInfo = followInfo, loginUserId = new ObjectId , logged = false, stylist = stylist))
-    }
-  }
-  
-  /**
    * 后台发型检索
    */
   def findStylesBySerach(stylistId: ObjectId) = StackAction { implicit request =>
@@ -99,4 +85,31 @@ object Stylists extends Controller with OptionalAuthElement with AuthConfigImpl{
                     }
                 })
     }
+  
+  def otherHomePage(stylistId: ObjectId) = StackAction { implicit request =>
+     val user = User.findOneById(stylistId).get
+     val followInfo = MyFollow.getAllFollowInfo(user.id)
+     val stylist = Stylist.findOneByStylistId(stylistId).get
+     val styles = Style.findByStylistId(stylistId)
+     
+     val blgs = Blog.getBlogByUserId(user.userId)
+     val blog = if(blgs.length > 0) Some(blgs.head) else None
+     loggedIn.map{loginUser =>
+       Ok(views.html.stylist.management.OtherHomePage(user = user, followInfo = followInfo, loginUserId = loginUser.id, logged = true,  latestBlog = blog, stylist = stylist, styles = styles ))
+     }getOrElse{
+       Ok(views.html.stylist.management.OtherHomePage(user = user, followInfo = followInfo, loginUserId = new ObjectId, logged = false,  latestBlog = blog, stylist = stylist, styles = styles ))
+     }
+     
+     
+  }
+  
+  def checkSalonIsexitBySalonAccountId(salonAccountId: String) = Action {
+      println("ajax check ")
+      Salon.findByAccountId(salonAccountId).map{ salon =>
+          Ok("yes")
+      }getOrElse{
+          Ok("no")
+      }
+  }
+  
 }
