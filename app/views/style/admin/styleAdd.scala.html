@@ -8,10 +8,9 @@
 		<h2>@Messages("hair.styleAdd")</h2>
 	</div>
 </head>
-@if(isStylist){
     <body>
         <div>
-        @form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm"){
+        @form(action = auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm"){
             <div>
                 @Messages("hair.styleName")<input type = "text" class="" name = "styleName" value = "">
             </div>
@@ -111,7 +110,6 @@
          }
         </div>
     </body> 
-}
 @stylePicOneGroup(field: Field, className: String = "optContactMethod") = {
     <div class="addstyles-byStylist twipsies well @className">
         <a class="removeOptContactMethod btn danger pull-right">Remove this stylePic</a>
