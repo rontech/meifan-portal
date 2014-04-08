@@ -113,11 +113,11 @@ GET         /userPage/followedSalon                                    controlle
 GET         /userPage/followedStylist                                  controllers.noAuth.MyFollows.followedStylist(id: ObjectId)
 GET         /userPage/followedUser                                     controllers.noAuth.MyFollows.followedUser(id:ObjectId)
 GET         /userPage/followers                                        controllers.noAuth.MyFollows.followers(id:ObjectId)
-GET         /myPage/messages/:req                                      controllers.UserLetters.messageList(req:String)
-GET         /myPage/message/:id                                        controllers.UserLetters.showMessage(id:ObjectId)
-GET         /sendMessage                                               controllers.UserLetters.sendMessage
-GET         /sendLetterPage/:id                                        controllers.UserLetters.sendLetterPage(id)
-POST        /sendLetter                                                controllers.UserLetters.sendLetter
+GET         /myPage/messages/:req                                      controllers.auth.UserLetters.messageList(req:String)
+GET         /myPage/message/:id                                        controllers.auth.UserLetters.showMessage(id:ObjectId)
+GET         /sendMessage                                               controllers.auth.UserLetters.sendMessage
+GET         /sendLetterPage/:id                                        controllers.auth.UserLetters.sendLetterPage(id)
+POST        /sendLetter                                                controllers.auth.UserLetters.sendLetter
 
 
 
