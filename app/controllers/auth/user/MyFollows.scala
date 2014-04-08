@@ -9,6 +9,9 @@ import scala.concurrent._
 import ExecutionContext.Implicits.global
 import controllers._
 
+import java.util.Date
+import java.util.Calendar
+
 object MyFollows extends Controller with AuthElement with AuthConfigImpl {
 
     /**
@@ -31,7 +34,8 @@ object MyFollows extends Controller with AuthElement with AuthConfigImpl {
         }
         if (followObjType == FollowType.FOLLOW_SALON || followObjType == FollowType.FOLLOW_STYLIST || followObjType == FollowType.FOLLOW_USER)
             UserMessage.sendFollowMsg(user, followId, followObjType)
-        Redirect(auth.routes.Users.myPage())
+//        Redirect(auth.routes.Users.myPage())
+          Redirect(request.headers.get("Referer").getOrElse(""))
     }
 
     /**
@@ -41,7 +45,13 @@ object MyFollows extends Controller with AuthElement with AuthConfigImpl {
         val loginUser = loggedIn
         val user = User.findOneById(userId).get
         val followInfo = MyFollow.getAllFollowInfo(userId)
-        Ok(views.html.user.followedCoupon(user,followInfo,loginUser.id))
+        
+        // 获取当前时间的前7天的日期，用于判断是否为新券还是旧券
+        var beforeSevernDate = Calendar.getInstance()
+        beforeSevernDate.setTime(new Date())
+        beforeSevernDate.add(Calendar.DAY_OF_YEAR, -7)
+        
+        Ok(views.html.user.followedCoupon(user,followInfo,loginUser.id,beforeSevernDate.getTime()))
     }
     
     /**

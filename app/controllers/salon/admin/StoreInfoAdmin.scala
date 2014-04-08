@@ -19,10 +19,12 @@ import com.mongodb.casbah.gridfs.GridFS
 import play.api.libs.iteratee.Enumerator
 import scala.concurrent.ExecutionContext
 import com.mongodb.casbah.MongoConnection
+import play.api.i18n.Messages
 import controllers._
+import utils._
 
-object SalonInfo extends Controller with LoginLogout with AuthElement with AuthConfigImpl{        
-  
+object SalonInfo extends Controller with LoginLogout with AuthElement with AuthConfigImpl{
+
   //店铺信息管理Form
   val salonInfo:Form[Salon] = Form(
 	    mapping(
@@ -35,8 +37,8 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
 	        "salonIndustry" -> list(text),
 	        "homepage" -> optional(text),
 	        "salonDescription" -> optional(text),
-	        "mainPhone" -> text,
-	        "contact" -> text,
+	        "mainPhone" -> nonEmptyText,
+	        "contact" -> nonEmptyText,
 	        "optContactMethod" -> list(
 	            mapping(
 	                "contMethodType" -> text,
@@ -58,13 +60,14 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
 	            "closeTime" -> text
 	            )
 	            (WorkTime.apply)(WorkTime.unapply),
-	        "restDays" -> list(
-	            mapping(
-	                "restDayDivision" -> number,
-	                "restDay" -> list(number)
-	                )
-	                (RestDay.apply)(RestDay.unapply)
-	            ),
+            "restDays" -> mapping(
+                "restWay" -> text,
+                "restDay1" -> list(text),
+                "restDay2" -> list(text)
+            ){
+                (restWay, restDay1, restDay2) => Tools.getRestDays(restWay,restDay1,restDay2)
+            }{
+                restDay => Some(Tools.setRestDays(restDay))},
 	        "seatNums" -> number,
 	        "salonFacilities" -> mapping(
 	            "canOnlineOrder" -> boolean,
@@ -107,21 +110,22 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
 	    	"salonAccount" -> mapping(
 	    		"accountId" -> nonEmptyText(6,16),
 	    		"password" -> tuple(
-	    			"main" ->  text(minLength = 6),
+	    			"main" ->  text.verifying(Messages("user.passwordError"), main => main.matches("""^[a-zA-Z]\w{5,17}$""")),
 	    			"confirm" -> text).verifying(
-	    					"Passwords don't match", passwords => passwords._1 == passwords._2)
+          // Add an additional constraint: both passwords must match
+            Messages("user.twicePasswordError"), password => password._1 == password._2)
 	    			){
 	    		(accountId,password) => SalonAccount(accountId,password._1)
 	    	}{
 	    	  salonAccount=>Some(salonAccount.accountId,(salonAccount.password, ""))
 	    	},
-	        "salonName" -> text,
+	        "salonName" -> text.verifying(Messages("salon.salonNameNotAvaible"), salonName => !Salon.findOneBySalonName(salonName).nonEmpty),
 	        "salonNameAbbr" -> optional(text),
 	        "salonIndustry" -> list(text),
 	        "homepage" -> optional(text),
 	        "salonDescription" -> optional(text),
-	        "mainPhone" -> text,
-	        "contact" -> text,
+	        "mainPhone" -> nonEmptyText,
+	        "contact" -> nonEmptyText,
 	        "optContactMethod" -> list(
 	            mapping(
 	                "contMethodType" -> text,
@@ -143,13 +147,14 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
 	            "closeTime" -> text
 	            )
 	            (WorkTime.apply)(WorkTime.unapply),
-	        "restDays" -> list(
-	            mapping(
-	                "restDayDivision" -> number,
-	                "restDay" -> list(number)
-	                )
-	                (RestDay.apply)(RestDay.unapply)
-	            ),
+	        "restDays" -> mapping(
+	                "restWay" -> text,
+	                "restDay1" -> list(text),
+                    "restDay2" -> list(text)
+            ){
+                (restWay, restDay1, restDay2) => Tools.getRestDays(restWay,restDay1,restDay2)
+            }{
+                restDay => Some(Tools.setRestDays(restDay))},
 	        "seatNums" -> number,
 	        "salonFacilities" -> mapping(
 	            "canOnlineOrder" -> boolean,
@@ -170,7 +175,7 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
 	                "showPriority"-> optional(number),
 	                "description" -> optional(text)
 	                ){
-	              (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId(fileObjId),"",Option(0),Option(""))
+	              (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId,picUse,Option(0),Option("none"))
 	              }{
 	                salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
 	              })
@@ -183,9 +188,9 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
         		salonRegister.contact, salonRegister.optContactMethod, salonRegister.establishDate, salonRegister.salonAddress, salonRegister.accessMethodDesc,
         		salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics)
       }.verifying(
-        "This salonId is not available", salon => !Salon.findByAccountId(salon.salonAccount).nonEmpty)
 
-   )
+       Messages("user.userIdNotAvailable"), salon => !Salon.findByAccountId(salon.salonAccount.accountId).nonEmpty)
+	)
 
    //店铺登录Form
   val salonLogin = Form(mapping(
@@ -199,10 +204,10 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
    */
   def loginSalon = Action { implicit request =>
     salonLogin.bindFromRequest.fold(
-      errors => BadRequest(views.html.error.errorMsg(errors)),
+      errors => BadRequest(views.html.salon.salonLogin(errors)),
       {
         salonLogin =>
-          val getId = Salon.findByAccountId(salonLogin.get.salonAccount)
+          val getId = Salon.findByAccountId(salonLogin.get.salonAccount.accountId)
           Redirect(routes.SalonInfo.salonInfoBasic(getId.get.id))
       })
 
@@ -213,18 +218,16 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
    */
   def register = Action {
     val industry = Industry.findAll.toList
-    val provinces = Province.findAll.toList
-    val cities = City.findAll.toList
-    val regions = Region.findAll.toList
-    Ok(views.html.salon.salonRegister(salonRegister,industry,provinces,cities,regions))
+    Ok(views.html.salon.salonRegister(salonRegister,industry))
   }   
   
   /**
    * 店铺注册
    */
   def doRegister = Action { implicit request =>
+    val industry = Industry.findAll.toList
     SalonInfo.salonRegister.bindFromRequest.fold(
-      errors => BadRequest(views.html.error.errorMsg(errors)),
+      errors => BadRequest(views.html.salon.salonRegister(errors,industry)),
       {
         salonRegister =>
           Salon.create(salonRegister)
@@ -237,23 +240,40 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
    *
    */
   def salonInfoBasic(id: ObjectId) = Action {
-    val basic = Salon.findById(id).get
-    val salon = SalonInfo.salonInfo.fill(basic)
-    val industry = Industry.findAll.toList
-    val provinces = Province.findAll.toList
-    val cities = City.findAll.toList
-    val regions = Region.findAll.toList    
-    Ok(views.html.salon.salonInfo(salon = salon,industry = industry,provinces = provinces,cities =cities,regions = regions))
+    val salon: Option[Salon] = Salon.findById(id)
+    val industry = Industry.findAll.toList 
+        salon match {
+            case Some(sl) => Ok(views.html.salon.salonInfo("", sl , industry))
+            case _ => NotFound
+        }
+  }
+  
+  /**
+   * 店铺基本信息修改页面
+   *
+   */
+  def salonInfoManage(id: ObjectId) = Action {
+    val basic: Option[Salon] = Salon.findById(id)
+        basic match {
+            case Some(sl) => 
+                  val salon = SalonInfo.salonInfo.fill(sl)
+                  val industry = Industry.findAll.toList  
+                  Ok(views.html.salon.admin.salonManage("",salon ,industry , sl))
+            case _ => NotFound
+        }    
+ 
+
   }
 
   /**
    * 店铺基本信息更新
    */
   def update(id: ObjectId) = Action { implicit request =>
+    val salon = Salon.findById(id).get
+    val industry = Industry.findAll.toList     
     salonInfo.bindFromRequest.fold(
-      errors => BadRequest(views.html.error.errorMsg(errors)),
-      {
-        
+      errors => BadRequest(views.html.salon.admin.salonManage("",errors,industry,salon)),
+      {       
         salon =>
           Salon.save(salon.copy(id = id))
           Redirect(routes.SalonInfo.salonInfoBasic(id))
@@ -264,19 +284,27 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
    * 店铺Logo更新页面
    */
   def addImage(id: ObjectId) = Action {
-    val salon = Salon.findById(id).get
-    Ok(views.html.salon.salonImage(salon))
+    val salon: Option[Salon] = Salon.findById(id)
+        salon match {
+            case Some(sl) => 
+                  val industry = Industry.findAll.toList 
+                  Ok(views.html.salon.salonImage(sl))
+            case _ => NotFound
+        }
+
   }
   
   /**
    * 店铺图片保存
    */
   def saveSalonImg(id: ObjectId, imgId: ObjectId) = Action{implicit request =>
-   	val salon = Salon.findById(id).get
-    Salon.updateSalonLogo(salon, imgId)
-    Redirect(routes.SalonInfo.salonInfoBasic(id))
-    
-    
+    val salon: Option[Salon] = Salon.findById(id)
+       salon match {
+       case Some(sl) => 
+             Salon.updateSalonLogo(sl, imgId)
+             Redirect(routes.SalonInfo.salonInfoBasic(id))
+       case _ => NotFound
+        }   
   }
   
   /**

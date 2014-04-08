@@ -1,12 +1,14 @@
 package models
 
 import play.api.Play.current
-import play.api.PlayException
+import java.util.Date
 import com.novus.salat.dao._
-import com.mongodb.casbah.commons.Imports._
+import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat.Binders._
-import com.mongodb.casbah.MongoConnection
 import mongoContext._
+import play.api.PlayException
+import scala.concurrent.{ExecutionContext, Future}
+import ExecutionContext.Implicits.global
 
 /**
  * A All Info structs of stylist including belows
@@ -49,7 +51,7 @@ case class GoodAtStyle(
 
 case class StylistApply(
     stylist: Stylist,
-    salonId: ObjectId
+    salonAccountId: String
 )
 
 object Stylist extends StylistDAO
@@ -245,6 +247,8 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
     }
     
     def countStyleByStylist(stylistId: ObjectId): Long = {
-        Style.count(MongoDBObject("stylistId" -> stylistId))
+        Style.count(MongoDBObject("stylistId" -> stylistId, "isValid" -> true))
     }
+    
+    def isOwner(stylistId: ObjectId)(user:User) : Future[Boolean] = Future{User.findOneById(stylistId).map(_ == user).get}
 }

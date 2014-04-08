@@ -1,8 +1,8 @@
-@(blogList : List[Blog], blog : Blog, user : User, commentList : List[Comment], followInfo:FollowInformation, loginUserId : ObjectId = new ObjectId, logged : Boolean = false)
+@(blog : Blog, user : User, commentList : List[Comment], followInfo:FollowInformation, loginUserId : ObjectId = new ObjectId, logged : Boolean = false, blogList : List[Blog] = Nil)
 
 @import views.html.user._
 
 	@myPageMain(navInMyPage = "my-blog", user, followInfo, loginUserId, logged) {
-		@views.html.blog.admin.blogContentOfUser(blogList, blog, user, commentList, followInfo, loginUserId, logged)
+		@views.html.blog.admin.blogContentOfUser(blog, user, commentList, followInfo, loginUserId, logged, blogList)
 	}
 

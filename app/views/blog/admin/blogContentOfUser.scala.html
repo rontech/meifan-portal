@@ -1,4 +1,4 @@
-@(blogList : List[Blog], blog : Blog, user : User, commentList : List[Comment], followInfo:FollowInformation, loginUserId : ObjectId, logged : Boolean)
+@(blog : Blog, user : User, commentList : List[Comment], followInfo:FollowInformation, loginUserId : ObjectId, logged : Boolean, blogList : List[Blog] = Nil)
 @import views.html.user._
 @import java.text.DateFormat
 

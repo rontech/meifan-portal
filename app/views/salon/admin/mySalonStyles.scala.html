@@ -2,7 +2,7 @@
 
 @mySalonMain(navInSalon, salon){
 	@*<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">*@
-    @views.html.style.admin.backstageStyleSearch(styleSearchForm, styleParaAll, isFirstSearch, isStylist, stylists)
+    @views.html.style.admin.backstageStyleSearch(styleSearchForm, styleParaAll, isFirstSearch, isStylist, null, stylists)
     <hr/>
     <a href="@routes.SalonsAdmin.styleAddBySalon(salon.id)" >@Messages("hair.addStyle")</a>
     <hr/>

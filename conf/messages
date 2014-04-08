@@ -138,10 +138,35 @@ salon.registerMessage2 = 我们会核实您注册后提交的申请，尽快为�
 salon.loginMessage = 如果你已经是本网站的沙龙会员，请在下面输入店铺名和密码登录！
 salon.true=可
 salon.accountIdMessage=注册时设定，无法修改!
+salon.addPicture=添加一张图片
+salon.removePicture=删除一张图片
 salon.followSalon = 关注此沙龙
 salon.savedAsMySalon = 已保存为我的店铺
 salon.pushToMobile = 发送到手机
+salon.iss=店铺功能
+salon.login.accountId=请输入您的店铺Id
+salon.login.password=请输入您的密码
+salon.register.accountId=请输入6-16位字符
+salon.register.password=字母开头6-18位字符
+salon.register.salonName = 请重新输入店铺名
+salon.register.mainPhone = 请输入联系电话
+salon.register.contact=请输入联系人
+salon.register.establishDate=请输入店铺成立时间
+salon.register.seatNums=请输入店铺席位
+salon.salonNameNotAvaible=该店铺已存在
 salon.level = 等级 Lv5
+restWay.fixed = 固定休息（如：每周星期三休息）
+restWay.indefinite = 不定休（如：每月第一、三周星期三休息）
+salon.selectRestDays = 请选择固定休息日
+salon.EnterRestDays = 请输入休息规则
+Monday = 星期一
+Tuesday = 星期二
+Wednesday = 星期三
+Thursday = 星期四
+Friday = 星期五
+Saturday = 星期六
+Sunday = 星期日
+
 
 #salon management
 salonAdmin.mainPage = 店铺管理
@@ -355,6 +380,7 @@ stylist.removeSalon = 离开店铺
 stylist.update = 更新
 stylist.stylistId = 用户ID
 stylist.workYears = 工作年数
+stylist.info = 技师专有信息
 
 
 
@@ -378,8 +404,8 @@ stylist.reset = 重置
 
 #Stylist management
 stylistMag.mySalon = 我的店铺
-stylistMag.salonApply = 来自店铺申请
-stylistMag.countSalonApply = 店铺申请
+stylistMag.salonApply = 来自店铺邀请
+stylistMag.countSalonApply = 店铺邀请
 stylistMag.myStyle = 我的作品
 stylistMag.showAllStyles = 显示所有发型
 stylistMag.findRsv = 查看预约
@@ -387,7 +413,16 @@ stylistMag.styleManage = 发型管理
 stylistMag.serviceManage = 服务管理
 stylistMag.salonHistory = 店铺历史
 stylistMag.totalReserv = 显示当天预约
+stylistMag.myAppling = 我的申请
+stylistMag.wantToApply = 我要申请
 stylist.mySalon = 我的店铺
+stylistMag.noSalon = 暂无
+stylistMag.cancelApplying = 取消申请
+stylistMag.futureResv = 近期预约
+stylistMag.lastBlog = 最新博客
+stylist.salon = 所属店铺
+stylist.style = 他的作品
+
 
 
 # User
@@ -450,7 +485,7 @@ user.userIdNotAvailable=该用户名已被注册
 user.passwordError=密码不合法！
 user.telError=手机号码无效!
 user.toBePassword= 可输入6~18位,以字母开头，包含字母、数字和下划线!
-user.toBeUserId= 可输入6~16位字。包含数字，英文和中文！
+user.toBeUserId= 可输入6~16位字。包含数字，英文！
 user.nickNameErr=给个昵称吧！
 user.welcome=欢迎您，{0}
 user.guestName=游客

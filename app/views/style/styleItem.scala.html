@@ -8,8 +8,8 @@
         </h2>
         <div class="jscHoverTarget">
             <div class="jscLayer">
-                <p id="mysId01L000544169" style="position: relative; zoom: 1;" class="bS db addIntoMyStylePink offL fr mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
-                    <a id="mysIdh01L000544169" href="@auth.routes.MyFollows.addFollow(style.id,"style")" >
+                <p id="mysId01L000544169" style="position: relative; zoom: 1;">
+                    <a id="mysIdh01L000544169" href="@auth.routes.MyFollows.addFollow(style.id,"style")" class="bS db addIntoMyStylePink offL fr mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
                         @Messages("hair.ToCollect")
                     </a>
                     <a href="" class="btnSaveToMyStyleDone jscRadius3px offL fr mR10">
@@ -42,8 +42,8 @@
             <div class="mT20 pT10 bdDotT" align="center">
 	            <div class="jscHoverTarget">
 	                <div class="jscLayer">
-	                    <p id="mysId01L000544169" style="position: relative; zoom: 1;" class="bS db addIntoMyStylePink offL mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
-	                        <a id="mysIdh01L000544169" href="@auth.routes.MyFollows.addFollow(style.id,"style")" >
+	                    <p id="mysId01L000544169" style="position: relative; zoom: 1;">
+	                        <a id="mysIdh01L000544169" href="@auth.routes.MyFollows.addFollow(style.id,"style")" class="bS db addIntoMyStylePink offL mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
 	                            @Messages("hair.ToCollect")
 	                        </a>
 	                        <a href="" class="btnSaveToMyStyleDone jscRadius3px offL fr mR10">
@@ -64,7 +64,7 @@
                 <div class="cFix mT10">
                     <div class="fl w99">
                         <a href="@routes.Salons.getOneStylist(salon.id, style.stylistId)">
-                            <img src="@*routes.Application.getPhoto(Stylist.findOneById(style.stylistId).get.myPics(0).fileObjId)*@" class="w89">
+                            <img src="@routes.Application.getPhoto(Stylist.findOneByStylistId(style.stylistId).get.myPics(0).fileObjId)" class="w89">
                         </a>
                     </div>
                     <div class="fr w318">
@@ -74,6 +74,7 @@
                 <div class="cFix mT10 pT10 bdDotT">
                     <div class="fl" >
                         <a href="@routes.Salons.getOneStylist(salon.id, style.stylistId)">
+                            @Stylist.findUser(style.stylistId).nickName
                         </a>
                     </div>
                     <div class="fr" >
@@ -115,7 +116,7 @@
                 </dl>
                 <dl class="cFix bdDotT mT5 pT5">
                     <dt class="fl w8em fgPink">
-                        @Messages("hair.serviceItem")
+                        @Messages("hair.serviceType")
                     </dt>
                     <dd class="fl w318">
                         @style.serviceType
@@ -232,13 +233,11 @@
 </div>
 <script language="JavaScript">
 	function changePic(img, imgMain) {
-		alert("haha");
 		alert(document.getElementById(imgMain).innerHTML);
 		alert(document.getElementById(img).innerHTML);
 		//document.getElementById(imgMain).innerHTML = document.getElementById(img).innerHTML;
 		document.getElementById(imgMain).innerHTML = <img src="/getPhoto/B004554657_164-219.jpg">
 		alert(document.getElementById(imgMain).innerHTML);
-		alert("wokao");
 	}
 </script>
 </html>

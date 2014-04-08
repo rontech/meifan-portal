@@ -1,5 +1,4 @@
 @(salon: Salon, couponForm: Form[Coupon], services: List[Service])
-@*@(createCouponForm: Form[CreateCoupon])*@
 
 @mySalonMain(navInSalon = "salon-coupon", salon) {
 	
@@ -9,6 +8,5 @@
 	
     <!-- Get the Salon with all the coupons.  -->
     @views.html.coupon.createCoupon(salon.id, couponForm, services)
-    @*@views.html.coupon.createCoupon(createCouponForm)*@
 
 }
