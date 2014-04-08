@@ -1,8 +1,0 @@
-@(blog : Blog, user : User, commentList : List[Comment], followInfo:FollowInformation, loggedId : ObjectId = new ObjectId, logged : Boolean = false)
-
-@import views.html.user._
-
-	@myPageMain(navInMyPage = "my-blog", user, followInfo, loggedId, logged) {
-		@views.html.blog.admin.blogContent(blog, user, commentList, followInfo, loggedId, logged)
-	}
-

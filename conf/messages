@@ -171,6 +171,18 @@ salon.pic.title=图片标题
 salon.pic.content=图片简介
 salon.pic.foot=图片结尾
 salon.showPic=首页图片描述
+restWay.fixed = 固定休息（如：每周星期三休息）
+restWay.indefinite = 不定休（如：每月第一、三周星期三休息）
+salon.selectRestDays = 请选择固定休息日
+salon.EnterRestDays = 请输入休息规则
+Monday = 星期一
+Tuesday = 星期二
+Wednesday = 星期三
+Thursday = 星期四
+Friday = 星期五
+Saturday = 星期六
+Sunday = 星期日
+
 
 #salon management
 salonAdmin.mainPage = 店铺管理
@@ -384,6 +396,7 @@ stylist.removeSalon = 离开店铺
 stylist.update = 更新
 stylist.stylistId = 用户ID
 stylist.workYears = 工作年数
+stylist.info = 技师专有信息
 
 
 
@@ -407,8 +420,8 @@ stylist.reset = 重置
 
 #Stylist management
 stylistMag.mySalon = 我的店铺
-stylistMag.salonApply = 来自店铺申请
-stylistMag.countSalonApply = 店铺申请
+stylistMag.salonApply = 来自店铺邀请
+stylistMag.countSalonApply = 店铺邀请
 stylistMag.myStyle = 我的作品
 stylistMag.showAllStyles = 显示所有发型
 stylistMag.findRsv = 查看预约
@@ -416,9 +429,16 @@ stylistMag.styleManage = 发型管理
 stylistMag.serviceManage = 服务管理
 stylistMag.salonHistory = 店铺历史
 stylistMag.totalReserv = 显示当天预约
+stylistMag.myAppling = 我的申请
+stylistMag.wantToApply = 我要申请
 stylist.mySalon = 我的店铺
+stylistMag.noSalon = 暂无
+stylistMag.cancelApplying = 取消申请
+stylistMag.futureResv = 近期预约
+stylistMag.lastBlog = 最新博客
 stylist.salon = 所属店铺
 stylist.style = 他的作品
+
 
 
 # User
@@ -480,8 +500,8 @@ user.emailErr=邮箱无效！
 user.userIdNotAvailable=该用户名已被注册 
 user.passwordError=密码不合法！
 user.telError=手机号码无效!
-user.toBePassword= 可输入6~18位,以字母开头，包含字母、数字和下划线!
-user.toBeUserId= 可输入6~16位字。包含数字，英文！
+user.toBeUserId= 可输入6~18位,包含字母、数字和下划线!
+user.toBePassword= 可输入6~16位,包含数字，字母！
 user.nickNameErr=给个昵称吧！
 user.welcome=欢迎您，{0}
 user.guestName=游客
@@ -508,6 +528,9 @@ user.noBlogSearched=没有收藏的博客……
 user.noStyleSearched=没有收藏的发型……
 user.noCouponSearched=没有收藏的优惠券……
 user.applyStylist = 普通会员申请技师
+user.salonBlogTitle = {0} 的最新博客
+user.salonCouponTitle = {0} 的最新优惠劵
+user.salonCouponNoFound = 该店铺还未添加优惠劵！
 
 #Letter
 letter.addressee=收件人
@@ -569,6 +592,7 @@ blog.quoteComment = 引用来自" {0} "的评论
 blog.new = 新博客
 blog.toCollect=收藏此博客
 blog.noCollect = 暂无收藏的博客！
+blog.salonNoBlog= 该店铺还未有博客！
 
 # Comment
 comment.salonCommentTitle = {0} 的评论
@@ -651,4 +675,13 @@ Blow = 吹发
 Wash = 洗发
 Cut = 剪发
 salonAccountId = 店铺账号
+
+#onUsePicture
+onUserPicture.description = 图片描述
+onUsePicture.selectImge = 选择文件
+onUsePicture.uploadImgSize = 建议上传图片尺寸：
+onUsePicture.size = 像素
+onUsePicture.WH = 950x320
+onUsePicture.process = 上传进度：
+onUsePicture.limit = 最多选择5张图片
 

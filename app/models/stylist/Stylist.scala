@@ -247,7 +247,7 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
     }
     
     def countStyleByStylist(stylistId: ObjectId): Long = {
-        Style.count(MongoDBObject("stylistId" -> stylistId))
+        Style.count(MongoDBObject("stylistId" -> stylistId, "isValid" -> true))
     }
     
     def isOwner(stylistId: ObjectId)(user:User) : Future[Boolean] = Future{User.findOneById(stylistId).map(_ == user).get}

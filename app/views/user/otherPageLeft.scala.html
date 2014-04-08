@@ -23,7 +23,7 @@
 			</div>
    			<div class='Opts clearfix'>
                 <a class='a2 admin' id="sendMsg" value="@user.id"><span>@Messages("user.sendMsg")</span></a>
-				<a href="@noAuth.routes.Blogs.showBlog(user.userId)" class='a1 blog'><span>@Messages("user.otherBlog")</span></a>
+				<a href="@noAuth.routes.Blogs.getAllBlogsOfUser(user.userId)" class='a1 blog'><span>@Messages("user.otherBlog")</span></a>
 			</div>
 @if(user.userTyp.equals(User.STYLIST)){
     <!-- 我的沙龙，如果没有则显示来自沙龙的邀请 -->

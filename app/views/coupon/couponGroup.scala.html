@@ -1,4 +1,4 @@
-@(coupons: Seq[Coupon])
+@(coupons: Seq[Coupon], beforeSevernDate: java.util.Date)
 
 <ol>
 @if(coupons.isEmpty) {
@@ -9,7 +9,7 @@
     @for(coupon <- coupons) {
     	@if(coupon.isValid && coupon.endDate.after(new java.util.Date()) && coupon.startDate.before(new java.util.Date())) {
     		<li class="couponItem">
-            	@views.html.coupon.couponItem(coupon)
+            	@views.html.coupon.couponItem(coupon, beforeSevernDate)
         	</li>	
     	}
     }

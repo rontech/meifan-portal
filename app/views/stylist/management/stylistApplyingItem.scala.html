@@ -1,0 +1,18 @@
+@(user: User, followInfo: FollowInformation, loginUserId: ObjectId, logged: Boolean, salon: Salon)
+
+@import views.html.user._
+
+@myPageMain("followedStylist", user, followInfo, loginUserId, logged){
+<strong>@Messages("stylistMag.myAppling")</strong>	
+<div class="fl w349">
+    <div id="jsViewer">
+        <img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"
+        width="349" height="262" style="display: block; opacity: 1;" oncontextmenu="return false;">
+        
+    </div>
+    <p>@salon.salonName</p>
+    <a href="@auth.routes.Stylists.cancelMyApplying">
+    	<p>@Messages("stylistMag.cancelApplying")</p>
+    </a>	
+</div>
+}

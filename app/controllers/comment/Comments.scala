@@ -22,6 +22,35 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
   val formHuifuComment = Form((
     "content" -> text
   ))
+  
+  val commentToCouponForm = Form(tuple(
+      "content" -> text,
+      "complex" -> number, 
+      "atmosphere" -> number,
+      "service" -> number,
+      "skill" -> number, 
+      "price" -> number
+      ))
+  
+//  def commentToCouponForm(id : ObjectId = new ObjectId) = Form(
+//	  mapping(
+//	  "id" -> ignored(id),
+//	  "title" -> nonEmptyText,
+//	  "content" -> nonEmptyText,
+//	  "authorId" -> ignored(userId),
+//	  "blogCategory" -> text,
+//	  "blogPics" -> optional(list(text)), // TODO
+//	  "tags" -> text,
+//	  "isVisible" -> boolean,
+//	  "pushToSalon" -> optional(boolean),
+//	  "allowComment" -> boolean) {
+//	  (id, title, content, authorId, blogCategory, blogPics, tags, isVisible, pushToSalon, allowComment)
+//	    => Blog(id, title, content, authorId, new Date(), new Date(), blogCategory, blogPics, tags.split(",").toList, isVisible, pushToSalon, allowComment, true)
+//	  } 
+//	  {
+//	    blog => Some((blog.id, blog.title, blog.content, blog.authorId, blog.blogCategory, blog.blogPics, listToString(blog.tags), blog.isVisible, blog.pushToSalon, blog.allowComment))
+//	  }
+//	  )
 
   /**
    * 查找数据库中关于该评论的所有数据，包括回复的。
@@ -73,7 +102,30 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
           case (content) =>         
 	        Comment.addComment(user.userId, content, commentObjId, commentObjType)
 	        if (commentObjType == 1) { 
-	          Redirect(noAuth.routes.Blogs.showBlogById(commentObjId))
+	          Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
+	        }
+	        else {
+	          Ok("")
+	        }
+        } 
+      )
+  }
+  
+  /**
+   * 对coupon做评论
+   */
+  def addCommentToCoupon(commentObjId : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    println("commentObjType" + commentObjType)
+      val user = loggedIn 
+      commentToCouponForm.bindFromRequest.fold(
+        //处理错误
+        errors => BadRequest(views.html.comment.errorMsg1(commentToCouponForm)),
+        {
+          case (content, complex, atmosphere, service, skill, price) =>         
+	        Comment.addCommentToCoupon(user.userId, content, commentObjId, commentObjType, complex, atmosphere, service, skill, price)
+	        println(commentObjType)
+	        if (commentObjType == 2) { 
+	          Ok("成功插入到数据库中了啦，哈哈！")
 	        }
 	        else {
 	          Ok("")
@@ -110,7 +162,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
         {
           case (content) =>
 	        Comment.reply(user.userId, content, commentObjId, commentObjType) 
-	        Redirect(noAuth.routes.Blogs.showBlogById(id))	
+	        Redirect(noAuth.routes.Blogs.getOneBlogById(id))	
         } 
       )
   }
@@ -118,6 +170,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
    /**
    * 店铺回复消费者的评论，后台逻辑
    */
+  // 这边的权限有点问题啊，应该需要的是店铺登陆的权限
   def replyAdmin(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
 //      val userId = request.session.get("userId").get
       // TODO
@@ -139,7 +192,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
   def delete(id : ObjectId, commentObjId : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     Comment.delete(id)
 //    Redirect(routes.Comments.find(commentedId))
-    Redirect(noAuth.routes.Blogs.showBlogById(commentObjId))
+    Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
   }
   
   /**

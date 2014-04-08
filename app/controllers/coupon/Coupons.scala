@@ -7,6 +7,7 @@ import play.api.data.Forms._
 import com.mongodb.casbah.commons.Imports._
 
 import java.util.Date
+import java.util.Calendar
 import models._
 import views._
 import play.api.i18n.Messages
@@ -81,7 +82,13 @@ object Coupons extends Controller {
   
   def index = Action {
     val coupons:List[Coupon] = Coupon.findAll().toList
-    Ok(views.html.coupon.couponOverview(coupons))
+    
+    // 获取当前时间的前7天的日期，用于判断是否为新券还是旧券
+    var beforeSevernDate = Calendar.getInstance()
+    beforeSevernDate.setTime(new Date())
+    beforeSevernDate.add(Calendar.DAY_OF_YEAR, -7)
+    
+    Ok(views.html.coupon.couponOverview(coupons, beforeSevernDate.getTime()))
   }
   
   /**
@@ -138,8 +145,7 @@ object Coupons extends Controller {
      */
     def showCoupons(salonId: ObjectId) = Action {
       val salon: Option[Salon] = Salon.findOneById(salonId)
-      val coupons: List[Coupon] = Coupon.findBySalon(salonId)
-      
+      val coupons: List[Coupon] = Coupon.findBySalon(salonId)      
       salon match {
         case Some(s) => Ok(html.coupon.showCouponGroup(s, coupons))
         case None => NotFound
@@ -209,8 +215,7 @@ object Coupons extends Controller {
    * 进入修改优惠劵画面
    */
   def editCouponInfo(couponId: ObjectId) = Action {
-    val coupon = Coupon.findOneById(couponId)
-    
+    val coupon = Coupon.findOneById(couponId)   
     coupon match {
       case Some(s) => val salon = Salon.findOneById(s.salonId)
                       salon match {
