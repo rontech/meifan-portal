@@ -183,10 +183,10 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
                  blogList = Blog.getBlogByUserId(user.userId)
      	       else
      	         blogList = Blog.getOtherBlogByUserId(user.userId) 
-               Ok(views.html.blog.admin.blogDetailOfUser(blogList, blog, user, commentList, followInfo, loginUser.id, true))
+               Ok(views.html.blog.admin.blogDetailOfUser(blog, user, commentList, followInfo, loginUser.id, true, blogList))
              }getOrElse{
                blogList = Blog.getOtherBlogByUserId(user.userId)
-    		   Ok(views.html.blog.admin.blogDetailOfUser(blogList, blog, user, commentList, followInfo))
+    		   Ok(views.html.blog.admin.blogDetailOfUser(blog, user, commentList, followInfo, blogList = blogList))
              }
        }
        case None => NotFound
