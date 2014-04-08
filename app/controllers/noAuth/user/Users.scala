@@ -100,7 +100,7 @@ object Users extends Controller with OptionalAuthElement with AuthConfigImpl{
     }*/
       User.findOneByUserId(userId).map{ user =>
         if((user.userTyp.toUpperCase()).equals("NORMALUSER")) {
-          Redirect(controllers.noAuth.routes.Blogs.showBlog(userId))
+          Redirect(controllers.noAuth.routes.Blogs.getAllBlogsOfUser(userId))
         } else {
           Redirect(controllers.noAuth.routes.Stylists.otherHomePage(user.id))
         }

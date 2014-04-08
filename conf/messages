@@ -660,3 +660,12 @@ Wash = 洗发
 Cut = 剪发
 salonAccountId = 店铺账号
 
+#onUsePicture
+onUserPicture.description = 图片描述
+onUsePicture.selectImge = 选择文件
+onUsePicture.uploadImgSize = 建议上传图片尺寸：
+onUsePicture.size = 像素
+onUsePicture.WH = 950x320
+onUsePicture.process = 上传进度：
+onUsePicture.limit = 最多选择5张图片
+

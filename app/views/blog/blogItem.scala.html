@@ -18,7 +18,7 @@
 					@if(salon != null){
 					    <a href="@noAuth.routes.Blogs.getAuthorOfSalonBlog(salon.id, blog.authorId)">
 					}else{
-					    <a href="@noAuth.routes.Blogs.showBlog(blog.authorId)">
+					    <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(blog.authorId)">
 					}
                                         @User.findOneByUserId(blog.authorId).get.nickName</a>
 					
@@ -33,7 +33,7 @@
 					<a href="@noAuth.routes.Blogs.getOneBlogOfSalon(salon.id, blog.id)">@blog.title</a>
 					<span class="iS upLately offL dib vaM">UP</span>
 				}else{
-					<a href="@noAuth.routes.Blogs.showBlogById(blog.id)">@blog.title</a>
+					<a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)">@blog.title</a>
 				}
 				</div>
 			</div>

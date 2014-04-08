@@ -278,9 +278,9 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
      *  ajax fileupload 输出图片id到页面对应区域
      */
     def fileUploadAction = Action(parse.multipartFormData) { implicit request =>
-    request.body.file("photo") match {
+    request.body.file("Filedata") match {
             case Some(photo) =>{
-                val db = MongoConnection()("Picture")
+            	val db = MongoConnection()("Picture")
                 val gridFs = GridFS(db)
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull
