@@ -17,14 +17,6 @@ object SalonsAdmin extends Controller {
   //val nav0 = (Messages("index.mainPage"), routes.Application.index.toString())
   //val navBarList = nav0 :: Nil
 
-  def mySalon(salonId: ObjectId) = Action {
-    //val nav = (Messages("salonAdmin.mainPage"), routes.SalonsAdmin.mySalon(salonId))
-    //navBarList ::= nav
-
-    val salon: Salon = Salon.findById(salonId).get
-    Ok(views.html.salon.admin.mySalonHome(salon = salon))
-  }
-  
   def myStylist(salonId: ObjectId) = Action {
 	val stylist = Stylist.findBySalon(salonId)
 	val salon = Salon.findById(salonId)

@@ -13,7 +13,7 @@
         <tbody>
             <tr>
                 <th class="w120"> @Messages("salon.mainPhone") </th>
-                <td colspan="3" class="w620"> <a href="#"/> @salon.mainPhone </a> </td>
+                <td colspan="3" class="w620"> <a href="#"> @salon.mainPhone </a> </td>
 
             </tr>
             <tr>
@@ -36,9 +36,7 @@
             <tr>
                 <th class="w120"> @Messages("salon.restDay") </th>
                 <td colspan="3" class="w620">
-                    @for(i <- 0 to salon.restDays(0).restDay.size - 1){
-                        @Messages("restDay.restDay.1." + salon.restDays(0).restDay(i))					
-                    } 
+                    @salon.restDays.restDay.map(restDay => Messages(restDay))
                 </td>
             </tr>
             <tr>

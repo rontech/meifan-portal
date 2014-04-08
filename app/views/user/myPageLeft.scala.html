@@ -28,8 +28,14 @@
                 <div class='Mod Users' id='Fans'>
                 @if(SalonAndStylist.findByStylistId(user.id).isEmpty){
                     <a href="@auth.routes.Stylists.findSalonApply(user.id)">
+                    
                         <strong>@Messages("stylistMag.salonApply")</strong>
                         <div class='more'>
+                        @if(SalonStylistApplyRecord.checkStylistApply(user.id)){
+                    		<a href="@auth.routes.Stylists.findStylistApplying(user.id)">@Messages("stylistMag.myAppling")</a>&nbsp;
+                    	}else{
+                    		<a href="@auth.routes.Stylists.wantToApply(user.id)">@Messages("stylistMag.wantToApply")</a>&nbsp;
+                    	}
                             <a href="@auth.routes.Stylists.findSalonApply(user.id)">@Messages("stylistMag.countSalonApply")
                                 (@SalonStylistApplyRecord.applingSalonCount(user.id))
                             </a>

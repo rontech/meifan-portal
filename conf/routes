@@ -175,7 +175,6 @@ POST        /modBlog/:blogId                                 controllers.auth.Bl
 # pages which can only be seen by logined salon.
 #-------------------------------------------------
 #Salon Management
-GET         /mySalon/:id                                               controllers.SalonsAdmin.mySalon(id: ObjectId)
 GET         /mySalon/:id/stylist                                       controllers.SalonsAdmin.myStylist(id: ObjectId)
 GET         /mySalon/:id/reserv                                        controllers.SalonsAdmin.myReserv(id: ObjectId)
 GET         /mySalon/:id/comment                                       controllers.SalonsAdmin.myComment(id: ObjectId)
@@ -274,8 +273,8 @@ GET         /mySalon/:id/createService                                 controlle
 #add by pingdou (styles of stylist)
 GET		/userPage/styles/:stylistId					         controllers.noAuth.Stylists.findStylesByStylist(stylistId: ObjectId)
 POST	/findStylesBySerach/:stylistId				         controllers.noAuth.Stylists.findStylesBySerach(stylistId: ObjectId)
-GET		/goStylistHomePage/:stylistId						 controllers.noAuth.Stylists.goStylistHomePage(stylistId: ObjectId)	
-
+GET		/otherHomePage/:userId 								 controllers.noAuth.Stylists.otherHomePage(userId: ObjectId)	
+GET		/checkSalonIsexitBySalonAccountId/:salonAccountId	 controllers.noAuth.Stylists.checkSalonIsexitBySalonAccountId(salonAccountId: String)
 
 GET     /styleUpdateByStylist/:styleId                       controllers.auth.Stylists.styleUpdateByStylist(styleId: ObjectId)
 POST    /styleUpdateNewByStylist/                            controllers.auth.Stylists.styleUpdateNewByStylist
@@ -283,6 +282,12 @@ GET     /styleToInvalidByStylist/:styleId                    controllers.auth.St
 GET     /styleAddByStylist/                                  controllers.auth.Stylists.styleAddByStylist
 POST    /newStyleAddByStylist/                               controllers.auth.Stylists.newStyleAddByStylist
 POST	/fileUploadAction									 controllers.auth.Stylists.fileUploadAction
+GET		/myHomePage											 controllers.auth.Stylists.myHomePage
+GET		/findStylistApplying/:stylistId						 controllers.auth.Stylists.findStylistApplying(stylistId: ObjectId)
+GET		/wantToApply/:stylistId								 controllers.auth.Stylists.wantToApply(stylistId: ObjectId)
+GET		/cancelMyApplying									 controllers.auth.Stylists.cancelMyApplying
+GET		/toApplySalon/:salonId								 controllers.auth.Stylists.toApplySalon(salonId: ObjectId)
+GET		/findSalonBySalonAccountId							 controllers.auth.Stylists.findSalonBySalonAccountId
 				
 
 #add by hui-fan (styles of salon)
