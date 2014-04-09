@@ -204,9 +204,9 @@ object Styles extends Controller {
         Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleAndSalons, Style.findParaAll))
     }
 
-    def findByImpression(styleImpression: String) = Action {
-        val styleSearchInfo = Style.findByImpression(styleImpression)
-        var styleSearchByLength: Style = Style(new ObjectId, "", new ObjectId, Nil, styleImpression, Nil, "", Nil, Nil, Nil, Nil, Nil, "", Nil, "", Nil, new Date, true)
+    def findByImpression(styleImpression: String, consumerSex: String) = Action {
+        val styleSearchInfo = Style.findByImpression(styleImpression, consumerSex)
+        var styleSearchByImpression: Style = Style(new ObjectId, "", new ObjectId, Nil, styleImpression, Nil, "", Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
         var styleAndSalons: List[StyleAndSalon] = Nil
         styleSearchInfo.map { styleInfo =>
             val salonOne = Style.findSalonByStyle(styleInfo.stylistId)
@@ -218,7 +218,7 @@ object Styles extends Controller {
                 case None => null
             }
         }
-        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleAndSalons, Style.findParaAll))
+        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByImpression), styleAndSalons, Style.findParaAll))
     }
 
     def styleSearchList = Action {

@@ -101,8 +101,8 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         dao.find(MongoDBObject("styleLength" -> styleLength, "consumerSex" -> consumerSex, "isValid" -> true)).toList
     }
 
-    def findByImpression(styleImpression: String): List[Style] = {
-        dao.find(MongoDBObject("styleImpression" -> styleImpression, "isValid" -> true)).toList
+    def findByImpression(styleImpression: String, consumerSex: String): List[Style] = {
+        dao.find(MongoDBObject("styleImpression" -> styleImpression, "consumerSex" -> consumerSex, "isValid" -> true)).toList
     }
 
     def findByPara(style: models.Style): List[Style] = {
