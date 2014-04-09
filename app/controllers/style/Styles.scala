@@ -9,8 +9,9 @@ import com.mongodb.casbah.commons.Imports._
 import models._
 import views._
 import java.util.Date
+import jp.t2v.lab.play2.auth._
 
-object Styles extends Controller {
+object Styles extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
     /**
      * 定义一个发型查询数据表单
@@ -124,7 +125,8 @@ object Styles extends Controller {
     /**
      * 前台店铺发型展示区域及发型详细信息
      */
-    def findBySalon(salonId: ObjectId) = Action {
+    def findBySalon(salonId: ObjectId) = StackAction { implicit request =>
+        val user = loggedIn
         val salon: Option[Salon] = Salon.findOneById(salonId)
         val stylists = Style.findStylistBySalonId(salonId)
         var styles: List[Style] = Nil
@@ -134,13 +136,14 @@ object Styles extends Controller {
         }
         salon match {
             case Some(salon) => {
-                Ok(html.salon.store.salonInfoStyleAll(salon = salon, styles = styles))
+                Ok(html.salon.store.salonInfoStyleAll(salon = salon, styles = styles, user = user))
             }
             case None => NotFound
         }
     }
 
-    def findBySalonAndSex(salonId: ObjectId, sex: String) = Action {
+    def findBySalonAndSex(salonId: ObjectId, sex: String) = StackAction { implicit request =>
+        val user = loggedIn
         val salon: Option[Salon] = Salon.findOneById(salonId)
         val stylists = Style.findStylistBySalonId(salonId)
         var styles: List[Style] = Nil
@@ -150,21 +153,22 @@ object Styles extends Controller {
         }
         salon match {
             case Some(salon) => {
-                Ok(html.salon.store.salonInfoStyleAll(salon = salon, styles = styles, sex = sex))
+                Ok(html.salon.store.salonInfoStyleAll(salon = salon, styles = styles, sex = sex, user = user))
             }
             case None => NotFound
         }
     }
     
     
-    def getStyleInfoOfSalon(salonId: ObjectId, styleId: ObjectId) = Action {
+    def getStyleInfoOfSalon(salonId: ObjectId, styleId: ObjectId) = StackAction { implicit request =>
+        val user = loggedIn
         val salon: Option[Salon] = Salon.findOneById(salonId)
         val style: Option[Style] = Style.findOneById(styleId)
         salon match {
             case Some(salon) => {
                 style match {
                     case Some(style) => {
-                        Ok(html.salon.store.salonInfoStyle(salon = salon, style = style))
+                        Ok(html.salon.store.salonInfoStyle(salon = salon, style = style, user= user))
                     }
                     case None => NotFound
                 }

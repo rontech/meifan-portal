@@ -7,9 +7,9 @@ import jp.t2v.lab.play2.auth._
 import jp.t2v.lab.play2.stackc._
 import scala.concurrent._
 import ExecutionContext.Implicits.global
-import controllers.AuthConfigImpl
+import controllers._
 
-object MyFollows extends Controller with OptionalAuthElement with AuthConfigImpl {
+object MyFollows extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
     /**
      * 列表显示关注的沙龙
