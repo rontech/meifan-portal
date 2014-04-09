@@ -117,6 +117,8 @@ object SalonsAdmin extends Controller {
             SalonStylistApplyRecord.save(re.copy(id=re.id, applyDate = new Date, verifiedResult = 1))
             val stylist = Stylist.findOneByStylistId(re.stylistId)
             Stylist.becomeStylist(stylistId)
+            val user = User.findOneById(stylistId).get
+            User.save(user.copy(id=stylistId,userTyp="stylist"))
             SalonAndStylist.entrySalon(salonId, stylistId)
             Redirect(routes.SalonsAdmin.myStylist(salonId))
           }
@@ -235,6 +237,8 @@ object SalonsAdmin extends Controller {
                         val salon = Salon.findById(new ObjectId("530d7288d7f2861457771bdd"))
                         val stylists = Style.findStylistBySalonId(salon.get.id)
                         val styles = Style.findStylesBySalonBack(styleSearch,salon.get.id)
+                        println("----------------"+styleSearch)
+                        println("--------------styleSearch--"+styleSearch)
                         Ok(html.salon.admin.mySalonStyles(salon = salon.get , styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = false, stylists = stylists))
                     }
                 })

@@ -3427,3 +3427,7 @@ a:hover .imgFrame {
 	width:80px;
 	height:110px;
 }
+
+.inputHidden {
+    display: none;
+}

@@ -11,7 +11,7 @@
     			<div class="clear"></div>
 				<div class ="sta">
 					<a href="@noAuth.routes.MyFollows.followers(user.id)"><font color="gray">@Messages("user.myFollowers")<span>(@followInfo.follower.length)</span></font></a>
-					<a href="@routes.UserLetters.messageList("unRead")"><font color="gray">@Messages("user.myMessages")<span>(@UserMessage.countByCondition("unRead",user.userId))</span></font></a>
+					<a href="@auth.routes.UserLetters.messageList("unRead")"><font color="gray">@Messages("user.myMessages")<span>(@UserMessage.countByCondition("unRead",user.userId))</span></font></a>
 				</div>
 			</div>
 			<div class='RMod' id='UserSkills'>

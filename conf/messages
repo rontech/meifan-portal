@@ -587,6 +587,11 @@ comment.usedServices = [用到的技术]
 comment.reply = {0}的回复
 comment.new = 新评论
 comment.complain = 我要申诉
+comment.complex = 综合
+comment.atmosphere = 氛围
+comment.service = 服务
+comment.skill =  技术
+comment.price = 价格
 
 
 # Point
@@ -659,6 +664,75 @@ Blow = 吹发
 Wash = 洗发
 Cut = 剪发
 salonAccountId = 店铺账号
+
+#StyleImpression
+style.styleImpression.natural = 自然
+style.styleImpression.intellectual = 知性
+style.styleImpression.sweet = 甜美
+style.styleImpression.fashion = 时尚
+style.styleImpression.fresh = 清新
+style.styleImpression.gorgeous = 华丽
+style.styleImpression.personality = 个性 
+
+#StyleLength
+style.styleLength.super-short = 超短
+style.styleLength.short = 短
+style.styleLength.near-shoulder-length = 及肩
+style.styleLength.shoulder-length = 齐肩
+style.styleLength.mid-length = 中长
+style.styleLength.long = 长
+
+#StyleAmount
+style.styleAmount.much = 多
+style.styleAmount.moderate = 适中
+style.styleAmount.few = 少
+
+#StyleQuality
+style.styleQuality.silky = 柔顺
+style.styleQuality.greasy = 油性
+style.styleQuality.dry = 干性
+style.styleQuality.general = 一般
+
+#StyleDiameter
+style.styleDiameter.bold = 偏粗
+style.styleDiameter.moderate = 适中
+style.styleDiameter.thin = 偏细
+
+#FaceShape
+style.faceShape.oval-face = 椭圆脸
+style.faceShape.round-face = 圆脸
+style.faceShape.long-face = 长脸
+style.faceShape.square-face = 方脸
+style.faceShape.pointed-face = 尖脸
+style.faceShape.diamond-face = 菱形
+
+#StyleColor
+style.styleColor.black = 黑色
+style.styleColor.chocolate = 巧克力色
+style.styleColor.brown = 棕色
+style.styleColor.flax = 亚麻
+style.styleColor.red = 红色
+style.styleColor.alternative = 另类
+
+#AgeGroup
+style.ageGroup.one--fifteen = 1—15
+style.ageGroup.one--twenty-five = 15—25
+style.ageGroup.twenty-five--thirty-five = 25—35
+style.ageGroup.thirty-five--forty-five = 35—45
+style.ageGroup.forty-five--fifty-five = 45—55
+style.ageGroup.fifty-five-- = 55以上
+
+#Sex
+style.sex.male = 男
+style.sex.female = 女
+
+#SocialStatus
+style.socialStatus.evening-wear = 晚装
+style.socialStatus.brief = 简约
+style.socialStatus.star = 明星
+style.socialStatus.street = 街拍
+style.socialStatus.T-stage = T台
+style.socialStatus.others = 其它
 
 #onUsePicture
 onUserPicture.description = 图片描述
