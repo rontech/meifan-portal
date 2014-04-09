@@ -1,17 +1,14 @@
 package controllers
 
 import jp.t2v.lab.play2.auth._
-import scala.concurrent._
 import reflect.{ClassTag, classTag}
 import play.api.mvc._
 import play.api.mvc.Results._
 import scala.concurrent.{ExecutionContext, Future}
-import ExecutionContext.Implicits.global
-import se.radley.plugin.salat.Binders._
 import models._
 
 
-trait AuthConfigImpl extends AuthConfig {
+trait UserAuthConfigImpl extends AuthConfig {
 
   type Id = String
 

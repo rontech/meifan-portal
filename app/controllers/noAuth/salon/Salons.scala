@@ -1,15 +1,17 @@
-package controllers
-
+package controllers.noAuth.salon
 
 import play.api.mvc._
 import play.api.i18n.Messages
 import com.mongodb.casbah.commons.Imports._
 import models._
 import jp.t2v.lab.play2.auth._
-import scala.concurrent.ExecutionContext.Implicits.global
 
 import java.util.Date
 import java.util.Calendar
+import controllers.{Coupons, routes, SalonNavigation}
+import scala.Some
+import models.CouponServiceType
+import models.ServiceByType
 
 object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
 
