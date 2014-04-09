@@ -5,7 +5,7 @@
 
 <div class="mT10 pr" id="couponList">
 <p class="narrowDownPanelArrow">◆</p>
-@form(routes.Salons.getCouponsByCondition(salon.id), 'id -> "salonCouponConditionForm", 'name -> "bt_salonCouponActionForm") {
+@form(noAuth.routes.Salons.getCouponsByCondition(salon.id), 'id -> "salonCouponConditionForm", 'name -> "bt_salonCouponActionForm") {
 	<div style="display:none;">
 		<input type="hidden" name="org.apache.struts.taglib.html.TOKEN" value="25a60a6adbc21e6f516eaa08c0cf87a6">
 	</div>
@@ -19,16 +19,11 @@
 						@input(field = condtionForm("serviceTypes"), args = '_label ->None){(id,name,value,args) =>
 					 	@for(serviceType <- serviceTypes) {
 					 		<li class="fl w112">
-					 			@if(condtionForm != None) {
-					 				@if(condtionForm.get.serviceTypes.contains(serviceType)) {
-						 			<input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF" checked ="checked">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
-							 		} else {
-							 			<input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
-							 		}
-					 			} else {
-					 				<input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
-					 			}
-						 		
+				 				@if(condtionForm.get.serviceTypes.contains(serviceType)) {
+					 			<input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF" checked ="checked">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
+						 		} else {
+						 			<input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
+						 		}
 					 		</li>
 					 	}
 					  }

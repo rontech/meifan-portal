@@ -19,7 +19,7 @@ import controllers._
 import models._
 
 
-object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
+object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
   // Will set timezone according to locale the user selected later if 
   //     we need to make our site as an international size which can 
@@ -37,8 +37,9 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
    * 取得店铺指定理发师的blogs
    * Get all the blogs of a required stylist salon.
    */    
-  def getAllBlogsOfStylist(salonId: ObjectId, stylistId: ObjectId) = Action {
-      val salon: Option[Salon] = Salon.findById(salonId)
+  def getAllBlogsOfStylist(salonId: ObjectId, stylistId: ObjectId) = StackAction { implicit request =>
+      val user = loggedIn
+      val salon: Option[Salon] = Salon.findOneById(salonId)
       salon match {
           case None => NotFound
           case Some(sl) => {
@@ -51,7 +52,7 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
                       // navigation bar
                       val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.blogs"), controllers.noAuth.Blogs.getAllBlogsOfSalon(sl.id).toString()))
                       // Jump to blogs page in salon. 
-                      Ok(views.html.salon.store.salonInfoBlogAll(salon = sl, blogs = blogList, listYM = listYM, navBar = navBar))
+                      Ok(views.html.salon.store.salonInfoBlogAll(salon = sl, blogs = blogList, listYM = listYM, navBar = navBar, user= user))
                   }
               }
           }
@@ -62,14 +63,15 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
    * 取得店铺指定年月的所有博客
    * Get all the blogs of the required month of a salon.
    */    
-  def getAllBlogsOfSalonByMonth(salonId: ObjectId, yyyymm: String) = Action {
-     val salon: Option[Salon] = Salon.findById(salonId)
+  def getAllBlogsOfSalonByMonth(salonId: ObjectId, yyyymm: String) = StackAction { implicit request =>
+     val user = loggedIn
+     val salon: Option[Salon] = Salon.findOneById(salonId)
      var blogList = getBlogBySalonAndYM(salonId, yyyymm)
      val listYM = getYMCatesOfSalon(salon.get)
      // navigation bar
      val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.blogs"), controllers.noAuth.Blogs.getAllBlogsOfSalon(salon.get.id).toString()))
      // Jump to blogs page in salon. 
-     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogList, listYM = listYM, navBar = navBar))
+     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogList, listYM = listYM, navBar = navBar, user=user))
   }  
 
      
@@ -77,8 +79,9 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
      * 店铺的单篇博客显示画面:
      * 除了本篇博客内容外，还需要显示：最新博客列表，按店铺技师分类，按日期分类等数据...
      */
-    def getOneBlogOfSalon(salonId: ObjectId, blogId: ObjectId) = Action {
-        val salon: Option[Salon] = Salon.findById(salonId)
+    def getOneBlogOfSalon(salonId: ObjectId, blogId: ObjectId) = StackAction { implicit request =>
+        val loginUser = loggedIn
+        val salon: Option[Salon] = Salon.findOneById(salonId)
         // Check If the salon is exist or active.
         salon match {
             case None => NotFound
@@ -99,7 +102,7 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
                                 List((Messages("salon.blogs"), controllers.noAuth.Blogs.getAllBlogsOfSalon(salon.get.id).toString()))
                         // Jump to blogs page in salon. 
                         Ok(views.html.salon.store.salonInfoBlog(salon = sl, blog = blg, listYM = listYM,
-                            newestBlogsOfSalon = newest, stylist = stylist.get, navBar = navBar))
+                            newestBlogsOfSalon = newest, stylist = stylist.get, navBar = navBar, user = loginUser))
                     }
                 }
             }
@@ -118,7 +121,7 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
               st.workInfo match {
                   case None => NotFound
                   case Some(wk) => {
-                      if (wk.salonId == salonId) Redirect(controllers.routes.Salons.getOneStylist(salonId, wk.stylistId)) 
+                      if (wk.salonId == salonId) Redirect(controllers.noAuth.routes.Salons.getOneStylist(salonId, wk.stylistId))
                       else NotFound
                   }
               }
@@ -129,35 +132,36 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
    /**
     * 取得店铺所有的blog
     */
-   def getAllBlogsOfSalon(salonId: ObjectId) = Action {
-     val salon: Option[Salon] = Salon.findById(salonId)
-     val blogs: List[Blog] = Blog.findBySalon(salonId)
-     val listYM = getYMCatesOfSalon(salon.get)
-     // navigation bar
-     val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.blogs"), ""))
-     // Jump to blogs page in salon. 
-     // TODO: process the salon not exist pattern.
-     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogs, listYM = listYM, navBar = navBar))
+   def getAllBlogsOfSalon(salonId: ObjectId) = StackAction { implicit request =>
+      val user = loggedIn
+      val salon: Option[Salon] = Salon.findOneById(salonId)
+      val blogs: List[Blog] = Blog.findBySalon(salonId)
+      val listYM = getYMCatesOfSalon(salon.get)
+      // navigation bar
+      val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.blogs"), ""))
+      // Jump to blogs page in salon.
+      // TODO: process the salon not exist pattern.
+      Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogs, listYM = listYM, navBar = navBar,user =user))
    }
    
    /**
     * 查看用户的blog
     */
-   def showBlog(userId : String) = StackAction { implicit request =>
+   def getAllBlogsOfUser(userId : String) = StackAction { implicit request =>
      var blogList : List[Blog] = Nil
      val user: Option[User] = User.findOneByUserId(userId)
      user match {
        case Some(user) => {
          val followInfo = MyFollow.getAllFollowInfo(user.id)
-         loggedIn.map{ LoggedUser => 
-           if(LoggedUser.id.equals(user.id))
-         	blogList = Blog.getBlogByUserId(userId)
-     	  else
-     	    blogList = Blog.getOtherBlogByUserId(userId)    	    
-           Ok(views.html.blog.admin.findBlogs(user, blogList, followInfo, LoggedUser.id, true))
+         loggedIn.map{ loginUser => 
+           if(loginUser.id.equals(user.id))
+         	 blogList = Blog.getBlogByUserId(userId)
+     	   else
+     	     blogList = Blog.getOtherBlogByUserId(userId)    	    
+           Ok(views.html.blog.admin.searchBlogsOfUser(user, blogList, followInfo, loginUser.id, loginUser.id.equals(user.id)))
          }getOrElse{
            blogList = Blog.getOtherBlogByUserId(userId)
-     	  Ok(views.html.blog.admin.findBlogs(user, blogList, followInfo))
+     	  Ok(views.html.blog.admin.searchBlogsOfUser(user, blogList, followInfo))
          }
        }
        case None => NotFound
@@ -169,19 +173,25 @@ object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
     * 显示某一条blog
     * 通过blog的id找到blog
     */
-   def showBlogById(blogId: ObjectId) = StackAction { implicit request =>
+   def getOneBlogById(blogId: ObjectId) = StackAction { implicit request =>
      val blog = Blog.findOneById(blogId)
+     var blogList : List[Blog] = Nil
      blog match {
        case Some(blog) => {
      	val user = User.findOneByUserId(blog.authorId).get
              Comment.list = Nil
-             val commentList = Comment.all(blogId)
+             val commentList = Comment.all(blogId).sortBy(blog => blog.createTime)
              val followInfo = MyFollow.getAllFollowInfo(user.id)
-             loggedIn.map{ LoggedUser => 
-               Ok(views.html.blog.admin.blogDetail(blog, user, commentList, followInfo, LoggedUser.id, true))
+             loggedIn.map{ loginUser => 
+               if(loginUser.id.equals(user.id))
+                 blogList = Blog.getBlogByUserId(user.userId)
+     	       else
+     	         blogList = Blog.getOtherBlogByUserId(user.userId) 
+               Ok(views.html.blog.admin.blogDetailOfUser(blog, user, commentList, followInfo, loginUser.id, true, blogList))
              }getOrElse{
-     	  Ok(views.html.blog.admin.blogDetail(blog, user, commentList, followInfo))
-         }
+               blogList = Blog.getOtherBlogByUserId(user.userId)
+    		   Ok(views.html.blog.admin.blogDetailOfUser(blog, user, commentList, followInfo, blogList = blogList))
+             }
        }
        case None => NotFound
      } 

@@ -21,17 +21,17 @@ GET         /FollowTypes/main                                          controlle
 # Pages Which can be seen by anonymous.
 #-------------------------------------------------
 # Salon
-GET         /salon                                                     controllers.Salons.index
-GET         /salon/:id                                                 controllers.Salons.getSalon(id: ObjectId)
+GET         /salon                                                     controllers.noAuth.Salons.index
+GET         /salon/:id                                                 controllers.noAuth.Salons.getSalon(id: ObjectId)
 # Salon.style
-GET         /salon/:slnId/style/:styId                                 controllers.Salons.getOneStyle(slnId: ObjectId, styId: ObjectId)
-GET         /salon/:salonId/styles                                     controllers.Salons.getAllStyles(salonId: ObjectId)
+GET         /salon/:slnId/style/:styId                                 controllers.noAuth.Salons.getOneStyle(slnId: ObjectId, styId: ObjectId)
+GET         /salon/:salonId/styles                                     controllers.noAuth.Salons.getAllStyles(salonId: ObjectId)
 # Salon.stylist
-GET         /salon/:slnId/stylist/:stlId                               controllers.Salons.getOneStylist(slnId: ObjectId, stlId: ObjectId)
-GET         /salon/:salonId/stylists                                   controllers.Salons.getAllStylists(salonId: ObjectId)
+GET         /salon/:slnId/stylist/:stlId                               controllers.noAuth.Salons.getOneStylist(slnId: ObjectId, stlId: ObjectId)
+GET         /salon/:salonId/stylists                                   controllers.noAuth.Salons.getAllStylists(salonId: ObjectId)
 # Salon.coupon
-GET         /salon/:salonId/coupons                                    controllers.Salons.getAllCoupons(salonId: ObjectId)
-POST        /salon/:salonId/coupons/condition                          controllers.Salons.getCouponsByCondition(salonId: ObjectId)
+GET         /salon/:salonId/coupons                                    controllers.noAuth.Salons.getAllCoupons(salonId: ObjectId)
+POST        /salon/:salonId/coupons/condition                          controllers.noAuth.Salons.getCouponsByCondition(salonId: ObjectId)
 # Salon.comment
 GET         /salon/:salonId/comments                                   controllers.Comments.findBySalon(salonId: ObjectId)
 # Salon.blog
@@ -66,7 +66,7 @@ GET         /style                                                     controlle
 GET         /style/:id                                                 controllers.Styles.findById(id: ObjectId)
 POST        /styleSearchList                                           controllers.Styles.styleSearchList
 GET         /findByLength/:styleLength/:consumerSex                    controllers.Styles.findByLength(styleLength: String, consumerSex: String)
-GET         /findByImpression/:styleImpression                         controllers.Styles.findByImpression(styleImpression: String)
+GET         /findByImpression/:styleImpression/:consumerSex            controllers.Styles.findByImpression(styleImpression: String, consumerSex: String)
 GET         /style/:salonId/:sex                                       controllers.Styles.findBySalonAndSex(salonId: ObjectId, sex: String)
 
 
@@ -113,11 +113,11 @@ GET         /userPage/followedSalon                                    controlle
 GET         /userPage/followedStylist                                  controllers.noAuth.MyFollows.followedStylist(id: ObjectId)
 GET         /userPage/followedUser                                     controllers.noAuth.MyFollows.followedUser(id:ObjectId)
 GET         /userPage/followers                                        controllers.noAuth.MyFollows.followers(id:ObjectId)
-GET         /myPage/messages/:req                                      controllers.UserLetters.messageList(req:String)
-GET         /myPage/message/:id                                        controllers.UserLetters.showMessage(id:ObjectId)
-GET         /sendMessage                                               controllers.UserLetters.sendMessage
-GET         /sendLetterPage/:id                                        controllers.UserLetters.sendLetterPage(id)
-POST        /sendLetter                                                controllers.UserLetters.sendLetter
+GET         /myPage/messages/:req                                      controllers.auth.UserLetters.messageList(req:String)
+GET         /myPage/message/:id                                        controllers.auth.UserLetters.showMessage(id:ObjectId)
+GET         /sendMessage                                               controllers.auth.UserLetters.sendMessage
+GET         /sendLetterPage/:id                                        controllers.auth.UserLetters.sendLetterPage(id)
+POST        /sendLetter                                                controllers.auth.UserLetters.sendLetter
 
 
 
@@ -144,7 +144,8 @@ GET        /reply/:commentObjId/:id/:commentObjType          controllers.Comment
 GET         /delete/:id/:commentObjId                        controllers.Comments.delete(id : ObjectId, commentObjId : ObjectId)
 GET         /complaint/:cmId                                 controllers.Comments.complaint(cmId : ObjectId)
 GET        /addComment/:commentObjId/:commentObjType         controllers.Comments.addComment(commentObjId : ObjectId, commentObjType : Int)
-
+GET       /addCommentToCoupon/:commentObjId/:commentObjType           controllers.Comments.addCommentToCoupon(commentObjId : ObjectId, commentObjType : Int)
+ 
 
 
 
@@ -157,8 +158,8 @@ GET        /addComment/:commentObjId/:commentObjType         controllers.Comment
 # add Blog
 GET         /newBlog/:userId                                 controllers.auth.Blogs.newBlog(userId : String)
 GET         /deleteBlog/:blogId                              controllers.auth.Blogs.deleteBlog(blogId : ObjectId)
-GET         /:userId/showBlog                                controllers.noAuth.Blogs.showBlog(userId : String)
-GET         /showBlogById/:blogId                            controllers.noAuth.Blogs.showBlogById(blogId : ObjectId)
+GET         /:userId/showBlog                                controllers.noAuth.Blogs.getAllBlogsOfUser(userId : String)
+GET         /showBlogById/:blogId                            controllers.noAuth.Blogs.getOneBlogById(blogId : ObjectId)
 POST        /writeBlog/:userId                               controllers.auth.Blogs.writeBlog(userId : String)
 GET         /editBlog/:blogId                                controllers.auth.Blogs.editBlog(blogId : ObjectId)
 POST        /modBlog/:blogId                                 controllers.auth.Blogs.modBlog(blogId : ObjectId)
@@ -265,6 +266,8 @@ POST        /salonDoRegister                                 controllers.SalonIn
 GET         /updateSalonlogo/                             	 controllers.SalonInfo.saveSalonImg(id: ObjectId,imgId: ObjectId)
 POST		/imageUpload/:id  		               			 controllers.SalonInfo.imageUpload(id: ObjectId)
 GET         /addImage/:id 									 controllers.SalonInfo.addImage(id: ObjectId)
+GET         /salonPassword/:id                               controllers.SalonInfo.password(id: ObjectId)
+#POST        /changeSalonPassword/:id                         controllers.SalonInfo.salonChangePassword(id: ObjectId)
 #add bu lu-zheng
 GET         /mySalon/:id/createService                                 controllers.Services.serviceMain(id: ObjectId)
 

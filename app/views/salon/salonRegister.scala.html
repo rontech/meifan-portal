@@ -6,7 +6,6 @@
 	
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
 
-<div class="salonRegister">
 	<div class="salonRegister">
 		<div class="contentsTitleWrapper">
 			<h2 class="contentsTitleInner">@Messages("salon.register")</h2>
@@ -29,8 +28,8 @@
 				            </th>
 				            <td>
 				                @inputText(salonRegister("salonAccount.accountId"),'_label -> None,
-									 		'placeholder -> Messages("salon.register.accountId"),
-									 		'_help -> Messages("*"),
+									 		'placeholder -> Messages("salon.login.accountId"),
+									 		'_help -> Messages("salon.register.accountId"),
 									 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("user.userIdErr"))))
 				            </td>
 				        </tr>
@@ -43,7 +42,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,'_help -> Messages("*"),'placeholder -> Messages("salon.register.password"))
+				                	@inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,'_help -> Messages("salon.register.password"),'placeholder -> Messages("salon.login.password"))
 				                </div>
 				            </td>
 				        </tr>
@@ -252,7 +251,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("accessMethodDesc"), '_label -> None)
+				                	@inputText(salonRegister("salonAddress.accessMethodDesc"), '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -331,6 +330,21 @@
 				                </div>
 				            </td>
 				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.showPic")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonRegister("picDescription.picTitle"), '_label -> None, 'placeholder -> Messages("salon.pic.title"),'cols -> 50,'_help -> Messages("*"))
+				                	@inputText(salonRegister("picDescription.picContent"), '_label -> None, 'placeholder -> Messages("salon.pic.content"),'cols -> 50,'_help -> Messages("*"))
+				                	@inputText(salonRegister("picDescription.picFoot"), '_label -> None, 'placeholder -> Messages("salon.pic.foot"),'cols -> 50,'_help -> Messages("*"))
+				                </div>
+				            </td>
+				        </tr>				        
 				    </tbody>
 				</table>
 
@@ -414,7 +428,8 @@
 					<input type = "hidden" name="salonPics[0].fileObjId" />
 					<input type = "hidden" name="salonPics[0].picUse" value="LOGO"/>
 					<input type = "submit" class = "buttons" value=@Messages("user.registerBtn")>
-					<input type="reset" value=@Messages("common.reset")><a href = "/"><input type="button" value=@Messages("common.backUp") ></a>
+					<input type="reset" value=@Messages("common.reset")>
+					<a href = "@routes.Application.salonLogin"><input type="button" value=@Messages("common.backUp") ></a>
 				</div>
 			}
 

@@ -16,8 +16,8 @@
 				@letters.map{letter=>
 				<tr>
 					<td>@letter.userMessage.senderNm</td>                        
-					<td><a href="@routes.UserLetters.showMessage(letter.userMessage.id)">@letter.message.title</a></td>
-					<td>@letter.userMessage.createdTime.format("YYYY-MM-dd hh:mm")</td>
+					<td><a href="@auth.routes.UserLetters.showMessage(letter.userMessage.id)">@letter.message.title</a></td>
+					<td>@letter.userMessage.createdTime.format("yyyy-MM-dd hh:mm")</td>
 				</tr>
 				}
 			</tbody>

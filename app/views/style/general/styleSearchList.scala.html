@@ -10,7 +10,7 @@
     
    	@for(i <- 0 to styleAndSalon.length-1){
    		<div class="styleResult">
-	   		<a href="@routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" >
+	   		<a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" >
 	   			<img src="@routes.Application.getPhoto(styleAndSalon(i).style.stylePic(0).fileObjId)" class="" alt="@styleAndSalon(i).style.styleName" >
 	   		</a>
 			<div class="layer jscLayer jscFixPng">
@@ -20,7 +20,7 @@
 				<p><a href="">@Messages("hair.detailInfo")</a></p>
 			</div>
 			<div class="mT2">
-				<a href="@routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" class="rankingListInnerAnchor" >
+				<a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" class="rankingListInnerAnchor" >
 					<p><span class="photoCaption">@styleAndSalon(i).style.styleName</span></p>
 					<div class="mT2">
 						<p class="rankingListShop">@styleAndSalon(i).salon.salonName</p>

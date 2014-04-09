@@ -44,25 +44,25 @@
 			<br/>@Messages("hair.styleLength")<br/>
 	            @for(i <- 0 to stylePara.styleLength.length-1){
 	                @if(style.styleLength.equals(stylePara.styleLength(i))){
-	                    <input type = "radio" class="" name = "styleLength", value = "@stylePara.styleLength(i)" checked="checked">@stylePara.styleLength(i)
+	                    <input type = "radio" class="" name = "styleLength", value = "@stylePara.styleLength(i)" checked="checked">@Messages("style.styleLength." + stylePara.styleLength(i))
 	                }else{
-	                    <input type = "radio" class="" name = "styleLength", value = "@stylePara.styleLength(i)">@stylePara.styleLength(i)
+	                    <input type = "radio" class="" name = "styleLength", value = "@stylePara.styleLength(i)">@Messages("style.styleLength." + stylePara.styleLength(i))
 	                }
 	            }
 	        <br/>@Messages("hair.impression")<br/>
 	            @for(i <- 0 to stylePara.styleImpression.length-1){
 	                @if(style.styleImpression.equals(stylePara.styleImpression(i))){
-	                    <input type = "radio" class="" name = "styleImpression", value = "@stylePara.styleImpression(i)" checked="checked">@stylePara.styleImpression(i)
+	                    <input type = "radio" class="" name = "styleImpression", value = "@stylePara.styleImpression(i)" checked="checked">@Messages("style.styleImpression." + stylePara.styleImpression(i))
 	                }else{
-	                    <input type = "radio" class="" name = "styleImpression", value = "@stylePara.styleImpression(i)">@stylePara.styleImpression(i)
+	                    <input type = "radio" class="" name = "styleImpression", value = "@stylePara.styleImpression(i)">@Messages("style.styleImpression." + stylePara.styleImpression(i))
 	                }
 	            }
 		    @input(field = styleUpdateForm("styleColor"),args = '_label ->Messages("hair.color")){(id,name,value,args) =>
 		    	@for(i <- 0 to stylePara.styleColor.length-1){
 		    		@if(style.styleColor.contains(stylePara.styleColor(i))){
-		      			<input type = "checkbox" class="" name = "styleColor[@i]", value = "@stylePara.styleColor(i)" checked="checked">@stylePara.styleColor(i)
+		      			<input type = "checkbox" class="" name = "styleColor[@i]", value = "@stylePara.styleColor(i)" checked="checked">@Messages("style.styleColor." + stylePara.styleColor(i))
 		    		}else{
-						<input type = "checkbox" class="" name = "styleColor[@i]", value = "@stylePara.styleColor(i)">@stylePara.styleColor(i)
+						<input type = "checkbox" class="" name = "styleColor[@i]", value = "@stylePara.styleColor(i)">@Messages("style.styleColor." + stylePara.styleColor(i))
 					}
 		    	}
 		    }
@@ -78,63 +78,63 @@
 		    @input(field = styleUpdateForm("styleAmount"),args = '_label ->Messages("hair.styleAmount")){(id,name,value,args) =>
 		    	@for(i <- 0 to stylePara.styleAmount.length-1){
 		      		@if(style.styleAmount.contains(stylePara.styleAmount(i))){
-		      			<input type = "checkbox" class="" name = "styleAmount[@i]", value = "@stylePara.styleAmount(i)" checked="checked">@stylePara.styleAmount(i)
+		      			<input type = "checkbox" class="" name = "styleAmount[@i]", value = "@stylePara.styleAmount(i)" checked="checked">@Messages("style.styleAmount." + stylePara.styleAmount(i))
 		    		}else{
-						<input type = "checkbox" class="" name = "styleAmount[@i]", value = "@stylePara.styleAmount(i)">@stylePara.styleAmount(i)
+						<input type = "checkbox" class="" name = "styleAmount[@i]", value = "@stylePara.styleAmount(i)">@Messages("style.styleAmount." + stylePara.styleAmount(i))
 					}
 		    	}
 		    }
 		    @input(field = styleUpdateForm("styleQuality"),args = '_label ->Messages("hair.styleQuality")){(id,name,value,args) =>
 		    	@for(i <- 0 to stylePara.styleQuality.length-1){
 		      		@if(style.styleQuality.contains(stylePara.styleQuality(i))){
-		      			<input type = "checkbox" class="" name = "styleQuality[@i]", value = "@stylePara.styleQuality(i)" checked="checked">@stylePara.styleQuality(i)
+		      			<input type = "checkbox" class="" name = "styleQuality[@i]", value = "@stylePara.styleQuality(i)" checked="checked">@Messages("style.styleQuality." + stylePara.styleQuality(i))
 		    		}else{
-						<input type = "checkbox" class="" name = "styleQuality[@i]", value = "@stylePara.styleQuality(i)">@stylePara.styleQuality(i)
+						<input type = "checkbox" class="" name = "styleQuality[@i]", value = "@stylePara.styleQuality(i)">@Messages("style.styleQuality." + stylePara.styleQuality(i))
 					}
 		    	}
 		    }
 		    @input(field = styleUpdateForm("styleDiameter"),args = '_label ->Messages("hair.styleDiameter")){(id,name,value,args) =>
 		    	@for(i <- 0 to stylePara.styleDiameter.length-1){
 		      		@if(style.styleDiameter.contains(stylePara.styleDiameter(i))){
-		      			<input type = "checkbox" class="" name = "styleDiameter[@i]", value = "@stylePara.styleDiameter(i)" checked="checked">@stylePara.styleDiameter(i)
+		      			<input type = "checkbox" class="" name = "styleDiameter[@i]", value = "@stylePara.styleDiameter(i)" checked="checked">@Messages("style.styleDiameter." + stylePara.styleDiameter(i))
 		    		}else{
-						<input type = "checkbox" class="" name = "styleDiameter[@i]", value = "@stylePara.styleDiameter(i)">@stylePara.styleDiameter(i)
+						<input type = "checkbox" class="" name = "styleDiameter[@i]", value = "@stylePara.styleDiameter(i)">@Messages("style.styleDiameter." + stylePara.styleDiameter(i))
 					}
 		    	}
 		    }
 		    @input(field = styleUpdateForm("faceShape"),args = '_label ->Messages("hair.faceShape")){(id,name,value,args) =>
 		    	@for(i <- 0 to stylePara.faceShape.length-1){
 		      		@if(style.faceShape.contains(stylePara.faceShape(i))){
-		      			<input type = "checkbox" class="" name = "faceShape[@i]", value = "@stylePara.faceShape(i)" checked="checked">@stylePara.faceShape(i)
+		      			<input type = "checkbox" class="" name = "faceShape[@i]", value = "@stylePara.faceShape(i)" checked="checked">@Messages("style.faceShape." + stylePara.faceShape(i))
 		    		}else{
-						<input type = "checkbox" class="" name = "faceShape[@i]", value = "@stylePara.faceShape(i)">@stylePara.faceShape(i)
+						<input type = "checkbox" class="" name = "faceShape[@i]", value = "@stylePara.faceShape(i)">@Messages("style.faceShape." + stylePara.faceShape(i))
 					}
 		    	}
 		    }
 		    @input(field = styleUpdateForm("consumerSocialStatus"),args = '_label ->Messages("hair.consumerSocialStatus")){(id,name,value,args) =>
 		    	@for(i <- 0 to stylePara.consumerSocialStatus.length-1){
 		      		@if(style.consumerSocialStatus.contains(stylePara.consumerSocialStatus(i))){
-		      			<input type = "checkbox" class="" name = "consumerSocialStatus[@i]", value = "@stylePara.consumerSocialStatus(i)" checked="checked">@stylePara.consumerSocialStatus(i)
+		      			<input type = "checkbox" class="" name = "consumerSocialStatus[@i]", value = "@stylePara.consumerSocialStatus(i)" checked="checked">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))
 		    		}else{
-						<input type = "checkbox" class="" name = "consumerSocialStatus[@i]", value = "@stylePara.consumerSocialStatus(i)">@stylePara.consumerSocialStatus(i)
+						<input type = "checkbox" class="" name = "consumerSocialStatus[@i]", value = "@stylePara.consumerSocialStatus(i)">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))
 					}
 		    	}
 		    }
 		    @input(field = styleUpdateForm("consumerSex"),args = '_label ->Messages("hair.consumerSex")){(id,name,value,args) =>
 		    	@for(i <- 0 to stylePara.consumerSex.length-1){
 		      		@if(style.consumerSex.equals(stylePara.consumerSex(i))){
-		      			<input type = "radio" class="" name = "consumerSex", value = "@stylePara.consumerSex(i)" checked="checked">@stylePara.consumerSex(i)
+		      			<input type = "radio" class="" name = "consumerSex", value = "@stylePara.consumerSex(i)" checked="checked">@Messages("style.sex." + stylePara.consumerSex(i))
 		    		}else{
-						<input type = "radio" class="" name = "consumerSex", value = "@stylePara.consumerSex(i)">@stylePara.consumerSex(i)
+						<input type = "radio" class="" name = "consumerSex", value = "@stylePara.consumerSex(i)">@Messages("style.sex." + stylePara.consumerSex(i))
 					}
 		    	}
 		    }
 		    @input(field = styleUpdateForm("consumerAgeGroup"),args = '_label ->Messages("hair.consumerAgeGroup")){(id,name,value,args) =>
 		    	@for(i <- 0 to stylePara.consumerAgeGroup.length-1){
 		      		@if(style.consumerAgeGroup.contains(stylePara.consumerAgeGroup(i))){
-		      			<input type = "checkbox" class="" name = "consumerAgeGroup[@i]", value = "@stylePara.consumerAgeGroup(i)" checked="checked">@stylePara.consumerAgeGroup(i)
+		      			<input type = "checkbox" class="" name = "consumerAgeGroup[@i]", value = "@stylePara.consumerAgeGroup(i)" checked="checked">@Messages("style.ageGroup." + stylePara.consumerAgeGroup(i))
 		    		}else{
-						<input type = "checkbox" class="" name = "consumerAgeGroup[@i]", value = "@stylePara.consumerAgeGroup(i)">@stylePara.consumerAgeGroup(i)
+						<input type = "checkbox" class="" name = "consumerAgeGroup[@i]", value = "@stylePara.consumerAgeGroup(i)">@Messages("style.ageGroup." + stylePara.consumerAgeGroup(i))
 					}
 		    	}
 		    }

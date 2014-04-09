@@ -56,7 +56,7 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
     var blog : List[Blog] = Nil
     stylistList.foreach({ row => 
         var user = User.findOneById(row.stylistId).get
-        blog = Blog.find(DBObject("authorId" -> user.userId, "isValid" -> true, "pushToSalon" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
+        blog = Blog.find(DBObject("authorId" -> user.userId, "isValid" -> true, "pushToSalon" -> true)).toList
         if(!blog.isEmpty)
           blogList :::= blog
       }
@@ -141,7 +141,7 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
 			        salonAndStylist match {
 			          case None => None
 			          case Some(salonSt) => {
-			            val salon = Salon.findById(salonSt.salonId)
+			            val salon = Salon.findOneById(salonSt.salonId)
 			            val blogOfSalon = BlogOfSalon(row, salon)			            
 			            blogOfSalonList :::= List(blogOfSalon)
 			          }
@@ -152,7 +152,7 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
 		    }
         }    
     )
-    blogOfSalonList
+    blogOfSalonList.sortBy(blogOfSalon => blogOfSalon.blogInfo.createTime).reverse
   }
   
   /**

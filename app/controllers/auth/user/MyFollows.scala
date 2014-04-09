@@ -8,11 +8,10 @@ import jp.t2v.lab.play2.stackc._
 import scala.concurrent._
 import ExecutionContext.Implicits.global
 import controllers._
-
 import java.util.Date
 import java.util.Calendar
 
-object MyFollows extends Controller with AuthElement with AuthConfigImpl {
+object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
 
     /**
      * 取消关注

@@ -16,6 +16,11 @@ case class Comment(
     commentObjType : Int,
     commentObjId : ObjectId, 
     content : String,
+    complex : Int,
+    atmosphere : Int,
+    service : Int,
+    skill : Int,
+    price : Int,
     authorId : String, 
     createTime : Date = new Date,
     isValid : Boolean)
@@ -29,7 +34,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
    */
   var list = List.empty[Comment]
   def all(id : ObjectId): List[Comment] = {   
-    val l = dao.find(MongoDBObject("commentObjId" -> id, "isValid" -> true)).sort(MongoDBObject("time" -> 1)).toList
+    val l = dao.find(MongoDBObject("commentObjId" -> id, "isValid" -> true)).toList
      if (!l.isEmpty){
      l.foreach(
        {
@@ -37,36 +42,48 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
            all(r.id)
        })
      }
-     list.reverse
+     list
     }
   
   /**
    *  模块化的代码，通过店铺Id找到评论,应该是通过店铺找到coupon，再找到对coupon做的评论 
    *  目前是对coupon做的评论，到时候应该对预约做评论
    */ 
-  def findBySalon(salonId: ObjectId): List[Comment] = {    
+  def findBySalon(salonId: ObjectId): List[Comment] = {  
+    var commentListOfSalon : List[Comment] = Nil
     var commentList : List[Comment] = Nil
     val couponList = Coupon.findBySalon(salonId)
     var comment : List[Comment] = Nil
     couponList.foreach(
       {
-      r => 
-        list = Nil
-//      comment = Comment.find(DBObject("commentObjId" -> r.id, "isValid" -> true)).toList
-        comment = Comment.all(r.id)
+      r =>        
+        comment = Comment.find(DBObject("commentObjType" -> 2, "commentObjId" -> r.id, "isValid" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
       if(!comment.isEmpty)
           commentList :::= comment
       }
     )
-    commentList
+    commentList.foreach({
+      row =>
+        list = Nil
+        val replyList = Comment.all(row.id)
+//        if(!replyList.isEmpty)
+          commentListOfSalon :::= List(row) 
+          commentListOfSalon :::= replyList
+        
+    })
+    commentListOfSalon.reverse
   }
   
   def addComment(userId : String, content : String, commentObjId : ObjectId, commentObjType : Int) = {
-    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, authorId = userId, isValid = true))    
+    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = 0, atmosphere = 0, service = 0, skill = 0, price = 0, authorId = userId, isValid = true))    
   }
   
   def reply(userId : String, content : String, commentObjId : ObjectId, commentObjType : Int) = {
-    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, authorId = userId, isValid = true))      
+    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = 0, atmosphere = 0, service = 0, skill = 0, price = 0, authorId = userId, isValid = true))      
+  }
+  
+  def addCommentToCoupon(userId : String, content : String, commentObjId : ObjectId, commentObjType : Int, complex : Int, atmosphere : Int, service : Int, skill : Int, price : Int) = {
+    dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = complex, atmosphere = atmosphere, service = service, skill = skill, price = price, authorId = userId, isValid = true))      
   }
   
   override
@@ -92,14 +109,14 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
 		coupon match {
 		    case None => None
 		    case Some(coupon) => {
-	            val salon = Salon.findById(coupon.salonId)
+	            val salon = Salon.findOneById(coupon.salonId)
 	            val commentOfSalon = CommentOfSalon(row, salon)			            
 	            commentOfSalonList :::= List(commentOfSalon)
 		    }
         }
         }    
     )
-    commentOfSalonList
+    commentOfSalonList.sortBy(commentOfSalon => commentOfSalon.commentInfo.createTime).reverse
   }
   
 }

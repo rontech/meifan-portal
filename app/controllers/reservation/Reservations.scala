@@ -58,7 +58,7 @@ object Reservations extends Controller{
 	 * 查看店铺预约日程表
 	 */
 	def reservShowDate(salonId: ObjectId, week: Int) = Action {
-	  val salon: Option[Salon] = Salon.findById(salonId)
+	  val salon: Option[Salon] = Salon.findOneById(salonId)
 	  
 	  // 查找出该地店铺的所有预约
 	  val reservations: List[Reservation] = Reservation.findAllReservation(salonId)

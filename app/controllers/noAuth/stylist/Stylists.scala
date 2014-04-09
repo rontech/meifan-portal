@@ -11,10 +11,9 @@ import play.api.mvc._
 import scala.concurrent._
 import play.api.i18n.Messages
 import jp.t2v.lab.play2.auth._
-import controllers.AuthConfigImpl
 import controllers._
 
-object Stylists extends Controller with OptionalAuthElement with AuthConfigImpl{
+object Stylists extends Controller with OptionalAuthElement with UserAuthConfigImpl{
 	
   /*def getOneStylist(stylistId: ObjectId) = StackAction{ implicit request =>
     User.findOneByUserId(stylistId).map{user =>
@@ -78,9 +77,9 @@ object Stylists extends Controller with OptionalAuthElement with AuthConfigImpl{
                     case (styleSearch) => {
                         val styles = Style.findStylesByStylistBack(styleSearch,stylist.get.stylistId)
                         loggedIn.map{loginUser =>
-                            Ok(views.html.stylist.management.stylistStyles(user = user, followInfo = followInfo, loginUserId = loginUser.id , logged = true, stylist = stylist.get, styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = true))
+                            Ok(views.html.stylist.management.stylistStyles(user = user, followInfo = followInfo, loginUserId = loginUser.id , logged = true, stylist = stylist.get, styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = true))
                         }getOrElse{
-                            Ok(views.html.stylist.management.stylistStyles(user = user, followInfo = followInfo, loginUserId = new ObjectId , logged = false, stylist = stylist.get, styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = true))
+                            Ok(views.html.stylist.management.stylistStyles(user = user, followInfo = followInfo, loginUserId = new ObjectId , logged = false, stylist = stylist.get, styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = true))
                         }
                     }
                 })

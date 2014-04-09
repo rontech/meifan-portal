@@ -50,7 +50,8 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@inputPassword(userForm("password.main"),'_label -> None, 'placeholder -> Messages("user.password"), '_help -> Messages("user.toBePassword"))
+			                	@inputPassword(userForm("password.main"),'_label -> None, 'placeholder -> Messages("user.password"), '_help -> Messages("user.toBePassword"),
+			                		 '_error -> userForm("password.main").error.map(_.withMessage("user.passwordError")))
 			                </div>
 			            </td>
 			        </tr>

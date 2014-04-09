@@ -1,4 +1,4 @@
-package controllers
+package controllers.auth
 
 import play.api.mvc._
 import java.util.Date
@@ -11,8 +11,9 @@ import jp.t2v.lab.play2.auth._
 import scala.concurrent._
 import ExecutionContext.Implicits.global
 import play.api.templates.Html
+import controllers._
 
-object UserLetters extends Controller with AuthElement with AuthConfigImpl {
+object UserLetters extends Controller with AuthElement with UserAuthConfigImpl {
   val pageSize: Int = 5 //每页显示记录
 
   val userLetterForm: Form[UserLetter] = Form(
@@ -98,7 +99,7 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
         Message.save(userLetter.message, WriteConcern.Safe)
         val userMessage = userLetter.userMessage.copy(msgId = userLetter.message.id)
         UserMessage.save(userMessage, WriteConcern.Safe)
-        Ok(Html("<p><strong>圣旨已送到！！</strong></p>"))
+        Ok(Html("<p><strong>发送成功！！</strong></p>"))
     })
   }
 }
