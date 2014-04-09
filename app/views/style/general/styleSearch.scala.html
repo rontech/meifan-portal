@@ -1,4 +1,4 @@
-@(styleSearchForm: Form[Style], stylePara : models.StylePara)
+@(styleSearchForm: Form[Style], stylePara : models.StylePara, stylistId : ObjectId = new ObjectId)
 
 @import helper._
 
@@ -21,7 +21,7 @@
 							@for(i <- 0 to stylePara.styleLength.length-1){
 								<li class="dibBL mR2">
 						        	<input type = "radio" class = "cbF" name = "styleLength" id="lengthCd_HL@i" value = "@stylePara.styleLength(i)">
-						        	<label for="lengthCd_HL@i">@stylePara.styleLength(i)</label>
+						        	<label for="lengthCd_HL@i">@Messages("style.styleLength." + stylePara.styleLength(i))</label>
 					        	</li>
 					        }
 						</ul>
@@ -41,7 +41,7 @@
 							@for(i <- 0 to stylePara.styleImpression.length-1){
 								<li class="dibBL mR2">
 						        	<input type = "radio" class = "cbF" name = "styleImpression" id="hairColorCd_HI@i" value = "@stylePara.styleImpression(i)">
-						        	<label for="hairColorCd_HI@i">@stylePara.styleImpression(i)</label>
+						        	<label for="hairColorCd_HI@i">@Messages("style.styleImpression." + stylePara.styleImpression(i))</label>
 					        	</li>
 					        }
 						</ul>
@@ -58,7 +58,7 @@
 					            @for(i <- 0 to stylePara.styleColor.length-1){
 					            	<li class="dibBL mR2">
 					            		<input type = "checkbox" class = "cbF" name = "styleColor[@i]" id="hairColorCd_HC@i" value = "@stylePara.styleColor(i)">
-						        		<label for="hairColorCd_HC@i">@stylePara.styleColor(i)</label>
+						        		<label for="hairColorCd_HC@i">@Messages("style.styleColor." + stylePara.styleColor(i))</label>
 					            	</li>
 					            }
 					        }
@@ -94,7 +94,7 @@
 					            @for(i <- 0 to stylePara.styleAmount.length-1){
 					            	<li class="dibBL mR2">
 					            		<input type = "checkbox" class = "cbF" name = "styleAmount[@i]" id="hairColorCd_HA@i" value = "@stylePara.styleAmount(i)">
-						        		<label for="hairColorCd_HA@i">@stylePara.styleAmount(i)</label>
+						        		<label for="hairColorCd_HA@i">@Messages("style.styleAmount." + stylePara.styleAmount(i))</label>
 					            	</li>
 					            }
 					        }
@@ -112,7 +112,7 @@
 					            @for(i <- 0 to stylePara.styleQuality.length-1){
 					            	<li class="dibBL mR2">
 					            		<input type = "checkbox" class = "cbF" name = "styleQuality[@i]" id="hairColorCd_HQ@i" value = "@stylePara.styleQuality(i)">
-						        		<label for="hairColorCd_HQ@i">@stylePara.styleQuality(i)</label>
+						        		<label for="hairColorCd_HQ@i">@Messages("style.styleQuality." + stylePara.styleQuality(i))</label>
 					            	</li>
 					            }
 					        }
@@ -130,7 +130,7 @@
 					            @for(i <- 0 to stylePara.styleDiameter.length-1){
 					            	<li class="dibBL mR2">
 					            		<input type = "checkbox" class = "cbF" name = "styleDiameter[@i]" id="hairColorCd_HD@i" value = "@stylePara.styleDiameter(i)">
-						        		<label for="hairColorCd_HD@i">@stylePara.styleDiameter(i)</label>
+						        		<label for="hairColorCd_HD@i">@Messages("style.styleDiameter." + stylePara.styleDiameter(i))</label>
 					            	</li>
 					            }
 					        }
@@ -148,7 +148,7 @@
 					            @for(i <- 0 to stylePara.faceShape.length-1){
 					            	<li class="dibBL mR2">
 					            		<input type = "checkbox" class = "cbF" name = "faceShape[@i]" id="hairColorCd_HF@i" value = "@stylePara.faceShape(i)">
-						        		<label for="hairColorCd_HF@i">@stylePara.faceShape(i)</label>
+						        		<label for="hairColorCd_HF@i">@Messages("style.faceShape." + stylePara.faceShape(i))</label>
 					            	</li>
 					            }
 					        }
@@ -166,7 +166,7 @@
 					            @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
 					            	<li class="dibBL mR2">
 					            		<input type = "checkbox" class = "cbF" name = "consumerSocialStatus[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialStatus(i)">
-						        		<label for="hairColorCd_HS@i">@stylePara.consumerSocialStatus(i)</label>
+						        		<label for="hairColorCd_HS@i">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))</label>
 					            	</li>
 					            }
 					        }
@@ -188,7 +188,7 @@
 					            @for(i <- 0 to stylePara.consumerSex.length-1){
 					            	<li class="dibBL mR2">
 					            		<input type = "radio" class = "cbF" name = "consumerSex" id="hairColorCd_HX@i" value = "@stylePara.consumerSex(i)">
-						        		<label for="hairColorCd_HX@i">@stylePara.consumerSex(i)</label>
+						        		<label for="hairColorCd_HX@i">@Messages("style.sex." + stylePara.consumerSex(i))</label>
 					            	</li>
 					            }
 					        }
@@ -206,7 +206,7 @@
 					            @for(i <- 0 to stylePara.consumerAgeGroup.length-1){
 					            	<li class="dibBL mR2">
 					            		<input type = "checkbox" class = "cbF" name = "consumerAgeGroup[@i]" id="hairColorCd_HA@i" value = "@stylePara.consumerAgeGroup(i)">
-						        		<label for="hairColorCd_HA@i">@stylePara.consumerAgeGroup(i)</label>
+						        		<label for="hairColorCd_HA@i">@Messages("style.ageGroup." + stylePara.consumerAgeGroup(i))</label>
 					            	</li>
 					            }
 					        }
@@ -216,9 +216,12 @@
 				</tbody>
 			</table>
 		</div>
+        <div class="inputHidden">
+            <input type = "hidden" name = "stylistId" value = @stylistId>
+        </div>
         <div class="mT20" align="center">
-            <input type = "reset" class = "buttons" value=@Messages("common.reset")>
-            <input type="submit" class = "buttons" value=@Messages("hair.search")>
+            <input type = "reset" class = "buttons" value = @Messages("common.reset")>
+            <input type = "submit" class = "buttons" value = @Messages("hair.search")>
         </div>
      }    
 </div>
