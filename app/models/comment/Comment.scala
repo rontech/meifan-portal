@@ -42,7 +42,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
            all(r.id)
        })
      }
-     list.reverse
+     list
     }
   
   /**
@@ -57,13 +57,13 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
       {
       r => 
         list = Nil
-//      comment = Comment.find(DBObject("commentObjId" -> r.id, "isValid" -> true)).toList
-        comment = Comment.all(r.id)
+        comment = Comment.find(DBObject("commentObjType" -> 2, "commentObjId" -> r.id, "isValid" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
+//        comment = Comment.all(r.id)
       if(!comment.isEmpty)
           commentList :::= comment
       }
     )
-    commentList.sortBy(comment => comment.createTime).reverse
+    commentList
   }
   
   def addComment(userId : String, content : String, commentObjId : ObjectId, commentObjType : Int) = {
