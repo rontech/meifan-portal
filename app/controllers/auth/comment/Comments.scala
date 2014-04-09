@@ -1,4 +1,4 @@
-package controllers
+/*package controllers.auth
 
 import play.api._
 import java.util.Date
@@ -11,8 +11,9 @@ import models._
 import com.mongodb.casbah.Imports.ObjectId
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
+import controllers._
 
-object Comments extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
+object Comments extends Controller with AuthElement with AuthConfigImpl {
   
 
   val formAddComment = Form((
@@ -52,9 +53,9 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
 //	  }
 //	  )
 
-  /**
+  *//**
    * 查找数据库中关于该评论的所有数据，包括回复的。
-   */
+   *//*
   def find(commentedId : ObjectId) = Action {    
     implicit request =>      
       val userId = request.session.get("userId").get
@@ -62,9 +63,9 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
     Ok(views.html.comment.comment(userId, user_Id, Comment.all(commentedId)))
   }
   
-  /**
+  *//**
    * 查找店铺下的评论，现在只是对coupon做评论，还没有对预约做评论
-   */
+   *//*
   def findBySalon(salonId: ObjectId) = Action {
     val salon: Option[Salon] = Salon.findById(salonId)    
     val comments: List[Comment] = Comment.findBySalon(salonId) 
@@ -79,9 +80,9 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
     Comment.list = Nil
   }
   
-  /**
+  *//**
    * 店铺查看自己店铺的所有评论
-   */
+   *//*
   def findBySalonAdmin(salonId: ObjectId) = Action {
     val salon: Option[Salon] = Salon.findById(salonId)    
     val comments: List[Comment] = Comment.findBySalon(salonId)    
@@ -90,9 +91,9 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
     Ok(views.html.salon.store.salonInfoCommentAll(salon = salon.get, comments = comments))
   }
   
-  /**
+  *//**
    * 增加评论，后台逻辑
-   */
+   *//*
   def addComment(commentObjId : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
       val user = loggedIn 
       formAddComment.bindFromRequest.fold(
@@ -111,9 +112,9 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
       )
   }
   
-  /**
+  *//**
    * 对coupon做评论
-   */
+   *//*
   def addCommentToCoupon(commentObjId : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
       val user = loggedIn 
       commentToCouponForm.bindFromRequest.fold(
@@ -133,24 +134,24 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
       )
   }
   
-  /**
+  *//**
    * 店家的申诉
-   */
+   *//*
   // TODO
   def complaint(id : ObjectId) = Action {
     Ok(Html("我要申诉的评论Id是" + id))
   }
   
-  /**
+  *//**
    * 回复，跳转
-   */
+   *//*
   def answer(id : ObjectId, commentedId : ObjectId) = Action {
     Ok(views.html.comment.answer(id, commentedId, formHuifuComment))
   }
   
-  /**
+  *//**
    * 博客回复，后台逻辑
-   */
+   *//*
   def reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
 //      val userId = request.session.get("userId").get
       // TODO
@@ -166,9 +167,9 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
       )
   }
   
-   /**
+   *//**
    * 店铺回复消费者的评论，后台逻辑
-   */
+   *//*
   // 这边的权限有点问题啊，应该需要的是店铺登陆的权限
   def replyAdmin(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
 //      val userId = request.session.get("userId").get
@@ -185,18 +186,19 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
       )
   }
   
-  /**
+  *//**
    * blog的作者删除评论
-   */
+   *//*
   def delete(id : ObjectId, commentObjId : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     Comment.delete(id)
 //    Redirect(routes.Comments.find(commentedId))
     Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
   }
   
-  /**
+  *//**
    * 管理员删除后台删除评论
-   */
+   *//*
   def deleteAdmin() = TODO
   
 }
+*/
