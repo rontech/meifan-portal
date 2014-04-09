@@ -12,7 +12,7 @@ import com.mongodb.casbah.Imports.ObjectId
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 
-object Comments extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
+object Comments extends Controller with AuthElement with UserAuthConfigImpl {
   
 
   val formAddComment = Form((
@@ -65,14 +65,15 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
   /**
    * 查找店铺下的评论，现在只是对coupon做评论，还没有对预约做评论
    */
-  def findBySalon(salonId: ObjectId) = Action {
-    val salon: Option[Salon] = Salon.findById(salonId)    
-    val comments: List[Comment] = Comment.findBySalon(salonId) 
-     // navigation bar
-     val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.comments"), ""))
-     // Jump to blogs page in salon. 
-     // TODO: process the salon not exist pattern.
-    Ok(views.html.salon.store.salonInfoCommentAll(salon = salon.get, comments = comments, navBar = navBar))
+  def findBySalon(salonId: ObjectId) = StackAction { implicit request =>
+      val user = Option(loggedIn)
+      val salon: Option[Salon] = Salon.findOneById(salonId)
+      val comments: List[Comment] = Comment.findBySalon(salonId)
+      // navigation bar
+      val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.comments"), ""))
+      // Jump to blogs page in salon.
+      // TODO: process the salon not exist pattern.
+      Ok(views.html.salon.store.salonInfoCommentAll(salon = salon.get, comments = comments, navBar = navBar, user=user))
   }
   
   def clean() = {
@@ -82,12 +83,13 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
   /**
    * 店铺查看自己店铺的所有评论
    */
-  def findBySalonAdmin(salonId: ObjectId) = Action {
-    val salon: Option[Salon] = Salon.findById(salonId)    
+  def findBySalonAdmin(salonId: ObjectId) =StackAction { implicit request =>
+      val user = Option(loggedIn)
+      val salon: Option[Salon] = Salon.findOneById(salonId)
     val comments: List[Comment] = Comment.findBySalon(salonId)    
 
     // TODO: process the salon not exist pattern.
-    Ok(views.html.salon.store.salonInfoCommentAll(salon = salon.get, comments = comments))
+    Ok(views.html.salon.store.salonInfoCommentAll(salon = salon.get, comments = comments, user = user))
   }
   
   /**

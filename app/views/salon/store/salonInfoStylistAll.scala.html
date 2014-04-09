@@ -1,6 +1,6 @@
-@(salon: Salon, stylists: List[StylistDetailInfo] = Nil, navBar: List[(String, String)] = Nil)
+@(salon: Salon, stylists: List[StylistDetailInfo] = Nil, navBar: List[(String, String)] = Nil, user :Option[User])
 
-@salonInfoMain(navInSalon = "salon-stylist", salon, navBar) {
+@salonInfoMain(navInSalon = "salon-stylist", salon, navBar, user) {
 	
 	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
 	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">

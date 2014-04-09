@@ -9,12 +9,12 @@
 		    <td class="vaT bdGrayR">
 			<div class="w176 mHA">
 			    <div class="mT10 fs16 taM">
-				<a href="@routes.Salons.getOneStyle(salon.id, style.id)">
+				<a href="@noAuth.routes.Salons.getOneStyle(salon.id, style.id)">
 				    <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)">
 				</a>
 			    </div>
 			    <p class="mT10 lh13 taM">
-				<a href="@routes.Salons.getOneStyle(salon.id, style.id)">
+				<a href="@noAuth.routes.Salons.getOneStyle(salon.id, style.id)">
 				    @style.styleName
 				</a>
 			    </p>

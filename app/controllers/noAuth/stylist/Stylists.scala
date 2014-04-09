@@ -11,10 +11,9 @@ import play.api.mvc._
 import scala.concurrent._
 import play.api.i18n.Messages
 import jp.t2v.lab.play2.auth._
-import controllers.AuthConfigImpl
 import controllers._
 
-object Stylists extends Controller with OptionalAuthElement with AuthConfigImpl{
+object Stylists extends Controller with OptionalAuthElement with UserAuthConfigImpl{
 	
   /*def getOneStylist(stylistId: ObjectId) = StackAction{ implicit request =>
     User.findOneByUserId(stylistId).map{user =>
