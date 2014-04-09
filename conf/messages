@@ -656,3 +656,14 @@ Wash = 洗发
 Cut = 剪发
 salonAccountId = 店铺账号
 
+
+# reservation
+reservation.weekDay.1 = 日
+reservation.weekDay.2 = 一
+reservation.weekDay.3 = 二
+reservation.weekDay.4 = 三
+reservation.weekDay.5 = 四
+reservation.weekDay.6 = 五
+reservation.weekDay.7 = 六
+
+
