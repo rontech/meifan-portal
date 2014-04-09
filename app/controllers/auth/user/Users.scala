@@ -11,10 +11,11 @@ import play.api.data.Forms._
 import play.api.mvc._
 import scala.concurrent._
 import play.api.i18n.Messages
-import controllers.AuthConfigImpl
 import org.mindrot.jbcrypt.BCrypt
+import controllers.auth.AuthConfigImpl
+import controllers.UserAuthConfigImpl
 
-object Users extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
+object Users extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl {
 
   val loginForm = Form(mapping(
     "userId" -> nonEmptyText,

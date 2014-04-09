@@ -19,7 +19,7 @@ import controllers._
 import models._
 
 
-object Blogs extends Controller with OptionalAuthElement with AuthConfigImpl {
+object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
   // Will set timezone according to locale the user selected later if 
   //     we need to make our site as an international size which can 

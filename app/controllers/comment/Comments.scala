@@ -11,6 +11,7 @@ import models._
 import com.mongodb.casbah.Imports.ObjectId
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
+import controllers.auth.AuthConfigImpl
 
 object Comments extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
   

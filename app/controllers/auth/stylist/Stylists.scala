@@ -11,15 +11,15 @@ import play.api.data.Forms._
 import play.api.mvc._
 import scala.concurrent._
 import play.api.i18n.Messages
-import controllers.AuthConfigImpl
 import com.mongodb.casbah.MongoConnection
 import com.mongodb.casbah.gridfs.Imports._
 import com.mongodb.casbah.gridfs.GridFS
 import play.api.libs.iteratee.Enumerator
 import controllers._
 import models._
+import controllers.auth.AuthConfigImpl
 
-object Stylists extends Controller with LoginLogout with AuthElement with AuthConfigImpl{
+object Stylists extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl{
     
     val stylistForm: Form[Stylist] = Form(
         mapping(
@@ -153,7 +153,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
 	    val followInfo = MyFollow.getAllFollowInfo(user.id)
 	    SalonAndStylist.leaveSalon(salonId,stylistId)
 	    Redirect(noAuth.routes.Stylists.mySalon(stylistId))
-	    
+
 	  }
 	  
 	

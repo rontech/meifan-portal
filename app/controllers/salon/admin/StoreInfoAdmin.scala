@@ -23,6 +23,7 @@ import play.api.i18n.Messages
 import controllers._
 import org.mindrot.jbcrypt.BCrypt
 import utils._
+import controllers.auth.AuthConfigImpl
 
 object SalonInfo extends Controller with LoginLogout with AuthElement with AuthConfigImpl{
 

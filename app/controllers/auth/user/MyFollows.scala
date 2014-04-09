@@ -12,7 +12,7 @@ import controllers._
 import java.util.Date
 import java.util.Calendar
 
-object MyFollows extends Controller with AuthElement with AuthConfigImpl {
+object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
 
     /**
      * 取消关注
