@@ -441,7 +441,7 @@ object InitialData {
             for((l, index) <- showfiles.zipWithIndex){
                 if(index < Salon.findAll.length) {
                     val showImgId = Image.save(l)
-                    for(n <- 0 to Salon.findAll.length){
+                    for(n <- 0 to Salon.findAll.length-1){
                     	val show = Salon.findAll.toList(n)
                     	Salon.updateSalonShow(show, showImgId)                      
                     }

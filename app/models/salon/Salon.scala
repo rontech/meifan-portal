@@ -67,6 +67,15 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
         }
     }
 
+  def authenticate(accountId: String, password: String): Option[Salon] = {
+    val salon = dao.findOne(MongoDBObject("salonAccount.accountId" -> accountId))
+    if (salon.nonEmpty && BCrypt.checkpw(password, salon.get.salonAccount.password)) {
+      return salon
+    } else {
+      return None
+    }
+  }
+
     def findOneBySalonName(salonName: String): Option[Salon] = {
         dao.findOne(MongoDBObject("salonName" -> salonName))
     }
