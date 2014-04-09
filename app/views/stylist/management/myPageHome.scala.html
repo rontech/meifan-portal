@@ -12,9 +12,9 @@
 	    <div class="contentsTitleWrapper">
 				<h2 class="contentsTitleInner">@Messages("stylistMag.lastBlog")</h2>
 		</div>
-	    <a href="@noAuth.routes.Blogs.showBlog(user.userId)">@Messages("user.myBlog")</a>
+	    <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(user.userId)">@Messages("user.myBlog")</a>
 	        @lastBlog.map{ blog =>
-			@views.html.blog.admin.blogContent(blog, user, Comment.all(blog.id), followInfo, loginUserId, logged)
+			@views.html.blog.admin.blogContentOfUser(blog, user, Comment.all(blog.id), followInfo, loginUserId, logged)
 		}
     </div>                
 	

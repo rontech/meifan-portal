@@ -12,6 +12,7 @@ import play.api.mvc._
 import scala.concurrent._
 import play.api.i18n.Messages
 import controllers.AuthConfigImpl
+import org.mindrot.jbcrypt.BCrypt
 
 object Users extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
 
@@ -26,11 +27,11 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
         "userId" -> text,
         "oldPassword" -> nonEmptyText)(User.authenticate)(_.map(u => (u.userId, ""))).verifying("Invalid OldPassword", result => result.isDefined),
       "newPassword" -> tuple(
-        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[a-zA-Z]\w{5,17}$""")),
+        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[A-Za-z0-9]+$""")),
         "confirm" -> text).verifying(
         // Add an additional constraint: both passwords must match
         Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2)
-    ){(user, newPassword) => (user.get, newPassword._1)}{user => Some((Option(user._1),("","")))}
+    ){(user, newPassword) => (user.get, BCrypt.hashpw(newPassword._1, BCrypt.gensalt()))}{user => Some((Option(user._1),("","")))}
   )
 
 
@@ -210,6 +211,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     Ok(views.html.user.myPageRes(user,followInfo))
+
   }
 
   /**

@@ -1,14 +1,61 @@
 @(coupon: Coupon, beforeSevernDate: java.util.Date)
+   <head>
+      @*<script src="jquery-1.5.1.js" type="text/javascript"></script>*@
+      @*<script type="text/javascript" src="comment_dialog.js"></script>*@
+      <script src="@routes.Assets.at("javascripts/jquery-1.5.1.js")" type="text/javascript"></script>
+      <script src="@routes.Assets.at("javascripts/comment_dialog.js")" type="text/javascript"> </script>
+      <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comment/comment_dialog.css")" />
+   </head>
+   <script type="text/javascript">
+	function addComment(commentObjId, commentObjType){
+	    create_comment_dialog(commentObjId, commentObjType);
+	}   
+
+    function replyInline(divDisplay){
+        if(document.getElementById(divDisplay).style.display != "block")
+        {
+            document.getElementById(divDisplay).style.display = "block";
+        }
+        else
+        {
+            document.getElementById(divDisplay).style.display = "none";
+        }
+    }
+
+   @*$(document).ready(function() {
+   $("#ul.rating li a").click(function () {
+        var title = $(this).attr("title");
+        var parentDiv_id = $(this).parent().parent().parent().attr("id");
+        //将3个评 结果保存到对应的变量中
+        if (parentDiv_id == "complex") {
+        	$("#complex1").val(title);
+        }
+        if (parentDiv_id == "atmosphere") {
+        	$("#atmosphere1").val(title);
+        }
+        if (parentDiv_id == "service") {
+        	$("#service1").val(title);
+        }
+        if (parentDiv_id == "skill") {
+        	$("#skill1").val(title);
+        }
+        if (parentDiv_id == "price") {
+        	$("#price1").val(title);
+        }
+   }
+   
+   var cl = $(this).parent().attr("class");
+   $(this).parent().parent().removeClass().addClass("rating " + cl + "star");
+   }*@
+    
+    
+   </script>
 <div>
     <table summary="summary" cellspacing="1" class="mT2 wFull bgLGray2 fs10 couponTable">
         <tbody>
             <tr>
                 <td class="bgPink8 fgWhite bd0 taC p5 fs12 b">
-                	@if(beforeSevernDate.after(coupon.startDate)) {
-                    	@Messages("coupon.oldCoupon")
-                    } else {
-                    	@Messages("coupon.newCoupon")
-                    }
+                    <font> @Messages("coupon.newCoupon") </font>
                     <br>
                     <font> @Messages("coupon.coupon") </font>
                 </td>
@@ -143,6 +190,9 @@
                             </a>
                         </div>
                     </div>
+                    <!-- TODO test by wu -->
+                    <input type="button" value="评论" onclick="addComment('@coupon.id' , '2');" />
+                    <a onclick="return replyInline('comment')" style="cursor:pointer;">评论</a>
                     }else{
                     <div>
                             <a href="#"
@@ -174,4 +224,211 @@
             </tr>
         </tbody>
     </table>
+</div>
+
+
+<div id="comment" class="inline_reply" style="display:none;">
+<form action="@routes.Comments.addCommentToCoupon(coupon.id, 2)" id="myForm" method="get">
+    <table>
+        <tbody>
+            <tr>
+                <td align="right">
+                    综合
+                </td>
+                <td>
+                    <div id="complex">
+                        <ul class="rating nostar">
+                            <li class="one">
+                                <a href="#" title="1 ">
+                                    1
+                                </a>
+                            </li>
+                            <li class="two">
+                                <a href="#" title="2 ">
+                                    2
+                                </a>
+                            </li>
+                            <li class="three">
+                                <a href="#" title="3 ">
+                                    3
+                                </a>
+                            </li>
+                            <li class="four">
+                                <a href="#" title="4 ">
+                                    4
+                                </a>
+                            </li>
+                            <li class="five">
+                                <a href="#" title="5 ">
+                                    5
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    氛围
+                </td>
+                <td>
+                    <div id="atmosphere">
+                        <ul class="rating nostar">
+                            <li class="one">
+                                <a href="#" title="1 ">
+                                    1
+                                </a>
+                            </li>
+                            <li class="two">
+                                <a href="#" title="2 ">
+                                    2
+                                </a>
+                            </li>
+                            <li class="three">
+                                <a href="#" title="3 ">
+                                    3
+                                </a>
+                            </li>
+                            <li class="four">
+                                <a href="#" title="4 ">
+                                    4
+                                </a>
+                            </li>
+                            <li class="five">
+                                <a href="#" title="5 ">
+                                    5
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    服务
+                </td>
+                <td>
+                    <div id="service">
+                        <ul class="rating nostar">
+                            <li class="one">
+                                <a href="#" title="1 ">
+                                    1
+                                </a>
+                            </li>
+                            <li class="two">
+                                <a href="#" title="2 ">
+                                    2
+                                </a>
+                            </li>
+                            <li class="three">
+                                <a href="#" title="3 ">
+                                    3
+                                </a>
+                            </li>
+                            <li class="four">
+                                <a href="#" title="4 ">
+                                    4
+                                </a>
+                            </li>
+                            <li class="five">
+                                <a href="#" title="5 ">
+                                    5
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    技术
+                </td>
+                <td>
+                    <div id="skill">
+                        <ul class="rating nostar">
+                            <li class="one">
+                                <a href="#" title="1 ">
+                                    1
+                                </a>
+                            </li>
+                            <li class="two">
+                                <a href="#" title="2 ">
+                                    2
+                                </a>
+                            </li>
+                            <li class="three">
+                                <a href="#" title="3 ">
+                                    3
+                                </a>
+                            </li>
+                            <li class="four">
+                                <a href="#" title="4 ">
+                                    4
+                                </a>
+                            </li>
+                            <li class="five">
+                                <a href="#" title="5 ">
+                                    5
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    价格
+                </td>
+                <td>
+                    <div id="price">
+                        <ul class="rating nostar">
+                            <li class="one">
+                                <a href="#" title="1 ">
+                                    1
+                                </a>
+                            </li>
+                            <li class="two">
+                                <a href="#" title="2 ">
+                                    2
+                                </a>
+                            </li>
+                            <li class="three">
+                                <a href="#" title="3 ">
+                                    3
+                                </a>
+                            </li>
+                            <li class="four">
+                                <a href="#" title="4 ">
+                                    4
+                                </a>
+                            </li>
+                            <li class="five">
+                                <a href="#" title="5 ">
+                                    5
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <textarea id="content" style="width:320px;height:60px">
+                    </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="提交" id="send_message">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <input type="textfield" id="complex1" name="complex">
+    <input type="textfield" id="atmosphere1" name="atmosphere">
+    <input type="textfield" id="service1" name="service">
+    <input type="textfield" id="skill1" name="skill">
+    <input type="textfield" id="price1" name="price">
+    <input type="textfield" id="content1" name="content">
+</form>
 </div>

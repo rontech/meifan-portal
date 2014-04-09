@@ -80,7 +80,7 @@ object Blogs extends Controller with AuthElement with AuthConfigImpl {
         if(user.equals(loggedIn)){
 	        val listBlogCategory = BlogCategory.getCategory
 			val followInfo = MyFollow.getAllFollowInfo(user.id)
-			Ok(views.html.blog.admin.newBlog(newBlogForm(userId), listBlogCategory, user = user, followInfo))
+			Ok(views.html.blog.admin.createBlog(newBlogForm(userId), listBlogCategory, user = user, followInfo))
         }
         else{
           Redirect(auth.routes.Blogs.newBlog(loggedIn.userId))
@@ -101,11 +101,11 @@ object Blogs extends Controller with AuthElement with AuthConfigImpl {
 	      val followInfo = MyFollow.getAllFollowInfo(user.id)
 	      newBlogForm(userId).bindFromRequest.fold(
         //处理错误        
-        errors => BadRequest(views.html.blog.admin.newBlog(errors,listBlogCategory, user = user, followInfo)),
+        errors => BadRequest(views.html.blog.admin.createBlog(errors,listBlogCategory, user = user, followInfo)),
         {
           blog =>
             Blog.save(blog, WriteConcern.Safe)
-            Redirect(noAuth.routes.Blogs.showBlogById(blog.id))
+            Redirect(noAuth.routes.Blogs.getOneBlogById(blog.id))
         }             
         )          
         }
@@ -149,7 +149,7 @@ object Blogs extends Controller with AuthElement with AuthConfigImpl {
 	        {
 	          blog =>            
 	            Blog.save(blog, WriteConcern.Safe)
-	            Redirect(noAuth.routes.Blogs.showBlogById(blogId))
+	            Redirect(noAuth.routes.Blogs.getOneBlogById(blogId))
 	        }             
         )         
         }
@@ -167,7 +167,7 @@ object Blogs extends Controller with AuthElement with AuthConfigImpl {
       case Some(blog) => {
         if(blog.authorId.equals(loggedIn.userId)){
           Blog.delete(blogId)
-		  Redirect(noAuth.routes.Blogs.showBlog(blog.authorId))
+		  Redirect(noAuth.routes.Blogs.getAllBlogsOfUser(blog.authorId))
         }
         else
           Ok("没有此操作的权限")

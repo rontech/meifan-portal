@@ -12,15 +12,16 @@ import scala.concurrent._
 import play.api.i18n.Messages
 import jp.t2v.lab.play2.auth._
 import controllers.AuthConfigImpl
+import org.mindrot.jbcrypt.BCrypt
 
 object Users extends Controller with OptionalAuthElement with AuthConfigImpl{
 
   def registerForm(id: ObjectId = new ObjectId) = Form(
     mapping(
       "id" -> ignored(id),
-      "userId" -> nonEmptyText(6, 16).verifying(Messages("user.userIdErr"), userId => userId.matches("""^[A-Za-z0-9]+$ 或 ^[A-Za-z0-9]{4,40}$""")),
+      "userId" -> nonEmptyText(6, 16).verifying(Messages("user.userIdErr"), userId => userId.matches("""^\w+$""")),
       "password" -> tuple(
-        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[a-zA-Z]\w{5,17}$""")),
+        "main" -> text(6, 18).verifying(Messages("user.passwordError"), main => main.matches("""^[A-Za-z0-9]+$""")),
         "confirm" -> text).verifying(
           // Add an additional constraint: both passwords must match
             Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2),
@@ -43,7 +44,7 @@ object Users extends Controller with OptionalAuthElement with AuthConfigImpl{
           "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
       "socialStatus" -> text){
         (id, userId, password, nickName, sex, birthDay, address, tel, email, optContactMethods, socialStatus) =>
-          User(new ObjectId, userId, nickName, password._1, sex, birthDay, address, new ObjectId, tel, email, optContactMethods, socialStatus, User.NORMAL_USER,  User.HIGH, 0, new Date(), Permission.valueOf(LoggedIn), false)
+          User(new ObjectId, userId, nickName, BCrypt.hashpw(password._1, BCrypt.gensalt()), sex, birthDay, address, new ObjectId, tel, email, optContactMethods, socialStatus, User.NORMAL_USER,  User.HIGH, 0, new Date(), Permission.valueOf(LoggedIn), false)
       } {
         user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.sex, user.birthDay, user.address, user.tel, user.email, user.optContactMethods, user.socialStatus))
       }.verifying(
@@ -99,7 +100,7 @@ object Users extends Controller with OptionalAuthElement with AuthConfigImpl{
     }*/
       User.findOneByUserId(userId).map{ user =>
         if((user.userTyp.toUpperCase()).equals("NORMALUSER")) {
-          Redirect(controllers.noAuth.routes.Blogs.showBlog(userId))
+          Redirect(controllers.noAuth.routes.Blogs.getAllBlogsOfUser(userId))
         } else {
           Redirect(controllers.noAuth.routes.Stylists.otherHomePage(user.id))
         }

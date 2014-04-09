@@ -9,6 +9,7 @@ import mongoContext._
 import play.api.PlayException
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
+import org.mindrot.jbcrypt.BCrypt
 
 case class User(
   id: ObjectId = new ObjectId,
@@ -70,9 +71,33 @@ object User extends ModelCompanion[User, ObjectId] {
   def findOneByNickNm(nickName: String) = dao.findOne(MongoDBObject("nickName" -> nickName))
   def findOneByEmail(email: String) = dao.findOne(MongoDBObject("email" -> email))
 
-  // Check the password when logining
-  def authenticate(userId: String, password: String): Option[User] = dao.findOne(MongoDBObject("userId" -> userId, "password" -> password))
+//   Check the password when logining
+//  def authenticate(userId: String, password: String): Option[User] = {
+//   val passwordInDB = BCrypt.hashpw(password, BCrypt.gensalt())
+//   println("********" + password)
+//   println("++++++++" + passwordInDB)
+//   dao.findOne(MongoDBObject("userId" -> userId, "password" -> password))   
+// }
   
+ def authenticate(userId: String, password: String): Option[User] = {
+   val user = dao.findOne(MongoDBObject("userId" -> userId))
+   if(user.nonEmpty && BCrypt.checkpw(password, user.get.password)){
+       return user
+   }else{
+       return None
+   }
+ }
+//  
+//  def authenticate(userId: String, password: String): Boolean = {
+//      val user = dao.findOne(MongoDBObject("userId" -> userId))
+//      if(user.nonEmpty){
+//          println(BCrypt.checkpw(user.get.password, password))
+//          BCrypt.checkpw(user.get.password, password)
+//      }else{
+//          return false
+//      }      
+//  }
+
   /**
    * 权限认证
    * 用于判断userId是否为当前用户

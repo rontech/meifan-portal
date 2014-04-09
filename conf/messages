@@ -484,8 +484,8 @@ user.emailErr=邮箱无效！
 user.userIdNotAvailable=该用户名已被注册 
 user.passwordError=密码不合法！
 user.telError=手机号码无效!
-user.toBePassword= 可输入6~18位,以字母开头，包含字母、数字和下划线!
-user.toBeUserId= 可输入6~16位字。包含数字，英文！
+user.toBeUserId= 可输入6~18位,包含字母、数字和下划线!
+user.toBePassword= 可输入6~16位,包含数字，字母！
 user.nickNameErr=给个昵称吧！
 user.welcome=欢迎您，{0}
 user.guestName=游客
@@ -512,6 +512,9 @@ user.noBlogSearched=没有收藏的博客……
 user.noStyleSearched=没有收藏的发型……
 user.noCouponSearched=没有收藏的优惠券……
 user.applyStylist = 普通会员申请技师
+user.salonBlogTitle = {0} 的最新博客
+user.salonCouponTitle = {0} 的最新优惠劵
+user.salonCouponNoFound = 该店铺还未添加优惠劵！
 
 #Letter
 letter.addressee=收件人
@@ -573,6 +576,7 @@ blog.quoteComment = 引用来自" {0} "的评论
 blog.new = 新博客
 blog.toCollect=收藏此博客
 blog.noCollect = 暂无收藏的博客！
+blog.salonNoBlog= 该店铺还未有博客！
 
 # Comment
 comment.salonCommentTitle = {0} 的评论
@@ -724,3 +728,13 @@ style.socialStatus.star = 明星
 style.socialStatus.street = 街拍
 style.socialStatus.T-stage = T台
 style.socialStatus.others = 其它
+
+#onUsePicture
+onUserPicture.description = 图片描述
+onUsePicture.selectImge = 选择文件
+onUsePicture.uploadImgSize = 建议上传图片尺寸：
+onUsePicture.size = 像素
+onUsePicture.WH = 950x320
+onUsePicture.process = 上传进度：
+onUsePicture.limit = 最多选择5张图片
+
