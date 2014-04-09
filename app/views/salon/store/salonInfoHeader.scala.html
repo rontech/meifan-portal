@@ -58,7 +58,7 @@
         <div class="sprtHeaderOuter">
             <div class="sprtHeaderInner pV10 pR10 ">
             <p class="detailTitle">
-                <a href="@routes.Salons.getSalon(salon.id)"> @salon.salonName</a>
+                <a href="@noAuth.routes.Salons.getSalon(salon.id)"> @salon.salonName</a>
             </p>
             <p class="fs10 fgGray">
                 @salon.salonNameAbbr 
@@ -110,16 +110,16 @@
         </div>
         <ul class="bS menuBG cFix">
             <li class="fl">
-                <a href="@routes.Salons.getSalon(salon.id)" class="bS db @if(navInSalon == "salon-basic") {salonInformationCurrent} else {salonInformation} offL">@Messages("salon.salonBasic")</a>
+                <a href="@noAuth.routes.Salons.getSalon(salon.id)" class="bS db @if(navInSalon == "salon-basic") {salonInformationCurrent} else {salonInformation} offL">@Messages("salon.salonBasic")</a>
             </li>
             <li class="fl">
-                <a href="@routes.Salons.getAllCoupons(salon.id)" class="bS db @if(navInSalon == "salon-coupon") {couponAndMenuCurrent} else {couponAndMenu} offL">@Messages("salon.couponMenus") </a>
+                <a href="@noAuth.routes.Salons.getAllCoupons(salon.id)" class="bS db @if(navInSalon == "salon-coupon") {couponAndMenuCurrent} else {couponAndMenu} offL">@Messages("salon.couponMenus") </a>
             </li>
             <li class="fl">
-                <a href="@routes.Salons.getAllStylists(salon.id)" class="bS db @if(navInSalon == "salon-stylist") {stylistCurrent} else {stylist} offL">@Messages("salon.stylists")</a>
+                <a href="@noAuth.routes.Salons.getAllStylists(salon.id)" class="bS db @if(navInSalon == "salon-stylist") {stylistCurrent} else {stylist} offL">@Messages("salon.stylists")</a>
             </li>
             <li class="fl">
-                <a href="@routes.Salons.getAllStyles(salon.id)" class="bS db @if(navInSalon == "salon-style") {styleCurrent} else {style} offL">@Messages("salon.styles")</a>
+                <a href="@noAuth.routes.Salons.getAllStyles(salon.id)" class="bS db @if(navInSalon == "salon-style") {styleCurrent} else {style} offL">@Messages("salon.styles")</a>
             </li>
             <li class="fl">
                 <a href="@noAuth.routes.Blogs.getAllBlogsOfSalon(salon.id)" class="bS db @if(navInSalon == "salon-blog") {blogCurrent} else {blog} offL">@Messages("salon.blogs")</a>

@@ -1,17 +1,16 @@
-package controllers
-
+package controllers.noAuth
 
 import play.api.mvc._
 import play.api.i18n.Messages
 import com.mongodb.casbah.commons.Imports._
-import models._
 import jp.t2v.lab.play2.auth._
-import scala.concurrent.ExecutionContext.Implicits.global
-
 import java.util.Date
 import java.util.Calendar
+import controllers._
+import scala.Some
+import models._
 
-object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
+object Salons extends Controller with OptionalAuthElement with UserAuthConfigImpl{
 
     /*-------------------------
      * The Main Page of All Salon 
@@ -26,10 +25,11 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
      * Individual Salon Infomations.
      * Include the Styles, Stylists, Coupons, Blogs, Comments..... 
      *------------------------*/
-    def getSalon(salonId: ObjectId) = Action {
+    def getSalon(salonId: ObjectId) = StackAction{ implicit request =>
+        val user = loggedIn
         val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
-            case Some(sl) => Ok(views.html.salon.store.salonContent(sl, SalonNavigation.getSalonNavBar(salon)))
+            case Some(sl) => Ok(views.html.salon.store.salonContent(sl, SalonNavigation.getSalonNavBar(salon), user))
             case _ => NotFound
         }
     }
@@ -37,15 +37,16 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
      /**
       * Get All stylists of a salon.
       */
-     def getAllStylists(salonId: ObjectId) = Action {
+     def getAllStylists(salonId: ObjectId) = StackAction{ implicit request =>
+        val user = loggedIn
         val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
             case Some(sl) => {
                 val stylists = SalonAndStylist.getSalonStylistsInfo(salonId)
                 // navigation bar
-                val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylists"), routes.Salons.getAllStylists(sl.id).toString()))
+                val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylists"), noAuth.routes.Salons.getAllStylists(sl.id).toString()))
                 // Jump to stylists page in salon. 
-                Ok(views.html.salon.store.salonInfoStylistAll(salon = sl, stylists = stylists, navBar = navBar))
+                Ok(views.html.salon.store.salonInfoStylistAll(salon = sl, stylists = stylists, navBar = navBar, user = user))
             }
             case None => NotFound
         }
@@ -55,14 +56,15 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
     /**
       * Get a specified stylist from a salon.
       */
-    def getOneStylist(salonId: ObjectId, stylistId: ObjectId) = Action { 
+    def getOneStylist(salonId: ObjectId, stylistId: ObjectId) =StackAction{ implicit request =>
+        val user = loggedIn
         // first, check that if the salon is exist.
         val salon = Salon.findOneById(salonId)
         salon match {
             // when salon is exist
             case Some(sl) => {
                 // navigation bar
-                val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylists"), routes.Salons.getAllStylists(sl.id).toString()))
+                val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.stylists"), noAuth.routes.Salons.getAllStylists(sl.id).toString()))
 
                 val stylist: Option[Stylist] = Stylist.findOneByStylistId(stylistId)
                 stylist match {
@@ -82,17 +84,17 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
                                 // navigation item
                                 val lastNav = List((dtl.get.basicInfo.nickName, ""))
                                 Ok(views.html.salon.store.salonInfoStylist(salon = sl, stylist = dtl, 
-                                        styles = styles, latestBlog = blog, navBar = navBar ::: lastNav))
+                                        styles = styles, latestBlog = blog, navBar = navBar ::: lastNav, user = user))
                                
                             }
                             case None => {
                                 // if not a worker of a salon. show nothing, for now, Jump to stylists page in salon. 
-                                Ok(views.html.salon.store.salonInfoStylistAll(salon = sl, navBar = navBar))
+                                Ok(views.html.salon.store.salonInfoStylistAll(salon = sl, navBar = navBar, user = user))
                             }
                         }
                     }
                     // TODO, when stylist not exist, show nothing in salon.  
-                    case None => Ok(views.html.salon.store.salonInfoStylist(salon = sl, stylist = None, navBar = navBar))
+                    case None => Ok(views.html.salon.store.salonInfoStylist(salon = sl, stylist = None, navBar = navBar, user = user))
                  }
             }
             case None => NotFound // TODO
@@ -102,7 +104,8 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
     /**
      * Get all styles of a salon.
      */ 
-    def getAllStyles(salonId: ObjectId) = Action {
+    def getAllStyles(salonId: ObjectId) = StackAction{ implicit request =>
+        val user = loggedIn
         val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
             case Some(sl) => {
@@ -114,9 +117,9 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
                     styles :::= style
                 }
                 // navigation bar
-                val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), routes.Salons.getAllStyles(sl.id).toString()))
+                val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString()))
                 // Jump to stylists page in salon. 
-                Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = styles, navBar = navBar))
+                Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = styles, navBar = navBar, user = user))
             }
             case None => NotFound 
         }
@@ -125,7 +128,8 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
     /**
      * Get a specified Style from a salon.
      */ 
-    def getOneStyle(salonId: ObjectId, styleId: ObjectId) = Action {
+    def getOneStyle(salonId: ObjectId, styleId: ObjectId) = StackAction{ implicit request =>
+        val user = loggedIn
         // First of all, check that if the salon is acitve.
         val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
@@ -134,22 +138,22 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
                 val style: Option[Style] = Style.findOneById(styleId)    
                 style match {
                     case Some(st) => {
-                        val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), routes.Salons.getAllStyles(sl.id).toString())) :::
+                        val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString())) :::
                                 List((st.styleName.toString(), ""))
                         // Third, we need to check the relationship between slaon and stylist to check if the style is active.
                         if(SalonAndStylist.isStylistActive(salonId, st.stylistId)) {
                             // If style is active, jump to the style show page in salon.
-                            Ok(views.html.salon.store.salonInfoStyle(salon = sl, style = st, navBar = navBar))
+                            Ok(views.html.salon.store.salonInfoStyle(salon = sl, style = st, navBar = navBar, user = user))
                         } else {
                             // If style is not active, show nothing but must in the salon's page.
-                            Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar))
+                            Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar, user = user))
                         }
                    }
                     // If style is not exist, show nothing but must in the salon's page.
                     case None => {
-                        val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), routes.Salons.getAllStyles(sl.id).toString()))
+                        val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString()))
                         // TODO should with some message to show to user.
-                        Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar))
+                        Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar, user = user))
                     }
                 } 
             }
@@ -161,7 +165,8 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
     /**
      * Find All the coupons, menus, and services of a salon.  
      */
-    def getAllCoupons(salonId: ObjectId) = Action {
+    def getAllCoupons(salonId: ObjectId) = StackAction{ implicit request =>
+        val user = loggedIn
         val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
             case Some(sl) => {
@@ -187,7 +192,7 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
                 var navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.couponMenus"), ""))
                 // Jump
                 Ok(views.html.salon.store.salonInfoCouponAll(salon = sl, Coupons.conditionForm.fill(couponSchDefaultConds), serviceTypes = srvTypes, coupons = coupons, menus = menus,
-                    serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), navBar = navBar))
+                    serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), navBar = navBar, user = user))
             }
             case None => NotFound
        }
@@ -196,7 +201,8 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
     /**
      * Find coupons & menus & services by conditions from a salon.
      */
-    def getCouponsByCondition(salonId: ObjectId) = Action { implicit request =>
+    def getCouponsByCondition(salonId: ObjectId) = StackAction{ implicit request =>
+        val user = loggedIn
         import Coupons.conditionForm
         conditionForm.bindFromRequest.fold(
             errors => BadRequest(views.html.error.errorMsg(errors)),
@@ -255,7 +261,7 @@ object Salons extends Controller with OptionalAuthElement with AuthConfigImpl{
                   case Some(s) => {
                       // Navigation Bar
                       var navBar = SalonNavigation.getSalonNavBar(Some(s)) ::: List((Messages("salon.couponMenus"), ""))
-                      Ok(views.html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), navBar))
+                      Ok(views.html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), navBar, user))
                   } 
                   case None => NotFound
               }

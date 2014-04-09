@@ -21,17 +21,17 @@ GET         /FollowTypes/main                                          controlle
 # Pages Which can be seen by anonymous.
 #-------------------------------------------------
 # Salon
-GET         /salon                                                     controllers.Salons.index
-GET         /salon/:id                                                 controllers.Salons.getSalon(id: ObjectId)
+GET         /salon                                                     controllers.noAuth.Salons.index
+GET         /salon/:id                                                 controllers.noAuth.Salons.getSalon(id: ObjectId)
 # Salon.style
-GET         /salon/:slnId/style/:styId                                 controllers.Salons.getOneStyle(slnId: ObjectId, styId: ObjectId)
-GET         /salon/:salonId/styles                                     controllers.Salons.getAllStyles(salonId: ObjectId)
+GET         /salon/:slnId/style/:styId                                 controllers.noAuth.Salons.getOneStyle(slnId: ObjectId, styId: ObjectId)
+GET         /salon/:salonId/styles                                     controllers.noAuth.Salons.getAllStyles(salonId: ObjectId)
 # Salon.stylist
-GET         /salon/:slnId/stylist/:stlId                               controllers.Salons.getOneStylist(slnId: ObjectId, stlId: ObjectId)
-GET         /salon/:salonId/stylists                                   controllers.Salons.getAllStylists(salonId: ObjectId)
+GET         /salon/:slnId/stylist/:stlId                               controllers.noAuth.Salons.getOneStylist(slnId: ObjectId, stlId: ObjectId)
+GET         /salon/:salonId/stylists                                   controllers.noAuth.Salons.getAllStylists(salonId: ObjectId)
 # Salon.coupon
-GET         /salon/:salonId/coupons                                    controllers.Salons.getAllCoupons(salonId: ObjectId)
-POST        /salon/:salonId/coupons/condition                          controllers.Salons.getCouponsByCondition(salonId: ObjectId)
+GET         /salon/:salonId/coupons                                    controllers.noAuth.Salons.getAllCoupons(salonId: ObjectId)
+POST        /salon/:salonId/coupons/condition                          controllers.noAuth.Salons.getCouponsByCondition(salonId: ObjectId)
 # Salon.comment
 GET         /salon/:salonId/comments                                   controllers.Comments.findBySalon(salonId: ObjectId)
 # Salon.blog
@@ -66,7 +66,7 @@ GET         /style                                                     controlle
 GET         /style/:id                                                 controllers.Styles.findById(id: ObjectId)
 POST        /styleSearchList                                           controllers.Styles.styleSearchList
 GET         /findByLength/:styleLength/:consumerSex                    controllers.Styles.findByLength(styleLength: String, consumerSex: String)
-GET         /findByImpression/:styleImpression                         controllers.Styles.findByImpression(styleImpression: String)
+GET         /findByImpression/:styleImpression/:consumerSex            controllers.Styles.findByImpression(styleImpression: String, consumerSex: String)
 GET         /style/:salonId/:sex                                       controllers.Styles.findBySalonAndSex(salonId: ObjectId, sex: String)
 
 

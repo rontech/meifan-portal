@@ -195,7 +195,40 @@ object InitialData {
       ).foreach(BlogCategory.save)
     }
     
+    if(SearchByLengthForF.findAll.isEmpty){
+      Seq (
+        SearchByLengthForF(new ObjectId,"female","super-short",new ObjectId,"女-超短"),
+        SearchByLengthForF(new ObjectId,"female","short",new ObjectId,"女-短"),
+        SearchByLengthForF(new ObjectId,"female","near-shoulder-length",new ObjectId,"女-及肩"),
+        SearchByLengthForF(new ObjectId,"female","shoulder-length",new ObjectId,"女-齐肩"),
+        SearchByLengthForF(new ObjectId,"female","mid-length",new ObjectId,"女-中长"),
+        SearchByLengthForF(new ObjectId,"female","long",new ObjectId,"女-长")
+      ).foreach(SearchByLengthForF.save)
+    }
+    
+    if(SearchByLengthForM.findAll.isEmpty){
+      Seq (
+        SearchByLengthForM(new ObjectId,"male","super-short",new ObjectId,"男-超短"),
+        SearchByLengthForM(new ObjectId,"male","short",new ObjectId,"男-短"),
+        SearchByLengthForM(new ObjectId,"male","near-shoulder-length",new ObjectId,"男-及肩"),
+        SearchByLengthForM(new ObjectId,"male","shoulder-length",new ObjectId,"男-齐肩"),
+        SearchByLengthForM(new ObjectId,"male","mid-length",new ObjectId,"男-中长"),
+        SearchByLengthForM(new ObjectId,"male","long",new ObjectId,"男-长")
+      ).foreach(SearchByLengthForM.save)
+    }
    
+    if(SearchByImpression.findAll.isEmpty){
+      Seq (
+        SearchByImpression(new ObjectId,"female","natural",new ObjectId,"女-自然"),
+        SearchByImpression(new ObjectId,"female","intellectual",new ObjectId,"女-知性"),
+        SearchByImpression(new ObjectId,"female","sweet",new ObjectId,"女-甜美"),
+        SearchByImpression(new ObjectId,"female","fashion",new ObjectId,"女-时尚"),
+        SearchByImpression(new ObjectId,"female","fresh",new ObjectId,"女-清新"),
+        SearchByImpression(new ObjectId,"female","gorgeous",new ObjectId,"女-华丽"),
+        SearchByImpression(new ObjectId,"female","personality",new ObjectId,"女-个性")
+      ).foreach(SearchByImpression.save)
+    }
+    
   }
   /*---------------------------
    * Sample Data For Test. 
@@ -432,6 +465,51 @@ object InitialData {
             }       
          }
     }
+    
+    if(!SearchByImpression.findAll.isEmpty){
+        if(Image.fuzzyFindByName("impression-male").isEmpty) {
+            // save picture of style
+            val stylefile = new File(play.Play.application().path() + "/public/images/style/styleForImpression")
+            val stylefiles = Image.listFilesInFolder(stylefile)
+            for((styf, index) <- stylefiles.zipWithIndex){
+                if(index < Style.findAll.toList.length) {
+                    val styleImgId = Image.save(styf)
+                    val searchByImpression = SearchByImpression.findAll.toList(index)
+                    SearchByImpression.saveSearchByImpressionImage(searchByImpression,styleImgId)
+                }
+            }
+        }
+    }
+    
+    if(!SearchByLengthForF.findAll.isEmpty){
+        if(Image.fuzzyFindByName("length-female").isEmpty) {
+            // save picture of style
+            val stylefile = new File(play.Play.application().path() + "/public/images/style/styleForFemale")
+            val stylefiles = Image.listFilesInFolder(stylefile)
+            for((styf, index) <- stylefiles.zipWithIndex){
+                if(index < Style.findAll.toList.length) {
+                    val styleImgId = Image.save(styf)
+                    val searchByLengthForF = SearchByLengthForF.findAll.toList(index)
+                    SearchByLengthForF.saveSearchByLengthForFImage(searchByLengthForF,styleImgId)
+                }
+            }
+        }
+    }
+    
+    if(!SearchByLengthForM.findAll.isEmpty){
+        if(Image.fuzzyFindByName("length-male").isEmpty) {
+            // save picture of style
+            val stylefile = new File(play.Play.application().path() + "/public/images/style/styleForMale")
+            val stylefiles = Image.listFilesInFolder(stylefile)
+            for((styf, index) <- stylefiles.zipWithIndex){
+                if(index < Style.findAll.toList.length) {
+                    val styleImgId = Image.save(styf)
+                    val searchByLengthForM = SearchByLengthForM.findAll.toList(index)
+                    SearchByLengthForM.saveSearchByLengthForMImage(searchByLengthForM,styleImgId)
+                }
+            }
+        }
+    }
 
     if(!Salon.findAll.isEmpty){
         if(Image.fuzzyFindByName("showPic").isEmpty) {
@@ -451,10 +529,8 @@ object InitialData {
                     
                 }
             }       
-         }
+        }
     }
-    
   }
-  
 }
 

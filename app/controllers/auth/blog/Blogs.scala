@@ -16,7 +16,7 @@ import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
 
-object Blogs extends Controller with AuthElement with AuthConfigImpl {
+object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
   
   def newBlogForm(userId : String, id : ObjectId = new ObjectId) = Form(
       mapping(
