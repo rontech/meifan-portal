@@ -9,6 +9,7 @@ import mongoContext._
 import se.radley.plugin.salat.Binders._
 import java.util.Date
 import models._
+import org.mindrot.jbcrypt.BCrypt
 
 /*----------------------------
  * Embed Structure of Salon.
@@ -32,7 +33,7 @@ case class Salon(
     establishDate: Date,
     salonAddress: Address,
     workTime: WorkTime,
-    restDays: List[RestDay],
+    restDays: RestDay,
     seatNums: Int,
     salonFacilities: SalonFacilities,    
     salonPics: List[OnUsePicture],             
@@ -57,7 +58,13 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
     }    
 
     def loginCheck(salonAccount: SalonAccount): Option[Salon] = {
-        dao.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId,"salonAccount.password" -> salonAccount.password))
+//        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId,"salonAccount.password" -> salonAccount.password))
+        val salon = dao.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId))
+        if(salon.nonEmpty && BCrypt.checkpw(salonAccount.password, salon.get.salonAccount.password)){
+            return salon
+        }else{
+            return None
+        }
     }
 
     def findOneBySalonName(salonName: String): Option[Salon] = {
@@ -84,12 +91,9 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
             MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgId))),false,true)
     }
     
-    def updateSalonShow(salon: Salon, imgId: ObjectId) = {
-      salon.salonPics.map{
-        salonPic =>      
-          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate","salonPics.fileObjId" -> salonPic.fileObjId), 
+    def updateSalonShow(salon: Salon, imgId: ObjectId) = {    
+          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate"), 
             MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgId))),false,true)
-      }
     }    
 }
 
@@ -140,8 +144,8 @@ case class WorkTime(
  * Embed Structure.
 */
 case class RestDay(
-    restDayDivision: Int,
-    restDay: List[Int]
+    restWay: String,
+    restDay: List[String]
 )
 
 /**

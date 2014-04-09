@@ -253,8 +253,7 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with AuthC
   def doRegister = Action { implicit request =>
     val industry = Industry.findAll.toList
     SalonInfo.salonRegister.bindFromRequest.fold(
-//      errors => BadRequest(views.html.salon.salonRegister(errors,industry)),
-      errors => BadRequest(views.html.error.errorMsg(errors)),
+      errors => BadRequest(views.html.salon.salonRegister(errors,industry)),
       {
         salonRegister =>
           Salon.save(salonRegister, WriteConcern.Safe)
