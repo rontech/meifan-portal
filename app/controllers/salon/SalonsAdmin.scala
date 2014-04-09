@@ -117,6 +117,8 @@ object SalonsAdmin extends Controller {
             SalonStylistApplyRecord.save(re.copy(id=re.id, applyDate = new Date, verifiedResult = 1))
             val stylist = Stylist.findOneByStylistId(re.stylistId)
             Stylist.becomeStylist(stylistId)
+            val user = User.findOneById(stylistId).get
+            User.save(user.copy(id=stylistId,userTyp="stylist"))
             SalonAndStylist.entrySalon(salonId, stylistId)
             Redirect(routes.SalonsAdmin.myStylist(salonId))
           }
