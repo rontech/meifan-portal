@@ -32,7 +32,7 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
          "province" -> text,
          "city" -> optional(text),
          "region" -> optional(text)){
-          (province,city,region) => Address(province,city,region,None,"NO NEED",None,None)
+          (province,city,region) => Address(province,city,region,None,"NO NEED",None,None,"NO NEED")
       }{
           address => Some(address.province,address.city,address.region)
       },

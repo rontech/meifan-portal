@@ -266,6 +266,8 @@ POST        /salonDoRegister                                 controllers.SalonIn
 GET         /updateSalonlogo/                             	 controllers.SalonInfo.saveSalonImg(id: ObjectId,imgId: ObjectId)
 POST		/imageUpload/:id  		               			 controllers.SalonInfo.imageUpload(id: ObjectId)
 GET         /addImage/:id 									 controllers.SalonInfo.addImage(id: ObjectId)
+GET         /salonPassword/:id                               controllers.SalonInfo.password(id: ObjectId)
+#POST        /changeSalonPassword/:id                         controllers.SalonInfo.salonChangePassword(id: ObjectId)
 #add bu lu-zheng
 GET         /mySalon/:id/createService                                 controllers.Services.serviceMain(id: ObjectId)
 

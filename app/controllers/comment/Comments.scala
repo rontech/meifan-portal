@@ -67,7 +67,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
    * 查找店铺下的评论，现在只是对coupon做评论，还没有对预约做评论
    */
   def findBySalon(salonId: ObjectId) = Action {
-    val salon: Option[Salon] = Salon.findById(salonId)    
+    val salon: Option[Salon] = Salon.findOneById(salonId)    
     val comments: List[Comment] = Comment.findBySalon(salonId) 
      // navigation bar
      val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.comments"), ""))
@@ -84,7 +84,7 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
    * 店铺查看自己店铺的所有评论
    */
   def findBySalonAdmin(salonId: ObjectId) = Action {
-    val salon: Option[Salon] = Salon.findById(salonId)    
+    val salon: Option[Salon] = Salon.findOneById(salonId)    
     val comments: List[Comment] = Comment.findBySalon(salonId)    
 
     // TODO: process the salon not exist pattern.

@@ -54,7 +54,7 @@ object Services extends Controller {
  */
   def addService(salonId: ObjectId) = Action { implicit request =>
     serviceForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.salon.admin.createSalonService(Salon.findById(salonId).get, errors, ServiceType.findAll.toList.map{serviceType =>serviceType.serviceTypeName})),
+      errors => BadRequest(views.html.salon.admin.createSalonService(Salon.findOneById(salonId).get, errors, ServiceType.findAll.toList.map{serviceType =>serviceType.serviceTypeName})),
       {
         service =>
           Service.addService(service)
@@ -76,7 +76,7 @@ object Services extends Controller {
   def showService(id: ObjectId, salonId: ObjectId) = Action{
     Service.findOneById(id).map { service =>
       val serviceUpdateForm = Services.serviceUpdateForm().fill(service)
-      Ok(views.html.salon.admin.editSalonService(Salon.findById(salonId).get,serviceUpdateForm,service))
+      Ok(views.html.salon.admin.editSalonService(Salon.findOneById(salonId).get,serviceUpdateForm,service))
     } getOrElse {
       NotFound
     }
@@ -87,7 +87,7 @@ object Services extends Controller {
  */  
   def updateService(id: ObjectId, salonId: ObjectId) = Action { implicit request =>
     serviceUpdateForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.salon.admin.editSalonService(Salon.findById(salonId).get,errors,Service.findOneById(id).get)),
+      errors => BadRequest(views.html.salon.admin.editSalonService(Salon.findOneById(salonId).get,errors,Service.findOneById(id).get)),
       {
         service =>
           Service.save(service.copy(id = id), WriteConcern.Safe)
@@ -96,7 +96,7 @@ object Services extends Controller {
   }
   
    def serviceMain(salonId: ObjectId) = Action{
-	  val salon: Option[Salon] = Salon.findById(salonId)
+	  val salon: Option[Salon] = Salon.findOneById(salonId)
 	  val serviceType = ServiceType.findAll.toList.map{serviceType =>serviceType.serviceTypeName}
 	  
 	  salon match {

@@ -298,7 +298,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
       val followInfo = MyFollow.getAllFollowInfo(user.id)
       val record = SalonStylistApplyRecord.findOneStylistApRd(user.id)
       record.map{re=>
-        val salon = Salon.findById(re.salonId)
+        val salon = Salon.findOneById(re.salonId)
         salon.map{ sa =>
         	Ok(views.html.stylist.management.stylistApplyingItem(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, salon = sa))
         }getOrElse{
@@ -314,7 +314,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
   def wantToApply(stylistId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) { implicit request =>
       val user = loggedIn
       val followInfo = MyFollow.getAllFollowInfo(user.id)
-      val salon = Salon.findById(new ObjectId)
+      val salon = Salon.findOneById(new ObjectId)
       Ok(views.html.stylist.management.stylistApplyPage(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, salon = salon))
   }
   
@@ -346,7 +346,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
   
   def toApplySalon(salonId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
       val user = loggedIn
-      Salon.findById(salonId).map{ salon =>
+      Salon.findOneById(salonId).map{ salon =>
     	  val applyRecord = new SalonStylistApplyRecord(new ObjectId, salonId, user.id, 1, new Date, 0, None)
     	  SalonStylistApplyRecord.save(applyRecord)
     	  Redirect(routes.Stylists.myHomePage)  

@@ -38,7 +38,7 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
    * Get all the blogs of a required stylist salon.
    */    
   def getAllBlogsOfStylist(salonId: ObjectId, stylistId: ObjectId) = Action {
-      val salon: Option[Salon] = Salon.findById(salonId)
+      val salon: Option[Salon] = Salon.findOneById(salonId)
       salon match {
           case None => NotFound
           case Some(sl) => {
@@ -63,7 +63,7 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
    * Get all the blogs of the required month of a salon.
    */    
   def getAllBlogsOfSalonByMonth(salonId: ObjectId, yyyymm: String) = Action {
-     val salon: Option[Salon] = Salon.findById(salonId)
+     val salon: Option[Salon] = Salon.findOneById(salonId)
      var blogList = getBlogBySalonAndYM(salonId, yyyymm)
      val listYM = getYMCatesOfSalon(salon.get)
      // navigation bar
@@ -78,7 +78,7 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
      * 除了本篇博客内容外，还需要显示：最新博客列表，按店铺技师分类，按日期分类等数据...
      */
     def getOneBlogOfSalon(salonId: ObjectId, blogId: ObjectId) = Action {
-        val salon: Option[Salon] = Salon.findById(salonId)
+        val salon: Option[Salon] = Salon.findOneById(salonId)
         // Check If the salon is exist or active.
         salon match {
             case None => NotFound
@@ -130,7 +130,7 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
     * 取得店铺所有的blog
     */
    def getAllBlogsOfSalon(salonId: ObjectId) = Action {
-     val salon: Option[Salon] = Salon.findById(salonId)
+     val salon: Option[Salon] = Salon.findOneById(salonId)
      val blogs: List[Blog] = Blog.findBySalon(salonId)
      val listYM = getYMCatesOfSalon(salon.get)
      // navigation bar
