@@ -59,7 +59,7 @@
 	  			<ul class='clearfix'>
     	 			@followInfo.followSalon.slice(0,8).map {salon =>
 	  						<li>
-    	 						<a href="@routes.Salons.getSalon(salon.id)">
+    	 						<a href="@noAuth.routes.Salons.getSalon(salon.id)">
                                     <img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)" alt="@salon.salonNameAbbr" title="@salon.salonNameAbbr" align="absmiddle" class = "SmallPortrait">
                                 </a>
     	 			     	</li>

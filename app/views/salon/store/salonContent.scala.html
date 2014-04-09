@@ -1,6 +1,6 @@
-@(salon: Salon, navBar: List[(String, String)] = Nil)
+@(salon: Salon, navBar: List[(String, String)] = Nil, user: Option[User])
 
-@salonInfoMain(navInSalon = "salon-basic", salon, navBar) {
+@salonInfoMain(navInSalon = "salon-basic", salon, navBar, user) {
 
 	<!-- show Pictures. -->					
 	@views.html.salon.store.salonInfoPics(salon)
