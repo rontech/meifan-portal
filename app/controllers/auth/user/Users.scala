@@ -12,8 +12,7 @@ import play.api.mvc._
 import scala.concurrent._
 import play.api.i18n.Messages
 import org.mindrot.jbcrypt.BCrypt
-import controllers.auth.AuthConfigImpl
-import controllers.UserAuthConfigImpl
+import controllers._
 
 object Users extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl {
 

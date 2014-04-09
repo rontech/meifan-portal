@@ -63,7 +63,7 @@
                 </div>
                 <div class="cFix mT10">
                     <div class="fl w99">
-                        <a href="@routes.Salons.getOneStylist(salon.id, style.stylistId)">
+                        <a href="@noAuth.routes.Salons.getOneStylist(salon.id, style.stylistId)">
                             <img src="@routes.Application.getPhoto(Stylist.findOneByStylistId(style.stylistId).get.myPics(0).fileObjId)" class="w89">
                         </a>
                     </div>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="cFix mT10 pT10 bdDotT">
                     <div class="fl" >
-                        <a href="@routes.Salons.getOneStylist(salon.id, style.stylistId)">
+                        <a href="@noAuth.routes.Salons.getOneStylist(salon.id, style.stylistId)">
                             @Stylist.findUser(style.stylistId).nickName
                         </a>
                     </div>
@@ -199,7 +199,7 @@
                     @Style.findByStylistId(style.stylistId).map { stylistAll =>
                         @if(stylistAll.id != style.id) {
                             <li>
-                                <a href="@routes.Salons.getOneStyle(salon.id, stylistAll.id)"  class="db pr">
+                                <a href="@noAuth.routes.Salons.getOneStyle(salon.id, stylistAll.id)"  class="db pr">
                                     <img class="w89" src="@routes.Application.getPhoto(stylistAll.stylePic(0).fileObjId)"
                                     class="bdImgGray" oncontextmenu="return false;">
                                 </a>

@@ -16,8 +16,6 @@ import com.mongodb.casbah.gridfs.Imports._
 import com.mongodb.casbah.gridfs.GridFS
 import play.api.libs.iteratee.Enumerator
 import controllers._
-import models._
-import controllers.auth.AuthConfigImpl
 
 object Stylists extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl{
     

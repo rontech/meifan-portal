@@ -22,7 +22,7 @@
 	    <div class="mT13 mBN20 cFix">
 		<ul class="mainImage" id="jsiMainImage">
 		    <li class="current">
-		        <a href="@routes.Salons.index">
+		        <a href="@noAuth.routes.Salons.index">
 		            <img alt="@Messages("index.hairSalonRsv")" src="@routes.Assets.at("images/mainImg_hair.jpg")" width="730" height="397" />
 		        </a>
 		    </li>
@@ -47,7 +47,7 @@
 		    </div>
 		    <ul class="mainImage_navi" id="jsiImageNavi">
 		        <li class="hair_reserve currentNav">
-		            <a href="@routes.Salons.index">@Messages("index.hairSalonRsv")</a>
+		            <a href="@noAuth.routes.Salons.index">@Messages("index.hairSalonRsv")</a>
 		        </li>
 		        <li class="nail_reserve">
 		            <a href="@routes.Styles.index">@Messages("index.nailSalonRsv")</a>

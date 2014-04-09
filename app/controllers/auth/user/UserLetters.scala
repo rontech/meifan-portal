@@ -11,8 +11,7 @@ import jp.t2v.lab.play2.auth._
 import scala.concurrent._
 import ExecutionContext.Implicits.global
 import play.api.templates.Html
-import controllers.auth.AuthConfigImpl
-import controllers.UserAuthConfigImpl
+import controllers._
 
 object UserLetters extends Controller with AuthElement with UserAuthConfigImpl {
   val pageSize: Int = 5 //每页显示记录

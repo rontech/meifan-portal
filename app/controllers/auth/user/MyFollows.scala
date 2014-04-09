@@ -8,7 +8,6 @@ import jp.t2v.lab.play2.stackc._
 import scala.concurrent._
 import ExecutionContext.Implicits.global
 import controllers._
-
 import java.util.Date
 import java.util.Calendar
 
