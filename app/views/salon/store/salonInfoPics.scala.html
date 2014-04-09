@@ -1,0 +1,19 @@
+@(salon: Salon)
+
+ 	<div class="cFix">
+			<div class="fl w349">
+				<div id="jsViewer">
+				@for(i <- 0 to salon.salonPics.size-1){
+					@if(salon.salonPics(i).picUse == "Navigate" ){						
+			 			<img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)" width="349" height="262"  oncontextmenu="return false;" />																								
+					}															
+				}
+				</div>
+			</div>
+		<div class="fr w349">
+				<p class="shopCatchCopy"><b><strong>@salon.picDescription.picTitle</strong></b></p>
+				<p class="mT10">@salon.picDescription.picContent</p>
+				<p class="mT20 b">@salon.picDescription.picFoot</p>
+		</div>
+	</div>
+

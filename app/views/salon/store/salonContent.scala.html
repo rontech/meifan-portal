@@ -1,0 +1,10 @@
+@(salon: Salon, navBar: List[(String, String)] = Nil)
+
+@salonInfoMain(navInSalon = "salon-basic", salon, navBar) {
+
+	<!-- show Pictures. -->					
+	@views.html.salon.store.salonInfoPics(salon)
+	
+	<!-- show basicInformation. -->	
+	@views.html.salon.store.salonInfoBasic(salon)	
+}

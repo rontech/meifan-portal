@@ -138,7 +138,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         var salonOne: Option[models.Salon] = None
         salonAndStylist match {
             case Some(salonAndStylist) => {
-                salonOne = Salon.findById(salonAndStylist.salonId)
+                salonOne = Salon.findOneById(salonAndStylist.salonId)
             }
             case None => None
         }
