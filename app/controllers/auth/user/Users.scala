@@ -210,7 +210,16 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
   def myPage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    Ok(views.html.user.myPageRes(user,followInfo))
+    User.findOneByUserId(user.userId).map{ user =>
+        if((user.userTyp.toUpperCase()).equals("NORMALUSER")) {
+          Ok(views.html.user.myPageRes(user,followInfo))
+        } else {
+          Redirect(controllers.auth.routes.Stylists.myHomePage)
+        }
+      }getOrElse{
+         NotFound
+      }
+    
 
   }
 

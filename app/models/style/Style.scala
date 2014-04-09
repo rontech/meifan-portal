@@ -188,12 +188,14 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { "consumerSocialStatus" $in Style.findParaAll.consumerSocialStatus } else { "consumerSocialStatus" $in style.consumerSocialStatus }
         val consumerSex = if (style.consumerSex.equals("all")) { "consumerSex" $in Style.findParaAll.consumerSex } else { MongoDBObject("consumerSex" -> style.consumerSex) }
         val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { "consumerAgeGroup" $in Style.findParaAll.consumerAgeGroup } else { "consumerAgeGroup" $in style.consumerAgeGroup }
+        //利用传过来的stylistId判断后台检索是检索某一发型师的发型，还是检索店铺全部发型师的发型
         val stylists = SalonAndStylist.findBySalonId(salonId)
         var stylistIds: List[ObjectId]= Nil
         stylists.map { stylist =>
             stylistIds :::= List(stylist.stylistId)
         }
-        dao.find($and(
+        if (stylistIds.contains(style.stylistId)) {
+            dao.find($and(
             styleLength,
             styleColor,
             styleImpression,
@@ -205,8 +207,23 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
             consumerSocialStatus,
             consumerSex,
             consumerAgeGroup,
-            "stylistId" $in stylistIds,
-            MongoDBObject("isValid" -> true))).toList
+            MongoDBObject("stylistId" -> style.stylistId, "isValid" -> true))).toList
+        } else {
+            dao.find($and(
+                styleLength,
+                styleColor,
+                styleImpression,
+                serviceType,
+                styleAmount,
+                styleQuality,
+                styleDiameter,
+                faceShape,
+                consumerSocialStatus,
+                consumerSex,
+                consumerAgeGroup,
+                "stylistId" $in stylistIds,
+                MongoDBObject("isValid" -> true))).toList
+        }
     }
     
     /**

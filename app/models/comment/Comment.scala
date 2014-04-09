@@ -42,28 +42,36 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
            all(r.id)
        })
      }
-     list.reverse
+     list
     }
   
   /**
    *  模块化的代码，通过店铺Id找到评论,应该是通过店铺找到coupon，再找到对coupon做的评论 
    *  目前是对coupon做的评论，到时候应该对预约做评论
    */ 
-  def findBySalon(salonId: ObjectId): List[Comment] = {    
+  def findBySalon(salonId: ObjectId): List[Comment] = {  
+    var commentListOfSalon : List[Comment] = Nil
     var commentList : List[Comment] = Nil
     val couponList = Coupon.findBySalon(salonId)
     var comment : List[Comment] = Nil
     couponList.foreach(
       {
-      r => 
-        list = Nil
-//      comment = Comment.find(DBObject("commentObjId" -> r.id, "isValid" -> true)).toList
-        comment = Comment.all(r.id)
+      r =>        
+        comment = Comment.find(DBObject("commentObjType" -> 2, "commentObjId" -> r.id, "isValid" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
       if(!comment.isEmpty)
           commentList :::= comment
       }
     )
-    commentList.sortBy(comment => comment.createTime).reverse
+    commentList.foreach({
+      row =>
+        list = Nil
+        val replyList = Comment.all(row.id)
+//        if(!replyList.isEmpty)
+          commentListOfSalon :::= List(row) 
+          commentListOfSalon :::= replyList
+        
+    })
+    commentListOfSalon.reverse
   }
   
   def addComment(userId : String, content : String, commentObjId : ObjectId, commentObjType : Int) = {

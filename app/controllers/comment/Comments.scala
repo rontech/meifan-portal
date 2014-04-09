@@ -24,12 +24,12 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
   ))
   
   val commentToCouponForm = Form(tuple(
-      "content" -> text,
       "complex" -> number, 
       "atmosphere" -> number,
       "service" -> number,
       "skill" -> number, 
-      "price" -> number
+      "price" -> number,
+      "content" -> text
       ))
   
 //  def commentToCouponForm(id : ObjectId = new ObjectId) = Form(
@@ -115,15 +115,13 @@ object Comments extends Controller with LoginLogout with AuthElement with AuthCo
    * 对coupon做评论
    */
   def addCommentToCoupon(commentObjId : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    println("commentObjType" + commentObjType)
       val user = loggedIn 
       commentToCouponForm.bindFromRequest.fold(
         //处理错误
         errors => BadRequest(views.html.comment.errorMsg1(commentToCouponForm)),
         {
-          case (content, complex, atmosphere, service, skill, price) =>         
+          case (complex, atmosphere, service, skill, price, content) =>         
 	        Comment.addCommentToCoupon(user.userId, content, commentObjId, commentObjType, complex, atmosphere, service, skill, price)
-	        println(commentObjType)
 	        if (commentObjType == 2) { 
 	          Ok("成功插入到数据库中了啦，哈哈！")
 	        }

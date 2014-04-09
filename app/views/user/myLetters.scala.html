@@ -1,7 +1,7 @@
 @(user:User,loginUser : User)
 @import helper._
    <div class="myLetters">
-       @form(routes.UserLetters.sendLetter(), 'method -> "post"){
+       @form(auth.routes.UserLetters.sendLetter(), 'method -> "post"){
            <input type="hidden" name="userMessage.sender" value="@loginUser.userId">
            <input type="hidden" name="userMessage.senderNm" value="@loginUser.nickName">
            <input type="hidden" name="userMessage.addressee" value="@user.userId">
