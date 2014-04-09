@@ -1,5 +1,7 @@
 @(salon: Salon, comments: List[Comment])
 
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comment/comment.css")">
+
 <ol>
 @if(comments.isEmpty) {
     <div class="bgAlertMsg mT20">
@@ -8,7 +10,7 @@
 } else {
     @for(comment <- comments) {
         <li class="couponItem">
-            @views.html.comment.admin.commentItem(salon, comment)
+            @views.html.comment.admin.mySalonCommentItem(salon, comment)
         </li>
     }
 }

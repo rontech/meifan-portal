@@ -31,6 +31,58 @@
 			<p class="fs10 fgGray">@Messages("comment.passDate") @DateFormat.getDateInstance.format(comment.createTime)</p>
 		</div>
 	</div>
+	
+	<ul class="judgeList cFix">
+			    <li class="bdN fgGray b">
+			       @Messages("comment.complex")
+			        <span class="mL5 mR10 fgPink">
+			            @comment.complex
+			        </span>
+			        @for(i <- 0 until comment.complex){
+		        	 	<span class="iconStarOn">
+				           	 ★
+				        </span>
+			        }
+			        @for(i <- comment.complex until 5){			     
+				        <span class="iconStarOff">
+				           	 ★
+				        </span>
+			        }
+			    </li>
+			    <li>
+			        <span class="fgGray">
+			           @Messages("comment.atmosphere")
+			        </span>
+			        <span class="mL10 fgPink b">
+			            @comment.atmosphere
+			        </span>
+			    </li>
+			    <li>
+			        <span class="fgGray">
+			           @Messages("comment.service")
+			        </span>
+			        <span class="mL10 fgPink b">
+			            @comment.service
+			        </span>
+			    </li>
+			    <li>
+			        <span class="fgGray">
+			           @Messages("comment.skill")
+			        </span>
+			        <span class="mL10 fgPink b">
+			            @comment.skill
+			        </span>
+			    </li>
+			    <li class="bdN">
+			        <span class="fgGray">
+			            @Messages("comment.price")
+			        </span>
+			        <span class="mL10 fgPink b">
+			            @comment.price
+			        </span>
+			    </li>
+			</ul>
+	
 </div>
 
 <a onclick="return replyInline('reply_@comment.id')" style="cursor:pointer;">@Messages("blog.replyComment")</a>
@@ -54,13 +106,10 @@
 	<form id="form_inline_comment" action="@routes.Comments.replyAdmin(comment.id, salon.id, 3)" method="GET">
 	  <input type="hidden" id="inline_reply_id" name="reply_id" value="1452044_278889672">         
       <textarea name="content" id="ccom_content_@comment.id" style="width:650px;height:60px;"></textarea><br>
-	  <p>
+	  <p style = "height:50px;">
 		  <span style="float:right;">
-    	  @*<input type="button" value="关闭" class="blg_submit_btn" id="btn_close_inline_reply" style="background: rgba(255,255,255,0);color: #555;">*@
     	  <input type="submit" value="@Messages("blog.reply")" id="btn_comment" onclick="return replyForm('ccom_content_@comment.id', 'ficmp_msg_@comment.id');" class="blg_submit_btn"> 
 		  </span>
-		  @*插入：
-				<a href="javascript:;" onclick="javascript:insert_emotions('ccom_content',this);" class="blog_emotion">表情</a>*@
 		 <span class="NoData" id="ficmp_msg_@comment.id" style="color:#F00"></span>
 	  </p>
     </form>
