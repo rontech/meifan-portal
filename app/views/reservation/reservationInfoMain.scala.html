@@ -1,0 +1,44 @@
+@(navInSalon: String = "salon-basic", salon: Salon, navBar: List[(String, String)] = Nil)(content: Html)
+
+
+<!-- the main page of salon.
+     plan to use this as the main frame of the pages as below:
+     1. a salon.
+     2. a style. /style list of a salon.
+     3. a stylist. /stylist list of a salon.
+     4. a blog. /blog list of a salon's stylists.
+     5. a comment?. /comments to the work of stylists belongs to a salon, and the salon's environment. 
+     6. the map of a salon.
+
+TODO
+    1. blog, comment type should be type of Option[Blog], Option[Comment]
+
+  -->
+
+
+@main(salon.salonName, "hair-salon", navBar) {
+
+<!-- ↓contents -->
+
+        <!-- ↓mainContents -->
+        <div id="salonMainContents">
+
+            <!-- ↓salonInfoBody -->
+            <!-- show different body contents according to the NAV tab. -->
+            @content
+            <!-- ↑salonInfoBody -->  
+
+            <!-- ↓salonInfoFooter  -->
+            @views.html.salon.store.salonInfoFooter(navInSalon, salon)
+            <!-- ↑salonInfoFooter  -->  
+
+        </div>
+        <!-- ↑mainContents -->
+
+        <!-- ↓sideContents -->
+        @views.html.salon.store.rightColumn(user = None)
+        <!-- ↑sideContents -->
+
+<!-- ↑contents -->
+
+}

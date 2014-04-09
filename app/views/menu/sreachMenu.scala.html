@@ -19,16 +19,11 @@
 						@input(field = condtionForm("serviceTypes"), args = '_label ->None){(id,name,value,args) =>
 					 	@for(serviceType <- serviceTypes) {
 					 		<li class="fl w112">
-					 			@if(condtionForm != None) {
-					 				@if(condtionForm.get.serviceTypes.contains(serviceType)) {
-						 			<input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF" checked ="checked">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
-							 		} else {
-							 			<input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
-							 		}
-					 			} else {
-					 				<input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
-					 			}
-						 		
+				 				@if(condtionForm.get.serviceTypes.contains(serviceType)) {
+					 			<input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF" checked ="checked">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
+						 		} else {
+						 			<input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
+						 		}
 					 		</li>
 					 	}
 					  }
