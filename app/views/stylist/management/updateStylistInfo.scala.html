@@ -86,9 +86,9 @@
 			@input(field = stylistForm("goodAtImage"),args = '_label ->Messages("stylist.goodAtImage")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtStylePara.goodAtImage.length-1){
 			 		@if(stylist.goodAtImage.contains(goodAtStylePara.goodAtImage(i))){
-			 			<input type = "checkbox" name = "goodAtImage[@i]" checked="checked" value = "@goodAtStylePara.goodAtImage(i)">@goodAtStylePara.goodAtImage(i)&nbsp;
+			 			<input type = "checkbox" name = "goodAtImage[@i]" checked="checked" value = "@goodAtStylePara.goodAtImage(i)">@Messages("style.styleImpression."+goodAtStylePara.goodAtImage(i))&nbsp;
 			 		}else{
-			 			<input type = "checkbox" name = "goodAtImage[@i]" value = "@goodAtStylePara.goodAtImage(i)">@goodAtStylePara.goodAtImage(i)&nbsp;
+			 			<input type = "checkbox" name = "goodAtImage[@i]" value = "@goodAtStylePara.goodAtImage(i)">@Messages("style.styleImpression."+goodAtStylePara.goodAtImage(i))&nbsp;
 			 		}
 			 	}
 			  }
@@ -98,7 +98,7 @@
 			 		@if(stylist.goodAtStatus.contains(goodAtStylePara.goodAtStatus(i))){
 			 			<input type = "checkbox" name = "goodAtStatus[@i]" checked="checked" value = "@goodAtStylePara.goodAtStatus(i)">@goodAtStylePara.goodAtStatus(i)
 			 		}else{
-			 			<input type = "checkbox" name = "goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@goodAtStylePara.goodAtStatus(i)
+			 			<input type = "checkbox" name = "goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@Messages("style.socialStatus."+goodAtStylePara.goodAtStatus(i))
 			 		}
 			 		
 			 	}
@@ -124,9 +124,9 @@
 			@input(field = stylistForm("goodAtUser"),args = '_label ->Messages("stylist.goodAtUser")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtStylePara.goodAtUser.length-1){
 			 		@if(stylist.goodAtUser.contains(goodAtStylePara.goodAtUser(i))){
-			 			<input type = "checkbox" name = "goodAtUser[@i]" checked="checked" value = "@goodAtStylePara.goodAtUser(i)">@goodAtStylePara.goodAtUser(i)
+			 			<input type = "checkbox" name = "goodAtUser[@i]" checked="checked" value = "@goodAtStylePara.goodAtUser(i)">@Messages("style.sex." +goodAtStylePara.goodAtUser(i))
 			 		}else{
-			 			<input type = "checkbox" name = "goodAtUser[@i]" value = "@goodAtStylePara.goodAtUser(i)">@goodAtStylePara.goodAtUser(i)
+			 			<input type = "checkbox" name = "goodAtUser[@i]" value = "@goodAtStylePara.goodAtUser(i)">@Messages("style.sex." +goodAtStylePara.goodAtUser(i))
 			 		}
 			 		
 			 	}
@@ -135,9 +135,9 @@
 			@input(field = stylistForm("goodAtAgeGroup"),args = '_label ->Messages("stylist.goodAtAgeGroup")){(id,name,value,args) =>
 			 	@for(i <- 0 to goodAtStylePara.goodAtAgeGroup.length-1){
 			 		@if(stylist.goodAtAgeGroup.contains(goodAtStylePara.goodAtAgeGroup(i))){
-			 			<input type = "checkbox" name = "goodAtAgeGroup[@i]" checked="checked" value = "@goodAtStylePara.goodAtAgeGroup(i)">@goodAtStylePara.goodAtAgeGroup(i)
+			 			<input type = "checkbox" name = "goodAtAgeGroup[@i]" checked="checked" value = "@goodAtStylePara.goodAtAgeGroup(i)">@Messages("style.ageGroup." +goodAtStylePara.goodAtAgeGroup(i))
 			 		}else{
-			 			<input type = "checkbox" name = "goodAtAgeGroup[@i]" value = "@goodAtStylePara.goodAtAgeGroup(i)">@goodAtStylePara.goodAtAgeGroup(i)
+			 			<input type = "checkbox" name = "goodAtAgeGroup[@i]" value = "@goodAtStylePara.goodAtAgeGroup(i)">@Messages("style.ageGroup." +goodAtStylePara.goodAtAgeGroup(i))
 			 		}
 			 		
 			 	}

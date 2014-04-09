@@ -204,3 +204,84 @@ trait SexDAO extends ModelCompanion[Sex, ObjectId] {
 
     val dao = new SalatDAO[Sex, ObjectId](collection) {}
 }
+
+/**
+ * The table of searchByLengthForF
+ */
+case class SearchByLengthForF(
+    id: ObjectId = new ObjectId,
+    sex: String,
+    styleLength: String,
+    stylePic: ObjectId,
+    description: String)
+
+object SearchByLengthForF extends SearchByLengthForFDAO
+
+trait SearchByLengthForFDAO extends ModelCompanion[SearchByLengthForF, ObjectId] {
+    def collection = MongoConnection()(
+        current.configuration.getString("mongodb.default.db")
+            .getOrElse(throw new PlayException(
+                "Configuration error",
+                "Could not find mongodb.default.db in settings")))("SearchByLengthForF")
+
+    val dao = new SalatDAO[SearchByLengthForF, ObjectId](collection) {}
+    //保存图片
+    def saveSearchByLengthForFImage(searchByLengthForF: SearchByLengthForF, imgId: ObjectId) = {
+      dao.update(MongoDBObject("_id" -> searchByLengthForF.id), 
+            MongoDBObject("$set" -> ( MongoDBObject("stylePic" ->  imgId))),false,true)
+    }
+}
+
+/**
+ * The table of searchByLengthForM
+ */
+case class SearchByLengthForM(
+    id: ObjectId = new ObjectId,
+    sex: String,
+    styleLength: String,
+    stylePic: ObjectId,
+    description: String)
+
+object SearchByLengthForM extends SearchByLengthForMDAO
+
+trait SearchByLengthForMDAO extends ModelCompanion[SearchByLengthForM, ObjectId] {
+    def collection = MongoConnection()(
+        current.configuration.getString("mongodb.default.db")
+            .getOrElse(throw new PlayException(
+                "Configuration error",
+                "Could not find mongodb.default.db in settings")))("SearchByLengthForM")
+
+    val dao = new SalatDAO[SearchByLengthForM, ObjectId](collection) {}
+    //保存图片
+    def saveSearchByLengthForMImage(searchByLengthForM: SearchByLengthForM, imgId: ObjectId) = {
+      dao.update(MongoDBObject("_id" -> searchByLengthForM.id), 
+            MongoDBObject("$set" -> ( MongoDBObject("stylePic" ->  imgId))),false,true)
+    }
+}
+
+/**
+ * The table of searchByImpression
+ */
+case class SearchByImpression(
+    id: ObjectId = new ObjectId,
+    sex: String,
+    styleImpression: String,
+    stylePic: ObjectId,
+    description: String)
+
+object SearchByImpression extends SearchByImpressionDAO
+
+trait SearchByImpressionDAO extends ModelCompanion[SearchByImpression, ObjectId] {
+    def collection = MongoConnection()(
+        current.configuration.getString("mongodb.default.db")
+            .getOrElse(throw new PlayException(
+                "Configuration error",
+                "Could not find mongodb.default.db in settings")))("SearchByImpression")
+
+    val dao = new SalatDAO[SearchByImpression, ObjectId](collection) {}
+    //保存图片
+    def saveSearchByImpressionImage(searchByImpression: SearchByImpression, imgId: ObjectId) = {
+      dao.update(MongoDBObject("_id" -> searchByImpression.id), 
+            MongoDBObject("$set" -> ( MongoDBObject("stylePic" ->  imgId))),false,true)
+    }
+}
