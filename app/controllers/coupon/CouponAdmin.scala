@@ -45,7 +45,7 @@ object CouponAdmin extends Controller {
               coupons = Coupon.findContainCondtions(conditions)
             }
           }
-          val salon: Option[Salon] = Salon.findById(salonId)
+          val salon: Option[Salon] = Salon.findOneById(salonId)
 
           salon match {
 	        case Some(s) => Ok(html.salon.admin.mySalonCouponAll(s, Coupons.conditionForm.fill(couponServiceType), serviceTypes, coupons))

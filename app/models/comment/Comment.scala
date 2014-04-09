@@ -109,7 +109,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
 		coupon match {
 		    case None => None
 		    case Some(coupon) => {
-	            val salon = Salon.findById(coupon.salonId)
+	            val salon = Salon.findOneById(coupon.salonId)
 	            val commentOfSalon = CommentOfSalon(row, salon)			            
 	            commentOfSalonList :::= List(commentOfSalon)
 		    }

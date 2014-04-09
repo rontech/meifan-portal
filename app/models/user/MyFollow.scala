@@ -71,7 +71,7 @@ object MyFollow extends ModelCompanion[MyFollow, ObjectId] {
     //关注的店铺列表
     val salonIdL: List[ObjectId] = getAllFollowObjId(FOLLOW_SALON, id)
     val salonL = salonIdL.map(salonId =>
-    	Salon.findById(salonId).get
+    	Salon.findOneById(salonId).get
     )
     //关注的技师列表
     val stylistIdL: List[ObjectId] = getAllFollowObjId(FOLLOW_STYLIST, id)

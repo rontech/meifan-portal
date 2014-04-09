@@ -3,9 +3,22 @@
 <div class="detailHeader cFix pr">
     <div class="detailHeaderShopInfo detail2S cFix">
         <div class="fl pL10 pT10">
-        <a href="@routes.Salons.getSalon(salon.id)">
-            <img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"
-            alt="@salon.salonNameAbbr">
+				@if(salon.salonPics.exists{a => a.picUse == "LOGO"}){
+					@if(salon.id.getTime.equals(salon.salonPics(0).fileObjId.getTime)){
+						<h>@salon.id</h>
+						<h>@salon.salonPics</h>
+						<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
+					}else{
+						@for(i <- 0 to salon.salonPics.size-1){
+							@if(salon.salonPics(i).picUse == "LOGO" ){
+								<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>												
+							}								
+						}										
+					}
+										
+				}else{
+					<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
+				}	      
         </a>
         </div>
         <div class="fr sprtHeaderInnerR pa right0 w180">
@@ -85,7 +98,7 @@
                     @salon.salonAddress.addrDetail
                 </li>
                 <li>
-                    @salon.accessMethodDesc
+                    @salon.salonAddress.accessMethodDesc
                 </li>
                 </ul>
             </div>

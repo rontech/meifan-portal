@@ -125,7 +125,7 @@ object Styles extends Controller {
      * 前台店铺发型展示区域及发型详细信息
      */
     def findBySalon(salonId: ObjectId) = Action {
-        val salon: Option[Salon] = Salon.findById(salonId)
+        val salon: Option[Salon] = Salon.findOneById(salonId)
         val stylists = Style.findStylistBySalonId(salonId)
         var styles: List[Style] = Nil
         stylists.map { sty =>
@@ -141,7 +141,7 @@ object Styles extends Controller {
     }
 
     def findBySalonAndSex(salonId: ObjectId, sex: String) = Action {
-        val salon: Option[Salon] = Salon.findById(salonId)
+        val salon: Option[Salon] = Salon.findOneById(salonId)
         val stylists = Style.findStylistBySalonId(salonId)
         var styles: List[Style] = Nil
         stylists.map { sty =>
@@ -158,7 +158,7 @@ object Styles extends Controller {
     
     
     def getStyleInfoOfSalon(salonId: ObjectId, styleId: ObjectId) = Action {
-        val salon: Option[Salon] = Salon.findById(salonId)
+        val salon: Option[Salon] = Salon.findOneById(salonId)
         val style: Option[Style] = Style.findOneById(styleId)
         salon match {
             case Some(salon) => {

@@ -55,7 +55,7 @@ object Menus extends Controller {
   }
   
   def menuMain(salonId: ObjectId) = Action{
-	  val salon: Option[Salon] = Salon.findById(salonId)
+	  val salon: Option[Salon] = Salon.findOneById(salonId)
 	  
 	  salon match {
 	    case Some(s) => Ok(html.salon.admin.createSalonMenu(s, menuForm, Service.findBySalonId(salonId)))
@@ -68,7 +68,7 @@ object Menus extends Controller {
    */
   def createMenu(salonId: ObjectId) = Action {implicit request =>
     menuForm.bindFromRequest.fold(
-        errors => BadRequest(html.salon.admin.createSalonMenu(Salon.findById(salonId).get, errors, Service.findBySalonId(salonId))),
+        errors => BadRequest(html.salon.admin.createSalonMenu(Salon.findOneById(salonId).get, errors, Service.findBySalonId(salonId))),
         {
           menu =>
             var services: List[Service] = Nil
@@ -88,7 +88,7 @@ object Menus extends Controller {
             val menuTemp = menu.copy(salonId = menu.salonId, serviceItems = services, originalPrice = originalPrice, serviceDuration = serviceDuration)
             Menu.save(menuTemp)
             
-            val salon: Option[Salon] = Salon.findById(menu.salonId)
+            val salon: Option[Salon] = Salon.findOneById(menu.salonId)
 		    val menus: List[Menu] = Menu.findBySalon(menu.salonId)
 		    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
 		    val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
@@ -108,7 +108,7 @@ object Menus extends Controller {
     val menu = Menu.findOneById(menuId)
     
     menu match {
-      case Some(s) => val salon = Salon.findById(s.salonId)
+      case Some(s) => val salon = Salon.findOneById(s.salonId)
                       salon match {
                          case Some(k) => Ok(html.salon.admin.editSalonMenu(k, menuForm.fill(s), Service.findBySalonId(s.salonId), s))
                          case None => NotFound
@@ -122,7 +122,7 @@ object Menus extends Controller {
    */
   def updateMenu(menuId: ObjectId, salonId: ObjectId) = Action { implicit request =>
     menuUpdateForm.bindFromRequest.fold(
-        errors => BadRequest(html.salon.admin.editSalonMenu(Salon.findById(salonId).get, errors, Service.findBySalonId(salonId), Menu.findOneById(menuId).get)),
+        errors => BadRequest(html.salon.admin.editSalonMenu(Salon.findOneById(salonId).get, errors, Service.findBySalonId(salonId), Menu.findOneById(menuId).get)),
         {
           menu =>
             val oldMenu: Option[Menu] = Menu.findOneById(menuId)
@@ -146,7 +146,7 @@ object Menus extends Controller {
               case None => NotFound
             }
             
-            val salon: Option[Salon] = Salon.findById(menu.salonId)
+            val salon: Option[Salon] = Salon.findOneById(menu.salonId)
             val menus: List[Menu] = Menu.findBySalon(menu.salonId)
             val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
 		    val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
@@ -171,7 +171,7 @@ object Menus extends Controller {
     menu match {
       case Some(s) => val menuTemp = s.copy(expireDate = Some(new Date()), isValid = false)
                       Menu.save(menuTemp)
-                      val salon: Option[Salon] = Salon.findById(s.salonId)
+                      val salon: Option[Salon] = Salon.findOneById(s.salonId)
                       val menus: List[Menu] = Menu.findBySalon(s.salonId)
                       salon match {
                       	case Some(s) => Ok(html.salon.admin.mySalonMenuAll(s, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))
