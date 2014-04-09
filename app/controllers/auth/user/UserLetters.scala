@@ -99,7 +99,7 @@ object UserLetters extends Controller with AuthElement with AuthConfigImpl {
         Message.save(userLetter.message, WriteConcern.Safe)
         val userMessage = userLetter.userMessage.copy(msgId = userLetter.message.id)
         UserMessage.save(userMessage, WriteConcern.Safe)
-        Ok(Html("<p><strong>圣旨已送到！！</strong></p>"))
+        Ok(Html("<p><strong>发送成功！！</strong></p>"))
     })
   }
 }
