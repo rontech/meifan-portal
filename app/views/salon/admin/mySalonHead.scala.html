@@ -4,12 +4,12 @@
 
     	<ul class="menuBG cFix">
 		<li class="fl">
-			<a href="/salonInfo/@salon.id" >
+			<a href="@auth.routes.Salons.salonInfoManage" >
 		    	@Messages("salonAdmin.infoManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
 		<li class="fl">
-			<a href="/mySalon/@salon.id/stylist">
+			<a href="@auth.routes.Salons.myStylist">
 		    	@Messages("salonAdmin.stylistManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
@@ -19,12 +19,12 @@
 		    </a>
 		</li>
 		<li class="fl">
-			<a href="/mySalon/@salon.id/reserv">
+			<a href="@auth.routes.Salons.myService">
 				@Messages("salonAdmin.reserveManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
 		<li class="fl">
-			<a href="@routes.SalonsAdmin.myComment(salon.id)">
+			<a href="@auth.routes.Salons.myComment">
 				@Messages("salonAdmin.commentManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
