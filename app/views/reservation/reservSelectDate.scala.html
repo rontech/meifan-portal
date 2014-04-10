@@ -1,4 +1,4 @@
-@(salon: Salon, resvSchedule: ResvSchedule, navBar: List[(String, String)] = Nil)
+@(salon: Salon, resvSchedule: ResvSchedule, week: Int = 0, navBar: List[(String, String)] = Nil)
 
 @reservationInfoMain(navInSalon = "hair-salon", salon, navBar) {
 	
@@ -10,13 +10,23 @@
 				<table class="innerTable taC nowrap" cellpadding="0" cellspacing="0">
 					<tbody>
 						<tr>
-							<th rowspan="2" class="timeColor"><span class="iS arrowPagingWeekLOff">前の一週間</span></th>
+							@if(week == 0) {
+								<th rowspan="2" class="timeColor"><span class="iS arrowPagingWeekLOff">@Messages("reservation.beforeWeek")</span></th>
+							} else {
+								<th rowspan="2" class="timeColor">
+									<a href="@routes.Reservations.reservShowDate(salon.id, week-1)" title="@Messages("reservation.beforeWeek")" class="iS arrowPagingWeekR">@Messages("reservation.beforeWeek")</a>
+								</th>
+							}
 							@for(yearPart <- resvSchedule.yearsPart) {
 								<th colspan="@yearPart.yearNum" class="monthColor pV10">@yearPart.years</th>
 							}
-							<th rowspan="2" class="timeColor">
-								<a href="#" title="次の一週間" class="iS arrowPagingWeekR">次の一週間</a>
-							</th>
+							@if(week == 0) {
+								<th rowspan="2" class="timeColor">
+									<a href="@routes.Reservations.reservShowDate(salon.id, week+1)" title="@Messages("reservation.afterWeek")" class="iS arrowPagingWeekR">@Messages("reservation.afterWeek")</a>
+								</th>
+							} else {
+								<th rowspan="2" class="timeColor"><span class="iS arrowPagingWeekLOff">@Messages("reservation.afterWeek")</span></th>
+							}
 						</tr>
 						<tr>
 							@for(dayPart <- resvSchedule.daysPart) {
@@ -44,25 +54,37 @@
 								</table>
 							</th>
 							@for(resvInfoItems <- resvSchedule.resvInfoPart) {
-								<th class="innerCell">
-									<table cellpadding="0" cellspacing="0" class="moreInnerTable">
-										<tbody>
-											@for(resvInfoItem <- resvInfoItems.resvInfoItemPart) {
-												@if(resvInfoItem.isResvFlg) {
-													<tr>
-														<td class="openColor"><p class="scheduleR"><a href="#" title="◎" class="bS db reserveImmediately offL vaT">◎</a></p></td>
-													</tr>
-													<tr><th class="separate"></th></tr>
-												} else {
-													<tr>
-														<td class="closeColor"><p class="scheduleR"><span class="bS db reserveImpossible offL">×</span></p></td>
-													</tr>
-													<tr><th class="separate"></th></tr>
+								@if(resvInfoItems.isRestFlg) {
+									<th class="innerCloseCell">
+										<table cellpadding="0" cellspacing="0" class="moreInnerTable">
+											<tbody>
+												<tr><td><span class="rsvS closeday offL">@Messages("reservation.rest")</span></td></tr>
+											</tbody>
+										</table>
+									</th>
+								} else {
+									<th class="innerCell">
+										<table cellpadding="0" cellspacing="0" class="moreInnerTable">
+											<tbody>
+												@for(resvInfoItem <- resvInfoItems.resvInfoItemPart) {
+													@if(resvInfoItem.isResvFlg) {
+														<tr>
+															<td class="openColor"><p class="scheduleR"><a href="#" title="◎" class="bS db reserveImmediately offL vaT">◎</a></p></td>
+														</tr>
+													} else {
+														<tr>
+															<td class="closeColor"><p class="scheduleR"><span class="bS db reserveImpossible offL">×</span></p></td>
+														</tr>
+													}
+													
+													@if((resvInfoItems.resvInfoItemPart.size - 1) != resvInfoItems.resvInfoItemPart.indexOf(resvInfoItem)) {
+														<tr><th class="separate"></th></tr>
+													}
 												}
-											}
-										</tbody>
-									</table>
-								</th>
+											</tbody>
+										</table>
+									</th>
+								}
 							}
 							<th class="innerCell">
 								<table cellpadding="0" cellspacing="0" class="moreInnerTable vaT">

@@ -103,3 +103,30 @@ height: 32px;
 width: 35px;
 }
 
+.innerCloseCell {
+border: 1px solid #E6E6E6;
+background-color: #EEEEEE;
+text-align: center;
+}
+
+.closeday {
+background-position: -50px 0;
+width: 35px;
+height: 90px;
+}
+
+.rsvS {
+background-image: url("/assets/images/reservation/reserve.png");
+background-repeat: no-repeat;
+display: block;
+}
+
+.arrowPagingWeekR {
+background-position: right -241px;
+padding-right: 8px;
+}
+
+.arrowPagingWeekLOff {
+background-position: -196px -361px;
+padding-left: 8px;
+}
