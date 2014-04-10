@@ -87,89 +87,14 @@
 			            <th class="w222 ">
 			                <!-- -->
 			                <div class="dibBL vaM w154">
-			                   	@Messages("user.birthDay")
-			                </div>
-			            </th>
-			            <td>
-			                <div>
-			                	@inputDate(userForm("birthDay"), '_label -> None, '_help -> Messages(""),
-							            	'_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr")))
-							            )
-	
-			                </div>
-			            </td>
-			        </tr>
-			        <tr>
-			            <th class="w222 ">
-			                <!-- -->
-			                <div class="dibBL vaM w154">
-			                   	@Messages("user.sex")
-			                </div>
-			            </th>
-			            <td>
-			                <div>
-			                	@inputRadioGroup(field = userForm("sex").copy(value=userForm("sex").value.map{Some(_)}.getOrElse(Some("M"))),options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")) , '_label -> None,
-												'_error -> userForm("sex").error.map(_.withMessage(Messages("user.sexErr"))))
-	
-			                </div>
-			            </td>
-			        </tr>
-			        <tr>
-			            <th class="w222 ">
-			                <!-- -->
-			                <div class="dibBL vaM w154">
-			                   	@Messages("salon.address")
-			                </div>
-			            </th>
-			            <td>
-			                <div class="mL50">
-			                	@Messages("salon.province"):  <select id="Select1" name = "address.province"></select>
-								@Messages("salon.city"):  <select id="Select2" name = "address.city"></select>
-								@Messages("salon.region"):  <select id="Select3" name = "address.region"></select>
-								<script type="text/javascript">
-									addressInit('Select1', 'Select2', 'Select3');
-								</script>
-			                </div>
-			            </td>
-			        </tr>
-			        <tr>
-			            <th class="w222 ">
-			                <!-- -->
-			                <div class="dibBL vaM w154">
-			                   	@Messages("user.job")
-			                </div>
-			            </th>
-			            <td>
-			                <div>
-			                	@inputText(userForm("socialStatus"),'_label -> None, '_help -> Messages("user.chooseEdit"))
-			                </div>
-			            </td>
-			        </tr>
-			        <tr>
-			            <th class="w222 ">
-			                <!-- -->
-			                <div class="dibBL vaM w154">
 			                   	@Messages("user.email")
 			                </div>
 			            </th>
 			            <td>
 			                <div>
-			                	@inputText(userForm("email"), '_label -> None,'_help -> Messages(""),
+			                	@inputText(userForm("email"), '_label -> None,'_help -> Messages(""),'placeholder -> Messages("user.email"),
 					            	'_error -> userForm("email").error.map(_.withMessage(Messages("user.emailErr")))
 					            )
-			                </div>
-			            </td>
-			        </tr>
-			        <tr>
-			            <th class="w222 ">
-			                <!-- -->
-			                <div class="dibBL vaM w154">
-			                   	@Messages("user.tel")
-			                </div>
-			            </th>
-			            <td>
-			                <div>
-			                	@inputText(userForm("tel"), '_label -> None)
 			                </div>
 			            </td>
 			        </tr>
@@ -177,6 +102,8 @@
 			</table>
 				
             @inputText(userForm("optContactMethod"), '_label -> "",'style -> "display: none")
+            
+            @*inputText(userForm("address"), '_label -> "",'style -> "display: none")*@
             
             @inputText(userForm("userPics"), '_label -> "",'style -> "display: none")
 
