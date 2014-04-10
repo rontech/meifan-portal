@@ -767,4 +767,7 @@ reservation.weekDay.4 = 三
 reservation.weekDay.5 = 四
 reservation.weekDay.6 = 五
 reservation.weekDay.7 = 六
+reservation.rest = 休息日
+reservation.beforeWeek = 前一周
+reservation.afterWeek = 后一周
 
