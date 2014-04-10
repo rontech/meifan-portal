@@ -115,8 +115,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("mainPhone"), '_label -> None, '_help -> Messages("*"),
-				                		'_error -> salonForm("mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
+				                	@inputText(salonForm("contactMethod.mainPhone"), '_label -> None, '_help -> Messages("*"),
+				                		'_error -> salonForm("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
 				                </div>
 				            </td>
 				        </tr>
@@ -129,11 +129,25 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("contact"), '_label -> None,'_help -> Messages("*"),
-				                		'_error -> salonForm("contact").error.map(_.withMessage(Messages("salon.register.contact"))))
+				                	@inputText(salonForm("contactMethod.contact"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonForm("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
 				                </div>
 				            </td>
 				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("user.email")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonForm("contactMethod.email"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonForm("contactMethod.email").error.map(_.withMessage(Messages("salon.register.contact"))))
+				                </div>
+				            </td>
+				        </tr>				        
 				        <tr>
 				            <th class="w222 ">
 				                <!-- -->

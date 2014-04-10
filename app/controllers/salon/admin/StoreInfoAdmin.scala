@@ -43,8 +43,11 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with Salon
 	        		"picContent" -> text,
 	        		"picFoot" -> text
 	        )(PicDescription.apply)(PicDescription.unapply),
-	        "mainPhone" -> nonEmptyText,
-	        "contact" -> nonEmptyText,
+	        "contactMethod" -> mapping(
+	        		"mainPhone" -> nonEmptyText,
+	        		"contact" -> nonEmptyText,
+	        		"email" -> nonEmptyText
+	        )(Contact.apply)(Contact.unapply),
 	        "optContactMethod" -> list(
 	            mapping(
 	                "contMethodType" -> text,
@@ -100,12 +103,12 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with Salon
 	              }),
 	        "registerDate" -> date
 	        ){
-	      (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription,mainPhone, contact, optContactMethod, establishDate, salonAddress,
-	       workTime, restDay, seatNums, salonFacilities,salonPics,registerDate) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription,mainPhone, contact, optContactMethod, establishDate, salonAddress,
+	      (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
+	       workTime, restDay, seatNums, salonFacilities,salonPics,registerDate) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
 	       workTime, restDay, seatNums, salonFacilities,salonPics,registerDate)
 	    }
 	    {
-	      salon=> Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonDescription, salon.picDescription,salon.mainPhone, salon.contact, salon.optContactMethod, salon.establishDate, salon.salonAddress,
+	      salon=> Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonDescription, salon.picDescription,salon.contactMethod, salon.optContactMethod, salon.establishDate, salon.salonAddress,
 	          salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
 	    }
 	)
@@ -116,7 +119,7 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with Salon
 	    	"salonAccount" -> mapping(
 	    		"accountId" -> nonEmptyText(6,16),
 	    		"password" -> tuple(
-	    			"main" ->  text.verifying(Messages("user.passwordError"), main => main.matches("""^[a-zA-Z]\w{5,17}$""")),
+	    			"main" ->  text.verifying(Messages("user.passwordError"), main => main.matches("""^[A-Za-z0-9]+$""")),
 	    			"confirm" -> text).verifying(
           // Add an additional constraint: both passwords must match
             Messages("user.twicePasswordError"), password => password._1 == password._2)
@@ -135,8 +138,11 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with Salon
 	        		"picContent" -> text,
 	        		"picFoot" -> text
 	        )(PicDescription.apply)(PicDescription.unapply),	        
-	        "mainPhone" -> nonEmptyText,
-	        "contact" -> nonEmptyText,
+	        "contactMethod" -> mapping(
+	        		"mainPhone" -> nonEmptyText,
+	        		"contact" -> nonEmptyText,
+	        		"email" -> nonEmptyText
+	        )(Contact.apply)(Contact.unapply),
 	        "optContactMethod" -> list(
 	            mapping(
 	                "contMethodType" -> text,
@@ -191,12 +197,12 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with Salon
 	                salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
 	              })
       ){
-        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription,picDescription, mainPhone, contact, optContactMethod, establishDate, salonAddress,
-	       workTime, restDays, seatNums, salonFacilities,salonPics) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, mainPhone, contact, optContactMethod, establishDate, salonAddress,
+        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription,picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
+	       workTime, restDays, seatNums, salonFacilities,salonPics) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
 	       workTime, restDays, seatNums, salonFacilities,salonPics,new Date())
       }{
-        salonRegister=> Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.picDescription, salonRegister.mainPhone, 
-        		salonRegister.contact, salonRegister.optContactMethod, salonRegister.establishDate, salonRegister.salonAddress,
+        salonRegister=> Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.picDescription, salonRegister.contactMethod, 
+        		salonRegister.optContactMethod, salonRegister.establishDate, salonRegister.salonAddress,
         		salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics)
       }.verifying(
 
@@ -210,19 +216,21 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with Salon
           "password" -> nonEmptyText)(SalonAccount.apply)(SalonAccount.unapply)
           )(Salon.loginCheck)(_.map(s => (s.salonAccount))).verifying("Invalid userId or password", result => result.isDefined))
 
+   //密码修改
   val changePassword = Form(
     mapping(
-      "salonAccount" ->mapping(
-         "accountId" -> text,
-         "password" -> nonEmptyText)(Salon.authenticate)(_.map(s => (s.salonAccount.accountId,""))).verifying("Invalid userId or password", result => result.isDefined),        
+      "salonChange" ->mapping(
+          "salonAccount" -> mapping(
+            "accountId" -> text,
+            "password" -> nonEmptyText
+              )(SalonAccount.apply)(SalonAccount.unapply))(Salon.loginCheck)(_.map(s => (s.salonAccount))).verifying("Invalid userId or password", result => result.isDefined),        
       "newPassword" -> tuple(
-        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[a-zA-Z]\w{5,17}$""")),
+        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[A-Za-z0-9]+$""")),
         "confirm" -> text).verifying(
         // Add an additional constraint: both passwords must match
         Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2)
-    ){(salonAccount, newPassword) => (salonAccount.get, BCrypt.hashpw(newPassword._1, BCrypt.gensalt()))}{salonAccount => Some((Option(salonAccount._1),("","")))}
+    ){(salonChange, newPassword) => (salonChange.get, newPassword._1)}{salonChange => Some((Option(salonChange._1),("","")))}
   )
-  
   /**
    * 店铺登录
    */
@@ -309,8 +317,8 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with Salon
    */
   def password(id: ObjectId) = Action { implicit request =>
     val salon = Salon.findOneById(id).get   
-    val salonForm = SalonInfo.salonInfo.fill(salon)    
-    Ok(views.html.salon.admin.salonChangePassword("", salonForm, salon))
+    val changeForm = SalonInfo.changePassword.fill(salon,"")    
+    Ok(views.html.salon.admin.salonChangePassword("", changeForm, salon))
   }
   
 //  /**
@@ -321,8 +329,8 @@ object SalonInfo extends Controller with LoginLogout with AuthElement with Salon
 //    changePassword.bindFromRequest.fold(
 //      errors => BadRequest(views.html.error.errorMsg(errors)),
 //      {
-//        case (salonAccount, main) =>
-//          Salon.save(salonAccount.copy(password = main), WriteConcern.Safe)
+//        case(salonChange,main) =>
+//          Salon.save(salonChange.copy(password = main), WriteConcern.Safe)
 //           Redirect(routes.SalonInfo.salonInfoBasic(id))
 //    })
 //  }
