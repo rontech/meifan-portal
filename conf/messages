@@ -55,6 +55,7 @@ main.myPage=我的主页
 
 
 # Salon
+salon.salonLogin=店铺登录
 salon.register=店铺注册
 salon.tabName=美发沙龙
 salon.salonMainPage=美容美发沙龙检索首页
@@ -144,10 +145,10 @@ salon.followSalon = 关注此沙龙
 salon.savedAsMySalon = 已保存为我的店铺
 salon.pushToMobile = 发送到手机
 salon.iss=店铺功能
-salon.login.accountId=请输入您的店铺Id
+salon.login.accountId=请输入您的店铺ID
 salon.login.password=请输入您的密码
 salon.register.accountId=请输入6-16位字符
-salon.register.password=字母开头6-18位字符
+salon.register.password=请输入以字母开头的6-18位字符
 salon.register.salonName = 请重新输入店铺名
 salon.register.mainPhone = 请输入联系电话
 salon.register.contact=请输入联系人
@@ -155,6 +156,21 @@ salon.register.establishDate=请输入店铺成立时间
 salon.register.seatNums=请输入店铺席位
 salon.salonNameNotAvaible=该店铺已存在
 salon.level = 等级 Lv5
+salon.oldPassword=请输入原始密码
+salon.newPassword=请输入新密码
+salon.confirmNewPassword=请再次输入新密码
+salon.picUse=用途
+salon.fileId=图片ID
+salon.showPriority=显示顺序
+salon.PicDescription=图片描述
+salon.picUse.logo=店铺头像
+salon.picUse.Navigate=店铺展示图片
+salon.picUse.Atmosphere=店铺环境
+salon.salonPics.upload = 上传
+salon.pic.title=图片标题
+salon.pic.content=图片简介
+salon.pic.foot=图片结尾
+salon.showPic=首页图片描述
 restWay.fixed = 固定休息（如：每周星期三休息）
 restWay.indefinite = 不定休（如：每月第一、三周星期三休息）
 salon.selectRestDays = 请选择固定休息日
@@ -742,4 +758,13 @@ onUsePicture.size = 像素
 onUsePicture.WH = 950x320
 onUsePicture.process = 上传进度：
 onUsePicture.limit = 最多选择5张图片
+
+# reservation
+reservation.weekDay.1 = 日
+reservation.weekDay.2 = 一
+reservation.weekDay.3 = 二
+reservation.weekDay.4 = 三
+reservation.weekDay.5 = 四
+reservation.weekDay.6 = 五
+reservation.weekDay.7 = 六
 

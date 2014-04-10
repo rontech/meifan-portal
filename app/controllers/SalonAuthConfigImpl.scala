@@ -1,21 +1,18 @@
 package controllers
 
 import jp.t2v.lab.play2.auth._
-import scala.concurrent._
 import reflect.{ClassTag, classTag}
 import play.api.mvc._
 import play.api.mvc.Results._
 import scala.concurrent.{ExecutionContext, Future}
-import ExecutionContext.Implicits.global
-import se.radley.plugin.salat.Binders._
 import models._
 
 
-trait AuthConfigImpl extends AuthConfig {
+trait SalonAuthConfigImpl extends AuthConfig {
 
   type Id = String
 
-  type User = models.User
+  type User = models.Salon
 
   type Authority = User => Future[Boolean]
 
@@ -23,7 +20,7 @@ trait AuthConfigImpl extends AuthConfig {
 
   val sessionTimeoutInSeconds = 3600
 
-  def resolveUser(userId: Id)(implicit ctx: ExecutionContext) = Future.successful(User.findOneByUserId(userId))
+  def resolveUser(accountId: Id)(implicit ctx: ExecutionContext) = Future.successful(Salon.findByAccountId(accountId))
 
   def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = {
     val uri = request.session.get("access_uri").getOrElse(routes.Application.index.url.toString)
@@ -32,19 +29,17 @@ trait AuthConfigImpl extends AuthConfig {
   def logoutSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Redirect(routes.Application.index))
 
   def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) =
-		  Future.successful(Redirect(routes.Application.login).withSession("access_uri" -> request.uri))
+		  Future.successful(Redirect(routes.Application.salonLogin).withSession("access_uri" -> request.uri))
 
   def authorizationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Forbidden("no permission"))
 
   def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = authority(user)
 
-  def requireAdminUser(user: User): Future[Boolean] = Future.successful(user.permission == "Administrator")
- 
-  def authorization(permission: Permission)(user : User)(implicit ctx: ExecutionContext) = Future.successful((permission, user.permission) match {
+  /*def authorization(permission: Permission)(user : User)(implicit ctx: ExecutionContext) = Future.successful((permission, user.permission) match {
     case ( _, "Administrator") => true
     case (LoggedIn, "LoggedIn") => true
     case (GuestUser, "LoggedIn") => true
     case (GuestUser, "GuestUser") => true
     case _ => false
-  })
+  })*/
 }

@@ -1,7 +1,5 @@
-@(salon: Salon, navBar: List[(String, String)] = Nil)
-
-@salonInfoMain(navInSalon = "salon-basic", salon, navBar) {
-
+@(salon: Salon)
+					
     <div class="mT30">
         <div class="yS mainContentsSecondTitleOuter">
         <h2 class="yS mainContentsSecondTitleInner">
@@ -27,7 +25,7 @@
             </tr>
             <tr>
                 <th class="w120"> @Messages("salon.accessMethod") </th>
-                <td colspan="3" class="w620"> @salon.accessMethodDesc </td>
+                <td colspan="3" class="w620"> @salon.salonAddress.accessMethodDesc </td>
             </tr>
             <tr>
                 <th class="w120"> @Messages("salon.workTime") </th>
@@ -81,6 +79,3 @@
         </table>
     </div>
 
-
-
-}

@@ -8,11 +8,11 @@
 				<!-- ↓cassetteHeading -->
 					<div class="cassetteHeading cFix">
 						<div>
-							<h4 class="fs18 lh16 dibBL w500 vaM"><a href="@routes.Salons.getSalon(salon.id)">@salon.salonName</a></h4>
+							<h4 class="fs18 lh16 dibBL w500 vaM"><a href="@noAuth.routes.Salons.getSalon(salon.id)">@salon.salonName</a></h4>
 						</div>
 						<div class="mT10 cFix">
 							<div class="fl cFix">
-								<p class="fl fgLGray2 b mT2 mR8">@salon.accessMethodDesc</p>
+								<p class="fl fgLGray2 b mT2 mR8">@salon.salonAddress.accessMethodDesc</p>
 							</div>
 							<p class="fr">
 								@if(logged.equals(false) || MyFollow.checkIfFollow(loginUserId,salon.id)){
@@ -28,7 +28,7 @@
 					<div class="listBody cFix">
 						<div class="fl w221 mR10 taC">
 							<div class="mHA">
-								<a href="@routes.Salons.getSalon(salon.id)" target="blank"><img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)" align="absmiddle" alt="" title="@salon.salonName" class="SmallPortrait"></a>
+								<a href="@noAuth.routes.Salons.getSalon(salon.id)" target="blank"><img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)" align="absmiddle" alt="" title="@salon.salonName" class="SmallPortrait"></a>
 							</div>
 						</div>
 						<div class="fr w464">

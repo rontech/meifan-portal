@@ -195,7 +195,40 @@ object InitialData {
       ).foreach(BlogCategory.save)
     }
     
+    if(SearchByLengthForF.findAll.isEmpty){
+      Seq (
+        SearchByLengthForF(new ObjectId,"female","super-short",new ObjectId,"女-超短"),
+        SearchByLengthForF(new ObjectId,"female","short",new ObjectId,"女-短"),
+        SearchByLengthForF(new ObjectId,"female","near-shoulder-length",new ObjectId,"女-及肩"),
+        SearchByLengthForF(new ObjectId,"female","shoulder-length",new ObjectId,"女-齐肩"),
+        SearchByLengthForF(new ObjectId,"female","mid-length",new ObjectId,"女-中长"),
+        SearchByLengthForF(new ObjectId,"female","long",new ObjectId,"女-长")
+      ).foreach(SearchByLengthForF.save)
+    }
+    
+    if(SearchByLengthForM.findAll.isEmpty){
+      Seq (
+        SearchByLengthForM(new ObjectId,"male","super-short",new ObjectId,"男-超短"),
+        SearchByLengthForM(new ObjectId,"male","short",new ObjectId,"男-短"),
+        SearchByLengthForM(new ObjectId,"male","near-shoulder-length",new ObjectId,"男-及肩"),
+        SearchByLengthForM(new ObjectId,"male","shoulder-length",new ObjectId,"男-齐肩"),
+        SearchByLengthForM(new ObjectId,"male","mid-length",new ObjectId,"男-中长"),
+        SearchByLengthForM(new ObjectId,"male","long",new ObjectId,"男-长")
+      ).foreach(SearchByLengthForM.save)
+    }
    
+    if(SearchByImpression.findAll.isEmpty){
+      Seq (
+        SearchByImpression(new ObjectId,"female","natural",new ObjectId,"女-自然"),
+        SearchByImpression(new ObjectId,"female","intellectual",new ObjectId,"女-知性"),
+        SearchByImpression(new ObjectId,"female","sweet",new ObjectId,"女-甜美"),
+        SearchByImpression(new ObjectId,"female","fashion",new ObjectId,"女-时尚"),
+        SearchByImpression(new ObjectId,"female","fresh",new ObjectId,"女-清新"),
+        SearchByImpression(new ObjectId,"female","gorgeous",new ObjectId,"女-华丽"),
+        SearchByImpression(new ObjectId,"female","personality",new ObjectId,"女-个性")
+      ).foreach(SearchByImpression.save)
+    }
+    
   }
   /*---------------------------
    * Sample Data For Test. 
@@ -203,10 +236,13 @@ object InitialData {
    *--------------------------*/
   def insertSampleData() {
     
-    if(Salon.findAll == Nil) { 
+    if(Salon.findAll.isEmpty) { 
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("salon01", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "悦美月容吧", Some("悦容吧"), List("Hairdressing"), Some("www.sohu.com"), Some("本地最红的美发沙龙！"), "051268320328", "鸣人", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), RestDay("Fixed",List("Monday")), 25, SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有"), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None)), date("2014-01-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("salon02", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "千美千寻吧", Some("美寻吧"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)), "地铁一号线汾湖路站1号出口向西步行500米可达", WorkTime("9:00", "18:00"), RestDay("Fixed",List("Sunday")), 9, SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有"), List(new OnUsePicture(new ObjectId, "LOGO", None, None)), date("2014-03-12") )
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("salon01", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "悦美月容吧", Some("悦容吧"), List("Hairdressing"), Some("www.sohu.com"), Some("本地最红的美发沙龙！"), PicDescription("国家的最先进的从银座发型始发！你把它设置为[] AFLOATJAPAN如果头发爱莫特！","实行开放银座[AFLOAT日本]！超人气沙龙AFLOAT人才，艺人以及参加许多，聚集人气造型师谁冠美容行业★意义上的顶级制作“永远的成年女性”可爱“，”中应该让我一定会满意你的技术。它的舒适放松的质量好平静的空间，这也是私人房间也很高兴☆","欢迎光临！"),"051268320328", "鸣人", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达") , WorkTime("9:00", "18:00"), RestDay("Fixed",List("Monday")), 25, SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有"), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-01-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("salon02", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "千美千寻吧", Some("美寻吧"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"),PicDescription("国家的最先进的从银座发型始发！你把它设置为[] AFLOATJAPAN如果头发爱莫特！","实行开放银座[AFLOAT日本]！超人气沙龙AFLOAT人才，艺人以及参加许多，聚集人气造型师谁冠美容行业★意义上的顶级制作“永远的成年女性”可爱“，”中应该让我一定会满意你的技术。它的舒适放松的质量好平静的空间，这也是私人房间也很高兴☆","欢迎光临！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达") , WorkTime("9:00", "18:00"), RestDay("Fixed",List("Monday")), 9, SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有"), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") ),
+        Salon(new ObjectId("530d7288d7f2861457771bdf"), SalonAccount("salon03", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "忆荣吧", Some("忆荣吧"), List("Hairdressing"), Some("www.sohu.com"), Some("本地最红的美发沙龙！"), PicDescription("国家的最先进的从银座发型始发！你把它设置为[] AFLOATJAPAN如果头发爱莫特！","实行开放银座[AFLOAT日本]！超人气沙龙AFLOAT人才，艺人以及参加许多，聚集人气造型师谁冠美容行业★意义上的顶级制作“永远的成年女性”可爱“，”中应该让我一定会满意你的技术。它的舒适放松的质量好平静的空间，这也是私人房间也很高兴☆","欢迎光临！"),"051268320328", "鸣人", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达") , WorkTime("9:00", "18:00"), RestDay("Fixed",List("Monday")), 25, SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有"), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-01-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771aaa"), SalonAccount("salon04", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "虞美人", Some("虞美人"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"),PicDescription("国家的最先进的从银座发型始发！你把它设置为[] AFLOATJAPAN如果头发爱莫特！","实行开放银座[AFLOAT日本]！超人气沙龙AFLOAT人才，艺人以及参加许多，聚集人气造型师谁冠美容行业★意义上的顶级制作“永远的成年女性”可爱“，”中应该让我一定会满意你的技术。它的舒适放松的质量好平静的空间，这也是私人房间也很高兴☆","欢迎光临！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达") , WorkTime("9:00", "18:00"), RestDay("Fixed",List("Monday")), 9, SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有"), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bbb"), SalonAccount("salon05", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "美吧", Some("美吧"), List("Hairdressing"), Some("www.163.com"), Some("本地第二红的美发沙龙！"),PicDescription("国家的最先进的从银座发型始发！你把它设置为[] AFLOATJAPAN如果头发爱莫特！","实行开放银座[AFLOAT日本]！超人气沙龙AFLOAT人才，艺人以及参加许多，聚集人气造型师谁冠美容行业★意义上的顶级制作“永远的成年女性”可爱“，”中应该让我一定会满意你的技术。它的舒适放松的质量好平静的空间，这也是私人房间也很高兴☆","欢迎光临！"), "051268320328", "路飞", List(OptContactMethod("QQ",List("99198121"))), date("2014-03-12"), Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达") , WorkTime("9:00", "18:00"), RestDay("Fixed",List("Monday")), 9, SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有"), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") )
      ).foreach(Salon.save)
     }
       
@@ -225,16 +261,16 @@ object InitialData {
     
    if(User.findAll.isEmpty){
       Seq(
-       User(new ObjectId("530d8010d7f2861457771bf8"),"demo01","维达沙宣","$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU.","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"Administrator", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd3"),"demo02","苏小魂","$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU.","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"Administrator", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd4"),"demo03","阿哲","$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU.","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd9"),"demo04","李莫愁","$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU.","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd8"),"demo05","西门吹雪","$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU.","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd7"),"demo06","叶孤城","$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU.","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd6"),"demo07","陆小风","$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU.","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd5"),"demo08","花满楼","$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU.","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffd0"),"demo09","独孤求败","$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU.","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normalUser","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
-       User(new ObjectId("53202c29d4d5e3cd47efffe1"),"demo10","中原一点红","$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU.","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0)),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normalUser","userLevel.0",20,date("2014-03-18"),"LoggedIn", true)
+       User(new ObjectId("530d8010d7f2861457771bf8"),"demo01","维达沙宣","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),""),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"Administrator", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd3"),"demo02","苏小魂","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),""),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"Administrator", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd4"),"demo03","阿哲","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),""),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd9"),"demo04","李莫愁","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),""),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd8"),"demo05","西门吹雪","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),""),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd7"),"demo06","叶孤城","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),""),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd6"),"demo07","陆小风","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),""),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd5"),"demo08","花满楼","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),""),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","stylist","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffd0"),"demo09","独孤求败","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),""),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normalUser","userLevel.0",20,date("2014-03-18"),"LoggedIn", true),
+       User(new ObjectId("53202c29d4d5e3cd47efffe1"),"demo10","中原一点红","123456","F", date("1991-03-18"),Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),""),new ObjectId,"15269845698","123@123.com",Seq(OptContactMethod("QQ", List{"845654891"})),"程序员","normalUser","userLevel.0",20,date("2014-03-18"),"LoggedIn", true)
       ).foreach(User.save)
     }
     
@@ -418,7 +454,7 @@ object InitialData {
     if(!Salon.findAll.isEmpty){
         if(Image.fuzzyFindByName("salon").isEmpty) {
           //save picture of salon
-            val logofile = new File(play.Play.application().path() + "/public/images/store")
+            val logofile = new File(play.Play.application().path() + "/public/images/store/logo")
             val logofiles = Image.listFilesInFolder(logofile)
             for((l, index) <- logofiles.zipWithIndex){
                 if(index < Salon.findAll.length) {
@@ -429,8 +465,93 @@ object InitialData {
             }       
          }
     }
+    
+    if(!SearchByImpression.findAll.isEmpty){
+        if(Image.fuzzyFindByName("impression-male").isEmpty) {
+            // save picture of style
+            val stylefile = new File(play.Play.application().path() + "/public/images/style/styleForImpression")
+            val stylefiles = Image.listFilesInFolder(stylefile)
+            for((styf, index) <- stylefiles.zipWithIndex){
+                if(index < Style.findAll.toList.length) {
+                    val styleImgId = Image.save(styf)
+                    val searchByImpression = SearchByImpression.findAll.toList(index)
+                    SearchByImpression.saveSearchByImpressionImage(searchByImpression,styleImgId)
+                }
+            }
+        }
+    }
+    
+    if(!SearchByLengthForF.findAll.isEmpty){
+        if(Image.fuzzyFindByName("length-female").isEmpty) {
+            // save picture of style
+            val stylefile = new File(play.Play.application().path() + "/public/images/style/styleForFemale")
+            val stylefiles = Image.listFilesInFolder(stylefile)
+            for((styf, index) <- stylefiles.zipWithIndex){
+                if(index < Style.findAll.toList.length) {
+                    val styleImgId = Image.save(styf)
+                    val searchByLengthForF = SearchByLengthForF.findAll.toList(index)
+                    SearchByLengthForF.saveSearchByLengthForFImage(searchByLengthForF,styleImgId)
+                }
+            }
+        }
+    }
+    
+    if(!SearchByLengthForM.findAll.isEmpty){
+        if(Image.fuzzyFindByName("length-male").isEmpty) {
+            // save picture of style
+            val stylefile = new File(play.Play.application().path() + "/public/images/style/styleForMale")
+            val stylefiles = Image.listFilesInFolder(stylefile)
+            for((styf, index) <- stylefiles.zipWithIndex){
+                if(index < Style.findAll.toList.length) {
+                    val styleImgId = Image.save(styf)
+                    val searchByLengthForM = SearchByLengthForM.findAll.toList(index)
+                    SearchByLengthForM.saveSearchByLengthForMImage(searchByLengthForM,styleImgId)
+                }
+            }
+        }
+    }
 
+    if(!Salon.findAll.isEmpty){
+        if(Image.fuzzyFindByName("showPic").isEmpty) {
+          //save picture of salon
+            val showfile = new File(play.Play.application().path() + "/public/images/store/showPic")
+            val showfiles = Image.listFilesInFolder(showfile)
+            var imgList: List[ObjectId] = Nil
+            for((l, index) <- showfiles.zipWithIndex){
+                if(index < Salon.findAll.length * 3) {
+                    val showImgId = Image.save(l)
+                    imgList :::= List(showImgId) 
+                    if(index % 3 == 2 ) {
+                    	val salon = Salon.findAll.toList(index / 3)
+                    	Salon.updateSalonShow(salon, imgList)
+                    	imgList = Nil
+                    }
+                    
+                }
+            }       
+        }
+    }
+    
+    if(!Salon.findAll.isEmpty){
+        if(Image.fuzzyFindByName("atomPic").isEmpty) {
+          //save picture of salon
+            val atomfile = new File(play.Play.application().path() + "/public/images/store/atomPic")
+            val atomfiles = Image.listFilesInFolder(atomfile)
+            var imgList: List[ObjectId] = Nil
+            for((n, index) <- atomfiles.zipWithIndex){
+                if(index < Salon.findAll.length * 3) {
+                    val atomImgId = Image.save(n)
+                    imgList :::= List(atomImgId) 
+                    if(index % 3 == 2 ) {
+                    	val salon = Salon.findAll.toList(index / 3)
+                    	Salon.updateSalonAtom(salon, imgList)
+                    	imgList = Nil
+                    }
+                    
+                }
+            }       
+        }
+    }    
   }
-  
 }
 

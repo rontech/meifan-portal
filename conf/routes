@@ -21,17 +21,17 @@ GET         /FollowTypes/main                                          controlle
 # Pages Which can be seen by anonymous.
 #-------------------------------------------------
 # Salon
-GET         /salon                                                     controllers.Salons.index
-GET         /salon/:id                                                 controllers.Salons.getSalon(id: ObjectId)
+GET         /salon                                                     controllers.noAuth.Salons.index
+GET         /salon/:id                                                 controllers.noAuth.Salons.getSalon(id: ObjectId)
 # Salon.style
-GET         /salon/:slnId/style/:styId                                 controllers.Salons.getOneStyle(slnId: ObjectId, styId: ObjectId)
-GET         /salon/:salonId/styles                                     controllers.Salons.getAllStyles(salonId: ObjectId)
+GET         /salon/:slnId/style/:styId                                 controllers.noAuth.Salons.getOneStyle(slnId: ObjectId, styId: ObjectId)
+GET         /salon/:salonId/styles                                     controllers.noAuth.Salons.getAllStyles(salonId: ObjectId)
 # Salon.stylist
-GET         /salon/:slnId/stylist/:stlId                               controllers.Salons.getOneStylist(slnId: ObjectId, stlId: ObjectId)
-GET         /salon/:salonId/stylists                                   controllers.Salons.getAllStylists(salonId: ObjectId)
+GET         /salon/:slnId/stylist/:stlId                               controllers.noAuth.Salons.getOneStylist(slnId: ObjectId, stlId: ObjectId)
+GET         /salon/:salonId/stylists                                   controllers.noAuth.Salons.getAllStylists(salonId: ObjectId)
 # Salon.coupon
-GET         /salon/:salonId/coupons                                    controllers.Salons.getAllCoupons(salonId: ObjectId)
-POST        /salon/:salonId/coupons/condition                          controllers.Salons.getCouponsByCondition(salonId: ObjectId)
+GET         /salon/:salonId/coupons                                    controllers.noAuth.Salons.getAllCoupons(salonId: ObjectId)
+POST        /salon/:salonId/coupons/condition                          controllers.noAuth.Salons.getCouponsByCondition(salonId: ObjectId)
 # Salon.comment
 GET         /salon/:salonId/comments                                   controllers.Comments.findBySalon(salonId: ObjectId)
 # Salon.blog
@@ -66,7 +66,7 @@ GET         /style                                                     controlle
 GET         /style/:id                                                 controllers.Styles.findById(id: ObjectId)
 POST        /styleSearchList                                           controllers.Styles.styleSearchList
 GET         /findByLength/:styleLength/:consumerSex                    controllers.Styles.findByLength(styleLength: String, consumerSex: String)
-GET         /findByImpression/:styleImpression                         controllers.Styles.findByImpression(styleImpression: String)
+GET         /findByImpression/:styleImpression/:consumerSex            controllers.Styles.findByImpression(styleImpression: String, consumerSex: String)
 GET         /style/:salonId/:sex                                       controllers.Styles.findBySalonAndSex(salonId: ObjectId, sex: String)
 
 
@@ -202,7 +202,7 @@ GET         /showService/:id                                           controlle
 
 #add reservation
 GET         /reservHairView/:id                                        controllers.Reservations.reservHairView(id: ObjectId)
-GET         /reservSelectDate                                          controllers.Reservations.reservSelectDate
+#GET         /reservSelectDate                                          controllers.Reservations.reservSelectDate
 GET         /reservSelectStylist                                       controllers.Reservations.reservSelectStylist
 POST        /reservConfirmPwd                                          controllers.Reservations.reservConfirmPwd
 GET         /reservFinish                                              controllers.Reservations.reservFinish
@@ -266,6 +266,8 @@ POST        /salonDoRegister                                 controllers.SalonIn
 GET         /updateSalonlogo/                             	 controllers.SalonInfo.saveSalonImg(id: ObjectId,imgId: ObjectId)
 POST		/imageUpload/:id  		               			 controllers.SalonInfo.imageUpload(id: ObjectId)
 GET         /addImage/:id 									 controllers.SalonInfo.addImage(id: ObjectId)
+GET         /salonPassword/:id                               controllers.SalonInfo.password(id: ObjectId)
+#POST        /changeSalonPassword/:id                         controllers.SalonInfo.salonChangePassword(id: ObjectId)
 #add bu lu-zheng
 GET         /mySalon/:id/createService                                 controllers.Services.serviceMain(id: ObjectId)
 
@@ -305,4 +307,7 @@ POST    /newStyleAddBySalon/                                 controllers.SalonsA
 # Questions add by jie-zhang (for common questions)
 GET         /question/:qid                                             controllers.Questions.getOneQuestion(qid: ObjectId)
 GET         /questions/                                                controllers.Questions.getAllQuestions()
+
+# Reservation add by sangsang-hu
+GET        /salon/:salonId/reserve/schedule/:week                 controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
