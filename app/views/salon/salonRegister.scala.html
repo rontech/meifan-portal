@@ -12,7 +12,7 @@
 		</div>
 
 		<div class="mT10 pH10">
-			@helper.form(routes.SalonInfo.doRegister, 'id -> "salonRegister"){
+			@helper.form(noAuth.routes.Salons.doRegister(), 'id -> "salonRegister"){
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
 				    	@if(salonRegister.hasGlobalErrors){

@@ -18,10 +18,7 @@
     <body>
         <div>
         @form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm"){
-            <div>
-                @Messages("hair.styleName")<input type = "text" class="" name = "styleName" value = "">
-            </div>
-            <div>
+           <div>
             <fieldset class="addOtherStylePic">
                 <legend>@Messages("user.optContactMethod")</legend>
                 <div id="optContactMethods">
@@ -143,9 +140,10 @@
             field("showPriority"), 
             '_label -> "showPriority", 'class -> "imgShowPriority"
         )
-        @inputText(
-            field("description"), 
-            '_label -> Messages("onUserPicture.description"), 'class -> "imagesDescriptionfelid"
+        @textarea(
+            field("description"),
+            'rows -> 2, 'cols -> 15, 
+            'placeholder -> Messages("onUserPicture.description"), 'class -> "imagesDescriptionfelid"
         )
         
     </div>
@@ -287,7 +285,7 @@
 		    		var innerHtml = 
 		    		'<li>'+
 		    			'<div class="delete-pic"></div>'+
-		    			"<div class='p-pic'><img src='#'/></div>"+
+		    			"<div class='p-pic'><img src='/getPhoto/"+data+"' /></div>"+
 		    			'<div class="addstyles-byStylist twipsies well optContactMethod">' + template.html() + '</div>'+
 		    		'</li>';
 		    		listEls.find('ul').append(innerHtml);

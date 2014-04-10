@@ -3,7 +3,7 @@
 <div class="w166 mHA">
     <div class="taC">
         <a href="@*routes.Stylists.findStylistById(stylist.stylistId)*@">
-            <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" class="bdImgGray w164 h219">
+            <img src="@if(stylist.id.getTime.equals(stylist.myPics(0).fileObjId.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(stylist.myPics(0).fileObjId)"}" class="bdImgGray w164 h219">
         </a>
     </div>
     <p class="mT10">

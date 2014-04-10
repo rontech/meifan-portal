@@ -36,6 +36,8 @@ trait UserAuthConfigImpl extends AuthConfig {
   def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = authority(user)
 
   def requireAdminUser(user: User): Future[Boolean] = Future.successful(user.permission == "Administrator")
+
+  def isLoggedIn(user:User) :Future[Boolean] = Future.successful(true)
  
   def authorization(permission: Permission)(user : User)(implicit ctx: ExecutionContext) = Future.successful((permission, user.permission) match {
     case ( _, "Administrator") => true
