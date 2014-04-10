@@ -101,14 +101,22 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
         //处理错误
         errors => BadRequest(views.html.comment.errorMsg("")),
         {
-          case (content) =>         
-	        Comment.addComment(user.userId, content, commentObjId, commentObjType)
-	        if (commentObjType == 1) { 
-	          Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
-	        }
-	        else {
-	          Ok("")
-	        }
+          case (content) =>    
+            if (commentObjType == 1) {
+              val blog = Blog.findOneById(commentObjId)
+              blog match {
+	              case Some(blog) =>{
+	                Comment.addComment(user.userId, content, commentObjId, commentObjType)		        
+			        Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
+	              }
+	              case None=>{
+	                Unauthorized
+	              }
+              }
+            }
+            else{
+            Unauthorized
+            }
         } 
       )
   }
