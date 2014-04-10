@@ -13,15 +13,17 @@
     <div class="twipsies well @className">
         
         <a class="removeOptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
-
-        @inputText(
-            field("contMethodType"), 
-            '_label -> Messages("user.contMethodType")
+        
+        @select(
+        	field("contMethodType"), 
+        	ContMethodType.getAllContMethodTypes,
+        	'_default -> Messages("user.chooseOpt"),
+        	'_label -> Messages("user.contMethodType")
         )
         
         <div class="accounts">
 
-            @repeat(field("accounts"), min = 0) { account =>
+            @repeat(field("accounts"), min = 1) { account =>
                 
                 @accountField(account)
     
@@ -48,6 +50,8 @@
 
     @myPageMain(navInMyPage = "information", user, followInfo, user.id, true)  {
     	
+    	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
+    	
 		<div class="mT10 pH10">
 			@form(auth.routes.Users.updateInfo(user.userId), 'id -> "userForm") {
 				
@@ -57,6 +61,8 @@
                 <input type="hidden" name="userBehaviorLevel" value="@user.userBehaviorLevel">
                 <input type="hidden" name="point" value="@user.point">
                 <input type="hidden" name="permission" value="@user.permission">
+                <input type="hidden" name="activity" value="@user.activity">
+                @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
                 
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
@@ -87,7 +93,10 @@
 				                </div>
 				            </th>
 				            <td>
-				               @inputDate(userForm("birthDay"), '_label -> None, '_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr"))), '_help -> Messages(""))
+				               @*inputDate(userForm("birthDay"), '_label -> None, '_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr"))), '_help -> Messages(""))*@
+				               @input(field = userForm("birthDay"), '_label -> None, '_help -> Messages("")) { (id, name, value, _) =>
+        							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
+								}
 				            </td>
 				        </tr>
 				        <tr>
@@ -97,8 +106,19 @@
 				                </div>
 				            </th>
 				            <td>
-				               @inputRadioGroup(userForm("sex"),options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")) , '_label -> None,
+				               @inputRadioGroup(userForm("sex"),options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")) , '_label -> None, '_help -> Messages(""),
                   								'_error -> userForm("sex").error.map(_.withMessage(Messages("user.sexErr"))))
+				            </td>
+				        </tr>
+				        </tr>
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("user.email")
+				                </div>
+				            </th>
+				            <td>
+				               @inputText(userForm("email"),'_label -> None, 'readonly -> "true", '_help -> Messages(""))
 				            </td>
 				        </tr>
 				        <tr>
@@ -110,17 +130,6 @@
 				            <td>
 				               @inputText(userForm("socialStatus"),'_label -> None)
 				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("user.email")
-				                </div>
-				            </th>
-				            <td>
-				               @inputText(userForm("email"), '_label -> None, '_error -> userForm("email").error.map(_.withMessage(Messages("user.emailErr"))), '_help -> Messages(""))
-				            </td>
-				        </tr>
 				        <tr>
 				            <th class="w222">
 				                <div class="dibBL vaM w160">
@@ -128,17 +137,7 @@
 				                </div>
 				            </th>
 				            <td>
-				               @inputText(userForm("tel"), '_label -> None)
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages(" ")
-				                </div>
-				            </th>
-				            <td>
-				               @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
+				               @inputText(userForm("tel"), '_label -> None, '_help -> Messages(""), '_error -> userForm("tel").error.map(_.withMessage(Messages("user.telError"))))
 				            </td>
 				        </tr>
 				        <tr>
@@ -148,18 +147,14 @@
 				                </div>
 				            </th>
 				            <td>
-				            	@Messages("salon.province"):  <select id="Select1" name = "address.province" value = "@user.address.province"></select>
-				                @Messages("salon.city"):  <select id="Select2" name = "address.city" value = "@user.address.city"></select>
-				                @Messages("salon.region"):  <select id="Select3" name = "address.region" value = "@user.address.region"></select>
+				            	@Messages("salon.province"):  <select id="Select1" name = "address.province" value = "@if(user.address.nonEmpty){@user.address.get.province}else{""}"></select>
+				                @Messages("salon.city"):  <select id="Select2" name = "address.city" value = "@if(user.address.nonEmpty){@user.address.get.city}else{""}"></select>
+				                @Messages("salon.region"):  <select id="Select3" name = "address.region" value = "@if(user.address.nonEmpty){@user.address.get.region}else{""}"></select>
 				                <script type="text/javascript">
 				                	addressInit('Select1', 'Select2', 'Select3');
 				                </script>
 				            </td>
 				        </tr>
-					</tbody>
-				</table>
-				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-				    <tbody>
 				        <tr>
 				            <th class="w222">
 				                <div class="dibBL vaM w160">
@@ -169,7 +164,7 @@
 				            <td>
 				               <div id="optContactMethods">
             
-					                @repeat(userForm("optContactMethods")) { optContactMethod =>
+					                @repeat(userForm("optContactMethods"), min = 0) { optContactMethod =>
 					                
 					                    @optContactMethodGroup(optContactMethod)
 					                
@@ -227,11 +222,12 @@
        
         var renumber = function(accounts) {
             $('.optContactMethod').each(function(i) {
-                $('input', this).each(function() {
+                $('select', this).each(function() {
                     $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
                 })
-                $('.account input', this).each(function(i) {
-                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
+                $('.account input', this).each(function(j) {
+                	$(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
+                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + j + ']'))
                 })
             })
         }
