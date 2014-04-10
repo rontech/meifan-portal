@@ -52,6 +52,28 @@ object Application extends Controller {
             case None => NotFound
         }
     }
+    
+    def getPhotoByString(sfile: String) = Action {
+
+        import com.mongodb.casbah.Implicits._
+        import ExecutionContext.Implicits.global
+        
+        val file = new ObjectId(sfile)
+
+        val db = MongoConnection()("Picture")
+        val gridFs = GridFS(db)
+        //println("get photo id "+ file)
+        gridFs.findOne(Map("_id" -> file)) match {
+            case Some(f) => SimpleResult(
+                ResponseHeader(OK, Map(
+                    CONTENT_LENGTH -> f.length.toString,
+                    CONTENT_TYPE -> f.contentType.getOrElse(BINARY),
+                    DATE -> new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", java.util.Locale.US).format(f.uploadDate))),
+                Enumerator.fromStream(f.inputStream))
+
+            case None => NotFound
+        }
+    }
 
     def upload = Action(parse.multipartFormData) { request =>
         request.body.file("photo") match {
