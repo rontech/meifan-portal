@@ -18,14 +18,13 @@ case class ResvItem (
 case class Reservation (
         id: ObjectId = new ObjectId,
         userId: String,
-        storeId: ObjectId,
+        salonId: ObjectId,
         status: Int, // 0：已预约; 1：已消费; 2：已过期; -1：已取消
         expectedDate: Date, // 预约时间 + 预约日期
         serviceDuration: Int,
-        originalPrice: BigDecimal,
-        expectedStylist: String, // 技师表中的stylistId
+        stylistId: Option[ObjectId], // 技师表中的stylistId
         resvItems: List[ResvItem],
-        rsvStyle: ObjectId,
+        styleId: Option[ObjectId],
         userPhone: String,
         userLeaveMsg: String,
         price: BigDecimal,
@@ -53,6 +52,7 @@ case class ResvInfoItemPart (
 
 case class ResvInfoPart (
         resvDay: Int,
+        isRestFlg: Boolean,
         resvInfoItemPart: List[ResvInfoItemPart]
 )
 
@@ -75,12 +75,12 @@ object Reservation extends ModelCompanion[Reservation, ObjectId]{
 
     val dao = new SalatDAO[Reservation, ObjectId](collection){}
     
-    def findAllReservation(storeId: ObjectId):List[Reservation] = dao.find(MongoDBObject("storeId" -> storeId)).sort(MongoDBObject("expectedDate" -> -1)).toList
+    def findAllReservation(salonId: ObjectId):List[Reservation] = dao.find(MongoDBObject("salonId" -> salonId, "status" -> 0)).sort(MongoDBObject("expectedDate" -> -1)).toList
    
     /**
 	 * 根据预定时间查找预约信息
 	 */
-	def findReservationByDate(reservations: List[Reservation], expectedDate: Date): List[Reservation] = {
-		reservations.filter(r => r.expectedDate == expectedDate)
+	def findReservationByDate(reservations: List[Reservation], expectedDateStart: Date, expectedDateEnd: Date): Long = {
+		reservations.filter(r => (r.expectedDate.before(expectedDateEnd) && r.expectedDate.after(expectedDateStart))).size.toLong
 	}
 }
