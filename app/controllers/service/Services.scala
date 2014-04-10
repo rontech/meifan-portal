@@ -58,7 +58,7 @@ object Services extends Controller {
       {
         service =>
           Service.addService(service)
-          Redirect(routes.SalonsAdmin.myService(salonId))                  
+          Redirect(auth.routes.Salons.myService)                  
       })
   }
   
@@ -67,7 +67,7 @@ object Services extends Controller {
  */
   def deleteService(id: ObjectId, salonId: ObjectId) = Action{
     Service.deleteService(id)
-    Redirect(routes.SalonsAdmin.myService(salonId))
+    Redirect(auth.routes.Salons.myService)
   }
   
  /**
@@ -91,7 +91,7 @@ object Services extends Controller {
       {
         service =>
           Service.save(service.copy(id = id), WriteConcern.Safe)
-          Redirect(routes.SalonsAdmin.myService(salonId))
+          Redirect(auth.routes.Salons.myService)
       })
   }
   

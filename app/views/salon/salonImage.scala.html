@@ -4,7 +4,7 @@
 @import views.html.salon.admin._
 
 @mySalonMain(navInSalon = "", salon){
-		@helper.form(routes.SalonInfo.imageUpload(salon.id), 'enctype -> "multipart/form-data") {
+		@helper.form(auth.routes.Salons.imageUpload, 'enctype -> "multipart/form-data") {
                               <input type="file" id="filePhoto" name="logo" style="width:50"  /> 
                               <button type="submit">@Messages("user.changeImage")</button>
                               <img src="#" id="target"/>
