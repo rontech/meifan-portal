@@ -409,12 +409,11 @@ object InitialData {
       ).foreach(Question.save)
 
     }
-    
-    /*
+
+    /*    
     val stfile = new File(play.Play.application().path() + "/public/images/style")
-    val stfiles = Image.listFilesInFolder(stfile)
+    val stfiles = Image.listFilesRecursively()(stfile)
     println("stfiles = " + stfiles)
-    println("style Names = " + Image.fuzzyFindByName("004287051_154"))
     */
 
     /*
@@ -447,7 +446,6 @@ object InitialData {
                     Stylist.updateImages(stylist, stylistImgId)
                 }
             }
-            
         }
     }
 
