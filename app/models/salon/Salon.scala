@@ -8,9 +8,138 @@ import com.mongodb.casbah.MongoConnection
 import mongoContext._
 import se.radley.plugin.salat.Binders._
 import java.util.Date
+import models._
 import org.mindrot.jbcrypt.BCrypt
 
+/*----------------------------
+ * Embed Structure of Salon.
+ -----------------------------*/
+/*
+ * Main Class: Salon.
+*/
 
+case class Salon(
+    id: ObjectId = new ObjectId,   	
+    salonAccount: SalonAccount,
+    salonName: String,                  
+    salonNameAbbr: Option[String],      
+    salonIndustry: List[String],       // Ref to Master [Industry] table.           
+    homepage: Option[String],           
+    salonDescription: Option[String], 
+    picDescription: PicDescription,
+    mainPhone: String,
+    contact: String, 
+    optContactMethod: List[OptContactMethod],
+    establishDate: Date,
+    salonAddress: Address,
+    workTime: WorkTime,
+    restDays: RestDay,
+    seatNums: Int,
+    salonFacilities: SalonFacilities,    
+    salonPics: List[OnUsePicture],             
+    registerDate: Date
+)
+
+object Salon extends ModelCompanion[Salon, ObjectId] {
+  
+  def collection = MongoConnection()(
+    current.configuration.getString("mongodb.default.db")
+      .getOrElse(throw new PlayException(
+        "Configuration error",
+        "Could not find mongodb.default.db in settings")))("Salon")
+        
+  val dao = new SalatDAO[Salon, ObjectId](collection) {}
+  
+//// Indexes
+//  collection.ensureIndex(DBObject("accountId" -> 1), "userId", unique = true)
+  
+    def findByAccountId(salonAccountId: String): Option[Salon] = {
+        dao.findOne(MongoDBObject("salonAccount.accountId" -> salonAccountId))
+    }    
+
+    def loginCheck(salonAccount: SalonAccount): Option[Salon] = {
+//        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId,"salonAccount.password" -> salonAccount.password))
+        val salon = dao.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId))
+        if(salon.nonEmpty && BCrypt.checkpw(salonAccount.password, salon.get.salonAccount.password)){
+            return salon
+        }else{
+            return None
+        }
+    }
+
+  def authenticate(accountId: String, password: String): Option[Salon] = {
+    val salon = dao.findOne(MongoDBObject("salonAccount.accountId" -> accountId))
+    if (salon.nonEmpty && BCrypt.checkpw(password, salon.get.salonAccount.password)) {
+      return salon
+    } else {
+      return None
+    }
+  }
+
+    def findOneBySalonName(salonName: String): Option[Salon] = {
+        dao.findOne(MongoDBObject("salonName" -> salonName))
+    }
+    
+        /**
+     * Get the stylists count of a salon.
+     */
+    def getCountOfStylists(salonId: ObjectId) = {
+       SalonAndStylist.findBySalonId(salonId).length 
+    }
+
+    /**
+     * Get the lowest price of CUT of a salon.
+     */
+    def getLowestPriceOfCut(salonId: ObjectId): Option[BigDecimal] = {
+       val cutSrvKey = "Cut"
+       Service.getLowestPriceOfSrvType(salonId, cutSrvKey) 
+    } 
+
+    def updateSalonLogo(salon: Salon, imgId: ObjectId) = {
+      dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "LOGO"), 
+            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgId))),false,true)
+    }
+    
+    def updateSalonShow(salon: Salon, imgIdList: List[ObjectId]) = {
+           
+      if(imgIdList.length > 2) {
+          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate", "salonPics.fileObjId" -> salon.salonPics(3).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(2)))),false,true)
+      }
+      
+      if(imgIdList.length > 1) {
+          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate", "salonPics.fileObjId" -> salon.salonPics(2).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(1)))),false,true)
+      }
+      
+      if(imgIdList.length > 0) {
+          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate", "salonPics.fileObjId" -> salon.salonPics(1).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(0)))),false,true)
+      }
+
+            
+    }    
+    
+    def updateSalonAtom(salon: Salon, imgIdList: List[ObjectId]) = {
+           
+      if(imgIdList.length > 2) {
+          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Atmosphere", "salonPics.fileObjId" -> salon.salonPics(6).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(2)))),false,true)
+      }
+      
+      if(imgIdList.length > 1) {
+          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Atmosphere", "salonPics.fileObjId" -> salon.salonPics(5).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(1)))),false,true)
+      }
+      
+      if(imgIdList.length > 0) {
+          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Atmosphere", "salonPics.fileObjId" -> salon.salonPics(4).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(0)))),false,true)
+      }
+
+            
+    }      
+}
 
 /*----------------------------
  * Embed Structure of Salon.
@@ -26,7 +155,8 @@ case class Address (
     town: Option[String],
     addrDetail: String,
     longitude: Option[BigDecimal],
-    latitude: Option[BigDecimal]
+    latitude: Option[BigDecimal],
+    accessMethodDesc: String
 )
 
 /**
@@ -70,149 +200,8 @@ case class SalonAccount(
     password:String
 )
 
-/*----------------------------
- * Embed Structure of Salon.
- -----------------------------*/
-/*
- * Main Class: Salon.
-*/
-
-case class Salon(
-    id: ObjectId = new ObjectId,   	
-    salonAccount: SalonAccount,
-    salonName: String,                  
-    salonNameAbbr: Option[String],      
-    salonIndustry: List[String],       // Ref to Master [Industry] table.           
-    homepage: Option[String],           
-    salonDescription: Option[String],   
-    mainPhone: String,
-    contact: String, 
-    optContactMethod: List[OptContactMethod],
-    establishDate: Date,
-    salonAddress: Address,
-    accessMethodDesc: String,
-    workTime: WorkTime,
-    restDays: RestDay,
-    seatNums: Int,
-    salonFacilities: SalonFacilities,    
-    salonPics: List[OnUsePicture],             
-    registerDate: Date
+case class PicDescription(
+	picTitle:String,
+	picContent:String,
+	picFoot:String	
 )
-
-
-object SalonDAO extends SalatDAO[Salon, ObjectId](
-  collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-          "Configuration error",
-          "Could not find mongodb.default.db in settings"))
-  )("Salon"))
-
-
-object Salon {
-
-    def findAll(): List[Salon] = {
-        SalonDAO.find(MongoDBObject.empty).toList
-    }
-
-    def findById(id: ObjectId): Option[Salon] = {
-        SalonDAO.findOne(MongoDBObject("_id" -> id))
-    }
-    
-    def findByAccountId(salonAccountId: String): Option[Salon] = {
-        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccountId))
-    }    
-
-    def loginCheck(salonAccount: SalonAccount): Option[Salon] = {
-//        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId,"salonAccount.password" -> salonAccount.password))
-        val salon = SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId))
-        if(salon.nonEmpty && BCrypt.checkpw(salonAccount.password, salon.get.salonAccount.password)){
-            return salon
-        }else{
-            return None
-        }
-    }
-
-    def findOneBySalonName(salonName: String): Option[Salon] = {
-        SalonDAO.findOne(MongoDBObject("salonName" -> salonName))
-    }
-    
-    /**
-     * Get the stylists count of a salon.
-     */
-    def getCountOfStylists(salonId: ObjectId) = {
-       SalonAndStylist.findBySalonId(salonId).length 
-    }
-
-    /**
-     * Get the lowest price of CUT of a salon.
-     */
-    def getLowestPriceOfCut(salonId: ObjectId): Option[BigDecimal] = {
-       val cutSrvKey = "Cut"
-       Service.getLowestPriceOfSrvType(salonId, cutSrvKey) 
-    } 
-
-    def create(salon: Salon): Option[ObjectId] = {
-        SalonDAO.insert(
-            Salon(
-                id = salon.id,                
-                salonAccount = salon.salonAccount,  
-                salonName = salon.salonName,
-                salonNameAbbr = salon.salonNameAbbr,
-                salonIndustry = salon.salonIndustry,
-                homepage = salon.homepage,
-                salonDescription = salon.salonDescription,
-                mainPhone = salon.mainPhone,
-                contact = salon.contact,
-                optContactMethod = salon.optContactMethod,
-                establishDate = salon.establishDate,
-                salonAddress = salon.salonAddress,
-                accessMethodDesc = salon.accessMethodDesc,
-                workTime = salon.workTime,
-                restDays = salon.restDays,
-                seatNums = salon.seatNums,
-                salonFacilities = salon.salonFacilities,
-                salonPics = salon.salonPics,
-                registerDate = salon.registerDate
-             )
-        )
-    }
-
-    def save(salon: Salon) = {
-        SalonDAO.save(
-            Salon(
-                id = salon.id,
-                salonAccount = salon.salonAccount,               
-                salonName = salon.salonName,
-                salonNameAbbr = salon.salonNameAbbr,
-                salonIndustry = salon.salonIndustry,
-                homepage = salon.homepage,
-                salonDescription = salon.salonDescription,
-                mainPhone = salon.mainPhone,
-                contact = salon.contact,
-                optContactMethod = salon.optContactMethod,
-                establishDate = salon.establishDate,
-                salonAddress = salon.salonAddress,
-                accessMethodDesc = salon.accessMethodDesc,
-                workTime = salon.workTime,
-                restDays = salon.restDays,
-                seatNums = salon.seatNums,
-                salonFacilities = salon.salonFacilities,
-                salonPics = salon.salonPics,
-                registerDate = salon.registerDate
-            )
-        )
-
-    }
-
-    def delete(id: String) {
-        SalonDAO.remove(MongoDBObject("_id" -> new ObjectId(id)))
-    }
-
-    def updateSalonLogo(salon: Salon, imgId: ObjectId) = {
-      SalonDAO.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "LOGO"), 
-            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgId))),false,true)
-    }
-    
-} 
-

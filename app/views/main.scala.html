@@ -40,7 +40,7 @@
                     </ul>
                     <ul class="move cFix">
                         <li class="fl">
-                            <a href="@routes.Salons.index" class="cS @if(nav == "hair-salon") {salonCurrent} else {salon}"> @Messages("main.hairSalon") </a>
+                            <a href="@noAuth.routes.Salons.index" class="cS @if(nav == "hair-salon") {salonCurrent} else {salon}"> @Messages("main.hairSalon") </a>
                         </li>
                         <li class="fl">
                             <a href="@routes.Styles.index" class="cS @if(nav == "hair-catalog") {catalogCurrent} else {catalog}"> @Messages("main.hairCatalog") </a>

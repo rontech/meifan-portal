@@ -8,42 +8,12 @@
         </h3>
     </div>
     <ul class="cFix">
-        <li class="fl mR15">
-            <a href="@routes.Styles.findByImpression("natural")">
-                <img src="http://imgbp.hotp.jp/CSP/img/hc/top/photo/imageIC21.jpg" alt="natural"
-                class="imgFrame">
-            </a>
-        </li>
-        <li class="fl mR15">
-            <a href="@routes.Styles.findByImpression("intellectual")">
-                <img src="http://imgbp.hotp.jp/CSP/img/hc/top/photo/imageIC17.jpg" alt="intellectual"
-                class="imgFrame">
-            </a>
-        </li>
-        <li class="fl mR15">
-            <a href="@routes.Styles.findByImpression("sweet")">
-                <img src="http://imgbp.hotp.jp/CSP/img/hc/top/photo/imageIC20.jpg" alt="sweet"
-                class="imgFrame">
-            </a>
-        </li>
-        <li class="fl mR15">
-            <a href="@routes.Styles.findByImpression("fashion")">
-                <img src="http://imgbp.hotp.jp/CSP/img/hc/top/photo/imageIC18.jpg?switch=20140328" alt="fashion"
-                class="imgFrame">
-            </a>
-        </li>
-        <li class="fl mR15">
-            <a href="@routes.Styles.findByImpression("fresh")">
-                <img src="http://imgbp.hotp.jp/CSP/img/hc/top/photo/imageIC22.jpg" alt="fresh"
-                class="imgFrame">
-            </a>
-        </li>
-        <li class="fl mR15">
-            <a href="@routes.Styles.findByImpression("gorgeous")">
-                <img src="http://imgbp.hotp.jp/CSP/img/hc/top/photo/imageIC16.jpg" alt="gorgeous"
-                class="imgFrame">
-            </a>
-        </li>
-        @*personality*@
+        @SearchByImpression.findAll.map { searchByImpression =>
+            <li class="fl mR10">
+                <a href="@routes.Styles.findByImpression(searchByImpression.styleImpression,searchByImpression.sex)">
+                    <img src="@routes.Application.getPhoto(searchByImpression.stylePic)" alt="@searchByImpression.styleImpression" class="imgFrame" width="94px">
+                </a>
+            </li>
+        }
     </ul>
 </div>

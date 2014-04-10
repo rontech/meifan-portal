@@ -11,10 +11,10 @@ import play.api.data.Forms._
 import play.api.mvc._
 import scala.concurrent._
 import play.api.i18n.Messages
-import controllers.AuthConfigImpl
 import org.mindrot.jbcrypt.BCrypt
+import controllers._
 
-object Users extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
+object Users extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl {
 
   val loginForm = Form(mapping(
     "userId" -> nonEmptyText,
@@ -47,7 +47,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
          "province" -> text,
          "city" -> optional(text),
          "region" -> optional(text)){
-          (province,city,region) => Address(province,city,region,None,"NO NEED",None,None)
+          (province,city,region) => Address(province,city,region,None,"NO NEED",None,None,"No NEED")
       }{
           address => Some((address.province,address.city,address.region))
       }),

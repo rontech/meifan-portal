@@ -1,6 +1,6 @@
-@(salon: Salon, comments: List[Comment], navBar: List[(String, String)] = Nil)
+@(salon: Salon, comments: List[Comment], navBar: List[(String, String)] = Nil, user : Option[User])
 
-@salonInfoMain(navInSalon = "salon-comment", salon, navBar) {
+@salonInfoMain(navInSalon = "salon-comment", salon, navBar, user) {
 	
 	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comment/comment.css")">
 
