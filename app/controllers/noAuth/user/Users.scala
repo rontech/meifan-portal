@@ -44,7 +44,7 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
           "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
       "socialStatus" -> text){
         (id, userId, password, nickName, sex, birthDay, address, tel, email, optContactMethods, socialStatus) =>
-          User(new ObjectId, userId, nickName, BCrypt.hashpw(password._1, BCrypt.gensalt()), sex, birthDay, address, new ObjectId, tel, email, optContactMethods, socialStatus, User.NORMAL_USER,  User.HIGH, 0, new Date(), Permission.valueOf(LoggedIn), false)
+          User(new ObjectId, userId, nickName, BCrypt.hashpw(password._1, BCrypt.gensalt()), sex, birthDay, address, new ObjectId, tel, email, optContactMethods, socialStatus, User.NORMAL_USER,  User.HIGH, 0, new Date(), Permission.valueOf(LoggedIn), true)
       } {
         user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.sex, user.birthDay, user.address, user.tel, user.email, user.optContactMethods, user.socialStatus))
       }.verifying(

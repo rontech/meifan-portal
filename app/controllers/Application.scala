@@ -1,12 +1,9 @@
 package controllers
 
 import play.api.mvc._
-import play.api._
 import models._
 import se.radley.plugin.salat.Binders._
-import se.radley.plugin.salat._
 import com.mongodb.casbah.Imports._
-import com.mongodb.casbah.gridfs.Imports._
 import com.mongodb.casbah.gridfs.GridFS
 import java.text.SimpleDateFormat
 import play.api.libs.iteratee.Enumerator
@@ -24,12 +21,18 @@ object Application extends Controller {
     }
 
     def register() = Action {
-        Ok(views.html.user.register(noAuth.Users.registerForm()))
+        Ok(views.html.user.register(Users.registerForm()))
     }
 
     def salonLogin() = Action {
-        Ok(views.html.salon.salonLogin(SalonInfo.salonLogin))
+        Ok(views.html.salon.salonLogin(auth.Salons.salonLoginForm))
     }
+
+    def salonRegister() = Action {
+        val industry = Industry.findAll.toList
+        Ok(views.html.salon.salonRegister(Salons.salonRegister,industry))
+    }
+
     
     def getPhoto(file: ObjectId) = Action {
 
