@@ -20,7 +20,7 @@ object SalonNavigation extends Controller {
      */
     def getSalonTopNavBar = {
         val nav0 = (Messages("index.mainPage"), routes.Application.index.toString)
-        val nav1 = (Messages("salon.salonMainPage"), routes.Salons.index.toString)
+        val nav1 = (Messages("salon.salonMainPage"), noAuth.routes.Salons.index.toString)
         nav0 :: nav1 :: Nil 
     }
 
@@ -62,7 +62,7 @@ object SalonNavigation extends Controller {
                      case Some(abbr) => abbr.toString()
                      case None => sl.salonName.toString()
                  }
-                 val nav6 = List((Messages(abbrName), routes.Salons.getSalon(sl.id).toString()))
+                 val nav6 = List((Messages(abbrName), noAuth.routes.Salons.getSalon(sl.id).toString()))
                  //List(nav2) ::: List(nav3) ::: List(nav4) ::: List(nav5) ::: List(nav6)
                  nav2 ::: nav3 ::: nav4 ::: nav5 ::: nav6 
             }

@@ -18,10 +18,7 @@
       <div class="row">
         <div class="span14">
           	@form(auth.routes.Users.commitStylistApply(), 'id -> "userForm"){
-		
-       		
-		  	
-		  	@if(stylistApplyForm.hasGlobalErrors) { 
+			@if(stylistApplyForm.hasGlobalErrors) { 
               <div>
                   @stylistApplyForm.globalError.get.message
               </div>
@@ -40,8 +37,7 @@
 			                	@inputText(stylistApplyForm("stylist.workYears"), '_label -> None, 'class ->  "font1")
 			                </div>
 			            </td>
-			            
-			        </tr>
+					</tr>
 			        <tr>
 			            <th class="w222 ">
 			                <!-- -->
@@ -95,7 +91,7 @@
 			                <div>
 			                	@input(field = stylistApplyForm("stylist.goodAtImage"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to goodAtStylePara.goodAtImage.length-1){
-								 		<input type = "checkbox" name = "goodAtImage[@i]" value = "@goodAtStylePara.goodAtImage(i)">@goodAtStylePara.goodAtImage(i)&nbsp;
+								 		<input type = "checkbox" name = "goodAtImage[@i]" value = "@goodAtStylePara.goodAtImage(i)">@Messages("style.styleImpression."+goodAtStylePara.goodAtImage(i))&nbsp;
 								 	}
 								  }
 			                </div>
@@ -112,7 +108,7 @@
 			                <div>
 			                	@input(field = stylistApplyForm("stylist.goodAtStatus"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to goodAtStylePara.goodAtStatus.length-1){
-								 		<input type = "checkbox" name = "goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@goodAtStylePara.goodAtStatus(i)
+								 		<input type = "checkbox" name = "goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@Messages("style.socialStatus."+goodAtStylePara.goodAtStatus(i))
 								 	}
 								}
 	
@@ -151,7 +147,7 @@
 			                <div class="mL50">
 			                	@input(field = stylistApplyForm("stylist.goodAtUser"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to goodAtStylePara.goodAtUser.length-1){
-								 		<input type = "checkbox" name = "stylist.goodAtUser[@i]" value = "@goodAtStylePara.goodAtUser(i)">@goodAtStylePara.goodAtUser(i)
+								 		<input type = "checkbox" name = "stylist.goodAtUser[@i]" value = "@goodAtStylePara.goodAtUser(i)">@Messages("style.sex." +goodAtStylePara.goodAtUser(i))
 								 	}
 								}
 			                </div>
@@ -168,7 +164,7 @@
 			                <div>
 			                	@input(field = stylistApplyForm("stylist.goodAtAgeGroup"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to goodAtStylePara.goodAtAgeGroup.length-1){
-								 		<input type = "checkbox" name = "stylist.goodAtAgeGroup[@i]" value = "@goodAtStylePara.goodAtAgeGroup(i)">@goodAtStylePara.goodAtAgeGroup(i)
+								 		<input type = "checkbox" name = "stylist.goodAtAgeGroup[@i]" value = "@goodAtStylePara.goodAtAgeGroup(i)">@Messages("style.ageGroup." +goodAtStylePara.goodAtAgeGroup(i))
 								 	}
 								}
 			                </div>

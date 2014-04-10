@@ -17,9 +17,11 @@ object SalonsAdmin extends Controller {
   //val nav0 = (Messages("index.mainPage"), routes.Application.index.toString())
   //val navBarList = nav0 :: Nil
 
+
+  
   def myStylist(salonId: ObjectId) = Action {
 	val stylist = Stylist.findBySalon(salonId)
-	val salon = Salon.findById(salonId)
+	val salon = Salon.findOneById(salonId)
 	salon match{
 	  case Some(s) =>Ok(html.salon.admin.mySalonStylistAll(salon = s, stylist = stylist))
 	  case None => NotFound
@@ -32,7 +34,7 @@ object SalonsAdmin extends Controller {
   
   def myComment(salonId: ObjectId) = Action {
 	val commentList = Comment.findBySalon(salonId)
-	val salon = Salon.findById(salonId)
+	val salon = Salon.findOneById(salonId)
 	salon match{
 	  case Some(s) =>Ok(html.salon.admin.mySalonCommentAll(salon = s, commentList = commentList))
 	  case None => NotFound
@@ -43,7 +45,7 @@ object SalonsAdmin extends Controller {
    * 店铺服务后台管理
    */
   def myService(salonId: ObjectId) = Action {
-    val salon = Salon.findById(salonId)
+    val salon = Salon.findOneById(salonId)
     val serviceList = Service.findBySalonId(salonId)
     val serviceTypeNameList = ServiceType.findAllServiceType
     val serviceTypeInserviceList = serviceList.map(service => service.serviceType)
@@ -61,7 +63,7 @@ object SalonsAdmin extends Controller {
    * 店铺优惠劵后台管理
    */
   def myCoupon(salonId: ObjectId) = Action {
-    val salon = Salon.findById(salonId)
+    val salon = Salon.findOneById(salonId)
     val coupons = Coupon.findBySalon(salonId)
     val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
     val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
@@ -76,7 +78,7 @@ object SalonsAdmin extends Controller {
    * 店铺菜单后台管理
    */
   def myMenu(salonId: ObjectId) = Action {
-    val salon: Option[Salon] = Salon.findById(salonId)
+    val salon: Option[Salon] = Salon.findOneById(salonId)
     val menus: List[Menu] = Menu.findBySalon(salonId)
     val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
     val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
@@ -100,7 +102,7 @@ object SalonsAdmin extends Controller {
         case None => None
       }
     }
-    val salon = Salon.findById(salonId)
+    val salon = Salon.findOneById(salonId)
     salon match {
       case Some(s) => Ok(views.html.salon.admin.mySalonApplyAll(stylist = stylists, salon = s))
       case None => NotFound
@@ -123,7 +125,7 @@ object SalonsAdmin extends Controller {
             Redirect(routes.SalonsAdmin.myStylist(salonId))
           }
           case None => {
-            val salon = Salon.findById(salonId)
+            val salon = Salon.findOneById(salonId)
             Ok(views.html.salon.admin.applyResultPage(salon.get))
           }
         }
@@ -140,7 +142,7 @@ object SalonsAdmin extends Controller {
         Redirect(routes.SalonsAdmin.myStylist(salonId))
       }
       case None => {
-            val salon = Salon.findById(salonId)
+            val salon = Salon.findOneById(salonId)
             Ok(views.html.salon.admin.applyResultPage(salon.get))
           }
     }
@@ -152,7 +154,7 @@ object SalonsAdmin extends Controller {
   def searchStylistById() = Action {implicit request =>
     val userId = request.getQueryString("searchStylistById").get
     val salonId = request.getQueryString("salonId").get
-	val salon = Salon.findById(new ObjectId(salonId)).get
+	val salon = Salon.findOneById(new ObjectId(salonId)).get
 	val user = User.findOneByUserId(userId)
 	user match {
       case Some(u) =>
@@ -217,7 +219,7 @@ object SalonsAdmin extends Controller {
    * 查看店铺所有发型
    */
   def getAllStylesBySalon(salonId: ObjectId) = Action {
-        val salon: Option[Salon] = Salon.findById(salonId)
+        val salon: Option[Salon] = Salon.findOneById(salonId)
         val stylists = SalonAndStylist.getStylistsBySalon(salonId)
         var styles: List[Style] = Nil
         stylists.map { sty =>
@@ -240,7 +242,7 @@ object SalonsAdmin extends Controller {
                 {
                     case (styleSearch) => {
                         //权限控制时会获取salonID,暂写死
-                        val salon = Salon.findById(new ObjectId("530d7288d7f2861457771bdd"))
+                        val salon = Salon.findOneById(new ObjectId("530d7288d7f2861457771bdd"))
                         val stylists = Style.findStylistBySalonId(salon.get.id)
                         val styles = Style.findStylesBySalonBack(styleSearch,salon.get.id)
                         println("----------------"+styleSearch)
@@ -257,7 +259,7 @@ object SalonsAdmin extends Controller {
         implicit request =>
         val styleOne: Option[Style] = Style.findOneById(id)
         //权限控制时会获取salonID,暂写死
-        val salon = Salon.findById(new ObjectId("530d7288d7f2861457771bdd"))
+        val salon = Salon.findOneById(new ObjectId("530d7288d7f2861457771bdd"))
         val stylists = SalonAndStylist.getStylistsBySalon(new ObjectId("530d7288d7f2861457771bdd"))
         styleOne match {
             case Some(style) => Ok(views.html.salon.admin.mySalonStyleUpdate(salon = salon.get, style = styleOne.get, stylists = stylists, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll))
@@ -296,7 +298,7 @@ object SalonsAdmin extends Controller {
     def styleAddBySalon(salonId: ObjectId) = Action {
         //此处为新发型登录
         implicit request =>
-        val salon = Salon.findById(new ObjectId("530d7288d7f2861457771bdd"))
+        val salon = Salon.findOneById(new ObjectId("530d7288d7f2861457771bdd"))
         val stylists = SalonAndStylist.getStylistsBySalon(salonId)
         Ok(views.html.salon.admin.mySalonStyleAdd(salon = salon.get, stylists = stylists, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, isStylist = false))
       

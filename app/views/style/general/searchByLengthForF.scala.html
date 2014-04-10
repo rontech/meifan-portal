@@ -1,36 +1,13 @@
 <div>
     <div>
         <ul class="cFix">
+        @SearchByLengthForF.findAll.map { searchByLengthForF =>
             <li class="fl mR10">
-                <a href="@routes.Styles.findByLength("super-short","female")">
-                    <img src="/assets/images/style/style01.jpg" alt="super-short" class="imgFrame" width="94px">
+                <a href="@routes.Styles.findByLength(searchByLengthForF.styleLength,searchByLengthForF.sex)">
+                    <img src="@routes.Application.getPhoto(searchByLengthForF.stylePic)" alt="@searchByLengthForF.styleLength" class="imgFrame" width="94px">
                 </a>
             </li>
-            <li class="fl mR10">
-                <a href="@routes.Styles.findByLength("short","female")">
-                    <img src="/assets/images/style/style02.jpg" alt="short" class="imgFrame" width="94px">
-                </a>
-            </li>
-            <li class="fl mR10">
-                <a href="@routes.Styles.findByLength("near-shoulder-length","female")">
-                    <img src="/assets/images/style/style03.jpg" alt="near-shoulder-length" class="imgFrame" width="94px">
-                </a>
-            </li>
-            <li class="fl mR10">
-                <a href="@routes.Styles.findByLength("shoulder-length","female")">
-                    <img src="/assets/images/style/style04.jpg" alt="shoulder-length" class="imgFrame" width="94px">
-                </a>
-            </li>
-            <li class="fl mR10">
-                <a href="@routes.Styles.findByLength("mid-length","female")">
-                    <img src="/assets/images/style/style05.jpg" alt="mid-length" class="imgFrame" width="94px">
-                </a>
-            </li>
-            <li class="fl mR10">
-                <a href="@routes.Styles.findByLength("long","female")">
-                    <img src="/assets/images/style/style06.jpg" alt="long" class="imgFrame" width="94px">
-                </a>
-            </li>
+        }
         </ul>
     </div>
 </div>
