@@ -7,17 +7,17 @@
 					@if(salon.id.getTime.equals(salon.salonPics(0).fileObjId.getTime)){
 						<h>@salon.id</h>
 						<h>@salon.salonPics</h>
-						<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
+						<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
 					}else{
 						@for(i <- 0 to salon.salonPics.size-1){
 							@if(salon.salonPics(i).picUse == "LOGO" ){
-								<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>												
+								<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>
 							}								
 						}										
 					}
 										
 				}else{
-					<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
+					<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
 				}	      
         </a>
         </div>

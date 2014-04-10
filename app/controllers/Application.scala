@@ -1,12 +1,9 @@
 package controllers
 
 import play.api.mvc._
-import play.api._
 import models._
 import se.radley.plugin.salat.Binders._
-import se.radley.plugin.salat._
 import com.mongodb.casbah.Imports._
-import com.mongodb.casbah.gridfs.Imports._
 import com.mongodb.casbah.gridfs.GridFS
 import java.text.SimpleDateFormat
 import play.api.libs.iteratee.Enumerator
@@ -24,12 +21,18 @@ object Application extends Controller {
     }
 
     def register() = Action {
-        Ok(views.html.user.register(noAuth.Users.registerForm()))
+        Ok(views.html.user.register(Users.registerForm()))
     }
 
     def salonLogin() = Action {
-        Ok(views.html.salon.salonLogin(SalonInfo.salonLogin))
+        Ok(views.html.salon.salonLogin(auth.Salons.salonLoginForm))
     }
+
+    def salonRegister() = Action {
+        val industry = Industry.findAll.toList
+        Ok(views.html.salon.salonRegister(Salons.salonRegister,industry))
+    }
+
     
     def getPhoto(file: ObjectId) = Action {
 
@@ -38,6 +41,28 @@ object Application extends Controller {
 
         val db = MongoConnection()("Picture")
         val gridFs = GridFS(db)
+        gridFs.findOne(Map("_id" -> file)) match {
+            case Some(f) => SimpleResult(
+                ResponseHeader(OK, Map(
+                    CONTENT_LENGTH -> f.length.toString,
+                    CONTENT_TYPE -> f.contentType.getOrElse(BINARY),
+                    DATE -> new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", java.util.Locale.US).format(f.uploadDate))),
+                Enumerator.fromStream(f.inputStream))
+
+            case None => NotFound
+        }
+    }
+    
+    def getPhotoByString(sfile: String) = Action {
+
+        import com.mongodb.casbah.Implicits._
+        import ExecutionContext.Implicits.global
+        
+        val file = new ObjectId(sfile)
+
+        val db = MongoConnection()("Picture")
+        val gridFs = GridFS(db)
+        //println("get photo id "+ file)
         gridFs.findOne(Map("_id" -> file)) match {
             case Some(f) => SimpleResult(
                 ResponseHeader(OK, Map(

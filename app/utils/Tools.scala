@@ -18,4 +18,6 @@ object Tools{
             (restDays.restWay, Nil, restDays.restDay)
         }
     }
+
+    def date(str: String) = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(str)
 }

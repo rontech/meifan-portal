@@ -167,7 +167,8 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
         {
           case (content) =>
 	        Comment.reply(user.userId, content, commentObjId, commentObjType) 
-	        Redirect(controllers.routes.SalonsAdmin.myComment(id))	
+//	        Redirect(controllers.routes.SalonsAdmin.myComment(id))	
+	        Redirect(auth.routes.Salons.myComment)
         } 
       )
   }
