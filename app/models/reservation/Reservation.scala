@@ -18,14 +18,14 @@ case class ResvItem (
 case class Reservation (
         id: ObjectId = new ObjectId,
         userId: String,
-        storeId: ObjectId,
+        salonId: ObjectId,
         status: Int, // 0：已预约; 1：已消费; 2：已过期; -1：已取消
         expectedDate: Date, // 预约时间 + 预约日期
         serviceDuration: Int,
         originalPrice: BigDecimal,
-        expectedStylist: String, // 技师表中的stylistId
+        stylistId: ObjectId, // 技师表中的stylistId
         resvItems: List[ResvItem],
-        rsvStyle: ObjectId,
+        styleId: ObjectId,
         userPhone: String,
         userLeaveMsg: String,
         price: BigDecimal,
