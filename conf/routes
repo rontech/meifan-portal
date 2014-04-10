@@ -202,7 +202,7 @@ GET         /showService/:id                                           controlle
 
 #add reservation
 GET         /reservHairView/:id                                        controllers.Reservations.reservHairView(id: ObjectId)
-GET         /reservSelectDate                                          controllers.Reservations.reservSelectDate
+#GET         /reservSelectDate                                          controllers.Reservations.reservSelectDate
 GET         /reservSelectStylist                                       controllers.Reservations.reservSelectStylist
 POST        /reservConfirmPwd                                          controllers.Reservations.reservConfirmPwd
 GET         /reservFinish                                              controllers.Reservations.reservFinish
@@ -307,4 +307,7 @@ POST    /newStyleAddBySalon/                                 controllers.SalonsA
 # Questions add by jie-zhang (for common questions)
 GET         /question/:qid                                             controllers.Questions.getOneQuestion(qid: ObjectId)
 GET         /questions/                                                controllers.Questions.getAllQuestions()
+
+# Reservation add by sangsang-hu
+GET        /salon/:salonId/reserve/schedule/:week                 controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 

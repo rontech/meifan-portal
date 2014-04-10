@@ -766,3 +766,12 @@ onUsePicture.WH = 950x320
 onUsePicture.process = 上传进度：
 onUsePicture.limit = 最多选择5张图片
 
+# reservation
+reservation.weekDay.1 = 日
+reservation.weekDay.2 = 一
+reservation.weekDay.3 = 二
+reservation.weekDay.4 = 三
+reservation.weekDay.5 = 四
+reservation.weekDay.6 = 五
+reservation.weekDay.7 = 六
+
