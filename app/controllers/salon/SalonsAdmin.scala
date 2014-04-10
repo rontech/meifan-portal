@@ -122,7 +122,10 @@ object SalonsAdmin extends Controller {
             SalonAndStylist.entrySalon(salonId, stylistId)
             Redirect(routes.SalonsAdmin.myStylist(salonId))
           }
-          case None => NotFound
+          case None => {
+            val salon = Salon.findById(salonId)
+            Ok(views.html.salon.admin.applyResultPage(salon.get))
+          }
         }
   }
   
@@ -136,7 +139,10 @@ object SalonsAdmin extends Controller {
         SalonStylistApplyRecord.rejectStylistApply(re)
         Redirect(routes.SalonsAdmin.myStylist(salonId))
       }
-      case None => NotFound
+      case None => {
+            val salon = Salon.findById(salonId)
+            Ok(views.html.salon.admin.applyResultPage(salon.get))
+          }
     }
   }
   

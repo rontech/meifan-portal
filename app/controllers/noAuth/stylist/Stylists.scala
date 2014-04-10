@@ -32,22 +32,18 @@ object Stylists extends Controller with OptionalAuthElement with AuthConfigImpl{
   /**
    *  查看技师所属店铺
    */
-  def mySalon(stylistId: ObjectId) = StackAction{implicit request =>
+  def mySalon(stylistId: ObjectId) = StackAction { implicit request =>
 	    val user = User.findOneById(stylistId).get
 	    val followInfo = MyFollow.getAllFollowInfo(user.id)
-	    val salon = Stylist.mySalon(stylistId)
+	    val salon = Stylist.mySalon(user.id)
 	    val stylist = Stylist.findOneByStylistId(user.id)
 	    stylist match {
 	      case Some(sty) => {
-	       loggedIn.map{loginUser => 
-	         Ok(views.html.stylist.management.stylistMySalon(user, followInfo, loginUser.id, true, sty, salon))
-	       }getOrElse{
-	         Ok(views.html.stylist.management.stylistMySalon(user, followInfo, new ObjectId, false, sty, salon))
-	       }
+	         Ok(views.html.stylist.management.stylistMySalon(user, followInfo, user.id, true, sty, salon))
 	      }
 	      case None => NotFound
 	    }
-	  }
+  }
   
   /**
   *  查看技师发型

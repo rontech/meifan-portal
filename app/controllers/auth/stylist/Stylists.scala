@@ -72,17 +72,18 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
 	  /**
 	   *  同意salon邀请
 	   */
-	 def agreeSalonApply(stylistId: ObjectId, salonId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) {implicit request =>
+	 def agreeSalonApply(salonId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {implicit request =>
 	      val user = loggedIn
 	      
-	      val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, stylistId)
+	      val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, user.id)
 	        record match {
 	          case Some(re) => {
 	            SalonStylistApplyRecord.agreeStylistApply(re)
 	            val stylist = Stylist.findOneByStylistId(re.stylistId)
-	            Stylist.becomeStylist(stylistId)
-	            SalonAndStylist.entrySalon(salonId, stylistId)
-	            Redirect(noAuth.routes.Stylists.mySalon(stylistId))
+	            Stylist.becomeStylist(user.id)
+	            SalonAndStylist.entrySalon(salonId, user.id)
+	            Redirect(routes.Stylists.myHomePage)
+	            //Redirect(noAuth.routes.Stylists.mySalon(stylistId))
 	          }
 	          case None => NotFound
 	        }
@@ -91,13 +92,14 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
 	  /**
 	   *  拒绝salon邀请
 	   */
-	 def rejectSalonApply(stylistId: ObjectId, salonId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) {implicit request =>
-	     val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, stylistId)
+	 def rejectSalonApply(salonId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {implicit request =>
+	   	 val user = loggedIn	
+	     val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, user.id)
 	        record match {
 	          case Some(re) => {
 	            SalonStylistApplyRecord.agreeStylistApply(re)
 	            val stylist = Stylist.findOneByStylistId(re.stylistId)
-	            Redirect(noAuth.routes.Stylists.mySalon(stylistId))
+	            Redirect(routes.Stylists.myHomePage)
 	          }
 	          case None => NotFound
 	        } 
@@ -148,12 +150,9 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
 	    
 	  }
 	  
-	 def removeSalon(salonId: ObjectId, stylistId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) {implicit request =>
-	    val user = loggedIn
-	    val followInfo = MyFollow.getAllFollowInfo(user.id)
-	    SalonAndStylist.leaveSalon(salonId,stylistId)
-	    Redirect(noAuth.routes.Stylists.mySalon(stylistId))
-	    
+	 def removeSalon(salonId: ObjectId, stylistId: ObjectId) = Action{implicit request =>
+	   	//SalonAndStylist.leaveSalon(salonId,stylistId)
+	    Ok(views.html.index(""))
 	  }
 	  
 	
@@ -322,10 +321,8 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
 	  val user = loggedIn
 	  val followInfo = MyFollow.getAllFollowInfo(user.id)
 	  val stylist = Stylist.findOneByStylistId(user.id)
-	  val blgs = Blog.getBlogByUserId(user.userId)
-      val blog = if(blgs.length > 0) Some(blgs.head) else None
 	  stylist.map{sty=>
-	      Ok(views.html.stylist.management.myPageHome(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = sty, lastBlog = blog))
+	      Ok(views.html.stylist.management.myHomePage(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = sty))
 	  }getOrElse{
 	      NotFound
 	  }
@@ -365,5 +362,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with AuthCo
       
       
   }
+  
+  
     
 }

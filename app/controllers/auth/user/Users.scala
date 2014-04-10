@@ -113,13 +113,14 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
 		          stylist.goodAtImage, stylist.goodAtStatus, stylist.goodAtService, stylist.goodAtUser,
 		          stylist.goodAtAgeGroup, stylist.myWords, stylist.mySpecial, stylist.myBoom, stylist.myPR)
 		    },
-		    "salonAccountId" -> text
+		    "salonAccountId" -> nonEmptyText(6, 16)
 		    ){
 		      (stylist, salonAccountId) => StylistApply(stylist, salonAccountId)
 		    }{
 		      stylistApply => Some((stylistApply.stylist, stylistApply.salonAccountId))
-		    }
-		)
+		    }.verifying(
+		    		Messages("salon.noExist"), stylistApply => Salon.findByAccountId(stylistApply.salonAccountId).nonEmpty)
+		  	)
   /**
    * 用户登录验证
    */
@@ -278,7 +279,7 @@ object Users extends Controller with LoginLogout with AuthElement with AuthConfi
           Salon.findByAccountId(stylistApply.salonAccountId).map{salon=>
             val applyRecord = new SalonStylistApplyRecord(new ObjectId, salon.id, user.id, 1, new Date, 0, None)
             SalonStylistApplyRecord.save(applyRecord)
-            Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user, goodAtStylePara, followInfo))
+            Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara, followInfo, true))
           }getOrElse{
         	  NotFound
           }
