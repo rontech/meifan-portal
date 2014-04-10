@@ -100,10 +100,45 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
             MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgId))),false,true)
     }
     
-    def updateSalonShow(salon: Salon, imgId: ObjectId) = {    
-          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate"), 
-            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgId))),false,true)
+    def updateSalonShow(salon: Salon, imgIdList: List[ObjectId]) = {
+           
+      if(imgIdList.length > 2) {
+          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate", "salonPics.fileObjId" -> salon.salonPics(3).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(2)))),false,true)
+      }
+      
+      if(imgIdList.length > 1) {
+          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate", "salonPics.fileObjId" -> salon.salonPics(2).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(1)))),false,true)
+      }
+      
+      if(imgIdList.length > 0) {
+          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate", "salonPics.fileObjId" -> salon.salonPics(1).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(0)))),false,true)
+      }
+
+            
     }    
+    
+    def updateSalonAtom(salon: Salon, imgIdList: List[ObjectId]) = {
+           
+      if(imgIdList.length > 2) {
+          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Atmosphere", "salonPics.fileObjId" -> salon.salonPics(6).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(2)))),false,true)
+      }
+      
+      if(imgIdList.length > 1) {
+          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Atmosphere", "salonPics.fileObjId" -> salon.salonPics(5).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(1)))),false,true)
+      }
+      
+      if(imgIdList.length > 0) {
+          dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Atmosphere", "salonPics.fileObjId" -> salon.salonPics(4).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(0)))),false,true)
+      }
+
+            
+    }      
 }
 
 /*----------------------------

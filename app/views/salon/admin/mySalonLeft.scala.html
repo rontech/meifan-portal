@@ -3,8 +3,6 @@
 			<div class ="Owner">
 				@if(salon.salonPics.exists{a => a.picUse == "LOGO"}){
 					@if(salon.id.getTime.equals(salon.salonPics(0).fileObjId.getTime)){
-						<h>@salon.id</h>
-						<h>@salon.salonPics</h>
 						<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
 					}else{
 						@for(i <- 0 to salon.salonPics.size-1){
