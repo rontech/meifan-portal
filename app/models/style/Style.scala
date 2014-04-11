@@ -115,18 +115,6 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
     }
 
     //前台综合排名检索
-    def findByRanking1: List[models.Reservation] = {
-        val reservationAll = Reservation.find(MongoDBObject("status" -> 1), MongoDBObject("$not" -> MongoDBObject("styleId" -> None)))
-        var reservations: List[models.Reservation] = Nil
-        reservationAll.map { reservation =>
-            if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
-                if (Style.findByStyleId(reservation.styleId.get).nonEmpty) {
-                    reservations :::= List(reservation)
-                }
-            }
-        }
-        reservations
-    }
     def findByRanking: List[models.Style] = {
         val reservationAll = Reservation.findByStatusAndStyleId
         var reservations: List[models.Reservation] = Nil
@@ -134,22 +122,56 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
             if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
                 if (Style.findByStyleId(reservation.styleId.get).nonEmpty) {
                     reservations = reservation :: reservations
-                }else{
                 }
-            }
-            else{
             }
         }
         val styles: List[models.Style] = sortForRanking(reservations)
-        println("bpsfh===================444444444+"+styles)
+        styles
+    }
+
+    //前台热度加女士长度排名检索
+    def findByRankingAndLengthForF(styleLength: String, consumerSex: String): List[models.Style] = {
+        val reservationAll = Reservation.findByStatusAndStyleId
+        var reservations: List[models.Reservation] = Nil
+        reservationAll.map { reservation =>
+            if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
+                Style.findByStyleId(reservation.styleId.get) match {
+                    case Some(style) => {
+                        if (style.styleLength.equals(styleLength) && style.consumerSex.equals(consumerSex)) {
+                            reservations :::= List(reservation)
+                        }
+                    }
+                    case None => None
+                }
+            }
+        }
+        val styles: List[models.Style] = sortForRanking(reservations)
+        styles
+    }
+
+    //前台热度加男式排名检索
+    def findByRankingForM(consumerSex: String): List[models.Style] = {
+        val reservationAll = Reservation.findByStatusAndStyleId
+        var reservations: List[models.Reservation] = Nil
+        reservationAll.map { reservation =>
+            if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
+                Style.findByStyleId(reservation.styleId.get) match {
+                    case Some(style) => {
+                        if (style.consumerSex.equals(consumerSex)) {
+                            reservations :::= List(reservation)
+                        }
+                    }
+                    case None => None
+                }
+            }
+        }
+        val styles: List[models.Style] = sortForRanking(reservations)
         styles
     }
 
     //ranking分组排序
-    def sortForRanking(reservations: List[models.Reservation]): List[models.Style] = {
-        println("bpsfh===================2222222+"+reservations)
-        reservations.sortBy(_.styleId)
-        println("bpsfh===================3333333333+"+reservations)
+    def sortForRanking(reservationAll: List[models.Reservation]): List[models.Style] = {
+        val reservations = reservationAll.sortBy(_.styleId)
         var lists: List[(ObjectId, Int)] = Nil
         var styles: List[models.Style] = Nil
         var count = 1
@@ -167,57 +189,14 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
             }
         }
         lists :::= List((styleId, count))
-        println("bpsfh===================3+"+lists)
-        val listAll  =  lists.sortWith((f,s) => f._2 > s._2)
-//        val listAll =   lists.sortBy(_._2).reverse  此方法同样可以实现
-        
-         println("bpsfh==================4.1+"+listAll)
+        val listAll = lists.sortWith((f, s) => f._2 < s._2) //递增排序
+        //val listAll =   lists.sortBy(_._2).reverse  此方法同样可以实现
         listAll.map { list =>
             val style = Style.findOneById(list._1).get
-//            reservations = reservation :: reservations
-//            styles :::= List(style)
-              styles = style :: styles
+            styles = style :: styles
         }
         styles
     }
-
-    //前台热度加女士长度排名检索
-//    def findByRankingAndLengthForF(styleLength: String, consumerSex: String): List[models.Reservation] = {
-//        val reservationAll = Reservation.find(MongoDBObject("status" -> 1), MongoDBObject("$not" -> MongoDBObject("styleId" -> None)))
-//        var reservations: List[models.Reservation] = Nil
-//        reservationAll.map { reservation =>
-//            if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
-//                Style.findByStyleId(reservation.styleId.get) match {
-//                    case Some(style) => {
-//                        if (style.styleLength.equals(styleLength) && style.consumerSex.equals(consumerSex)) {
-//                            reservations :::= List(reservation)
-//                        }
-//                    }
-//                    case None => None
-//                }
-//            }
-//        }
-//        reservations
-//    }
-
-    //前台热度加男式排名检索
-//    def findByRankingForM(consumerSex: String): List[models.Reservation] = {
-//        val reservationAll = Reservation.find(MongoDBObject("status" -> 1), MongoDBObject("$not" -> MongoDBObject("styleId" -> None)))
-//        var reservations: List[models.Reservation] = Nil
-//        reservationAll.map { reservation =>
-//            if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
-//                Style.findByStyleId(reservation.styleId.get) match {
-//                    case Some(style) => {
-//                        if (style.consumerSex.equals(consumerSex)) {
-//                            reservations :::= List(reservation)
-//                        }
-//                    }
-//                    case None => None
-//                }
-//            }
-//        }
-//        reservations
-//    }
 
     //前台详细检索
     def findByPara(style: models.Style): List[Style] = {
