@@ -65,13 +65,20 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         dao.find(DBObject("stylistId" -> stylistId, "isValid" -> true)).toList
     }
 
-        /**
+    /**
+     * 通过styleId判断该发型是否有效
+     */
+    def findByStyleId(id: ObjectId) = {
+        dao.findOne(DBObject("_id" -> id, "isValid" -> true))
+    }
+
+    /**
      * 通过发型师ID和发型适合性别检索该发型师所有发型
      */
     def findByStylistIdAndSex(stylistId: ObjectId, sex: String): List[Style] = {
-        if(sex.equals("all")) {
+        if (sex.equals("all")) {
             dao.find(DBObject("stylistId" -> stylistId, "isValid" -> true)).toList
-        }else {
+        } else {
             dao.find(DBObject("stylistId" -> stylistId, "consumerSex" -> sex, "isValid" -> true)).toList
         }
     }
@@ -97,14 +104,101 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
     /**
      * 前台检索逻辑
      */
+    //导航栏，男女式发型长度快捷
     def findByLength(styleLength: String, consumerSex: String): List[Style] = {
         dao.find(MongoDBObject("styleLength" -> styleLength, "consumerSex" -> consumerSex, "isValid" -> true)).toList
     }
 
+    //导航栏，女式发型风格快捷
     def findByImpression(styleImpression: String, consumerSex: String): List[Style] = {
         dao.find(MongoDBObject("styleImpression" -> styleImpression, "consumerSex" -> consumerSex, "isValid" -> true)).toList
     }
 
+    //前台综合排名检索
+    def findByRanking: List[models.Style] = {
+        val reservationAll = Reservation.findByStatusAndStyleId
+        var reservations: List[models.Reservation] = Nil
+        reservationAll.map { reservation =>
+            if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
+                if (Style.findByStyleId(reservation.styleId.get).nonEmpty) {
+                    reservations = reservation :: reservations
+                }
+            }
+        }
+        val styles: List[models.Style] = sortForRanking(reservations)
+        styles
+    }
+
+    //前台热度加女士长度排名检索
+    def findByRankingAndLengthForF(styleLength: String, consumerSex: String): List[models.Style] = {
+        val reservationAll = Reservation.findByStatusAndStyleId
+        var reservations: List[models.Reservation] = Nil
+        reservationAll.map { reservation =>
+            if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
+                Style.findByStyleId(reservation.styleId.get) match {
+                    case Some(style) => {
+                        if (style.styleLength.equals(styleLength) && style.consumerSex.equals(consumerSex)) {
+                            reservations :::= List(reservation)
+                        }
+                    }
+                    case None => None
+                }
+            }
+        }
+        val styles: List[models.Style] = sortForRanking(reservations)
+        styles
+    }
+
+    //前台热度加男式排名检索
+    def findByRankingForM(consumerSex: String): List[models.Style] = {
+        val reservationAll = Reservation.findByStatusAndStyleId
+        var reservations: List[models.Reservation] = Nil
+        reservationAll.map { reservation =>
+            if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
+                Style.findByStyleId(reservation.styleId.get) match {
+                    case Some(style) => {
+                        if (style.consumerSex.equals(consumerSex)) {
+                            reservations :::= List(reservation)
+                        }
+                    }
+                    case None => None
+                }
+            }
+        }
+        val styles: List[models.Style] = sortForRanking(reservations)
+        styles
+    }
+
+    //ranking分组排序
+    def sortForRanking(reservationAll: List[models.Reservation]): List[models.Style] = {
+        val reservations = reservationAll.sortBy(_.styleId)
+        var lists: List[(ObjectId, Int)] = Nil
+        var styles: List[models.Style] = Nil
+        var count = 1
+        var styleId = reservations(0).styleId.get
+        for (i <- 0 to reservations.length - 1) {
+            if (i > 0) {
+                if (reservations(i).styleId.equals(reservations(i - 1).styleId)) {
+                    count = count + 1
+                } else {
+                    styleId = reservations(i - 1).styleId.get
+                    lists :::= List((styleId, count))
+                    styleId = reservations(i).styleId.get
+                    count = 1
+                }
+            }
+        }
+        lists :::= List((styleId, count))
+        val listAll = lists.sortWith((f, s) => f._2 < s._2) //递增排序
+        //val listAll =   lists.sortBy(_._2).reverse  此方法同样可以实现
+        listAll.map { list =>
+            val style = Style.findOneById(list._1).get
+            styles = style :: styles
+        }
+        styles
+    }
+
+    //前台详细检索
     def findByPara(style: models.Style): List[Style] = {
         val styleLength = if (style.styleLength.equals("all")) { "styleLength" $in Style.findParaAll.styleLength } else { MongoDBObject("styleLength" -> style.styleLength) }
         val styleImpression = if (style.styleImpression.equals("all")) { "styleImpression" $in Style.findParaAll.styleImpression } else { MongoDBObject("styleImpression" -> style.styleImpression) }
@@ -133,6 +227,9 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
             MongoDBObject("isValid" -> true))).toList
     }
 
+    /**
+     * 通过发型中的技师ID查询其绑定的店铺
+     */
     def findSalonByStyle(stylistId: ObjectId): Option[models.Salon] = {
         val salonAndStylist = SalonAndStylist.findByStylistId(stylistId)
         var salonOne: Option[models.Salon] = None
@@ -160,7 +257,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { "consumerSocialStatus" $in Style.findParaAll.consumerSocialStatus } else { "consumerSocialStatus" $in style.consumerSocialStatus }
         val consumerSex = if (style.consumerSex.equals("all")) { "consumerSex" $in Style.findParaAll.consumerSex } else { MongoDBObject("consumerSex" -> style.consumerSex) }
         val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { "consumerAgeGroup" $in Style.findParaAll.consumerAgeGroup } else { "consumerAgeGroup" $in style.consumerAgeGroup }
-        
+
         dao.find($and(
             styleLength,
             styleColor,
@@ -190,24 +287,24 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { "consumerAgeGroup" $in Style.findParaAll.consumerAgeGroup } else { "consumerAgeGroup" $in style.consumerAgeGroup }
         //利用传过来的stylistId判断后台检索是检索某一发型师的发型，还是检索店铺全部发型师的发型
         val stylists = SalonAndStylist.findBySalonId(salonId)
-        var stylistIds: List[ObjectId]= Nil
+        var stylistIds: List[ObjectId] = Nil
         stylists.map { stylist =>
             stylistIds :::= List(stylist.stylistId)
         }
         if (stylistIds.contains(style.stylistId)) {
             dao.find($and(
-            styleLength,
-            styleColor,
-            styleImpression,
-            serviceType,
-            styleAmount,
-            styleQuality,
-            styleDiameter,
-            faceShape,
-            consumerSocialStatus,
-            consumerSex,
-            consumerAgeGroup,
-            MongoDBObject("stylistId" -> style.stylistId, "isValid" -> true))).toList
+                styleLength,
+                styleColor,
+                styleImpression,
+                serviceType,
+                styleAmount,
+                styleQuality,
+                styleDiameter,
+                faceShape,
+                consumerSocialStatus,
+                consumerSex,
+                consumerAgeGroup,
+                MongoDBObject("stylistId" -> style.stylistId, "isValid" -> true))).toList
         } else {
             dao.find($and(
                 styleLength,
@@ -225,7 +322,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
                 MongoDBObject("isValid" -> true))).toList
         }
     }
-    
+
     /**
      * 后台发型更新
      */
@@ -317,15 +414,15 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         dao.update(MongoDBObject("_id" -> id), MongoDBObject("$set" -> (
             MongoDBObject("isValid" -> false))))
     }
-    
+
     def updateStyleImage(style: Style, imgId: ObjectId) = {
-      dao.update(MongoDBObject("_id" -> style.id, "stylePic.picUse" -> "logo"), 
-            MongoDBObject("$set" -> ( MongoDBObject("stylePic.$.fileObjId" ->  imgId))),false,true)
+        dao.update(MongoDBObject("_id" -> style.id, "stylePic.picUse" -> "logo"),
+            MongoDBObject("$set" -> (MongoDBObject("stylePic.$.fileObjId" -> imgId))), false, true)
     }
-    
+
     def saveStyleImage(style: Style, imgId: ObjectId) = {
-      dao.update(MongoDBObject("_id" -> style.id, "stylePic.showPriority" -> style.stylePic.last.showPriority.get), 
-            MongoDBObject("$set" -> ( MongoDBObject("stylePic.$.fileObjId" ->  imgId))),false,true)
+        dao.update(MongoDBObject("_id" -> style.id, "stylePic.showPriority" -> style.stylePic.last.showPriority.get),
+            MongoDBObject("$set" -> (MongoDBObject("stylePic.$.fileObjId" -> imgId))), false, true)
     }
 }
 
