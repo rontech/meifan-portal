@@ -239,6 +239,12 @@ object InitialData {
         SearchByImpression(new ObjectId,"female","personality",new ObjectId,"女-个性")
       ).foreach(SearchByImpression.save)
     }
+    
+    if(DefaultLog.findAll.isEmpty){
+        Seq(
+          DefaultLog(new ObjectId, new ObjectId)
+        ).foreach(DefaultLog.save)
+    }
   }
   /*---------------------------
    * Sample Data For Test. 
@@ -601,6 +607,19 @@ object InitialData {
            Reservation(new ObjectId, "demo10", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-12 10:00"), 90, Option(new ObjectId("53202c29d4d5e3cd47efffd9")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("533134db9aa6b4dfc54a02ef")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11"))
 	      ).foreach(Reservation.save)
     }
+	
+	if(!DefaultLog.findAll.isEmpty){
+	    if(Image.fuzzyFindByName("defaultLog").isEmpty){
+	        val defaultLogFile = new File(play.Play.application().path() + "/public/images/user/dafaultLog")
+	        val defaultLogFiles = Image.listFilesInFolder(defaultLogFile)
+	        for((defaultLog, index) <- defaultLogFiles.zipWithIndex){
+	            if(index < DefaultLog.findAll.toList.length){
+	                val defaultLogImgId = Image.save(defaultLog)
+	                val defaultLogImg = DefaultLog.findAll.toList(index)
+	                DefaultLog.saveLogImg(defaultLogImg, defaultLogImgId)
+	            }
+	        }
+	    }
+	}
   }
 }
-

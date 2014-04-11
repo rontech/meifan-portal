@@ -32,7 +32,7 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
           "contMethodType" -> text,
           "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply))){
           (id, userId, password, nickName, email, optContactMethods) =>
-          User(new ObjectId, userId, nickName, BCrypt.hashpw(password._1, BCrypt.gensalt()), "M", None, None, new ObjectId,None, email, optContactMethods, None, User.NORMAL_USER,  User.HIGH, 20, 0, new Date(), Permission.valueOf(LoggedIn), true)
+          User(new ObjectId, userId, nickName, BCrypt.hashpw(password._1, BCrypt.gensalt()), "M", None, None, DefaultLog.getImgId, None, email, optContactMethods, None, User.NORMAL_USER,  User.HIGH, 20, 0, new Date(), Permission.valueOf(LoggedIn), true)
       } {
         user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.email, user.optContactMethods))
       }.verifying(

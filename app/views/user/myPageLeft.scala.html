@@ -1,6 +1,6 @@
 @(user :User,followInfo:FollowInformation)
 			<div class ="Owner">
-				<a href="#" class='Img'><img src="@if(user.id.getTime.equals(user.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(user.userPics)"}"/></a>
+				<a href="#" class='Img'><img src="@routes.Application.getPhoto(user.userPics)"/></a>
 				<span class='U'>
       				<a href="@auth.routes.Users.myPage" class='Name' title='female'>@user.nickName</a>
 					<span class='opts'>
@@ -96,7 +96,7 @@
       				@followInfo.followUser.slice(0,8).map {user =>
 	  					<li>
     	 				       <a href="@noAuth.routes.Users.userPage(user.userId)">
-    	 				       		<img src="@if(user.id.getTime.equals(user.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(user.userPics)"}" alt="@user.nickName" title="@user.nickName" align="absmiddle" class = "SmallPortrait"/>
+    	 				       		<img src="@routes.Application.getPhoto(user.userPics)" alt="@user.nickName" title="@user.nickName" align="absmiddle" class = "SmallPortrait"/>
     	 				       </a>
     	 			    </li>
 	  					}
