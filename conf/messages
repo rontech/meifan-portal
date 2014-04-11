@@ -246,7 +246,7 @@ hair.styleForPerson=推荐人群
 hair.assessFromStylist=造型师评价
 hair.stylistToCollect=收藏该发型师
 hair.welcome=我们期待您的光临
-hair.consumerSocialStatus=适合人群
+hair.consumerSocialStatus=适合场合
 hair.consumerSex=适合性别
 hair.consumerAgeGroup=适合年龄
 hair.addStyle = 添加发型
@@ -604,8 +604,12 @@ blog.new = 新博客
 blog.toCollect=收藏此博客
 blog.noCollect = 暂无收藏的博客！
 blog.salonNoBlog= 该店铺还未有博客！
+blog.preBlog = 前一篇
+blog.nextBlog = 后一篇
+blog.noPreNext = 没有啦！
 
 # Comment
+comment.comment = 评论
 comment.salonCommentTitle = {0} 的评论
 comment.noComment = 该店铺暂无评论
 comment.passDate = [投稿日]
@@ -619,6 +623,9 @@ comment.atmosphere = 氛围
 comment.service = 服务
 comment.skill =  技术
 comment.price = 价格
+comment.noFirst = 您还没有给第一项打分呢！
+comment.contentNotNull = 评论内容不能为空
+
 
 
 # Point

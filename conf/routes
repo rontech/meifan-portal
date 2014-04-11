@@ -34,7 +34,7 @@ GET         /salon/:salonId/stylists                                   controlle
 GET         /salon/:salonId/coupons                                    controllers.noAuth.Salons.getAllCoupons(salonId: ObjectId)
 POST        /salon/:salonId/coupons/condition                          controllers.noAuth.Salons.getCouponsByCondition(salonId: ObjectId)
 # Salon.comment
-GET         /salon/:salonId/comments                                   controllers.Comments.findBySalon(salonId: ObjectId)
+GET         /salon/:salonId/comments                                   controllers.noAuth.Comments.findBySalon(salonId: ObjectId)
 # Salon.blog
 GET         /salon/:salonId/blogs                                      controllers.noAuth.Blogs.getAllBlogsOfSalon(salonId: ObjectId)
 GET         /salon/:sid/blogsByMonth/:yyyymm                           controllers.noAuth.Blogs.getAllBlogsOfSalonByMonth(sid: ObjectId, yyyymm: String)

@@ -91,7 +91,7 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
   }
   
   override
-  def findOneById(id: ObjectId): Option[Blog] = dao.findOne(MongoDBObject("_id" -> id))
+  def findOneById(id: ObjectId): Option[Blog] = dao.findOne(MongoDBObject("_id" -> id, "isValid" -> true))
   
   /**
    * 删除指定的blog
