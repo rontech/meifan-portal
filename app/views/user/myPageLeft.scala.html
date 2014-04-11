@@ -41,10 +41,10 @@
                             </a>
                         </div>
                         }else{
-                    <a href="@noAuth.routes.Stylists.mySalon(user.id)">
+                    <a href="@noAuth.routes.Stylists.mySalonFromStylist(user.id)">
                         <strong>@Messages("stylistMag.mySalon")</strong>
                         <div class='more'>
-							<a href="@noAuth.routes.Stylists.mySalon(user.id)">
+							<a href="@noAuth.routes.Stylists.mySalonFromStylist(user.id)">
                                 <img src="@routes.Application.getPhoto(Stylist.mySalon(user.id).salonPics(0).fileObjId)" alt="@Stylist.mySalon(user.id).salonNameAbbr" title="@Stylist.mySalon(user.id).salonNameAbbr" align="absmiddle" class = "SmallPortrait"/>
 								<span>@Stylist.mySalon(user.id).salonName</span>
                             </a>

@@ -18,7 +18,7 @@
 							<p class="fr">
 							@if(user.id == loginUserId){
 								@if(SalonAndStylist.checkSalonAndStylistValid(salon.id, user.id)){
-						           <a href="@auth.Stylists.myHomePage">
+						           <a href="@auth.routes.Stylists.removeSalon(salon.id)">
 	    								@Messages("stylist.removeSalon")
 	    						   </a>
 					            }

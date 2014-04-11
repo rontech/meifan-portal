@@ -14,6 +14,8 @@ import play.api.data.Forms._
 import play.api.mvc._
 import com.mongodb.casbah.WriteConcern
 import org.mindrot.jbcrypt.BCrypt
+import controllers.auth.Coupons
+import views.html
 
 object Salons extends Controller with OptionalAuthElement with UserAuthConfigImpl{
 
@@ -481,4 +483,17 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
               }
           })
      }
+
+    /**
+     * 显示店铺所有的优惠劵
+     */
+    def showCoupons(salonId: ObjectId) = Action {
+        val salon: Option[Salon] = Salon.findOneById(salonId)
+        val coupons: List[Coupon] = Coupon.findBySalon(salonId)
+
+        salon match {
+            case Some(s) => Ok(html.coupon.showCouponGroup(s, coupons))
+            case None => NotFound
+        }
+    }
 }

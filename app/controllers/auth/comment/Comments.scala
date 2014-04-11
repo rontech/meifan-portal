@@ -13,11 +13,8 @@ import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
 
-
-
-//object Comments extends Controller with AuthElement with UserAuthConfigImpl with SalonAuthConfigImpl{
 object Comments extends Controller with AuthElement with UserAuthConfigImpl {
-//object Comments extends Controller with AuthElement with SalonAuthConfigImpl with UserAuthConfigImpl {
+
   
 
   val formAddComment = Form((
@@ -36,46 +33,6 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
       "price" -> number,
       "content" -> text
       ))
-
-//  /**
-//   * 查找数据库中关于该评论的所有数据，包括回复的。
-//   */
-//  def find(commentedId : ObjectId) = Action {    
-//    implicit request =>      
-//      val userId = request.session.get("userId").get
-//      val user_Id = User.findOneByUserId(userId).get.id
-//    Ok(views.html.comment.comment(userId, user_Id, Comment.all(commentedId)))
-//  }
-//  
-//  /**
-//   * 查找店铺下的评论，现在只是对coupon做评论，还没有对预约做评论
-//   */
-//  def findBySalon(salonId: ObjectId) = StackAction { implicit request =>
-//      val user = Option(loggedIn)
-//      val salon: Option[Salon] = Salon.findOneById(salonId)
-//      val comments: List[Comment] = Comment.findBySalon(salonId)
-//      // navigation bar
-//      val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.comments"), ""))
-//      // Jump to blogs page in salon.
-//      // TODO: process the salon not exist pattern.
-//      Ok(views.html.salon.store.salonInfoCommentAll(salon = salon.get, comments = comments, navBar = navBar, user=user))
-//  }
-//  
-//  def clean() = {
-//    Comment.list = Nil
-//  }
-  
-//  /**
-//   * 店铺查看自己店铺的所有评论
-//   */
-//  def findBySalonAdmin(salonId: ObjectId) =StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-//      val user = Option(loggedIn)
-//      val salon: Option[Salon] = Salon.findOneById(salonId)
-//    val comments: List[Comment] = Comment.findBySalon(salonId)    
-//
-//    // TODO: process the salon not exist pattern.
-//    Ok(views.html.salon.store.salonInfoCommentAll(salon = salon.get, comments = comments, user = user))
-//  }
   
   /**
    * 增加评论，后台逻辑
@@ -86,14 +43,22 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
         //处理错误
         errors => BadRequest(views.html.comment.errorMsg("")),
         {
-          case (content) =>         
-	        Comment.addComment(user.userId, content, commentObjId, commentObjType)
-	        if (commentObjType == 1) { 
-	          Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
-	        }
-	        else {
-	          Ok("")
-	        }
+          case (content) =>    
+            if (commentObjType == 1) {
+              val blog = Blog.findOneById(commentObjId)
+              blog match {
+	              case Some(blog) =>{
+	                Comment.addComment(user.userId, content, commentObjId, commentObjType)		        
+			        Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
+	              }
+	              case None=>{
+	                Unauthorized
+	              }
+              }
+            }
+            else{
+            Unauthorized
+            }
         } 
       )
   }
@@ -119,21 +84,6 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
         } 
       )
   }
-  
-//  /**
-//   * 店家的申诉
-//   */
-//  // TODO
-//  def complaint(id : ObjectId) = Action {
-//    Ok(Html("我要申诉的评论Id是" + id))
-//  }
-//  
-//  /**
-//   * 回复，跳转
-//   */
-//  def answer(id : ObjectId, commentedId : ObjectId) = Action {
-//    Ok(views.html.comment.answer(id, commentedId, formHuifuComment))
-//  }
   
   /**
    * 博客回复，后台逻辑
@@ -189,6 +139,4 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
   
 }
 
-//object SalonComments extends Comments{}
-//object UserComments extends Comments{}
 
