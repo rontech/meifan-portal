@@ -110,9 +110,9 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
   val salonRegister:Form[Salon] = Form(
       mapping(
 	    	"salonAccount" -> mapping(
-	    		"accountId" -> nonEmptyText(6,16),
+	    		"accountId" -> nonEmptyText(6, 16).verifying(Messages("salon.register.accountIdErr"), userId => userId.matches("""^\w+$""")),
 	    		"password" -> tuple(
-	    			"main" ->  text.verifying(Messages("user.passwordError"), main => main.matches("""^[A-Za-z0-9]+$""")),
+	    			"main" ->  text(6, 18).verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]+$""")),
 	    			"confirm" -> text).verifying(
           // Add an additional constraint: both passwords must match
             Messages("user.twicePasswordError"), password => password._1 == password._2)
