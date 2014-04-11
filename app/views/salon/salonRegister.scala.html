@@ -30,7 +30,7 @@
 				                @inputText(salonRegister("salonAccount.accountId"),'_label -> None,
 									 		'placeholder -> Messages("salon.login.accountId"),
 									 		'_help -> Messages("salon.register.accountId"),
-									 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("user.userIdErr"))))
+									 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("salon.register.accountIdErr"))))
 				            </td>
 				        </tr>
 				        <tr>
@@ -42,7 +42,10 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,'_help -> Messages("salon.register.password"),'placeholder -> Messages("salon.login.password"))
+				                	@inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,
+				                		'_help -> Messages("salon.register.password"),
+				                		'placeholder -> Messages("salon.login.password"),
+				                		'_error -> salonRegister("salonAccount.password.main").error.map(_.withMessage(Messages("user.passwordError"))))
 				                </div>
 				            </td>
 				        </tr>

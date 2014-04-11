@@ -15,6 +15,11 @@ import com.mongodb.casbah.gridfs.GridFS
 import org.mindrot.jbcrypt.BCrypt
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import com.mongodb.casbah.Imports._
+import models.SalonAccount
+import scala.Some
+import models.CouponServiceType
+import se.radley.plugin.salat.Binders.ObjectId
 
 object Salons extends Controller with LoginLogout with AuthElement with SalonAuthConfigImpl{
   
@@ -402,6 +407,22 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
                 }
             })
     }
-    
-  
+
+
+    /**
+     * 店铺回复消费者的评论，后台逻辑
+     */
+    def replyBySalon(commentObjId : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+        val salon = loggedIn
+        auth.Comments.formHuifuComment.bindFromRequest.fold(
+        //处理错误
+        errors => BadRequest(views.html.comment.errorMsg("")),
+        {
+            case (content) =>
+                Comment.reply(salon.salonAccount.accountId, content, commentObjId, commentObjType)
+                Redirect(auth.routes.Salons.myComment)
+        }
+        )
+    }
+
 }
