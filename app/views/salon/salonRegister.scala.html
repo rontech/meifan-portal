@@ -100,8 +100,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("mainPhone"), '_label -> None,'_help -> Messages("*"),
-				                		'_error -> salonRegister("mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
+				                	@inputText(salonRegister("contactMethod.mainPhone"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonRegister("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
 				                </div>
 				            </td>
 				        </tr>
@@ -114,11 +114,25 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contact"), '_label -> None,'_help -> Messages("*"),
-				                		'_error -> salonRegister("contact").error.map(_.withMessage(Messages("salon.register.contact"))))
+				                	@inputText(salonRegister("contactMethod.contact"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonRegister("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
 				                </div>
 				            </td>
-				        </tr>					        
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("user.email")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonRegister("contactMethod.email"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.register.contact"))))
+				                </div>
+				            </td>
+				        </tr>					        					        
 				    </tbody>
 				</table>
 				<div class="mT20 txtC">

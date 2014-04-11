@@ -13,7 +13,7 @@
 						</div>
 						<div class="mT10 cFix">
 							<div class="fl cFix">
-								<p class="fl fgLGray2 b mT2 mR8">@salon.salonAddress.accessMethodDesc</p>
+								<p class="fl fgLGray2 b mT2 mR8">@salon.salonAddress.map(add=>add.accessMethodDesc).getOrElse(None) </p>
 							</div>
 							<p class="fr">
 							@if(user.id == loginUserId){
@@ -67,7 +67,7 @@
 								<dt class="fl fgLGray2 b">@Messages("salon.parkingDesc")</dt>
 								<dd class="fl w80">
 									<div class="mL10">
-									 @if(salon.salonFacilities.hasParkingNearby) { @salon.salonFacilities.parkingDesc} else { @Messages("salon.hasNoParkingNearByMsg")}
+									 @if(salon.salonFacilities.map(fac=>fac.hasParkingNearby).getOrElse(None)) { @salon.salonFacilities.get.parkingDesc} else { @Messages("salon.hasNoParkingNearByMsg")}
 									</div>
 								</dd>
 								</dl>

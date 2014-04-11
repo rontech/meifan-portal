@@ -26,15 +26,15 @@ case class Salon(
     salonIndustry: List[String],       // Ref to Master [Industry] table.           
     homepage: Option[String],           
     salonDescription: Option[String], 
-    picDescription: PicDescription,
+    picDescription: Option[PicDescription],
     contactMethod:Contact,
     optContactMethod: List[OptContactMethod],
-    establishDate: Date,
-    salonAddress: Address,
-    workTime: WorkTime,
-    restDays: RestDay,
-    seatNums: Int,
-    salonFacilities: SalonFacilities,    
+    establishDate: Option[Date],
+    salonAddress: Option[Address],
+    workTime: Option[WorkTime],
+    restDays: Option[RestDay],
+    seatNums: Option[Int],
+    salonFacilities: Option[SalonFacilities],    
     salonPics: List[OnUsePicture],             
     registerDate: Date
 )

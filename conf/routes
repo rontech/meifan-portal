@@ -261,7 +261,7 @@ GET			/salonLogin				     					 controllers.Application.salonLogin
 POST      	/loginSalon                                  	 controllers.auth.Salons.salonLogin
 GET         /salonInfo/:salonId                             controllers.noAuth.Salons.salonInfoBasic(salonId: ObjectId)
 GET         /salonInfoManage                                controllers.auth.Salons.salonInfoManage
-GET         /salonUpd/:id                                   controllers.auth.Salons.update(id:ObjectId)
+POST         /salonUpd/:id                                   controllers.auth.Salons.update(id:ObjectId)
 GET         /salonRegister                                   controllers.Application.salonRegister()
 POST        /salonDoRegister                                 controllers.noAuth.Salons.doRegister()
 GET         /updateSalonlogo                             	 controllers.auth.Salons.saveSalonImg(imgId: ObjectId)
