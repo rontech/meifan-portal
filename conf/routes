@@ -142,6 +142,7 @@ GET        /reply/:commentObjId/:id/:commentObjType                    controlle
 GET         /delete/:id/:commentObjId                                  controllers.auth.Comments.delete(id : ObjectId, commentObjId : ObjectId)
 GET        /addComment/:commentObjId/:commentObjType                   controllers.auth.Comments.addComment(commentObjId : ObjectId, commentObjType : Int)
 GET       /addCommentToCoupon/:commentObjId/:commentObjType            controllers.auth.Comments.addCommentToCoupon(commentObjId : ObjectId, commentObjType : Int)
+
  
 
 #-------------------------------------------------
@@ -239,7 +240,9 @@ GET         /mySalon/:salonId/sreachMenu                               controlle
 
 
 
+
 GET          /replyBySalon/:commentObjId/:commentObjType               controllers.auth.Salons.replyBySalon(commentObjId : ObjectId, commentObjType : Int)
+
 # auth
 #GET    /showOtherBlog/:userId                                controllers.Blogs.showOtherBlog(userId : String)
 
@@ -254,7 +257,7 @@ GET			/salonLogin				     					 controllers.Application.salonLogin
 POST      	/loginSalon                                  	 controllers.auth.Salons.salonLogin
 GET         /salonInfo/:salonId                             controllers.noAuth.Salons.salonInfoBasic(salonId: ObjectId)
 GET         /salonInfoManage                                controllers.auth.Salons.salonInfoManage
-GET         /salonUpd/:id                                   controllers.auth.Salons.update(id:ObjectId)
+POST         /salonUpd/:id                                   controllers.auth.Salons.update(id:ObjectId)
 GET         /salonRegister                                   controllers.Application.salonRegister()
 POST        /salonDoRegister                                 controllers.noAuth.Salons.doRegister()
 GET         /updateSalonlogo                             	 controllers.auth.Salons.saveSalonImg(imgId: ObjectId)
