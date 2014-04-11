@@ -794,3 +794,22 @@ reservation.weekDay.7 = 六
 reservation.rest = 休息日
 reservation.beforeWeek = 前一周
 reservation.afterWeek = 后一周
+
+#salonCheckInfoState
+salonCheckInfoState.conditions =  申请待完成事项
+salonCheckInfoState.condition = 事项
+salonCheckInfoState.status = 是否完善
+salonCheckInfoState.operate = 操作
+salonCheckInfoState.finish = 已完善
+salonCheckInfoState.needTodo = 待完善
+salonCheckInfoState.register = 注册信息
+salonCheckInfoState.basicInfo = 基本资料
+salonCheckInfoState.detail = 详细资料
+salonCheckInfoState.pictures = 店铺图片
+salonCheckInfoState.check = 查看
+salonCheckInfoState.completeInfo = 去完善
+salonCheckInfoState.createSalon = 创建店铺
+salonCheckInfoState.youNeedDo = 您还有
+salonCheckInfoState.cannotApply = 个事项未完成，不能创建店铺
+salonCheckInfoState.uploadLogo = 上传头像
+salonCheckInfoState.uploadpics = 展示图片

@@ -403,5 +403,4 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             })
     }
     
-  
 }
