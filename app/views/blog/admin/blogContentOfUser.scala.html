@@ -8,7 +8,7 @@
       function submitForm(){
       	var txt = document.getElementById("wmd-input").value;
       	if(txt.trim() == ""){      		
-      		cmt_tip.innerHTML = "评论内容不能为空";
+      		cmt_tip.innerHTML = "@Messages("comment.contentNotNull")";
       		cmt_tip.style.color = "red";
       		return false;
       	}
@@ -18,7 +18,7 @@
       function replyForm(contId, showBlockId){
       	var txt = document.getElementById(contId).value;
       	if(txt.trim() == ""){  
-      		document.getElementById(showBlockId).innerHTML = "评论内容不能为空";
+      		document.getElementById(showBlockId).innerHTML = "@Messages("comment.contentNotNull")";
       		return false;
       	}
       	return true;
@@ -72,24 +72,18 @@
       	      	<div class="BlogShare">
     	
 		 <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">@Messages("blog.shareTo")</a><a href="#" class="bds_qzone" data-cmd="qzone" title="@Messages("blog.shareToQQ")">@Messages("blog.QQ")</a><a href="#" class="bds_tsina" data-cmd="tsina" title="@Messages("blog.shareToXL")">@Messages("blog.XL")</a><a href="#" class="bds_tqq" data-cmd="tqq" title="@Messages("blog.shareToTX")">@Messages("blog.TX")</a><a href="#" class="bds_renren" data-cmd="renren" title="@Messages("blog.shareToRR")">@Messages("blog.RR")</a><a href="#" class="bds_weixin" data-cmd="weixin" title="@Messages("blog.shareToWX")">@Messages("blog.WX")</a></div>
-        <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+        <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"@Messages("blog.shareTo")","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 	</div>	  
-      @*<div class="BlogLinks">
-    	<ul>
-                <li class="prev"><a href="" title="上一篇：test">« 上一篇</a></li>        
-                <li class="next"><a href="" title="下一篇：1">下一篇 »</a></li>    	
-        </ul>
-      </div>*@
       
       <script language="javascript" type="text/javascript">
     var postList = document.getElementById('allposts');
     var curUrl = "@noAuth.routes.Blogs.getOneBlogById(blog.id)";
     var prePost = {
-                    title:'没有啦',
+                    title:'@Messages("blog.noPreNext")',
                     url:''
     };
     var nextPost = {
-                    title:'没有啦',
+                    title:'@Messages("blog.noPreNext")',
                     url:curUrl
     };
     var getNextPost = false;
@@ -120,8 +114,8 @@
             }
         }
     }
-    document.write("<ul><li><b>前一篇: </b>" + "<a href='" + prePost.url + "'>" + prePost.title + "</a></li>");
-    document.write("<li><b>后一篇: </b>"+"<a href='"+nextPost.url+"'>"+nextPost.title+"</a></li></ul>");
+    document.write("<ul><li><b>@Messages("blog.preBlog"): </b>" + "<a href='" + prePost.url + "'>" + prePost.title + "</a></li>");
+    document.write("<li><b>@Messages("blog.nextBlog"): </b>"+"<a href='"+nextPost.url+"'>"+nextPost.title+"</a></li></ul>");
 </script>
       
 	</div>
@@ -138,19 +132,19 @@
 	<table class="ostable"><tbody><tr>
 	<td class="portrait">
 	@if(User.findOneByUserId(commentList(i-1).authorId).get.id.equals(loginUserId)){
-	    <a href="@auth.routes.Users.myPage" target="_blank"><img src="/img/portrait.gif" align="absmiddle" alt="" title="" class="SmallPortrait" user=""></a>
+	    <a href="@auth.routes.Users.myPage" target="_blank"><img src="@if(User.findOneByUserId(commentList(i-1).authorId).get.id.getTime.equals(User.findOneByUserId(commentList(i-1).authorId).get.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(User.findOneByUserId(commentList(i-1).authorId).get.userPics)"}" align="absmiddle" alt="" title="" class="SmallPortrait" user=""></a>
     }else{
-		<a href="@noAuth.routes.Users.userPage(commentList(i-1).authorId)" target="_blank"><img src="/img/portrait.gif" align="absmiddle" alt="" title="" class="SmallPortrait" user=""></a>
+		<a href="@noAuth.routes.Users.userPage(commentList(i-1).authorId)" target="_blank"><img src="@if(User.findOneByUserId(commentList(i-1).authorId).get.id.getTime.equals(User.findOneByUserId(commentList(i-1).authorId).get.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(User.findOneByUserId(commentList(i-1).authorId).get.userPics)"}" align="absmiddle" alt="" title="" class="SmallPortrait" user=""></a>
     }			
 	</td>
 	<td class="body">
 		<div class="title">
 		@*TODO层级关系 --if*@
 		@if(commentList(i-1).commentObjType == 3){	
-		  <div class="ref"><h4>@Messages("blog.quoteComment",Comment.findOneById(commentList(i-1).commentObjId).get.authorId)</h4><p>@Comment.findOneById(commentList(i-1).commentObjId).get.content</p></div>	  
+		  <div class="ref"><h4>@Messages("blog.quoteComment",User.findOneByUserId(Comment.findOneById(commentList(i-1).commentObjId).get.authorId).get.nickName)</h4><p>@Comment.findOneById(commentList(i-1).commentObjId).get.content</p></div>	  
 		}
 			@*@Messages("blog.floor",i)：<a href="" target="_blank" name="rpl_278991586" class="user">@commentList(i-1).authorId</a> @Messages("blog.createAt",DateFormat.getDateInstance().format(commentList(i-1).createTime))*@
-			@Messages("blog.floor",i)：@commentList(i-1).authorId  @Messages("blog.createAt",DateFormat.getDateInstance().format(commentList(i-1).createTime))
+			@Messages("blog.floor",i)： @User.findOneByUserId(commentList(i-1).authorId).get.nickName  @Messages("blog.createAt",DateFormat.getDateInstance().format(commentList(i-1).createTime))
         	        	  @if(loginUserId.equals(user.id)){                      
         	        	  <a href="" class="deleteComment" data-comment="@commentList(i-1).id" data-blog="@blog.id">@Messages("common.delete")</a> 
         	        	  }
@@ -165,12 +159,8 @@
 		      <textarea name="content" id="ccom_content_@commentList(i-1).id" style="width:650px;height:60px;"></textarea><br>
 			  <p>
 				  <span style="float:left;">
-		    	  @*<input type="button" value="关闭" class="blg_submit_btn" id="btn_close_inline_reply" style="background: rgba(255,255,255,0);color: #555;">*@
 		    	  <input type="submit" value="@Messages("blog.reply")" id="btn_comment" onclick="return replyForm('ccom_content_@commentList(i-1).id', 'ficmp_msg_@commentList(i-1).id');" class="blg_submit_btn"> 
 				  </span>
-				  @*插入：
-						<a href="javascript:;" onclick="javascript:insert_emotions('ccom_content',this);" class="blog_emotion">表情</a>
-						<a href="javascript:insert_projects_c();" class="blog_soft">开源软件</a>*@
 				 		<span class="NoData" id="ficmp_msg_@commentList(i-1).id" style="color:#F00"></span>
 			  </p>
 		    </form>
@@ -196,13 +186,11 @@
 <div class="BlogCommentForm">
         <form id="form_comment" action="@routes.Comments.addComment(blog.id,1)" method="GET">
         	<div class="comment_portrait">
-        		<img src="/img/portrait.gif" align="absmiddle" alt="" title="" class="LargePortrait">        	</div>
+        		<img src="@if(User.findOneById(loginUserId).equals(None) || User.findOneById(loginUserId).get.id.getTime.equals(User.findOneById(loginUserId).get.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(User.findOneById(loginUserId).get.userPics)"}" align="absmiddle" alt="" title="" class="LargePortrait">        	</div>
         	<div class="comment_form">
         		<textarea name="content" id="wmd-input" style="width:650px;height:80px;" placeholder=""></textarea>
 				<p>
 					<button type="submit" class="blg_submit_btn" onclick="return submitForm();" style="float:right;">@Messages("blog.postComment")</button>
-					@*插入：
-					<a href="javascript:insert_emotions();" class="blog_emotion">表情</a>*@
 					<span class="NoData" id="cmt_tip"></span>
 				</p>
                 </div>

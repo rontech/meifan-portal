@@ -25,7 +25,7 @@
 						<dd class="mT5 pT5">
 							<div class="pr">
 								<dl class="lh30">
-									@form(routes.SalonInfo.loginSalon, 'method ->"post"){
+									@form(auth.routes.Salons.salonLogin(), 'method ->"post"){
 										
 										<dd class="mT5 pT5">
 											<div class="pr">
@@ -56,7 +56,6 @@
 						<div class="mT10 taR">
 							<p><a href="#" id="pwRemindLink" title="Messages("user.forgetPassword")"><font><font>@Messages("user.forgetPassword")</font></font></a></p>
 						</div>
-						</dd>
 					</dl>
 				</div>
 			</div>
@@ -83,7 +82,7 @@
 				            <div>
 				                <span class="btn btn2H32 w194 mHA">
 				                	<span>
-				                		<a href="@routes.SalonInfo.register" class="w194">
+				                		<a href="@routes.Application.salonRegister" class="w194">
 					                        <input type="button" class = "buttons" value="@Messages("user.registerBtn")">
 					                    </a>
 				                	</span>

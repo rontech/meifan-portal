@@ -101,14 +101,22 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
         //处理错误
         errors => BadRequest(views.html.comment.errorMsg("")),
         {
-          case (content) =>         
-	        Comment.addComment(user.userId, content, commentObjId, commentObjType)
-	        if (commentObjType == 1) { 
-	          Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
-	        }
-	        else {
-	          Ok("")
-	        }
+          case (content) =>    
+            if (commentObjType == 1) {
+              val blog = Blog.findOneById(commentObjId)
+              blog match {
+	              case Some(blog) =>{
+	                Comment.addComment(user.userId, content, commentObjId, commentObjType)		        
+			        Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
+	              }
+	              case None=>{
+	                Unauthorized
+	              }
+              }
+            }
+            else{
+            Unauthorized
+            }
         } 
       )
   }
@@ -125,6 +133,7 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
           case (complex, atmosphere, service, skill, price, content) =>         
 	        Comment.addCommentToCoupon(user.userId, content, commentObjId, commentObjType, complex, atmosphere, service, skill, price)
 	        if (commentObjType == 2) { 
+	          // TODO 等到预约做好后，由于预约表中有与用户相关的字段，到时候可以跳转
 	          Ok("成功插入到数据库中了啦，哈哈！")
 	        }
 	        else {
@@ -181,7 +190,7 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
         {
           case (content) =>
 	        Comment.reply(user.userId, content, commentObjId, commentObjType) 
-	        Redirect(routes.SalonsAdmin.myComment(id))	
+	        Redirect(auth.routes.Salons.myComment)
         } 
       )
   }

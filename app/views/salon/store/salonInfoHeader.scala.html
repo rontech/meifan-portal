@@ -7,17 +7,17 @@
 					@if(salon.id.getTime.equals(salon.salonPics(0).fileObjId.getTime)){
 						<h>@salon.id</h>
 						<h>@salon.salonPics</h>
-						<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
+						<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
 					}else{
 						@for(i <- 0 to salon.salonPics.size-1){
 							@if(salon.salonPics(i).picUse == "LOGO" ){
-								<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>												
+								<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>
 							}								
 						}										
 					}
 										
 				}else{
-					<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
+					<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
 				}	      
         </a>
         </div>
@@ -128,7 +128,7 @@
                 <a href="#" class="bS db @if(navInSalon == "salon-accessmap") {accessMapCurrent} else {accessMap} offL">@Messages("salon.accessMap")</a>
             </li>
             <li class="fr">
-                <a href="@routes.Comments.findBySalon(salon.id)" class="bS db @if(navInSalon == "salon-comment") {kuchikomiCurrent} else {kuchikomi} offL">@Messages("salon.comments")</a>
+                <a href="@noAuth.routes.Comments.findBySalon(salon.id)" class="bS db @if(navInSalon == "salon-comment") {kuchikomiCurrent} else {kuchikomi} offL">@Messages("salon.comments")</a>
             </li>
         </ul>
     </div>

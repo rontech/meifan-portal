@@ -9,18 +9,8 @@
 		<span id="nameMsg"></span>
 		<input type="submit" id="searchStylistToSubmit" onclick="return toSubmit();" value="@Messages("stylist.search")">
 	}
-	@salon.map{ sa=>
-		<div class="fl w349">
-    	<div id="jsViewer">
-        <img src="@routes.Application.getPhoto(sa.salonPics(0).fileObjId)"
-        width="349" height="262" style="display: block; opacity: 1;" oncontextmenu="return false;">
-        
-    </div>
-    <p>@sa.salonName</p>
-    <a href="@auth.routes.Stylists.toApplySalon(sa.id)">
-    	<p>@Messages("stylistMag.wantToApply")</p>
-    </a>	
-</div>
+	@salon.map{ sa =>
+		@views.html.stylist.management.salonItem(user, loginUserId, logged, sa, true, true)	
 	}
 }
 <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
