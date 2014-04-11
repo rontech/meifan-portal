@@ -36,7 +36,7 @@
 	  		</div>
    			<div class='Opts clearfix'>
                 <a href="@auth.routes.Salons.salonInfoManage" class='a2 admin w220'><span>@Messages("user.changeInfo")</span></a>
-				<a href="/showBlog/@salon.id" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
+				<a href="#" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
 			</div>
    			<!-- 店铺基本信息管理 -->
 			<div class='Mod Users' id='Fans'>
@@ -56,7 +56,7 @@
     	 			</li>
 	  			</ul>
 	  			<div class='more'>
-    				<a href="/mySalon/@salon.id/stylist">@Messages("salonAdmin.myStylist")
+    				<a href="@auth.routes.Salons.myStylist">@Messages("salonAdmin.myStylist")
     				(@SalonAndStylist.countStylistBySalon(salon.id))</a><br />
     				<a href="@auth.routes.Salons.checkHoldApply">
                 	@Messages("salonAdmin.fromStylistApply")
@@ -75,14 +75,14 @@
     	 			</li>
 	  			</ul>
 				<div class='more'>
-					<a href="/getAllStylesBySalon/@salon.id">@Messages("stylistMag.showAllStyles")</a>
+					<a href="@auth.routes.Salons.getAllStylesBySalon()">@Messages("stylistMag.showAllStyles")</a>
 				</div>
 			</div>
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("salonAdmin.reserveManagement")</strong>
 	  			<ul class='clearfix'>
 	  				<li>
-    	 				<a href="/mySalon/@salon.id/reserv"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 				<a href="@auth.routes.Salons.myReserv"></a>&nbsp;&nbsp;&nbsp;&nbsp;
     	 			</li>
 	  					
     			</ul>
@@ -127,7 +127,7 @@
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-       					<a href="/mySalon/@salon.id/service">@Messages("salonAdmin.checkService")</a>
+       					<a href="@auth.routes.Salons.myService">@Messages("salonAdmin.checkService")</a>
      				</div>
 			</div>
 			<div class='Mod Users' id='Fans'>
@@ -137,7 +137,7 @@
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-       					<a href="/mySalon/@salon.id/coupon">@Messages("salonAdmin.checkCoupon")</a>
+       					<a href="@auth.routes.Salons.myCoupon">@Messages("salonAdmin.checkCoupon")</a>
      				</div>
 			</div>
 			<div class='Mod Users' id='Fans'>
@@ -147,7 +147,7 @@
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-       					<a href="/mySalon/@salon.id/menu">@Messages("salonAdmin.checkMenu")</a>
+       					<a href="@auth.routes.Salons.myMenu">@Messages("salonAdmin.checkMenu")</a>
      				</div>
 			</div>
 			<div class='Mod Users' id='Fans'>
