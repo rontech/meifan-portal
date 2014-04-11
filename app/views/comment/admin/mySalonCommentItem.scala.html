@@ -103,7 +103,7 @@
 
 <div id="reply_@comment.id" class="inline_reply" style="display:none;">
 <div class="BlogCommentForm">
-	<form id="form_inline_comment" action="@routes.Comments.replyAdmin(comment.id, salon.id, 3)" method="GET">
+	<form id="form_inline_comment" action="@auth.routes.Salons.replyBySalon(comment.id, 3)" method="GET">
 	  <input type="hidden" id="inline_reply_id" name="reply_id" value="1452044_278889672">         
       <textarea name="content" id="ccom_content_@comment.id" style="width:650px;height:60px;"></textarea><br>
 	  <p style = "height:50px;">

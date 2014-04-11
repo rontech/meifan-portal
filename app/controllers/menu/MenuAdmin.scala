@@ -9,6 +9,7 @@ import java.util.Date
 
 import models._
 import views._
+import controllers.auth.Coupons
 
 object MenuAdmin extends Controller {
     
