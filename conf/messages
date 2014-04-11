@@ -147,8 +147,8 @@ salon.pushToMobile = 发送到手机
 salon.iss=店铺功能
 salon.login.accountId=请输入您的店铺ID
 salon.login.password=请输入您的密码
-salon.register.accountId=请输入6-16位字符
-salon.register.password=请输入以字母开头的6-18位字符
+salon.register.accountId=6~16位字符,可使用字母、数字和下划线!
+salon.register.password=6~18位字符,可使用字符、数字或符号的组合！
 salon.register.salonName = 请重新输入店铺名
 salon.register.mainPhone = 请输入联系电话
 salon.register.contact=请输入联系人
@@ -183,6 +183,7 @@ Friday = 星期五
 Saturday = 星期六
 Sunday = 星期日
 salon.noExist = 该店铺不存在
+salon.register.accountIdErr=店铺ID不合法!
 
 
 #salon management

@@ -155,8 +155,11 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputDate(salonForm("establishDate"), '_label -> None, '_help -> Messages("*"),
-				                		'_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate"))))
+				                	@*inputDate(salonForm("establishDate"), '_label -> None, '_help -> Messages("*"),
+				                		'_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate"))))*@
+				                    @input(field = salonForm("establishDate"), '_label -> None, '_help -> Messages("*"), '_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate")))) { (id, name, value, _) =>
+        							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
+								    }
 				                </div>
 				            </td>
 				        </tr>
@@ -358,7 +361,7 @@
 				            </th>
 				            <td>
 				            	<div id="optContactMethods">
-				            		 @repeat(salonForm("optContactMethod")) { optContactMethod =>
+				            		 @repeat(salonForm("optContactMethod"), min = 0) { optContactMethod =>
 					                    @optContactMethodGroup(optContactMethod)
 					                }
 					                
@@ -479,7 +482,6 @@
 
 	</div>
 </div>
-        
 }
 @views.html.salon.salonSwfupload("")
 @accountField(field: Field, className: String = "account") = {
@@ -494,14 +496,21 @@
 
         <a class="removeoptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
 
-        @inputText(
+        @*inputText(
             field("contMethodType"),
             '_label -> Messages("user.contMethodType")
+        )*@
+        
+        @select(
+        	field("contMethodType"), 
+        	ContMethodType.getAllContMethodTypes,
+        	'_default -> Messages("user.chooseOpt"),
+        	'_label -> Messages("user.contMethodType")
         )
 
         <div class="accounts">
 
-            @repeat(field("accounts"), min = 0) { account =>
+            @repeat(field("accounts"), min = 1) { account =>
 
                 @accountField(account)
 
