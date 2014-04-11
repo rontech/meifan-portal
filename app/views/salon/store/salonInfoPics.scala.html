@@ -11,9 +11,9 @@
 				</div>
 			</div>
 		<div class="fr w349">
-				<p class="shopCatchCopy"><b><strong>@salon.picDescription.picTitle</strong></b></p>
-				<p class="mT10">@salon.picDescription.picContent</p>
-				<p class="mT20 b">@salon.picDescription.picFoot</p>
+				<p class="shopCatchCopy"><b><strong>@salon.picDescription.map(pic=>pic.picTitle).getOrElse(None)</strong></b></p>
+				<p class="mT10">@salon.picDescription.map(pic=>pic.picContent).getOrElse(None)</p>
+				<p class="mT20 b">@salon.picDescription.map(pic=>pic.picFoot).getOrElse(None)</p>
 		</div>
 	</div>
 

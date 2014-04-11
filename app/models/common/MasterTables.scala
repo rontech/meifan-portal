@@ -34,52 +34,6 @@ object Industry extends ModelCompanion[Industry, ObjectId]{
   
 }
 
-
-/**
- * [Master Table]
- */
-case class Province(
-    provinceId: ObjectId = new ObjectId,
-    provinceName: String
-)
-
-object Province extends ModelCompanion[Province, ObjectId]{
-
-  val dao = new SalatDAO[Province, ObjectId](collection = mongoCollection("Province")){}
-  
-}
-
-
-/**
- * [Master Table]
- */
-case class City(
-    cityId: ObjectId = new ObjectId,
-    cityName: String,
-    provinceName: String                // Ref to the Master Table [Provice] on the [City] field.
-)
-
-object City extends ModelCompanion[City, ObjectId]{
-
-  val dao = new SalatDAO[City, ObjectId](collection = mongoCollection("City")){}
-  
-}
-
-/**
- * [Master Table]
- */
-case class Region(
-    regionId: ObjectId = new ObjectId,
-    regionName: String,
-    cityName: String                // Ref to the Master Table [Provice] on the [City] field.
-)
-
-object Region extends ModelCompanion[Region, ObjectId]{
-
-  val dao = new SalatDAO[Region, ObjectId](collection = mongoCollection("Region")){}
-  
-}
-
 /**
  * [Master Table]
  */
