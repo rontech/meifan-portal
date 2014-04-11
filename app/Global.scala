@@ -70,8 +70,11 @@ object InitialData {
     if(Position.findAll.isEmpty){
       Seq(
        Position(new ObjectId("531964e0d4d57d0a43771411"),"店长"),
-       Position(new ObjectId("531964e0d4d57d0a43771412"),"技师"),
-       Position(new ObjectId("531964e0d4d57d0a43771412"),"助手")
+       Position(new ObjectId("531964e0d4d57d0a43771412"),"首席技师"),
+       Position(new ObjectId("531964e0d4d57d0a43771413"),"技师"),
+       Position(new ObjectId("531964e0d4d57d0a43771414"),"高级助手"),
+       Position(new ObjectId("531964e0d4d57d0a43771415"),"普通助手"),
+       Position(new ObjectId("531964e0d4d57d0a43771416"),"助手")
       ).foreach(Position.save)
     }
     

@@ -219,6 +219,7 @@ salonAdmin.admin = 店铺
 salonAdmin.ApplyOperateResult = 抱歉该申请不存在或已被本人取消，将在
 salonAdmin.ApplyOperateAction = s后自动跳转，点击
 salonAdmin.ApplyOperateGo = 跳转 
+stylistAdmin.selectField = *选填
 
 # Hair
 hair.tabName=时尚靓发

@@ -107,4 +107,8 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
       }
   }
   
+  def cutImg = Action {
+    Ok(views.html.stylist.cutImg(""))
+  }
+  
 }

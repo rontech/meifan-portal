@@ -280,6 +280,7 @@ GET		/userPage/styles/:stylistId					         controllers.noAuth.Stylists.findSt
 POST	/findStylesBySerach/:stylistId				         controllers.noAuth.Stylists.findStylesBySerach(stylistId: ObjectId)
 GET		/otherHomePage/:userId 								 controllers.noAuth.Stylists.otherHomePage(userId: ObjectId)	
 GET		/checkSalonIsexitBySalonAccountId/:salonAccountId	 controllers.noAuth.Stylists.checkSalonIsexitBySalonAccountId(salonAccountId: String)
+GET		/cutImg	 											 controllers.noAuth.Stylists.cutImg
 
 GET     /styleUpdateByStylist/:styleId                       controllers.auth.Stylists.styleUpdateByStylist(styleId: ObjectId)
 POST    /styleUpdateNewByStylist/                            controllers.auth.Stylists.styleUpdateNewByStylist
