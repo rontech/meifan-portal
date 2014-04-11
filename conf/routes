@@ -139,13 +139,13 @@ GET         /findRecordByCondition                                     controlle
 
 # Comment
 #POST   /addComment/:id/:commentedType  controllers.Comments.addComment(id : ObjectId, commentedType : Int)
-GET         /comment/:commentObjId                                     controllers.Comments.find(commentObjId : ObjectId)
-GET         /answer/:id/:commentObjId                        controllers.Comments.answer(id : ObjectId, commentObjId : ObjectId)
-GET        /reply/:commentObjId/:id/:commentObjType          controllers.Comments.reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int)
-GET         /delete/:id/:commentObjId                        controllers.Comments.delete(id : ObjectId, commentObjId : ObjectId)
-GET         /complaint/:cmId                                 controllers.Comments.complaint(cmId : ObjectId)
-GET        /addComment/:commentObjId/:commentObjType         controllers.Comments.addComment(commentObjId : ObjectId, commentObjType : Int)
-GET       /addCommentToCoupon/:commentObjId/:commentObjType           controllers.Comments.addCommentToCoupon(commentObjId : ObjectId, commentObjType : Int)
+#GET         /comment/:commentObjId                                     controllers.Comments.find(commentObjId : ObjectId)
+#GET         /answer/:id/:commentObjId                        controllers.Comments.answer(id : ObjectId, commentObjId : ObjectId)
+GET        /reply/:commentObjId/:id/:commentObjType          controllers.auth.Comments.reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int)
+GET         /delete/:id/:commentObjId                        controllers.auth.Comments.delete(id : ObjectId, commentObjId : ObjectId)
+#GET         /complaint/:cmId                                 controllers.Comments.complaint(cmId : ObjectId)
+GET        /addComment/:commentObjId/:commentObjType         controllers.auth.Comments.addComment(commentObjId : ObjectId, commentObjType : Int)
+GET       /addCommentToCoupon/:commentObjId/:commentObjType           controllers.auth.Comments.addCommentToCoupon(commentObjId : ObjectId, commentObjType : Int)
  
 
 
@@ -246,7 +246,7 @@ GET         /mySalon/:salonId/sreachMenu                               controlle
 
 
 
-GET    /replyAdmin/:commentObjId/:id/:commentObjType         controllers.Comments.replyAdmin(commentObjId : ObjectId, id : ObjectId, commentObjType : Int)
+GET    /replyAdmin/:commentObjId/:id/:commentObjType         controllers.auth.Comments.replyAdmin(commentObjId : ObjectId, id : ObjectId, commentObjType : Int)
 # auth
 #GET    /showOtherBlog/:userId                                controllers.Blogs.showOtherBlog(userId : String)
 
