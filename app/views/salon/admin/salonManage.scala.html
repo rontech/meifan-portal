@@ -126,8 +126,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("mainPhone"), '_label -> None, '_help -> Messages("*"),
-				                		'_error -> salonForm("mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
+				                	@inputText(salonForm("contactMethod.mainPhone"), '_label -> None, '_help -> Messages("*"),
+				                		'_error -> salonForm("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
 				                </div>
 				            </td>
 				        </tr>
@@ -140,11 +140,25 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("contact"), '_label -> None,'_help -> Messages("*"),
-				                		'_error -> salonForm("contact").error.map(_.withMessage(Messages("salon.register.contact"))))
+				                	@inputText(salonForm("contactMethod.contact"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonForm("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
 				                </div>
 				            </td>
 				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("user.email")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonForm("contactMethod.email"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonForm("contactMethod.email").error.map(_.withMessage(Messages("salon.register.contact"))))
+				                </div>
+				            </td>
+				        </tr>				        
 				        <tr>
 				            <th class="w222 ">
 				                <!-- -->
@@ -154,8 +168,11 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputDate(salonForm("establishDate"), '_label -> None, '_help -> Messages("*"),
-				                		'_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate"))))
+				                	@*inputDate(salonForm("establishDate"), '_label -> None, '_help -> Messages("*"),
+				                		'_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate"))))*@
+				                    @input(field = salonForm("establishDate"), '_label -> None, '_help -> Messages("*"), '_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate")))) { (id, name, value, _) =>
+        							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
+								    }
 				                </div>
 				            </td>
 				        </tr>
@@ -357,7 +374,7 @@
 				            </th>
 				            <td>
 				            	<div id="optContactMethods">
-				            		 @repeat(salonForm("optContactMethod")) { optContactMethod =>
+				            		 @repeat(salonForm("optContactMethod"), min = 0) { optContactMethod =>
 					                    @optContactMethodGroup(optContactMethod)
 					                }
 					                
@@ -527,13 +544,13 @@
 
         var renumber = function(accounts) {
             $('.optContactMethod').each(function(i) {
-                $('input', this).each(function() {
+                $('select', this).each(function() {
                     $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
                 })
-                $('.account input', this).each(function(i) {
-                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
+                $('.account input', this).each(function(j) {
+                	$(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
+                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + j + ']'))
                 })
-                
             })
             $('.salonPic').each(function(i) {
                 $('input', this).each(function() {
@@ -688,14 +705,21 @@
 
         <a class="removeoptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
 
-        @inputText(
+        @*inputText(
             field("contMethodType"),
             '_label -> Messages("user.contMethodType")
+        )*@
+        
+        @select(
+        	field("contMethodType"), 
+        	ContMethodType.getAllContMethodTypes,
+        	'_default -> Messages("user.chooseOpt"),
+        	'_label -> Messages("user.contMethodType")
         )
 
         <div class="accounts">
 
-            @repeat(field("accounts"), min = 0) { account =>
+            @repeat(field("accounts"), min = 1) { account =>
 
                 @accountField(account)
 

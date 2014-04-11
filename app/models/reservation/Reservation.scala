@@ -83,4 +83,11 @@ object Reservation extends ModelCompanion[Reservation, ObjectId]{
 	def findReservationByDate(reservations: List[Reservation], expectedDateStart: Date, expectedDateEnd: Date): Long = {
 		reservations.filter(r => (r.expectedDate.before(expectedDateEnd) && r.expectedDate.after(expectedDateStart))).size.toLong
 	}
+    
+    /**
+     * 根据状态为1和发型非空检索出符合热门排名的所有预约券
+     */
+    def findByStatusAndStyleId:List[Reservation] = {
+        dao.find(MongoDBObject("status" -> 1)).toList
+    }
 }
