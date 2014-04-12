@@ -408,7 +408,6 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             })
     }
 
-
     /**
      * 店铺回复消费者的评论，后台逻辑
      */
@@ -424,5 +423,9 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         }
         )
     }
-
+    
+    def checkInfoState = Action { 
+    		Ok(views.html.salon.checkInfostate(""))
+    }
+    
 }
