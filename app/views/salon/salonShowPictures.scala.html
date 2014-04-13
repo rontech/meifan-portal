@@ -4,6 +4,8 @@
 @import helper.twitterBootstrap._
 
 @main(Messages("site.title")){
+	<body>
+	@form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm"){
 	<div>
 		<ul id="salonImageClick">
 			<li><a class="current-demo" href="index.html">@Messages("salonCheckInfoState.uploadLogo")</a></li>
@@ -30,12 +32,17 @@
 			</ul>
 		</div>
 	</div>
+	<div class="mT20 txtC">			
+		<input type = "submit" class = "buttons" value=@Messages("common.submit")>
+	</div>
+	}
+	</body>
 	@pictureGroup(
 		salonInfo("salonPics[x]"),
 		className = "salonPic_template"
 	)
 }
-	@pictureGroup(field: Field, className: String = "salonPic") = {
+@pictureGroup(field: Field, className: String = "salonPic") = {
 	<li>
 	<div class="delete-pic"></div>
 		@field("fileObjId").value.map{fileid=>
@@ -74,6 +81,5 @@
     </div>
 
     </li>
-    }
-	@views.html.salon.salonSwfupload("")
-    
+}
+@views.html.salon.salonSwfupload("")

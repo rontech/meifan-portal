@@ -301,6 +301,7 @@ POST    /styleUpdateNewBySalon/                              controllers.auth.Sa
 GET     /styleToInvalidBySalon/:styleId                      controllers.auth.Salons.styleToInvalidBySalon(styleId: ObjectId)
 GET     /styleAddBySalon                                      controllers.auth.Salons.styleAddBySalon
 POST    /newStyleAddBySalon/                                 controllers.auth.Salons.newStyleAddBySalon
+GET     /salonShowPics                                      controllers.auth.Salons.salonShowPics
 
 
 
