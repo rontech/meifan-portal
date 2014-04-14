@@ -196,6 +196,11 @@ GET         /mySalon/replyComment/:commentObjId/:commentObjType             cont
 GET         /mySalon/checkInfoState                                         controllers.auth.Salons.checkInfoState
 GET         /mySalon/salonShowPics                                          controllers.auth.Salons.salonShowPics
 
+GET			/salonBasic										controllers.auth.Salons.salonBasic
+GET			/salonDetail									controllers.auth.Salons.salonDetail
+POST        /salonConsum/:id                                 controllers.auth.Salons.informationConsum(id:ObjectId)
+#POST        /changeSalonPassword/:id                         controllers.SalonInfo.salonChangePassword(id: ObjectId)
+
 # Coupon
 GET         /mySalon/createCoupon                                           controllers.auth.Coupons.couponMain
 GET         /coupons/createCoupon                                           controllers.auth.Coupons.createCoupon

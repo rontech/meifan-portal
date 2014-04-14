@@ -1,7 +1,8 @@
-@(messages: String)
+@(salon: Salon, counts: Int)
 
 
 @main(Messages("site.title")){
+	
 	<div id="J_ChooseDesc">
     <span class="new-shop-title">
         @Messages("salonCheckInfoState.conditions")
@@ -26,28 +27,15 @@
                    @Messages("salonCheckInfoState.register")
                 </td>
                 <td>
-	                @if(true){
-	                	<i class="iconfont redfont">
-                        ź
-                    	</i>
-                    	@Messages("salonCheckInfoState.needTodo")
-	                }else{
-	                	<i class="iconfont greenfont">
-                        Ż
-                    	</i>
+	                <i class="iconfont greenfont">
+                    Ż
+                    </i>
                     @Messages("salonCheckInfoState.finish")
-	                }
-                </td>
+	            </td>
                 <td>
-                	@if(true){
-                		<a target="_blank" href="#">
-                      @Messages("salonCheckInfoState.completeInfo")
-                    	</a>
-                	}else{
-                		<a target="_blank" href="#">
-                        @Messages("salonCheckInfoState.check")
-                    	</a>
-                	}
+                	<a target="_blank" >
+                   --
+                    </a>
                 </td>
             </tr>
             <tr>
@@ -55,26 +43,27 @@
                    @Messages("salonCheckInfoState.basicInfo")
                 </td>
                 <td>
-	                @if(true){
+	                @if(Salon.checkBasicInfoIsFill(salon)){
+	                	<i class="iconfont greenfont">
+                        Ż
+                    	</i>
+                    	@Messages("salonCheckInfoState.finish")
+                    }else{
 	                	<i class="iconfont redfont">
                         ź
                     	</i>
                     	@Messages("salonCheckInfoState.needTodo")
-	                }else{
-	                	<i class="iconfont greenfont">
-                        Ż
-                    	</i>
-                    @Messages("salonCheckInfoState.finish")
+                    	
 	                }
                 </td>
                 <td>
-                	@if(true){
-                		<a target="_blank" href="#">
-                      @Messages("salonCheckInfoState.completeInfo")
-                    	</a>
-                	}else{
-                		<a target="_blank" href="#">
+                	@if(Salon.checkBasicInfoIsFill(salon)){
+                		<a target="_blank" href="@auth.routes.Salons.salonBasic">
                         @Messages("salonCheckInfoState.check")
+                    	</a>
+                    }else{
+                		<a target="_blank" href="@auth.routes.Salons.salonBasic">
+                        @Messages("salonCheckInfoState.completeInfo")
                     	</a>
                 	}
                 </td>
@@ -84,26 +73,27 @@
                    @Messages("salonCheckInfoState.detail")
                 </td>
                 <td>
-	                @if(true){
+	                @if(Salon.checkDetailIsFill(salon)){
+	                	<i class="iconfont greenfont">
+                        Ż
+                    	</i>
+                    	@Messages("salonCheckInfoState.finish")
+                    }else{
 	                	<i class="iconfont redfont">
                         ź
                     	</i>
                     	@Messages("salonCheckInfoState.needTodo")
-	                }else{
-	                	<i class="iconfont greenfont">
-                        Ż
-                    	</i>
-                    @Messages("salonCheckInfoState.finish")
+                    	
 	                }
                 </td>
                 <td>
-                	@if(true){
-                		<a target="_blank" href="#">
-                      @Messages("salonCheckInfoState.completeInfo")
+                	@if(Salon.checkDetailIsFill(salon)){
+                		<a target="_blank" href="@auth.routes.Salons.salonDetail">
+                        @Messages("salonCheckInfoState.check")
                     	</a>
                 	}else{
-                		<a target="_blank" href="#">
-                        @Messages("salonCheckInfoState.check")
+                		<a target="_blank" href="@auth.routes.Salons.salonDetail">
+                        @Messages("salonCheckInfoState.completeInfo")
                     	</a>
                 	}
                 </td>
@@ -113,26 +103,27 @@
                    @Messages("salonCheckInfoState.pictures")
                 </td>
                 <td>
-	                @if(true){
+	                @if(Salon.checkImgIsExist(salon)){
+	                	<i class="iconfont greenfont">
+                        Ż
+                    	</i>
+                    	@Messages("salonCheckInfoState.finish")
+	                }else{
 	                	<i class="iconfont redfont">
                         ź
                     	</i>
                     	@Messages("salonCheckInfoState.needTodo")
-	                }else{
-	                	<i class="iconfont greenfont">
-                        Ż
-                    	</i>
-                    @Messages("salonCheckInfoState.finish")
+                    	
 	                }
                 </td>
                 <td>
-                	@if(true){
+                	@if(Salon.checkImgIsExist(salon)){
                 		<a target="_blank" href="#">
-                      @Messages("salonCheckInfoState.completeInfo")
+                        @Messages("salonCheckInfoState.check")
                     	</a>
                 	}else{
                 		<a target="_blank" href="#">
-                        @Messages("salonCheckInfoState.check")
+                        @Messages("salonCheckInfoState.completeInfo")
                     	</a>
                 	}
                 </td>
@@ -148,7 +139,7 @@
         <span class="warning-txt">
             @Messages("salonCheckInfoState.youNeedDo")
             <em>
-                3
+            	@counts
             </em>
             @Messages("salonCheckInfoState.cannotApply")
         </span>
