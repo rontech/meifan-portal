@@ -267,7 +267,9 @@ GET         /updateSalonlogo                             	 controllers.auth.Salo
 POST		/imageUpload    		               			 controllers.auth.Salons.imageUpload
 GET         /addImage   									 controllers.auth.Salons.addImage
 GET         /salonPassword                                  controllers.auth.Salons.password
-
+GET			/salonBasic										controllers.auth.Salons.salonBasic
+GET			/salonDetail									controllers.auth.Salons.salonDetail
+POST        /salonConsum/:id                                 controllers.auth.Salons.informationConsum(id:ObjectId)
 #POST        /changeSalonPassword/:id                         controllers.SalonInfo.salonChangePassword(id: ObjectId)
 #add bu lu-zheng
 GET         /mySalon/:id/createService                                 controllers.Services.serviceMain(id: ObjectId)

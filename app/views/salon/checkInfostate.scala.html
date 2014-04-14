@@ -34,8 +34,8 @@
                     @Messages("salonCheckInfoState.finish")
 	            </td>
                 <td>
-                	<a target="_blank" href="#">
-                    @Messages("salonCheckInfoState.check")
+                	<a target="_blank" >
+                   --
                     </a>
                 </td>
             </tr>
@@ -59,11 +59,11 @@
                 </td>
                 <td>
                 	@if(Salon.checkBasicInfoIsFill(salon)){
-                		<a target="_blank" href="#">
+                		<a target="_blank" href="@auth.routes.Salons.salonBasic">
                         @Messages("salonCheckInfoState.check")
                     	</a>
                     }else{
-                		<a target="_blank" href="#">
+                		<a target="_blank" href="@auth.routes.Salons.salonBasic">
                         @Messages("salonCheckInfoState.completeInfo")
                     	</a>
                 	}
@@ -89,11 +89,11 @@
                 </td>
                 <td>
                 	@if(Salon.checkDetailIsFill(salon)){
-                		<a target="_blank" href="#">
+                		<a target="_blank" href="@auth.routes.Salons.salonDetail">
                         @Messages("salonCheckInfoState.check")
                     	</a>
                 	}else{
-                		<a target="_blank" href="#">
+                		<a target="_blank" href="@auth.routes.Salons.salonDetail">
                         @Messages("salonCheckInfoState.completeInfo")
                     	</a>
                 	}
