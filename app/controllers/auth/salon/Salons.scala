@@ -237,7 +237,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             SalonAndStylist.entrySalon(salon.id, stylistId)
             Redirect(routes.Salons.myStylist)
           }
-          case None => NotFound
+          case None => Ok(views.html.salon.admin.applyResultPage(salon))
         }
   }
   
@@ -253,7 +253,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         SalonStylistApplyRecord.rejectStylistApply(re)
         Redirect(routes.Salons.myStylist)
       }
-      case None => NotFound
+      case None => Ok(views.html.salon.admin.applyResultPage(salon))
     }
   }
   
@@ -408,7 +408,6 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             })
     }
 
-
     /**
      * 店铺回复消费者的评论，后台逻辑
      */
@@ -424,5 +423,15 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         }
         )
     }
-
+    
+    def checkInfoState = Action { 
+    		Ok(views.html.salon.checkInfostate(""))
+    }
+    
+    def salonShowPics = Action{
+      val salon = Salon.findByAccountId("salon01").get
+      val salonInfo = noAuth.Salons.salonInfo.fill(salon)
+      Ok(views.html.salon.salonShowPictures("",salonInfo))
+    }
+    
 }

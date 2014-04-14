@@ -1,0 +1,157 @@
+@(messages: String)
+
+
+@main(Messages("site.title")){
+	<div id="J_ChooseDesc">
+    <span class="new-shop-title">
+        @Messages("salonCheckInfoState.conditions")
+    </span>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:210px">
+                    @Messages("salonCheckInfoState.condition")
+                </th>
+                <th style="width:150px;">
+                    @Messages("salonCheckInfoState.status")
+                </th>
+                <th>
+                    @Messages("salonCheckInfoState.operate")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                   @Messages("salonCheckInfoState.register")
+                </td>
+                <td>
+	                @if(true){
+	                	<i class="iconfont redfont">
+                        ź
+                    	</i>
+                    	@Messages("salonCheckInfoState.needTodo")
+	                }else{
+	                	<i class="iconfont greenfont">
+                        Ż
+                    	</i>
+                    @Messages("salonCheckInfoState.finish")
+	                }
+                </td>
+                <td>
+                	@if(true){
+                		<a target="_blank" href="#">
+                      @Messages("salonCheckInfoState.completeInfo")
+                    	</a>
+                	}else{
+                		<a target="_blank" href="#">
+                        @Messages("salonCheckInfoState.check")
+                    	</a>
+                	}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   @Messages("salonCheckInfoState.basicInfo")
+                </td>
+                <td>
+	                @if(true){
+	                	<i class="iconfont redfont">
+                        ź
+                    	</i>
+                    	@Messages("salonCheckInfoState.needTodo")
+	                }else{
+	                	<i class="iconfont greenfont">
+                        Ż
+                    	</i>
+                    @Messages("salonCheckInfoState.finish")
+	                }
+                </td>
+                <td>
+                	@if(true){
+                		<a target="_blank" href="#">
+                      @Messages("salonCheckInfoState.completeInfo")
+                    	</a>
+                	}else{
+                		<a target="_blank" href="#">
+                        @Messages("salonCheckInfoState.check")
+                    	</a>
+                	}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   @Messages("salonCheckInfoState.detail")
+                </td>
+                <td>
+	                @if(true){
+	                	<i class="iconfont redfont">
+                        ź
+                    	</i>
+                    	@Messages("salonCheckInfoState.needTodo")
+	                }else{
+	                	<i class="iconfont greenfont">
+                        Ż
+                    	</i>
+                    @Messages("salonCheckInfoState.finish")
+	                }
+                </td>
+                <td>
+                	@if(true){
+                		<a target="_blank" href="#">
+                      @Messages("salonCheckInfoState.completeInfo")
+                    	</a>
+                	}else{
+                		<a target="_blank" href="#">
+                        @Messages("salonCheckInfoState.check")
+                    	</a>
+                	}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   @Messages("salonCheckInfoState.pictures")
+                </td>
+                <td>
+	                @if(true){
+	                	<i class="iconfont redfont">
+                        ź
+                    	</i>
+                    	@Messages("salonCheckInfoState.needTodo")
+	                }else{
+	                	<i class="iconfont greenfont">
+                        Ż
+                    	</i>
+                    @Messages("salonCheckInfoState.finish")
+	                }
+                </td>
+                <td>
+                	@if(true){
+                		<a target="_blank" href="#">
+                      @Messages("salonCheckInfoState.completeInfo")
+                    	</a>
+                	}else{
+                		<a target="_blank" href="#">
+                        @Messages("salonCheckInfoState.check")
+                    	</a>
+                	}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="btns clearfix">
+        <a class="big-button disable-button" href="#">
+           @Messages("salonCheckInfoState.createSalon")
+            <s>
+            </s>
+        </a>
+        <span class="warning-txt">
+            @Messages("salonCheckInfoState.youNeedDo")
+            <em>
+                3
+            </em>
+            @Messages("salonCheckInfoState.cannotApply")
+        </span>
+    </div>
+</div>
+}

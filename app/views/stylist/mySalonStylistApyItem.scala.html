@@ -25,8 +25,8 @@
 	<div>
 		<span>@Messages("stylist.applyCreateTime")
 	</div>
-	<a href="/agreeStylistApply/@stylist.stylistId/@salon.id" class="salon-stylist-reserv">@Messages("stylist.acceptApply")</a>|
-	<a href="/rejectStylistApply/@stylist.stylistId/@salon.id" class="salon-stylist-reserv">@Messages("stylist.rejectApply")</a>
+	<a href="@auth.routes.Salons.agreeStylistApply(stylist.stylistId)" class="salon-stylist-reserv">@Messages("stylist.acceptApply")</a>|
+	<a href="@auth.routes.Salons.rejectStylistApply(stylist.stylistId)" class="salon-stylist-reserv">@Messages("stylist.rejectApply")</a>
 </div>
 	
 </div>
