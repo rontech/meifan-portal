@@ -1,0 +1,17 @@
+@(messages: String, salonInfo:Form[Salon])
+
+@main(Messages("site.title")){
+	<div>
+		<ul id="salonImageClick">
+			<li><a class="current-demo" href="index.html">头像设置</a></li>
+			<li><a href="index1.html">展示图片</a></li>
+		</ul>
+	</div>
+	<div id="salonImgLogo">
+		@helper.form(auth.routes.Salons.imageUpload, 'enctype -> "multipart/form-data") {
+                              <input type="file" id="filePhoto" name="logo" style="width:50"  /> 
+                              <button type="submit">@Messages("user.changeImage")</button>
+                              <img src="#" id="target"/>
+     	}
+	</div>
+}

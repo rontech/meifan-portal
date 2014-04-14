@@ -1,0 +1,85 @@
+@(messages: String, salonInfo:Form[Salon])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main(Messages("site.title")){
+	<body>
+	@form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm"){
+	<div>
+		<ul id="salonImageClick">
+			<li><a class="current-demo" href="index.html">@Messages("salonCheckInfoState.uploadLogo")</a></li>
+			<li><a href="#">@Messages("salonCheckInfoState.uploadpics")</a></li>
+		</ul>
+	</div>
+	<div class="demo">
+		<div class="logoupload">
+			<div class="btnbox">
+				@Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
+				<a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
+			</div>
+			<div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
+			<div class="progress-box fl-progress" style="display:none;">
+			<div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
+			<div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+		</div>
+		</div>
+		<div class="batch-pic">
+			<ul>
+				@repeat(salonInfo("salonPics")) { salonPic =>
+				@pictureGroup(salonPic)
+				}
+			</ul>
+		</div>
+	</div>
+	<div class="mT20 txtC">			
+		<input type = "submit" class = "buttons" value=@Messages("common.submit")>
+	</div>
+	}
+	</body>
+	@pictureGroup(
+		salonInfo("salonPics[x]"),
+		className = "salonPic_template"
+	)
+}
+@pictureGroup(field: Field, className: String = "salonPic") = {
+	<li>
+	<div class="delete-pic"></div>
+		@field("fileObjId").value.map{fileid=>
+			@if(!fileid.equals("")){	
+			<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
+		}
+	}
+    <div class="addstyles-byStylist twipsies well @className">
+        @inputText(
+            field("fileObjId"), 
+			'_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
+        )
+        
+        @select(
+            field ("picUse"), 
+            options = options(
+                "LOGO" -> Messages("salon.picUse.logo"),
+                "Navigate" -> Messages("salon.picUse.Navigate"),
+                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+            ),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
+             '_help -> Messages("")
+        )	        
+        @inputText(
+            field("showPriority"), 
+			'_label -> None, 'class -> "imgShowPriority"
+        )
+        @textarea(
+            field("description"),
+            '_label -> None,
+            'rows -> 2, 'cols -> 15, 
+            'placeholder -> Messages("onUserPicture.description"), 'class -> "imagesDescriptionfelid"
+)
+        
+    </div>
+
+    </li>
+}
+@views.html.salon.salonSwfupload("")

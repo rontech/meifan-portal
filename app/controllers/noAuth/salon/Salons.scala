@@ -31,11 +31,11 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	        "salonIndustry" -> list(text),
 	        "homepage" -> optional(text),
 	        "salonDescription" -> optional(text),
-	        "picDescription" -> mapping(
+	        "picDescription" -> optional(mapping(
 	        		"picTitle" -> text,
 	        		"picContent" -> text,
 	        		"picFoot" -> text
-	        )(PicDescription.apply)(PicDescription.unapply),
+	        )(PicDescription.apply)(PicDescription.unapply)),
 	        "contactMethod" -> mapping(
 	        		"mainPhone" -> nonEmptyText,
 	        		"contact" -> nonEmptyText,
@@ -45,8 +45,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	            mapping(
 	                "contMethodType" -> text,
 	                "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
-	        "establishDate" -> date("yyyy-MM-dd"),
-	        "salonAddress" -> mapping(
+	        "establishDate" -> optional(date("yyyy-MM-dd")),
+	        "salonAddress" -> optional(mapping(
 	        	"province" -> text,
 	        	"city" -> optional(text),
 	        	"region" -> optional(text),
@@ -56,22 +56,22 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	        	"latitude" -> optional(bigDecimal),
 	        	"accessMethodDesc" -> text
 	        	)
-	        	(Address.apply)(Address.unapply),
-	        "workTime" -> mapping(
+	        	(Address.apply)(Address.unapply)),
+	        "workTime" -> optional(mapping(
 	            "openTime" -> text ,
 	            "closeTime" -> text
 	            )
-	            (WorkTime.apply)(WorkTime.unapply),
-            "restDays" -> mapping(
+	            (WorkTime.apply)(WorkTime.unapply)),
+            "restDays" -> optional(mapping(
                 "restWay" -> text,
                 "restDay1" -> list(text),
                 "restDay2" -> list(text)
             ){
                 (restWay, restDay1, restDay2) => Tools.getRestDays(restWay,restDay1,restDay2)
             }{
-                restDay => Some(Tools.setRestDays(restDay))},
-	        "seatNums" -> number,
-	        "salonFacilities" -> mapping(
+                restDay => Some(Tools.setRestDays(restDay))}),
+	        "seatNums" -> optional(number),
+	        "salonFacilities" -> optional(mapping(
 	            "canOnlineOrder" -> boolean,
 	            "canImmediatelyOrder" -> boolean,
 	            "canNominateOrder" -> boolean,
@@ -82,7 +82,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	            "isWifiAvailable" -> boolean,
 	            "hasParkingNearby" -> boolean,
 	            "parkingDesc" -> text)
-	            (SalonFacilities.apply)(SalonFacilities.unapply),
+	            (SalonFacilities.apply)(SalonFacilities.unapply)),
 	        "salonPics" -> list(
 	            mapping(
 	                "fileObjId" -> text,
@@ -126,11 +126,11 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	        "salonIndustry" -> list(text),
 	        "homepage" -> optional(text),
 	        "salonDescription" -> optional(text),
-	        "picDescription" -> mapping(
+	        "picDescription" -> optional(mapping(
 	        		"picTitle" -> text,
 	        		"picContent" -> text,
 	        		"picFoot" -> text
-	        )(PicDescription.apply)(PicDescription.unapply),	        
+	        )(PicDescription.apply)(PicDescription.unapply)),	        
 	        "contactMethod" -> mapping(
 	        		"mainPhone" -> nonEmptyText,
 	        		"contact" -> nonEmptyText,
@@ -140,8 +140,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	            mapping(
 	                "contMethodType" -> text,
 	                "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
-	        "establishDate" -> date("yyyy-MM-dd"),
-	        "salonAddress" -> mapping(
+	        "establishDate" -> optional(date("yyyy-MM-dd")),
+	        "salonAddress" -> optional(mapping(
 	        	"province" -> text,
 	        	"city" -> optional(text),
 	        	"region" -> optional(text),
@@ -151,22 +151,22 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	        	"latitude" -> optional(bigDecimal),
 	        	"accessMethodDesc" -> text      	
 	        	)
-	        	(Address.apply)(Address.unapply),
-	        "workTime" -> mapping(
+	        	(Address.apply)(Address.unapply)),
+	        "workTime" -> optional(mapping(
 	            "openTime" -> text ,
 	            "closeTime" -> text
 	            )
-	            (WorkTime.apply)(WorkTime.unapply),
-	        "restDays" -> mapping(
+	            (WorkTime.apply)(WorkTime.unapply)),
+	        "restDays" -> optional(mapping(
 	                "restWay" -> text,
 	                "restDay1" -> list(text),
                     "restDay2" -> list(text)
             ){
                 (restWay, restDay1, restDay2) => Tools.getRestDays(restWay,restDay1,restDay2)
             }{
-                restDay => Some(Tools.setRestDays(restDay))},
-	        "seatNums" -> number,
-	        "salonFacilities" -> mapping(
+                restDay => Some(Tools.setRestDays(restDay))}),
+	        "seatNums" -> optional(number),
+	        "salonFacilities" -> optional(mapping(
 	            "canOnlineOrder" -> boolean,
 	            "canImmediatelyOrder" -> boolean,
 	            "canNominateOrder" -> boolean,
@@ -177,7 +177,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	            "isWifiAvailable" -> boolean,
 	            "hasParkingNearby" -> boolean,
 	            "parkingDesc" -> text)
-	            (SalonFacilities.apply)(SalonFacilities.unapply),
+	            (SalonFacilities.apply)(SalonFacilities.unapply)),
 	        "salonPics" -> list(
 	            mapping(
 	                "fileObjId" -> text,
