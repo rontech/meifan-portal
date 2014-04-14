@@ -312,3 +312,11 @@ GET         /questions/                                                controlle
 # Reservation add by sangsang-hu
 GET        /salon/:salonId/reserve/schedule/:week                 controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
+# Reset password by e-mail add by wu
+GET        /reset                                                 controllers.Mails.reset
+POST       /reset                                                 controllers.Mails.resetPassword
+
+GET        /resetPwd                                              controllers.Mails.resetForNew(userId : String, uuid : String)
+
+POST        /resetPwd                                             controllers.Mails.resetPasswordForNew(userId : String)
+
