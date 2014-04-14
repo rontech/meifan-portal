@@ -20,8 +20,8 @@
 				<td class="bdWhite bgLLGray2 vaM">
 					<div class="pV10 fs12">
 					     <div>
-							<a href="@routes.Services.deleteService(service.id, salon.id)" class="btn btn2H30 w120 mHA"><span><span class="fs12 b"><font><font>@Messages("service.delete")</font></font></span></span></a>
-							<a href="@routes.Services.showService(service.id, salon.id)" class="btn btn2H30 w120 mHA"><span><span class="fs12 b"><font><font>@Messages("service.update")</font></font></span></span></a>
+							<a href="@auth.routes.Services.deleteService(service.id)" class="btn btn2H30 w120 mHA"><span><span class="fs12 b"><font><font>@Messages("service.delete")</font></font></span></span></a>
+							<a href="@auth.routes.Services.showService(service.id)" class="btn btn2H30 w120 mHA"><span><span class="fs12 b"><font><font>@Messages("service.update")</font></font></span></span></a>
 						</div>
 					</div>
 				</td>

@@ -1,4 +1,4 @@
-@(styles: Seq[Style], styleSearchForm: Form[Style], stylePara: models.StylePara)
+@(styles: Seq[Style], styleSearchForm: Form[Style], stylePara: models.StylePara, user: Option[User])
 
 <!--
     TODO
@@ -61,7 +61,7 @@
             
         </div>
             <!-- ↓generalContentRightColumn -->
-            @views.html.salon.general.rightColumn(None)
+            @views.html.salon.general.rightColumn(user)
             <!-- ↑generalContentRightColumn -->
     </div>
 }

@@ -1,8 +1,6 @@
-package controllers
+package controllers.noAuth
 
-import play.api._
 import play.api.mvc._
-import models.Style
 import play.api.data._
 import play.api.data.Forms._
 import com.mongodb.casbah.commons.Imports._
@@ -10,6 +8,7 @@ import models._
 import views._
 import java.util.Date
 import jp.t2v.lab.play2.auth._
+import controllers.UserAuthConfigImpl
 
 object Styles extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
@@ -117,9 +116,10 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
                         style.styleDiameter, style.faceShape, style.description, style.consumerAgeGroup, style.consumerSex, style.consumerSocialStatus))
             })
 
-    def findById(styleId: ObjectId) = Action {
+    def findById(styleId: ObjectId) = StackAction { implicit request =>
+        val user = loggedIn
         val style: Option[Style] = Style.findOneById(styleId)
-        Ok(html.style.general.overview(style.toList, styleSearchForm, Style.findParaAll))
+        Ok(html.style.general.overview(style.toList, styleSearchForm, Style.findParaAll, user))
     }
 
     /**
@@ -180,7 +180,8 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
     /**
      * 前台发型检索
      */
-    def index = Action {
+    def index = StackAction { implicit request =>
+        val user = loggedIn
         //检索画面Ranking数据暂时写死以便，数据画面显示；
         val stylistId = List("53202c29d4d5e3cd47efffd9")
         var styles: List[Style] = Nil
@@ -188,12 +189,13 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
             val style = Style.findByStylistId(new ObjectId(sty))
             styles :::= style
         }
-        Ok(html.style.general.overview(styles, styleSearchForm, Style.findParaAll))
+        Ok(html.style.general.overview(styles, styleSearchForm, Style.findParaAll, user))
     }
 
-    def findByLength(styleLength: String, consumerSex: String) = Action {
+    def findByLength(styleLength: String, consumerSex: String) = StackAction { implicit request =>
+        val user = loggedIn
         val styleSearchInfo = Style.findByLength(styleLength, consumerSex)
-        var styleSearchByLength: Style = Style(new ObjectId, "", new ObjectId, Nil, "", Nil, styleLength, Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
+        val styleSearchByLength: Style = Style(new ObjectId, "", new ObjectId, Nil, "", Nil, styleLength, Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
         var styleAndSalons: List[StyleAndSalon] = Nil
         styleSearchInfo.map { styleInfo =>
             val salonOne = Style.findSalonByStyle(styleInfo.stylistId)
@@ -205,12 +207,13 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
                 case None => null
             }
         }
-        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleAndSalons, Style.findParaAll))
+        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleAndSalons, Style.findParaAll, user))
     }
 
-    def findByImpression(styleImpression: String, consumerSex: String) = Action {
+    def findByImpression(styleImpression: String, consumerSex: String) = StackAction { implicit request =>
+        val user = loggedIn
         val styleSearchInfo = Style.findByImpression(styleImpression, consumerSex)
-        var styleSearchByImpression: Style = Style(new ObjectId, "", new ObjectId, Nil, styleImpression, Nil, "", Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
+        val styleSearchByImpression: Style = Style(new ObjectId, "", new ObjectId, Nil, styleImpression, Nil, "", Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
         var styleAndSalons: List[StyleAndSalon] = Nil
         styleSearchInfo.map { styleInfo =>
             val salonOne = Style.findSalonByStyle(styleInfo.stylistId)
@@ -222,11 +225,11 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
                 case None => null
             }
         }
-        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByImpression), styleAndSalons, Style.findParaAll))
+        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByImpression), styleAndSalons, Style.findParaAll, user))
     }
 
-    def styleSearchList = Action {
-        implicit request =>
+    def styleSearchList = StackAction { implicit request =>
+        val user = loggedIn
             styleSearchForm.bindFromRequest.fold(
                 errors => BadRequest(html.index("")),
                 {
@@ -243,7 +246,7 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
                                 case None => null
                             }
                         }
-                        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearch), styleAndSalons, Style.findParaAll))
+                        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearch), styleAndSalons, Style.findParaAll, user))
                     }
                 })
     }

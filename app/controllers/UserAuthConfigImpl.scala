@@ -24,12 +24,12 @@ trait UserAuthConfigImpl extends AuthConfig {
 
   def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = {
     val uri = request.session.get("access_uri").getOrElse(routes.Application.index.url.toString)
-    Future.successful(Redirect(uri).withSession(request.session - "access_uri"))
+    Future.successful(Redirect(uri).withSession(request.session - "user_access_uri"))
   }
   def logoutSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Redirect(routes.Application.index))
 
   def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) =
-		  Future.successful(Redirect(routes.Application.login).withSession("access_uri" -> request.uri))
+		  Future.successful(Redirect(routes.Application.login).withSession("user_access_uri" -> request.uri))
 
   def authorizationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Forbidden("no permission"))
 

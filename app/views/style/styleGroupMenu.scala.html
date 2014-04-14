@@ -5,7 +5,7 @@
         @if(sex.equals("all")) {
             <strong>@Messages("common.all")</strong>
         }else {
-            <a href="@routes.Styles.findBySalonAndSex(salon.id, "all")">@Messages("common.all")</a>
+            <a href="@noAuth.routes.Styles.findBySalonAndSex(salon.id, "all")">@Messages("common.all")</a>
         }
     </li>
      @for(i <- 0 to Sex.findAll.length-1){
@@ -13,7 +13,7 @@
             @if(sex.equals(Sex.findAll.toList(i).sex)) {
                 |<strong>@Messages("style.sex."+Sex.findAll.toList(i).sex)</strong>
             }else {
-                |<a href="@routes.Styles.findBySalonAndSex(salon.id, Sex.findAll.toList(i).sex)">@Messages("style.sex."+Sex.findAll.toList(i).sex)</a>
+                |<a href="@noAuth.routes.Styles.findBySalonAndSex(salon.id, Sex.findAll.toList(i).sex)">@Messages("style.sex."+Sex.findAll.toList(i).sex)</a>
             }
         </li>
     }
