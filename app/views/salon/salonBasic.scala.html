@@ -12,7 +12,7 @@
 		</div>
 
 		<div class="mT10 pH10">
-			@helper.form(action = auth.routes.Salons.update(salon.id), args = 'id -> "salonForm"){
+			@helper.form(action = auth.routes.Salons.informationConsum(salon.id), args = 'id -> "salonForm"){
 				
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
@@ -23,6 +23,7 @@
 				        <input type="hidden" name="contactMethod.mainPhone" readonly="readonly" value="@salon.contactMethod.mainPhone">
 				        <input type="hidden" name="contactMethod.contact" readonly="readonly" value="@salon.contactMethod.contact">
 				        <input type="hidden" name="contactMethod.email" readonly="readonly" value="@salon.contactMethod.email">
+				        @inputDate(salonForm("registerDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
 				        <tr>
 				            <th class="w222 ">
 				                <!-- -->
@@ -66,23 +67,6 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.establishDate")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@*inputDate(salonForm("establishDate"), '_label -> None, '_help -> Messages("*"),
-				                		'_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate"))))*@
-				                    @input(field = salonForm("establishDate"), '_label -> None, '_help -> Messages("*"), '_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate")))) { (id, name, value, _) =>
-        							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
-								    }
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
 				                   	@Messages("salon.address")
 				                </div>
 				            </th>
@@ -90,7 +74,7 @@
 				                <div>
 				                	@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province" value = "@salon.salonAddress.map(add=>add.province).getOrElse(None)"></select>
 									@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.salonAddress.map(add=>add.city).getOrElse(None)"></select>
-									@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.salonAddress.map(add=>add.region).getOrElse(None)"></select>
+									@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.salonAddress.map(add=>add.region).getOrElse(None)"></select>*
 									<script type="text/javascript">
 										addressInit('Select1', 'Select2', 'Select3');
 									</script>
@@ -187,7 +171,24 @@
 				                	@inputText(salonForm("workTime.closeTime"), '_label -> None)
 				                </div>
 				            </td>
-				        </tr>				        
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.establishDate")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@*inputDate(salonForm("establishDate"), '_label -> None, '_help -> Messages("*"),
+				                		'_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate"))))*@
+				                    @input(field = salonForm("establishDate"), '_label -> None, '_help -> Messages("*"), '_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate")))) { (id, name, value, _) =>
+        							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
+								    }
+				                </div>
+				            </td>
+				        </tr>				        				        				        
 				    </tbody>
 				</table>
 		            
