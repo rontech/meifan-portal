@@ -7,7 +7,7 @@
 	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/service/service.css")">
 	
    <div class="serviceInfo">
-  		  @form(routes.Services.updateService(service.id,salon.id), 'id -> "serviceForm") {
+  		  @form(auth.routes.Services.updateService(service.id), 'id -> "serviceForm") {
 			<input type="hidden" name="salonId" value="@salon.id" />
 
 			@inputText(serviceForm("serviceName"),'_label -> Messages("service.name"), 'readonly ->"true")
