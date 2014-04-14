@@ -212,7 +212,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         {
             salonRegister =>
                 Salon.save(salonRegister, WriteConcern.Safe)
-                Redirect(controllers.routes.Application.salonLogin())
+                Redirect(controllers.auth.routes.Salons.checkInfoState)
         })
     }
     /*-------------------------
