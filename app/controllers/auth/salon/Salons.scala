@@ -430,10 +430,15 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     	Ok(views.html.salon.checkInfostate(salon, counts))
     }
     
-    def salonShowPics = Action{
-      val salon = Salon.findByAccountId("salon01").get
+    def salonShowPics = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+      val salon = loggedIn
       val salonInfo = noAuth.Salons.salonInfo.fill(salon)
-      Ok(views.html.salon.salonShowPictures("",salonInfo))
+      Ok(views.html.salon.admin.salonShowPictures(salon, salonInfo))
     }
     
+    def salonLogoPicture = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+      val salon = loggedIn
+      val salonInfo = noAuth.Salons.salonInfo.fill(salon)
+      Ok(views.html.salon.admin.salonLogoPicture(salon, salonInfo))
+    }
 }

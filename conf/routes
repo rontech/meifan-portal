@@ -185,6 +185,8 @@ GET         /rejectStylistApply/:stylistId                             controlle
 GET         /searchStylistById                                         controllers.auth.Salons.searchStylistById
 GET         /inviteStylist/:stylistId/                                 controllers.auth.Salons.inviteStylist(stylistId: ObjectId)
 GET         /checkInfoState                                 			controllers.auth.Salons.checkInfoState
+GET         /salonLogoPicture                                 			controllers.auth.Salons.salonLogoPicture
+GET         /salonShowPics                                 				controllers.auth.Salons.salonShowPics
 
 # Salon Service 
 GET         /addServiceType                                            controllers.ServiceTypes.addServiceType
@@ -299,10 +301,8 @@ POST    /getAllStylesListBySalon/                            controllers.auth.Sa
 GET     /styleUpdateBySalon/:styleId                         controllers.auth.Salons.styleUpdateBySalon(styleId: ObjectId)
 POST    /styleUpdateNewBySalon/                              controllers.auth.Salons.styleUpdateNewBySalon
 GET     /styleToInvalidBySalon/:styleId                      controllers.auth.Salons.styleToInvalidBySalon(styleId: ObjectId)
-GET     /styleAddBySalon                                      controllers.auth.Salons.styleAddBySalon
+GET     /styleAddBySalon                                     controllers.auth.Salons.styleAddBySalon
 POST    /newStyleAddBySalon/                                 controllers.auth.Salons.newStyleAddBySalon
-GET     /salonShowPics                                      controllers.auth.Salons.salonShowPics
-
 
 
 # Questions add by jie-zhang (for common questions)

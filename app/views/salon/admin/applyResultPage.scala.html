@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		<script language="javascript" type="text/javascript">
-			setTimeout("go('@salon.id')", 5000);
+			setTimeout("go()", 5000);
 		</script>
 	</body>	
 }
@@ -25,13 +25,13 @@
 var timer = null;
 var i=5;
 function success(salonId){
-	timer=window.setInterval(showTimes(salonId),1000);
-	timer=window.setTimeout('go('+salonId+')',6000);
+	timer=window.setInterval('showTimes()',1000);
+	//timer=window.setTimeout('go('+salonId+')',6000);
 }
-function go(salonId) {//定义函数
-	window.location="/mySalon/"+salonId+"/checkHoldApply";//页面跳转
+function go() {//定义函数
+	window.location="/mySalon/checkHoldApply";//页面跳转
  }
-function showTimes(sid){
+function showTimes(){
 		document.getElementById("times").innerHTML=i;
 		i--;
 		if(i==0){

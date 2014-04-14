@@ -1,15 +1,16 @@
-@(messages: String, salonInfo:Form[Salon])
+@(salon:Salon, salonInfo:Form[Salon])
 
 @import helper._
 @import helper.twitterBootstrap._
+@import views.html.salon.admin.mySalonMain
 
-@main(Messages("site.title")){
+@mySalonMain("checkSalonInfo", salon){
 	<body>
 	@form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm"){
 	<div>
 		<ul id="salonImageClick">
-			<li><a class="current-demo" href="index.html">@Messages("salonCheckInfoState.uploadLogo")</a></li>
-			<li><a href="#">@Messages("salonCheckInfoState.uploadpics")</a></li>
+			<li><a class="current-demo" href="@auth.routes.Salons.salonLogoPicture">@Messages("salonCheckInfoState.uploadLogo")</a></li>
+			<li><a href="@auth.routes.Salons.salonShowPics">@Messages("salonCheckInfoState.uploadpics")</a></li>
 		</ul>
 	</div>
 	<div class="demo">
@@ -20,9 +21,9 @@
 			</div>
 			<div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
 			<div class="progress-box fl-progress" style="display:none;">
-			<div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
-			<div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
-		</div>
+				<div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
+				<div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+			</div>
 		</div>
 		<div class="batch-pic">
 			<ul>
@@ -32,15 +33,26 @@
 			</ul>
 		</div>
 	</div>
+	
+	<div class="picture-show-description">
+		@picDescriptions(
+			salonInfo("picDescription"),
+			className = "salonShowPicsDes"
+			)
+	</div>
 	<div class="mT20 txtC">			
 		<input type = "submit" class = "buttons" value=@Messages("common.submit")>
 	</div>
+	<script language="javascript" type="text/javascript">
+			setTimeout("checkLogo()", 10);
+	</script>
 	}
 	</body>
 	@pictureGroup(
 		salonInfo("salonPics[x]"),
 		className = "salonPic_template"
 	)
+	
 }
 @pictureGroup(field: Field, className: String = "salonPic") = {
 	<li>
@@ -65,7 +77,8 @@
             ),
              '_label -> None,
              'placeholder -> Messages("salon.picUse"),
-             '_help -> Messages("")
+             '_help -> Messages(""),
+             'class -> "picuseOfSalon"
         )	        
         @inputText(
             field("showPriority"), 
@@ -82,4 +95,41 @@
 
     </li>
 }
-@views.html.salon.salonSwfupload("")
+@picDescriptions(field: Field, className: String = "salonPicDescription") = {
+	<div>
+	    @textarea(
+	            field("picTitle"),
+	            '_label -> Messages("salon.pic.title"),
+	            'rows -> 5, 'cols -> 40, 
+	            'placeholder -> Messages("onUserPicture.picTitle")   
+	            )
+    </div>        
+    <div>    
+	    @textarea(
+	            field("picContent"),
+	            '_label -> Messages("salon.pic.content"),
+	            'rows -> 5, 'cols -> 40, 
+	            'placeholder -> Messages("onUserPicture.description")
+	            )
+    </div>
+    <div>            
+	    @textarea(
+	            field("picFoot"),
+	            '_label -> Messages("salon.pic.foot"),
+	            'rows -> 5, 'cols -> 40 
+	            )
+    </div>     
+}
+@views.html.salon.admin.salonSwfupload("")
+<script type="text/javascript" charset="utf-8">
+	function checkLogo(){
+		var $obj=$('.picuseOfSalon');
+		$obj.each(function(i){
+			if($(this).val()=='LOGO'){
+				$(this).parents("li").hide();
+				return true;
+				}
+			}
+		);
+	}
+</script>

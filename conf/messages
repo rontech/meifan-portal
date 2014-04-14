@@ -812,5 +812,5 @@ salonCheckInfoState.completeInfo = 去完善
 salonCheckInfoState.createSalon = 创建店铺
 salonCheckInfoState.youNeedDo = 您还有
 salonCheckInfoState.cannotApply = 个事项未完成，不能创建店铺
-salonCheckInfoState.uploadLogo = 上传头像
+salonCheckInfoState.uploadLogo = 头像设置
 salonCheckInfoState.uploadpics = 展示图片
