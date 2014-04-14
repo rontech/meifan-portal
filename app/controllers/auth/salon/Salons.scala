@@ -362,7 +362,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
                 errors => BadRequest(views.html.index("")),
                 {
                     case (styleUpdateForm) => {
-                        Style.updateStyle(styleUpdateForm)
+                        Style.save(styleUpdateForm.copy(id=styleUpdateForm.id), WriteConcern.Safe)
                         Redirect(routes.Salons.getAllStylesBySalon)
                     }
                 })

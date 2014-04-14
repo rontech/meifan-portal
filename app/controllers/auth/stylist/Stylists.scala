@@ -219,7 +219,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
                 errors => BadRequest(views.html.index("")),
                 {
                     case (styleUpdateForm) => {
-                        Style.updateStyle(styleUpdateForm)
+                        Style.save(styleUpdateForm.copy(id=styleUpdateForm.id), WriteConcern.Safe)
                         Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
                     }
                 })
