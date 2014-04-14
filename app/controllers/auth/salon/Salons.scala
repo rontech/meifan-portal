@@ -434,9 +434,10 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         )
     }
     
-    def checkInfoState = StackAction(AuthorityKey -> isLoggedIn _){implicit request =>
+    def checkInfoState = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
         val salon = loggedIn
-    	Ok(views.html.salon.checkInfostate(""))
+        var counts:Int = 0 
+    	Ok(views.html.salon.checkInfostate(salon, counts))
     }
     
     def salonShowPics = Action{
