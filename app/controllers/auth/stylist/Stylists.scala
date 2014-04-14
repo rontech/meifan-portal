@@ -245,7 +245,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
         val followInfo = MyFollow.getAllFollowInfo(user.id)
         var stylists: List[Stylist] = Nil
         stylists :::= stylist.toList
-        Ok(views.html.stylist.management.addStyleByStylist(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = stylist.get, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, stylists = stylists, isStylist = true))
+        Ok(views.html.stylist.management.addStyleByStylist(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, stylists = stylists, isStylist = true))
     }
     
     /**
