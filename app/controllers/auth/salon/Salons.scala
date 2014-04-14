@@ -63,6 +63,16 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             "success" -> "You've been logged out"
         ))
     }
+    
+    /**
+     * 基本信息完善页面
+     */
+    def salonBasic = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+      val salon = loggedIn
+      val salonRegister = noAuth.Salons.salonRegister.fill(salon)
+      val industry = Industry.findAll.toList
+      Ok(views.html.salon.salonBasic(salonRegister ,industry , salon))
+    }
 
     /**
      * 店铺基本信息修改页面
@@ -424,8 +434,9 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         )
     }
     
-    def checkInfoState = Action { 
-    		Ok(views.html.salon.checkInfostate(""))
+    def checkInfoState = StackAction(AuthorityKey -> isLoggedIn _){implicit request =>
+        val salon = loggedIn
+    	Ok(views.html.salon.checkInfostate(""))
     }
     
     def salonShowPics = Action{

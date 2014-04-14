@@ -265,6 +265,7 @@ GET         /updateSalonlogo                             	 controllers.auth.Salo
 POST		/imageUpload    		               			 controllers.auth.Salons.imageUpload
 GET         /addImage   									 controllers.auth.Salons.addImage
 GET         /salonPassword                                  controllers.auth.Salons.password
+GET			/salonBasic										controllers.auth.Salons.salonBasic
 
 #POST        /changeSalonPassword/:id                         controllers.SalonInfo.salonChangePassword(id: ObjectId)
 #add bu lu-zheng
