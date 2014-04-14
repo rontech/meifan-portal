@@ -15,6 +15,11 @@ import com.mongodb.casbah.gridfs.GridFS
 import org.mindrot.jbcrypt.BCrypt
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import com.mongodb.casbah.Imports._
+import models.SalonAccount
+import scala.Some
+import models.CouponServiceType
+import se.radley.plugin.salat.Binders.ObjectId
 
 object Salons extends Controller with LoginLogout with AuthElement with SalonAuthConfigImpl{
   
@@ -25,18 +30,21 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
           "password" -> nonEmptyText)(SalonAccount.apply)(SalonAccount.unapply)
   )(Salon.loginCheck)(_.map(s => (s.salonAccount))).verifying("Invalid userId or password", result => result.isDefined))
 
-    val changePassword = Form(
-        mapping(
-            "salonAccount" ->mapping(
-                "accountId" -> text,
-                "password" -> nonEmptyText)(Salon.authenticate)(_.map(s => (s.salonAccount.accountId,""))).verifying("Invalid userId or password", result => result.isDefined),
-            "newPassword" -> tuple(
-                "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[a-zA-Z]\w{5,17}$""")),
-                "confirm" -> text).verifying(
-                    // Add an additional constraint: both passwords must match
-                    Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2)
-        ){(salonAccount, newPassword) => (salonAccount.get, BCrypt.hashpw(newPassword._1, BCrypt.gensalt()))}{salonAccount => Some((Option(salonAccount._1),("","")))}
-    )
+   //密码修改
+  val changePassword = Form(
+    mapping(
+      "salonChange" ->mapping(
+          "salonAccount" -> mapping(
+            "accountId" -> text,
+            "password" -> nonEmptyText
+              )(SalonAccount.apply)(SalonAccount.unapply))(Salon.loginCheck)(_.map(s => (s.salonAccount))).verifying("Invalid userId or password", result => result.isDefined),        
+      "newPassword" -> tuple(
+        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[A-Za-z0-9]+$""")),
+        "confirm" -> text).verifying(
+        // Add an additional constraint: both passwords must match
+        Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2)
+    ){(salonChange, newPassword) => (salonChange.get, newPassword._1)}{salonChange => Some((Option(salonChange._1),("","")))}
+  )
 
     /**
      * 店铺登录
@@ -87,8 +95,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
      */
     def password = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
         val salon = loggedIn
-        val salonForm =  noAuth.Salons.salonInfo.fill(salon)
-        Ok(views.html.salon.admin.salonChangePassword("", salonForm, salon))
+        val changeForm = Salons.changePassword.fill(salon,"")   
+        Ok(views.html.salon.admin.salonChangePassword("", changeForm, salon))
     }
 
     //  /**
@@ -229,7 +237,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             SalonAndStylist.entrySalon(salon.id, stylistId)
             Redirect(routes.Salons.myStylist)
           }
-          case None => NotFound
+          case None => Ok(views.html.salon.admin.applyResultPage(salon))
         }
   }
   
@@ -245,7 +253,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         SalonStylistApplyRecord.rejectStylistApply(re)
         Redirect(routes.Salons.myStylist)
       }
-      case None => NotFound
+      case None => Ok(views.html.salon.admin.applyResultPage(salon))
     }
   }
   
@@ -399,6 +407,31 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
                 }
             })
     }
+
+    /**
+     * 店铺回复消费者的评论，后台逻辑
+     */
+    def replyBySalon(commentObjId : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+        val salon = loggedIn
+        auth.Comments.formHuifuComment.bindFromRequest.fold(
+        //处理错误
+        errors => BadRequest(views.html.comment.errorMsg("")),
+        {
+            case (content) =>
+                Comment.reply(salon.salonAccount.accountId, content, commentObjId, commentObjType)
+                Redirect(auth.routes.Salons.myComment)
+        }
+        )
+    }
     
-  
+    def checkInfoState = Action { 
+    		Ok(views.html.salon.checkInfostate(""))
+    }
+    
+    def salonShowPics = Action{
+      val salon = Salon.findByAccountId("salon01").get
+      val salonInfo = noAuth.Salons.salonInfo.fill(salon)
+      Ok(views.html.salon.salonShowPictures("",salonInfo))
+    }
+    
 }

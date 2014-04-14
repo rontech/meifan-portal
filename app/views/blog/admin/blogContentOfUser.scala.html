@@ -154,7 +154,7 @@
 		
 		<div id="reply_@commentList(i-1).id" class="inline_reply" style="display:none;">
 		<div class="BlogCommentForm">
-			<form id="form_inline_comment" action="@routes.Comments.reply(commentList(i-1).id, blog.id, 3)" method="GET">
+			<form id="form_inline_comment" action="@auth.routes.Comments.reply(commentList(i-1).id, blog.id, 3)" method="GET">
 			  <input type="hidden" id="inline_reply_id" name="reply_id" value="1452044_278889672">         
 		      <textarea name="content" id="ccom_content_@commentList(i-1).id" style="width:650px;height:60px;"></textarea><br>
 			  <p>
@@ -184,7 +184,7 @@
 
 
 <div class="BlogCommentForm">
-        <form id="form_comment" action="@routes.Comments.addComment(blog.id,1)" method="GET">
+        <form id="form_comment" action="@auth.routes.Comments.addComment(blog.id,1)" method="GET">
         	<div class="comment_portrait">
         		<img src="@if(User.findOneById(loginUserId).equals(None) || User.findOneById(loginUserId).get.id.getTime.equals(User.findOneById(loginUserId).get.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(User.findOneById(loginUserId).get.userPics)"}" align="absmiddle" alt="" title="" class="LargePortrait">        	</div>
         	<div class="comment_form">

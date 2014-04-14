@@ -144,16 +144,13 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
 	            Redirect(auth.routes.Users.myPage())
 	        }
 	      })
-	    
-	    
 	  }
-	  
 
-	 def removeSalon(salonId: ObjectId, stylistId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) {implicit request =>
+	 def removeSalon(salonId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) {implicit request =>
 	    val user = loggedIn
 	    val followInfo = MyFollow.getAllFollowInfo(user.id)
-	    SalonAndStylist.leaveSalon(salonId,stylistId)
-	    Redirect(noAuth.routes.Stylists.mySalon(stylistId))
+	    SalonAndStylist.leaveSalon(salonId,user.id)
+	    Redirect(auth.routes.Stylists.myHomePage)
 	 }
 	  
 	

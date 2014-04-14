@@ -11,36 +11,36 @@
         <tbody>
             <tr>
                 <th class="w120"> @Messages("salon.mainPhone") </th>
-                <td colspan="3" class="w620"> <a href="#"> @salon.mainPhone </a> </td>
+                <td colspan="3" class="w620"> <a href="#"> @salon.contactMethod.mainPhone </a> </td>
 
             </tr>
             <tr>
                 <th class="w120"> @Messages("salon.address") </th>
                 <td colspan="3" class="w620">
-                    @(Messages(salon.salonAddress.province))
-                    @(Messages(salon.salonAddress.city.get))
-                    @(Messages(salon.salonAddress.region.get))
-                    @salon.salonAddress.addrDetail
+                    @salon.salonAddress.map(add=>add.province).getOrElse(None)
+                    @salon.salonAddress.map(add=>add.city).getOrElse(None)
+                    @salon.salonAddress.map(add=>add.region).getOrElse(None)
+                    @salon.salonAddress.map(add=>add.addrDetail).getOrElse(None)
                 </td>
             </tr>
             <tr>
                 <th class="w120"> @Messages("salon.accessMethod") </th>
-                <td colspan="3" class="w620"> @salon.salonAddress.accessMethodDesc </td>
+                <td colspan="3" class="w620">@salon.salonAddress.map(add=>add.accessMethodDesc).getOrElse(None) </td>
             </tr>
             <tr>
                 <th class="w120"> @Messages("salon.workTime") </th>
-                <td colspan="3" class="w620"> @salon.workTime.openTime -- @salon.workTime.closeTime </td>
+                <td colspan="3" class="w620">@salon.workTime.map(time=>time.openTime).getOrElse(None) -- @salon.workTime.map(time=>time.closeTime).getOrElse(None) </td>
             </tr>
             <tr>
                 <th class="w120"> @Messages("salon.restDay") </th>
                 <td colspan="3" class="w620">
-                    @salon.restDays.restDay.map(restDay => Messages(restDay))
+                    @salon.restDays.map(rest=>rest.restDay.map(restDay => Messages(restDay)))
                 </td>
             </tr>
             <tr>
                 <th class="w120"> @Messages("salon.isPosAvailable") </th>
                 <td colspan="3" class="w620">
-                    @if(salon.salonFacilities.isPosAvailable) {@Messages("salon.posAvailable")} else {@Messages("salon.posNotAvailable")}
+                    @if(salon.salonFacilities.map(fac=>fac.isPosAvailable).getOrElse(None)) {@Messages("salon.posAvailable")} else {@Messages("salon.posNotAvailable")}
                 </td>
             </tr>
             <tr>
@@ -59,7 +59,7 @@
                     }
                 </td>
                 <th class="w120"> @Messages("salon.seatNums") </th>
-                <td class="w208 vaT"> @Messages("salon.seatNumsMsg", salon.seatNums) </td>
+                <td class="w208 vaT"> @Messages("salon.seatNumsMsg", salon.seatNums.getOrElse(None)) </td>
             </tr>
             <tr>
                 <th class="w120"> @Messages("salon.stylistNums") </th>
@@ -68,7 +68,7 @@
                 </td>
                 <th class="w120"> @Messages("salon.parkingDesc") </th>
                 <td class="w208 vaT">
-                    @if(salon.salonFacilities.hasParkingNearby) { @salon.salonFacilities.parkingDesc} else { @Messages("salon.hasNoParkingNearByMsg")}
+                    @if(salon.salonFacilities.map(fac=>fac.hasParkingNearby).getOrElse(None)) { @salon.salonFacilities.get.parkingDesc} else { @Messages("salon.hasNoParkingNearByMsg")}
                 </td>
             </tr>
             <tr>

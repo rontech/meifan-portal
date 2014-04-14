@@ -147,9 +147,9 @@
 				                </div>
 				            </th>
 				            <td>
-				            	@Messages("salon.province"):  <select id="Select1" name = "address.province" value = "@if(user.address.nonEmpty){@user.address.get.province}else{""}"></select>
-				                @Messages("salon.city"):  <select id="Select2" name = "address.city" value = "@if(user.address.nonEmpty){@user.address.get.city}else{""}"></select>
-				                @Messages("salon.region"):  <select id="Select3" name = "address.region" value = "@if(user.address.nonEmpty){@user.address.get.region}else{""}"></select>
+				            	@Messages("salon.province"):  <select id="Select1" name = "address.province" value = "@userForm("address.province").value")></select>
+				                @Messages("salon.city"):  <select id="Select2" name = "address.city" value = "@userForm("address.city").value"></select>
+				                @Messages("salon.region"):  <select id="Select3" name = "address.region" value = "@userForm("address.region").value"></select>
 				                <script type="text/javascript">
 				                	addressInit('Select1', 'Select2', 'Select3');
 				                </script>

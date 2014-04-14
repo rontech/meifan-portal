@@ -80,12 +80,12 @@ object Reservations extends Controller{
 	  salon match {
 	    case Some(s) => {
 	    	if(s.workTime != null) {
-	    	  openTime = s.workTime.openTime
-	    	  closeTime = s.workTime.closeTime
+	    	  openTime = s.workTime.map{ workTime => workTime.openTime}.getOrElse("")
+	    	  closeTime = s.workTime.map{workTime => workTime.closeTime}.getOrElse("")
 	    	}
 	    	
-	    	if(s.restDays.restWay == "Fixed") {
-	    	  salonRests = s.restDays.restDay
+	    	if(s.restDays.map{rest => rest.restDay} == "Fixed") {
+	    	  salonRests = s.restDays.map{rest=> rest.restDay}.getOrElse(Nil)
 	    	}
 	    }
 	    case None => NotFound

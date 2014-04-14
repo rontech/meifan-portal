@@ -14,185 +14,193 @@ import play.api.data.Forms._
 import play.api.mvc._
 import com.mongodb.casbah.WriteConcern
 import org.mindrot.jbcrypt.BCrypt
+import controllers.auth.Coupons
+import views.html
 
 object Salons extends Controller with OptionalAuthElement with UserAuthConfigImpl{
 
-    //店铺信息管理Form
-    val salonInfo:Form[Salon] = Form(
-        mapping(
-            "salonAccount" -> mapping(
-                "accountId" -> text,
-                "password" -> text
-            )(SalonAccount.apply)(SalonAccount.unapply),
-            "salonName" -> text,
-            "salonNameAbbr" -> optional(text),
-            "salonIndustry" -> list(text),
-            "homepage" -> optional(text),
-            "salonDescription" -> optional(text),
-            "picDescription" -> mapping(
-                "picTitle" -> text,
-                "picContent" -> text,
-                "picFoot" -> text
-            )(PicDescription.apply)(PicDescription.unapply),
-            "mainPhone" -> nonEmptyText,
-            "contact" -> nonEmptyText,
-            "optContactMethod" -> list(
-                mapping(
-                    "contMethodType" -> text,
-                    "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
-            "establishDate" -> date("yyyy-MM-dd"),
-            "salonAddress" -> mapping(
-                "province" -> text,
-                "city" -> optional(text),
-                "region" -> optional(text),
-                "town" -> optional(text),
-                "addrDetail" ->text,
-                "longitude" -> optional(bigDecimal),
-                "latitude" -> optional(bigDecimal),
-                "accessMethodDesc" -> text
-            )
-                (Address.apply)(Address.unapply),
-            "workTime" -> mapping(
-                "openTime" -> text ,
-                "closeTime" -> text
-            )
-                (WorkTime.apply)(WorkTime.unapply),
-            "restDays" -> mapping(
+  //店铺信息管理Form
+  val salonInfo:Form[Salon] = Form(
+	    mapping(
+	    	"salonAccount" -> mapping(
+	    		"accountId" -> text,
+	    		"password" -> text
+	    	)(SalonAccount.apply)(SalonAccount.unapply),
+	        "salonName" -> text,
+	        "salonNameAbbr" -> optional(text),
+	        "salonIndustry" -> list(text),
+	        "homepage" -> optional(text),
+	        "salonDescription" -> optional(text),
+	        "picDescription" -> optional(mapping(
+	        		"picTitle" -> text,
+	        		"picContent" -> text,
+	        		"picFoot" -> text
+	        )(PicDescription.apply)(PicDescription.unapply)),
+	        "contactMethod" -> mapping(
+	        		"mainPhone" -> nonEmptyText,
+	        		"contact" -> nonEmptyText,
+	        		"email" -> nonEmptyText
+	        )(Contact.apply)(Contact.unapply),
+	        "optContactMethod" -> list(
+	            mapping(
+	                "contMethodType" -> text,
+	                "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
+	        "establishDate" -> optional(date("yyyy-MM-dd")),
+	        "salonAddress" -> optional(mapping(
+	        	"province" -> text,
+	        	"city" -> optional(text),
+	        	"region" -> optional(text),
+	        	"town" -> optional(text),
+	        	"addrDetail" ->text,
+	        	"longitude" -> optional(bigDecimal),
+	        	"latitude" -> optional(bigDecimal),
+	        	"accessMethodDesc" -> text
+	        	)
+	        	(Address.apply)(Address.unapply)),
+	        "workTime" -> optional(mapping(
+	            "openTime" -> text ,
+	            "closeTime" -> text
+	            )
+	            (WorkTime.apply)(WorkTime.unapply)),
+            "restDays" -> optional(mapping(
                 "restWay" -> text,
                 "restDay1" -> list(text),
                 "restDay2" -> list(text)
             ){
                 (restWay, restDay1, restDay2) => Tools.getRestDays(restWay,restDay1,restDay2)
             }{
-                restDay => Some(Tools.setRestDays(restDay))},
-            "seatNums" -> number,
-            "salonFacilities" -> mapping(
-                "canOnlineOrder" -> boolean,
-                "canImmediatelyOrder" -> boolean,
-                "canNominateOrder" -> boolean,
-                "canCurntDayOrder" -> boolean,
-                "canMaleUse" -> boolean,
-                "isPointAvailable" -> boolean,
-                "isPosAvailable" -> boolean,
-                "isWifiAvailable" -> boolean,
-                "hasParkingNearby" -> boolean,
-                "parkingDesc" -> text)
-                (SalonFacilities.apply)(SalonFacilities.unapply),
-            "salonPics" -> list(
-                mapping(
-                    "fileObjId" -> text,
-                    "picUse" -> text,
-                    "showPriority"-> optional(number),
-                    "description" -> optional(text)
-                ){
-                    (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId(fileObjId),picUse,showPriority,description)
-                }{
-                    salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
-                }),
-            "registerDate" -> date
-        ){
-            (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription,mainPhone, contact, optContactMethod, establishDate, salonAddress,
-             workTime, restDay, seatNums, salonFacilities,salonPics,registerDate) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription,mainPhone, contact, optContactMethod, establishDate, salonAddress,
-                workTime, restDay, seatNums, salonFacilities,salonPics,registerDate)
-        }
-        {
-            salon=> Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonDescription, salon.picDescription,salon.mainPhone, salon.contact, salon.optContactMethod, salon.establishDate, salon.salonAddress,
-                salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
-        }
-    )
+                restDay => Some(Tools.setRestDays(restDay))}),
+	        "seatNums" -> optional(number),
+	        "salonFacilities" -> optional(mapping(
+	            "canOnlineOrder" -> boolean,
+	            "canImmediatelyOrder" -> boolean,
+	            "canNominateOrder" -> boolean,
+	            "canCurntDayOrder" -> boolean,
+	            "canMaleUse" -> boolean,
+	            "isPointAvailable" -> boolean,
+	            "isPosAvailable" -> boolean,
+	            "isWifiAvailable" -> boolean,
+	            "hasParkingNearby" -> boolean,
+	            "parkingDesc" -> text)
+	            (SalonFacilities.apply)(SalonFacilities.unapply)),
+	        "salonPics" -> list(
+	            mapping(
+	                "fileObjId" -> text,
+	                "picUse" -> text,
+	                "showPriority"-> optional(number),
+	                "description" -> optional(text)
+	                ){
+	              (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId(fileObjId),picUse,showPriority,description)
+	              }{
+	                salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
+	              }),
+	        "registerDate" -> date
+	        ){
+	      (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
+	       workTime, restDay, seatNums, salonFacilities,salonPics,registerDate) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
+	       workTime, restDay, seatNums, salonFacilities,salonPics,registerDate)
+	    }
+	    {
+	      salon=> Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonDescription, salon.picDescription,salon.contactMethod, salon.optContactMethod, salon.establishDate, salon.salonAddress,
+	          salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
+	    }
+	)
 
-    //店铺注册Form
-    val salonRegister:Form[Salon] = Form(
-        mapping(
-            "salonAccount" -> mapping(
-                "accountId" -> nonEmptyText(6,16),
-                "password" -> tuple(
-                    "main" ->  text.verifying(Messages("user.passwordError"), main => main.matches("""^[a-zA-Z]\w{5,17}$""")),
-                    "confirm" -> text).verifying(
-                        // Add an additional constraint: both passwords must match
-                        Messages("user.twicePasswordError"), password => password._1 == password._2)
-            ){
-                (accountId,password) => SalonAccount(accountId,BCrypt.hashpw(password._1, BCrypt.gensalt()))
-            }{
-                salonAccount=>Some(salonAccount.accountId,(salonAccount.password, ""))
-            },
-            "salonName" -> text.verifying(Messages("salon.salonNameNotAvaible"), salonName => !Salon.findOneBySalonName(salonName).nonEmpty),
-            "salonNameAbbr" -> optional(text),
-            "salonIndustry" -> list(text),
-            "homepage" -> optional(text),
-            "salonDescription" -> optional(text),
-            "picDescription" -> mapping(
-                "picTitle" -> text,
-                "picContent" -> text,
-                "picFoot" -> text
-            )(PicDescription.apply)(PicDescription.unapply),
-            "mainPhone" -> nonEmptyText,
-            "contact" -> nonEmptyText,
-            "optContactMethod" -> list(
-                mapping(
-                    "contMethodType" -> text,
-                    "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
-            "establishDate" -> date("yyyy-MM-dd"),
-            "salonAddress" -> mapping(
-                "province" -> text,
-                "city" -> optional(text),
-                "region" -> optional(text),
-                "town" -> optional(text),
-                "addrDetail" ->text,
-                "longitude" -> optional(bigDecimal),
-                "latitude" -> optional(bigDecimal),
-                "accessMethodDesc" -> text
-            )
-                (Address.apply)(Address.unapply),
-            "workTime" -> mapping(
-                "openTime" -> text ,
-                "closeTime" -> text
-            )
-                (WorkTime.apply)(WorkTime.unapply),
-            "restDays" -> mapping(
-                "restWay" -> text,
-                "restDay1" -> list(text),
-                "restDay2" -> list(text)
+	//店铺注册Form
+  val salonRegister:Form[Salon] = Form(
+      mapping(
+	    	"salonAccount" -> mapping(
+	    		"accountId" -> nonEmptyText(6, 16).verifying(Messages("salon.register.accountIdErr"), userId => userId.matches("""^\w+$""")),
+	    		"password" -> tuple(
+	    			"main" ->  text(6, 18).verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]+$""")),
+	    			"confirm" -> text).verifying(
+          // Add an additional constraint: both passwords must match
+            Messages("user.twicePasswordError"), password => password._1 == password._2)
+	    			){
+	    		(accountId,password) => SalonAccount(accountId,BCrypt.hashpw(password._1, BCrypt.gensalt()))
+	    	}{
+	    	  salonAccount=>Some(salonAccount.accountId,(salonAccount.password, ""))
+	    	},
+	        "salonName" -> text.verifying(Messages("salon.salonNameNotAvaible"), salonName => !Salon.findOneBySalonName(salonName).nonEmpty),
+	        "salonNameAbbr" -> optional(text),
+	        "salonIndustry" -> list(text),
+	        "homepage" -> optional(text),
+	        "salonDescription" -> optional(text),
+	        "picDescription" -> optional(mapping(
+	        		"picTitle" -> text,
+	        		"picContent" -> text,
+	        		"picFoot" -> text
+	        )(PicDescription.apply)(PicDescription.unapply)),	        
+	        "contactMethod" -> mapping(
+	        		"mainPhone" -> nonEmptyText,
+	        		"contact" -> nonEmptyText,
+	        		"email" -> nonEmptyText
+	        )(Contact.apply)(Contact.unapply),
+	        "optContactMethod" -> list(
+	            mapping(
+	                "contMethodType" -> text,
+	                "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
+	        "establishDate" -> optional(date("yyyy-MM-dd")),
+	        "salonAddress" -> optional(mapping(
+	        	"province" -> text,
+	        	"city" -> optional(text),
+	        	"region" -> optional(text),
+	        	"town" -> optional(text),
+	        	"addrDetail" ->text,
+	        	"longitude" -> optional(bigDecimal),
+	        	"latitude" -> optional(bigDecimal),
+	        	"accessMethodDesc" -> text      	
+	        	)
+	        	(Address.apply)(Address.unapply)),
+	        "workTime" -> optional(mapping(
+	            "openTime" -> text ,
+	            "closeTime" -> text
+	            )
+	            (WorkTime.apply)(WorkTime.unapply)),
+	        "restDays" -> optional(mapping(
+	                "restWay" -> text,
+	                "restDay1" -> list(text),
+                    "restDay2" -> list(text)
             ){
                 (restWay, restDay1, restDay2) => Tools.getRestDays(restWay,restDay1,restDay2)
             }{
-                restDay => Some(Tools.setRestDays(restDay))},
-            "seatNums" -> number,
-            "salonFacilities" -> mapping(
-                "canOnlineOrder" -> boolean,
-                "canImmediatelyOrder" -> boolean,
-                "canNominateOrder" -> boolean,
-                "canCurntDayOrder" -> boolean,
-                "canMaleUse" -> boolean,
-                "isPointAvailable" -> boolean,
-                "isPosAvailable" -> boolean,
-                "isWifiAvailable" -> boolean,
-                "hasParkingNearby" -> boolean,
-                "parkingDesc" -> text)
-                (SalonFacilities.apply)(SalonFacilities.unapply),
-            "salonPics" -> list(
-                mapping(
-                    "fileObjId" -> text,
-                    "picUse" -> text,
-                    "showPriority"-> optional(number),
-                    "description" -> optional(text)
-                ){
-                    (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId,picUse,Option(0),Option("none"))
-                }{
-                    salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
-                })
-        ){
-            (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription,picDescription, mainPhone, contact, optContactMethod, establishDate, salonAddress,
-             workTime, restDays, seatNums, salonFacilities,salonPics) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, mainPhone, contact, optContactMethod, establishDate, salonAddress,
-                workTime, restDays, seatNums, salonFacilities,salonPics,new Date())
-        }{
-            salonRegister=> Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.picDescription, salonRegister.mainPhone,
-                salonRegister.contact, salonRegister.optContactMethod, salonRegister.establishDate, salonRegister.salonAddress,
-                salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics)
-        }.verifying(
+                restDay => Some(Tools.setRestDays(restDay))}),
+	        "seatNums" -> optional(number),
+	        "salonFacilities" -> optional(mapping(
+	            "canOnlineOrder" -> boolean,
+	            "canImmediatelyOrder" -> boolean,
+	            "canNominateOrder" -> boolean,
+	            "canCurntDayOrder" -> boolean,
+	            "canMaleUse" -> boolean,
+	            "isPointAvailable" -> boolean,
+	            "isPosAvailable" -> boolean,
+	            "isWifiAvailable" -> boolean,
+	            "hasParkingNearby" -> boolean,
+	            "parkingDesc" -> text)
+	            (SalonFacilities.apply)(SalonFacilities.unapply)),
+	        "salonPics" -> list(
+	            mapping(
+	                "fileObjId" -> text,
+	                "picUse" -> text,
+	                "showPriority"-> optional(number),
+	                "description" -> optional(text)
+	                ){
+	              (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId,picUse,Option(0),Option("none"))
+	              }{
+	                salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
+	              })
+      ){
+        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription,picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
+	       workTime, restDays, seatNums, salonFacilities,salonPics) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
+	       workTime, restDays, seatNums, salonFacilities,salonPics,new Date())
+      }{
+        salonRegister=> Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.picDescription, salonRegister.contactMethod, 
+        		salonRegister.optContactMethod, salonRegister.establishDate, salonRegister.salonAddress,
+        		salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics)
+      }.verifying(
 
-                Messages("user.userIdNotAvailable"), salon => !Salon.findByAccountId(salon.salonAccount.accountId).nonEmpty)
-    )
+       Messages("user.userIdNotAvailable"), salon => !Salon.findByAccountId(salon.salonAccount.accountId).nonEmpty)
+	)
 
     /**
      * 店铺注册
@@ -475,4 +483,17 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
               }
           })
      }
+
+    /**
+     * 显示店铺所有的优惠劵
+     */
+    def showCoupons(salonId: ObjectId) = Action {
+        val salon: Option[Salon] = Salon.findOneById(salonId)
+        val coupons: List[Coupon] = Coupon.findBySalon(salonId)
+
+        salon match {
+            case Some(s) => Ok(html.coupon.showCouponGroup(s, coupons))
+            case None => NotFound
+        }
+    }
 }

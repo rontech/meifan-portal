@@ -30,7 +30,7 @@
 				                @inputText(salonRegister("salonAccount.accountId"),'_label -> None,
 									 		'placeholder -> Messages("salon.login.accountId"),
 									 		'_help -> Messages("salon.register.accountId"),
-									 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("user.userIdErr"))))
+									 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("salon.register.accountIdErr"))))
 				            </td>
 				        </tr>
 				        <tr>
@@ -42,7 +42,10 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,'_help -> Messages("salon.register.password"),'placeholder -> Messages("salon.login.password"))
+				                	@inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,
+				                		'_help -> Messages("salon.register.password"),
+				                		'placeholder -> Messages("salon.login.password"),
+				                		'_error -> salonRegister("salonAccount.password.main").error.map(_.withMessage(Messages("user.passwordError"))))
 				                </div>
 				            </td>
 				        </tr>
@@ -78,19 +81,6 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.Abbr")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salonRegister("salonNameAbbr"),'_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
 				                   	@Messages("salon.type")
 				                </div>
 				            </th>
@@ -103,33 +93,7 @@
 								  }
 				                </div>
 				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.homepage")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salonRegister("homepage"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.description")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@textarea(salonRegister("salonDescription"), '_label -> None,'cols -> 50,'placeholder -> Messages("salon.desMseeage"))
-				                </div>
-				            </td>
-				        </tr>
+				        </tr> 				        
 				        <tr>
 				            <th class="w222 ">
 				                <!-- -->
@@ -139,8 +103,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("mainPhone"), '_label -> None,'_help -> Messages("*"),
-				                		'_error -> salonRegister("mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
+				                	@inputText(salonRegister("contactMethod.mainPhone"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonRegister("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
 				                </div>
 				            </td>
 				        </tr>
@@ -153,8 +117,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contact"), '_label -> None,'_help -> Messages("*"),
-				                		'_error -> salonRegister("contact").error.map(_.withMessage(Messages("salon.register.contact"))))
+				                	@inputText(salonRegister("contactMethod.contact"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonRegister("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
 				                </div>
 				            </td>
 				        </tr>
@@ -162,268 +126,18 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.establishDate")
+				                   	@Messages("user.email")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@inputDate(salonRegister("establishDate"), '_label -> None,'_help -> Messages("*")
-				                		,'_error -> salonRegister("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate"))))
+				                	@inputText(salonRegister("contactMethod.email"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.register.contact"))))
 				                </div>
 				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.address")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province"></select>
-									@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city"></select>
-									@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region"></select>
-									<script type="text/javascript">
-										addressInit('Select1', 'Select2', 'Select3');
-									</script>
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.town")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salonRegister("salonAddress.town"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.addrDetail")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salonRegister("salonAddress.addrDetail"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.longitude")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salonRegister("salonAddress.longitude"), '_label -> None,'_help -> Messages(""))
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.latitude")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salonRegister("salonAddress.latitude"), '_label -> None,'_help -> Messages(""))
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.accessMethod")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salonRegister("salonAddress.accessMethodDesc"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.openTime")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salonRegister("workTime.openTime"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.closeTime")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salonRegister("workTime.closeTime"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.seatNums")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salonRegister("seatNums"), '_label -> None,'_help -> Messages("*"),
-				                		'_error -> salonRegister("seatNums").error.map(_.withMessage(Messages("salon.register.seatNums")))
-				                	)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.iss")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"),'_help -> Messages(""))</div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"),'_help -> Messages(""))</div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.canNominateOrder"), '_label -> Messages("salon.canNominateOrder"),'_help -> Messages(""))</div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.canCurntDayOrder"), '_label -> Messages("salon.canCurntDayOrder"),'_help -> Messages(""))</div>
-									<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.canMaleUse"), '_label -> Messages("salon.canMaleUse"),'_help -> Messages(""))</div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.isPointAvailable"), '_label -> Messages("salon.isPointAvailable"),'_help -> Messages(""))</div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.isPosAvailable"), '_label -> Messages("salon.isPosAvailable"),'_help -> Messages(""))</div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"),'_help -> Messages(""))</div>
-				                	<div class = "fl mL10">@checkbox(salonRegister("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"),'_help -> Messages(""))</div>
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.parkingDesc")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salonRegister("salonFacilities.parkingDesc"), '_label -> None, 'cols -> 50)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.showPic")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salonRegister("picDescription.picTitle"), '_label -> None, 'placeholder -> Messages("salon.pic.title"),'cols -> 50,'_help -> Messages("*"))
-				                	@inputText(salonRegister("picDescription.picContent"), '_label -> None, 'placeholder -> Messages("salon.pic.content"),'cols -> 50,'_help -> Messages("*"))
-				                	@inputText(salonRegister("picDescription.picFoot"), '_label -> None, 'placeholder -> Messages("salon.pic.foot"),'cols -> 50,'_help -> Messages("*"))
-				                </div>
-				            </td>
-				        </tr>				        
+				        </tr>					        					        
 				    </tbody>
 				</table>
-
-				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-				    <tbody>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("user.optContactMethod")
-				                </div>
-				            </th>
-				            <td>
-				            	<div id="optContactMethods">
-				            		 @repeat(salonRegister("optContactMethod")) { optContactMethod =>
-					                    @optContactMethodGroup(optContactMethod)
-					                }
-
-					                @optContactMethodGroup(
-					                    salonRegister("optContactMethod[x]"),
-					                    className = "optContactMethod_template"
-					                )
-
-					                <div class="manage">
-					                    <a class="addoptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
-					                </div>
-				            	</div>
-				            </td>
-				        </tr>
-					</tbody>
-				</table>
-
-				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-				    <tbody>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("salon.restDay")
-				                </div>
-				            </th>
-				            <td>
-                                <div class="restDays">
-                                @inputRadioGroup(salonRegister("restDays.restWay").copy(value=salonRegister("restDays.restWay").value.map{Some(_)}.getOrElse(Some("Fixed"))),
-                                    options = options("Fixed" -> Messages("restWay.fixed"), "Indefinite" -> Messages("restWay.indefinite")) , '_label -> None)
-                                @if(salonRegister("restDays").value.map{_.equals("Fixed")}.getOrElse(true)){
-                                    <div id="restDays_div">
-                                        @Messages("salon.selectRestDays")
-                                        <input type="checkbox" name="restDays.restDay1[0]" value="Monday">@Messages("Monday")
-                                        <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday">@Messages("Tuesday")
-                                        <input type="checkbox" name="restDays.restDay1[2]" value="Wednesday">@Messages("Wednesday")
-                                        <input type="checkbox" name="restDays.restDay1[3]" value="Thursday">@Messages("Thursday")
-                                        <input type="checkbox" name="restDays.restDay1[4]" value="Friday">@Messages("Friday")
-                                        <input type="checkbox" name="restDays.restDay1[5]" value="Saturday">@Messages("Saturday")
-                                        <input type="checkbox" name="restDays.restDay1[6]" value="Sunday">@Messages("Sunday")
-                                    </div>
-                                    <div id="noRestDays_div" style="display: none;">
-                                        @Messages("salon.EnterRestDays")
-                                        <input type="text" name="restDays.restDay2[0]">
-                                    </div>
-                                }else{
-                                    <div id="restDays_div" style="display: none;">
-                                        @Messages("salon.selectRestDays")
-                                        <input type="checkbox" name="restDays.restDay1[0]" value="Monday">@Messages("Monday")
-                                        <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday">@Messages("Tuesday")
-                                        <input type="checkbox" name="restDays.restDay1[2]" value="Wednesday">@Messages("Wednesday")
-                                        <input type="checkbox" name="restDays.restDay1[3]" value="Thursday">@Messages("Thursday")
-                                        <input type="checkbox" name="restDays.restDay1[4]" value="Friday">@Messages("Friday")
-                                        <input type="checkbox" name="restDays.restDay1[5]" value="Saturday">@Messages("Saturday")
-                                        <input type="checkbox" name="restDays.restDay1[6]" value="Sunday">@Messages("Sunday")
-                                    </div>
-                                    <div id="noRestDays_div" >
-                                        @inputText(salonRegister("restDays.restDay2"), '_label -> Messages("salon.EnterRestDays"))
-                                    </div>
-                                    }
-                                </div>
-				            </td>
-				        </tr>
-					</tbody>
-				</table>
-
 				<div class="mT20 txtC">
 					<input type = "hidden" name="salonPics[0].fileObjId" />
 					<input type = "hidden" name="salonPics[0].picUse" value="LOGO"/>
@@ -435,96 +149,4 @@
 
 		</div>
 </div>
-        <script type="text/javascript" charset="utf-8">
-
-        $ ('#restDays_restWay_Fixed').live('click', function(e) {
-            $('#noRestDays_div' ).hide();
-            $('#restDays_div' ).show();
-        })
-
-        $('#restDays_restWay_Indefinite').live('click', function(e) {
-            $('#noRestDays_div' ).show();
-            $('#restDays_div' ).hide();
-        })
-
-        $('.removeoptContactMethod').live('click', function(e) {
-            $(this).parents('.optContactMethod').remove()
-            renumber()
-        })
-
-        $('.removeAccount').live('click', function(e) {
-            var accounts = $(this).parents('.accounts')
-            $(this).parents('.account').remove()
-            renumber(accounts)
-        })
-
-        $('.addAccount').live('click', function(e) {
-            var accounts = $(this).parents('.accounts')
-            var template = $('.account_template', accounts)
-            template.before('<div class="clearfix account">' + template.html() + '</div>')
-            renumber(accounts)
-        })
-
-        $('.addoptContactMethod').live('click', function(e) {
-            var template = $('.optContactMethod_template')
-            template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
-            renumber()
-        })
-
-        var renumber = function(accounts) {
-            $('.optContactMethod').each(function(i) {
-                $('input', this).each(function() {
-                    $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
-                })
-                $('.account input', this).each(function(i) {
-                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
-                })
-            })
-        }
-
-    </script>
-}
-
-@accountField(field: Field, className: String = "account") = {
-    @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
-        <input type="text" name="@name" value="@value">
-        <a class="removeAccount btn danger">@Messages("optContactMethod.Remove")</a>
-    }
-}
-
-@optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
-    <div class="twipsies well @className">
-
-        <a class="removeoptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
-
-        @inputText(
-            field("contMethodType"),
-            '_label -> Messages("user.contMethodType")
-        )
-
-        <div class="accounts">
-
-            @repeat(field("accounts"), min = 0) { account =>
-
-                @accountField(account)
-
-            }
-
-            @**
-             * Keep an hidden block that will be used as template for Javascript copy code
-             **@
-            @accountField(
-                field("accounts[x]"),
-                className = "account_template"
-            )
-
-            <div class="clearfix">
-                <div class="input">
-                    <a class="addAccount btn success">@Messages("optContactMethod.AddNumber")</a>
-                </div>
-            </div>
-
-        </div>
- 
-    </div>
 }

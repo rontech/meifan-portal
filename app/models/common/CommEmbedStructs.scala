@@ -73,3 +73,35 @@ trait ContMethodTypeDAO extends ModelCompanion[ContMethodType, ObjectId] {
     def getAllContMethodTypes  = dao.find(MongoDBObject.empty).toSeq.map{
         	contMethodType => contMethodType.contMethodTypeName ->Messages("ContMethodType.contMethodTypeName."+ contMethodType.contMethodTypeName)}
 }
+
+/**
+ * 默认Log
+ */
+case class DefaultLog(
+	id : ObjectId = new ObjectId,
+	imgId : ObjectId
+)
+
+object DefaultLog extends DefaultLogDAO
+
+trait DefaultLogDAO extends ModelCompanion[DefaultLog, ObjectId] {
+    def collection = MongoConnection()(
+        current.configuration.getString("mongodb.default.db")
+            .getOrElse(throw new PlayException(
+                "Configuration error",
+                "Could not find mongodb.default.db in settings")))("DefaultLog")
+                
+    val dao = new SalatDAO[DefaultLog,ObjectId](collection) {}
+    
+    /**
+     * 保存图片
+     */
+    def saveLogImg(defaultLog: DefaultLog, imgId: ObjectId) = {
+        dao.update(MongoDBObject("_id" -> defaultLog.id),MongoDBObject("$set" -> (MongoDBObject("imgId" ->imgId))), false,true)
+    }
+    
+    /**
+     * 获取图片的ObjectId
+     */
+    def getImgId  = dao.find(MongoDBObject.empty).toList.head.imgId
+}

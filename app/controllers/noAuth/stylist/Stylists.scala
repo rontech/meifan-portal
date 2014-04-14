@@ -31,7 +31,7 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
   /**
    *  查看技师所属店铺
    */
-  def mySalon(stylistId: ObjectId) = StackAction { implicit request =>
+  def mySalonFromStylist(stylistId: ObjectId) = StackAction { implicit request =>
 	    val user = User.findOneById(stylistId).get
 	    val followInfo = MyFollow.getAllFollowInfo(user.id)
 	    val salon = Stylist.mySalon(user.id)
@@ -105,6 +105,10 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
       }getOrElse{
           Ok("no")
       }
+  }
+  
+  def cutImg = Action {
+    Ok(views.html.stylist.cutImg(""))
   }
   
 }
