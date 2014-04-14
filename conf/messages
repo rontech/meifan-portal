@@ -147,8 +147,8 @@ salon.pushToMobile = 发送到手机
 salon.iss=店铺功能
 salon.login.accountId=请输入您的店铺ID
 salon.login.password=请输入您的密码
-salon.register.accountId=请输入6-16位字符
-salon.register.password=请输入以字母开头的6-18位字符
+salon.register.accountId=6~16位字符,可使用字母、数字和下划线!
+salon.register.password=6~18位字符,可使用字符、数字或符号的组合！
 salon.register.salonName = 请重新输入店铺名
 salon.register.mainPhone = 请输入联系电话
 salon.register.contact=请输入联系人
@@ -182,6 +182,8 @@ Thursday = 星期四
 Friday = 星期五
 Saturday = 星期六
 Sunday = 星期日
+salon.noExist = 该店铺不存在
+salon.register.accountIdErr=店铺ID不合法!
 
 
 #salon management
@@ -215,6 +217,10 @@ salonAdmin.checkCoupon = 查看所有优惠
 salonAdmin.checkMenu = 查看所有套餐
 salonAdmin.checkState = 我的动态
 salonAdmin.admin = 店铺
+salonAdmin.ApplyOperateResult = 抱歉该申请不存在或已被本人取消，将在
+salonAdmin.ApplyOperateAction = s后自动跳转，点击
+salonAdmin.ApplyOperateGo = 跳转 
+stylistAdmin.selectField = *选填
 
 # Hair
 hair.tabName=时尚靓发
@@ -241,7 +247,7 @@ hair.styleForPerson=推荐人群
 hair.assessFromStylist=造型师评价
 hair.stylistToCollect=收藏该发型师
 hair.welcome=我们期待您的光临
-hair.consumerSocialStatus=适合人群
+hair.consumerSocialStatus=适合场合
 hair.consumerSex=适合性别
 hair.consumerAgeGroup=适合年龄
 hair.addStyle = 添加发型
@@ -410,7 +416,7 @@ stylist.goodAtStatus = 擅长人群
 stylist.goodAtService = 擅长服务
 stylist.goodAtUser = 擅长性别
 stylist.goodAtAgeGroup = 擅长年龄
-stylist.myWords = 我的话语
+stylist.myWords = 我的语录
 stylist.mySpecial = 我的特长
 stylist.myBoom = 兴趣爱好
 stylist.myPR = 自我宣传
@@ -500,8 +506,8 @@ user.emailErr=邮箱无效！
 user.userIdNotAvailable=该用户名已被注册 
 user.passwordError=密码不合法！
 user.telError=手机号码无效!
-user.toBeUserId= 可输入6~18位,包含字母、数字和下划线!
-user.toBePassword= 可输入6~16位,包含数字，字母！
+user.toBeUserId= 6~18位字符,可使用字母、数字和下划线!
+user.toBePassword= 6~16位字符,可使用字符、数字或符号的组合！
 user.nickNameErr=给个昵称吧！
 user.welcome=欢迎您，{0}
 user.guestName=游客
@@ -531,6 +537,12 @@ user.applyStylist = 普通会员申请技师
 user.salonBlogTitle = {0} 的最新博客
 user.salonCouponTitle = {0} 的最新优惠劵
 user.salonCouponNoFound = 该店铺还未添加优惠劵！
+user.chooseOpt = 选择联系方式
+user.applyStylistMessage_1 = 提交成功，耐心等待salon确认，
+user.applyStylistMessage_2 = s后自动跳转至我的主页，点击
+user.applyStylistMessage_3 = 直接跳转
+user.applySalonId = 输入您要申请的店铺ID，6~18位,包含字母、数字和下划线!
+
 
 #Letter
 letter.addressee=收件人
@@ -593,8 +605,12 @@ blog.new = 新博客
 blog.toCollect=收藏此博客
 blog.noCollect = 暂无收藏的博客！
 blog.salonNoBlog= 该店铺还未有博客！
+blog.preBlog = 前一篇
+blog.nextBlog = 后一篇
+blog.noPreNext = 没有啦！
 
 # Comment
+comment.comment = 评论
 comment.salonCommentTitle = {0} 的评论
 comment.noComment = 该店铺暂无评论
 comment.passDate = [投稿日]
@@ -608,6 +624,9 @@ comment.atmosphere = 氛围
 comment.service = 服务
 comment.skill =  技术
 comment.price = 价格
+comment.noFirst = 您还没有给第一项打分呢！
+comment.contentNotNull = 评论内容不能为空
+
 
 
 # Point
@@ -759,6 +778,12 @@ onUsePicture.WH = 950x320
 onUsePicture.process = 上传进度：
 onUsePicture.limit = 最多选择5张图片
 
+#ContMethodType
+ContMethodType.contMethodTypeName.QQ = QQ
+ContMethodType.contMethodTypeName.MSN = MSN
+ContMethodType.contMethodTypeName.we-chat = 微信
+ContMethodType.contMethodTypeName.other = 其他联系方式
+
 # reservation
 reservation.weekDay.1 = 日
 reservation.weekDay.2 = 一
@@ -767,4 +792,25 @@ reservation.weekDay.4 = 三
 reservation.weekDay.5 = 四
 reservation.weekDay.6 = 五
 reservation.weekDay.7 = 六
+reservation.rest = 休息日
+reservation.beforeWeek = 前一周
+reservation.afterWeek = 后一周
 
+#salonCheckInfoState
+salonCheckInfoState.conditions =  申请待完成事项
+salonCheckInfoState.condition = 事项
+salonCheckInfoState.status = 是否完善
+salonCheckInfoState.operate = 操作
+salonCheckInfoState.finish = 已完善
+salonCheckInfoState.needTodo = 待完善
+salonCheckInfoState.register = 注册信息
+salonCheckInfoState.basicInfo = 基本资料
+salonCheckInfoState.detail = 详细资料
+salonCheckInfoState.pictures = 店铺图片
+salonCheckInfoState.check = 查看
+salonCheckInfoState.completeInfo = 去完善
+salonCheckInfoState.createSalon = 创建店铺
+salonCheckInfoState.youNeedDo = 您还有
+salonCheckInfoState.cannotApply = 个事项未完成，不能创建店铺
+salonCheckInfoState.uploadLogo = 上传头像
+salonCheckInfoState.uploadpics = 展示图片

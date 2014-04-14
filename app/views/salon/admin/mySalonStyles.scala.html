@@ -4,7 +4,7 @@
 	@*<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">*@
     @views.html.style.admin.backstageStyleSearch(styleSearchForm, styleParaAll, isFirstSearch, isStylist, null, stylists)
     <hr/>
-    <a href="@routes.SalonsAdmin.styleAddBySalon(salon.id)" >@Messages("hair.addStyle")</a>
+    <a href="@auth.routes.Salons.styleAddBySalon" >@Messages("hair.addStyle")</a>
     <hr/>
     @views.html.style.admin.backstageStyleSearchList(styles, isStylist)
 	

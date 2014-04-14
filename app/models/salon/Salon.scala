@@ -26,16 +26,15 @@ case class Salon(
     salonIndustry: List[String],       // Ref to Master [Industry] table.           
     homepage: Option[String],           
     salonDescription: Option[String], 
-    picDescription: PicDescription,
-    mainPhone: String,
-    contact: String, 
+    picDescription: Option[PicDescription],
+    contactMethod:Contact,
     optContactMethod: List[OptContactMethod],
-    establishDate: Date,
-    salonAddress: Address,
-    workTime: WorkTime,
-    restDays: RestDay,
-    seatNums: Int,
-    salonFacilities: SalonFacilities,    
+    establishDate: Option[Date],
+    salonAddress: Option[Address],
+    workTime: Option[WorkTime],
+    restDays: Option[RestDay],
+    seatNums: Option[Int],
+    salonFacilities: Option[SalonFacilities],    
     salonPics: List[OnUsePicture],             
     registerDate: Date
 )
@@ -66,15 +65,6 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
             return None
         }
     }
-
-  def authenticate(accountId: String, password: String): Option[Salon] = {
-    val salon = dao.findOne(MongoDBObject("salonAccount.accountId" -> accountId))
-    if (salon.nonEmpty && BCrypt.checkpw(password, salon.get.salonAccount.password)) {
-      return salon
-    } else {
-      return None
-    }
-  }
 
     def findOneBySalonName(salonName: String): Option[Salon] = {
         dao.findOne(MongoDBObject("salonName" -> salonName))
@@ -200,8 +190,20 @@ case class SalonAccount(
     password:String
 )
 
+/**
+ * Embed Structure.
+*/
 case class PicDescription(
 	picTitle:String,
 	picContent:String,
 	picFoot:String	
+)
+
+/**
+ * Embed Structure.
+*/
+case class Contact(
+    mainPhone: String,
+    contact: String, 
+    email: String
 )

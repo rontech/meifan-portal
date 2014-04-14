@@ -10,6 +10,7 @@ import java.util.Date
 import models._
 import views._
 import play.api.i18n.Messages
+import controllers.auth.Coupons
 
 object Menus extends Controller {
   

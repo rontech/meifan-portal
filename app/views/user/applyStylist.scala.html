@@ -1,8 +1,8 @@
-@(stylistForm: Form[StylistApply], user: User, goodAtStylePara: GoodAtStyle,followInfo:FollowInformation )
+@(stylistApplyForm: Form[StylistApply], user: User, goodAtStylePara: GoodAtStyle,followInfo:FollowInformation, isCommit: Boolean = false )
 @import helper._
 
 @myPageMain(navInMyPage = "my-reservation",user, followInfo, user.id, true){
-	
+	<body onload="success()">
 	<div class="container">
 
     <div class="content">
@@ -10,88 +10,231 @@
       <div class="page-header">
         <h1>@Messages("user.applyStylist")</h1>
       </div>
-
+	@if(isCommit){
+		<div id="apply_message">
+			<p>@Messages("user.applyStylistMessage_1")<sapn>5</sapn>@Messages("user.applyStylistMessage_2")<a href="javascript:go('')"></a>@Messages("user.applyStylistMessage_3")</p>
+		</div>
+	}else{
       <div class="row">
         <div class="span14">
           	@form(auth.routes.Users.commitStylistApply(), 'id -> "userForm"){
-		
-       		@inputText(stylistForm("stylist.label"), '_label -> Messages("stylist.name"), '_default ->user.nickName)
-			
-			@inputText(stylistForm("stylist.workYears"), '_label -> Messages("stylist.workYears"), 'class ->  "font1")
-
-			
-			@inputText(stylistForm("salonAccountId"), '_label -> Messages("salonAccountId"), 'class ->  "font1")
-			
-			
-				<div id="optContactMethods">
-				@repeat(stylistForm("position")){position=>
-					@stylistPosition(position)
-				}
-				@**
-	                 * Keep an hidden block that will be used as template for Javascript copy code
-	                 **@
-	                @stylistPosition(
-	                    stylistForm("position[x]"),
-	                    className = "optContactMethod_template"
-	                )
-	                
-	                <div class="manage">
-	                    <a class="addOptContactMethod btn success">@Messages("addPositionAndIndusty")</a>
-	                </div>
-	            
-	            </div>
-            
-			
-			@input(field = stylistForm("stylist.goodAtImage"),args = '_label ->Messages("stylist.goodAtImage")){(id,name,value,args) =>
-			 	@for(i <- 0 to goodAtStylePara.goodAtImage.length-1){
-			 		<input type = "checkbox" name = "goodAtImage[@i]" value = "@goodAtStylePara.goodAtImage(i)">@Messages("style.styleImpression."+goodAtStylePara.goodAtImage(i))&nbsp;
-			 	}
-			  }
-			  
-			@input(field = stylistForm("stylist.goodAtStatus"),args = '_label ->Messages("stylist.goodAtStatus")){(id,name,value,args) =>
-			 	@for(i <- 0 to goodAtStylePara.goodAtStatus.length-1){
-			 		<input type = "checkbox" name = "goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@Messages("style.socialStatus."+goodAtStylePara.goodAtStatus(i))
-			 	}
-			  }
-			  
-			@input(field = stylistForm("stylist.goodAtService"),args = '_label ->Messages("stylist.goodAtService")){(id,name,value,args) =>
-			 	@for(i <- 0 to goodAtStylePara.goodAtService.length-1){
-			 		<input type = "checkbox" name = "stylist.goodAtService[@i]" value = "@goodAtStylePara.goodAtService(i)">@Messages(goodAtStylePara.goodAtService(i))
-			 		@if((i+1)%6==0){
-			 			<br />
-			 		}
-			 	}
-			  }
-			  
-			@input(field = stylistForm("stylist.goodAtUser"),args = '_label ->Messages("stylist.goodAtUser")){(id,name,value,args) =>
-			 	@for(i <- 0 to goodAtStylePara.goodAtUser.length-1){
-			 		<input type = "checkbox" name = "stylist.goodAtUser[@i]" value = "@goodAtStylePara.goodAtUser(i)">@Messages("style.sex." +goodAtStylePara.goodAtUser(i))
-			 	}
-			  }  
-			
-			@input(field = stylistForm("stylist.goodAtAgeGroup"),args = '_label ->Messages("stylist.goodAtAgeGroup")){(id,name,value,args) =>
-			 	@for(i <- 0 to goodAtStylePara.goodAtAgeGroup.length-1){
-			 		<input type = "checkbox" name = "stylist.goodAtAgeGroup[@i]" value = "@goodAtStylePara.goodAtAgeGroup(i)">@Messages("style.ageGroup." +goodAtStylePara.goodAtAgeGroup(i))
-			 	}
-			  }
-			
-			@textarea(field = stylistForm("stylist.myWords"),'rows -> 4, 'cols -> 40, '_label -> Messages("stylist.myWords"))
-			
-			@textarea(field = stylistForm("stylist.mySpecial"),'rows -> 4, 'cols -> 40, '_label -> Messages("stylist.mySpecial"))
-			            
-            @textarea(field = stylistForm("stylist.myBoom"),'rows -> 4, 'cols -> 40, '_label -> Messages("stylist.myBoom"))
- 		
-		  	@textarea(field = stylistForm("stylist.myPR"),'rows -> 4, 'cols -> 40, '_label -> Messages("stylist.myPR"))
+			@if(stylistApplyForm.hasGlobalErrors) { 
+              <div>
+                  @stylistApplyForm.globalError.get.message
+              </div>
+            }
+	      	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+			    <tbody>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("stylist.workYears")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@inputText(stylistApplyForm("stylist.workYears"), '_label -> None, 'class ->  "font1")
+			                </div>
+			            </td>
+					</tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("salonAccountId")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@inputText(stylistApplyForm("salonAccountId"), '_label -> None, 'class ->  "font1", '_help -> Messages("user.applySalonId"), 
+							'_error -> stylistApplyForm.error("salonAccountId"))
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("positionName")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	<div id="optContactMethods">
+									@repeat(stylistApplyForm("position")){position=>
+										@stylistPosition(position)
+									}
+									@**
+						                 * Keep an hidden block that will be used as template for Javascript copy code
+						                 **@
+						                @stylistPosition(
+						                    stylistApplyForm("position[x]"),
+						                    className = "optContactMethod_template"
+						                )
+						                
+						                <div class="manage">
+						                    <a class="addOptContactMethod btn success">@Messages("addPositionAndIndusty")</a>
+						                </div>
+	            				</div>
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("stylist.goodAtImage")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@input(field = stylistApplyForm("stylist.goodAtImage"),args = '_label -> None){(id,name,value,args) =>
+								 	@for(i <- 0 to goodAtStylePara.goodAtImage.length-1){
+								 		<input type = "checkbox" name = "goodAtImage[@i]" value = "@goodAtStylePara.goodAtImage(i)">@Messages("style.styleImpression."+goodAtStylePara.goodAtImage(i))&nbsp;
+								 	}
+								  }
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("stylist.goodAtStatus")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@input(field = stylistApplyForm("stylist.goodAtStatus"),args = '_label -> None){(id,name,value,args) =>
+								 	@for(i <- 0 to goodAtStylePara.goodAtStatus.length-1){
+								 		<input type = "checkbox" name = "goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@Messages("style.socialStatus."+goodAtStylePara.goodAtStatus(i))
+								 	}
+								}
+	
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("stylist.goodAtService")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@input(field = stylistApplyForm("stylist.goodAtService"),args = '_label -> None){(id,name,value,args) =>
+								 	@for(i <- 0 to goodAtStylePara.goodAtService.length-1){
+								 		<input type = "checkbox" name = "stylist.goodAtService[@i]" value = "@goodAtStylePara.goodAtService(i)">@Messages(goodAtStylePara.goodAtService(i))
+								 		@if((i+1)%6==0){
+								 			<br />
+								 		}
+								 	}
+								}
+	
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("stylist.goodAtUser")
+			                </div>
+			            </th>
+			            <td>
+			                <div class="mL50">
+			                	@input(field = stylistApplyForm("stylist.goodAtUser"),args = '_label -> None){(id,name,value,args) =>
+								 	@for(i <- 0 to goodAtStylePara.goodAtUser.length-1){
+								 		<input type = "checkbox" name = "stylist.goodAtUser[@i]" value = "@goodAtStylePara.goodAtUser(i)">@Messages("style.sex." +goodAtStylePara.goodAtUser(i))
+								 	}
+								}
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("stylist.goodAtAgeGroup")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@input(field = stylistApplyForm("stylist.goodAtAgeGroup"),args = '_label -> None){(id,name,value,args) =>
+								 	@for(i <- 0 to goodAtStylePara.goodAtAgeGroup.length-1){
+								 		<input type = "checkbox" name = "stylist.goodAtAgeGroup[@i]" value = "@goodAtStylePara.goodAtAgeGroup(i)">@Messages("style.ageGroup." +goodAtStylePara.goodAtAgeGroup(i))
+								 	}
+								}
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("stylist.myWords")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@textarea(field = stylistApplyForm("stylist.myWords"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField"))
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("stylist.mySpecial")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@textarea(field = stylistApplyForm("stylist.mySpecial"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField"))
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("stylist.myBoom")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@textarea(field = stylistApplyForm("stylist.myBoom"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField"))
+			                </div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th class="w222 ">
+			                <!-- -->
+			                <div class="dibBL vaM w154">
+			                   	@Messages("stylist.myPR")
+			                </div>
+			            </th>
+			            <td>
+			                <div>
+			                	@textarea(field = stylistApplyForm("stylist.myPR"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField"))
+			                </div>
+			            </td>
+			        </tr>
+				</tbody>
+			</table>
 		  	
 		<input type="submit" class = "buttons" value="@Messages("stylist.submit")">
             
         <input type = "reset" class = "buttons" value="@Messages("stylist.reset")">
         </div>
       </div>
-
+	}
     </div>
   </div>
 	}
+	</body>
 }
 
 @stylistPosition(field: Field, className: String = "optContactMethod") ={
@@ -101,16 +244,18 @@
         @select(
                 field("industryName"), 
                 options = options(goodAtStylePara.industry),
+                'placeholder -> Messages("industy"),
                 '_default -> Messages("ChooseIndustry"),
-                '_label -> Messages("industy")
+                '_label -> None
                 
             )
         &nbsp;&nbsp;
         @select(
                 field("positionName"), 
                 options = options(goodAtStylePara.position),
+                'placeholder -> Messages("positionName"),
                 '_default -> Messages("ChoosePosition"),
-                '_label -> Messages("positionName")
+                '_label -> None
                 
             )
         </div>
@@ -137,6 +282,24 @@
                 })
                 
             })
+        }
+
+        var timer = null;
+        var i=5;
+        function success(){
+        	timer=window.setInterval(showTimes(),1000);
+        	//window.setTimeout(go(salonId),6000);
+        }
+        function go() {//定义函数
+        	window.location="/myPage";//页面跳转
+         }
+        function showTimes(sid){
+        		document.getElementById("times").innerHTML=i;
+        		i--;
+        		if(i==0){
+        			window.clearInterval(timer);
+        			go();
+        		}
         }
         
 </script>

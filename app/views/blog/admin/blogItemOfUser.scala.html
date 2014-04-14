@@ -24,7 +24,7 @@
 			    	</div>
 			    	
 					<div class="bottom">	
-						@Messages("blog.createAt",DateFormat.getDateInstance.format(blog.createTime)), | @Messages("blog.comment") (@Comments.clean @Comment.all(blog.id).size)@*| 收藏(0)*@
+						@Messages("blog.createAt",DateFormat.getDateInstance.format(blog.createTime)), | @Messages("blog.comment") (@noAuth.Comments.clean @Comment.all(blog.id).size)@*| 收藏(0)*@
 			    		<a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)" class="fullcontent">@Messages("blog.readFullBlog")</a>
 			    	</div>
 			    	

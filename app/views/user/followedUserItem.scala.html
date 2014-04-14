@@ -5,7 +5,7 @@
 				<td class="avatar"><a href="@noAuth.routes.Users.userPage(followUser.userId)" title=""><img src="@routes.Application.getPhoto(followUser.userPics)" align="middle"></a></td>
 				<td class="update">
 					<span class="name"><a href="@noAuth.routes.Users.userPage(followUser.userId)">@followUser.nickName</a></span><br>
-					<span class="city">@followUser.address.province &nbsp;@followUser.address.city</span>
+					<span class="city">@if(followUser.address.nonEmpty){@followUser.address.get.province}else{@null} &nbsp;@if(followUser.address.nonEmpty){@followUser.address.get.city}else{@null}</span>
 				</td>
 				<td class="opts">
 					@if(logged.equals(true) &&  MyFollow.checkIfFollow(loginUserId,followUser.id)){
