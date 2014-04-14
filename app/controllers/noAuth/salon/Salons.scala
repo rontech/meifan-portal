@@ -205,7 +205,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
     /**
      * 店铺注册
      */
-    def doRegister() = Action { implicit request =>
+    def register() = Action { implicit request =>
         val industry = Industry.findAll.toList
         salonRegister.bindFromRequest.fold(
         errors => BadRequest(views.html.salon.salonRegister(errors,industry)),

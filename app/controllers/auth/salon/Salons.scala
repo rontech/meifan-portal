@@ -20,6 +20,7 @@ import models.SalonAccount
 import scala.Some
 import models.CouponServiceType
 import se.radley.plugin.salat.Binders.ObjectId
+import controllers.noAuth.Styles
 
 object Salons extends Controller with LoginLogout with AuthElement with SalonAuthConfigImpl{
   
