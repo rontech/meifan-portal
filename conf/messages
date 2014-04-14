@@ -57,6 +57,8 @@ main.myPage=我的主页
 # Salon
 salon.salonLogin=店铺登录
 salon.register=店铺注册
+salon.basicInformation=店铺基本信息填写
+salon.detailInformation=店铺详细信息填写
 salon.tabName=美发沙龙
 salon.salonMainPage=美容美发沙龙检索首页
 salon.salonBasic=沙龙信息

@@ -63,7 +63,42 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             "success" -> "You've been logged out"
         ))
     }
+    
+    /**
+     * 基本信息完善页面
+     */
+    def salonBasic = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+      val salon = loggedIn
+      val salonInfo = noAuth.Salons.salonInfo.fill(salon)
+      val industry = Industry.findAll.toList
+      Ok(views.html.salon.salonBasic(salonInfo ,industry , salon))
+    }
 
+    /**
+     * 详细信息完善页面
+     */
+    def salonDetail = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+      val salon = loggedIn
+      val salonInfo = noAuth.Salons.salonInfo.fill(salon)
+      val industry = Industry.findAll.toList
+      Ok(views.html.salon.salonDetail(salonInfo ,industry , salon))
+    }
+    
+    /**
+     * 店铺信息完善
+     */
+    def informationConsum(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+        val salon = loggedIn
+        val industry = Industry.findAll.toList
+        noAuth.Salons.salonInfo.bindFromRequest.fold(
+        errors => BadRequest(views.html.error.errorMsg(errors)),
+        {
+            salon =>
+                Salon.save(salon.copy(id = id), WriteConcern.Safe)
+                Redirect(controllers.auth.routes.Salons.checkInfoState)
+        })
+    }
+    
     /**
      * 店铺基本信息修改页面
      *
@@ -74,7 +109,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         val industry = Industry.findAll.toList
         Ok(views.html.salon.admin.salonManage("",salonInfo ,industry , salon))
     }
-
+    
     /**
      * 店铺基本信息更新
      */
@@ -424,8 +459,10 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         )
     }
     
-    def checkInfoState = Action { 
-    		Ok(views.html.salon.checkInfostate(""))
+    def checkInfoState = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+        val salon = loggedIn
+        var counts:Int = 0 
+    	Ok(views.html.salon.checkInfostate(salon, counts))
     }
     
     def salonShowPics = Action{
