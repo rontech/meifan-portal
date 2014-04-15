@@ -278,7 +278,6 @@
 	</div>
 </div>
 }
-@views.html.salon.salonSwfupload("")
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
         <input type="text" name="@name" value="@value">
@@ -331,4 +330,4 @@
 }
 
     <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
-	<script src="@routes.Assets.at("javascripts/ajaxfileupload.js")" type="text/javascript"></script>
+	
