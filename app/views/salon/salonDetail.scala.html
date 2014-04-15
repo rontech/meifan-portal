@@ -1,8 +1,9 @@
 @(salonForm:Form[Salon],industry: List[Industry], salon: Salon)
 @import helper._
 @import helper.twitterBootstrap._
+@import views.html.salon.admin.mySalonMain
 
-@main(Messages("salon.detailInformation")){
+@mySalonMain("detailInformation",salon){
 	
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
 
@@ -12,7 +13,7 @@
 		</div>
 
 		<div class="mT10 pH10">
-			@helper.form(action = auth.routes.Salons.informationConsum(salon.id), args = 'id -> "salonForm"){
+			@helper.form(action = auth.routes.Salons.salonInfoConsum(salon.id), args = 'id -> "salonForm"){
 				
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
@@ -94,7 +95,7 @@
 				<div class="mT20 txtC">			
 					<input type = "submit" class = "buttons" value=@Messages("common.submit")>
 					<input type="reset" value=@Messages("common.reset")>
-					<a href = "/  "><input type="button" value=@Messages("common.backUp") ></a>
+					<a href = "@auth.routes.Salons.checkInfoState"><input type="button" value=@Messages("common.backUp") ></a>
 				</div>
 			}
 		</div>

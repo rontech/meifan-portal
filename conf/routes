@@ -269,7 +269,7 @@ GET         /addImage   									 controllers.auth.Salons.addImage
 GET         /salonPassword                                  controllers.auth.Salons.password
 GET			/salonBasic										controllers.auth.Salons.salonBasic
 GET			/salonDetail									controllers.auth.Salons.salonDetail
-POST        /salonConsum/:id                                 controllers.auth.Salons.informationConsum(id:ObjectId)
+POST        /salonConsum/:id                                 controllers.auth.Salons.salonInfoConsum(id:ObjectId)
 #POST        /changeSalonPassword/:id                         controllers.SalonInfo.salonChangePassword(id: ObjectId)
 #add bu lu-zheng
 GET         /mySalon/:id/createService                                 controllers.Services.serviceMain(id: ObjectId)
@@ -313,4 +313,6 @@ GET         /questions/                                                controlle
 
 # Reservation add by sangsang-hu
 GET        /salon/:salonId/reserve/schedule/:week                 controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
+
+GET			/salonRegisterMange									controllers.auth.Salons.salonRegister      
 
