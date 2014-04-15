@@ -10,6 +10,8 @@ import play.api.libs.iteratee.Enumerator
 import scala.concurrent.ExecutionContext
 import controllers.noAuth._
 import java.util.Date
+import routes.javascript._
+import play.api.Routes
 
 object Application extends Controller {
     def index = Action {
@@ -100,5 +102,9 @@ object Application extends Controller {
       age
     }
 
+            
+    def javascriptRoutes = Action { implicit request =>
+    	Ok(Routes.javascriptRouter("jsRoutes")(auth.routes.javascript.MyFollows.addFollow)).as("text/javascript")
+    }
         
 }

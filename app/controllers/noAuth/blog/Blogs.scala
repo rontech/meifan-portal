@@ -63,10 +63,10 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
    * 取得店铺指定年月的所有博客
    * Get all the blogs of the required month of a salon.
    */    
-  def getAllBlogsOfSalonByMonth(salonId: ObjectId, yyyymm: String) = StackAction { implicit request =>
+  def getAllBlogsOfSalonByMonth(salonId: ObjectId, month: String) = StackAction { implicit request =>
      val user = loggedIn
      val salon: Option[Salon] = Salon.findOneById(salonId)
-     var blogList = getBlogBySalonAndYM(salonId, yyyymm)
+     var blogList = getBlogBySalonAndYM(salonId, month)
      val listYM = getYMCatesOfSalon(salon.get)
      // navigation bar
      val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.blogs"), controllers.noAuth.Blogs.getAllBlogsOfSalon(salon.get.id).toString()))

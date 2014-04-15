@@ -93,4 +93,6 @@ object User extends ModelCompanion[User, ObjectId] {
      * 用于判断userId与当前用户是否互相关注(强关系)
      */
     def isFriend(userId: ObjectId)(user: User): Future[Boolean] = Future { (userId == user.id) || MyFollow.followEachOther(userId, user.id) }
+    
+    def findBeautyUsers = dao.find(MongoDBObject.empty).toList.sortBy(user =>user.activity)
 }

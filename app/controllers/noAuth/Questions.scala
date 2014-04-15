@@ -1,14 +1,9 @@
-package controllers
+package controllers.noAuth
 
-import play.api._
 import play.api.mvc._
-import models.Style
-import play.api.data._
-import play.api.data.Forms._
 import com.mongodb.casbah.commons.Imports._
 import models._
 import views._
-import java.util.Date
 
 // TODO
 // should be moved to under the noAuth folder.

@@ -10,8 +10,6 @@ import ExecutionContext.Implicits.global
 import controllers._
 import java.util.Date
 import java.util.Calendar
-import routes.javascript._
-import play.api.Routes
 
 object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
 
@@ -36,13 +34,10 @@ object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
                 	UserMessage.sendFollowMsg(user, followId, followObjType)
                 Ok("false")
             }
-            case true => Ok("true")
+            case true => 
+                Ok("true")
         }
     }
-        
-    def javascriptRoutes = Action { implicit request =>
-    	Ok(Routes.javascriptRouter("jsRoutes")(routes.javascript.MyFollows.addFollow)).as("text/javascript")
-  }
     
     /**
      * 收藏的优惠劵
