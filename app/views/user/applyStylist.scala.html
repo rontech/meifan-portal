@@ -14,7 +14,20 @@
 		<div id="apply_message">
 			<p>@Messages("user.applyStylistMessage_1")<span id="times">5</span>@Messages("user.applyStylistMessage_2")<a href="javascript:go('')"></a>@Messages("user.applyStylistMessage_3")</p>
 		</div>
-		
+		<script language="javascript" type="text/javascript">
+			var timer = null;
+        	var i=5;
+			timer=window.setInterval('showTimes()',1000);
+			setTimeout("go()", 5000);
+			function showTimes(){
+	        		document.getElementById("times").innerHTML=i;
+	        		i--;
+	        		if(i==0){
+	        			window.clearInterval(timer);
+	        			go();
+	        		}
+	        }
+		</script>
 	}else{
       <div class="row">
         <div class="span14">
