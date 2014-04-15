@@ -153,7 +153,6 @@ GET         /myPage/salon                                                   cont
 # TODO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 GET         /updateStylistImage                                             controllers.auth.Stylists.updateStylistImage
 POST        /toUpdateStylistImage                                           controllers.auth.Stylists.toUpdateStylistImage
-POST        /myPage/fileUploadAction                                        controllers.auth.Stylists.fileUploadAction
 GET         /saveStylistImg/:imgId                                          controllers.auth.Stylists.saveStylistImg(imgId: ObjectId)
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 GET         /myPage/StylistInfo                                             controllers.auth.Stylists.stylistInfo
@@ -249,3 +248,6 @@ GET         /assets/*file                                                   cont
 
 #salon logo picture update by douping
 GET         /mySalon/salonLogoPicture                                       controllers.auth.Salons.salonLogoPicture
+
+#swf fileupload by douping
+POST         /imagesUpload                                                  controllers.Application.fileUploadAction()

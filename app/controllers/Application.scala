@@ -113,4 +113,22 @@ object Application extends Controller {
       val age = time/1000/3600/24/365
       age
     }
+    
+    /**
+     *  ajax fileupload 输出图片id到页面对应区域
+     */
+    def fileUploadAction = Action(parse.multipartFormData) { implicit request =>
+    request.body.file("Filedata") match {
+            case Some(photo) =>{
+            	val db = MongoConnection()("Picture")
+                val gridFs = GridFS(db)
+                val uploadedFile = gridFs.createFile(photo.ref.file)
+                uploadedFile.contentType = photo.contentType.orNull
+                uploadedFile.save()
+                Ok(uploadedFile._id.get.toString)
+            }    
+            case None => BadRequest("no photo")
+        }
+    
+    }
 }
