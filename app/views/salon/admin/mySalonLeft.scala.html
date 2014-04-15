@@ -42,9 +42,18 @@
 			<div class='Mod Users' id='Fans'>
 	   			<strong>@Messages("salonAdmin.infoManagement")</strong>
 	   			<div class='more'>
-		 			<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)">
-		 				<span>@salon.salonName</span>
-		 			</a>
+		 			<a href="@auth.routes.Salons.salonRegister">
+		 				<span>@Messages("salonCheckInfoState.register")</span>
+		 			</a><br />
+		 			<a href="@auth.routes.Salons.salonBasic">
+		 				<span>@Messages("salonCheckInfoState.basicInfo")</span>
+		 			</a><br />
+		 			<a href="@auth.routes.Salons.salonDetail">
+		 				<span>@Messages("salonCheckInfoState.detail")</span>
+		 			</a><br />
+		 			<a href="@auth.routes.Salons.salonShowPics">
+		 				<span>@Messages("salonCheckInfoState.pictures")</span>
+		 			</a>		 					 					 			
 		 		</div>	
 		 		
 			</div>

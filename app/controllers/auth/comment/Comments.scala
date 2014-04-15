@@ -99,6 +99,7 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
           case (content) =>
 	        Comment.reply(user.userId, content, commentObjId, commentObjType) 
 	        Redirect(noAuth.routes.Blogs.getOneBlogById(blogId))
+
         } 
       )
   }

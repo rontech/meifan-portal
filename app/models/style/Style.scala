@@ -324,27 +324,6 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
     }
 
     /**
-     * 后台发型更新
-     */
-    def updateStyle(style: models.Style) = {
-        dao.update(MongoDBObject("_id" -> style.id), MongoDBObject("$set" -> (
-            MongoDBObject("styleName" -> style.styleName) ++
-            MongoDBObject("stylePic" -> style.stylePic) ++
-            MongoDBObject("styleLength" -> style.styleLength) ++
-            MongoDBObject("styleColor" -> style.styleColor) ++
-            MongoDBObject("styleImpression" -> style.styleImpression) ++
-            MongoDBObject("serviceType" -> style.serviceType) ++
-            MongoDBObject("styleAmount" -> style.styleAmount) ++
-            MongoDBObject("styleQuality" -> style.styleQuality) ++
-            MongoDBObject("styleDiameter" -> style.styleDiameter) ++
-            MongoDBObject("faceShape" -> style.faceShape) ++
-            MongoDBObject("consumerSocialStatus" -> style.consumerSocialStatus) ++
-            MongoDBObject("consumerSex" -> style.consumerSex) ++
-            MongoDBObject("consumerAgeGroup" -> style.consumerAgeGroup) ++
-            MongoDBObject("description" -> style.description))))
-    }
-
-    /**
      * 获取发型检索字段的主表信息
      */
     def findParaAll = {

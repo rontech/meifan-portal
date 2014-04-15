@@ -63,7 +63,7 @@ body{font:12px/180% Arial,Lucida,Verdana,"宋体",Helvetica,sans-serif;color:#33
 
 /* batch-pic */
 .batch-pic{padding:20px 0 0 5px;height:280px;position:relative;}
-.batch-pic li{width:120px;height:190px;float:left;position:relative;margin:40px 12px 0 30px;display:inline;}
+.batch-pic li{width:120px;float:left;position:relative;margin:10px 12px 0 30px;display:inline;}
 .batch-pic li .p-pic{border:solid 1px #d8d8d8;height:150px;overflow:hidden;}
 .batch-pic li .p-pic img{width:120px;height:150px;}
 .batch-pic li .p-des{height:28px;line-height:28px;overflow:hidden;text-align:center;color:#5e5e5e;}
@@ -80,4 +80,8 @@ body{font:12px/180% Arial,Lucida,Verdana,"宋体",Helvetica,sans-serif;color:#33
 }
 .addOtherStylePic,.salonPic_template,.imgShowPriority,.styleUpdate_picuse{
 	display:none;
+}
+.picture-show-description{
+	clear:left;
+	margin-left: 180px;
 }

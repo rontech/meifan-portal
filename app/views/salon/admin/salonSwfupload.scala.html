@@ -75,7 +75,13 @@
             $('.salonPic').each(function(i) {
                 $('input', this).each(function() {
                     $(this).attr('name', $(this).attr('name').replace(/salonPics\[.+?\]/g, 'salonPics[' + i + ']'))
-                })
+                });
+                $('select', this).each(function() {
+                    $(this).attr('name', $(this).attr('name').replace(/salonPics\[.+?\]/g, 'salonPics[' + i + ']'))
+                });
+                $('textarea', this).each(function() {
+                    $(this).attr('name', $(this).attr('name').replace(/salonPics\[.+?\]/g, 'salonPics[' + i + ']'))
+                });
             })
         }
 
@@ -128,7 +134,7 @@
     		var settings = {
     			flash_url : "@routes.Assets.at("javascripts/swfupload/swfupload.swf")",
     			flash9_url : "@routes.Assets.at("javascripts/swfupload/swfupload_fp9.swf")",
-    			upload_url: "/fileUploadAction",// 接受上传的地址
+    			upload_url: "/imagesUpload",// 接受上传的地址
     			file_post_name : "Filedata",
     			file_size_limit : "2 MB",// 文件大小限制
     			file_types : "*.jpg;*.gif;*.png;*.jpeg;",// 限制文件类型
@@ -163,13 +169,13 @@
     			upload_success_handler : function(file, data, response) {
     				// 上传成功后处理函数
     				
-    				var template = $('.optContactMethod_template');
+    				var template = $('.salonPic_template');
 		            var listEls = $('.batch-pic');
 		    		var innerHtml = 
 		    		'<li>'+
 		    			'<div class="delete-pic"></div>'+
 		    			"<div class='p-pic'><img src='/getPhoto/"+data+"' /></div>"+
-		    			'<div class="addstyles-byStylist twipsies well optContactMethod">' + template.html() + '</div>'+
+		    			'<div class="addstyles-byStylist twipsies well salonPic">' + template.html() + '</div>'+
 		    		'</li>';
 		    		listEls.find('ul').append(innerHtml);
 		    		initImageListFn();

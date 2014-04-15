@@ -216,7 +216,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
                 errors => BadRequest(views.html.index("")),
                 {
                     case (styleUpdateForm) => {
-                        Style.updateStyle(styleUpdateForm)
+                        Style.save(styleUpdateForm.copy(id=styleUpdateForm.id), WriteConcern.Safe)
                         Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
                     }
                 })
@@ -245,7 +245,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
         val followInfo = MyFollow.getAllFollowInfo(user.id)
         var stylists: List[Stylist] = Nil
         stylists :::= stylist.toList
-        Ok(views.html.stylist.management.addStyleByStylist(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = stylist.get, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, stylists = stylists, isStylist = true))
+        Ok(views.html.stylist.management.addStyleByStylist(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, stylists = stylists, isStylist = true))
     }
     
     /**
@@ -271,23 +271,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
           
     }
     
-    /**
-     *  ajax fileupload 输出图片id到页面对应区域
-     */
-    def fileUploadAction = Action(parse.multipartFormData) { implicit request =>
-    request.body.file("Filedata") match {
-            case Some(photo) =>{
-            	val db = MongoConnection()("Picture")
-                val gridFs = GridFS(db)
-                val uploadedFile = gridFs.createFile(photo.ref.file)
-                uploadedFile.contentType = photo.contentType.orNull
-                uploadedFile.save()
-                Ok(uploadedFile._id.get.toString)
-            }    
-            case None => BadRequest("no photo")
-        }
     
-  }
     
   def findStylistApplying = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
 	  val user = loggedIn
