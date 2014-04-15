@@ -239,6 +239,9 @@ GET         /reservFinish                                                   cont
 GET         /reservConfirmInfo                                              controllers.Reservations.reservConfirmInfo
 GET         /salon/:salonId/reserve/schedule/:week                          controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
+# MyFollows
+GET 	      /javascriptRoutes               						                    controllers.Application.javascriptRoutes
+
 GET			/salonRegisterMange									controllers.auth.Salons.salonRegister      
 
 # Map static resources from the /public folder to the /assets URL path
