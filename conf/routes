@@ -257,3 +257,6 @@ POST       /forgotPassword                                                  cont
 GET        /resetPwd                                                        controllers.Mails.password(uuid : String)
 POST       /resetPwd                                                        controllers.Mails.resetPassword(uuid : String)
 
+#add salonPics 
+POST       /mySalon/updatepictures                                  		controllers.auth.Salons.updateSalonPics
+

@@ -573,5 +573,18 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
       val salonInfo = salonInfoForm.fill(salon)
       Ok(views.html.salon.admin.salonLogoPicture(salon, salonInfo))
     }
+    
+    def updateSalonPics = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    	val salon = loggedIn
+    	val industry = Industry.findAll.toList
+    	salonInfoForm.bindFromRequest.fold(
+        errors => BadRequest(views.html.salon.admin.salonManage("",errors,industry,salon)),
+        {
+            salonInfo =>
+                Salon.save(salon.copy(salonPics = salonInfo.salonPics), WriteConcern.Safe)
+                Redirect(routes.Salons.checkInfoState)
+        })
+        
+    }
 }
 
