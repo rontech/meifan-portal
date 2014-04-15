@@ -1,4 +1,4 @@
-@(resetPassForm: Form[(User,String)], userId : String, uuid : String)
+@(mailAndUserIdForm: Form[Option[User]])
 
 	@import helper._
 
@@ -18,19 +18,19 @@
 						<dd class="mT5 pT5">
 							<div class="pr">
 								<dl class="lh30">
-									@form(action = routes.Mails.resetPassword(uuid), 'method ->"post"){										
+									@form(action = routes.Mails.sendMailForResetPwd(), 'method ->"post"){
+										
 										<dd class="mT5 pT5">
 											<div class="pr">
 												<dl class="lh30">
-												<input type="hidden" name="user.userId" value = "@userId">
-													<dt class="dibBL vaM w150 b fl">@Messages("user.newPassword")</dt>
+													<dt class="dibBL vaM w150 b fl">@Messages("user.name")</dt>
 													<dd class="dibBL vaM w280">
-														
-														@inputPassword(resetPassForm("newPassword.main"),'_label -> None)
+														@inputText(mailAndUserIdForm("userId"),'_label -> None, '_help -> "")
 													</dd>
-													<dt class="dibBL vaM w150 b fl">@Messages("user.confirmPas")</dt>
+													<dt class="dibBL vaM w150 b fl">@Messages("user.email")</dt>
 													<dd class="dibBL vaM w280">
-														@inputPassword(resetPassForm("newPassword.confirm"),'_label -> None,'_error -> resetPassForm.error("newPassword"))
+														@inputText(mailAndUserIdForm("email"),'_label -> None,'_help -> "",
+            												'_error -> mailAndUserIdForm.globalError.map(_.withMessage(Messages("user.resetErr"))))
 													</dd>
 												</dl>
 											</div>
