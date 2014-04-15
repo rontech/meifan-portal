@@ -87,6 +87,7 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
   
   def otherHomePage(stylistId: ObjectId) = StackAction { implicit request =>
      val user = User.findOneById(stylistId).get
+     /*
      val followInfo = MyFollow.getAllFollowInfo(user.id)
      val stylist = Stylist.findOneByStylistId(stylistId).get
      val styles = Style.findByStylistId(stylistId)
@@ -97,8 +98,8 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
        Ok(views.html.stylist.management.OtherHomePage(user = user, followInfo = followInfo, loginUserId = loginUser.id, logged = true,  latestBlog = blog, stylist = stylist, styles = styles ))
      }getOrElse{
        Ok(views.html.stylist.management.OtherHomePage(user = user, followInfo = followInfo, loginUserId = new ObjectId, logged = false,  latestBlog = blog, stylist = stylist, styles = styles ))
-     }
-     
+     }*/
+     Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
      
   }
   

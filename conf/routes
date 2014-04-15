@@ -152,7 +152,6 @@ GET         /myPage/salon                                                   cont
 # TODO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 GET         /updateStylistImage                                             controllers.auth.Stylists.updateStylistImage
 POST        /toUpdateStylistImage                                           controllers.auth.Stylists.toUpdateStylistImage
-POST        /myPage/fileUploadAction                                        controllers.auth.Stylists.fileUploadAction
 GET         /saveStylistImg/:imgId                                          controllers.auth.Stylists.saveStylistImg(imgId: ObjectId)
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 GET         /myPage/StylistInfo                                             controllers.auth.Stylists.stylistInfo
@@ -170,7 +169,6 @@ GET         /myPage/removeSalon/:salonId                                    cont
 # pages which can only be seen by logined salon.
 #-------------------------------------------------
 #Salon Management
-
 GET         /mySalon/Info                                                   controllers.auth.Salons.salonInfoManage
 POST        /mySalon/updateInfo                                             controllers.auth.Salons.update(salonId: ObjectId)
 GET         /mySalon/updateLogo                                             controllers.auth.Salons.saveSalonImg(imgId: ObjectId)
@@ -197,8 +195,9 @@ GET         /mySalon/salonShowPics                                          cont
 
 GET			/salonBasic										controllers.auth.Salons.salonBasic
 GET			/salonDetail									controllers.auth.Salons.salonDetail
-POST        /salonConsum/:id                                 controllers.auth.Salons.informationConsum(id:ObjectId)
+POST        /salonConsum/:id                                 controllers.auth.Salons.salonInfoConsum(id:ObjectId)
 #POST        /changeSalonPassword/:id                         controllers.SalonInfo.salonChangePassword(id: ObjectId)
+
 
 # Coupon
 GET         /mySalon/createCoupon                                           controllers.auth.Coupons.couponMain
@@ -240,5 +239,14 @@ GET         /reservFinish                                                   cont
 GET         /reservConfirmInfo                                              controllers.Reservations.reservConfirmInfo
 GET         /salon/:salonId/reserve/schedule/:week                          controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
+GET			/salonRegisterMange									controllers.auth.Salons.salonRegister      
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                   controllers.Assets.at(path="/public", file)
+
+
+#salon logo picture update by douping
+GET         /mySalon/salonLogoPicture                                       controllers.auth.Salons.salonLogoPicture
+
+#swf fileupload by douping
+POST         /imagesUpload                                                  controllers.Application.fileUploadAction()
