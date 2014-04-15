@@ -1,4 +1,4 @@
-@(styles: Seq[Style], styleSearchForm: Form[Style], stylePara: models.StylePara, user: Option[User])
+@(styleSearchForm: Form[Style], stylePara: models.StylePara, user: Option[User])
 
 <!--
     TODO
@@ -36,7 +36,7 @@
             @views.html.style.general.styleSearch(styleSearchForm, stylePara)
             
             <!-- Style Search By Ranking. -->    
-            @views.html.style.general.searchByRanking(styles)
+            @views.html.style.general.searchByRanking()
 
             <!-- Style Search By Length For Women. -->
             <div class="mT40">
