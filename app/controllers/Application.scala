@@ -10,6 +10,10 @@ import play.api.libs.iteratee.Enumerator
 import scala.concurrent.ExecutionContext
 import controllers.noAuth._
 import java.util.Date
+import java.io.File
+import java.io.InputStream
+import java.io.ByteArrayOutputStream
+import java.io.FileInputStream
 
 object Application extends Controller {
     def index = Action {
@@ -49,7 +53,12 @@ object Application extends Controller {
                     DATE -> new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", java.util.Locale.US).format(f.uploadDate))),
                 Enumerator.fromStream(f.inputStream))
 
-            case None => NotFound
+            case None => {
+              val fi = new File(play.Play.application().path() + "/public/images/user/dafaultLog/portrait.png")
+              var in = new FileInputStream(fi)
+              var bytes = Image.fileToBytes(in)
+              Ok(bytes)
+            }
         }
     }
     
@@ -71,7 +80,12 @@ object Application extends Controller {
                     DATE -> new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", java.util.Locale.US).format(f.uploadDate))),
                 Enumerator.fromStream(f.inputStream))
 
-            case None => NotFound
+            case None => {
+              val fi = new File(play.Play.application().path() + "/public/images/user/dafaultLog/portrait.png")
+              var in = new FileInputStream(fi)
+              var bytes = Image.fileToBytes(in)
+              Ok(bytes)
+            }
         }
     }
 
@@ -99,6 +113,22 @@ object Application extends Controller {
       val age = time/1000/3600/24/365
       age
     }
-
-        
+    
+    /**
+     *  ajax fileupload 输出图片id到页面对应区域
+     */
+    def fileUploadAction = Action(parse.multipartFormData) { implicit request =>
+    request.body.file("Filedata") match {
+            case Some(photo) =>{
+            	val db = MongoConnection()("Picture")
+                val gridFs = GridFS(db)
+                val uploadedFile = gridFs.createFile(photo.ref.file)
+                uploadedFile.contentType = photo.contentType.orNull
+                uploadedFile.save()
+                Ok(uploadedFile._id.get.toString)
+            }    
+            case None => BadRequest("no photo")
+        }
+    
+    }
 }
