@@ -28,7 +28,7 @@ trait UserAuthConfigImpl extends AuthConfig {
   }
   def logoutSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Redirect(routes.Application.index))
 
-    def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful {
+  def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful {
         request.headers.get("X-Requested-With") match {
             case Some("XMLHttpRequest") => Unauthorized("Authentication failed")
             case _ => Redirect(routes.Application.login).withSession("user_access_uri" -> request.uri)
