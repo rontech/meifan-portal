@@ -26,7 +26,7 @@
                                 <div id="index_zxfx_pic">
                                     <ul>
                                         <li class="g1">
-                                            1位
+                                            @Messages("style.ranking.first")
                                         </li>
                                         <li class="one">
                                             <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRanking(0).stylistId).get.id, Style.findByRanking(0).id)">
@@ -51,7 +51,7 @@
                                     <div id="index_zxfx_pic">
                                         <ul>
                                             <li class="g2">
-                                                2位
+                                                @Messages("style.ranking.second")
                                             </li>
                                             <li class="one">
                                                 <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRanking(1).stylistId).get.id, Style.findByRanking(1).id)">
