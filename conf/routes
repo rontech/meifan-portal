@@ -64,7 +64,6 @@ GET         /salon/:salonId/blog/:blogId                                    cont
 
 # Style
 GET         /style                                                          controllers.noAuth.Styles.index
-#GET         /style/:id                                               controllers.noAuth.Styles.findById(id: ObjectId)
 POST        /style/searchPage                                               controllers.noAuth.Styles.styleSearchList
 GET         /style/length/:styleLength/:consumerSex                         controllers.noAuth.Styles.findByLength(styleLength: String, consumerSex: String)
 GET         /style/impression/:styleImpression/:consumerSex                 controllers.noAuth.Styles.findByImpression(styleImpression: String, consumerSex: String)

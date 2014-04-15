@@ -650,6 +650,10 @@ system.siteMessages=系统通知
 # Common Questions
 questions.common=常见问题
 
+# 排名
+style.ranking.first=1位
+style.ranking.second=2位
+
 
 
 #-------------------------------
