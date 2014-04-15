@@ -81,6 +81,13 @@ object User extends ModelCompanion[User, ObjectId] {
             return None
         }
     }
+    
+    /**
+     * 通过邮箱重置密码时需要输入以下两个值，判断他们在数据库中是否存在
+     */
+    def findOneByUserIdAndEmail(userId: String, email: String): Option[User] = {
+        dao.findOne(MongoDBObject("userId" -> userId, "email" -> email))
+    }
 
     /**
      * 权限认证

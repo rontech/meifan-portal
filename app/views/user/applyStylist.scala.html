@@ -2,7 +2,7 @@
 @import helper._
 
 @myPageMain(navInMyPage = "my-reservation",user, followInfo, user.id, true){
-	<body onload="success()">
+	<body>
 	<div class="container">
 
     <div class="content">
@@ -12,8 +12,22 @@
       </div>
 	@if(isCommit){
 		<div id="apply_message">
-			<p>@Messages("user.applyStylistMessage_1")<sapn>5</sapn>@Messages("user.applyStylistMessage_2")<a href="javascript:go('')"></a>@Messages("user.applyStylistMessage_3")</p>
+			<p>@Messages("user.applyStylistMessage_1")<span id="times">5</span>@Messages("user.applyStylistMessage_2")<a href="javascript:go('')"></a>@Messages("user.applyStylistMessage_3")</p>
 		</div>
+		<script language="javascript" type="text/javascript">
+			var timer = null;
+        	var i=5;
+			timer=window.setInterval('showTimes()',1000);
+			setTimeout("go()", 5000);
+			function showTimes(){
+	        		document.getElementById("times").innerHTML=i;
+	        		i--;
+	        		if(i==0){
+	        			window.clearInterval(timer);
+	        			go();
+	        		}
+	        }
+		</script>
 	}else{
       <div class="row">
         <div class="span14">
@@ -34,7 +48,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@inputText(stylistApplyForm("stylist.workYears"), '_label -> None, 'class ->  "font1")
+			                	@inputText(stylistApplyForm("stylist.workYears"), '_label -> None, 'class ->  "font1",'_help -> Messages(""))
 			                </div>
 			            </td>
 					</tr>
@@ -243,7 +257,11 @@
 		<div class="industry">
         @select(
                 field("industryName"), 
-                options = options(goodAtStylePara.industry),
+                options = options("Hairdressing"-> Messages("industry.industryName.Hairdressing"),
+                	"Manicures" -> Messages("industry.industryName.Manicures"),
+                	"Healthcare" -> Messages("industry.industryName.Healthcare"),
+                	"Cosmetic" -> Messages("industry.industryName.Cosmetic")
+                	),
                 'placeholder -> Messages("industy"),
                 '_default -> Messages("ChooseIndustry"),
                 '_label -> None
@@ -284,22 +302,8 @@
             })
         }
 
-        var timer = null;
-        var i=5;
-        function success(){
-        	timer=window.setInterval(showTimes(),1000);
-        	//window.setTimeout(go(salonId),6000);
-        }
         function go() {//定义函数
         	window.location="/myPage";//页面跳转
-         }
-        function showTimes(sid){
-        		document.getElementById("times").innerHTML=i;
-        		i--;
-        		if(i==0){
-        			window.clearInterval(timer);
-        			go();
-        		}
         }
         
 </script>

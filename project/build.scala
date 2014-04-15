@@ -13,7 +13,10 @@ object ApplicationBuild extends Build {
     "jp.t2v" %% "play2-auth"      % "0.11.0",
     "jp.t2v" %% "play2-auth-test" % "0.11.0" % "test",
     
-    "org.mindrot" % "jbcrypt" % "0.3m"
+    "org.mindrot" % "jbcrypt" % "0.3m",
+    
+    // Add by wu for mail 
+    "com.typesafe" %% "play-plugins-mailer" % "2.2.0"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(

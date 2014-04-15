@@ -55,7 +55,7 @@
 									</div>
 								</dd>
 								<dt class="fl fgLGray2 b">@Messages("salon.seatNums")</dt>
-								<dd class="fl w80"><div class="mL10">@Messages("salon.seatNumsMsg", salon.seatNums)</div></dd>
+								<dd class="fl w80"><div class="mL10">@Messages("salon.seatNumsMsg", salon.seatNums.map{num => num})</div></dd>
 								</dl>
 								<dl class="cFix mB2">
 								<dt class="fl fgLGray2 b">@Messages("salon.stylistNums")</dt>
@@ -116,8 +116,8 @@
 				 	@*技师对来自店铺邀请做操作*@
 				 	@if((!SalonAndStylist.checkSalonAndStylistValid(salon.id, user.id)) && (isStylistApply == false)){
 						<p>
-					    	<a href="@auth.Stylists.agreeSalonApply(salon.id)">@Messages("stylist.acceptApply")</a>|
-					    	<a href="@auth.Stylists.rejectSalonApply(salon.id)">@Messages("stylist.rejectApply")</a>
+					    	<a href="@auth.routes.Stylists.agreeSalonApply(salon.id)">@Messages("stylist.acceptApply")</a>|
+					    	<a href="@auth.routes.Stylists.rejectSalonApply(salon.id)">@Messages("stylist.rejectApply")</a>
 				    	</p>          
 					}
 					@*技师取消自己的申请*@ 
