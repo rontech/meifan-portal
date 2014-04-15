@@ -251,4 +251,17 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
     }
     
     def isOwner(stylistId: ObjectId)(user:User) : Future[Boolean] = Future{User.findOneById(stylistId).map(_ == user).get}
+    
+    def findRecommendStylists:List[Stylist] = {
+        var stylists:List[Stylist] = Nil
+        SalonAndStylist.findAll.toList.map{releation =>
+          if(releation.isValid){
+        	  val stylist = Stylist.findOneByStylistId(releation.stylistId).get
+        	  stylists :::= List(stylist)
+        	  if(stylists.length == 4)
+        	    return stylists
+          }else Nil 
+        }
+        stylists
+    }
 }

@@ -30,7 +30,11 @@
 		<div class="industry">
         @select(
                 field("industryName"), 
-                options = options(goodAtStylePara.industry),
+                options = options("Hairdressing"-> Messages("industry.industryName.Hairdressing"),
+                	"Manicures" -> Messages("industry.industryName.Manicures"),
+                	"Healthcare" -> Messages("industry.industryName.Healthcare"),
+                	"Cosmetic" -> Messages("industry.industryName.Cosmetic")
+                	),
                 '_default -> Messages("ChooseIndustry"),
                 '_label -> Messages("industy")
                 
@@ -287,6 +291,5 @@
                 
             })
         }
-        
-    </script>
+   </script>
 }
