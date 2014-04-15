@@ -90,39 +90,44 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
             MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgId))),false,true)
     }
     
+    /**
+     * Temp Method for initial sample data in Global.scala.
+     */
     def updateSalonShow(salon: Salon, imgIdList: List[ObjectId]) = {
            
-      if(imgIdList.length > 2) {
+      if(imgIdList.length > 2 && !salon.salonPics.isEmpty && salon.salonPics.length > 3) {
           dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate", "salonPics.fileObjId" -> salon.salonPics(3).fileObjId), 
             MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(2)))),false,true)
       }
       
-      if(imgIdList.length > 1) {
+      if(imgIdList.length > 1 && !salon.salonPics.isEmpty && salon.salonPics.length > 2) {
           dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate", "salonPics.fileObjId" -> salon.salonPics(2).fileObjId), 
             MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(1)))),false,true)
       }
       
-      if(imgIdList.length > 0) {
+      if(imgIdList.length > 0 && !salon.salonPics.isEmpty && salon.salonPics.length > 1) {
           dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate", "salonPics.fileObjId" -> salon.salonPics(1).fileObjId), 
             MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(0)))),false,true)
       }
-
             
     }    
     
+    /**
+     * Temp Method for initial sample data in Global.scala.
+     */
     def updateSalonAtom(salon: Salon, imgIdList: List[ObjectId]) = {
            
-      if(imgIdList.length > 2) {
+      if(imgIdList.length > 2 && !salon.salonPics.isEmpty && salon.salonPics.length > 6) {
           dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Atmosphere", "salonPics.fileObjId" -> salon.salonPics(6).fileObjId), 
             MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(2)))),false,true)
       }
       
-      if(imgIdList.length > 1) {
+      if(imgIdList.length > 1 && !salon.salonPics.isEmpty && salon.salonPics.length > 5) {
           dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Atmosphere", "salonPics.fileObjId" -> salon.salonPics(5).fileObjId), 
             MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(1)))),false,true)
       }
       
-      if(imgIdList.length > 0) {
+      if(imgIdList.length > 0 && !salon.salonPics.isEmpty && salon.salonPics.length > 4) {
           dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Atmosphere", "salonPics.fileObjId" -> salon.salonPics(4).fileObjId), 
             MongoDBObject("$set" -> ( MongoDBObject("salonPics.$.fileObjId" ->  imgIdList(0)))),false,true)
       }
@@ -144,6 +149,27 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
     def checkImgIsExist(salon: Salon): Boolean = {
         salon.salonPics.exists(a => a.picUse.equals("Navigate")) && salon.salonPics.exists(a => a.picUse.equals("Atmosphere"))
     }
+
+    /**
+     * Fuzzy search to salon: can search by salon name, salon abbr name, salonDescription, picDescription...... 
+     * TODO:
+     *     For now, only consider multi-keywords separated by blank, 
+     *     Not consider the way that deviding keyword into multi-keywords automatically. 
+     */
+    def findSalonByFuzzyConds(keyword: String): List[Salon] = {
+        val kws = keyword.split(" ").map { x => (".*" + x.trim + ".*").r}
+        // fields which search from 
+        val searchFields = Array("salonName", "salonNameAbbr", "salonDescription", "picDescription")
+        var rst: List[Salon] = Nil
+        kws.map { kw =>
+            searchFields.map { sf => 
+                var s = dao.find(MongoDBObject(sf -> kw)).toList
+                rst :::= s
+            }
+        }
+        rst.distinct
+    }
+
 }
 
 /*----------------------------
