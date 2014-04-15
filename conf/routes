@@ -197,7 +197,7 @@ GET         /mySalon/salonShowPics                                          cont
 
 GET			/salonBasic										controllers.auth.Salons.salonBasic
 GET			/salonDetail									controllers.auth.Salons.salonDetail
-POST        /salonConsum/:id                                 controllers.auth.Salons.informationConsum(id:ObjectId)
+POST        /salonConsum/:id                                 controllers.auth.Salons.salonInfoConsum(id:ObjectId)
 #POST        /changeSalonPassword/:id                         controllers.SalonInfo.salonChangePassword(id: ObjectId)
 
 
@@ -241,8 +241,11 @@ GET         /reservFinish                                                   cont
 GET         /reservConfirmInfo                                              controllers.Reservations.reservConfirmInfo
 GET         /salon/:salonId/reserve/schedule/:week                          controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
+GET			/salonRegisterMange									controllers.auth.Salons.salonRegister      
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                   controllers.Assets.at(path="/public", file)
+
 
 #salon logo picture update by douping
 GET         /mySalon/salonLogoPicture                                       controllers.auth.Salons.salonLogoPicture

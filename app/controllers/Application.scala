@@ -10,6 +10,10 @@ import play.api.libs.iteratee.Enumerator
 import scala.concurrent.ExecutionContext
 import controllers.noAuth._
 import java.util.Date
+import java.io.File
+import java.io.InputStream
+import java.io.ByteArrayOutputStream
+import java.io.FileInputStream
 
 object Application extends Controller {
     def index = Action {
@@ -49,7 +53,12 @@ object Application extends Controller {
                     DATE -> new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", java.util.Locale.US).format(f.uploadDate))),
                 Enumerator.fromStream(f.inputStream))
 
-            case None => NotFound
+            case None => {
+              val fi = new File(play.Play.application().path() + "/public/images/user/dafaultLog/portrait.png")
+              var in = new FileInputStream(fi)
+              var bytes = Image.fileToBytes(in)
+              Ok(bytes)
+            }
         }
     }
     
@@ -71,7 +80,12 @@ object Application extends Controller {
                     DATE -> new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", java.util.Locale.US).format(f.uploadDate))),
                 Enumerator.fromStream(f.inputStream))
 
-            case None => NotFound
+            case None => {
+              val fi = new File(play.Play.application().path() + "/public/images/user/dafaultLog/portrait.png")
+              var in = new FileInputStream(fi)
+              var bytes = Image.fileToBytes(in)
+              Ok(bytes)
+            }
         }
     }
 
@@ -99,6 +113,4 @@ object Application extends Controller {
       val age = time/1000/3600/24/365
       age
     }
-
-        
 }

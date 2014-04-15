@@ -29,7 +29,7 @@
                 </td>
                 <td>
 	                <i class="iconfont greenfont">
-                    Ż
+                    
                     </i>
                     @Messages("salonCheckInfoState.finish")
 	            </td>
@@ -46,12 +46,12 @@
                 <td>
 	                @if(Salon.checkBasicInfoIsFill(salon)){
 	                	<i class="iconfont greenfont">
-                        Ż
+                        
                     	</i>
                     	@Messages("salonCheckInfoState.finish")
                     }else{
 	                	<i class="iconfont redfont">
-                        ź
+                        
                     	</i>
                     	@Messages("salonCheckInfoState.needTodo")
                     	
@@ -76,12 +76,12 @@
                 <td>
 	                @if(Salon.checkDetailIsFill(salon)){
 	                	<i class="iconfont greenfont">
-                        Ż
+                        
                     	</i>
                     	@Messages("salonCheckInfoState.finish")
                     }else{
 	                	<i class="iconfont redfont">
-                        ź
+                        
                     	</i>
                     	@Messages("salonCheckInfoState.needTodo")
                     	
@@ -106,12 +106,12 @@
                 <td>
 	                @if(Salon.checkImgIsExist(salon)){
 	                	<i class="iconfont greenfont">
-                        Ż
+                        
                     	</i>
                     	@Messages("salonCheckInfoState.finish")
 	                }else{
 	                	<i class="iconfont redfont">
-                        ź
+                        
                     	</i>
                     	@Messages("salonCheckInfoState.needTodo")
                     	
@@ -139,7 +139,7 @@
 	            	@counts
 	            </em>
 	            @Messages("salonCheckInfoState.cannotApply")
-	            <a href="#">
+	            <a href="@noAuth.routes.Questions.getAllQuestions()">
 	            	@Messages("main.help")
 	            </a>	
             }
@@ -152,6 +152,7 @@
 	.redfont{
 		background-image: url('@routes.Assets.at("images/swfupload/redfont.JPG")');
 		background-repeat: no-repeat;
+		background-position:10px 0;
 	}
 	.greenfont{
 		background-image: url('@routes.Assets.at("images/swfupload/tick.png")');

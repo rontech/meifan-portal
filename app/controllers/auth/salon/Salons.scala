@@ -149,7 +149,17 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     }
     
     /**
-     * 基本信息完善页面
+     * 注册信息管理页面
+     */
+    def salonRegister = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+      val salon = loggedIn
+      val salonInfo = salonInfoForm.fill(salon)
+      val industry = Industry.findAll.toList
+      Ok(views.html.salon.salonRegisterMange(salonInfo ,industry , salon))
+    }
+    
+    /**
+     * 基本信息管理页面
      */
     def salonBasic = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
       val salon = loggedIn
@@ -159,7 +169,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     }
 
     /**
-     * 详细信息完善页面
+     * 详细信息管理页面
      */
     def salonDetail = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
       val salon = loggedIn
@@ -171,7 +181,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     /**
      * 店铺信息完善
      */
-    def informationConsum(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    def salonInfoConsum(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
         val salon = loggedIn
         val industry = Industry.findAll.toList
         salonInfoForm.bindFromRequest.fold(
@@ -489,7 +499,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
                 errors => BadRequest(views.html.index("")),
                 {
                     case (styleUpdateForm) => {
-                        Style.updateStyle(styleUpdateForm)
+                        Style.save(styleUpdateForm.copy(id=styleUpdateForm.id), WriteConcern.Safe)
                         Redirect(routes.Salons.getAllStylesBySalon)
                     }
                 })
@@ -552,7 +562,6 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     	Ok(views.html.salon.admin.checkInfostate(salon, counts))
     }
     
-
     def salonShowPics = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
       val salon = loggedIn
       val salonInfo = salonInfoForm.fill(salon)
@@ -565,3 +574,4 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
       Ok(views.html.salon.admin.salonLogoPicture(salon, salonInfo))
     }
 }
+

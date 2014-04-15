@@ -8,6 +8,8 @@ import com.mongodb.casbah.gridfs.GridFS
 import com.mongodb.casbah.commons.Imports._
 import com.mongodb.casbah.MongoConnection
 import mongoContext._
+import java.io.InputStream
+import java.io.ByteArrayOutputStream
 
 case class Image(
   id: ObjectId,
@@ -83,5 +85,25 @@ object Image {
     } else {
       Nil
     }
-  } 
+  }
+  
+  def fileToBytes(inStream: InputStream) : Array[Byte] = {
+    val outStream = new ByteArrayOutputStream
+    try {
+      var reading = true
+      while ( reading ) {
+        inStream.read() match {
+          case -1 => reading = false
+          case c => outStream.write(c)
+        }
+      }
+      outStream.flush()
+    }
+    finally
+    {
+      inStream.close()
+    }
+
+    return outStream.toByteArray
+  }  
 }

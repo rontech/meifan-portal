@@ -87,9 +87,9 @@
 		    @input(field = styleUpdateForm("serviceType"),args = '_label ->Messages("hair.serviceType")){(id,name,value,args) =>
 		    	@for(i <- 0 to stylePara.serviceType.length-1){
 		      		@if(style.serviceType.contains(stylePara.serviceType(i))){
-		      			<input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)" checked="checked">@stylePara.serviceType(i)
+		      			<input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)" checked="checked">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
 		    		}else{
-						<input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@stylePara.serviceType(i)
+						<input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
 					}
 		    	}
 		    }
