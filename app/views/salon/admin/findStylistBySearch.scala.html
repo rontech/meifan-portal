@@ -20,7 +20,7 @@
    			<div class="w166 mHA">
 			    <div class="taC">
 					<a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
-						<img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" class="bdImgGray w164 h219">
+						<img src="@routes.Application.getPhoto(User.findOneById(stylist.stylistId).get.userPics)" class="bdImgGray w164 h219">
 			        </a>
 			    </div>
 			    <p class="mT10">
@@ -45,7 +45,7 @@
 				<a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv">@Messages("stylist.checkRsv")</a>
 				}
 				@if(status == 2){
-				<a href="/inviteStylist/@stylist.stylistId/@salon.id" class="salon-stylist-reserv">@Messages("stylist.invite")</a>	
+				<a href="@auth.routes.Salons.inviteStylist(stylist.stylistId)" class="salon-stylist-reserv">@Messages("stylist.invite")</a>	
 				}
 			</div>
 			</div>

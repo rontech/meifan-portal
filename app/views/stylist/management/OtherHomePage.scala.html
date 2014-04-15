@@ -4,97 +4,10 @@
 
 @myPageMain("stylistHomepage",user,followInfo,loginUserId,logged){
 	<div class="cFix mT30 pH10">
-		<div class="fr w501">
-
-        <!--ST. Stylist's Words. -->
-        <div>
-            <dl>
-                <dt class="fgPink b fs14"> @stylist.myWords </dt>
-                <dd class="mT10"> @stylist.myPR </dd>
-            </dl>
-        </div>
-        <!--END. Stylist's Words. -->
-
-        <!--ST. Stylist Appeal. -->
-        @if(stylist.myPics != null) {
-        	<div class="mT30">
-            <ul class="cFix">
-                <!--@*show max 4 appeal pic here.*@ -->
-                @for(i <- 0 until (if(stylist.myPics.length > 4) 4 else stylist.myPics.length)) {
-                    <li class="fl cFix w240">
-                        <div class="fl w89">
-                            <!--@*TODO, should show appeal picture here.*@-->
-                            <img src="@routes.Application.getPhoto(stylist.myPics(i).fileObjId)"
-                            alt="@stylist.myPics(i).description" oncontextmenu="return false;" class="w89">
-                        </div>
-                        <div class="fr w151 pr hMin119">
-                            <p class="mL10 mR20 fs10 pa bottom0 left0">
-                                @stylist.myPics(i).description
-                            </p>
-                        </div>
-                    </li>
-                }
-            </ul>
-        </div>
-        }
-        <!--ST. Stylist Appeal. -->
-
-        <!--ST. Stylist Resume. -->
-        <div class="mT30">
-            <table cellspacing="0" class="wFull bgThNml bdCell pCell10">
-                <tbody>
-                    <tr>
-                        <th class="w100"> @Messages("stylist.worked")</th>
-                        <td>@Messages("stylist.workYears", stylist.workYears) </td>
-                    </tr>
-                                
-                    <tr> <th class="w100">@Messages("stylist.goodAtImage") </th>
-                        <td> @stylist.goodAtImage.map{image=>
-                        	@image&nbsp;
-                        }</td>
-                    </tr>
-                    <tr>
-                        <th class="w100"> @Messages("stylist.mySpecial") </th>
-                        <td> @stylist.mySpecial </td>
-                    </tr>
-                    <tr>
-                        <th class="w100"> @Messages("stylist.myBoom") </th>
-                        <td> @stylist.myBoom </td> 
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <!--END. Stylist Resume. -->
-
-        <!--ST. Stylist's latest Blog. -->
-        @latestBlog match {
-            case None => {}
-            case Some(blg) => {
-                <div class="mT30">
-                    <div class="pr">
-                        <div class="latestBlogtitle"> @Messages("stylist.blog") </div>
-                        <p class="pa right10 topHalf fs10">
-                            <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(user.userId)">
-                                       @Messages("stylist.findAllBlog")
-                            </a>
-                        </p>
-                    </div>
-
-                    <!--ST. Blog item. -->
-                    <ul>
-                    	@views.html.blog.blogItem(blg)
-                    </ul>
-                    <!--END. Blog item. -->
-                </div>
-
-            }
-        }
-        <!--END. Stylist's latest Blog. -->
-    </div>
-    <div class="mT30">
+	<div class="mT30">
         <div class="yS mainContentsSecondTitleOuter">
 	        <h3 class="yS mainContentsSecondTitleInner">
-	        @Messages("stylist.haircatalog")
+	        @Messages("stylist.haircatalog",Stylist.findUserName(user.id))
 	        </h3>&nbsp;&nbsp;&nbsp;
 	        <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")</a>
 	    </div>

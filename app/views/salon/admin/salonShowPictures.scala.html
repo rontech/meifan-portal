@@ -8,15 +8,17 @@
 	<body>
 	@form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm"){
 	<div>
-		<ul id="salonImageClick">
-			<li><a class="current-demo" href="@auth.routes.Salons.salonLogoPicture">@Messages("salonCheckInfoState.uploadLogo")</a></li>
-			<li><a href="@auth.routes.Salons.salonShowPics">@Messages("salonCheckInfoState.uploadpics")</a></li>
+		<ul class="bS menuBG cFix">
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonLogoPicture">@Messages("salonCheckInfoState.uploadLogo")</a>
+			</li>
+			<li class="fr"><a href="@auth.routes.Salons.salonShowPics">@Messages("salonCheckInfoState.uploadpics")</a></li>
 		</ul>
 	</div>
 	<div class="demo">
 		<div class="logoupload">
 			<div class="btnbox">
-				@Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
+				@Messages("onUsePicture.selectImge")&nbsp;
 				<a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
 			</div>
 			<div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>

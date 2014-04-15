@@ -11,13 +11,13 @@
     <table class="table salonInfoState">
         <thead>
             <tr>
-                <th style="width:210px">
+                <th style="width:40%">
                     @Messages("salonCheckInfoState.condition")
                 </th>
-                <th style="width:150px;">
+                <th style="width:40%;">
                     @Messages("salonCheckInfoState.status")
                 </th>
-                <th>
+                <th style="width:20%;">
                     @Messages("salonCheckInfoState.operate")
                 </th>
             </tr>
@@ -29,7 +29,7 @@
                 </td>
                 <td>
 	                <i class="iconfont greenfont">
-                    Ż
+                    
                     </i>
                     @Messages("salonCheckInfoState.finish")
 	            </td>
@@ -46,12 +46,12 @@
                 <td>
 	                @if(Salon.checkBasicInfoIsFill(salon)){
 	                	<i class="iconfont greenfont">
-                        Ż
+                        
                     	</i>
                     	@Messages("salonCheckInfoState.finish")
                     }else{
 	                	<i class="iconfont redfont">
-                        ź
+                        
                     	</i>
                     	@Messages("salonCheckInfoState.needTodo")
                     	
@@ -76,12 +76,12 @@
                 <td>
 	                @if(Salon.checkDetailIsFill(salon)){
 	                	<i class="iconfont greenfont">
-                        Ż
+                        
                     	</i>
                     	@Messages("salonCheckInfoState.finish")
                     }else{
 	                	<i class="iconfont redfont">
-                        ź
+                        
                     	</i>
                     	@Messages("salonCheckInfoState.needTodo")
                     	
@@ -106,12 +106,12 @@
                 <td>
 	                @if(Salon.checkImgIsExist(salon)){
 	                	<i class="iconfont greenfont">
-                        Ż
+                        
                     	</i>
                     	@Messages("salonCheckInfoState.finish")
 	                }else{
 	                	<i class="iconfont redfont">
-                        ź
+                        
                     	</i>
                     	@Messages("salonCheckInfoState.needTodo")
                     	
@@ -133,11 +133,16 @@
     </table>
     <div class="btns clearfix">
         <span class="warning-txt">
-            @Messages("salonCheckInfoState.youNeedDo")
-            <em>
-            	@counts
-            </em>
-            @Messages("salonCheckInfoState.cannotApply")
+        	@if(counts>=1){
+	            @Messages("salonCheckInfoState.youNeedDo")
+	            <em>
+	            	@counts
+	            </em>
+	            @Messages("salonCheckInfoState.cannotApply")
+	            <a href="@noAuth.routes.Questions.getAllQuestions()">
+	            	@Messages("main.help")
+	            </a>	
+            }
         </span>
     </div>
 </div>
@@ -147,6 +152,7 @@
 	.redfont{
 		background-image: url('@routes.Assets.at("images/swfupload/redfont.JPG")');
 		background-repeat: no-repeat;
+		background-position:10px 0;
 	}
 	.greenfont{
 		background-image: url('@routes.Assets.at("images/swfupload/tick.png")');

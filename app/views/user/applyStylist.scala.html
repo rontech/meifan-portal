@@ -48,7 +48,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@inputText(stylistApplyForm("stylist.workYears"), '_label -> None, 'class ->  "font1")
+			                	@inputText(stylistApplyForm("stylist.workYears"), '_label -> None, 'class ->  "font1",'_help -> Messages(""))
 			                </div>
 			            </td>
 					</tr>
@@ -257,7 +257,11 @@
 		<div class="industry">
         @select(
                 field("industryName"), 
-                options = options(goodAtStylePara.industry),
+                options = options("Hairdressing"-> Messages("industry.industryName.Hairdressing"),
+                	"Manicures" -> Messages("industry.industryName.Manicures"),
+                	"Healthcare" -> Messages("industry.industryName.Healthcare"),
+                	"Cosmetic" -> Messages("industry.industryName.Cosmetic")
+                	),
                 'placeholder -> Messages("industy"),
                 '_default -> Messages("ChooseIndustry"),
                 '_label -> None
@@ -300,6 +304,6 @@
 
         function go() {//定义函数
         	window.location="/myPage";//页面跳转
-         }
+        }
         
 </script>

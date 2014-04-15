@@ -152,7 +152,6 @@ GET         /myPage/salon                                                   cont
 # TODO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 GET         /updateStylistImage                                             controllers.auth.Stylists.updateStylistImage
 POST        /toUpdateStylistImage                                           controllers.auth.Stylists.toUpdateStylistImage
-POST        /myPage/fileUploadAction                                        controllers.auth.Stylists.fileUploadAction
 GET         /saveStylistImg/:imgId                                          controllers.auth.Stylists.saveStylistImg(imgId: ObjectId)
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 GET         /myPage/StylistInfo                                             controllers.auth.Stylists.stylistInfo
@@ -200,6 +199,7 @@ GET			/salonDetail									controllers.auth.Salons.salonDetail
 POST        /salonConsum/:id                                 controllers.auth.Salons.salonInfoConsum(id:ObjectId)
 #POST        /changeSalonPassword/:id                         controllers.SalonInfo.salonChangePassword(id: ObjectId)
 
+
 # Coupon
 GET         /mySalon/createCoupon                                           controllers.auth.Coupons.couponMain
 GET         /coupons/createCoupon                                           controllers.auth.Coupons.createCoupon
@@ -245,3 +245,11 @@ GET			/salonLogoPicture												controllers.auth.Salons.salonLogoPicture
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                   controllers.Assets.at(path="/public", file)
+
+
+#salon logo picture update by douping
+GET         /mySalon/salonLogoPicture                                       controllers.auth.Salons.salonLogoPicture
+
+#swf fileupload by douping
+POST         /imagesUpload                                                  controllers.Application.fileUploadAction()
+
