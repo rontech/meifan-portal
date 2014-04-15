@@ -13,9 +13,48 @@
 		</div>
 
 		<div class="mT10 pH10">
-			@helper.form(noAuth.routes.Salons.doRegister(), 'id -> "salonRegister"){
+			@helper.form(action = auth.routes.Salons.update(salon.id), 'id -> "salonRegister"){
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
+				        <input type="hidden" name="salonNameAbbr" readonly="readonly" value="@salon.salonNameAbbr">
+				        <input type="hidden" name="homepage" readonly="readonly" value="@salon.homepage">
+				        <input type="hidden" name="salonDescription" readonly="readonly" value="@salon.salonDescription">
+				        <input type="hidden" name="salonAddress.province" readonly="readonly" value="@salon.salonAddress.map(add=>add.province).getOrElse(None)">
+				        <input type="hidden" name="salonAddress.city" readonly="readonly" value="@salon.salonAddress.map(add=>add.city).getOrElse(None)">
+				        <input type="hidden" name="salonAddress.region" readonly="readonly" value="@salon.salonAddress.map(add=>add.region).getOrElse(None)">
+						<input type="hidden" name="salonAddress.town" readonly="readonly" value="@salon.salonAddress.map(add=>add.town).getOrElse(None)">
+						<input type="hidden" name="salonAddress.addrDetail" readonly="readonly" value="@salon.salonAddress.map(add=>add.addrDetail).getOrElse(None)">
+						<input type="hidden" name="salonAddress.longitude" readonly="readonly" value="@salon.salonAddress.map(add=>add.longitude).getOrElse(None)">
+						<input type="hidden" name="salonAddress.latitude" readonly="readonly" value="@salon.salonAddress.map(add=>add.latitude).getOrElse(None)">
+						<input type="hidden" name="salonAddress.accessMethodDesc" readonly="readonly" value="@salon.salonAddress.map(add=>add.accessMethodDesc).getOrElse(None)">
+						<input type="hidden" name="workTime.openTime" readonly="readonly" value="@salon.workTime.map(time=>time.openTime).getOrElse(None)">
+						<input type="hidden" name="workTime.closeTime" readonly="readonly" value="@salon.workTime.map(time=>time.closeTime).getOrElse(None)">
+						@inputDate(salonRegister("establishDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
+						@inputDate(salonRegister("registerDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
+						<input type="hidden" name="optContactMethod.contMethodType" readonly="readonly" value="@salon.optContactMethod.map(opt=>opt.contMethodType)">
+						<input type="hidden" name="optContactMethod.accounts" readonly="readonly" value="@salon.optContactMethod.map(opt=>opt.accounts)">
+						<input type="hidden" name="restDays.restWay" readonly="readonly" value="@salon.restDays.map(restDay=>restDay.restWay).getOrElse(None)">
+						<input type="hidden" name="restDays.restDay" readonly="readonly" value="@salon.restDays.map(restDay=>restDay.restDay).getOrElse(None)">
+						<input type="hidden" name="seatNums" readonly="readonly" value="@salon.seatNums.getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canOnlineOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canOnlineOrder).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canImmediatelyOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canImmediatelyOrder).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canNominateOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canNominateOrder).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canCurntDayOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canCurntDayOrder).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canMaleUse" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canMaleUse).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.isPointAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isPointAvailable).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.isPosAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isPosAvailable).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.isWifiAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isWifiAvailable).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.hasParkingNearby" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.hasParkingNearby).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.parkingDesc" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.parkingDesc).getOrElse(None)">
+						<input type="hidden" name="salonPics.fileObjId" readonly="readonly" value="@salon.salonPics.map(pic=>pic.fileObjId)">
+						<h>@salon.salonPics.map(pic=>pic.fileObjId)</h>
+						<input type="hidden" name="salonPics.picUse" readonly="readonly" value="@salon.salonPics.map(pic=>pic.picUse)">
+						<input type="hidden" name="salonPics.showPriority" readonly="readonly" value="@salon.salonPics.map(pic=>pic.showPriority)">
+						<input type="hidden" name="salonPics.description" readonly="readonly" value="@salon.salonPics.map(pic=>pic.description)">
+						<input type="hidden" name="picDescription.picTitle" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picTitle).getOrElse(None)">
+						<input type="hidden" name="picDescription.picContent" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picContent).getOrElse(None)">
+						<input type="hidden" name="picDescription.picFoot" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picFoot).getOrElse(None)">
+										    
 				    	@if(salonRegister.hasGlobalErrors){
              			 <div>
                  			 @salonRegister.globalError.get.message
@@ -43,24 +82,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,
-				                		'_help -> Messages("salon.register.password"),
-				                		'placeholder -> Messages("salon.login.password"),
-				                		'_error -> salonRegister("salonAccount.password.main").error.map(_.withMessage(Messages("user.passwordError"))))
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("user.confirmPas")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputPassword(salonRegister("salonAccount.password.confirm"),'_label -> None,'_help -> Messages("*"),'placeholder -> Messages("salon.confirmMessage"),
-													'_error -> salonRegister.error("salonAccount.password"))
+									<a href="@auth.routes.Salons.password"/> @Messages("user.changePassword")
+									<input type="hidden" name="salonAccount.password" readonly="readonly" value="@salon.salonAccount.password">
 				                </div>
 				            </td>
 				        </tr>
@@ -89,12 +112,16 @@
 				                <div>
 				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to industry.length-1){
-								 		<input type = "checkbox" class="" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
+								 		@if(salon.salonIndustry.contains(industry(i).industryName)){
+								 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
+								 		}else{
+								 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
+								 		}
 								 	}
 								  }
 				                </div>
 				            </td>
-				        </tr> 				        
+				        </tr>				        
 				        <tr>
 				            <th class="w222 ">
 				                <!-- -->
@@ -139,10 +166,8 @@
 				        </tr>					        					        
 				    </tbody>
 				</table>
-				<div class="mT20 txtC">
-					<input type = "hidden" name="salonPics[0].fileObjId" />
-					<input type = "hidden" name="salonPics[0].picUse" value="LOGO"/>
-					<input type = "submit" class = "buttons" value=@Messages("user.registerBtn")>
+				<div class="mT20 txtC">			
+					<input type = "submit" class = "buttons" value=@Messages("common.submit")>
 					<input type="reset" value=@Messages("common.reset")>
 					<a href = "@routes.Application.salonLogin"><input type="button" value=@Messages("common.backUp") ></a>
 				</div>

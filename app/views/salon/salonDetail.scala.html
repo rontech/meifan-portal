@@ -39,7 +39,8 @@
 						<input type="hidden" name="workTime.closeTime" readonly="readonly" value="@salon.workTime.map(time=>time.closeTime).getOrElse(None)">
 						@inputDate(salonForm("establishDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
 						@inputDate(salonForm("registerDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
-						<input type="hidden" name="optContactMethod" readonly="readonly" value="@salon.optContactMethod">
+						<input type="hidden" name="optContactMethod.contMethodType" readonly="readonly" value="@salon.optContactMethod.map(opt=>opt.contMethodType)">
+						<input type="hidden" name="optContactMethod.accounts" readonly="readonly" value="@salon.optContactMethod.map(opt=>opt.accounts)">
 						<input type="hidden" name="restDays.restWay" readonly="readonly" value="@salon.restDays.map(restDay=>restDay.restWay).getOrElse(None)">
 						<input type="hidden" name="restDays.restDay" readonly="readonly" value="@salon.restDays.map(restDay=>restDay.restDay).getOrElse(None)">
 				        <tr>

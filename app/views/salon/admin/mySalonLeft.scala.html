@@ -3,17 +3,17 @@
 			<div class ="Owner">
 				@if(salon.salonPics.exists{a => a.picUse == "LOGO"}){
 					@if(salon.id.getTime.equals(salon.salonPics(0).fileObjId.getTime)){
-						<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
+						<a href="@auth.routes.Salons.salonInfoBasic" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
 					}else{
 						@for(i <- 0 to salon.salonPics.size-1){
 							@if(salon.salonPics(i).picUse == "LOGO" ){
-								<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>
+								<a href="@auth.routes.Salons.salonInfoBasic" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>
 							}								
 						}										
 					}
 										
 				}else{
-					<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
+					<a href="@auth.routes.Salons.salonInfoBasic" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
 				}	
 				<span class='U'>
 					<p class='opts'>
@@ -35,7 +35,7 @@
     			</div> 
 	  		</div>
    			<div class='Opts clearfix'>
-                <a href="@auth.routes.Salons.salonInfoManage" class='a2 admin w220'><span>@Messages("user.changeInfo")</span></a>
+                <a href="@auth.routes.Salons.salonInfoBasic" class='a2 admin w220'><span>@Messages("user.changeInfo")</span></a>
 				<a href="#" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
 			</div>
    			<!-- 店铺基本信息管理 -->
@@ -169,4 +169,7 @@
        					<a href="#">@Messages("salonAdmin.checkState")</a>
      				</div>
 			</div>
+	  		<div class='RMod' id='UserSkills'>
+	  			<a href = "@auth.routes.Salons.salonLogout">@Messages("user.loginOut")</a>
+	  		</div>			
 	<!-- ↑mainContents -->	

@@ -135,21 +135,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         val user = loggedIn
         Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user))
     }
-
-    /**
-     * 店铺基本信息显示
-     *
-     */
-    def salonInfoBasic(salonId: ObjectId) =  StackAction{ implicit request =>
-        val user = loggedIn
-        val salon: Option[Salon] = Salon.findOneById(salonId)
-        val industry = Industry.findAll.toList
-        salon match {
-            case Some(sl) => Ok(views.html.salon.salonInfo("", sl , industry))
-            case _ => NotFound
-        }
-    }
-
+    
     /*-------------------------
      * Individual Salon Infomations.
      * Include the Styles, Stylists, Coupons, Blogs, Comments..... 
