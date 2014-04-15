@@ -4,7 +4,7 @@
 	@myPageMain(navInMyPage = "my-blog", user, followInfo, loginUserId, logged) {
 		
 		@if(loginUserId.equals(user.id)){		
-   			<a href = "@auth.routes.Blogs.newBlog(user.userId)"><input type="button" value="@Messages("blog.newBlog")" ></a>
+   			<a href = "@auth.routes.Blogs.newBlog"><input type="button" value="@Messages("blog.newBlog")" ></a>
     	}
 		
 		@blogList.map { blog =>

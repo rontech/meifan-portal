@@ -1,8 +1,9 @@
-@(salonRegister: Form[Salon],industry: List[Industry])
+@(salonRegister: Form[Salon],industry: List[Industry],salon:Salon)
 @import helper._
 @import helper.twitterBootstrap._
+@import views.html.salon.admin.mySalonMain
 
-@main(Messages("salon.register")){
+@mySalonMain("registerInformation",salon){
 	
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
 

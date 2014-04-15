@@ -193,6 +193,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   /**
    * 其他用户基本信息
    */
+  //TODO
   def userInfo(userId: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val loginUser = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
@@ -268,7 +269,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
    */
 
   def commitStylistApply = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-     val user = loggedIn
+    val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val goodAtStylePara = Stylist.findGoodAtStyle
     stylistApplyForm.bindFromRequest.fold(
@@ -276,6 +277,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
       {
         case(stylistApply) => {
           Stylist.save(stylistApply.stylist.copy(stylistId = user.id))
+          Stylist.updateImages(stylistApply.stylist, user.userPics)
           Salon.findByAccountId(stylistApply.salonAccountId).map{salon=>
             val applyRecord = new SalonStylistApplyRecord(new ObjectId, salon.id, user.id, 1, new Date, 0, None)
             SalonStylistApplyRecord.save(applyRecord)

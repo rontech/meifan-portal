@@ -5,6 +5,7 @@ import models._
 import views._
 import java.util.Date
 import controllers._
+import controllers.noAuth._
 import jp.t2v.lab.play2.auth._
 import se.radley.plugin.salat.Binders._
 import play.api.data.Form
@@ -15,11 +16,7 @@ import com.mongodb.casbah.gridfs.GridFS
 import org.mindrot.jbcrypt.BCrypt
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import com.mongodb.casbah.Imports._
-import models.SalonAccount
-import scala.Some
-import models.CouponServiceType
-import se.radley.plugin.salat.Binders.ObjectId
+import utils.Tools
 
 object Salons extends Controller with LoginLogout with AuthElement with SalonAuthConfigImpl{
   
@@ -46,6 +43,93 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     ){(salonChange, newPassword) => (salonChange.get, newPassword._1)}{salonChange => Some((Option(salonChange._1),("","")))}
   )
 
+    //店铺信息管理Form
+    val salonInfoForm:Form[Salon] = Form(
+        mapping(
+            "salonAccount" -> mapping(
+                "accountId" -> text,
+                "password" -> text
+            )(SalonAccount.apply)(SalonAccount.unapply),
+            "salonName" -> text,
+            "salonNameAbbr" -> optional(text),
+            "salonIndustry" -> list(text),
+            "homepage" -> optional(text),
+            "salonDescription" -> optional(text),
+            "picDescription" -> optional(mapping(
+                "picTitle" -> text,
+                "picContent" -> text,
+                "picFoot" -> text
+            )(PicDescription.apply)(PicDescription.unapply)),
+            "contactMethod" -> mapping(
+                "mainPhone" -> nonEmptyText,
+                "contact" -> nonEmptyText,
+                "email" -> nonEmptyText
+            )(Contact.apply)(Contact.unapply),
+            "optContactMethod" -> list(
+                mapping(
+                    "contMethodType" -> text,
+                    "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
+            "establishDate" -> optional(date("yyyy-MM-dd")),
+            "salonAddress" -> optional(mapping(
+                "province" -> text,
+                "city" -> optional(text),
+                "region" -> optional(text),
+                "town" -> optional(text),
+                "addrDetail" ->text,
+                "longitude" -> optional(bigDecimal),
+                "latitude" -> optional(bigDecimal),
+                "accessMethodDesc" -> text
+            )
+                (Address.apply)(Address.unapply)),
+            "workTime" -> optional(mapping(
+                "openTime" -> text ,
+                "closeTime" -> text
+            )
+                (WorkTime.apply)(WorkTime.unapply)),
+            "restDays" -> optional(mapping(
+                "restWay" -> text,
+                "restDay1" -> list(text),
+                "restDay2" -> list(text)
+            ){
+                (restWay, restDay1, restDay2) => Tools.getRestDays(restWay,restDay1,restDay2)
+            }{
+                restDay => Some(Tools.setRestDays(restDay))}),
+            "seatNums" -> optional(number),
+            "salonFacilities" -> optional(mapping(
+                "canOnlineOrder" -> boolean,
+                "canImmediatelyOrder" -> boolean,
+                "canNominateOrder" -> boolean,
+                "canCurntDayOrder" -> boolean,
+                "canMaleUse" -> boolean,
+                "isPointAvailable" -> boolean,
+                "isPosAvailable" -> boolean,
+                "isWifiAvailable" -> boolean,
+                "hasParkingNearby" -> boolean,
+                "parkingDesc" -> text)
+                (SalonFacilities.apply)(SalonFacilities.unapply)),
+            "salonPics" -> list(
+                mapping(
+                    "fileObjId" -> text,
+                    "picUse" -> text,
+                    "showPriority"-> optional(number),
+                    "description" -> optional(text)
+                ){
+                    (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId(fileObjId),picUse,showPriority,description)
+                }{
+                    salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
+                }),
+            "registerDate" -> date
+        ){
+            (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
+             workTime, restDay, seatNums, salonFacilities,salonPics,registerDate) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
+                workTime, restDay, seatNums, salonFacilities,salonPics,registerDate)
+        }
+        {
+            salon=> Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonDescription, salon.picDescription,salon.contactMethod, salon.optContactMethod, salon.establishDate, salon.salonAddress,
+                salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
+        }
+    )
+
     /**
      * 店铺登录
      */
@@ -63,25 +147,70 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             "success" -> "You've been logged out"
         ))
     }
+    
+    /**
+     * 注册信息管理页面
+     */
+    def salonRegister = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+      val salon = loggedIn
+      val salonInfo = salonInfoForm.fill(salon)
+      val industry = Industry.findAll.toList
+      Ok(views.html.salon.salonRegisterMange(salonInfo ,industry , salon))
+    }
+    
+    /**
+     * 基本信息管理页面
+     */
+    def salonBasic = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+      val salon = loggedIn
+      val salonInfo = salonInfoForm.fill(salon)
+      val industry = Industry.findAll.toList
+      Ok(views.html.salon.salonBasic(salonInfo ,industry , salon))
+    }
 
+    /**
+     * 详细信息管理页面
+     */
+    def salonDetail = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+      val salon = loggedIn
+      val salonInfo = salonInfoForm.fill(salon)
+      val industry = Industry.findAll.toList
+      Ok(views.html.salon.salonDetail(salonInfo ,industry , salon))
+    }
+    
+    /**
+     * 店铺信息完善
+     */
+    def salonInfoConsum(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+        val salon = loggedIn
+        val industry = Industry.findAll.toList
+        salonInfoForm.bindFromRequest.fold(
+        errors => BadRequest(views.html.error.errorMsg(errors)),
+        {
+            salon =>
+                Salon.save(salon.copy(id = id), WriteConcern.Safe)
+                Redirect(routes.Salons.checkInfoState)
+        })
+    }
+    
     /**
      * 店铺基本信息修改页面
      *
      */
     def salonInfoManage = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
         val salon = loggedIn
-        val salonInfo = noAuth.Salons.salonInfo.fill(salon)
+        val salonInfo = salonInfoForm.fill(salon)
         val industry = Industry.findAll.toList
         Ok(views.html.salon.admin.salonManage("",salonInfo ,industry , salon))
     }
-
+    
     /**
      * 店铺基本信息更新
      */
     def update(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
         val salon = loggedIn
         val industry = Industry.findAll.toList
-        noAuth.Salons.salonInfo.bindFromRequest.fold(
+        salonInfoForm.bindFromRequest.fold(
         errors => BadRequest(views.html.salon.admin.salonManage("",errors,industry,salon)),
         {
             salon =>
@@ -370,7 +499,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
                 errors => BadRequest(views.html.index("")),
                 {
                     case (styleUpdateForm) => {
-                        Style.updateStyle(styleUpdateForm)
+                        Style.save(styleUpdateForm.copy(id=styleUpdateForm.id), WriteConcern.Safe)
                         Redirect(routes.Salons.getAllStylesBySalon)
                     }
                 })
@@ -424,14 +553,25 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         )
     }
     
-    def checkInfoState = Action { 
-    		Ok(views.html.salon.checkInfostate(""))
+    def checkInfoState = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+        val salon = loggedIn
+        var counts:Int = 0
+        if(!Salon.checkBasicInfoIsFill(salon)) counts+=1
+        if(!Salon.checkDetailIsFill(salon)) counts+=1
+        if(!Salon.checkImgIsExist(salon)) counts+=1
+    	Ok(views.html.salon.admin.checkInfostate(salon, counts))
     }
     
-    def salonShowPics = Action{
-      val salon = Salon.findByAccountId("salon01").get
-      val salonInfo = noAuth.Salons.salonInfo.fill(salon)
-      Ok(views.html.salon.salonShowPictures("",salonInfo))
+    def salonShowPics = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+      val salon = loggedIn
+      val salonInfo = salonInfoForm.fill(salon)
+      Ok(views.html.salon.admin.salonShowPictures(salon, salonInfo))
     }
     
+    def salonLogoPicture = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+      val salon = loggedIn
+      val salonInfo = salonInfoForm.fill(salon)
+      Ok(views.html.salon.admin.salonLogoPicture(salon, salonInfo))
+    }
 }
+

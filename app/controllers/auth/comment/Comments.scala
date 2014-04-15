@@ -88,7 +88,7 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
   /**
    * 博客回复，后台逻辑
    */
-  def reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+  def reply(commentObjId : ObjectId, blogId : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
 //      val userId = request.session.get("userId").get
       // TODO
       val user = loggedIn
@@ -98,7 +98,8 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
         {
           case (content) =>
 	        Comment.reply(user.userId, content, commentObjId, commentObjType) 
-	        Redirect(noAuth.routes.Blogs.getOneBlogById(id))	
+	        Redirect(noAuth.routes.Blogs.getOneBlogById(blogId))
+
         } 
       )
   }
@@ -106,8 +107,8 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
   /**
    * blog的作者删除评论
    */
-  def delete(id : ObjectId, commentObjId : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    Comment.delete(id)
+  def delete(commentId : ObjectId, commentObjId : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    Comment.delete(commentId)
 //    Redirect(routes.Comments.find(commentedId))
     Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
   }

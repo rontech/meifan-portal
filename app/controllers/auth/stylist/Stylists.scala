@@ -16,6 +16,7 @@ import com.mongodb.casbah.gridfs.Imports._
 import com.mongodb.casbah.gridfs.GridFS
 import play.api.libs.iteratee.Enumerator
 import controllers._
+import controllers.noAuth.Styles
 
 object Stylists extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl{
     
@@ -103,36 +104,35 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
 	        } 
 	  }
 	  
-	 def findSalonApply(stylistId: ObjectId) =  StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _){implicit request =>
+	 def applyFromSalon =  StackAction(AuthorityKey -> isLoggedIn _){implicit request =>
 	    val user = loggedIn
 	    val followInfo = MyFollow.getAllFollowInfo(user.id)
 	    val applySalons = SalonStylistApplyRecord.findApplingSalon(user.id)
-	    val stylist = Stylist.findOneByStylistId(stylistId)
+	    val stylist = Stylist.findOneByStylistId(user.id)
 	    stylist match {
 	      case Some(sty) => {
-	        Ok(views.html.stylist.management.stylistApplyingSalons(user, followInfo, loggedIn.id, true, applySalons, sty))
+	        Ok(views.html.stylist.management.stylistApplyingSalons(user, followInfo, user.id, true, applySalons, sty))
+	      }
+	      case None => NotFound
+	    }
+	  }
+	  
+	 def stylistInfo = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+	    val user = loggedIn
+	    val followInfo = MyFollow.getAllFollowInfo(user.id)
+	    val goodAtStylePara = Stylist.findGoodAtStyle
+	    val stylist = Stylist.findOneByStylistId(user.id)
+	    
+	    stylist match {
+	      case Some(sty) => {
+	        val stylistUpdate = stylistForm.fill(sty)
+	        Ok(views.html.stylist.management.updateStylistInfo(user, followInfo, user.id, true, sty, stylistUpdate, goodAtStylePara))
 	      }
 	      case None => NotFound
 	    }
 	  }
 	  
 	 def updateStylistInfo(stylistId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) { implicit request =>
-	    val loginUser = loggedIn
-	    val user = User.findOneById(stylistId).get
-	    val followInfo = MyFollow.getAllFollowInfo(stylistId)
-	    val goodAtStylePara = Stylist.findGoodAtStyle
-	    val stylist = Stylist.findOneByStylistId(stylistId)
-	    
-	    stylist match {
-	      case Some(sty) => {
-	        val stylistUpdate = stylistForm.fill(sty)
-	        Ok(views.html.stylist.management.updateStylistInfo(user, followInfo, loginUser.id, true, sty, stylistUpdate, goodAtStylePara))
-	      }
-	      case None => NotFound
-	    }
-	  }
-	  
-	 def toUpdateStylistInfo(stylistId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) { implicit request =>
 	    val user = loggedIn
 	    val followInfo = MyFollow.getAllFollowInfo(user.id)
 	    stylistForm.bindFromRequest.fold(
@@ -216,7 +216,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
                 errors => BadRequest(views.html.index("")),
                 {
                     case (styleUpdateForm) => {
-                        Style.updateStyle(styleUpdateForm)
+                        Style.save(styleUpdateForm.copy(id=styleUpdateForm.id), WriteConcern.Safe)
                         Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
                     }
                 })
@@ -245,7 +245,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
         val followInfo = MyFollow.getAllFollowInfo(user.id)
         var stylists: List[Stylist] = Nil
         stylists :::= stylist.toList
-        Ok(views.html.stylist.management.addStyleByStylist(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = stylist.get, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, stylists = stylists, isStylist = true))
+        Ok(views.html.stylist.management.addStyleByStylist(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, stylists = stylists, isStylist = true))
     }
     
     /**
@@ -271,27 +271,10 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
           
     }
     
-    /**
-     *  ajax fileupload 输出图片id到页面对应区域
-     */
-    def fileUploadAction = Action(parse.multipartFormData) { implicit request =>
-    request.body.file("Filedata") match {
-            case Some(photo) =>{
-            	val db = MongoConnection()("Picture")
-                val gridFs = GridFS(db)
-                val uploadedFile = gridFs.createFile(photo.ref.file)
-                uploadedFile.contentType = photo.contentType.orNull
-                uploadedFile.save()
-                Ok(uploadedFile._id.get.toString)
-            }    
-            case None => BadRequest("no photo")
-        }
     
-  }
     
-  def findStylistApplying(stylistId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) { implicit request =>
+  def findStylistApplying = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
 	  val user = loggedIn
-      val stylist = Stylist.findOneByStylistId(user.id)
       val followInfo = MyFollow.getAllFollowInfo(user.id)
       val record = SalonStylistApplyRecord.findOneStylistApRd(user.id)
       record.map{re=>
@@ -308,7 +291,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
       
   }
   
-  def wantToApply(stylistId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) { implicit request =>
+  def wantToApply = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
       val user = loggedIn
       val followInfo = MyFollow.getAllFollowInfo(user.id)
       val salon = Salon.findOneById(new ObjectId)
@@ -329,7 +312,6 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
   
   def cancelMyApplying = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
       val user = loggedIn
-      val followInfo = MyFollow.getAllFollowInfo(user.id)
       val record = SalonStylistApplyRecord.findOneStylistApRd(user.id)
       record.map{ re =>
         SalonStylistApplyRecord.removeById(re.id, WriteConcern.Safe)

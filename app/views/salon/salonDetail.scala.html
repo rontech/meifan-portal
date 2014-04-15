@@ -1,0 +1,105 @@
+@(salonForm:Form[Salon],industry: List[Industry], salon: Salon)
+@import helper._
+@import helper.twitterBootstrap._
+@import views.html.salon.admin.mySalonMain
+
+@mySalonMain("detailInformation",salon){
+	
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
+
+	<div class="salonRegister">
+		<div class="contentsTitleWrapper">
+			<h2 class="contentsTitleInner">@Messages("salon.detailInformation")</h2>
+		</div>
+
+		<div class="mT10 pH10">
+			@helper.form(action = auth.routes.Salons.salonInfoConsum(salon.id), args = 'id -> "salonForm"){
+				
+				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
+				    <tbody>
+				        <input type="hidden" name="salonAccount.accountId" readonly="readonly" value="@salon.salonAccount.accountId">
+				        <input type="hidden" name="salonAccount.password" readonly="readonly" value="@salon.salonAccount.password">
+				        <input type="hidden" name="salonName" readonly="readonly" value="@salon.salonName">
+				        <input type="hidden" name="salonIndustry" readonly="readonly" value="@salon.salonIndustry">
+				        <input type="hidden" name="contactMethod.mainPhone" readonly="readonly" value="@salon.contactMethod.mainPhone">
+				        <input type="hidden" name="contactMethod.contact" readonly="readonly" value="@salon.contactMethod.contact">
+				        <input type="hidden" name="contactMethod.email" readonly="readonly" value="@salon.contactMethod.email">
+				        <input type="hidden" name="salonNameAbbr" readonly="readonly" value="@salon.salonNameAbbr">
+				        <input type="hidden" name="homepage" readonly="readonly" value="@salon.homepage">
+				        <input type="hidden" name="salonDescription" readonly="readonly" value="@salon.salonDescription">
+				        <input type="hidden" name="salonAddress.province" readonly="readonly" value="@salon.salonAddress.map(add=>add.province).getOrElse(None)">
+				        <input type="hidden" name="salonAddress.city" readonly="readonly" value="@salon.salonAddress.map(add=>add.city).getOrElse(None)">
+				        <input type="hidden" name="salonAddress.region" readonly="readonly" value="@salon.salonAddress.map(add=>add.region).getOrElse(None)">
+						<input type="hidden" name="salonAddress.town" readonly="readonly" value="@salon.salonAddress.map(add=>add.town).getOrElse(None)">
+						<input type="hidden" name="salonAddress.addrDetail" readonly="readonly" value="@salon.salonAddress.map(add=>add.addrDetail).getOrElse(None)">
+						<input type="hidden" name="salonAddress.longitude" readonly="readonly" value="@salon.salonAddress.map(add=>add.longitude).getOrElse(None)">
+						<input type="hidden" name="salonAddress.latitude" readonly="readonly" value="@salon.salonAddress.map(add=>add.latitude).getOrElse(None)">
+						<input type="hidden" name="salonAddress.accessMethodDesc" readonly="readonly" value="@salon.salonAddress.map(add=>add.accessMethodDesc).getOrElse(None)">
+						<input type="hidden" name="workTime.openTime" readonly="readonly" value="@salon.workTime.map(time=>time.openTime).getOrElse(None)">
+						<input type="hidden" name="workTime.closeTime" readonly="readonly" value="@salon.workTime.map(time=>time.closeTime).getOrElse(None)">
+						@inputDate(salonForm("establishDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
+						@inputDate(salonForm("registerDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
+						<input type="hidden" name="optContactMethod" readonly="readonly" value="@salon.optContactMethod">
+						<input type="hidden" name="restDays.restWay" readonly="readonly" value="@salon.restDays.map(restDay=>restDay.restWay).getOrElse(None)">
+						<input type="hidden" name="restDays.restDay" readonly="readonly" value="@salon.restDays.map(restDay=>restDay.restDay).getOrElse(None)">
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.seatNums")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonForm("seatNums"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonForm("seatNums").error.map(_.withMessage(Messages("salon.register.seatNums"))))
+				                </div>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.iss")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@checkbox(salonForm("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"),'_help -> Messages(""))
+				                	@checkbox(salonForm("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"),'_help -> Messages(""))
+									@checkbox(salonForm("salonFacilities.canNominateOrder"), '_label -> Messages("salon.canNominateOrder"),'_help -> Messages(""))
+									@checkbox(salonForm("salonFacilities.canCurntDayOrder"), '_label -> Messages("salon.canCurntDayOrder"),'_help -> Messages(""))
+									@checkbox(salonForm("salonFacilities.canMaleUse"), '_label -> Messages("salon.canMaleUse"),'_help -> Messages(""))
+									@checkbox(salonForm("salonFacilities.isPointAvailable"), '_label -> Messages("salon.isPointAvailable"),'_help -> Messages(""))
+									@checkbox(salonForm("salonFacilities.isPosAvailable"), '_label -> Messages("salon.isPosAvailable"),'_help -> Messages(""))
+									@checkbox(salonForm("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"),'_help -> Messages(""))
+									@checkbox(salonForm("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"),'_help -> Messages(""))
+				                </div>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.parkingDesc")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonForm("salonFacilities.parkingDesc"), '_label -> None,'_help -> Messages(""))
+				                </div>
+				            </td>
+				        </tr>										        
+				    </tbody>
+				</table>		            				
+				<div class="mT20 txtC">			
+					<input type = "submit" class = "buttons" value=@Messages("common.submit")>
+					<input type="reset" value=@Messages("common.reset")>
+					<a href = "@auth.routes.Salons.checkInfoState"><input type="button" value=@Messages("common.backUp") ></a>
+				</div>
+			}
+		</div>
+
+	</div>
+</div>
+}
