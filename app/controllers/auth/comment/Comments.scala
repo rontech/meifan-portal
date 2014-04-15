@@ -88,7 +88,7 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
   /**
    * 博客回复，后台逻辑
    */
-  def reply(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+  def reply(commentObjId : ObjectId, blogId : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
 //      val userId = request.session.get("userId").get
       // TODO
       val user = loggedIn
@@ -98,27 +98,7 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
         {
           case (content) =>
 	        Comment.reply(user.userId, content, commentObjId, commentObjType) 
-	        Redirect(noAuth.routes.Blogs.getOneBlogById(id))	
-        } 
-      )
-  }
-  
-   /**
-   * 店铺回复消费者的评论，后台逻辑
-   */
-  // 这边的权限有点问题啊，应该需要的是店铺登陆的权限
-  def replyAdmin(commentObjId : ObjectId, id : ObjectId, commentObjType : Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-//      val userId = request.session.get("userId").get
-      // TODO
-      val user = loggedIn
-      formHuifuComment.bindFromRequest.fold(
-        //处理错误
-        errors => BadRequest(views.html.comment.errorMsg("")),
-        {
-          case (content) =>
-	        Comment.reply(user.userId, content, commentObjId, commentObjType) 
-//	        Redirect(controllers.routes.SalonsAdmin.myComment(id))	
-	        Redirect(auth.routes.Salons.myComment)
+	        Redirect(noAuth.routes.Blogs.getOneBlogById(blogId))
         } 
       )
   }
@@ -126,8 +106,8 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
   /**
    * blog的作者删除评论
    */
-  def delete(id : ObjectId, commentObjId : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    Comment.delete(id)
+  def delete(commentId : ObjectId, commentObjId : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    Comment.delete(commentId)
 //    Redirect(routes.Comments.find(commentedId))
     Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
   }

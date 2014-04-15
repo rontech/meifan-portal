@@ -73,33 +73,21 @@ object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
    /**
    * 创建blog，跳转
    */
-  def newBlog(userId: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    val user: Option[User] = User.findOneByUserId(userId)
-    user match {
-      case Some(user) => {
-        if(user.equals(loggedIn)){
-	        val listBlogCategory = BlogCategory.getCategory
-			val followInfo = MyFollow.getAllFollowInfo(user.id)
-			Ok(views.html.blog.admin.createBlog(newBlogForm(userId), listBlogCategory, user = user, followInfo))
-        }
-        else{
-          Redirect(auth.routes.Blogs.newBlog(loggedIn.userId))
-        }
-      }
-      case None => NotFound  
-    }
+  def newBlog = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+	val listBlogCategory = BlogCategory.getCategory
+	val followInfo = MyFollow.getAllFollowInfo(user.id)
+	Ok(views.html.blog.admin.createBlog(newBlogForm(user.userId), listBlogCategory, user = user, followInfo))
   }
   
    /**
    * 新建blog，后台逻辑
    */
-  def writeBlog(userId : String) = Action { implicit request =>
-      val user: Option[User] = User.findOneByUserId(userId)
-      user match {
-        case Some(user) => {
-          val listBlogCategory = BlogCategory.getCategory
-	      val followInfo = MyFollow.getAllFollowInfo(user.id)
-	      newBlogForm(userId).bindFromRequest.fold(
+  def writeBlog = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+       val user = loggedIn
+       val listBlogCategory = BlogCategory.getCategory
+	   val followInfo = MyFollow.getAllFollowInfo(user.id)
+	   newBlogForm(user.userId).bindFromRequest.fold(
         //处理错误        
         errors => BadRequest(views.html.blog.admin.createBlog(errors,listBlogCategory, user = user, followInfo)),
         {
@@ -108,26 +96,19 @@ object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
             Redirect(noAuth.routes.Blogs.getOneBlogById(blog.id))
         }             
         )          
-        }
-        case None => NotFound
-      }
-  }  
+  }
   
    /**
    * 编辑blog
    */
   def editBlog(blogId : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
     val blog = Blog.findOneById(blogId)
     val list = BlogCategory.getCategory
     blog.map { blog =>
-      val user = User.findOneByUserId(blog.authorId).get
-      if(user.equals(loggedIn)) {
 		  val followInfo = MyFollow.getAllFollowInfo(user.id)
 		  val formEditBlog = blogForm(user.userId).fill(blog)
 		  Ok(views.html.blog.admin.editBlog(formEditBlog, list, user, followInfo,blog))
-      }
-      else
-       Ok("没有此操作的权限") 
     } getOrElse {
       NotFound
     }
@@ -136,16 +117,16 @@ object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
    /**
    * 编辑blog，后台逻辑
    */
-  def modBlog(blogId : ObjectId) = Action { implicit request =>
-      val blog = Blog.findOneById(blogId)
-      blog match {
+  def modBlog(blogId : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    val blog = Blog.findOneById(blogId)
+    blog match {
         case Some(blog) => {
-          val user: Option[User] = User.findOneByUserId(blog.authorId)
 	      val listBlogCategory = BlogCategory.getCategory
-	      val followInfo = MyFollow.getAllFollowInfo(user.get.id)
+	      val followInfo = MyFollow.getAllFollowInfo(user.id)
 	      blogForm(blog.authorId,blogId).bindFromRequest.fold(
 	        //处理错误        
-	        errors => BadRequest(views.html.blog.admin.editBlog(errors,listBlogCategory,user.get, followInfo, blog)),
+	        errors => BadRequest(views.html.blog.admin.editBlog(errors,listBlogCategory,user, followInfo, blog)),
 	        {
 	          blog =>            
 	            Blog.save(blog, WriteConcern.Safe)
@@ -162,10 +143,11 @@ object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
    * 用户删除blog
    */
   def deleteBlog(blogId : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    var blog = Blog.findOneById(blogId)
+    val user = loggedIn
+    val blog = Blog.findOneById(blogId)
     blog match {
       case Some(blog) => {
-        if(blog.authorId.equals(loggedIn.userId)){
+        if(blog.authorId.equals(user.userId)){
           Blog.delete(blogId)
 		  Redirect(noAuth.routes.Blogs.getAllBlogsOfUser(blog.authorId))
         }

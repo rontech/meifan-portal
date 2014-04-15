@@ -80,7 +80,7 @@
                                     @for(i <- 0 to stylePara.serviceType.length-1){
                                         <li class="dibBL mR2">
                                             <input type = "checkbox" class = "cbF" name = "serviceType[@i]" id="hairColorCd_HT@i" value = "@stylePara.serviceType(i)">
-                                            <label for="hairColorCd_HT@i">@stylePara.serviceType(i)</label>
+                                            <label for="hairColorCd_HT@i">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))</label>
                                         </li>
                                     }
                                 }
@@ -259,9 +259,9 @@
             @input(field = styleSearchForm("serviceType"),args = '_label ->Messages("hair.serviceType")){(id,name,value,args) =>
                 @for(i <- 0 to stylePara.serviceType.length-1){
                     @if(styleSearchForm.get.serviceType.contains(stylePara.serviceType(i))){
-                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)" checked="checked">@stylePara.serviceType(i)
+                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)" checked="checked">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
                     }else{
-                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@stylePara.serviceType(i)
+                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
                     }
                 }
             }
@@ -413,7 +413,7 @@
 						            @for(i <- 0 to stylePara.serviceType.length-1){
 						            	<li class="dibBL mR2">
 						            		<input type = "checkbox" class = "cbF" name = "serviceType[@i]" id="hairColorCd_HT@i" value = "@stylePara.serviceType(i)">
-							        		<label for="hairColorCd_HT@i">@stylePara.serviceType(i)</label>
+							        		<label for="hairColorCd_HT@i">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))</label>
 						            	</li>
 						            }
 						        }
@@ -610,9 +610,9 @@
             @input(field = styleSearchForm("serviceType"),args = '_label ->Messages("hair.serviceType")){(id,name,value,args) =>
                 @for(i <- 0 to stylePara.serviceType.length-1){
                     @if(styleSearchForm.get.serviceType.contains(stylePara.serviceType(i))){
-                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)" checked="checked">@stylePara.serviceType(i)
+                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)" checked="checked">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
                     }else{
-                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@stylePara.serviceType(i)
+                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
                     }
                 }
             }

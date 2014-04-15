@@ -10,7 +10,7 @@
     <ul class="cFix">
         @SearchByImpression.findAll.map { searchByImpression =>
             <li class="fl mR10">
-                <a href="@routes.Styles.findByImpression(searchByImpression.styleImpression,searchByImpression.sex)">
+                <a href="@noAuth.routes.Styles.findByImpression(searchByImpression.styleImpression,searchByImpression.sex)">
                     <img src="@routes.Application.getPhoto(searchByImpression.stylePic)" alt="@searchByImpression.styleImpression" class="imgFrame" width="94px">
                 </a>
             </li>
