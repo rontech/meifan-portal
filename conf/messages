@@ -186,6 +186,7 @@ Saturday = 星期六
 Sunday = 星期日
 salon.noExist = 该店铺不存在
 salon.register.accountIdErr=店铺ID不合法!
+salon.mailError=邮箱格式不合法
 
 
 #salon management

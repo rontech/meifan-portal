@@ -63,7 +63,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             "contactMethod" -> mapping(
                 "mainPhone" -> nonEmptyText,
                 "contact" -> nonEmptyText,
-                "email" -> nonEmptyText
+                "email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)+$"""))
             )(Contact.apply)(Contact.unapply),
             "optContactMethod" -> list(
                 mapping(
@@ -195,7 +195,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         val salon = loggedIn
         val industry = Industry.findAll.toList
         salonInfoForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.error.errorMsg(errors)),
+        errors => BadRequest(views.html.salon.salonDetail(errors,industry,salon)),
         {
             salon =>
                 Salon.save(salon.copy(id = id), WriteConcern.Safe)
@@ -210,7 +210,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         val salon = loggedIn
         val industry = Industry.findAll.toList
         salonInfoForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.salon.admin.salonManage("",errors,industry,salon)),
+        errors => BadRequest(views.html.salon.salonRegisterMange(errors,industry,salon)),
         {
             salon =>
                 Salon.save(salon.copy(id = id), WriteConcern.Safe)

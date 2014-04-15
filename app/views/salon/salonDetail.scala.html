@@ -20,15 +20,6 @@
 				        <input type="hidden" name="salonAccount.accountId" readonly="readonly" value="@salon.salonAccount.accountId">
 				        <input type="hidden" name="salonAccount.password" readonly="readonly" value="@salon.salonAccount.password">
 				        <input type="hidden" name="salonName" readonly="readonly" value="@salon.salonName">
-				        @input(field = salonForm("salonIndustry"),args = '_label -> None,'style -> "display: none"){(id,name,value,args) =>
-						@for(i <- 0 to industry.length-1){
-							@if(salon.salonIndustry.contains(industry(i).industryName)){
-								<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
-							}else{
-								<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
-							}
-						}
-						}
 				        <input type="hidden" name="contactMethod.mainPhone" readonly="readonly" value="@salon.contactMethod.mainPhone">
 				        <input type="hidden" name="contactMethod.contact" readonly="readonly" value="@salon.contactMethod.contact">
 				        <input type="hidden" name="contactMethod.email" readonly="readonly" value="@salon.contactMethod.email">
@@ -97,6 +88,28 @@
 				        </tr>										        
 				    </tbody>
 				</table>	
+	            <table cellspacing="0" class="display01">
+				    <tbody>
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("user.optContactMethod")
+				                </div>
+				            </th>
+				            <td>
+	            	@input(field = salonForm("salonIndustry"),args = '_label -> None,'style -> "display: none"){(id,name,value,args) =>
+					@for(i <- 0 to industry.length-1){
+						@if(salon.salonIndustry.contains(industry(i).industryName)){
+							<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
+						}else{
+							<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
+						}
+					}
+					}	
+				            </td>
+				        </tr>
+					</tbody>
+				</table>				
 	            <table cellspacing="0" class="display01">
 				    <tbody>
 				        <tr>
@@ -221,7 +234,6 @@
 				<div class="mT20 txtC">			
 					<input type = "submit" class = "buttons" value=@Messages("common.submit")>
 					<input type="reset" value=@Messages("common.reset")>
-					<a href = "@auth.routes.Salons.checkInfoState"><input type="button" value=@Messages("common.backUp") ></a>
 				</div>
 			}
 		</div>

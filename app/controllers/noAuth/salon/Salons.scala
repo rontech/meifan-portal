@@ -34,7 +34,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	    	}{
 	    	  salonAccount=>Some(salonAccount.accountId,(salonAccount.password, ""))
 	    	},
-	        "salonName" -> text.verifying(Messages("salon.salonNameNotAvaible"), salonName => !Salon.findOneBySalonName(salonName).nonEmpty),
+	        "salonName" -> nonEmptyText.verifying(Messages("salon.salonNameNotAvaible"), salonName => !Salon.findOneBySalonName(salonName).nonEmpty),
 	        "salonNameAbbr" -> optional(text),
 	        "salonIndustry" -> list(text),
 	        "homepage" -> optional(text),
@@ -47,7 +47,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	        "contactMethod" -> mapping(
 	        		"mainPhone" -> nonEmptyText,
 	        		"contact" -> nonEmptyText,
-	        		"email" -> nonEmptyText
+	        		"email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)+$"""))
 	        )(Contact.apply)(Contact.unapply),
 	        "optContactMethod" -> list(
 	            mapping(
