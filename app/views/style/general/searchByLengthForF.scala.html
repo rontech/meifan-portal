@@ -3,7 +3,7 @@
         <ul class="cFix">
         @SearchByLengthForF.findAll.map { searchByLengthForF =>
             <li class="fl mR10">
-                <a href="@routes.Styles.findByLength(searchByLengthForF.styleLength,searchByLengthForF.sex)">
+                <a href="@noAuth.routes.Styles.findByLength(searchByLengthForF.styleLength,searchByLengthForF.sex)">
                     <img src="@routes.Application.getPhoto(searchByLengthForF.stylePic)" alt="@searchByLengthForF.styleLength" class="imgFrame" width="94px">
                 </a>
             </li>

@@ -11,13 +11,13 @@
     <table class="table salonInfoState">
         <thead>
             <tr>
-                <th style="width:210px">
+                <th style="width:40%">
                     @Messages("salonCheckInfoState.condition")
                 </th>
-                <th style="width:150px;">
+                <th style="width:40%;">
                     @Messages("salonCheckInfoState.status")
                 </th>
-                <th>
+                <th style="width:20%;">
                     @Messages("salonCheckInfoState.operate")
                 </th>
             </tr>
@@ -132,17 +132,17 @@
         </tbody>
     </table>
     <div class="btns clearfix">
-        <a class="big-button disable-button" href="#">
-           @Messages("salonCheckInfoState.createSalon")
-            <s>
-            </s>
-        </a>
         <span class="warning-txt">
-            @Messages("salonCheckInfoState.youNeedDo")
-            <em>
-            	@counts
-            </em>
-            @Messages("salonCheckInfoState.cannotApply")
+        	@if(counts>=1){
+	            @Messages("salonCheckInfoState.youNeedDo")
+	            <em>
+	            	@counts
+	            </em>
+	            @Messages("salonCheckInfoState.cannotApply")
+	            <a href="#">
+	            	@Messages("main.help")
+	            </a>	
+            }
         </span>
     </div>
 </div>

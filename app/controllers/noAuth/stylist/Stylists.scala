@@ -38,8 +38,12 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
 	    val stylist = Stylist.findOneByStylistId(user.id)
 	    stylist match {
 	      case Some(sty) => {
-	         Ok(views.html.stylist.management.stylistMySalon(user, followInfo, user.id, true, sty, salon))
-	      }
+             loggedIn.map{loginUser =>
+	            Ok(views.html.stylist.management.stylistMySalon(user, followInfo, loginUser.id, true, sty, salon))
+	          }.getOrElse(
+                Ok(views.html.stylist.management.stylistMySalon(user, followInfo, new ObjectId, false, sty, salon))
+                 )
+          }
 	      case None => NotFound
 	    }
   }

@@ -19,93 +19,6 @@ import views.html
 
 object Salons extends Controller with OptionalAuthElement with UserAuthConfigImpl{
 
-  //店铺信息管理Form
-  val salonInfo:Form[Salon] = Form(
-	    mapping(
-	    	"salonAccount" -> mapping(
-	    		"accountId" -> text,
-	    		"password" -> text
-	    	)(SalonAccount.apply)(SalonAccount.unapply),
-	        "salonName" -> text,
-	        "salonNameAbbr" -> optional(text),
-	        "salonIndustry" -> list(text),
-	        "homepage" -> optional(text),
-	        "salonDescription" -> optional(text),
-	        "picDescription" -> optional(mapping(
-	        		"picTitle" -> text,
-	        		"picContent" -> text,
-	        		"picFoot" -> text
-	        )(PicDescription.apply)(PicDescription.unapply)),
-	        "contactMethod" -> mapping(
-	        		"mainPhone" -> nonEmptyText,
-	        		"contact" -> nonEmptyText,
-	        		"email" -> nonEmptyText
-	        )(Contact.apply)(Contact.unapply),
-	        "optContactMethod" -> list(
-	            mapping(
-	                "contMethodType" -> text,
-	                "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
-	        "establishDate" -> optional(date("yyyy-MM-dd")),
-	        "salonAddress" -> optional(mapping(
-	        	"province" -> text,
-	        	"city" -> optional(text),
-	        	"region" -> optional(text),
-	        	"town" -> optional(text),
-	        	"addrDetail" ->text,
-	        	"longitude" -> optional(bigDecimal),
-	        	"latitude" -> optional(bigDecimal),
-	        	"accessMethodDesc" -> text
-	        	)
-	        	(Address.apply)(Address.unapply)),
-	        "workTime" -> optional(mapping(
-	            "openTime" -> text ,
-	            "closeTime" -> text
-	            )
-	            (WorkTime.apply)(WorkTime.unapply)),
-            "restDays" -> optional(mapping(
-                "restWay" -> text,
-                "restDay1" -> list(text),
-                "restDay2" -> list(text)
-            ){
-                (restWay, restDay1, restDay2) => Tools.getRestDays(restWay,restDay1,restDay2)
-            }{
-                restDay => Some(Tools.setRestDays(restDay))}),
-	        "seatNums" -> optional(number),
-	        "salonFacilities" -> optional(mapping(
-	            "canOnlineOrder" -> boolean,
-	            "canImmediatelyOrder" -> boolean,
-	            "canNominateOrder" -> boolean,
-	            "canCurntDayOrder" -> boolean,
-	            "canMaleUse" -> boolean,
-	            "isPointAvailable" -> boolean,
-	            "isPosAvailable" -> boolean,
-	            "isWifiAvailable" -> boolean,
-	            "hasParkingNearby" -> boolean,
-	            "parkingDesc" -> text)
-	            (SalonFacilities.apply)(SalonFacilities.unapply)),
-	        "salonPics" -> list(
-	            mapping(
-	                "fileObjId" -> text,
-	                "picUse" -> text,
-	                "showPriority"-> optional(number),
-	                "description" -> optional(text)
-	                ){
-	              (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId(fileObjId),picUse,showPriority,description)
-	              }{
-	                salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
-	              }),
-	        "registerDate" -> date
-	        ){
-	      (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
-	       workTime, restDay, seatNums, salonFacilities,salonPics,registerDate) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
-	       workTime, restDay, seatNums, salonFacilities,salonPics,registerDate)
-	    }
-	    {
-	      salon=> Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonDescription, salon.picDescription,salon.contactMethod, salon.optContactMethod, salon.establishDate, salon.salonAddress,
-	          salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
-	    }
-	)
-
 	//店铺注册Form
   val salonRegister:Form[Salon] = Form(
       mapping(
@@ -205,7 +118,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
     /**
      * 店铺注册
      */
-    def doRegister() = Action { implicit request =>
+    def register() = Action { implicit request =>
         val industry = Industry.findAll.toList
         salonRegister.bindFromRequest.fold(
         errors => BadRequest(views.html.salon.salonRegister(errors,industry)),

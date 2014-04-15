@@ -193,6 +193,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   /**
    * 其他用户基本信息
    */
+  //TODO
   def userInfo(userId: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val loginUser = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
