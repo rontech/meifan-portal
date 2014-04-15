@@ -10,6 +10,8 @@ import ExecutionContext.Implicits.global
 import controllers._
 import java.util.Date
 import java.util.Calendar
+import routes.javascript._
+import play.api.Routes
 
 object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
 
@@ -19,8 +21,7 @@ object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
     def cancelFollow(followedId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
         val user = loggedIn
         MyFollow.delete(user.id, followedId)
-        //    Redirect(routes.Users.myFollowedSalon(userId))
-        Redirect(noAuth.routes.MyFollows.followedSalon(user.id))
+        Redirect(request.headers.get("Referer").getOrElse(""))
     }
 
     /**
@@ -28,15 +29,21 @@ object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
      */
     def addFollow(followId: ObjectId, followObjType: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
         val user = loggedIn
-        if (!MyFollow.checkIfFollow(user.id, followId)) {
-            MyFollow.create(user.id, followId, followObjType)
+        MyFollow.checkIfFollow(user.id, followId) match {
+            case false => {
+                MyFollow.create(user.id, followId, followObjType)
+                if (followObjType == FollowType.FOLLOW_SALON || followObjType == FollowType.FOLLOW_STYLIST || followObjType == FollowType.FOLLOW_USER)
+                	UserMessage.sendFollowMsg(user, followId, followObjType)
+                Ok("false")
+            }
+            case true => Ok("true")
         }
-        if (followObjType == FollowType.FOLLOW_SALON || followObjType == FollowType.FOLLOW_STYLIST || followObjType == FollowType.FOLLOW_USER)
-            UserMessage.sendFollowMsg(user, followId, followObjType)
-//        Redirect(auth.routes.Users.myPage())
-          Redirect(request.headers.get("Referer").getOrElse(""))
     }
-
+        
+    def javascriptRoutes = Action { implicit request =>
+    	Ok(Routes.javascriptRouter("jsRoutes")(routes.javascript.MyFollows.addFollow)).as("text/javascript")
+  }
+    
     /**
      * 收藏的优惠劵
      */

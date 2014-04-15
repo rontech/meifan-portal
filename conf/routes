@@ -312,3 +312,5 @@ GET         /questions/                                                controlle
 # Reservation add by sangsang-hu
 GET        /salon/:salonId/reserve/schedule/:week                 controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
+
+GET 	/javascriptRoutes               						controllers.auth.MyFollows.javascriptRoutes

@@ -542,6 +542,9 @@ user.applyStylistMessage_1 = 提交成功，耐心等待salon确认，
 user.applyStylistMessage_2 = s后自动跳转至我的主页，点击
 user.applyStylistMessage_3 = 直接跳转
 user.applySalonId = 输入您要申请的店铺ID，6~18位,包含字母、数字和下划线!
+user.basicInfo = 基本信息
+user.stylistInfo = 技师信息
+user.followSuccess = 关注成功！
 
 
 #Letter

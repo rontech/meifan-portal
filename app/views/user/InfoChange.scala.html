@@ -1,0 +1,15 @@
+@(user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)(content: Html)
+
+
+@myPageMain("info", user, followInfo, loginUserId, logged) {
+
+		    <a href="@auth.routes.Users.myInfo">
+				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.basicInfo")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		    @if(user.userTyp.equals(User.STYLIST)){
+		    <a href="@auth.routes.Stylists.updateStylistInfo(user.id)">
+				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.stylistInfo")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		    }
+		@content
+}

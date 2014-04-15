@@ -9,9 +9,9 @@
                         <a href="@auth.routes.MyFollows.cancelFollow(user.id)">@Messages("user.cancelFollow")</a>
                     }else{
                         @if(user.userTyp.equals(User.NORMAL_USER)){
-                            <a href="@auth.routes.MyFollows.addFollow(user.id,FollowType.FOLLOW_USER)">@Messages("user.addFollow")</a>
+                            <a href="javascript:void(0);" onclick="addFollow('@user.id','@FollowType.FOLLOW_USER','@Messages("user.followSuccess")' )">@Messages("user.addFollow")</a>
                         }else{
-                            <a href="@auth.routes.MyFollows.addFollow(user.id,FollowType.FOLLOW_STYLIST)">@Messages("user.addFollow")</a>
+                            <a href="javascript:void(0);" onclick="addFollow('@user.id','@FollowType.FOLLOW_STYLIST',' @Messages("user.followSuccess")' )">@Messages("user.addFollow")</a>
                         }
                     }
 					</span>
