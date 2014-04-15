@@ -38,8 +38,18 @@
                 <a href="@auth.routes.Salons.salonInfoBasic" class='a2 admin w220'><span>@Messages("user.changeInfo")</span></a>
 				<a href="#" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
 			</div>
+   			<!-- 店铺管理 -->
+			<div class='Mod Users' id='Fellows'>
+	   			<strong>@Messages("salonAdmin.mainPage")</strong>
+	   			<div class='more'>
+		 			<a href="@auth.routes.Salons.checkInfoState">
+		 				<span>@Messages("salonCheckInfoState.createSalon")</span>
+		 			</a><br />		 					 					 			
+		 		</div>	
+		 		
+			</div>			
    			<!-- 店铺基本信息管理 -->
-			<div class='Mod Users' id='Fans'>
+			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.infoManagement")</strong>
 	   			<div class='more'>
 		 			<a href="@auth.routes.Salons.salonRegister">
@@ -119,7 +129,7 @@
 				
     			</div>
 			</div>
-			<div class='Mod Users' id='Fans'>
+			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.commentManagement")</strong>
 	   			<ul class='clearfix'>
       				<li>
@@ -129,7 +139,7 @@
        					<a href="@auth.routes.Salons.myComment">@Messages("salonAdmin.checkComment")</a>
      				</div>
 			</div>
-			<div class='Mod Users' id='Fans'>
+			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.serviceManagement")</strong>
 	   			<ul class='clearfix'>
       				<li>
@@ -139,7 +149,7 @@
        					<a href="@auth.routes.Salons.myService">@Messages("salonAdmin.checkService")</a>
      				</div>
 			</div>
-			<div class='Mod Users' id='Fans'>
+			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.couponManagement")</strong>
 	   			<ul class='clearfix'>
       				<li>
@@ -149,7 +159,7 @@
        					<a href="@auth.routes.Salons.myCoupon">@Messages("salonAdmin.checkCoupon")</a>
      				</div>
 			</div>
-			<div class='Mod Users' id='Fans'>
+			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.menuManagement")</strong>
 	   			<ul class='clearfix'>
       				<li>
@@ -159,7 +169,7 @@
        					<a href="@auth.routes.Salons.myMenu">@Messages("salonAdmin.checkMenu")</a>
      				</div>
 			</div>
-			<div class='Mod Users' id='Fans'>
+			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.stateManagement")</strong>
 	   			<ul class='clearfix'>
       				<li>

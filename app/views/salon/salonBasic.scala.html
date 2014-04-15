@@ -20,11 +20,33 @@
 				        <input type="hidden" name="salonAccount.accountId" readonly="readonly" value="@salon.salonAccount.accountId">
 				        <input type="hidden" name="salonAccount.password" readonly="readonly" value="@salon.salonAccount.password">
 				        <input type="hidden" name="salonName" readonly="readonly" value="@salon.salonName">
-				        <input type="hidden" name="salonIndustry" readonly="readonly" value="@salon.salonIndustry">
+				        @input(field = salonForm("salonIndustry"),args = '_label -> None,'style -> "display: none"){(id,name,value,args) =>
+						@for(i <- 0 to industry.length-1){
+							@if(salon.salonIndustry.contains(industry(i).industryName)){
+								<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
+							}else{
+								<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
+							}
+						}
+						}
 				        <input type="hidden" name="contactMethod.mainPhone" readonly="readonly" value="@salon.contactMethod.mainPhone">
 				        <input type="hidden" name="contactMethod.contact" readonly="readonly" value="@salon.contactMethod.contact">
 				        <input type="hidden" name="contactMethod.email" readonly="readonly" value="@salon.contactMethod.email">
 				        @inputDate(salonForm("registerDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
+				        <input type="hidden" name="seatNums" readonly="readonly" value="@salon.seatNums.getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canOnlineOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canOnlineOrder).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canImmediatelyOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canImmediatelyOrder).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canNominateOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canNominateOrder).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canCurntDayOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canCurntDayOrder).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canMaleUse" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canMaleUse).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.isPointAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isPointAvailable).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.isPosAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isPosAvailable).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.isWifiAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isWifiAvailable).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.hasParkingNearby" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.hasParkingNearby).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.parkingDesc" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.parkingDesc).getOrElse(None)">
+						<input type="hidden" name="picDescription.picTitle" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picTitle).getOrElse(None)">
+						<input type="hidden" name="picDescription.picContent" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picContent).getOrElse(None)">
+						<input type="hidden" name="picDescription.picFoot" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picFoot).getOrElse(None)">
 				        <tr>
 				            <th class="w222 ">
 				                <!-- -->
@@ -267,7 +289,53 @@
 				            </td>
 				        </tr>
 					</tbody>
-				</table>
+				</table>	
+				<table cellspacing="0" class="display03">
+				    <tbody>
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("salon.pictures")
+				                </div>
+				            </th>
+				            <td>
+			            	<div id="salonPics">
+								<div class="demo">
+					                <div class="logoupload">
+					                    <div class="btnbox">
+					                        @Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
+					                        <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
+					                    </div>
+					                    <div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
+					                    
+					                    <div class="progress-box fl-progress" style="display:none;">
+					                        <div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
+					                        <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+					                    </div>
+					                    
+					                </div>
+					                <div class="batch-pic">
+					                    <ul>
+					                    @repeat(salonForm("salonPics")) { salonPic =>
+				                    		@pictureGroup(salonPic)
+				                		}
+					                    </ul>
+					                </div>
+					            </div>
+
+					            @pictureGroup(
+					                salonForm("salonPics[x]"),
+					                className = "salonPic_template"
+					            )
+								
+					            <div class="manage">
+					                 <a class="addSalonPic btn success">@Messages("salon.addPicture")</a>
+					            </div>
+					        </div>
+				            </td>
+				        </tr>
+					</tbody>
+				</table>												
 				<div class="mT20 txtC">			
 					<input type = "submit" class = "buttons" value=@Messages("common.submit")>
 					<input type="reset" value=@Messages("common.reset")>
@@ -279,6 +347,8 @@
 	</div>
 </div>
 }
+
+@views.html.salon.admin.salonSwfupload("")
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
         <input type="text" name="@name" value="@value">
@@ -330,4 +400,45 @@
     </div>
 }
 
+@pictureGroup(field: Field, className: String = "salonPic") = {
+	<li>
+	<div class="delete-pic"></div>
+		@field("fileObjId").value.map{fileid=>
+			@if(!fileid.equals("")){	
+			<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
+		}
+	}
+    <div class="addstyles-byStylist twipsies well @className">
+        @inputText(
+            field("fileObjId"), 
+			'_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
+        )
+        
+        @select(
+            field ("picUse"), 
+            options = options(
+                "LOGO" -> Messages("salon.picUse.logo"),
+                "Navigate" -> Messages("salon.picUse.Navigate"),
+                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+            ),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
+             '_help -> Messages("")
+        )	        
+        @inputText(
+            field("showPriority"), 
+			'_label -> None, 'class -> "imgShowPriority"
+        )
+        @textarea(
+            field("description"),
+            '_label -> None,
+            'rows -> 2, 'cols -> 15, 
+            'placeholder -> Messages("onUserPicture.description"), 'class -> "imagesDescriptionfelid"
+)
+        
+    </div>
+
+    </li>
+    }
     <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+	<script src="@routes.Assets.at("javascripts/ajaxfileupload.js")" type="text/javascript"></script>

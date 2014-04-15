@@ -816,3 +816,4 @@ salonCheckInfoState.youNeedDo = 您还有
 salonCheckInfoState.cannotApply = 个事项未完成，网站将开放你相应权限，详情查看
 salonCheckInfoState.uploadLogo = 头像设置
 salonCheckInfoState.uploadpics = 展示图片
+salonCheckInfoState.createSalon=申请开店
