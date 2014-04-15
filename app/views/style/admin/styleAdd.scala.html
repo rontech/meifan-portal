@@ -3,7 +3,6 @@
 @import helper._
 
 <head>
-
     <div>
         <h2>@Messages("hair.styleAdd")</h2>
         <style type="text/css">
@@ -12,17 +11,19 @@
             }
         </style>
     </div>
-
 </head>
 @if(isStylist){
     <body>
         <div>
         @form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm"){
-           <div>
+            <div>
+                @Messages("hair.styleName")<input type = "text" class="" name = "styleName" value = "">
+            </div>
+            <div>
             <fieldset class="addOtherStylePic">
                 <legend>@Messages("user.optContactMethod")</legend>
                 <div id="optContactMethods">
-                	@**
+                    @**
                      * Keep an hidden block that will be used as template for Javascript copy code
                      **@
                     @stylePicOneGroup(
@@ -56,7 +57,7 @@
             }
             @input(field = styleAddForm("serviceType"),args = '_label ->Messages("hair.serviceType")){(id,name,value,args) =>
                 @for(i <- 0 to stylePara.serviceType.length-1){
-                      <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@stylePara.serviceType(i)
+                      <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
                 }
             }
             @input(field = styleAddForm("styleAmount"),args = '_label ->Messages("hair.styleAmount")){(id,name,value,args) =>
@@ -125,6 +126,124 @@
         </div>
 
 </body> 
+}else {
+    <body>
+        <div>
+        @form(auth.routes.Salons.newStyleAddBySalon, 'id -> "styleAddForm"){
+            <div>
+                @Messages("hair.styleName")<input type = "text" class="" name = "styleName" value = "">
+            </div>
+            <div>
+            <fieldset class="addOtherStylePic">
+                <legend>@Messages("user.optContactMethod")</legend>
+                <div id="optContactMethods">
+                    @**
+                     * Keep an hidden block that will be used as template for Javascript copy code
+                     **@
+                    @stylePicOneGroup(
+                        styleAddForm("stylePic[x]"),
+                        className = "optContactMethod_template"
+                    )
+                    <div class="manage">
+                        <a class="addOptContactMethod btn success">Add another stylePic</a>
+                    </div>
+                </div>
+            </fieldset>
+            </div>
+            <div>
+            @Messages("hair.stylist")
+            <select id="stylistId" name = "stylistId">
+                @for(i <- 0 to stylists.length-1) {
+                    <option value="@stylists(i).stylistId.">@Stylist.findUser(stylists(i).stylistId).nickName</option>
+                }
+             </select>
+            </div>
+            <div align="left">  
+            @input(field = styleAddForm("styleLength"),args = '_label ->Messages("hair.styleLength")){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.styleLength.length-1){
+                      <input type = "radio" class="" name = "styleLength", value = "@stylePara.styleLength(i)">@Messages("style.styleLength." + stylePara.styleLength(i))
+                }
+            }
+            @input(field = styleAddForm("styleImpression"),args = '_label ->Messages("hair.impression")){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.styleImpression.length-1){
+                      <input type = "radio" class="" name = "styleImpression", value = "@stylePara.styleImpression(i)">@Messages("style.styleImpression." + stylePara.styleImpression(i))
+                }
+            }
+            @input(field = styleAddForm("styleColor"),args = '_label ->Messages("hair.color")){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.styleColor.length-1){
+                      <input type = "checkbox" class="" name = "styleColor[@i]", value = "@stylePara.styleColor(i)">@Messages("style.styleColor." + stylePara.styleColor(i))
+                }
+            }
+            @input(field = styleAddForm("serviceType"),args = '_label ->Messages("hair.serviceType")){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.serviceType.length-1){
+                      <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
+                }
+            }
+            @input(field = styleAddForm("styleAmount"),args = '_label ->Messages("hair.styleAmount")){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.styleAmount.length-1){
+                      <input type = "checkbox" class="" name = "styleAmount[@i]", value = "@stylePara.styleAmount(i)">@Messages("style.styleAmount." + stylePara.styleAmount(i))
+                }
+            }
+            @input(field = styleAddForm("styleQuality"),args = '_label ->Messages("hair.styleQuality")){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.styleQuality.length-1){
+                      <input type = "checkbox" class="" name = "styleQuality[@i]", value = "@stylePara.styleQuality(i)">@Messages("style.styleQuality." + stylePara.styleQuality(i))
+                }
+            }
+            @input(field = styleAddForm("styleDiameter"),args = '_label ->Messages("hair.styleDiameter")){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.styleDiameter.length-1){
+                      <input type = "checkbox" class="" name = "styleDiameter[@i]", value = "@stylePara.styleDiameter(i)">@Messages("style.styleDiameter." + stylePara.styleDiameter(i))
+                }
+            }
+            @input(field = styleAddForm("faceShape"),args = '_label ->Messages("hair.faceShape")){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.faceShape.length-1){
+                      <input type = "checkbox" class="" name = "faceShape[@i]" value = "@stylePara.faceShape(i)">@Messages("style.faceShape." + stylePara.faceShape(i))
+                }
+            }
+            @input(field = styleAddForm("consumerSocialStatus"),args = '_label ->Messages("hair.consumerSocialStatus")){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
+                      <input type = "checkbox" class="" name = "consumerSocialStatus[@i]" value = "@stylePara.consumerSocialStatus(i)">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))
+                }
+            }
+            @input(field = styleAddForm("consumerSex"),args = '_label ->Messages("hair.consumerSex")){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.consumerSex.length-1){
+                      <input type = "radio" class="" name = "consumerSex" value = "@stylePara.consumerSex(i)">@Messages("style.sex." + stylePara.consumerSex(i))
+                }
+            }
+            @input(field = styleAddForm("consumerAgeGroup"),args = '_label ->Messages("hair.consumerAgeGroup")){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.consumerAgeGroup.length-1){
+                      <input type = "checkbox" class="" name = "consumerAgeGroup[@i]" value = "@stylePara.consumerAgeGroup(i)">@Messages("style.ageGroup." + stylePara.consumerAgeGroup(i))
+                }
+            }
+            </div>
+            <div>
+                @Messages("hair.assessFromStylist")<input type = "text" class="" name = "description" value = "">
+            </div>
+            <div class="demo">
+                <div class="logoupload">
+                    <div class="btnbox">
+                        @Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
+                        <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
+                    </div>
+                    <div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
+                    
+                    <div class="progress-box fl-progress" style="display:none;">
+                        <div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
+                        <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+                    </div>
+                    
+                </div>
+                <div class="batch-pic">
+                    <ul>
+                    </ul>
+                </div>
+            </div>
+            <div align="center">
+                <input type = "reset" class = "buttons" value=@Messages("common.reset")>
+                <input type="submit" class = "buttons" value=@Messages("common.submit")>
+            </div>
+         }
+        </div>
+</body> 
 }
 @stylePicOneGroup(field: Field, className: String = "optContactMethod") = {
     <div class="addstyles-byStylist twipsies well @className">
@@ -149,16 +268,16 @@
     </div>
     }
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/swfupload.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/swfupload.css")">
     <script src="@routes.Assets.at("javascripts/jquery-1.8.2.min.js")" type="text/javascript"></script>
     
     <script type="text/javascript" src="@routes.Assets.at("javascripts/swfupload/swfupload.js")"></script>
-	<script type="text/javascript" src="@routes.Assets.at("javascripts/swfupload/swfupload.queue.js")"></script>
-	<script type="text/javascript" src="@routes.Assets.at("javascripts/swfupload/swfupload.speed.js")"></script>
-	<script type="text/javascript" src="@routes.Assets.at("javascripts/swfupload/handlers.js")"></script>
-	<script src="@routes.Assets.at("javascripts/ajaxfileupload.js")" type="text/javascript"></script>
-	<script type="text/javascript" charset="utf-8">
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/swfupload/swfupload.queue.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/swfupload/swfupload.speed.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/swfupload/handlers.js")"></script>
+    <script src="@routes.Assets.at("javascripts/ajaxfileupload.js")" type="text/javascript"></script>
+    <script type="text/javascript" charset="utf-8">
         
         $('.removeOptContactMethod').live('click', function(e) {
             $(this).parents('.optContactMethod').remove()
@@ -180,152 +299,150 @@
         }
         
 
-    	function readURL(input) {
-		    if (input.files && input.files[0]) {
-		    	var reader = new FileReader();
-		        reader.onload = function(e) {
-		            var $objImg=$('.image-insert-style-index-item');
-		            $objImg.each(function(i){
-					var index=$objImg.index($(this));
-					if(index==($objImg.length-2)){
-					$(this).append('<img src='+e.target.result+' style="float:left;width:80px;height:100px;"'+ '>');
-				}
-			});
-		        }
-		        reader.readAsDataURL(input.files[0]);
-		    }
-		}
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var $objImg=$('.image-insert-style-index-item');
+                    $objImg.each(function(i){
+                    var index=$objImg.index($(this));
+                    if(index==($objImg.length-2)){
+                    $(this).append('<img src='+e.target.result+' style="float:left;width:80px;height:100px;"'+ '>');
+                }
+            });
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
-    	function updateProgress(file) {
-    		$('.progress-box .progress-bar > div').css('width', parseInt(file.percentUploaded) + '%');
-    		$('.progress-box .progress-num > b').html(SWFUpload.speed.formatPercent(file.percentUploaded));
-    	}
+        function updateProgress(file) {
+            $('.progress-box .progress-bar > div').css('width', parseInt(file.percentUploaded) + '%');
+            $('.progress-box .progress-num > b').html(SWFUpload.speed.formatPercent(file.percentUploaded));
+        }
 
-    	function initProgress() {
-    		$('.progress-box').show();
-    		$('.progress-box .progress-bar > div').css('width', '0%');
-    		$('.progress-box .progress-num > b').html('0%');
-    	}
+        function initProgress() {
+            $('.progress-box').show();
+            $('.progress-box .progress-bar > div').css('width', '0%');
+            $('.progress-box .progress-num > b').html('0%');
+        }
 
-    	function successAction(fileInfo) {
-    		setUploadImage(fileInfo);
-    		// 如果上传完成了
-    		$('.progress-box').hide();
-    	}
+        function successAction(fileInfo) {
+            setUploadImage(fileInfo);
+            // 如果上传完成了
+            $('.progress-box').hide();
+        }
 
-    	function setUploadImage(fileInfo) {
-    		var up_path = fileInfo.path;
-    		alert("files path... "+up_path);
-    		var up_width = fileInfo.width;
-    		var up_height = fileInfo.height;
-    		
-    		var listEls = $('.batch-pic');
-    		var innerHtml = 
-    		'<li>'+
-    			'<div class="delete-pic"></div>'+
-    			'<div class="p-pic"><img src="' + up_path + '" /></div>'+
-    			'<div class="p-des">图片尺寸：<span>' + up_width + 'x' + up_height + '</span>像素</div>'+
-    			'<div class="p-text"><input type="text" value="图片名称" /></div>'+
-    		'</li>';
-    		listEls.find('ul').append(innerHtml);
-    		initImageListFn();
-    	}
+        function setUploadImage(fileInfo) {
+            var up_path = fileInfo.path;
+            alert("files path... "+up_path);
+            var up_width = fileInfo.width;
+            var up_height = fileInfo.height;
+            
+            var listEls = $('.batch-pic');
+            var innerHtml = 
+            '<li>'+
+                '<div class="delete-pic"></div>'+
+                '<div class="p-pic"><img src="' + up_path + '" /></div>'+
+                '<div class="p-des">图片尺寸：<span>' + up_width + 'x' + up_height + '</span>像素</div>'+
+                '<div class="p-text"><input type="text" value="图片名称" /></div>'+
+            '</li>';
+            listEls.find('ul').append(innerHtml);
+            initImageListFn();
+        }
 
-    	function initImageListFn() {
-    		$('.batch-pic').find('ul > li .delete-pic').each(function() {
-    			$(this).unbind('click').click(function() {
-    				$(this).parent().remove();
-    			});
-    		});
-    		
-    	}
+        function initImageListFn() {
+            $('.batch-pic').find('ul > li .delete-pic').each(function() {
+                $(this).unbind('click').click(function() {
+                    $(this).parent().remove();
+                });
+            });
+            
+        }
 
-    	var swfImageUpload;
-    	$(document).ready(function() {
-    		var settings = {
-    			flash_url : "@routes.Assets.at("javascripts/swfupload/swfupload.swf")",
-    			flash9_url : "@routes.Assets.at("javascripts/swfupload/swfupload_fp9.swf")",
-    			upload_url: "/fileUploadAction",// 接受上传的地址
-    			file_post_name : "Filedata",
-    			file_size_limit : "2 MB",// 文件大小限制
-    			file_types : "*.jpg;*.gif;*.png;*.jpeg;",// 限制文件类型
-    			file_types_description : "Image Files",// 说明，自己定义
-    			file_upload_limit : 5,
-    			file_queue_limit : 0,
-    			custom_settings : {},
-    			debug: false,
-    			// Button settings
-    			button_image_url: "@routes.Assets.at("images/swfupload/upload-btn.png")",
-    			button_width: "143",
-    			button_height: "45 ",
-    			button_placeholder_id: 'uploadBtnHolder',
-    			button_window_mode : SWFUpload.WINDOW_MODE.TRANSPARENT,
-    			button_cursor : SWFUpload.CURSOR.HAND,
-    			button_action: SWFUpload.BUTTON_ACTION.SELECT_FILES,
-    			
-    			moving_average_history_size: 40,
-    			
-    			// The event handler functions are defined in handlers.js
-    			swfupload_preload_handler : preLoad,
-    			swfupload_load_failed_handler : loadFailed,
-    			file_queued_handler : fileQueued,
-    			file_dialog_complete_handler: fileDialogComplete,
-    			upload_start_handler : function (file) {
-    				initProgress();
-    				updateProgress(file);
-    			},
-    			upload_progress_handler : function(file, bytesComplete, bytesTotal) {
-    				updateProgress(file);
-    			},
-    			upload_success_handler : function(file, data, response) {
-    				// 上传成功后处理函数
-    				
-    				var template = $('.optContactMethod_template');
-		            var listEls = $('.batch-pic');
-		    		var innerHtml = 
-		    		'<li>'+
-		    			'<div class="delete-pic"></div>'+
-		    			"<div class='p-pic'><img src='/getPhoto/"+data+"' /></div>"+
-		    			'<div class="addstyles-byStylist twipsies well optContactMethod">' + template.html() + '</div>'+
-		    		'</li>';
-		    		listEls.find('ul').append(innerHtml);
-		    		initImageListFn();
-		    		
-					renumber();
-           			var $obj=$('.imageoffileobjid');
-					$obj.each(function(i){
-						var index=$obj.index($(this));
-						if(index==($obj.length-1)){
-						$(this).val(data);
-						}
-					});
-					var $priority = $(".imgShowPriority");
-					$priority.each(function(i){
-						var index=$priority.index($(this));
-						if(index==($priority.length-1)){
-						$(this).val((index-1));
-						}
-					});
-					
-    				var fileInfo = eval("(" + data + ")");
-    				
-    				successAction(fileInfo);
-    			},
-    			upload_error_handler : function(file, errorCode, message) {
-    				alert(file);
-    				alert(errorCode);
-    				alert(message);
-    				alert('上传发生了错误！');
-    			},
-    			file_queue_error_handler : function(file, errorCode, message) {
-    				if(errorCode == -110) {
-    					alert('您选择的文件太大了。');	
-    				}
-    			}
-    		};
-    		swfImageUpload = new SWFUpload(settings);
-    		initImageListFn();
-    	});
-	
-		
+        var swfImageUpload;
+        $(document).ready(function() {
+            var settings = {
+                flash_url : "@routes.Assets.at("javascripts/swfupload/swfupload.swf")",
+                flash9_url : "@routes.Assets.at("javascripts/swfupload/swfupload_fp9.swf")",
+                upload_url: "/fileUploadAction",// 接受上传的地址
+                file_post_name : "Filedata",
+                file_size_limit : "2 MB",// 文件大小限制
+                file_types : "*.jpg;*.gif;*.png;*.jpeg;",// 限制文件类型
+                file_types_description : "Image Files",// 说明，自己定义
+                file_upload_limit : 5,
+                file_queue_limit : 0,
+                custom_settings : {},
+                debug: false,
+                // Button settings
+                button_image_url: "@routes.Assets.at("images/swfupload/upload-btn.png")",
+                button_width: "143",
+                button_height: "45 ",
+                button_placeholder_id: 'uploadBtnHolder',
+                button_window_mode : SWFUpload.WINDOW_MODE.TRANSPARENT,
+                button_cursor : SWFUpload.CURSOR.HAND,
+                button_action: SWFUpload.BUTTON_ACTION.SELECT_FILES,
+                
+                moving_average_history_size: 40,
+                
+                // The event handler functions are defined in handlers.js
+                swfupload_preload_handler : preLoad,
+                swfupload_load_failed_handler : loadFailed,
+                file_queued_handler : fileQueued,
+                file_dialog_complete_handler: fileDialogComplete,
+                upload_start_handler : function (file) {
+                    initProgress();
+                    updateProgress(file);
+                },
+                upload_progress_handler : function(file, bytesComplete, bytesTotal) {
+                    updateProgress(file);
+                },
+                upload_success_handler : function(file, data, response) {
+                    // 上传成功后处理函数
+                    
+                    var template = $('.optContactMethod_template');
+                    var listEls = $('.batch-pic');
+                    var innerHtml = 
+                    '<li>'+
+                        '<div class="delete-pic"></div>'+
+                        "<div class='p-pic'><img src='/getPhoto/"+data+"' /></div>"+
+                        '<div class="addstyles-byStylist twipsies well optContactMethod">' + template.html() + '</div>'+
+                    '</li>';
+                    listEls.find('ul').append(innerHtml);
+                    initImageListFn();
+                    
+                    renumber();
+                    var $obj=$('.imageoffileobjid');
+                    $obj.each(function(i){
+                        var index=$obj.index($(this));
+                        if(index==($obj.length-1)){
+                        $(this).val(data);
+                        }
+                    });
+                    var $priority = $(".imgShowPriority");
+                    $priority.each(function(i){
+                        var index=$priority.index($(this));
+                        if(index==($priority.length-1)){
+                        $(this).val((index-1));
+                        }
+                    });
+                    
+                    var fileInfo = eval("(" + data + ")");
+                    
+                    successAction(fileInfo);
+                },
+                upload_error_handler : function(file, errorCode, message) {
+                    alert(file);
+                    alert(errorCode);
+                    alert(message);
+                    alert('上传发生了错误！');
+                },
+                file_queue_error_handler : function(file, errorCode, message) {
+                    if(errorCode == -110) {
+                        alert('您选择的文件太大了。');    
+                    }
+                }
+            };
+            swfImageUpload = new SWFUpload(settings);
+            initImageListFn();
+        });
     </script>
