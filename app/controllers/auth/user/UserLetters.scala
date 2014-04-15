@@ -31,6 +31,7 @@ object UserLetters extends Controller with AuthElement with UserAuthConfigImpl {
         "title" -> text,
         "content" -> text) { (title, content) => Message(new ObjectId, title, content, new Date) } { message => Some((message.title, message.content)) })(UserLetter.apply)(UserLetter.unapply))
 
+//TODO
   def sendMessage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     UserLetters.userLetterForm.bindFromRequest.fold(
       //errors => BadRequest(views.html.user.userLetter(errors)),
