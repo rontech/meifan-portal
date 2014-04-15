@@ -7,7 +7,7 @@
             <div class="fl blogS blogCategoryLargeBL10"><span class="fs21">@blog.blogCategory</span></div>
             <div class="fr fs10">
             	@Messages("blog.passDate")@DateFormat.getDateInstance().format(blog.createTime)
-            	<div class=""><a href="@auth.routes.MyFollows.addFollow(blog.id,"blog")"> @Messages("blog.toCollect")</a></div>
+            	<div class=""><a href="javascript:void(0);" onclick="addFollow('@blog.id','blog')" > @Messages("blog.toCollect")</a></div>
             </div>
             
             

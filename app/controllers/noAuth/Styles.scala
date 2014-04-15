@@ -116,12 +116,6 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
                         style.styleDiameter, style.faceShape, style.description, style.consumerAgeGroup, style.consumerSex, style.consumerSocialStatus))
             })
 
-    def findById(styleId: ObjectId) = StackAction { implicit request =>
-        val user = loggedIn
-        val style: Option[Style] = Style.findOneById(styleId)
-        Ok(html.style.general.overview(style.toList, styleSearchForm, Style.findParaAll, user))
-    }
-
     /**
      * 前台店铺发型展示区域及发型详细信息
      */
@@ -182,14 +176,7 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
      */
     def index = StackAction { implicit request =>
         val user = loggedIn
-        //检索画面Ranking数据暂时写死以便，数据画面显示；
-        val stylistId = List("53202c29d4d5e3cd47efffd9")
-        var styles: List[Style] = Nil
-        stylistId.map { sty =>
-            val style = Style.findByStylistId(new ObjectId(sty))
-            styles :::= style
-        }
-        Ok(html.style.general.overview(styles, styleSearchForm, Style.findParaAll, user))
+        Ok(html.style.general.overview(styleSearchForm, Style.findParaAll, user))
     }
 
     def findByLength(styleLength: String, consumerSex: String) = StackAction { implicit request =>

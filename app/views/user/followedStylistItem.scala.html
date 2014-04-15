@@ -28,7 +28,7 @@
             @if(logged.equals(false) || MyFollow.checkIfFollow(loginUserId,stylist.stylistId)){
 						<a href="@auth.routes.MyFollows.cancelFollow(stylist.stylistId)">@Messages("user.cancelFollow")</a>
 					}else{
-						<a href="@auth.routes.MyFollows.addFollow(stylist.stylistId,"stylist")">@Messages("user.addFollow")</a>
+						<a href="javascript:void(0);" onclick="addFollow('@stylist.stylistId','stylist')">@Messages("user.addFollow")</a>
 					}
             <a class="sendMsg" value="@stylist.stylistId">@Messages("user.sendMsg")</a>
 		</div>
