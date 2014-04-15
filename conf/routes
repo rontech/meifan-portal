@@ -250,3 +250,10 @@ GET         /mySalon/salonLogoPicture                                       cont
 
 #swf fileupload by douping
 POST         /imagesUpload                                                  controllers.Application.fileUploadAction()
+
+# Reset password by e-mail add by wu
+GET        /forgotPassword                                                  controllers.Mails.forgotPassword
+POST       /forgotPassword                                                  controllers.Mails.sendMailForResetPwd
+GET        /resetPwd                                                        controllers.Mails.password(uuid : String)
+POST       /resetPwd                                                        controllers.Mails.resetPassword(uuid : String)
+
