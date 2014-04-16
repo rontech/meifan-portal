@@ -199,34 +199,10 @@ h1, h2 {
 	border-top: 1px solid #DDDDDD;
 	margin: 20px auto 0;
 	}
-
-
-#footer {
-	width:1000px;
-	margin: 0 auto;
-	height: 60px;
-	padding-top: 10px;
-	position: relative;
-}
 #copyright {
 	position: absolute;
 	top: 10px;
 	left: 30px;
-}
-#footerLinks {
-	font-size: 10px;
-	overflow: hidden;
-	position: absolute;
-	top: 20px;
-	right: 30px;
-}
-#footerLinks li {
-	float: left;
-	border-right: 1px solid #DDD;
-	padding-right: 15px;
-	*padding-right: 16px;
-	margin-left: 15px;
-	margin-right: -1px;
 }
 
 #copyrightnew {
@@ -242,19 +218,7 @@ h1, h2 {
 	text-decoration: underline !important;
 }
 
-.postSalonInfo {
-	position: absolute;
-	top: 20px;
-	left: 320px;
-	background: url("/assets/images/icon_postsalon.png") no-repeat left top;
-	padding-left: 20px;
-	line-height: 16px;
-	font-weight: bold;
-}
-.postSalonInfo a {
-	margin-left: 5px;
-	font-weight: normal;
-}
+
 
 /************************************************************
  * CLASSES(コンポーネント)
@@ -608,123 +572,6 @@ div.skinHeadingWrapper2 {
 
 /* 見出しの画像テキスト */
 
-/*========index用=========*/
-
-.mainImage_navi{width:960px; height:397px; margin:0 auto;}
-.mainImage_navi a{ text-indent: -9999px; text-decoration: none; display: block; width: 230px; background-repeat: no-repeat;
-}
-.mainImage_navi a:hover { text-indent: -9999px; text-decoration: none; display: block; width: 230px; background-repeat: no-repeat;
-}
-.mainImage{    width:730px; height:397px; float:left;}
-
-/* index4.html */
-.imgNaviWrapper	{
-	width: 230px;
-	float: left;
-	position: relative;
-}
-.naviBar	{
-	position: absolute;
-	width: 10px;
-	height: 100px;
-	background-color: #393021;
-}
-.mainImage	{
-	position: relative;
-}
-.mainImage li	{
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 98;
-}
-.mainImage li.current	{
-	z-index: 100;
-}
-.mainImage li.prevCurrent	{
-	z-index: 99;
-}
-.mainImage_navi	{
-	width: auto;
-}
-
-.hair_reserve{ width:230px; height:99px; float:left;}
-.nail_reserve{ width:230px; height:99px; float:left;}
-.relax_reserve{width:230px; height:99px; float:left;}
-.esthe_reserve{width:230px; height:100px; float:left;}
-
-.hair_reserve a {
-	background: url(/assets/images/mainImg_Btn.png) 0 0 no-repeat;
-	width: 230px;
-	height: 99px;
-}
-.hair_reserve a:hover {
-	background-position: 0 -100px;
-}
-.nail_reserve a {
-	background: url(/assets/images/mainImg_Btn.png) -230px 0 no-repeat;
-	width: 230px;
-	height: 99px;
-}
-.nail_reserve a:hover {
-	background-position: -230px -100px;
-}
-.relax_reserve a {
-	background: url(/assets/images/mainImg_Btn.png) -460px 0 no-repeat;
-	width: 230px;
-	height: 99px;
-}
-.relax_reserve a:hover {
-	background-position: -460px -100px;
-}
-.esthe_reserve a {
-	background: url(/assets/images/mainImg_Btn.png) -690px 0 no-repeat;
-	width: 230px;
-	height: 100px;
-}
-.esthe_reserve a:hover {
-	background-position: -690px -100px;
-}
-
-.sliderBar {
-	position: absolute;
-	top: 0;
-	right: 220px;
-	width: 10px;
-	height: 100px;
-	background-color: #393021;
-}
-
-.plugWrapper {
-	margin-top:-1px;
-	font-size:0;     /* cFixによる空白解除用 */
-	display: block;  /* cFixによる空白解除用 */
-}
-.plugWrapper div.w421{
-	margin-top:21px;
-	font-size:12px;
-}
-
-/* ヘッダー */
-.logo			{ background-position: 4px 0px; display: block; width: 512px; height: 52px; text-indent: -9999px; overflow: hidden; }
-.salon			{ background-position: -20px -72px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
-.salon:hover	{ background-position: -20px -107px; }
-.salonCurrent	{ background-position: -20px -142px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
-.catalog		{ background-position: -184px -72px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
-.catalog:hover	{ background-position: -184px -107px; }
-.catalogCurrent	{ background-position: -184px -142px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
-.nail			{ background-position: -348px -72px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
-.nail:hover		{ background-position: -348px -107px; }
-.nailCurrent	{ background-position: -348px -142px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
-.nailCatalog			{ background-position: -512px -72px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
-.nailCatalog:hover		{ background-position: -512px -107px; }
-.nailCatalogCurrent	{ background-position: -512px -142px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
-.relax			{ background-position: -676px -72px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
-.relax:hover	{ background-position: -676px -107px; }
-.relaxCurrent	{ background-position: -676px -142px; display: block; width: 134px; height: 35px; margin-right: 2px; text-indent: -9999px; overflow: hidden; }
-.esthe			{ background-position: -840px -72px; display: block; width: 134px; height: 35px; margin-right: 6px; text-indent: -9999px; overflow: hidden; }
-.esthe:hover	{ background-position: -840px -107px; }
-.estheCurrent	{ background-position: -840px -142px; display: block; width: 134px; height: 35px; margin-right: 6px; text-indent: -9999px; overflow: hidden; }
 
 /* 背景 */
 .insertArea				{ background-position: -900px -340px; display: block; width:190px; height:300px; }

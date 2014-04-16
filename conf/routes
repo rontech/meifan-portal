@@ -237,7 +237,7 @@ GET         /reservSelectStylist                                            cont
 POST        /reservConfirmPwd                                               controllers.Reservations.reservConfirmPwd
 GET         /reservFinish                                                   controllers.Reservations.reservFinish
 GET         /reservConfirmInfo                                              controllers.Reservations.reservConfirmInfo
-GET         /salon/:salonId/reserve/schedule/:week                          controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
+#GET         /salon/:salonId/reserve/schedule/:week                          controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
 # MyFollows
 GET 	      /javascriptRoutes               						                    controllers.Application.javascriptRoutes
@@ -263,6 +263,11 @@ POST       /resetPwd                                                        cont
 
 #add salonPics 
 POST       /mySalon/updatepictures                                  		controllers.auth.Salons.updateSalonPics
+
+# Reservation add by sangsang-hu
+GET        /salon/reserve/salonId=:salonId&couponId=:couponId&week=:week                     controllers.Reservations.reservShowDate(salonId: ObjectId, couponId: ObjectId, week: Int)
+GET        /reserve/salonId=:salonId&couponId=:couponId&week=:week                           controllers.Reservations.reservSelectDate(salonId: ObjectId, couponId: ObjectId, week: Int)
+#GET        /salon/:salonId/reserve/schedule/:week                 controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
 #cancel current apply by user(dou)
 GET         /myPage/cancelApply                                             controllers.auth.Users.cancelApplyStylist

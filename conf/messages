@@ -39,11 +39,11 @@ index.specialCollections=专题特辑
 # Main Page Framework
 main.headSummary=中国首家美容美发沙龙・整形按摩院检索・预约平台
 main.hairSalon=美发沙龙
-main.hairCatalog=美发目录
+main.hairCatalog=时尚靓发
 main.nailSalon=美甲沙龙
-main.nailCatalog=美甲目录
-main.cosmSalon=美容整形院
-main.estheSalon=按摩保健院
+main.nailCatalog=时尚美甲
+main.relaxSalon=休闲保健
+main.estheSalon=整形美容
 main.idUsePolicy=ID利用约定
 main.usePolicy=使用须知
 main.securityPolicy=个人情报保护方针
@@ -52,6 +52,10 @@ main.wantToJoin=沙龙用户登录入口
 main.toSalonOwners=致沙龙
 main.help=常见问题
 main.myPage=我的主页
+main.myMeifan = 我的美范
+main.saveSite = 收藏本站
+main.welcomeToMeifan = 你好，欢迎来到美范！
+main.hairMessage = 我们提供最权威最新的时尚美容资讯！
 
 
 # Salon
@@ -330,6 +334,7 @@ coupon.appointment2 = 空缺查询
 coupon.addMenu = 追加服务预约
 coupon.currency = 元
 coupon.newCoupon = 新
+coupon.oldCoupon = 旧
 coupon.coupon = 券
 coupon.couponName = 优惠劵名
 coupon.perferentialPrice = 优惠价格（元）
@@ -345,6 +350,7 @@ coupon.serviceDuration = 服务时长
 coupon.modify = 修改
 coupon.invalid = 无效
 coupon.invalidCoupon = 该优惠劵已无效
+coupon.expiredCoupon = 该优惠劵已过期
 coupon.couponNameRequired = 优惠劵名必须填写！
 coupon.couponNameRepeat = 优惠劵名已存在，请重新填写！
 coupon.couponServiceRequired = 请至少选择一个服务！
@@ -809,6 +815,8 @@ reservation.weekDay.7 = 六
 reservation.rest = 休息日
 reservation.beforeWeek = 前一周
 reservation.afterWeek = 后一周
+reservation.salonResvMessage = ※即时预约，预约成功之后即可以到店里消费。
+reservation.onlineResv = 即时预约
 
 #salonCheckInfoState
 salonCheckInfoState.conditions =  店铺更多权限条件：

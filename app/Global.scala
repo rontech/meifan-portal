@@ -442,7 +442,14 @@ object InitialData {
       ).foreach(Question.save)
 
     }
-    
+
+    if(Notice.findAll.isEmpty) {
+       Seq(
+         Notice(new ObjectId(), "网站公告", "网站公告板块主要显示本网站的新闻、公告、通知等信息。","admin01", new Date,true),
+         Notice(new ObjectId(), "网站规划", "本站第一阶段于2014-04-20正式上线，本阶段网站建设的重点放在网站功能的完整性上，后期会再针对网站的预约功能等其他问题做进一步的完善。敬请期待~","admin01", new Date,true),
+         Notice(new ObjectId(), "网站目标", "一站式信息服务平台，最前沿美容美发咨询的汇集地！","admin01", new Date,true)
+          ).foreach(Notice.save)
+      }
     /*
     val stfile = new File(play.Play.application().path() + "/public/images/style")
     val stfiles = Image.listFilesInFolder(stfile)
