@@ -22,7 +22,7 @@
                                 }
                             </SCRIPT>
                             @if(Style.findByRanking.length > 0) {
-                            <DIV id=index_zxfxleftList1 class=index_zxfxleftList>
+                            <div id=index_zxfxleftList1 class=index_zxfxleftList>
                                 <div id="index_zxfx_pic">
                                     <ul>
                                         <li class="g1">
@@ -44,10 +44,10 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </DIV>
+                            </div>
                             }
                             @if(Style.findByRanking.length > 1) {
-                                <DIV id=index_zxfxleftList2 class=index_zxfxleftList_none>
+                                <div id=index_zxfxleftList2 class=index_zxfxleftList_none>
                                     <div id="index_zxfx_pic">
                                         <ul>
                                             <li class="g2">
@@ -69,15 +69,15 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </DIV>
-                                <DIV id=index_zxfxleft_box>
+                                </div>
+                                <div id=index_zxfxleft_box>
                                     <h3 id=mod1 class=menuOn onmouseover="switchmodTag('mod','index_zxfxleftList','1');this.blur();">
                                         <img src="@routes.Application.getPhoto(Style.findByRanking(0).stylePic(0).fileObjId)" width="90" height="110" />
                                     </h3>
                                     <h3 id=mod2 class=menuNo onmouseover="switchmodTag('mod','index_zxfxleftList','2');this.blur();">
                                         <img src="@routes.Application.getPhoto(Style.findByRanking(1).stylePic(0).fileObjId)" width="90" height="110" />
                                     </h3>
-                                </DIV>
+                                </div>
                             }
                         </div>
                         <div id="index_zxfxlist">
