@@ -18,16 +18,16 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
 
   val loginForm = Form(mapping(
     "userId" -> nonEmptyText,
-    "password" -> nonEmptyText)(User.authenticate)(_.map(u => (u.userId, "")))
+    "password" -> text)(User.authenticate)(_.map(u => (u.userId, "")))
     .verifying(Messages("user.loginErr"), result => result.isDefined))
 
   val changePassForm = Form(
     mapping(
       "user" ->mapping(
         "userId" -> text,
-        "oldPassword" -> nonEmptyText)(User.authenticate)(_.map(u => (u.userId, ""))).verifying("Invalid OldPassword", result => result.isDefined),
-      "newPassword" -> tuple(
-        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]+$""")),
+        "oldPassword" -> text)(User.authenticate)(_.map(u => (u.userId, ""))).verifying("Invalid OldPassword", result => result.isDefined),
+        "newPassword" -> tuple(
+        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]{6,16}+$""")),
         "confirm" -> text).verifying(
         // Add an additional constraint: both passwords must match
         Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2)

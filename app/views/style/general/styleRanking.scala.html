@@ -1,108 +1,98 @@
-<body>
-    <div id="container">
-        <div id="left">
-            <div id="left_container">
-                <div id="index_zxfx">
-                    <h2>
-                        <img src="images/index_zxfx_title.jpg" width="255" height="36" />
-                    </h2>
-                    <div id="index_zxfx_nr">
-                        <div id=index_zxfxleft>
-                            <SCRIPT language=javascript>
-                                function switchmodTag(modtag, modcontent, modk) {
-                                    for (i = 1; i < 3; i++) {
-                                        if (i == modk) {
-                                            document.getElementById(modtag + i).className = "menuOn";
-                                            document.getElementById(modcontent + i).className = "index_zxfxleftList";
-                                        } else {
-                                            document.getElementById(modtag + i).className = "menuNo";
-                                            document.getElementById(modcontent + i).className = "index_zxfxleftList_none";
-                                        }
-                                    }
-                                }
-                            </SCRIPT>
-                            @if(Style.findByRanking.length > 0) {
-                            <DIV id=index_zxfxleftList1 class=index_zxfxleftList>
-                                <div id="index_zxfx_pic">
-                                    <ul>
-                                        <li class="g1">
-                                            @Messages("style.ranking.first")
-                                        </li>
-                                        <li class="one">
-                                            <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRanking(0).stylistId).get.id, Style.findByRanking(0).id)">
-                                                <img src="@routes.Application.getPhoto(Style.findByRanking(0).stylePic(0).fileObjId)" width="220" height="250" />
-                                                <span>
-                                                    <p>
-                                                        @Style.findByRanking(0).styleName
-                                                    </P>
-                                                    <br />
-                                                    <p>
-                                                        @Style.findSalonByStyle(Style.findByRanking(0).stylistId).get.salonName
-                                                    </P>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </DIV>
-                            }
-                            @if(Style.findByRanking.length > 1) {
-                                <DIV id=index_zxfxleftList2 class=index_zxfxleftList_none>
-                                    <div id="index_zxfx_pic">
-                                        <ul>
-                                            <li class="g2">
-                                                @Messages("style.ranking.second")
-                                            </li>
-                                            <li class="one">
-                                                <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRanking(1).stylistId).get.id, Style.findByRanking(1).id)">
-                                                    <img src="@routes.Application.getPhoto(Style.findByRanking(1).stylePic(0).fileObjId)" width="220" height="250" />
-                                                    <span>
-                                                        <p>
-                                                            @Style.findByRanking(1).styleName
-                                                        </P>
-                                                        <br />
-                                                        <p>
-                                                            @Style.findSalonByStyle(Style.findByRanking(1).stylistId).get.salonName
-                                                        </P>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </DIV>
-                                <DIV id=index_zxfxleft_box>
-                                    <h3 id=mod1 class=menuOn onmouseover="switchmodTag('mod','index_zxfxleftList','1');this.blur();">
-                                        <img src="@routes.Application.getPhoto(Style.findByRanking(0).stylePic(0).fileObjId)" width="90" height="110" />
-                                    </h3>
-                                    <h3 id=mod2 class=menuNo onmouseover="switchmodTag('mod','index_zxfxleftList','2');this.blur();">
-                                        <img src="@routes.Application.getPhoto(Style.findByRanking(1).stylePic(0).fileObjId)" width="90" height="110" />
-                                    </h3>
-                                </DIV>
-                            }
-                        </div>
-                        <div id="index_zxfxlist">
-                            <ul>
-                                @if(Style.findByRanking.length > 2) {
-                                    <li>
-                                    @for(i <- 2 until (if (Style.findByRanking.length > 5) 5 else Style.findByRanking.length)){
-                                    <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRanking(i).stylistId).get.id, Style.findByRanking(i).id)">
-                                        <img src="@routes.Application.getPhoto(Style.findByRanking(i).stylePic(0).fileObjId)" width="150" height="171" />
-                                        <span>
-                                            <p>
-                                                @Style.findByRanking(i).styleName
-                                            </P>
-                                            <br />
-                                            <p>
-                                                @Style.findSalonByStyle(Style.findByRanking(i).stylistId).get.salonName
-                                            </P>
-                                        </span>
-                                    </a>    
-                                    }
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!--end--最热发型-->
-</body>
+<div id="index_zxfx">
+    <h2>
+        <img src="@routes.Assets.at("images/index_zxfx_title.jpg")" width="255" height="36" />
+  </h2>
+  <div id="index_zxfx_nr">
+      <div id=index_zxfxleft>
+          <SCRIPT language=javascript>
+              function switchmodTag(modtag, modcontent, modk) {
+                  for (i = 1; i < 3; i++) {
+                      if (i == modk) {
+                          document.getElementById(modtag + i).className = "menuOn";
+                          document.getElementById(modcontent + i).className = "index_zxfxleftList";
+                      } else {
+                          document.getElementById(modtag + i).className = "menuNo";
+                          document.getElementById(modcontent + i).className = "index_zxfxleftList_none";
+                      }
+                  }
+              }
+          </SCRIPT>
+          @if(Style.findByRanking.length > 0) {
+          <div id=index_zxfxleftList1 class=index_zxfxleftList>
+              <div id="index_zxfx_pic">
+                  <ul>
+                      <li class="g1">
+                          @Messages("style.ranking.first")
+                      </li>
+                      <li class="one">
+                          <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRanking(0).stylistId).get.id, Style.findByRanking(0).id)">
+                              <img src="@routes.Application.getPhoto(Style.findByRanking(0).stylePic(0).fileObjId)" width="220" height="250" />
+                              <span>
+                                  <p>
+                                      @Style.findByRanking(0).styleName
+                                  </P>
+                                  <br />
+                                  <p>
+                                      @Style.findSalonByStyle(Style.findByRanking(0).stylistId).get.salonName
+                                  </P>
+                              </span>
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          }
+          @if(Style.findByRanking.length > 1) {
+              <DIV id=index_zxfxleftList2 class=index_zxfxleftList_none>
+                  <div id="index_zxfx_pic">
+                      <ul>
+                          <li class="g2">
+                              @Messages("style.ranking.second")
+                          </li>
+                          <li class="one">
+                              <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRanking(1).stylistId).get.id, Style.findByRanking(1).id)">
+                                  <img src="@routes.Application.getPhoto(Style.findByRanking(1).stylePic(0).fileObjId)" width="220" height="250" />
+                                  <span>
+                                      <p>
+                                          @Style.findByRanking(1).styleName
+                                      </P>
+                                      <br />
+                                      <p>
+                                          @Style.findSalonByStyle(Style.findByRanking(1).stylistId).get.salonName
+                                      </P>
+                                  </span>
+                              </a>
+                          </li>
+                      </ul>
+                  </div>
+              </DIV>
+              <DIV id=index_zxfxleft_box>
+                  <h3 id=mod1 class=menuOn onmouseover="switchmodTag('mod','index_zxfxleftList','1');this.blur();">
+                      <img src="@routes.Application.getPhoto(Style.findByRanking(0).stylePic(0).fileObjId)" width="90" height="110" />
+                  </h3>
+                  <h3 id=mod2 class=menuNo onmouseover="switchmodTag('mod','index_zxfxleftList','2');this.blur();">
+                      <img src="@routes.Application.getPhoto(Style.findByRanking(1).stylePic(0).fileObjId)" width="90" height="110" />
+                  </h3>
+              </DIV>
+          }
+      </div>
+      <div id="index_zxfxlist">
+          <ul>
+              @if(Style.findByRanking.length > 2) {
+                  @for(i <- 2 until (if (Style.findByRanking.length > 6) 6 else Style.findByRanking.length)){
+                  <li>
+                   <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRanking(i).stylistId).get.id, Style.findByRanking(i).id)">
+                       <img src="@routes.Application.getPhoto(Style.findByRanking(i).stylePic(0).fileObjId)" width="150" height="171" />
+                       <span>
+                           @Style.findByRanking(i).styleName
+                           <br />
+                           @Style.findSalonByStyle(Style.findByRanking(i).stylistId).get.salonName
+                       </span>
+                   </a>
+                  </li>    
+                  }
+              }
+            </ul>
+  </div>
+</div>
+</div>

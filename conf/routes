@@ -196,7 +196,7 @@ GET         /mySalon/salonShowPics                                          cont
 GET			/salonBasic										controllers.auth.Salons.salonBasic
 GET			/salonDetail									controllers.auth.Salons.salonDetail
 POST        /salonConsum/:id                                 controllers.auth.Salons.salonInfoConsum(id:ObjectId)
-#POST        /changeSalonPassword/:id                         controllers.SalonInfo.salonChangePassword(id: ObjectId)
+POST        /changeSalonPassword                            controllers.auth.Salons.salonChangePassword(accountId : String)
 
 
 # Coupon
