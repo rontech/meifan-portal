@@ -28,7 +28,7 @@ case class Salon(
     salonDescription: Option[String], 
     picDescription: Option[PicDescription],
     contactMethod:Contact,
-    optContactMethod: List[OptContactMethod],
+    optContactMethods: List[OptContactMethod],
     establishDate: Option[Date],
     salonAddress: Option[Address],
     workTime: Option[WorkTime],

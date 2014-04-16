@@ -65,7 +65,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
                 "contact" -> nonEmptyText,
                 "email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)+$"""))
             )(Contact.apply)(Contact.unapply),
-            "optContactMethod" -> list(
+            "optContactMethods" -> list(
                 mapping(
                     "contMethodType" -> text,
                     "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
@@ -120,12 +120,12 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
                 }),
             "registerDate" -> date
         ){
-            (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
-             workTime, restDay, seatNums, salonFacilities,salonPics,registerDate) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
+            (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
+             workTime, restDay, seatNums, salonFacilities,salonPics,registerDate) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
                 workTime, restDay, seatNums, salonFacilities,salonPics,registerDate)
         }
         {
-            salon=> Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonDescription, salon.picDescription,salon.contactMethod, salon.optContactMethod, salon.establishDate, salon.salonAddress,
+            salon=> Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonDescription, salon.picDescription,salon.contactMethod, salon.optContactMethods, salon.establishDate, salon.salonAddress,
                 salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
         }
     )

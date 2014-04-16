@@ -49,7 +49,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	        		"contact" -> nonEmptyText,
 	        		"email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)+$"""))
 	        )(Contact.apply)(Contact.unapply),
-	        "optContactMethod" -> list(
+	        "optContactMethods" -> list(
 	            mapping(
 	                "contMethodType" -> text,
 	                "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
@@ -103,12 +103,12 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	                salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
 	              })
       ){
-        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription,picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
-	       workTime, restDays, seatNums, salonFacilities,salonPics) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethod, establishDate, salonAddress,
+        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription,picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
+	       workTime, restDays, seatNums, salonFacilities,salonPics) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
 	       workTime, restDays, seatNums, salonFacilities,salonPics,new Date())
       }{
         salonRegister=> Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.picDescription, salonRegister.contactMethod, 
-        		salonRegister.optContactMethod, salonRegister.establishDate, salonRegister.salonAddress,
+        		salonRegister.optContactMethods, salonRegister.establishDate, salonRegister.salonAddress,
         		salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics)
       }.verifying(
 

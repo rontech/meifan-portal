@@ -390,16 +390,16 @@
 				            <td>
                                 <div class="restDays">
                                     @inputRadioGroup(salonForm("restDays.restWay"), options = options("Fixed" -> Messages("restWay.fixed"),"Indefinite" -> Messages("restWay.indefinite")) , '_label -> None)
-                                    @if(salon.restDays.map{rest=>rest.restWay}.equals("Fixed")){
+                                    @if(salon.restDays.map(rest=>rest.restWay.equals("Fixed"))){
                                         <div id="restDays_div">
                                             @Messages("salon.selectRestDays")
-                                            <input type="checkbox" name="restDays.restDay1[0]" value="Monday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Monday")){checked}>@Messages("Monday")
-                                            <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Tuesday")){checked}>@Messages("Tuesday")
-                                            <input type="checkbox" name="restDays.restDay1[2]" value="Wednesday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Wednesday")){checked}>@Messages("Wednesday")
-                                            <input type="checkbox" name="restDays.restDay1[3]" value="Thursday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Thursday")){checked}>@Messages("Thursday")
-                                            <input type="checkbox" name="restDays.restDay1[4]" value="Friday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Friday")){checked}>@Messages("Friday")
-                                            <input type="checkbox" name="restDays.restDay1[5]" value="Saturday"@if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Saturday")){checked}>@Messages("Saturday")
-                                            <input type="checkbox" name="restDays.restDay1[6]" value="Sunday"@if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Sunday")){checked}>@Messages("Sunday")
+                                            <input type="checkbox" name="restDays.restDay1[0]" value="Monday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Monday")}.getOrElse(None)){checked}>@Messages("Monday")
+                                            <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Tuesday")}.getOrElse(None)){checked}>@Messages("Tuesday")
+                                            <input type="checkbox" name="restDays.restDay1[2]" value="Wednesday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Wednesday")}.getOrElse(None)){checked}>@Messages("Wednesday")
+                                            <input type="checkbox" name="restDays.restDay1[3]" value="Thursday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Thursday")}.getOrElse(None)){checked}>@Messages("Thursday")
+                                            <input type="checkbox" name="restDays.restDay1[4]" value="Friday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Friday")}.getOrElse(None)){checked}>@Messages("Friday")
+                                            <input type="checkbox" name="restDays.restDay1[5]" value="Saturday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Saturday")}.getOrElse(None)){checked}>@Messages("Saturday")
+                                            <input type="checkbox" name="restDays.restDay1[6]" value="Sunday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Sunday")}.getOrElse(None)){checked}>@Messages("Sunday")
                                         </div>
                                         <div id="noRestDays_div" style="display: none;">
                                             @Messages("salon.EnterRestDays")
@@ -418,7 +418,7 @@
                                         </div>
                                         <div id="noRestDays_div" >
                                             @Messages("salon.EnterRestDays")
-                                            <input type="text" name="restDays.restDay2[0]" value="@salon.restDays.map(rest=>rest.restDay).toList">
+                                            <input type="text" name="restDays.restDay2[0]" value="@salon.restDays.map(day=>day.restDay.toList).getOrElse(None)">
                                         </div>
                                     }
                                 </div>

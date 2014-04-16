@@ -167,20 +167,27 @@
 				                </div>
 				            </th>
 				            <td>
-				            	<div id="optContactMethods">
-				            		 @repeat(salonRegister("optContactMethod"), min = 0) { optContactMethod =>
+				               <div id="optContactMethods">
+            
+					                @repeat(salonRegister("optContactMethods"), min = 0) { optContactMethod =>
+					                
 					                    @optContactMethodGroup(optContactMethod)
+					                
 					                }
 					                
+					                @**
+					                 * Keep an hidden block that will be used as template for Javascript copy code
+					                 **@
 					                @optContactMethodGroup(
-					                    salonRegister("optContactMethod[x]"),
+					                    salonRegister("optContactMethods[x]"),
 					                    className = "optContactMethod_template"
 					                )
-		                
+					                
 					                <div class="manage">
-					                    <a class="addoptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
+					                    <a class="addOptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
 					                </div>
-				            	</div>
+					            
+					            </div>
 				            </td>
 				        </tr>
 					</tbody>
@@ -197,16 +204,16 @@
 				            <td>
                                 <div class="restDays">
                                     @inputRadioGroup(salonRegister("restDays.restWay"), options = options("Fixed" -> Messages("restWay.fixed"),"Indefinite" -> Messages("restWay.indefinite")) , '_label -> None)
-                                    @if(salon.restDays.map{rest=>rest.restWay}.equals("Fixed")){
+                                    @if(salon.restDays.map(rest=>rest.restWay.equals("Fixed"))){
                                         <div id="restDays_div">
                                             @Messages("salon.selectRestDays")
-                                            <input type="checkbox" name="restDays.restDay1[0]" value="Monday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Monday")){checked}>@Messages("Monday")
-                                            <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Tuesday")){checked}>@Messages("Tuesday")
-                                            <input type="checkbox" name="restDays.restDay1[2]" value="Wednesday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Wednesday")){checked}>@Messages("Wednesday")
-                                            <input type="checkbox" name="restDays.restDay1[3]" value="Thursday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Thursday")){checked}>@Messages("Thursday")
-                                            <input type="checkbox" name="restDays.restDay1[4]" value="Friday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Friday")){checked}>@Messages("Friday")
-                                            <input type="checkbox" name="restDays.restDay1[5]" value="Saturday"@if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Saturday")){checked}>@Messages("Saturday")
-                                            <input type="checkbox" name="restDays.restDay1[6]" value="Sunday"@if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Sunday")){checked}>@Messages("Sunday")
+                                            <input type="checkbox" name="restDays.restDay1[0]" value="Monday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Monday")}.getOrElse(None)){checked}>@Messages("Monday")
+                                            <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Tuesday")}.getOrElse(None)){checked}>@Messages("Tuesday")
+                                            <input type="checkbox" name="restDays.restDay1[2]" value="Wednesday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Wednesday")}.getOrElse(None)){checked}>@Messages("Wednesday")
+                                            <input type="checkbox" name="restDays.restDay1[3]" value="Thursday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Thursday")}.getOrElse(None)){checked}>@Messages("Thursday")
+                                            <input type="checkbox" name="restDays.restDay1[4]" value="Friday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Friday")}.getOrElse(None)){checked}>@Messages("Friday")
+                                            <input type="checkbox" name="restDays.restDay1[5]" value="Saturday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Saturday")}.getOrElse(None)){checked}>@Messages("Saturday")
+                                            <input type="checkbox" name="restDays.restDay1[6]" value="Sunday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Sunday")}.getOrElse(None)){checked}>@Messages("Sunday")
                                         </div>
                                         <div id="noRestDays_div" style="display: none;">
                                             @Messages("salon.EnterRestDays")
@@ -225,7 +232,7 @@
                                         </div>
                                         <div id="noRestDays_div" >
                                             @Messages("salon.EnterRestDays")
-                                            <input type="text" name="restDays.restDay2[0]" value="@salon.restDays.map(rest=>rest.restDay).toList">
+                                            <input type="text" name="restDays.restDay2[0]" value="@salon.restDays.map(day=>day.restDay.toList).getOrElse(None)">
                                         </div>
                                     }
                                 </div>
@@ -282,7 +289,6 @@
 				<div class="mT20 txtC">			
 					<input type = "submit" class = "buttons" value=@Messages("common.submit")>
 					<input type="reset" value=@Messages("common.reset")>
-					<a href = "@routes.Application.salonLogin"><input type="button" value=@Messages("common.backUp") ></a>
 				</div>
 			}
 
@@ -291,20 +297,15 @@
 }
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
-        <input type="text" name="@name" value="@value">
+        <input type="text" name="@name" value="@value"> 
         <a class="removeAccount btn danger">@Messages("optContactMethod.Remove")</a>
     }
 }
 
 @optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
     <div class="twipsies well @className">
-
-        <a class="removeoptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
-
-        @*inputText(
-            field("contMethodType"),
-            '_label -> Messages("user.contMethodType")
-        )*@
+        
+        <a class="removeOptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
         
         @select(
         	field("contMethodType"), 
@@ -312,15 +313,15 @@
         	'_default -> Messages("user.chooseOpt"),
         	'_label -> Messages("user.contMethodType")
         )
-
+        
         <div class="accounts">
 
             @repeat(field("accounts"), min = 1) { account =>
-
+                
                 @accountField(account)
-
+    
             }
-
+            
             @**
              * Keep an hidden block that will be used as template for Javascript copy code
              **@
@@ -328,17 +329,18 @@
                 field("accounts[x]"),
                 className = "account_template"
             )
-
+            
             <div class="clearfix">
                 <div class="input">
                     <a class="addAccount btn success">@Messages("optContactMethod.AddNumber")</a>
                 </div>
             </div>
-
+        
         </div>
-
+ 
     </div>
 }
+
 
 @pictureGroup(field: Field, className: String = "salonPic") = {
 	<li>
