@@ -7,6 +7,7 @@
         <title> @title </title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/tempindex.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/tempAppend.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanCommon.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"> </script>
         <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
@@ -25,44 +26,59 @@
     
     <body id="pageTop">
         <!-- ↓header -->
-        <div id="headerWrapper">
+		<div id="headerWrapper">
             <div id="header">
                 <h1 id="headSummary"> @Messages("main.headSummary") </h1>
-                <div id="logoNavi">
-                    <div id="logo">
-                        <a href="@routes.Application.index" class="logo cS offL"> @Messages("main.headSummary") </a>
-                    </div>
-                    <ul class="user cFix">
-                        <li class="fr pL15">
-                            <a href="@noAuth.routes.Questions.getAllQuestions()" target="_blank" id="faq" class="iS arrowR"> @Messages("main.help") </a>
-                        </li>
-                        <li class="fr pL15">
-                            <a href="@auth.routes.Users.myPage" class="iS arrowR"> @Messages("main.myPage") </a>
-                       </li>
-                    </ul>
-                    <ul class="move cFix">
-                        <li class="fl">
-                            <a href="@noAuth.routes.Salons.index" class="cS @if(nav == "hair-salon") {salonCurrent} else {salon}"> @Messages("main.hairSalon") </a>
-                        </li>
-                        <li class="fl">
-                            <a href="@noAuth.routes.Styles.index" class="cS @if(nav == "hair-catalog") {catalogCurrent} else {catalog}"> @Messages("main.hairCatalog") </a>
-                        </li>
-                        <li class="fl">
-                            <a href="@routes.Application.index" class="cS @if(nav == "nail-salon") {nailCurrent} else {nail}"> @Messages("main.nailSalon") </a>
-                        </li>
-                        <li class="fl">
-                            <a href="@routes.Application.index" class="cS @if(nav == "nail-catalog") {nailCatalogCurrent} else {nailCatalog}"> @Messages("main.nailCatalog") </a>
-                        </li>
-                        <li class="fl">
-                            <a href="@routes.Application.index" class="cS @if(nav == "relax-salon") {relaxCurrent} else {relax}"> @Messages("main.relaxSalon") </a>
-                        </li>
-                        <li class="fl">
-                            <a href="@routes.Application.index" class="cS @if(nav == "esthe-salon") {estheCurrent} else {esthe}"> @Messages("main.estheSalon") </a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
+		<div id="top_bg">
+		    <div id="top">
+		        <a href="@routes.Application.index">
+		            <img src="@routes.Assets.at("images/logo.jpg")" width="212" height="60" class="logo" />
+		        </a>
+		        <div id="top_right">
+		            <div id="top_list">
+		                <ul>
+		                     <li>
+					         	@Messages("main.welcomeToMeifan")
+					         </li>
+					         <li class="sc">
+					         	<a href="@auth.routes.Users.myPage">@Messages("main.myMeifan")</a>
+					         </li>
+					         <li class="sc">
+					         	<a onclick="AddFavorite(window.location,document.title)" href="javascript:void(0)">@Messages("main.saveSite")</a>
+					         </li>
+					         <li class="sc">
+					         	<a href="@noAuth.routes.Questions.getAllQuestions()">@Messages("main.help")</a>
+					         </li>
+					    </ul>
+					</div>
+					<!--顶部菜单-->
+					<div id="nav">
+					    <ul>
+					      <li class="@if(nav == "hair-salon") {btn}">
+					      	<a href="@noAuth.routes.Salons.index"> @Messages("main.hairSalon") </a>
+					      </li>
+					      <li class="@if(nav == "hair-catalog") {btn}">
+					      	<a href="@noAuth.routes.Styles.index"> @Messages("main.hairCatalog") </a>
+					      </li>
+					      <li class="@if(nav == "nail-salon") {btn}">
+					      	<a href="@routes.Application.index"> @Messages("main.nailSalon") </a>
+					      </li>
+					      <li class="@if(nav == "nail-catalog") {btn}">
+					      	<a href="@routes.Application.index"> @Messages("main.nailCatalog") </a>
+					      </li>
+					      <li class="@if(nav == "relax-salon") {btn}">
+					      	<a href="@routes.Application.index"> @Messages("main.relaxSalon") </a>
+					      </li>
+					      <li class="@if(nav == "esthe-salon") {btn}">
+					      	<a href="@routes.Application.index"> @Messages("main.estheSalon") </a>
+					      </li>
+					    </ul>
+					</div>
+				</div>
+			</div>
+		</div>
         <!-- ↑header -->
         <!-- ↓wrapper -->
         <div id="wrapper">
@@ -130,7 +146,7 @@
                     <div id="footer" class="cFix">
                         <div id="copyrightnew">
                             <a href="@routes.Application.index" target="_blank">
-                                <img src="@routes.Assets.at("images/footercopyright.gif")" alt="(C) Rontech Lifestyle Co.,Ltd."
+                                <img src="@routes.Assets.at("images/logo.jpg")" alt="(C) Rontech Lifestyle Co.,Ltd."
                                 />
                             </a>
                         </div>
