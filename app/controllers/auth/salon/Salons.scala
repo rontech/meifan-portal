@@ -490,7 +490,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   def getAllStylesListBySalon = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
       val salon = loggedIn
             Styles.styleSearchForm.bindFromRequest.fold(
-                errors => BadRequest(views.html.index("")),
+                errors => BadRequest(views.html.index()),
                 {
                     case (styleSearch) => {
                         val stylists = Style.findStylistBySalonId(salon.id)
@@ -516,7 +516,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     def styleUpdateNewBySalon = StackAction(AuthorityKey -> isLoggedIn _) {implicit request =>
         val salon = loggedIn
             Styles.styleUpdateForm.bindFromRequest.fold(
-                errors => BadRequest(views.html.index("")),
+                errors => BadRequest(views.html.index()),
                 {
                     case (styleUpdateForm) => {
                         Style.save(styleUpdateForm.copy(id=styleUpdateForm.id), WriteConcern.Safe)
@@ -548,7 +548,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     def newStyleAddBySalon = StackAction(AuthorityKey -> isLoggedIn _) {implicit request =>
         val salon = loggedIn
         Styles.styleAddForm.bindFromRequest.fold(
-            errors => BadRequest(html.index("")),
+            errors => BadRequest(views.html.index()),
             {
                 case (styleAddForm) => {
                     Style.save(styleAddForm)
