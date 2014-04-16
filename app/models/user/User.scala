@@ -81,6 +81,13 @@ object User extends ModelCompanion[User, ObjectId] {
             return None
         }
     }
+    
+    /**
+     * 通过邮箱重置密码时需要输入以下两个值，判断他们在数据库中是否存在
+     */
+    def findOneByUserIdAndEmail(userId: String, email: String): Option[User] = {
+        dao.findOne(MongoDBObject("userId" -> userId, "email" -> email))
+    }
 
     /**
      * 权限认证
@@ -93,4 +100,6 @@ object User extends ModelCompanion[User, ObjectId] {
      * 用于判断userId与当前用户是否互相关注(强关系)
      */
     def isFriend(userId: ObjectId)(user: User): Future[Boolean] = Future { (userId == user.id) || MyFollow.followEachOther(userId, user.id) }
+    
+    def findBeautyUsers = dao.find(MongoDBObject.empty).toList.sortBy(user =>user.activity)
 }

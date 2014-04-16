@@ -186,6 +186,7 @@ Saturday = 星期六
 Sunday = 星期日
 salon.noExist = 该店铺不存在
 salon.register.accountIdErr=店铺ID不合法!
+salon.mailError=邮箱格式不合法
 
 
 #salon management
@@ -544,6 +545,13 @@ user.applyStylistMessage_1 = 提交成功，耐心等待salon确认，
 user.applyStylistMessage_2 = s后自动跳转至我的主页，点击
 user.applyStylistMessage_3 = 直接跳转
 user.applySalonId = 输入您要申请的店铺ID，6~18位,包含字母、数字和下划线!
+user.basicInfo = 基本信息
+user.stylistInfo = 技师信息
+user.followSuccess = 关注成功！
+user.collectSuccess = 收藏成功！
+user.resetErr=用户名和邮箱不一致，请重新输入!
+user.resetPassword = 重置密码
+user.resetInfo = 点击下面的链接，重置密码
 
 
 #Letter
@@ -820,3 +828,4 @@ salonCheckInfoState.youNeedDo = 您还有
 salonCheckInfoState.cannotApply = 个事项未完成，网站将开放你相应权限，详情查看
 salonCheckInfoState.uploadLogo = 头像设置
 salonCheckInfoState.uploadpics = 展示图片
+salonCheckInfoState.createSalon=申请开店
