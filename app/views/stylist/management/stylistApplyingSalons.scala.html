@@ -4,6 +4,6 @@
 
 @myPageMain("applingSalons", user, followInfo, loginUserId, logged){
 	@salons.map{salon =>
-		@views.html.stylist.management.stylistApplyingSalonItem(user, loginUserId, salon, stylist)
+		@views.html.stylist.management.stylistApplyingSalonItem(user, loginUserId, logged, salon)
 	}
 }

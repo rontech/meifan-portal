@@ -17,9 +17,11 @@ function preLoad() {
 		return false;
 	}
 }
+
 function loadFailed() {
-	alert("装在上传组件失败，请重新刷新页面重试。");
+	//alert("装在上传组件失败，请重新刷新页面重试。");
 }
+
 
 function fileQueued(file) {
 	try {

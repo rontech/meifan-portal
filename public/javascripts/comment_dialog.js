@@ -34,7 +34,7 @@ function create_comment_dialog(commentObjId, commentObjType) {
     var fifthLine = jQuery("<input type='button' value='提交' id='send_message'>");
     
 //    var fifthLine = jQuery("<tr><td colspan='2' align='center'><p id='send_message' >提交</p></td></tr>");
-    var closeImg = jQuery("<img id='closeImg' src='../images/comment_dialog/X.jpg' style='position:absolute;right:20px;top:10px;cursor:pointer'/>");
+    var closeImg = jQuery("<input id='closeImg' type='button' value='关闭' style='position:absolute;right:20px;top:10px;cursor:pointer'/>");
 
     title.appendTo(headDiv);
     headDiv.appendTo(mainDiv);
@@ -70,7 +70,7 @@ function create_comment_dialog(commentObjId, commentObjType) {
     jQuery("ul.rating li a").click(function () {
         var title = jQuery(this).attr("title").trim();
         var parentDiv_id = jQuery(this).parent().parent().parent().attr("id");
-        //将3个评 结果保存到对应的变量中
+        //将5个评 结果保存到对应的变量中
         if (parentDiv_id == "complex2") {
             complex = title;
             $("#complex1").val(complex);
@@ -108,7 +108,12 @@ function create_comment_dialog(commentObjId, commentObjType) {
     	var url = "/addCommentToCoupon/" + commentObjId + "/" + commentObjType;
     	$("#myForm").attr("action", url);
     	if(complex == 0) {
-    		alert("您还没有给第一项打分呢！");
+//    		alert("您还没有给第一项打分呢！");
+//    		alert("@Messages('comment.noFirst')");
+//    		<body data-key="${play.configuration.get("comment.noFirst")}">
+    		var key = $('body').data('key');
+    		alert(key);
+    		
     		return false;
     	}
     	if(atmosphere == 0) {

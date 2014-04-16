@@ -23,19 +23,25 @@ trait UserAuthConfigImpl extends AuthConfig {
   def resolveUser(userId: Id)(implicit ctx: ExecutionContext) = Future.successful(User.findOneByUserId(userId))
 
   def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = {
-    val uri = request.session.get("access_uri").getOrElse(routes.Application.index.url.toString)
-    Future.successful(Redirect(uri).withSession(request.session - "access_uri"))
+    val uri = request.session.get("user_access_uri").getOrElse(routes.Application.index.url.toString)
+    Future.successful(Redirect(uri).withSession(request.session - "user_access_uri"))
   }
   def logoutSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Redirect(routes.Application.index))
 
-  def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) =
-		  Future.successful(Redirect(routes.Application.login).withSession("access_uri" -> request.uri))
+  def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful {
+        request.headers.get("X-Requested-With") match {
+            case Some("XMLHttpRequest") => Unauthorized("Authentication failed")
+            case _ => Redirect(routes.Application.login).withSession("user_access_uri" -> request.uri)
+        }
+    }
 
   def authorizationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Forbidden("no permission"))
 
   def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = authority(user)
 
   def requireAdminUser(user: User): Future[Boolean] = Future.successful(user.permission == "Administrator")
+
+  def isLoggedIn(user:User) :Future[Boolean] = Future.successful(true)
  
   def authorization(permission: Permission)(user : User)(implicit ctx: ExecutionContext) = Future.successful((permission, user.permission) match {
     case ( _, "Administrator") => true

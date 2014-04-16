@@ -5,8 +5,6 @@
 
 @mySalonMain(navInSalon, salon){
 	
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
-
 <div class="basicInformation-content">
 	<div class="basicInformation">
 		<div class="contentsTitleWrapper">
@@ -14,7 +12,7 @@
 		</div>
 
 		<div class="mT10 pH10">
-			@helper.form(action = routes.SalonInfo.update(salon.id), args = 'id -> "salonForm"){
+			@helper.form(action = auth.routes.Salons.update(salon.id), args = 'id -> "salonForm"){
 				
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
@@ -115,8 +113,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("mainPhone"), '_label -> None, '_help -> Messages("*"),
-				                		'_error -> salonForm("mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
+				                	@inputText(salonForm("contactMethod.mainPhone"), '_label -> None, '_help -> Messages("*"),
+				                		'_error -> salonForm("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
 				                </div>
 				            </td>
 				        </tr>
@@ -129,11 +127,25 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("contact"), '_label -> None,'_help -> Messages("*"),
-				                		'_error -> salonForm("contact").error.map(_.withMessage(Messages("salon.register.contact"))))
+				                	@inputText(salonForm("contactMethod.contact"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonForm("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
 				                </div>
 				            </td>
 				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("user.email")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonForm("contactMethod.email"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonForm("contactMethod.email").error.map(_.withMessage(Messages("salon.register.contact"))))
+				                </div>
+				            </td>
+				        </tr>				        
 				        <tr>
 				            <th class="w222 ">
 				                <!-- -->
@@ -143,8 +155,11 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputDate(salonForm("establishDate"), '_label -> None, '_help -> Messages("*"),
-				                		'_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate"))))
+				                	@*inputDate(salonForm("establishDate"), '_label -> None, '_help -> Messages("*"),
+				                		'_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate"))))*@
+				                    @input(field = salonForm("establishDate"), '_label -> None, '_help -> Messages("*"), '_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate")))) { (id, name, value, _) =>
+        							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
+								    }
 				                </div>
 				            </td>
 				        </tr>
@@ -157,9 +172,9 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province" value = "@salon.salonAddress.province"></select>
-									@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.salonAddress.city"></select>
-									@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.salonAddress.region"></select>
+				                	@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province" value = "@salon.salonAddress.map(add=>add.province).getOrElse(None)"></select>
+									@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.salonAddress.map(add=>add.city).getOrElse(None)"></select>
+									@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.salonAddress.map(add=>add.region).getOrElse(None)"></select>
 									<script type="text/javascript">
 										addressInit('Select1', 'Select2', 'Select3');
 									</script>
@@ -346,7 +361,7 @@
 				            </th>
 				            <td>
 				            	<div id="optContactMethods">
-				            		 @repeat(salonForm("optContactMethod")) { optContactMethod =>
+				            		 @repeat(salonForm("optContactMethod"), min = 0) { optContactMethod =>
 					                    @optContactMethodGroup(optContactMethod)
 					                }
 					                
@@ -375,16 +390,16 @@
 				            <td>
                                 <div class="restDays">
                                     @inputRadioGroup(salonForm("restDays.restWay"), options = options("Fixed" -> Messages("restWay.fixed"),"Indefinite" -> Messages("restWay.indefinite")) , '_label -> None)
-                                    @if(salon.restDays.restWay.equals("Fixed")){
+                                    @if(salon.restDays.map{rest=>rest.restWay}.equals("Fixed")){
                                         <div id="restDays_div">
                                             @Messages("salon.selectRestDays")
-                                            <input type="checkbox" name="restDays.restDay1[0]" value="Monday" @if(salon.restDays.restDay.contains("Monday")){checked}>@Messages("Monday")
-                                            <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday" @if(salon.restDays.restDay.contains("Tuesday")){checked}>@Messages("Tuesday")
-                                            <input type="checkbox" name="restDays.restDay1[2]" value="Wednesday" @if(salon.restDays.restDay.contains("Wednesday")){checked}>@Messages("Wednesday")
-                                            <input type="checkbox" name="restDays.restDay1[3]" value="Thursday" @if(salon.restDays.restDay.contains("Thursday")){checked}>@Messages("Thursday")
-                                            <input type="checkbox" name="restDays.restDay1[4]" value="Friday" @if(salon.restDays.restDay.contains("Friday")){checked}>@Messages("Friday")
-                                            <input type="checkbox" name="restDays.restDay1[5]" value="Saturday"@if(salon.restDays.restDay.contains("Saturday")){checked}>@Messages("Saturday")
-                                            <input type="checkbox" name="restDays.restDay1[6]" value="Sunday"@if(salon.restDays.restDay.contains("Sunday")){checked}>@Messages("Sunday")
+                                            <input type="checkbox" name="restDays.restDay1[0]" value="Monday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Monday")){checked}>@Messages("Monday")
+                                            <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Tuesday")){checked}>@Messages("Tuesday")
+                                            <input type="checkbox" name="restDays.restDay1[2]" value="Wednesday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Wednesday")){checked}>@Messages("Wednesday")
+                                            <input type="checkbox" name="restDays.restDay1[3]" value="Thursday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Thursday")){checked}>@Messages("Thursday")
+                                            <input type="checkbox" name="restDays.restDay1[4]" value="Friday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Friday")){checked}>@Messages("Friday")
+                                            <input type="checkbox" name="restDays.restDay1[5]" value="Saturday"@if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Saturday")){checked}>@Messages("Saturday")
+                                            <input type="checkbox" name="restDays.restDay1[6]" value="Sunday"@if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Sunday")){checked}>@Messages("Sunday")
                                         </div>
                                         <div id="noRestDays_div" style="display: none;">
                                             @Messages("salon.EnterRestDays")
@@ -403,7 +418,7 @@
                                         </div>
                                         <div id="noRestDays_div" >
                                             @Messages("salon.EnterRestDays")
-                                            <input type="text" name="restDays.restDay2[0]" value="@salon.restDays.restDay.toList">
+                                            <input type="text" name="restDays.restDay2[0]" value="@salon.restDays.map(rest=>rest.restDay).toList">
                                         </div>
                                     }
                                 </div>
@@ -421,20 +436,34 @@
 				            </th>
 				            <td>
 			            	<div id="salonPics">
-               				<form action="fileUploadAction" enctype="multipart/form-data">
-				    				<input type="file" id="file" class="toUploadPhoto" name="photo" /><br />
-				    				<input type="button" value= @Messages("salon.salonPics.upload") onclick="return ajaxFileUpload();">
-			         			    <legend>@Messages("user.optContactMethod")</legend>
-        						</form>			            					            
-				            	@repeat(salonForm("salonPics")) { salonPic =>
-				                    @pictureGroup(salonPic)
-				                }
+								<div class="demo">
+					                <div class="logoupload">
+					                    <div class="btnbox">
+					                        @Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
+					                        <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
+					                    </div>
+					                    <div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
+					                    
+					                    <div class="progress-box fl-progress" style="display:none;">
+					                        <div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
+					                        <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+					                    </div>
+					                    
+					                </div>
+					                <div class="batch-pic">
+					                    <ul>
+					                    @repeat(salonForm("salonPics")) { salonPic =>
+				                    		@pictureGroup(salonPic)
+				                		}
+					                    </ul>
+					                </div>
+					            </div>
 
 					            @pictureGroup(
 					                salonForm("salonPics[x]"),
 					                className = "salonPic_template"
 					            )
-
+								
 					            <div class="manage">
 					                 <a class="addSalonPic btn success">@Messages("salon.addPicture")</a>
 					            </div>
@@ -453,132 +482,7 @@
 
 	</div>
 </div>
-        <script type="text/javascript" charset="utf-8">
-
-        $ ('#restDays_restWay_Fixed').live('click', function(e) {
-            $('#noRestDays_div' ).hide();
-            $('#restDays_div' ).show();
-        })
-
-        $('#restDays_restWay_Indefinite').live('click', function(e) {
-            $('#noRestDays_div' ).show();
-            $('#restDays_div' ).hide();
-        })
-
-        $('.removeoptContactMethod').live('click', function(e) {
-            $(this).parents('.optContactMethod').remove()
-            renumber()
-        })
-
-        $('.removeSalonPic').live('click', function(e) {
-            $(this).parents('.salonPic').remove()
-            renumber()
-        })
-
-        $('.removeAccount').live('click', function(e) {
-            var accounts = $(this).parents('.accounts')
-            $(this).parents('.account').remove()
-            renumber(accounts)
-        })
-
-        $('.addAccount').live('click', function(e) {
-            var accounts = $(this).parents('.accounts')
-            var template = $('.account_template', accounts)
-            template.before('<div class="clearfix account">' + template.html() + '</div>')
-            renumber(accounts)
-        })
-
-        $('.addoptContactMethod').live('click', function(e) {
-            var template = $('.optContactMethod_template')
-            template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
-            renumber()
-        })
-
-        $('.addSalonPic').live('click', function(e) {
-            var template = $('.salonPic_template')
-            template.before('<div class="twipsies well salonPic">' + template.html() + '</div>')
-            renumber()
-        })
-
-        var renumber = function(accounts) {
-            $('.optContactMethod').each(function(i) {
-                $('input', this).each(function() {
-                    $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
-                })
-                $('.account input', this).each(function(i) {
-                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
-                })
-                
-            })
-            $('.salonPic').each(function(i) {
-                $('input', this).each(function() {
-                    $(this).attr('name', $(this).attr('name').replace(/salonPics\[.+?\]/g, 'salonPics[' + i + ']'))
-                })
-            })
-        }
-    	function readURL(input) {
-    	    if (input.files && input.files[0]) {
-    	    	var reader = new FileReader();
-    	        reader.onload = function(e) {
-    	            var $objImg=$('.image-insert-style-index-item');
-    	            $objImg.each(function(i){
-    				var index=$objImg.index($(this));
-    				if(index==($objImg.length-2)){
-    				$(this).append('<img src='+e.target.result+' style="float:left;width:80px;height:100px;"'+ '>');
-    			}
-    		});
-    	        }
-    	        reader.readAsDataURL(input.files[0]);
-    	    }
-    	}
-    	$(".toUploadPhoto").change(function() {
-    	alert(".toUploadPhoto ok");
-    	    readURL(this);
-    	});
-    	function ajaxFileUpload() {
-    		$("#loading").ajaxStart(function() {
-    	        $(this).show();
-    	    }) @*开始上传文件时显示一个图片 *@ 
-    	    .ajaxComplete(function(){ 
-    	    	$(this).hide();
-    	     });
-    	    $.ajaxFileUpload({                  
-    		url:"/fileUploadAction",                
-    		secureuri:false,                  
-    		fileElementId:'file',
-    		dataType:'text/html',
-    		success: function (data, status){ 
-    		var reg = /<pre.+?>(.+)<\/pre>/g;  
-            var result = data.match(reg); 
-    		var objvalue=RegExp.$1;
-    		var $obj=$('.imageoffileobjid');
-    		alert("objlength.. "+$obj.length);
-    		$obj.each(function(i){
-    			var index=$obj.index($(this));
-    			if(index==($obj.length-2)){
-    			$(this).val(objvalue);
-    			}
-    		});
-    		var sizes=$obj.size();
-    		var arr1=$obj.get(0);
-    		if(typeof(data.error) != 'undefined'){
-    			if(data.error != ''){   
-    				alert(data.error);                
-    			}else{
-    				alert(data.message);    
-    			}           
-    		}                 
-    		},
-    		error: function (data, status, e){
-    			alert("files error"); 
-    			alert(e);  
-    		}             
-    		})                   
-    		return false;      
-    	}        
-    </script>
 }
-
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
         <input type="text" name="@name" value="@value">
@@ -591,14 +495,21 @@
 
         <a class="removeoptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
 
-        @inputText(
+        @*inputText(
             field("contMethodType"),
             '_label -> Messages("user.contMethodType")
+        )*@
+        
+        @select(
+        	field("contMethodType"), 
+        	ContMethodType.getAllContMethodTypes,
+        	'_default -> Messages("user.chooseOpt"),
+        	'_label -> Messages("user.contMethodType")
         )
 
         <div class="accounts">
 
-            @repeat(field("accounts"), min = 0) { account =>
+            @repeat(field("accounts"), min = 1) { account =>
 
                 @accountField(account)
 
@@ -624,33 +535,45 @@
 }
 
 @pictureGroup(field: Field, className: String = "salonPic") = {
-    <div class="twipsies well @className">
-        <a class="removeSalonPic btn danger pull-right">@Messages("salon.removePicture")</a>
+	<li>
+	<div class="delete-pic"></div>
+		@field("fileObjId").value.map{fileid=>
+			@if(!fileid.equals("")){	
+			<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
+		}
+	}
+    <div class="addstyles-byStylist twipsies well @className">
         @inputText(
             field("fileObjId"), 
-            '_label ->  Messages("salon.fileId"), 'placeholder -> new ObjectId, 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
+			'_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
         )
-		@select(
+        
+        @select(
             field ("picUse"), 
             options = options(
                 "LOGO" -> Messages("salon.picUse.logo"),
                 "Navigate" -> Messages("salon.picUse.Navigate"),
                 "Atmosphere" -> Messages("salon.picUse.Atmosphere")
             ),
-             '_label -> Messages("salon.picUse"),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
              '_help -> Messages("")
         )	        
         @inputText(
             field("showPriority"), 
-            '_label -> Messages("salon.showPriority")
+			'_label -> None, 'class -> "imgShowPriority"
         )
-        @inputText(
-            field("description"), 
-            '_label -> Messages("salon.PicDescription")
-        )
+        @textarea(
+            field("description"),
+            '_label -> None,
+            'rows -> 2, 'cols -> 15, 
+            'placeholder -> Messages("onUserPicture.description"), 'class -> "imagesDescriptionfelid"
+)
+        
     </div>
-    }  
 
-    <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    </li>
+    }
+
     <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
 	<script src="@routes.Assets.at("javascripts/ajaxfileupload.js")" type="text/javascript"></script>

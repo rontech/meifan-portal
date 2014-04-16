@@ -1,0 +1,153 @@
+@(salonRegister: Form[Salon],industry: List[Industry],salon:Salon)
+@import helper._
+@import helper.twitterBootstrap._
+@import views.html.salon.admin.mySalonMain
+
+@mySalonMain("registerInformation",salon){
+	
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
+
+	<div class="salonRegister">
+		<div class="contentsTitleWrapper">
+			<h2 class="contentsTitleInner">@Messages("salon.register")</h2>
+		</div>
+
+		<div class="mT10 pH10">
+			@helper.form(noAuth.routes.Salons.register(), 'id -> "salonRegister"){
+				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
+				    <tbody>
+				    	@if(salonRegister.hasGlobalErrors){
+             			 <div>
+                 			 @salonRegister.globalError.get.message
+              			 </div>				    		
+				    	}
+				        <tr>
+				            <th class="w222">
+				                <div class="dibBL vaM w160">
+				                    @Messages("salon.id")
+				                </div>
+				            </th>
+				            <td>
+				                @inputText(salonRegister("salonAccount.accountId"),'_label -> None,
+									 		'placeholder -> Messages("salon.login.accountId"),
+									 		'_help -> Messages("salon.register.accountId"),
+									 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("salon.register.accountIdErr"))))
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.password")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,
+				                		'_help -> Messages("salon.register.password"),
+				                		'placeholder -> Messages("salon.login.password"),
+				                		'_error -> salonRegister("salonAccount.password.main").error.map(_.withMessage(Messages("user.passwordError"))))
+				                </div>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("user.confirmPas")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputPassword(salonRegister("salonAccount.password.confirm"),'_label -> None,'_help -> Messages("*"),'placeholder -> Messages("salon.confirmMessage"),
+													'_error -> salonRegister.error("salonAccount.password"))
+				                </div>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.Name")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonRegister("salonName"),'_label ->  None,'_help -> Messages("*"),
+				                		'_error -> salonRegister("salonName").error.map(_.withMessage(Messages("salon.register.salonName"))))				             	
+				                </div>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.type")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None){(id,name,value,args) =>
+								 	@for(i <- 0 to industry.length-1){
+								 		<input type = "checkbox" class="" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
+								 	}
+								  }
+				                </div>
+				            </td>
+				        </tr> 				        
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.mainPhone")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonRegister("contactMethod.mainPhone"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonRegister("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
+				                </div>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.contact")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonRegister("contactMethod.contact"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonRegister("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
+				                </div>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("user.email")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonRegister("contactMethod.email"), '_label -> None,'_help -> Messages("*"),
+				                		'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.register.contact"))))
+				                </div>
+				            </td>
+				        </tr>					        					        
+				    </tbody>
+				</table>
+				<div class="mT20 txtC">
+					<input type = "hidden" name="salonPics[0].fileObjId" />
+					<input type = "hidden" name="salonPics[0].picUse" value="LOGO"/>
+					<input type = "submit" class = "buttons" value=@Messages("user.registerBtn")>
+					<input type="reset" value=@Messages("common.reset")>
+					<a href = "@routes.Application.salonLogin"><input type="button" value=@Messages("common.backUp") ></a>
+				</div>
+			}
+
+		</div>
+</div>
+}

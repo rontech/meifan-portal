@@ -32,33 +32,27 @@ object SalonNavigation extends Controller {
              case Some(sl) => {
                  // Province is not Null
                  //val nav2 = (Messages("province.provinceName." + sl.salonAddress.province), "")
-                 val nav2 = List((sl.salonAddress.province, ""))
+                 val nav2 = List((sl.salonAddress.map{address=>address.province}.getOrElse(""), ""))
 
                  // The City May be Null when it is a [municipalities] like Beijing, Shanghai, Tianjin, Chongqing.
-                 val nav3 = sl.salonAddress.city match {
-                     //case Some(city) => (Messages("city.cityName." + city), "")
-                     case Some(city) => List((city, ""))
-                     case None => Nil  
-                 }
+                 val nav3 = sl.salonAddress.map{address => 
+                   address.city.map{city=>List((city,""))}.getOrElse(Nil)
+                 }.getOrElse(Nil)
                  
                  // The region May be Null.
-                 val nav4 = sl.salonAddress.region match {
-                     //case Some(region) => (Messages("region.regionName." + region), "")
-                     case Some(region) => List((region, ""))
-                     case None => Nil 
-                 }
+                 val nav4 = sl.salonAddress.map{address => 
+                   address.region.map{region=>List((region,""))}.getOrElse(Nil)
+                 }.getOrElse(Nil)
 
                  // The town May be Null.
-                 val nav5 = sl.salonAddress.town match {
-                     //case Some(town) => (Messages("town.townName." + town), "")
-                     case Some(town) => List((town, ""))
-                     case None => Nil 
-                 }
+                 val nav5 = sl.salonAddress.map{address => 
+                   address.town.map{town=>List((town,""))}.getOrElse(Nil)
+                 }.getOrElse(Nil)
 
                  // At last, The salon Name.
                  //val nav6 = (Messages(sl.salonName), "")
                  // If the salon Abbr Name is inputed, give priority to show it then the full name.
-                 val abbrName = sl.salonNameAbbr match {
+                 val abbrName = sl.salonNameAbbr match {																	
                      case Some(abbr) => abbr.toString()
                      case None => sl.salonName.toString()
                  }

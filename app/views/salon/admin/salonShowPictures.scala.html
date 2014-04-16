@@ -1,0 +1,137 @@
+@(salon:Salon, salonInfo:Form[Salon])
+
+@import helper._
+@import helper.twitterBootstrap._
+@import views.html.salon.admin.mySalonMain
+
+@mySalonMain("checkSalonInfo", salon){
+	<body>
+	@form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm"){
+	<div>
+		<ul class="bS menuBG cFix">
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonLogoPicture">@Messages("salonCheckInfoState.uploadLogo")</a>
+			</li>
+			<li class="fr"><a href="@auth.routes.Salons.salonShowPics">@Messages("salonCheckInfoState.uploadpics")</a></li>
+		</ul>
+	</div>
+	<div class="demo">
+		<div class="logoupload">
+			<div class="btnbox">
+				@Messages("onUsePicture.selectImge")&nbsp;
+				<a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
+			</div>
+			<div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
+			<div class="progress-box fl-progress" style="display:none;">
+				<div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
+				<div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+			</div>
+		</div>
+		<div class="batch-pic">
+			<ul>
+				@repeat(salonInfo("salonPics")) { salonPic =>
+				@pictureGroup(salonPic)
+				}
+			</ul>
+		</div>
+	</div>
+	
+	<div class="picture-show-description">
+		@picDescriptions(
+			salonInfo("picDescription"),
+			className = "salonShowPicsDes"
+			)
+	</div>
+	<div class="mT20 txtC">			
+		<input type = "submit" class = "buttons" value=@Messages("common.submit")>
+	</div>
+	<script language="javascript" type="text/javascript">
+			setTimeout("checkLogo()", 10);
+	</script>
+	}
+	</body>
+	@pictureGroup(
+		salonInfo("salonPics[x]"),
+		className = "salonPic_template"
+	)
+	
+}
+@pictureGroup(field: Field, className: String = "salonPic") = {
+	<li>
+	<div class="delete-pic"></div>
+		@field("fileObjId").value.map{fileid=>
+			@if(!fileid.equals("")){	
+			<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
+		}
+	}
+    <div class="addstyles-byStylist twipsies well @className">
+        @inputText(
+            field("fileObjId"), 
+			'_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
+        )
+        
+        @select(
+            field ("picUse"), 
+            options = options(
+                "LOGO" -> Messages("salon.picUse.logo"),
+                "Navigate" -> Messages("salon.picUse.Navigate"),
+                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+            ),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
+             '_help -> Messages(""),
+             'class -> "picuseOfSalon"
+        )	        
+        @inputText(
+            field("showPriority"), 
+			'_label -> None, 'class -> "imgShowPriority"
+        )
+        @textarea(
+            field("description"),
+            '_label -> None,
+            'rows -> 2, 'cols -> 15, 
+            'placeholder -> Messages("onUserPicture.description"), 'class -> "imagesDescriptionfelid"
+)
+        
+    </div>
+
+    </li>
+}
+@picDescriptions(field: Field, className: String = "salonPicDescription") = {
+	<div>
+	    @textarea(
+	            field("picTitle"),
+	            '_label -> Messages("salon.pic.title"),
+	            'rows -> 5, 'cols -> 40, 
+	            'placeholder -> Messages("onUserPicture.picTitle")   
+	            )
+    </div>        
+    <div>    
+	    @textarea(
+	            field("picContent"),
+	            '_label -> Messages("salon.pic.content"),
+	            'rows -> 5, 'cols -> 40, 
+	            'placeholder -> Messages("onUserPicture.description")
+	            )
+    </div>
+    <div>            
+	    @textarea(
+	            field("picFoot"),
+	            '_label -> Messages("salon.pic.foot"),
+	            'rows -> 5, 'cols -> 40 
+	            )
+    </div>     
+}
+@views.html.salon.admin.salonSwfupload("")
+<script type="text/javascript" charset="utf-8">
+	function checkLogo(){
+		var $obj=$('.picuseOfSalon');
+		$obj.each(function(i){
+			if($(this).val()=='LOGO'){
+				$(this).parents("li").hide();
+				return true;
+				}
+			}
+		);
+	}
+</script>

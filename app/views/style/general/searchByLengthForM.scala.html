@@ -1,11 +1,10 @@
-@()
 
 <div>
     <div>
         <ul class="cFix">
         @SearchByLengthForM.findAll.map { searchByLengthForM =>
             <li class="fl mR10">
-                <a href="@routes.Styles.findByLength(searchByLengthForM.styleLength,searchByLengthForM.sex)">
+                <a href="@noAuth.routes.Styles.findByLength(searchByLengthForM.styleLength,searchByLengthForM.sex)">
                     <img src="@routes.Application.getPhoto(searchByLengthForM.stylePic)" alt="@searchByLengthForM.styleLength" class="imgFrame" width="94px">
                 </a>
             </li>

@@ -23,17 +23,19 @@ trait SalonAuthConfigImpl extends AuthConfig {
   def resolveUser(accountId: Id)(implicit ctx: ExecutionContext) = Future.successful(Salon.findByAccountId(accountId))
 
   def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = {
-    val uri = request.session.get("access_uri").getOrElse(routes.Application.index.url.toString)
-    Future.successful(Redirect(uri).withSession(request.session - "access_uri"))
+    val uri = request.session.get("salon_access_uri").getOrElse(auth.routes.Salons.salonInfoManage.url.toString)
+    Future.successful(Redirect(uri).withSession(request.session - "salon_access_uri"))
   }
   def logoutSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Redirect(routes.Application.index))
 
   def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) =
-		  Future.successful(Redirect(routes.Application.salonLogin).withSession("access_uri" -> request.uri))
+		  Future.successful(Redirect(routes.Application.salonLogin).withSession("salon_access_uri" -> request.uri))
 
   def authorizationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Forbidden("no permission"))
 
   def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = authority(user)
+
+  def isLoggedIn(user : User) :Future[Boolean] = Future.successful(true)
 
   /*def authorization(permission: Permission)(user : User)(implicit ctx: ExecutionContext) = Future.successful((permission, user.permission) match {
     case ( _, "Administrator") => true

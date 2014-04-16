@@ -2,7 +2,7 @@
 
 @import helper._
 
-@form(routes.Services.addService(salonId), 'id -> "serviceForm") {
+@form(auth.routes.Services.addService, 'id -> "serviceForm") {
 	<legend class="mainTitle">@Messages("service.createServiceArea")</legend>
 	<div class="serviceInfo mT10">
 	

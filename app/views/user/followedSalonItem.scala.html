@@ -12,13 +12,13 @@
 						</div>
 						<div class="mT10 cFix">
 							<div class="fl cFix">
-								<p class="fl fgLGray2 b mT2 mR8">@salon.salonAddress.accessMethodDesc</p>
+								<p class="fl fgLGray2 b mT2 mR8"> @salon.salonAddress.map(add=>add.accessMethodDesc).getOrElse(None) </p>
 							</div>
 							<p class="fr">
 								@if(logged.equals(false) || MyFollow.checkIfFollow(loginUserId,salon.id)){
 						           <a href="@auth.routes.MyFollows.cancelFollow(salon.id)">@Messages("user.cancelFollow")</a>
 					            }else{
-						           <a href="@auth.routes.MyFollows.addFollow(salon.id,"salon")">@Messages("user.addFollow")</a>
+						           <a href="javascript:void(0);" onclick="addFollow('@salon.id','salon')">@Messages("user.addFollow")</a>
 					            }
 							</p>
 						</div>
@@ -52,7 +52,7 @@
 									</div>
 								</dd>
 								<dt class="fl fgLGray2 b">@Messages("salon.seatNums")</dt>
-								<dd class="fl w80"><div class="mL10">@Messages("salon.seatNumsMsg", salon.seatNums)</div></dd>
+								<dd class="fl w80"><div class="mL10">@Messages("salon.seatNumsMsg", salon.seatNums.getOrElse(None))</div></dd>
 								</dl>
 								<dl class="cFix mB2">
 								<dt class="fl fgLGray2 b">@Messages("salon.stylistNums")</dt>
@@ -64,7 +64,7 @@
 								<dt class="fl fgLGray2 b">@Messages("salon.parkingDesc")</dt>
 								<dd class="fl w80">
 									<div class="mL10">
-									 @if(salon.salonFacilities.hasParkingNearby) { @salon.salonFacilities.parkingDesc} else { @Messages("salon.hasNoParkingNearByMsg")}
+									 @if(salon.salonFacilities.map(fac=>fac.hasParkingNearby).getOrElse(None)) { @salon.salonFacilities.get.parkingDesc} else { @Messages("salon.hasNoParkingNearByMsg")}
 									</div>
 								</dd>
 								</dl>

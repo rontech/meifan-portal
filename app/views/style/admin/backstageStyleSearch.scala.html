@@ -80,7 +80,7 @@
                                     @for(i <- 0 to stylePara.serviceType.length-1){
                                         <li class="dibBL mR2">
                                             <input type = "checkbox" class = "cbF" name = "serviceType[@i]" id="hairColorCd_HT@i" value = "@stylePara.serviceType(i)">
-                                            <label for="hairColorCd_HT@i">@stylePara.serviceType(i)</label>
+                                            <label for="hairColorCd_HT@i">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))</label>
                                         </li>
                                     }
                                 }
@@ -259,9 +259,9 @@
             @input(field = styleSearchForm("serviceType"),args = '_label ->Messages("hair.serviceType")){(id,name,value,args) =>
                 @for(i <- 0 to stylePara.serviceType.length-1){
                     @if(styleSearchForm.get.serviceType.contains(stylePara.serviceType(i))){
-                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)" checked="checked">@stylePara.serviceType(i)
+                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)" checked="checked">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
                     }else{
-                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@stylePara.serviceType(i)
+                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
                     }
                 }
             }
@@ -340,7 +340,7 @@
     @if(isFirstSearch){
     <div>
 	    <div class="sreachtabBody">
-	    @form(routes.SalonsAdmin.getAllStylesListBySalon, 'id -> "styleSearchForm"){
+	    @form(auth.routes.Salons.getAllStylesListBySalon, 'id -> "styleSearchForm"){
 	    	<div class="skinHeadingWrapper2 mB15 cFix pr">
 				<h3 class="fl skinHeading1 headingSearch offL">@Messages("hair.search")</h3>
 			</div>
@@ -413,7 +413,7 @@
 						            @for(i <- 0 to stylePara.serviceType.length-1){
 						            	<li class="dibBL mR2">
 						            		<input type = "checkbox" class = "cbF" name = "serviceType[@i]" id="hairColorCd_HT@i" value = "@stylePara.serviceType(i)">
-							        		<label for="hairColorCd_HT@i">@stylePara.serviceType(i)</label>
+							        		<label for="hairColorCd_HT@i">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))</label>
 						            	</li>
 						            }
 						        }
@@ -579,7 +579,7 @@
 	</div>
     }else{
     <div>
-        @form(routes.SalonsAdmin.getAllStylesListBySalon, 'id -> "styleSearchForm"){
+        @form(auth.routes.Salons.getAllStylesListBySalon, 'id -> "styleSearchForm"){
             <br/>@Messages("hair.styleLength")<br/>
 	                    <input type = "radio" class = "" name = "styleLength" value = "all" checked="checked">@Messages("common.all")
 	            @for(i <- 0 to stylePara.styleLength.length-1){
@@ -610,9 +610,9 @@
             @input(field = styleSearchForm("serviceType"),args = '_label ->Messages("hair.serviceType")){(id,name,value,args) =>
                 @for(i <- 0 to stylePara.serviceType.length-1){
                     @if(styleSearchForm.get.serviceType.contains(stylePara.serviceType(i))){
-                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)" checked="checked">@stylePara.serviceType(i)
+                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)" checked="checked">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
                     }else{
-                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@stylePara.serviceType(i)
+                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
                     }
                 }
             }

@@ -3,17 +3,17 @@
 			<div class ="Owner">
 				@if(salon.salonPics.exists{a => a.picUse == "LOGO"}){
 					@if(salon.id.getTime.equals(salon.salonPics(0).fileObjId.getTime)){
-						<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
+						<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
 					}else{
 						@for(i <- 0 to salon.salonPics.size-1){
 							@if(salon.salonPics(i).picUse == "LOGO" ){
-								<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>												
+								<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>
 							}								
 						}										
 					}
 										
 				}else{
-					<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
+					<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
 				}	
 				<span class='U'>
 					<p class='opts'>
@@ -22,7 +22,7 @@
       				<a href="" class='Name' title='female'></a>
 
 					<span class='opts'>
-						<a href = "@routes.SalonInfo.addImage(salon.id)">@Messages("user.changeImage")</a>
+						<a href = "@auth.routes.Salons.addImage">@Messages("user.changeImage")</a>
 					</span>
 
 				</span>
@@ -35,16 +35,25 @@
     			</div> 
 	  		</div>
    			<div class='Opts clearfix'>
-                <a href="@routes.SalonInfo.salonInfoManage(salon.id)" class='a2 admin w220'><span>@Messages("user.changeInfo")</span></a>
-				<a href="/showBlog/@salon.id" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
+                <a href="@auth.routes.Salons.salonInfoManage" class='a2 admin w220'><span>@Messages("user.changeInfo")</span></a>
+				<a href="#" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
 			</div>
    			<!-- 店铺基本信息管理 -->
 			<div class='Mod Users' id='Fans'>
 	   			<strong>@Messages("salonAdmin.infoManagement")</strong>
 	   			<div class='more'>
-		 			<a href="@routes.SalonInfo.salonInfoBasic(salon.id)">
-		 				<span>@salon.salonName</span>
-		 			</a>
+		 			<a href="@auth.routes.Salons.salonRegister">
+		 				<span>@Messages("salonCheckInfoState.register")</span>
+		 			</a><br />
+		 			<a href="@auth.routes.Salons.salonBasic">
+		 				<span>@Messages("salonCheckInfoState.basicInfo")</span>
+		 			</a><br />
+		 			<a href="@auth.routes.Salons.salonDetail">
+		 				<span>@Messages("salonCheckInfoState.detail")</span>
+		 			</a><br />
+		 			<a href="@auth.routes.Salons.salonShowPics">
+		 				<span>@Messages("salonCheckInfoState.pictures")</span>
+		 			</a>		 					 					 			
 		 		</div>	
 		 		
 			</div>
@@ -56,9 +65,9 @@
     	 			</li>
 	  			</ul>
 	  			<div class='more'>
-    				<a href="/mySalon/@salon.id/stylist">@Messages("salonAdmin.myStylist")
+    				<a href="@auth.routes.Salons.myStylist">@Messages("salonAdmin.myStylist")
     				(@SalonAndStylist.countStylistBySalon(salon.id))</a><br />
-    				<a href="@routes.SalonsAdmin.checkHoldApply(salon.id)">
+    				<a href="@auth.routes.Salons.checkHoldApply">
                 	@Messages("salonAdmin.fromStylistApply")
                 	(
                 		 <span id="reviewCount">
@@ -75,14 +84,14 @@
     	 			</li>
 	  			</ul>
 				<div class='more'>
-					<a href="/getAllStylesBySalon/@salon.id">@Messages("stylistMag.showAllStyles")</a>
+					<a href="@auth.routes.Salons.getAllStylesBySalon()">@Messages("stylistMag.showAllStyles")</a>
 				</div>
 			</div>
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("salonAdmin.reserveManagement")</strong>
 	  			<ul class='clearfix'>
 	  				<li>
-    	 				<a href="/mySalon/@salon.id/reserv"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 				<a href="@auth.routes.Salons.myReserv"></a>&nbsp;&nbsp;&nbsp;&nbsp;
     	 			</li>
 	  					
     			</ul>
@@ -117,7 +126,7 @@
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-       					<a href="@routes.SalonsAdmin.myComment(salon.id)">@Messages("salonAdmin.checkComment")</a>
+       					<a href="@auth.routes.Salons.myComment">@Messages("salonAdmin.checkComment")</a>
      				</div>
 			</div>
 			<div class='Mod Users' id='Fans'>
@@ -127,7 +136,7 @@
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-       					<a href="/mySalon/@salon.id/service">@Messages("salonAdmin.checkService")</a>
+       					<a href="@auth.routes.Salons.myService">@Messages("salonAdmin.checkService")</a>
      				</div>
 			</div>
 			<div class='Mod Users' id='Fans'>
@@ -137,7 +146,7 @@
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-       					<a href="/mySalon/@salon.id/coupon">@Messages("salonAdmin.checkCoupon")</a>
+       					<a href="@auth.routes.Salons.myCoupon">@Messages("salonAdmin.checkCoupon")</a>
      				</div>
 			</div>
 			<div class='Mod Users' id='Fans'>
@@ -147,7 +156,7 @@
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-       					<a href="/mySalon/@salon.id/menu">@Messages("salonAdmin.checkMenu")</a>
+       					<a href="@auth.routes.Salons.myMenu">@Messages("salonAdmin.checkMenu")</a>
      				</div>
 			</div>
 			<div class='Mod Users' id='Fans'>

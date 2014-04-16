@@ -4,7 +4,7 @@
 	@helper.form(routes.Application.upload, 'enctype -> "multipart/form-data") {
                               <input type="file" id="filePhoto" name="photo" style="width:50"  /> 
                                  <button type="submit">@Messages("user.changeImage")</button>
-                                 <div><img src="#" id="target"/></div>
+                                 <div><img src="@routes.Application.getPhoto(DefaultLog.getImgId)" id="target"/></div>
      }
 }
 
@@ -25,3 +25,4 @@ $("#filePhoto").change(function() {
     readURL(this);
 });
 </script>
+zz

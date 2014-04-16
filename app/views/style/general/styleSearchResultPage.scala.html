@@ -1,4 +1,4 @@
-@(styleSearchForm: Form[Style], styleAndSalon: List[models.StyleAndSalon], stylePara : models.StylePara)
+@(styleSearchForm: Form[Style], styleAndSalon: List[models.StyleAndSalon], stylePara : models.StylePara, user:Option[User])
 
 @main(title = Messages("hair.tabName"), nav = "hair-catalog") {
 
@@ -14,7 +14,7 @@
         </div>
         <div style="">
             <!-- ↓generalContentRightColumn -->
-            @views.html.salon.general.rightColumn(None)
+            @views.html.salon.general.rightColumn(user)
             <!-- ↑generalContentRightColumn -->
         </div>
     </div>

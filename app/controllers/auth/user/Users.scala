@@ -27,7 +27,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
         "userId" -> text,
         "oldPassword" -> nonEmptyText)(User.authenticate)(_.map(u => (u.userId, ""))).verifying("Invalid OldPassword", result => result.isDefined),
       "newPassword" -> tuple(
-        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[A-Za-z0-9]+$""")),
+        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]+$""")),
         "confirm" -> text).verifying(
         // Add an additional constraint: both passwords must match
         Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2)
@@ -42,37 +42,37 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
       "nickName" -> nonEmptyText,
       "password" -> text,
       "sex" -> nonEmptyText,
-      "birthDay" -> date,
-      "address" ->  mapping(
+      "birthDay" -> optional(date),
+      "address" ->  optional(mapping(
          "province" -> text,
          "city" -> optional(text),
          "region" -> optional(text)){
           (province,city,region) => Address(province,city,region,None,"NO NEED",None,None,"No NEED")
       }{
           address => Some((address.province,address.city,address.region))
-      },
+      }),
       "userPics" -> text,
-      "tel" -> nonEmptyText.verifying(Messages("user.telError"), tel => tel.matches("""^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$""")),
+      "tel" -> optional(text.verifying(Messages("user.telError"), tel => tel.matches("""^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$"""))),
       "email" -> email,
       "optContactMethods" -> seq(
         mapping(
           "contMethodType" -> text,
           "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
-      "socialStatus" -> text,
+      "socialStatus" -> optional(text),
       "registerTime" -> date,
       "userTyp" -> text,
       "userBehaviorLevel" ->text,
       "point" ->number,
-      "permission" -> text,
-      "isValid" -> boolean
+      "activity" ->number,
+      "permission" -> text
     ) {
         // Binding: Create a User from the mapping result (ignore the second password and the accept field)
-        (id, userId, nickName, password, sex, birthDay, address, userPics, tel, email, optContactMethods, socialStatus, registerTime, userTyp, userBehaviorLevel, point, permission, isValid)
-        => User(id, userId, nickName, password,  sex, birthDay, address, new ObjectId(userPics), tel, email, optContactMethods, socialStatus, userTyp, userBehaviorLevel, point, registerTime, permission, isValid)
+        (id, userId, nickName, password, sex, birthDay, address, userPics, tel, email, optContactMethods, socialStatus, registerTime, userTyp, userBehaviorLevel, point, activity, permission)
+        => User(id, userId, nickName, password,  sex, birthDay, address, new ObjectId(userPics), tel, email, optContactMethods, socialStatus, userTyp, userBehaviorLevel, point, activity, registerTime, permission, true)
       } // Unbinding: Create the mapping values from an existing Hacker value
       {
         user => Some((user.id, user.userId, user.nickName, user.password, user.sex, user.birthDay, user.address, user.userPics.toString, user.tel, user.email, user.optContactMethods, user.socialStatus, user.registerTime,
-        user.userTyp, user.userBehaviorLevel, user.point, user.permission, user.isValid))
+        user.userTyp, user.userBehaviorLevel, user.point, user.activity, user.permission))
       })
 
   /**
@@ -113,13 +113,14 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
 		          stylist.goodAtImage, stylist.goodAtStatus, stylist.goodAtService, stylist.goodAtUser,
 		          stylist.goodAtAgeGroup, stylist.myWords, stylist.mySpecial, stylist.myBoom, stylist.myPR)
 		    },
-		    "salonAccountId" -> text
+		    "salonAccountId" -> nonEmptyText(6, 16)
 		    ){
 		      (stylist, salonAccountId) => StylistApply(stylist, salonAccountId)
 		    }{
 		      stylistApply => Some((stylistApply.stylist, stylistApply.salonAccountId))
-		    }
-		)
+		    }.verifying(
+		    		Messages("salon.noExist"), stylistApply => Salon.findByAccountId(stylistApply.salonAccountId).nonEmpty)
+		  	)
   /**
    * 用户登录验证
    */
@@ -182,7 +183,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   /**
    * 登录用户基本信息
    */
-  def myInfo() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+  def myInfo() = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val userForm = Users.userForm().fill(user)
@@ -192,6 +193,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   /**
    * 其他用户基本信息
    */
+  //TODO
   def userInfo(userId: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val loginUser = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
@@ -267,7 +269,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
    */
 
   def commitStylistApply = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-     val user = loggedIn
+    val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val goodAtStylePara = Stylist.findGoodAtStyle
     stylistApplyForm.bindFromRequest.fold(
@@ -275,10 +277,11 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
       {
         case(stylistApply) => {
           Stylist.save(stylistApply.stylist.copy(stylistId = user.id))
+          Stylist.updateImages(stylistApply.stylist, user.userPics)
           Salon.findByAccountId(stylistApply.salonAccountId).map{salon=>
             val applyRecord = new SalonStylistApplyRecord(new ObjectId, salon.id, user.id, 1, new Date, 0, None)
             SalonStylistApplyRecord.save(applyRecord)
-            Ok(views.html.user.applyStylist(stylistApplyForm.fill(stylistApply), user, goodAtStylePara, followInfo))
+            Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara, followInfo, true))
           }getOrElse{
         	  NotFound
           }

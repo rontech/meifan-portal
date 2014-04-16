@@ -31,22 +31,22 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
   /**
    *  查看技师所属店铺
    */
-  def mySalon(stylistId: ObjectId) = StackAction{implicit request =>
+  def mySalonFromStylist(stylistId: ObjectId) = StackAction { implicit request =>
 	    val user = User.findOneById(stylistId).get
 	    val followInfo = MyFollow.getAllFollowInfo(user.id)
-	    val salon = Stylist.mySalon(stylistId)
+	    val salon = Stylist.mySalon(user.id)
 	    val stylist = Stylist.findOneByStylistId(user.id)
 	    stylist match {
 	      case Some(sty) => {
-	       loggedIn.map{loginUser => 
-	         Ok(views.html.stylist.management.stylistMySalon(user, followInfo, loginUser.id, true, sty, salon))
-	       }getOrElse{
-	         Ok(views.html.stylist.management.stylistMySalon(user, followInfo, new ObjectId, false, sty, salon))
-	       }
-	      }
+             loggedIn.map{loginUser =>
+	            Ok(views.html.stylist.management.stylistMySalon(user, followInfo, loginUser.id, true, sty, salon))
+	          }.getOrElse(
+                Ok(views.html.stylist.management.stylistMySalon(user, followInfo, new ObjectId, false, sty, salon))
+                 )
+          }
 	      case None => NotFound
 	    }
-	  }
+  }
   
   /**
   *  查看技师发型
@@ -87,6 +87,7 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
   
   def otherHomePage(stylistId: ObjectId) = StackAction { implicit request =>
      val user = User.findOneById(stylistId).get
+     /*
      val followInfo = MyFollow.getAllFollowInfo(user.id)
      val stylist = Stylist.findOneByStylistId(stylistId).get
      val styles = Style.findByStylistId(stylistId)
@@ -97,8 +98,8 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
        Ok(views.html.stylist.management.OtherHomePage(user = user, followInfo = followInfo, loginUserId = loginUser.id, logged = true,  latestBlog = blog, stylist = stylist, styles = styles ))
      }getOrElse{
        Ok(views.html.stylist.management.OtherHomePage(user = user, followInfo = followInfo, loginUserId = new ObjectId, logged = false,  latestBlog = blog, stylist = stylist, styles = styles ))
-     }
-     
+     }*/
+     Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
      
   }
   
@@ -109,6 +110,10 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
       }getOrElse{
           Ok("no")
       }
+  }
+  
+  def cutImg = Action {
+    Ok(views.html.stylist.cutImg(""))
   }
   
 }
