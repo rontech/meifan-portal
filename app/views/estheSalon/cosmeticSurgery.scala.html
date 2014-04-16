@@ -1,0 +1,19 @@
+<div id="container2_bg">
+	<div id="container2">
+    	<div style="width:990px; clear:both; overflow:hidden; margin:0 auto; padding-bottom:10px;">
+    		<img src="@routes.Assets.at("images/index_mrzx_title.jpg")" width="990" height="47" />
+    		
+    		<!-- ↓整容前后对比 -->
+    		@views.html.estheSalon.cosmeticContrast()
+			<!-- ↑整容前后对比 -->
+			
+			<!-- ↓整形新闻 -->
+			@views.html.estheSalon.estheNews()
+			<!-- ↑整形新闻-->
+			
+			<!-- ↓美容项目 -->
+			@views.html.estheSalon.estheItems()
+			<!-- ↑美容项目 -->
+    	</div>
+    </div>
+</div>

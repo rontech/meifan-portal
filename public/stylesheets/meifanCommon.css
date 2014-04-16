@@ -361,11 +361,7 @@ color: #f36d7a;
 	float:left;
 }
 #pl{ width:210px; float:right}
-#index_xxtg{
-	width:210px;
-	float:right;
-	background-color:#FFF; color: #000; padding-bottom:8px
-}
+
 #index_zxfx{
 	width:565px;
 	float:left;
@@ -407,26 +403,6 @@ color: #f36d7a;
 		width:220px;
 		float:left;
 	}
-	#index_zxfx_pic li.g1{
-	width:170px;
-	clear:both;
-	overflow:hidden;
-	background:url(assets/images/guan_pot01.jpg) no-repeat 5% 50%;
-	padding-left:50px;
-	font-size:28px; 
-	font-weight:bold;
-	line-height:50px;
-}
-#index_zxfx_pic li.g2{
-	width:170px;
-	clear:both;
-	overflow:hidden;
-	background:url(assets/images/guan_pot02.jpg) no-repeat 5% 50%;
-	padding-left:50px;
-	font-size:28px; 
-	font-weight:bold;
-	line-height:50px;
-}
 
 #index_zxfx_pic li.one{
 	width:220px;
@@ -487,88 +463,6 @@ color: #f36d7a;
 	width:354px;
 	float:right;
 }
-/*#index_tjsh{
-	width:425px;
-	float:left;
-}
-#index_tjsh h2{
-	border-top:1px solid #e1e1e1;
-	clear:both;
-}
-#index_tjsh_nr{
-	width:425px;
-	clear:both;
-	overflow:hidden;
-	padding:10px 0px;
-}
-#index_tjsh_nr dl{
-	width:425px;
-	padding: 0px 0px 10px 0px;
-clear:both;
-	overflow:hidden;
-}
-#index_tjsh_nr dl.right{
-	padding-right:0px;
-}
-#index_tjsh_nr dl dt{
-	width:330px;
-	float:right;
-}
-#index_tjsh_nr dl dd.pic{
-	width:80px;
-	float:left;
-}
-#index_tjsh_nr dl dd.txt{
-	width:330px;
-	line-height:18px;
-	float:right;
-}
-#index_tjsh_nr dl dd.more{
-	width:330px;
-	float:right;
-	text-align:right;
-}*/
-#index_tjsh{
-	width:425px;
-	float:left;
-}
-#index_tjsh h2{
-	border-top:1px solid #e1e1e1;
-	clear:both;
-}
- #index_tjsh_nr{
-	width:425px;
-	clear:both;
-	overflow:hidden;
-	padding:10px 0px;
-}
- #index_tjsh_nr dl{
-	width:205px;
-	float:left;
-	padding:10px 10px 10px 0px;
-}
-#index_tjsh_nr dl.right{
-	padding-right:0px;
-}
- #index_tjsh_nr dl dt{
-	width:115px;
-	float:right;
-}
-#index_tjsh_nr dl dd.pic{
-	width:80px;
-	float:left;
-}
- #index_tjsh_nr dl dd.txt{
-	width:115px;
-	line-height:18px;
-	float:right;
-}
- #index_tjsh_nr dl dd.more{
-	width:115px;
-	float:right;
-	text-align:right;
-}
-/*--end--*/
 
 #index_nail{
 	width:425px;
@@ -622,55 +516,7 @@ text-align:center;
 	text-align:right;
 }
 /*------------------end 推荐沙龙---------------------*/
-#index_tjhs{
-	width:354px;
-clear:both;
-}
-#index_tjhs h2{
-	border-top:1px solid #e1e1e1;
-	clear:both;
-}
-#index_tjhs_nr{
-	width:354px;
-	clear:both;
-	overflow:hidden;
-	padding:20px 0px;
-}
-#index_tjhs_nr dl dd.pic{
-	width:156px;
-	float:left;
-}
-#index_tjhs_nr dl dd.txt{
-	float:right;
-	background:url(assets/images/index_tjhs_bg.jpg) no-repeat;
-	width:158px;
-	height:118px;
-	padding:10px 20px;
-	color:#FFF;
-}
-#index_tjhs_nr dl dd.txt span{
-	display:block;
-	text-align:right;
-	padding-top:10px;
-}
-#index_tjhs_nr dl dd.list{
-	width:198px;
-	float:right;
-}
-#index_tjhs_nr ul{
-	width:198px;
-	clear:both;
-	overflow:hidden;
-}
-#index_tjhs_nr ul li{
-	float:left;
-	padding-left:10px;
-	padding-top:10px;
-}
-#index_tjhs_nr ul li.right{
-	padding-right:0px;
-}
-/*---end 推荐发型师--*/
+
 
 #index_ps{
 	width:354px;
@@ -798,21 +644,21 @@ clear:both;
 	overflow:hidden; margin-bottom:8px
 }
 #index_member h2{
-	background:url(assets/images/right_member_title.jpg) no-repeat;
+	background:url(/assets/images/right_member_title.jpg) no-repeat;
 	width:180px;
 	height:55px;
 	clear:both;
 	overflow:hidden;
 }
 #index_member h3{
-	background:url(assets/images/right_member_title1.jpg) no-repeat;
+	background:url(/assets/images/right_member_title1.jpg) no-repeat;
 	width:180px;
 	height:36px;
 	clear:both;
 	overflow:hidden;
 }
 #index_member_nr{
-	background:url(assets/images/right_member_bg.jpg) repeat-y;
+	background:url(/assets/images/right_member_bg.jpg) repeat-y;
 	width:180px;
 	clear:both;
 	overflow:hidden;
@@ -824,7 +670,7 @@ clear:both;
 	width:155px; height:45px; padding:5px; font-family:"微软雅黑"; color: #FFF; padding-top:2px; font-size:13px;
 	clear:both;
 	overflow:hidden;
-	margin:0 auto;background:url(assets/images/right_member_pic.jpg) no-repeat;
+	margin:0 auto;background:url(/assets/images/right_member_pic.jpg) no-repeat;
 }
 #index_member_nr p.fk{
 	clear:both;
@@ -854,15 +700,11 @@ clear:both;
 	width:180px;
 	clear:both;
 	overflow:hidden;
-	background:url(assets/images/right_member_bottom.jpg) no-repeat;
+	background:url(/assets/images/right_member_bottom.jpg) no-repeat;
 	height:5px;
 	font-size:0px;
 	line-height:0px;
 }
-
-
-
-
 
 #index_faq{
 	width:180px;
@@ -871,14 +713,14 @@ clear:both;
 	padding-bottom:10px;
 }
 #index_faq h2{
-	background:url(../images/right_aq_title.jpg) no-repeat;
+	background:url(/assets/images/right_aq_title.jpg) no-repeat;
 	width:180px;
 	height:36px;
 	clear:both;
 	overflow:hidden;
 }
 #index_faq_nr{
-	background:url(../images/right_aq_bg.jpg) repeat-y;
+	background:url(/assets/images/right_aq_bg.jpg) repeat-y;
 	width:180px;
 	clear:both;
 	overflow:hidden;
@@ -956,126 +798,7 @@ clear:both;
 	clear:both;
 }
 
-#container2_bg{
-	width:100%;
-	margin:0 auto;
-	clear:both;
-	overflow:hidden;
-	background-color:#ebebeb;
-}
-#container2{
-	width:990px;
-	margin:0 auto;
-	clear:both;
-	overflow:hidden;
-	padding:15px 0px;
-}
-#container2_ad{
-	width:262px;
-	float:left;
-	padding-right:10px;
-}
-#index_news{
-	width:450px;
-	float:left;
-	background-color:#FFF;
-}
-#index_news h2{
-	border-top:2px solid #f39aa3;
-	clear:both;
-	overflow:hidden;
-}
-#index_news_nr{
-	width:430px;
-	clear:both;
-	overflow:hidden;
-	padding:10px 10px;
-}
-#index_news_nr dl{
-	clear:both;
-	overflow:hidden;
-	padding-bottom:10px;
-}
-#index_news_nr dl dt{
-	width:280px;
-	float:right;
-}
-#index_news_nr dl dd.pic{
-	float:left;
-	width:138px;
-}
-#index_news_nr dl dd.txt{
-	width:280px;
-	float:right;
-}
-#index_news_nr ul{
-	clear:both;
-	overflow:hidden;
-}
-#index_news_nr ul li{
-	background:url(../images/index_news_pot.jpg) no-repeat left;
-	padding-left:10px;
-	line-height:24px;
-}
-#index_bp{
-	width:255px;
-	background-color:#FFF;
-	float:right;
-}
-#index_bp h2{
-	border-top:3px solid #f66d77;
-	clear:both;
-	overflow:hidden;
-}
-#index_bp_nr{
-	width:235px;
-	clear:both;
-	overflow:hidden;
-	padding:9px 10px;
-}
-#index_bp_nr ul li{
-	float:left;
-	padding:4px 6px;
-}
-#index_bp_nr ul li a{
-	width:105px;
-	height:30px;
-	line-height:30px;
-	display:block;
-	text-align:center;
-	background-color:#dcdcdc;
-	font-size:14px;
-}
-#index_bp_nr ul li a:hover{
-	width:105px;
-	height:30px;
-	line-height:30px;
-	display:block;
-	text-align:center;
-	background-color:#f66d77;
-	font-size:14px;
-	color:#FFF;
-}
-#index_bp_nr ul li.btn a{
-	width:105px;
-	height:30px;
-	line-height:30px;
-	display:block;
-	text-align:center;
-	background-color:#f66d77;
-	font-size:14px;
-	color:#FFF;
-}
-#index_bp_nr ul li.btn a:hover{
-	width:105px;
-	height:30px;
-	line-height:30px;
-	display:block;
-	text-align:center;
-	background-color:#f66d77;
-	font-size:14px;
-	color:#FFF;
-}
+
 #footer{
 	width:1000px;
 	margin:0 auto;
@@ -1128,12 +851,3 @@ clear:both;
 
 .pl_bt{ width:210px; height:36px; overflow:hidden; clear:both; margin:0 auto; padding-bottom:8px}
 
-#index_xxtg ul{
-	clear:both;
-	overflow:hidden; width:210px
-}
-#index_xxtg ul li{
-	background:url(../images/index_news_pot.jpg) no-repeat left;
-	padding-left:10px;
-	line-height:24px;
-}
