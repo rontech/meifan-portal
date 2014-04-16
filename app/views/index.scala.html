@@ -1,4 +1,4 @@
-@(message: String)
+@(user: Option[User] = None)
 
 @main(Messages("site.title")) {
 	
@@ -78,7 +78,7 @@
 			</div>
 			
 			<div id="right">
-				@views.html.indexPage.indexRightColumn()
+				@views.html.indexPage.indexRightColumn(user)
 			</div>
 			
 			<!-- ↓整容整形 -->

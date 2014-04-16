@@ -25,9 +25,16 @@
 	line-height:50px;
 }
 
+#index_xxtg{
+	width:210px;
+	float:right;
+	background-color:#FFF; color: #000; padding-bottom:25px
+}
+
 #index_tjhs{
 	width:354px;
-clear:both;
+	clear:both;
+	height:290px;
 }
 #index_tjhs h2{
 	border-top:1px solid #e1e1e1;
@@ -219,3 +226,46 @@ float: right;
 	font-size:14px;
 	color:#FFF;
 }
+
+#index_tjsh{
+	width:425px;
+	float:left;
+	height: 290px;
+}
+#index_tjsh h2{
+	border-top:1px solid #e1e1e1;
+	clear:both;
+}
+ #index_tjsh_nr{
+	width:425px;
+	clear:both;
+	overflow:hidden;
+	padding:10px 0px;
+}
+ #index_tjsh_nr dl{
+	width:200px;
+	float:left;
+	padding:10px 10px 10px 0px;
+}
+#index_tjsh_nr dl.right{
+	padding-right:0px;
+}
+ #index_tjsh_nr dl dt{
+	width:115px;
+	float:right;
+}
+#index_tjsh_nr dl dd.pic{
+	width:80px;
+	float:left;
+}
+ #index_tjsh_nr dl dd.txt{
+	width:115px;
+	line-height:18px;
+	float:right;
+}
+ #index_tjsh_nr dl dd.more{
+	width:115px;
+	float:right;
+	text-align:right;
+}
+/*--end--*/

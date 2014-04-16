@@ -114,7 +114,13 @@
         			<li><a href="@auth.routes.MyFollows.followedStyle(user.id)">@Messages("user.collectStyle")</a></li><br>
         			<li><a href="@auth.routes.Users.password">@Messages("user.changePassword")</a></li><br>
         			@if(user.userTyp.equals(User.NORMAL_USER)){
-        			<li><a href="@auth.routes.Users.applyStylist">@Messages("user.tobeStylist")</a></li>
+        			<li>
+        				@if(SalonStylistApplyRecord.checkStylistApply(user.id)){
+        					<a href="@auth.routes.Users.cancelApplyStylist">@Messages("user.cancelBeStylist")</a>
+        				}else{
+        					<a href="@auth.routes.Users.applyStylist">@Messages("user.tobeStylist")</a>
+        				}
+        			</li>
         			}
         		</ul>
 	  		</div>

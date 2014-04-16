@@ -16,8 +16,8 @@
         <p class="hydl"><a href="#">
 				 @user match {
                                     	case None => {
-                                    	  <a href="@routes.Application.login" class="btn btn2H30 mT3 tdn">
-                                          <img src="images/right_member_btn.jpg" width="165" height="28" />
+                                    	  <a href="@routes.Application.login">
+                                          <img src="@routes.Assets.at("images/right_member_btn.jpg")" width="165" height="28" />
 																				</a>  
                                         }
                                         case Some(user) =>{
