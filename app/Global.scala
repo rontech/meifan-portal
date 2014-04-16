@@ -622,11 +622,16 @@ object InitialData {
 
 
     /*    
+    // Test for picture search.
     val stfile = new File(play.Play.application().path() + "/public/images/style")
     val stfiles = Image.listFilesRecursively()(stfile)
     println("stfiles = " + stfiles)
 
+    // Test for General fuzzy search.
+    println("general salon search = " + Salon.findSalonByFuzzyConds("千美悦美"))
     println("general salon search = " + Salon.findSalonByFuzzyConds("千美 悦美"))
+    println("general salon search = " + Salon.findSalonByFuzzyConds("千美　悦美"))
+
     */
 
   }

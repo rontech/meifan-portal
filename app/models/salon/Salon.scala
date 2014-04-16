@@ -157,17 +157,24 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
      *     Not consider the way that deviding keyword into multi-keywords automatically. 
      */
     def findSalonByFuzzyConds(keyword: String): List[Salon] = {
-        val kws = keyword.split(" ").map { x => (".*" + x.trim + ".*").r}
-        // fields which search from 
-        val searchFields = Array("salonName", "salonNameAbbr", "salonDescription", "picDescription")
         var rst: List[Salon] = Nil
-        kws.map { kw =>
+        // pre process for keyword: process the double byte blank to single byte blank.
+        val kws = keyword.replace("　"," ")
+        if(kws.replace(" ","").length == 0) {
+            // when keyword is not exist, return Nil.
+            rst
+        } else {
+            // when keyword is exist, convert it to regular expression.
+            val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|")}
+            val kwsRegex =  kwsAry.mkString.dropRight(1).r
+            // fields which search from 
+            val searchFields = Array("salonName", "salonNameAbbr", "salonDescription", "picDescription")
             searchFields.map { sf => 
-                var s = dao.find(MongoDBObject(sf -> kw)).toList
+                var s = dao.find(MongoDBObject(sf -> kwsRegex)).toList
                 rst :::= s
             }
+            rst.distinct
         }
-        rst.distinct
     }
 
 }
