@@ -289,5 +289,17 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
       })
     	 
   }
+  
+  def cancelApplyStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+      val user = loggedIn
+      SalonStylistApplyRecord.findOneStylistApRd(user.id).map{record=>
+         SalonStylistApplyRecord.save(record.copy(verifiedResult = 2, verifiedDate = Some(new Date)))
+         Redirect(routes.Users.myPage())
+      }.getOrElse{
+         NotFound
+      }
+      
+  }  
+
 
 }

@@ -129,6 +129,26 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
                 salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
         }
     )
+    
+    val salonPicsForm: Form[SalonPics] = Form(
+        mapping(
+            "salonPics" -> list(
+                mapping(
+                    "fileObjId" -> text,
+                    "picUse" -> text,
+                    "showPriority"-> optional(number),
+                    "description" -> optional(text)
+                ){
+                    (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId(fileObjId),picUse,showPriority,description)
+                }{
+                    salonPictures=>Some(salonPictures.fileObjId.toString(), salonPictures.picUse, salonPictures.showPriority, salonPictures.description)
+                }),
+             "picDescription" -> optional(mapping(
+                "picTitle" -> text,
+                "picContent" -> text,
+                "picFoot" -> text
+            )(PicDescription.apply)(PicDescription.unapply))   
+    )(SalonPics.apply)(SalonPics.unapply))
 
     /**
      * 店铺登录
@@ -563,8 +583,9 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     
     def salonShowPics = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
       val salon = loggedIn
-      val salonInfo = salonInfoForm.fill(salon)
-      Ok(views.html.salon.admin.salonShowPictures(salon, salonInfo))
+      val pictures = new SalonPics(salon.salonPics,salon.picDescription)
+      val salonPics = salonPicsForm.fill(pictures)
+      Ok(views.html.salon.admin.salonShowPictures(salon, salonPics))
     }
     
     def salonLogoPicture = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
@@ -576,11 +597,11 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     def updateSalonPics = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     	val salon = loggedIn
     	val industry = Industry.findAll.toList
-    	salonInfoForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.salon.admin.salonManage("",errors,industry,salon)),
+    	salonPicsForm.bindFromRequest.fold(
+        errors => BadRequest(views.html.salon.admin.salonManage("",salonInfoForm.fill(salon),industry,salon)),
         {
-            salonInfo =>
-                Salon.save(salon.copy(salonPics = salonInfo.salonPics), WriteConcern.Safe)
+            salonpictures =>
+                Salon.save(salon.copy(salonPics = salonpictures.salonPics, picDescription = salonpictures.picDescription), WriteConcern.Safe)
                 Redirect(routes.Salons.checkInfoState)
         })
         

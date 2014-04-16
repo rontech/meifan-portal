@@ -222,3 +222,8 @@ case class Contact(
     contact: String, 
     email: String
 )
+
+case class SalonPics(
+	salonPics: List[OnUsePicture],
+	picDescription: Option[PicDescription]
+)

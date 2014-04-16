@@ -269,3 +269,5 @@ GET        /salon/reserve/salonId=:salonId&couponId=:couponId&week=:week        
 GET        /reserve/salonId=:salonId&couponId=:couponId&week=:week                           controllers.Reservations.reservSelectDate(salonId: ObjectId, couponId: ObjectId, week: Int)
 #GET        /salon/:salonId/reserve/schedule/:week                 controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
+#cancel current apply by user(dou)
+GET         /myPage/cancelApply                                             controllers.auth.Users.cancelApplyStylist
