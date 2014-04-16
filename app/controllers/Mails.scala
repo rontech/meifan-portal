@@ -52,8 +52,8 @@ object Mails extends Controller {
       {
 	      user =>        	
           val root : Configuration = Configuration.root()
-          val mail = use[MailerPlugin].email
-		  mail.setSubject("reset password")
+          val mail = use[MailerPlugin].email          
+		  mail.setSubject(Messages("mail.subjectOfResetPwd"))
 		  mail.setRecipient("<"+ user.get.email + ">")
 		  val mailFrom : String = root.getString("mail.from")
 		  mail.setFrom(mailFrom)
@@ -64,9 +64,11 @@ object Mails extends Controller {
 		  mailUser match {
             case Some(m) => Mail.save(m.copy(uuid = uuid, endTime = endTime), WriteConcern.Safe)
             case None => Mail.save(uuid, user.get.id, 1, endTime)
-          }
-		  val url : String = "http://" + root.getString("server.hostname") +routes.Mails.password(uuid)
-		  mail.send("A text only message", "<html><body><p>" + Messages("user.resetInfo")+ "<br><a href = " + url + ">" + uuid+ "</a></p></body></html>" )
+          }		  
+//		  val url : String = "http://" + root.getString("server.hostname") +routes.Mails.password(uuid)  //OK
+		  // 会不会到时url是以Https开头的呢？
+		  val url : String = "http://" + request.host +routes.Mails.password(uuid)  		  
+		  mail.send("A text only message", "<html><body><p>" + Messages("user.resetInfo")+ "<br><a href = " + url + ">" + url+ "</a></p></body></html>" )
           Redirect(auth.routes.Users.logout)
 		  
     })

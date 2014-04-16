@@ -548,6 +548,9 @@ user.resetErr=用户名和邮箱不一致，请重新输入!
 user.resetPassword = 重置密码
 user.resetInfo = 点击下面的链接，重置密码
 
+#Mail
+mail.subjectOfResetPwd = 来自美范网的密码重置邮件
+
 
 #Letter
 letter.addressee=收件人
