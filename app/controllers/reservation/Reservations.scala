@@ -22,9 +22,32 @@ object Reservations extends Controller{
 	/**
 	 * 选择预约的日程
 	 */
-	/*def reservSelectDate = Action {
-	  Ok(views.html.reservation.reservSelectDate("h"))
-	}*/
+	def reservSelectDate(salonId: ObjectId, couponId: ObjectId, week: Int) = Action { implicit request =>
+	  // 将优惠劵的有关信息存入预约表中
+	  var resvItems: List[ResvItem] = Nil
+	  var resvItem: ResvItem = ResvItem("coupon", couponId, 1)
+	  resvItems = resvItems ::: List(resvItem)
+	  
+	  val coupon: Option[Coupon] = Coupon.findOneById(couponId)
+	  var serviceDuration: Int = 0
+	  var price: BigDecimal = BigDecimal(0)
+	  coupon match {
+	    case Some(c) => {
+	      serviceDuration = c.serviceDuration
+	      price = c.perferentialPrice
+	      }
+	    case None => NotFound
+	  }
+	  
+	  var reservation: Reservation = Reservation(new ObjectId, "", salonId, 0, new Date, serviceDuration, None, resvItems, None, "", "", price, 0, price, new Date, new Date)
+	  
+	  var session: Session = new Session()
+	  request.session+("reservation" -> "aa")
+	  
+	  println("session -> reservation = " + request.session.get("reservation"))
+	  
+	  Redirect(routes.Reservations.reservShowDate(salonId, couponId, week))
+	}
 	
 	/**
 	 * 预约密码确认，输入密码预约才有效
@@ -54,10 +77,11 @@ object Reservations extends Controller{
 	  Ok(views.html.reservation.reservSelectStylist(".."))
 	}
 	
+	
 	/**
 	 * 查看店铺预约日程表
 	 */
-	def reservShowDate(salonId: ObjectId, week: Int) = Action {
+	def reservShowDate(salonId: ObjectId, couponId: ObjectId, week: Int) = Action {
 	  val salon: Option[Salon] = Salon.findOneById(salonId)
 	  
 	  // 查找出该地店铺的所有预约

@@ -1,0 +1,15 @@
+@(salon: Salon)
+
+<div class="title cFix">
+	<div class="cFix">
+		<span class="rsvS directRsv offL mR10 fl">@Messages("reservation.onlineResv")</span>
+		<p class="fgRed mL5 pT3 oh">@Messages("reservation.salonResvMessage")</p>
+	</div>
+	<div class="mT5">
+		<h2 class="fs18">@salon.salonName</h2>
+		@salon.salonNameAbbr match {
+			case Some(abbr) => {<p class="fs12 dibBL">@abbr</p>}
+			case None => {}
+		}
+	</div>
+</div>
