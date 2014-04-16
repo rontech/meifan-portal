@@ -10,6 +10,8 @@ import se.radley.plugin.salat.Binders._
 import java.util.Date
 import models._
 import org.mindrot.jbcrypt.BCrypt
+import scala.concurrent.{ ExecutionContext, Future }
+import ExecutionContext.Implicits.global
 
 /*----------------------------
  * Embed Structure of Salon.
@@ -144,6 +146,12 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
     def checkImgIsExist(salon: Salon): Boolean = {
         salon.salonPics.exists(a => a.picUse.equals("Navigate")) && salon.salonPics.exists(a => a.picUse.equals("Atmosphere"))
     }
+    
+    /**
+     * 权限认证
+     * 用于判断userId是否为当前用户
+     */
+    def isOwner(accountId: String)(salon: Salon): Future[Boolean] = Future { Salon.findByAccountId(accountId).map(_ == salon).get }
 }
 
 /*----------------------------

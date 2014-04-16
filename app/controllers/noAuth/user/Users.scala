@@ -19,9 +19,9 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
   def registerForm(id: ObjectId = new ObjectId) = Form(
     mapping(
       "id" -> ignored(id),
-      "userId" -> nonEmptyText(6, 16).verifying(Messages("user.userIdErr"), userId => userId.matches("""^\w+$""")),
+      "userId" -> nonEmptyText(6, 18).verifying(Messages("user.userIdErr"), userId => userId.matches("""^\w+$""")),
       "password" -> tuple(
-        "main" -> text(6, 18).verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]+$""")),
+        "main" -> text(6, 16).verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]+$""")),
         "confirm" -> text).verifying(
           // Add an additional constraint: both passwords must match
             Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2),
