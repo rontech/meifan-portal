@@ -147,6 +147,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             case Some(sl) => Ok(views.html.salon.store.salonContent(sl, SalonNavigation.getSalonNavBar(salon), user))
             case _ => NotFound
         }
+        
     }
   
      /**

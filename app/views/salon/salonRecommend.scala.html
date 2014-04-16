@@ -1,0 +1,32 @@
+
+<div id="left_container">
+    	<div id="left01">
+        <div id="index_tjsh">
+        	<h2><img src="images/index_tjsh_title.jpg" width="255" height="36" /></h2>
+            <div id="index_tjsh_nr">
+        	<dl>
+           	 	<dt><a href="#" class="link-green">@Salon.findAll.toList(0).salonName</a></dt>
+                <dd class="pic"><a href="#"><img src="@routes.Application.getPhoto(Salon.findAll.toList(0).salonPics(0).fileObjId)" width="80" height="90" /></a></dd>
+                <dd class="txt">@Salon.findAll.toList(0).picDescription.map(pic=>pic.picTitle)</dd>
+                <dd class="more"><a href="#"><img src="images/more.jpg" width="40" height="10" /></a></dd>
+			</dl>
+            <dl class="right">
+           	 	<dt><a href="#" class="link-green">@Salon.findAll.toList(1).salonName</a></dt>
+                <dd class="pic"><a href="#"><img src="@routes.Application.getPhoto(Salon.findAll.toList(1).salonPics(0).fileObjId)" width="80" height="90" /></a></dd>
+                <dd class="txt">@Salon.findAll.toList(1).picDescription.map(pic=>pic.picTitle)</dd>
+                <dd class="more"><a href="#"><img src="images/more.jpg" width="40" height="10" /></a></dd>
+			</dl>
+            <dl class="right">
+           	 	<dt><a href="#" class="link-green">@Salon.findAll.toList(2).salonName</a></dt>
+                <dd class="pic"><a href="#"><img src="@routes.Application.getPhoto(Salon.findAll.toList(2).salonPics(0).fileObjId)" width="80" height="90" /></a></dd>
+                <dd class="txt">@Salon.findAll.toList(2).picDescription.map(pic=>pic.picTitle)</dd>
+                <dd class="more"><a href="#"><img src="images/more.jpg" width="40" height="10" /></a></dd>
+			</dl>
+            <dl class="right">
+           	 	<dt><a href="#" class="link-green">@Salon.findAll.toList(3).salonName</a></dt>
+                <dd class="pic"><a href="#"><img src="@routes.Application.getPhoto(Salon.findAll.toList(3).salonPics(0).fileObjId)" width="80" height="90" /></a></dd>
+                <dd class="txt">@Salon.findAll.toList(3).picDescription.map(pic=>pic.picTitle)</dd>
+                <dd class="more"><a href="#"><img src="images/more.jpg" width="40" height="10" /></a></dd>
+			</dl>
+			</div>
+		</div><!--美发沙龙-->
