@@ -186,6 +186,7 @@ Saturday = 星期六
 Sunday = 星期日
 salon.noExist = 该店铺不存在
 salon.register.accountIdErr=店铺ID不合法!
+salon.loginErr = 店铺ID或密码错误，请重新输入!
 
 
 #salon management
@@ -552,7 +553,8 @@ user.collectSuccess = 收藏成功！
 user.resetErr=用户名和邮箱不一致，请重新输入!
 user.resetPassword = 重置密码
 user.resetInfo = 点击下面的链接，重置密码
-
+user.loginUserIdErr = 请输入用户名！
+ 
 
 #Letter
 letter.addressee=收件人

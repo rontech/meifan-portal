@@ -24,7 +24,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     val salonLoginForm = Form(mapping(
       "salonAccount" -> mapping(
           "accountId"-> nonEmptyText,
-          "password" -> nonEmptyText)(SalonAccount.apply)(SalonAccount.unapply)
+          "password" -> text)(SalonAccount.apply)(SalonAccount.unapply)
   )(Salon.loginCheck)(_.map(s => (s.salonAccount))).verifying("Invalid userId or password", result => result.isDefined))
 
    //密码修改
