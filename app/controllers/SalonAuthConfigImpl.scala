@@ -23,7 +23,7 @@ trait SalonAuthConfigImpl extends AuthConfig {
   def resolveUser(accountId: Id)(implicit ctx: ExecutionContext) = Future.successful(Salon.findByAccountId(accountId))
 
   def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = {
-    val uri = request.session.get("salon_access_uri").getOrElse(auth.routes.Salons.salonInfoManage.url.toString)
+    val uri = request.session.get("access_uri").getOrElse(auth.routes.Salons.salonInfoBasic.url.toString)
     Future.successful(Redirect(uri).withSession(request.session - "salon_access_uri"))
   }
   def logoutSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Redirect(routes.Application.index))
