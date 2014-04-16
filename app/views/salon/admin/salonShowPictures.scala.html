@@ -1,4 +1,4 @@
-@(salon:Salon, salonInfo:Form[Salon])
+@(salon:Salon, salonPicsForm:Form[SalonPics])
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -29,19 +29,19 @@
 		</div>
 		<div class="batch-pic">
 			<ul>
-				@repeat(salonInfo("salonPics")) { salonPic =>
+				@repeat(salonPicsForm("salonPics")) { salonPic =>
 				@pictureGroup(salonPic)
 				}
 			</ul>
 		</div>
 	</div>
-	
 	<div class="picture-show-description">
 		@picDescriptions(
-			salonInfo("picDescription"),
+			salonPicsForm("picDescription"),
 			className = "salonShowPicsDes"
 			)
 	</div>
+	
 	<div class="mT20 txtC">			
 		<input type = "submit" class = "buttons" value=@Messages("common.submit")>
 	</div>
@@ -51,7 +51,7 @@
 	}
 	</body>
 	@pictureGroup(
-		salonInfo("salonPics[x]"),
+		salonPicsForm("salonPics[x]"),
 		className = "salonPic_template"
 	)
 	
@@ -73,7 +73,6 @@
         @select(
             field ("picUse"), 
             options = options(
-                "LOGO" -> Messages("salon.picUse.logo"),
                 "Navigate" -> Messages("salon.picUse.Navigate"),
                 "Atmosphere" -> Messages("salon.picUse.Atmosphere")
             ),

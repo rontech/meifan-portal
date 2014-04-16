@@ -72,7 +72,7 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
     val stylist = Stylist.findOneByStylistId(stylistId)
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     Styles.styleSearchForm.bindFromRequest.fold(
-                errors => BadRequest(views.html.index("")),
+                errors => BadRequest(views.html.index()),
                 {
                     case (styleSearch) => {
                         val styles = Style.findStylesByStylistBack(styleSearch,stylist.get.stylistId)
