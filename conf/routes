@@ -42,7 +42,6 @@ GET         /serviceTypeMain                                                cont
 # Salon
 GET         /salon                                                          controllers.noAuth.Salons.index
 GET         /salon/:salonId                                                 controllers.noAuth.Salons.getSalon(salonId: ObjectId)
-GET         /salon/:salonId/salonInfo                                       controllers.noAuth.Salons.salonInfoBasic(salonId: ObjectId)
 # Salon.style
 GET         /salon/:salonId/style/:styId                                    controllers.noAuth.Salons.getOneStyle(salonId: ObjectId, styId: ObjectId)
 GET         /salon/:salonId/styles                                          controllers.noAuth.Salons.getAllStyles(salonId: ObjectId)
@@ -169,7 +168,8 @@ GET         /myPage/removeSalon/:salonId                                    cont
 # pages which can only be seen by logined salon.
 #-------------------------------------------------
 #Salon Management
-GET         /mySalon/Info                                                   controllers.auth.Salons.salonInfoManage
+
+GET         /mySalon/salonInfo                                       		controllers.auth.Salons.salonInfoBasic
 POST        /mySalon/updateInfo                                             controllers.auth.Salons.update(salonId: ObjectId)
 GET         /mySalon/updateLogo                                             controllers.auth.Salons.saveSalonImg(imgId: ObjectId)
 POST        /mySalon/imageUpload                                            controllers.auth.Salons.imageUpload
@@ -196,7 +196,7 @@ GET         /mySalon/salonShowPics                                          cont
 GET			/salonBasic										controllers.auth.Salons.salonBasic
 GET			/salonDetail									controllers.auth.Salons.salonDetail
 POST        /salonConsum/:id                                 controllers.auth.Salons.salonInfoConsum(id:ObjectId)
-#POST        /changeSalonPassword/:id                         controllers.SalonInfo.salonChangePassword(id: ObjectId)
+POST        /changeSalonPassword                            controllers.auth.Salons.salonChangePassword(accountId : String)
 
 
 # Coupon
@@ -237,12 +237,13 @@ GET         /reservSelectStylist                                            cont
 POST        /reservConfirmPwd                                               controllers.Reservations.reservConfirmPwd
 GET         /reservFinish                                                   controllers.Reservations.reservFinish
 GET         /reservConfirmInfo                                              controllers.Reservations.reservConfirmInfo
-GET         /salon/:salonId/reserve/schedule/:week                          controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
+#GET         /salon/:salonId/reserve/schedule/:week                          controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
 # MyFollows
 GET 	      /javascriptRoutes               						                    controllers.Application.javascriptRoutes
 
 GET			/salonRegisterMange									controllers.auth.Salons.salonRegister      
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                   controllers.Assets.at(path="/public", file)
@@ -259,4 +260,12 @@ GET        /forgotPassword                                                  cont
 POST       /forgotPassword                                                  controllers.Mails.sendMailForResetPwd
 GET        /resetPwd                                                        controllers.Mails.password(uuid : String)
 POST       /resetPwd                                                        controllers.Mails.resetPassword(uuid : String)
+
+#add salonPics 
+POST       /mySalon/updatepictures                                  		controllers.auth.Salons.updateSalonPics
+
+# Reservation add by sangsang-hu
+GET        /salon/reserve/salonId=:salonId&couponId=:couponId&week=:week                     controllers.Reservations.reservShowDate(salonId: ObjectId, couponId: ObjectId, week: Int)
+GET        /reserve/salonId=:salonId&couponId=:couponId&week=:week                           controllers.Reservations.reservSelectDate(salonId: ObjectId, couponId: ObjectId, week: Int)
+#GET        /salon/:salonId/reserve/schedule/:week                 controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 

@@ -17,6 +17,7 @@ import org.mindrot.jbcrypt.BCrypt
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import utils.Tools
+import play.api.templates.Html
 
 object Salons extends Controller with LoginLogout with AuthElement with SalonAuthConfigImpl{
   
@@ -33,14 +34,14 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
       "salonChange" ->mapping(
           "salonAccount" -> mapping(
             "accountId" -> text,
-            "password" -> nonEmptyText
-              )(SalonAccount.apply)(SalonAccount.unapply))(Salon.loginCheck)(_.map(s => (s.salonAccount))).verifying("Invalid userId or password", result => result.isDefined),        
+            "password" -> text
+              )(SalonAccount.apply)(SalonAccount.unapply))(Salon.loginCheck)(_.map(s => (s.salonAccount))).verifying("Invalid OldPassword", result => result.isDefined),        
       "newPassword" -> tuple(
-        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[A-Za-z0-9]+$""")),
+        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]{6,18}+$""")),
         "confirm" -> text).verifying(
         // Add an additional constraint: both passwords must match
         Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2)
-    ){(salonChange, newPassword) => (salonChange.get, newPassword._1)}{salonChange => Some((Option(salonChange._1),("","")))}
+    ){(salonChange, newPassword) => (salonChange.get, BCrypt.hashpw(newPassword._1, BCrypt.gensalt()))}{salonChange => Some((Option(salonChange._1),("","")))}
   )
 
     //店铺信息管理Form
@@ -63,7 +64,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             "contactMethod" -> mapping(
                 "mainPhone" -> nonEmptyText,
                 "contact" -> nonEmptyText,
-                "email" -> nonEmptyText
+                "email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)+$"""))
             )(Contact.apply)(Contact.unapply),
             "optContactMethod" -> list(
                 mapping(
@@ -147,6 +148,16 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             "success" -> "You've been logged out"
         ))
     }
+ 
+    /**
+     * 店铺基本信息显示
+     *
+     */
+    def salonInfoBasic =  StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+        val salon = loggedIn
+        val industry = Industry.findAll.toList
+        Ok(views.html.salon.salonInfo("", salon , industry))
+    }
     
     /**
      * 注册信息管理页面
@@ -179,31 +190,20 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     }
     
     /**
-     * 店铺信息完善
+     * 店铺信息处理
      */
     def salonInfoConsum(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
         val salon = loggedIn
         val industry = Industry.findAll.toList
         salonInfoForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.error.errorMsg(errors)),
+        errors => BadRequest(views.html.salon.salonDetail(errors,industry,salon)),
         {
             salon =>
                 Salon.save(salon.copy(id = id), WriteConcern.Safe)
                 Redirect(routes.Salons.checkInfoState)
         })
     }
-    
-    /**
-     * 店铺基本信息修改页面
-     *
-     */
-    def salonInfoManage = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
-        val salon = loggedIn
-        val salonInfo = salonInfoForm.fill(salon)
-        val industry = Industry.findAll.toList
-        Ok(views.html.salon.admin.salonManage("",salonInfo ,industry , salon))
-    }
-    
+      
     /**
      * 店铺基本信息更新
      */
@@ -211,11 +211,11 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         val salon = loggedIn
         val industry = Industry.findAll.toList
         salonInfoForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.salon.admin.salonManage("",errors,industry,salon)),
+        errors => BadRequest(views.html.salon.salonRegisterMange(errors,industry,salon)),
         {
             salon =>
                 Salon.save(salon.copy(id = id), WriteConcern.Safe)
-                Redirect(routes.Salons.salonInfoManage)
+                Redirect(routes.Salons.salonInfoBasic)
         })
     }
 
@@ -228,19 +228,19 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         Ok(views.html.salon.admin.salonChangePassword("", changeForm, salon))
     }
 
-    //  /**
-    //   * 密码修改
-    //   */
-    //  def salonChangePassword(id :ObjectId) = Action { implicit request =>
-    //    val salon = Salon.findOneById(id).get
-    //    changePassword.bindFromRequest.fold(
-    //      errors => BadRequest(views.html.error.errorMsg(errors)),
-    //      {
-    //        case (salonAccount, main) =>
-    //          Salon.save(salonAccount.copy(password = main), WriteConcern.Safe)
-    //           Redirect(noAuth.routes.Salons.salonInfoBasic(id))
-    //    })
-    //  }
+     /**
+      * 密码修改
+      */
+     def salonChangePassword(accountId: String) = StackAction(AuthorityKey -> Salon.isOwner(accountId) _) { implicit request =>
+        val salon = loggedIn
+        changePassword.bindFromRequest.fold(
+          errors => BadRequest(views.html.salon.admin.salonChangePassword("", errors, salon)),
+          {
+            case (salon, main) =>
+              Salon.save(salon.copy(salonAccount = new SalonAccount(accountId, main)), WriteConcern.Safe)
+               Redirect(routes.Salons.salonLogout)
+        })
+      }
 
     /**
      * 店铺Logo更新页面
@@ -256,7 +256,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     def saveSalonImg(imgId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
         val salon = loggedIn
         Salon.updateSalonLogo(salon, imgId)
-        Redirect(routes.Salons.salonInfoManage)
+        Redirect(routes.Salons.salonInfoBasic)
     }
 
     /**
@@ -572,6 +572,19 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
       val salon = loggedIn
       val salonInfo = salonInfoForm.fill(salon)
       Ok(views.html.salon.admin.salonLogoPicture(salon, salonInfo))
+    }
+    
+    def updateSalonPics = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    	val salon = loggedIn
+    	val industry = Industry.findAll.toList
+    	salonInfoForm.bindFromRequest.fold(
+        errors => BadRequest(views.html.salon.admin.salonManage("",errors,industry,salon)),
+        {
+            salonInfo =>
+                Salon.save(salon.copy(salonPics = salonInfo.salonPics), WriteConcern.Safe)
+                Redirect(routes.Salons.checkInfoState)
+        })
+        
     }
 }
 

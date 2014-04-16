@@ -122,3 +122,15 @@ form .clearfix.success input:focus, form .clearfix.success textarea:focus {
 .fr		{ float: right; }
 .cb		{ clear: both; }
 
+
+table.display01{
+	display:none;
+}
+
+table.display02 {
+display: none;
+}
+
+table.display03 {
+display: none;
+}
