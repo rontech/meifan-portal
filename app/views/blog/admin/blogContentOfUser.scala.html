@@ -56,7 +56,7 @@
             <a href="" class="deleteBlog" data-blog="@blog.id">@Messages("common.delete")</a>
         </span>
         }
-        &nbsp;|&nbsp;<span id="attention_it"><a href="@auth.routes.MyFollows.addFollow(blog.id,"blog")" id="favor_trigger" title="@Messages("blog.toCollect")">@Messages("blog.toCollect")</a></span>
+        &nbsp;|&nbsp;<span id="attention_it"><a href="javascript:void(0);" onclick="addFollow('@blog.id','blog')" id="favor_trigger" title="@Messages("blog.toCollect")">@Messages("blog.toCollect")</a></span>
    	</div>
 
   </div>

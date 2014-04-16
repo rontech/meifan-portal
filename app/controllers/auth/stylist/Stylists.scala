@@ -343,6 +343,4 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
       
   }
   
-  
-    
 }

@@ -104,7 +104,7 @@
                 <td class="bdWhite bgLLGray2 vaM">
                     <div class="pV10 fs12">
                         <div>
-                            <a href="#"
+                            <a href="@routes.Reservations.reservShowDate(coupon.salonId, coupon.id, 0)"
                             class="btn btn2H50 btnWlines w146 mHA">
                                 <span>
                                     <span>
@@ -134,7 +134,7 @@
                             </a>
                         </div>
                         <div class="mT8 taC">
-                            <a href="@auth.routes.MyFollows.addFollow(coupon.id,"coupon")"
+                            <a href="javascript:void(0);" onclick="addFollow('@coupon.id','coupon')" 
                             class="iS arrowR">
                                 <font>
                                     <font>

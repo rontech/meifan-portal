@@ -7,17 +7,17 @@
 					@if(salon.id.getTime.equals(salon.salonPics(0).fileObjId.getTime)){
 						<h>@salon.id</h>
 						<h>@salon.salonPics</h>
-						<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
+						<a href="@auth.routes.Salons.salonInfoBasic" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
 					}else{
 						@for(i <- 0 to salon.salonPics.size-1){
 							@if(salon.salonPics(i).picUse == "LOGO" ){
-								<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>
+								<a href="@auth.routes.Salons.salonInfoBasic" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>
 							}								
 						}										
 					}
 										
 				}else{
-					<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
+					<a href="@auth.routes.Salons.salonInfoBasic" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
 				}	      
         </a>
         </div>
@@ -34,7 +34,7 @@
             <li class="mT50 pT15">
             <div class="jscMySalonSaveLayer">
                 <p class="jscMySlnSvStIdH000231733" style="height: 19px; overflow:hidden;">
-                <a href="@auth.routes.MyFollows.addFollow(salon.id,"salon")" class="bS addIntoMyPage jscBtnSaveToMySalon offL db">
+                <ahref="javascript:void(0);" onclick="addFollow('@salon.id','salon')" class="bS addIntoMyPage jscBtnSaveToMySalon offL db">
                     @Messages("salon.followSalon") 
                 </a>
                 <span class="btnSlnSaveToMySalonDone bS offL">

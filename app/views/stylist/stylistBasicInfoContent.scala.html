@@ -14,7 +14,7 @@
 
         <!-- ST Follow this stylist. -->
         <div class="mT20 pT10">
-            <a href="@auth.routes.MyFollows.addFollow(stylist.stylistInfo.get.stylistId,"stylist")" 
+            <a href="javascript:void(0);" onclick="addFollow('@stylist.stylistInfo.get.stylistId','stylist')" 
                 class="bS db addIntoMyStylist offL mHA"> @Messages("stylist.followStylist")
             </a>
         </div>
@@ -62,8 +62,8 @@
             <table cellspacing="0" class="wFull bgThNml bdCell pCell10">
                 <tbody>
                     <tr>
-                        <th class="w100"> @Messages("stylist.worked")</th>
-                        <td>@Messages("stylist.workYears", stylist.stylistInfo.get.workYears) </td>
+                        <th class="w100"> @Messages("stylist.workYears")</th>
+                        <td>@Messages("stylist.years", stylist.stylistInfo.get.workYears) </td>
                     </tr>
                                 
                     <tr> <th class="w100">@Messages("stylist.goodAtImage") </th>
