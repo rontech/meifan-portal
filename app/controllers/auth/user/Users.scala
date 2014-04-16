@@ -295,7 +295,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
       SalonStylistApplyRecord.findOneStylistApRd(user.id).map{record=>
          SalonStylistApplyRecord.save(record.copy(verifiedResult = 2, verifiedDate = Some(new Date)))
          Redirect(routes.Users.myPage())
-      }.getOrElse{
+      }getOrElse{
          NotFound
       }
       
