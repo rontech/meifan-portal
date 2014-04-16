@@ -80,7 +80,7 @@ GET         /userPage/:stylistId/styles                                     cont
 POST        /userPage/:stylistId/styles                                     controllers.noAuth.Stylists.findStylesBySerach(stylistId: ObjectId)
 # TODO >>>>>>>>>>>>>>>>>>>>>
 GET         /userPage/:publicId/HomePage                                    controllers.noAuth.Stylists.otherHomePage(publicId: ObjectId)
-GET         /checkSalonIsexitBySalonAccountId/:salonAccountId               controllers.noAuth.Stylists.checkSalonIsexitBySalonAccountId(salonAccountId: String)
+GET         /myPage/checkSalonIsExit/:salonAccountId               			controllers.noAuth.Stylists.checkSalonIsExit(salonAccountId: String)
 GET         /cutImg                                                         controllers.noAuth.Stylists.cutImg
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -271,3 +271,4 @@ GET        /reserve/salonId=:salonId&couponId=:couponId&week=:week              
 
 #cancel current apply by user(dou)
 GET         /myPage/cancelApply                                             controllers.auth.Users.cancelApplyStylist
+GET			/mySalon/checkStylistIsExist/:userId							controllers.noAuth.Stylists.checkStylistIsExist(userId: String)

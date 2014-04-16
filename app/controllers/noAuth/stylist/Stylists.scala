@@ -103,12 +103,11 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
      
   }
   
-  def checkSalonIsexitBySalonAccountId(salonAccountId: String) = Action {
-      println("ajax check ")
+  def checkSalonIsExit(salonAccountId: String) = Action {
       Salon.findByAccountId(salonAccountId).map{ salon =>
-          Ok("yes")
+          Ok("YES")
       }getOrElse{
-          Ok("no")
+          Ok("NO")
       }
   }
   
@@ -116,4 +115,18 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
     Ok(views.html.stylist.cutImg(""))
   }
   
+  def checkStylistIsExist(userId: String) = Action {
+     val user = User.findOneByUserId(userId)
+     user match {
+       case Some(user) => {
+         val stylist = Stylist.findOneById(user.id)
+         stylist match {
+           case Some(sty) => Ok("YES")
+           case None => Ok("NO")
+         }
+       }
+       case None => Ok("NO")
+     }
+     
+    }
 }

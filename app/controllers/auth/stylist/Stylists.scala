@@ -267,12 +267,6 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
     }
     
 
-    def checkStylist(stylistId: ObjectId) = {
-          
-    }
-    
-    
-    
   def findStylistApplying = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
 	  val user = loggedIn
       val followInfo = MyFollow.getAllFollowInfo(user.id)
