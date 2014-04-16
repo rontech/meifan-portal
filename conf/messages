@@ -190,6 +190,7 @@ Saturday = 星期六
 Sunday = 星期日
 salon.noExist = 该店铺不存在
 salon.register.accountIdErr=店铺ID不合法!
+salon.mailError=邮箱格式不合法
 
 
 #salon management
@@ -411,7 +412,6 @@ stylist.update = 更新
 stylist.stylistId = 用户ID
 stylist.workYears = 工作年数
 stylist.info = 技师专有信息
-stylist.senior = 资深发型师
 
 
 
@@ -836,3 +836,4 @@ salonCheckInfoState.youNeedDo = 您还有
 salonCheckInfoState.cannotApply = 个事项未完成，网站将开放你相应权限，详情查看
 salonCheckInfoState.uploadLogo = 头像设置
 salonCheckInfoState.uploadpics = 展示图片
+salonCheckInfoState.createSalon=申请开店

@@ -269,4 +269,3 @@ GET        /salon/reserve/salonId=:salonId&couponId=:couponId&week=:week        
 GET        /reserve/salonId=:salonId&couponId=:couponId&week=:week                           controllers.Reservations.reservSelectDate(salonId: ObjectId, couponId: ObjectId, week: Int)
 #GET        /salon/:salonId/reserve/schedule/:week                 controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
-
