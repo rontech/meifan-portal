@@ -1,0 +1,146 @@
+.listCassette {
+margin-top: 10px;
+padding-top: 10px;
+border-top: 2px solid #DDD;
+}
+
+.mainContentsSecondTitleOuterFw {
+background-position: -4599px top;
+background-repeat: no-repeat;
+background-color: #F2F2F2;
+padding-top: 3px;
+position: relative;
+zoom: 1;
+}
+
+.ygS {
+background-image: url(/CSP/img/bt/sprites/y_g.png?switch=20140327);
+}
+
+.mainContentsSecondTitleInner2 {
+background-color: #D9D9D9;
+background-position: -3825px bottom;
+background-repeat: no-repeat;
+font-size: 14px;
+padding-bottom: 3px;
+}
+
+.mainContentsST {
+margin: 0 1px;
+background-color: #F2F2F2;
+zoom: 1;
+}
+
+.cassetteArea {
+border-right: 1px solid #bfbfbf;
+border-bottom: 1px solid #bfbfbf;
+border-left: 1px solid #bfbfbf;
+background-color: #D9D9D9;
+padding: 0 3px 0 10px;
+position: relative;
+height: 100%;
+}
+.fs10 {
+font-size: 10px;
+}
+
+.mainContentsSTHead {
+padding: 2px 0;
+border-bottom: 2px solid #7b705e;
+}
+.bdRedB {
+border-bottom: 2px solid #AA3355;
+}
+
+.listTitleHeading {
+line-height: 27px;
+font-size: 16px;
+}
+.fl {
+float: left;
+}
+.pL10 {
+padding-left: 10px;
+}
+.pT5 {
+padding-top: 5px;
+}
+.w610 {
+width: 610px;
+}
+.cFix {
+min-height: 1px;
+_height: 1px;
+}
+.upLately {
+background-position: -170px -1500px;
+width: 30px;
+height: 13px;
+margin-left: 5px;
+}
+
+.iS { background-image: url(/assets/images/i.png) !important; background-repeat: no-repeat; 
+}
+.vaM {
+vertical-align: middle;
+}
+.offL {
+text-indent: -9999px;
+overflow: hidden;
+}
+.dib {
+display: inline-block !important;
+}
+
+.listBody {
+padding: 10px 0 0;
+}
+
+
+.fs10 {
+font-size: 10px;
+}
+.b {
+font-weight: bold !important;
+}
+.fgLGray2 {
+color: #7F7F7F;
+}
+.fl {
+float: left;
+}
+.pH5 {
+padding-left: 5px;
+padding-right: 5px;
+}
+
+.listImmediately {
+background-position: -140px -3240px;
+width: 60px;
+height: 15px;
+}
+
+
+.listNominate {
+background-position: -140px -3280px;
+width: 60px;
+height: 15px;
+}
+
+.listPoint {
+background-position: -132px -3400px;
+width: 68px;
+height: 15px;
+}
+
+.listMensOK {
+background-position: -133px -3470px;
+width: 67px;
+height: 15px;
+}
+
+.fgLGray2 {
+color: #7F7F7F;
+}
+
+

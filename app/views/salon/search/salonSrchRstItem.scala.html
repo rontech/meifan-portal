@@ -1,0 +1,126 @@
+@(salon: Salon)
+
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/generalSearch.css")">
+
+<li class="listCassette">
+    <div class="ygS mainContentsSecondTitleOuterFw">
+        <div class="ygS mainContentsSecondTitleInner2">
+            <div class="mainContentsST">
+                <div class="cassetteArea fs10">
+                    @salon.salonAddress.map(add=>add.province).getOrElse(None) &gt;
+                    @salon.salonAddress.map(add=>add.city).getOrElse(None) &gt;
+                    @salon.salonAddress.map(add=>add.region).getOrElse(None)
+                </div>
+                <div class="cFix bdRedB mainContentsSTHead">
+                    <h3 class="fl listTitleHeading cFix pT5 pL10 w610">
+                        <a href="@noAuth.routes.Salons.getSalon(salon.id)"> @salon.salonName [@salon.salonNameAbbr]</a>
+                    </h3>
+                    @*<p class="fr pR10 pT5">
+                        <a href="#"
+                        class="bS reserveW115H24 offL db">
+                            @Messages("reserve.confirmAndReserve")
+                        </a>
+                    </p>*@
+                </div>
+                <div class="netReserveWrapper">
+                     <!--↓salon optional facilities-->
+                     @views.html.salon.component.salonOptFacilities(salon)
+                     <!--↑salon optional facilities-->
+               </div>
+            </div>
+        </div>
+    </div>
+    <div class="listBody cFix">
+        <div class="fl w250 mR10 taC">
+            <div class="mHA">
+                <a href="@noAuth.routes.Salons.getSalon(salon.id)">
+                    <img src="@routes.Application.getPhoto(salon.salonPics(1).fileObjId)"
+                    class="mT6" alt="@salon.salonName">
+                </a>
+            </div>
+            <ul class=" mT20 taC">
+                <li class="mR5 mL5 dibBL">
+                    <a href="">
+                        <img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"
+                        class="mT6" oncontextmenu="return false;">
+                    </a>
+                </li>
+                <li class="mR5 mL5 dibBL">
+                    <a href="">
+                        <img src="@routes.Application.getPhoto(salon.salonPics(2).fileObjId)"
+                        class="mT6" oncontextmenu="return false;">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="fl w500">
+            <p class="shopCatchCopy">
+                <b>
+                    <strong>
+                        <a href="">
+                            カット・パーマで可愛く・キレイに・・なら【felicita-re】へ☆
+                        </a>
+                    </strong>
+                </b>
+            </p>
+            <p class="mT10 pB10">
+                【felicita-re】はイタリア語で『幸福をもたらす』という意味。サロンに来たお客様が綺麗になってhappyになって欲しいからこの店名に☆ダメージケアと…
+                <a href="">
+                    続きを見る
+                </a>
+            </p>
+            <div>
+                <p>
+                    …
+                    <span class="highlightFw">
+                        可愛
+                    </span>
+                    らしいサロンです☆　４席以下の小型サロン/駐車場あり/ヘア…
+                </p>
+                <ul class="cFix">
+                    <li class="fr">
+                        <div class="jscMySalonSaveLayer">
+                            <p class="jscMySlnSvStIdH000266028">
+                                <a href="javascript:void(0);" class="iS arrowR jscBtnSaveToMySalon jscTextMode">
+                                    マイサロンに保存
+                                </a>
+                                <span class="txtSaveToMySalonDone iS arrowR">
+                                    マイサロンに保存済
+                                </span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="bdLGrayT mT5">
+                <p class="fs10 b fgLGray2 mT10 mL5">
+                    @Messages("coupon.title", salon.salonNameAbbr.getOrElse(None))
+                </p>
+                <div class="CouponArea p3">
+                    <dl class="cFix">
+                        <dt class="iS couponTypeSmallCT02 offL CouponMark fl">
+                        </dt>
+                        <dd class="fl">
+                            <a href="">
+                                【ヘアケア商品10%OFF☆】
+                            </a>
+                        </dd>
+                    </dl>
+                    <dl class="cFix">
+                        <dt class="iS couponTypeSmallCT01 offL CouponMark fl"> </dt>
+                        <dd class="fl">
+                            <a href="">
+                                【水・木・金曜日15：00～18：00限定優待券】小学生カット　2500円☆
+                            </a>
+                        </dd>
+                    </dl>
+               </div>
+            </div>
+            <p class="taR mTN5">
+                <a class="iS arrowR" href="">
+                    このサロンのクーポン一覧へ
+                </a>
+            </p>
+        </div>
+    </div>
+</li>

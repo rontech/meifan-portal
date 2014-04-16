@@ -3,23 +3,7 @@
 <div class="detailHeader cFix pr">
     <div class="detailHeaderShopInfo detail2S cFix">
         <div class="fl pL10 pT10">
-				@if(salon.salonPics.exists{a => a.picUse == "LOGO"}){
-					@if(salon.id.getTime.equals(salon.salonPics(0).fileObjId.getTime)){
-						<h>@salon.id</h>
-						<h>@salon.salonPics</h>
-						<a href="@auth.routes.Salons.salonInfoBasic" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
-					}else{
-						@for(i <- 0 to salon.salonPics.size-1){
-							@if(salon.salonPics(i).picUse == "LOGO" ){
-								<a href="@auth.routes.Salons.salonInfoBasic" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>
-							}								
-						}										
-					}
-										
-				}else{
-					<a href="@auth.routes.Salons.salonInfoBasic" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
-				}	      
-        </a>
+			<a href="@auth.routes.Salons.salonInfoBasic" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"/></a>									      
         </div>
         <div class="fr sprtHeaderInnerR pa right0 w180">
         <ul class="p10">
@@ -63,26 +47,9 @@
             <p class="fs10 fgGray">
                 @salon.salonNameAbbr 
             </p>
-            <dl class="cFix pV5 pL10">
-                @if(salon.salonFacilities.get.canOnlineOrder) {
-                    <dt class="fl fs10 fgLGray2 b mR5">@Messages("salon.canOnlineOrderValue")</dt>
-                }
-                @if(salon.salonFacilities.get.canImmediatelyOrder) {
-                    <dd class="fl iS offL listImmediately mR5">@Messages("salon.canImmediatelyOrderValue")</dd>
-                }
-                @if(salon.salonFacilities.get.canNominateOrder) {
-                    <dd class="fl iS offL listNominate mR5">@Messages("salon.canNominateOrderValue")</dd>
-                }
-                @if(salon.salonFacilities.get.canCurntDayOrder) {
-                    <dd class="fl iS offL listTheDay mR5">@Messages("salon.canCurntDayOrderValue")</dd>
-                }
-                @if(salon.salonFacilities.get.isPointAvailable) {
-                    <dd class="fl iS offL listPoint mR5">@Messages("salon.isPointAvaliableValue")</dd>
-                }
-                @if(salon.salonFacilities.get.canMaleUse) {
-                    <dd class="fl iS offL listMensOK mR5">@Messages("salon.canMaleUseValue")</dd>
-                }
-            </dl>
+            <!--↓salon optional facilities-->
+            @views.html.salon.component.salonOptFacilities(salon)
+            <!--↑salon optional facilities-->
             <div class="cFix mT5 pT5 bdDotT">
                 <div class="fr cFix qrcode">
                 <ul>

@@ -218,7 +218,7 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
     def styleSearchList = StackAction { implicit request =>
         val user = loggedIn
             styleSearchForm.bindFromRequest.fold(
-                errors => BadRequest(html.index("")),
+                errors => BadRequest(views.html.index()),
                 {
                     case (styleSearch) => {
                         val styleSearchInfo = Style.findByPara(styleSearch)

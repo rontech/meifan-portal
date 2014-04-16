@@ -101,5 +101,5 @@ object User extends ModelCompanion[User, ObjectId] {
      */
     def isFriend(userId: ObjectId)(user: User): Future[Boolean] = Future { (userId == user.id) || MyFollow.followEachOther(userId, user.id) }
     
-    def findBeautyUsers = dao.find(MongoDBObject.empty).toList.sortBy(user =>user.activity)
+    def findBeautyUsers = dao.find(MongoDBObject("userTyp" -> NORMAL_USER)).toList.sortBy(user =>user.activity)
 }
