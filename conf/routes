@@ -264,4 +264,5 @@ POST       /resetPwd                                                        cont
 #add salonPics 
 POST       /mySalon/updatepictures                                  		controllers.auth.Salons.updateSalonPics
 
-
+#cancel current apply by user(dou)
+GET         /myPage/cancelApply                                             controllers.auth.Users.cancelApplyStylist
