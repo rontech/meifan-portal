@@ -10,6 +10,8 @@ import play.api.libs.iteratee.Enumerator
 import scala.concurrent.ExecutionContext
 import controllers.noAuth._
 import java.util.Date
+import routes.javascript._
+import play.api.Routes
 import java.io.File
 import java.io.InputStream
 import java.io.ByteArrayOutputStream
@@ -113,12 +115,16 @@ object Application extends Controller {
       val age = time/1000/3600/24/365
       age
     }
+            
+    def javascriptRoutes = Action { implicit request =>
+    	Ok(Routes.javascriptRouter("jsRoutes")(auth.routes.javascript.MyFollows.addFollow)).as("text/javascript")
+    }
     
     /**
      *  ajax fileupload 输出图片id到页面对应区域
      */
     def fileUploadAction = Action(parse.multipartFormData) { implicit request =>
-    request.body.file("Filedata") match {
+    	request.body.file("Filedata") match {
             case Some(photo) =>{
             	val db = MongoConnection()("Picture")
                 val gridFs = GridFS(db)

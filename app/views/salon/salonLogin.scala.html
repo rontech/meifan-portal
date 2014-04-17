@@ -32,12 +32,14 @@
 												<dl class="lh30">
 													<dt class="dibBL vaM w150 b fl">@Messages("salon.id")</dt>
 													<dd class="dibBL vaM w280">
-														@inputText(field = salonLogin("salonAccount.accountId"), '_label -> None, 'placeholder -> Messages("salon.login.accountId"), 'class -> "inputField")
+														@inputText(field = salonLogin("salonAccount.accountId"), '_label -> None, 'placeholder -> Messages("salon.login.accountId"), 'class -> "inputField",
+															'_error ->  salonLogin("salonAccount.accountId").error.map(_.withMessage(Messages("salon.login.accountId")))
+														)
 													</dd>
 													<dt class="dibBL vaM w150 b fl">@Messages("user.password")</dt>
 													<dd class="dibBL vaM w280">
 														@inputPassword(field = salonLogin("salonAccount.password"), '_label -> None, 'placeholder -> Messages("salon.login.password") ,
-																		'_error -> salonLogin.globalError.map(_.withMessage(Messages("user.loginErr"))), 'class -> "inputField")
+																		'_error -> salonLogin.globalError.map(_.withMessage(Messages("salon.loginErr"))), 'class -> "inputField")
 													</dd>
 												</dl>
 											</div>
@@ -54,7 +56,7 @@
 							</div>
 						</dd>
 						<div class="mT10 taR">
-							<p><a href="#" id="pwRemindLink" title="Messages("user.forgetPassword")"><font><font>@Messages("user.forgetPassword")</font></font></a></p>
+							<p><a href="@routes.Mails.forgotPasswordOfSalon" id="pwRemindLink" title="@Messages("user.forgetPassword")"><font><font>@Messages("user.forgetPassword")</font></font></a></p>
 						</div>
 					</dl>
 				</div>

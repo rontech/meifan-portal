@@ -1,0 +1,25 @@
+@()
+
+@if(User.findBeautyUsers.length>2){
+<div id="index_blog">
+    	<h2></h2>
+        <div id="index_blog_nr">
+        	<dl>
+            	<dt><a href="#" class="link-green">@User.findBeautyUsers(0).nickName</a></dt>
+                <dd class="pic"><a href="@noAuth.routes.Users.userPage(User.findBeautyUsers(0).userId)"><img src="@routes.Application.getPhoto(User.findBeautyUsers(0).userPics)" width="58" height="58" /></a></dd>
+                <dd class="btn"><a href="@noAuth.routes.Users.userPage(User.findBeautyUsers(0).userId)"><img src="images/right_blog_btn.jpg" width="33" height="7" /></a></dd>
+            </dl>
+            <dl>
+            	<dt><a href="#" class="link-green">@User.findBeautyUsers(1).nickName</a></dt>
+                <dd class="pic"><a href="@noAuth.routes.Users.userPage(User.findBeautyUsers(1).userId)"><img src="@routes.Application.getPhoto(User.findBeautyUsers(1).userPics)" width="58" height="58" /></a></dd>
+                <dd class="btn"><a href="@noAuth.routes.Users.userPage(User.findBeautyUsers(1).userId)"><img src="images/right_blog_btn.jpg" width="33" height="7" /></a></dd>
+            </dl>
+            <dl>
+            	<dt><a href="#" class="link-green">@User.findBeautyUsers(2).nickName</a></dt>
+                <dd class="pic"><a href="@noAuth.routes.Users.userPage(User.findBeautyUsers(2).userId)"><img src="@routes.Application.getPhoto(User.findBeautyUsers(2).userPics)" width="58" height="58" /></a></dd>
+                <dd class="btn"><a href="@noAuth.routes.Users.userPage(User.findBeautyUsers(2).userId)"><img src="images/right_blog_btn.jpg" width="33" height="7" /></a></dd>
+            </dl>
+        </div>
+        <div id="index_blog_bottom"></div>
+    </div>
+}

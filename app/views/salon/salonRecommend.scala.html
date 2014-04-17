@@ -1,0 +1,19 @@
+
+        <div id="index_tjsh">
+        	<h2><img src="images/index_tjsh_title.jpg" width="255" height="36" /></h2>
+            <div id="index_tjsh_nr">
+            	@if(Salon.findAll.toList.length > 0){
+            		@for(i <- 0 to (if (Salon.findAll.toList.length > 4) 3 else Salon.findAll.toList.length-1)){
+         			<dl>
+           	 			<dt><a href="#" class="link-green">@Salon.findAll.toList(i).salonName</a></dt>
+                		<dd class="pic"><a href="#"><img src="@routes.Application.getPhoto(Salon.findAll.toList(i).salonPics(0).fileObjId)" width="80" height="90" /></a></dd>
+                		<dd class="txt">                		
+                			@Salon.findAll.toList(i).picDescription.map(pic=>pic.picTitle.slice(0,32))
+            				@if(Salon.findAll.toList(i).picDescription.map(pic=>pic.picTitle.length > 32)) {...}
+            			 </dd>
+                		<dd class="more"><a href="#"><img src="images/more.jpg" width="40" height="10" /></a></dd>
+					</dl>            
+            		}          	
+            	}
+			</div>
+		</div><!--美发沙龙-->

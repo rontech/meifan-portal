@@ -1,20 +1,9 @@
 @(salon: Salon)
 
 			<div class ="Owner">
-				@if(salon.salonPics.exists{a => a.picUse == "LOGO"}){
-					@if(salon.id.getTime.equals(salon.salonPics(0).fileObjId.getTime)){
-						<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
-					}else{
-						@for(i <- 0 to salon.salonPics.size-1){
-							@if(salon.salonPics(i).picUse == "LOGO" ){
-								<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>
-							}								
-						}										
-					}
-										
-				}else{
-					<a href="@noAuth.routes.Salons.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
-				}	
+        		<div class="fl pL10 pT10">
+					<a href="@auth.routes.Salons.salonInfoBasic" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"/></a>									      
+       			 </div>	
 				<span class='U'>
 					<p class='opts'>
 						<span style="font-size:16px;">@Messages("stylist.hello")&nbsp;</span> @salon.salonName
@@ -29,17 +18,19 @@
     				<div class="clear"></div>
 				
 			</div>
-			<div class='RMod' id='UserSkills'>
-	  			<div id="OtherScore">
-        			<h1><a href="#" target="_blank" title="@Messages("user.howToGetPoint")"><em></em>@Messages("salon.level")</a></h1>
-    			</div> 
-	  		</div>
-   			<div class='Opts clearfix'>
-                <a href="@auth.routes.Salons.salonInfoManage" class='a2 admin w220'><span>@Messages("user.changeInfo")</span></a>
-				<a href="#" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
-			</div>
+
+   			<!-- 店铺管理 -->
+			<div class='Mod Users' id='Fellows'>
+	   			<strong>@Messages("salonAdmin.mainPage")</strong>
+	   			<div class='more'>
+		 			<a href="@auth.routes.Salons.checkInfoState">
+		 				<span>@Messages("salonCheckInfoState.createSalon")</span>
+		 			</a><br />		 					 					 			
+		 		</div>	
+		 		
+			</div>			
    			<!-- 店铺基本信息管理 -->
-			<div class='Mod Users' id='Fans'>
+			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.infoManagement")</strong>
 	   			<div class='more'>
 		 			<a href="@auth.routes.Salons.salonRegister">
@@ -119,7 +110,7 @@
 				
     			</div>
 			</div>
-			<div class='Mod Users' id='Fans'>
+			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.commentManagement")</strong>
 	   			<ul class='clearfix'>
       				<li>
@@ -129,7 +120,7 @@
        					<a href="@auth.routes.Salons.myComment">@Messages("salonAdmin.checkComment")</a>
      				</div>
 			</div>
-			<div class='Mod Users' id='Fans'>
+			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.serviceManagement")</strong>
 	   			<ul class='clearfix'>
       				<li>
@@ -139,7 +130,7 @@
        					<a href="@auth.routes.Salons.myService">@Messages("salonAdmin.checkService")</a>
      				</div>
 			</div>
-			<div class='Mod Users' id='Fans'>
+			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.couponManagement")</strong>
 	   			<ul class='clearfix'>
       				<li>
@@ -149,7 +140,7 @@
        					<a href="@auth.routes.Salons.myCoupon">@Messages("salonAdmin.checkCoupon")</a>
      				</div>
 			</div>
-			<div class='Mod Users' id='Fans'>
+			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.menuManagement")</strong>
 	   			<ul class='clearfix'>
       				<li>
@@ -159,7 +150,7 @@
        					<a href="@auth.routes.Salons.myMenu">@Messages("salonAdmin.checkMenu")</a>
      				</div>
 			</div>
-			<div class='Mod Users' id='Fans'>
+			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.stateManagement")</strong>
 	   			<ul class='clearfix'>
       				<li>
@@ -167,6 +158,14 @@
 	  			</ul>
 		 		<div class='more'>
        					<a href="#">@Messages("salonAdmin.checkState")</a>
+     				</div>		 		
+     				<div class='more'>
+       					<a href="#">@Messages("user.myBlog")</a>
      				</div>
+     				
 			</div>
+		
+				<div class='RMod' id='UserSkills'>
+	  			<a href = "@auth.routes.Salons.salonLogout">@Messages("user.loginOut")</a>
+	  			</div>					
 	<!-- ↑mainContents -->	

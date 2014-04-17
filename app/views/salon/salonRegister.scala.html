@@ -132,7 +132,7 @@
 				            <td>
 				                <div>
 				                	@inputText(salonRegister("contactMethod.email"), '_label -> None,'_help -> Messages("*"),
-				                		'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.register.contact"))))
+				                		'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.mailError"))))
 				                </div>
 				            </td>
 				        </tr>					        					        
@@ -142,8 +142,6 @@
 					<input type = "hidden" name="salonPics[0].fileObjId" />
 					<input type = "hidden" name="salonPics[0].picUse" value="LOGO"/>
 					<input type = "submit" class = "buttons" value=@Messages("user.registerBtn")>
-					<input type="reset" value=@Messages("common.reset")>
-					<a href = "@routes.Application.salonLogin"><input type="button" value=@Messages("common.backUp") ></a>
 				</div>
 			}
 

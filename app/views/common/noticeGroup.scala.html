@@ -1,0 +1,11 @@
+@(notices: List[Notice])
+<div id="pl">
+    <div class="pl_bt"><img src="images/tz_bt.jpg" width="210" height="36" /></div>
+    <div id="index_xxtg">
+        <ul>
+            @for(notice <- notices){
+                <li><a href="#">@notice.title</a></li>
+            }
+        </ul>
+    </div>
+</div>

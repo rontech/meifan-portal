@@ -34,7 +34,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	    	}{
 	    	  salonAccount=>Some(salonAccount.accountId,(salonAccount.password, ""))
 	    	},
-	        "salonName" -> text.verifying(Messages("salon.salonNameNotAvaible"), salonName => !Salon.findOneBySalonName(salonName).nonEmpty),
+	        "salonName" -> nonEmptyText.verifying(Messages("salon.salonNameNotAvaible"), salonName => !Salon.findOneBySalonName(salonName).nonEmpty),
 	        "salonNameAbbr" -> optional(text),
 	        "salonIndustry" -> list(text),
 	        "homepage" -> optional(text),
@@ -47,7 +47,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	        "contactMethod" -> mapping(
 	        		"mainPhone" -> nonEmptyText,
 	        		"contact" -> nonEmptyText,
-	        		"email" -> nonEmptyText
+	        		"email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)+$"""))
 	        )(Contact.apply)(Contact.unapply),
 	        "optContactMethod" -> list(
 	            mapping(
@@ -125,7 +125,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         {
             salonRegister =>
                 Salon.save(salonRegister, WriteConcern.Safe)
-                Redirect(controllers.auth.routes.Salons.checkInfoState)
+                Redirect(auth.routes.Salons.checkInfoState)
         })
     }
     /*-------------------------
@@ -135,21 +135,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         val user = loggedIn
         Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user))
     }
-
-    /**
-     * 店铺基本信息显示
-     *
-     */
-    def salonInfoBasic(salonId: ObjectId) =  StackAction{ implicit request =>
-        val user = loggedIn
-        val salon: Option[Salon] = Salon.findOneById(salonId)
-        val industry = Industry.findAll.toList
-        salon match {
-            case Some(sl) => Ok(views.html.salon.salonInfo("", sl , industry))
-            case _ => NotFound
-        }
-    }
-
+    
     /*-------------------------
      * Individual Salon Infomations.
      * Include the Styles, Stylists, Coupons, Blogs, Comments..... 
@@ -161,6 +147,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             case Some(sl) => Ok(views.html.salon.store.salonContent(sl, SalonNavigation.getSalonNavBar(salon), user))
             case _ => NotFound
         }
+        
     }
   
      /**
