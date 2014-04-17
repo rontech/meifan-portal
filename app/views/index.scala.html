@@ -1,4 +1,4 @@
-@(message: String)
+@(user: Option[User] = None)
 
 @main(Messages("site.title")) {
 	
@@ -70,6 +70,20 @@
 					</li>
 				</ul>
 			</div>
+		</div>
+		
+		<div id="container">
+			<div id="left">
+				@views.html.indexPage.indexLeftColumn()
+			</div>
+			
+			<div id="right">
+				@views.html.indexPage.indexRightColumn(user)
+			</div>
+			
+			<!-- ↓整容整形 -->
+		  	@views.html.estheSalon.cosmeticSurgery()
+			<!-- ↑整容整形 -->
 		</div>
 	    
 	    <div class="cFix mT34">

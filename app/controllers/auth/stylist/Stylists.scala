@@ -136,7 +136,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
 	    val user = loggedIn
 	    val followInfo = MyFollow.getAllFollowInfo(user.id)
 	    stylistForm.bindFromRequest.fold(
-	      errors => BadRequest(views.html.index("")),
+	      errors => BadRequest(views.html.index()),
 	      {
 	        case(stylist) => {
 	          val newStylist = stylist.copy(id = stylistId)
@@ -213,7 +213,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
         val stylist = Stylist.findOneByStylistId(user.id)
         val followInfo = MyFollow.getAllFollowInfo(user.id)
             Styles.styleUpdateForm.bindFromRequest.fold(
-                errors => BadRequest(views.html.index("")),
+                errors => BadRequest(views.html.index()),
                 {
                     case (styleUpdateForm) => {
                         Style.save(styleUpdateForm.copy(id=styleUpdateForm.id), WriteConcern.Safe)
@@ -257,7 +257,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
             val stylist = Stylist.findOneByStylistId(user.id)
             val followInfo = MyFollow.getAllFollowInfo(user.id)
             Styles.styleAddForm.bindFromRequest.fold(
-                errors => BadRequest(views.html.index("")),
+                errors => BadRequest(views.html.index()),
                 {
                     case (styleAddForm) => {
                         Style.save(styleAddForm)
@@ -267,12 +267,6 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
     }
     
 
-    def checkStylist(stylistId: ObjectId) = {
-          
-    }
-    
-    
-    
   def findStylistApplying = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
 	  val user = loggedIn
       val followInfo = MyFollow.getAllFollowInfo(user.id)

@@ -16,10 +16,12 @@ import java.io.File
 import java.io.InputStream
 import java.io.ByteArrayOutputStream
 import java.io.FileInputStream
+import jp.t2v.lab.play2.auth._
 
-object Application extends Controller {
-    def index = Action {
-        Ok(views.html.index("Your new application is ready."))
+object Application extends Controller with OptionalAuthElement with UserAuthConfigImpl{
+    def index = StackAction{ implicit request =>
+      	val user = loggedIn
+        Ok(views.html.index(user))
     }
 
     def login() = Action { implicit request =>

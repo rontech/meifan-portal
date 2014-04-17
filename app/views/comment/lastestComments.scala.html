@@ -1,0 +1,27 @@
+@(commentOfSalonList : List[CommentOfSalon] = Comment.findCommentForHome(2))
+
+@import java.text.DateFormat
+
+<div id="pl">
+	<div class="pl_bt"><img src="@routes.Assets.at("images/pl_bt.jpg")" width="210" height="36" /></div>
+    <div id="index_comment">
+    	<ul>
+    		@for(commentOfSalon <- commentOfSalonList){
+			 	<li class="@if(commentOfSalonList.indexOf(commentOfSalon) != commentOfSalonList.size-1) {bl}">
+					<dl>
+						<dt class="b">@DateFormat.getDateInstance.format(commentOfSalon.commentInfo.createTime)</dt>
+						<dt>
+							<a href="@noAuth.routes.Comments.findBySalon(commentOfSalon.salonInfo.get.id)">
+				                @commentOfSalon.salonInfo.get.salonName
+				            </a>
+				        </dt>
+						<dl>
+							@Html(commentOfSalon.commentInfo.content.slice(0, 100))
+				       		@if(commentOfSalon.commentInfo.content.length > 100) {...}
+						</dl>
+					</dl>
+				</li>
+			}
+    	</ul>
+	</div>
+</div>

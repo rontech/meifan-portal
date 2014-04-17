@@ -30,7 +30,7 @@ case class Salon(
     salonDescription: Option[String], 
     picDescription: Option[PicDescription],
     contactMethod:Contact,
-    optContactMethod: List[OptContactMethod],
+    optContactMethods: List[OptContactMethod],
     establishDate: Option[Date],
     salonAddress: Option[Address],
     workTime: Option[WorkTime],
@@ -141,12 +141,14 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
     
     //查看基本信息是否填写
     def checkBasicInfoIsFill(salon: Salon): Boolean = {
-        salon.salonAddress.exists(add => {!add.province.isEmpty() || !add.city.isEmpty || !add.region.isEmpty})
+        salon.homepage.nonEmpty && salon.salonNameAbbr.nonEmpty && salon.salonDescription.nonEmpty && salon.registerDate==None &&
+        salon.optContactMethods.nonEmpty && salon.restDays.nonEmpty && salon.workTime.nonEmpty && 
+        salon.salonAddress.exists(a=>a.addrDetail.isEmpty()) && salon.salonAddress.exists(a=>a.town.isEmpty) && salon.salonAddress.exists(a=>a.accessMethodDesc.isEmpty())
     }
     
     //查看详细基本信息是否填写
     def checkDetailIsFill(salon: Salon): Boolean = {
-    	salon.seatNums.nonEmpty
+    	salon.seatNums.nonEmpty 
     }
     
     //查看是否有店铺图片
