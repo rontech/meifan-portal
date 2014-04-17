@@ -23,9 +23,9 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
   val salonRegister:Form[Salon] = Form(
       mapping(
 	    	"salonAccount" -> mapping(
-	    		"accountId" -> nonEmptyText(6, 16).verifying(Messages("salon.register.accountIdErr"), userId => userId.matches("""^\w+$""")),
+	    		"accountId" -> nonEmptyText(6, 18).verifying(Messages("salon.register.accountIdErr"), userId => userId.matches("""^\w+$""")),
 	    		"password" -> tuple(
-	    			"main" ->  text(6, 18).verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]+$""")),
+	    			"main" ->  text(6, 16).verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]+$""")),
 	    			"confirm" -> text).verifying(
           // Add an additional constraint: both passwords must match
             Messages("user.twicePasswordError"), password => password._1 == password._2)
@@ -34,7 +34,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	    	}{
 	    	  salonAccount=>Some(salonAccount.accountId,(salonAccount.password, ""))
 	    	},
-	        "salonName" -> nonEmptyText.verifying(Messages("salon.salonNameNotAvaible"), salonName => !Salon.findOneBySalonName(salonName).nonEmpty),
+	        "salonName" -> nonEmptyText(1,18).verifying(Messages("salon.salonNameNotAvaible"), salonName => !Salon.findOneBySalonName(salonName).nonEmpty),
 	        "salonNameAbbr" -> optional(text),
 	        "salonIndustry" -> list(text),
 	        "homepage" -> optional(text),
@@ -47,7 +47,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 	        "contactMethod" -> mapping(
 	        		"mainPhone" -> nonEmptyText,
 	        		"contact" -> nonEmptyText,
-	        		"email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)+$"""))
+	        		"email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$"""))
 	        )(Contact.apply)(Contact.unapply),
 	        "optContactMethods" -> list(
 	            mapping(
@@ -112,7 +112,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         		salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics)
       }.verifying(
 
-       Messages("user.userIdNotAvailable"), salon => !Salon.findByAccountId(salon.salonAccount.accountId).nonEmpty)
+       Messages("salon.salonIdNotAvailable"), salon => !Salon.findByAccountId(salon.salonAccount.accountId).nonEmpty)
 	)
 
     /**
@@ -121,7 +121,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
     def register() = Action { implicit request =>
         val industry = Industry.findAll.toList
         salonRegister.bindFromRequest.fold(
-        errors => BadRequest(views.html.salon.salonRegister(errors,industry)),
+        errors => BadRequest(views.html.salon.salonManage.salonRegister(errors,industry)),
         {
             salonRegister =>
                 Salon.save(salonRegister, WriteConcern.Safe)
