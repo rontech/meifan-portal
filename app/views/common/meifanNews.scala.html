@@ -1,11 +1,19 @@
+@(infoList : List[Info] = Info.findInfoForHome(6))
 <div id="index_leis">
 	<h2><img src="@routes.Assets.at("images/index_mnews_title.jpg")" width="272" height="36" /></h2>
     <div id="index_leis_nr">
+    @for(info <- infoList){
     	<dl>
-        	<dt><a href="#" class="link-green">美味分享团</a></dt>
-            <dd class="pic"><a href="#"><img src="@routes.Assets.at("images/meifanNews/index_leis_pic01.jpg")" width="80" height="90" /></a></dd>
-            <dd class="txt">上传照片，分享你的青春美食记忆……</dd>
+        	<dt><a href="@noAuth.routes.Infos.getOneInfo(info.id)" class="link-green">@info.title</a></dt>
+            @*<dd class="pic"><a href="#"><img src="@routes.Assets.at("images/meifanNews/index_leis_pic01.jpg")" width="80" height="90" /></a></dd>*@
+            <dd class="pic"><a href="@noAuth.routes.Infos.getOneInfo(info.id)"><img src="@routes.Application.getPhoto(info.infoPics(0).fileObjId)" width="80" height="90" /></a></dd>
+            <dd class="txt">
+            @Html(info.content.slice(0, 40))
+        	@if(info.content.length > 40 ) {...}
+            </dd>
         </dl>
+    }
+        @*
         <dl>
         	<dt><a href="#" class="link-green">多饮水果汁 补VC不成反贫血</a></dt>
             <dd class="pic"><a href="#"><img src="@routes.Assets.at("images/meifanNews/index_leis_pic02.jpg")" width="80" height="90" /></a></dd>
@@ -31,5 +39,6 @@
             <dd class="pic"><a href="#"><img src="@routes.Assets.at("images/meifanNews/index_leis_pic06.jpg")" width="80" height="90" /></a></dd>
             <dd class="txt">养个宠物排遣寂寞，不仅仅是空巢老人们慰藉心灵的方式，也是不少白领人群追崇的一种时尚。</dd>
         </dl>
+        *@
     </div>
 </div>
