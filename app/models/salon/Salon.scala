@@ -141,9 +141,8 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
     
     //查看基本信息是否填写
     def checkBasicInfoIsFill(salon: Salon): Boolean = {
-        salon.homepage.nonEmpty && salon.salonNameAbbr.nonEmpty && salon.salonDescription.nonEmpty && salon.registerDate==None &&
-        salon.optContactMethods.nonEmpty && salon.restDays.nonEmpty && salon.workTime.nonEmpty && 
-        salon.salonAddress.exists(a=>a.addrDetail.isEmpty()) && salon.salonAddress.exists(a=>a.town.isEmpty) && salon.salonAddress.exists(a=>a.accessMethodDesc.isEmpty())
+        salon.homepage.nonEmpty && salon.salonNameAbbr.nonEmpty && salon.salonDescription.nonEmpty &&
+        salon.optContactMethods.nonEmpty && salon.restDays.nonEmpty && salon.workTime.nonEmpty 
     }
     
     //查看详细基本信息是否填写
