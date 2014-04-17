@@ -56,7 +56,14 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
   
     def findByAccountId(salonAccountId: String): Option[Salon] = {
         dao.findOne(MongoDBObject("salonAccount.accountId" -> salonAccountId))
-    }    
+    } 
+    
+    /**
+     *  根据accoutId和邮箱查看是否有该店铺
+     */ 
+    def findOneByAccountIdAndEmail(salonAccountId: String, salonEmail : String) = {
+      dao.findOne(MongoDBObject("salonAccount.accountId" -> salonAccountId, "contactMethod.email" -> salonEmail))
+    }
 
     def loginCheck(salonAccount: SalonAccount): Option[Salon] = {
 //        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId,"salonAccount.password" -> salonAccount.password))

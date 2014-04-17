@@ -1,4 +1,4 @@
-@(mailAndUserIdForm: Form[Option[User]])
+@(mailAndAccountIdForm: Form[Option[Salon]])
 
 	@import helper._
 
@@ -18,20 +18,21 @@
 						<dd class="mT5 pT5">
 							<div class="pr">
 								<dl class="lh30">
-									@form(action = routes.Mails.sendMailForResetPwd(), 'method ->"post"){
+									@form(action = routes.Mails.sendMailForResetPwdOfSalon(), 'method ->"post"){
 										
 										<dd class="mT5 pT5">
 											<div class="pr">
 												<dl class="lh30">
 													<dt class="dibBL vaM w150 b fl">@Messages("user.name")</dt>
 													<dd class="dibBL vaM w280">
-														@inputText(mailAndUserIdForm("userId"),'_label -> None, '_help -> Messages("user.toBeUserId"), 
-															'_error ->  mailAndUserIdForm("userId").error.map(_.withMessage(Messages("user.loginUserIdErr"))))
+														@inputText(mailAndAccountIdForm("accountId"),'_label -> None, '_help -> "",
+															'_error ->  mailAndAccountIdForm("accountId").error.map(_.withMessage(Messages("salon.login.accountId")))
+														)
 													</dd>
 													<dt class="dibBL vaM w150 b fl">@Messages("user.email")</dt>
 													<dd class="dibBL vaM w280">
-														@inputText(mailAndUserIdForm("email"),'_label -> None,'_help -> "",
-            												'_error -> mailAndUserIdForm.globalError.map(_.withMessage(Messages("user.resetErr"))))
+														@inputText(mailAndAccountIdForm("email"),'_label -> None,'_help -> "",
+            												'_error -> mailAndAccountIdForm.globalError.map(_.withMessage(Messages("user.resetErr"))))
 													</dd>
 												</dl>
 											</div>
