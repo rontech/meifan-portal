@@ -107,3 +107,11 @@ object Image {
     return outStream.toByteArray
   }  
 }
+
+case class ImgForCrop(
+                  x1:BigDecimal,
+                  y1:BigDecimal,
+                  x2:BigDecimal,
+                  y2:BigDecimal,
+                  w:BigDecimal,
+                  h:BigDecimal)
