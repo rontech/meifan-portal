@@ -151,7 +151,7 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
     
     /**
      * 权限认证
-     * 用于判断userId是否为当前用户
+     * 用于判断accountId是否为当前店铺
      */
     def isOwner(accountId: String)(salon: Salon): Future[Boolean] = Future { Salon.findByAccountId(accountId).map(_ == salon).get }
 }

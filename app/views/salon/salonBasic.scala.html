@@ -169,7 +169,9 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("workTime.openTime"), '_label -> None)
+				                   @input(field = salonForm("workTime.openTime"), '_label -> None, '_help -> Messages("")) { (id, name, value, _) =>
+        							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker({dateFmt:'HH:mm:ss'});">
+								}
 				                </div>
 				            </td>
 				        </tr>
@@ -182,7 +184,9 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("workTime.closeTime"), '_label -> None)
+				                	@input(field = salonForm("workTime.closeTime"), '_label -> None, '_help -> Messages("")) { (id, name, value, _) =>
+        							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker({dateFmt:'HH:mm:ss'});">
+        							}
 				                </div>
 				            </td>
 				        </tr>

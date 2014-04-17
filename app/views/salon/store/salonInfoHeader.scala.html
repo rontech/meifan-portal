@@ -109,7 +109,7 @@
                 <a href="@noAuth.routes.Blogs.getAllBlogsOfSalon(salon.id)" class="bS db @if(navInSalon == "salon-blog") {blogCurrent} else {blog} offL">@Messages("salon.blogs")</a>
             </li>
             <li class="fl">
-                <a href="#" class="bS db @if(navInSalon == "salon-accessmap") {accessMapCurrent} else {accessMap} offL">@Messages("salon.accessMap")</a>
+                <a href="@noAuth.routes.Salons.getMap(salon.id)" class="bS db @if(navInSalon == "salon-accessmap") {accessMapCurrent} else {accessMap} offL">@Messages("salon.accessMap")</a>
             </li>
             <li class="fr">
                 <a href="@noAuth.routes.Comments.findBySalon(salon.id)" class="bS db @if(navInSalon == "salon-comment") {kuchikomiCurrent} else {kuchikomi} offL">@Messages("salon.comments")</a>

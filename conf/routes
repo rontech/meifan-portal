@@ -272,3 +272,5 @@ GET        /reserve/salonId=:salonId&couponId=:couponId&week=:week              
 #cancel current apply by user(dou)
 GET         /myPage/cancelApply                                             controllers.auth.Users.cancelApplyStylist
 GET			/mySalon/checkStylistIsExist/:userId							controllers.noAuth.Stylists.checkStylistIsExist(userId: String)
+
+GET         /salon/:salonId/map                                                      controllers.noAuth.Salons.getMap(salonId: ObjectId)
