@@ -17,103 +17,133 @@ import org.mindrot.jbcrypt.BCrypt
 import controllers.auth.Coupons
 import views.html
 
-object Salons extends Controller with OptionalAuthElement with UserAuthConfigImpl{
+object Salons extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
-	//店铺注册Form
-  val salonRegister:Form[Salon] = Form(
-      mapping(
-	    	"salonAccount" -> mapping(
-	    		"accountId" -> nonEmptyText(6, 16).verifying(Messages("salon.register.accountIdErr"), userId => userId.matches("""^\w+$""")),
-	    		"password" -> tuple(
-	    			"main" ->  text(6, 18).verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]+$""")),
-	    			"confirm" -> text).verifying(
-          // Add an additional constraint: both passwords must match
-            Messages("user.twicePasswordError"), password => password._1 == password._2)
-	    			){
-	    		(accountId,password) => SalonAccount(accountId,BCrypt.hashpw(password._1, BCrypt.gensalt()))
-	    	}{
-	    	  salonAccount=>Some(salonAccount.accountId,(salonAccount.password, ""))
-	    	},
-	        "salonName" -> nonEmptyText.verifying(Messages("salon.salonNameNotAvaible"), salonName => !Salon.findOneBySalonName(salonName).nonEmpty),
-	        "salonNameAbbr" -> optional(text),
-	        "salonIndustry" -> list(text),
-	        "homepage" -> optional(text),
-	        "salonDescription" -> optional(text),
-	        "picDescription" -> optional(mapping(
-	        		"picTitle" -> text,
-	        		"picContent" -> text,
-	        		"picFoot" -> text
-	        )(PicDescription.apply)(PicDescription.unapply)),	        
-	        "contactMethod" -> mapping(
-	        		"mainPhone" -> nonEmptyText,
-	        		"contact" -> nonEmptyText,
-	        		"email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)+$"""))
-	        )(Contact.apply)(Contact.unapply),
-	        "optContactMethods" -> list(
-	            mapping(
-	                "contMethodType" -> text,
-	                "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
-	        "establishDate" -> optional(date("yyyy-MM-dd")),
-	        "salonAddress" -> optional(mapping(
-	        	"province" -> text,
-	        	"city" -> optional(text),
-	        	"region" -> optional(text),
-	        	"town" -> optional(text),
-	        	"addrDetail" ->text,
-	        	"longitude" -> optional(bigDecimal),
-	        	"latitude" -> optional(bigDecimal),
-	        	"accessMethodDesc" -> text      	
-	        	)
-	        	(Address.apply)(Address.unapply)),
-	        "workTime" -> optional(mapping(
-	            "openTime" -> text ,
-	            "closeTime" -> text
-	            )
-	            (WorkTime.apply)(WorkTime.unapply)),
-	        "restDays" -> optional(mapping(
-	                "restWay" -> text,
-	                "restDay1" -> list(text),
-                    "restDay2" -> list(text)
-            ){
-                (restWay, restDay1, restDay2) => Tools.getRestDays(restWay,restDay1,restDay2)
-            }{
-                restDay => Some(Tools.setRestDays(restDay))}),
-	        "seatNums" -> optional(number),
-	        "salonFacilities" -> optional(mapping(
-	            "canOnlineOrder" -> boolean,
-	            "canImmediatelyOrder" -> boolean,
-	            "canNominateOrder" -> boolean,
-	            "canCurntDayOrder" -> boolean,
-	            "canMaleUse" -> boolean,
-	            "isPointAvailable" -> boolean,
-	            "isPosAvailable" -> boolean,
-	            "isWifiAvailable" -> boolean,
-	            "hasParkingNearby" -> boolean,
-	            "parkingDesc" -> text)
-	            (SalonFacilities.apply)(SalonFacilities.unapply)),
-	        "salonPics" -> list(
-	            mapping(
-	                "fileObjId" -> text,
-	                "picUse" -> text,
-	                "showPriority"-> optional(number),
-	                "description" -> optional(text)
-	                ){
-	              (fileObjId,picUse,showPriority,description) => OnUsePicture(new ObjectId,picUse,Option(0),Option("none"))
-	              }{
-	                salonPics=>Some(salonPics.fileObjId.toString(), salonPics.picUse,salonPics.showPriority,salonPics.description)
-	              })
-      ){
-        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription,picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
-	       workTime, restDays, seatNums, salonFacilities,salonPics) => Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
-	       workTime, restDays, seatNums, salonFacilities,salonPics,new Date())
-      }{
-        salonRegister=> Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.picDescription, salonRegister.contactMethod, 
-        		salonRegister.optContactMethods, salonRegister.establishDate, salonRegister.salonAddress,
-        		salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics)
-      }.verifying(
+    //店铺注册Form
+    val salonRegister: Form[Salon] = Form(
+        mapping(
+            "salonAccount" -> mapping(
+                "accountId" -> nonEmptyText(6, 16).verifying(Messages("salon.register.accountIdErr"), userId => userId.matches("""^\w+$""")),
+                "password" -> tuple(
+                    "main" -> text(6, 18).verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]+$""")),
+                    "confirm" -> text).verifying(
+                        // Add an additional constraint: both passwords must match
+                        Messages("user.twicePasswordError"), password => password._1 == password._2)) {
+                    (accountId, password) => SalonAccount(accountId, BCrypt.hashpw(password._1, BCrypt.gensalt()))
+                } {
+                    salonAccount => Some(salonAccount.accountId, (salonAccount.password, ""))
+                },
+            "salonName" -> nonEmptyText.verifying(Messages("salon.salonNameNotAvaible"), salonName => !Salon.findOneBySalonName(salonName).nonEmpty),
+            "salonNameAbbr" -> optional(text),
+            "salonIndustry" -> list(text),
+            "homepage" -> optional(text),
+            "salonDescription" -> optional(text),
+            "picDescription" -> optional(mapping(
+                "picTitle" -> text,
+                "picContent" -> text,
+                "picFoot" -> text)(PicDescription.apply)(PicDescription.unapply)),
+            "contactMethod" -> mapping(
+                "mainPhone" -> nonEmptyText,
+                "contact" -> nonEmptyText,
+                "email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)+$""")))(Contact.apply)(Contact.unapply),
+            "optContactMethods" -> list(
+                mapping(
+                    "contMethodType" -> text,
+                    "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
+            "establishDate" -> optional(date("yyyy-MM-dd")),
+            "salonAddress" -> optional(mapping(
+                "province" -> text,
+                "city" -> optional(text),
+                "region" -> optional(text),
+                "town" -> optional(text),
+                "addrDetail" -> text,
+                "longitude" -> optional(bigDecimal),
+                "latitude" -> optional(bigDecimal),
+                "accessMethodDesc" -> text)(Address.apply)(Address.unapply)),
+            "workTime" -> optional(mapping(
+                "openTime" -> text,
+                "closeTime" -> text)(WorkTime.apply)(WorkTime.unapply)),
+            "restDays" -> optional(mapping(
+                "restWay" -> text,
+                "restDay1" -> list(text),
+                "restDay2" -> list(text)) {
+                    (restWay, restDay1, restDay2) => Tools.getRestDays(restWay, restDay1, restDay2)
+                } {
+                    restDay => Some(Tools.setRestDays(restDay))
+                }),
+            "seatNums" -> optional(number),
+            "salonFacilities" -> optional(mapping(
+                "canOnlineOrder" -> boolean,
+                "canImmediatelyOrder" -> boolean,
+                "canNominateOrder" -> boolean,
+                "canCurntDayOrder" -> boolean,
+                "canMaleUse" -> boolean,
+                "isPointAvailable" -> boolean,
+                "isPosAvailable" -> boolean,
+                "isWifiAvailable" -> boolean,
+                "hasParkingNearby" -> boolean,
+                "parkingDesc" -> text)(SalonFacilities.apply)(SalonFacilities.unapply)),
+            "salonPics" -> list(
+                mapping(
+                    "fileObjId" -> text,
+                    "picUse" -> text,
+                    "showPriority" -> optional(number),
+                    "description" -> optional(text)) {
+                        (fileObjId, picUse, showPriority, description) => OnUsePicture(new ObjectId, picUse, Option(0), Option("none"))
+                    } {
+                        salonPics => Some(salonPics.fileObjId.toString(), salonPics.picUse, salonPics.showPriority, salonPics.description)
+                    })) {
+                (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
+                workTime, restDays, seatNums, salonFacilities, salonPics) =>
+                    Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
+                        workTime, restDays, seatNums, salonFacilities, salonPics, new Date())
+            } {
+                salonRegister =>
+                    Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.picDescription, salonRegister.contactMethod,
+                        salonRegister.optContactMethods, salonRegister.establishDate, salonRegister.salonAddress,
+                        salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics)
+            }.verifying(
 
-       Messages("user.userIdNotAvailable"), salon => !Salon.findByAccountId(salon.salonAccount.accountId).nonEmpty)
-	)
+                Messages("user.userIdNotAvailable"), salon => !Salon.findByAccountId(salon.salonAccount.accountId).nonEmpty))
+
+    /**
+     * 定义一个店铺查询数据表单
+     */
+    val salonSearchForm: Form[SearchParaForSalon] = Form(
+        mapping(
+            "city" -> text,
+            "region" -> text,
+            "salonName" -> list(text),
+            "salonIndustry" -> text,
+            "serviceType" -> list(text),
+            "haircutPrice" -> mapping(
+                    "minPrice" -> bigDecimal,
+                    "maxPrice"-> bigDecimal
+                    )(HaircutPrice.apply)(HaircutPrice.unapply),
+            "seatNums" ->  mapping(
+                    "minNum" -> number,
+                    "maxNum"-> number
+                    )(SeatNums.apply)(SeatNums.unapply),
+            "salonFacilities" -> mapping(
+                "canOnlineOrder" -> boolean,
+                "canImmediatelyOrder" -> boolean,
+                "canNominateOrder" -> boolean,
+                "canCurntDayOrder" -> boolean,
+                "canMaleUse" -> boolean,
+                "isPointAvailable" -> boolean,
+                "isPosAvailable" -> boolean,
+                "isWifiAvailable" -> boolean,
+                "hasParkingNearby" -> boolean) {
+                    (canOnlineOrder, canImmediatelyOrder, canNominateOrder, canCurntDayOrder, canMaleUse, isPointAvailable, isPosAvailable, isWifiAvailable,
+                    hasParkingNearby) =>
+                        SalonFacilities(canOnlineOrder, canImmediatelyOrder, canNominateOrder, canCurntDayOrder, canMaleUse, isPointAvailable, isPosAvailable, isWifiAvailable,
+                            hasParkingNearby, "")
+
+                } {
+                    salonFacilities =>
+                        Some((salonFacilities.canOnlineOrder, salonFacilities.canImmediatelyOrder, salonFacilities.canNominateOrder, salonFacilities.canCurntDayOrder, salonFacilities.canMaleUse, salonFacilities.isPointAvailable, salonFacilities.isPosAvailable, salonFacilities.isWifiAvailable,
+                            salonFacilities.hasParkingNearby))
+                })(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
 
     /**
      * 店铺注册
@@ -121,39 +151,39 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
     def register() = Action { implicit request =>
         val industry = Industry.findAll.toList
         salonRegister.bindFromRequest.fold(
-        errors => BadRequest(views.html.salon.salonRegister(errors,industry)),
-        {
-            salonRegister =>
-                Salon.save(salonRegister, WriteConcern.Safe)
-                Redirect(auth.routes.Salons.checkInfoState)
-        })
+            errors => BadRequest(views.html.salon.salonRegister(errors, industry)),
+            {
+                salonRegister =>
+                    Salon.save(salonRegister, WriteConcern.Safe)
+                    Redirect(auth.routes.Salons.checkInfoState)
+            })
     }
     /*-------------------------
      * The Main Page of All Salon 
      -------------------------*/
-    def index = StackAction{ implicit request =>
+    def index = StackAction { implicit request =>
         val user = loggedIn
         Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user))
     }
-    
+
     /*-------------------------
      * Individual Salon Infomations.
      * Include the Styles, Stylists, Coupons, Blogs, Comments..... 
      *------------------------*/
-    def getSalon(salonId: ObjectId) = StackAction{ implicit request =>
+    def getSalon(salonId: ObjectId) = StackAction { implicit request =>
         val user = loggedIn
         val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
             case Some(sl) => Ok(views.html.salon.store.salonContent(sl, SalonNavigation.getSalonNavBar(salon), user))
             case _ => NotFound
         }
-        
+
     }
-  
-     /**
-      * Get All stylists of a salon.
-      */
-     def getAllStylists(salonId: ObjectId) = StackAction{ implicit request =>
+
+    /**
+     * Get All stylists of a salon.
+     */
+    def getAllStylists(salonId: ObjectId) = StackAction { implicit request =>
         val user = loggedIn
         val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
@@ -168,11 +198,11 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         }
 
     }
-  
+
     /**
-      * Get a specified stylist from a salon.
-      */
-    def getOneStylist(salonId: ObjectId, stylistId: ObjectId) =StackAction{ implicit request =>
+     * Get a specified stylist from a salon.
+     */
+    def getOneStylist(salonId: ObjectId, stylistId: ObjectId) = StackAction { implicit request =>
         val user = loggedIn
         // first, check that if the salon is exist.
         val salon = Salon.findOneById(salonId)
@@ -195,13 +225,13 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 
                                 // get a latest blog of a stylist.
                                 val blgs = Blog.getBlogByUserId(dtl.get.basicInfo.userId)
-                                val blog = if(blgs.length > 0) Some(blgs.head) else None 
+                                val blog = if (blgs.length > 0) Some(blgs.head) else None
 
                                 // navigation item
                                 val lastNav = List((dtl.get.basicInfo.nickName, ""))
-                                Ok(views.html.salon.store.salonInfoStylist(salon = sl, stylist = dtl, 
-                                        styles = styles, latestBlog = blog, navBar = navBar ::: lastNav, user = user))
-                               
+                                Ok(views.html.salon.store.salonInfoStylist(salon = sl, stylist = dtl,
+                                    styles = styles, latestBlog = blog, navBar = navBar ::: lastNav, user = user))
+
                             }
                             case None => {
                                 // if not a worker of a salon. show nothing, for now, Jump to stylists page in salon. 
@@ -211,16 +241,16 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                     }
                     // TODO, when stylist not exist, show nothing in salon.  
                     case None => Ok(views.html.salon.store.salonInfoStylist(salon = sl, stylist = None, navBar = navBar, user = user))
-                 }
+                }
             }
             case None => NotFound // TODO
-        } 
+        }
     }
 
     /**
      * Get all styles of a salon.
-     */ 
-    def getAllStyles(salonId: ObjectId) = StackAction{ implicit request =>
+     */
+    def getAllStyles(salonId: ObjectId) = StackAction { implicit request =>
         val user = loggedIn
         val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
@@ -237,51 +267,51 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                 // Jump to stylists page in salon. 
                 Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = styles, navBar = navBar, user = user))
             }
-            case None => NotFound 
+            case None => NotFound
         }
     }
-    
+
     /**
      * Get a specified Style from a salon.
-     */ 
-    def getOneStyle(salonId: ObjectId, styleId: ObjectId) = StackAction{ implicit request =>
+     */
+    def getOneStyle(salonId: ObjectId, styleId: ObjectId) = StackAction { implicit request =>
         val user = loggedIn
         // First of all, check that if the salon is acitve.
         val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
             case Some(sl) => {
                 // Second, check if the style is exist.
-                val style: Option[Style] = Style.findOneById(styleId)    
+                val style: Option[Style] = Style.findOneById(styleId)
                 style match {
                     case Some(st) => {
                         val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString())) :::
-                                List((st.styleName.toString(), ""))
+                            List((st.styleName.toString(), ""))
                         // Third, we need to check the relationship between slaon and stylist to check if the style is active.
-                        if(SalonAndStylist.isStylistActive(salonId, st.stylistId)) {
+                        if (SalonAndStylist.isStylistActive(salonId, st.stylistId)) {
                             // If style is active, jump to the style show page in salon.
                             Ok(views.html.salon.store.salonInfoStyle(salon = sl, style = st, navBar = navBar, user = user))
                         } else {
                             // If style is not active, show nothing but must in the salon's page.
                             Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar, user = user))
                         }
-                   }
+                    }
                     // If style is not exist, show nothing but must in the salon's page.
                     case None => {
                         val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString()))
                         // TODO should with some message to show to user.
                         Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar, user = user))
                     }
-                } 
+                }
             }
             // TODO: If salon is not active
-            case None => NotFound 
+            case None => NotFound
         }
     }
- 
+
     /**
-     * Find All the coupons, menus, and services of a salon.  
+     * Find All the coupons, menus, and services of a salon.
      */
-    def getAllCoupons(salonId: ObjectId) = StackAction{ implicit request =>
+    def getAllCoupons(salonId: ObjectId) = StackAction { implicit request =>
         val user = loggedIn
         val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
@@ -291,14 +321,14 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                 val srvTypes: List[ServiceType] = ServiceType.findAll().toList
                 val serviceTypeNames: List[String] = Service.getServiceTypeList
                 val couponSchDefaultConds: CouponServiceType = CouponServiceType(Nil, Some("1"))
-    
+
                 var servicesByTypes: List[ServiceByType] = Nil
-                for(serviceType <- serviceTypeNames) {
+                for (serviceType <- serviceTypeNames) {
                     var servicesByType: ServiceByType = ServiceByType("", Nil)
                     val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(sl.id, serviceType))
-                    servicesByTypes = y::servicesByTypes
+                    servicesByTypes = y :: servicesByTypes
                 }
-                
+
                 // 获取当前时间的前7天的日期，用于判断是否为新券还是旧券
                 var beforeSevernDate = Calendar.getInstance()
                 beforeSevernDate.setTime(new Date())
@@ -311,78 +341,78 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                     serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), navBar = navBar, user = user))
             }
             case None => NotFound
-       }
+        }
     }
 
     /**
      * Find coupons & menus & services by conditions from a salon.
      */
-    def getCouponsByCondition(salonId: ObjectId) = StackAction{ implicit request =>
+    def getCouponsByCondition(salonId: ObjectId) = StackAction { implicit request =>
         val user = loggedIn
         import Coupons.conditionForm
         conditionForm.bindFromRequest.fold(
             errors => BadRequest(views.html.error.errorMsg(errors)),
-        {
-            serviceType =>
-                var coupons: List[Coupon] = Nil
-                var menus: List[Menu] = Nil
-                var serviceTypeNames: List[String] = Nil
-                var conditions: List[String] = Nil
-                var servicesByTypes: List[ServiceByType] = Nil
-                var typebySearchs: List[ServiceType] = Nil
-                var couponServiceType: CouponServiceType = CouponServiceType(Nil, serviceType.subMenuFlg)
+            {
+                serviceType =>
+                    var coupons: List[Coupon] = Nil
+                    var menus: List[Menu] = Nil
+                    var serviceTypeNames: List[String] = Nil
+                    var conditions: List[String] = Nil
+                    var servicesByTypes: List[ServiceByType] = Nil
+                    var typebySearchs: List[ServiceType] = Nil
+                    var couponServiceType: CouponServiceType = CouponServiceType(Nil, serviceType.subMenuFlg)
 
-                for(serviceTypeOne <- serviceType.serviceTypes) {
-                    conditions = serviceTypeOne.serviceTypeName::conditions
-                    val serviceType: Option[ServiceType] = ServiceType.findOneByTypeName(serviceTypeOne.serviceTypeName)
-                    serviceType match {
-                        case Some(s) => typebySearchs = s::typebySearchs
+                    for (serviceTypeOne <- serviceType.serviceTypes) {
+                        conditions = serviceTypeOne.serviceTypeName :: conditions
+                        val serviceType: Option[ServiceType] = ServiceType.findOneByTypeName(serviceTypeOne.serviceTypeName)
+                        serviceType match {
+                            case Some(s) => typebySearchs = s :: typebySearchs
+                            case None => NotFound
+                        }
+                    }
+
+                    couponServiceType = couponServiceType.copy(serviceTypes = typebySearchs)
+
+                    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+                    if (serviceType.subMenuFlg == None) {
+                        //coupons = Coupon.findContainCondtions(serviceTypes)
+                    } else {
+                        if (serviceType.serviceTypes.isEmpty) {
+                            coupons = Coupon.findBySalon(salonId)
+                            menus = Menu.findBySalon(salonId)
+                            serviceTypeNames = Service.getServiceTypeList
+                            for (serviceType <- serviceTypeNames) {
+                                var servicesByType: ServiceByType = ServiceByType("", Nil)
+                                val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(salonId, serviceType))
+                                servicesByTypes = y :: servicesByTypes
+                            }
+                        } else {
+                            coupons = Coupon.findContainCondtions(conditions)
+                            menus = Menu.findContainCondtions(conditions)
+                            for (serviceTypeOne <- serviceType.serviceTypes) {
+                                var servicesByType: ServiceByType = ServiceByType("", Nil)
+                                val y = servicesByType.copy(serviceTypeName = serviceTypeOne.serviceTypeName, serviceItems = Service.getTypeListBySalonId(salonId, serviceTypeOne.serviceTypeName))
+                                servicesByTypes = y :: servicesByTypes
+                            }
+                        }
+                    }
+
+                    // 获取当前时间的前7天的日期，用于判断是否为新券还是旧券
+                    var beforeSevernDate = Calendar.getInstance()
+                    beforeSevernDate.setTime(new Date())
+                    beforeSevernDate.add(Calendar.DAY_OF_YEAR, -7)
+
+                    val salon: Option[Salon] = Salon.findOneById(salonId)
+                    salon match {
+                        case Some(s) => {
+                            // Navigation Bar
+                            var navBar = SalonNavigation.getSalonNavBar(Some(s)) ::: List((Messages("salon.couponMenus"), ""))
+                            Ok(views.html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), navBar, user))
+                        }
                         case None => NotFound
                     }
-                }
-            
-                couponServiceType = couponServiceType.copy(serviceTypes = typebySearchs)
-            
-                val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
-                if(serviceType.subMenuFlg == None) {
-                  //coupons = Coupon.findContainCondtions(serviceTypes)
-                } else {
-                    if(serviceType.serviceTypes.isEmpty) {
-                        coupons = Coupon.findBySalon(salonId)
-                        menus = Menu.findBySalon(salonId)
-                        serviceTypeNames = Service.getServiceTypeList
-                        for(serviceType <- serviceTypeNames) {
-                            var servicesByType: ServiceByType = ServiceByType("", Nil)
-                            val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(salonId, serviceType))
-                            servicesByTypes = y::servicesByTypes
-                        }
-                    } else {
-                        coupons = Coupon.findContainCondtions(conditions)
-                        menus = Menu.findContainCondtions(conditions)
-                        for(serviceTypeOne <- serviceType.serviceTypes) {
-                            var servicesByType: ServiceByType = ServiceByType("", Nil)
-                            val y = servicesByType.copy(serviceTypeName = serviceTypeOne.serviceTypeName, serviceItems = Service.getTypeListBySalonId(salonId, serviceTypeOne.serviceTypeName))
-                            servicesByTypes = y::servicesByTypes
-                       }
-                  }
-              }
-                
-              // 获取当前时间的前7天的日期，用于判断是否为新券还是旧券
-              var beforeSevernDate = Calendar.getInstance()
-              beforeSevernDate.setTime(new Date())
-              beforeSevernDate.add(Calendar.DAY_OF_YEAR, -7)
-
-             val salon: Option[Salon] = Salon.findOneById(salonId)
-              salon match {
-                  case Some(s) => {
-                      // Navigation Bar
-                      var navBar = SalonNavigation.getSalonNavBar(Some(s)) ::: List((Messages("salon.couponMenus"), ""))
-                      Ok(views.html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), navBar, user))
-                  } 
-                  case None => NotFound
-              }
-          })
-     }
+            })
+    }
 
     /**
      * 显示店铺所有的优惠劵
