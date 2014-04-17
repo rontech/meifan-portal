@@ -30,5 +30,6 @@ object Keyword extends ModelCompanion[Keyword, ObjectId] {
  * Enumeration for search division
  */
 object SearchDivision extends Enumeration {
+  type SearchDivision = Value 
   val All, HairSalon, HairStyle, NailSalon, NailStyle, Relax, Cosmetic= Value
 }

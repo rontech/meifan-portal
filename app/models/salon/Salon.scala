@@ -3,7 +3,7 @@ package models
 import play.api.Play.current
 import play.api.PlayException
 import com.novus.salat.dao._
-import com.mongodb.casbah.commons.Imports._
+//import com.mongodb.casbah.commons.Imports._
 import com.mongodb.casbah.MongoConnection
 import mongoContext._
 import se.radley.plugin.salat.Binders._
@@ -12,6 +12,8 @@ import models._
 import org.mindrot.jbcrypt.BCrypt
 import scala.concurrent.{ ExecutionContext, Future }
 import ExecutionContext.Implicits.global
+
+import com.mongodb.casbah.query.Imports._
 
 /*----------------------------
  * Embed Structure of Salon.
@@ -30,7 +32,7 @@ case class Salon(
     salonDescription: Option[String], 
     picDescription: Option[PicDescription],
     contactMethod:Contact,
-    optContactMethod: List[OptContactMethod],
+    optContactMethods: List[OptContactMethod],
     establishDate: Option[Date],
     salonAddress: Option[Address],
     workTime: Option[WorkTime],
@@ -56,7 +58,14 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
   
     def findByAccountId(salonAccountId: String): Option[Salon] = {
         dao.findOne(MongoDBObject("salonAccount.accountId" -> salonAccountId))
-    }    
+    } 
+    
+    /**
+     *  根据accoutId和邮箱查看是否有该店铺
+     */ 
+    def findOneByAccountIdAndEmail(salonAccountId: String, salonEmail : String) = {
+      dao.findOne(MongoDBObject("salonAccount.accountId" -> salonAccountId, "contactMethod.email" -> salonEmail))
+    }
 
     def loginCheck(salonAccount: SalonAccount): Option[Salon] = {
 //        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId,"salonAccount.password" -> salonAccount.password))
@@ -139,12 +148,13 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
     
     //查看基本信息是否填写
     def checkBasicInfoIsFill(salon: Salon): Boolean = {
-        salon.salonAddress.exists(add => {!add.province.isEmpty() || !add.city.isEmpty || !add.region.isEmpty})
+        salon.homepage.nonEmpty && salon.salonNameAbbr.nonEmpty && salon.salonDescription.nonEmpty &&
+        salon.optContactMethods.nonEmpty && salon.restDays.nonEmpty && salon.workTime.nonEmpty 
     }
     
     //查看详细基本信息是否填写
     def checkDetailIsFill(salon: Salon): Boolean = {
-    	salon.seatNums.nonEmpty
+    	salon.seatNums.nonEmpty 
     }
     
     //查看是否有店铺图片
@@ -184,6 +194,87 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
      * 用于判断userId是否为当前用户
      */
     def isOwner(accountId: String)(salon: Salon): Future[Boolean] = Future { Salon.findByAccountId(accountId).map(_ == salon).get }
+    
+    /**
+     * 前台店铺检索
+     */
+    def findSalonBySearchPara(searchParaForSalon : SearchParaForSalon) = {
+       
+        var salons : List[models.Salon] = Nil
+        var salonList : List[models.Salon] = Nil
+        //对salonFacilities条件进行变形
+        var canOnlineOrder = List(true,false)
+        var canImmediatelyOrder = List(true,false)
+        var canNominateOrder = List(true,false)
+        var canCurntDayOrder = List(true,false)
+        var canMaleUse = List(true,false)
+        var isPointAvailable = List(true,false)
+        var isPosAvailable = List(true,false)
+        var isWifiAvailable = List(true,false)
+        var hasParkingNearby = List(true,false)
+        if(searchParaForSalon.salonFacilities.canCurntDayOrder == true) {
+            canCurntDayOrder = List(true)
+        }
+        if(searchParaForSalon.salonFacilities.canImmediatelyOrder == true) {
+            canImmediatelyOrder = List(true)
+        }
+        if(searchParaForSalon.salonFacilities.canMaleUse == true) {
+            canMaleUse = List(true)
+        }
+        if(searchParaForSalon.salonFacilities.canNominateOrder == true) {
+            canNominateOrder = List(true)
+        }
+        if(searchParaForSalon.salonFacilities.canOnlineOrder == true) {
+            canOnlineOrder = List(true)
+        }
+        if(searchParaForSalon.salonFacilities.hasParkingNearby == true) {
+            hasParkingNearby = List(true)
+        }
+        if(searchParaForSalon.salonFacilities.isPointAvailable == true) {
+            isPointAvailable = List(true)
+        }
+        if(searchParaForSalon.salonFacilities.isPosAvailable == true) {
+            isPosAvailable = List(true)
+        }
+        if(searchParaForSalon.salonFacilities.isWifiAvailable == true) {
+            isWifiAvailable = List(true)
+        }
+        //以city/region/salonName/salonIndustry/seatNums/salonFacilities作为check条件
+        if(searchParaForSalon.region.equals("all")){
+            salonList = dao.find($and(
+                "salonIndustry" $in searchParaForSalon.salonIndustry,
+                "salonFacilities.$.canOnlineOrder" $in canOnlineOrder,
+                "salonFacilities.$.canImmediatelyOrder" $in canImmediatelyOrder,
+                "salonFacilities.$.canNominateOrder" $in canNominateOrder,
+                "salonFacilities.$.canCurntDayOrder" $in canCurntDayOrder,
+                "salonFacilities.$.canMaleUse" $in canMaleUse,
+                "salonFacilities.$.isPointAvailable" $in isPointAvailable,
+                "salonFacilities.$.isPosAvailable" $in isPosAvailable,
+                "salonFacilities.$.isWifiAvailable" $in isWifiAvailable,
+                "salonFacilities.$.hasParkingNearby" $in hasParkingNearby,
+                MongoDBObject("salonAddress.$.city" -> searchParaForSalon.city,"salonName" -> searchParaForSalon.salonName,"seatNums" -> searchParaForSalon.seatNums))).toList
+        }else {
+            salonList = dao.find($and(
+                "salonIndustry" $in searchParaForSalon.salonIndustry,
+                "salonFacilities.$.canOnlineOrder" $in canOnlineOrder,
+                "salonFacilities.$.canImmediatelyOrder" $in canImmediatelyOrder,
+                "salonFacilities.$.canNominateOrder" $in canNominateOrder,
+                "salonFacilities.$.canCurntDayOrder" $in canCurntDayOrder,
+                "salonFacilities.$.canMaleUse" $in canMaleUse,
+                "salonFacilities.$.isPointAvailable" $in isPointAvailable,
+                "salonFacilities.$.isPosAvailable" $in isPosAvailable,
+                "salonFacilities.$.isWifiAvailable" $in isWifiAvailable,
+                "salonFacilities.$.hasParkingNearby" $in hasParkingNearby,
+                MongoDBObject("salonAddress.$.city" -> searchParaForSalon.city, "salonAddress.$.region" -> searchParaForSalon.region,"salonName" -> searchParaForSalon.salonName,"seatNums" -> searchParaForSalon.seatNums))).toList
+        }
+        
+        //"seatNums" -> ("$gte" -> 18,"$lte":30))
+        //以serviceType/haircutPrice作为check条件
+//        salonList.map { salon =>
+//            
+//        }
+    }
+    
 }
 
 /*----------------------------
@@ -266,4 +357,28 @@ case class Contact(
 case class SalonPics(
 	salonPics: List[OnUsePicture],
 	picDescription: Option[PicDescription]
+)
+
+/**
+ * salon检索字段合成类
+ */
+case class SearchParaForSalon(
+    city : String,    
+    region: String,
+    salonName: List[String],
+    salonIndustry: String,
+    serviceType: List[String],
+    haircutPrice: HaircutPrice, 
+    seatNums: SeatNums,
+    salonFacilities: SalonFacilities
+)
+
+case class HaircutPrice(
+    minPrice: BigDecimal,
+    maxPrice: BigDecimal
+)
+
+case class SeatNums(
+    minNum: Int,
+    maxNum: Int
 )

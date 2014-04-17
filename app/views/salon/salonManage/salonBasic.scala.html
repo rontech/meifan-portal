@@ -3,13 +3,13 @@
 @import helper.twitterBootstrap._
 @import views.html.salon.admin.mySalonMain
 
-@mySalonMain("detailInformation",salon){
+@mySalonMain("basicInformation",salon){
 	
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
 
 	<div class="salonRegister">
 		<div class="contentsTitleWrapper">
-			<h2 class="contentsTitleInner">@Messages("salon.detailInformation")</h2>
+			<h2 class="contentsTitleInner">@Messages("salon.basicInformation")</h2>
 		</div>
 
 		<div class="mT10 pH10">
@@ -23,32 +23,31 @@
 				        <input type="hidden" name="contactMethod.mainPhone" readonly="readonly" value="@salon.contactMethod.mainPhone">
 				        <input type="hidden" name="contactMethod.contact" readonly="readonly" value="@salon.contactMethod.contact">
 				        <input type="hidden" name="contactMethod.email" readonly="readonly" value="@salon.contactMethod.email">
-				        <input type="hidden" name="salonNameAbbr" readonly="readonly" value="@salon.salonNameAbbr">
-				        <input type="hidden" name="homepage" readonly="readonly" value="@salon.homepage">
-				        <input type="hidden" name="salonDescription" readonly="readonly" value="@salon.salonDescription">
-				        <input type="hidden" name="salonAddress.province" readonly="readonly" value="@salon.salonAddress.map(add=>add.province).getOrElse(None)">
-				        <input type="hidden" name="salonAddress.city" readonly="readonly" value="@salon.salonAddress.map(add=>add.city).getOrElse(None)">
-				        <input type="hidden" name="salonAddress.region" readonly="readonly" value="@salon.salonAddress.map(add=>add.region).getOrElse(None)">
-						<input type="hidden" name="salonAddress.town" readonly="readonly" value="@salon.salonAddress.map(add=>add.town).getOrElse(None)">
-						<input type="hidden" name="salonAddress.addrDetail" readonly="readonly" value="@salon.salonAddress.map(add=>add.addrDetail).getOrElse(None)">
-						<input type="hidden" name="salonAddress.longitude" readonly="readonly" value="@salon.salonAddress.map(add=>add.longitude).getOrElse(None)">
-						<input type="hidden" name="salonAddress.latitude" readonly="readonly" value="@salon.salonAddress.map(add=>add.latitude).getOrElse(None)">
-						<input type="hidden" name="salonAddress.accessMethodDesc" readonly="readonly" value="@salon.salonAddress.map(add=>add.accessMethodDesc).getOrElse(None)">
-						<input type="hidden" name="workTime.openTime" readonly="readonly" value="@salon.workTime.map(time=>time.openTime).getOrElse(None)">
-						<input type="hidden" name="workTime.closeTime" readonly="readonly" value="@salon.workTime.map(time=>time.closeTime).getOrElse(None)">
-						@inputDate(salonForm("establishDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
-						@inputDate(salonForm("registerDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
+				        @inputDate(salonForm("registerDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
+				        <input type="hidden" name="seatNums" readonly="readonly" value="@salon.seatNums.getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canOnlineOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canOnlineOrder).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canImmediatelyOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canImmediatelyOrder).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canNominateOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canNominateOrder).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canCurntDayOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canCurntDayOrder).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.canMaleUse" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canMaleUse).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.isPointAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isPointAvailable).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.isPosAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isPosAvailable).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.isWifiAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isWifiAvailable).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.hasParkingNearby" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.hasParkingNearby).getOrElse(None)">
+						<input type="hidden" name="salonFacilities.parkingDesc" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.parkingDesc).getOrElse(None)">
+						<input type="hidden" name="picDescription.picTitle" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picTitle).getOrElse(None)">
+						<input type="hidden" name="picDescription.picContent" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picContent).getOrElse(None)">
+						<input type="hidden" name="picDescription.picFoot" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picFoot).getOrElse(None)">
 				        <tr>
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.seatNums")
+				                   	@Messages("salon.Abbr")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("seatNums"), '_label -> None,'_help -> Messages("*"),
-				                		'_error -> salonForm("seatNums").error.map(_.withMessage(Messages("salon.register.seatNums"))))
+				                	@inputText(salonForm("salonNameAbbr"),'_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -56,20 +55,12 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.iss")
+				                   	@Messages("salon.homepage")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@checkbox(salonForm("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"),'_help -> Messages(""))
-				                	@checkbox(salonForm("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"),'_help -> Messages(""))
-									@checkbox(salonForm("salonFacilities.canNominateOrder"), '_label -> Messages("salon.canNominateOrder"),'_help -> Messages(""))
-									@checkbox(salonForm("salonFacilities.canCurntDayOrder"), '_label -> Messages("salon.canCurntDayOrder"),'_help -> Messages(""))
-									@checkbox(salonForm("salonFacilities.canMaleUse"), '_label -> Messages("salon.canMaleUse"),'_help -> Messages(""))
-									@checkbox(salonForm("salonFacilities.isPointAvailable"), '_label -> Messages("salon.isPointAvailable"),'_help -> Messages(""))
-									@checkbox(salonForm("salonFacilities.isPosAvailable"), '_label -> Messages("salon.isPosAvailable"),'_help -> Messages(""))
-									@checkbox(salonForm("salonFacilities.isWifiAvailable"), '_label -> Messages("salon.isWifiAvailable"),'_help -> Messages(""))
-									@checkbox(salonForm("salonFacilities.hasParkingNearby"), '_label -> Messages("salon.hasParkingNearby"),'_help -> Messages(""))
+				                	@inputText(salonForm("homepage"), '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -77,17 +68,120 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.parkingDesc")
+				                   	@Messages("salon.description")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("salonFacilities.parkingDesc"), '_label -> None,'_help -> Messages(""))
+				                	@textarea(salonForm("salonDescription"), '_label -> None,'cols -> 50,'placeholder -> Messages("salon.desMseeage"))
 				                </div>
 				            </td>
-				        </tr>										        
+				        </tr>				        
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.address")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province" value = "@salon.salonAddress.map(add=>add.province).getOrElse(None)"></select>
+									@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.salonAddress.map(add=>add.city).getOrElse(None)"></select>
+									@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.salonAddress.map(add=>add.region).getOrElse(None)"></select>
+									<script type="text/javascript">
+										addressInit('Select1', 'Select2', 'Select3');
+									</script>
+				                </div>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.town")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonForm("salonAddress.town"), '_label -> None)
+				                </div>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.addrDetail")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonForm("salonAddress.addrDetail"), '_label -> None)
+				                </div>
+				            </td>
+				        </tr>
+				                	@inputText(salonForm("salonAddress.longitude"), '_label -> None,'_help -> Messages(""),'style -> "display: none")
+				                	@inputText(salonForm("salonAddress.latitude"), '_label -> None,'_help -> Messages(""),'style -> "display: none")
+	
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.accessMethod")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonForm("salonAddress.accessMethodDesc"), '_label -> None)
+				                </div>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.openTime")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonForm("workTime.openTime"), '_label -> None)
+				                </div>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.closeTime")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@inputText(salonForm("workTime.closeTime"), '_label -> None)
+				                </div>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th class="w222 ">
+				                <!-- -->
+				                <div class="dibBL vaM w154">
+				                   	@Messages("salon.establishDate")
+				                </div>
+				            </th>
+				            <td>
+				                <div>
+				                	@*inputDate(salonForm("establishDate"), '_label -> None, '_help -> Messages("*"),
+				                		'_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate"))))*@
+				                    @input(field = salonForm("establishDate"), '_label -> None, '_help -> Messages(""), '_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate")))) { (id, name, value, _) =>
+        							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
+								    }
+				                </div>
+				            </td>
+				        </tr>				        				        				        
 				    </tbody>
-				</table>	
+				</table>
 	            <table cellspacing="0" class="display01">
 				    <tbody>
 				        <tr>
@@ -109,8 +203,8 @@
 				            </td>
 				        </tr>
 					</tbody>
-				</table>				
-	            <table cellspacing="0" class="display01">
+				</table>				            
+	            <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
 				    <tbody>
 				        <tr>
 				            <th class="w222">
@@ -119,26 +213,33 @@
 				                </div>
 				            </th>
 				            <td>
-				            	<div id="optContactMethods">
-				            		 @repeat(salonForm("optContactMethod"), min = 0) { optContactMethod =>
+				               <div id="optContactMethods">
+            
+					                @repeat(salonForm("optContactMethods"), min = 0) { optContactMethod =>
+					                
 					                    @optContactMethodGroup(optContactMethod)
+					                
 					                }
 					                
+					                @**
+					                 * Keep an hidden block that will be used as template for Javascript copy code
+					                 **@
 					                @optContactMethodGroup(
-					                    salonForm("optContactMethod[x]"),
+					                    salonForm("optContactMethods[x]"),
 					                    className = "optContactMethod_template"
 					                )
-		                
+					                
 					                <div class="manage">
-					                    <a class="addoptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
+					                    <a class="addOptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
 					                </div>
-				            	</div>
+					            
+					            </div>
 				            </td>
 				        </tr>
 					</tbody>
 				</table>
 				
-				<table cellspacing="0" class="display02">
+				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
 				    <tbody>
 				        <tr>
 				            <th class="w222">
@@ -149,16 +250,16 @@
 				            <td>
                                 <div class="restDays">
                                     @inputRadioGroup(salonForm("restDays.restWay"), options = options("Fixed" -> Messages("restWay.fixed"),"Indefinite" -> Messages("restWay.indefinite")) , '_label -> None)
-                                    @if(salon.restDays.map{rest=>rest.restWay}.equals("Fixed")){
+                                    @if(salon.restDays.map(rest=>rest.restWay.equals("Fixed"))){
                                         <div id="restDays_div">
                                             @Messages("salon.selectRestDays")
-                                            <input type="checkbox" name="restDays.restDay1[0]" value="Monday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Monday")){checked}>@Messages("Monday")
-                                            <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Tuesday")){checked}>@Messages("Tuesday")
-                                            <input type="checkbox" name="restDays.restDay1[2]" value="Wednesday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Wednesday")){checked}>@Messages("Wednesday")
-                                            <input type="checkbox" name="restDays.restDay1[3]" value="Thursday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Thursday")){checked}>@Messages("Thursday")
-                                            <input type="checkbox" name="restDays.restDay1[4]" value="Friday" @if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Friday")){checked}>@Messages("Friday")
-                                            <input type="checkbox" name="restDays.restDay1[5]" value="Saturday"@if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Saturday")){checked}>@Messages("Saturday")
-                                            <input type="checkbox" name="restDays.restDay1[6]" value="Sunday"@if(salon.restDays.map(rest=>rest.restDay).getOrElse(Nil).contains("Sunday")){checked}>@Messages("Sunday")
+                                            <input type="checkbox" name="restDays.restDay1[0]" value="Monday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Monday")}.getOrElse(None)){checked}>@Messages("Monday")
+                                            <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Tuesday")}.getOrElse(None)){checked}>@Messages("Tuesday")
+                                            <input type="checkbox" name="restDays.restDay1[2]" value="Wednesday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Wednesday")}.getOrElse(None)){checked}>@Messages("Wednesday")
+                                            <input type="checkbox" name="restDays.restDay1[3]" value="Thursday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Thursday")}.getOrElse(None)){checked}>@Messages("Thursday")
+                                            <input type="checkbox" name="restDays.restDay1[4]" value="Friday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Friday")}.getOrElse(None)){checked}>@Messages("Friday")
+                                            <input type="checkbox" name="restDays.restDay1[5]" value="Saturday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Saturday")}.getOrElse(None)){checked}>@Messages("Saturday")
+                                            <input type="checkbox" name="restDays.restDay1[6]" value="Sunday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Sunday")}.getOrElse(None)){checked}>@Messages("Sunday")
                                         </div>
                                         <div id="noRestDays_div" style="display: none;">
                                             @Messages("salon.EnterRestDays")
@@ -177,14 +278,14 @@
                                         </div>
                                         <div id="noRestDays_div" >
                                             @Messages("salon.EnterRestDays")
-                                            <input type="text" name="restDays.restDay2[0]" value="@salon.restDays.map(rest=>rest.restDay).toList">
+                                            <input type="text" name="restDays.restDay2[0]" value="@salon.restDays.map(day=>day.restDay.toList).getOrElse(None)">
                                         </div>
                                     }
                                 </div>
 				            </td>
 				        </tr>
 					</tbody>
-				</table>
+				</table>	
 				<table cellspacing="0" class="display03">
 				    <tbody>
 				        <tr>
@@ -230,7 +331,7 @@
 				            </td>
 				        </tr>
 					</tbody>
-				</table>						            				
+				</table>												
 				<div class="mT20 txtC">			
 					<input type = "submit" class = "buttons" value=@Messages("common.submit")>
 					<input type="reset" value=@Messages("common.reset")>
@@ -242,22 +343,18 @@
 </div>
 }
 
+@views.html.salon.admin.salonSwfupload("")
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
-        <input type="text" name="@name" value="@value">
+        <input type="text" name="@name" value="@value"> 
         <a class="removeAccount btn danger">@Messages("optContactMethod.Remove")</a>
     }
 }
 
 @optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
     <div class="twipsies well @className">
-
-        <a class="removeoptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
-
-        @*inputText(
-            field("contMethodType"),
-            '_label -> Messages("user.contMethodType")
-        )*@
+        
+        <a class="removeOptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
         
         @select(
         	field("contMethodType"), 
@@ -265,15 +362,15 @@
         	'_default -> Messages("user.chooseOpt"),
         	'_label -> Messages("user.contMethodType")
         )
-
+        
         <div class="accounts">
 
             @repeat(field("accounts"), min = 1) { account =>
-
+                
                 @accountField(account)
-
+    
             }
-
+            
             @**
              * Keep an hidden block that will be used as template for Javascript copy code
              **@
@@ -281,15 +378,15 @@
                 field("accounts[x]"),
                 className = "account_template"
             )
-
+            
             <div class="clearfix">
                 <div class="input">
                     <a class="addAccount btn success">@Messages("optContactMethod.AddNumber")</a>
                 </div>
             </div>
-
+        
         </div>
-
+ 
     </div>
 }
 
@@ -333,6 +430,5 @@
 
     </li>
     }
-
     <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
 	<script src="@routes.Assets.at("javascripts/ajaxfileupload.js")" type="text/javascript"></script>

@@ -65,9 +65,15 @@ padding-left: 10px;
 .pT5 {
 padding-top: 5px;
 }
+
+.w410 {
+width: 410px;
+}
+
 .w610 {
 width: 610px;
 }
+
 .cFix {
 min-height: 1px;
 _height: 1px;
@@ -106,9 +112,7 @@ font-weight: bold !important;
 .fgLGray2 {
 color: #7F7F7F;
 }
-.fl {
-float: left;
-}
+
 .pH5 {
 padding-left: 5px;
 padding-right: 5px;
@@ -139,8 +143,154 @@ width: 67px;
 height: 15px;
 }
 
-.fgLGray2 {
-color: #7F7F7F;
+.taC {
+text-align: center !important;
+}
+
+.mR10 {
+margin-right: 10px;
+}
+.w250 {
+width: 250px;
+}
+
+.mHA {
+margin-left: auto;
+margin-right: auto;
+}
+
+.mT6 {
+margin-top: 6px;
+width: 250px;
+}
+
+.mT20 {
+margin-top: 20px;
+}
+
+ul, ol {
+list-style: none;
+}
+
+.dibBL {
+display: inline-block !important;
+zoom: 1;
+}
+.mL5 {
+margin-left: 5px;
+}
+.mR5 {
+margin-right: 5px;
+}
+
+.w500 {
+width: 500px;
+}
+
+.shopCatchCopy {
+color: #CD4D72;
+font-size: 16px;
+}
+
+.pB10 {
+padding-bottom: 10px;
+}
+.mT10 {
+margin-top: 10px;
+}
+
+.highlightFw {
+background-color: yellow;
+font-weight: bold;
+}
+
+.taR {
+text-align: right !important;
+}
+.mTN5 {
+margin-top: -5px;
+}
+
+.CouponArea {
+border: 1px solid #A6A6A6;
+background-color: #fcf8df;
+margin: 5px 0 10px;
+overflow: hidden;
+}
+
+.CouponArea dl:first-child, .CouponArea .CouponAreaCoupon dl:first-child, .CouponArea .CouponAreaMenu dl:first-child {
+border-top: none;
+}
+
+.CouponArea dl {
+border-top: 1px dotted #999999;
+padding-bottom: 3px;
+padding-top: 3px;
+}
+.p3 {
+padding: 3px;
+}
+
+.CouponMark {
+margin: 2px 10px 0 0;
+}
+
+.couponTypeSmallCT02 {
+background-position: -177px -3950px;
+display: block;
+width: 23px;
+height: 13px;
+}
+
+.couponTypeSmallCT01 {
+background-position: -177px -4176px;
+display: block;
+width: 23px;
+height: 13px;
 }
 
 
+.bdLGrayT {
+border-top: 1px solid #CCCCCC;
+}
+.mT5 {
+margin-top: 5px;
+}
+
+dl {
+display: block;
+-webkit-margin-before: 1em;
+-webkit-margin-after: 1em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+}
+
+.cFix:after {
+content: "";
+display: block;
+clear: both;
+height: 0;
+visibility: hidden;
+}
+
+.evalPropRight {
+float: right;
+height: 20px;
+margin-top: 7px;
+margin-right: 10px;
+text-align: right;
+color: #666;
+position: relative;
+}
+
+.evalRate {
+}
+
+
+.salonPrice {
+margin-right: 20px;
+font-size: 18px;
+color: #f60;
+vertical-align: -5px;
+margin-left: 10px;
+}

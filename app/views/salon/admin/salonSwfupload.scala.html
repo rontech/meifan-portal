@@ -27,50 +27,50 @@
             $('#restDays_div' ).hide();
         })
 
-        $('.removeoptContactMethod').live('click', function(e) {
-            $(this).parents('.optContactMethod').remove()
-            renumber()
-        })
-
         $('.removeSalonPic').live('click', function(e) {
             $(this).parents('.salonPic').remove()
             renumber()
         })
-
+             
+        $('.addSalonPic').live('click', function(e) {
+            var template = $('.salonPic_template')
+            template.before('<div class="twipsies well salonPic">' + template.html() + '</div>')
+            renumber()
+        })
+        
+        $('.removeOptContactMethod').live('click', function(e) {
+            $(this).parents('.optContactMethod').remove()
+            renumber()
+        })
+        
         $('.removeAccount').live('click', function(e) {
             var accounts = $(this).parents('.accounts')
             $(this).parents('.account').remove()
             renumber(accounts)
         })
-
+        
         $('.addAccount').live('click', function(e) {
             var accounts = $(this).parents('.accounts')
             var template = $('.account_template', accounts)
             template.before('<div class="clearfix account">' + template.html() + '</div>')
             renumber(accounts)
         })
-
-        $('.addoptContactMethod').live('click', function(e) {
+        
+        $('.addOptContactMethod').live('click', function(e) {
             var template = $('.optContactMethod_template')
             template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
             renumber()
         })
-
-        $('.addSalonPic').live('click', function(e) {
-            var template = $('.salonPic_template')
-            template.before('<div class="twipsies well salonPic">' + template.html() + '</div>')
-            renumber()
-        })
-
+                
         var renumber = function(accounts) {
             $('.optContactMethod').each(function(i) {
-                $('input', this).each(function() {
+                $('select', this).each(function() {
                     $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
                 })
-                $('.account input', this).each(function(i) {
-                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + i + ']'))
+                $('.account input', this).each(function(j) {
+                	$(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
+                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + j + ']'))
                 })
-                
             })
             $('.salonPic').each(function(i) {
                 $('input', this).each(function() {
@@ -139,7 +139,7 @@
     			file_size_limit : "2 MB",// 文件大小限制
     			file_types : "*.jpg;*.gif;*.png;*.jpeg;",// 限制文件类型
     			file_types_description : "Image Files",// 说明，自己定义
-    			file_upload_limit : 5,
+    			file_upload_limit : 10,
     			file_queue_limit : 0,
     			custom_settings : {},
     			debug: false,

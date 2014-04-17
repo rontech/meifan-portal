@@ -59,11 +59,11 @@
                 </td>
                 <td>
                 	@if(Salon.checkBasicInfoIsFill(salon)){
-                		<a target="_blank" href="@auth.routes.Salons.salonBasic">
+                		<a href="@auth.routes.Salons.salonBasic">
                         @Messages("salonCheckInfoState.check")
                     	</a>
                     }else{
-                		<a target="_blank" href="@auth.routes.Salons.salonBasic">
+                		<a href="@auth.routes.Salons.salonBasic">
                         @Messages("salonCheckInfoState.completeInfo")
                     	</a>
                 	}
@@ -89,11 +89,11 @@
                 </td>
                 <td>
                 	@if(Salon.checkDetailIsFill(salon)){
-                		<a target="_blank" href="@auth.routes.Salons.salonDetail">
+                		<a href="@auth.routes.Salons.salonDetail">
                         @Messages("salonCheckInfoState.check")
                     	</a>
                 	}else{
-                		<a target="_blank" href="@auth.routes.Salons.salonDetail">
+                		<a href="@auth.routes.Salons.salonDetail">
                         @Messages("salonCheckInfoState.completeInfo")
                     	</a>
                 	}
@@ -119,11 +119,11 @@
                 </td>
                 <td>
                 	@if(Salon.checkImgIsExist(salon)){
-                		<a target="_blank" href="@auth.routes.Salons.salonShowPics">
+                		<a href="@auth.routes.Salons.salonShowPics">
                         @Messages("salonCheckInfoState.check")
                     	</a>
                 	}else{
-                		<a target="_blank" href="@auth.routes.Salons.salonShowPics">
+                		<a href="@auth.routes.Salons.salonShowPics">
                         @Messages("salonCheckInfoState.completeInfo")
                     	</a>
                 	}

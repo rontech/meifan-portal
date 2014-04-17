@@ -25,7 +25,8 @@
 												<dl class="lh30">
 													<dt class="dibBL vaM w150 b fl">@Messages("user.name")</dt>
 													<dd class="dibBL vaM w280">
-														@inputText(mailAndUserIdForm("userId"),'_label -> None, '_help -> "")
+														@inputText(mailAndUserIdForm("userId"),'_label -> None, '_help -> Messages("user.toBeUserId"), 
+															'_error ->  mailAndUserIdForm("userId").error.map(_.withMessage(Messages("user.loginUserIdErr"))))
 													</dd>
 													<dt class="dibBL vaM w150 b fl">@Messages("user.email")</dt>
 													<dd class="dibBL vaM w280">

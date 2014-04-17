@@ -21,10 +21,10 @@
 																				</a>  
                                         }
                                         case Some(user) =>{
-                                           <a href="@auth.routes.Users.logout" class="btn btn2H30 mT3 tdn">
+                                           <a href="#" class="btn btn2H30 mT3 tdn">
                                              <span>
                                                 <span class="b">
-                                                   @Messages("user.loginOut")
+                                                   @Messages("user.point") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@user.point
                                                 </span>
                                              </span>
                                            </a>
@@ -33,8 +33,9 @@
 				</p>
         <ul>
 				@user match {
-                                    	case None => {<li><a href="@routes.Application.register" class="link-green">@Messages("user.pleaseSignUp")</a></li>
-																			}}
+                                    	case None => {<li><a href="@routes.Application.register" class="link-green">@Messages("user.pleaseSignUp")</a></li>}
+                                    	case Some(user) => {<li><a href="@auth.routes.Users.logout" class="link-green">@Messages("user.loginOut")</a></li>}
+                                    	}
             <li><a href="#" class="link-green">@Messages("point.scoreRules")</a></li>
             <li><a href="#" class="link-green">@Messages("point.howToUse")</a></li>
             <li><a href="#" class="link-green">@Messages("point.promotions")</a></li>
