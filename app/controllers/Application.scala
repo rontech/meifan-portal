@@ -33,12 +33,12 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     }
 
     def salonLogin() = Action {
-        Ok(views.html.salon.salonLogin(auth.Salons.salonLoginForm))
+        Ok(views.html.salon.salonManage.salonLogin(auth.Salons.salonLoginForm))
     }
 
     def salonRegister() = Action {
         val industry = Industry.findAll.toList
-        Ok(views.html.salon.salonRegister(Salons.salonRegister,industry))
+        Ok(views.html.salon.salonManage.salonRegister(Salons.salonRegister,industry))
     }
 
     
