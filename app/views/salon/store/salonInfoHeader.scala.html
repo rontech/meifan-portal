@@ -3,23 +3,7 @@
 <div class="detailHeader cFix pr">
     <div class="detailHeaderShopInfo detail2S cFix">
         <div class="fl pL10 pT10">
-				@if(salon.salonPics.exists{a => a.picUse == "LOGO"}){
-					@if(salon.id.getTime.equals(salon.salonPics(0).fileObjId.getTime)){
-						<h>@salon.id</h>
-						<h>@salon.salonPics</h>
-						<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
-					}else{
-						@for(i <- 0 to salon.salonPics.size-1){
-							@if(salon.salonPics(i).picUse == "LOGO" ){
-								<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)"/></a>												
-							}								
-						}										
-					}
-										
-				}else{
-					<a href="@routes.SalonInfo.salonInfoBasic(salon.id)" class='Img'><img src="@routes.Assets.at("images/user/portrait.png")"/></a>
-				}	      
-        </a>
+			<a href="@auth.routes.Salons.salonInfoBasic" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"/></a>									      
         </div>
         <div class="fr sprtHeaderInnerR pa right0 w180">
         <ul class="p10">
@@ -34,7 +18,7 @@
             <li class="mT50 pT15">
             <div class="jscMySalonSaveLayer">
                 <p class="jscMySlnSvStIdH000231733" style="height: 19px; overflow:hidden;">
-                <a href="@auth.routes.MyFollows.addFollow(salon.id,"salon")" class="bS addIntoMyPage jscBtnSaveToMySalon offL db">
+                <ahref="javascript:void(0);" onclick="addFollow('@salon.id','salon')" class="bS addIntoMyPage jscBtnSaveToMySalon offL db">
                     @Messages("salon.followSalon") 
                 </a>
                 <span class="btnSlnSaveToMySalonDone bS offL">
@@ -63,27 +47,10 @@
             <p class="fs10 fgGray">
                 @salon.salonNameAbbr 
             </p>
-            <dl class="cFix pV5 pL10">
-                @if(salon.salonFacilities.canOnlineOrder) {
-                    <dt class="fl fs10 fgLGray2 b mR5">@Messages("salon.canOnlineOrderValue")</dt>
-                }
-                @if(salon.salonFacilities.canImmediatelyOrder) {
-                    <dd class="fl iS offL listImmediately mR5">@Messages("salon.canImmediatelyOrderValue")</dd>
-                }
-                @if(salon.salonFacilities.canNominateOrder) {
-                    <dd class="fl iS offL listNominate mR5">@Messages("salon.canNominateOrderValue")</dd>
-                }
-                @if(salon.salonFacilities.canCurntDayOrder) {
-                    <dd class="fl iS offL listTheDay mR5">@Messages("salon.canCurntDayOrderValue")</dd>
-                }
-                @if(salon.salonFacilities.isPointAvailable) {
-                    <dd class="fl iS offL listPoint mR5">@Messages("salon.isPointAvaliableValue")</dd>
-                }
-                @if(salon.salonFacilities.canMaleUse) {
-                    <dd class="fl iS offL listMensOK mR5">@Messages("salon.canMaleUseValue")</dd>
-                }
-            </dl>
-            <div class="cFix mT5 pT5 bdDotT">
+            <!--↓salon optional facilities-->
+            @views.html.salon.component.salonOptFacilities(salon)
+            <!--↑salon optional facilities-->
+           <div class="cFix mT5 pT5 bdDotT">
                 <div class="fr cFix qrcode">
                 <ul>
                     <li>
@@ -95,13 +62,13 @@
                 </div>
                 <ul class="fs10">
                 <li>
-                    @(Messages(salon.salonAddress.province))
-                    @(Messages(salon.salonAddress.city.get))
-                    @(Messages(salon.salonAddress.region.get))
-                    @salon.salonAddress.addrDetail
+                    @salon.salonAddress.map(add=>add.province).getOrElse(None)
+                    @salon.salonAddress.map(add=>add.city).getOrElse(None)
+                    @salon.salonAddress.map(add=>add.region).getOrElse(None)
+                    @salon.salonAddress.map(add=>add.addrDetail).getOrElse(None)
                 </li>
                 <li>
-                    @salon.salonAddress.accessMethodDesc
+                    @salon.salonAddress.map(add=>add.accessMethodDesc).getOrElse(None)
                 </li>
                 </ul>
             </div>
@@ -128,7 +95,7 @@
                 <a href="#" class="bS db @if(navInSalon == "salon-accessmap") {accessMapCurrent} else {accessMap} offL">@Messages("salon.accessMap")</a>
             </li>
             <li class="fr">
-                <a href="@routes.Comments.findBySalon(salon.id)" class="bS db @if(navInSalon == "salon-comment") {kuchikomiCurrent} else {kuchikomi} offL">@Messages("salon.comments")</a>
+                <a href="@noAuth.routes.Comments.findBySalon(salon.id)" class="bS db @if(navInSalon == "salon-comment") {kuchikomiCurrent} else {kuchikomi} offL">@Messages("salon.comments")</a>
             </li>
         </ul>
     </div>

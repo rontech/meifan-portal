@@ -7,10 +7,11 @@
 		</div>
 		
 		<div class="mysalon-stylist-search mT20">
-			<form action="/searchStylistById" method="get">
+			<form action="@auth.routes.Salons.searchStylistById" id="getStylistForm" method="get">
 				@Messages("stylist.stylistId")<input name="searchStylistById" id="stylist-search-stylist"/>&nbsp;&nbsp;&nbsp;
 					<input type="hidden" name="salonId" id="stylist-search-salon" value="@salon.id">
-				<input type="submit" id="searchStylistToSubmit" value="@Messages("stylist.search")">
+				<input type="button" id="searchStylistToSubmit" value="@Messages("stylist.search")" onclick="checkStylistExist();"><br />
+				<span id="stylistSerchMsg" style="font-color:red;"></span>
 			</form>
 		</div>
 	</div>
@@ -22,3 +23,5 @@
         </div>
     </div>
 }
+<script src="@routes.Assets.at("javascripts/swfupload/jquery-1.8.2.min.js")" type="text/javascript"></script>
+<script src="@routes.Assets.at("javascripts/stylist.js")" type="text/javascript"></script>

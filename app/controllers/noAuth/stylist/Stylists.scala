@@ -31,22 +31,22 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
   /**
    *  查看技师所属店铺
    */
-  def mySalon(stylistId: ObjectId) = StackAction{implicit request =>
+  def mySalonFromStylist(stylistId: ObjectId) = StackAction { implicit request =>
 	    val user = User.findOneById(stylistId).get
 	    val followInfo = MyFollow.getAllFollowInfo(user.id)
-	    val salon = Stylist.mySalon(stylistId)
+	    val salon = Stylist.mySalon(user.id)
 	    val stylist = Stylist.findOneByStylistId(user.id)
 	    stylist match {
 	      case Some(sty) => {
-	       loggedIn.map{loginUser => 
-	         Ok(views.html.stylist.management.stylistMySalon(user, followInfo, loginUser.id, true, sty, salon))
-	       }getOrElse{
-	         Ok(views.html.stylist.management.stylistMySalon(user, followInfo, new ObjectId, false, sty, salon))
-	       }
-	      }
+             loggedIn.map{loginUser =>
+	            Ok(views.html.stylist.management.stylistMySalon(user, followInfo, loginUser.id, true, sty, salon))
+	          }.getOrElse(
+                Ok(views.html.stylist.management.stylistMySalon(user, followInfo, new ObjectId, false, sty, salon))
+                 )
+          }
 	      case None => NotFound
 	    }
-	  }
+  }
   
   /**
   *  查看技师发型
@@ -72,7 +72,7 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
     val stylist = Stylist.findOneByStylistId(stylistId)
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     Styles.styleSearchForm.bindFromRequest.fold(
-                errors => BadRequest(views.html.index("")),
+                errors => BadRequest(views.html.index()),
                 {
                     case (styleSearch) => {
                         val styles = Style.findStylesByStylistBack(styleSearch,stylist.get.stylistId)
@@ -87,6 +87,7 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
   
   def otherHomePage(stylistId: ObjectId) = StackAction { implicit request =>
      val user = User.findOneById(stylistId).get
+     /*
      val followInfo = MyFollow.getAllFollowInfo(user.id)
      val stylist = Stylist.findOneByStylistId(stylistId).get
      val styles = Style.findByStylistId(stylistId)
@@ -97,18 +98,35 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
        Ok(views.html.stylist.management.OtherHomePage(user = user, followInfo = followInfo, loginUserId = loginUser.id, logged = true,  latestBlog = blog, stylist = stylist, styles = styles ))
      }getOrElse{
        Ok(views.html.stylist.management.OtherHomePage(user = user, followInfo = followInfo, loginUserId = new ObjectId, logged = false,  latestBlog = blog, stylist = stylist, styles = styles ))
-     }
-     
+     }*/
+     Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
      
   }
   
-  def checkSalonIsexitBySalonAccountId(salonAccountId: String) = Action {
-      println("ajax check ")
+  def checkSalonIsExit(salonAccountId: String) = Action {
       Salon.findByAccountId(salonAccountId).map{ salon =>
-          Ok("yes")
+          Ok("YES")
       }getOrElse{
-          Ok("no")
+          Ok("NO")
       }
   }
   
+  def cutImg = Action {
+    Ok(views.html.stylist.cutImg(""))
+  }
+  
+  def checkStylistIsExist(userId: String) = Action {
+     val user = User.findOneByUserId(userId)
+     user match {
+       case Some(user) => {
+         val stylist = Stylist.findOneById(user.id)
+         stylist match {
+           case Some(sty) => Ok("YES")
+           case None => Ok("NO")
+         }
+       }
+       case None => Ok("NO")
+     }
+     
+    }
 }

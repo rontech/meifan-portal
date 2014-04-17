@@ -1,4 +1,3 @@
-@(styles : Seq[Style])
 
 <div class="mT30">
     <div>
@@ -24,9 +23,9 @@
             <div id="jsiRankListInner">
                 <div class="jscRankList current pr top0 left0">
                 <ul class="cFix rankingList">
-                	@for(i <- 0 until (if (styles.length > 5) 5 else styles.length)){
+                	@for(i <- 0 until (if (Style.findByRanking.length > 5) 5 else Style.findByRanking.length)){
                 		<li class="fl w137 mR15">
-	                        <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(styles(i).stylistId).get.id, styles(i).id)">
+	                        <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRanking(i).stylistId).get.id, Style.findByRanking(i).id)">
 	                        	@if(i < 3) {
 	                        		<h4 class="rankingListHeading icnCrown@i"><img src="/assets/images/text_ranking_@i'.png"></h4>
 	                        	} else {
@@ -34,12 +33,12 @@
 	                        	}
 	                        	
 	                            <div>
-	                                <p><img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" class="imgFrame w134 h182 msInterMode" alt="@styles(i).styleName" oncontextmenu="return false;"  width="138px"></p>
+	                                <p><img src="@routes.Application.getPhoto(Style.findByRanking(i).stylePic(0).fileObjId)" class="imgFrame w134 h182 msInterMode" alt="@Style.findByRanking(i).styleName" oncontextmenu="return false;"  width="138px"></p>
 	                                <div class="mT2">
-	                                    <p class="rankingListInnerAnchor">@styles(i).styleName</p>
+	                                    <p class="rankingListInnerAnchor">@Style.findByRanking(i).styleName</p>
 	                                    <div class="mT2">
-	                                        <p class="rankingListShop">@Style.findSalonByStyle(styles(i).stylistId).get.salonName</p>
-	                                        <p class="rankingListStylist">@Stylist.findUser(styles(i).stylistId).nickName</p>
+	                                        <p class="rankingListShop">@Style.findSalonByStyle(Style.findByRanking(i).stylistId).get.salonName</p>
+	                                        <p class="rankingListStylist">@Stylist.findUser(Style.findByRanking(i).stylistId).nickName</p>
 	                                    </div>
 	                                </div>
 	                            </div>

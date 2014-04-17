@@ -1,0 +1,117 @@
+@(navInSalon: String = "my-salonInfo",salon:Salon,industry: List[Industry])
+@import helper._
+@import helper.twitterBootstrap._
+@import views.html.salon.admin._
+
+@mySalonMain(navInSalon, salon){
+	
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
+
+    <div class="mT30">
+        <div class="yS mainContentsSecondTitleOuter">
+        <h2 class="yS mainContentsSecondTitleInner">
+            @Messages("salon.salonData", salon.salonName)
+        </h2>
+        </div>
+        <p class="mT5 taR"> <i> <em class="seoCaption"> @salon.salonName </em> </i> </p>
+        <table cellspacing="0" class="wFull bdCell bgThNml fgThNml vaThT pCellV10H12">
+        <tbody>
+            <tr>
+                <th class="w120"> @Messages("salon.id") </th>
+                <td colspan="3" class="w620"> @salon.salonAccount.accountId </a> </td>
+            </tr> 
+            <tr>
+                <th class="w120"> @Messages("salon.password") </th>
+                <td colspan="3" class="w620"><a href="@auth.routes.Salons.password"/> @Messages("user.changePassword") </a> </td>
+            </tr>             
+             <tr>
+                <th class="w120">@Messages("salon.Name") </th>
+                <td class="w208 vaT">
+						@salon.salonName 
+                </td>
+                <th class="w120">@Messages("salon.Abbr")  </th>
+                <td class="w208 vaT"> @salon.salonNameAbbr </td>
+            </tr>              
+            <tr>
+                <th class="w120"> @Messages("salon.type") </th>
+                <td colspan="3" class="w620">
+                	@for(i <- 0 to industry.length-1){
+						@if(salon.salonIndustry.contains(industry(i).industryName)){
+							@Messages("industry.industryName."+ industry(i).industryName)
+						}              		                		
+                	}  </a> </td>
+            </tr>                                                        
+            <tr>
+                <th class="w120"> @Messages("salon.address") </th>
+                <td colspan="3" class="w620">
+                    @salon.salonAddress.map(add=>add.province).getOrElse(None)
+                    @salon.salonAddress.map(add=>add.city).getOrElse(None)
+                    @salon.salonAddress.map(add=>add.region).getOrElse(None)
+                    @salon.salonAddress.map(add=>add.addrDetail).getOrElse(None)
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("salon.accessMethod") </th>
+                <td colspan="3" class="w620"> @salon.salonAddress.map(add=>add.accessMethodDesc).getOrElse(None) </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("salon.workTime") </th>
+                <td colspan="3" class="w620"> @salon.workTime.map(time=>time.openTime).getOrElse(None) -- @salon.workTime.map(time=>time.closeTime).getOrElse(None)</td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("salon.restDay") </th>
+                <td colspan="3" class="w620">
+                    @salon.restDays.map(rest=>rest.restDay.map(restDay => Messages(restDay)))
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("salon.isPosAvailable") </th>
+                <td colspan="3" class="w620">
+                    @if(salon.salonFacilities.map(fac=>fac.isPosAvailable).getOrElse(None)) {@Messages("salon.posAvailable")} else {@Messages("salon.posNotAvailable")}
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("salon.homepage") </th>
+                <td colspan="3" class="w620">
+                    <p> <i> <em class="seoCaption"> @salon.salonName </em> </i> </p>
+                    <a href="javascript:void(0);" id="store_hp"> @salon.homepage</a>
+                </td>
+            </tr>
+             <tr>
+                <th class="w120">@Messages("salon.mainPhone") </th>
+                <td class="w208 vaT"><a href="#"/> @salon.contactMethod.mainPhone </td>
+                <th class="w120">@Messages("salon.contact")  </th>
+                <td class="w208 vaT"> @salon.contactMethod.contact </td>
+            </tr>              
+            <tr>
+                <th class="w120"> @Messages("salon.priceCutOnly") </th>
+                <td class="w208 vaT">
+                    @Salon.getLowestPriceOfCut(salon.id) match {
+                       case None => { @Messages("salon.priceCutOnlyUndefined")}
+                       case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
+                    }
+                </td>
+                <th class="w120"> @Messages("salon.seatNums") </th>
+                <td class="w208 vaT"> @Messages("salon.seatNumsMsg", salon.seatNums.getOrElse("")) </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("salon.stylistNums") </th>
+                <td class="w208 vaT">
+                    @Messages("slaon.stylistNumUnit", Salon.getCountOfStylists(salon.id))
+                </td>
+                <th class="w120"> @Messages("salon.parkingDesc") </th>
+                <td class="w208 vaT">
+                    @if(salon.salonFacilities.map(fac=>fac.hasParkingNearby).getOrElse(None)) { @salon.salonFacilities.get.parkingDesc} else { @Messages("salon.hasNoParkingNearByMsg")}
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("salon.description") </th>
+                <td colspan="3" class="w620"> @salon.salonDescription </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+
+
+
+}

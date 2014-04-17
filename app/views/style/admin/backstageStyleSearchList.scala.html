@@ -24,8 +24,8 @@
                             
                         }else{
                             <p>
-                                <a href="@routes.SalonsAdmin.styleUpdateBySalon(styles(i).id)" >@Messages("common.edit")</a>
-                                <a href="@routes.SalonsAdmin.styleToInvalidBySalon(styles(i).id)" >@Messages("common.delete")</a>
+                                <a href="@auth.routes.Salons.styleUpdateBySalon(styles(i).id)" >@Messages("common.edit")</a>
+                                <a href="@auth.routes.Salons.styleToInvalidBySalon(styles(i).id)" >@Messages("common.delete")</a>
                             </p>
                         }
                     </div>

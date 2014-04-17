@@ -1,0 +1,161 @@
+@(salon: Salon, counts: Int)
+
+@import views.html.salon.admin.mySalonMain
+
+@mySalonMain("checkSalonInfo", salon){
+	
+	<div id="J_ChooseDesc">
+    <span class="new-shop-title">
+        @Messages("salonCheckInfoState.conditions")
+    </span>
+    <table class="table salonInfoState">
+        <thead>
+            <tr>
+                <th style="width:40%">
+                    @Messages("salonCheckInfoState.condition")
+                </th>
+                <th style="width:40%;">
+                    @Messages("salonCheckInfoState.status")
+                </th>
+                <th style="width:20%;">
+                    @Messages("salonCheckInfoState.operate")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                   @Messages("salonCheckInfoState.register")
+                </td>
+                <td>
+	                <i class="iconfont greenfont">
+                    
+                    </i>
+                    @Messages("salonCheckInfoState.finish")
+	            </td>
+                <td>
+                	<a target="_blank" >
+                   --
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   @Messages("salonCheckInfoState.basicInfo")
+                </td>
+                <td>
+	                @if(Salon.checkBasicInfoIsFill(salon)){
+	                	<i class="iconfont greenfont">
+                        
+                    	</i>
+                    	@Messages("salonCheckInfoState.finish")
+                    }else{
+	                	<i class="iconfont redfont">
+                        
+                    	</i>
+                    	@Messages("salonCheckInfoState.needTodo")
+                    	
+	                }
+                </td>
+                <td>
+                	@if(Salon.checkBasicInfoIsFill(salon)){
+                		<a href="@auth.routes.Salons.salonBasic">
+                        @Messages("salonCheckInfoState.check")
+                    	</a>
+                    }else{
+                		<a href="@auth.routes.Salons.salonBasic">
+                        @Messages("salonCheckInfoState.completeInfo")
+                    	</a>
+                	}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   @Messages("salonCheckInfoState.detail")
+                </td>
+                <td>
+	                @if(Salon.checkDetailIsFill(salon)){
+	                	<i class="iconfont greenfont">
+                        
+                    	</i>
+                    	@Messages("salonCheckInfoState.finish")
+                    }else{
+	                	<i class="iconfont redfont">
+                        
+                    	</i>
+                    	@Messages("salonCheckInfoState.needTodo")
+                    	
+	                }
+                </td>
+                <td>
+                	@if(Salon.checkDetailIsFill(salon)){
+                		<a href="@auth.routes.Salons.salonDetail">
+                        @Messages("salonCheckInfoState.check")
+                    	</a>
+                	}else{
+                		<a href="@auth.routes.Salons.salonDetail">
+                        @Messages("salonCheckInfoState.completeInfo")
+                    	</a>
+                	}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   @Messages("salonCheckInfoState.pictures")
+                </td>
+                <td>
+	                @if(Salon.checkImgIsExist(salon)){
+	                	<i class="iconfont greenfont">
+                        
+                    	</i>
+                    	@Messages("salonCheckInfoState.finish")
+	                }else{
+	                	<i class="iconfont redfont">
+                        
+                    	</i>
+                    	@Messages("salonCheckInfoState.needTodo")
+                    	
+	                }
+                </td>
+                <td>
+                	@if(Salon.checkImgIsExist(salon)){
+                		<a href="@auth.routes.Salons.salonShowPics">
+                        @Messages("salonCheckInfoState.check")
+                    	</a>
+                	}else{
+                		<a href="@auth.routes.Salons.salonShowPics">
+                        @Messages("salonCheckInfoState.completeInfo")
+                    	</a>
+                	}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="btns clearfix">
+        <span class="warning-txt">
+        	@if(counts>=1){
+	            @Messages("salonCheckInfoState.youNeedDo")
+	            <em>
+	            	@counts
+	            </em>
+	            @Messages("salonCheckInfoState.cannotApply")
+	            <a href="@noAuth.routes.Questions.getAllQuestions()">
+	            	@Messages("main.help")
+	            </a>	
+            }
+        </span>
+    </div>
+</div>
+}
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/checkSalonInfo.css")">
+<style>
+	.redfont{
+		background-image: url('@routes.Assets.at("images/swfupload/redfont.JPG")');
+		background-repeat: no-repeat;
+		background-position:10px 0;
+	}
+	.greenfont{
+		background-image: url('@routes.Assets.at("images/swfupload/tick.png")');
+		background-repeat: no-repeat;
+	}
+</style>

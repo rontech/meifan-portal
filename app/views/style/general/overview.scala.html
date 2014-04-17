@@ -1,4 +1,4 @@
-@(styles: Seq[Style], styleSearchForm: Form[Style], stylePara: models.StylePara)
+@(styleSearchForm: Form[Style], stylePara: models.StylePara, user: Option[User])
 
 <!--
     TODO
@@ -31,12 +31,11 @@
 					<h3 class="pa right0 bottom0 hcHeadingCaption">@Messages("site.title")</h3>
 				</div>
 			</div>
-        
             <!-- Style Search By Conditons. -->    
             @views.html.style.general.styleSearch(styleSearchForm, stylePara)
             
             <!-- Style Search By Ranking. -->    
-            @views.html.style.general.searchByRanking(styles)
+            @views.html.style.general.searchByRanking()
 
             <!-- Style Search By Length For Women. -->
             <div class="mT40">
@@ -61,7 +60,7 @@
             
         </div>
             <!-- ↓generalContentRightColumn -->
-            @views.html.salon.general.rightColumn(None)
+            @views.html.salon.general.rightColumn(user)
             <!-- ↑generalContentRightColumn -->
     </div>
 }

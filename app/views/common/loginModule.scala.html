@@ -1,98 +1,46 @@
 @(user: Option[User])
 
-<!-- login module usually on the rigth column of a page to 
-    let user to sign in or sign up or show the basice info of a user who is in the state of login.
-
-TODO
-    1. parameters is passed by controll files with data come form controll files.
-    2. show different info according to the user parameter.
--->
-
-
-<div id="myMenu" class="yS zoom1">
-    <div id="myMenuHead" class="yS">
-        <div id="myMenuBottom" class="yS">
-            <dd class="myMenuBody myPointBody yS mT0">
-                <div class="myMenuBodyHead yS">
-                    <div class="myMenuMainBox pointBox yS">
-                        <ul class="myMenuItems">
-                            <li class="myMenuItemsCassette">
-                                <div class="mT11 taC">
-                                    <img src="@routes.Assets.at("images/recruit_point_155.gif")" width="155"
-                                    alt="@Messages("point.pointDesc")" title="@Messages("point.pointDesc")">
-                                </div>
-                                <div class="grayPointBodyHead y4S mT8">
-                                    <div class="grayPointBodyBox y4S">
-                                        <div class="grayPointBody y4S taC">
-                                            <p>
-                                                @Messages("point.policyCond") 
-                                                <br>
-                                                <span>
-                                                    @Messages("point.policies", "5%") 
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="loginArea mT7 taC">
-                                    <p>
-                                        @user match {
+<div id="index_member">
+    	<h2></h2>
+        <div id="index_member_nr">
+        <p class="ad">
+        @Messages("point.policyCond")</br>
+        <span style="font-size:16px">@Messages("point.policies", "2%")</span>	
+        </p>
+        <p class="fk">
+				@user match {
                                             case None => {@Messages("user.welcome", Messages("user.guestName"))}
                                             case Some(user) => {@Messages("user.welcome", user.nickName)}
                                         }
-                                    </p>
-                                    
-                                    @user match {
+				</p>
+        <p class="hydl"><a href="#">
+				 @user match {
                                     	case None => {
-                                    	   <a href="@routes.Application.login" class="btn btn2H30 mT3 tdn">
-                                             <span>
-                                                <span class="b">
-                                                   @Messages("user.loginBtn") 
-                                                </span>
-                                             </span>
-                                           </a>
-                                           <p class="mT5">
-                                               <a href="@routes.Application.register" />@Messages("user.pleaseSignUp")</a>
-                                           </p>
+                                    	  <a href="@routes.Application.login">
+                                          <img src="@routes.Assets.at("images/right_member_btn.jpg")" width="165" height="28" />
+																				</a>  
                                         }
                                         case Some(user) =>{
-                                           <a href="@auth.routes.Users.logout" class="btn btn2H30 mT3 tdn">
+                                           <a href="#" class="btn btn2H30 mT3 tdn">
                                              <span>
                                                 <span class="b">
-                                                   @Messages("user.loginOut")
+                                                   @Messages("user.point") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@user.point
                                                 </span>
                                              </span>
                                            </a>
                                         }
                                     }
-                                    
-                                    <ul class="taL mT7">
-                                        <li>
-                                            <a href="javascript:void(0);" @*onclick="window.open('http://point.recruit.co.jp/');"*@
-                                            class="iS rPoint">
-                                               @Messages("point.scoreRules") 
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" @*onclick="window.open('http://point.recruit.co.jp/?tab=pointUseServise');"*@
-                                            class="iS rPoint">
-                                               @Messages("point.howToUse") 
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <p class="mT10">
-                                    <a class="iS arrowR" title="@Messages("point.promotions")" @*href="/doc/cp/2oku/"*@
-                                    target="_blank">
-                                        @Messages("point.promotions") 
-                                    </a>
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </dd>
+				</p>
+        <ul>
+				@user match {
+                                    	case None => {<li><a href="@routes.Application.register" class="link-green">@Messages("user.pleaseSignUp")</a></li>}
+                                    	case Some(user) => {<li><a href="@auth.routes.Users.logout" class="link-green">@Messages("user.loginOut")</a></li>}
+                                    	}
+            <li><a href="#" class="link-green">@Messages("point.scoreRules")</a></li>
+            <li><a href="#" class="link-green">@Messages("point.howToUse")</a></li>
+            <li><a href="#" class="link-green">@Messages("point.promotions")</a></li>
+        </ul>
         </div>
+        <div id="index_member_bottom"></div>
     </div>
-</div>
 

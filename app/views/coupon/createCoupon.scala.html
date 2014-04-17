@@ -3,7 +3,7 @@
 
 @import helper._
 
-@form(routes.Coupons.createCoupon(salonId), 'id -> "couponForm") {
+@form(auth.routes.Coupons.createCoupon, 'id -> "couponForm") {
 	<legend class="mainTitle">@Messages("coupon.createCouponArea")</legend>
 	<div class="couponInfo">
 		<input type="hidden" name="salonId" value="@salonId" />
@@ -33,11 +33,21 @@
 		@inputText(couponForm("perferentialPrice"),'_label -> Messages("coupon.perferentialPrice"),
 			 '_error -> couponForm("perferentialPrice").error.map(_.withMessage(Messages("coupon.perferentialPriceErr"))))
 		
-		@inputDate(couponForm("startDate"), '_label -> Messages("coupon.startDate"),
-			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.startDateRequired"))))
+		@*inputDate(couponForm("startDate"), '_label -> Messages("coupon.startDate"),
+			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.startDateRequired"))))*@
 		
-		@inputDate(couponForm("endDate"), '_label -> Messages("coupon.endDate"),
-			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.endDateRequired"))))
+		@input(field = couponForm("startDate"), '_label -> Messages("coupon.startDate"), '_help -> Messages(""), 
+			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.startDateRequired")))){(id, name, value, _) =>
+				<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
+			}
+		
+		@*inputDate(couponForm("endDate"), '_label -> Messages("coupon.endDate"),
+			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.endDateRequired"))))*@
+			
+		@input(field = couponForm("endDate"), '_label -> Messages("coupon.endDate"), '_help -> Messages(""), 
+			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.endDateRequired")))){(id, name, value, _) =>
+				<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
+			}
 		
 		@inputText(couponForm("useConditions"), '_label -> Messages("coupon.useConditions"), 
 			'_error -> couponForm("useConditions").error.map(_.withMessage(Messages("coupon.useConditionsRequired"))))

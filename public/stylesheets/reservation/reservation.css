@@ -1,5 +1,26 @@
 @CHARSET "UTF-8";
 
+.title {
+background-color: #E8E8E2;
+border: #A6A6A6 solid 1px;
+display: block;
+line-height: 20px;
+padding-top: 10px;
+padding-bottom: 2px;
+padding-left: 10px;
+padding-right: 10px;
+}
+
+.fs18 {
+font-size: 18px;
+}
+
+.directRsv {
+background-position: -840px -580px;
+width: 90px;
+height: 25px;
+}
+
 .underTabContents {
 border-top: 2px solid #988989;
 position: relative;
@@ -103,3 +124,40 @@ height: 32px;
 width: 35px;
 }
 
+.innerCloseCell {
+border: 1px solid #E6E6E6;
+background-color: #EEEEEE;
+text-align: center;
+}
+
+.closeday {
+background-position: -50px 0;
+width: 35px;
+height: 90px;
+}
+
+.rsvS {
+background-image: url("/assets/images/reservation/reserve.png");
+background-repeat: no-repeat;
+display: block;
+}
+
+.arrowPagingWeekR {
+background-position: right -241px;
+padding-right: 8px;
+}
+
+.arrowPagingWeekL {
+background-position: -196px -121px;
+padding-left: 8px;
+}
+
+.arrowPagingWeekLOff {
+background-position: -196px -361px;
+padding-left: 8px;
+}
+
+.arrowPagingWeekROff {
+background-position: right -461px;
+padding-right: 8px;
+}

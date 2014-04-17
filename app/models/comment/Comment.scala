@@ -11,6 +11,15 @@ case class CommentOfSalon(commentInfo: Comment, salonInfo: Option[Salon]) {
   def apply(commentInfo: Comment, salonInfo: Option[Salon]) = new CommentOfSalon(commentInfo, salonInfo) 
 }
 
+/**
+ * Enumeration for reviews: positive reviews|average reviews|negetive reviews
+ */
+object ReviewRst extends Enumeration {
+  type ReviewRst = Value
+  val Good, Average, Bad = Value 
+}
+
+
 case class Comment(
     id : ObjectId = new ObjectId,
     commentObjType : Int,
@@ -118,6 +127,29 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
     )
     commentOfSalonList.sortBy(commentOfSalon => commentOfSalon.commentInfo.createTime).reverse
   }
-  
+
+  /**
+   * 取得指定店铺的好评率: 以综合评价(complex)为准
+   * TODO: 是否应该在店铺里增加好评率字段，在评价时直接更新店铺好评率？--> 为查询时效率考虑。
+   */
+  def getGoodReviewsRate(salonId : ObjectId) = {
+    val reviews = findBySalon(salonId)
+    if(reviews.isEmpty) 0 else reviews.filter(x => isGoodReview(x.complex) == ReviewRst.Good).length / reviews.length
+  }
+ 
+  /**
+   * 判断一个评价是否是好评: 
+   * 基本思路: 评价值为1-5的数字。1-2为差评,3 为中评，4-5为好评
+   */ 
+  def isGoodReview(reviewScore: Int) = {
+    reviewScore match {
+      case x: Int if x < 3 => ReviewRst.Bad
+      case x: Int if x == 3 => ReviewRst.Average
+      case x: Int if x > 3 => ReviewRst.Good
+      case _ => ReviewRst.Average
+    }
+  }
+
+ 
 }
 

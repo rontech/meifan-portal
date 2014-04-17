@@ -1,0 +1,19 @@
+@(salon: Salon, salonInfo:Form[Salon])
+
+@import views.html.salon.admin.mySalonMain
+
+@mySalonMain("checkSalonInfo", salon){
+	<div>
+		<ul id="salonImageClick">
+			<li><a class="current-demo" href="@auth.routes.Salons.salonLogoPicture">@Messages("salonCheckInfoState.uploadLogo")</a></li>
+			<li><a href="@auth.routes.Salons.salonShowPics">@Messages("salonCheckInfoState.uploadpics")</a></li>
+		</ul>
+	</div>
+	<div id="salonImgLogo">
+		@helper.form(auth.routes.Salons.imageUpload, 'enctype -> "multipart/form-data") {
+        <input type="file" id="filePhoto" name="logo" style="width:50" /> 
+        <button type="submit">@Messages("user.changeImage")</button>
+        <img src="#" id="target"/>
+     	}
+	</div>
+}

@@ -8,6 +8,8 @@ import com.mongodb.casbah.gridfs.GridFS
 import com.mongodb.casbah.commons.Imports._
 import com.mongodb.casbah.MongoConnection
 import mongoContext._
+import java.io.InputStream
+import java.io.ByteArrayOutputStream
 
 case class Image(
   id: ObjectId,
@@ -52,23 +54,26 @@ object Image {
     uploadedFile._id.get
   }
 
-
   /**
    * 将文件夹下所有图片都存放至文件集合 
    */  
-  var files: List[File] = Nil
+  def listFilesRecursively(): File => List[File] = {
+    var files: List[File] = Nil
 
-  def listAllFiles(file: File): List[File] = {
-    if (!file.isDirectory) {
-      files :::= List(file)
-    }
-    if (file.isDirectory) {
-      val subFiles = file.listFiles()
-      for (sub <- subFiles) {
-        listAllFiles(sub)
+    def listAllFiles(file: File): List[File] = {
+      if (!file.isDirectory) {
+        files :::= List(file)
       }
-    }
-    files
+      if (file.isDirectory) {
+        val subFiles = file.listFiles()
+        for (sub <- subFiles) {
+          listAllFiles(sub)
+        }
+      }
+      files
+    }   
+
+    listAllFiles
   }
 
   /**
@@ -83,5 +88,33 @@ object Image {
     } else {
       Nil
     }
-  } 
+  }
+  
+  def fileToBytes(inStream: InputStream) : Array[Byte] = {
+    val outStream = new ByteArrayOutputStream
+    try {
+      var reading = true
+      while ( reading ) {
+        inStream.read() match {
+          case -1 => reading = false
+          case c => outStream.write(c)
+        }
+      }
+      outStream.flush()
+    }
+    finally
+    {
+      inStream.close()
+    }
+
+    return outStream.toByteArray
+  }  
 }
+
+case class ImgForCrop(
+                  x1:BigDecimal,
+                  y1:BigDecimal,
+                  x2:BigDecimal,
+                  y2:BigDecimal,
+                  w:BigDecimal,
+                  h:BigDecimal)

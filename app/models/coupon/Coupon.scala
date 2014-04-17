@@ -8,6 +8,8 @@ import se.radley.plugin.salat.Binders._
 import com.mongodb.casbah.Imports.MongoConnection
 import play.api.Play._
 import play.api.PlayException
+import scala.concurrent.{ ExecutionContext, Future }
+import ExecutionContext.Implicits.global
 
 
 case class Coupon (
@@ -61,4 +63,5 @@ object Coupon extends ModelCompanion[Coupon, ObjectId]{
 
   def checkCouponIsExit(CouponName: String, salonId: ObjectId): Boolean = dao.find(DBObject("couponName" -> CouponName, "salonId" -> salonId)).hasNext
 
+  def isOwner(couponId: ObjectId)(salon: Salon): Future[Boolean] = Future {Coupon.findOneById(couponId).map(coupon => coupon.salonId.equals(salon.id)).getOrElse(false)}
 }

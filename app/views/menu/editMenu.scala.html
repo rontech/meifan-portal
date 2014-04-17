@@ -2,7 +2,7 @@
 
 @import helper._
 
-@form(routes.Menus.updateMenu(menu.id, salon.id), 'id -> "menuForm") {
+@form(auth.routes.Menus.updateMenu(menu.id), 'id -> "menuForm") {
 	<legend class="mainTitle">@Messages("menu.createMenuArea")</legend>
 	<div class="menuInfo">
 		<input type="hidden" name="salonId" value="@salon.id"/>
@@ -35,6 +35,6 @@
 	<div class="btnArea">
 		<input type = "submit" class = "buttons" value="@Messages("common.submit")">
 	            
-	    <a href="@routes.SalonsAdmin.myMenu(salon.id)"><input type = "button" class = "buttons" value="@Messages("common.backUp")"></a>
+	    <a href="@auth.routes.Salons.myMenu"><input type = "button" class = "buttons" value="@Messages("common.backUp")"></a>
 	</div>
 }

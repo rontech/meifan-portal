@@ -2,7 +2,7 @@
 
 	@import helper._
 	
-	 @main(title = "login") {
+	 @main(title = Messages("user.userLogin")) {
 	 	
 	 	<head>
 			<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/userLogin.css")">
@@ -32,7 +32,9 @@
 												<dl class="lh30">
 													<dt class="dibBL vaM w150 b fl">@Messages("user.name")</dt>
 													<dd class="dibBL vaM w280">
-														@inputText(field = loginForm("userId"), '_label -> None, 'placeholder -> Messages("user.name"), 'class -> "inputField")
+														@inputText(field = loginForm("userId"), '_label -> None, 'placeholder -> Messages("user.name"), 'class -> "inputField",
+															'_error ->  loginForm("userId").error.map(_.withMessage(Messages("user.loginUserIdErr")))
+														)
 													</dd>
 													<dt class="dibBL vaM w150 b fl">@Messages("user.password")</dt>
 													<dd class="dibBL vaM w280">
@@ -54,7 +56,7 @@
 							</div>
 						</dd>
 						<div class="mT10 taR">
-							<p><a href="#" id="pwRemindLink" title="Messages("user.forgetPassword")"><font><font>@Messages("user.forgetPassword")</font></font></a></p>
+							<p><a href="@routes.Mails.forgotPassword" id="pwRemindLink" title="@Messages("user.forgetPassword")"><font><font>@Messages("user.forgetPassword")</font></font></a></p>
 						</div>
 						</dd>
 					</dl>

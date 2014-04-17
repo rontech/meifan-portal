@@ -1,0 +1,38 @@
+<div id="left_container">
+	<!-- ↓热门发型 -->
+	@views.html.style.general.styleRanking()
+	<!-- ↑热门发型 -->
+	
+	<!-- ↓系统通知 -->
+	@views.html.common.noticeGroup()
+	<!-- ↑系统通知  -->
+	
+	<!-- ↓最新评论 -->
+	@views.html.comment.lastestComments()
+	<!-- ↑最新评论 -->
+	
+	<div class="left01">
+		<!-- ↓推荐沙龙 -->
+		@views.html.salon.salonManage.salonRecommend()
+		<!-- ↑推荐沙龙 -->
+		
+		<!-- ↓美甲展示 -->
+		@views.html.nailCatalog.manicureDisplay()
+		<!-- ↑美甲展示 -->
+	</div>
+	
+	<div class="left02">
+		<!-- ↓推荐发型师 -->
+		@views.html.stylist.recommendStylists()
+		<!-- ↑推荐发型师 -->
+		
+		<!-- ↓休闲健身 -->
+		@views.html.relaxSalon.leisure()
+		<!-- ↑休闲健身 -->
+	</div>
+	
+	<!-- ↓美范资讯 -->
+	@views.html.common.meifanNews()
+	<!-- ↑美范资讯 -->
+	
+</div>

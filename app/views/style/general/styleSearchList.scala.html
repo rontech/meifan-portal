@@ -11,11 +11,11 @@
    	@for(i <- 0 to styleAndSalon.length-1){
    		<div class="styleResult">
 	   		<a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" >
-	   			<img src="@routes.Application.getPhoto(styleAndSalon(i).style.stylePic(0).fileObjId)" class="" alt="@styleAndSalon(i).style.styleName" >
+	   			<img src="@routes.Application.getPhoto(styleAndSalon(i).style.stylePic(0).fileObjId)" class="w120 h150" alt="@styleAndSalon(i).style.styleName" >
 	   		</a>
 			<div class="layer jscLayer jscFixPng">
 				<p>
-					<a href="@auth.routes.MyFollows.addFollow(styleAndSalon(i).style.id,"style")" >@Messages("hair.ToCollect")</a>
+					<a href="javascript:void(0);" onclick="addFollow('@styleAndSalon(i).style.id','style')" >@Messages("hair.ToCollect")</a>
 				</p>
 				<p><a href="">@Messages("hair.detailInfo")</a></p>
 			</div>

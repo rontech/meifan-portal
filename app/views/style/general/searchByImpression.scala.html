@@ -1,6 +1,4 @@
 
-
-
 <div class="mT40">
     <div class="skinHeadingWrapper1 mB15 cFix pr">
         <h3 class="fl skinHeading1 offL headingImage">
@@ -10,7 +8,7 @@
     <ul class="cFix">
         @SearchByImpression.findAll.map { searchByImpression =>
             <li class="fl mR10">
-                <a href="@routes.Styles.findByImpression(searchByImpression.styleImpression,searchByImpression.sex)">
+                <a href="@noAuth.routes.Styles.findByImpression(searchByImpression.styleImpression,searchByImpression.sex)">
                     <img src="@routes.Application.getPhoto(searchByImpression.stylePic)" alt="@searchByImpression.styleImpression" class="imgFrame" width="94px">
                 </a>
             </li>
