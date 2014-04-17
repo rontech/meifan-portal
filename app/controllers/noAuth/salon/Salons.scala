@@ -151,12 +151,12 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
     def register() = Action { implicit request =>
         val industry = Industry.findAll.toList
         salonRegister.bindFromRequest.fold(
-            errors => BadRequest(views.html.salon.salonRegister(errors, industry)),
-            {
-                salonRegister =>
-                    Salon.save(salonRegister, WriteConcern.Safe)
-                    Redirect(auth.routes.Salons.checkInfoState)
-            })
+        errors => BadRequest(views.html.salon.salonManage.salonRegister(errors,industry)),
+        {
+            salonRegister =>
+                Salon.save(salonRegister, WriteConcern.Safe)
+                Redirect(auth.routes.Salons.checkInfoState)
+        })
     }
     /*-------------------------
      * The Main Page of All Salon 

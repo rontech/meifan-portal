@@ -12,11 +12,14 @@ import controllers.noAuth._
 import java.util.Date
 import routes.javascript._
 import play.api.Routes
-import java.io.File
-import java.io.InputStream
-import java.io.ByteArrayOutputStream
-import java.io.FileInputStream
+import java.io._
 import jp.t2v.lab.play2.auth._
+import play.api.templates.Html
+import com.mongodb.casbah.MongoConnection
+import javax.imageio.ImageIO
+import play.api.data.Form
+import play.api.data.Forms._
+import scala.Some
 
 object Application extends Controller with OptionalAuthElement with UserAuthConfigImpl{
     def index = StackAction{ implicit request =>
@@ -33,12 +36,12 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     }
 
     def salonLogin() = Action {
-        Ok(views.html.salon.salonLogin(auth.Salons.salonLoginForm))
+        Ok(views.html.salon.salonManage.salonLogin(auth.Salons.salonLoginForm))
     }
 
     def salonRegister() = Action {
         val industry = Industry.findAll.toList
-        Ok(views.html.salon.salonRegister(Salons.salonRegister,industry))
+        Ok(views.html.salon.salonManage.salonRegister(Salons.salonRegister,industry))
     }
 
     
@@ -103,9 +106,39 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
                 uploadedFile.save()
                 Redirect(auth.routes.Users.saveImg(uploadedFile._id.get))
             case None => BadRequest("no photo")
-        
         }
     }
+
+    def changeLogo = Action(parse.multipartFormData) {implicit request =>
+        request.body.file("photo").map{ photo =>
+            imgForm.bindFromRequest.fold(
+                errors =>Ok(Html(errors.toString)),
+                img =>{
+                    val db = MongoConnection()("Picture")
+                    val gridFs = GridFS(db)
+                    val file = photo.ref.file
+                    val originImage =  ImageIO.read(file)
+
+                    //intValue,img.h.intValue-2  防止截取图片尺寸超过图片本身尺寸
+                    val newImage = originImage.getSubimage(img.x1.intValue,img.y1.intValue,img.w.intValue-2,img.h.intValue-2)
+
+                    val  os = new ByteArrayOutputStream();
+
+                    ImageIO.write(newImage, "jpeg", os);
+
+                    val inputStream = new ByteArrayInputStream(os.toByteArray());
+
+                    val uploadedFile = gridFs.createFile(inputStream)
+
+                    uploadedFile.contentType = photo.contentType.orNull
+                    uploadedFile.save()
+                    Redirect(auth.routes.Users.saveImg(uploadedFile._id.get))
+                }
+            )
+        }.getOrElse(Ok(Html("无图片")))
+    }
+
+
     
     /**
      * 根据出生年月得到相应日期的年龄
@@ -139,4 +172,16 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
         }
     
     }
+
+
+
+    val imgForm : Form[ImgForCrop] =Form(
+        mapping(
+            "x1"->bigDecimal,
+            "y1"->bigDecimal,
+            "x2"->bigDecimal,
+            "y2"->bigDecimal,
+            "w"->bigDecimal,
+            "h"->bigDecimal)(ImgForCrop.apply)(ImgForCrop.unapply)
+    )
 }
