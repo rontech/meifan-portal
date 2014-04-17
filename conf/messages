@@ -563,6 +563,14 @@ user.resetInfo = 点击下面的链接，重置密码
 user.loginUserIdErr = 请输入用户名！
 user.cancelBeStylist = 取消当前申请
 
+
+#Mail
+mail.subjectOfResetPwd = 来自美范网的密码重置邮件
+
+
+
+
+
 #Letter
 letter.addressee=收件人
 letter.sender=发件人
