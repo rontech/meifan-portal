@@ -396,4 +396,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             case None => NotFound
         }
     }
+    
+    def getSalonBySearch = Action {
+      Ok(views.html.salon.salonSearchMain(""))
+    }
 }

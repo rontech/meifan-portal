@@ -1,4 +1,4 @@
-@(styles: List[models.Style], isStylist: Boolean)
+@(styles: List[models.Style], isStylist: Boolean, uId: ObjectId = new ObjectId, loginUserId: ObjectId = new ObjectId)
 @import helper._
 
 <div>
@@ -15,8 +15,8 @@
 		            	<p><span >@styles(i).styleName</span></p>
 		        	</div>
 		        	<div class="txtC">
-		        	
-                        @if(isStylist) {
+		        	@if(uId == loginUserId){
+		        		@if(isStylist) {
     					    <p>
     			                <a href="@auth.routes.Stylists.styleUpdateByStylist(styles(i).id)" >@Messages("common.edit")</a>
     			                <a href="@auth.routes.Stylists.styleToInvalidByStylist(styles(i).id)" >@Messages("common.delete")</a>
@@ -28,6 +28,8 @@
                                 <a href="@auth.routes.Salons.styleToInvalidBySalon(styles(i).id)" >@Messages("common.delete")</a>
                             </p>
                         }
+		        	}
+                        
                     </div>
 				</div>
 			    </td>
