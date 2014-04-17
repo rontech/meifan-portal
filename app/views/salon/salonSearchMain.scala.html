@@ -14,7 +14,7 @@
             <li>
             <div class="demo">
 	            <div>
-					<input type="text" value="" size="15" id="getcity_name" name="getcity_name" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@@Beijing|北京|53@@Shanghai|上海|321@@Shenzhen|深圳|91@@Guangzhou|广州|80@@Qingdao|青岛|292@@Chengdu|成都|324@@Hangzhou|杭州|383@@Wuhan|武汉|192@@Tianjin|天津|343@@Dalian|大连|248@@Xiamen|厦门|61@@Chongqing|重庆|394@@" mod_address_reference="getcityid" mod_notice_tip="中文/拼音" />
+					<input type="text" value="" size="15" id="getcity_name" onPropertyChange="changeArea('getcity_name');"  name="getcity_name" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@@Beijing|北京|53@@Shanghai|上海|321@@Shenzhen|深圳|91@@Guangzhou|广州|80@@Qingdao|青岛|292@@Chengdu|成都|324@@Hangzhou|杭州|383@@Wuhan|武汉|192@@Tianjin|天津|343@@Dalian|大连|248@@Xiamen|厦门|61@@Chongqing|重庆|394@@" mod_address_reference="getcityid" mod_notice_tip="中文/拼音" />
 					<input id="getcityid" name="getcityid" type="hidden" value="{$getcityid}" />
 				</div>
 			</div>
@@ -41,7 +41,7 @@
         <div class="rBox">
             <div class="notto"><a href="http://hotel.elong.com/soochow/?aioIndex=-1&amp;aioVal=#" class="cur" method="l_no">不限</a></div>
             <ul class="place" id="locationTab">
-                <li class="active"><a href="javascript:changeArea('getcity_name');" rel="nofollow" method="l_3" class="cur">行政区<span class="iconjt"></span></a></li>
+                <li class="active"><a href="javascript:;" rel="nofollow" method="l_3" class="cur">行政区<span class="iconjt"></span></a></li>
                 <li class=""><a href="javascript:;" rel="nofollow" method="l_6" class="cur">商圈<span class="iconjt"></span></a></li>
             </ul>
         </div>

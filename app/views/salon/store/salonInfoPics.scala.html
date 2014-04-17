@@ -24,16 +24,14 @@
 				<div class="pH10 mT20 oh w745">
 					<ul class="cFix w786">
 					<li class="fl w221 bdGrayR mR20 pR20">
-							<div class="taC"><img src="@routes.Application.getPhoto(salon.salonPics(4).fileObjId)" class="bdImgGray" /></div>
-							<p class="fgGray fs10 mT10">@salon.salonPics(4).description</p>
-						</li>
-					<li class="fl w221 bdGrayR mR20 pR20">
-							<div class="taC"><img src="@routes.Application.getPhoto(salon.salonPics(5).fileObjId)" class="bdImgGray" /></div>
-							<p class="fgGray fs10 mT10">@salon.salonPics(5).description</p>
-						</li>
-					<li class="fl w221">
-							<div class="taC"><img src="@routes.Application.getPhoto(salon.salonPics(6).fileObjId)" class="bdImgGray" /></div>
-							<p class="fgGray fs10 mT10">@salon.salonPics(6).description</p>
+					@if(salon.salonPics.size > 4){
+						@for(i <- 4 to salon.salonPics.size-1){
+							@if(salon.salonPics(i).picUse == "Atmosphere" ){
+								<div class="taC"><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)" class="bdImgGray" /></div>
+								<p class="fgGray fs10 mT10">@salon.salonPics(i).description</p>								
+									}
+						}
+					}
 						</li>
 					</ul>
 				</div>

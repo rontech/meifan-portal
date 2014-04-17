@@ -1,6 +1,10 @@
+$('#getcity_name').keyup(function(event){
+	
+}		
+);
 function changeArea(_cmbCity){
 	var cmbArea = document.getElementById('oneLine')
-	var cmbCity = document.getElementById(_cmbCity);
+	var cmbCity = document.getElementById('getcity_name');
 	var city = cmbCity.value;
 	$('#areafield').empty();
 	for(var i=0; i<provinceList.length; i++)
