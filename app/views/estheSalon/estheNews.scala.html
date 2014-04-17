@@ -1,17 +1,21 @@
+@(infoList : List[Info] = Info.findEstheInfo(6))
 <div id="index_news">
 	<h2><img src="@routes.Assets.at("images/esthe/index_news_title.jpg")" width="165" height="36" /></h2>
     <div id="index_news_nr">
-    	<dl>
+    	@*<dl>
         	<dt><a href="#" class="link-green">整容之后比以往更加美丽动人</a></dt>
             <dd class="pic"><img src="@routes.Assets.at("images/esthe/index_news_pic.jpg")" width="138" height="95" /></dd>
             <dd class="txt">整容之后比以往更加美丽动人整容之后比以往更加美丽动人整容之后比以往更加美丽动人整容之后比以往更加美丽动人</dd>
-        </dl>
+        </dl>*@
  		<ul>
-        	<li><a href="#">"破产姐妹"注意了！1折复制明星行头</a></li>
-        	<li><a href="#">小伙伴嗨起来 明星婚礼那些超有爱瞬间</a></li>
+ 		@for(info <- infoList){
+        	<li><a href="@noAuth.routes.Infos.getOneInfo(info.id)">@info.title</a></li>
+       	}
+        	@*<li><a href="#">小伙伴嗨起来 明星婚礼那些超有爱瞬间</a></li>
 			<li><a href="#">营造春夏百变妆效 光泽感底妆是重点</a></li>
     		<li><a href="#">8个减压法疏解工作压力</a></li>
-			<li><a href="#">小伙伴嗨起来 明星婚礼那些超有爱瞬间</a></li>
+			<li><a href="#">小伙伴嗨起来 明星婚礼那些超有爱瞬间</a></li>*@
+			
        	</ul>
 	</div>
 </div>
