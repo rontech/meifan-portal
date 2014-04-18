@@ -17,7 +17,6 @@ import org.mindrot.jbcrypt.BCrypt
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import utils.Tools
-import play.api.templates.Html
 
 object Salons extends Controller with LoginLogout with AuthElement with SalonAuthConfigImpl{
   

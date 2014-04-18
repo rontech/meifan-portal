@@ -521,7 +521,7 @@ user.passwordError=密码不合法！
 user.telError=手机号码无效!
 user.toBeUserId= 6~18位字符,可使用字母、数字和下划线!
 user.toBePassword= 6~16位字符,可使用字符、数字或符号的组合！
-user.nickNameErr=给个昵称吧！
+user.nickNameErr=该昵称无效！
 user.welcome=欢迎您，{0}
 user.guestName=游客
 user.pleaseSignUp=免费会员注册
@@ -564,6 +564,7 @@ user.resetPassword = 重置密码
 user.resetInfo = 点击下面的链接，重置密码
 user.loginUserIdErr = 请输入用户名！
 user.cancelBeStylist = 取消当前申请
+user.nickName = 4~10位字符！
 
 
 #Mail
@@ -858,3 +859,24 @@ salonRelax.footSpa=足疗按摩
 salonRelax.bodySpa=全身SPA
 salonRelax.sportSpa=瘦身健美
 salonRelax.yoGa=瑜伽
+
+#salonSerachPage
+salonSerachPage.city = 城市
+salonSerachPage.location = 位置：
+salonSerachPage.region = 地区
+salonSerachPage.businessArea = 商圈
+salonSerachPage.keyword = 关键词
+salonSerachPage.manualDefine = 自定义
+salonSerachPage.confirm = 确定
+salonSerachPage.setNumber = 座位数
+salonSerachPage.unlimited = 不限
+salonSerachPage.otherCondtion = 其它 
+salonSerachPage.over = 元以上
+salonSerachPage.rmb = 元
+salonSerachPage.below = 元以下
+salonSerachPage.meifanRec = 美范推荐
+salonSerachPage.sortByHot = 热度
+salonSerachPage.sortByPrice = 价格
+salonSerachPage.sortByComment = 评论
+salonSerachPage.serviceType = 服务类别
+

@@ -111,15 +111,16 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
      */
     val salonSearchForm: Form[SearchParaForSalon] = Form(
         mapping(
+            "keyWord"-> text,
             "city" -> text,
             "region" -> text,
             "salonName" -> list(text),
             "salonIndustry" -> text,
             "serviceType" -> list(text),
-            "haircutPrice" -> mapping(
+            "priceRange" -> mapping(
                     "minPrice" -> bigDecimal,
                     "maxPrice"-> bigDecimal
-                    )(HaircutPrice.apply)(HaircutPrice.unapply),
+                    )(PriceRange.apply)(PriceRange.unapply),
             "seatNums" ->  mapping(
                     "minNum" -> number,
                     "maxNum"-> number
@@ -143,7 +144,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                     salonFacilities =>
                         Some((salonFacilities.canOnlineOrder, salonFacilities.canImmediatelyOrder, salonFacilities.canNominateOrder, salonFacilities.canCurntDayOrder, salonFacilities.canMaleUse, salonFacilities.isPointAvailable, salonFacilities.isPosAvailable, salonFacilities.isWifiAvailable,
                             salonFacilities.hasParkingNearby))
-                })(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
+                },
+                "sortByCondition" -> text)(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
 
     /**
      * 店铺注册
@@ -155,8 +157,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         {
             salonRegister =>
                 Salon.save(salonRegister, WriteConcern.Safe)
-                Redirect(auth.routes.Salons.checkInfoState)
-        })
+                    Redirect(auth.routes.Salons.checkInfoState)
+            })
     }
     /*-------------------------
      * The Main Page of All Salon 
@@ -425,5 +427,21 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             case Some(s) => Ok(html.coupon.showCouponGroup(s, coupons))
             case None => NotFound
         }
+    }
+    
+
+    def getMap(salonId: ObjectId) = Action {
+        val salon: Option[Salon] = Salon.findOneById(salonId)
+        salon match {
+            case Some(s) => 
+                val address = s.salonAddress.get.province + s.salonAddress.get.city.getOrElse("") + s.salonAddress.get.region.getOrElse("") + 
+                	s.salonAddress.get.town.getOrElse("") + s.salonAddress.get.addrDetail
+                Ok(html.salon.store.map(s, SalonNavigation.getSalonNavBar(salon), None, address))
+            case None => NotFound
+        }
+    }
+    
+    def getSalonBySearch = Action {
+      Ok(views.html.salon.salonSearchMain(""))
     }
 }
