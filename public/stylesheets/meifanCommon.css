@@ -399,10 +399,6 @@ color: #f36d7a;
 		width:220px;
 		clear:both;
 	}
-	#index_zxfx_pic{
-		width:220px;
-		float:left;
-	}
 
 #index_zxfx_pic li.one{
 	width:220px;
@@ -437,19 +433,6 @@ color: #f36d7a;
 }
 /*--切换--*/
 
-#index_zxfxlist{
-	width:340px;
-	float:right;
-}
-#index_zxfxlist ul li{
-	float:left;
-	padding:0px 0px 0px 14px;
-}
-#index_zxfxlist ul li span{
-	display:block;
-	text-align:center;
-	line-height:20px;
-}
 #left_container{
 	width:795px;
 	clear:both;
@@ -595,43 +578,6 @@ text-align:center;
 	float:right;
 }*/
 /*--end 整型美容--*/
-#index_leis{
-	width:795px;
-	clear:both;
-	overflow:hidden;
-}
-#index_leis h2{
-	border-top:1px solid #e1e1e1;
-	clear:both;
-}
-#index_leis_nr{
-	width:795px;
-	clear:both;
-	overflow:hidden;
-	padding:10px 0px;
-}
-#index_leis_nr dl{
-	width:260px;
-	float:left;
-	padding:0px 5px 10px 0px;
-}
-#index_leis_nr dl.right{
-	padding-right:0px;
-}
-#index_leis_nr dl dt{
-	width:170px;
-	float:right;
-}
-#index_leis_nr dl dd.pic{
-	width:80px;
-	float:left;
-}
-#index_leis_nr dl dd.txt{
-	width:170px;
-	float:right;
-}
-
-
 
 /*-------------------------------------------end left-------------------------------*/
 #right{
@@ -663,14 +609,19 @@ text-align:center;
 	clear:both;
 	overflow:hidden;
 }
-
-
-
 #index_member_nr p.ad{
-	width:155px; height:45px; padding:5px; font-family:"微软雅黑"; color: #FFF; padding-top:2px; font-size:13px;
+	width:155px;
+	height:45px;
+	padding:5px;
+	font-family:"微软雅黑";
+	color: #FFF; 
+	padding-top:2px; 
+	font-size:13px;
+	text-align:center;
 	clear:both;
 	overflow:hidden;
-	margin:0 auto;background:url(/assets/images/right_member_pic.jpg) no-repeat;
+	margin:0 auto;
+	background:url(/assets/images/right_member_pic.jpg) no-repeat;
 }
 #index_member_nr p.fk{
 	clear:both;
@@ -770,7 +721,6 @@ text-align:center;
 #index_blog_nr dl dt{
 	width:75px;
 	float:right;
-	line-height:30px;
 }
 #index_blog_nr dl dd.pic{
 	width:58px;
@@ -848,6 +798,10 @@ text-align:center;
 	margin-right: -1px;
 }
 
+.right {
+float: right;
+}
 
-.pl_bt{ width:210px; height:36px; overflow:hidden; clear:both; margin:0 auto; padding-bottom:8px}
-
+#index_blog_nr ul li {
+	margin-top: -1px;
+}
