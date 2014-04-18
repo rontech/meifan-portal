@@ -3,7 +3,6 @@ package models
 import play.api.Play.current
 import play.api.PlayException
 import com.novus.salat.dao._
-//import com.mongodb.casbah.commons.Imports._
 import com.mongodb.casbah.MongoConnection
 import mongoContext._
 import se.radley.plugin.salat.Binders._
@@ -12,8 +11,8 @@ import models._
 import org.mindrot.jbcrypt.BCrypt
 import scala.concurrent.{ ExecutionContext, Future }
 import ExecutionContext.Implicits.global
-
 import com.mongodb.casbah.query.Imports._
+import play.Configuration
 
 /*----------------------------
  * Embed Structure of Salon.
@@ -199,7 +198,6 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
      * 前台店铺检索
      */
     def findSalonBySearchPara(searchParaForSalon : SearchParaForSalon) = {
-       
         var salons : List[models.Salon] = Nil
         var salonList : List[models.Salon] = Nil
         //对salonFacilities条件进行变形
@@ -239,40 +237,52 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
         if(searchParaForSalon.salonFacilities.isWifiAvailable == true) {
             isWifiAvailable = List(true)
         }
+        //对region/salonName/salonIndustry/seatNums检索条件变形
+        //"_id" -> MongoDBObject("$exists" -> true)为恒成立条件
+        val region = if (searchParaForSalon.region.equals("all")) { "_id" -> MongoDBObject("$exists" -> true) } else { "salonAddress.region" -> searchParaForSalon.region }
+        val salonIndustry = if (searchParaForSalon.salonIndustry.equals("all")) { "_id" -> MongoDBObject("$exists" -> true)} else { "salonIndustry" -> searchParaForSalon.salonIndustry }
+        val salonName = if (searchParaForSalon.region.isEmpty) { "" $in "" } else { "salonName" $in searchParaForSalon.salonName }
         //以city/region/salonName/salonIndustry/seatNums/salonFacilities作为check条件
-        if(searchParaForSalon.region.equals("all")){
-            salonList = dao.find($and(
-                "salonIndustry" $in searchParaForSalon.salonIndustry,
-                "salonFacilities.$.canOnlineOrder" $in canOnlineOrder,
-                "salonFacilities.$.canImmediatelyOrder" $in canImmediatelyOrder,
-                "salonFacilities.$.canNominateOrder" $in canNominateOrder,
-                "salonFacilities.$.canCurntDayOrder" $in canCurntDayOrder,
-                "salonFacilities.$.canMaleUse" $in canMaleUse,
-                "salonFacilities.$.isPointAvailable" $in isPointAvailable,
-                "salonFacilities.$.isPosAvailable" $in isPosAvailable,
-                "salonFacilities.$.isWifiAvailable" $in isWifiAvailable,
-                "salonFacilities.$.hasParkingNearby" $in hasParkingNearby,
-                MongoDBObject("salonAddress.$.city" -> searchParaForSalon.city,"salonName" -> searchParaForSalon.salonName,"seatNums" -> searchParaForSalon.seatNums))).toList
-        }else {
-            salonList = dao.find($and(
-                "salonIndustry" $in searchParaForSalon.salonIndustry,
-                "salonFacilities.$.canOnlineOrder" $in canOnlineOrder,
-                "salonFacilities.$.canImmediatelyOrder" $in canImmediatelyOrder,
-                "salonFacilities.$.canNominateOrder" $in canNominateOrder,
-                "salonFacilities.$.canCurntDayOrder" $in canCurntDayOrder,
-                "salonFacilities.$.canMaleUse" $in canMaleUse,
-                "salonFacilities.$.isPointAvailable" $in isPointAvailable,
-                "salonFacilities.$.isPosAvailable" $in isPosAvailable,
-                "salonFacilities.$.isWifiAvailable" $in isWifiAvailable,
-                "salonFacilities.$.hasParkingNearby" $in hasParkingNearby,
-                MongoDBObject("salonAddress.$.city" -> searchParaForSalon.city, "salonAddress.$.region" -> searchParaForSalon.region,"salonName" -> searchParaForSalon.salonName,"seatNums" -> searchParaForSalon.seatNums))).toList
-        }
-        
-        //"seatNums" -> ("$gte" -> 18,"$lte":30))
+        println("=======salonList=5555======"+searchParaForSalon.city)
+        salonList = dao.find($and(
+            salonName,
+            "salonFacilities.canOnlineOrder" $in canOnlineOrder,
+            "salonFacilities.canImmediatelyOrder" $in canImmediatelyOrder,
+            "salonFacilities.canNominateOrder" $in canNominateOrder,
+            "salonFacilities.canCurntDayOrder" $in canCurntDayOrder,
+            "salonFacilities.canMaleUse" $in canMaleUse,
+            "salonFacilities.isPointAvailable" $in isPointAvailable,
+            "salonFacilities.isPosAvailable" $in isPosAvailable,
+            "salonFacilities.isWifiAvailable" $in isWifiAvailable,
+            "salonFacilities.hasParkingNearby" $in hasParkingNearby,
+            MongoDBObject("salonAddress.city" -> searchParaForSalon.city,region,salonIndustry,"seatNums" -> MongoDBObject("$lte" -> searchParaForSalon.seatNums.maxNum, "$gte" -> searchParaForSalon.seatNums.minNum)))).toList
         //以serviceType/haircutPrice作为check条件
-//        salonList.map { salon =>
-//            
-//        }
+        if (searchParaForSalon.serviceType.nonEmpty) {
+            salonList.map { salon =>
+                if(Service.findServiceTypeBySalonId(salon.id).containsSlice(searchParaForSalon.serviceType) && (searchParaForSalon.priceRange.minPrice <= findLowestPriceBySalonId(salon.id)) && (findLowestPriceBySalonId(salon.id) <= searchParaForSalon.priceRange.maxPrice)) {
+                    salons ::= salon
+                }
+            }
+        } else {
+            salonList.map { salon =>
+                if((searchParaForSalon.priceRange.minPrice <= findLowestPriceBySalonId(salon.id)) && (findLowestPriceBySalonId(salon.id) <= searchParaForSalon.priceRange.maxPrice)) {
+                    salons ::= salon
+                }
+            }
+        }
+        salons
+    }
+    /**
+     * 检索某一店铺服务的最低价格
+     */
+    def findLowestPriceBySalonId(salonId : ObjectId) : BigDecimal = {
+        var lowestPrice : BigDecimal = 0
+        //获取最低剪发价格
+        Service.getLowestPriceOfSrvType(salonId,"Cut") match {
+            case Some(lowPrice) => { lowestPrice = lowPrice }
+            case None => None
+        }
+        lowestPrice
     }
     
 }
@@ -311,6 +321,15 @@ case class SalonFacilities (
    parkingDesc: String
 )
 
+object SalonFacilities extends ModelCompanion[SalonFacilities, ObjectId] {
+    def collection = MongoConnection()(
+    current.configuration.getString("mongodb.default.db")
+      .getOrElse(throw new PlayException(
+        "Configuration error",
+        "Could not find mongodb.default.db in settings")))("SalonFacilities")
+        
+        val dao = new SalatDAO[SalonFacilities, ObjectId](collection) {}
+}
 
 /**
  * Embed Structure.
@@ -363,22 +382,44 @@ case class SalonPics(
  * salon检索字段合成类
  */
 case class SearchParaForSalon(
-    city : String,    
+    keyWord : String,
+    city : String,
     region: String,
     salonName: List[String],
     salonIndustry: String,
     serviceType: List[String],
-    haircutPrice: HaircutPrice, 
+    priceRange: PriceRange, 
     seatNums: SeatNums,
-    salonFacilities: SalonFacilities
+    salonFacilities: SalonFacilities,
+    sortByCondition: String
 )
 
-case class HaircutPrice(
+case class PriceRange(
     minPrice: BigDecimal,
     maxPrice: BigDecimal
 )
+
+object PriceRange extends ModelCompanion[PriceRange, ObjectId] {
+    def collection = MongoConnection()(
+    current.configuration.getString("mongodb.default.db")
+      .getOrElse(throw new PlayException(
+        "Configuration error",
+        "Could not find mongodb.default.db in settings")))("PriceRange")
+        
+        val dao = new SalatDAO[PriceRange, ObjectId](collection) {}
+}
 
 case class SeatNums(
     minNum: Int,
     maxNum: Int
 )
+
+object SeatNums extends ModelCompanion[SeatNums, ObjectId] {
+    def collection = MongoConnection()(
+    current.configuration.getString("mongodb.default.db")
+      .getOrElse(throw new PlayException(
+        "Configuration error",
+        "Could not find mongodb.default.db in settings")))("SeatNums")
+        
+        val dao = new SalatDAO[SeatNums, ObjectId](collection) {}
+}

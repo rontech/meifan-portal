@@ -2,43 +2,19 @@
 <div id="index_leis">
 	<h2><img src="@routes.Assets.at("images/index_mnews_title.jpg")" width="272" height="36" /></h2>
     <div id="index_leis_nr">
-    @for(info <- infoList){
-    	<dl>
-        	<dt><a href="@noAuth.routes.Infos.getOneInfo(info.id)" class="link-green">@info.title</a></dt>
-            @*<dd class="pic"><a href="#"><img src="@routes.Assets.at("images/meifanNews/index_leis_pic01.jpg")" width="80" height="90" /></a></dd>*@
-            <dd class="pic"><a href="@noAuth.routes.Infos.getOneInfo(info.id)"><img src="@routes.Application.getPhoto(info.infoPics(0).fileObjId)" width="80" height="90" /></a></dd>
-            <dd class="txt">
-            @Html(info.content.slice(0, 40))
-        	@if(info.content.length > 40 ) {...}
-            </dd>
-        </dl>
-    }
-        @*
-        <dl>
-        	<dt><a href="#" class="link-green">多饮水果汁 补VC不成反贫血</a></dt>
-            <dd class="pic"><a href="#"><img src="@routes.Assets.at("images/meifanNews/index_leis_pic02.jpg")" width="80" height="90" /></a></dd>
-            <dd class="txt">造型可爱美味可口的圣诞小饼干无疑是圣诞最应景的点心……</dd>
-        </dl>
-        <dl class="right">
-        	<dt><a href="#" class="link-green">科洛莫瑞兹修成长腿萝莉</a></dt>
-            <dd class="pic"><a href="#"><img src="@routes.Assets.at("images/meifanNews/index_leis_pic03.jpg")" width="80" height="90" /></a></dd>
-            <dd class="txt">预订确认要做的就是选择预约的日期和时间！不与店内协调确定</dd>
-        </dl>
-        <dl>
-        	<dt><a href="#" class="link-green">4类蛋白质含量高的食物</a></dt>
-            <dd class="pic"><a href="#"><img src="@routes.Assets.at("images/meifanNews/index_leis_pic04.jpg")" width="80" height="90" /></a></dd>
-            <dd class="txt">高蛋白高纤维是选择减肥食物的黄金标准。一般推荐人体每天所需的热量有10%～15%……</dd>
-        </dl>
-        <dl>
-   	    <dt><a href="#" class="link-green">4招除水肿 还你下半身纤细体态</a></dt>
-            <dd class="pic"><a href="#"><img src="@routes.Assets.at("images/meifanNews/index_leis_pic05.jpg")" width="80" height="90" /></a></dd>
-            <dd class="txt">下半身水肿几乎是每个办公室女性都拥有的困扰，久坐不止会导致循环代谢变慢变差……</dd>
-        </dl>
-        <dl class="right">
-   	    <dt><a href="#" class="link-green">小心宠物依赖症</a></dt>
-            <dd class="pic"><a href="#"><img src="@routes.Assets.at("images/meifanNews/index_leis_pic06.jpg")" width="80" height="90" /></a></dd>
-            <dd class="txt">养个宠物排遣寂寞，不仅仅是空巢老人们慰藉心灵的方式，也是不少白领人群追崇的一种时尚。</dd>
-        </dl>
-        *@
+	    @for(info <- infoList){
+	    	<dl>
+	        	<dt><a href="@noAuth.routes.Infos.getOneInfo(info.id)" class="link-green">@info.title</a></dt>
+	            <dd class="pic"><a href="@noAuth.routes.Infos.getOneInfo(info.id)"><img src="@routes.Application.getPhoto(info.infoPics(0).fileObjId)" width="80" height="90" /></a></dd>
+	            <dd class="txt">
+	            @Html(info.content.slice(0, 25)) ...
+	            </dd>
+	            <dd class="more">
+	            	<a href="@noAuth.routes.Infos.getOneInfo(info.id)">
+	            		<img src="@routes.Assets.at("images/more.jpg")" width="40" height="10">
+	            	</a>
+	            </dd>
+	        </dl>
+	    }
     </div>
 </div>
