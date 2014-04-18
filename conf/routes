@@ -3,132 +3,136 @@
 # ~~~~
 
 # Home page
-GET         /                                                               controllers.Application.index
+GET         /                                                                    controllers.Application.index
 
 # User Login & Register & Public Info.
 # Jump to User Login Page.
-GET         /userLogin                                                      controllers.Application.login
-GET         /userRegister                                                   controllers.Application.register
-GET         /salonLogin                                                     controllers.Application.salonLogin
-GET         /salonRegister                                                  controllers.Application.salonRegister
+GET         /userLogin                                                           controllers.Application.login
+GET         /userRegister                                                        controllers.Application.register
+GET         /salonLogin                                                          controllers.Application.salonLogin
+GET         /salonRegister                                                       controllers.Application.salonRegister
 
-POST        /userLogin                                                      controllers.auth.Users.login
-GET         /userLogout                                                     controllers.auth.Users.logout
-POST        /userRegister                                                   controllers.noAuth.Users.register
+POST        /userLogin                                                           controllers.auth.Users.login
+GET         /userLogout                                                          controllers.auth.Users.logout
+POST        /userRegister                                                        controllers.noAuth.Users.register
 
-POST        /salonLogin                                                     controllers.auth.Salons.salonLogin
-GET         /salonLogout                                                    controllers.auth.Salons.salonLogout
-POST        /salonRegister                                                  controllers.noAuth.Salons.register
+POST        /salonLogin                                                          controllers.auth.Salons.salonLogin
+GET         /salonLogout                                                         controllers.auth.Salons.salonLogout
+POST        /salonRegister                                                       controllers.noAuth.Salons.register
 
 
 # Common
 # get photo
-GET         /getPhoto/:name                                                 controllers.Application.getPhoto(name: ObjectId)
-GET         /getPhotoByString/:name                                         controllers.Application.getPhotoByString(name: String)
-POST        /upload                                                         controllers.Application.upload()
-GET         /saveImg/:id                                                    controllers.auth.Users.saveImg(id :ObjectId)
+GET         /getPhoto/:name                                                      controllers.Application.getPhoto(name: ObjectId)
+GET         /getPhotoByString/:name                                              controllers.Application.getPhotoByString(name: String)
+POST        /upload                                                              controllers.Application.upload()
+POST        /changeLogo                                                          controllers.Application.changeLogo()
+GET         /saveImg/:id                                                         controllers.auth.Users.saveImg(id :ObjectId)
 
 # FollowTypes
-GET         /FollowTypes/add                                                controllers.FollowTypes.addFollowType
-GET         /FollowTypes/main                                               controllers.FollowTypes.followTypeMain
+GET         /FollowTypes/add                                                     controllers.FollowTypes.addFollowType
+GET         /FollowTypes/main                                                    controllers.FollowTypes.followTypeMain
 # ServiceTypes
-GET         /addServiceType                                                 controllers.ServiceTypes.addServiceType
-GET         /serviceTypeMain                                                controllers.ServiceTypes.serviceTypeMain
+GET         /addServiceType                                                      controllers.ServiceTypes.addServiceType
+GET         /serviceTypeMain                                                     controllers.ServiceTypes.serviceTypeMain
 
 #-------------------------------------------------
 # 未登录用户看到的跳转
 # Pages Which can be seen by anonymous.
 #-------------------------------------------------
 # Salon
-GET         /salon                                                          controllers.noAuth.Salons.index
-GET         /salon/:salonId                                                 controllers.noAuth.Salons.getSalon(salonId: ObjectId)
+GET         /salon                                                               controllers.noAuth.Salons.index
+GET         /salon/:salonId                                                      controllers.noAuth.Salons.getSalon(salonId: ObjectId)
 # Salon.style
-GET         /salon/:salonId/style/:styId                                    controllers.noAuth.Salons.getOneStyle(salonId: ObjectId, styId: ObjectId)
-GET         /salon/:salonId/styles                                          controllers.noAuth.Salons.getAllStyles(salonId: ObjectId)
-GET         /salon/:salonId/styles/:sex                                     controllers.noAuth.Styles.findBySalonAndSex(salonId: ObjectId, sex: String)
+GET         /salon/:salonId/style/:styId                                         controllers.noAuth.Salons.getOneStyle(salonId: ObjectId, styId: ObjectId)
+GET         /salon/:salonId/styles                                               controllers.noAuth.Salons.getAllStyles(salonId: ObjectId)
+GET         /salon/:salonId/styles/:sex                                          controllers.noAuth.Styles.findBySalonAndSex(salonId: ObjectId, sex: String)
 # Salon.stylist
-GET         /salon/:salonId/stylist/:stlId                                  controllers.noAuth.Salons.getOneStylist(salonId: ObjectId, stlId: ObjectId)
-GET         /salon/:salonId/stylists                                        controllers.noAuth.Salons.getAllStylists(salonId: ObjectId)
-GET         /salon/:salonId/stylistFormBlog/:userId                         controllers.noAuth.Blogs.getAuthorOfSalonBlog(salonId: ObjectId, userId: String)
+GET         /salon/:salonId/stylist/:stlId                                       controllers.noAuth.Salons.getOneStylist(salonId: ObjectId, stlId: ObjectId)
+GET         /salon/:salonId/stylists                                             controllers.noAuth.Salons.getAllStylists(salonId: ObjectId)
+GET         /salon/:salonId/stylistFormBlog/:userId                              controllers.noAuth.Blogs.getAuthorOfSalonBlog(salonId: ObjectId, userId: String)
 # Salon.coupon
-GET         /salon/:salonId/coupons                                         controllers.noAuth.Salons.getAllCoupons(salonId: ObjectId)
-POST        /salon/:salonId/coupons/condition                               controllers.noAuth.Salons.getCouponsByCondition(salonId: ObjectId)
+GET         /salon/:salonId/coupons                                              controllers.noAuth.Salons.getAllCoupons(salonId: ObjectId)
+POST        /salon/:salonId/coupons/condition                                    controllers.noAuth.Salons.getCouponsByCondition(salonId: ObjectId)
 # Salon.comment
-GET         /salon/:salonId/comments                                        controllers.noAuth.Comments.findBySalon(salonId: ObjectId)
+GET         /salon/:salonId/comments                                             controllers.noAuth.Comments.findBySalon(salonId: ObjectId)
 # Salon.blog
-GET         /salon/:salonId/blogs                                           controllers.noAuth.Blogs.getAllBlogsOfSalon(salonId: ObjectId)
-GET         /salon/:salonId/blogs/month/:month                              controllers.noAuth.Blogs.getAllBlogsOfSalonByMonth(salonId: ObjectId, month: String)
-GET         /salon/:salonId/blogs/stylist/:stylistId                        controllers.noAuth.Blogs.getAllBlogsOfStylist(salonId: ObjectId, stylistId: ObjectId)
-GET         /salon/:salonId/blog/:blogId                                    controllers.noAuth.Blogs.getOneBlogOfSalon(salonId: ObjectId, blogId: ObjectId)
+GET         /salon/:salonId/blogs                                                controllers.noAuth.Blogs.getAllBlogsOfSalon(salonId: ObjectId)
+GET         /salon/:salonId/blogs/month/:month                                   controllers.noAuth.Blogs.getAllBlogsOfSalonByMonth(salonId: ObjectId, month: String)
+GET         /salon/:salonId/blogs/stylist/:stylistId                             controllers.noAuth.Blogs.getAllBlogsOfStylist(salonId: ObjectId, stylistId: ObjectId)
+GET         /salon/:salonId/blog/:blogId                                         controllers.noAuth.Blogs.getOneBlogOfSalon(salonId: ObjectId, blogId: ObjectId)
 
 # Style
-GET         /style                                                          controllers.noAuth.Styles.index
-POST        /style/searchPage                                               controllers.noAuth.Styles.styleSearchList
-GET         /style/length/:styleLength/:consumerSex                         controllers.noAuth.Styles.findByLength(styleLength: String, consumerSex: String)
-GET         /style/impression/:styleImpression/:consumerSex                 controllers.noAuth.Styles.findByImpression(styleImpression: String, consumerSex: String)
+GET         /style                                                               controllers.noAuth.Styles.index
+POST        /style/searchPage                                                    controllers.noAuth.Styles.styleSearchList
+GET         /style/length/:styleLength/:consumerSex                              controllers.noAuth.Styles.findByLength(styleLength: String, consumerSex: String)
+GET         /style/impression/:styleImpression/:consumerSex                      controllers.noAuth.Styles.findByImpression(styleImpression: String, consumerSex: String)
 
 # User
-GET         /user/:userId                                                   controllers.noAuth.Users.userPage(userId)
-GET         /userPage/:userId/blogs                                         controllers.noAuth.Blogs.getAllBlogsOfUser(userId : String)
-GET         /userPage/blog/:blogId                                          controllers.noAuth.Blogs.getOneBlogById(blogId : ObjectId)
-GET         /userPage/:publicId/followedSalon                               controllers.noAuth.MyFollows.followedSalon(publicId: ObjectId)
-GET         /userPage/:publicId/followedStylist                             controllers.noAuth.MyFollows.followedStylist(publicId: ObjectId)
-GET         /userPage/:publicId/followedUser                                controllers.noAuth.MyFollows.followedUser(publicId:ObjectId)
-GET         /userPage/:publicId/followers                                   controllers.noAuth.MyFollows.followers(publicId:ObjectId)
-GET         /userPage/:stylistId/mySalon                                    controllers.noAuth.Stylists.mySalonFromStylist(stylistId: ObjectId)
-GET         /userPage/:stylistId/styles                                     controllers.noAuth.Stylists.findStylesByStylist(stylistId: ObjectId)
-POST        /userPage/:stylistId/styles                                     controllers.noAuth.Stylists.findStylesBySerach(stylistId: ObjectId)
+GET         /user/:userId                                                        controllers.noAuth.Users.userPage(userId)
+GET         /userPage/:userId/blogs                                              controllers.noAuth.Blogs.getAllBlogsOfUser(userId : String)
+GET         /userPage/blog/:blogId                                               controllers.noAuth.Blogs.getOneBlogById(blogId : ObjectId)
+GET         /userPage/:publicId/followedSalon                                    controllers.noAuth.MyFollows.followedSalon(publicId: ObjectId)
+GET         /userPage/:publicId/followedStylist                                  controllers.noAuth.MyFollows.followedStylist(publicId: ObjectId)
+GET         /userPage/:publicId/followedUser                                     controllers.noAuth.MyFollows.followedUser(publicId:ObjectId)
+GET         /userPage/:publicId/followers                                        controllers.noAuth.MyFollows.followers(publicId:ObjectId)
+GET         /userPage/:stylistId/mySalon                                         controllers.noAuth.Stylists.mySalonFromStylist(stylistId: ObjectId)
+GET         /userPage/:stylistId/styles                                          controllers.noAuth.Stylists.findStylesByStylist(stylistId: ObjectId)
+POST        /userPage/:stylistId/styles                                          controllers.noAuth.Stylists.findStylesBySerach(stylistId: ObjectId)
 # TODO >>>>>>>>>>>>>>>>>>>>>
-GET         /userPage/:publicId/HomePage                                    controllers.noAuth.Stylists.otherHomePage(publicId: ObjectId)
-GET         /myPage/checkSalonIsExit/:salonAccountId               			controllers.noAuth.Stylists.checkSalonIsExit(salonAccountId: String)
-GET         /cutImg                                                         controllers.noAuth.Stylists.cutImg
+GET         /userPage/:publicId/HomePage                                         controllers.noAuth.Stylists.otherHomePage(publicId: ObjectId)
+GET         /myPage/checkSalonIsExit/:salonAccountId                             controllers.noAuth.Stylists.checkSalonIsExit(salonAccountId: String)
+GET         /cutImg                                                              controllers.noAuth.Stylists.cutImg
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 # Question
-GET         /question/:qid                                                  controllers.noAuth.Questions.getOneQuestion(qid: ObjectId)
-GET         /questions/                                                     controllers.noAuth.Questions.getAllQuestions()
+GET         /question/:qid                                                       controllers.noAuth.Questions.getOneQuestion(qid: ObjectId)
+GET         /questions/                                                          controllers.noAuth.Questions.getAllQuestions()
+
+# Info
+GET         /info/:infoId                                                   controllers.noAuth.Infos.getOneInfo(infoId: ObjectId)
 
 #-------------------------------------------------
 # 用户管理：登录用户能看到的跳转
 # Pages Which can only be seen by logined user.
 #-------------------------------------------------
 # User Management
-GET         /myPage                                                         controllers.auth.Users.myPage
-GET         /myPage/changeImage                                             controllers.auth.Users.changeImage
-GET         /myPage/info                                                    controllers.auth.Users.myInfo
-POST        /myPage/updateInfo/:userId                                      controllers.auth.Users.updateInfo(userId)
-GET         /password                                                       controllers.auth.Users.password
-POST        /changePassword/:userId                                         controllers.auth.Users.changePassword(userId)
-GET         /myPage/myReservation                                           controllers.auth.Users.myReservation
-GET         /myPage/letters/:req                                            controllers.auth.UserLetters.messageList(req:String)
-GET         /myPage/letter/:id                                              controllers.auth.UserLetters.showMessage(id:ObjectId)
-GET         /myPage/applyStylist                                            controllers.auth.Users.applyStylist
-POST        /myPage/commitStylistApply                                      controllers.auth.Users.commitStylistApply
-GET         /userPage/followedCoupon                                        controllers.auth.MyFollows.followedCoupon(id: ObjectId)
-GET         /userPage/followedBlog                                          controllers.auth.MyFollows.followedBlog(id: ObjectId)
-GET         /userPage/followedStyle                                         controllers.auth.MyFollows.followedStyle(id: ObjectId)
-GET         /userPage/info/:userId                                          controllers.auth.Users.userInfo(userId)
+GET         /myPage                                                              controllers.auth.Users.myPage
+GET         /myPage/changeImage                                                  controllers.auth.Users.changeImage
+GET         /myPage/info                                                         controllers.auth.Users.myInfo
+POST        /myPage/updateInfo/:userId                                           controllers.auth.Users.updateInfo(userId)
+GET         /password                                                            controllers.auth.Users.password
+POST        /changePassword/:userId                                              controllers.auth.Users.changePassword(userId)
+GET         /myPage/myReservation                                                controllers.auth.Users.myReservation
+GET         /myPage/letters/:req                                                 controllers.auth.UserLetters.messageList(req:String)
+GET         /myPage/letter/:id                                                   controllers.auth.UserLetters.showMessage(id:ObjectId)
+GET         /myPage/applyStylist                                                 controllers.auth.Users.applyStylist
+POST        /myPage/commitStylistApply                                           controllers.auth.Users.commitStylistApply
+GET         /userPage/followedCoupon                                             controllers.auth.MyFollows.followedCoupon(id: ObjectId)
+GET         /userPage/followedBlog                                               controllers.auth.MyFollows.followedBlog(id: ObjectId)
+GET         /userPage/followedStyle                                              controllers.auth.MyFollows.followedStyle(id: ObjectId)
+GET         /userPage/info/:userId                                               controllers.auth.Users.userInfo(userId)
 
 
 #GET         /sendMessage                                                   controllers.auth.UserLetters.sendMessage
 # TODO
-GET         /user/createLetterPage/:id                                      controllers.auth.UserLetters.sendLetterPage(id)
-POST        /user/sendLetter                                                controllers.auth.UserLetters.sendLetter
-GET         /user/cancelFollow/:followedId                                  controllers.auth.MyFollows.cancelFollow(followedId:ObjectId)
-GET         /user/addFollow/:followId                                       controllers.auth.MyFollows.addFollow(followId:ObjectId,followObjType:String)
+GET         /user/createLetterPage/:id                                           controllers.auth.UserLetters.sendLetterPage(id)
+POST        /user/sendLetter                                                     controllers.auth.UserLetters.sendLetter
+GET         /user/cancelFollow/:followedId                                       controllers.auth.MyFollows.cancelFollow(followedId:ObjectId)
+GET         /user/addFollow/:followId                                            controllers.auth.MyFollows.addFollow(followId:ObjectId,followObjType:String)
 
 # Blog
-GET         /myPage/createBlog                                              controllers.auth.Blogs.newBlog
-POST        /myPage/createBlog                                              controllers.auth.Blogs.writeBlog
-GET         /myPage/editBlog/:blogId                                        controllers.auth.Blogs.editBlog(blogId : ObjectId)
-POST        /myPage/editBlog                                                controllers.auth.Blogs.modBlog(blogId : ObjectId)
-GET         /myPage/deleteBlog/:blogId                                      controllers.auth.Blogs.deleteBlog(blogId : ObjectId)
+GET         /myPage/createBlog                                                   controllers.auth.Blogs.newBlog
+POST        /myPage/createBlog                                                   controllers.auth.Blogs.writeBlog
+GET         /myPage/editBlog/:blogId                                             controllers.auth.Blogs.editBlog(blogId : ObjectId)
+POST        /myPage/editBlog                                                     controllers.auth.Blogs.modBlog(blogId : ObjectId)
+GET         /myPage/deleteBlog/:blogId                                           controllers.auth.Blogs.deleteBlog(blogId : ObjectId)
 
 # Comment
-GET         /myPage/blog/reply/:commentObjId/:blogId/:commentObjType        controllers.auth.Comments.reply(commentObjId : ObjectId, blogId : ObjectId, commentObjType : Int)
-GET         /myPage/blog/delete/:commentId/:blogId                          controllers.auth.Comments.delete(commentId : ObjectId, blogId : ObjectId)
-GET         /myPage/blog/addComment/:commentObjId/:commentObjType           controllers.auth.Comments.addComment(commentObjId : ObjectId, commentObjType : Int)
-GET         /myPage/coupon/addComment/:commentObjId/:commentObjType         controllers.auth.Comments.addCommentToCoupon(commentObjId : ObjectId, commentObjType : Int)
+GET         /myPage/blog/reply/:commentObjId/:blogId/:commentObjType             controllers.auth.Comments.reply(commentObjId : ObjectId, blogId : ObjectId, commentObjType : Int)
+GET         /myPage/blog/delete/:commentId/:blogId                               controllers.auth.Comments.delete(commentId : ObjectId, blogId : ObjectId)
+GET         /myPage/blog/addComment/:commentObjId/:commentObjType                controllers.auth.Comments.addComment(commentObjId : ObjectId, commentObjType : Int)
+GET         /myPage/coupon/addComment/:commentObjId/:commentObjType              controllers.auth.Comments.addCommentToCoupon(commentObjId : ObjectId, commentObjType : Int)
 
 
 #-------------------------------------------------
@@ -136,29 +140,29 @@ GET         /myPage/coupon/addComment/:commentObjId/:commentObjType         cont
 # pages which can only be seen by logined styist.
 #-------------------------------------------------
 # Stylist
-GET         /myHomePage                                                     controllers.auth.Stylists.myHomePage
-GET         /myPage/style/:styleId                                          controllers.auth.Stylists.styleUpdateByStylist(styleId: ObjectId)
-POST        /myPage/style                                                   controllers.auth.Stylists.styleUpdateNewByStylist
-GET         /myPage/invalidStyle/:styleId                                   controllers.auth.Stylists.styleToInvalidByStylist(styleId: ObjectId)
-GET         /myPage/createStyle                                             controllers.auth.Stylists.styleAddByStylist
-POST        /myPage/createStyle                                             controllers.auth.Stylists.newStyleAddByStylist
-GET         /myPage/stylistApplying                                         controllers.auth.Stylists.findStylistApplying
-GET         /myPage/wantToApply                                             controllers.auth.Stylists.wantToApply
-GET         /myPage/cancelApplying                                          controllers.auth.Stylists.cancelMyApplying
-GET         /myPage/toApplySalon/:salonId                                   controllers.auth.Stylists.toApplySalon(salonId: ObjectId)
-GET         /myPage/salon                                                   controllers.auth.Stylists.findSalonBySalonAccountId
+GET         /myHomePage                                                          controllers.auth.Stylists.myHomePage
+GET         /myPage/style/:styleId                                               controllers.auth.Stylists.styleUpdateByStylist(styleId: ObjectId)
+POST        /myPage/style                                                        controllers.auth.Stylists.styleUpdateNewByStylist
+GET         /myPage/invalidStyle/:styleId                                        controllers.auth.Stylists.styleToInvalidByStylist(styleId: ObjectId)
+GET         /myPage/createStyle                                                  controllers.auth.Stylists.styleAddByStylist
+POST        /myPage/createStyle                                                  controllers.auth.Stylists.newStyleAddByStylist
+GET         /myPage/stylistApplying                                              controllers.auth.Stylists.findStylistApplying
+GET         /myPage/wantToApply                                                  controllers.auth.Stylists.wantToApply
+GET         /myPage/cancelApplying                                               controllers.auth.Stylists.cancelMyApplying
+GET         /myPage/toApplySalon/:salonId                                        controllers.auth.Stylists.toApplySalon(salonId: ObjectId)
+GET         /myPage/salon                                                        controllers.auth.Stylists.findSalonBySalonAccountId
 
 # TODO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-GET         /updateStylistImage                                             controllers.auth.Stylists.updateStylistImage
-POST        /toUpdateStylistImage                                           controllers.auth.Stylists.toUpdateStylistImage
-GET         /saveStylistImg/:imgId                                          controllers.auth.Stylists.saveStylistImg(imgId: ObjectId)
+GET         /updateStylistImage                                                  controllers.auth.Stylists.updateStylistImage
+POST        /toUpdateStylistImage                                                controllers.auth.Stylists.toUpdateStylistImage
+GET         /saveStylistImg/:imgId                                               controllers.auth.Stylists.saveStylistImg(imgId: ObjectId)
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-GET         /myPage/StylistInfo                                             controllers.auth.Stylists.stylistInfo
-POST        /myPage/updateStylistInfo/:stylistId                            controllers.auth.Stylists.updateStylistInfo(stylistId: ObjectId)
-GET         /myPage/agreeSalonApply/:salonId                                controllers.auth.Stylists.agreeSalonApply(salonId: ObjectId)
-GET         /myPage/rejectSalonApply/:salonId                               controllers.auth.Stylists.rejectSalonApply(salonId: ObjectId)
-GET         /myPage/applyFromSalon/                                         controllers.auth.Stylists.applyFromSalon
-GET         /myPage/removeSalon/:salonId                                    controllers.auth.Stylists.removeSalon(salonId: ObjectId)
+GET         /myPage/StylistInfo                                                  controllers.auth.Stylists.stylistInfo
+POST        /myPage/updateStylistInfo/:stylistId                                 controllers.auth.Stylists.updateStylistInfo(stylistId: ObjectId)
+GET         /myPage/agreeSalonApply/:salonId                                     controllers.auth.Stylists.agreeSalonApply(salonId: ObjectId)
+GET         /myPage/rejectSalonApply/:salonId                                    controllers.auth.Stylists.rejectSalonApply(salonId: ObjectId)
+GET         /myPage/applyFromSalon/                                              controllers.auth.Stylists.applyFromSalon
+GET         /myPage/removeSalon/:salonId                                         controllers.auth.Stylists.removeSalon(salonId: ObjectId)
 
 
 
@@ -169,108 +173,115 @@ GET         /myPage/removeSalon/:salonId                                    cont
 #-------------------------------------------------
 #Salon Management
 
-GET         /mySalon/salonInfo                                       		controllers.auth.Salons.salonInfoBasic
-POST        /mySalon/updateInfo                                             controllers.auth.Salons.update(salonId: ObjectId)
-GET         /mySalon/updateLogo                                             controllers.auth.Salons.saveSalonImg(imgId: ObjectId)
-POST        /mySalon/imageUpload                                            controllers.auth.Salons.imageUpload
-GET         /mySalon/addImage                                               controllers.auth.Salons.addImage
-GET         /mySalon/salonPassword                                          controllers.auth.Salons.password
-GET         /mySalon/stylist                                                controllers.auth.Salons.myStylist
-GET         /mySalon/reserv                                                 controllers.auth.Salons.myReserv
-GET         /mySalon/comment                                                controllers.auth.Salons.myComment
-GET         /mySalon/service                                                controllers.auth.Salons.myService
-GET         /mySalon/coupon                                                 controllers.auth.Salons.myCoupon
-GET         /mySalon/menu                                                   controllers.auth.Salons.myMenu
-GET         /mySalon/applyFormStylist                                       controllers.auth.Salons.checkHoldApply
-GET         /mySalon/agreeStylistApply/:stylistId                           controllers.auth.Salons.agreeStylistApply(stylistId: ObjectId)
-GET         /mySalon/rejectStylistApply/:stylistId                          controllers.auth.Salons.rejectStylistApply(stylistId: ObjectId)
-GET         /mySalon/searchStylistById                                      controllers.auth.Salons.searchStylistById
-GET         /mySalon/checkStylistIsValid/:stylistId                         controllers.auth.Salons.checkStylistIsValid(stylistId: String)
-GET         /mySalon/inviteStylist/:stylistId/                              controllers.auth.Salons.inviteStylist(stylistId: ObjectId)
-GET         /mySalon/removeStylist/:stylistId                               controllers.auth.Salons.removeStylist(stylistId: ObjectId)
-GET         /mySalon/replyComment/:commentObjId/:commentObjType             controllers.auth.Salons.replyBySalon(commentObjId : ObjectId, commentObjType : Int)
+GET         /mySalon/salonInfo                                                   controllers.auth.Salons.salonInfoBasic
+POST        /mySalon/updateInfo                                                  controllers.auth.Salons.update(salonId: ObjectId)
+GET         /mySalon/updateLogo                                                  controllers.auth.Salons.saveSalonImg(imgId: ObjectId)
+POST        /mySalon/imageUpload                                                 controllers.auth.Salons.imageUpload
+GET         /mySalon/addImage                                                    controllers.auth.Salons.addImage
+GET         /mySalon/salonPassword                                               controllers.auth.Salons.password
+GET         /mySalon/stylist                                                     controllers.auth.Salons.myStylist
+GET         /mySalon/reserv                                                      controllers.auth.Salons.myReserv
+GET         /mySalon/comment                                                     controllers.auth.Salons.myComment
+GET         /mySalon/service                                                     controllers.auth.Salons.myService
+GET         /mySalon/coupon                                                      controllers.auth.Salons.myCoupon
+GET         /mySalon/menu                                                        controllers.auth.Salons.myMenu
+GET         /mySalon/applyFormStylist                                            controllers.auth.Salons.checkHoldApply
+GET         /mySalon/agreeStylistApply/:stylistId                                controllers.auth.Salons.agreeStylistApply(stylistId: ObjectId)
+GET         /mySalon/rejectStylistApply/:stylistId                               controllers.auth.Salons.rejectStylistApply(stylistId: ObjectId)
+GET         /mySalon/searchStylistById                                           controllers.auth.Salons.searchStylistById
+GET         /mySalon/checkStylistIsValid/:stylistId                              controllers.auth.Salons.checkStylistIsValid(stylistId: String)
+GET         /mySalon/inviteStylist/:stylistId/                                   controllers.auth.Salons.inviteStylist(stylistId: ObjectId)
+GET         /mySalon/removeStylist/:stylistId                                    controllers.auth.Salons.removeStylist(stylistId: ObjectId)
+GET         /mySalon/replyComment/:commentObjId/:commentObjType                  controllers.auth.Salons.replyBySalon(commentObjId : ObjectId, commentObjType : Int)
 # TODO
-GET         /mySalon/checkInfoState                                         controllers.auth.Salons.checkInfoState
-GET         /mySalon/salonShowPics                                          controllers.auth.Salons.salonShowPics
+GET         /mySalon/checkInfoState                                              controllers.auth.Salons.checkInfoState
+GET         /mySalon/salonShowPics                                               controllers.auth.Salons.salonShowPics
 
-GET			/salonBasic										controllers.auth.Salons.salonBasic
-GET			/salonDetail									controllers.auth.Salons.salonDetail
-POST        /salonConsum/:id                                 controllers.auth.Salons.salonInfoConsum(id:ObjectId)
-POST        /changeSalonPassword                            controllers.auth.Salons.salonChangePassword(accountId : String)
+GET         /salonBasic                                                          controllers.auth.Salons.salonBasic
+GET         /salonDetail                                                         controllers.auth.Salons.salonDetail
+POST        /salonConsum/:id                                                     controllers.auth.Salons.salonInfoConsum(id:ObjectId)
+POST        /changeSalonPassword                                                 controllers.auth.Salons.salonChangePassword(accountId : String)
 
 
 # Coupon
-GET         /mySalon/createCoupon                                           controllers.auth.Coupons.couponMain
-GET         /coupons/createCoupon                                           controllers.auth.Coupons.createCoupon
-GET         /mySalon/editCoupon/:couponId                                   controllers.auth.Coupons.editCouponInfo(couponId: ObjectId)
-GET         /coupons/updateCoupon/:couponId                                 controllers.auth.Coupons.updateCoupon(couponId: ObjectId)
-GET         /coupons/invalidCoupon/:couponId                                controllers.auth.Coupons.invalidCoupon(couponId: ObjectId)
-GET         /mySalon/sreachCoupon                                           controllers.auth.Coupons.findCoupons
+GET         /mySalon/createCoupon                                                controllers.auth.Coupons.couponMain
+GET         /coupons/createCoupon                                                controllers.auth.Coupons.createCoupon
+GET         /mySalon/editCoupon/:couponId                                        controllers.auth.Coupons.editCouponInfo(couponId: ObjectId)
+GET         /coupons/updateCoupon/:couponId                                      controllers.auth.Coupons.updateCoupon(couponId: ObjectId)
+GET         /coupons/invalidCoupon/:couponId                                     controllers.auth.Coupons.invalidCoupon(couponId: ObjectId)
+GET         /mySalon/sreachCoupon                                                controllers.auth.Coupons.findCoupons
 
 # Menu
-GET         /mySalon/createMenu                                             controllers.auth.Menus.menuMain
-GET         /menus/createMenu                                               controllers.auth.Menus.createMenu
-GET         /mySalon/editMenu/:menuId                                       controllers.auth.Menus.editMenuInfo(menuId: ObjectId)
-GET         /menus/updateMenu/:menuId                                       controllers.auth.Menus.updateMenu(menuId: ObjectId)
-GET         /menus/invalidMenu/:menuId                                      controllers.auth.Menus.invalidMenu(menuId: ObjectId)
-GET         /mySalon/sreachMenu                                             controllers.auth.Menus.findMenus
+GET         /mySalon/createMenu                                                  controllers.auth.Menus.menuMain
+GET         /menus/createMenu                                                    controllers.auth.Menus.createMenu
+GET         /mySalon/editMenu/:menuId                                            controllers.auth.Menus.editMenuInfo(menuId: ObjectId)
+GET         /menus/updateMenu/:menuId                                            controllers.auth.Menus.updateMenu(menuId: ObjectId)
+GET         /menus/invalidMenu/:menuId                                           controllers.auth.Menus.invalidMenu(menuId: ObjectId)
+GET         /mySalon/sreachMenu                                                  controllers.auth.Menus.findMenus
 
 # Service
-GET         /mySalon/createService                                          controllers.auth.Services.serviceMain
-GET         /services/createService                                         controllers.auth.Services.addService
-GET         /mySalon/editService                                            controllers.auth.Services.showService(serviceId: ObjectId)
-GET         /services/updateService/:serviceId                              controllers.auth.Services.updateService(serviceId: ObjectId)
-GET         /services//invalidService/:serviceId                            controllers.auth.Services.deleteService(serviceId: ObjectId)
+GET         /mySalon/createService                                               controllers.auth.Services.serviceMain
+GET         /services/createService                                              controllers.auth.Services.addService
+GET         /mySalon/editService                                                 controllers.auth.Services.showService(serviceId: ObjectId)
+GET         /services/updateService/:serviceId                                   controllers.auth.Services.updateService(serviceId: ObjectId)
+GET         /services//invalidService/:serviceId                                 controllers.auth.Services.deleteService(serviceId: ObjectId)
 
 # Style
-GET         /mySalon/createStyle                                            controllers.auth.Salons.styleAddBySalon
-POST        /mySalon/createStyle                                            controllers.auth.Salons.newStyleAddBySalon
-GET         /mySalon/styles/                                                controllers.auth.Salons.getAllStylesBySalon
-POST        /mySalon/styles/                                                controllers.auth.Salons.getAllStylesListBySalon
-GET         /mySalon/style/:styleId                                         controllers.auth.Salons.styleUpdateBySalon(styleId: ObjectId)
-POST        /mySalon/updateStyle/                                           controllers.auth.Salons.styleUpdateNewBySalon
-GET         /mySalon/invalidStyle/:styleId                                  controllers.auth.Salons.styleToInvalidBySalon(styleId: ObjectId)
+GET         /mySalon/createStyle                                                 controllers.auth.Salons.styleAddBySalon
+POST        /mySalon/createStyle                                                 controllers.auth.Salons.newStyleAddBySalon
+GET         /mySalon/styles/                                                     controllers.auth.Salons.getAllStylesBySalon
+POST        /mySalon/styles/                                                     controllers.auth.Salons.getAllStylesListBySalon
+GET         /mySalon/style/:styleId                                              controllers.auth.Salons.styleUpdateBySalon(styleId: ObjectId)
+POST        /mySalon/updateStyle/                                                controllers.auth.Salons.styleUpdateNewBySalon
+GET         /mySalon/invalidStyle/:styleId                                       controllers.auth.Salons.styleToInvalidBySalon(styleId: ObjectId)
 
 # Reservation
-GET         /reservHairView/:id                                             controllers.Reservations.reservHairView(id: ObjectId)
-GET         /reservSelectStylist                                            controllers.Reservations.reservSelectStylist
-POST        /reservConfirmPwd                                               controllers.Reservations.reservConfirmPwd
-GET         /reservFinish                                                   controllers.Reservations.reservFinish
-GET         /reservConfirmInfo                                              controllers.Reservations.reservConfirmInfo
+GET         /reservHairView/:id                                                  controllers.Reservations.reservHairView(id: ObjectId)
+GET         /reservSelectStylist                                                 controllers.Reservations.reservSelectStylist
+POST        /reservConfirmPwd                                                    controllers.Reservations.reservConfirmPwd
+GET         /reservFinish                                                        controllers.Reservations.reservFinish
+GET         /reservConfirmInfo                                                   controllers.Reservations.reservConfirmInfo
 #GET         /salon/:salonId/reserve/schedule/:week                          controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
 # MyFollows
-GET 	      /javascriptRoutes               						                    controllers.Application.javascriptRoutes
+GET         /javascriptRoutes                                                    controllers.Application.javascriptRoutes
 
-GET			/salonRegisterMange									controllers.auth.Salons.salonRegister      
+GET         /salonRegisterMange                                                  controllers.auth.Salons.salonRegister
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                                                   controllers.Assets.at(path="/public", file)
+GET         /assets/*file                                                        controllers.Assets.at(path="/public", file)
 
 
 #salon logo picture update by douping
-GET         /mySalon/salonLogoPicture                                       controllers.auth.Salons.salonLogoPicture
+GET         /mySalon/salonLogoPicture                                            controllers.auth.Salons.salonLogoPicture
 
 #swf fileupload by douping
-POST         /imagesUpload                                                  controllers.Application.fileUploadAction()
+POST        /imagesUpload                                                        controllers.Application.fileUploadAction()
 
 # Reset password by e-mail add by wu
-GET        /forgotPassword                                                  controllers.Mails.forgotPassword
-POST       /forgotPassword                                                  controllers.Mails.sendMailForResetPwd
-GET        /resetPwd                                                        controllers.Mails.password(uuid : String)
-POST       /resetPwd                                                        controllers.Mails.resetPassword(uuid : String)
+GET         /forgotPassword                                                      controllers.Mails.forgotPassword
+POST        /forgotPassword                                                      controllers.Mails.sendMailForResetPwd
+
+GET         /s/forgotPassword                                                    controllers.Mails.forgotPasswordOfSalon
+POST        /s/forgotPassword                                                    controllers.Mails.sendMailForResetPwdOfSalon
+
+GET         /resetPwd                                                            controllers.Mails.password(uuid : String)
+POST        /resetPwd                                                            controllers.Mails.resetPassword(uuid : String)
+
+GET         /s/resetPwd                                                          controllers.Mails.passwordOfSalon(uuid : String)
+POST        /s/resetPwd                                                          controllers.Mails.resetPasswordOfSalon(uuid : String)
 
 #add salonPics 
-POST       /mySalon/updatepictures                                  		controllers.auth.Salons.updateSalonPics
+POST        /mySalon/updatepictures                                              controllers.auth.Salons.updateSalonPics
 
 # Reservation add by sangsang-hu
-GET        /salon/reserve/salonId=:salonId&couponId=:couponId&week=:week                     controllers.Reservations.reservShowDate(salonId: ObjectId, couponId: ObjectId, week: Int)
-GET        /reserve/salonId=:salonId&couponId=:couponId&week=:week                           controllers.Reservations.reservSelectDate(salonId: ObjectId, couponId: ObjectId, week: Int)
+GET         /salon/reserve/salonId=:salonId&couponId=:couponId&week=:week        controllers.Reservations.reservShowDate(salonId: ObjectId, couponId: ObjectId, week: Int)
+GET         /reserve/salonId=:salonId&couponId=:couponId&week=:week              controllers.Reservations.reservSelectDate(salonId: ObjectId, couponId: ObjectId, week: Int)
 #GET        /salon/:salonId/reserve/schedule/:week                 controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
 #cancel current apply by user(dou)
-GET         /myPage/cancelApply                                             controllers.auth.Users.cancelApplyStylist
-GET			/mySalon/checkStylistIsExist/:userId							controllers.noAuth.Stylists.checkStylistIsExist(userId: String)
+GET         /myPage/cancelApply                                                  controllers.auth.Users.cancelApplyStylist
+GET         /mySalon/checkStylistIsExist/:userId                                 controllers.noAuth.Stylists.checkStylistIsExist(userId: String)
 
 GET         /salon/:salonId/map                                                      controllers.noAuth.Salons.getMap(salonId: ObjectId)

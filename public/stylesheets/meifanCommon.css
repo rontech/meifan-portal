@@ -851,3 +851,6 @@ text-align:center;
 
 .pl_bt{ width:210px; height:36px; overflow:hidden; clear:both; margin:0 auto; padding-bottom:8px}
 
+.followers {
+float: right;
+}
