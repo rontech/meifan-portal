@@ -25,7 +25,10 @@
 	   			<div class='more'>
 		 			<a href="@auth.routes.Salons.checkInfoState">
 		 				<span>@Messages("salonCheckInfoState.createSalon")</span>
-		 			</a><br />		 					 					 			
+		 			</a><br />		
+		 			<a href="@noAuth.routes.Salons.getSalon(salon.id)">
+		 				<span>@Messages("salon.getInSalon")</span>
+		 			</a><br />			 			 					 					 			
 		 		</div>	
 		 		
 			</div>			
