@@ -470,7 +470,7 @@ object InitialData {
          Notice(new ObjectId(), "网站目标", "一站式信息服务平台，最前沿美容美发咨询的汇集地！","admin01", new Date,true)
           ).foreach(Notice.save)
       }
-    
+   
     if(Info.findAll.isEmpty) {
        Seq(
 //         Info(new ObjectId(), "巴黎欧莱雅-新的市场新的挑战", "对于传统意义上的领导品牌，一个事实正摆在眼前，传统营销形式所积累的受众正在慢慢老去，最受数字媒体所影响的年轻一代正在成为主流消费群体，品牌营销该何去何从？", new ObjectId, new ObjectId, new Date, 1, true),
@@ -490,12 +490,6 @@ object InitialData {
          Info(new ObjectId(), "医美四招去疤痕 再现无暇肌肤", "皮肤创伤、烧伤、溃疡等愈合后留下的痕迹被称为疤痕，有些疤痕深深地留在了皮肤上很难去除，这同时也给人们内心增加了一道伤痕。疤痕修复手术可以去除疤痕，常见的疤痕手术有植皮手术、磨削去疤痕、切除缝合术及皮肤扩张器四种手术，不同的疤痕情况要选择不同的手术方式。", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 2, true)
        ).foreach(Info.save)
       }
-    /*
-    val stfile = new File(play.Play.application().path() + "/public/images/style")
-    val stfiles = Image.listFilesInFolder(stfile)
-    println("stfiles = " + stfiles)
-    println("style Names = " + Image.fuzzyFindByName("004287051_154"))
-    */
 
     /*
      * TODO TEST DATA: Pictures.
@@ -542,7 +536,6 @@ object InitialData {
                     Stylist.updateImages(stylist, stylistImgId)
                 }
             }
-            
         }
     }
 
@@ -617,9 +610,9 @@ object InitialData {
                     val showImgId = Image.save(l)
                     imgList :::= List(showImgId) 
                     if(index % 3 == 2 ) {
-                    	val salon = Salon.findAll.toList(index / 3)
-                    	Salon.updateSalonShow(salon, imgList)
-                    	imgList = Nil
+                            val salon = Salon.findAll.toList(index / 3)
+                            Salon.updateSalonShow(salon, imgList)
+                            imgList = Nil
                     }
                     
                 }
@@ -638,9 +631,9 @@ object InitialData {
                     val atomImgId = Image.save(n)
                     imgList :::= List(atomImgId) 
                     if(index % 3 == 2 ) {
-                    	val salon = Salon.findAll.toList(index / 3)
-                    	Salon.updateSalonAtom(salon, imgList)
-                    	imgList = Nil
+                            val salon = Salon.findAll.toList(index / 3)
+                            Salon.updateSalonAtom(salon, imgList)
+                            imgList = Nil
                     }
                     
                 }
@@ -648,21 +641,21 @@ object InitialData {
         }
     }
 
-	if(Reservation.findAll.isEmpty) {
-    	Seq(
-	       Reservation(new ObjectId, "demo06", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-11 10:00"), 90, None, List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), None, "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
-	       Reservation(new ObjectId, "demo07", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-11 10:00"), 90, None, List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), None, "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
-	       Reservation(new ObjectId, "demo08", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-11 10:00"), 90, None, List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), None, "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
-	       Reservation(new ObjectId, "demo09", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-11 10:00"), 90, None, List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), None, "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
-	       Reservation(new ObjectId, "demo10", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-11 10:00"), 90, None, List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), None, "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
-	       Reservation(new ObjectId, "demo09", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-12 10:00"), 90, None, List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), None, "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
-	       Reservation(new ObjectId, "demo10", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-12 10:00"), 90, None, List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), None, "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
-	       Reservation(new ObjectId, "demo10", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-11 10:00"), 90, Option(new ObjectId("53202c29d4d5e3cd47efffd3")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("533133f29aa6b4dfc54a02ed")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
-	       Reservation(new ObjectId, "demo09", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-12 10:00"), 90, Option(new ObjectId("53202c29d4d5e3cd47efffd3")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("533133f29aa6b4dfc54a02ed")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
-	       Reservation(new ObjectId, "demo10", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-12 10:00"), 90, Option(new ObjectId("53202c29d4d5e3cd47efffd3")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("533133f29aa6b4dfc54a02ed")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
-	       Reservation(new ObjectId, "demo06", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-11 10:00"), 90, Option(new ObjectId("53202c29d4d5e3cd47efffd3")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("533133f29aa6b4dfc54a02ed")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
-	       Reservation(new ObjectId, "demo07", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-11 10:00"), 90, Option(new ObjectId("53202c29d4d5e3cd47efffd3")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("533151209aa6b4dfc54a0374")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
-	       Reservation(new ObjectId, "demo06", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-11 10:00"), 90, Option(new ObjectId("530d8010d7f2861457771bf8")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("530d828cd7f2861457771c0b")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
+    if(Reservation.findAll.isEmpty) {
+        Seq(
+           Reservation(new ObjectId, "demo06", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-11 10:00"), 90, None, List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), None, "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
+           Reservation(new ObjectId, "demo07", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-11 10:00"), 90, None, List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), None, "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
+           Reservation(new ObjectId, "demo08", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-11 10:00"), 90, None, List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), None, "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
+           Reservation(new ObjectId, "demo09", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-11 10:00"), 90, None, List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), None, "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
+           Reservation(new ObjectId, "demo10", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-11 10:00"), 90, None, List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), None, "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
+           Reservation(new ObjectId, "demo09", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-12 10:00"), 90, None, List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), None, "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
+           Reservation(new ObjectId, "demo10", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-12 10:00"), 90, None, List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), None, "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
+           Reservation(new ObjectId, "demo10", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-11 10:00"), 90, Option(new ObjectId("53202c29d4d5e3cd47efffd3")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("533133f29aa6b4dfc54a02ed")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
+           Reservation(new ObjectId, "demo09", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-12 10:00"), 90, Option(new ObjectId("53202c29d4d5e3cd47efffd3")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("533133f29aa6b4dfc54a02ed")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
+           Reservation(new ObjectId, "demo10", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-12 10:00"), 90, Option(new ObjectId("53202c29d4d5e3cd47efffd3")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("533133f29aa6b4dfc54a02ed")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
+           Reservation(new ObjectId, "demo06", new ObjectId("530d7288d7f2861457771bdd"), 0, dateTime("2014-04-11 10:00"), 90, Option(new ObjectId("53202c29d4d5e3cd47efffd3")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("533133f29aa6b4dfc54a02ed")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
+           Reservation(new ObjectId, "demo07", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-11 10:00"), 90, Option(new ObjectId("53202c29d4d5e3cd47efffd3")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("533151209aa6b4dfc54a0374")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
+           Reservation(new ObjectId, "demo06", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-11 10:00"), 90, Option(new ObjectId("530d8010d7f2861457771bf8")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("530d828cd7f2861457771c0b")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
            Reservation(new ObjectId, "demo07", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-11 10:00"), 90, Option(new ObjectId("530d8010d7f2861457771bf8")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("530d828cd7f2861457771c0b")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
            Reservation(new ObjectId, "demo08", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-11 10:00"), 90, Option(new ObjectId("530d8010d7f2861457771bf8")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("530d828cd7f2861457771c0b")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
            Reservation(new ObjectId, "demo09", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-11 10:00"), 90, Option(new ObjectId("530d8010d7f2861457771bf8")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("530d828cd7f2861457771c0b")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
@@ -671,21 +664,39 @@ object InitialData {
            Reservation(new ObjectId, "demo10", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-11 10:00"), 90, Option(new ObjectId("53202c29d4d5e3cd47efffd9")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("533133f29aa6b4dfc54a023d")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
            Reservation(new ObjectId, "demo09", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-12 10:00"), 90, Option(new ObjectId("53202c29d4d5e3cd47efffd9")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("533133f29aa6b4dfc54a023d")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11")),
            Reservation(new ObjectId, "demo10", new ObjectId("530d7288d7f2861457771bdd"), 1, dateTime("2014-04-12 10:00"), 90, Option(new ObjectId("53202c29d4d5e3cd47efffd9")), List(ResvItem("coupon", new ObjectId("5317c0d1d4d57997ce3e6d6a"), 1)), Option(new ObjectId("533134db9aa6b4dfc54a02ef")), "051268320328", "准时到", 100, 0, 100, date("2014-04-11"), date("2014-04-11"))
-	      ).foreach(Reservation.save)
+          ).foreach(Reservation.save)
     }
-	
-	if(!DefaultLog.findAll.isEmpty){
-	    if(Image.fuzzyFindByName("defaultLog").isEmpty){
-	        val defaultLogFile = new File(play.Play.application().path() + "/public/images/user/dafaultLog")
-	        val defaultLogFiles = Image.listFilesInFolder(defaultLogFile)
-	        for((defaultLog, index) <- defaultLogFiles.zipWithIndex){
-	            if(index < DefaultLog.findAll.toList.length){
-	                val defaultLogImgId = Image.save(defaultLog)
-	                val defaultLogImg = DefaultLog.findAll.toList(index)
-	                DefaultLog.saveLogImg(defaultLogImg, defaultLogImgId)
-	            }
-	        }
-	    }
-	}
+    
+    if(!DefaultLog.findAll.isEmpty){
+        if(Image.fuzzyFindByName("defaultLog").isEmpty){
+            val defaultLogFile = new File(play.Play.application().path() + "/public/images/user/dafaultLog")
+            val defaultLogFiles = Image.listFilesInFolder(defaultLogFile)
+            for((defaultLog, index) <- defaultLogFiles.zipWithIndex){
+                if(index < DefaultLog.findAll.toList.length){
+                    val defaultLogImgId = Image.save(defaultLog)
+                    val defaultLogImg = DefaultLog.findAll.toList(index)
+                    DefaultLog.saveLogImg(defaultLogImg, defaultLogImgId)
+                }
+            }
+        }
+    }
+
+    /*    
+    // Test for picture search.
+    val stfile = new File(play.Play.application().path() + "/public/images/style")
+    val stfiles = Image.listFilesRecursively()(stfile)
+    println("stfiles = " + stfiles)
+
+    // Test for General fuzzy search.
+    println("general salon search = " + Salon.findSalonByFuzzyConds("千美悦美"))
+    println("general salon search = " + Salon.findSalonByFuzzyConds("千美 悦美"))
+    println("general salon search = " + Salon.findSalonByFuzzyConds("千美　悦美"))
+
+    println("hotest style search = " + Style.getBestRsvedStylesInSalon(new ObjectId("530d7288d7f2861457771bdd"), 2))
+
+    */
+
+
+
   }
 }
