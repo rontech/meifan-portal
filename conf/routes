@@ -89,6 +89,9 @@ GET         /cutImg                                                             
 GET         /question/:qid                                                       controllers.noAuth.Questions.getOneQuestion(qid: ObjectId)
 GET         /questions/                                                          controllers.noAuth.Questions.getAllQuestions()
 
+# Info
+GET         /info/:infoId                                                   controllers.noAuth.Infos.getOneInfo(infoId: ObjectId)
+
 #-------------------------------------------------
 # 用户管理：登录用户能看到的跳转
 # Pages Which can only be seen by logined user.
