@@ -1,38 +1,27 @@
-@if(User.findBeautyUsers.length>2){
 <div id="index_blog">
-    	<h2></h2>
-        <div id="index_blog_nr">
-        	<dl>
-            	<dt><a href="@noAuth.routes.Users.userPage(User.findBeautyUsers(0).userId)" class="link-green">@User.findBeautyUsers(0).nickName</a></dt>
-                <dd class="pic"><a href="@noAuth.routes.Users.userPage(User.findBeautyUsers(0).userId)"><img src="@routes.Application.getPhoto(User.findBeautyUsers(0).userPics)" width="58" height="58" /></a></dd>
-                <dd class="followers">
-                <a href="@noAuth.routes.MyFollows.followers(User.findBeautyUsers(0).id)"><font color="gray">@Messages("user.myFollowers")<span>(@MyFollow.getFollowers(User.findBeautyUsers(0).id).length)</span></font></a>
-                </dd>
-                <dd class="followers">
-                <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(User.findBeautyUsers(0).userId)"><font color="gray">@Messages("salon.blogs")<span>(@Blog.getOtherBlogByUserId(User.findBeautyUsers(0).userId).length)</span></font></a>
-                </dd>
-            </dl>
-            <dl>
-            	<dt><a href="@noAuth.routes.Users.userPage(User.findBeautyUsers(1).userId)" class="link-green">@User.findBeautyUsers(1).nickName</a></dt>
-                <dd class="pic"><a href="@noAuth.routes.Users.userPage(User.findBeautyUsers(1).userId)"><img src="@routes.Application.getPhoto(User.findBeautyUsers(1).userPics)" width="58" height="58" /></a></dd>
-                <dd class="followers">
-                <a href="@noAuth.routes.MyFollows.followers(User.findBeautyUsers(1).id)"><font color="gray">@Messages("user.myFollowers")<span>(@MyFollow.getFollowers(User.findBeautyUsers(1).id).length)</span></font></a>
-                </dd>
-                <dd class="followers">
-                <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(User.findBeautyUsers(1).userId)"><font color="gray">@Messages("salon.blogs")<span>(@Blog.getOtherBlogByUserId(User.findBeautyUsers(1).userId).length)</span></font></a>
-                </dd>
-            </dl>
-            <dl>
-            	<dt><a href="@noAuth.routes.Users.userPage(User.findBeautyUsers(2).userId)" class="link-green">@User.findBeautyUsers(2).nickName</a></dt>
-                <dd class="pic"><a href="@noAuth.routes.Users.userPage(User.findBeautyUsers(2).userId)"><img src="@routes.Application.getPhoto(User.findBeautyUsers(2).userPics)" width="58" height="58" /></a></dd>
-                <dd class="followers">
-                <a href="@noAuth.routes.MyFollows.followers(User.findBeautyUsers(2).id)"><font color="gray">@Messages("user.myFollowers")<span>(@MyFollow.getFollowers(User.findBeautyUsers(2).id).length)</span></font></a>
-                </dd>
-                <dd class="followers">
-                <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(User.findBeautyUsers(2).userId)"><font color="gray">@Messages("salon.blogs")<span>(@Blog.getOtherBlogByUserId(User.findBeautyUsers(2).userId).length)</span></font></a>
-                </dd>
-            </dl>
-        </div>
-        <div id="index_blog_bottom"></div>
+	<h2></h2>
+    <div id="index_blog_nr">
+    	@for(i <- 0 to (if(User.findBeautyUsers.length > 3){2}else{User.findBeautyUsers.length-1})) {
+    		<dl>
+	         	<dt><a href="@noAuth.routes.Users.userPage(User.findBeautyUsers(i).userId)" class="link-green">@User.findBeautyUsers(i).nickName</a></dt>
+	             <dd class="pic"><a href="@noAuth.routes.Users.userPage(User.findBeautyUsers(i).userId)"><img src="@routes.Application.getPhoto(User.findBeautyUsers(i).userPics)" width="58" height="58" /></a></dd>
+	             <ul class="right">
+	             	<li>
+	             		<a href="@noAuth.routes.MyFollows.followers(User.findBeautyUsers(i).id)"><font color="gray">@Messages("user.myFollowers")<span>(@MyFollow.getFollowers(User.findBeautyUsers(i).id).length)</span></font></a>
+	             	</li>
+	             	<li>
+	             		<a href="@noAuth.routes.Blogs.getAllBlogsOfUser(User.findBeautyUsers(i).userId)"><font color="gray">@Messages("salon.blogs")<span>(@Blog.getOtherBlogByUserId(User.findBeautyUsers(i).userId).length)</span></font></a>
+	             	</li>
+	             </ul>
+	             <!-- <dd class="followers">
+	             
+	             </dd>
+	             <dd class="followers">
+	             <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(User.findBeautyUsers(i).userId)"><font color="gray">@Messages("salon.blogs")<span>(@Blog.getOtherBlogByUserId(User.findBeautyUsers(i).userId).length)</span></font></a>
+	              </dd>
+	              -->
+	         </dl>
+    	}
     </div>
-}
+    <div id="index_blog_bottom"></div>
+</div>
