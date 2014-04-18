@@ -10,7 +10,7 @@
        				@Salon.findAll.toList(i).picDescription.map(pic=>pic.picContent.slice(0,15))
    					@if(Salon.findAll.toList(i).picDescription.map(pic=>pic.picContent.length > 15)) {...}
        			</dd>
-           		<dd class="more"><a href="#"><img src="@routes.Assets.at("images/more.jpg")" width="40" height="10" /></a></dd>
+           		<dd class="more"><a href="@noAuth.routes.Salons.getSalon(Salon.findAll.toList(i).id)"><img src="@routes.Assets.at("images/more.jpg")" width="40" height="10" /></a></dd>
 			</dl>            
        		}          	
    	}

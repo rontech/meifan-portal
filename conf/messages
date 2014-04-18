@@ -852,3 +852,9 @@ salonCheckInfoState.cannotApply = 个事项未完成，网站将开放你相应�
 salonCheckInfoState.uploadLogo = 头像设置
 salonCheckInfoState.uploadpics = 展示图片
 salonCheckInfoState.createSalon=申请开店
+
+#slaonRelax
+salonRelax.footSpa=足疗按摩
+salonRelax.bodySpa=全身SPA
+salonRelax.sportSpa=瘦身健美
+salonRelax.yoGa=瑜伽
