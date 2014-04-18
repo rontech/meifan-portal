@@ -520,7 +520,7 @@ user.passwordError=密码不合法！
 user.telError=手机号码无效!
 user.toBeUserId= 6~18位字符,可使用字母、数字和下划线!
 user.toBePassword= 6~16位字符,可使用字符、数字或符号的组合！
-user.nickNameErr=给个昵称吧！
+user.nickNameErr=该昵称无效！
 user.welcome=欢迎您，{0}
 user.guestName=游客
 user.pleaseSignUp=免费会员注册
@@ -563,6 +563,7 @@ user.resetPassword = 重置密码
 user.resetInfo = 点击下面的链接，重置密码
 user.loginUserIdErr = 请输入用户名！
 user.cancelBeStylist = 取消当前申请
+user.nickName = 4~10位字符！
 
 
 #Mail

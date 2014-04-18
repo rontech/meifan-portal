@@ -47,27 +47,10 @@
             <p class="fs10 fgGray">
                 @salon.salonNameAbbr 
             </p>
-            <dl class="cFix pV5 pL10">
-                @if(salon.salonFacilities.map(fac=>fac.canOnlineOrder).getOrElse(false)) {
-                    <dt class="fl fs10 fgLGray2 b mR5">@Messages("salon.canOnlineOrderValue")</dt>
-                }
-                @if(salon.salonFacilities.map(fac=>fac.canImmediatelyOrder).getOrElse(false)) {
-                    <dd class="fl iS offL listImmediately mR5">@Messages("salon.canImmediatelyOrderValue")</dd>
-                }
-                @if(salon.salonFacilities.map(fac=>fac.canNominateOrder).getOrElse(false)) {
-                    <dd class="fl iS offL listNominate mR5">@Messages("salon.canNominateOrderValue")</dd>
-                }
-                @if(salon.salonFacilities.map(fac=>fac.canCurntDayOrder).getOrElse(false)) {
-                    <dd class="fl iS offL listTheDay mR5">@Messages("salon.canCurntDayOrderValue")</dd>
-                }
-                @if(salon.salonFacilities.map(fac=>fac.isPointAvailable).getOrElse(false)) {
-                    <dd class="fl iS offL listPoint mR5">@Messages("salon.isPointAvaliableValue")</dd>
-                }
-                @if(salon.salonFacilities.map(fac=>fac.canMaleUse).getOrElse(false)) {
-                    <dd class="fl iS offL listMensOK mR5">@Messages("salon.canMaleUseValue")</dd>
-                }
-            </dl>
-            <div class="cFix mT5 pT5 bdDotT">
+            <!--↓salon optional facilities-->
+            @views.html.salon.component.salonOptFacilities(salon)
+            <!--↑salon optional facilities-->
+           <div class="cFix mT5 pT5 bdDotT">
                 <div class="fr cFix qrcode">
                 <ul>
                     <li>
@@ -109,7 +92,7 @@
                 <a href="@noAuth.routes.Blogs.getAllBlogsOfSalon(salon.id)" class="bS db @if(navInSalon == "salon-blog") {blogCurrent} else {blog} offL">@Messages("salon.blogs")</a>
             </li>
             <li class="fl">
-                <a href="#" class="bS db @if(navInSalon == "salon-accessmap") {accessMapCurrent} else {accessMap} offL">@Messages("salon.accessMap")</a>
+                <a href="@noAuth.routes.Salons.getMap(salon.id)" class="bS db @if(navInSalon == "salon-accessmap") {accessMapCurrent} else {accessMap} offL">@Messages("salon.accessMap")</a>
             </li>
             <li class="fr">
                 <a href="@noAuth.routes.Comments.findBySalon(salon.id)" class="bS db @if(navInSalon == "salon-comment") {kuchikomiCurrent} else {kuchikomi} offL">@Messages("salon.comments")</a>

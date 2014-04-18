@@ -2,20 +2,27 @@
 <div id="index_news">
 	<h2><img src="@routes.Assets.at("images/esthe/index_news_title.jpg")" width="165" height="36" /></h2>
     <div id="index_news_nr">
-    	@*<dl>
-        	<dt><a href="#" class="link-green">整容之后比以往更加美丽动人</a></dt>
-            <dd class="pic"><img src="@routes.Assets.at("images/esthe/index_news_pic.jpg")" width="138" height="95" /></dd>
-            <dd class="txt">整容之后比以往更加美丽动人整容之后比以往更加美丽动人整容之后比以往更加美丽动人整容之后比以往更加美丽动人</dd>
-        </dl>*@
- 		<ul>
- 		@for(info <- infoList){
-        	<li><a href="@noAuth.routes.Infos.getOneInfo(info.id)">@info.title</a></li>
-       	}
-        	@*<li><a href="#">小伙伴嗨起来 明星婚礼那些超有爱瞬间</a></li>
-			<li><a href="#">营造春夏百变妆效 光泽感底妆是重点</a></li>
-    		<li><a href="#">8个减压法疏解工作压力</a></li>
-			<li><a href="#">小伙伴嗨起来 明星婚礼那些超有爱瞬间</a></li>*@
-			
-       	</ul>
+		@if(infoList.length > 1) {
+			<dl>
+	        	<dt><a href="@noAuth.routes.Infos.getOneInfo(infoList(0).id)" class="link-green">@infoList(0).title</a></dt>
+	            <dd class="pic"><img src="@routes.Application.getPhoto(infoList(0).infoPics(0).fileObjId)" width="138" height="120" /></dd>
+	            <dd class="txt">
+		            @infoList(0).content.slice(0,60) ...
+	            </dd>
+	            <dd class="more">
+	            	<a href="@noAuth.routes.Infos.getOneInfo(infoList(0).id)">
+	            		<img src="@routes.Assets.at("images/more.jpg")" width="40" height="10">
+	            	</a>
+	            </dd>
+	        </dl>
+	        <ul>
+	        	@if(infoList.length > 2) {
+		        	@for(i <- 2 until infoList.length){
+		        		<li><a href="@noAuth.routes.Infos.getOneInfo(infoList(i).id)">@infoList(i).title</a></li>	
+		        	}
+		        }
+	        </ul>
+		}
+    	
 	</div>
 </div>

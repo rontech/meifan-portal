@@ -10,6 +10,11 @@ import play.api.Play._
 import play.api.PlayException
 import models._
 
+trait StyleIdUsed {
+  val styleId: Option[ObjectId]
+}
+
+
 case class Style(
     id: ObjectId = new ObjectId,
     styleName: String,
@@ -212,6 +217,41 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         }
         styles
     }
+
+    /**
+     * 取得指定店铺的最热发型前N名
+     * data: 统计依据数据，比如预约的数据，或者消费的数据
+     * N = 0, 默认值，为取得所有 
+     */
+    def findTopStylesInSalon[T <: StyleIdUsed](data: List[T], topN: Int = 0): List[Style] = {
+      // sort by reserved counts.
+      val styleWithCnt = data.groupBy(x => x.styleId).map(y => (y._1, y._2.length)).toList.filter(_._1 != None).sortWith(_._2 > _._2) 
+      // get all stylesId or only top N stylesId of a salon according the topN parameters.  
+      val hot = if(topN == 0) styleWithCnt else styleWithCnt.slice(0, topN)
+      var hotStyles: List[Style] = Nil
+      // get all styles of a salon.  
+      hot.map { itm  => 
+        val stl = Style.findOneById(itm._1.getOrElse(new ObjectId))
+        stl match {
+          case Some(style) => hotStyles :::= List(style)
+          case None => hotStyles
+        }
+      }
+      // return
+      hotStyles
+    } 
+
+    /**
+     * 取得指定店铺的最热发型前N名
+     * N = 0, 默认值，为取得所有 
+     */
+    def getBestRsvedStylesInSalon(sid: ObjectId, topN: Int = 0): List[Style] = {
+      // get the reservation with which we can get the styles be reserved.
+      val rsvs = Reservation.findAllReservation(sid)
+      // use the exists method to get top styles.
+      val bestRsved = findTopStylesInSalon(rsvs, topN)
+      bestRsved
+    } 
 
     /**
      * 前台检索逻辑

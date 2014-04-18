@@ -428,4 +428,15 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             case None => NotFound
         }
     }
+    
+    def getMap(salonId: ObjectId) = Action {
+        val salon: Option[Salon] = Salon.findOneById(salonId)
+        salon match {
+            case Some(s) => 
+                val address = s.salonAddress.get.province + s.salonAddress.get.city.getOrElse("") + s.salonAddress.get.region.getOrElse("") + 
+                	s.salonAddress.get.town.getOrElse("") + s.salonAddress.get.addrDetail
+                Ok(html.salon.store.map(s, SalonNavigation.getSalonNavBar(salon), None, address))
+            case None => NotFound
+        }
+    }
 }

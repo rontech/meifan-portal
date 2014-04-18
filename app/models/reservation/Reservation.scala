@@ -32,7 +32,7 @@ case class Reservation (
         totalCost: BigDecimal,
         createDate: Date,
         processDate: Date
-)
+) extends StyleIdUsed
 
 case class YearsPart (
 		years: String, // 年/月
