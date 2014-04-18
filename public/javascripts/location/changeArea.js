@@ -14,7 +14,7 @@ function changeArea(_cmbCity){
 		if(city == citys[j].name){
 			var areas=citys[j].areaList;
 			for(var k=0;k<areas.length;k++){
-				var innerHtml = '<li class=""><label title="'+areas[k]+'" class=""><input datatype="3" dataname="观前街地区（市中心）" method="l_3_0_0" areaid="110218" name="lFilter" type="radio" value="'+areas[k]+'" id="lF110218">'+areas[k]+'</label></li>';
+				var innerHtml = '<li class=""><label title="'+areas[k]+'" class=""><input datatype="3" dataname="'+areas[k]+'" method="l_3_0_0" areaid="110218" name="region" type="radio" value="'+areas[k]+'" id="lF110218">'+areas[k]+'</label></li>';
 				$('#areafield').append(innerHtml);
 			}
 			return;

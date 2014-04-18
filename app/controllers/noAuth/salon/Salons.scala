@@ -143,7 +143,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                     salonFacilities =>
                         Some((salonFacilities.canOnlineOrder, salonFacilities.canImmediatelyOrder, salonFacilities.canNominateOrder, salonFacilities.canCurntDayOrder, salonFacilities.canMaleUse, salonFacilities.isPointAvailable, salonFacilities.isPosAvailable, salonFacilities.isWifiAvailable,
                             salonFacilities.hasParkingNearby))
-                })(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
+                },
+                "sortByCondition" -> text)(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
 
     /**
      * 店铺注册

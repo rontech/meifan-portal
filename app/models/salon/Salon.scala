@@ -311,6 +311,15 @@ case class SalonFacilities (
    parkingDesc: String
 )
 
+object SalonFacilities extends ModelCompanion[SalonFacilities, ObjectId] {
+    def collection = MongoConnection()(
+    current.configuration.getString("mongodb.default.db")
+      .getOrElse(throw new PlayException(
+        "Configuration error",
+        "Could not find mongodb.default.db in settings")))("SalonFacilities")
+        
+        val dao = new SalatDAO[SalonFacilities, ObjectId](collection) {}
+}
 
 /**
  * Embed Structure.
@@ -370,7 +379,8 @@ case class SearchParaForSalon(
     serviceType: List[String],
     haircutPrice: HaircutPrice, 
     seatNums: SeatNums,
-    salonFacilities: SalonFacilities
+    salonFacilities: SalonFacilities,
+    sortByCondition: String
 )
 
 case class HaircutPrice(

@@ -851,3 +851,23 @@ salonCheckInfoState.cannotApply = 个事项未完成，网站将开放你相应�
 salonCheckInfoState.uploadLogo = 头像设置
 salonCheckInfoState.uploadpics = 展示图片
 salonCheckInfoState.createSalon=申请开店
+
+#salonSerachPage
+salonSerachPage.city = 城市
+salonSerachPage.location = 位置：
+salonSerachPage.region = 地区
+salonSerachPage.businessArea = 商圈
+salonSerachPage.keyword = 关键词
+salonSerachPage.manualDefine = 自定义
+salonSerachPage.confirm = 确定
+salonSerachPage.setNumber = 座位数
+salonSerachPage.unlimited = 不限
+salonSerachPage.otherCondtion = 其它 
+salonSerachPage.over = 元以上
+salonSerachPage.rmb = 元
+salonSerachPage.below = 元以下
+salonSerachPage.meifanRec = 美范推荐
+salonSerachPage.sortByHot = 热度
+salonSerachPage.sortByPrice = 价格
+salonSerachPage.sortByComment = 评论
+salonSerachPage.serviceType = 服务类别

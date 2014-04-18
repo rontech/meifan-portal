@@ -251,20 +251,20 @@ object InitialData {
     
     if(HaircutPrice.findAll.isEmpty){
        Seq(
-    	 HaircutPrice(0.00, 20.00),
-    	 HaircutPrice(20.00, 50.00),
-    	 HaircutPrice(50.00, 100.00),
-    	 HaircutPrice(100.00, 1000.00),
-    	 HaircutPrice(1000.00, 100000.00)
+    	 HaircutPrice(0, 20),
+    	 HaircutPrice(21, 50),
+    	 HaircutPrice(51, 100),
+    	 HaircutPrice(101, 1000),
+    	 HaircutPrice(1001, 100000)
        ).foreach(HaircutPrice.save)
     }
     
     if(SeatNums.findAll.isEmpty){
       Seq(
           SeatNums(0, 5),
-          SeatNums(5, 10),
-          SeatNums(10, 20),
-          SeatNums(20, 1000)
+          SeatNums(6, 10),
+          SeatNums(11, 20),
+          SeatNums(21, 100)
       ).foreach(SeatNums.save)
     }
   }

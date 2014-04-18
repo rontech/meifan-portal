@@ -10,11 +10,11 @@
 	<div id="salon_search">
     	<form>
     	<ul>
-        	<li>目的地</li>
+        	<li>@Messages("salonSerachPage.city")</li>
             <li>
             <div class="demo">
 	            <div>
-					<input type="text" value="" size="15" id="getcity_name" onPropertyChange="changeArea('getcity_name');"  name="getcity_name" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@@Beijing|北京|53@@Shanghai|上海|321@@Shenzhen|深圳|91@@Guangzhou|广州|80@@Qingdao|青岛|292@@Chengdu|成都|324@@Hangzhou|杭州|383@@Wuhan|武汉|192@@Tianjin|天津|343@@Dalian|大连|248@@Xiamen|厦门|61@@Chongqing|重庆|394@@" mod_address_reference="getcityid" mod_notice_tip="中文/拼音" />
+					<input type="text" value="" size="15" id="getcity_name" onPropertyChange="changeArea('getcity_name');"  name="city" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@@Beijing|北京|53@@Shanghai|上海|321@@Shenzhen|深圳|91@@Guangzhou|广州|80@@Qingdao|青岛|292@@Chengdu|成都|324@@Hangzhou|杭州|383@@Wuhan|武汉|192@@Tianjin|天津|343@@Dalian|大连|248@@Xiamen|厦门|61@@Chongqing|重庆|394@@" mod_address_reference="getcityid" mod_notice_tip="中文/拼音" />
 					<input id="getcityid" name="getcityid" type="hidden" value="{$getcityid}" />
 				</div>
 			</div>
@@ -23,26 +23,33 @@
 			    <div id="tuna_jmpinfo" style="visibility:hidden;position:absolute;z-index:120;"></div>
 			</div>
             </li>
-            <li>预约时间</li>
-            <li><input name="" type="text"></li>
-            <li>关键词</li>
-            <li><input name="" type="text"></li>
-            <li><input name="" type="button" class="btn" value=""></li>
+            <script type="text/javascript" src="@routes.Assets.at("javascripts/location/fixdiv.js")"></script>
+			<script type="text/javascript" src="@routes.Assets.at("javascripts/location/address.js")"></script>
+            <li>@Messages("industy")</li>
+            <li>
+            	<select name="salonIndustry">
+            		@Industry.findAll.toList.map{industry=>
+            			<option value="@industry.industryName">@Messages(industry.industryName)</option>	
+            		}
+            	</select>
+            </li>
+            <li>@Messages("salonSerachPage.keyword")</li>
+            <li><input name="keywords" type="text"></li>
+            <li><input name="" type="button" class="btn" value></li>
         </ul>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/location/fixdiv.js")"></script>
-		<script type="text/javascript" src="@routes.Assets.at("javascripts/location/address.js")"></script>
+        
         </form>
     </div>
     <div class="listBox">      
 	<div class="newFilter newFiltermvt1" id="filterArea" tab="noPop">
     <div class="boxcolor">
         <div class="wBox" id="wbox_l">
-        <p class="title">位置：</p>
+        <p class="title">@Messages("salonSerachPage.location")</p>
         <div class="rBox">
-            <div class="notto"><a href="http://hotel.elong.com/soochow/?aioIndex=-1&amp;aioVal=#" class="cur" method="l_no">不限</a></div>
+            <div class="notto"><a href="javascript:void(0);" class="cur" method="l_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place" id="locationTab">
-                <li class="active"><a href="javascript:;" rel="nofollow" method="l_3" class="cur">行政区<span class="iconjt"></span></a></li>
-                <li class=""><a href="javascript:;" rel="nofollow" method="l_6" class="cur">商圈<span class="iconjt"></span></a></li>
+                <li class="active"><a href="javascript:changeArea('getcity_name');" rel="nofollow" method="l_3" class="cur">@Messages("salonSerachPage.region")<span class="iconjt"></span></a></li>
+                <li class=""><a href="javascript:;" rel="nofollow" method="l_6" class="cur">@Messages("salonSerachPage.businessArea")<span class="iconjt"></span></a></li>
             </ul>
         </div>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/location/changeArea.js")"></script>
@@ -52,85 +59,59 @@
             </ul>
             <div class="clear"></div>
         </div>
-        <div class="filterShow" tt="6" style="display: none;">
-            <span method="l_6_col" class="cols" ></span>
-            <ul class="normal">
-                <li class="">
-                    <label title="苏州吴中区酒店" class="">
-                        <input datatype="6" dataname="吴中区" method="l_6_0_0" areaid="0001" name="lFilter" type="radio" value="on" id="lF0001">吴中区</label></li>
-                <li class="">
-            <label title="苏州观前街地区（市中心）酒店" class=""><input datatype="3" dataname="观前街地区（市中心）" method="l_3_0_0" areaid="110218" name="lFilter" type="radio" value="on" id="lF110218">观前街地区（市中心）</label>
-            </li>
-            <li class="">
-            <label title="苏州工业园区酒店" class=""><input datatype="3" dataname="工业园区" method="l_3_0_1" areaid="110213" name="lFilter" type="radio" value="on" id="lF110213">工业园区</label>
-            </li>
-            <li class="">
-            <label title="苏州苏州新区酒店" class=""><input datatype="3" dataname="苏州新区" method="l_3_0_2" areaid="110201" name="lFilter" type="radio" value="on" id="lF110201">苏州新区</label>
-            </li>
-            <li class="">
-            <label title="苏州火车站地区酒店" class=""><input datatype="3" dataname="火车站地区" method="l_3_0_3" areaid="110202" name="lFilter" type="radio" value="on" id="lF110202">火车站地区</label>
-            </li>
-            <li class="">
-            <label title="苏州盘门地区酒店" class=""><input datatype="3" dataname="盘门地区" method="l_3_0_4" areaid="110204" name="lFilter" type="radio" value="on" id="lF110204">盘门地区</label>
-            </li>
-            <li class="">
-            <label title="苏州太湖风景区酒店" class=""><input datatype="3" dataname="太湖风景区" method="l_3_0_5" areaid="110205" name="lFilter" type="radio" value="on" id="lF110205">太湖风景区</label>
-            </li>
-            <li class="">
-            <label title="苏州石路商业区酒店" class=""><input datatype="3" dataname="石路商业区" method="l_3_0_6" areaid="110219" name="lFilter" type="radio" value="on" id="lF110219">石路商业区</label>
-            </li>
-            <li class="">
-            <label title="苏州十全街地区酒店" class=""><input datatype="3" dataname="十全街地区" method="l_3_0_7" areaid="110220" name="lFilter" type="radio" value="on" id="lF110220">十全街地区</label>
-            </li>
-            <li class="">
-            <label title="苏州阳澄湖旅游度假区酒店" class=""><input datatype="3" dataname="阳澄湖旅游度假区" method="l_3_0_8" areaid="110221" name="lFilter" type="radio" value="on" id="lF110221">阳澄湖旅游度假区</label>
-            </li>
-            <li class="more" id="oneLineMore">更多<span class="jt"></span></li>
-                
-                
-                
-                
-            </ul>
-            <div class="clear">
-            </div>
-        </div>
-        <div class="filterShow" tt="3" style="display: none;">
-            <span method="l_3_col" class="cols"></span>
-            <ul class="normal">
-                
-                <li class="">
-                    <label title="苏州观前街地区（市中心）酒店" class="">
-                        <input datatype="3" dataname="观前街地区（市中心）" method="l_3_0_0" areaid="110218" name="lFilter" type="radio" value="on" id="lF110218">观前街地区（市中心）</label></li>
-                
-                
-                
-            </ul>
-            <div class="clear">
-            </div>
-        </div>
         <div class="clear">
         </div>
     	</div>
     <!---->
+    	<div class="wBox" id="wbox_s">
+	        <p class="title">@Messages("salonSerachPage.serviceType")：</p>
+	        <div class="rBox">
+	            <div class="notto"><a href="javascript:void(0)" class="cur" method="s_no">@Messages("salonSerachPage.unlimited")</a></div>
+	            <ul class="place prices">
+	            	@for((e, i) <- ServiceType.findAll.toList.zipWithIndex){
+	            		<li class="">
+		                    <input type="checkbox" name="serviceType[@i]" value="@e.serviceTypeName" method="s_5" mark="5" id="star@i">
+		                    <label for="star@i" class="">@e.description</label>
+	                	</li>
+	            	}
+	            </ul>
+	        </div>
+	        <div class="clear"></div>
+    	</div>
+    <!---->
         <div class="wBox" id="wbox_p">
-        <p class="title">房价：</p>
+        <p class="title">@Messages("comment.price")：</p>
         <div class="rBox">
-            <div class="notto"><a href="http://hotel.elong.com/soochow/?aioIndex=-1&amp;aioVal=#" class="cur" method="p_no">不限</a></div>
+            <div class="notto"><a href="javascript:void(0);" class="cur" method="p_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place prices">
-                <li class="">
-                    <input name="priceFilter" dataname="600元以上" type="radio" value="on" method="p_4" mark="600" id="pr4"><label for="pr4" title="苏州600元以上酒店" class="">
-                            600元以上</label></li>
-                <li class="">
-                    <input name="priceFilter" dataname="300-600元" type="radio" value="on" method="p_3" mark="300-600" id="pr3"><label for="pr3" title="苏州300-600元酒店" class="">
-                            300-600元</label></li>
-                <li class="">
-                    <input name="priceFilter" dataname="150-300元" type="radio" value="on" method="p_2" mark="150-300" id="pr2"><label for="pr2" title="苏州150-300元酒店" class="">
-                            150-300元</label></li>
-                <li class="">
-                    <input name="priceFilter" dataname="150元以下" type="radio" value="on" method="p_1" mark="150" id="pr1"><label for="pr1" title="苏州150元以下酒店" class="">
-                            150元以下</label></li>
+            	@HaircutPrice.findAll.map{price=>
+            		<li class="">
+                    	<input name="haircutPrice" dataname="" type="radio" value="@price.minPrice~@price.maxPrice" method="p_4" mark="600" id="pr4">
+                    	<label for="pr4" title="苏州600元以上酒店" class="">
+                    	@if(price.maxPrice == 20){
+                    		@price.maxPrice.toInt
+                    		@Messages("salonSerachPage.below")
+                    	}else{
+	                    	@if(price.maxPrice == 100000){
+	                    		@price.minPrice.toInt
+	                    		@Messages("salonSerachPage.over")
+	                    	}else{
+	                    		@price.minPrice.toInt
+	                    		-
+	                    		@price.maxPrice.toInt
+	                    		@Messages("salonSerachPage.rmb")</label>
+	                    	}
+                    	}
+                    </li>	
+            	}
+                
+                
             </ul>
-            <div class="optional" id="optPrice">自定义<input type="text" class="priTxt" method="lowPrice" id="lowPrice">到<input type="text" class="priTxt" method="highPrice" id="highPrice"><input type="button" id="surePrice" class="priBut" value="确定" method="p_opt">
+            <div class="optional" id="optPrice">@Messages("salonSerachPage.manualDefine")
+	            <input type="text" class="priTxt" method="lowPrice" id="lowPrice">
+	            -
+	            <input type="text" class="priTxt" method="highPrice" id="highPrice">
+	            <input type="button" id="surePrice" class="priBut" value="@Messages("salonSerachPage.confirm")" method="p_opt">
             </div>
         </div>
         <div class="clear">
@@ -138,26 +119,18 @@
     	</div>
     <!---->
         <div class="wBox" id="wbox_s">
-        <p class="title">星级：</p>
+        <p class="title">@Messages("salonSerachPage.setNumber")：</p>
         <div class="rBox">
-            <div class="notto"><a href="http://hotel.elong.com/soochow/?aioIndex=-1&amp;aioVal=#" class="cur" method="s_no">不限</a></div>
+            <div class="notto"><a href="javascript:void(0);" class="cur" method="s_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place prices">
-                <li class="">
-                    <input type="checkbox" name="checkbox" value="on" dataname="五星/豪华" method="s_5" mark="5" id="star5"><label for="star5" title="苏州五星/豪华酒店" class="">
-                            五星/豪华</label></li>
-                <li class="">
-                    <input type="checkbox" name="checkbox" value="on" dataname="四星/高档" method="s_4" mark="4" id="star4"><label for="star4" title="苏州四星/高档酒店" class="">
-                            四星/高档</label></li>
-                <li class="">
-                    <input type="checkbox" name="checkbox" value="on" dataname="三星/舒适" method="s_3" mark="3" id="star3"><label for="star3" title="苏州三星/舒适酒店" class="">
-                            三星/舒适</label></li>
-                <li class="">
-                    <input type="checkbox" name="checkbox" value="on" dataname="经济/客栈" method="s_2" mark="2" id="star2"><label for="star2" title="苏州经济/客栈酒店" class="">
-                            经济/客栈</label></li>
-                <li class="">
-                            
-                <input type="checkbox" name="checkbox" value="on" dataname="公寓酒店" method="s_11" mark="11" id="star11"><label for="star11" title="苏州公寓酒店" class="">
-                        公寓</label></li>
+            	@SeatNums.findAll.toList.map{seat=>
+            		<li class="">
+                    	<input name="seatNums" dataname="" type="radio" value="@seat.minNum-@seat.maxNum" method="p_4" mark="600" id="pr4">
+                    	<label for="pr4" title="" class="">
+                            @seat.minNum-@seat.maxNum</label>
+                    </li>
+            	}
+                
             </ul>
         </div>
         <div class="clear">
@@ -166,860 +139,84 @@
     <!---->
         
         <div class="wBox" id="wbox_b">
-        <p class="title">品牌：</p>
+        <p class="title">@Messages("salonSerachPage.otherCondtion")：</p>
         <div class="rBox">
-            <div class="notto"><a href="http://hotel.elong.com/soochow/?aioIndex=-1&amp;aioVal=#" class="cur" method="b_no">不限</a></div>
+            <div class="notto"><a href="void(0);" class="cur" method="b_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place prver">
-                
                 <li class="">
-                    <input type="checkbox" value="on" datatype="5" dataname="皇冠假日" method="b_316" brandid="316" id="br316">
-                    <label title="苏州皇冠假日酒店" for="br316" class="">
-                        皇冠假日</label></li>
-                
+                    <input type="checkbox" name="salonFacilities.canOnlineOrder" value="true" datatype="5" method="b_316" brandid="316" id="br316">
+                    <label for="br316" class="">
+                        @Messages("salon.canOnlineOrder")
+                    </label>
+                </li>
                 <li class="">
-                    <input type="checkbox" value="on" datatype="5" dataname="洲际" method="b_15" brandid="15" id="br15">
-                    <label title="苏州洲际酒店" for="br15" class="">
-                        洲际</label></li>
-                
+                    <input type="checkbox" name="salonFacilities.canImmediatelyOrder" value="true" datatype="5" method="b_316" brandid="316" id="br317">
+                    <label for="br317" class="">
+                        @Messages("salon.canImmediatelyOrder")
+                    </label>
+                </li>
                 <li class="">
-                    <input type="checkbox" value="on" datatype="5" dataname="假日" method="b_29154" brandid="29154" id="br29154">
-                    <label title="苏州假日酒店" for="br29154" class="">
-                        假日</label></li>
-                
+                    <input type="checkbox" name="salonFacilities.canNominateOrder" value="true" datatype="5" method="b_316" brandid="316" id="br318">
+                    <label for="br318" class="">
+                        @Messages("salon.canNominateOrder")
+                    </label>
+                </li>
                 <li class="">
-                    <input type="checkbox" value="on" datatype="5" dataname="智选假日" method="b_330" brandid="330" id="br330">
-                    <label title="苏州智选假日酒店" for="br330" class="">
-                        智选假日</label></li>
-                
+                    <input type="checkbox" name="salonFacilities.canCurntDayOrder" value="true" datatype="5" method="b_316" brandid="316" id="br319">
+                    <label for="br319" class="">
+                        @Messages("salon.canCurntDayOrder")
+                    </label>
+                </li>
                 <li class="">
-                    <input type="checkbox" value="on" datatype="5" dataname="港中旅维景" method="b_21" brandid="21" id="br21">
-                    <label title="苏州港中旅维景酒店" for="br21" class="">
-                        港中旅维景</label></li>
-                
+                    <input type="checkbox" name="salonFacilities.canMaleUse" value="true" datatype="5" method="b_316" brandid="316" id="br320">
+                    <label for="br320" class="">
+                        @Messages("salon.canMaleUse")
+                    </label>
+                </li>
                 <li class="">
-                    <input type="checkbox" value="on" datatype="5" dataname="万豪" method="b_13" brandid="13" id="br13">
-                    <label title="苏州万豪酒店" for="br13" class="">
-                        万豪</label></li>
-                
+                    <input type="checkbox" name="salonFacilities.isPointAvailable" value="true" datatype="5" method="b_316" brandid="316" id="br321">
+                    <label for="br321" class="">
+                        @Messages("salon.isPointAvailable")
+                    </label>
+                </li>
                 <li class="">
-                    <input type="checkbox" value="on" datatype="5" dataname="书香" method="b_29279" brandid="29279" id="br29279">
-                    <label title="苏州书香酒店" for="br29279" class="">
-                        书香</label></li>
-                
-                <li class="">
-                    <input type="checkbox" value="on" datatype="5" dataname="香格里拉" method="b_11" brandid="11" id="br11">
-                    <label title="苏州香格里拉酒店" for="br11" class="">
-                        香格里拉</label></li>
-                
-                <li class="">
-                    <input type="checkbox" value="on" datatype="5" dataname="凯宾斯基" method="b_45" brandid="45" id="br45">
-                    <label title="苏州凯宾斯基酒店" for="br45" class="">
-                        凯宾斯基</label></li>
-                <li class="more" mark="b" method="b_more">更多<span class="jt" method="b_more" mark="b"></span></li>
-                
-            </ul>
+                    <input type="checkbox" name="salonFacilities.isPosAvailable" value="true" datatype="5" method="b_316" brandid="316" id="br322">
+                    <label for="br322" class="">
+                        @Messages("salon.isPosAvailable")
+                    </label>
+                </li>
+				<li class="">
+                    <input type="checkbox" name="salonFacilities.isWifiAvailable" value="true" datatype="5" method="b_316" brandid="316" id="br323">
+                    <label for="br323" class="">
+                        @Messages("salon.isWifiAvailable")
+                    </label>
+                </li>                	
+				<li class="">
+                    <input type="checkbox" name="salonFacilities.hasParkingNearby" value="true" datatype="5" method="b_316" brandid="316" id="br324">
+                    <label for="br324" class="">
+                        @Messages("salon.hasParkingNearby")
+                    </label>
+                </li>					
+			</ul>
         </div>
         <div class="clear">
         </div>
    		</div>
-        
-      
-        <div class="wBox nobor" id="wbox_PNum">
-        <p class="title">人数：</p>
-        <div class="rBox">
-        	<div class="notto"><a href="./苏州酒店 - 苏州酒店预订 - 苏州酒店价格查询 - 艺龙旅行网_files/苏州酒店 - 苏州酒店预订 - 苏州酒店价格查询 - 艺龙旅行网.htm" class="cur" method="pnum_no">不限</a></div>
-            <ul class="place prver">
-                	    <li class=""><input name="radPeople" type="radio" value="1" id="num01" method="pnum_1" dataname="1人"><label for="num01" class="">1人</label></li>
-                        <li class=""><input name="radPeople" type="radio" value="2" id="num02" method="pnum_2" dataname="2人"><label for="num02" class="">2人</label></li>
-                        <li class=""><input name="radPeople" type="radio" value="3" id="num03" method="pnum_3" dataname="3人"><label for="num03" class="">3人</label></li>
-                        <li class=""><input name="radPeople" type="radio" value="4" id="num04" method="pnum_4" dataname="4人"><label for="num04" class="">4人</label></li>
-                        <li class=""><input name="radPeople" type="radio" value="5" id="num05" method="pnum_5" dataname="5人"><label for="num05" class="">5人</label></li>
-                        <li class=""><input name="radPeople" type="radio" value="6" id="num06" method="pnum_6" dataname="6人"><label for="num06" class="">6人</label></li>
-                        <li class=""><input name="radPeople" type="radio" value="7" id="num07" method="pnum_7" dataname="7人及以上"><label for="num07" class="">7人及以上</label></li>
-                    </ul>
-                </div>
-        <div class="clear"></div>
-        </div>
+     </div>
     <!---->
-        
-        <div class="wBox" id="wbox_f" style="display:none">
-        <p class="title">设施：</p>
-        <div class="rBox">
-            <div class="notto"><a href="http://hotel.elong.com/soochow/?aioIndex=-1&amp;aioVal=#" class="cur" method="f_no">不限</a></div>
-            <ul class="place prver">
-                <li class="">
-                    <input dataname="免费WiFi" fid="1" method="f_1" id="Fac_1" type="checkbox" value=""><label for="Fac_1" title="免费WiFi" class="">
-                            免费WiFi<tt class="new"></tt></label></li><li class="">
-                    <input dataname="免费宽带" fid="0" method="f_0" id="Fac_0" type="checkbox" value=""><label for="Fac_0" title="免费宽带" class="">
-                            免费宽带</label></li><li class="">
-                    <input dataname="免费停车场" fid="5" method="f_5" id="Fac_5" type="checkbox" value=""><label for="Fac_5" title="免费停车场" class="">
-                            免费停车场</label></li><li class="">
-                    <input dataname="健身房" fid="11" method="f_11" id="Fac_11" type="checkbox" value=""><label for="Fac_11" title="健身房" class="">
-                            健身房</label></li><li class="">
-                    <input dataname="免费接机" fid="7" method="f_7" id="Fac_7" type="checkbox" value=""><label for="Fac_7" title="免费接机" class="">
-                            免费接机</label></li><li class="">
-                    <input dataname="游泳池" fid="9" method="f_9" id="Fac_9" type="checkbox" value=""><label for="Fac_9" title="游泳池" class="">
-                            游泳池</label></li><li class="">
-                    <input dataname="餐厅" fid="14" method="f_14" id="Fac_14" type="checkbox" value=""><label for="Fac_14" title="餐厅" class="">
-                            餐厅</label></li><li class="">
-                    <input dataname="会议室" fid="13" method="f_13" id="Fac_13" type="checkbox" value=""><label for="Fac_13" title="会议室" class="">
-                            会议室</label></li><li class="">
-                    <input dataname="商务中心" fid="12" method="f_12" id="Fac_12" type="checkbox" value=""><label for="Fac_12" title="商务中心" class="">
-                            商务中心</label></li>
-                <li method="f_more" mark="f" class="more">更多<span class="jt" method="f_more" mark="f"></span></li>
-            </ul>
-        </div>
-        <div class="clear">
-        </div>
-    	</div>
-        
-        <div class="wBox nobor" id="wbox_t" style="display:none">
-        <p class="title">主题：</p>
-        <div class="rBox">
-            <div class="notto"><a href="http://hotel.elong.com/soochow/?aioIndex=-1&amp;aioVal=#" class="cur" method="t_no">不限</a></div>
-            <ul class="place prver">
-                <li class="">
-                    <input dataname="客栈" tid="97" method="t_97" id="The_97" type="checkbox" value=""><label for="The_97" title="客栈" class="">
-                            客栈</label></li><li class="">
-                    <input dataname="家庭旅馆" tid="98" method="t_98" id="The_98" type="checkbox" value=""><label for="The_98" title="家庭旅馆" class="">
-                            家庭旅馆</label></li><li class="">
-                    <input dataname="青年旅舍" tid="99" method="t_99" id="The_99" type="checkbox" value=""><label for="The_99" title="青年旅舍" class="">
-                            青年旅舍</label></li><li class="">
-                    <input dataname="精品酒店（设计师酒店）" tid="100" method="t_100" id="The_100" type="checkbox" value=""><label for="The_100" title="精品酒店（设计师酒店）" class="">
-                            精品酒店（设计师酒店）</label></li><li class="">
-                    <input dataname="情侣" tid="101" method="t_101" id="The_101" type="checkbox" value=""><label for="The_101" title="情侣" class="">
-                            情侣</label></li><li class="">
-                    <input dataname="园林庭院" tid="105" method="t_105" id="The_105" type="checkbox" value=""><label for="The_105" title="园林庭院" class="">
-                            园林庭院</label></li><li class="">
-                    <input dataname="海景" tid="103" method="t_103" id="The_103" type="checkbox" value=""><label for="The_103" title="海景" class="">
-                            海景</label></li><li class="">
-                    <input dataname="农家乐" tid="106" method="t_106" id="The_106" type="checkbox" value=""><label for="The_106" title="农家乐" class="">
-                            农家乐</label></li><li class="">
-                    <input dataname="温泉酒店" tid="102" method="t_102" id="The_102" type="checkbox" value=""><label for="The_102" title="温泉酒店" class="">
-                            温泉酒店</label></li>
-                <li method="t_more" mark="t" class="more">更多<span class="jt" method="t_more" mark="t"></span></li>
-            </ul>
-        </div>
-        <div class="clear">
-        </div>
-		</div>
-        
-        <div class="poi-popup" style="display: none; z-index: 1200;" id="moreBrandT">
-        <div class="box">
-            <div class="cnt">
-                <div class="p10">
-                    <div class="Htitle"><a class="com_close right" href="javascript:void(0);" rel="nofollow" onfocus="this.blur()" mtd="close" title="关闭"></a>
-                        更多品牌酒店</div>
-                    <ul class="movePinp clx">
-                        
-                        <li class="">
-                            <label title="苏州皇冠假日酒店" class="">
-                                <input id="m_br316" datatype="5" dataname="皇冠假日" mtd="brandMore" brandid="316" type="checkbox" value=""><a href="http://hotel.elong.com/soochow/chain316.html" forele="m_br316">皇冠假日</a></label></li>
-                    </ul>
-                    <div class="clear">
-                    </div>
-                    <div class="tr clx">
-                        <input name="" type="button" class="Hbot" mtd="brandOk" value="确定"></div>
-                    <div class="clear">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-        
-        <div class="poi-popup" style="display: none; z-index: 1200;" id="MoreFacility">
-        <div class="box">
-            <div class="cnt">
-                <div class="p10">
-                    <div class="Htitle">
-                        <a class="com_close right" href="javascript:void(0);" rel="nofollow" onfocus="this.blur()" mtd="close" title="关闭"></a>
-                        更多设施</div>
-                    <ul class="movePinp clx">
-                        <li class="">
-                            <label title="免费WiFi" class="">
-                                <input dataname="免费WiFi" mtd="facilityMore" fid="1" id="mFac_1" type="checkbox" value=""><a href="javascript:;" rel="nofollow" forele="mFac_1">免费WiFi</a></label></li><li class="">
-                            <label title="免费宽带" class="">
-                                <input dataname="免费宽带" mtd="facilityMore" fid="0" id="mFac_0" type="checkbox" value=""><a href="javascript:;" rel="nofollow" forele="mFac_0">免费宽带</a></label></li><li class="">
-                            <label title="免费停车场" class="">
-                                <input dataname="免费停车场" mtd="facilityMore" fid="5" id="mFac_5" type="checkbox" value=""><a href="javascript:;" rel="nofollow" forele="mFac_5">免费停车场</a></label></li><li class="">
-                            <label title="健身房" class="">
-                                <input dataname="健身房" mtd="facilityMore" fid="11" id="mFac_11" type="checkbox" value=""><a href="javascript:;" rel="nofollow" forele="mFac_11">健身房</a></label></li><li class="">
-                            <label title="免费接机" class="">
-                                <input dataname="免费接机" mtd="facilityMore" fid="7" id="mFac_7" type="checkbox" value=""><a href="javascript:;" rel="nofollow" forele="mFac_7">免费接机</a></label></li><li class="">
-                            <label title="游泳池" class="">
-                                <input dataname="游泳池" mtd="facilityMore" fid="9" id="mFac_9" type="checkbox" value=""><a href="javascript:;" rel="nofollow" forele="mFac_9">游泳池</a></label></li><li class="">
-                            <label title="餐厅" class="">
-                                <input dataname="餐厅" mtd="facilityMore" fid="14" id="mFac_14" type="checkbox" value=""><a href="javascript:;" rel="nofollow" forele="mFac_14">餐厅</a></label></li><li class="">
-                            <label title="会议室" class="">
-                                <input dataname="会议室" mtd="facilityMore" fid="13" id="mFac_13" type="checkbox" value=""><a href="javascript:;" rel="nofollow" forele="mFac_13">会议室</a></label></li><li class="">
-                            <label title="商务中心" class="">
-                                <input dataname="商务中心" mtd="facilityMore" fid="12" id="mFac_12" type="checkbox" value=""><a href="javascript:;" rel="nofollow" forele="mFac_12">商务中心</a></label></li><li class="">
-                          <label title="大床" class="">
-                              <input dataname="大床" mtd="facilityMore" mark="bigbed" id="mFac_Bigbed" type="checkbox" value=""><a href="javascript:;" rel="nofollow" forele="mFac_Bigbed">大床</a></label></li><li class="">
-                                          <label title="双床" class="">
-                                              <input dataname="双床" mtd="facilityMore" mark="doublebed" id="mFac_Doublebed" type="checkbox" value=""><a href="javascript:;" rel="nofollow" forele="mFac_Doublebed">双床</a></label></li>
-                    </ul>
-                    <div class="clear">
-                    </div>
-                    <div class="tr clx">
-                        <input name="" type="button" class="Hbot" mtd="facilityOk" value="确定"></div>
-                    <div class="clear">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-        
-        <div class="poi-popup" style="display: none; z-index: 1200;" id="MoreTheme">
-        <div class="box">
-            <div class="cnt">
-                <div class="p10">
-                    <div class="Htitle">
-                        <a class="com_close right" href="javascript:void(0);" onfocus="this.blur()" mtd="close" title="关闭"></a>
-                        更多主题</div>
-                    <ul class="movePinp clx">
-                        <li class="">
-                            <label title="客栈" class="">
-                                <input dataname="客栈" mtd="themeMore" tid="97" id="mThe_97" type="checkbox" value=""><a href="javascript:;" forele="mThe_97">客栈</a></label></li><li class="">
-                            <label title="家庭旅馆" class="">
-                                <input dataname="家庭旅馆" mtd="themeMore" tid="98" id="mThe_98" type="checkbox" value=""><a href="javascript:;" forele="mThe_98">家庭旅馆</a></label></li><li class="">
-                            <label title="青年旅舍" class="">
-                                <input dataname="青年旅舍" mtd="themeMore" tid="99" id="mThe_99" type="checkbox" value=""><a href="javascript:;" forele="mThe_99">青年旅舍</a></label></li><li class="">
-                            <label title="精品酒店（设计师酒店）" class="">
-                                <input dataname="精品酒店（设计师酒店）" mtd="themeMore" tid="100" id="mThe_100" type="checkbox" value=""><a href="javascript:;" forele="mThe_100">精品酒店（设计师酒店）</a></label></li><li class="">
-                            <label title="情侣" class="">
-                                <input dataname="情侣" mtd="themeMore" tid="101" id="mThe_101" type="checkbox" value=""><a href="javascript:;" forele="mThe_101">情侣</a></label></li><li class="">
-                            <label title="园林庭院" class="">
-                                <input dataname="园林庭院" mtd="themeMore" tid="105" id="mThe_105" type="checkbox" value=""><a href="javascript:;" forele="mThe_105">园林庭院</a></label></li><li class="">
-                            <label title="海景" class="">
-                                <input dataname="海景" mtd="themeMore" tid="103" id="mThe_103" type="checkbox" value=""><a href="javascript:;" forele="mThe_103">海景</a></label></li><li class="">
-                            <label title="农家乐" class="">
-                                <input dataname="农家乐" mtd="themeMore" tid="106" id="mThe_106" type="checkbox" value=""><a href="javascript:;" forele="mThe_106">农家乐</a></label></li><li class="">
-                            <label title="温泉酒店" class="">
-                                <input dataname="温泉酒店" mtd="themeMore" tid="102" id="mThe_102" type="checkbox" value=""><a href="javascript:;" forele="mThe_102">温泉酒店</a></label></li><li class="">
-                            <label title="高尔夫酒店" class="">
-                                <input dataname="高尔夫酒店" mtd="themeMore" tid="104" id="mThe_104" type="checkbox" value=""><a href="javascript:;" forele="mThe_104">高尔夫酒店</a></label></li><li class="">
-                            <label title="四合院" class="">
-                                <input dataname="四合院" mtd="themeMore" tid="107" id="mThe_107" type="checkbox" value=""><a href="javascript:;" forele="mThe_107">四合院</a></label></li><li class="">
-                            <label title="别墅" class="">
-                                <input dataname="别墅" mtd="themeMore" tid="259" id="mThe_259" type="checkbox" value=""><a href="javascript:;" forele="mThe_259">别墅</a></label></li><li class="">
-                            <label title="聚会做饭" class="">
-                                <input dataname="聚会做饭" mtd="themeMore" tid="260" id="mThe_260" type="checkbox" value=""><a href="javascript:;" forele="mThe_260">聚会做饭</a></label></li><li class="">
-                            <label title="CBD的家" class="">
-                                <input dataname="CBD的家" mtd="themeMore" tid="261" id="mThe_261" type="checkbox" value=""><a href="javascript:;" forele="mThe_261">CBD的家</a></label></li><li class="">
-                            <label title="休闲情调" class="">
-                                <input dataname="休闲情调" mtd="themeMore" tid="262" id="mThe_262" type="checkbox" value=""><a href="javascript:;" forele="mThe_262">休闲情调</a></label></li>
-                    </ul>
-                    <div class="clear">
-                    </div>
-                    <div class="tr clx">
-                        <input name="" type="button" class="Hbot" mtd="themeOk" value="确定"></div>
-                    <div class="clear">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-        
-        <div class="boxbut" method="showAllFilter"><a href="javascript:void(0);" method="showAllFilter" class="cur">展开设施和主题</a><span class="xlicon" method="showAllFilter"></span></div>
-    </div>
-    <!---->
-    
 </div>
-<script id="locationTabTemp" type="text/x-jquery-tmpl">
-<#
-var hotData=$Model.data;
-var index=$Model.index;
-#>
-<div class="filterShow" tt="<#=hotData.TypeId#>" style="display: none">
-    <span method="l_<#=hotData.TypeId#>_col" class="cols"></span>
-   <#if(!Object.isNull(hotData)){
-    if(hotData.SuggestTagDataNodes!=null&&hotData.SuggestTagDataNodes.length>1 && hotData.TypeId != 1){#>
-    <ul class="notab">
-    <#for(var i=0;i<hotData.SuggestTagDataNodes.length;i++){#>
-        <li method="l_<#=hotData.TypeId#>_<#=i#>" class='<#=i==index?"active":""#>'><#=hotData.SuggestTagDataNodes[i].TagName#></li>
-    <#}#>
+</div>
+<div id="salon_nvfxjs">
+	<div class="listMain" id="contentId">
+   <div class="sort" method="sortArea">
+    <ul>
+        <li class="def" method="sort" data-type="elong"><a href="javascript:void(0)" rel="nofollow" class="on" onfocus="this.blur();">@Messages("salonSerachPage.meifanRec")</a></li>
+        <li method="sort" data-type="popu"><a href="javascript:void(0)" rel="nofollow" class="down" onfocus="this.blur();">@Messages("salonSerachPage.sortByHot")</a></li>
+        <li method="sort" data-type="distance"><a href="javascript:void(0)" rel="nofollow" class="up c" onfocus="this.blur();">@Messages("salonSerachPage.sortByPrice")</a></li>
+        <li class="" method="sort" data-type="priceAsc"><a href="javascript:void(0)" rel="nofollow" class="up" onfocus="this.blur();">@Messages("salonSerachPage.sortByComment")</a></li>
     </ul>
-    <div class="clear"></div>
-    <#}#>
-    <ul class="normal">
-    <#
-    var tagDatas=hotData.SuggestTagDataNodes[index];
-    for(var k=0;tagDatas.SuggestDatas!=null&& k<tagDatas.SuggestDatas.length;k++){
-         var suggestData=tagDatas.SuggestDatas[k];
-    #>
-        <li>
-            <label>
-                <input name="lFilter" type="radio" value="" method="l_<#=hotData.TypeId#>_<#=index#>_<#=k#>"  areaid="<#=suggestData.PropertiesId#>" 
-                lng="<#=suggestData.GoogleLng#>" lat="<#=suggestData.GoogleLat#>" dataName='<#=suggestData.DataName#>' typeid="<#=hotData.TypeId#>"/><#=suggestData.DataName#></label></li>
-    <#}#>
-    <#
-    if (hotData.TypeId == 1 && hotData.SuggestTagDataNodes.length>1){
-        tagDatas=hotData.SuggestTagDataNodes[1];
-    
-    for(var k=0;tagDatas.SuggestDatas!=null&& k<tagDatas.SuggestDatas.length;k++){
-         var suggestData=tagDatas.SuggestDatas[k];
-    #>
-        <li>
-            <label>
-                <input name="lFilter" type="radio" value="" method="l_<#=hotData.TypeId#>_<#=index#>_<#=k#>"  areaid="<#=suggestData.PropertiesId#>" 
-                lng="<#=suggestData.GoogleLng#>" lat="<#=suggestData.GoogleLat#>" dataName='<#=suggestData.DataName#>' typeid="<#=hotData.TypeId#>"/><#=suggestData.DataName#></label></li>
-    <#}#>
-    <#}#>
-    </ul>
-    <#}#>
-    <div class="clear">
-    </div>
-</div>
-</script>
-<div class="listSidebar">
-<div class="sidebarMap" id="sidebarMap">
-  <div id="listRightInfoDiv" style="display: none; " class="wrap">
-                    
-                    
-          <!-- 我浏览过的酒店 start -->
-  <div class="divide" id="HistoryBrowseHotelContainer" style="display: none;" seenedtag="0">
-                    </div>
-                    <!-- 我浏览过的酒店 end --> 
-                  
-                    
-                </div>
-        </div>
-        </div>
-        
-        
-<!--POI--><!--cms zhaoliu-->
-        
-        <!--cms end-->
-        <!-- loading search-->
-  <div class="p15" id="divSearch" style="display: none;">
-            <!--loading -->
-            <div class="ht-load">
-                <dl class="hotel_loading" id="com_loading">
-  <dt class="loading"></dt>
-  <dd class="bold">小艺正在为您努力加载中...</dd>
-  <dd>现在注册，就能获得800元代金券。</dd>
-</dl>
-            </div>
-            <!--loading -->
-        </div>
-        <!-- loading search-->
-        <!-- Html template-->
-        
-<script id="roomTemp" type="text/x-jquery-tmpl">
-  <#
-              var commonRooms= null;
-              var room=$Model.Data;
-              var cityNameEn = $Model.cityNameEn;
-              var islogin=$Model.islogin;
-              var isShowPriceImage=$Model.showPriceImage;
-              var isLongCui=$Model.isLongCui;
-              var showAllRoom=$Model.showAllRoom;
-              if (room != null && room.HotelRoomSimpleList != null && room.HotelRoomSimpleList.length > 0)
-              {
-                  commonRooms = room.HotelRoomSimpleList;
-              }#>
-          
-             <# if (commonRooms != null && commonRooms.length > 0)
-              {
-            var IsShowAvgPrice = false;
-            var TitleMsg = "";
-            var RatePlanItem = null;
-                  #>
-              <div class="RpList mvtRp01" stu='<#=showAllRoom?"all":"two"#>'>
-                 <ul class="roomTypes">
- <#var longcuiRoomRows=0;
-for (var j = 0; commonRooms!=null && commonRooms.length>0 && j < commonRooms.length; j++)
-{
-    var longcuiRoomItem = commonRooms[j];
-     if(!islogin || !isLongCui||longcuiRoomItem.LongCuiRatePlanList==null||longcuiRoomItem.LongCuiRatePlanList.length ==0){continue;}
-    var trClass="";
-    if (longcuiRoomRows>0) {
-        trClass="style='display:list-item;'";
-    }
-    longcuiRoomRows++;
-
-                      #>
-                
-                <#if (longcuiRoomItem.LongCuiRatePlanList != null && longcuiRoomItem.LongCuiRatePlanList.length == 1)
-                                       {
-                                           var RatePlanItem = longcuiRoomItem.LongCuiRatePlanList[0];
-                                           if(isShowPriceImage){
-                                                IsShowAvgPrice = RatePlanItem.AvgPrice>0 ? true:false;
-                                           }else{
-                                                IsShowAvgPrice = RatePlanItem.AvgPrice>RatePlanItem.FavorablePrice ? true:false;
-                                            }
-                                            var currPrice=isShowPriceImage? RatePlanItem.ImagePrice:RatePlanItem.FavorablePrice;
-                                            TitleMsg = IsShowAvgPrice ? "title='此价格是相同条件下的普通会员价格'":"";
-                                           #> 
-                <li mark="one" class="rbox" <#=trClass#> roomid="<#=longcuiRoomItem.RoomId#>" sroomid="<#=RatePlanItem.SRoomTypeId#>" roomhotelid="<#=room.HotelId#>" islongcui='1' rpid="<#=RatePlanItem.RatePlanId#>" sid="<#=RatePlanItem.SupplierId#>">
-                    <p class="rw1"><a method='roomUrl' href='javascript:void(0);' rel='nofollow'><#=longcuiRoomItem.RoomName == "" ? "— —" : longcuiRoomItem.RoomName#></a><span class="new_iconlongcui" title="龙萃会员专享房型，顶级折扣享受至尊体验！">龙萃</span>
-                    <#if(!String.isNullOrEmpty(RatePlanItem.SupplierActivityList)){#><span class="iconLibao" method="gift"></span><#}#></p>
-                    <p class="rw2"><#=longcuiRoomItem.BedShort!="-"?(longcuiRoomItem.BedShort+"床"):"--"#></p>
-                    <p class="rw9"><#=RatePlanItem.Brkfast#>餐</p>                    
-                    <#if(RatePlanItem.NeedSurety||(RatePlanItem.Pay==1)){ 
-                        if(RatePlanItem.CancelType==1){#>
-                        <p class="rw10"  method="cancel" islongcui='1' cancelType='1'>限时取消</p>
-                        <#}else {#>
-                        <p class="rw10"  method="cancel" islongcui='1' cancelType='2'>不可取消</p>
-                    <#  }
-                    }else{#>
-                        <p class="rw10"  method="cancel" islongcui='1' cancelType='0'>免费取消</p>
-                    <#}#>
-                    <p class="rw4"><#if(IsShowAvgPrice){#><span class="priceDesignated" <#=TitleMsg#>><#=RatePlanItem.MoneySymb#><#=RatePlanItem.AvgPrice#></span><#}#>
-                    <span class="price" method="longcuiPrice"><dfn><#=RatePlanItem.FavorableMoneySymb#></dfn><#=currPrice#></span></p>
-                    <p class="rw5"><#if (RatePlanItem.ReduceAmount > 0)
-                      { #><span class="lijian" method="reduce" islongcui='1'>-<#=RatePlanItem.ReduceAmount#></span><span class="information" method="reduce" islongcui='1'></span><#}
-                      else if (!String.isNullOrEmpty(RatePlanItem.CashBackAmount)) 
-                      {#><span class="iconFan" method='cashback' islongcui='1'><#=RatePlanItem.CashBackAmount#>元</span>
-                      <#
-                      }else if (RatePlanItem.CouponAmount > 0)
-                      {#><span class="iconFan" method='coupon' islongcui='1'><#=RatePlanItem.CouponAmount#>元</span>
-                      <#}else if(!String.isNullOrEmpty(RatePlanItem.PromotionDesc)){ #>
-                      <span class="iconCu" method='promotion' islongcui='1'></span>
-                      <#}#>&nbsp;</p>
-                    <p class="rw8">&nbsp;<#=(RatePlanItem.SupplierRemainRoomNum <= 5 && RatePlanItem.SupplierRemainRoomNum >= 1 && RatePlanItem.Status == 0)?
-                                String.format("仅剩{0}间", RatePlanItem.SupplierRemainRoomNum):""#></p>
-                    <p class="rw6">&nbsp;<#=RatePlanItem.NeedSurety?"<span class='iconDanbao' title='房型太抢手了！酒店需要您提供信用卡担保预订,什么叫"信用卡担保"？我们会预先冻结相应担保金，实际入住后，担保金会在您离店后3-5个工作日内解冻。'></span>":""#>
-                      <#=RatePlanItem.Pay==1?("<span class='iconYufu' title='为保障您的预订，需要您预先在网上支付房费。'></span>"):""#>
-                    </p>
-                    <p class="rw7"><#if(RatePlanItem.SupplierRemainRoomNum == 0 || RatePlanItem.Status != 0){#><a method='roomUrl' href='javascript:void(0);' rel='nofollow' title="<#=RatePlanItem.OrderNotes#>" class='nobut'>订完</a>
-                            <#}else{#><a method='roomUrl' title="<#=RatePlanItem.OrderNotes#>" href='javascript:void(0);' rel='nofollow' class='button'>查看</a>
-                            <#}#></p>
-               </li>
-<#}
-                else if (longcuiRoomItem.LongCuiRatePlanList != null && longcuiRoomItem.LongCuiRatePlanList.length > 1)
-                {
-                    var RatePlanItem = longcuiRoomItem.LongCuiRatePlanList[0];
-                                            if(isShowPriceImage){
-                                                IsShowAvgPrice = RatePlanItem.AvgPrice>0 ? true:false;
-                                           }else{
-                                                IsShowAvgPrice = RatePlanItem.AvgPrice>RatePlanItem.FavorablePrice ? true:false;
-                                            }
-                                             var currPrice=isShowPriceImage? RatePlanItem.ImagePrice:RatePlanItem.FavorablePrice;
-                                            TitleMsg = IsShowAvgPrice ? "title='此价格是相同条件下的普通会员价格'":"";
-                    #>
-                <li mark="close" class="rbox <#=(j==(commonRooms.length-1)?"norbox":"")#>" <#=trClass#> roomid="<#=longcuiRoomItem.RoomId#>" sroomid="<#=RatePlanItem.SRoomTypeId#>" roomhotelid="<#=room.HotelId#>" islongcui='1' rpid="<#=RatePlanItem.RatePlanId#>" sid="<#=RatePlanItem.SupplierId#>">
-                    <p class="rw1"><a method="OpenOrClose" href='javascript:void(0);' rel='nofollow'><#=longcuiRoomItem.RoomName == "" ? "— —" :longcuiRoomItem.RoomName#><span class="arrow" method="OpenOrClose"></span></a><span class="new_iconlongcui" title="龙萃会员专享房型，顶级折扣享受至尊体验！">龙萃</span>
-                    <#if(!String.isNullOrEmpty(RatePlanItem.SupplierActivityList)){#><span class="iconLibao" method="gift"></span><#}#></p>
-                    <p class="rw2"><#=longcuiRoomItem.BedShort!="-"?(longcuiRoomItem.BedShort+"床"):"--"#></p>
-                    <p class="rw9"><#=RatePlanItem.Brkfast#>餐</p>
-                    <#if(RatePlanItem.NeedSurety||(RatePlanItem.Pay==1)){ 
-                        if(RatePlanItem.CancelType==1){#>
-                        <p class="rw10"  method="cancel" islongcui='1' cancelType='1'>限时取消</p>
-                        <#}else {#>
-                        <p class="rw10"  method="cancel" islongcui='1' cancelType='2'>不可取消</p>
-                    <#  }
-                    }else{#>
-                        <p class="rw10"  method="cancel" islongcui='1' cancelType='0'>免费取消</p>
-                    <#}#>
-                    <p class="rw4"><#if(IsShowAvgPrice){#><span class="priceDesignated" <#=TitleMsg#>><#=RatePlanItem.MoneySymb#><#=RatePlanItem.AvgPrice#></span><#}#>
-                    <span class="price" method="longcuiPrice"><dfn><#=RatePlanItem.FavorableMoneySymb#></dfn><#=currPrice#></span></p>
-                    <p class="rw5"><#if (RatePlanItem.ReduceAmount > 0)
-                      { #><span class="lijian" method="reduce" islongcui='1'>-<#=RatePlanItem.ReduceAmount#></span><span class="information" method="reduce" islongcui='1'></span><#}
-                      else if (!String.isNullOrEmpty(RatePlanItem.CashBackAmount)) 
-                      {#><span class="iconFan" method='cashback' islongcui='1'><#=RatePlanItem.CashBackAmount#>元</span>
-                      <#
-                      }else if (RatePlanItem.CouponAmount > 0)
-                      {#><span class="iconFan" method='coupon' islongcui='1'><#=RatePlanItem.CouponAmount#>元</span>
-                      <#}else if(!String.isNullOrEmpty(RatePlanItem.PromotionDesc)){ #>
-                      <span class="iconCu" method='promotion' islongcui='1'></span>
-                      <#}#>&nbsp;</p>
-                    <p class="rw8">&nbsp;<#=(RatePlanItem.SupplierRemainRoomNum <= 5 && RatePlanItem.SupplierRemainRoomNum >= 1 && RatePlanItem.Status == 0)?
-                                String.format("仅剩{0}间", RatePlanItem.SupplierRemainRoomNum):""#></p>
-                    <p class="rw6">&nbsp;<#=RatePlanItem.NeedSurety?"<span class='iconDanbao' title='房型太抢手了！酒店需要您提供信用卡担保预订,什么叫"信用卡担保"？我们会预先冻结相应担保金，实际入住后，担保金会在您离店后3-5个工作日内解冻。'></span>":""#>
-                      <#=RatePlanItem.Pay==1?("<span class='iconYufu' title='为保障您的预订，需要您预先在网上支付房费。'></span>"):""#>
-                    </p>
-                    <p class="rw7"><#if(RatePlanItem.SupplierRemainRoomNum == 0 || RatePlanItem.Status != 0){#><a method='roomUrl' href='javascript:void(0);' rel='nofollow' title="<#=RatePlanItem.OrderNotes#>" class='nobut'>订完</a>
-                            <#}else{#><a method='roomUrl' title="<#=RatePlanItem.OrderNotes#>" href='javascript:void(0);' rel='nofollow' class='button'>查看</a>
-                            <#}#></p>
-               </li>
-              
-             <li class="rbox nopad" mark="open" style="display:none">
-                            <p class="rw1"><a href="javascript:void(0);" rel="nofollow" method="OpenOrClose"><#=longcuiRoomItem.RoomName#><span class="arrow arrowt"  method="OpenOrClose"></span></a>
-                            <span class="iconLongcui" title="龙萃会员专享房型，顶级折扣享受至尊体验！"></span></p>                            
-                            <div class="clear"></div>
-                            <ul class="roomTypes roomBox">
-                             <#for (var k = 0; k < longcuiRoomItem.LongCuiRatePlanList.length; k++)
-                            {
-                                    var RatePlanItem = longcuiRoomItem.LongCuiRatePlanList[k];
-                                   if(isShowPriceImage){
-                                                IsShowAvgPrice = RatePlanItem.AvgPrice>0 ? true:false;
-                                           }else{
-                                                IsShowAvgPrice = RatePlanItem.AvgPrice>RatePlanItem.FavorablePrice ? true:false;
-                                            }
-                                     var currPrice=isShowPriceImage? RatePlanItem.ImagePrice:RatePlanItem.FavorablePrice;
-                                    TitleMsg = IsShowAvgPrice ? "title='此价格是相同条件下的普通会员价格'":"";
-                                #>
-                                <li class="rbox" roomid="<#=longcuiRoomItem.RoomId#>" sroomid="<#=RatePlanItem.SRoomTypeId#>" roomhotelid="<#=room.HotelId#>" islongcui='1' rpid="<#=RatePlanItem.RatePlanId#>" sid="<#=RatePlanItem.SupplierId#>">
-                                    <p class="rw1"><a method='roomUrl' href='javascript:void(0);' rel='nofollow'><#=RatePlanItem.RatePlanName == "" ? "— —" :RatePlanItem.RatePlanName#></a><#if(!String.isNullOrEmpty(RatePlanItem.SupplierActivityList)){#><span class="iconLibao" method="gift"></span><#}#></p>
-                                    <p class="rw2"><#=longcuiRoomItem.BedShort!="-"?(longcuiRoomItem.BedShort+"床"):"--"#></p>
-                            		<p class="rw9"><#=RatePlanItem.Brkfast#>餐</p>
-                                    <#if(RatePlanItem.NeedSurety||(RatePlanItem.Pay==1)){ 
-                        if(RatePlanItem.CancelType==1){#>
-                        <p class="rw10"  method="cancel" islongcui='1' cancelType='1'>限时取消</p>
-                        <#}else {#>
-                        <p class="rw10"  method="cancel" islongcui='1' cancelType='2'>不可取消</p>
-                    <#  }
-                    }else{#>
-                        <p class="rw10"  method="cancel" islongcui='1' cancelType='0'>免费取消</p>
-                    <#}#>
-                                    <p class="rw4"><#if(IsShowAvgPrice){#><span class="priceDesignated" <#=TitleMsg#>><#=RatePlanItem.MoneySymb#><#=RatePlanItem.AvgPrice#></span><#}#>
-                    <span class="price" method="longcuiPrice"><dfn><#=RatePlanItem.FavorableMoneySymb#></dfn><#=currPrice#></span></p>
-                                    <p class="rw5"><#if (RatePlanItem.ReduceAmount > 0)
-                      { #><span class="lijian" method="reduce" islongcui='1'>-<#=RatePlanItem.ReduceAmount#></span><span class="information" method="reduce" islongcui='1'></span><#}
-                      else if (!String.isNullOrEmpty(RatePlanItem.CashBackAmount)) 
-                      {#><span class="iconFan" method='cashback' islongcui='1'><#=RatePlanItem.CashBackAmount#>元</span>
-                      <#
-                      }else if (RatePlanItem.CouponAmount > 0)
-                      {#><span class="iconFan" method='coupon' islongcui='1'><#=RatePlanItem.CouponAmount#>元</span>
-                      <#}else if(!String.isNullOrEmpty(RatePlanItem.PromotionDesc)){ #>
-                      <span class="iconCu" method='promotion' islongcui='1'></span>
-                      <#}#>&nbsp;</p>
-                                    <p class="rw8">&nbsp;<#=(RatePlanItem.SupplierRemainRoomNum <= 5 && RatePlanItem.SupplierRemainRoomNum >= 1 && RatePlanItem.Status == 0)?
-                                String.format("仅剩{0}间", RatePlanItem.SupplierRemainRoomNum):""#></p>
-                                    <p class="rw6">&nbsp;<#=RatePlanItem.NeedSurety?"<span class='iconDanbao' title='房型太抢手了！酒店需要您提供信用卡担保预订,什么叫"信用卡担保"？我们会预先冻结相应担保金，实际入住后，担保金会在您离店后3-5个工作日内解冻。'></span>":""#>
-                      <#=RatePlanItem.Pay==1?("<span class='iconYufu' title='为保障您的预订，需要您预先在网上支付房费。'></span>"):""#></p>
-                                    <p class="rw7"><#if(RatePlanItem.SupplierRemainRoomNum == 0 || RatePlanItem.Status != 0){#><a method='roomUrl' href='javascript:void(0);' rel='nofollow' title="<#=RatePlanItem.OrderNotes#>" class='nobut'>订完</a>
-                            <#}else{#><a method='roomUrl' title="<#=RatePlanItem.OrderNotes#>" href='javascript:void(0);' rel='nofollow' class='button'>查看</a>
-                            <#}#></p>
-                                </li>
-                                <#} #>
-                    </ul>
-                </li>
-                <#}} #>
-     
-     <# var roomRowsNum=0;
-     for (var j = 0; j < commonRooms.length; j++)
-        {
-            var commonRoomItem = commonRooms[j];
-             if(commonRoomItem.RatePlanList==null||commonRoomItem.RatePlanList.length ==0){continue;}
-            var trClass="";
-            if (roomRowsNum>1) {
-                trClass="style='display: list-item;'";
-            }
-            roomRowsNum++; 
-    #>
-                        
-                        <#if (commonRoomItem.RatePlanList != null && commonRoomItem.RatePlanList.length == 1)
-                            {
-                                RatePlanItem = commonRoomItem.RatePlanList[0];
-                                if(isShowPriceImage){
-                                                IsShowAvgPrice = RatePlanItem.AvgPrice>0 ? true:false;
-                                           }else{
-                                                IsShowAvgPrice = RatePlanItem.AvgPrice>RatePlanItem.FavorablePrice ? true:false;
-                                            }
-                                            var currPrice=isShowPriceImage? RatePlanItem.ImagePrice:RatePlanItem.FavorablePrice;
-                                TitleMsg = IsShowAvgPrice ? "title='此价格是相同条件下的正常预订价格'":"";
-                                group_url = String.format("http://hotel.elong.com/GroupTemp.html?shotelId={0}&roomId={1}&rpId={2}&cityNameEn={3}",RatePlanItem.ShotelId,commonRoomItem.RoomId,RatePlanItem.RatePlanId, cityNameEn);
-                                #>
-                                <#if(RatePlanItem.ProductType==64){#>
-                                <li class="rbox <#=(j==(commonRooms.length-1)?"norbox":"")#>" <#=trClass#>><p class="rw1"><a href='<#=group_url#>'target="_blank"><#=commonRoomItem.RoomName#></a>
-                                <#} else { #>
-                    <li mark="one" class="rbox <#=(j==(commonRooms.length-1)?"norbox":"")#>" <#=trClass#> roomid="<#=commonRoomItem.RoomId#>" sroomid="<#=RatePlanItem.SRoomTypeId#>" roomhotelid="<#=room.HotelId#>" rpid="<#=RatePlanItem.RatePlanId#>" sid="<#=RatePlanItem.SupplierId#>" productType="<#=RatePlanItem.ProductType#>" shotelId='<#=RatePlanItem.ShotelId#>'>
-                    <p class="rw1"><a method='roomUrl' href='javascript:void(0);' rel='nofollow'><#=commonRoomItem.RoomName == "" ? "— —" :commonRoomItem.RoomName#></a><# } #>
-                    <#if(RatePlanItem.ProductType==16){#><span class="new_iconXianshiq" title="此房型正在参加限时抢购活动！">限时抢</span>
-                    <#}else if(RatePlanItem.ProductType==64){#><span class="new_icontuan" title="团购更优惠！支持在线预约和随时退。">团购</span>
-                    <#}else if(RatePlanItem.HasWeifang){#><span class="new_icontuan" title='该房型"今日特价"，预订即可享受超低价！'>特价</span><#}#>
-                    <#if(!String.isNullOrEmpty(RatePlanItem.SupplierActivityList)){#><span class="iconLibao" method="gift"></span><#}#></p>
-                    <p class="rw2"><#=commonRoomItem.BedShort!="-"?(commonRoomItem.BedShort+"床"):"--"#></p>
-                    <p class="rw9"><#=RatePlanItem.Brkfast#>餐</p>
-                    <#if(RatePlanItem.NeedSurety||(RatePlanItem.Pay==1)){ 
-                        if(RatePlanItem.CancelType==1){#>
-                        <p class="rw10"  method="cancel" islongcui='0' cancelType='1'>限时取消</p>
-                        <#}else {#>
-                        <p class="rw10"  method="cancel" islongcui='0' cancelType='2'>不可取消</p>
-                    <#  }
-                    }else{#>
-                        <p class="rw10"  method="cancel" islongcui='0' cancelType='0'>免费取消</p>
-                    <#}#>
-                    <p class="rw4"><#if(IsShowAvgPrice){#><span class="priceDesignated" <#=TitleMsg#>><#=RatePlanItem.MoneySymb#><#=RatePlanItem.AvgPrice#></span><#}#>
-                    <span class="price" method="avgPrice"><dfn><#=RatePlanItem.FavorableMoneySymb#></dfn><#=currPrice#></span></p>
-                    <p class="rw5"><#if (RatePlanItem.ReduceAmount > 0)
-                      { #><span class="lijian" method="reduce" islongcui='0'>-<#=RatePlanItem.ReduceAmount#></span><span class="information" method="reduce" islongcui='0'></span><#}
-                      else if (!String.isNullOrEmpty(RatePlanItem.CashBackAmount)) 
-                      {#><span class="iconFan" method='cashback' islongcui='0'><#=RatePlanItem.CashBackAmount#>元</span>
-                      <#
-                      }else if (RatePlanItem.CouponAmount > 0)
-                      {#><span class="iconFan" method='coupon' islongcui='0'><#=RatePlanItem.CouponAmount#>元</span>
-                      <#}else if(!String.isNullOrEmpty(RatePlanItem.PromotionDesc)){ #>
-                      <span class="iconCu" method='promotion' islongcui='0'></span>
-                      <#}#>&nbsp;</p>
-                    <p class="rw8">&nbsp;<#=(RatePlanItem.SupplierRemainRoomNum <= 5 && RatePlanItem.SupplierRemainRoomNum >= 1 && RatePlanItem.Status == 0)?
-                                String.format("仅剩{0}间", RatePlanItem.SupplierRemainRoomNum):""#></p>
-                    <p class="rw6">&nbsp;<#=RatePlanItem.NeedSurety?"<span class='iconDanbao' title='房型太抢手了！酒店需要您提供信用卡担保预订,什么叫"信用卡担保"？我们会预先冻结相应担保金，实际入住后，担保金会在您离店后3-5个工作日内解冻。'></span>":""#>
-                      <#=(RatePlanItem.Pay==1?("<span class='iconYufu' title='为保障您的预订，需要您预先在网上支付房费。'></span>"):"")#>
-                    </p>
-                    <p class="rw7"><#if(RatePlanItem.SupplierRemainRoomNum == 0 || RatePlanItem.Status != 0){#><#if(RatePlanItem.ProductType==64){#><a href='<#=group_url#>'target="_blank" class='button'>查看</a><#} else {#><a method='roomUrl' href='javascript:void(0);' rel='nofollow' title="<#=RatePlanItem.OrderNotes#>" class='nobut'>订完</a><#}#>
-                            <#}else{#><#if(RatePlanItem.ProductType==64){#><a href='<#=group_url#>'target="_blank" class='button'>查看</a><#} else {#><a method='roomUrl' title="<#=RatePlanItem.OrderNotes#>" href='javascript:void(0);' rel='nofollow' class='button'>查看</a>
-                            <#}}#></p>
-               </li>                                                               
-                       <#}
-                                               else if (commonRoomItem.RatePlanList != null && commonRoomItem.RatePlanList.length > 1)
-                                               {
-                                                   RatePlanItem = commonRoomItem.RatePlanList[0];
-                                                   if(isShowPriceImage){
-                                                IsShowAvgPrice = RatePlanItem.AvgPrice>0 ? true:false;
-                                           }else{
-                                                IsShowAvgPrice = RatePlanItem.AvgPrice>RatePlanItem.FavorablePrice ? true:false;
-                                            }
-                                            var currPrice=isShowPriceImage? RatePlanItem.ImagePrice:RatePlanItem.FavorablePrice;
-                                                   TitleMsg = IsShowAvgPrice ? "title='此价格是相同条件下的正常预订价格'":"";
-                                                   group_url = String.format("http://hotel.elong.com/GroupTemp.html?shotelId={0}&roomId={1}&rpId={2}&cityNameEn={3}",RatePlanItem.ShotelId,commonRoomItem.RoomId,RatePlanItem.RatePlanId, cityNameEn);
-                                                   #>
-                       
-                      <li mark="close" class="rbox <#=(j==(commonRooms.length-1)?"norbox":"")#>" <#=trClass#> roomid="<#=commonRoomItem.RoomId#>" sroomid="<#=RatePlanItem.SRoomTypeId#>" roomhotelid="<#=room.HotelId#>" rpid="<#=RatePlanItem.RatePlanId#>" sid="<#=RatePlanItem.SupplierId#>" productType="<#=RatePlanItem.ProductType#>" shotelId='<#=RatePlanItem.ShotelId#>'>
-                    <p class="rw1"><a method="OpenOrClose" href='javascript:void(0);' rel='nofollow'><#=commonRoomItem.RoomName == "" ? "— —" :commonRoomItem.RoomName#><span class="arrow" method="OpenOrClose"></span></a>
-                    <#if(RatePlanItem.ProductType==16){#><span class="new_iconXianshiq" title="此房型正在参加限时抢购活动！">限时抢</span>
-                    <#}else if(RatePlanItem.ProductType==64){#><span class="new_icontuan" title="团购更优惠！支持在线预约和随时退。">团购</span>
-                    <#}else if(RatePlanItem.HasWeifang){#><span class="new_icontuan" title='该房型"今日特价"，预订即可享受超低价！'>特价</span><#}#>
-                    <#if(!String.isNullOrEmpty(RatePlanItem.SupplierActivityList)){#><span class="iconLibao" method="gift"></span><#}#></p>
-                    <p class="rw2"><#=commonRoomItem.BedShort!="-"?(commonRoomItem.BedShort+"床"):"--"#></p>
-                    <p class="rw9"><#=RatePlanItem.Brkfast#>餐</p>
-                    <#if(RatePlanItem.NeedSurety||(RatePlanItem.Pay==1)){ 
-                        if(RatePlanItem.CancelType==1){#>
-                        <p class="rw10"  method="cancel" islongcui='0' cancelType='1'>限时取消</p>
-                        <#}else {#>
-                        <p class="rw10"  method="cancel" islongcui='0' cancelType='2'>不可取消</p>
-                    <#  }
-                    }else{#>
-                        <p class="rw10"  method="cancel" islongcui='0' cancelType='0'>免费取消</p>
-                    <#}#>
-                    <p class="rw4"><#if(IsShowAvgPrice){#><span class="priceDesignated" <#=TitleMsg#>><#=RatePlanItem.MoneySymb#><#=RatePlanItem.AvgPrice#></span><#}#>
-                    <span class="price" method="avgPrice"><dfn><#=RatePlanItem.FavorableMoneySymb#></dfn><#=currPrice#></span></p>
-                    <p class="rw5"><#if (RatePlanItem.ReduceAmount > 0)
-                      { #><span class="lijian" method="reduce" islongcui='0'>-<#=RatePlanItem.ReduceAmount#></span><span class="information" method="reduce" islongcui='0'></span><#}
-                      else if (!String.isNullOrEmpty(RatePlanItem.CashBackAmount)) 
-                      {#><span class="iconFan" method='cashback' islongcui='0'><#=RatePlanItem.CashBackAmount#>元</span>
-                      <#
-                      }else if (RatePlanItem.CouponAmount > 0)
-                      {#><span class="iconFan" method='coupon' islongcui='0'><#=RatePlanItem.CouponAmount#>元</span>
-                      <#}else if(!String.isNullOrEmpty(RatePlanItem.PromotionDesc)){ #>
-                      <span class="iconCu" method='promotion' islongcui='0'></span>
-                      <#}#>&nbsp;</p>
-                    <p class="rw8">&nbsp;<#=(RatePlanItem.SupplierRemainRoomNum <= 5 && RatePlanItem.SupplierRemainRoomNum >= 1 && RatePlanItem.Status == 0)?
-                                String.format("仅剩{0}间", RatePlanItem.SupplierRemainRoomNum):""#></p>
-                    <p class="rw6">&nbsp;<#=RatePlanItem.NeedSurety?"<span class='iconDanbao' title='房型太抢手了！酒店需要您提供信用卡担保预订,什么叫"信用卡担保"？我们会预先冻结相应担保金，实际入住后，担保金会在您离店后3-5个工作日内解冻。'></span>":""#>
-                      <#=(RatePlanItem.Pay==1?("<span class='iconYufu' title='为保障您的预订，需要您预先在网上支付房费。'></span>"):"")#>
-                    </p>
-                    <p class="rw7"><#if(RatePlanItem.SupplierRemainRoomNum == 0 || RatePlanItem.Status != 0){#><#if(RatePlanItem.ProductType==64){#><a href='<#=group_url#>'target="_blank" class='button'>查看</a><#} else {#><a method='roomUrl' href='javascript:void(0);' rel='nofollow' title="<#=RatePlanItem.OrderNotes#>" class='nobut'>订完</a><#}#>
-                            <#}else{#><#if(RatePlanItem.ProductType==64){#><a href='<#=group_url#>'target="_blank" class='button'>查看</a><#} else {#><a method='roomUrl' title="<#=RatePlanItem.OrderNotes#>" href='javascript:void(0);' rel='nofollow' class='button'>查看</a>
-                            <#}}#></p>
-               </li>
-                     
-                     <li class="rbox nopad" mark="open" style="display:none">
-                            <p class="rw1"><a href="javascript:void(0);" rel="nofollow" method="OpenOrClose"><#=commonRoomItem.RoomName#><span class="arrow arrowt"  method="OpenOrClose"></span></a></p>                            
-                            <div class="clear"></div>
-                            <ul class="roomTypes roomBox">
-                             <#for (var k = 0; k < commonRoomItem.RatePlanList.length; k++)
-                            {
-                                    var RatePlanItem = commonRoomItem.RatePlanList[k];
-                                   if(isShowPriceImage){
-                                                IsShowAvgPrice = RatePlanItem.AvgPrice>0 ? true:false;
-                                           }else{
-                                                IsShowAvgPrice = RatePlanItem.AvgPrice>RatePlanItem.FavorablePrice ? true:false;
-                                            }
-                                     var currPrice=isShowPriceImage? RatePlanItem.ImagePrice:RatePlanItem.FavorablePrice;
-                                    TitleMsg = IsShowAvgPrice ? "title='此价格是相同条件下的普通会员价格'":"";
-                                    group_url = String.format("http://hotel.elong.com/GroupTemp.html?shotelId={0}&roomId={1}&rpId={2}&cityNameEn={3}",RatePlanItem.ShotelId,commonRoomItem.RoomId,RatePlanItem.RatePlanId, cityNameEn);
-                                #>
-                                <#if(RatePlanItem.ProductType==64){#>
-                                <li class="rbox <#=(j==(commonRooms.length-1)?"norbox":"")#>" <#=trClass#>><p class="rw1"><a href='<#=group_url#>'target="_blank"><#=commonRoomItem.RoomName#></a>
-                                <#} else { #>
-                                <li class="rbox" roomid="<#=commonRoomItem.RoomId#>" sroomid="<#=RatePlanItem.SRoomTypeId#>" roomhotelid="<#=room.HotelId#>" islongcui='0' rpid="<#=RatePlanItem.RatePlanId#>" sid="<#=RatePlanItem.SupplierId#>" productType="<#=RatePlanItem.ProductType#>" shotelId='<#=RatePlanItem.ShotelId#>'>
-                                    <p class="rw1"><a method='roomUrl' href='javascript:void(0);' rel='nofollow'><#=RatePlanItem.RatePlanName == "" ? "— —" :RatePlanItem.RatePlanName#></a><# } #>
-                                    <#if(RatePlanItem.ProductType==16){#><span class="new_iconXianshiq" title="此房型正在参加限时抢购活动！">限时抢</span>
-                                    <#}else if(RatePlanItem.ProductType==64){#><span class="new_icontuan" title="团购更优惠！支持在线预约和随时退。">团购</span>
-                                    <#}else if(RatePlanItem.HasWeifang){#><span class="new_icontuan" title='该房型"今日特价"，预订即可享受超低价！'>特价</span><#}#>
-                                    <#if(!String.isNullOrEmpty(RatePlanItem.SupplierActivityList)){#><span class="iconLibao" method="gift"></span><#}#></p>
-                                    <p class="rw2"><#=commonRoomItem.BedShort!="-"?(commonRoomItem.BedShort+"床"):"--"#></p>
-                            		<p class="rw9"><#=RatePlanItem.Brkfast#>餐</p>
-                                    <#if(RatePlanItem.NeedSurety||(RatePlanItem.Pay==1)){ 
-                        if(RatePlanItem.CancelType==1){#>
-                        <p class="rw10"  method="cancel" islongcui='0' cancelType='1'>限时取消</p>
-                        <#}else {#>
-                        <p class="rw10"  method="cancel" islongcui='0' cancelType='2'>不可取消</p>
-                    <#  }
-                    }else{#>
-                        <p class="rw10"  method="cancel" islongcui='0' cancelType='0'>免费取消</p>
-                    <#}#>
-                                    <p class="rw4"><#if(IsShowAvgPrice){#><span class="priceDesignated" <#=TitleMsg#>><#=RatePlanItem.MoneySymb#><#=RatePlanItem.AvgPrice#></span><#}#>
-                    <span class="price" method="avgPrice"><dfn><#=RatePlanItem.FavorableMoneySymb#></dfn><#=currPrice#></span></p>
-                                    <p class="rw5"><#if (RatePlanItem.ReduceAmount > 0)
-                      { #><span class="lijian" method="reduce" islongcui='0'>-<#=RatePlanItem.ReduceAmount#></span><span class="information" method="reduce" islongcui='0'></span><#}
-                      else if (!String.isNullOrEmpty(RatePlanItem.CashBackAmount)) 
-                      {#><span class="iconFan" method='cashback' islongcui='0'><#=RatePlanItem.CashBackAmount#>元</span>
-                      <#
-                      }else if (RatePlanItem.CouponAmount > 0)
-                      {#><span class="iconFan" method='coupon' islongcui='0'><#=RatePlanItem.CouponAmount#>元</span>
-                      <#}else if(!String.isNullOrEmpty(RatePlanItem.PromotionDesc)){ #>
-                      <span class="iconCu" method='promotion' islongcui='0'></span>
-                      <#}#>&nbsp;</p>
-                                    <p class="rw8">&nbsp;<#=(RatePlanItem.SupplierRemainRoomNum <= 5 && RatePlanItem.SupplierRemainRoomNum >= 1 && RatePlanItem.Status == 0)?
-                                String.format("仅剩{0}间", RatePlanItem.SupplierRemainRoomNum):""#></p>
-                                    <p class="rw6">&nbsp;<#=RatePlanItem.NeedSurety?"<span class='iconDanbao' title='房型太抢手了！酒店需要您提供信用卡担保预订,什么叫"信用卡担保"？我们会预先冻结相应担保金，实际入住后，担保金会在您离店后3-5个工作日内解冻。'></span>":""#>
-                      <#=(RatePlanItem.Pay==1?("<span class='iconYufu' title='为保障您的预订，需要您预先在网上支付房费。'></span>"):"")#></p>
-                                    <p class="rw7"><#if(RatePlanItem.SupplierRemainRoomNum == 0 || RatePlanItem.Status != 0){#><#if(RatePlanItem.ProductType==64){#><a href='<#=group_url#>'target="_blank" class='button'>查看</a><#} else {#><a method='roomUrl' href='javascript:void(0);' rel='nofollow' title="<#=RatePlanItem.OrderNotes#>" class='nobut'>订完</a><#}#>
-                            <#}else{#><#if(RatePlanItem.ProductType==64){#><a href='<#=group_url#>'target="_blank" class='button'>查看</a><#} else {#><a method='roomUrl' title="<#=RatePlanItem.OrderNotes#>" href='javascript:void(0);' rel='nofollow' class='button'>查看</a>
-                            <#}}#></p>
-                                </li>
-                                <#} #>
-                    </ul>
-                </li>
-                        <#}}#>
-                     </ul>       
-                </div>
-                <#}#>                   
-        <#          
-         var commonCount = room.RoomCount;
-         if(!showAllRoom){
-             $Model.Client.setHelpTipsHtml(room);
-         }
-         if(commonCount>2){if(!showAllRoom){#><div class="rpMore new_rpMore" stu="show" hotelid="<#=room.HotelId#>">
-            <a class="closed" href="javascript:void(0);" rel="nofollow" method="ShowAll" count='<#=commonCount#>'>查看全部房型</a></div>
-           <#}else{#> <div class="rpMore new_rpMore" stu="hide" hotelid="<#=room.HotelId#>">
-            <a href="javascript:void(0);" rel="nofollow" method="ShowTwo" count='<#=commonCount#>'>收起房型</a></div>
-        <#}}else{#>
-            <div class="rpMore new_rpMore"></div>
-        <#}#>
-</script>
-
-
-        <div id="jsTemp" style="display: none">
-            
-
-<div id="hotel">
-    <div class="newHotelInfo clx" id="hotel#{hotelid}">
-
-        <div class="t1">
-            <div class="newHotelIcon">
-            #{groupOn}#{HasWeiFang}#{LongCuiTag}
-            </div>
-            #{detailUrl}#{ImgEle}#{aEnd}
-        </div>
-        
-        <dl class="t2">
-            <dt>
-                #{Grade}
-                #{HotelName}    
-                #{StarLevel}#{cuTabel}#{EndStarLevel}  
-            </dt>
-            
-            <dd class="t2_addr_hide">
-                #{area}#{Address}#{HasMap}#{hasSoso}
-            </dd>
-            <dd>#{Distance}</dd>         
-            <dd class="new_order" id="new_order#{hotelid}">
-                #{facility}
-            </dd>
-        </dl>
-        #{priceDiv}        
-        <div class="t3 new_dp">
-            #{comment}
-            <br>
-            #{TotalComment}
-        </div>   
-        
-        <div class="clear"></div>
-
-        #{RoomLoading}
-        
-    </div>
+</div> 
+</div>	
 </div>
 
-        </div>
-        <!-- Html template end-->
-        <!--RealTime Author:yuebing dong Date:2011.05.09-->
-        <div id="RealTimeBrowserDataContainer"></div>
-        <div id="m_contentedHotSugstAll">
-      </div>
-        <div id="divIframe">
-        </div>
-    </div>
-     <script type="text/javascript" src="js3/systemall.js"></script>
-
-    
-       <script type="text/javascript">
-        var ListController = {
-            Key: null,
-            FirstPageHotelIds: null,
-            HotelPoiInfo: null,
-            TrafficInfo: null,
-            HotelCount: 0,
-            HotelPOI: null,
-            isBooking: false,
-            HotelName: null,
-            HotelMapDetailInfo: null,
-            AjaxInfo: {"HotelRankType":"-1","IsShowPriceImage":false,"City":{"CityId":"1102","CityName":"\u82CF\u5DDE","CityNameCn":"\u82CF\u5DDE","CityNameEn":"soochow","NationalCityId":"320500","NationalCityName":"\u82CF\u5DDE\u5E02","ProvinceId":"1100","ProvinceName":"\u6C5F\u82CF","CityAlias":"\u82CF\u5DDE,Su zhou,Su_zhou,Suzhou","CityDescription":null},"SearchRequestInfo":{"RankType":-1,"ProvinceId":null,"CityId":"1102","CityName":"\u82CF\u5DDE","NationalCityName":"\u82CF\u5DDE\u5E02","CheckInDate":"2014/4/17 0:00","CheckOutDate":"2014/4/18 0:00","HotelIds":null,"HotelName":"","Keywords":"","KeywordsType":"None","ReturnKeywordsType":"None","ReturnKeywords":"","BigAreaInfo":null,"AreaId":"","AreaName":"","AreaType":0,"PoiId":0,"PoiName":"","LowPrice":0,"HighPrice":0,"StarLevel":"None","BrandId":0,"BrandName":"","StarLevels":"","BrandIds":"","TagId":"","TagName":null,"FacilityIds":"","SupplierIds":"","Distance":20,"StartLat":0,"StartLng":0,"EndLat":0,"EndLng":0,"IsBigBed":false,"IsDoubleBed":false,"IsFreeBreakfast":false,"IsFreeNet":false,"IsCoupon":false,"IsCashback":false,"IsNoGuarantee":false,"IsPrePay":false,"PaymentType":"All","IsLimitTime":false,"IsNotReturnNoRoomHotel":false,"ThemeIds":"","HotelSort":"ByDefault","PageIndex":1,"PageSize":10,"ShowPageSize":40,"HotelCount":995,"ListType":"Common","Language":"CN","CardNo":"192928","MemberLevel":"Common","ApCardNo":"","Campaign_Id":"","ChannelCode":"0000","OrderFromId":50,"PersonNumOfRoom":0,"HotelChannel":"Hotel","IsNotAcceptRecommend":false,"IsNotChange":false,"IsMystical":false,"DetailNoResultCache":false,"IsNeedNotContractedHotel":true,"PriceStyleIds":null,"BookingenableRate":93,"IsLogin":false,"IsNeedFilterProduct":false},"IsLoin":false,"MemberName":"","MemberLevel":0,"Tel":"4009-333-333","Message":"\u6765\u81EACache\uFF1A2013_NewViewModelList1023__-1_1102_20140417_20140418__0_0___20_Common_ByDefault_0_0_0_0_0_0_0_0_0_0_0_0_0_All_1_10_1_CN_192928__0000_50_Common_Hotel___False_False_0____None_True_0","ClientIP":"58.211.190.158","HotelRoomSet":null,"SEMFilter":-1,"isShowIpad":-1,"CityServiceIndex":{"ServiceIndex":3.95,"ConfirmRate":76,"SuccessRate":93,"ComplaintsRate":1}},
-            MapOrSoso: null,
-            SosoId: null,
-            GoogelMapCityIds: "3401,3402,3403,3404,3405,3406,3407,3408,3409,3410,3411,3412,3413,3414,3415,3416,3417,3418,3419,3420",
-            Heading: null,
-            Pitch: null,
-            Room: null,
-            WebTel: null,
-            FlashSale: null,
-            RecentOrders: null,
-            HotelTipInfos: null,
-            SearchRequestInfo: null,
-            PoiConfig: {"ConfigList":[{"PoiTypeName":"\u5730\u94C1\u7AD9\u9644\u8FD1","PoiTypeId":"0_2","PoiSource":0,"PoiUrl":"http://#{DomainName}/#{CityCode}/place#{PoiId}/#{CampaignId}","PoiCount":30},{"PoiTypeName":"\u706B\u8F66\u7AD9/\u673A\u573A","PoiTypeId":"0_1","PoiSource":0,"PoiUrl":"http://#{DomainName}/#{CityCode}/place#{PoiId}/#{CampaignId}","PoiCount":30},{"PoiTypeName":"\u5546\u4E1A\u533A","PoiTypeId":"0_3","PoiSource":0,"PoiUrl":"http://#{DomainName}/#{CityCode}/center#{PoiId}/#{CampaignId}","PoiCount":30},{"PoiTypeName":"\u5927\u5B66\u9644\u8FD1","PoiTypeId":"1_77","PoiSource":1,"PoiUrl":"http://#{DomainName}/#{CityCode}/place#{PoiId}/#{CampaignId}","PoiCount":30},{"PoiTypeName":"\u5C55\u9986\u4F1A\u573A","PoiTypeId":"1_38","PoiSource":1,"PoiUrl":"http://#{DomainName}/#{CityCode}/place#{PoiId}/#{CampaignId}","PoiCount":30},{"PoiTypeName":"\u533B\u9662\u9644\u8FD1","PoiTypeId":"1_99","PoiSource":1,"PoiUrl":"http://#{DomainName}/#{CityCode}/place#{PoiId}/#{CampaignId}","PoiCount":30},{"PoiTypeName":"\u666F\u70B9\u9644\u8FD1","PoiTypeId":"1_2","PoiSource":1,"PoiUrl":"http://#{DomainName}/#{CityCode}/place#{PoiId}/#{CampaignId}","PoiCount":30},{"PoiTypeName":"\u884C\u653F\u533A","PoiTypeId":"0_6","PoiSource":0,"PoiUrl":"http://#{DomainName}/#{CityCode}/district#{PoiId}/#{CampaignId}","PoiCount":30}]},
-            HotBrandInfoList: [],
-            HotelMapInfos: null,
-            CurrentHotelLatLng: null,
-            HasMasterSuggest: false,
-            ServerTime: "2014-04-16 10:52:26",
-            CalendarShowYesterday: false,
-            oLatency: "1",
-            Resources: {PrevPage: "\u4E0A\u4E00\u9875",NextPage: "\u4E0B\u4E00\u9875",Js_Week: "\u7B2C{0}\u5468",Map: "\u5730\u56FE",area: "\u884C\u653F\u533A",ShowAllRoom1: "\u5168\u90E8\u623F\u4EF7",AllRoom: "\u5168\u90E8\u4EF7\u683C",ShowAllRoom2: "\u6536\u8D77",pic360: "360\u5168\u666F",SeekBtn: "\u67E5\u770B",Address: "\u5730\u5740\uFF1A",Star1: "\u7ECF\u6D4E/\u5BA2\u6808",StarHotel1: "\u827A\u9F99\u7528\u6237\u8BC4\u5B9A\u4E3A{0}",Star5: "\u516C\u5BD3",Star2: "\u4E09\u661F/\u8212\u9002",Star3: "\u56DB\u661F/\u9AD8\u6863",Star4: "\u4E94\u661F/\u8C6A\u534E",StarHotel: "\u56FD\u5BB6\u65C5\u6E38\u5C40\u8BC4\u5B9A\u661F\u7EA7\u4E3A{0}\u661F\u7EA7",InsertCity: "\u8BF7\u8F93\u5165\u57CE\u5E02\u540D\u79F0\uFF0C\u4E14\u4E0D\u53EF\u5305\u542B*&+\u7B49\u7B26\u53F7\u53CA\u963F\u62C9\u4F2F\u6570\u5B57\u3002",NotExistCity: "\u8BE5\u57CE\u5E02\u4E0D\u5B58\u5728\uFF0C\u8BF7\u9009\u62E9\u6B63\u786E\u7684\u57CE\u5E02",NotPassInDate: "\u8BF7\u8F93\u5165\u6709\u6548\u7684\u5165\u4F4F\u65E5\u671F\u3002",NotPassOutDate: "\u8BF7\u8F93\u5165\u6709\u6548\u7684\u79BB\u5E97\u65E5\u671F\u3002",InDateAfterNow: "\u5165\u4F4F\u65E5\u671F\u987B\u665A\u4E8E\u6216\u8005\u7B49\u4E8E\u5F53\u5929\u65E5\u671F\u3002",OutDateAfterNow: "\u79BB\u5E97\u65E5\u671F\u987B\u665A\u4E8E\u6216\u8005\u7B49\u4E8E\u5F53\u5929\u65E5\u671F\u3002",OutDateAfterInDate: "\u79BB\u5E97\u65E5\u671F\u987B\u81F3\u5C11\u665A\u4E8E\u5165\u4F4F\u65E5\u671F1\u5929\u3002",Date180Msg: "\u5982\u679C\u60A8\u9700\u8981\u9884\u8BA2{0}\u7684\u9152\u5E97\uFF0C\u8BF7\u81F4\u7535\uFF1A{1}\uFF0C\u6211\u4EEC\u4F1A\u7AED\u8BDA\u4E3A\u60A8\u670D\u52A1\u3002",Date20Msg: "\u5982\u679C\u60A8\u9700\u8981\u5728\u9152\u5E97\u5165\u4F4F{0}\u5929\u4EE5\u4E0A\uFF0C\u8BF7\u81F4\u7535\uFF1A{1}\uFF0C\u6211\u4EEC\u4F1A\u7AED\u8BDA\u4E3A\u60A8\u670D\u52A1\u3002",PageCount: "\u5171{0}\u9875",AllInOne: "\u8F93\u5165 \u4F4D\u7F6E \u9152\u5E97\u540D \u6216\u54C1\u724C",AllInOneAdr: "\u5546\u5708/\u884C\u653F\u533A/\u5730\u6807",AllInOneHotelN: "\u9152\u5E97\u540D\u79F0/\u54C1\u724C",All: "\u4E0D\u9650",DelThis: "\u5220\u9664\u6B64\u6761\u4EF6",distancefrom: "\u8DDD\u79BB<span class=\"cf60\">{0}</span>\u7684\u76F4\u7EBF\u8DDD\u79BB\u7EA6<span class=\"cf60\">{1}</span>\u516C\u91CC",distancefromMi: "\u8DDD\u79BB<span class=\"cf60\">{0}</span>\u7684\u76F4\u7EBF\u8DDD\u79BB\u7EA6<span class=\"cf60\">{1}</span>\u7C73",picpic: "\u9152\u5E97\u56FE\u7247\u96C6",Remain1: "\u4EC5\u5269{0}\u95F4\u623F!",Remain2: "\u4EC5\u5269{0}\u95F4",Remain3: "\u6709\u623F",Remain4: "\u5DF2\u8BA2\u5B8C",Remain5: "\u8BA2\u5B8C",tip_remain: "{0}\u4EC5\u5269{1}\u95F4\u5BA2\u623F\u4E86\uFF0C\u4EF7\u683C\u8F83\u9AD8\u7684\u623F\u578B\u53EF\u80FD\u6709\u66F4\u591A\u7A7A\u623F",ElongStar3: "\u8212\u9002\u578B\u9152\u5E97",ElongStar4: "\u9AD8\u6863\u578B\u9152\u5E97",ElongStar5: "\u8C6A\u534E\u578B\u9152\u5E97",Head_AllBrand: "\u54C1\u724C\u4E0D\u9650",HotelstarLevelRemark: "\u661F\u7EA7\u9152\u5E97",LongcuiDesc: "\u6B64\u4EF7\u683C\u662F\u76F8\u540C\u6761\u4EF6\u4E0B\u7684\u666E\u901A\u4F1A\u5458\u4EF7\u683C",XianshiqiangDesc: "\u6B64\u4EF7\u683C\u662F\u76F8\u540C\u6761\u4EF6\u4E0B\u7684\u6B63\u5E38\u9884\u8BA2\u4EF7\u683C"},
-            UrlConfig: {HotelListUrl: "/search/list_#{language}_#{cityid}.html",CityList: "/#{citynameen}/",CitySowntownList: "/#{citynameen}/center#{sowntownid}/",CityRegionList: "/#{citynameen}/district#{regionid}/",CityBrandList: "/#{citynameen}/chain#{brandid}.html",CityPlaceList: "/#{citynameen}/place#{poiid}/",CitySowntownBrandList: "/#{citynameen}/center#{sowntownid}/chain#{brandid}.html",CityRegionBrandList: "/#{citynameen}/district#{regionid}/chain#{brandid}.html",HotelMapSearch: "/search/listmap_cn_#{cityid}.html",PopupMapNewUrl: "/popupmap_#{language}.html",Hotel_List_ViewMapNew: "/list_viewmapnew.html",Hotel_Detail: "/detail_#{language}_#{hotelid}.html",Hotel_DetailComment: "/detailcmt_#{language}_#{hotelid}_#{sort}_#{pageindex}.html",Hotel_DetailNew: "/#{hotelName}-#{hotelId}-#{pageType}/",Hotel_DetailDynamic: "/search/#{hotelId}-#{pageType}/",KeyWordsSuggestUrl: "/keywordssuggest.html",HotSuggestUrl: "/hotsuggest.html",HotSuggestAllUrl: "/hotsuggestall.html",GetProductsByCityID: "http://tuan.elong.com/isajax/CommonAjax/GetProductsByCityID",GetProductsByHotelId: "http://tuan.elong.com/isajax/CommonAjax/GetProductsByHotelId",HotelDetailReviewUrl: "/#{cityNameEn}/#{hotelId}/review.html",HotelDetailUrl: "/#{cityNameEn}/#{hotelId}/",HotelUnsignedDetailUrl: "/sign_#{hotelId}.html"},
-            Language: "CN",
-            WebCategory: "Elong",
-            CampaignId: "",
-            GetHotelTipInfos: function(key, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetHotelTipInfos?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {key:key}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            GetPoiCity: function(cityId, cityCode, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetPoiCity?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {cityId:cityId, cityCode:cityCode}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            GetHotelRoomSetV4: function(hsr, hotelIds, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetHotelRoomSetV4?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {hsr:hsr, hotelIds:hotelIds}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            SearchV4: function(hsr, IsPageSearch, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/SearchV4?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {hsr:hsr, IsPageSearch:IsPageSearch}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            GetRecommendHotelV4: function(param, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetRecommendHotelV4?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", param, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            GetHotelDetailMap: function(hsr, hotelId, lat, lng, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetHotelDetailMap?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {hsr:hsr, hotelId:hotelId, lat:lat, lng:lng}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            Search: function(hsr, isSquare, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/Search?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {hsr:hsr, isSquare:isSquare}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            GetHotelRoomSet: function(hsr, hotelIds, isSquare, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetHotelRoomSet?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {hsr:hsr, hotelIds:hotelIds, isSquare:isSquare}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            GetSimpleHotelRoomSet: function(hsr, hotelIds, isSquare, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetSimpleHotelRoomSet?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {hsr:hsr, hotelIds:hotelIds, isSquare:isSquare}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            GetGroupHotelID: function(shotelId, roomId, rpId, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetGroupHotelID?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {shotelId:shotelId, roomId:roomId, rpId:rpId}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            GetRecommendHotel: function(hsr, hotelId, minPrice, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetRecommendHotel?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {hsr:hsr, hotelId:hotelId, minPrice:minPrice}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            GetBrowseAndRecommendHotel: function(param, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetBrowseAndRecommendHotel?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", param, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            GetHistoryBrowseHotels: function(hsr, hotelIds, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetHistoryBrowseHotels?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {hsr:hsr, hotelIds:hotelIds}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            GetRealTimeData: function(cityId, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetRealTimeData?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {cityId:cityId}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            GetAsycHtmlData: function(cityId, checkInDate, checkOutDate, language, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetAsycHtmlData?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {cityId:cityId, checkInDate:checkInDate, checkOutDate:checkOutDate, language:language}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            GetHotelListNewOrderInfo: function(hotelIds, language, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetHotelListNewOrderInfo?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {hotelIds:hotelIds, language:language}, callback, enabledCache, httpmethod,isPipeFrist,"json", timeOut); },
-            GetMergeAsycData: function(type, cityId, hotelIds, checkInDate, checkOutDate, language, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetMergeAsycData?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {type:type, cityId:cityId, hotelIds:hotelIds, checkInDate:checkInDate, checkOutDate:checkOutDate, language:language}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            GetGrouponByHotel: function(CityId, HotelIds, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/GetGrouponByHotel?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {CityId:CityId, HotelIds:HotelIds}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            SubmitRankResearch: function(cityName, currentRankType, rankType, advice, email, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/SubmitRankResearch?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", {cityName:cityName, currentRankType:currentRankType, rankType:rankType, advice:advice, email:email}, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            MasterSuggestV3: function(param, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/MasterSuggestV3?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", param, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); },
-            MasterSuggestV4: function(param, callback, enabledCache, httpmethod,isPipeFrist, timeOut){ elongAjax.callBack("/isajax/List/MasterSuggestV4?citynameen=soochow&viewpath=~/Views/HotelListC/hotellist.aspx&issquare=False&aioIndex=-1&aioVal=", param, callback, enabledCache, httpmethod,isPipeFrist,null, timeOut); }
-        }
-     </script>
-
-
- 
-    
-    <script type="text/javascript" src="js3/HotelListNew.js"></script>
-    <!--end 检索-->
-    
-    <div id="salon_nvfxjs">
-    	<div id="salon_nvfxjs_title"><img src="images/salon_nvfxjs_title.jpg" width="795" height="35"></div>
-        <div id="salon_nvfxjs_nr">
-	<script language="javascript">
-        function switchmodTag(modtag,modcontent,modk) {
-            for(i=1; i <9; i++) {
-                if (i==modk) {
-                    document.getElementById(modtag+i).className="menuOn";document.getElementById(modcontent+i).className="salon_nvfxjs_nrList";}
-                else {
-                    document.getElementById(modtag+i).className="menuNo";document.getElementById(modcontent+i).className="salon_nvfxjs_nrList_none";}
-                }
-            }
-    </script>
-    </div>
-    
-    
-</div>
 }
