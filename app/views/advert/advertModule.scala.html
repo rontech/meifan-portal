@@ -1,5 +1,5 @@
-@(advert: Seq[Advert] = Nil)
-
+@*@(advert: List[Advert] = Nil)*@
+@(adverts: List[Info] = Info.findAdInfo(4))
 <!-- Module for advertisement.
     
     Contents maybe change according the page and area.....
@@ -17,12 +17,14 @@ TODO
             </a>
         </div> -->
         <!-- 2億円CP -->
+        @*
         <!-- キャンペーン一覧 -->
         <div class="taR mT10">
             <a href="#" target="_blank" class="iS arrowR">
                 キャンペーン一覧へ
             </a>
         </div>
+        
         <!-- /キャンペーン一覧 -->
         <!-- HPBポンパレモール -->
         <div class="mT10">
@@ -55,6 +57,15 @@ TODO
             </a>
         </div>
         <!-- /ポンパレバナー -->
+        *@
+        @for(info <- adverts) {
+         <div class="mT10">
+            <a href="@noAuth.routes.Infos.getOneInfo(info.id)" target="_blank">
+            	<img src="@routes.Application.getPhoto(info.infoPics(0).fileObjId)" width="180" />
+            </a>
+            
+        </div>
+        }
     </div>
 
 
