@@ -193,6 +193,7 @@ salon.register.accountIdErr=店铺ID不合法!
 salon.loginErr = 店铺ID或密码错误，请重新输入!
 salon.mailError=邮箱格式不合法
 salon.salonIdNotAvailable=该店铺ID已被注册，请重新输入！
+salon.getInSalon=进入店铺
 
 
 #salon management
