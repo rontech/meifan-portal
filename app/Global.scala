@@ -435,7 +435,30 @@ object InitialData {
 
     if(Question.findAll.isEmpty) {
       Seq(
-        Question(new ObjectId(), "发型师如何注册", "发型师注册请先申请成为网站一般用户，在申请身份中填入发型师。此时只是准发型师状态，需要在个人管理菜单中的【邀请我的店铺】中同意店铺邀请，才可以正式成为发型师，享有发型师的特殊权限，包括上传发型等等。另外，如果没有收到店铺邀请，您可以在个人管理菜单中的【申请加入店铺】中向输入自己所在店铺的ID检索并作出申请，经店铺批准后方可正式成为发型师身份。", new Date, 1, true),
+        Question(new ObjectId(), "发型师如何注册", """<p>
+    （1）发型师首先注册为<strong>普通用户</strong>，获取登录账号；
+</p>
+<p>
+    （2）利用以上获取的账号登录，点击页面右上角的<span style="text-decoration: underline;"><span id="_baidu_bookmark_start_35" style="display: none; line-height: 0px;">‍</span></span><span id="_baidu_bookmark_start_37" style="display: none; line-height: 0px;">‍</span><span style="color: rgb(217, 150, 148);">“我的美范”</span><span id="_baidu_bookmark_end_38" style="display: none; line-height: 0px;">‍</span><span style="text-decoration: underline;"><span id="_baidu_bookmark_end_36" style="display: none; line-height: 0px;">‍</span><span id="_baidu_bookmark_start_29" style="display: none; line-height: 0px;">‍</span></span><span id="_baidu_bookmark_start_31" style="display: none; line-height: 0px;">‍</span>至<span id="_baidu_bookmark_end_32" style="display: none; line-height: 0px;">‍</span><span style="text-decoration: underline;"><span id="_baidu_bookmark_end_30" style="display: none; line-height: 0px;">‍</span><span id="_baidu_bookmark_start_25" style="display: none; line-height: 0px;">‍</span></span><span id="_baidu_bookmark_start_27" style="display: none; line-height: 0px;">‍</span><strong>个人主页</strong>中；
+</p>
+<p>
+    （3）在<strong>个人主页</strong>中点击左下角的<span style="color: rgb(217, 150, 148);">“申请为技师”</span>；
+</p>
+<p>
+    （4）填写相应的信息，其中<strong>店铺账号</strong>及为您所在的店铺的账号，最后<strong>提交申请</strong>，所在店铺将收到您的申请信息，等待接收即可；
+</p>
+<p>
+    （5）等待过程中<strong style="font-size: 12.5px;">个人主页</strong><span style="font-size: 12.5px;">中原先<span style="color: rgb(217, 150, 148); line-height: 22.5px;">“申请为技师”<span style="font-size: 12.5px; color: rgb(0, 0, 0); line-height: 22.5px;">将会变成“<span style="font-size: 12.5px; color: rgb(217, 150, 148); line-height: 22.5px;">取消当前申请”<span style="font-size: 12.5px; color: rgb(0, 0, 0); line-height: 22.5px;">，若发现先前提交的信息有误或者终止此次申请，可点击该按钮；</span></span></span></span></span>
+</p>
+<p>
+    （6）等待时<strong>个人主页</strong>中若<span style="color: rgb(217, 150, 148); line-height: 22.5px;">取消当前申请”<span style="color: rgb(0, 0, 0); line-height: 22.5px;">变成</span><span style="color: rgb(217, 150, 148); line-height: 22.5px;">“申请为技师”，<span style="color: rgb(0, 0, 0); line-height: 22.5px;">说明您先前提交申请被欲申请的店铺拒绝；</span></span></span>
+</p>
+<p>
+    <span style="color: rgb(217, 150, 148); line-height: 22.5px;"><span style="color: rgb(217, 150, 148); line-height: 22.5px;"><span style="color: rgb(0, 0, 0); line-height: 22.5px;">（7）若您提出的申请被店铺接收，您的个人主页左侧展示了您所在的店铺，您的发型等相关信息，并可编辑您的发型等作品。</span></span></span>
+</p>
+<p>
+    （8）若想和当前所在店铺解除劳动关系，可点击<span style="color: rgb(217, 150, 148);">“我的店铺</span>”图标，点击右上角的<span style="color: rgb(217, 150, 148);">“离开店铺”</span>即可，此时在您的<strong>个人主页</strong>的左侧原先“<span style="color: rgb(217, 150, 148);">我的店铺”</span>区域将变为“<span style="color: rgb(217, 150, 148);">来自店铺的邀请”</span>，可重新<span style="text-decoration: underline;"><em>提出申请</em></span>或者<span style="text-decoration: underline;"><em>接受店铺的邀请</em></span>；<br/>
+</p>""", new Date, 1, true),
         Question(new ObjectId(), "店铺用户如何注册", "店铺用户需要先在网站上的店铺注册处注册，成为准店铺用户状态，此时店铺可以完善自己店铺的地址，发型，发型师等各种信息。然后上传店铺营业执照或者组织机构代码证扫描件，经网站管理平台认证后即可开通。开通后店铺的所有信息可以被用户看到，并可以被检索，预约。", new Date, 1, true),
         Question(new ObjectId(), "如何根据详细条件检索", "请这样根据详细条件检索：......", new Date, 1, true),
         Question(new ObjectId(), "预约后想取消", "请按以下步骤取消：......", new Date, 1, true),
