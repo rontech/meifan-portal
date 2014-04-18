@@ -59,7 +59,7 @@
 #index_tjhs_nr dl dd.txt{
 	float:right;
 	background:url(/assets/images/index_tjhs_bg.jpg) no-repeat;
-	width:158px;
+	width:155px;
 	height:118px;
 	padding:10px 20px;
 	color:#FFF;
@@ -80,11 +80,18 @@
 }
 #index_tjhs_nr ul li{
 	float:left;
-	padding-left:10px;
+	padding-left:9px;
 	padding-top:10px;
 }
 #index_tjhs_nr ul li.right{
 	padding-right:0px;
+}
+
+#index_tjhs_nr dl dd.list ul li a img {
+border: 1px solid #e1e1e1;
+}
+#index_tjhs_nr dl dd.list ul li a:hover img {
+border: 1px solid #999999;
 }
 /*---end 推荐发型师--*/
 
@@ -264,6 +271,20 @@ float: right;
 	width:80px;
 	float:left;
 }
+dl dd.pic img, #index_nail_nr li a img{
+	border: 1px solid #e1e1e1;
+}
+dl dd.pic a:hover img,  #index_nail_nr li a:hover img{
+	border: 1px solid #999999;
+}
+#index_tjsh_nr dl dd.pic img{
+	border: 1px solid #e1e1e1;
+}
+#index_tjsh_nr dl dd.pic a:hover img{
+	width:80px;
+	float:left;
+	border: 1px solid #999999;
+}
  #index_tjsh_nr dl dd.txt{
 	width:115px;
 	line-height:18px;
@@ -275,3 +296,81 @@ float: right;
 	text-align:right;
 }
 /*--end--*/
+
+.pl_bt{ 
+	width:210px; 
+	height:36px; 
+	overflow:hidden; 
+	clear:both; 
+	margin:0 auto; 
+	padding-bottom:8px;
+	border-top: 1px solid #e1e1e1;
+}
+
+#index_zxfxlist{
+	width:340px;
+	float:right;
+}
+#index_zxfxlist ul li{
+	float:left;
+	padding:0px 0px 0px 14px;
+}
+#index_zxfxlist ul li a img{
+	border: 1px solid #e1e1e1;
+}
+#index_zxfxlist ul li a:hover img{
+	border: 1px solid #999999;
+}
+#index_zxfxlist ul li span{
+	display:block;
+	text-align:center;
+	line-height:20px;
+}
+
+#index_leis{
+	width:795px;
+	clear:both;
+	overflow:hidden;
+}
+#index_leis h2{
+	border-top:1px solid #e1e1e1;
+	clear:both;
+}
+#index_leis_nr{
+	width:795px;
+	clear:both;
+	overflow:hidden;
+	padding:10px 0px;
+}
+#index_leis_nr dl{
+	width:260px;
+	float:left;
+	padding:0px 5px 10px 0px;
+}
+#index_leis_nr dl.right{
+	padding-right:0px;
+}
+#index_leis_nr dl dt{
+	width:170px;
+	float:right;
+}
+#index_leis_nr dl dd.pic{
+	width:80px;
+	float:left;
+}
+#index_leis_nr dl dd.txt{
+	width:170px;
+	float:right;
+}
+#index_leis_nr dl dt a {
+	text-decoration: underline;
+}
+#index_leis_nr dl dd.more, #index_news_nr dl dd.more{
+	width:115px;
+	float:right;
+	text-align:right;
+}
+
+#index_news_nr dl dt a, #index_comment dl dt a{
+	text-decoration: underline;
+} 

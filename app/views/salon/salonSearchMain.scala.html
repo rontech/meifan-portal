@@ -84,7 +84,7 @@
         <div class="rBox">
             <div class="notto"><a href="javascript:void(0);" class="cur" method="p_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place prices">
-            	@HaircutPrice.findAll.map{price=>
+            	@PriceRange.findAll.map{price=>
             		<li class="">
                     	<input name="haircutPrice" dataname="" type="radio" value="@price.minPrice~@price.maxPrice" method="p_4" mark="600" id="pr4">
                     	<label for="pr4" title="苏州600元以上酒店" class="">

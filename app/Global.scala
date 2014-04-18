@@ -249,14 +249,14 @@ object InitialData {
         ).foreach(DefaultLog.save)
     }
     
-    if(HaircutPrice.findAll.isEmpty){
+    if(PriceRange.findAll.isEmpty){
        Seq(
-    	 HaircutPrice(0, 20),
-    	 HaircutPrice(21, 50),
-    	 HaircutPrice(51, 100),
-    	 HaircutPrice(101, 1000),
-    	 HaircutPrice(1001, 100000)
-       ).foreach(HaircutPrice.save)
+    	 PriceRange(0, 20),
+    	 PriceRange(21, 50),
+    	 PriceRange(51, 100),
+    	 PriceRange(101, 1000),
+    	 PriceRange(1001, 100000)
+       ).foreach(PriceRange.save)
     }
     
     if(SeatNums.findAll.isEmpty){
