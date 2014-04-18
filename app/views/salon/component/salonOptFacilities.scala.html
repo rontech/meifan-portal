@@ -1,0 +1,23 @@
+@(salon: Salon)
+
+<dl class="cFix pV5 pL10">
+    @if(salon.salonFacilities.get.canOnlineOrder) {
+        <dt class="fl fs10 fgLGray2 b mR5">@Messages("salon.canOnlineOrderValue")</dt>
+    }
+    @if(salon.salonFacilities.get.canImmediatelyOrder) {
+        <dd class="fl iS offL listImmediately mR5">@Messages("salon.canImmediatelyOrderValue")</dd>
+    }
+    @if(salon.salonFacilities.get.canNominateOrder) {
+        <dd class="fl iS offL listNominate mR5">@Messages("salon.canNominateOrderValue")</dd>
+    }
+    @if(salon.salonFacilities.get.canCurntDayOrder) {
+        <dd class="fl iS offL listTheDay mR5">@Messages("salon.canCurntDayOrderValue")</dd>
+    }
+    @if(salon.salonFacilities.get.isPointAvailable) {
+        <dd class="fl iS offL listPoint mR5">@Messages("salon.isPointAvaliableValue")</dd>
+    }
+    @if(salon.salonFacilities.get.canMaleUse) {
+        <dd class="fl iS offL listMensOK mR5">@Messages("salon.canMaleUseValue")</dd>
+    }
+</dl>
+ 
