@@ -468,7 +468,31 @@ object InitialData {
          Info(new ObjectId(), "OL久坐不动 如何减掉背部肉肉", "为什么大腿的肉肉这么难减？用什么方法才能减小肚子？你也有这样的减肥烦恼吗？女人频道减肥沙龙特别为苦恼的姐妹们推出了“减肥帮帮团”栏目。来自减肥沙龙的减肥顾问，随时准备帮你回答关于减肥的所有问题哦。", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 2, true),
          Info(new ObjectId(), "双眼皮修复手术 5种眼部问题的修复方法", "随着整形医疗科技的逐步成熟，以及人们对整形美容业心里认知度的逐步提高，如今“割双眼皮”在大家看来已是微不足道的外科小手术。虽然手术并不复杂，但由于患者个体差异以及主刀医生审美观念的不同，做出来的双眼皮效果并不能保证让每一个患者都感到完全称心实意。", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 2, true),
          Info(new ObjectId(), "谷歌眼镜新应用 整容手术好帮手", "在纽约的一家美容医院工作的整容医生Dr. Ramtin Kassir表示在他的工作中，Google Glass在他的工作中能起到非常实用的帮助。", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 2, true),
-         Info(new ObjectId(), "医美四招去疤痕 再现无暇肌肤", "皮肤创伤、烧伤、溃疡等愈合后留下的痕迹被称为疤痕，有些疤痕深深地留在了皮肤上很难去除，这同时也给人们内心增加了一道伤痕。疤痕修复手术可以去除疤痕，常见的疤痕手术有植皮手术、磨削去疤痕、切除缝合术及皮肤扩张器四种手术，不同的疤痕情况要选择不同的手术方式。", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 2, true)
+         Info(new ObjectId(), "医美四招去疤痕 再现无暇肌肤", "皮肤创伤、烧伤、溃疡等愈合后留下的痕迹被称为疤痕，有些疤痕深深地留在了皮肤上很难去除，这同时也给人们内心增加了一道伤痕。疤痕修复手术可以去除疤痕，常见的疤痕手术有植皮手术、磨削去疤痕、切除缝合术及皮肤扩张器四种手术，不同的疤痕情况要选择不同的手术方式。", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 2, true),
+         // type 6
+         Info(new ObjectId(), "劳动节促销", "劳动节，给自己放松放松，别太辛苦了。", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 6, true),
+         Info(new ObjectId(), "新店开业", "新店开业，大酬宾，欢迎新顾客光顾本店", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 6, true),
+         Info(new ObjectId(), "半价优惠", "欢迎新老顾客光临本店，本店现在正在举行半价优惠活动，期待您的光临！", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 6, true),
+         Info(new ObjectId(), "3月8日大促销", "妇女节，给自己'变身'吧,让心爱的他/她眼前一亮", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 6, true),
+         
+         Info(new ObjectId(), "本站服务条款的确认和接纳", "本站的各项电子服务的所有权和运作权归本站。本站提供的服务将完全按照其发布的服务条款和操作规则严格执行。用户同意所有服务条款并完成注册程序，才能成为本站的正式用户。", new ObjectId, Nil, new Date, 3, true),
+         Info(new ObjectId(), "服务简介", "基于本站所提供的网络服务的重要性，用户应同意：<br>(1)提供详尽、准确的个人资料。<br>(2)不断更新注册资料，符合及时、详尽、准确的要求。<br>本站保证不公开用户的真实姓名、地址、电子邮箱和联系电话等用户信息， 除以下情况外：<br>(1)用户授权本站透露这些信息。<br>(2)相应的法律及程序要求本站提供用户的个人资料。", new ObjectId, Nil, new Date, 3, true),
+         Info(new ObjectId(), "服务条款的修改", "本站将可能不定期的修改本用户协议的有关条款，一旦条款及服务内容产生变动，本站将会在重要页面上提示修改内容。", new ObjectId, Nil, new Date, 3, true),
+         Info(new ObjectId(), "通告", "所有发给用户的通告都可通过重要页面的公告或电子邮件或常规的信件传送。用户协议条款的修改、服务变更、或其它重要事件的通告都会以此形式进行。", new ObjectId, Nil, new Date, 3, true),
+         Info(new ObjectId(), "网络服务内容的所有权", "本站定义的网络服务内容包括：文字、软件、声音、图片、录象、图表、广告中的全部内容；电子邮件的全部内容；本站为用户提供的其它信息。所有这些内容受版权、商标、标签和其它财产所有权法律的保护。所以，用户只能在本站和广告商授权下才能使用这些内容，而不能擅自复制、再造这些内容、或创造与内容有关的派生产品。本站所有的文章版权归原文作者和本站共同所有，任何人需要转载本站的文章，必须征得原文作者和本站授权。", new ObjectId, Nil, new Date, 3, true),
+         Info(new ObjectId(), "法律管辖和适用", "本协议的订立、执行和解释及争议的解决均应适用中国法律。", new ObjectId, Nil, new Date, 3, true),
+         Info(new ObjectId(), "用户守则", "用户须提供完整、准确、真实的信息，并在发生变化时及时更新。若用户提供任何错误、不实、过时或不完整的资料，并为美范网所确知；或者美范网有合理理由怀疑前述资料为错误、不实、过时或不完整，美范网有权暂停或终止用户的帐号，并拒绝现在或将来使用本服务的全部或一部分。<br>用户同意遵守《中华人民共和国保守国家秘密法》、《中华人民共和国计算机信息系统安全保护条例》、《计算机软件保护条例》等有关计算机及互联网规定的法律和法规、实施办法。在任何情况下，美范网合理地认为用户的行为可能违反上述法律、法规，美范网可以在任何时候，不经事先通知终止向该用户提供服务。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "禁止用户使用下列名称进行注册：", "（1）国际、国家、地方政府机构及其他机构的名称；<br>（2）在社会上具有一定影响力和知名度的影星、歌星、体育明星等公众人物的真实姓名、艺名等名称；<br>（3）党和国家领导人的真实姓名、字、号、笔名等；<br>（4）与在先注册的用户名称相同或近似的名称；<br>（5）含有攻击性、歧视性、侮辱性、色情、猥亵、政治类内容的名称；<br>（6）上述各类名称的谐音及相似字形。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "禁止用户从事下列行为：", "（1）反对宪法所确定的基本原则的；<br>（2）危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；<br>（3）损害国家荣誉和利益的；<br>（4）含有法律、行政法规禁止的其他内容的。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "责任说明", "基于技术和不可预见的原因而导致的服务中断，或者因会员的非法操作而造成的损失，美范网不负责任。会员应当自行承担一切因自身行为而直接或者间接导致的民事或刑事法律责任。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "版权说明", "任何会员接受本注册协议，即表明该用户主动将其在任何时间段在本站发表的任何形式的信息的著作财产权，包括并不限于：复制权、发行权、出租权、展览权、表演权、放映权、广播权、信息网络传播权、摄制权、改编权、翻译权、汇编权以及应当由著作权人享有的其他可转让权利无偿独家转让给美范网运营商所 有，同时表明该会员许可美范网有权利就任何主体侵权而单独提起诉讼，并获得全部赔偿。本协议已经构成《著作权法》第二十五条所规定的书面协议，其效力及于用户在美范网发布的任何受著作权法保护的作品内容，无论该内容形成于本协议签订前还是本协议签订后。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "侵权者政策", "对于被视为侵犯他人知识产权的任何用户，美范网可自行决定限制其对本网站的访问或终止其帐户。", new ObjectId, Nil, new Date, 4, true),
+		 Info(new ObjectId(), "通知", "美范网向用户发出的通知，采用电子邮件、手机短信、页面公告或常规信件的形式。服务条款的修改及其他事项的告知(包含但不限于注册结果通知、预订结果通知、手机验证通知等)，美范网将会以上述形式进行通知。", new ObjectId, Nil, new Date, 4, true),
+		 Info(new ObjectId(), "其他", "本协议条款在用户接受时对用户生效。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "用户隐私制度", "尊重用户个人隐私是本站的一项基本政策。所以，本站一定不会在未经合法用户授权时公开、编辑或透露其注册资料及保存在本站中的非公开内容。", new ObjectId, Nil, new Date, 5, true),
+         Info(new ObjectId(), "用户的帐号，密码和安全性", "用户一旦注册成功，成为本站的合法用户，将得到一个密码和用户名。您可随时根据指示改变您的密码。用户需谨慎合理的保存、使用用户名和密码。用户若发现任何非法使用用户帐号或存在安全漏洞的情况，请立即通知本站和向公安机关报案。", new ObjectId, Nil, new Date, 5, true),
+         Info(new ObjectId(), "对用户信息的存储和限制", "如果用户违背了国家法律法规规定或本协议约定，本站有视具体情形中止或终止对其提供网络服务的权利。", new ObjectId, Nil, new Date, 5, true),
+         Info(new ObjectId(), "保护会员隐私权", "本协议所称之会员隐私包括被法律确认为隐私内容，并符合下述范围的信息：<br>您注册美范网时，跟据网站要求提供的个人信息<br>在您使用美范网服务、参加网站活动、或访问网站网页时，网站自动接收并记录的您浏览器上的服务器数据，包括但不限于IP地址、网站Cookie中的资料及您要求取用的网页记录<br>美范网不会向任何人出售或出借您的个人信息，除非事先得到您的许可", new ObjectId, Nil, new Date, 5, true)
        ).foreach(Info.save)
       }
 
