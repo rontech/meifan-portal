@@ -97,4 +97,17 @@ object Service extends ModelCompanion[Service, ObjectId]{
 	def getServiceIdList(service: List[Service]) : List[ObjectId] = service.map {
 		service => service.id
 	}
+	
+	/**
+     * 利用salonId检索出其所有的服务类别
+     */
+    def findServiceTypeBySalonId(salonId : ObjectId): List[String] = {
+        val serviceAll = findBySalonId(salonId)
+        val services = serviceAll.groupBy(_.serviceType)
+        var serviceTypes : List[String] = Nil
+        services.map { service =>
+            serviceTypes = service._1 :: serviceTypes
+        }
+        serviceTypes
+    }
 }
