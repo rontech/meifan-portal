@@ -1,14 +1,14 @@
 @(message: String)
 
-@main(Messages("site.title")){
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanIndex.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/hotelslist_2013.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/EL_common.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/searchMain.css")">
 <script src="@routes.Assets.at("javascripts/swfupload/jquery-1.8.2.min.js")" type="text/javascript"></script>
+<form action="" method="post">
 <div id="left">
+	<!-- 城市 、行业、关键字检索 -->
 	<div id="salon_search">
-    	<form>
     	<ul>
         	<li>@Messages("salonSerachPage.city")</li>
             <li>
@@ -37,9 +37,8 @@
             <li><input name="keywords" type="text"></li>
             <li><input name="" type="button" class="btn" value></li>
         </ul>
-        
-        </form>
     </div>
+    <!-- 地区选择 -->
     <div class="listBox">      
 	<div class="newFilter newFiltermvt1" id="filterArea" tab="noPop">
     <div class="boxcolor">
@@ -62,7 +61,7 @@
         <div class="clear">
         </div>
     	</div>
-    <!---->
+    <!--服务类型-->
     	<div class="wBox" id="wbox_s">
 	        <p class="title">@Messages("salonSerachPage.serviceType")：</p>
 	        <div class="rBox">
@@ -78,7 +77,37 @@
 	        </div>
 	        <div class="clear"></div>
     	</div>
-    <!---->
+    <!-- 品牌 -->
+    	<div class="wBox" id="wbox_b">
+        <p class="title">@Messages("salonSerachPage.brand")：</p>
+        <div class="rBox">
+            <div class="notto">
+            	<a href="javascript:void(0);" class="cur" method="b_no">@Messages("salonSerachPage.unlimited")</a>
+            </div>
+            <ul class="place prver">
+                @for((salon,i) <- Salon.findAll.toList.zipWithIndex){
+                	@if(i<8){
+                		<li class="">
+		                    <input type="checkbox" value="@salon.salonName" datatype="5" method="b_316" brandid="316" id="br316@i">
+		                    <label  for="br316@i" class="">
+		                        @salon.salonName
+		                    </label>
+	                    </li>
+                	}
+                }
+                @if(Salon.findAll.toList.length>8){
+                	<li class="more" mark="b" method="b_more">@Messages("salonSerachPage.more")
+                		<span class="jt" method="b_more" mark="b"></span>
+                	</li>
+                }
+                
+                
+            </ul>
+        </div>
+        <div class="clear">
+        </div>
+   		</div>	
+    <!--价格-->
         <div class="wBox" id="wbox_p">
         <p class="title">@Messages("comment.price")：</p>
         <div class="rBox">
@@ -107,6 +136,7 @@
                 
                 
             </ul>
+            <!--自定义价格区间  -->
             <div class="optional" id="optPrice">@Messages("salonSerachPage.manualDefine")
 	            <input type="text" class="priTxt" method="lowPrice" id="lowPrice">
 	            -
@@ -117,7 +147,7 @@
         <div class="clear">
         </div>
     	</div>
-    <!---->
+    <!--座位数-->
         <div class="wBox" id="wbox_s">
         <p class="title">@Messages("salonSerachPage.setNumber")：</p>
         <div class="rBox">
@@ -137,7 +167,6 @@
         </div>
     	</div>
     <!---->
-        
         <div class="wBox" id="wbox_b">
         <p class="title">@Messages("salonSerachPage.otherCondtion")：</p>
         <div class="rBox">
@@ -210,13 +239,41 @@
 	<div class="listMain" id="contentId">
    <div class="sort" method="sortArea">
     <ul>
-        <li class="def" method="sort" data-type="elong"><a href="javascript:void(0)" rel="nofollow" class="on" onfocus="this.blur();">@Messages("salonSerachPage.meifanRec")</a></li>
-        <li method="sort" data-type="popu"><a href="javascript:void(0)" rel="nofollow" class="down" onfocus="this.blur();">@Messages("salonSerachPage.sortByHot")</a></li>
-        <li method="sort" data-type="distance"><a href="javascript:void(0)" rel="nofollow" class="up c" onfocus="this.blur();">@Messages("salonSerachPage.sortByPrice")</a></li>
-        <li class="" method="sort" data-type="priceAsc"><a href="javascript:void(0)" rel="nofollow" class="up" onfocus="this.blur();">@Messages("salonSerachPage.sortByComment")</a></li>
+        <li class="def" method="sort" data-type="elong">
+	        <a href="javascript:void(0)" rel="nofollow" class="on" onfocus="this.blur();">
+		        <input type="radio" name="sortByCondition" id="cond_1" value="@Messages("salonSerachPage.meifanRec")"/>
+		        <label for="cond_1" title="" class="">
+		             @Messages("salonSerachPage.meifanRec") 
+		        </label>
+	        </a>
+        </li>
+        <li class="def" method="sort" data-type="elong">
+	        <a href="javascript:void(0)" rel="nofollow" class="on" onfocus="this.blur();">
+		        <input type="radio" name="sortByCondition" id="cond_2" value="@Messages("salonSerachPage.sortByHot")"/>
+		        <label for="cond_2" title="" class="">
+		             @Messages("salonSerachPage.sortByHot") 
+		        </label>
+	        </a>
+        </li>
+       	<li class="def" method="sort" data-type="elong">
+	        <a href="javascript:void(0)" rel="nofollow" class="on" onfocus="this.blur();">
+		        <input type="radio" name="sortByCondition" id="cond_3" value="@Messages("salonSerachPage.sortByPrice")"/>
+		        <label for="cond_3" title="" class="">
+		             @Messages("salonSerachPage.sortByPrice") 
+		        </label>
+	        </a>
+        </li>
+        <li class="def" method="sort" data-type="elong">
+	        <a href="javascript:void(0)" rel="nofollow" class="on" onfocus="this.blur();">
+		        <input type="radio" name="sortByCondition" id="cond_3" value="@Messages("salonSerachPage.sortByComment")"/>
+		        <label for="cond_3" title="" class="">
+		             @Messages("salonSerachPage.sortByComment") 
+		        </label>
+	        </a>
+        </li>
     </ul>
 </div> 
 </div>	
 </div>
+</form>
 
-}
