@@ -321,6 +321,15 @@ case class SalonFacilities (
    parkingDesc: String
 )
 
+object SalonFacilities extends ModelCompanion[SalonFacilities, ObjectId] {
+    def collection = MongoConnection()(
+    current.configuration.getString("mongodb.default.db")
+      .getOrElse(throw new PlayException(
+        "Configuration error",
+        "Could not find mongodb.default.db in settings")))("SalonFacilities")
+        
+        val dao = new SalatDAO[SalonFacilities, ObjectId](collection) {}
+}
 
 /**
  * Embed Structure.
@@ -390,7 +399,27 @@ case class PriceRange(
     maxPrice: BigDecimal
 )
 
+object PriceRange extends ModelCompanion[PriceRange, ObjectId] {
+    def collection = MongoConnection()(
+    current.configuration.getString("mongodb.default.db")
+      .getOrElse(throw new PlayException(
+        "Configuration error",
+        "Could not find mongodb.default.db in settings")))("PriceRange")
+        
+        val dao = new SalatDAO[PriceRange, ObjectId](collection) {}
+}
+
 case class SeatNums(
     minNum: Int,
     maxNum: Int
 )
+
+object SeatNums extends ModelCompanion[SeatNums, ObjectId] {
+    def collection = MongoConnection()(
+    current.configuration.getString("mongodb.default.db")
+      .getOrElse(throw new PlayException(
+        "Configuration error",
+        "Could not find mongodb.default.db in settings")))("SeatNums")
+        
+        val dao = new SalatDAO[SeatNums, ObjectId](collection) {}
+}

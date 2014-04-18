@@ -248,6 +248,25 @@ object InitialData {
           DefaultLog(new ObjectId, new ObjectId)
         ).foreach(DefaultLog.save)
     }
+    
+    if(PriceRange.findAll.isEmpty){
+       Seq(
+    	 PriceRange(0, 20),
+    	 PriceRange(21, 50),
+    	 PriceRange(51, 100),
+    	 PriceRange(101, 1000),
+    	 PriceRange(1001, 100000)
+       ).foreach(PriceRange.save)
+    }
+    
+    if(SeatNums.findAll.isEmpty){
+      Seq(
+          SeatNums(0, 5),
+          SeatNums(6, 10),
+          SeatNums(11, 20),
+          SeatNums(21, 100)
+      ).foreach(SeatNums.save)
+    }
   }
   /*---------------------------
    * Sample Data For Test. 
