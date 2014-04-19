@@ -882,10 +882,12 @@ object InitialData {
     println("general salon search = " + Salon.findSalonByFuzzyConds("千美 悦美"))
     println("general salon search = " + Salon.findSalonByFuzzyConds("千美　悦美"))
 
+    // Test for Geting hotest Styles from a salon.
     println("hotest style search = " + Style.getBestRsvedStylesInSalon(new ObjectId("530d7288d7f2861457771bdd"), 2))
+    // Test for Geting good review rate of a salon.
+    println("salon good review rate = " + Comment.getGoodReviewsRate(new ObjectId("530d7288d7f2861457771bdd")))
 
     */
-
 
 
   }

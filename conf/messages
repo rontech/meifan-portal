@@ -871,6 +871,7 @@ salonSerachPage.confirm = 确定
 salonSerachPage.setNumber = 座位数
 salonSerachPage.unlimited = 不限
 salonSerachPage.otherCondtion = 店铺设备
+salonSerachPage.otherCondtion = 其它 
 salonSerachPage.over = 元以上
 salonSerachPage.rmb = 元
 salonSerachPage.below = 元以下

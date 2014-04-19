@@ -14,9 +14,6 @@ import ExecutionContext.Implicits.global
 import com.mongodb.casbah.query.Imports._
 import play.Configuration
 
-/*----------------------------
- * Embed Structure of Salon.
- -----------------------------*/
 /*
  * Main Class: Salon.
 */
@@ -423,3 +420,15 @@ object SeatNums extends ModelCompanion[SeatNums, ObjectId] {
         
         val dao = new SalatDAO[SeatNums, ObjectId](collection) {}
 }
+
+/**
+ * Data struct for General salon search.
+ * 沙龙通用检索结果的数据结构
+ */
+case class SalonGeneralSrchRst(
+  salonInfo: Salon,               // 沙龙基本情报
+  selectedStyles: List[Style],    // 发型集合
+  selectedCoupons: List[Coupon],  // 优惠券集合
+  reviewsStat: ReviewsStat,       // 店铺评价状况
+  keywordsHit: List[String]       // 检索中和关键字匹配的内容拔粹
+) 
