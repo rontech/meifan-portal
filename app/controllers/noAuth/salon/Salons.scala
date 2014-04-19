@@ -429,6 +429,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         }
     }
     
+
     def getMap(salonId: ObjectId) = Action {
         val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
@@ -438,5 +439,9 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                 Ok(html.salon.store.map(s, SalonNavigation.getSalonNavBar(salon), None, address))
             case None => NotFound
         }
+    }
+    
+    def getSalonBySearch = Action {
+      Ok(views.html.salon.salonSearchMain(""))
     }
 }
