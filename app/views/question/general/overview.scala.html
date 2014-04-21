@@ -2,13 +2,20 @@
 
 
 @main(Messages("site.title")) {
-    <ul>
-    @for(qust <- questions) {
-        <li>
-            <h1>@qust.questName</h1>
-            <br/>
-            <p>@Html(qust.questContent)</p>
-        </li>
-    }
-    </ul>
+ <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/tempindex.css")">
+ 
+ <div id = "salonMainContents">
+     <ul>
+     @for(qust <- questions) {
+         <li>
+             <h1>@qust.questName</h1>
+             <br/>
+             <p>@Html(qust.questContent)</p>
+         </li>
+     }
+     </ul>
+    </div>
+    <div id="sideContents">
+     @views.html.common.questionsModule()
+    </div>
 }
