@@ -10,7 +10,7 @@ import se.radley.plugin.salat.Binders._
 import java.util.Date
 
 
-
+// 资讯
 case class Info(
     id: ObjectId = new ObjectId,   	
     title: String,                  
@@ -18,8 +18,8 @@ case class Info(
     authorId: ObjectId,
 //    infoPics: ObjectId,
     infoPics: List[OnUsePicture],
-    creteTime: Date = new Date,
-    infoType : Int,
+    createTime: Date = new Date,
+    infoType : Int, // 暂定 1：美范 ，2：美容整形，3：利用规约， 4： 使用须知 ，5： 隐私政策 //TODO 6: 广告
     isValid: Boolean = true
 )
 
@@ -47,6 +47,42 @@ object Info extends ModelCompanion[Info, ObjectId] {
      */
     def findEstheInfo(num : Int) : List[Info]= {    
       val infoList= dao.find(MongoDBObject("isValid" -> true, "infoType" -> 2)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
+      infoList
+    }
+    
+    /**
+     * 取得ID利用规约
+     */
+    // TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
+    def findIdUsePolicyInfo : List[Info]= {    
+      val infoList= dao.find(MongoDBObject("isValid" -> true, "infoType" -> 3)).sort(MongoDBObject("createTime" -> -1)).toList
+      infoList
+    }
+    
+    /**
+     * 取得ID利用规约
+     */
+    // TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
+    def findUsePolicyInfo : List[Info]= {    
+      val infoList= dao.find(MongoDBObject("isValid" -> true, "infoType" -> 4)).sort(MongoDBObject("createTime" -> -1)).toList
+      infoList
+    }
+    
+    /**
+     * 取得ID利用规约
+     */
+    // TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
+    def findSecurityPolicyInfo : List[Info]= {    
+      val infoList= dao.find(MongoDBObject("isValid" -> true, "infoType" -> 5)).sort(MongoDBObject("createTime" -> -1)).toList
+      infoList
+    }
+    
+    /**
+     * 取得ID利用规约
+     */
+    // TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
+    def findAdInfo(num : Int) : List[Info]= {    
+      val infoList= dao.find(MongoDBObject("isValid" -> true, "infoType" -> 6)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
       infoList
     }
     

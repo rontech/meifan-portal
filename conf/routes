@@ -91,6 +91,9 @@ GET         /questions/                                                         
 
 # Info
 GET         /info/:infoId                                                   controllers.noAuth.Infos.getOneInfo(infoId: ObjectId)
+GET         /doc/id/terms                                                   controllers.noAuth.Infos.getIdUsePolicyInfo
+GET         /doc/use/terms                                                  controllers.noAuth.Infos.getUsePolicyInfo
+GET         /doc/policy/privacy                                             controllers.noAuth.Infos.getSecurityPolicyInfo
 
 #-------------------------------------------------
 # 用户管理：登录用户能看到的跳转
