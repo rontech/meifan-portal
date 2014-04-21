@@ -111,7 +111,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
      */
     val salonSearchForm: Form[SearchParaForSalon] = Form(
         mapping(
-            "keyWord"-> text,
+            "keyWord"-> optional(text),
             "city" -> text,
             "region" -> text,
             "salonName" -> list(text),
@@ -441,7 +441,20 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         }
     }
     
-    def getSalonBySearch = Action {
-      Ok(views.html.salon.salonSearchMain(""))
+    /**
+     * 发行前台检索
+     */
+    def getSalonBySearch = Action { implicit request =>
+        salonSearchForm.bindFromRequest.fold(
+            errors => BadRequest(views.html.error.errorMsg(errors)),
+            {
+                 case (salonSearchForm) => {
+                     val salons = Salon.findSalonBySearchPara(salonSearchForm)
+//                     Ok(views.html.salon.salonSearchMain(salonSearchForm))
+                     Ok(views.html.salon.search.salonSrchRstGroup(salons))
+                 }
+            }
+        )
     }
+    
 }

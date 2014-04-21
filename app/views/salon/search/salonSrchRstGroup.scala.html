@@ -1,0 +1,5 @@
+@(salons: List[Salon])
+
+@for(sl <- salons) {
+    @views.html.salon.search.salonSrchRstItem(sl)
+}

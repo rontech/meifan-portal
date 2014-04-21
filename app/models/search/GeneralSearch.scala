@@ -28,7 +28,7 @@ object GeneralSrchDiv extends Enumeration {
  * salon检索条件字段合成类
  */
 case class SearchParaForSalon(
-    keyWord : String,
+    keyWord : Option[String],
     city : String,
     region: String,
     salonName: List[String],
