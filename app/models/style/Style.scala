@@ -14,7 +14,30 @@ trait StyleIdUsed {
   val styleId: Option[ObjectId]
 }
 
+/*------------------------
+ * Assistant Class: For Style
+ *------------------------*/
+case class StylePara(
+    styleImpression: List[String],
+    serviceType: List[String],
+    styleLength: List[String],
+    styleColor: List[String],
+    styleAmount: List[String],
+    styleQuality: List[String],
+    styleDiameter: List[String],
+    faceShape: List[String],
+    consumerAgeGroup: List[String],
+    consumerSex: List[String],
+    consumerSocialStatus: List[String])
 
+case class StyleAndSalon(
+    style: Style,
+    salon: Salon)
+
+
+/*------------------------
+ * Main Class: Style
+ *------------------------*/
 case class Style(
     id: ObjectId = new ObjectId,
     styleName: String,
@@ -34,23 +57,6 @@ case class Style(
     consumerSocialStatus: List[String],
     createDate: Date,
     isValid: Boolean)
-
-case class StylePara(
-    styleImpression: List[String],
-    serviceType: List[String],
-    styleLength: List[String],
-    styleColor: List[String],
-    styleAmount: List[String],
-    styleQuality: List[String],
-    styleDiameter: List[String],
-    faceShape: List[String],
-    consumerAgeGroup: List[String],
-    consumerSex: List[String],
-    consumerSocialStatus: List[String])
-
-case class StyleAndSalon(
-    style: Style,
-    salon: Salon)
 
 object Style extends StyleDAO
 
