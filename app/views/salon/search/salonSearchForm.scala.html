@@ -5,7 +5,7 @@
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/EL_common.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/searchMain.css")">
 <script src="@routes.Assets.at("javascripts/swfupload/jquery-1.8.2.min.js")" type="text/javascript"></script>
-<form action="" method="post">
+<form action=@noAuth.routes.Salons.getSalonBySearch method="post">
 <div id="left">
 	<!-- 城市 、行业、关键字检索 -->
 	<div id="salon_search">
@@ -34,8 +34,8 @@
             	</select>
             </li>
             <li>@Messages("salonSerachPage.keyword")</li>
-            <li><input name="keywords" type="text"></li>
-            <li><input name="" type="button" class="btn" value></li>
+            <li><input name="keywords" type="text" value="noKeyword"></li>
+            <li><input name="" type="submit" class="btn" value = @Messages("hair.search")></li>
         </ul>
     </div>
     <!-- 地区选择 -->
@@ -115,7 +115,7 @@
             <ul class="place prices">
             	@PriceRange.findAll.map{price=>
             		<li class="">
-                    	<input name="haircutPrice" dataname="" type="radio" value="@price.minPrice~@price.maxPrice" method="p_4" mark="600" id="pr4">
+                    	<input name="haircutPrice" dataname="" type="radio" value="@price.minPrice-@price.maxPrice" method="p_4" mark="600" id="pr4">
                     	<label for="pr4" title="苏州600元以上酒店" class="">
                     	@if(price.maxPrice == 20){
                     		@price.maxPrice.toInt
@@ -154,9 +154,15 @@
             <div class="notto"><a href="javascript:void(0);" class="cur" method="s_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place prices">
             	@SeatNums.findAll.toList.map{seat=>
-            		<li class="">
+            		@*<li class="">
                     	<input name="seatNums" dataname="" type="radio" value="@seat.minNum-@seat.maxNum" method="p_4" mark="600" id="pr4">
                     	<label for="pr4" title="" class="">
+                            @seat.minNum-@seat.maxNum</label>
+                    </li>*@
+                    <li class="">
+                        <input name="seatNums.minNum" dataname="" type="radio" value="@seat.minNum" method="p_4" mark="600" id="pr4">
+                        <input name="seatNums.maxNum" dataname="" type="radio" value="@seat.maxNum" method="p_4" mark="600" id="pr4">
+                        <label for="pr4" title="" class="">
                             @seat.minNum-@seat.maxNum</label>
                     </li>
             	}
@@ -265,8 +271,8 @@
         </li>
         <li class="def" method="sort" data-type="elong">
 	        <a href="javascript:void(0)" rel="nofollow" class="on" onfocus="this.blur();">
-		        <input type="radio" name="sortByCondition" id="cond_3" value="@Messages("salonSerachPage.sortByComment")"/>
-		        <label for="cond_3" title="" class="">
+		        <input type="radio" name="sortByCondition" id="cond_4" value="@Messages("salonSerachPage.sortByComment")"/>
+		        <label for="cond_4" title="" class="">
 		             @Messages("salonSerachPage.sortByComment") 
 		        </label>
 	        </a>
