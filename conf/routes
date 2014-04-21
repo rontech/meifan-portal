@@ -122,7 +122,7 @@ GET         /userPage/info/:userId                                              
 GET         /user/createLetterPage/:id                                           controllers.auth.UserLetters.sendLetterPage(id)
 POST        /user/sendLetter                                                     controllers.auth.UserLetters.sendLetter
 GET         /user/cancelFollow/:followedId                                       controllers.auth.MyFollows.cancelFollow(followedId:ObjectId)
-GET         /user/addFollow/:followId                                            controllers.auth.MyFollows.addFollow(followId:ObjectId,followObjType:String)
+GET         /user/addFollow/:followId                                            controllers.auth.MyFollows.addFollow(followId:ObjectId,followObjType:String, date)
 
 # Blog
 GET         /myPage/createBlog                                                   controllers.auth.Blogs.newBlog
