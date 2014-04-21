@@ -1,5 +1,6 @@
   function addFollow(followId, followObjType) {
-	jsRoutes.controllers.auth.MyFollows.addFollow(followId, followObjType).ajax(ajax1);
+      var date = new Date().getTime().toString();
+	jsRoutes.controllers.auth.MyFollows.addFollow(followId, followObjType,date).ajax(ajax1);
   }
 
   var successFn = function(data) {
@@ -9,7 +10,7 @@
 		  alert("收藏/关注成功！");
 	  }
   };
-  var errorFn = function(err) { 
+  var errorFn = function(err) {
 	  alert("此功能需登录，请先登录！");
 	  }
 	   

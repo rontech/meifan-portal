@@ -25,7 +25,7 @@ object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
     /**
      * 添加关注或收藏
      */
-    def addFollow(followId: ObjectId, followObjType: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    def addFollow(followId: ObjectId, followObjType: String, date:String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
         val user = loggedIn
         MyFollow.checkIfFollow(user.id, followId) match {
             case false => {
@@ -34,7 +34,7 @@ object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
                 	UserMessage.sendFollowMsg(user, followId, followObjType)
                 Ok("false")
             }
-            case true => 
+            case true =>
                 Ok("true")
         }
     }
