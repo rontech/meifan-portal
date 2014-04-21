@@ -25,7 +25,7 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
         "confirm" -> text).verifying(
           // Add an additional constraint: both passwords must match
             Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2),
-      "nickName" -> nonEmptyText(4,10),
+      "nickName" -> nonEmptyText(1,10),
       "email" -> email,
       "optContactMethods" -> seq(
         mapping(
