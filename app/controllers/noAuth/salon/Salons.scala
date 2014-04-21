@@ -450,7 +450,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             {
                  case (salonSearchForm) => {
                      val salons = Salon.findSalonBySearchPara(salonSearchForm)
-                     Ok(views.html.salon.salonSearchMain(salonSearchForm))
+//                     Ok(views.html.salon.salonSearchMain(salonSearchForm))
+                     Ok(views.html.salon.search.salonSrchRstGroup(salons))
                  }
             }
         )
