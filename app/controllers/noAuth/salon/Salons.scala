@@ -45,7 +45,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             "contactMethod" -> mapping(
                 "mainPhone" -> nonEmptyText,
                 "contact" -> nonEmptyText,
-                "email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)+$""")))(Contact.apply)(Contact.unapply),
+                "email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$""")))(Contact.apply)(Contact.unapply),
             "optContactMethods" -> list(
                 mapping(
                     "contMethodType" -> text,
@@ -157,7 +157,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         {
             salonRegister =>
                 Salon.save(salonRegister, WriteConcern.Safe)
-                    Redirect(auth.routes.Salons.checkInfoState)
+                    Redirect(auth.routes.Salons.salonLogin)
             })
     }
     /*-------------------------
