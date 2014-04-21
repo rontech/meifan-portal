@@ -460,7 +460,6 @@ if(address == ""){
 }else{ 
 	var area = document.getElementById("Select1").value + document.getElementById("Select2").value +
     document.getElementById("Select3").value + document.getElementById("addrDetail").value ; //得到地区
-    alert("***********"+area)
     var map = new BMap.Map("container1");//在百度地图容器中创建一个地图
     var point = new BMap.Point(100, 100);//定义一个中心点坐标
     map.centerAndZoom(point, 18);//设定地图的中心点和坐标并将地图显示在地图容器中
@@ -480,7 +479,7 @@ if(address == ""){
 }
 //创建和初始化地图函数：
 function initMap() {
-    createMap(114.025974, 22.546054);//创建地图,初始化为苏州创业园
+    createMap(120.546059, 31.282186);//创建地图,初始化为苏州创业园
     setMapEvent();//设置地图事件
     addMapControl();//向地图添加控件
 }
@@ -489,7 +488,6 @@ function initMap() {
 function searchMap() {
     var area = document.getElementById("Select1").value + document.getElementById("Select2").value +
     document.getElementById("Select3").value + document.getElementById("addrDetail").value ; //得到地区
-    alert("***********"+area)
     var ls = new BMap.LocalSearch(map);
     ls.setSearchCompleteCallback(function(rs) {
         if (ls.getStatus() == BMAP_STATUS_SUCCESS) {
@@ -508,7 +506,7 @@ function searchMap() {
 function createMap(x, y) {
     var map = new BMap.Map("container1");//在百度地图容器中创建一个地图
     var point = new BMap.Point(x, y);//定义一个中心点坐标
-    map.centerAndZoom(point, 12);//设定地图的中心点和坐标并将地图显示在地图容器中
+    map.centerAndZoom(point, 18);//设定地图的中心点和坐标并将地图显示在地图容器中
     var marker=new BMap.Marker(point); //创建标注
     map.addOverlay(marker);//将标注添加到地图中
     window.map = map;//将map变量存储在全局

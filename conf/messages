@@ -564,7 +564,7 @@ user.resetPassword = 重置密码
 user.resetInfo = 点击下面的链接，重置密码
 user.loginUserIdErr = 请输入用户名！
 user.cancelBeStylist = 取消当前申请
-user.nickName = 4~10位字符！
+user.nickName = 1~10位字符！
 
 
 #Mail
