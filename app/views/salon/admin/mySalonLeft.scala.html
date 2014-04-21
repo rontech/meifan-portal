@@ -25,13 +25,16 @@
 	   			<div class='more'>
 		 			<a href="@auth.routes.Salons.checkInfoState">
 		 				<span>@Messages("salonCheckInfoState.createSalon")</span>
-		 			</a><br />		
+		 			</a><br />
+		 	@if(Salon.checkBasicInfoIsFill(salon)){
 		 			<a href="@noAuth.routes.Salons.getSalon(salon.id)">
 		 				<span>@Messages("salon.getInSalon")</span>
-		 			</a><br />			 			 					 					 			
+		 			</a><br />		 				
+		 			}					 			 					 					 			
 		 		</div>	
 		 		
-			</div>			
+			</div>
+		 	@if(Salon.checkBasicInfoIsFill(salon)){						
    			<!-- 店铺基本信息管理 -->
 			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.infoManagement")</strong>
@@ -51,6 +54,8 @@
 		 		</div>	
 		 		
 			</div>
+			}
+		 	@if(Salon.checkBasicInfoIsFill(salon)){			
 			<!-- 技师管理 -->
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("salonAdmin.stylistManagement")</strong>
@@ -70,7 +75,10 @@
                 	)
                 	</a>
     				</div>
-			</div>  			
+			</div>
+			}
+			<!-- 发型管理 -->			
+		 	@if(Salon.checkBasicInfoIsFill(salon)){			  			
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("salonAdmin.styleManagement")</strong>
 	  			<ul class='clearfix'>
@@ -81,6 +89,10 @@
 					<a href="@auth.routes.Salons.getAllStylesBySalon()">@Messages("stylistMag.showAllStyles")</a>
 				</div>
 			</div>
+			}
+			<!-- 预约管理 -->			
+		 	@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
+		 		Salon.checkImgIsExist(salon)){			
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("salonAdmin.reserveManagement")</strong>
 	  			<ul class='clearfix'>
@@ -113,6 +125,10 @@
 				
     			</div>
 			</div>
+			}
+			<!-- 评论管理 -->			
+		 	@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
+		 		Salon.checkImgIsExist(salon)){			
 			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.commentManagement")</strong>
 	   			<ul class='clearfix'>
@@ -123,6 +139,9 @@
        					<a href="@auth.routes.Salons.myComment">@Messages("salonAdmin.checkComment")</a>
      				</div>
 			</div>
+			}
+			<!-- 服务管理 -->			
+		 	@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon)){			
 			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.serviceManagement")</strong>
 	   			<ul class='clearfix'>
@@ -133,6 +152,9 @@
        					<a href="@auth.routes.Salons.myService">@Messages("salonAdmin.checkService")</a>
      				</div>
 			</div>
+			}
+			<!-- 优惠券管理 -->			
+		 	@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon)){			
 			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.couponManagement")</strong>
 	   			<ul class='clearfix'>
@@ -143,6 +165,9 @@
        					<a href="@auth.routes.Salons.myCoupon">@Messages("salonAdmin.checkCoupon")</a>
      				</div>
 			</div>
+			}
+			<!-- 菜单管理 -->			
+		 	@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon)){			
 			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.menuManagement")</strong>
 	   			<ul class='clearfix'>
@@ -153,6 +178,10 @@
        					<a href="@auth.routes.Salons.myMenu">@Messages("salonAdmin.checkMenu")</a>
      				</div>
 			</div>
+			}
+			<!-- 动态管理 -->			
+		 	@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
+		 		Salon.checkImgIsExist(salon)){			
 			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.stateManagement")</strong>
 	   			<ul class='clearfix'>
@@ -167,7 +196,7 @@
      				</div>
      				
 			</div>
-		
+		}
 				<div class='RMod' id='UserSkills'>
 	  			<a href = "@auth.routes.Salons.salonLogout">@Messages("user.loginOut")</a>
 	  			</div>					
