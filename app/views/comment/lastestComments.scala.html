@@ -7,7 +7,7 @@
     <div id="index_comment">
     	<ul>
     		@for(commentOfSalon <- commentOfSalonList){
-			 	<li class="@if(commentOfSalonList.indexOf(commentOfSalon) != commentOfSalonList.size-1) {bl}">
+			 	<li>
 					<dl>
 						<dt class="b">@DateFormat.getDateInstance.format(commentOfSalon.commentInfo.createTime)</dt>
 						<dt>
