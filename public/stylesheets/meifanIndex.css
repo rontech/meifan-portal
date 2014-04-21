@@ -373,4 +373,16 @@ dl dd.pic a:hover img,  #index_nail_nr li a:hover img{
 
 #index_news_nr dl dt a, #index_comment dl dt a{
 	text-decoration: underline;
+}
+
+#index_comment ul li {
+	border-top: 1px dotted #aaa;
+	margin-top: 10px;
+	padding-top: 20px;
 } 
+
+#index_comment ul li:first-child {
+	border-top: none;
+	margin-top: 0;
+	padding-top: 0;
+}

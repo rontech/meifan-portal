@@ -847,7 +847,7 @@ div.skinHeadingWrapper2 {
 
 .y4S		{ background-image: url(/assets/images/y4.png);}
 
-.grayPointBodyHead {background-position: -324px top; background-repeat: no-repeat; padding-top: 6px;}
+.grayPointBodyHead {background-position: -324px top; background-repeat: no-repeat; padding-top: 6px; margin: auto; width: 162px;}
 .grayPointBodyBox {background-position: -648px bottom; background-repeat: no-repeat; padding-bottom: 6px;}
 .grayPointBody{
 	background-position: -486px 0;
