@@ -111,7 +111,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
      */
     val salonSearchForm: Form[SearchParaForSalon] = Form(
         mapping(
-            "keyWord"-> text,
+            "keyWord"-> optional(text),
             "city" -> text,
             "region" -> text,
             "salonName" -> list(text),
@@ -450,7 +450,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             {
                  case (salonSearchForm) => {
                      val salons = Salon.findSalonBySearchPara(salonSearchForm)
-                     Ok(views.html.salon.salonSearchMain(""))
+                     Ok(views.html.salon.salonSearchMain(salonSearchForm))
                  }
             }
         )

@@ -237,12 +237,12 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
         //对region/salonName/salonIndustry/seatNums检索条件变形
         //"_id" -> MongoDBObject("$exists" -> true)为恒成立条件
         val region = if (searchParaForSalon.region.equals("all")) { "_id" -> MongoDBObject("$exists" -> true) } else { "salonAddress.region" -> searchParaForSalon.region }
-        val salonIndustry = if (searchParaForSalon.salonIndustry.equals("all")) { "_id" -> MongoDBObject("$exists" -> true)} else { "salonIndustry" -> searchParaForSalon.salonIndustry }
-        val salonName = if (searchParaForSalon.region.isEmpty) { "" $in "" } else { "salonName" $in searchParaForSalon.salonName }
+        val salonIndustry = if (searchParaForSalon.salonIndustry.equals("all")) { MongoDBObject.empty } else { "salonIndustry" $in List(searchParaForSalon.salonIndustry) }
+        val salonName = if (searchParaForSalon.region.isEmpty) { MongoDBObject.empty } else { "salonName" $in searchParaForSalon.salonName }
         //以city/region/salonName/salonIndustry/seatNums/salonFacilities作为check条件
-        println("=======salonList=5555======"+searchParaForSalon.city)
         salonList = dao.find($and(
             salonName,
+            salonIndustry,
             "salonFacilities.canOnlineOrder" $in canOnlineOrder,
             "salonFacilities.canImmediatelyOrder" $in canImmediatelyOrder,
             "salonFacilities.canNominateOrder" $in canNominateOrder,
@@ -252,11 +252,12 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
             "salonFacilities.isPosAvailable" $in isPosAvailable,
             "salonFacilities.isWifiAvailable" $in isWifiAvailable,
             "salonFacilities.hasParkingNearby" $in hasParkingNearby,
-            MongoDBObject("salonAddress.city" -> searchParaForSalon.city,region,salonIndustry,"seatNums" -> MongoDBObject("$lte" -> searchParaForSalon.seatNums.maxNum, "$gte" -> searchParaForSalon.seatNums.minNum)))).toList
+            "seatNums" $lte searchParaForSalon.seatNums.maxNum $gte searchParaForSalon.seatNums.minNum,
+            MongoDBObject("salonAddress.city" -> searchParaForSalon.city,region))).toList
         //以serviceType/haircutPrice作为check条件
         if (searchParaForSalon.serviceType.nonEmpty) {
             salonList.map { salon =>
-                if(Service.findServiceTypeBySalonId(salon.id).containsSlice(searchParaForSalon.serviceType) && (searchParaForSalon.priceRange.minPrice <= findLowestPriceBySalonId(salon.id)) && (findLowestPriceBySalonId(salon.id) <= searchParaForSalon.priceRange.maxPrice)) {
+                if(Service.findServiceTypeBySalonId(salon.id).intersect(searchParaForSalon.serviceType).length == searchParaForSalon.serviceType.length && (searchParaForSalon.priceRange.minPrice <= findLowestPriceBySalonId(salon.id)) && (findLowestPriceBySalonId(salon.id) <= searchParaForSalon.priceRange.maxPrice)) {
                     salons ::= salon
                 }
             }
@@ -281,7 +282,6 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
         }
         lowestPrice
     }
-    
 }
 
 /*----------------------------
@@ -379,7 +379,7 @@ case class SalonPics(
  * salon检索字段合成类
  */
 case class SearchParaForSalon(
-    keyWord : String,
+    keyWord : Option[String],
     city : String,
     region: String,
     salonName: List[String],
