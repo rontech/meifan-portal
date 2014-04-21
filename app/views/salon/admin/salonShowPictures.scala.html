@@ -73,23 +73,24 @@
 
 }
 @pictureGroup(field: Field, className: String = "salonPic") = {
-	<li>
-	<div class="delete-pic"></div>
-		@field("fileObjId").value.map{fileid=>
-			@if(!fileid.equals("")){	
-			<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
-		}
-	}
+ <li>
+ <div class="delete-pic"></div>
+  @field("fileObjId").value.map{fileid=>
+   @if(!fileid.equals("")){ 
+   <div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
+  }
+ }
     <div class="addstyles-byStylist twipsies well @className">
         @inputText(
             field("fileObjId"), 
-			'_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
+   '_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
         )
-        
-        @select(
+        @field("picUse").value.map{picUse=>
+        @if(picUse == "LOGO"){
+         @select(
             field ("picUse"), 
             options = options(
-            	"LOGO" -> Messages("salon.picUse.logo"),
+             "LOGO" -> Messages("salon.picUse.logo"),
                 "Navigate" -> Messages("salon.picUse.Navigate"),
                 "Atmosphere" -> Messages("salon.picUse.Atmosphere")
             ),
@@ -97,10 +98,37 @@
              'placeholder -> Messages("salon.picUse"),
              '_help -> Messages(""),
              'class -> "picuseOfSalon"
-        )	        
+         )
+        }else{
+         @select(
+            field ("picUse"), 
+            options = options(
+             "Navigate" -> Messages("salon.picUse.Navigate"),
+                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+            ),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
+             '_help -> Messages(""),
+             'class -> "picuseOfSalon"
+         )
+        } 
+        
+        }.getOrElse{
+         @select(
+            field ("picUse"), 
+            options = options(
+             "Navigate" -> Messages("salon.picUse.Navigate"),
+                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+            ),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
+             '_help -> Messages(""),
+             'class -> "picuseOfSalon"
+         )
+        }       
         @inputText(
             field("showPriority"), 
-			'_label -> None, 'class -> "imgShowPriority"
+   '_label -> None, 'class -> "imgShowPriority"
         )
         @textarea(
             field("description"),

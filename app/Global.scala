@@ -542,70 +542,42 @@ object InitialData {
         Question(new ObjectId(), "如何获取店铺权限", """<p>
     &nbsp; &nbsp;<span style="color: rgb(255, 0, 0);"><em><strong> (1)店铺一级权限：</strong></em></span>
 </p>
-<ul class=" list-paddingleft-2" style="list-style-type: disc;">
-    <ul class=" list-paddingleft-2" style="list-style-type: square;">
-        <li>
-            <p>
-                店铺后台管理：<span style="color: rgb(227, 108, 9);">店铺管理模块</span>，<span style="color: rgb(227, 108, 9);">店铺信息管理模块</span>，<span style="color: rgb(227, 108, 9);">发型管理模块</span>，<span style="color: rgb(227, 108, 9);">技师管理模块</span>。
-            </p>
-        </li>
-        <li>
-            <p>
-                店铺前台显示：根据后台信息，显示在店铺页面，并且可被访问。
-            </p>
-        </li>
-        <li>
-            <p>
-                检索功能：该店铺可以被其他用户检索并查看。
-            </p>
-        </li>
-    </ul>
-</ul>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a):店铺后台管理：<span style="color: rgb(227, 108, 9);">店铺管理模块</span>，<span style="color: rgb(227, 108, 9);">店铺信息管理模块</span>，<span style="color: rgb(227, 108, 9);">发型管理模块</span>，<span style="color: rgb(227, 108, 9);">技师管理模块</span>。
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b):店铺前台显示：根据后台信息，显示在店铺页面，并且可被访问。
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c):检索功能：该店铺可以被其他用户检索并查看。
+</p>
 <p>
     &nbsp; &nbsp; (该权限在填完基本信息后即可拥有。当您的信息管理，发型管理，技师管理都完善后，将自动拥有二级权限。)
 </p>
 <p>
     <em><strong><span style="color: rgb(255, 0, 0);">&nbsp; &nbsp; (2)店铺二级权限 ：</span></strong></em>
 </p>
-<ul class=" list-paddingleft-2" style="list-style-type: disc;">
-    <ul class=" list-paddingleft-2" style="list-style-type: square;">
-        <li>
-            <p>
-                店铺一级权限的全部内容。
-            </p>
-        </li>
-        <li>
-            <p>
-                开放<span style="color: rgb(227, 108, 9);">服务管理模块</span>，优惠券管理模块，<span style="color: rgb(227, 108, 9);">菜单管理模块</span> &nbsp;
-            </p>
-            <p>
-                (该权限在完善信息管理模块，发型管理模块，技师管理模块之后拥有，当您的服务管理，优惠券管理，菜单管理都完善后，将自动拥有三级权限) &nbsp; &nbsp;
-            </p>
-        </li>
-    </ul>
-</ul>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a):店铺一级权限的全部内容。
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b):开放<span style="color: rgb(227, 108, 9);">服务管理模块</span>，优惠券管理模块，<span style="color: rgb(227, 108, 9);">菜单管理模块</span> &nbsp;
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(该权限在完善信息管理模块，发型管理模块，技师管理模块之后拥有，当您的服务管理，优惠券管理，菜单管理都完善后，将自动拥有三级权限) &nbsp; &nbsp;
+</p>
 <p>
     <span style="color: rgb(255, 0, 0);"><em><strong>&nbsp; &nbsp; (3)店铺三级权限：</strong></em></span>
 </p>
-<ul class=" list-paddingleft-2" style="list-style-type: disc;">
-    <ul class=" list-paddingleft-2" style="list-style-type: square;">
-        <li>
-            <p>
-                店铺一级权限全部功能 &nbsp;。
-            </p>
-        </li>
-        <li>
-            <p>
-                店铺二级权限全部功能 &nbsp;。
-            </p>
-        </li>
-        <li>
-            <p>
-                开放<span style="color: rgb(227, 108, 9);">预约管理模块</span>，<span style="color: rgb(227, 108, 9);">评论管理模块</span>，<span style="color: rgb(227, 108, 9);">动态管理模块</span>
-            </p>
-        </li>
-    </ul>
-</ul>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a):店铺一级权限全部功能 &nbsp;。
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b):店铺二级权限全部功能 &nbsp;。
+</p>
+<p>
+    <span style="font-size: 12.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c):开放</span><span style="font-size: 12.5px; color: rgb(227, 108, 9);">预约管理模块</span><span style="font-size: 12.5px;">，</span><span style="font-size: 12.5px; color: rgb(227, 108, 9);">评论管理模块</span><span style="font-size: 12.5px;">，</span><span style="font-size: 12.5px; color: rgb(227, 108, 9);">动态管理模块</span>
+</p>
 <p>
     <br/>
 </p>

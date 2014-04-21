@@ -146,7 +146,8 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
      */
     def checkBasicInfoIsFill(salon: Salon): Boolean = {
         salon.homepage.nonEmpty && salon.salonNameAbbr.nonEmpty && salon.salonDescription.nonEmpty &&
-        salon.optContactMethods.nonEmpty && salon.restDays.nonEmpty && salon.workTime.nonEmpty 
+        salon.optContactMethods.nonEmpty && salon.restDays.nonEmpty && salon.workTime.nonEmpty &&
+        salon.salonAddress.map(add=>add.addrDetail.nonEmpty).getOrElse(true)
     }
     
     /**
@@ -160,7 +161,9 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
      * 查看是否有店铺图片
      */
     def checkImgIsExist(salon: Salon): Boolean = {
-        salon.salonPics.exists(a => a.picUse.equals("Navigate")) && salon.salonPics.exists(a => a.picUse.equals("Atmosphere"))
+        salon.salonPics.exists(a => a.picUse.equals("Navigate")) && salon.salonPics.exists(a => a.picUse.equals("Atmosphere")) &&
+        salon.picDescription.exists(pic=>pic.picTitle.nonEmpty) && salon.picDescription.exists(pic=>pic.picContent.nonEmpty) && 
+        salon.picDescription.exists(pic=>pic.picFoot.nonEmpty) 
     }
 
     /**
