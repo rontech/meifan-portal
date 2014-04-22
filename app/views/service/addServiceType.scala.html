@@ -10,6 +10,15 @@
 		<body>
         @form(routes.ServiceTypes.addServiceType, 'id -> "serviceTypeForm") {
           <fieldset>
+          
+          @input(field=serviceTypeForm("industryName"),'_label -> Messages("industy")) { (id, name, value,_) =>
+          <select name= "industryName">
+            @Industry.findAllIndustryName.toList.map {industyName =>
+                  <option value= @industyName>@Messages("industry.industryName."+ industyName)</option>
+            }
+          </select>
+          }
+          
             @inputText(serviceTypeForm("serviceTypeName"),'_label -> Messages("service.type"))
       
 		  </fieldset>

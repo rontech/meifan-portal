@@ -32,6 +32,10 @@ object Industry extends ModelCompanion[Industry, ObjectId]{
   
   def findById(id: ObjectId): Option[Industry] = dao.findOne(MongoDBObject("_id" -> id))
   
+  def findAllIndustryName = dao.find(MongoDBObject.empty).toList.map {
+		industry =>industry.industryName
+  }
+  
 }
 
 /**
