@@ -839,3 +839,12 @@ border: 1px solid #545651;
 .w768 {
     width : 768px;
 }
+}
+
+.w100 {
+width: 100px;
+}
+
+.h100 {
+height: 100px;
+}
