@@ -158,10 +158,16 @@
                             </a>
                         </div>
                         <ul id="footerLinks">
-                            <li> <a href="javascript:void(0);" id="mterms"> @Messages("main.idUsePolicy") </a> </li>
+                        	<!-- TODO href -->
+                            @*<li> <a href="javascript:void(0);" id="mterms"> @Messages("main.idUsePolicy") </a> </li>
                             <li> <a href="javascript:void(0);" id="terms"> @Messages("main.usePolicy") </a> </li>
                             <li> <a href="javascript:void(0);" id="privacy"> @Messages("main.securityPolicy") </a> </li>
-                            <li> <a href="javascript:void(0);" id="guide"> @Messages("main.userGuide") </a> </li>
+                            <li> <a href="javascript:void(0);" id="guide"> @Messages("main.userGuide") </a> </li>*@
+                            
+                            <li> <a href="@noAuth.routes.Infos.getIdUsePolicyInfo" id="mterms"> @Messages("main.idUsePolicy") </a> </li>
+                            <li> <a href="@noAuth.routes.Infos.getUsePolicyInfo" id="terms"> @Messages("main.usePolicy") </a> </li>
+                            <li> <a href="@noAuth.routes.Infos.getSecurityPolicyInfo" id="privacy"> @Messages("main.securityPolicy") </a> </li>
+                            <li> <a href="" id="guide"> @Messages("main.userGuide") </a> </li>
                         </ul>
                     </div>
                     <script type="text/javascript" src="/VOS/vos.js">

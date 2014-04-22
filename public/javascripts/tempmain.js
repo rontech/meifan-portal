@@ -96,7 +96,7 @@ $(function(){
 	      if(!confirm("文章删除后无法恢复，请确认是否删除此篇文章？")){
         	return;
 	      }else{
-            location.href="/deleteBlog/" + blogId;
+            location.href="/myPage/deleteBlog/" + blogId;
 	      } 
 		});
 		
@@ -107,7 +107,7 @@ $(function(){
 	      if(!confirm("您确认要删除此篇评论？")){
         	return;
 	      }else{
-        	location.href="/delete/" + commentId + "/" + blogId;
+        	location.href="/myPage/blog/delete/" + commentId + "/" + blogId;
 	      } 
 		});
 		

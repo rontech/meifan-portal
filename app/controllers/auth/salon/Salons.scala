@@ -17,7 +17,6 @@ import org.mindrot.jbcrypt.BCrypt
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import utils.Tools
-import play.api.templates.Html
 
 object Salons extends Controller with LoginLogout with AuthElement with SalonAuthConfigImpl{
   
@@ -309,7 +308,11 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   def myReserv = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
     //TODO
-    Ok(views.html.salon.general.index(navBar = Nil, user = None))
+    //这里原来的指向有问题，暂随便制定一个链接(复制了下面myComment方法的跳转)
+    val commentList = Comment.findBySalon(salon.id)
+    Ok(html.salon.admin.mySalonCommentAll(salon = salon, commentList = commentList))
+//    Ok(views.html.salon.general.index(navBar = Nil, user = None))
+    
   }
   
   def myComment = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>

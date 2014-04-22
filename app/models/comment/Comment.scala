@@ -12,6 +12,14 @@ case class CommentOfSalon(commentInfo: Comment, salonInfo: Option[Salon]) {
 }
 
 /**
+ * 评价状况：好评率, 总评价数
+ */
+case class ReviewsStat (
+  reviewRate: BigDecimal,    // 好评率
+  reviewTotalCnt: Long       // 总评价数
+)
+
+/**
  * Enumeration for reviews: positive reviews|average reviews|negetive reviews
  */
 object ReviewRst extends Enumeration {
@@ -19,10 +27,19 @@ object ReviewRst extends Enumeration {
   val Good, Average, Bad = Value 
 }
 
+/**
+ * Enumeration for review type: to salon| to blog| replay.
+ */
+object CommentType extends Enumeration {
+  type CommentType = Value
+  val ToBlog = Value(1)
+  val ToSalon = Value(2)
+  val Replay = Value(3)
+}
 
 case class Comment(
     id : ObjectId = new ObjectId,
-    commentObjType : Int,
+    commentObjType : Int,    // 评论类型:  1: 对博客; 2: 对店铺; 3: 回复
     commentObjId : ObjectId, 
     content : String,
     complex : Int,
@@ -37,6 +54,9 @@ case class Comment(
 object Comment extends ModelCompanion[Comment, ObjectId] {
   val dao = new SalatDAO[Comment, ObjectId](collection = mongoCollection("Comment")) {}
   
+  // the average review judgement stardands: for [1-5] is the available review values, use the middle value.
+  val CONST_AVG_REVIEW = 3
+
   /**
    * 根据评论对象的ObjectId查找评论，包括对这条评论所做的评论。
    * TODO 方法名
@@ -111,7 +131,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
   // TODO
   def findCommentForHome(num : Int) : List[CommentOfSalon]= {
     var commentOfSalonList : List[CommentOfSalon] = Nil
-    val commentList= dao.find(MongoDBObject("isValid" -> true, "commentObjType" -> 2)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
+    val commentList= dao.find(MongoDBObject("isValid" -> true, "commentObjType" -> CommentType.ToSalon.id)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
     commentList.foreach({
       row =>
         val coupon = Coupon.findOneById(row.commentObjId)
@@ -132,9 +152,10 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
    * 取得指定店铺的好评率: 以综合评价(complex)为准
    * TODO: 是否应该在店铺里增加好评率字段，在评价时直接更新店铺好评率？--> 为查询时效率考虑。
    */
-  def getGoodReviewsRate(salonId : ObjectId) = {
-    val reviews = findBySalon(salonId)
-    if(reviews.isEmpty) 0 else reviews.filter(x => isGoodReview(x.complex) == ReviewRst.Good).length / reviews.length
+  def getGoodReviewsRate(salonId : ObjectId): ReviewsStat = {
+    val reviews = findBySalon(salonId).filter(_.commentObjType  == CommentType.ToSalon.id)
+    val rate = if(reviews.isEmpty) 0 else reviews.filter(x => isGoodReview(x.complex) == ReviewRst.Good).length.toFloat / reviews.length
+    ReviewsStat(rate, reviews.length)    
   }
  
   /**
@@ -143,9 +164,9 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
    */ 
   def isGoodReview(reviewScore: Int) = {
     reviewScore match {
-      case x: Int if x < 3 => ReviewRst.Bad
-      case x: Int if x == 3 => ReviewRst.Average
-      case x: Int if x > 3 => ReviewRst.Good
+      case x: Int if x < CONST_AVG_REVIEW => ReviewRst.Bad
+      case x: Int if x == CONST_AVG_REVIEW => ReviewRst.Average
+      case x: Int if x > CONST_AVG_REVIEW => ReviewRst.Good
       case _ => ReviewRst.Average
     }
   }

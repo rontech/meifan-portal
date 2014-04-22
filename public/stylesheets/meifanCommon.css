@@ -399,10 +399,6 @@ color: #f36d7a;
 		width:220px;
 		clear:both;
 	}
-	#index_zxfx_pic{
-		width:220px;
-		float:left;
-	}
 
 #index_zxfx_pic li.one{
 	width:220px;
@@ -437,19 +433,6 @@ color: #f36d7a;
 }
 /*--切换--*/
 
-#index_zxfxlist{
-	width:340px;
-	float:right;
-}
-#index_zxfxlist ul li{
-	float:left;
-	padding:0px 0px 0px 14px;
-}
-#index_zxfxlist ul li span{
-	display:block;
-	text-align:center;
-	line-height:20px;
-}
 #left_container{
 	width:795px;
 	clear:both;
@@ -562,75 +545,6 @@ text-align:center;
 #index_ps_nr ul li span a:hover{
 	color:#fff;
 }
-/*
-#index_ps{
-	width:354px;
-	float:right;
-}
-#index_ps h2{
-	border-top:1px solid #e1e1e1;
-	clear:both;
-}
-#index_ps_nr{
-	width:354px;
-	clear:both;
-	overflow:hidden;
-	padding:10px 0px;
-}
-#index_ps_nr dl{
-	padding:10px 0px;
-	clear:both;
-	overflow:hidden;
-}
-#index_ps_nr dl dt{
-	width:260px;
-	float:right;
-}
-#index_ps_nr dl dd.pic{
-	width:80px;
-	float:left;
-}
-#index_ps_nr dl dd.txt{
-	width:260px;
-	float:right;
-}*/
-/*--end 整型美容--*/
-#index_leis{
-	width:795px;
-	clear:both;
-	overflow:hidden;
-}
-#index_leis h2{
-	border-top:1px solid #e1e1e1;
-	clear:both;
-}
-#index_leis_nr{
-	width:795px;
-	clear:both;
-	overflow:hidden;
-	padding:10px 0px;
-}
-#index_leis_nr dl{
-	width:260px;
-	float:left;
-	padding:0px 5px 10px 0px;
-}
-#index_leis_nr dl.right{
-	padding-right:0px;
-}
-#index_leis_nr dl dt{
-	width:170px;
-	float:right;
-}
-#index_leis_nr dl dd.pic{
-	width:80px;
-	float:left;
-}
-#index_leis_nr dl dd.txt{
-	width:170px;
-	float:right;
-}
-
 
 
 /*-------------------------------------------end left-------------------------------*/
@@ -663,14 +577,19 @@ text-align:center;
 	clear:both;
 	overflow:hidden;
 }
-
-
-
 #index_member_nr p.ad{
-	width:155px; height:45px; padding:5px; font-family:"微软雅黑"; color: #FFF; padding-top:2px; font-size:13px;
+	width:155px;
+	height:45px;
+	padding:5px;
+	font-family:"微软雅黑";
+	color: #FFF; 
+	padding-top:2px; 
+	font-size:13px;
+	text-align:center;
 	clear:both;
 	overflow:hidden;
-	margin:0 auto;background:url(/assets/images/right_member_pic.jpg) no-repeat;
+	margin:0 auto;
+	background:url(/assets/images/right_member_pic.jpg) no-repeat;
 }
 #index_member_nr p.fk{
 	clear:both;
@@ -770,7 +689,6 @@ text-align:center;
 #index_blog_nr dl dt{
 	width:75px;
 	float:right;
-	line-height:30px;
 }
 #index_blog_nr dl dd.pic{
 	width:58px;
@@ -848,6 +766,105 @@ text-align:center;
 	margin-right: -1px;
 }
 
+.right {
+float: right;
+}
 
-.pl_bt{ width:210px; height:36px; overflow:hidden; clear:both; margin:0 auto; padding-bottom:8px}
+#index_blog_nr ul li {
+	margin-top: -1px;
+}
 
+.b {
+font-weight: bold !important;
+}
+
+.mT8 {
+margin-top: 8px;
+}
+
+.taC {
+text-align: center !important;
+}
+
+.grayPointBody {
+background-position: -486px 0;
+background-repeat: repeat-y;
+padding-left: 5px;
+padding-right: 5px;
+padding-top: 1px;
+}
+
+.y4S {
+background-image: url(/assets/images/y4.png);
+}
+
+.fs10 {
+font-size: 10px;
+}
+
+.grayPointBody p {
+color: #FFF;
+font-weight: bold;
+line-height: 120%;
+font-size: 10px;
+}
+
+.usePointBodyBox {
+background-position: -162px bottom;
+background-repeat: no-repeat;
+padding-bottom: 6px;
+}
+
+.grayPointBody p span, .usePointBody p span {
+font-size: 16px;
+line-height: 110%;
+}
+
+.pB5 {
+padding-bottom: 5px;
+}
+
+.bl {
+border: 1px solid #545651;
+}
+
+.h489 {
+	height: 489px;
+}
+
+.w100p {
+    width : 100%;
+}
+
+.w768 {
+    width : 768px;
+}
+}
+
+.w100 {
+width: 100px;
+}
+
+.h100 {
+height: 100px;
+}
+
+.w89 {
+	width: 89px;
+}
+
+.w218 {
+	width: 218px;
+}
+
+.brL {
+	border: 1px solid;
+}
+
+.h119 {
+	height: 119px;
+}
+
+.h162 {
+	height: 162px;
+}

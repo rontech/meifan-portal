@@ -45,7 +45,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             "contactMethod" -> mapping(
                 "mainPhone" -> nonEmptyText,
                 "contact" -> nonEmptyText,
-                "email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)+$""")))(Contact.apply)(Contact.unapply),
+                "email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$""")))(Contact.apply)(Contact.unapply),
             "optContactMethods" -> list(
                 mapping(
                     "contMethodType" -> text,
@@ -111,15 +111,16 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
      */
     val salonSearchForm: Form[SearchParaForSalon] = Form(
         mapping(
+            "keyWord"-> optional(text),
             "city" -> text,
             "region" -> text,
             "salonName" -> list(text),
             "salonIndustry" -> text,
             "serviceType" -> list(text),
-            "haircutPrice" -> mapping(
+            "priceRange" -> mapping(
                     "minPrice" -> bigDecimal,
                     "maxPrice"-> bigDecimal
-                    )(HaircutPrice.apply)(HaircutPrice.unapply),
+                    )(PriceRange.apply)(PriceRange.unapply),
             "seatNums" ->  mapping(
                     "minNum" -> number,
                     "maxNum"-> number
@@ -143,7 +144,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                     salonFacilities =>
                         Some((salonFacilities.canOnlineOrder, salonFacilities.canImmediatelyOrder, salonFacilities.canNominateOrder, salonFacilities.canCurntDayOrder, salonFacilities.canMaleUse, salonFacilities.isPointAvailable, salonFacilities.isPosAvailable, salonFacilities.isWifiAvailable,
                             salonFacilities.hasParkingNearby))
-                })(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
+                },
+                "sortByCondition" -> text)(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
 
     /**
      * 店铺注册
@@ -155,15 +157,18 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         {
             salonRegister =>
                 Salon.save(salonRegister, WriteConcern.Safe)
-                Redirect(auth.routes.Salons.checkInfoState)
-        })
+                    Redirect(auth.routes.
+                            Salons.salonLogin)
+            })
     }
     /*-------------------------
      * The Main Page of All Salon 
      -------------------------*/
     def index = StackAction { implicit request =>
         val user = loggedIn
-        Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user))
+        val searchParaForSalon = new SearchParaForSalon(None,"苏州","all",List(),"Hairdressing",List(),PriceRange(0,1000000),SeatNums(0,10000),SalonFacilities(false,false,false,false,false,false,false,false,false,""),"热度")
+        val salons = Salon.findSalonBySearchPara(searchParaForSalon)
+        Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
     }
 
     /*-------------------------
@@ -426,4 +431,33 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             case None => NotFound
         }
     }
+    
+
+    def getMap(salonId: ObjectId) = Action {
+        val salon: Option[Salon] = Salon.findOneById(salonId)
+        salon match {
+            case Some(s) => 
+                val address = s.salonAddress.get.province + s.salonAddress.get.city.getOrElse("") + s.salonAddress.get.region.getOrElse("") + 
+                	s.salonAddress.get.town.getOrElse("") + s.salonAddress.get.addrDetail
+                Ok(html.salon.store.map(s, SalonNavigation.getSalonNavBar(salon), None, address))
+            case None => NotFound
+        }
+    }
+    
+    /**
+     * 发行前台检索
+     */
+    def getSalonBySearch = Action { implicit request =>
+        salonSearchForm.bindFromRequest.fold(
+            errors => BadRequest(views.html.error.errorMsg(errors)),
+            {
+                 case (salonSearchForm) => {
+                     val salons = Salon.findSalonBySearchPara(salonSearchForm)
+                     Ok(views.html.salon.salonSearchMain(salonSearchForm))
+//                     Ok(views.html.salon.search.salonSrchRstGroup(salons))
+                 }
+            }
+        )
+    }
+    
 }

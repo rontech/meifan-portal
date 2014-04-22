@@ -248,6 +248,25 @@ object InitialData {
           DefaultLog(new ObjectId, new ObjectId)
         ).foreach(DefaultLog.save)
     }
+    
+    if(PriceRange.findAll.isEmpty){
+       Seq(
+    	 PriceRange(0, 20),
+    	 PriceRange(21, 50),
+    	 PriceRange(51, 100),
+    	 PriceRange(101, 1000),
+    	 PriceRange(1001, 100000)
+       ).foreach(PriceRange.save)
+    }
+    
+    if(SeatNums.findAll.isEmpty){
+      Seq(
+          SeatNums(0, 5),
+          SeatNums(6, 10),
+          SeatNums(11, 20),
+          SeatNums(21, 100)
+      ).foreach(SeatNums.save)
+    }
   }
   /*---------------------------
    * Sample Data For Test. 
@@ -257,11 +276,11 @@ object InitialData {
     
     if(Salon.findAll.isEmpty) { 
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("salon01", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "悦美月容吧", Some("悦容吧"), List("Hairdressing"), Some("www.yuerong.com"), Some("本地最红的美发沙龙！"), Some(PicDescription("以人为本，追求卓越","追求与合作者及广大消费者的“双赢”甚至“多赢”的结果。强调诚信为本、技术领先、优质服务，立足于美发、美容、美体、健康、体闲市场，高瞻远瞩，做强做大，随时为广大消费者提供最前端、最时尚的、最潮流和最周到的服务。","欢迎光临！")), Contact("051268320328", "王经理","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-01-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("salon02", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "千美千寻吧", Some("美寻吧"), List("Hairdressing"), Some("www.meixun.com"), Some("选择我们，选择美丽！"),Some(PicDescription("真诚  真心  真爱","千寻精神即为对社会对行业的承诺，包涵对消费者真诚，用它作为基石；对顾客的真心，用真心来服务；对员工的真爱，用真爱去支持。它体现的是一份宽容，是一份理解，是一份友爱，是一份关怀，是一份和谐，是一份美丽。","欢迎光临！")), Contact("051268320328", "李经理","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("徐州市"), Option("邳州市"), None, "南京路9号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") ),
-        Salon(new ObjectId("530d7288d7f2861457771bdf"), SalonAccount("salon03", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "忆荣吧", Some("忆荣吧"), List("Hairdressing"), Some("www.yirong.com"), Some("追忆往昔容颜"), Some(PicDescription("精诚团结，热忱服务，高效运作"," 企业内部精诚团结，企业与合作者通力合作，企业经营行为规范化。通过亲密的配合，及规范化的经营，追求高效率地运作，以保证在市场竞争中立于不败之地。","欢迎光临！")),Contact("051268320328", "冯先生","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("云南省", Option("昆明市"), Option("盘龙区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-01-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771aaa"), SalonAccount("salon04", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "虞美人", Some("虞美人"), List("Hairdressing"), Some("www.yumeiren.com"), Some("做个美丽的人"),Some(PicDescription("诚信为本，优质创新，引领时尚","最新的潮流资讯、最顶尖的时尚发布、最贴心的造型设计、最合理的价格优势、是永琪品牌的核心之一。我们立志以最时尚的理念，打造最生活的状态，塑造最自信的你！","欢迎光临！")), Contact("051268320328", "马先生","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("湖南省", Option("长沙市"), Option("天心区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771bbb"), SalonAccount("salon05", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "美吧", Some("美吧"), List("Hairdressing"), Some("www.meiba.com"), Some("滋润，护理，完美女人，从你做起！"),Some(PicDescription("专业、时尚、 亲和、 信赖","为了您更美好的生活，我们一直在关注，我们一直在努力！您的肯定是我们最大的收获，您的信赖更是我们最满足的奖赏！","欢迎光临！")), Contact("051268320328", "张女士","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") )
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("salon01", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "悦美月容吧", Some("悦容吧"), List("Hairdressing"), Some("www.yuerong.com"), Some("美丽从这里开始！"), Some(PicDescription("美丽从这里开始","最新的潮流资讯、最顶尖的时尚发布、最贴心的造型设计、最合理的价格优势。我们立志以最时尚的理念，打造最生活的状态，塑造最自信的你！","欢迎光临悦美月容！")), Contact("051268320328", "王经理","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-01-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("salon02", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "千美千寻吧", Some("美寻吧"), List("Hairdressing"), Some("www.meixun.com"), Some("选择我们，选择美丽！"),Some(PicDescription("选择我们，选择美丽","将细节打造为上品，力求体贴与舒适，经典与时尚。您的秀发将在这里得到个性的张扬，以更加自我的方式追寻生活的美和真谛。您的美丽人生，将在这里从“头”开始。专业和完善的美发设备，将尽显您的身份与尊贵。专业的美发产品和精湛的技术，体贴入微的全程服务，完美是您的追求，专业是我的宗旨。","欢迎光临千美千寻！")), Contact("051268320328", "李经理","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州"), Option("高新区"), None, "南京路9号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") ),
+        Salon(new ObjectId("530d7288d7f2861457771bdf"), SalonAccount("salon03", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "忆荣吧", Some("忆荣吧"), List("Hairdressing"), Some("www.yirong.com"), Some("丽质自天成、魅力在忆容"), Some(PicDescription("丽质自天成、魅力在忆容"," 简约、干净、充满新古典风格的环境里，忆容沙龙将让每一位客人在自在的空间里，在优美旋律的陪伴下，感受专业美发技术和造型设计的美妙。","欢迎光临忆容吧！")),Contact("051268320328", "冯先生","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("云南省", Option("昆明"), Option("盘龙区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-01-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771aaa"), SalonAccount("salon04", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "虞美人", Some("虞美人"), List("Hairdressing"), Some("www.yumeiren.com"), Some("做个美丽的人"),Some(PicDescription("专业、时尚、 亲和、 信赖","为了您更美好的生活，我们一直在关注，我们一直在努力！您的肯定是我们最大的收获，您的信赖更是我们最满足的奖赏！","欢迎光临虞美人！")), Contact("051268320328", "马先生","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("湖南省", Option("长沙"), Option("天心区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bbb"), SalonAccount("salon05", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "美吧", Some("美吧"), List("Hairdressing"), Some("www.meiba.com"), Some("滋润，护理，完美女人，从你做起！"),Some(PicDescription("专业、时尚、 亲和、 信赖","为了您更美好的生活，我们一直在关注，我们一直在努力！您的肯定是我们最大的收获，您的信赖更是我们最满足的奖赏！","欢迎光临美吧！")), Contact("051268320328", "张女士","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") )
      ).foreach(Salon.save)
     }
       
@@ -377,7 +396,9 @@ object InitialData {
           Service(new ObjectId("5316c0a2d4d57997ce3e6d60"), "豪华护理", "对严重干枯分叉等问题修复", "Care", new ObjectId("530d7288d7f2861457771bdd"), 70, 200, date("2014-03-31"), null, true),
           Service(new ObjectId("5316c0d1d4d57997ce3e6d62"), "拉直", "拉直头发", "Supple", new ObjectId("530d7288d7f2861457771bdd"), 30, 50, date("2014-03-31"), null, true) ,
           Service(new ObjectId("5316ec2fd4d57997ce3e6d97"), "盘发", "将长发盘起", "Other", new ObjectId("530d7288d7f2861457771bdd"), 50, 50, date("2014-03-31"), null, true) ,
-          Service(new ObjectId("5316ecffd4d57997ce3e6d9d"), "盘发2", "将中长发盘起", "Other", new ObjectId("530d7288d7f2861457771bdd"), 100, 80, date("2014-03-31"), null, true) 
+          Service(new ObjectId("5316ecffd4d57997ce3e6d9d"), "盘发2", "将中长发盘起", "Other", new ObjectId("530d7288d7f2861457771bdd"), 100, 80, date("2014-03-31"), null, true),
+          Service(new ObjectId("53168b38d4d5cb7e816db45c"), "剪刘海", "专门剪刘海", "Cut", new ObjectId("530d7292d7f2861457771bde"), 10, 10, date("2014-03-31"), null, true),
+          Service(new ObjectId("53168b38d4d5cb7e816db44c"), "剪刘海", "专门剪刘海", "Cut", new ObjectId("530d7292d7f2861457771bbb"), 10, 10, date("2014-03-31"), null, true)
         ).foreach(Service.save)
     }
     
@@ -435,11 +456,149 @@ object InitialData {
 
     if(Question.findAll.isEmpty) {
       Seq(
-        Question(new ObjectId(), "发型师如何注册", "发型师注册请先申请成为网站一般用户，在申请身份中填入发型师。此时只是准发型师状态，需要在个人管理菜单中的【邀请我的店铺】中同意店铺邀请，才可以正式成为发型师，享有发型师的特殊权限，包括上传发型等等。另外，如果没有收到店铺邀请，您可以在个人管理菜单中的【申请加入店铺】中向输入自己所在店铺的ID检索并作出申请，经店铺批准后方可正式成为发型师身份。", new Date, 1, true),
-        Question(new ObjectId(), "店铺用户如何注册", "店铺用户需要先在网站上的店铺注册处注册，成为准店铺用户状态，此时店铺可以完善自己店铺的地址，发型，发型师等各种信息。然后上传店铺营业执照或者组织机构代码证扫描件，经网站管理平台认证后即可开通。开通后店铺的所有信息可以被用户看到，并可以被检索，预约。", new Date, 1, true),
+        Question(new ObjectId(), "发型师如何注册", """<p>
+    （1）发型师首先注册为<strong>普通用户</strong>，获取登录账号；
+</p>
+<p>
+    （2）利用以上获取的账号登录，点击页面右上角的<span style="text-decoration: underline;"><span id="_baidu_bookmark_start_35" style="display: none; line-height: 0px;">‍</span></span><span id="_baidu_bookmark_start_37" style="display: none; line-height: 0px;">‍</span><span style="color: rgb(217, 150, 148);">“我的美范”</span><span id="_baidu_bookmark_end_38" style="display: none; line-height: 0px;">‍</span><span style="text-decoration: underline;"><span id="_baidu_bookmark_end_36" style="display: none; line-height: 0px;">‍</span><span id="_baidu_bookmark_start_29" style="display: none; line-height: 0px;">‍</span></span><span id="_baidu_bookmark_start_31" style="display: none; line-height: 0px;">‍</span>至<span id="_baidu_bookmark_end_32" style="display: none; line-height: 0px;">‍</span><span style="text-decoration: underline;"><span id="_baidu_bookmark_end_30" style="display: none; line-height: 0px;">‍</span><span id="_baidu_bookmark_start_25" style="display: none; line-height: 0px;">‍</span></span><span id="_baidu_bookmark_start_27" style="display: none; line-height: 0px;">‍</span><strong>个人主页</strong>中；
+</p>
+<p>
+    （3）在<strong>个人主页</strong>中点击左下角的<span style="color: rgb(217, 150, 148);">“申请为技师”</span>；
+</p>
+<p>
+    （4）填写相应的信息，其中<strong>店铺账号</strong>及为您所在的店铺的账号，最后<strong>提交申请</strong>，所在店铺将收到您的申请信息，等待接收即可；
+</p>
+<p>
+    （5）等待过程中<strong style="font-size: 12.5px;">个人主页</strong><span style="font-size: 12.5px;">中原先<span style="color: rgb(217, 150, 148); line-height: 22.5px;">“申请为技师”<span style="font-size: 12.5px; color: rgb(0, 0, 0); line-height: 22.5px;">将会变成“<span style="font-size: 12.5px; color: rgb(217, 150, 148); line-height: 22.5px;">取消当前申请”<span style="font-size: 12.5px; color: rgb(0, 0, 0); line-height: 22.5px;">，若发现先前提交的信息有误或者终止此次申请，可点击该按钮；</span></span></span></span></span>
+</p>
+<p>
+    （6）等待时<strong>个人主页</strong>中若<span style="color: rgb(217, 150, 148); line-height: 22.5px;">取消当前申请”<span style="color: rgb(0, 0, 0); line-height: 22.5px;">变成</span><span style="color: rgb(217, 150, 148); line-height: 22.5px;">“申请为技师”，<span style="color: rgb(0, 0, 0); line-height: 22.5px;">说明您先前提交申请被欲申请的店铺拒绝；</span></span></span>
+</p>
+<p>
+    <span style="color: rgb(217, 150, 148); line-height: 22.5px;"><span style="color: rgb(217, 150, 148); line-height: 22.5px;"><span style="color: rgb(0, 0, 0); line-height: 22.5px;">（7）若您提出的申请被店铺接收，您的个人主页左侧展示了您所在的店铺，您的发型等相关信息，并可编辑您的发型等作品。</span></span></span>
+</p>
+<p>
+    （8）若想和当前所在店铺解除劳动关系，可点击<span style="color: rgb(217, 150, 148);">“我的店铺</span>”图标，点击右上角的<span style="color: rgb(217, 150, 148);">“离开店铺”</span>即可，此时在您的<strong>个人主页</strong>的左侧原先“<span style="color: rgb(217, 150, 148);">我的店铺”</span>区域将变为“<span style="color: rgb(217, 150, 148);">来自店铺的邀请”</span>，可重新<span style="text-decoration: underline;"><em>提出申请</em></span>或者<span style="text-decoration: underline;"><em>接受店铺的邀请</em></span>；<br/>
+</p>""", new Date, 1, true),
+        Question(new ObjectId(), "店铺用户如何注册", """<p>
+    <span style="color: rgb(255, 0, 0);"><em><strong>(1)店铺账号注册：</strong></em></span>
+</p>
+<p>
+    &nbsp; &nbsp; 店铺用户需先在网站上的“<span style="color: rgb(227, 108, 9);">店铺注册</span>”处注册，注册完成后成为准店铺状态。
+</p>
+<p>
+    &nbsp; &nbsp;&nbsp;<span style="color: rgb(227, 108, 9);">注册须知</span>：
+</p>
+<p>
+    &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;a):店铺账号，店铺名称一经注册，不能修改。
+</p>
+<p>
+    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b):注册完成后，会自动跳转到登录页面，用户可以根据注册的账户ID和密码登录到该账户的信息管理页面。
+</p>
+<p>
+    <span style="color: rgb(255, 0, 0);"><em><strong>(2)店铺信息完善：</strong></em></span>
+</p>
+<p>
+    &nbsp; &nbsp; 进入店铺后台，点击店铺管理菜单中的“<span style="color: rgb(227, 108, 9);">店铺申请</span>”按钮，进入店铺申请页面。请按照要求填写店铺信息并完善。
+</p>
+<p>
+    &nbsp; &nbsp; <span style="color: rgb(227, 108, 9);">店铺信息完善手册</span>：
+</p>
+<p>
+    &nbsp; &nbsp; a):店铺logo：店铺logo可以在左上角部分点击“<span style="color: rgb(227, 108, 9);">更换头像</span>”按钮来更换logo，也可以在图片上传中更换logo。
+</p>
+<p>
+    &nbsp; &nbsp; b):基本信息：用户可在基本信息页面填写店铺基本信息（此项目完善后可开通店铺浏览，店铺检索等功能，无预约功能）。
+</p>
+<p>
+    &nbsp; &nbsp; c):详细信息：请根据您的店铺实际情况，填写店铺详细信息。
+</p>
+<p>
+    &nbsp; &nbsp; d):图片上传：用户可在该页面上传图片，包括logo，展示图片，氛围图片。（c,d项目完成后，可开通预约功能）
+</p>
+<p>
+    <span style="color: rgb(255, 0, 0);"><em><strong>(3)店铺申请，审核：</strong></em></span>
+</p>
+<p>
+    &nbsp; &nbsp; 店铺信息填写完成后，在该页面下方点击”<span style="color: rgb(227, 108, 9);">店铺申请</span>“，等待网站管理平台认证通过。
+</p>
+<p>
+    <span style="color: rgb(255, 0, 0);"><em><strong>(4)店铺上线：</strong></em></span>
+</p>
+<p>
+    &nbsp; &nbsp; 网站管理平台认证通过后，店铺即正式上线。
+</p>
+<p>
+    <br/>
+</p>
+<p>
+    <br/>
+</p>
+<p>
+    <br/>
+</p>""", new Date, 1, true),
         Question(new ObjectId(), "如何根据详细条件检索", "请这样根据详细条件检索：......", new Date, 1, true),
         Question(new ObjectId(), "预约后想取消", "请按以下步骤取消：......", new Date, 1, true),
-        Question(new ObjectId(), "如何获取店铺权限", "根据资料完善度，网站将开放您不同的权限等级，如您可以按照相应权限发布服务、发型以及接受顾客预约，只有所有资料全部完善，您才能享受网站所有服务", new Date, 1, true)
+        Question(new ObjectId(), "如何获取店铺权限", """<p>
+    &nbsp; &nbsp;<span style="color: rgb(255, 0, 0);"><em><strong> (1)店铺一级权限：</strong></em></span>
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a):店铺后台管理：<span style="color: rgb(227, 108, 9);">店铺管理模块</span>，<span style="color: rgb(227, 108, 9);">店铺信息管理模块</span>，<span style="color: rgb(227, 108, 9);">发型管理模块</span>，<span style="color: rgb(227, 108, 9);">技师管理模块</span>。
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b):店铺前台显示：根据后台信息，显示在店铺页面，并且可被访问。
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c):检索功能：该店铺可以被其他用户检索并查看。
+</p>
+<p>
+    &nbsp; &nbsp; (该权限在填完基本信息后即可拥有。当您的信息管理，发型管理，技师管理都完善后，将自动拥有二级权限。)
+</p>
+<p>
+    <em><strong><span style="color: rgb(255, 0, 0);">&nbsp; &nbsp; (2)店铺二级权限 ：</span></strong></em>
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a):店铺一级权限的全部内容。
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b):开放<span style="color: rgb(227, 108, 9);">服务管理模块</span>，优惠券管理模块，<span style="color: rgb(227, 108, 9);">菜单管理模块</span> &nbsp;
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(该权限在完善信息管理模块，发型管理模块，技师管理模块之后拥有，当您的服务管理，优惠券管理，菜单管理都完善后，将自动拥有三级权限) &nbsp; &nbsp;
+</p>
+<p>
+    <span style="color: rgb(255, 0, 0);"><em><strong>&nbsp; &nbsp; (3)店铺三级权限：</strong></em></span>
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a):店铺一级权限全部功能 &nbsp;。
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b):店铺二级权限全部功能 &nbsp;。
+</p>
+<p>
+    <span style="font-size: 12.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c):开放</span><span style="font-size: 12.5px; color: rgb(227, 108, 9);">预约管理模块</span><span style="font-size: 12.5px;">，</span><span style="font-size: 12.5px; color: rgb(227, 108, 9);">评论管理模块</span><span style="font-size: 12.5px;">，</span><span style="font-size: 12.5px; color: rgb(227, 108, 9);">动态管理模块</span>
+</p>
+<p>
+    <br/>
+</p>
+<p>
+    <br/>
+</p>
+<p>
+    <br/>
+</p>
+<p>
+    <br/>
+</p>
+<p>
+    <br/>
+</p>
+<p>
+    <br/>
+</p>
+<p>
+    <br/>
+</p>""", new Date, 1, true)
       ).foreach(Question.save)
 
     }
@@ -468,7 +627,31 @@ object InitialData {
          Info(new ObjectId(), "OL久坐不动 如何减掉背部肉肉", "为什么大腿的肉肉这么难减？用什么方法才能减小肚子？你也有这样的减肥烦恼吗？女人频道减肥沙龙特别为苦恼的姐妹们推出了“减肥帮帮团”栏目。来自减肥沙龙的减肥顾问，随时准备帮你回答关于减肥的所有问题哦。", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 2, true),
          Info(new ObjectId(), "双眼皮修复手术 5种眼部问题的修复方法", "随着整形医疗科技的逐步成熟，以及人们对整形美容业心里认知度的逐步提高，如今“割双眼皮”在大家看来已是微不足道的外科小手术。虽然手术并不复杂，但由于患者个体差异以及主刀医生审美观念的不同，做出来的双眼皮效果并不能保证让每一个患者都感到完全称心实意。", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 2, true),
          Info(new ObjectId(), "谷歌眼镜新应用 整容手术好帮手", "在纽约的一家美容医院工作的整容医生Dr. Ramtin Kassir表示在他的工作中，Google Glass在他的工作中能起到非常实用的帮助。", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 2, true),
-         Info(new ObjectId(), "医美四招去疤痕 再现无暇肌肤", "皮肤创伤、烧伤、溃疡等愈合后留下的痕迹被称为疤痕，有些疤痕深深地留在了皮肤上很难去除，这同时也给人们内心增加了一道伤痕。疤痕修复手术可以去除疤痕，常见的疤痕手术有植皮手术、磨削去疤痕、切除缝合术及皮肤扩张器四种手术，不同的疤痕情况要选择不同的手术方式。", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 2, true)
+         Info(new ObjectId(), "医美四招去疤痕 再现无暇肌肤", "皮肤创伤、烧伤、溃疡等愈合后留下的痕迹被称为疤痕，有些疤痕深深地留在了皮肤上很难去除，这同时也给人们内心增加了一道伤痕。疤痕修复手术可以去除疤痕，常见的疤痕手术有植皮手术、磨削去疤痕、切除缝合术及皮肤扩张器四种手术，不同的疤痕情况要选择不同的手术方式。", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 2, true),
+         // type 6
+         Info(new ObjectId(), "劳动节促销", "劳动节，给自己放松放松，别太辛苦了。", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 6, true),
+         Info(new ObjectId(), "新店开业", "新店开业，大酬宾，欢迎新顾客光顾本店", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 6, true),
+         Info(new ObjectId(), "半价优惠", "欢迎新老顾客光临本店，本店现在正在举行半价优惠活动，期待您的光临！", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 6, true),
+         Info(new ObjectId(), "3月8日大促销", "妇女节，给自己'变身'吧,让心爱的他/她眼前一亮", new ObjectId, List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), new Date, 6, true),
+         
+         Info(new ObjectId(), "本站服务条款的确认和接纳", "本站的各项电子服务的所有权和运作权归本站。本站提供的服务将完全按照其发布的服务条款和操作规则严格执行。用户同意所有服务条款并完成注册程序，才能成为本站的正式用户。", new ObjectId, Nil, new Date, 3, true),
+         Info(new ObjectId(), "服务简介", "基于本站所提供的网络服务的重要性，用户应同意：<br>(1)提供详尽、准确的个人资料。<br>(2)不断更新注册资料，符合及时、详尽、准确的要求。<br>本站保证不公开用户的真实姓名、地址、电子邮箱和联系电话等用户信息， 除以下情况外：<br>(1)用户授权本站透露这些信息。<br>(2)相应的法律及程序要求本站提供用户的个人资料。", new ObjectId, Nil, new Date, 3, true),
+         Info(new ObjectId(), "服务条款的修改", "本站将可能不定期的修改本用户协议的有关条款，一旦条款及服务内容产生变动，本站将会在重要页面上提示修改内容。", new ObjectId, Nil, new Date, 3, true),
+         Info(new ObjectId(), "通告", "所有发给用户的通告都可通过重要页面的公告或电子邮件或常规的信件传送。用户协议条款的修改、服务变更、或其它重要事件的通告都会以此形式进行。", new ObjectId, Nil, new Date, 3, true),
+         Info(new ObjectId(), "网络服务内容的所有权", "本站定义的网络服务内容包括：文字、软件、声音、图片、录象、图表、广告中的全部内容；电子邮件的全部内容；本站为用户提供的其它信息。所有这些内容受版权、商标、标签和其它财产所有权法律的保护。所以，用户只能在本站和广告商授权下才能使用这些内容，而不能擅自复制、再造这些内容、或创造与内容有关的派生产品。本站所有的文章版权归原文作者和本站共同所有，任何人需要转载本站的文章，必须征得原文作者和本站授权。", new ObjectId, Nil, new Date, 3, true),
+         Info(new ObjectId(), "法律管辖和适用", "本协议的订立、执行和解释及争议的解决均应适用中国法律。", new ObjectId, Nil, new Date, 3, true),
+         Info(new ObjectId(), "用户守则", "用户须提供完整、准确、真实的信息，并在发生变化时及时更新。若用户提供任何错误、不实、过时或不完整的资料，并为美范网所确知；或者美范网有合理理由怀疑前述资料为错误、不实、过时或不完整，美范网有权暂停或终止用户的帐号，并拒绝现在或将来使用本服务的全部或一部分。<br>用户同意遵守《中华人民共和国保守国家秘密法》、《中华人民共和国计算机信息系统安全保护条例》、《计算机软件保护条例》等有关计算机及互联网规定的法律和法规、实施办法。在任何情况下，美范网合理地认为用户的行为可能违反上述法律、法规，美范网可以在任何时候，不经事先通知终止向该用户提供服务。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "禁止用户使用下列名称进行注册：", "（1）国际、国家、地方政府机构及其他机构的名称；<br>（2）在社会上具有一定影响力和知名度的影星、歌星、体育明星等公众人物的真实姓名、艺名等名称；<br>（3）党和国家领导人的真实姓名、字、号、笔名等；<br>（4）与在先注册的用户名称相同或近似的名称；<br>（5）含有攻击性、歧视性、侮辱性、色情、猥亵、政治类内容的名称；<br>（6）上述各类名称的谐音及相似字形。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "禁止用户从事下列行为：", "（1）反对宪法所确定的基本原则的；<br>（2）危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；<br>（3）损害国家荣誉和利益的；<br>（4）含有法律、行政法规禁止的其他内容的。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "责任说明", "基于技术和不可预见的原因而导致的服务中断，或者因会员的非法操作而造成的损失，美范网不负责任。会员应当自行承担一切因自身行为而直接或者间接导致的民事或刑事法律责任。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "版权说明", "任何会员接受本注册协议，即表明该用户主动将其在任何时间段在本站发表的任何形式的信息的著作财产权，包括并不限于：复制权、发行权、出租权、展览权、表演权、放映权、广播权、信息网络传播权、摄制权、改编权、翻译权、汇编权以及应当由著作权人享有的其他可转让权利无偿独家转让给美范网运营商所 有，同时表明该会员许可美范网有权利就任何主体侵权而单独提起诉讼，并获得全部赔偿。本协议已经构成《著作权法》第二十五条所规定的书面协议，其效力及于用户在美范网发布的任何受著作权法保护的作品内容，无论该内容形成于本协议签订前还是本协议签订后。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "侵权者政策", "对于被视为侵犯他人知识产权的任何用户，美范网可自行决定限制其对本网站的访问或终止其帐户。", new ObjectId, Nil, new Date, 4, true),
+		 Info(new ObjectId(), "通知", "美范网向用户发出的通知，采用电子邮件、手机短信、页面公告或常规信件的形式。服务条款的修改及其他事项的告知(包含但不限于注册结果通知、预订结果通知、手机验证通知等)，美范网将会以上述形式进行通知。", new ObjectId, Nil, new Date, 4, true),
+		 Info(new ObjectId(), "其他", "本协议条款在用户接受时对用户生效。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "用户隐私制度", "尊重用户个人隐私是本站的一项基本政策。所以，本站一定不会在未经合法用户授权时公开、编辑或透露其注册资料及保存在本站中的非公开内容。", new ObjectId, Nil, new Date, 5, true),
+         Info(new ObjectId(), "用户的帐号，密码和安全性", "用户一旦注册成功，成为本站的合法用户，将得到一个密码和用户名。您可随时根据指示改变您的密码。用户需谨慎合理的保存、使用用户名和密码。用户若发现任何非法使用用户帐号或存在安全漏洞的情况，请立即通知本站和向公安机关报案。", new ObjectId, Nil, new Date, 5, true),
+         Info(new ObjectId(), "对用户信息的存储和限制", "如果用户违背了国家法律法规规定或本协议约定，本站有视具体情形中止或终止对其提供网络服务的权利。", new ObjectId, Nil, new Date, 5, true),
+         Info(new ObjectId(), "保护会员隐私权", "本协议所称之会员隐私包括被法律确认为隐私内容，并符合下述范围的信息：<br>您注册美范网时，跟据网站要求提供的个人信息<br>在您使用美范网服务、参加网站活动、或访问网站网页时，网站自动接收并记录的您浏览器上的服务器数据，包括但不限于IP地址、网站Cookie中的资料及您要求取用的网页记录<br>美范网不会向任何人出售或出借您的个人信息，除非事先得到您的许可", new ObjectId, Nil, new Date, 5, true)
        ).foreach(Info.save)
       }
 
@@ -673,10 +856,12 @@ object InitialData {
     println("general salon search = " + Salon.findSalonByFuzzyConds("千美 悦美"))
     println("general salon search = " + Salon.findSalonByFuzzyConds("千美　悦美"))
 
+    // Test for Geting hotest Styles from a salon.
     println("hotest style search = " + Style.getBestRsvedStylesInSalon(new ObjectId("530d7288d7f2861457771bdd"), 2))
+    // Test for Geting good review rate of a salon.
+    println("salon good review rate = " + Comment.getGoodReviewsRate(new ObjectId("530d7288d7f2861457771bdd")))
 
     */
-
 
 
   }

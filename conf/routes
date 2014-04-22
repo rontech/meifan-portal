@@ -26,6 +26,7 @@ POST        /salonRegister                                                      
 GET         /getPhoto/:name                                                      controllers.Application.getPhoto(name: ObjectId)
 GET         /getPhotoByString/:name                                              controllers.Application.getPhotoByString(name: String)
 POST        /upload                                                              controllers.Application.upload()
+POST        /uploadWithAjax                                                      controllers.Application.uploadWithAjax
 POST        /changeLogo                                                          controllers.Application.changeLogo()
 GET         /saveImg/:id                                                         controllers.auth.Users.saveImg(id :ObjectId)
 
@@ -90,7 +91,10 @@ GET         /question/:qid                                                      
 GET         /questions/                                                          controllers.noAuth.Questions.getAllQuestions()
 
 # Info
-GET         /info/:infoId                                                   controllers.noAuth.Infos.getOneInfo(infoId: ObjectId)
+GET         /info/:infoId                                                        controllers.noAuth.Infos.getOneInfo(infoId: ObjectId)
+GET         /doc/id/terms                                                        controllers.noAuth.Infos.getIdUsePolicyInfo
+GET         /doc/use/terms                                                       controllers.noAuth.Infos.getUsePolicyInfo
+GET         /doc/policy/privacy                                                  controllers.noAuth.Infos.getSecurityPolicyInfo
 
 #-------------------------------------------------
 # 用户管理：登录用户能看到的跳转
@@ -119,7 +123,7 @@ GET         /userPage/info/:userId                                              
 GET         /user/createLetterPage/:id                                           controllers.auth.UserLetters.sendLetterPage(id)
 POST        /user/sendLetter                                                     controllers.auth.UserLetters.sendLetter
 GET         /user/cancelFollow/:followedId                                       controllers.auth.MyFollows.cancelFollow(followedId:ObjectId)
-GET         /user/addFollow/:followId                                            controllers.auth.MyFollows.addFollow(followId:ObjectId,followObjType:String)
+GET         /user/addFollow/:followId                                            controllers.auth.MyFollows.addFollow(followId:ObjectId,followObjType:String, date)
 
 # Blog
 GET         /myPage/createBlog                                                   controllers.auth.Blogs.newBlog
@@ -283,3 +287,9 @@ GET         /reserve/salonId=:salonId&couponId=:couponId&week=:week             
 #cancel current apply by user(dou)
 GET         /myPage/cancelApply                                                  controllers.auth.Users.cancelApplyStylist
 GET         /mySalon/checkStylistIsExist/:userId                                 controllers.noAuth.Stylists.checkStylistIsExist(userId: String)
+
+GET         /salon/:salonId/map                                                  controllers.noAuth.Salons.getMap(salonId: ObjectId)
+
+#to salon search main page
+GET         /salonsearch                                                         controllers.noAuth.Salons.getSalonBySearch
+POST        /salonsearch                                                         controllers.noAuth.Salons.getSalonBySearch

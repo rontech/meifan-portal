@@ -14,7 +14,30 @@ trait StyleIdUsed {
   val styleId: Option[ObjectId]
 }
 
+/*------------------------
+ * Assistant Class: For Style
+ *------------------------*/
+case class StylePara(
+    styleImpression: List[String],
+    serviceType: List[String],
+    styleLength: List[String],
+    styleColor: List[String],
+    styleAmount: List[String],
+    styleQuality: List[String],
+    styleDiameter: List[String],
+    faceShape: List[String],
+    consumerAgeGroup: List[String],
+    consumerSex: List[String],
+    consumerSocialStatus: List[String])
 
+case class StyleAndSalon(
+    style: Style,
+    salon: Salon)
+
+
+/*------------------------
+ * Main Class: Style
+ *------------------------*/
 case class Style(
     id: ObjectId = new ObjectId,
     styleName: String,
@@ -34,23 +57,6 @@ case class Style(
     consumerSocialStatus: List[String],
     createDate: Date,
     isValid: Boolean)
-
-case class StylePara(
-    styleImpression: List[String],
-    serviceType: List[String],
-    styleLength: List[String],
-    styleColor: List[String],
-    styleAmount: List[String],
-    styleQuality: List[String],
-    styleDiameter: List[String],
-    faceShape: List[String],
-    consumerAgeGroup: List[String],
-    consumerSex: List[String],
-    consumerSocialStatus: List[String])
-
-case class StyleAndSalon(
-    style: Style,
-    salon: Salon)
 
 object Style extends StyleDAO
 
@@ -108,18 +114,24 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
 
     /**
      * 前台检索逻辑
+     * 导航栏，男女式发型长度快捷
      */
-    //导航栏，男女式发型长度快捷
     def findByLength(styleLength: String, consumerSex: String): List[Style] = {
         dao.find(MongoDBObject("styleLength" -> styleLength, "consumerSex" -> consumerSex, "isValid" -> true)).toList
     }
 
-    //导航栏，女式发型风格快捷
+    /**
+     * 前台检索逻辑
+     * 导航栏，女式发型风格快捷
+     */
     def findByImpression(styleImpression: String, consumerSex: String): List[Style] = {
         dao.find(MongoDBObject("styleImpression" -> styleImpression, "consumerSex" -> consumerSex, "isValid" -> true)).toList
     }
 
-    //前台综合排名检索
+    /**
+     * 前台检索逻辑
+     * 前台综合排名检索
+     */
     def findByRanking: List[models.Style] = {
         val reservationAll = Reservation.findByStatusAndStyleId
         var reservations: List[models.Reservation] = Nil
@@ -134,7 +146,10 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         styles
     }
 
-    //前台热度加女士长度排名检索
+    /**
+     * 前台检索逻辑
+     * 前台热度加女士长度排名检索
+     */
     def findByRankingAndLengthForF(styleLength: String, consumerSex: String): List[models.Style] = {
         val reservationAll = Reservation.findByStatusAndStyleId
         var reservations: List[models.Reservation] = Nil
@@ -154,7 +169,10 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         styles
     }
 
-    //前台热度加男式排名检索
+    /**
+     * 前台检索逻辑
+     * 前台热度加男式排名检索
+     */
     def findByRankingForM(consumerSex: String): List[models.Style] = {
         val reservationAll = Reservation.findByStatusAndStyleId
         var reservations: List[models.Reservation] = Nil
@@ -174,7 +192,10 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         styles
     }
 
-    //ranking分组排序
+    /**
+     * 前台检索逻辑
+     * ranking分组排序
+     */
     def sortForRanking(reservationAll: List[models.Reservation]): List[models.Style] = {
         val reservations = reservationAll.sortBy(_.styleId)
         var lists: List[(ObjectId, Int)] = Nil
@@ -238,7 +259,10 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
       bestRsved
     } 
 
-    //前台详细检索
+    /**
+     * 前台检索逻辑
+     * 前台详细检索
+     */
     def findByPara(style: models.Style): List[Style] = {
         val styleLength = if (style.styleLength.equals("all")) { "styleLength" $in Style.findParaAll.styleLength } else { MongoDBObject("styleLength" -> style.styleLength) }
         val styleImpression = if (style.styleImpression.equals("all")) { "styleImpression" $in Style.findParaAll.styleImpression } else { MongoDBObject("styleImpression" -> style.styleImpression) }

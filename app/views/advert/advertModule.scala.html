@@ -1,5 +1,4 @@
-@(advert: Seq[Advert] = Nil)
-
+@(adverts: List[Info] = Info.findAdInfo(3))
 <!-- Module for advertisement.
     
     Contents maybe change according the page and area.....
@@ -9,52 +8,13 @@ TODO
   -->
 
    <div class="w180 mHA">
-        <!-- 2億円CP -->
-        <!-- <div class="mT10">
-            <a href="/c-2oku/" target="_blank">
-                <img src="/assets/images/2okuen_180_70.jpg" width="180" height="70"
-                alt="2億円ポイント山分けキャンペーン">
-            </a>
-        </div> -->
-        <!-- 2億円CP -->
-        <!-- キャンペーン一覧 -->
-        <div class="taR mT10">
-            <a href="#" target="_blank" class="iS arrowR">
-                キャンペーン一覧へ
+        @for(info <- adverts) {
+         <div class="mT10 bl">
+            <a href="@noAuth.routes.Infos.getOneInfo(info.id)" target="_blank">
+            	<img src="@routes.Application.getPhoto(info.infoPics(0).fileObjId)" width="178" />
             </a>
         </div>
-        <!-- /キャンペーン一覧 -->
-        <!-- HPBポンパレモール -->
-        <div class="mT10">
-            <a href="#" target="_blank">
-                <img src="/assets/images/hpb_ponpare_2_180_70.jpg" width="180"
-                height="70" alt="Beautyアイテム特集">
-            </a>
-        </div>
-        <!-- /HPBポンパレモール -->
-        <!-- スマホアプリバナー -->
-        <div class="mT10">
-            <a href="#" target="_blank">
-                <img src="/assets/images/hpbapp_180_130.jpg" width="180" height="130"
-                alt="ホットペッパービューティーのスマートフォンアプリ">
-            </a>
-        </div>
-        <!-- /スマホアプリバナー -->
-        <!-- リクルートカード -->
-        <div class="mT10">
-            <a href="#" target="_blank">
-                <img src="/assets/images/rc_180_130.gif" width="180" height="130"
-                alt="リクルートカード">
-            </a>
-        </div>
-        <!-- /リクルートカード -->
-        <!-- ポンパレバナー -->
-        <div class="mT10">
-            <a href="#" target="_blank">
-            	<img src="/assets/images/ponpare.png" alt="リクルートカード">
-            </a>
-        </div>
-        <!-- /ポンパレバナー -->
+        }
     </div>
 
 
