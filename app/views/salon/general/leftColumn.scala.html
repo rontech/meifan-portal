@@ -1,3 +1,5 @@
+@(searchParaForSalon: SearchParaForSalon, salons: List[Salon])
+
 <div class="w100p fl">
     
     <!-- Salon search -->
@@ -5,6 +7,9 @@
         @views.html.salon.search.salonSearchForm("")
     </div>
     
-   
+    <!-- Salon search result -->
+    <div class="w768">
+        @views.html.salon.search.salonSrchRstGroup(salons)
+    </div>
    
 </div>
