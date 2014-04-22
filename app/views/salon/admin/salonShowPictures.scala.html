@@ -85,8 +85,9 @@
             field("fileObjId"), 
 			'_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
         )
-        
-        @select(
+        @field("picUse").value.map{picUse=>
+        @if(picUse == "LOGO"){
+        	@select(
             field ("picUse"), 
             options = options(
             	"LOGO" -> Messages("salon.picUse.logo"),
@@ -97,7 +98,34 @@
              'placeholder -> Messages("salon.picUse"),
              '_help -> Messages(""),
              'class -> "picuseOfSalon"
-        )	        
+       	 )
+        }else{
+        	@select(
+            field ("picUse"), 
+            options = options(
+            	"Navigate" -> Messages("salon.picUse.Navigate"),
+                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+            ),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
+             '_help -> Messages(""),
+             'class -> "picuseOfSalon"
+       	 )
+        }	
+        
+        }.getOrElse{
+        	@select(
+            field ("picUse"), 
+            options = options(
+            	"Navigate" -> Messages("salon.picUse.Navigate"),
+                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+            ),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
+             '_help -> Messages(""),
+             'class -> "picuseOfSalon"
+       	 )
+        }       
         @inputText(
             field("showPriority"), 
 			'_label -> None, 'class -> "imgShowPriority"
