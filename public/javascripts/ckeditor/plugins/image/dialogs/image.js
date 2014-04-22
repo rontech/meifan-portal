@@ -24,16 +24,24 @@
             }
         }
 
-        function readURL(input,dialog){
-            if (input.files&&input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
+        function uploadImage(input,dialog){
+            var formData = new FormData();
+            formData.append('photo', input.files[0]);
+            jsRoutes.controllers.Application.uploadWithAjax().ajax({
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                type: 'POST',
+                success: function(data){
                     var url = dialog.getContentElement("info", "txtUrl");
-                    url.setValue(e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-            return false;
+                    url.setValue("/getPhoto/"+data.toString());
+                    alert("图片已经成功上传至服务器，请点击“图像信息”进行预览。");
+                },
+                error: function(err){
+                    alert(err.status+"未找到图片！");
+                }
+            });
         }
 
         var f = 1, k = /^\s*(\d+)((px)|\%)?\s*$/i, v = /(^\s*(\d+)((px)|\%)?\s*$)|^$/i, o = /^\d+px$/,
@@ -192,13 +200,7 @@
                                 a == f && (this.getValue() || this.isChanged()) ? (b.data("cke-saved-src", this.getValue()), b.setAttribute("src",
                                     this.getValue())) : 8 == a && (b.setAttribute("src", ""), b.removeAttribute("src"))
                             }, validate: CKEDITOR.dialog.validate.notEmpty(c.lang.image.urlMissing)},
-                            //{type: "button", id: "browse", style: "display:inline-block;margin-top:10px;", align: "center", label: c.lang.common.browseServer, hidden: !0, filebrowser: "info:txtUrl"}
-                            {type : "html",html : '<input id="localImage" type="file" name="files"/>'},
-                            {type :"button", label:"预览", onClick: function(){
-                                var input = document.getElementById("localImage");
-                                var dialog = this.getDialog();
-                                readURL(input,dialog);
-                            }}
+                            {type: "button", id: "browse", style: "display:inline-block;margin-top:10px;", align: "center", label: c.lang.common.browseServer, hidden: !0, filebrowser: "info:txtUrl"}
                         ]}
                     ]},
                     {id: "txtAlt", type: "text", label: c.lang.image.alt, accessKey: "T", "default": "", onChange: function () {
@@ -396,9 +398,17 @@
                         2 == a && (this.getValue() || this.isChanged()) && b.setAttribute("target", this.getValue())
                     }}
                 ]},
-                {id: "Upload", hidden: true, filebrowser: "uploadButton", label: c.lang.image.upload, elements: [
+                /*{id: "Upload", hidden: true, filebrowser: "uploadButton", label: c.lang.image.upload, elements: [
                     {type: "file", id: "upload", label: c.lang.image.btnUpload, style: "height:40px", size: 38},
                     {type: "fileButton", id: "uploadButton", filebrowser: "info:txtUrl", label: c.lang.image.btnUpload, "for": ["Upload", "upload"]}
+                ]},*/
+                {id: "Upload", hidden: false, label: c.lang.image.upload, elements: [
+                    {type : "html",label: c.lang.image.btnUpload,html : '<input id="uploadImage" type="file" name="files"/>'},
+                    {type :"button", label: c.lang.image.btnUpload, onClick: function(){
+                        var input = document.getElementById("uploadImage");
+                        var dialog = this.getDialog();
+                        uploadImage(input,dialog);
+                    }}
                 ]},
                 {id: "advanced", label: c.lang.common.advancedTab, elements: [
                     {type: "hbox", widths: ["50%", "25%", "25%"],

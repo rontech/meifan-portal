@@ -11,6 +11,7 @@ object ServiceTypes extends Controller {
   def serviceTypeForm(id: ObjectId = new ObjectId): Form[ServiceType] = Form(
     mapping(
       "id" -> ignored(id),
+      "industryName" -> text,
       "serviceTypeName" -> nonEmptyText,
       "description" -> text
       )(ServiceType.apply)(ServiceType.unapply)   

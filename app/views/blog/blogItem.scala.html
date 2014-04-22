@@ -34,11 +34,20 @@
 					<span class="iS upLately offL dib vaM">UP</span>
 				}else{
 					<a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)">@blog.title</a>
+					<a href="@auth.routes.MyFollows.cancelFollow(blog.id)"
+                            class="iS arrowR">
+                                <font>
+                                    <font>
+                                        @Messages("user.deleteFollow")
+                                    </font>
+                                </font>
+                            </a>
 				}
 				</div>
 			</div>
 			<div class="mT5 wwbw">
-				@Html(blog.content.slice(0, 100))
+				@*@Html(blog.content.slice(0, 100))*@
+				@Html(blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}>", "").slice(0, 100))
                 @if(blog.content.length > 100) {...}
 			</div>
 		</div>

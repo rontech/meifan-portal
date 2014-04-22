@@ -4,7 +4,7 @@
     <div id="index_leis_nr">
 	    @for(info <- infoList){
 	    	<dl>
-	        	<dt><a href="@noAuth.routes.Infos.getOneInfo(info.id)" class="link-green">@info.title</a></dt>
+	        	<dt><a href="@noAuth.routes.Infos.getOneInfo(info.id)" class="link-green">@info.title.slice(0, 13) ...</a></dt>
 	            <dd class="pic"><a href="@noAuth.routes.Infos.getOneInfo(info.id)"><img src="@routes.Application.getPhoto(info.infoPics(0).fileObjId)" width="80" height="90" /></a></dd>
 	            <dd class="txt">
 	            @Html(info.content.slice(0, 25)) ...

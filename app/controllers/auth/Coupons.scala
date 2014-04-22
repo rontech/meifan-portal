@@ -40,8 +40,9 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
           coupon.endDate, coupon.useConditions, coupon.presentTime, coupon.description))
     }.verifying(
         Messages("coupon.couponNameRepeat"),
-        coupon => !Coupon.checkCouponIsExit(coupon.couponName, coupon.salonId)   
-    )
+        coupon => !Coupon.checkCouponIsExit(coupon.couponName, coupon.salonId)
+    ).verifying(Messages("coupon.aa"),
+        coupon => coupon.startDate.before(coupon.endDate))
   }
   
   def couponUpdateForm: Form[Coupon] = Form {
@@ -75,7 +76,7 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
             "serviceTypes" -> list(
              mapping (
                  "serviceTypeName" -> text
-             ){(serviceTypeName) => ServiceType(new ObjectId(), serviceTypeName, "")}
+             ){(serviceTypeName) => ServiceType(new ObjectId(), "Hairdressing", serviceTypeName, "")}
              {serviceType => Some((serviceType.serviceTypeName))}),
             "subMenuFlg" -> optional(text) 
       )(CouponServiceType.apply)(CouponServiceType.unapply)
