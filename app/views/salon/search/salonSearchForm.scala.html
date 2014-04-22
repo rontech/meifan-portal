@@ -104,7 +104,7 @@
 </script>
 </head>
 <form action=@noAuth.routes.Salons.getSalonBySearch method="post" id="salonSearchForm">
-<div id="left">
+<div class="left w768">
     <!-- 城市 、行业、关键字检索 -->
     <div id="salon_search">
         <ul>
@@ -123,14 +123,15 @@
             </li>
             <script type="text/javascript" src="@routes.Assets.at("javascripts/location/fixdiv.js")"></script>
             <script type="text/javascript" src="@routes.Assets.at("javascripts/location/address.js")"></script>
-            <li>@Messages("industy")</li>
+            @*<li>@Messages("industy")</li>
             <li>
                 <select name="salonIndustry">
                     @Industry.findAll.toList.map{industry=>
                         <option value="@industry.industryName">@Messages(industry.industryName)</option>    
                     }
                 </select>
-            </li>
+            </li>*@
+            <li><input name="salonIndustry" type="hidden" value="Hairdressing"></li>
             <li>@Messages("salonSerachPage.keyword")</li>
             <li><input name="keyWord" type="text" value=""></li>
             <li><input name="" type="submit" class="btn" value = @Messages("hair.search")></li>
@@ -356,14 +357,14 @@
     <div class="listMain" id="contentId">
    <div class="sort" method="sortArea">
     <ul>
-        <li class="def" method="sort" data-type="elong">
+        @*<li class="def" method="sort" data-type="elong">
             <a href="javascript:submitForm();" rel="nofollow" class="on" onfocus="this.blur();">
                 <input type="radio" name="sortByCondition" style="display:none;" id="cond_1" value="@Messages("salonSerachPage.meifanRec")"/>
                 <label for="cond_1" title="" class="">
                      @Messages("salonSerachPage.meifanRec") 
                 </label>
             </a>
-        </li>
+        </li>*@
         <li class="def" method="sort" data-type="elong">
             <a href="javascript:submitForm();" rel="nofollow" class="on" onfocus="this.blur();">
                 <input type="radio" name="sortByCondition" style="display:none;" checked=true id="cond_2" value="@Messages("salonSerachPage.sortByHot")"/>

@@ -2,8 +2,8 @@
 
 
 *html{background-image:url(about:blank);background-attachment:fixed}
-.listBox{margin:0 auto;width:795px;clear:both;position:relative; margin-bottom:50px;}
-.listMain{float:left;width:750px;background:#fffffe}
+.listBox{margin:0 auto;clear:both;position:relative; margin-bottom:50px;}
+.listMain{float:left;width:768px;background:#fffffe}
 .listSidebar{float:right;width:240px;background:#fffffe}
 a{color:#36c;text-decoration:none}
 a:hover{color:#f80;cursor:pointer;text-decoration:none;text-decoration:underline}
@@ -92,14 +92,14 @@ h1.hotelName{font:24px "Microsoft Yahei",Simsun;color:#666}
 .aiOneNew .serchBut:active{box-shadow:inset 0 0 5px 0 rgba(0,0,0,0.5)}
 .aiOneNew .intxt.txtAll{width:245px;background:#fff url(../pic/hotels2012.png?t=201403312125) no-repeat -45px -696px;padding-left:28px}
 /*--end--*/
-.newFilter{border:1px solid #d9e8ff; width:793px;}
+.newFilter{border:1px solid #d9e8ff;}
 .newFilter .wBox{border-bottom:1px dashed #dfdfdf;padding:5px 0 0 0}
 .newFilter .wBox p.title{width:70px;color:#666;line-height:18px;font-weight:bold;float:left;display:inline-block;text-align:center}
 .newFilter .rBox{float:left}
 .newFilter .rBox .notto{width:36px;float:left;text-align:center;margin-right:5px}
 .newFilter .rBox .notto a{padding:0 5px;display:inline-block;text-decoration:none;color:#666}
 .newFilter .rBox .notto a.cur{background:#e65361;color:#fff}
-.newFilter .wBox .place{float:left;width:850px}
+.newFilter .wBox .place{float:left;}
 .newFilter .wBox .place li{height:25px;float:left;display:inline;margin:0 7px;color:#666}
 .newFilter .wBox .place li input{float:left;vertical-align:middle;margin-top:3px;*margin-top:0}
 .newFilter .wBox .place li label{width:78px;height:20px;float:left;overflow:hidden;cursor:pointer;vertical-align:middle;margin-top:2px\9;padding-left:3px}
@@ -115,7 +115,7 @@ h1.hotelName{font:24px "Microsoft Yahei",Simsun;color:#666}
 .newFilter .wBox .filterShow{background:#f8faff;border:1px solid #d9e8ff;padding:3px 10px 7px 10px;_padding:10px 10px 25px 10px;margin:0 20px 5px 60px;display:block;clear:both}
 .newFilter .wBox .filterShow .cols{width:17px;height:17px;background:url(../pic/hotels2012.png?t=201403312125) no-repeat -48px -845px;display:inline-block;cursor:pointer;float:right;*margin-top:-15px}
 .newFilter .wBox .filterShow .cols:hover{background:url(../pic/hotels2012.png?t=201403312125) no-repeat -48px -862px}
-.filterShow .notab{width:830px;border-bottom:1px solid #d9e8ff;padding:5px;padding-left:0;float:left;margin-top:-5px;_margin-top:-15px}
+.filterShow .notab{border-bottom:1px solid #d9e8ff;padding:5px;padding-left:0;float:left;margin-top:-5px;_margin-top:-15px}
 .filterShow .notab li{float:left;padding:2px 5px;color:#666;margin-right:10px;cursor:pointer}
 .filterShow .notab li.active{background:#838279;color:#fff}
 .filterShow .normal{_margin-top:-20px}
@@ -144,7 +144,7 @@ h1.hotelName{font:24px "Microsoft Yahei",Simsun;color:#666}
 .newFilter .fBox{border-top:1px solid #d9e8ff;background:#f9fbff}
 .newFilter .fBox .title{height:30px;float:left;color:#333;line-height:30px;margin-right:5px}
 .newFilter .fBox .title strong{font-size:16px;font-family:Tahoma,sans-serif;margin:0 5px;font-weight:bold;color:#f80}
-.newFilter .fBox .tiaojian{width:750px;float:left}
+.newFilter .fBox .tiaojian{float:left}
 .newFilter .fBox .tiaojian li{margin-top:6px;margin-right:5px;height:15px;line-height:15px;border:1px solid #ccc;float:left;padding-left:5px;padding-right:19px;position:relative}
 .newFilter .fBox .tiaojian li span{width:16px;height:15px;background:url(../pic/hotels2012.png?t=201403312125) 0 -845px;position:absolute;top:0;right:0;display:inline-block;cursor:pointer}
 .newFilter .fBox .tiaojian li span:hover{background:url(../pic/hotels2012.png?t=201403312125) 0 -860px}
@@ -186,7 +186,7 @@ h1.hotelName{font:24px "Microsoft Yahei",Simsun;color:#666}
 .popBoxtitle span.icon03{width:16px;height:16px;display:inline-block;background:url(../pic/comBg.png?t=201403312125) no-repeat -84px -242px;vertical-align:middle;margin-right:5px}
 .listMain .listSubway{padding:10px;border:1px solid #d9e8ff;background:#f9fbff;margin-bottom:10px}
 .listMain .listSubway .lefticon{width:34px;height:38px;background:url(../pic/hotels2012.png?t=201403312125) no-repeat -31px -885px;display:inline-block;float:left}
-.listMain .listSubway .rightcon{width:680px;float:right}
+.listMain .listSubway .rightcon{float:right}
 .listMain .listSubway .rightcon li{float:left;color:#999;word-break:break-all;white-space:nowrap}
 .listMain .listSubway .rightcon li.actve a{background:#36c;color:#fff}
 .listMain .listSubway .rightcon li strong{font-weight:bold;color:#666}
@@ -219,7 +219,7 @@ h1.hotelName{font:24px "Microsoft Yahei",Simsun;color:#666}
 .listMain .listRoomRing .close{width:25px;height:25px;font-size:0;line-height:0;overflow:hidden;background:url(../../common/pic/el_com.png?t=201403312125) no-repeat -30px -100px;position:absolute;top:0;right:0;cursor:pointer}
 .listMain .listRoomRing .close:hover{background-position:-60px -100px}
 .listMain .sort{border-top:2px solid #6f9ed8;background:#f8f8f8;height:33px;margin-top:10px}
-.listMain .sort ul{width:270px;margin:0;float:left;display:inline}
+.listMain .sort ul{margin:0;float:left;display:inline}
 .listMain .sort li{width:50px;height:17px;padding:7px 8px;border-right:1px dashed #ccc;float:left;text-align:center;color:#4a4a4a;line-height:16px;cursor:pointer}
 .listMain .sort li.def{background:#fff5e9;border:1px solid #ffbe60;border-top:0}
 .listMain .sort li.rbor{border-right:1px dashed #ccc}
@@ -586,7 +586,7 @@ div.loading{width:40px;height:40px;vertical-align:middle;background:url(../pic/l
 .pr_00_00{background:url(../pic/pricebg2.png?t=201403312125) no-repeat -0px;padding:0 6px}
 .RpList .roomTypes li p.rw1{width:190px}
 .RpList .roomBox li p.rw1{width:170px}
-@media(min-width:795px){.listBox{width:795px}
+@media(min-width:795px){
 .newFilter .wBox .place{width:auto}
 .newFilter .fBox .tiaojianmvt1{width:850px;overflow:hidden}
 .listSidebar{width:360px}
@@ -597,7 +597,6 @@ div.loading{width:40px;height:40px;vertical-align:middle;background:url(../pic/l
 .aiOneNew .intxt.city{background:#fff url(../pic/hotels2012.png?t=201403312125) no-repeat 171px -16px}
 .aiOneNew .intxt.date{background:#fff url(../pic/hotels2012.png?t=201403312125) no-repeat 164px 6px}
 .listMain .listSubway .rightcon{width:760px}
-.listMain{width:830px}
 .RpList .roomTypes li p.rw1{width:220px}
 .RpList .roomBox li p.rw1{width:200px}
 .listMain .newHotelInfo .helpInf dt{width:740px}
@@ -729,12 +728,6 @@ to{-webkit-transform:rotateZ(360deg);-moz-transform:rotateZ(360deg);-ms-transfor
 .t2 .h_type{color:#999;margin-left:5px;vertical-align:-1px}
 .mb30{margin-bottom:30px}
 
-.listMain .sort ul {
-width: 270px;
-margin: 0;
-float: left;
-display: inline;
-}
 
 .listMain .sort li.def {
 background: #fff5e9;

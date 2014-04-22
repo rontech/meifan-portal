@@ -2020,7 +2020,7 @@ margin-right: 180px;
 .richArrowR					{ background-position: -390px -440px; width: 23px; height: 23px; margin-left: 10px; }
 .richArrowR:hover			{ background-position: -390px -463px; }
 
-.sort						{ background-position: 0 -520px; width: 80px; height: 30px; }
+.sort						{ background-position: 0 -520px; height: 30px; }
 .sort:hover					{ background-position: 0 -550px; }
 .search						{ background-position: -1034px -864px; width: 80px; height: 30px; }
 .search:hover				{ background-position: -1034px -894px; }
