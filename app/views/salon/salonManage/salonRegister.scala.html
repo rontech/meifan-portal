@@ -28,6 +28,7 @@
 				            </th>
 				            <td>
 				                @inputText(salonRegister("salonAccount.accountId"),'_label -> None,
+				                	'id -> "salonAccountId",
 									 		'placeholder -> Messages("salon.login.accountId"),
 									 		'_help -> Messages("salon.register.accountId"),
 									 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("salon.register.accountIdErr"))))
@@ -148,3 +149,49 @@
 		</div>
 </div>
 }
+<style>
+	.error_meg{
+		font-color:red;
+	}
+	.true_meg{
+		font-color:greed;
+	}
+</style>
+<script src="@routes.Assets.at("javascripts/stylist.js")" type="text/javascript"></script>
+<script type="text/javascript">
+
+	
+	$('#salonAccountId').blur(function(){
+		var salonId = $('#salonAccountId').val();
+		var isname=/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/;
+		if(!isname.test(salonId)){
+			return;
+		}
+		var xhr = getXmlHttpRequest();
+		
+		xhr.open('get',
+			    '/myPage/checkSalonIsExit/'+salonId,
+			    true);
+			     xhr.onreadystatechange=function(){
+			         //step4 获取服务器返回的数据，更新页面
+			         if(xhr.readyState == 4){
+			             if(xhr.status == 200){
+			            	 var txt = xhr.responseText;
+			                 if(txt == 'YES'){
+			                	 $('#salonAccountId  ~ .help-block').text('该ID已存在'); 
+			                 }
+			                 if(txt == 'NO'){
+			                	 alert('no');
+			                 }
+			            	 
+			            	 
+			             }else{
+			            	 alert('loading')
+			             }
+			         }else{
+			        	 alert('error');
+			         }
+			     };
+			     xhr.send(null);
+	});
+</script>

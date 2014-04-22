@@ -471,7 +471,8 @@ user.showAllFollow=显示所有关注（
 user.followStylist=关注的技师
 user.followUser=关注的美丽达人
 user.howToGetPoint=如何获得积分？
-user.point=可用积分:
+user.availablePoint=可用积分
+user.point=点
 user.cancelFollow=取消关注
 user.sendMsg=发送留言
 user.otherBlog=他的博客
@@ -564,7 +565,7 @@ user.resetPassword = 重置密码
 user.resetInfo = 点击下面的链接，重置密码
 user.loginUserIdErr = 请输入用户名！
 user.cancelBeStylist = 取消当前申请
-user.nickName = 4~10位字符！
+user.nickName = 1~10位字符！
 
 
 #Mail

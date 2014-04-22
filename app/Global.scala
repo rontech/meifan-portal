@@ -267,6 +267,15 @@ object InitialData {
           SeatNums(21, 100)
       ).foreach(SeatNums.save)
     }
+    
+    if(HotestKeyword.findAll.isEmpty){
+      Seq(
+    		HotestKeyword(new ObjectId,"剪","hairSalon",1,true),
+    		HotestKeyword(new ObjectId,"洗","hairSalon",5,true),
+    		HotestKeyword(new ObjectId,"悦美","hairSalon",1,true)
+      ).foreach(HotestKeyword.save)
+      
+    }
   }
   /*---------------------------
    * Sample Data For Test. 
@@ -276,11 +285,11 @@ object InitialData {
     
     if(Salon.findAll.isEmpty) { 
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("salon01", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "悦美月容吧", Some("悦容吧"), List("Hairdressing"), Some("www.yuerong.com"), Some("美丽从这里开始！"), Some(PicDescription("美丽从这里开始","最新的潮流资讯、最顶尖的时尚发布、最贴心的造型设计、最合理的价格优势。我们立志以最时尚的理念，打造最生活的状态，塑造最自信的你！","欢迎光临悦美月容！")), Contact("051268320328", "王经理","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-01-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("salon02", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "千美千寻吧", Some("美寻吧"), List("Hairdressing"), Some("www.meixun.com"), Some("选择我们，选择美丽！"),Some(PicDescription("选择我们，选择美丽","将细节打造为上品，力求体贴与舒适，经典与时尚。您的秀发将在这里得到个性的张扬，以更加自我的方式追寻生活的美和真谛。您的美丽人生，将在这里从“头”开始。专业和完善的美发设备，将尽显您的身份与尊贵。专业的美发产品和精湛的技术，体贴入微的全程服务，完美是您的追求，专业是我的宗旨。","欢迎光临千美千寻！")), Contact("051268320328", "李经理","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("徐州市"), Option("邳州市"), None, "南京路9号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") ),
-        Salon(new ObjectId("530d7288d7f2861457771bdf"), SalonAccount("salon03", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "忆荣吧", Some("忆荣吧"), List("Hairdressing"), Some("www.yirong.com"), Some("丽质自天成、魅力在忆容"), Some(PicDescription("丽质自天成、魅力在忆容"," 简约、干净、充满新古典风格的环境里，忆容沙龙将让每一位客人在自在的空间里，在优美旋律的陪伴下，感受专业美发技术和造型设计的美妙。","欢迎光临忆容吧！")),Contact("051268320328", "冯先生","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("云南省", Option("昆明市"), Option("盘龙区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-01-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771aaa"), SalonAccount("salon04", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "虞美人", Some("虞美人"), List("Hairdressing"), Some("www.yumeiren.com"), Some("做个美丽的人"),Some(PicDescription("专业、时尚、 亲和、 信赖","为了您更美好的生活，我们一直在关注，我们一直在努力！您的肯定是我们最大的收获，您的信赖更是我们最满足的奖赏！","欢迎光临虞美人！")), Contact("051268320328", "马先生","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("湖南省", Option("长沙市"), Option("天心区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771bbb"), SalonAccount("salon05", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "美吧", Some("美吧"), List("Hairdressing"), Some("www.meiba.com"), Some("滋润，护理，完美女人，从你做起！"),Some(PicDescription("专业、时尚、 亲和、 信赖","为了您更美好的生活，我们一直在关注，我们一直在努力！您的肯定是我们最大的收获，您的信赖更是我们最满足的奖赏！","欢迎光临美吧！")), Contact("051268320328", "张女士","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州市"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") )
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("salon01", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "悦美月容吧", Some("悦容吧"), List("Hairdressing"), Some("www.yuerong.com"), Some("美丽从这里开始！"), Some(PicDescription("美丽从这里开始","最新的潮流资讯、最顶尖的时尚发布、最贴心的造型设计、最合理的价格优势。我们立志以最时尚的理念，打造最生活的状态，塑造最自信的你！","欢迎光临悦美月容！")), Contact("051268320328", "王经理","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-01-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("salon02", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "千美千寻吧", Some("美寻吧"), List("Hairdressing"), Some("www.meixun.com"), Some("选择我们，选择美丽！"),Some(PicDescription("选择我们，选择美丽","将细节打造为上品，力求体贴与舒适，经典与时尚。您的秀发将在这里得到个性的张扬，以更加自我的方式追寻生活的美和真谛。您的美丽人生，将在这里从“头”开始。专业和完善的美发设备，将尽显您的身份与尊贵。专业的美发产品和精湛的技术，体贴入微的全程服务，完美是您的追求，专业是我的宗旨。","欢迎光临千美千寻！")), Contact("051268320328", "李经理","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州"), Option("高新区"), None, "南京路9号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") ),
+        Salon(new ObjectId("530d7288d7f2861457771bdf"), SalonAccount("salon03", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "忆荣吧", Some("忆荣吧"), List("Hairdressing"), Some("www.yirong.com"), Some("丽质自天成、魅力在忆容"), Some(PicDescription("丽质自天成、魅力在忆容"," 简约、干净、充满新古典风格的环境里，忆容沙龙将让每一位客人在自在的空间里，在优美旋律的陪伴下，感受专业美发技术和造型设计的美妙。","欢迎光临忆容吧！")),Contact("051268320328", "冯先生","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("云南省", Option("昆明"), Option("盘龙区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-01-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771aaa"), SalonAccount("salon04", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "虞美人", Some("虞美人"), List("Hairdressing"), Some("www.yumeiren.com"), Some("做个美丽的人"),Some(PicDescription("专业、时尚、 亲和、 信赖","为了您更美好的生活，我们一直在关注，我们一直在努力！您的肯定是我们最大的收获，您的信赖更是我们最满足的奖赏！","欢迎光临虞美人！")), Contact("051268320328", "马先生","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("湖南省", Option("长沙"), Option("天心区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bbb"), SalonAccount("salon05", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "美吧", Some("美吧"), List("Hairdressing"), Some("www.meiba.com"), Some("滋润，护理，完美女人，从你做起！"),Some(PicDescription("专业、时尚、 亲和、 信赖","为了您更美好的生活，我们一直在关注，我们一直在努力！您的肯定是我们最大的收获，您的信赖更是我们最满足的奖赏！","欢迎光临美吧！")), Contact("051268320328", "张女士","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") )
      ).foreach(Salon.save)
     }
       
@@ -396,7 +405,9 @@ object InitialData {
           Service(new ObjectId("5316c0a2d4d57997ce3e6d60"), "豪华护理", "对严重干枯分叉等问题修复", "Care", new ObjectId("530d7288d7f2861457771bdd"), 70, 200, date("2014-03-31"), null, true),
           Service(new ObjectId("5316c0d1d4d57997ce3e6d62"), "拉直", "拉直头发", "Supple", new ObjectId("530d7288d7f2861457771bdd"), 30, 50, date("2014-03-31"), null, true) ,
           Service(new ObjectId("5316ec2fd4d57997ce3e6d97"), "盘发", "将长发盘起", "Other", new ObjectId("530d7288d7f2861457771bdd"), 50, 50, date("2014-03-31"), null, true) ,
-          Service(new ObjectId("5316ecffd4d57997ce3e6d9d"), "盘发2", "将中长发盘起", "Other", new ObjectId("530d7288d7f2861457771bdd"), 100, 80, date("2014-03-31"), null, true) 
+          Service(new ObjectId("5316ecffd4d57997ce3e6d9d"), "盘发2", "将中长发盘起", "Other", new ObjectId("530d7288d7f2861457771bdd"), 100, 80, date("2014-03-31"), null, true),
+          Service(new ObjectId("53168b38d4d5cb7e816db45c"), "剪刘海", "专门剪刘海", "Cut", new ObjectId("530d7292d7f2861457771bde"), 10, 10, date("2014-03-31"), null, true),
+          Service(new ObjectId("53168b38d4d5cb7e816db44c"), "剪刘海", "专门剪刘海", "Cut", new ObjectId("530d7292d7f2861457771bbb"), 10, 10, date("2014-03-31"), null, true)
         ).foreach(Service.save)
     }
     
@@ -540,70 +551,42 @@ object InitialData {
         Question(new ObjectId(), "如何获取店铺权限", """<p>
     &nbsp; &nbsp;<span style="color: rgb(255, 0, 0);"><em><strong> (1)店铺一级权限：</strong></em></span>
 </p>
-<ul class=" list-paddingleft-2" style="list-style-type: disc;">
-    <ul class=" list-paddingleft-2" style="list-style-type: square;">
-        <li>
-            <p>
-                店铺后台管理：<span style="color: rgb(227, 108, 9);">店铺管理模块</span>，<span style="color: rgb(227, 108, 9);">店铺信息管理模块</span>，<span style="color: rgb(227, 108, 9);">发型管理模块</span>，<span style="color: rgb(227, 108, 9);">技师管理模块</span>。
-            </p>
-        </li>
-        <li>
-            <p>
-                店铺前台显示：根据后台信息，显示在店铺页面，并且可被访问。
-            </p>
-        </li>
-        <li>
-            <p>
-                检索功能：该店铺可以被其他用户检索并查看。
-            </p>
-        </li>
-    </ul>
-</ul>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a):店铺后台管理：<span style="color: rgb(227, 108, 9);">店铺管理模块</span>，<span style="color: rgb(227, 108, 9);">店铺信息管理模块</span>，<span style="color: rgb(227, 108, 9);">发型管理模块</span>，<span style="color: rgb(227, 108, 9);">技师管理模块</span>。
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b):店铺前台显示：根据后台信息，显示在店铺页面，并且可被访问。
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c):检索功能：该店铺可以被其他用户检索并查看。
+</p>
 <p>
     &nbsp; &nbsp; (该权限在填完基本信息后即可拥有。当您的信息管理，发型管理，技师管理都完善后，将自动拥有二级权限。)
 </p>
 <p>
     <em><strong><span style="color: rgb(255, 0, 0);">&nbsp; &nbsp; (2)店铺二级权限 ：</span></strong></em>
 </p>
-<ul class=" list-paddingleft-2" style="list-style-type: disc;">
-    <ul class=" list-paddingleft-2" style="list-style-type: square;">
-        <li>
-            <p>
-                店铺一级权限的全部内容。
-            </p>
-        </li>
-        <li>
-            <p>
-                开放<span style="color: rgb(227, 108, 9);">服务管理模块</span>，优惠券管理模块，<span style="color: rgb(227, 108, 9);">菜单管理模块</span> &nbsp;
-            </p>
-            <p>
-                (该权限在完善信息管理模块，发型管理模块，技师管理模块之后拥有，当您的服务管理，优惠券管理，菜单管理都完善后，将自动拥有三级权限) &nbsp; &nbsp;
-            </p>
-        </li>
-    </ul>
-</ul>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a):店铺一级权限的全部内容。
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b):开放<span style="color: rgb(227, 108, 9);">服务管理模块</span>，优惠券管理模块，<span style="color: rgb(227, 108, 9);">菜单管理模块</span> &nbsp;
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(该权限在完善信息管理模块，发型管理模块，技师管理模块之后拥有，当您的服务管理，优惠券管理，菜单管理都完善后，将自动拥有三级权限) &nbsp; &nbsp;
+</p>
 <p>
     <span style="color: rgb(255, 0, 0);"><em><strong>&nbsp; &nbsp; (3)店铺三级权限：</strong></em></span>
 </p>
-<ul class=" list-paddingleft-2" style="list-style-type: disc;">
-    <ul class=" list-paddingleft-2" style="list-style-type: square;">
-        <li>
-            <p>
-                店铺一级权限全部功能 &nbsp;。
-            </p>
-        </li>
-        <li>
-            <p>
-                店铺二级权限全部功能 &nbsp;。
-            </p>
-        </li>
-        <li>
-            <p>
-                开放<span style="color: rgb(227, 108, 9);">预约管理模块</span>，<span style="color: rgb(227, 108, 9);">评论管理模块</span>，<span style="color: rgb(227, 108, 9);">动态管理模块</span>
-            </p>
-        </li>
-    </ul>
-</ul>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a):店铺一级权限全部功能 &nbsp;。
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b):店铺二级权限全部功能 &nbsp;。
+</p>
+<p>
+    <span style="font-size: 12.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c):开放</span><span style="font-size: 12.5px; color: rgb(227, 108, 9);">预约管理模块</span><span style="font-size: 12.5px;">，</span><span style="font-size: 12.5px; color: rgb(227, 108, 9);">评论管理模块</span><span style="font-size: 12.5px;">，</span><span style="font-size: 12.5px; color: rgb(227, 108, 9);">动态管理模块</span>
+</p>
 <p>
     <br/>
 </p>
