@@ -1,44 +1,15 @@
 @(searchParaForSalon: SearchParaForSalon, salons: List[Salon])
-<div class="w765 mR15 fl">
-    <div class="subtitle cFix">
-        <p class="fs16 b fl w371 mT3">
-            全国の美容院・美容室・ヘアサロン検索・予約
-        </p>
-        <div class="fr taR h31 w300">
-            <form name="bt_freewordSearchActionForm" method="get" action="/CSP/bt/freewordSearch/">
-                <dl class="searchBox cFix h24 w300">
-                    <dt class="dibBL vaT pR5">
-                        <div class="cS searchBoxbg">
-                            <input type="text" name="freeword" maxlength="63" value="" id="freeWordSearch1"
-                            class="inputSalonName">
-                        </div>
-                    </dt>
-                    <dd class="dibBL vaT">
-                        <input type="submit" name="searchT" value="検索する" class="searchButton cS sbmF fgClear">
-                    </dd>
-                </dl>
-            </form>
-        </div>
-    </div>
-    <!-- The area of search by region. -->
-    @views.html.salon.general.searchByRegion()
-    
-    <div class="w328 fl mL15">
-        <!-- The area of site editor collections. -->
-        @views.html.salon.general.siteEditorCollections()
-        
-        <!-- The area of system notification -->
-        @views.html.salon.general.systemNotification()
-    </div>
+
+<div class="w768 fl">
     
     <!-- Salon search -->
-    <div class="w765">
+    <div class="w768 fl">
         @views.html.salon.search.salonSearchForm(searchParaForSalon)
     </div>
     
     <!-- Salon search result -->
-    <div class="w765">
+    <div class="w768 fl">
         @views.html.salon.search.salonSrchRstGroup(salons)
     </div>
-    
+   
 </div>

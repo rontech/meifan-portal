@@ -152,7 +152,10 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     }
             
     def javascriptRoutes = Action { implicit request =>
-    	Ok(Routes.javascriptRouter("jsRoutes")(auth.routes.javascript.MyFollows.addFollow)).as("text/javascript")
+    	Ok(Routes.javascriptRouter("jsRoutes")(
+            auth.routes.javascript.MyFollows.addFollow,
+            routes.javascript.Application.uploadWithAjax
+        )).as("text/javascript")
     }
     
     /**
@@ -171,6 +174,21 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
             case None => BadRequest("no photo")
         }
     
+    }
+
+    /**
+     * blog upload local image with ajax
+     * @return
+     */
+    def uploadWithAjax() = Action(parse.multipartFormData) {implicit request =>
+        request.body.file("photo").map{ photo =>
+            val db = MongoConnection()("Picture")
+            val gridFs = GridFS(db)
+            val uploadedFile = gridFs.createFile(photo.ref.file)
+            uploadedFile.contentType = photo.contentType.orNull
+            uploadedFile.save()
+            Ok(uploadedFile._id.get.toString)
+        }.getOrElse(BadRequest("no photo"))
     }
 
 

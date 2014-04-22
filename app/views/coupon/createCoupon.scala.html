@@ -55,7 +55,7 @@
 		@inputText(couponForm("presentTime"), '_label -> Messages("coupon.presentTime"), 
 			'_error -> couponForm("presentTime").error.map(_.withMessage(Messages("coupon.presentTimeRequired"))))
 		
-		@inputText(couponForm("description"), '_label -> Messages("coupon.description"), 
+		@textarea(couponForm("description"), '_label -> Messages("coupon.description"), 
 			'_error -> couponForm("description").error.map(_.withMessage(Messages("coupon.couponDiscriptionErr"))))
 		
 	</div>

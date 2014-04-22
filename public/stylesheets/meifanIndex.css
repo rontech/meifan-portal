@@ -371,7 +371,7 @@ dl dd.pic a:hover img,  #index_nail_nr li a:hover img{
 	text-align:right;
 }
 
-#index_news_nr dl dt a, #index_comment dl dt a{
+#index_news_nr dl dt a, #index_comment dl dt a, #index_tjsh_nr dl dt a{
 	text-decoration: underline;
 }
 
