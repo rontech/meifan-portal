@@ -7,13 +7,13 @@ $('#getcity_name').blur(function(){
 				getAreaByCity();
 });
 
-$(document).ready(function(){
+/*$(document).ready(function(){
 	//通过调用新浪IP地址库接口查询用户当前所在国家、省份、城市、运营商信息
 	$.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js',function(){
 	   $('#getcity_name').val(remote_ip_info.city);
 	   });
 	setTimeout("getAreaByCity()", 600);
-	});
+	});*/
 function getAreaByCity(){
 	var cmbArea = document.getElementById('oneLine');
 	var cmbCity = document.getElementById('getcity_name');

@@ -1,4 +1,4 @@
-@(message: String)
+@(searchParaForSalon: SearchParaForSalon)
 <head>
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanIndex.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/hotelslist_2013.css")">
@@ -93,7 +93,7 @@
                 }
 
                 function unlimitedReigon(){
-                    document.getElementById("unlimitedReigon").checked=true;
+                    document.getElementById("unlimitedReigon").checked;
                     $('#areafield').empty();
                     submitForm();
                 }
@@ -112,7 +112,7 @@
             <li>
             <div class="demo">
                 <div>
-                    <input type="text" value="" size="15" id="getcity_name" onPropertyChange="changeArea('getcity_name');"  name="city" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@@Beijing|北京|53@@Shanghai|上海|321@@Shenzhen|深圳|91@@Guangzhou|广州|80@@Qingdao|青岛|292@@Chengdu|成都|324@@Hangzhou|杭州|383@@Wuhan|武汉|192@@Tianjin|天津|343@@Dalian|大连|248@@Xiamen|厦门|61@@Chongqing|重庆|394@@" mod_address_reference="getcityid" mod_notice_tip="中文/拼音" />
+                    <input type="text" value="@searchParaForSalon.city" size="15" id="getcity_name" onPropertyChange="changeArea('getcity_name');"  name="city" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@@Beijing|北京|53@@Shanghai|上海|321@@Shenzhen|深圳|91@@Guangzhou|广州|80@@Qingdao|青岛|292@@Chengdu|成都|324@@Hangzhou|杭州|383@@Wuhan|武汉|192@@Tianjin|天津|343@@Dalian|大连|248@@Xiamen|厦门|61@@Chongqing|重庆|394@@" mod_address_reference="getcityid" mod_notice_tip="中文/拼音" />
                     <input id="getcityid" name="getcityid" type="hidden" value="{$getcityid}" />
                 </div>
             </div>
@@ -149,7 +149,7 @@
         <div class="rBox">
             <div class="notto">
                 <a href="javascript:unlimitedReigon();" id="unlimitedReigon" class="cur" method="l_no">@Messages("salonSerachPage.unlimited")</a>
-                <input name="region" type="radio" value="all" checked=true>
+                <input name="region" type="radio" value="all" checked>
             </div>
             <ul class="place" id="locationTab">
                 <li class="active"><a href="javascript:changeArea('getcity_name');" rel="nofollow" method="l_3" class="cur">@Messages("salonSerachPage.region")<span class="iconjt"></span></a></li>
@@ -174,7 +174,11 @@
                 <ul class="place prices" id="unlimitServiceType_group">
                     @for((e, i) <- ServiceType.findAll.toList.zipWithIndex){
                         <li class="">
-                            <input type="checkbox" name="serviceType[@i]" value="@e.serviceTypeName" method="s_5" mark="5" class="serviceType_checkbox" id="star@i">
+                            @if(searchParaForSalon.serviceType.contains(e.serviceTypeName)){
+                                <input type="checkbox" name="serviceType[@i]" value="@e.serviceTypeName" method="s_5" mark="5" class="serviceType_checkbox" id="star@i" checked>
+                            }else {
+                                <input type="checkbox" name="serviceType[@i]" value="@e.serviceTypeName" method="s_5" mark="5" class="serviceType_checkbox" id="star@i">
+                            }
                             <label for="star@i" class="serviceType_checkbox">@e.description</label>
                         </li>
                     }
@@ -193,7 +197,11 @@
                 @for((salon,i) <- Salon.findAll.toList.zipWithIndex){
                     @if(i<8){
                         <li class="">
-                            <input type="checkbox" name="salonName[@i]" value="@salon.salonName" datatype="5" class="brand_checkbox" method="b_316" brandid="316" id="br316@i">
+                            @if(searchParaForSalon.salonName.contains(salon.salonName)){
+                                <input type="checkbox" name="salonName[@i]" value="@salon.salonName" datatype="5" class="brand_checkbox" method="b_316" brandid="316" id="br316@i" checked>
+                            }else {
+                                <input type="checkbox" name="salonName[@i]" value="@salon.salonName" datatype="5" class="brand_checkbox" method="b_316" brandid="316" id="br316@i">
+                            }
                             <label  for="br316@i" class="brand_checkbox">
                                 @salon.salonName
                             </label>
@@ -217,13 +225,18 @@
             <div class="notto"><a href="javascript:void(0);" id="unlimitPrices" class="cur" method="p_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place prices">
                 <li class="" style="display:none;">
-                    <input name="priceRange.minPrice" class="fill_priceRang_minPrice" type="radio" checked=true value="0" method="p_4" mark="600">
-                    <input name="priceRange.maxPrice" class="fill_priceRang_maxPrice" type="radio" checked=true value="1000000" method="p_4" mark="600">
+                    <input name="priceRange.minPrice" class="fill_priceRang_minPrice" type="radio" checked value="0" method="p_4" mark="600">
+                    <input name="priceRange.maxPrice" class="fill_priceRang_maxPrice" type="radio" checked value="1000000" method="p_4" mark="600">
                 </li>
                 @for((price, i) <- PriceRange.findAll.toList.zipWithIndex){
                     <li class="">
-                        <input name="priceRange.minPrice" class="priceRang_minPrice" type="radio" value="@price.minPrice" method="p_4" mark="600" id="pr4@i">
-                        <input name="priceRange.maxPrice" type="radio" value="@price.maxPrice" method="p_4" mark="600" id="pr4@i" style="display:none;">
+                        @if(searchParaForSalon.priceRange.minPrice == price.minPrice && searchParaForSalon.priceRange.maxPrice == price.maxPrice){
+                            <input name="priceRange.minPrice" class="priceRang_minPrice" type="radio" value="@price.minPrice" method="p_4" mark="600" id="pr4@i" checked>
+                            <input name="priceRange.maxPrice" type="radio" value="@price.maxPrice" method="p_4" mark="600" id="pr4@i" style="display:none;" checked>
+                        }else {
+                            <input name="priceRange.minPrice" class="priceRang_minPrice" type="radio" value="@price.minPrice" method="p_4" mark="600" id="pr4@i">
+                            <input name="priceRange.maxPrice" type="radio" value="@price.maxPrice" method="p_4" mark="600" id="pr4@i" style="display:none;">
+                        }
                         <label for="pr4@i" class="">
                         @if(price.maxPrice == 20){
                             @price.maxPrice.toInt
@@ -246,9 +259,16 @@
             </ul>
             <!--自定义价格区间  -->
             <div class="optional" id="optPrice">@Messages("salonSerachPage.manualDefine")
-                <input type="text" class="priTxt" method="lowPrice" id="lowPrice">
-                -
-                <input type="text" class="priTxt" method="highPrice" id="highPrice">
+                @if((!(PriceRange.findAll.toList.contains((searchParaForSalon.priceRange))))
+                    && ((searchParaForSalon.priceRange != PriceRange(0,1000000)))){
+                    <input type="text" class="priTxt" method="lowPrice" id="lowPrice" value=@searchParaForSalon.priceRange.minPrice>
+                    -
+                    <input type="text" class="priTxt" method="highPrice" id="highPrice" value=@searchParaForSalon.priceRange.maxPrice>
+                }else {
+                    <input type="text" class="priTxt" method="lowPrice" id="lowPrice">
+                    -
+                    <input type="text" class="priTxt" method="highPrice" id="highPrice">
+                }
                 <input type="button" id="surePrice" class="priBut" value="@Messages("salonSerachPage.confirm")" method="p_opt">
             </div>
         </div>
@@ -262,18 +282,18 @@
             <div class="notto"><a href="javascript:volid(0);" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place prices">
                  <li class="" style="display:none;">
-                     <input name="seatNums.minNum" checked=true type="radio" class="seatNums_MinNum" value="0" method="p_4" mark="600">
-                     <input name="seatNums.maxNum" checked=true style="display:none;" type="radio" value="10000" method="p_4">
+                     <input name="seatNums.minNum" checked type="radio" class="seatNums_MinNum" value="0" method="p_4" mark="600">
+                     <input name="seatNums.maxNum" checked style="display:none;" type="radio" value="10000" method="p_4">
                  </li>
                 @for((seat, i) <- SeatNums.findAll.toList.zipWithIndex){
-                    @*<li class="">
-                        <input name="seatNums" dataname="" type="radio" value="@seat.minNum-@seat.maxNum" method="p_4" mark="600" id="pr4">
-                        <label for="pr4" title="" class="">
-                            @seat.minNum-@seat.maxNum</label>
-                    </li>*@
                     <li class="">
+                    @if(searchParaForSalon.seatNums.minNum == seat.minNum && searchParaForSalon.seatNums.maxNum == seat.maxNum) {
+                        <input name="seatNums.minNum" dataname="" checked type="radio" class="seatNums_MinNum" value="@seat.minNum" method="p_4" mark="600" id="pr5@i" onclick="setMax(this,'@seat.maxNum');">
+                        <input name="seatNums.maxNum" dataname="" checked style="display:none;" type="radio" value="@seat.maxNum" method="p_4" mark="600" id="pr5@i">
+                    }else {
                         <input name="seatNums.minNum" dataname="" type="radio" class="seatNums_MinNum" value="@seat.minNum" method="p_4" mark="600" id="pr5@i" onclick="setMax(this,'@seat.maxNum');">
                         <input name="seatNums.maxNum" dataname="" style="display:none;" type="radio" value="@seat.maxNum" method="p_4" mark="600" id="pr5@i">
+                    }
                         <label for="pr5@i" title="" class="">
                             @seat.minNum-@seat.maxNum</label>
                     </li>
@@ -291,55 +311,92 @@
             <div class="notto"><a href="javascript:unlimitedCondtions();" class="cur" method="b_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place prver" id="otherCondtion_group">
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.canOnlineOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br316">
+                    @if(searchParaForSalon.salonFacilities.canOnlineOrder) {
+                        <input type="checkbox" name="salonFacilities.canOnlineOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br316" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.canOnlineOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br316">
+                    }
                     <label for="br316" class="condtions_item">
                         @Messages("salon.canOnlineOrder")
                     </label>
                 </li>
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.canImmediatelyOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br317">
+                    @if(searchParaForSalon.salonFacilities.canImmediatelyOrder) {
+                        <input type="checkbox" name="salonFacilities.canImmediatelyOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br317" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.canImmediatelyOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br317">
+                    }
                     <label for="br317" class="condtions_item">
                         @Messages("salon.canImmediatelyOrder")
                     </label>
                 </li>
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.canNominateOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br318">
+                    @if(searchParaForSalon.salonFacilities.canNominateOrder) {
+                        <input type="checkbox" name="salonFacilities.canNominateOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br318" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.canNominateOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br318">
+                    }
                     <label for="br318" class="condtions_item">
                         @Messages("salon.canNominateOrder")
                     </label>
                 </li>
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.canCurntDayOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br319">
+                    @if(searchParaForSalon.salonFacilities.canCurntDayOrder) {
+                        <input type="checkbox" name="salonFacilities.canCurntDayOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br319" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.canCurntDayOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br319">
+                    }
                     <label for="br319" class="condtions_item">
                         @Messages("salon.canCurntDayOrder")
                     </label>
                 </li>
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.canMaleUse" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br320">
+                    @if(searchParaForSalon.salonFacilities.canMaleUse) {
+                        <input type="checkbox" name="salonFacilities.canMaleUse" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br320" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.canMaleUse" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br320">
+                    
+                    }
                     <label for="br320" class="condtions_item">
                         @Messages("salon.canMaleUse")
                     </label>
                 </li>
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.isPointAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br321">
+                    @if(searchParaForSalon.salonFacilities.isPointAvailable) {
+                        <input type="checkbox" name="salonFacilities.isPointAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br321" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.isPointAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br321">
+                    }
                     <label for="br321" class="condtions_item">
                         @Messages("salon.isPointAvailable")
                     </label>
                 </li>
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.isPosAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br322">
+                    @if(searchParaForSalon.salonFacilities.isPosAvailable) {
+                        <input type="checkbox" name="salonFacilities.isPosAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br322" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.isPosAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br322">
+                    }
                     <label for="br322" class="condtions_item">
                         @Messages("salon.isPosAvailable")
                     </label>
                 </li>
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.isWifiAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br323">
+                    @if(searchParaForSalon.salonFacilities.isWifiAvailable) {
+                        <input type="checkbox" name="salonFacilities.isWifiAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br323" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.isWifiAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br323">
+                    }
                     <label for="br323" class="condtions_item">
                         @Messages("salon.isWifiAvailable")
                     </label>
                 </li>                   
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.hasParkingNearby" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br324">
+                    @if(searchParaForSalon.salonFacilities.hasParkingNearby) {
+                        <input type="checkbox" name="salonFacilities.hasParkingNearby" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br324" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.hasParkingNearby" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br324">
+                    }
                     <label for="br324" class="condtions_item">
                         @Messages("salon.hasParkingNearby")
                     </label>
@@ -367,15 +424,18 @@
         </li>*@
         <li class="def" method="sort" data-type="elong">
             <a href="javascript:submitForm();" rel="nofollow" class="on" onfocus="this.blur();">
-                <input type="radio" name="sortByCondition" style="display:none;" checked=true id="cond_2" value="@Messages("salonSerachPage.sortByHot")"/>
-                <label for="cond_2" title="" class="">
+                <input type="radio" name="sortByCondition" style="display:none;" checked id="cond_2" value="@Messages("salonSerachPage.sortByHot")"/>              <label for="cond_2" title="" class="">
                      @Messages("salonSerachPage.sortByHot") 
                 </label>
             </a>
         </li>
         <li class="def" method="sort" data-type="elong">
             <a href="javascript:submitForm();" rel="nofollow" class="on" onfocus="this.blur();">
-                <input type="radio" name="sortByCondition" id="cond_3" style="display:none;" value="@Messages("salonSerachPage.sortByPrice")"/>
+                @if(searchParaForSalon.sortByCondition.equals(Messages("salonSerachPage.sortByPrice"))) {
+                    <input type="radio" name="sortByCondition" id="cond_3" style="display:none;" value="@Messages("salonSerachPage.sortByPrice")" checked/>
+                }else {
+                    <input type="radio" name="sortByCondition" id="cond_3" style="display:none;" value="@Messages("salonSerachPage.sortByPrice")"/>
+                }
                 <label for="cond_3" title="" class="">
                      @Messages("salonSerachPage.sortByPrice") 
                 </label>
@@ -383,7 +443,11 @@
         </li>
         <li class="def" method="sort" data-type="elong">
             <a href="javascript:submitForm();" rel="nofollow" class="on" onfocus="this.blur();">
-                <input type="radio" name="sortByCondition" id="cond_4" style="display:none;" value="@Messages("salonSerachPage.sortByComment")"/>
+                @if(searchParaForSalon.sortByCondition.equals(Messages("salonSerachPage.sortByComment"))) {
+                    <input type="radio" name="sortByCondition" id="cond_4" style="display:none;" value="@Messages("salonSerachPage.sortByComment")" checked/>
+                }else {
+                    <input type="radio" name="sortByCondition" id="cond_4" style="display:none;" value="@Messages("salonSerachPage.sortByComment")"/>
+                }
                 <label for="cond_4" title="" class="">
                      @Messages("salonSerachPage.sortByComment") 
                 </label>
