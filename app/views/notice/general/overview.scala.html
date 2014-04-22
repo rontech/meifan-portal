@@ -1,0 +1,16 @@
+@(notices: List[Notice])
+
+
+@main(Messages("site.title")) {
+    <ul>
+    @for(notice <- notices) {
+        <li>
+            <h1>@notice.title</h1>
+            <br/><br/>
+            <br/>
+            <p>@Html(notice.content)</p>
+            
+        </li>
+    }
+    </ul>
+}
