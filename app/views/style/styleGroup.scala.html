@@ -15,7 +15,7 @@
 			    </div>
 			    <p class="mT10 lh13 taM">
 				<a href="@noAuth.routes.Salons.getOneStyle(salon.id, style.id)">
-				    @style.styleName
+				    <u>@style.styleName</u>
 				</a>
 			    </p>
 			</div>
@@ -23,6 +23,9 @@
 			    <div class="bdDotT mT5 pT2">
 			    </div>
 			</div>
+            <div class=""w176 mHA"">
+                <p class="mT10 lh13 taM">@Messages("hair.stylist") : @Stylist.findUser(style.stylistId).nickName</p>
+            </div>
 		    </td>
 		</tr>
 	    </tbody>
