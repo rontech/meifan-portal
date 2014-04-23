@@ -1,118 +1,26 @@
-@(message: String)
+@(searchParaForSalon: SearchParaForSalon)
 <head>
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanIndex.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/hotelslist_2013.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/EL_common.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/searchMain.css")">
+<link rel="stylesheet" href="@routes.Assets.at("stylesheets/salon/jquery.bigautocomplete.css") type="text/css" />
 <script src="@routes.Assets.at("javascripts/swfupload/jquery-1.8.2.min.js")" type="text/javascript"></script>
-<script language="javascript" type="text/javascript">
-                $(function(){
-                    $('.select_region').click(function(){
-                        submitForm();
-                    });
-                    
-                    $('.seatNums_MinNum').click(function(){
-                        var minSeatObj=$('input:radio[name="seatNums.minNum"]:checked');
-                        minSeatObj.next().attr("checked",'checked');
-                     submitForm();
-                    });
-
-                    $('.priceRang_minPrice').click(function(){
-                        var minPriceObj=$('input:radio[name="priceRange.minPrice"]:checked');
-                        minPriceObj.next().attr("checked",'checked');
-                        submitForm();
-                    });
-
-                    $('#surePrice').click(function(){
-                        var minPrice = $('#lowPrice').val();
-                        var maxPrice = $('#highPrice').val();
-                        $('.fill_priceRang_minPrice').val(minPrice);
-                        //$('input[name="priceRange.minPrice"]:eq(0)').attr("checked",'checked');
-                        $('.fill_priceRang_minPrice').attr("checked",'checked');
-                        $('.fill_priceRang_maxPrice').val(maxPrice);
-                        $('.fill_priceRang_maxPrice').attr("checked",'checked');
-                        submitForm();
-                    });
-
-                    $('#unlimitSeatNum').click(function(){
-                        $('input[name="seatNums.minNum"]:eq(0)').attr("checked",'checked');
-                        $('input[name="seatNums.maxNum"]:eq(0)').attr("checked",'checked');
-                        submitForm();
-                    });
-
-                    $('#unlimitPrices').click(function(){
-                        $('input[name="priceRange.minPrice"]:eq(0)').attr("checked",'checked');
-                        $('input[name="priceRange.maxPrice"]:eq(0)').attr("checked",'checked');
-                        submitForm();
-                    });
-
-                    $('.serviceType_checkbox').click(function(){
-                        submitForm();
-                    });
-
-                    $('.brand_checkbox').click(function(){
-                        submitForm();
-                    });
-
-                    $('.condtions_item').click(function(){
-                        submitForm();
-                    });
-                    
-                    
-                }); 
-
-                function unlimitedCondtions(){
-                    var checkArray = document.getElementById("otherCondtion_group").getElementsByTagName("input");
-                    for(var i=0; i<checkArray.length; i++){
-                        if(checkArray[i].type=='checkbox'){
-                            checkArray[i].checked=false;
-                            }
-                    }
-                    submitForm();
-                    
-                }
-
-                function unlimitSalons(){
-                    var checkArray = document.getElementById("unlimitSalons_group").getElementsByTagName("input");
-                    for(var i=0; i<checkArray.length; i++){
-                        if(checkArray[i].type=='checkbox'){
-                            checkArray[i].checked=false;
-                            }
-                    }
-                    submitForm();
-                }
-
-                function unlimitServiceType(){
-                    var checkArray = document.getElementById("unlimitServiceType_group").getElementsByTagName("input");
-                    for(var i=0; i<checkArray.length; i++){
-                        if(checkArray[i].type=='checkbox'){
-                            checkArray[i].checked=false;
-                            }
-                    }
-                    submitForm();
-                }
-
-                function unlimitedReigon(){
-                    document.getElementById("unlimitedReigon").checked=true;
-                    $('#areafield').empty();
-                    submitForm();
-                }
-
-                function submitForm(){
-                    document.getElementById("salonSearchForm").submit();
-                }   
-</script>
+<script src="@routes.Assets.at("javascripts/jquery-1.7.2.min.js")" type="text/javascript"></script>
+<script src="@routes.Assets.at("javascripts/salonSearch/salonSearch.js")" type="text/javascript"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/salonSearch/jquery.bigautocomplete.js")"></script>
 </head>
 <form action=@noAuth.routes.Salons.getSalonBySearch method="post" id="salonSearchForm">
 <div class="left w768">
     <!-- 城市 、行业、关键字检索 -->
     <div id="salon_search">
-        <ul>
+    	<ul>
             <li>@Messages("salonSerachPage.city")</li>
+            
             <li>
             <div class="demo">
                 <div>
-                    <input type="text" value="" size="15" id="getcity_name" onPropertyChange="changeArea('getcity_name');"  name="city" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@@Beijing|北京|53@@Shanghai|上海|321@@Shenzhen|深圳|91@@Guangzhou|广州|80@@Qingdao|青岛|292@@Chengdu|成都|324@@Hangzhou|杭州|383@@Wuhan|武汉|192@@Tianjin|天津|343@@Dalian|大连|248@@Xiamen|厦门|61@@Chongqing|重庆|394@@" mod_address_reference="getcityid" mod_notice_tip="中文/拼音" />
+                    <input type="text" value="@searchParaForSalon.city" size="15" id="getcity_name" onPropertyChange="changeArea('getcity_name');"  name="city" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@@Beijing|北京|53@@Shanghai|上海|321@@Shenzhen|深圳|91@@Guangzhou|广州|80@@Qingdao|青岛|292@@Chengdu|成都|324@@Hangzhou|杭州|383@@Wuhan|武汉|192@@Tianjin|天津|343@@Dalian|大连|248@@Xiamen|厦门|61@@Chongqing|重庆|394@@" mod_address_reference="getcityid" mod_notice_tip="中文/拼音" />
                     <input id="getcityid" name="getcityid" type="hidden" value="{$getcityid}" />
                 </div>
             </div>
@@ -133,12 +41,163 @@
             </li>*@
             <li><input name="salonIndustry" type="hidden" value="Hairdressing"></li>
             <li>@Messages("salonSerachPage.keyword")</li>
-            <li><input name="keyWord" type="text" value=""></li>
+            <li><input id="word" name="keyWord" type="text" value="" class="text"></li>
             <li><input name="" type="submit" class="btn" value = @Messages("hair.search")></li>
         </ul>
+        <div id="auto"></div>
         <script type="text/javascript">
+    var highlightindex = -1;//表示当前高亮节点
+    var timeoutId;
+    $(document).ready(function() {
+        alert("ready");
+        var wordInput = $("#word");//文本框
+        var wordInputOffset = wordInput.offset();//获得文本框位置
+        $("#auto").hide().css("border", "1px black solid").css("position", "absolute")
+                .css("top", wordInputOffset.top + wordInput.height() + 5 + "px")
+                .css("left", wordInputOffset.left + "px").width(wordInput.width() + 3 + "px");
+        wordInput.keyup(function(event) {
+            //处理文本框中的键盘事件
+            //如果输入字母，将文本框中最新信息发送给服务器
+            var myEvent = event || window.event;
+            var keyCode = myEvent.keyCode;//获得键值
             
-        </script>
+            if (keyCode == 27) {
+            var wordText = $("#word").val();
+                autoHide();
+                wordInput.text(wordText);
+            }
+            else {
+                 if (keyCode >= 65 && keyCode <= 90 || keyCode == 8 || keyCode == 46) { //8对应退格键，46对应删除键
+                    var wordText = $("#word").val();//获得文本框中的内容
+                    var autoNode = $("#auto");
+                    if (wordText != "") {
+                        clearTimeout(timeoutId);//对上次未完成的延时操作进行取消
+                        //延时操作，减少与服务器的交互次数，延时500ms，防止用户操作过快
+                        timeoutId = setTimeout(function() {
+                            alert('wordText');
+                            $.get('/getkeyWordsByajax/'+wordText, {word:wordText}, function(data) {//发送数据，第二项是属性名对应属性值
+                                alert(data);
+                                var jqueryObj = $(data);//将dom对象data转换成jQuery的对象
+                                var wordNodes = jqueryObj.find("word");//找到所有word节点
+                                autoNode.html("");
+                                wordNodes.each(function(i) { //i是索引，用来给id赋值
+                                   var wordNode = $(this);//获取单词内容
+                                    var newDivNode = $("<div>").attr("id", i).css("backgroundColor", "white");
+                                    newDivNode.html(wordNode.text()).appendTo(autoNode);//新建div节点，加入单词内容
+                                    //增加鼠标进入事件，高亮节点
+                                    newDivNode.mouseover(function() {
+                                        //将原来高亮的节点取消高亮
+                                        if (highlightindex != -1) {
+                                            $("#auto").children("div").eq(highlightindex)
+                                                    .css("backgroundColor", "white");
+                                        }
+                                        //记录新的高亮索引
+                                        highlightindex = $(this).attr("id");
+                                        $(this).css("backgroundColor", "#3366CC").css("cursor","pointer");
+                                    });
+                                    //增加鼠标移出事件，取消节点高亮
+                                    newDivNode.mouseout(function() {
+                                        if (keyCode == 13) {       //判断是否按下回车键
+                                            //下拉框有高亮
+                                            if (highlightindex != -1) {
+                                                lightEventHide();
+                                                highlightindex = -1;
+                                            } else {
+                                                alert("文本框中的[" + $("#word").val() + "]被提交了");
+                                                autoHide();
+                                                $("#word").get(0).blur();//让文本框失去焦点
+                                            }
+                                            //取消鼠标移出节点的高亮
+                                            //$(this).css("backgroundColor", "white");
+                                        }
+                                    }
+                                    );
+                                        //增加鼠标点击事件,可以进行补全
+                                        newDivNode.click(function() {
+                                            //取出高亮节点的文本内容
+                                            var comText = $(this).text();
+                                            autoHide();
+                                            highlightindex = -1;
+                                            //文本框内容变为高亮节点内容
+                                            $("#word").val(comText);
+                                        });
+                                    });
+                                    //添加单词内容到弹出框
+                                    if (wordNodes.length > 0) {
+                                        autoNode.show();
+                                    } else {
+                                        autoNode.hide();
+                                        highlightindex = -1;//弹出框隐藏，高亮节点索引设成-1
+                                    }
+                                }, "xml");
+                            }, 300);
+                        }
+                    else
+                    {
+                        autoNode.hide();
+                        highlightindex = -1;
+                    }
+                    } else if (keyCode == 38 || keyCode == 40) {   //判断是否输入的是向上38向下40按键
+                        if (keyCode == 38) {
+                            var autoNodes = $("#auto").children("div").css("background-color", "white");
+                            if (highlightindex != -1) {
+                                autoNodes.eq(highlightindex).css("background-color", "white");
+                                highlightindex--;
+                            } else {
+                                lightEvent();
+                                highlightindex = autoNodes.length - 1;
+                            }
+                            if (highlightindex == -1) {
+                                highlightindex = autoNodes.length - 1;//如果改变索引值后index变成-1，则将索引值指向最后一个元素
+                            }
+                             lightEvent();
+                             autoNodes.eq(highlightindex).css("backgroundColor", "#3366CC");
+                        }
+                        if (keyCode == 40) {
+                            var autoNodes = $("#auto").children("div");
+                            if (highlightindex != -1) {
+                                autoNodes.eq(highlightindex).css("background-color", "white");
+                            }
+                            highlightindex++;
+                            if (highlightindex == autoNodes.length) {
+                                highlightindex = 0;//如果改变索引值等于最大长度，则将索引值指向第一个元素
+                                
+                            }
+                             lightEvent();
+                            autoNodes.eq(highlightindex).css("backgroundColor", "#3366CC");
+                        }
+                    } else if (keyCode == 13) {       //判断是否按下回车键
+                        //下拉框有高亮
+                        if (highlightindex != -1) {
+                            lightEventHide();
+                            highlightindex = -1;
+                        } else {
+                            alert("文本框中的[" + $("#word").val() + "]被提交了");
+                            $("#auto").hide();
+                            $("#word").get(0).blur();//让文本框失去焦点
+                        }
+                        //下拉框没有高亮
+                    }
+                }
+            }
+        )
+            ;
+            $("input[type='button']").click(function() {
+                alert("文本框中的[" + $("#word").val() + "]被提交了");
+            });
+        });
+function lightEventHide(){
+        var comText = $("#auto").hide().children("div").eq(highlightindex).text();
+                      $("#word").val(comText);
+}
+function lightEvent(){
+        var comText = $("#auto").children("div").eq(highlightindex).text();
+                      $("#word").val(comText);
+}
+function autoHide(){
+        $("#auto").hide();
+}
+</script>
     </div>
     <!-- 地区选择 -->
     <div class="listBox">      
@@ -148,8 +207,9 @@
         <p class="title">@Messages("salonSerachPage.location")</p>
         <div class="rBox">
             <div class="notto">
-                <a href="javascript:unlimitedReigon();" id="unlimitedReigon" class="cur" method="l_no">@Messages("salonSerachPage.unlimited")</a>
-                <input name="region" type="radio" value="all" checked=true>
+                <a href="javascript:unlimitedRegion();" id="unlimitedRegion" class="cur" method="l_no">@Messages("salonSerachPage.unlimited")</a>
+                <input name="region" style="display:none;" type="radio" value="all" checked>
+                <input type="hidden" id="fill_region" value="@searchParaForSalon.region">
             </div>
             <ul class="place" id="locationTab">
                 <li class="active"><a href="javascript:changeArea('getcity_name');" rel="nofollow" method="l_3" class="cur">@Messages("salonSerachPage.region")<span class="iconjt"></span></a></li>
@@ -174,7 +234,11 @@
                 <ul class="place prices" id="unlimitServiceType_group">
                     @for((e, i) <- ServiceType.findAll.toList.zipWithIndex){
                         <li class="">
-                            <input type="checkbox" name="serviceType[@i]" value="@e.serviceTypeName" method="s_5" mark="5" class="serviceType_checkbox" id="star@i">
+                            @if(searchParaForSalon.serviceType.contains(e.serviceTypeName)){
+                                <input type="checkbox" name="serviceType[@i]" value="@e.serviceTypeName" method="s_5" mark="5" class="serviceType_checkbox" id="star@i" checked>
+                            }else {
+                                <input type="checkbox" name="serviceType[@i]" value="@e.serviceTypeName" method="s_5" mark="5" class="serviceType_checkbox" id="star@i">
+                            }
                             <label for="star@i" class="serviceType_checkbox">@e.description</label>
                         </li>
                     }
@@ -193,7 +257,11 @@
                 @for((salon,i) <- Salon.findAll.toList.zipWithIndex){
                     @if(i<8){
                         <li class="">
-                            <input type="checkbox" name="salonName[@i]" value="@salon.salonName" datatype="5" class="brand_checkbox" method="b_316" brandid="316" id="br316@i">
+                            @if(searchParaForSalon.salonName.contains(salon.salonName)){
+                                <input type="checkbox" name="salonName[@i]" value="@salon.salonName" datatype="5" class="brand_checkbox" method="b_316" brandid="316" id="br316@i" checked>
+                            }else {
+                                <input type="checkbox" name="salonName[@i]" value="@salon.salonName" datatype="5" class="brand_checkbox" method="b_316" brandid="316" id="br316@i">
+                            }
                             <label  for="br316@i" class="brand_checkbox">
                                 @salon.salonName
                             </label>
@@ -217,13 +285,18 @@
             <div class="notto"><a href="javascript:void(0);" id="unlimitPrices" class="cur" method="p_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place prices">
                 <li class="" style="display:none;">
-                    <input name="priceRange.minPrice" class="fill_priceRang_minPrice" type="radio" checked=true value="0" method="p_4" mark="600">
-                    <input name="priceRange.maxPrice" class="fill_priceRang_maxPrice" type="radio" checked=true value="1000000" method="p_4" mark="600">
+                    <input name="priceRange.minPrice" class="fill_priceRang_minPrice" type="radio" checked value="0" method="p_4" mark="600">
+                    <input name="priceRange.maxPrice" class="fill_priceRang_maxPrice" type="radio" checked value="1000000" method="p_4" mark="600">
                 </li>
                 @for((price, i) <- PriceRange.findAll.toList.zipWithIndex){
                     <li class="">
-                        <input name="priceRange.minPrice" class="priceRang_minPrice" type="radio" value="@price.minPrice" method="p_4" mark="600" id="pr4@i">
-                        <input name="priceRange.maxPrice" type="radio" value="@price.maxPrice" method="p_4" mark="600" id="pr4@i" style="display:none;">
+                        @if(searchParaForSalon.priceRange.minPrice == price.minPrice && searchParaForSalon.priceRange.maxPrice == price.maxPrice){
+                            <input name="priceRange.minPrice" class="priceRang_minPrice" type="radio" value="@price.minPrice" method="p_4" mark="600" id="pr4@i" checked>
+                            <input name="priceRange.maxPrice" type="radio" value="@price.maxPrice" method="p_4" mark="600" id="pr4@i" style="display:none;" checked>
+                        }else {
+                            <input name="priceRange.minPrice" class="priceRang_minPrice" type="radio" value="@price.minPrice" method="p_4" mark="600" id="pr4@i">
+                            <input name="priceRange.maxPrice" type="radio" value="@price.maxPrice" method="p_4" mark="600" id="pr4@i" style="display:none;">
+                        }
                         <label for="pr4@i" class="">
                         @if(price.maxPrice == 20){
                             @price.maxPrice.toInt
@@ -246,9 +319,16 @@
             </ul>
             <!--自定义价格区间  -->
             <div class="optional" id="optPrice">@Messages("salonSerachPage.manualDefine")
-                <input type="text" class="priTxt" method="lowPrice" id="lowPrice">
-                -
-                <input type="text" class="priTxt" method="highPrice" id="highPrice">
+                @if((!(PriceRange.findAll.toList.contains((searchParaForSalon.priceRange))))
+                    && ((searchParaForSalon.priceRange != PriceRange(0,1000000)))){
+                    <input type="text" class="priTxt" method="lowPrice" id="lowPrice" value=@searchParaForSalon.priceRange.minPrice>
+                    -
+                    <input type="text" class="priTxt" method="highPrice" id="highPrice" value=@searchParaForSalon.priceRange.maxPrice>
+                }else {
+                    <input type="text" class="priTxt" method="lowPrice" id="lowPrice">
+                    -
+                    <input type="text" class="priTxt" method="highPrice" id="highPrice">
+                }
                 <input type="button" id="surePrice" class="priBut" value="@Messages("salonSerachPage.confirm")" method="p_opt">
             </div>
         </div>
@@ -262,18 +342,18 @@
             <div class="notto"><a href="javascript:volid(0);" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place prices">
                  <li class="" style="display:none;">
-                     <input name="seatNums.minNum" checked=true type="radio" class="seatNums_MinNum" value="0" method="p_4" mark="600">
-                     <input name="seatNums.maxNum" checked=true style="display:none;" type="radio" value="10000" method="p_4">
+                     <input name="seatNums.minNum" checked type="radio" class="seatNums_MinNum" value="0" method="p_4" mark="600">
+                     <input name="seatNums.maxNum" checked style="display:none;" type="radio" value="10000" method="p_4">
                  </li>
                 @for((seat, i) <- SeatNums.findAll.toList.zipWithIndex){
-                    @*<li class="">
-                        <input name="seatNums" dataname="" type="radio" value="@seat.minNum-@seat.maxNum" method="p_4" mark="600" id="pr4">
-                        <label for="pr4" title="" class="">
-                            @seat.minNum-@seat.maxNum</label>
-                    </li>*@
                     <li class="">
+                    @if(searchParaForSalon.seatNums.minNum == seat.minNum && searchParaForSalon.seatNums.maxNum == seat.maxNum) {
+                        <input name="seatNums.minNum" dataname="" checked type="radio" class="seatNums_MinNum" value="@seat.minNum" method="p_4" mark="600" id="pr5@i" onclick="setMax(this,'@seat.maxNum');">
+                        <input name="seatNums.maxNum" dataname="" checked style="display:none;" type="radio" value="@seat.maxNum" method="p_4" mark="600" id="pr5@i">
+                    }else {
                         <input name="seatNums.minNum" dataname="" type="radio" class="seatNums_MinNum" value="@seat.minNum" method="p_4" mark="600" id="pr5@i" onclick="setMax(this,'@seat.maxNum');">
                         <input name="seatNums.maxNum" dataname="" style="display:none;" type="radio" value="@seat.maxNum" method="p_4" mark="600" id="pr5@i">
+                    }
                         <label for="pr5@i" title="" class="">
                             @seat.minNum-@seat.maxNum</label>
                     </li>
@@ -291,55 +371,92 @@
             <div class="notto"><a href="javascript:unlimitedCondtions();" class="cur" method="b_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place prver" id="otherCondtion_group">
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.canOnlineOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br316">
+                    @if(searchParaForSalon.salonFacilities.canOnlineOrder) {
+                        <input type="checkbox" name="salonFacilities.canOnlineOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br316" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.canOnlineOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br316">
+                    }
                     <label for="br316" class="condtions_item">
                         @Messages("salon.canOnlineOrder")
                     </label>
                 </li>
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.canImmediatelyOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br317">
+                    @if(searchParaForSalon.salonFacilities.canImmediatelyOrder) {
+                        <input type="checkbox" name="salonFacilities.canImmediatelyOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br317" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.canImmediatelyOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br317">
+                    }
                     <label for="br317" class="condtions_item">
                         @Messages("salon.canImmediatelyOrder")
                     </label>
                 </li>
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.canNominateOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br318">
+                    @if(searchParaForSalon.salonFacilities.canNominateOrder) {
+                        <input type="checkbox" name="salonFacilities.canNominateOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br318" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.canNominateOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br318">
+                    }
                     <label for="br318" class="condtions_item">
                         @Messages("salon.canNominateOrder")
                     </label>
                 </li>
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.canCurntDayOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br319">
+                    @if(searchParaForSalon.salonFacilities.canCurntDayOrder) {
+                        <input type="checkbox" name="salonFacilities.canCurntDayOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br319" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.canCurntDayOrder" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br319">
+                    }
                     <label for="br319" class="condtions_item">
                         @Messages("salon.canCurntDayOrder")
                     </label>
                 </li>
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.canMaleUse" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br320">
+                    @if(searchParaForSalon.salonFacilities.canMaleUse) {
+                        <input type="checkbox" name="salonFacilities.canMaleUse" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br320" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.canMaleUse" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br320">
+                    
+                    }
                     <label for="br320" class="condtions_item">
                         @Messages("salon.canMaleUse")
                     </label>
                 </li>
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.isPointAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br321">
+                    @if(searchParaForSalon.salonFacilities.isPointAvailable) {
+                        <input type="checkbox" name="salonFacilities.isPointAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br321" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.isPointAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br321">
+                    }
                     <label for="br321" class="condtions_item">
                         @Messages("salon.isPointAvailable")
                     </label>
                 </li>
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.isPosAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br322">
+                    @if(searchParaForSalon.salonFacilities.isPosAvailable) {
+                        <input type="checkbox" name="salonFacilities.isPosAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br322" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.isPosAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br322">
+                    }
                     <label for="br322" class="condtions_item">
                         @Messages("salon.isPosAvailable")
                     </label>
                 </li>
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.isWifiAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br323">
+                    @if(searchParaForSalon.salonFacilities.isWifiAvailable) {
+                        <input type="checkbox" name="salonFacilities.isWifiAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br323" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.isWifiAvailable" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br323">
+                    }
                     <label for="br323" class="condtions_item">
                         @Messages("salon.isWifiAvailable")
                     </label>
                 </li>                   
                 <li class="">
-                    <input type="checkbox" name="salonFacilities.hasParkingNearby" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br324">
+                    @if(searchParaForSalon.salonFacilities.hasParkingNearby) {
+                        <input type="checkbox" name="salonFacilities.hasParkingNearby" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br324" checked>
+                    }else {
+                        <input type="checkbox" name="salonFacilities.hasParkingNearby" class="condtions_item" value="true" datatype="5" method="b_316" brandid="316" id="br324">
+                    }
                     <label for="br324" class="condtions_item">
                         @Messages("salon.hasParkingNearby")
                     </label>
@@ -367,15 +484,18 @@
         </li>*@
         <li class="def" method="sort" data-type="elong">
             <a href="javascript:submitForm();" rel="nofollow" class="on" onfocus="this.blur();">
-                <input type="radio" name="sortByCondition" style="display:none;" checked=true id="cond_2" value="@Messages("salonSerachPage.sortByHot")"/>
-                <label for="cond_2" title="" class="">
+                <input type="radio" name="sortByCondition" style="display:none;" checked id="cond_2" value="@Messages("salonSerachPage.sortByHot")"/>              <label for="cond_2" title="" class="">
                      @Messages("salonSerachPage.sortByHot") 
                 </label>
             </a>
         </li>
         <li class="def" method="sort" data-type="elong">
             <a href="javascript:submitForm();" rel="nofollow" class="on" onfocus="this.blur();">
-                <input type="radio" name="sortByCondition" id="cond_3" style="display:none;" value="@Messages("salonSerachPage.sortByPrice")"/>
+                @if(searchParaForSalon.sortByCondition.equals(Messages("salonSerachPage.sortByPrice"))) {
+                    <input type="radio" name="sortByCondition" id="cond_3" style="display:none;" value="@Messages("salonSerachPage.sortByPrice")" checked/>
+                }else {
+                    <input type="radio" name="sortByCondition" id="cond_3" style="display:none;" value="@Messages("salonSerachPage.sortByPrice")"/>
+                }
                 <label for="cond_3" title="" class="">
                      @Messages("salonSerachPage.sortByPrice") 
                 </label>
@@ -383,7 +503,11 @@
         </li>
         <li class="def" method="sort" data-type="elong">
             <a href="javascript:submitForm();" rel="nofollow" class="on" onfocus="this.blur();">
-                <input type="radio" name="sortByCondition" id="cond_4" style="display:none;" value="@Messages("salonSerachPage.sortByComment")"/>
+                @if(searchParaForSalon.sortByCondition.equals(Messages("salonSerachPage.sortByComment"))) {
+                    <input type="radio" name="sortByCondition" id="cond_4" style="display:none;" value="@Messages("salonSerachPage.sortByComment")" checked/>
+                }else {
+                    <input type="radio" name="sortByCondition" id="cond_4" style="display:none;" value="@Messages("salonSerachPage.sortByComment")"/>
+                }
                 <label for="cond_4" title="" class="">
                      @Messages("salonSerachPage.sortByComment") 
                 </label>
@@ -393,5 +517,10 @@
 </div> 
 </div>  
 </div>
+<<<<<<< HEAD
+</form>
+=======
+</div>
 </form>
 
+>>>>>>> c75cf46ec5797a1dae9566bb1b8ef7182816dbec

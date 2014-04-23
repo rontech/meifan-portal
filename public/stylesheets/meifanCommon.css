@@ -839,3 +839,32 @@ border: 1px solid #545651;
 .w768 {
     width : 768px;
 }
+}
+
+.w100 {
+width: 100px;
+}
+
+.h100 {
+height: 100px;
+}
+
+.w89 {
+	width: 89px;
+}
+
+.w218 {
+	width: 218px;
+}
+
+.brL {
+	border: 1px solid;
+}
+
+.h119 {
+	height: 119px;
+}
+
+.h162 {
+	height: 162px;
+}

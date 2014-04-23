@@ -447,14 +447,16 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
     /**
      * 发行前台检索
      */
-    def getSalonBySearch = Action { implicit request =>
+    def getSalonBySearch = StackAction { implicit request =>
+        val user = loggedIn
         salonSearchForm.bindFromRequest.fold(
             errors => BadRequest(views.html.error.errorMsg(errors)),
             {
                  case (salonSearchForm) => {
                      val salons = Salon.findSalonBySearchPara(salonSearchForm)
-                     Ok(views.html.salon.salonSearchMain(salonSearchForm))
+//                     Ok(views.html.salon.salonSearchMain(salonSearchForm))
 //                     Ok(views.html.salon.search.salonSrchRstGroup(salons))
+                     Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = salonSearchForm, salons = salons))
                  }
             }
         )
