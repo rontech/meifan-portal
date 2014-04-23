@@ -890,3 +890,7 @@ height: 100px;
 div.inputField {
 margin: 5px;
 }
+
+.lt {
+	text-decoration: line-through;
+}

@@ -8,6 +8,7 @@
     <div>
         <div class="sreachtabBody">
         @form(noAuth.routes.Stylists.findStylesBySerach(stylist.stylistId), 'id -> "styleSearchForm"){
+            <input type="hidden" name="stylistId" value =@stylist.stylistId>
             <div class="skinHeadingWrapper2 mB15 cFix pr">
                 <h3 class="fl skinHeading1 headingSearch offL">@Messages("hair.search")</h3>
             </div>
@@ -221,7 +222,6 @@
                 </table>
             </div>
             <div class="mT20" align="center">
-                <input type = "reset" class = "buttons" value=@Messages("common.reset")>
                 <input type="submit" class = "buttons" value=@Messages("hair.search")>
             </div>
          }    
@@ -229,6 +229,10 @@
     }else{
     <div>
         @form(noAuth.routes.Stylists.findStylesBySerach(stylist.stylistId), 'id -> "styleSearchForm"){
+            <input type="hidden" name="stylistId" value =@stylist.stylistId>
+            <div class="skinHeadingWrapper2 mB15 cFix pr">
+                <h3 class="fl skinHeading1 headingSearch offL">@Messages("hair.search")</h3>
+            </div>
             <br/>@Messages("hair.styleLength")<br/>
                         <input type = "radio" class = "" name = "styleLength" value = "all" checked="checked">@Messages("common.all")
                 @for(i <- 0 to stylePara.styleLength.length-1){
@@ -331,7 +335,7 @@
             }
             <div align="center">
                 <input type = "reset" class = "buttons" value=@Messages("common.reset")>
-             <input type="submit" class = "buttons" value=@Messages("hair.search")>
+                <input type="submit" class = "buttons" value=@Messages("hair.search")>
                </div>
          }    
     </div>
@@ -572,7 +576,6 @@
 				</table>
 			</div>
 	        <div class="mT20" align="center">
-	            <input type = "reset" class = "buttons" value=@Messages("common.reset")>
 	            <input type="submit" class = "buttons" value=@Messages("hair.search")>
 	        </div>
 	     }    
@@ -580,6 +583,9 @@
     }else{
     <div>
         @form(auth.routes.Salons.getAllStylesListBySalon, 'id -> "styleSearchForm"){
+            <div class="skinHeadingWrapper2 mB15 cFix pr">
+                <h3 class="fl skinHeading1 headingSearch offL">@Messages("hair.search")</h3>
+            </div>
             <br/>@Messages("hair.styleLength")<br/>
 	                    <input type = "radio" class = "" name = "styleLength" value = "all" checked="checked">@Messages("common.all")
 	            @for(i <- 0 to stylePara.styleLength.length-1){

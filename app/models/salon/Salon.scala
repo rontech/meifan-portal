@@ -163,7 +163,8 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
      * 查看是否有店铺图片
      */
     def checkImgIsExist(salon: Salon): Boolean = {
-        salon.salonPics.exists(a => a.picUse.equals("Navigate")) && salon.salonPics.exists(a => a.picUse.equals("Atmosphere"))
+        salon.salonPics.exists(a => a.picUse.equals("Navigate")) && salon.salonPics.exists(a => a.picUse.equals("Atmosphere")) &&
+        salon.salonPics.exists(a => a.picUse.equals("SalonCheck"))
     }
 
     /**

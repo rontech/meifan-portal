@@ -16,6 +16,8 @@ common.delete=删除
 common.sreach = 检索
 common.all=全部
 common.backToTop=返回顶部
+common.generalSearch = 搜索
+common.hotSearch = 热门搜索
 common.resetPassword = 找回密码
 common.requiredMsg = 不能为空
 
@@ -288,6 +290,7 @@ hair.rankingMens = 男士发型
 hair.headingAllMore = 综合排行榜  可见前20名
 hair.searchByF = 女士发型检索
 hair.searchByM = 男士发型检索
+hair.pictures=发型图片
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -381,7 +384,6 @@ coupon.useConditionsMsg = 优惠劵使用条件，例如“不能和其他优惠
 coupon.presentTimeMsg = 出示优惠劵时间，例如“消费前使用”
 coupon.couponDiscriptionMsg = 填写10到100以内的字
 
-
 menu.title = {0} 的菜单
 menu.tip = 没有找到您希望的菜单！
 menu.addMark = +
@@ -435,6 +437,9 @@ stylist.stylistId = 用户ID
 stylist.workYears = 工作年数
 stylist.info = 技师专有信息
 stylist.removeStylist = 关系解除后无法恢复，请确认是否解除关系？
+stylist.rmSalon = 离开店铺后无法恢复，请确认是否离开店铺？
+stylist.rjtApply = 拒绝后无法恢复，请确认是否拒绝？
+stylist.actApply = 请确认是否同意！
 
 
 
@@ -476,6 +481,8 @@ stylistMag.futureResv = 近期预约
 stylistMag.lastBlog = 最新博客
 stylist.salon = 所属店铺
 stylist.style = 他的作品
+stylistMag.calApplying = 取消申请后无法恢复，请确认是否取消申请？
+stylistMag.wtApply = 请确认提交申请！
 
 
 
@@ -835,9 +842,8 @@ onUserPicture.description = 请填写沙龙简介
 onUserPicture.foot=请填写沙龙标注
 onUserPicture.picDescrition=请填写图片描述信息
 onUsePicture.selectImge = 选择文件
-onUsePicture.uploadImgSize = 建议上传图片尺寸：
-onUsePicture.size = 像素
-onUsePicture.WH = 950x320
+onUsePicture.uploadImgSize = 建议上传图片大小：
+onUsePicture.WH = ≤ 1M
 onUsePicture.process = 上传进度：
 onUsePicture.limit = 最多选择5张图片
 
