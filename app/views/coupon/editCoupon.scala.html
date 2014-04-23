@@ -2,57 +2,154 @@
 
 @import helper._
 
+<div class="contentsTitleWrapper">
+	<h2 class="contentsTitleInner">@Messages("coupon.updateCouponArea")</h2>
+</div>
 @form(auth.routes.Coupons.updateCoupon(coupon.id), 'id -> "couponForm") {
-	<legend class="mainTitle">@Messages("coupon.createCouponArea")</legend>
-	<div class="couponInfo">
-		<input type="hidden" name="salonId" value="@salon.id" />
-		
-		@inputText(couponForm("couponName"), '_label -> Messages("coupon.couponName"), 'readonly -> true)
-		
-		<fieldset class="serviceArea">
-			<legend>@Messages("coupon.serviceArea")</legend>
-			@input(field = couponForm("serviceItems"), args = '_label ->None, 
-				'_error -> couponForm("serviceItems").error.map(_.withMessage(Messages("coupon.couponServiceRequired")))){(id,name,value,args) =>
-			 	@for(service <- services) {
-			 		<div class="serviceItemArea">
-				 		@if(Service.getServiceIdList(coupon.serviceItems).contains(service.id)) {
-				 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id" checked="checked">@service.serviceName
-				 		} else {
-				 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
-				 		}
-			 		</div>
-			 	}
-			  }
-		</fieldset>
-		
-		@inputText(couponForm("perferentialPrice"),'_label -> Messages("coupon.perferentialPrice"),
-			 '_error -> couponForm("perferentialPrice").error.map(_.withMessage(Messages("coupon.perferentialPriceErr"))))
-		
-		@*inputDate(couponForm("startDate"), '_label -> Messages("coupon.startDate"),
-			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.startDateRequired"))))*@
-		
-		@input(field = couponForm("startDate"), '_label -> Messages("coupon.startDate"), '_help -> Messages(""), 
-			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.startDateRequired")))){(id, name, value, _) =>
-				<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
-			}
-		
-		@*inputDate(couponForm("endDate"), '_label -> Messages("coupon.endDate"),
-			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.endDateRequired"))))*@
-			
-		@input(field = couponForm("endDate"), '_label -> Messages("coupon.endDate"), '_help -> Messages(""), 
-			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.endDateRequired")))){(id, name, value, _) =>
-				<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
-			}
-		
-		@inputText(couponForm("useConditions"), '_label -> Messages("coupon.useConditions"), 
-			'_error -> couponForm("useConditions").error.map(_.withMessage(Messages("coupon.useConditionsRequired"))))
-		
-		@inputText(couponForm("presentTime"), '_label -> Messages("coupon.presentTime"), 
-			'_error -> couponForm("presentTime").error.map(_.withMessage(Messages("coupon.presentTimeRequired"))))
-		
-		@inputText(couponForm("description"), '_label -> Messages("coupon.description"), 
-			'_error -> couponForm("description").error.map(_.withMessage(Messages("coupon.couponDiscriptionErr"))))
-	</div>	
+	<input type="hidden" name="salonId" value="@salon.id" />
+	@if(couponForm.hasGlobalErrors) { 
+          <div>
+              <p>@couponForm.globalError.get.message<p>
+          </div>
+     }
+     
+     <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+	    <tbody>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.couponName")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@inputText(couponForm("couponName"), '_label -> None, '_help -> Messages(""))
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.serviceArea")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@input(field = couponForm("serviceItems"), args = '_label ->None, 
+						'_error -> couponForm("serviceItems").error.map(_.withMessage(Messages("coupon.couponServiceRequired")))){(id,name,value,args) =>
+						 	@for(service <- services) {
+						 		<div class="serviceItemArea">
+							 		@if(Service.getServiceIdList(coupon.serviceItems).contains(service.id)) {
+							 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id" checked="checked">@service.serviceName
+							 		} else {
+							 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
+							 		}
+						 		</div>
+						 	}
+						}
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.perferentialPrice")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@inputText(couponForm("perferentialPrice"),'_label -> None, '_help -> Messages(""),
+			 			'_error -> couponForm("perferentialPrice").error.map(_.withMessage(Messages("coupon.perferentialPriceErr"))))
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.startDate")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@input(field = couponForm("startDate"), '_label -> None, '_help -> Messages(""), 
+						'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.startDateRequired")))){(id, name, value, _) =>
+							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
+						}
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.endDate")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@input(field = couponForm("endDate"), '_label -> None, '_help -> Messages("coupon.endDateGtstart"), 
+						'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.endDateRequired")))){(id, name, value, _) =>
+							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
+						}
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.useConditions")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@textarea(couponForm("useConditions"), '_label -> None, '_help -> Messages("coupon.useConditionsMsg"),
+						'_error -> couponForm("useConditions").error.map(_.withMessage(Messages("coupon.useConditionsRequired"))))
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.presentTime")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@textarea(couponForm("presentTime"), '_label -> None, '_help -> Messages("coupon.presentTimeMsg"),
+						'_error -> couponForm("presentTime").error.map(_.withMessage(Messages("coupon.presentTimeRequired"))))
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.description")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@textarea(couponForm("description"), '_label -> None, 'rows -> 3, 'cols -> 50, '_help -> Messages("coupon.couponDiscriptionMsg"), 
+						'_error -> couponForm("description").error.map(_.withMessage(Messages("coupon.couponDiscriptionErr"))))
+	                </div>
+	            </td>
+	        </tr>
+	     </tbody>
+	</table>
 	
 	<div class="btnArea">
 		<input type = "submit" class = "buttons" value="@Messages("common.submit")">

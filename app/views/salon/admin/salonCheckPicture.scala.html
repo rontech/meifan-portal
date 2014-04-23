@@ -1,0 +1,158 @@
+@(salon:Salon, salonPicsForm:Form[SalonPics])
+
+@import helper._
+@import helper.twitterBootstrap._
+@import views.html.salon.admin.mySalonMain
+
+@mySalonMain("checkSalonInfo", salon){
+	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+		<tbody>	
+		</tbody>
+	</table>		
+	<div>
+		<ul class="bS menuBG cFix">
+			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonRegister">@Messages("salonCheckInfoState.register")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>		
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonBasic">@Messages("salonCheckInfoState.basicInfo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonDetail"> @Messages("salonCheckInfoState.detail")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.pictures")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+		</ul>
+	</div>
+	<body>
+	@form(auth.routes.Salons.updateSalonPics(), 'id -> "styleAddForm"){		
+	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+		<tbody>	
+		</tbody>
+	</table>		
+	<div>
+		<ul class="bS menuBG cFix">
+			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.uploadpics")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>		
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonAtmoPicture">@Messages("salonCheckInfoState.uploadAtom")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonLogoPicture">@Messages("salonCheckInfoState.uploadLogo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonCheckPicture">@Messages("salonCheckInfoState.uploadStore")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+		</ul>
+	</div>
+	<div class="demo">
+		<div class="logoupload">
+			<div class="btnbox">
+				@Messages("onUsePicture.selectImge")&nbsp;
+				<a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
+			</div>
+			<div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
+			<div class="progress-box fl-progress" style="display:none;">
+				<div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
+				<div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+			</div>
+		</div>
+		<div class="batch-pic">
+			<ul>
+				@repeat(salonPicsForm("salonPics")) { salonPic =>
+				@pictureGroup(salonPic)
+				}
+			</ul>
+		</div>
+	</div>
+	<script language="javascript" type="text/javascript">
+			setTimeout("checkLogo()", 500);
+	</script>
+	<div class="mT20 txtC">			
+		<input type = "submit" class = "buttons" value=@Messages("common.submit")>
+	</div>
+	}
+	</body>
+	@pictureGroup(
+		salonPicsForm("salonPics[x]"),
+		className = "salonPic_template"
+	)
+
+}
+@pictureGroup(field: Field, className: String = "salonPic") = {
+ <li>
+ <div class="delete-pic"></div>
+  @field("fileObjId").value.map{fileid=>
+   @if(!fileid.equals("")){ 
+   <div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
+  }
+ }
+    <div class="addstyles-byStylist twipsies well @className">
+        @inputText(
+            field("fileObjId"), 
+   '_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
+        )
+        @field("picUse").value.map{picUse=>
+        @if(picUse == "LOGO" || picUse == "Navigate" || picUse == "Atmosphere"){
+         @select(
+            field ("picUse"), 
+            options = options(
+             "LOGO" -> Messages("salon.picUse.logo"),
+                "Navigate" -> Messages("salon.picUse.Navigate"),
+                "Atmosphere" -> Messages("salon.picUse.Atmosphere"),
+                "SalonCheck" -> Messages("salon.picUse.SalonCheck")
+            ),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
+             '_help -> Messages(""),
+             'class -> "picuseOfSalon"
+         )
+        }else{
+         @select(
+            field ("picUse"), 
+            options = options(
+             "SalonCheck" -> Messages("salon.picUse.SalonCheck")
+            ),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
+             '_help -> Messages(""),
+             'class -> "picuseOfSalon"
+         )
+        } 
+        
+        }.getOrElse{
+         @select(
+            field ("picUse"), 
+            options = options(
+             "SalonCheck" -> Messages("salon.picUse.SalonCheck")
+            ),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
+             '_help -> Messages(""),
+             'class -> "picuseOfSalon"
+         )
+        }       
+        @inputText(
+            field("showPriority"), 
+   '_label -> None, 'class -> "imgShowPriority"
+        )
+        @textarea(
+            field("description"),
+            '_label -> None,
+            'rows -> 2, 'cols -> 15, 
+            'placeholder -> Messages("onUserPicture.picDescrition"), 'class -> "imagesDescriptionfelid"
+)
+        
+    </div>
+
+    </li>
+}
+@views.html.salon.admin.salonSwfupload("")
+<script type="text/javascript" charset="utf-8">
+	function checkLogo(){
+		var $obj=$('.picuseOfSalon');
+		$obj.each(function(i){
+			 if($(this).val()=='LOGO' || $(this).val()=='Navigate' || $(this).val()=='Atmosphere'){
+				$(this).parents("li").hide();
+				}
+		});
+	}
+</script>
