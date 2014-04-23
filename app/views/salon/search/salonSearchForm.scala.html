@@ -23,7 +23,7 @@
 </head>
 <form action=@noAuth.routes.Salons.getSalonBySearch method="post" id="salonSearchForm">
 <div class="left w768">
-    <!-- åŸå¸‚ ã€è¡Œä¸šã€å…³é”®å­—æ£€ç´¢ -->
+    <!-- ³ÇÊĞ ¡¢ĞĞÒµ¡¢¹Ø¼ü×Ö¼ìË÷ -->
     <div id="salon_search">
     	<ul>
             <li>@Messages("salonSerachPage.city")</li>
@@ -31,7 +31,7 @@
             <li>
             <div class="demo">
                 <div>
-                    <input type="text" value="@searchParaForSalon.city" size="15" id="getcity_name" onPropertyChange="changeArea('getcity_name');"  name="city" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@@Beijing|åŒ—äº¬|53@@Shanghai|ä¸Šæµ·|321@@Shenzhen|æ·±åœ³|91@@Guangzhou|å¹¿å·|80@@Qingdao|é’å²›|292@@Chengdu|æˆéƒ½|324@@Hangzhou|æ­å·|383@@Wuhan|æ­¦æ±‰|192@@Tianjin|å¤©æ´¥|343@@Dalian|å¤§è¿|248@@Xiamen|å¦é—¨|61@@Chongqing|é‡åº†|394@@" mod_address_reference="getcityid" mod_notice_tip="ä¸­æ–‡/æ‹¼éŸ³" />
+                    <input type="text" value="@searchParaForSalon.city" size="15" id="getcity_name" onPropertyChange="changeArea('getcity_name');"  name="city" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@@Beijing|±±¾©|53@@Shanghai|ÉÏº£|321@@Shenzhen|ÉîÛÚ|91@@Guangzhou|¹ãÖİ|80@@Qingdao|Çàµº|292@@Chengdu|³É¶¼|324@@Hangzhou|º¼Öİ|383@@Wuhan|Îäºº|192@@Tianjin|Ìì½ò|343@@Dalian|´óÁ¬|248@@Xiamen|ÏÃÃÅ|61@@Chongqing|ÖØÇì|394@@" mod_address_reference="getcityid" mod_notice_tip="ÖĞÎÄ/Æ´Òô" />
                     <input id="getcityid" name="getcityid" type="hidden" value="{$getcityid}" />
                 </div>
             </div>
@@ -52,16 +52,16 @@
             </li>*@
             <li><input name="salonIndustry" type="hidden" value="Hairdressing"></li>
             <li>@Messages("salonSerachPage.keyword")</li>
-            <li><input id="word" name="keyWord" type="text" value="" class="text" onkeyup="sendRequest();" onclick="hiddenSuggest();">
-            	<div id="suggest" style="display:none;width:14%;" ></div>
+            <li><input id="keyword" name="keyWord" type="text" value="" class="text" onkeyup="getSuggest(this.value, event);setPosition($('keyword'));updown(event)" onkeydown="if(getKeyCode(event) == 13)form_submit();">
+            	<div id="dSuggest" ><ul id='sug'></ul></div>
             </li>
-            <li><input name="" type="submit" class="btn" value = @Messages("hair.search")></li>
+            <li><input name="" type="submit"  id="sub"  class="btn" value = @Messages("hair.search")></li>
             <div id="suggest"></div>
         </ul>
         <div id="auto"></div>
         
     </div>
-    <!-- åœ°åŒºé€‰æ‹© -->
+    <!-- µØÇøÑ¡Ôñ -->
     <div class="listBox">      
     <div class="newFilter newFiltermvt1" id="filterArea" tab="noPop">
     <div class="boxcolor">
@@ -88,9 +88,9 @@
         <div class="clear">
         </div>
         </div>
-    <!--æœåŠ¡ç±»å‹-->
+    <!--·şÎñÀàĞÍ-->
         <div class="wBox" id="wbox_s">
-            <p class="title">@Messages("salonSerachPage.serviceType")ï¼š</p>
+            <p class="title">@Messages("salonSerachPage.serviceType")£º</p>
             <div class="rBox serviceType_check">
                 <div class="notto"><a href="javascript:unlimitServiceType();" class="cur" method="s_no">@Messages("salonSerachPage.unlimited")</a></div>
                 <ul class="place prices" id="unlimitServiceType_group">
@@ -108,9 +108,9 @@
             </div>
             <div class="clear"></div>
         </div>
-    <!-- å“ç‰Œ -->
+    <!-- Æ·ÅÆ -->
         <div class="wBox" id="wbox_b">
-        <p class="title">@Messages("salonSerachPage.brand")ï¼š</p>
+        <p class="title">@Messages("salonSerachPage.brand")£º</p>
         <div class="rBox">
             <div class="notto">
                 <a href="javascript:unlimitSalons();" class="cur" method="b_no">@Messages("salonSerachPage.unlimited")</a>
@@ -140,9 +140,9 @@
         <div class="clear">
         </div>
         </div>  
-    <!--ä»·æ ¼-->
+    <!--¼Û¸ñ-->
         <div class="wBox" id="wbox_p">
-        <p class="title">@Messages("comment.price")ï¼š</p>
+        <p class="title">@Messages("comment.price")£º</p>
         <div class="rBox">
             <div class="notto"><a href="javascript:void(0);" id="unlimitPrices" class="cur" method="p_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place prices">
@@ -179,7 +179,7 @@
                 
                 
             </ul>
-            <!--è‡ªå®šä¹‰ä»·æ ¼åŒºé—´  -->
+            <!--×Ô¶¨Òå¼Û¸ñÇø¼ä  -->
             <div class="optional" id="optPrice">@Messages("salonSerachPage.manualDefine")
                 @if((!(PriceRange.findAll.toList.contains((searchParaForSalon.priceRange))))
                     && ((searchParaForSalon.priceRange != PriceRange(0,1000000)))){
@@ -197,9 +197,9 @@
         <div class="clear">
         </div>
         </div>
-    <!--åº§ä½æ•°-->
+    <!--×ùÎ»Êı-->
         <div class="wBox" id="wbox_s">
-        <p class="title">@Messages("salonSerachPage.setNumber")ï¼š</p>
+        <p class="title">@Messages("salonSerachPage.setNumber")£º</p>
         <div class="rBox">
             <div class="notto"><a href="javascript:volid(0);" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place prices">
@@ -228,7 +228,7 @@
         </div>
     <!---->
         <div class="wBox" id="wbox_b">
-        <p class="title">@Messages("salonSerachPage.otherCondtion")ï¼š</p>
+        <p class="title">@Messages("salonSerachPage.otherCondtion")£º</p>
         <div class="rBox otherCondtion_div">
             <div class="notto"><a href="javascript:unlimitedCondtions();" class="cur" method="b_no">@Messages("salonSerachPage.unlimited")</a></div>
             <ul class="place prver" id="otherCondtion_group">
@@ -382,84 +382,185 @@
 </div>
 </form>
 <script type="text/javascript" charset="utf-8">
-function sendRequest() {
-	var ieKey=event.keyCode;
-	alert(ieKey);
-	clearSuggest();//æ¸…é™¤æ™ºèƒ½æç¤ºåˆ—è¡¨suggest DIVä¸­çš„æ‰€æœ‰å…ƒç´ 
-    //å–å¾—æŸ¥è¯¢è¾“å…¥æ¡†ä¸­çš„æ•°æ®
-var info = document.getElementById('word').value.trim();
-    //æ ¡éªŒæŸ¥è¯¢è¾“å…¥æ¡†ä¸­çš„æ•°æ®æ˜¯å¦ä¸ºç©ºï¼Œå¦‚æœä¸ºç©ºï¼Œåˆ™ä¸å†å¾€æœåŠ¡å™¨ç«¯å‘é€è¯·æ±‚ã€‚
-    
-if(info==""){
-         hiddenSuggest();
-        return;
-    }
-//è·å–XMLHttpRequestå¯¹è±¡ï¼Œç”¨äºå’ŒæœåŠ¡å™¨ç«¯äº¤äº’ã€‚
-    var req = getXmlHttpObject();
-//è¯·æ±‚çš„urlï¼Œå°†æŸ¥è¯¢æ–‡æœ¬æ¡†ä¸­çš„æ•°æ®å‘é€åˆ°æœåŠ¡å™¨ç«¯æ‰§è¡ŒæŸ¥è¯¢ã€‚
-    var url = "/getkeyWordsByajax/"+info;
-    req.open("get", url, true);
-    req.onreadystatechange = function() {
-        if (req.readyState == 4) {
-           if (req.status == 200) {
-//è§£ææœåŠ¡å™¨ç«¯è¿”å›çš„XMLæ ¼å¼çš„æ•°æ®ï¼Œå¹¶å°†è§£æå‡ºæ¥çš„æ•°æ®æ”¾åˆ°æ™ºèƒ½æç¤ºDIVä¸­ã€‚
-	var tips = req.responseText.split(',');
-               if(tips.length!=0){
-                  for(var i=0;i<tips.length;i++){
-//è§£ææ¯ä¸€ä¸ªnodeèŠ‚ç‚¹ä¸­çš„valueå€¼ï¼Œå¹¶å°†è¯¥valueæ”¾åˆ°ä¸€ä¸ªæ–°çš„DIVä¸­ï¼Œå¹¶ä¸ºè¯¥DIVè®¾ç½®ä¸€äº›äº‹ä»¶ï¼šå½“é¼ æ ‡æ»‘è¿‡è¯¥DIVæ—¶ï¼Œè¯¥DIVåœ¨é«˜äº®æ˜¾ç¤ºï¼›å½“é¼ æ ‡ç‚¹å‡»è¯¥DIVæ—¶ï¼Œåˆ™å°†è¯¥DIVä¸­çš„valueå€¼è®¾ç½®åˆ°æŸ¥è¯¢æ–‡æœ¬æ¡†titleä¸­ã€‚
-                      //var title=tips[i].firstChild.nodeValue;
-                      var sDiv = "<div class='out' onmouseover='mover(this);' onmouseout='mout(this);' onclick='setSuggest(this)'>"+tips[i]+"</div>";
-//å°†æœåŠ¡å™¨ç«¯æ‰€æœ‰çš„è¿”å›å€¼valueï¼ŒåŠç›¸åŒ¹é…çš„DIVï¼Œå…¨éƒ¨æ”¾åˆ°æ™ºèƒ½æç¤ºåˆ—è¡¨DIVä¸­ã€‚    
-    document.getElementById('suggest').innerHTML+=sDiv;
-                      }
-                      displaySuggest();//è®¾ç½®æ™ºèƒ½æç¤ºåˆ—è¡¨å¯è§
-                  }else{
-                       hiddenSuggest();//è®¾ç½®æ™ºèƒ½æç¤ºåˆ—è¡¨ä¸å¯è§
-                  }
-           }
-        }
-    };
-    req.send(null);
- }
-//ç‚¹å‡»æŸä¸ªvalueå€¼æ—¶ï¼Œå°†è¯¥valueå€¼è®¾ç½®åˆ°æŸ¥è¯¢æ–‡æœ¬æ¡†ä¸­ã€‚
- function setSuggest(para){
- document.getElementById('word').value=para.firstChild.nodeValue;
-    hiddenSuggest();
- }
+var xhr;
+var j = -1; //¼ÇÂ¼µ±Ç°ÁĞ±í±»Ñ¡ÖĞµÄ±àºÅ
+//»ñÈ¡XMLHttpRequest¶ÔÏó
+function createXMLHttpRequest() {
+	if (window.XMLHttpRequest) {
+		// IE7+¡¢Chrome¡¢FireFoxµÈ
+		xhr = new XMLHttpRequest();
+	} else {
+		//IE6-
+		xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+}
 
-//è®¾ç½®æ™ºèƒ½æç¤ºåˆ—è¡¨ä¸å¯è§
-function hiddenSuggest(){
-    document.getElementById('suggest').style.display="none";        }
-//æ¸…é™¤suggest DIVä¸­çš„æ‰€æœ‰å…ƒç´ 
- function clearSuggest(){
-    document.getElementById('suggest').innerHTML="";
-    }
-//é¼ æ ‡æ»‘è¿‡æŸä¸ªvalueå€¼æ—¶ï¼Œè®¾ç½®å½“å‰valueå€¼æ‰€åœ¨DIVé«˜äº®æ˜¾ç¤ºã€‚
- function mover(para){
-    para.className="over";
-    }
-//é¼ æ ‡ç¦»å¼€æŸä¸ªvalueå€¼æ—¶ï¼Œè®¾ç½®å½“å‰valueå€¼æ‰€åœ¨DIVæ¢å¤åˆå§‹æ˜¾ç¤ºæ ·å¼ã€‚
- function mout(para){
-    para.className="out";
-    }
- //è®¾ç½®æ™ºèƒ½æç¤ºåˆ—è¡¨å¯è§
- function displaySuggest(){
-    document.getElementById('suggest').style.display="block";
-    }
- //è·å–XMLHttpRequestå¯¹è±¡ï¼Œç”¨äºå’ŒæœåŠ¡å™¨ç«¯äº¤äº’ã€‚
- function getXmlHttpObject() {
-    var xmlHttp = null;
-    try {
-        // Firefox, Opera 8.0+, Safari
-        xmlHttp = new XMLHttpRequest();
-    } catch (e) {
-        // Internet Explorer
-        try {
-           xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-        } catch (e) {
-           xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-    }
-    return xmlHttp;
- }
+//²âÊÔÖ®ÓÃ
+function test() {
+	alert("ÓĞ·´Ó¦");
+}
+
+//»ñÈ¡°´¼üµÄ´úºÅ
+function getKeyCode(e) {
+	var keycode;
+	if (window.event) {//Í¨¹ı²âÊÔGoogle ChromeºÍIE¶¼ÊÇµ÷ÓÃÕâ¾ä
+		keycode = e.keyCode;
+	} else if (e.which) {//FireFoxµ÷ÓÃÕâ¾ä
+		keycode = e.which;
+	}
+	return keycode;
+}
+
+
+//ºËĞÄ·½·¨£¬ajax»ñÈ¡Êı¾İ¿âÊı¾İ
+function getSuggest(keyword, e) {
+	var keycode = getKeyCode(e);
+	//40ÊÇdown£¬38ÊÇup£¬ 13ÊÇEnter
+	if (keycode == 40 || keycode == 38 || keycode == 13) {
+		return;
+	}
+	//escape()ÊÇ¶Ô×Ö·û´®½øĞĞ±àÂë£¬×ª»¯Îª16½øÖÆÊı¾İ£¬ÀàËÆjavaÖĞµÄnative2ascii
+	if (null == escape(keyword) || "" == escape(keyword)) {
+		//Èç¹ûÃ»ÓĞÊäÈëÄÚÈİ»òÕßÊäÈëµÄÄÚÈİÊÇ¿ÕµÄ£¬Ôò²»ÏÖÊµÈÎºÎ¶«Î÷
+		$("dSuggest").innerHTML = "";
+		return;
+	}
+
+	/*
+	open(method,url,async):	¹æ¶¨ÇëÇóµÄÀàĞÍ¡¢URL ÒÔ¼°ÊÇ·ñÒì²½´¦ÀíÇëÇó¡£
+							method£ºÇëÇóµÄÀàĞÍ£»GET »ò POST
+							url£ºÎÄ¼şÔÚ·şÎñÆ÷ÉÏµÄÎ»ÖÃ
+							async£ºtrue£¨Òì²½£©»ò false£¨Í¬²½£©
+	send(string): 		½«ÇëÇó·¢ËÍµ½·şÎñÆ÷¡£
+						string£º½öÓÃÓÚ POST ÇëÇó
+	 */
+	var _url = "/getkeyWordsByajax/"+ escape(keyword);
+	createXMLHttpRequest();//È¡µÃxhr¶ÔÏó
+	//ÉèÖÃ»Øµ÷º¯Êı
+	xhr.onreadystatechange = function() {
+		//Èç¹ûÒ»ÇĞÕı³£¾ÍÖ´ĞĞÒ»ÏÂ´úÂë
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			//ÎªdivÉèÖÃÄÚÈİ
+			//alert(xhr.responseText);
+			$("dSuggest").innerHTML = xhr.responseText;
+			//µ÷ÓÃshowDiv()£»
+			showDiv();
+		}
+	};
+	//´´½¨Ò»ÌõHTTPÇëÇó
+	xhr.open("get", _url, true, "", "");
+	//·¢ËÍ´´½¨µÄÇëÇó
+	xhr.send(null);
+}
+
+//ÉèÖÃdivÎª¿É¼û
+function showDiv() {
+	$("dSuggest").style.display = "block";
+}
+
+
+//Îª<li>ÉèÖÃÑùÊ½£¬ÉèÖÃÑ¡ÖĞ¸ßÁÁ
+function set_style(num) {
+	//»ñµÃËùÓĞµÄli±êÇ©
+	var li = $("sug").getElementsByTagName("li");
+	//±éÀúËùÓĞµÄli±êÇ©£¬ÕÒµ½Ö¸¶¨µÄ±àºÅµÄ±êÇ©
+	for ( var i = 0; i < li.length; i++) {
+		if (i >= 0 && i < li.length && i == num) {
+			//ÕÒµ½Ö¸¶¨µÄ±êÇ©£¬ÎªÆäÉèÖÃÑùÊ½
+			li[i].className = "select";
+			//²¢ÇÒÑ¡Ôñµ½¸ÃÏîµÄÊ±ºòÎªËÑË÷¿òÉèÖÃ¸ÃÏîµÄÖµ
+			
+		} else {
+			//Èç¹ûÃ»ÓĞÕÒµ½£¬É¶¶¼²»×ö
+			li[i].className = "";
+		}
+	}
+}
+
+//°´downºÍup¼üÊ±µÄ²Ù×÷£¨¼üÅÌÑ¡Ôñ£©
+function updown(e) {
+	
+	// µÃµ½°´¼ü´úºÅ
+	var keycode = getKeyCode(e);
+	//»ñÈ¡li½Úµã¶ÔÏó
+	var li = $("sug").getElementsByTagName("li");
+	if(keycode == 40 || keycode == 38) {
+		
+		if (li == null) {//Èç¹ûÃ»ÓĞÑ¡Ïî£¬Ö±½Ó·µ»Ø
+			return;
+		}
+		
+		//Èç¹ûÊÇ°´µÄdown¼ü
+		if(keycode == 40) {
+			//½«j¼Ó1
+			j++;
+			if (j >= li.length) {//Èç¹ûÒÑ¾­µ½´ï×îµ×²¿£¬Ôò»Øµ½µÚÒ»Ïî
+				j = 0;
+			}
+		} else if (keycode == 38) { //Èç¹û°´µÄÊÇup¼ü
+			j--;
+			if (j == -1) {//Èç¹ûµ½´ï×î¶¥¶Ë£¬Ôò·µ»Øµ½×îºóÒ»Ïî
+				j = li.length - 1;
+			}
+		}
+		//½«Ñ¡ÖĞÏîµÄÖµÉèÖÃµ½ÎÄ±¾¿òÖĞ
+		$("keyword").value = li[j].innerHTML;
+		//ÎªÑ¡¶¨µÄÏîÉèÖÃÑùÊ½
+		set_style(j);
+	}
+}
+
+//Êó±ê¾­¹ıÊ±µÄ²Ù×÷£¬´Ë´¦µÄposÔÚservletÖĞ´«Èë
+function theMouseOver(pos) {
+	set_style(pos);
+	j = pos;
+}
+
+//Êó±êÀë¿ªÊ±µÄ²Ù×÷
+function theMouseOut(pos) {
+	var li = $("sug").getElementsByTagName("li");
+	//µ±Êó±êÀë¿ªÖ®ºóliÉÏÃ»ÓĞÑùÊ½
+	li[pos].className = "";
+}
+
+//´Ë´¦¶¨Òåº¯ÊıÄ£·ÂjQuery£¬¸ù¾İID»ñÈ¡ÊôĞÔ
+function $(id) {
+	return document.getElementById(id);
+}
+
+//»ñÈ¡Ö¸¶¨½ÚµãµÄÎ»ÖÃ
+function getPos(el, sProp) {
+	var iPos = 0;
+	while (el != null) {
+		//ÕÒµ½Ö¸¶¨µÄÎ»ÖÃµÄ×ø±ê(ÉÏtop¡¢ÏÂbottom¡¢×óleft¡¢ÓÒright)
+		iPos += el["offset" + sProp];
+		//ÕÒµ½Ò»¸öÔªËØÎ»ÖÃ£¨Ò»°ãÎª<body>£©×÷Îª×ø±êµÄÔ­µã
+		el = el.offsetParent;
+	}
+	return iPos;
+}
+
+//ÉèÖÃÎªÖ¸¶¨µÄÔªËØÉèÖÃÎ»ÖÃ, ´Ë´¦objÎª½Úµã¶ÔÏó±ÈÈç£ºµ÷ÓÃ$("keyword")´«Èë·½·¨ÄÚ£¬ÀıÈç£ºsetPosition($('keyword'))
+function setPosition(obj) {
+	//´Ë´¦ĞèÒª½«sSuggestµÄcssÉèÖÃposition£ºabsolute²ÅÄÜÓĞĞ§
+	//½«dSuggestµÄcssÎ»ÖÃÉèÖÃ×ó±ßÓë$("keyword")¶ÔÆë
+	$("dSuggest").style.left = getPos(obj, "Left");
+	//½«dSuggestµÄÎ»ÖÃÉèÖÃÔÚ$("keyword")µÄÏÂ·½
+	$("dSuggest").style.top = getPos(obj, "Top") + obj.offsetHeight;
+}
+
+//Ìá½»Ö®ºóµÄÊÂ¼ş
+function form_submit() {
+	//Ìá½»¸ÃÒ³ÃæÖĞµÄµÚÒ»¸ö±íµ¥
+	document.forms[0].submit();
+}
+
+//Èôµã»÷Ä³Ïî£¬½«Ä³ÏîµÄÖµÉèÖÃµ½ËÑË÷¿òÖĞ²¢Ìá½»±íµ¥
+function theMouseClick(pos) {
+	var key = $("sug").getElementsByTagName("li")[pos].innerHTML;
+	//ÎªkeywordÉèÖÃÖµ
+	$("keyword").value = key;
+	//Ìá½»±íµ¥
+	form_submit();
+}
 </script>
