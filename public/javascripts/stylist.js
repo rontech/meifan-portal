@@ -26,9 +26,10 @@ function getXmlHttpRequest(){
 
 function checkStylistExist(){
 	var userId = $('#stylist-search-stylist').val();
+	var salonId = $('#stylist-search-salon').val();
 	var xhr = getXmlHttpRequest();
 	xhr.open('get',
-    '/mySalon/checkStylistIsExist/'+userId,
+    '/mySalon/checkStylistIsExist/'+userId+'/'+salonId,
     true);
      xhr.onreadystatechange=function(){
          //step4 获取服务器返回的数据，更新页面
@@ -39,7 +40,7 @@ function checkStylistExist(){
                 	 document.getElementById("getStylistForm").submit();
                  }
                  if(txt == 'NO'){
-                	 $('#stylistSerchMsg').text("没有此技师");
+                	 $('#stylistSerchMsg').text("没有发现此技师或该技师已属其它店铺，确认您输入的技师ID是否正确");
                  }
             	 
             	 
@@ -69,7 +70,7 @@ function checkSalonExist(){
                 	 document.getElementById("getSalonForm").submit();
                  }
                  if(txt == 'NO'){
-                	 $('#salonSerchMsg').text("没有此店铺");
+                	 $('#salonSerchMsg').text("没有发现此店铺，确认您输入的店铺ID是否正确");
                  }
             	 
             	 

@@ -17,12 +17,13 @@ import com.mongodb.casbah.gridfs.GridFS
 import play.api.libs.iteratee.Enumerator
 import controllers._
 import controllers.noAuth.Styles
+import play.api.data.validation.Constraints._
 
 object Stylists extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl{
     
     val stylistForm: Form[Stylist] = Form(
         mapping(
-                "workYears" -> number,
+                "workYears" -> number.verifying(min(1),max(100)),
                 "position" -> list(
                     mapping(
                         "positionName" -> text,

@@ -230,7 +230,7 @@ salonAdmin.admin = 店铺
 salonAdmin.ApplyOperateResult = 抱歉该申请不存在或已被本人取消，将在
 salonAdmin.ApplyOperateAction = s后自动跳转，点击
 salonAdmin.ApplyOperateGo = 跳转 
-stylistAdmin.selectField = *选填
+stylistAdmin.selectField = *选填，不得超过150字
 
 # Hair
 hair.tabName=时尚靓发
@@ -566,7 +566,9 @@ user.resetInfo = 点击下面的链接，重置密码
 user.loginUserIdErr = 请输入用户名！
 user.cancelBeStylist = 取消当前申请
 user.nickName = 1~10位字符！
-
+user.needfieldworks = *必填，0~100整数
+user.errorWorks = 无效的年数
+user.errorSalonId= 无效的店铺ID
 
 #Mail
 mail.subjectOfResetPwd = 来自美范网的密码重置邮件

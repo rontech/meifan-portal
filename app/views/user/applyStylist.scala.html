@@ -2,7 +2,7 @@
 @import helper._
 
 @myPageMain(navInMyPage = "my-reservation",user, followInfo, user.id, true){
-	<body>
+	
 	<div class="container">
 
     <div class="content">
@@ -48,7 +48,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@inputText(stylistApplyForm("stylist.workYears"), '_label -> None, 'class ->  "font1",'_help -> Messages(""))
+			                	@inputText(stylistApplyForm("stylist.workYears"), '_label -> None, 'class ->  "font1",'_help -> Messages("user.needfieldworks"),'_error -> stylistApplyForm("stylist.workYears").error.map(_.withMessage(Messages("user.errorWorks"))))
 			                </div>
 			            </td>
 					</tr>
@@ -62,7 +62,7 @@
 			            <td>
 			                <div>
 			                	@inputText(stylistApplyForm("salonAccountId"), '_label -> None, 'class ->  "font1", '_help -> Messages("user.applySalonId"), 
-							'_error -> stylistApplyForm.error("salonAccountId"),'id -> "applyStylistFindSalon")<br />
+							'_error -> stylistApplyForm("salonAccountId").error.map(_.withMessage(Messages("user.errorSalonId"))),'id -> "applyStylistFindSalon")<br />
 							<span id="applySerchSalonMsg" style="font-color:red;"></span>
 			                </div>
 			            </td>
@@ -194,7 +194,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@textarea(field = stylistApplyForm("stylist.myWords"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField"))
+			                	@textarea(field = stylistApplyForm("stylist.myWords"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField"), 'class -> "stylist_fillMyWords")
 			                </div>
 			            </td>
 			        </tr>
@@ -207,7 +207,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@textarea(field = stylistApplyForm("stylist.mySpecial"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField"))
+			                	@textarea(field = stylistApplyForm("stylist.mySpecial"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField") ,'class -> "stylist_fillMyWords")
 			                </div>
 			            </td>
 			        </tr>
@@ -220,7 +220,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@textarea(field = stylistApplyForm("stylist.myBoom"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField"))
+			                	@textarea(field = stylistApplyForm("stylist.myBoom"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField") ,'class -> "stylist_fillMyWords")
 			                </div>
 			            </td>
 			        </tr>
@@ -233,7 +233,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@textarea(field = stylistApplyForm("stylist.myPR"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField"))
+			                	@textarea(field = stylistApplyForm("stylist.myPR"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField") ,'class -> "stylist_fillMyWords")
 			                </div>
 			            </td>
 			        </tr>
@@ -249,7 +249,7 @@
     </div>
   </div>
 	}
-	</body>
+	
 }
 
 @stylistPosition(field: Field, className: String = "optContactMethod") ={
@@ -307,4 +307,14 @@
         function go() {//定义函数
         	window.location="/myPage";//页面跳转
         }
+
+        $('.stylist_fillMyWords').keyup(function(){
+            if($(this).val().length > 150){
+				$(this).parent('dd').next().text('已超出长度限制');
+				return;
+			}else{
+				$(this).parent('dd').next().text('*选填，不得超过150字');
+			}
+			
+        });
 </script>

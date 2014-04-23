@@ -8,7 +8,7 @@
 		@Messages("salon.id")&nbsp;<input name="salonId" id="stylist-search-salon">
 		<span id="nameMsg"></span>
 		<input type="button" id="searchStylistToSubmit" onclick="checkSalonExist();" value="@Messages("stylist.search")"><br />
-		<span id="salonSerchMsg" style="font-color:red;"></span>
+		<span id="salonSerchMsg" style="color:red;"></span>
 	}
 	@salon.map{ sa =>
 		@views.html.stylist.management.salonItem(user, loginUserId, logged, sa, true, true)	

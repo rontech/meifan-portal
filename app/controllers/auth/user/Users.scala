@@ -13,6 +13,7 @@ import scala.concurrent._
 import play.api.i18n.Messages
 import org.mindrot.jbcrypt.BCrypt
 import controllers._
+import play.api.data.validation.Constraints._
 
 object Users extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl {
 
@@ -82,7 +83,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   val stylistApplyForm: Form[StylistApply] = Form(
         mapping("stylist" -> 
 		    mapping(
-		    	"workYears" -> number,
+		    	"workYears" -> number.verifying(min(1),max(100)),
 			    "position" -> list(
 			    	mapping(
 			    		"positionName" -> text,
