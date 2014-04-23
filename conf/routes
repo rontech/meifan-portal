@@ -26,6 +26,7 @@ POST        /salonRegister                                                      
 GET         /getPhoto/:name                                                      controllers.Application.getPhoto(name: ObjectId)
 GET         /getPhotoByString/:name                                              controllers.Application.getPhotoByString(name: String)
 POST        /upload                                                              controllers.Application.upload()
+#POST        /uploadWithAjax                                                      controllers.Application.uploadWithAjax
 POST        /changeLogo                                                          controllers.Application.changeLogo()
 GET         /saveImg/:id                                                         controllers.auth.Users.saveImg(id :ObjectId)
 
@@ -90,10 +91,10 @@ GET         /question/:qid                                                      
 GET         /questions/                                                          controllers.noAuth.Questions.getAllQuestions()
 
 # Info
-GET         /info/:infoId                                                   controllers.noAuth.Infos.getOneInfo(infoId: ObjectId)
-GET         /doc/id/terms                                                   controllers.noAuth.Infos.getIdUsePolicyInfo
-GET         /doc/use/terms                                                  controllers.noAuth.Infos.getUsePolicyInfo
-GET         /doc/policy/privacy                                             controllers.noAuth.Infos.getSecurityPolicyInfo
+GET         /info/:infoId                                                        controllers.noAuth.Infos.getOneInfo(infoId: ObjectId)
+GET         /doc/id/terms                                                        controllers.noAuth.Infos.getIdUsePolicyInfo
+GET         /doc/use/terms                                                       controllers.noAuth.Infos.getUsePolicyInfo
+GET         /doc/policy/privacy                                                  controllers.noAuth.Infos.getSecurityPolicyInfo
 
 #-------------------------------------------------
 # 用户管理：登录用户能看到的跳转
@@ -260,7 +261,7 @@ GET         /assets/*file                                                       
 GET         /mySalon/salonLogoPicture                                            controllers.auth.Salons.salonLogoPicture
 GET         /mySalon/salonShowPicture                                            controllers.auth.Salons.salonShowPicture
 GET         /mySalon/salonAtmoPicture                                            controllers.auth.Salons.salonAtmoPicture
-GET         /mySalon/salonCheckPicture                                            controllers.auth.Salons.salonCheckPicture
+GET         /mySalon/salonCheckPicture                                           controllers.auth.Salons.salonCheckPicture
 
 #swf fileupload by douping
 POST        /imagesUpload                                                        controllers.Application.fileUploadAction()
@@ -269,14 +270,14 @@ POST        /imagesUpload                                                       
 GET         /forgotPassword                                                      controllers.Mails.forgotPassword
 POST        /forgotPassword                                                      controllers.Mails.sendMailForResetPwd
 
-GET         /s/forgotPassword                                                    controllers.Mails.forgotPasswordOfSalon
-POST        /s/forgotPassword                                                    controllers.Mails.sendMailForResetPwdOfSalon
+GET         /s/forgotPassword                                                      controllers.Mails.forgotPasswordOfSalon
+POST        /s/forgotPassword                                                      controllers.Mails.sendMailForResetPwdOfSalon
 
 GET         /resetPwd                                                            controllers.Mails.password(uuid : String)
 POST        /resetPwd                                                            controllers.Mails.resetPassword(uuid : String)
 
-GET         /s/resetPwd                                                          controllers.Mails.passwordOfSalon(uuid : String)
-POST        /s/resetPwd                                                          controllers.Mails.resetPasswordOfSalon(uuid : String)
+GET         /s/resetPwd                                                            controllers.Mails.passwordOfSalon(uuid : String)
+POST        /s/resetPwd                                                            controllers.Mails.resetPasswordOfSalon(uuid : String)
 
 #add salonPics 
 POST        /mySalon/updatepictures                                              controllers.auth.Salons.updateSalonPics
@@ -290,8 +291,15 @@ GET         /reserve/salonId=:salonId&couponId=:couponId&week=:week             
 GET         /myPage/cancelApply                                                  controllers.auth.Users.cancelApplyStylist
 GET         /mySalon/checkStylistIsExist/:userId                                 controllers.noAuth.Stylists.checkStylistIsExist(userId: String)
 
-GET         /salon/:salonId/map                                                      controllers.noAuth.Salons.getMap(salonId: ObjectId)
+GET         /salon/:salonId/map                                                  controllers.noAuth.Salons.getMap(salonId: ObjectId)
 
 #to salon search main page
-GET			/salonsearch														 controllers.noAuth.Salons.getSalonBySearch
+GET         /salonsearch                                                         controllers.noAuth.Salons.getSalonBySearch
 POST        /salonsearch                                                         controllers.noAuth.Salons.getSalonBySearch
+
+
+#notice
+GET			/doc/notice													         controllers.noAuth.Notices.getOneNotice(noticeId: ObjectId)
+
+GET		/getkeyWordsByajax/:wordText													 controllers.Application.getkeyWordsByajax(wordText:String)
+

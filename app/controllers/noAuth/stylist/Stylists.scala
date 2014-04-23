@@ -104,6 +104,7 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
   }
   
   def checkSalonIsExit(salonAccountId: String) = Action {
+    println("salonId "+salonAccountId)
       Salon.findByAccountId(salonAccountId).map{ salon =>
           Ok("YES")
       }getOrElse{

@@ -2,7 +2,7 @@
 
 	@import helper._
 
-	@main(title = "resetPassword") {
+	@main(Messages("common.resetPassword")) {
 	 	<head>
 			<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/userLogin.css")">
 		</head>
@@ -23,7 +23,7 @@
 										<dd class="mT5 pT5">
 											<div class="pr">
 												<dl class="lh30">
-													<dt class="dibBL vaM w150 b fl">@Messages("user.name")</dt>
+													<dt class="dibBL vaM w150 b fl">@Messages("salon.id")</dt>
 													<dd class="dibBL vaM w280">
 														@inputText(mailAndAccountIdForm("accountId"),'_label -> None, '_help -> "",
 															'_error ->  mailAndAccountIdForm("accountId").error.map(_.withMessage(Messages("salon.login.accountId")))

@@ -104,9 +104,9 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province" value = "@salon.salonAddress.map(add=>add.province).getOrElse(None)"></select>
-									@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.salonAddress.map(add=>add.city).getOrElse(None)"></select>
-									@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.salonAddress.map(add=>add.region).getOrElse(None)"></select>
+				                	@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province" value = "@salon.salonAddress.map(add=>add.province).getOrElse(None)" onChange= "searchMap();"></select>
+									@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.salonAddress.map(add=>add.city).getOrElse(None)" onChange= "searchMap();"></select>
+									@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.salonAddress.map(add=>add.region).getOrElse(None)" onChange= "searchMap();"></select>
 									<script type="text/javascript">
 										addressInit('Select1', 'Select2', 'Select3');
 									</script>

@@ -16,6 +16,7 @@ common.delete=删除
 common.sreach = 检索
 common.all=全部
 common.backToTop=返回顶部
+common.resetPassword = 找回密码
 
 # Index page
 index.mainPage=网站首页
@@ -423,6 +424,7 @@ stylist.update = 更新
 stylist.stylistId = 用户ID
 stylist.workYears = 工作年数
 stylist.info = 技师专有信息
+stylist.removeStylist = 关系解除后无法恢复，请确认是否解除关系？
 
 
 
@@ -827,9 +829,10 @@ onUsePicture.limit = 最多选择5张图片
 ContMethodType.contMethodTypeName.QQ = QQ
 ContMethodType.contMethodTypeName.MSN = MSN
 ContMethodType.contMethodTypeName.we-chat = 微信
-ContMethodType.contMethodTypeName.Line = Line
-ContMethodType.contMethodTypeName.Skype = Skype
-ContMethodType.contMethodTypeName.feiXin = 飞信
+ContMethodType.contMethodTypeName.skype = Skype
+ContMethodType.contMethodTypeName.fetion = 飞信
+ContMethodType.contMethodTypeName.YY = YY语音
+ContMethodType.contMethodTypeName.line = Line
 
 # reservation
 reservation.weekDay.1 = 日

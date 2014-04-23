@@ -6,7 +6,7 @@
     <div id="index_xxtg">
         <ul>
             @for(notice <- notices){
-                <li><a href="#">@notice.title</a></li>
+                <li><a href="@noAuth.routes.Notices.getOneNotice(notice.id)">@notice.title</a></li>
             }
         </ul>
     </div>

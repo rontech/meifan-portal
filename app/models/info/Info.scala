@@ -39,7 +39,7 @@ object Info extends ModelCompanion[Info, ObjectId] {
      */
     def findInfoForHome(num : Int) : List[Info]= {    
       val infoList= dao.find(MongoDBObject("isValid" -> true, "infoType" -> 1)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
-      infoList
+      infoList.sortBy(info => info.createTime)
     }
     
     /**

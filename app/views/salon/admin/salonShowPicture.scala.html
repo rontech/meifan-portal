@@ -93,6 +93,7 @@
         @field("picUse").value.map{picUse=>
         @if(picUse == "LOGO" || picUse == "Atmosphere"){
          @select(
+
             field ("picUse"), 
             options = options(
              "LOGO" -> Messages("salon.picUse.logo"),
@@ -103,6 +104,7 @@
              'placeholder -> Messages("salon.picUse"),
              '_help -> Messages(""),
              'class -> "picuseOfSalon"
+
          )
         }else{
          @select(
@@ -114,6 +116,7 @@
              'placeholder -> Messages("salon.picUse"),
              '_help -> Messages(""),
              'class -> "picuseOfSalon"
+
          )
         } 
         
@@ -127,7 +130,8 @@
              'placeholder -> Messages("salon.picUse"),
              '_help -> Messages(""),
              'class -> "picuseOfSalon"
-         )
+		)
+
         }       
         @inputText(
             field("showPriority"), 

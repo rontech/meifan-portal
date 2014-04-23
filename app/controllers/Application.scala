@@ -172,7 +172,8 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
         }
     
     }
-
+    
+    
 
 
     val imgForm : Form[ImgForCrop] =Form(
@@ -184,4 +185,13 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
             "w"->bigDecimal,
             "h"->bigDecimal)(ImgForCrop.apply)(ImgForCrop.unapply)
     )
+    
+    def getkeyWordsByajax(wordText:String) = Action{
+      println("get keyword.."+wordText)
+      val hotkeys = HotestKeyword.findHotestKeywordsByKW(wordText)
+      val keys: String = hotkeys.stringPrefix
+      println("keys "+hotkeys)
+      Ok(keys)
+      
+    }
 }
