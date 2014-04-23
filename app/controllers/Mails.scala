@@ -179,7 +179,7 @@ object Mails extends Controller {
           Mail.save(mail.copy(uuid = newUuid), WriteConcern.Safe)
           
           User.save(user.copy(password = main), WriteConcern.Safe)
-          Redirect(auth.routes.Users.logout)
+          Redirect(routes.Application.login)
     })
   }
   
@@ -219,7 +219,7 @@ object Mails extends Controller {
           Mail.save(mail.copy(uuid = newUuid), WriteConcern.Safe)
           
           Salon.save(salon.copy(salonAccount = new SalonAccount(salon.salonAccount.accountId, main)), WriteConcern.Safe)
-          Redirect(auth.routes.Salons.salonLogout)
+          Redirect(routes.Application.salonLogin)
     })
   }
 }
