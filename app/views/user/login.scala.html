@@ -33,7 +33,7 @@
 													<dt class="dibBL vaM w150 b fl">@Messages("user.name")</dt>
 													<dd class="dibBL vaM w280">
 														@inputText(field = loginForm("userId"), '_label -> None, 'placeholder -> Messages("user.name"), 'class -> "inputField",
-															'_error ->  loginForm("userId").error.map(_.withMessage(Messages("user.loginUserIdErr")))
+															'_error ->  loginForm("userId").error.map(_.withMessage(Messages("user.loginUserIdErr"))), '_help -> ""
 														)
 													</dd>
 													<dt class="dibBL vaM w150 b fl">@Messages("user.password")</dt>
