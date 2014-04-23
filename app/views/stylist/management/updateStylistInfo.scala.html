@@ -76,7 +76,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@inputText(stylistForm("stylist.workYears"), '_label -> None, 'class ->  "font1")
+			                	@inputText(stylistForm("workYears"), '_label -> None, 'class ->  "font1",'_help -> Messages("user.needfieldworks"),'_error -> stylistForm("workYears").error.map(_.withMessage(Messages("user.errorWorks"))))
 			                </div>
 			            </td>
 					</tr>
@@ -117,7 +117,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@input(field = stylistForm("stylist.goodAtImage"),args = '_label -> None){(id,name,value,args) =>
+			                	@input(field = stylistForm("goodAtImage"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to goodAtStylePara.goodAtImage.length-1){
 								 		<input type = "checkbox" name = "goodAtImage[@i]" value = "@goodAtStylePara.goodAtImage(i)">@Messages("style.styleImpression."+goodAtStylePara.goodAtImage(i))&nbsp;
 								 	}
@@ -134,7 +134,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@input(field = stylistForm("stylist.goodAtStatus"),args = '_label -> None){(id,name,value,args) =>
+			                	@input(field = stylistForm("goodAtStatus"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to goodAtStylePara.goodAtStatus.length-1){
 								 		<input type = "checkbox" name = "goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@Messages("style.socialStatus."+goodAtStylePara.goodAtStatus(i))
 								 	}
@@ -152,7 +152,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@input(field = stylistForm("stylist.goodAtService"),args = '_label -> None){(id,name,value,args) =>
+			                	@input(field = stylistForm("goodAtService"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to goodAtStylePara.goodAtService.length-1){
 								 		<input type = "checkbox" name = "stylist.goodAtService[@i]" value = "@goodAtStylePara.goodAtService(i)">@Messages(goodAtStylePara.goodAtService(i))
 								 		@if((i+1)%6==0){
@@ -173,7 +173,7 @@
 			            </th>
 			            <td>
 			                <div class="mL50">
-			                	@input(field = stylistForm("stylist.goodAtUser"),args = '_label -> None){(id,name,value,args) =>
+			                	@input(field = stylistForm("goodAtUser"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to goodAtStylePara.goodAtUser.length-1){
 								 		<input type = "checkbox" name = "stylist.goodAtUser[@i]" value = "@goodAtStylePara.goodAtUser(i)">@Messages("style.sex." +goodAtStylePara.goodAtUser(i))
 								 	}
@@ -190,7 +190,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@input(field = stylistForm("stylist.goodAtAgeGroup"),args = '_label -> None){(id,name,value,args) =>
+			                	@input(field = stylistForm("goodAtAgeGroup"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to goodAtStylePara.goodAtAgeGroup.length-1){
 								 		<input type = "checkbox" name = "stylist.goodAtAgeGroup[@i]" value = "@goodAtStylePara.goodAtAgeGroup(i)">@Messages("style.ageGroup." +goodAtStylePara.goodAtAgeGroup(i))
 								 	}
@@ -207,7 +207,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@textarea(field = stylistForm("stylist.myWords"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField"))
+			                	@textarea(field = stylistForm("myWords"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField") ,'class -> "stylist_fillMyWords")
 			                </div>
 			            </td>
 			        </tr>
@@ -220,7 +220,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@textarea(field = stylistForm("stylist.mySpecial"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField"))
+			                	@textarea(field = stylistForm("mySpecial"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField") ,'class -> "stylist_fillMyWords")
 			                </div>
 			            </td>
 			        </tr>
@@ -233,7 +233,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@textarea(field = stylistForm("stylist.myBoom"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField"))
+			                	@textarea(field = stylistForm("myBoom"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField") ,'class -> "stylist_fillMyWords")
 			                </div>
 			            </td>
 			        </tr>
@@ -246,7 +246,7 @@
 			            </th>
 			            <td>
 			                <div>
-			                	@textarea(field = stylistForm("stylist.myPR"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField"))
+			                	@textarea(field = stylistForm("myPR"),'rows -> 4, 'cols -> 40, '_label -> None, '_help -> Messages("stylistAdmin.selectField") ,'class -> "stylist_fillMyWords")
 			                </div>
 			            </td>
 			        </tr>
@@ -270,6 +270,11 @@
 
   </div>
   }
+  <style>
+  .stylistUpdateInfo{
+  display:none;
+  }
+  </style>
   <script type="text/javascript" charset="utf-8">
         
         $('.removeOptContactMethod').live('click', function(e) {
@@ -291,5 +296,15 @@
                 
             })
         }
+
+        $('.stylist_fillMyWords').keyup(function(){
+            if($(this).val().length > 150){
+				$(this).parent('dd').next().text('已超出长度限制');
+				return;
+			}else{
+				$(this).parent('dd').next().text('*选填，不得超过150字');
+				}
+			
+        });
    </script>
 }

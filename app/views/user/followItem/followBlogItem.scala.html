@@ -1,0 +1,31 @@
+@(blog: Blog, loginUserId:ObjectId)
+
+<div class="mT10">
+			<div class="cFix">
+				<div class="fs14 b wwbw">
+					<a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)">@blog.title</a>
+					
+					@if(MyFollow.checkIfFollow(loginUserId,blog.id)){
+						<a href="@auth.routes.MyFollows.cancelFollow(blog.id)" class="iS arrowR">
+                                <font>
+                                    <font>
+                                        @Messages("user.deleteFollow")
+                                    </font>
+                                </font>
+                         </a>
+					}else{
+						<a href="javascript:void(0);" onclick="addFollow('@blog.id','blog')" class="iS arrowR">
+                                <font>
+                                    <font>
+                                        @Messages("user.addFollow")
+                                    </font>
+                                </font>
+                         </a>
+					}
+				</div>
+			</div>
+			<div class="mT5 wwbw">
+				@Html(blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}>", "").slice(0, 100))
+                @if(blog.content.length > 100) {...}
+			</div>
+		</div>

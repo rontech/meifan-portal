@@ -10,6 +10,17 @@
 <script src="@routes.Assets.at("javascripts/jquery-1.7.2.min.js")" type="text/javascript"></script>
 <script src="@routes.Assets.at("javascripts/salonSearch/salonSearch.js")" type="text/javascript"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/salonSearch/jquery.bigautocomplete.js")"></script>
+<style>
+	#suggest{
+	-webkit-box-shadow: rgb(51, 51, 51) 2px 2px 5px;
+	z-index: 111;
+	position: absolute;
+	display: none;
+	background-color: #FFFFFF;
+	font-size: 12px;
+	
+}
+</style>
 </head>
 <form action=@noAuth.routes.Salons.getSalonBySearch method="post" id="salonSearchForm">
 <div class="left w768">
@@ -42,8 +53,11 @@
             </li>*@
             <li><input name="salonIndustry" type="hidden" value="Hairdressing"></li>
             <li>@Messages("salonSerachPage.keyword")</li>
-            <li><input id="word" name="keyWord" type="text" value="" class="text"></li>
+            <li><input id="word" name="keyWord" type="text" value="" class="text" onkeyup="sendRequest();" onclick="hiddenSuggest();">
+            	<div id="suggest" style="display:none;width:14%;" ></div>
+            </li>
             <li><input name="" type="submit" class="btn" value = @Messages("hair.search")></li>
+            <div id="suggest"></div>
         </ul>
         <div id="auto"></div>
         
@@ -368,4 +382,85 @@
 </div>
 </div>
 </form>
+<script type="text/javascript" charset="utf-8">
+function sendRequest() {
+	var ieKey=event.keyCode;
+	alert(ieKey);
+	clearSuggest();//清除智能提示列表suggest DIV中的所有元素
+    //取得查询输入框中的数据
+var info = document.getElementById('word').value.trim();
+    //校验查询输入框中的数据是否为空，如果为空，则不再往服务器端发送请求。
+    
+if(info==""){
+         hiddenSuggest();
+        return;
+    }
+//获取XMLHttpRequest对象，用于和服务器端交互。
+    var req = getXmlHttpObject();
+//请求的url，将查询文本框中的数据发送到服务器端执行查询。
+    var url = "/getkeyWordsByajax/"+info;
+    req.open("get", url, true);
+    req.onreadystatechange = function() {
+        if (req.readyState == 4) {
+           if (req.status == 200) {
+//解析服务器端返回的XML格式的数据，并将解析出来的数据放到智能提示DIV中。
+	var tips = req.responseText.split(',');
+               if(tips.length!=0){
+                  for(var i=0;i<tips.length;i++){
+//解析每一个node节点中的value值，并将该value放到一个新的DIV中，并为该DIV设置一些事件：当鼠标滑过该DIV时，该DIV在高亮显示；当鼠标点击该DIV时，则将该DIV中的value值设置到查询文本框title中。
+                      //var title=tips[i].firstChild.nodeValue;
+                      var sDiv = "<div class='out' onmouseover='mover(this);' onmouseout='mout(this);' onclick='setSuggest(this)'>"+tips[i]+"</div>";
+//将服务器端所有的返回值value，及相匹配的DIV，全部放到智能提示列表DIV中。    
+    document.getElementById('suggest').innerHTML+=sDiv;
+                      }
+                      displaySuggest();//设置智能提示列表可见
+                  }else{
+                       hiddenSuggest();//设置智能提示列表不可见
+                  }
+           }
+        }
+    };
+    req.send(null);
+ }
+//点击某个value值时，将该value值设置到查询文本框中。
+ function setSuggest(para){
+ document.getElementById('word').value=para.firstChild.nodeValue;
+    hiddenSuggest();
+ }
 
+//设置智能提示列表不可见
+function hiddenSuggest(){
+    document.getElementById('suggest').style.display="none";        }
+//清除suggest DIV中的所有元素
+ function clearSuggest(){
+    document.getElementById('suggest').innerHTML="";
+    }
+//鼠标滑过某个value值时，设置当前value值所在DIV高亮显示。
+ function mover(para){
+    para.className="over";
+    }
+//鼠标离开某个value值时，设置当前value值所在DIV恢复初始显示样式。
+ function mout(para){
+    para.className="out";
+    }
+ //设置智能提示列表可见
+ function displaySuggest(){
+    document.getElementById('suggest').style.display="block";
+    }
+ //获取XMLHttpRequest对象，用于和服务器端交互。
+ function getXmlHttpObject() {
+    var xmlHttp = null;
+    try {
+        // Firefox, Opera 8.0+, Safari
+        xmlHttp = new XMLHttpRequest();
+    } catch (e) {
+        // Internet Explorer
+        try {
+           xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e) {
+           xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+    }
+    return xmlHttp;
+ }
+</script>

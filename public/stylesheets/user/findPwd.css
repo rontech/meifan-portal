@@ -1,0 +1,170 @@
+@CHARSET "UTF-8";
+
+div#entry {
+min-height: 350px;
+}
+
+#entry .mt {
+height: 33px;
+background: url(/assets/images/login/tit_regist.jpg) #D1D1D1 repeat-x 0 -34px;
+}
+
+#entry .mt h2 {
+float: left;
+height: 33px;
+padding-left: 15px;
+background: url(/assets/images/login/tit_regist.jpg) no-repeat 0 0;
+line-height: 33px;
+}
+
+#entry .mt b {
+float: right;
+width: 10px;
+height: 33px;
+background: url(/assets/images/login/tit_regist.jpg) no-repeat 0 -68px;
+}
+
+#entry .mc {
+padding: 20px 40px 20px 40px;
+border: solid #D1D1D1;
+border-width: 0 1px 1px;
+}
+
+.step {
+overflow: hidden;
+margin-bottom: 30px;
+height: 25px;
+}
+
+ol, ul {
+list-style: none;
+}
+
+.step li {
+float: left;
+background: url(/assets/images/login/p1.jpg) no-repeat top right #ededed;
+height: 25px;
+line-height: 25px;
+color: #999999;
+padding: 0 86px 0 85px;
+font-weight: bold;
+}
+
+.step .one {
+background: url(/assets/images/login/p5.jpg) no-repeat top right #bbbbbb;
+color: #FFF;
+}
+
+.step .one1 {
+background: url(/assets/images/login/p9.jpg) no-repeat top right #bbbbbb;
+color: #FFF;
+}
+
+.step .two {
+background: url(/assets/images/login/p10.jpg) no-repeat top right #bbbbbb;
+color: #FFF;
+}
+
+.step .two1 {
+background: url(/assets/images/login/p9.jpg) no-repeat top right #bbbbbb;
+color: #FFF;
+}
+
+.step .three {
+background: url(/assets/images/login/p5.jpg) no-repeat top right #bbbbbb;
+color: #FFF;
+}
+
+.step .cur {
+background: url(/assets/images/login/p2.jpg) no-repeat top right #ffe6bc;
+color: #ff6600;
+}
+
+.step .four {
+background: none #ededed;
+}
+
+.step .four1 {
+background: #ffe6bc;
+}
+
+#entry .form {
+width: 582px;
+overflow: hidden;
+margin: 0 auto;
+padding-left: 100px;
+}
+
+#entry .label {
+width: 140px;
+text-align: right;
+font-size: 14px;
+}
+
+#entry .item {
+padding-top: 5px;
+height: 55px;
+line-height: 26px;
+}
+
+#entry .text {
+width: 240px;
+height: 16px;
+padding: 4px 3px;
+border: 1px solid #bbb;
+font-size: 14px;
+}
+
+.clr {
+display: block;
+overflow: hidden;
+clear: both;
+height: 0;
+line-height: 0;
+font-size: 0;
+}
+
+.form .label {
+	float: left;
+}
+
+#entry .btn-entry {
+width: 68px;
+height: 25px;
+line-height: 25px;
+background: url(/assets/images/login/p3.jpg) no-repeat;
+font-size: 14px;
+font-weight: bold;
+border: none;
+}
+
+.call b {
+float: left;
+background: url(/assets/images/login/p4.jpg) no-repeat;
+width: 50px;
+height: 46px;
+margin-right: 12px;
+}
+
+.suc b {
+background: url(/assets/images/login/p8.jpg) no-repeat;
+width: 48px;
+height: 38px;
+}
+
+.m-return {
+color: #333333;
+}
+
+.suc {
+font-weight: bold;
+}
+
+.call {
+overflow: hidden;
+padding: 50px 0;
+}
+
+.m-return span strong {
+color: #009900;
+}

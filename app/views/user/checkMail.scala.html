@@ -1,0 +1,28 @@
+@import helper._
+
+@main(Messages("common.resetPassword")) {
+ 	<head>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/findPwd.css")">
+	</head>
+	
+ 	<div id="entry" class="w m">
+ 		<div class="mt">
+			<h2>@Messages("user.resetPassword")</h2>
+			<b></b>
+		</div>
+		<div class="mc">
+			<div class="step">
+	            <ul>
+	               <li class="one">填写账户名</li>
+	               <li class="two cur">验证身份</li>
+	               <li class="">设置新密码</li>
+	               <li class="four">完成</li>
+	            </ul>
+	        </div>
+	        <div class="form">
+    		<div class="call suc m-return">
+                <b></b><span><strong>重设密码的链接已发送到您的邮箱，请登录邮箱 并重设密码！</strong></span>
+            </div>
+  		</div>
+ 	</div>
+}		

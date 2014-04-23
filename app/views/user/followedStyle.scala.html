@@ -11,7 +11,12 @@
     		<li class="couponItem">
     		<div class = "styleResult">
     		   @views.html.user.followItem.followStyleItem(style)
-            	<a href="@auth.routes.MyFollows.cancelFollow(style.id)">@Messages("user.deleteFollow")</a>
+    		   
+    		   @if(MyFollow.checkIfFollow(loginUserId,style.id)){
+    		   		<a href="@auth.routes.MyFollows.cancelFollow(style.id)">@Messages("user.deleteFollow")</a>
+    		   }else{
+    		   		<a href="javascript:void(0);" onclick="addFollow('@style.id','style')">@Messages("user.addFollow")</a>
+    		   }
             </div>
         	</li>	
         }

@@ -11,9 +11,10 @@
 	</div>
 	<div class="mysalon-stylist-search">
 		<form action="@auth.routes.Salons.searchStylistById" id="getStylistForm" method="get">
-				@Messages("stylist.stylistId")<input name="searchStylistById" id="stylist-search-stylist"/>&nbsp;&nbsp;&nbsp;<span id="stylistSerchMsg" style="font-color:red;"></span>
+				@Messages("stylist.stylistId")<input name="searchStylistById" id="stylist-search-stylist"/>&nbsp;&nbsp;&nbsp;
 				<input type="hidden" name="salonId" id="stylist-search-salon" value="@salon.id">
-				<input type="button" id="searchStylistToSubmit" value="@Messages("stylist.search")" onclick="checkStylistExist();">
+				<input type="button" id="searchStylistToSubmit" value="@Messages("stylist.search")" onclick="checkStylistExist();"><br />
+				<span id="stylistSerchMsg" style="color:red;"></span>
 		</form>
    		<div class="tabcon hide" data-widget="tab-content" style="display: block;">
    			<div class="mc">

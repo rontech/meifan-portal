@@ -7,7 +7,7 @@
 } else {
 	<ul id="listWrapper">
     @for(blog <- followInfo.followBlog) {
-    		@views.html.blog.blogItem(blog)
+    		@views.html.user.followItem.followBlogItem(blog,loginUserId)
     	}
     </ul>
     }

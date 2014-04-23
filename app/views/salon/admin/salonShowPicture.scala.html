@@ -49,7 +49,7 @@
 				@Messages("onUsePicture.selectImge")&nbsp;
 				<a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
 			</div>
-			<div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
+			<div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b></div>
 			<div class="progress-box fl-progress" style="display:none;">
 				<div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
 				<div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
@@ -78,20 +78,22 @@
 
 }
 @pictureGroup(field: Field, className: String = "salonPic") = {
- <li>
+	@field("picUse").value.map{picUse=>
+ 	@if(picUse.equals("Navigate")){
+ 		<li>
  <div class="delete-pic"></div>
   @field("fileObjId").value.map{fileid=>
    @if(!fileid.equals("")){ 
    <div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
   }
  }
-    <div class="addstyles-byStylist twipsies well @className">
+ <div class="addstyles-byStylist twipsies well @className">
         @inputText(
             field("fileObjId"), 
-   '_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
+   			'_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
         )
         @field("picUse").value.map{picUse=>
-        @if(picUse == "LOGO" || picUse == "Atmosphere"){
+        @if(picUse == "LOGO" || picUse == "Atmosphere" || picUse == "SalonCheck"){
          @select(
 
             field ("picUse"), 
@@ -135,7 +137,7 @@
         }       
         @inputText(
             field("showPriority"), 
-   '_label -> None, 'class -> "imgShowPriority"
+   			'_label -> None, 'class -> "imgShowPriority"
         )
         @textarea(
             field("description"),
@@ -147,15 +149,118 @@
     </div>
 
     </li>
+ 	}else{
+ 		<li style="display:none;">
+ <div class="delete-pic"></div>
+  @field("fileObjId").value.map{fileid=>
+   @if(!fileid.equals("")){ 
+   <div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
+  }
+ }
+ <div class="addstyles-byStylist twipsies well @className">
+        @inputText(
+            field("fileObjId"), 
+  			 '_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
+        )
+        @field("picUse").value.map{picUse=>
+        @if(picUse == "LOGO" || picUse == "Atmosphere" || picUse == "SalonCheck"){
+         @select(
+
+            field ("picUse"), 
+            options = options(
+             "LOGO" -> Messages("salon.picUse.logo"),
+                "SalonCheck" -> Messages("salon.picUse.SalonCheck"),
+                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+            ),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
+             '_help -> Messages(""),
+             'class -> "picuseOfSalon"
+
+         )
+        }else{
+         @select(
+            field ("picUse"), 
+            options = options(
+             "Navigate" -> Messages("salon.picUse.Navigate")
+            ),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
+             '_help -> Messages(""),
+             'class -> "picuseOfSalon"
+
+         )
+        } 
+        
+        }.getOrElse{
+         @select(
+            field ("picUse"), 
+            options = options(
+             "Navigate" -> Messages("salon.picUse.Navigate")
+            ),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
+             '_help -> Messages(""),
+             'class -> "picuseOfSalon"
+		)
+
+        }       
+        @inputText(
+            field("showPriority"), 
+   			'_label -> None, 'class -> "imgShowPriority"
+        )
+        @textarea(
+            field("description"),
+            '_label -> None,
+            'rows -> 2, 'cols -> 15, 
+            'placeholder -> Messages("onUserPicture.picDescrition"), 'class -> "imagesDescriptionfelid"
+)
+        
+    </div>
+
+    </li>
+ 	
+ 	}
+ }.getOrElse{
+ 	<li>
+ <div class="delete-pic"></div>
+  @field("fileObjId").value.map{fileid=>
+   @if(!fileid.equals("")){ 
+   <div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
+  }
+ }
+ <div class="addstyles-byStylist twipsies well @className">
+        @inputText(
+            field("fileObjId"), 
+   			'_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
+        )
+        
+         @select(
+            field ("picUse"), 
+            options = options(
+             "Navigate" -> Messages("salon.picUse.Navigate")
+            ),
+             '_label -> None,
+             'placeholder -> Messages("salon.picUse"),
+             '_help -> Messages(""),
+             'class -> "picuseOfSalon"
+		)
+
+              
+        @inputText(
+            field("showPriority"), 
+   			'_label -> None, 'class -> "imgShowPriority"
+        )
+        @textarea(
+            field("description"),
+            '_label -> None,
+            'rows -> 2, 'cols -> 15, 
+            'placeholder -> Messages("onUserPicture.picDescrition"), 'class -> "imagesDescriptionfelid"
+)     
+    </div>
+
+    </li>
+ }
+ 
 }
 @views.html.salon.admin.salonSwfupload("")
-<script type="text/javascript" charset="utf-8">
-	function checkLogo(){
-		var $obj=$('.picuseOfSalon');
-		$obj.each(function(i){
-			 if($(this).val()=='LOGO' || $(this).val()=='Atmosphere' ){
-				$(this).parents("li").hide();
-				}
-		});
-	}
-</script>
