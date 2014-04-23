@@ -1,5 +1,7 @@
 @(user: User, loginUserId: ObjectId, logged: Boolean, salon: Salon, isStylistApply: Boolean = false, isStylistSearch: Boolean = false)
 
+
+
 <li class="mT20">
 	<div class="shopInformationHead ympS">
 		<div class="shopInformationBottom ympS">
@@ -18,9 +20,10 @@
 							<p class="fr">
 							@if(user.id == loginUserId){
 								@if(SalonAndStylist.checkSalonAndStylistValid(salon.id, user.id)){
-						           <a href="@auth.routes.Stylists.removeSalon(salon.id)">
+						           @*<a href="@auth.routes.Stylists.removeSalon(salon.id)">
 	    								@Messages("stylist.removeSalon")
-	    						   </a>
+	    						   </a>*@
+	    						   <a href="" class="removeSalon" data-salon="@salon.id" >@Messages("stylist.removeSalon")</a>
 					            }
 					        }    
 							</p>
@@ -116,21 +119,25 @@
 				 	@*技师对来自店铺邀请做操作*@
 				 	@if((!SalonAndStylist.checkSalonAndStylistValid(salon.id, user.id)) && (isStylistApply == false)){
 						<p>
-					    	<a href="@auth.routes.Stylists.agreeSalonApply(salon.id)">@Messages("stylist.acceptApply")</a>|
-					    	<a href="@auth.routes.Stylists.rejectSalonApply(salon.id)">@Messages("stylist.rejectApply")</a>
+					    	@*<a href="@auth.routes.Stylists.agreeSalonApply(salon.id)">@Messages("stylist.acceptApply")</a>|*@
+					    	<a href="" class="agreeSalonApply_@salon.id" data-salon="@salon.id" >@Messages("stylist.acceptApply")</a>|
+					    	@*<a href="@auth.routes.Stylists.rejectSalonApply(salon.id)">@Messages("stylist.rejectApply")</a>*@
+					    	<a href="" class="rejectSalonApply_@salon.id" data-salon="@salon.id" >@Messages("stylist.rejectApply")</a>
 				    	</p>          
 					}
 					@*技师取消自己的申请*@ 
 					@if((!SalonAndStylist.checkSalonAndStylistValid(salon.id, user.id)) && isStylistApply && (!isStylistSearch)){
-						<a href="@auth.routes.Stylists.cancelMyApplying">
+						@*<a href="@auth.routes.Stylists.cancelMyApplying">
     						<p>@Messages("stylistMag.cancelApplying")</p>
-    					</a>
+    					</a>*@
+    					<a href="" class="cancelApplying" >@Messages("stylistMag.cancelApplying")</a>
 					}
 					@*技师搜索店铺后，申请*@
 					@if((!SalonAndStylist.checkSalonAndStylistValid(salon.id, user.id)) && isStylistApply && isStylistSearch){
-						<a href="@auth.routes.Stylists.toApplySalon(salon.id)">
+						@*<a href="@auth.routes.Stylists.toApplySalon(salon.id)">
 					    	<p>@Messages("stylistMag.wantToApply")</p>
-					    </a>
+					    </a>*@
+					    <a href="" class="toApplySalon_@salon.id" data-salon="@salon.id" >@Messages("stylistMag.wantToApply")</a>
 					}
 				}
 			</div>
@@ -138,3 +145,59 @@
 		</div>
 	</div>
 </li>
+
+<script type="text/javascript">
+$('.removeSalon').click(function(e) {
+	  e.preventDefault();
+	  salonId = $(this).data('salon');
+   	if(!confirm("@Messages("stylist.rmSalon")")){    
+  	return;
+    }else{
+      @*location.href="@auth.routes.Stylists.removeSalon('salonId')";*@
+      location.href="/myPage/removeSalon/" + salonId; 
+    } 
+	});
+	
+$('.cancelApplying').click(function(e) {
+	  e.preventDefault();
+   	if(!confirm("@Messages("stylistMag.calApplying")")){    
+  	return;
+    }else{
+      location.href="@auth.routes.Stylists.cancelMyApplying";
+      @*location.href="/myPage/removeSalon/";*@ 
+    } 
+	});
+
+$('.rejectSalonApply_@salon.id').click(function(e) {
+	  e.preventDefault();
+	  sId = $(this).data('salon');
+   	if(!confirm("@Messages("stylist.rjtApply")")){    
+  	return;
+    }else{
+      @*location.href="@auth.routes.Stylists.removeSalon('salonId')";*@
+      location.href="/myPage/rejectSalonApply/" + sId; 
+    } 
+	});
+	
+$('.agreeSalonApply_@salon.id').click(function(e) {
+	  e.preventDefault();
+	  sId = $(this).data('salon');
+   	if(!confirm("@Messages("stylist.actApply")")){    
+  	return;
+    }else{
+      @*location.href="@auth.routes.Stylists.removeSalon('salonId')";*@
+      location.href="/myPage/agreeSalonApply/" + sId; 
+    } 
+	});
+	
+$('.toApplySalon_@salon.id').click(function(e) {
+	  e.preventDefault();
+	  sId = $(this).data('salon');
+   	if(!confirm("@Messages("stylistMag.wtApply")")){    
+  	return;
+    }else{
+      @*location.href="@auth.routes.Stylists.removeSalon('salonId')";*@
+      location.href="/myPage/toApplySalon/" + sId; 
+    } 
+	});
+</script>
