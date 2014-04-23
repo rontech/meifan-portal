@@ -34,7 +34,7 @@ case class Salon(
     workTime: Option[WorkTime],
     restDays: Option[RestDay],
     seatNums: Option[Int],
-    salonFacilities: Option[SalonFacilities],    
+    salonFacilities: Option[SalonFacilities],
     salonPics: List[OnUsePicture],             
     registerDate: Date
 )
@@ -76,7 +76,20 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
     def findOneBySalonName(salonName: String): Option[Salon] = {
         dao.findOne(MongoDBObject("salonName" -> salonName))
     }
-    
+
+    def findOneBySalonNameAbbr(salonNameAbbr: String): Option[Salon] = {
+        dao.findOne(MongoDBObject("salonNameAbbr" -> salonNameAbbr))
+    }
+
+    def findOneByEmail(email: String): Option[Salon] = {
+        dao.findOne(MongoDBObject("contactMethod.email" -> email))
+    }
+
+    def findOneByMainPhone(phone: String): Option[Salon] = {
+        dao.findOne(MongoDBObject("contactMethod.mainPhone" -> phone))
+    }
+
+
     /**
      * Get the stylists count of a salon.
      */
@@ -302,6 +315,8 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
         }
         lowestPrice
     }
+
+    def isExist(value:String, f:String => Option[Salon]) = f(value).map(salon => true).getOrElse(false)
 }
 
 /*----------------------------
