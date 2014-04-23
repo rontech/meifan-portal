@@ -6,6 +6,24 @@
 @mySalonMain("basicInformation",salon){
 	
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
+	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+		<tbody>	
+		</tbody>
+	</table>		
+	<div>
+		<ul class="bS menuBG cFix">
+			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonRegister">@Messages("salonCheckInfoState.register")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>		
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonBasic">@Messages("salonCheckInfoState.basicInfo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonDetail"> @Messages("salonCheckInfoState.detail")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.pictures")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+		</ul>
+	</div>
 
 	<div class="salonRegister">
 		<div class="contentsTitleWrapper">
@@ -13,7 +31,7 @@
 		</div>
 
 		<div class="mT10 pH10">
-			@helper.form(action = auth.routes.Salons.salonInfoConsum(salon.id), args = 'id -> "salonForm"){
+			@helper.form(action = auth.routes.Salons.salonbasicUpdate(salon.id), args = 'id -> "salonForm"){				
 				
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
@@ -42,7 +60,7 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.Abbr")
+				                   	<font color="cR">*</font>@Messages("salon.Abbr")
 				                </div>
 				            </th>
 				            <td>
@@ -68,7 +86,7 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.description")
+				                   	<font color="cR">*</font>@Messages("salon.description")
 				                </div>
 				            </th>
 				            <td>
@@ -81,14 +99,14 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.address")
+				                   	<font color="cR">*</font>@Messages("salon.address")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
 				                	@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province" value = "@salon.salonAddress.map(add=>add.province).getOrElse(None)"></select>
 									@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.salonAddress.map(add=>add.city).getOrElse(None)"></select>
-									@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.salonAddress.map(add=>add.region).getOrElse(None)"></select>
+									@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.salonAddress.map(add=>add.region).getOrElse(None)" onChange= "searchMap();"></select>
 									<script type="text/javascript">
 										addressInit('Select1', 'Select2', 'Select3');
 									</script>
@@ -99,7 +117,7 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.addrDetail")
+				                   	<font color="cR">*</font>@Messages("salon.addrDetail")
 				                </div>
 				            </th>
 				            <td>
@@ -107,7 +125,7 @@
 				                	@*inputText(salonForm("salonAddress.addrDetail"), '_label -> None)*@
 				                	
 				                	@input(field = salonForm("salonAddress.addrDetail"), '_label -> None, '_help -> Messages("")) { (id, name, value, _) =>
-        							<input type="text" name="@name" value="@value" id="addrDetail" onBlur= "searchMap();">
+        							<input type="text" name="@name" value="@value" id="addrDetail" onChange= "searchMap();">
 								}
 								
 				                </div>
@@ -142,12 +160,12 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.accessMethod")
+				                   	<font color="cR">*</font>@Messages("salon.accessMethod")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("salonAddress.accessMethodDesc"), '_label -> None)
+				                	@textarea(salonForm("salonAddress.accessMethodDesc"), 'cols -> 50, '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -155,7 +173,7 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.openTime")
+				                   	<font color="cR">*</font>@Messages("salon.openTime")
 				                </div>
 				            </th>
 				            <td>
@@ -170,7 +188,7 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.closeTime")
+				                   	<font color="cR">*</font>@Messages("salon.closeTime")
 				                </div>
 				            </th>
 				            <td>
@@ -185,7 +203,7 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.establishDate")
+				                   	<font color="cR">*</font>@Messages("salon.establishDate")
 				                </div>
 				            </th>
 				            <td>
@@ -262,13 +280,13 @@
 				        <tr>
 				            <th class="w222">
 				                <div class="dibBL vaM w160">
-				                    @Messages("salon.restDay")
+				                    <font color="cR">*</font>@Messages("salon.restDay")
 				                </div>
 				            </th>
 				            <td>
                                 <div class="restDays">
                                     @inputRadioGroup(salonForm("restDays.restWay"), options = options("Fixed" -> Messages("restWay.fixed"),"Indefinite" -> Messages("restWay.indefinite")) , '_label -> None)
-                                    @if(salon.restDays.map(rest=>rest.restWay.equals("Fixed"))){
+                                    @if(salon.restDays.map(rest=>rest.restWay.equals("Fixed")).getOrElse(true)){
                                         <div id="restDays_div">
                                             @Messages("salon.selectRestDays")
                                             <input type="checkbox" name="restDays.restDay1[0]" value="Monday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Monday")}.getOrElse(None)){checked}>@Messages("Monday")
@@ -279,12 +297,12 @@
                                             <input type="checkbox" name="restDays.restDay1[5]" value="Saturday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Saturday")}.getOrElse(None)){checked}>@Messages("Saturday")
                                             <input type="checkbox" name="restDays.restDay1[6]" value="Sunday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Sunday")}.getOrElse(None)){checked}>@Messages("Sunday")
                                         </div>
-                                        <div id="noRestDays_div" style="display: none;">
+                                        <div id="noRestDays_div" style="display:none;">
                                             @Messages("salon.EnterRestDays")
                                             <input type="text" name="restDays.restDay2[0]" >
                                         </div>
                                     }else{
-                                        <div id="restDays_div" style="display: none;">
+                                        <div id="restDays_div" style="display:none;">
                                             @Messages("salon.selectRestDays")
                                             <input type="checkbox" name="restDays.restDay1[0]" value="Monday" >@Messages("Monday")
                                             <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday" >@Messages("Tuesday")
@@ -352,7 +370,6 @@
 				</table>												
 				<div class="mT20 txtC">			
 					<input type = "submit" class = "buttons" value=@Messages("common.submit")>
-					<input type="reset" value=@Messages("common.reset")>
 				</div>
 			}
 		</div>

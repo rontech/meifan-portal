@@ -152,10 +152,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     }
             
     def javascriptRoutes = Action { implicit request =>
-    	Ok(Routes.javascriptRouter("jsRoutes")(
-            auth.routes.javascript.MyFollows.addFollow,
-            routes.javascript.Application.uploadWithAjax
-        )).as("text/javascript")
+    	Ok(Routes.javascriptRouter("jsRoutes")(auth.routes.javascript.MyFollows.addFollow)).as("text/javascript")
     }
     
     /**
@@ -175,22 +172,8 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
         }
     
     }
-
-    /**
-     * blog upload local image with ajax
-     * @return
-     */
-    def uploadWithAjax() = Action(parse.multipartFormData) {implicit request =>
-        request.body.file("photo").map{ photo =>
-            val db = MongoConnection()("Picture")
-            val gridFs = GridFS(db)
-            val uploadedFile = gridFs.createFile(photo.ref.file)
-            uploadedFile.contentType = photo.contentType.orNull
-            uploadedFile.save()
-            Ok(uploadedFile._id.get.toString)
-        }.getOrElse(BadRequest("no photo"))
-    }
-
+    
+    
 
 
     val imgForm : Form[ImgForCrop] =Form(
@@ -202,4 +185,13 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
             "w"->bigDecimal,
             "h"->bigDecimal)(ImgForCrop.apply)(ImgForCrop.unapply)
     )
+    
+    def getkeyWordsByajax(wordText:String) = Action{
+      println("get keyword.."+wordText)
+      val hotkeys = HotestKeyword.findHotestKeywordsByKW(wordText)
+      val keys: String = hotkeys.stringPrefix
+      println("keys "+hotkeys)
+      Ok(keys)
+      
+    }
 }

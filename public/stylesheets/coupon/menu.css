@@ -40,7 +40,7 @@ margin-bottom: 10px;
 
 .serviceItemArea {
 float: left;
-margin-right: 25px;
+min-width: 80px;
 }
 
 div.btnArea .buttons {

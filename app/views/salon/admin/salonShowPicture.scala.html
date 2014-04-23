@@ -6,36 +6,41 @@
 
 @mySalonMain("checkSalonInfo", salon){
 	<body>
-	@form(auth.routes.Salons.updateSalonPics(), 'id -> "styleAddForm"){
-	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-		<tbody>
-			 <tr>	
-				<th class="w222 ">
-				  <div class="dibBL vaM w154">
-				        @Messages("salon.showPic")
-				  </div>
-				</th>			 
-			 	<td>	
-					<div class="picture-show-description">
-						@picDescriptions(
-							salonPicsForm("picDescription"),
-							className = "salonShowPicsDes"
-							)
-					</div>
-				</td>
-			</tr>				        
-		</tbody>
-	</table>		
 	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
 		<tbody>	
 		</tbody>
 	</table>		
 	<div>
 		<ul class="bS menuBG cFix">
+			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonRegister">@Messages("salonCheckInfoState.register")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>		
             <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonLogoPicture">@Messages("salonCheckInfoState.uploadLogo")</a>
-			</li>
-			<li class="fr"><a href="@auth.routes.Salons.salonShowPics">@Messages("salonCheckInfoState.uploadpics")</a></li>
+				<a class="current-demo" href="@auth.routes.Salons.salonBasic">@Messages("salonCheckInfoState.basicInfo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonDetail"> @Messages("salonCheckInfoState.detail")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.pictures")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+		</ul>
+	</div>
+	@form(auth.routes.Salons.updateSalonPics(), 'id -> "styleAddForm"){		
+	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+		<tbody>	
+		</tbody>
+	</table>		
+	<div>
+		<ul class="bS menuBG cFix">
+			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.uploadpics")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>		
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonAtmoPicture">@Messages("salonCheckInfoState.uploadAtom")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonLogoPicture">@Messages("salonCheckInfoState.uploadLogo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonCheckPicture">@Messages("salonCheckInfoState.uploadStore")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
 		</ul>
 	</div>
 	<div class="demo">
@@ -59,7 +64,7 @@
 		</div>
 	</div>
 	<script language="javascript" type="text/javascript">
-			setTimeout("checkLogo()", 100);
+			setTimeout("checkLogo()", 500);
 	</script>
 	<div class="mT20 txtC">			
 		<input type = "submit" class = "buttons" value=@Messages("common.submit")>
@@ -86,8 +91,9 @@
    '_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
         )
         @field("picUse").value.map{picUse=>
-        @if(picUse == "LOGO"){
+        @if(picUse == "LOGO" || picUse == "Atmosphere"){
          @select(
+
             field ("picUse"), 
             options = options(
              "LOGO" -> Messages("salon.picUse.logo"),
@@ -98,18 +104,19 @@
              'placeholder -> Messages("salon.picUse"),
              '_help -> Messages(""),
              'class -> "picuseOfSalon"
+
          )
         }else{
          @select(
             field ("picUse"), 
             options = options(
-             "Navigate" -> Messages("salon.picUse.Navigate"),
-                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+             "Navigate" -> Messages("salon.picUse.Navigate")
             ),
              '_label -> None,
              'placeholder -> Messages("salon.picUse"),
              '_help -> Messages(""),
              'class -> "picuseOfSalon"
+
          )
         } 
         
@@ -117,14 +124,14 @@
          @select(
             field ("picUse"), 
             options = options(
-             "Navigate" -> Messages("salon.picUse.Navigate"),
-                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+             "Navigate" -> Messages("salon.picUse.Navigate")
             ),
              '_label -> None,
              'placeholder -> Messages("salon.picUse"),
              '_help -> Messages(""),
              'class -> "picuseOfSalon"
-         )
+		)
+
         }       
         @inputText(
             field("showPriority"), 
@@ -134,49 +141,21 @@
             field("description"),
             '_label -> None,
             'rows -> 2, 'cols -> 15, 
-            'placeholder -> Messages("onUserPicture.description"), 'class -> "imagesDescriptionfelid"
+            'placeholder -> Messages("onUserPicture.picDescrition"), 'class -> "imagesDescriptionfelid"
 )
         
     </div>
 
     </li>
 }
-@picDescriptions(field: Field, className: String = "salonPicDescription") = {
-	<div>
-	    @textarea(
-	            field("picTitle"),
-	            '_label -> Messages("salon.pic.title"),
-	            'rows -> 5, 'cols -> 40, 
-	            'placeholder -> Messages("onUserPicture.picTitle")   
-	            )
-    </div>        
-    <div>    
-	    @textarea(
-	            field("picContent"),
-	            '_label -> Messages("salon.pic.content"),
-	            'rows -> 5, 'cols -> 40, 
-	            'placeholder -> Messages("onUserPicture.description")
-	            )
-    </div>
-    <div>            
-	    @textarea(
-	            field("picFoot"),
-	            '_label -> Messages("salon.pic.foot"),
-	            'rows -> 5, 'cols -> 40 ,
-	            'placeholder -> Messages("onUserPicture.foot")
-	            )
-    </div>     
-}
 @views.html.salon.admin.salonSwfupload("")
 <script type="text/javascript" charset="utf-8">
 	function checkLogo(){
 		var $obj=$('.picuseOfSalon');
 		$obj.each(function(i){
-			if($(this).val()=='LOGO'){
+			 if($(this).val()=='LOGO' || $(this).val()=='Atmosphere' ){
 				$(this).parents("li").hide();
-				return true;
 				}
-			}
-		);
+		});
 	}
 </script>
