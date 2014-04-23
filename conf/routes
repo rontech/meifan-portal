@@ -267,14 +267,14 @@ POST        /imagesUpload                                                       
 GET         /forgotPassword                                                      controllers.Mails.forgotPassword
 POST        /forgotPassword                                                      controllers.Mails.sendMailForResetPwd
 
-GET         /s/forgotPassword                                                    controllers.Mails.forgotPasswordOfSalon
-POST        /s/forgotPassword                                                    controllers.Mails.sendMailForResetPwdOfSalon
+GET         /s/forgotPassword                                                      controllers.Mails.forgotPasswordOfSalon
+POST        /s/forgotPassword                                                      controllers.Mails.sendMailForResetPwdOfSalon
 
 GET         /resetPwd                                                            controllers.Mails.password(uuid : String)
 POST        /resetPwd                                                            controllers.Mails.resetPassword(uuid : String)
 
-GET         /s/resetPwd                                                          controllers.Mails.passwordOfSalon(uuid : String)
-POST        /s/resetPwd                                                          controllers.Mails.resetPasswordOfSalon(uuid : String)
+GET         /s/resetPwd                                                            controllers.Mails.passwordOfSalon(uuid : String)
+POST        /s/resetPwd                                                            controllers.Mails.resetPasswordOfSalon(uuid : String)
 
 #add salonPics 
 POST        /mySalon/updatepictures                                              controllers.auth.Salons.updateSalonPics
