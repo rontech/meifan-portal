@@ -178,7 +178,7 @@ GET         /myPage/removeSalon/:salonId                                        
 #Salon Management
 
 GET         /mySalon/salonInfo                                                   controllers.auth.Salons.salonInfoBasic
-POST        /mySalon/updateInfo                                                  controllers.auth.Salons.update(salonId: ObjectId)
+POST        /mySalon/updateInfo                                                  controllers.auth.Salons.salonRegisterUpdate(salonId: ObjectId)
 GET         /mySalon/updateLogo                                                  controllers.auth.Salons.saveSalonImg(imgId: ObjectId)
 POST        /mySalon/imageUpload                                                 controllers.auth.Salons.imageUpload
 GET         /mySalon/addImage                                                    controllers.auth.Salons.addImage
@@ -199,11 +199,11 @@ GET         /mySalon/removeStylist/:stylistId                                   
 GET         /mySalon/replyComment/:commentObjId/:commentObjType                  controllers.auth.Salons.replyBySalon(commentObjId : ObjectId, commentObjType : Int)
 # TODO
 GET         /mySalon/checkInfoState                                              controllers.auth.Salons.checkInfoState
-GET         /mySalon/salonShowPics                                               controllers.auth.Salons.salonShowPics
 
 GET         /salonBasic                                                          controllers.auth.Salons.salonBasic
 GET         /salonDetail                                                         controllers.auth.Salons.salonDetail
-POST        /salonConsum/:id                                                     controllers.auth.Salons.salonInfoConsum(id:ObjectId)
+POST        /salonbasicUpdate/:id                                                controllers.auth.Salons.salonbasicUpdate(id:ObjectId)
+POST        /salonDetailUpdate/:id                                               controllers.auth.Salons.salonDetailUpdate(id:ObjectId)
 POST        /changeSalonPassword                                                 controllers.auth.Salons.salonChangePassword(accountId : String)
 
 
@@ -257,8 +257,11 @@ GET         /salonRegisterMange                                                 
 GET         /assets/*file                                                        controllers.Assets.at(path="/public", file)
 
 
-#salon logo picture update by douping
+#salon  picture update by douping
 GET         /mySalon/salonLogoPicture                                            controllers.auth.Salons.salonLogoPicture
+GET         /mySalon/salonShowPicture                                            controllers.auth.Salons.salonShowPicture
+GET         /mySalon/salonAtmoPicture                                            controllers.auth.Salons.salonAtmoPicture
+GET         /mySalon/salonCheckPicture                                           controllers.auth.Salons.salonCheckPicture
 
 #swf fileupload by douping
 POST        /imagesUpload                                                        controllers.Application.fileUploadAction()
@@ -267,14 +270,14 @@ POST        /imagesUpload                                                       
 GET         /forgotPassword                                                      controllers.Mails.forgotPassword
 POST        /forgotPassword                                                      controllers.Mails.sendMailForResetPwd
 
-GET         /s/forgotPassword                                                    controllers.Mails.forgotPasswordOfSalon
-POST        /s/forgotPassword                                                    controllers.Mails.sendMailForResetPwdOfSalon
+GET         /s/forgotPassword                                                      controllers.Mails.forgotPasswordOfSalon
+POST        /s/forgotPassword                                                      controllers.Mails.sendMailForResetPwdOfSalon
 
 GET         /resetPwd                                                            controllers.Mails.password(uuid : String)
 POST        /resetPwd                                                            controllers.Mails.resetPassword(uuid : String)
 
-GET         /s/resetPwd                                                          controllers.Mails.passwordOfSalon(uuid : String)
-POST        /s/resetPwd                                                          controllers.Mails.resetPasswordOfSalon(uuid : String)
+GET         /s/resetPwd                                                            controllers.Mails.passwordOfSalon(uuid : String)
+POST        /s/resetPwd                                                            controllers.Mails.resetPasswordOfSalon(uuid : String)
 
 #add salonPics 
 POST        /mySalon/updatepictures                                              controllers.auth.Salons.updateSalonPics
@@ -294,8 +297,14 @@ GET         /salon/:salonId/map                                                 
 GET         /salonsearch                                                         controllers.noAuth.Salons.getSalonBySearch
 POST        /salonsearch                                                         controllers.noAuth.Salons.getSalonBySearch
 
+#to salon backstage style
+GET         /mySalon/styleItem/:styleId                                          controllers.auth.Salons.getbackstageStyleItem(styleId: ObjectId)
+
+#to stylist backstage style
+GET         /myPage/styleItem/:styleId/:stylistId                                controllers.noAuth.Stylists.getbackstageStyleItem(styleId: ObjectId,stylistId: ObjectId)
 
 #notice
 GET			/doc/notice													         controllers.noAuth.Notices.getOneNotice(noticeId: ObjectId)
 
 GET		/getkeyWordsByajax/:wordText													 controllers.Application.getkeyWordsByajax(wordText:String)
+

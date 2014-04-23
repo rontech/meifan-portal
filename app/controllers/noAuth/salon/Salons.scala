@@ -33,9 +33,9 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                 } {
                     salonAccount => Some(salonAccount.accountId, (salonAccount.password, ""))
                 },
-            "salonName" -> nonEmptyText.verifying(Messages("salon.salonNameNotAvaible"), salonName => !Salon.findOneBySalonName(salonName).nonEmpty),
+            "salonName" -> nonEmptyText(2,20).verifying(Messages("salon.salonNameNotAvaible"), salonName => !Salon.findOneBySalonName(salonName).nonEmpty),
             "salonNameAbbr" -> optional(text),
-            "salonIndustry" -> list(text),
+            "salonIndustry" -> list(nonEmptyText),
             "homepage" -> optional(text),
             "salonDescription" -> optional(text),
             "picDescription" -> optional(mapping(
@@ -43,7 +43,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                 "picContent" -> text,
                 "picFoot" -> text)(PicDescription.apply)(PicDescription.unapply)),
             "contactMethod" -> mapping(
-                "mainPhone" -> nonEmptyText,
+                "mainPhone" -> nonEmptyText.verifying(Messages("salon.phoneError"), email => email.matches("""\d{3}-\d{8}|\d{4}-\d{8}""")),
                 "contact" -> nonEmptyText,
                 "email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$""")))(Contact.apply)(Contact.unapply),
             "optContactMethods" -> list(
@@ -267,6 +267,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                     var style = Style.findByStylistId(stls.stylistId)
                     styles :::= style
                 }
+                styles.sortBy(_.createDate).reverse
                 // navigation bar
                 val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString()))
                 // Jump to stylists page in salon. 
@@ -445,7 +446,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
     }
     
     /**
-     * 发行前台检索
+     * 店铺前台检索
      */
     def getSalonBySearch = StackAction { implicit request =>
         val user = loggedIn
@@ -454,8 +455,6 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             {
                  case (salonSearchForm) => {
                      val salons = Salon.findSalonBySearchPara(salonSearchForm)
-//                     Ok(views.html.salon.salonSearchMain(salonSearchForm))
-//                     Ok(views.html.salon.search.salonSrchRstGroup(salons))
                      Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = salonSearchForm, salons = salons))
                  }
             }

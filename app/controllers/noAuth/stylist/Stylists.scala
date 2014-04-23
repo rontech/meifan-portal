@@ -85,6 +85,26 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
                 })
     }
   
+  /**
+   * 后台发型基本信息查看
+   */
+  def getbackstageStyleItem(styleId : ObjectId, stylistId : ObjectId) = StackAction {implicit request =>
+    val user = User.findOneById(stylistId).get
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    val style = Style.findOneById(styleId)
+    style match {
+        case Some(style) => {
+            loggedIn.map{loginUser =>
+                Ok(views.html.stylist.management.styleItem(user = user, followInfo = followInfo, loginUserId = loginUser.id , logged = true, style = style))
+            }getOrElse{
+                Ok(views.html.stylist.management.styleItem(user = user, followInfo = followInfo, loginUserId = new ObjectId , logged = false, style = style))
+                }
+        }
+        case None => NotFound
+    }
+    
+  }
+    
   def otherHomePage(stylistId: ObjectId) = StackAction { implicit request =>
      val user = User.findOneById(stylistId).get
      /*

@@ -21,7 +21,7 @@
                 @if(loginUserId.equals(user.id)){
                     @views.html.user.myPageHeader(navInMyPage, user)
                 }else{
-                    @views.html.user.myPageHeader(navInMyPage, user)
+                    @views.html.user.otherPageHeader(navInMyPage, user)
                 }
 	    		@content
        		</div>	        

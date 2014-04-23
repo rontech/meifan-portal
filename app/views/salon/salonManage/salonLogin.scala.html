@@ -33,7 +33,7 @@
 													<dt class="dibBL vaM w150 b fl">@Messages("salon.id")</dt>
 													<dd class="dibBL vaM w280">
 														@inputText(field = salonLogin("salonAccount.accountId"), '_label -> None, 'placeholder -> Messages("salon.login.accountId"), 'class -> "inputField",
-															'_error ->  salonLogin("salonAccount.accountId").error.map(_.withMessage(Messages("salon.login.accountId")))
+															'_error ->  salonLogin("salonAccount.accountId").error.map(_.withMessage(Messages("salon.login.accountId"))), '_help -> ""
 														)
 													</dd>
 													<dt class="dibBL vaM w150 b fl">@Messages("user.password")</dt>
