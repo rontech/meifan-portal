@@ -868,3 +868,25 @@ height: 100px;
 .h162 {
 	height: 162px;
 }
+
+.cR {
+	color: red;
+}
+
+.errorMsg{
+		color:red;
+		background-image:url(/assets/images/vadtion/unchecked.png);
+		background-repeat:no-repeat;
+		padding-left:20px;
+}
+.trueMsg{
+	color:green;
+	background-image:url(/assets/images/vadtion/checked.png);
+	background-repeat:no-repeat;
+	width: 15px;
+	height: 15px;
+}
+
+div.inputField {
+margin: 5px;
+}

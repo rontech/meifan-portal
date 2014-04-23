@@ -6,6 +6,24 @@
 @mySalonMain("detailInformation",salon){
 	
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
+	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+		<tbody>	
+		</tbody>
+	</table>		
+	<div>
+		<ul class="bS menuBG cFix">
+			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonRegister">@Messages("salonCheckInfoState.register")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>		
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonBasic">@Messages("salonCheckInfoState.basicInfo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonDetail"> @Messages("salonCheckInfoState.detail")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.pictures")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+		</ul>
+	</div>
 
 	<div class="salonRegister">
 		<div class="contentsTitleWrapper">
@@ -13,7 +31,7 @@
 		</div>
 
 		<div class="mT10 pH10">
-			@helper.form(action = auth.routes.Salons.salonInfoConsum(salon.id), args = 'id -> "salonForm"){
+			@helper.form(action = auth.routes.Salons.salonDetailUpdate(salon.id), args = 'id -> "salonForm"){
 				
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
@@ -37,15 +55,12 @@
 						<input type="hidden" name="workTime.openTime" readonly="readonly" value="@salon.workTime.map(time=>time.openTime).getOrElse(None)">
 						<input type="hidden" name="workTime.closeTime" readonly="readonly" value="@salon.workTime.map(time=>time.closeTime).getOrElse(None)">
 						@inputDate(salonForm("establishDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
-						@inputDate(salonForm("registerDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
-						<input type="hidden" name="picDescription.picTitle" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picTitle).getOrElse(None)">
-						<input type="hidden" name="picDescription.picContent" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picContent).getOrElse(None)">
-						<input type="hidden" name="picDescription.picFoot" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picFoot).getOrElse(None)">						
+						@inputDate(salonForm("registerDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))					
 				        <tr>
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.seatNums")
+				                   	<font color="cR">*</font>@Messages("salon.seatNums")
 				                </div>
 				            </th>
 				            <td>
@@ -195,6 +210,25 @@
 				        </tr>
 					</tbody>
 				</table>
+				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+					<tbody>
+						 <tr>	
+							<th class="w222 ">
+							  <div class="dibBL vaM w154">
+						        <font color="cR">*</font>@Messages("salon.showPic")
+							  </div>
+							</th>			 
+			 			<td>	
+							<div class="picture-show-description">
+								@picDescriptions(
+									salonForm("picDescription"),
+									className = "salonShowPicsDes"
+									)
+								</div>
+							</td>
+						</tr>				        
+					</tbody>
+				</table>				
 				<table cellspacing="0" class="display03">
 				    <tbody>
 				        <tr>
@@ -243,7 +277,6 @@
 				</table>						            				
 				<div class="mT20 txtC">			
 					<input type = "submit" class = "buttons" value=@Messages("common.submit")>
-					<input type="reset" value=@Messages("common.reset")>
 				</div>
 			}
 		</div>
@@ -339,6 +372,32 @@
 
     </li>
     }
+@picDescriptions(field: Field, className: String = "salonPicDescription") = {
+	<div>
+	    @textarea(
+	            field("picTitle"),
+	            '_label -> Messages("salon.pic.title"),
+	            'rows -> 5, 'cols -> 40, 
+	            'placeholder -> Messages("onUserPicture.picTitle")   
+	            )
+    </div>        
+    <div>    
+	    @textarea(
+	            field("picContent"),
+	            '_label -> Messages("salon.pic.content"),
+	            'rows -> 5, 'cols -> 40, 
+	            'placeholder -> Messages("onUserPicture.description")
+	            )
+    </div>
+    <div>            
+	    @textarea(
+	            field("picFoot"),
+	            '_label -> Messages("salon.pic.foot"),
+	            'rows -> 5, 'cols -> 40 ,
+	            'placeholder -> Messages("onUserPicture.foot")
+	            )
+    </div>     
+}
 
     <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
 	<script src="@routes.Assets.at("javascripts/ajaxfileupload.js")" type="text/javascript"></script>

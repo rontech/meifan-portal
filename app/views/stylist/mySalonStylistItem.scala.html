@@ -24,16 +24,33 @@
        	&nbsp;
       
         </span>
-  （@stylist.workYears
-  年）
+  @*（@stylist.workYears
+  年）*@
+  [@Messages("stylist.experienceYears", stylist.workYears)] 
     </div>
 </div>
 <div class="taC mT10">
-	<a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv">查看日程</a>
+	@*<a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv">查看日程</a>*@
 		<p>
-	    	<a href="@auth.routes.Salons.removeStylist(stylist.stylistId)">
+	    	@*<a href="@auth.routes.Salons.removeStylist(stylist.stylistId)">
 	    		@Messages("salonAdmin.removeStylist")
-	    	</a>
+	    	</a>*@
+	    	<a href="" class="removeStylist_@stylist.stylistId" data-stylist="@stylist.stylistId" >@Messages("salonAdmin.removeStylist")</a>
 	    </p>
 </div>
 </body>
+
+<script type="text/javascript">
+$('.removeStylist_@stylist.stylistId').click(function(e) {
+	  e.preventDefault();
+	  stylistId = $(this).data('stylist');
+    @*if(!confirm("关系解除后无法恢复，请确认是否解除关系？")){*@
+   	if(!confirm("@Messages("stylist.removeStylist")")){    
+  	return;
+    }else{
+      @*location.href="@auth.routes.Salons.removeStylist(stylistId)";*@
+      location.href="/mySalon/removeStylist/" + stylistId; 
+    } 
+	});
+
+</script>

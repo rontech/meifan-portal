@@ -328,16 +328,6 @@
 	height: 40px;
 }
 
-.contentsTitleInner {
-	height: 18px;
-	border-bottom: 1px solid #666666;
-	background: url(/CSP/img/bt/icons/icon_heading.png?switch=20140227) no-repeat 0 5px;
-	padding-left: 25px;
-	padding-bottom: 7px;
-	font-size: 16px;
-	font-weight: bold;
-	color: #444444;
-}
 .latestBlogtitle {
 	color: #665555;
 	background-color: #E4E0D9;
@@ -772,7 +762,7 @@ margin-bottom: 10px;
 
 .serviceItemArea {
 float: left;
-margin-right: 25px;
+min-width: 80px;
 }
 
 #couponForm > div.btnArea .buttons {

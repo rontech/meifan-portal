@@ -49,9 +49,11 @@ width: 150px;
 float: left;
 }
 
+/*
 dd.info {
 display: none;
 }
+*/
 
 .btn2H32:hover {
 background-position-y: -332px;
