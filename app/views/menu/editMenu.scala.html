@@ -2,35 +2,77 @@
 
 @import helper._
 
+<div class="contentsTitleWrapper">
+	<h2 class="contentsTitleInner">@Messages("menu.updateMenuArea")</h2>
+</div>
 @form(auth.routes.Menus.updateMenu(menu.id), 'id -> "menuForm") {
-	<legend class="mainTitle">@Messages("menu.createMenuArea")</legend>
-	<div class="menuInfo">
-		<input type="hidden" name="salonId" value="@salon.id"/>
-		@if(menuForm.hasGlobalErrors) { 
-              <div>
-                  <p align = center>@menuForm.globalError.get.message<p>
-              </div>
-         }
-		
-		@inputText(menuForm("menuName"), '_label -> Messages("menu.menuName"), 'readonly -> true)
-		
-		<fieldset class="serviceArea">
-			<legend>@Messages("coupon.serviceArea")</legend>
-			@input(field = menuForm("serviceItems"), args = '_label ->None, '_error -> menuForm("serviceItems").error.map(_.withMessage(Messages("menu.menuServiceRequired")))){(id,name,value,args) =>
-			 	@for(service <- services) {
-			 		<div class="serviceItemArea">
-				 		@if(Service.getServiceIdList(menu.serviceItems).contains(service.id)) {
-				 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id" checked ="checked">@service.serviceName
-				 		} else {
-				 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
-				 		}
-			 		</div>
-			 	}
-			  }
-		</fieldset>
-		
-		@textarea(menuForm("description"), '_label -> Messages("coupon.description"), '_error -> menuForm("description").error.map(_.withMessage(Messages("menu.menuDiscriptionErr"))))
-	</div>	
+	
+	@if(menuForm.hasGlobalErrors) { 
+          <div>
+              <p>@menuForm.globalError.get.message<p>
+          </div>
+     }
+	
+	<input type="hidden" name="salonId" value="@salon.id" />
+	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+	    <tbody>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("menu.menuName")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@inputText(menuForm("menuName"), '_label -> None, '_help -> Messages(""),
+						'_error -> menuForm("menuName").error.map(_.withMessage(Messages("menu.menuNameRequired"))))
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.serviceArea")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@input(field = menuForm("serviceItems"), args = '_label ->None, '_error -> menuForm("serviceItems").error.map(_.withMessage(Messages("menu.menuServiceRequired")))){(id,name,value,args) =>
+					 	@for(service <- services) {
+					 		<div class="serviceItemArea">
+						 		@if(Service.getServiceIdList(menu.serviceItems).contains(service.id)) {
+						 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id" checked ="checked">@service.serviceName
+						 		} else {
+						 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
+						 		}
+					 		</div>
+					 	}
+					  }
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.description")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@textarea(menuForm("description"), '_label -> None, 'rows -> 3, 'cols -> 50, '_help -> Messages("coupon.couponDiscriptionMsg"),
+						 '_error -> menuForm("description").error.map(_.withMessage(Messages("menu.menuDiscriptionErr"))))
+	                </div>
+	            </td>
+	        </tr>
+	     </tbody>
+	</table>
+	
 	
 	<div class="btnArea">
 		<input type = "submit" class = "buttons" value="@Messages("common.submit")">

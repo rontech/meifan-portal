@@ -17,6 +17,7 @@ common.sreach = 检索
 common.all=全部
 common.backToTop=返回顶部
 common.resetPassword = 找回密码
+common.requiredMsg = 不能为空
 
 # Index page
 index.mainPage=网站首页
@@ -349,6 +350,7 @@ coupon.useConditions = 使用条件
 coupon.presentTime = 出示时间
 coupon.description = 描述
 coupon.createCouponArea = 创建优惠劵区域
+coupon.updateCouponArea = 修改优惠劵区域
 coupon.createCoupon = 创建优惠劵
 coupon.serviceArea = 服务选择区域
 coupon.serviceDuration = 服务时长
@@ -359,12 +361,19 @@ coupon.expiredCoupon = 该优惠劵已过期
 coupon.couponNameRequired = 优惠劵名必须填写！
 coupon.couponNameRepeat = 优惠劵名已存在，请重新填写！
 coupon.couponServiceRequired = 请至少选择一个服务！
-coupon.perferentialPriceErr = 优惠价格必须填写并且必须为数字！
+coupon.perferentialPriceErr = 必须为数字
 coupon.startDateRequired = 开始时间必须填写！
 coupon.endDateRequired = 截至时间必须填写！
 coupon.useConditionsRequired = 使用条件必须填写！
 coupon.presentTimeRequired = 出示时间必须填写！
 coupon.couponDiscriptionErr = 填写必须10到100以内的字！
+coupon.startDateltEndMsg = 开始时间不能大于截至时间
+coupon.endDateGtStartMsg = 截止时间不能小于开始时间
+coupon.endDateGtstart = 截止时间需大于开始时间
+coupon.useConditionsMsg = 优惠劵使用条件，例如“不能和其他优惠劵使用”
+coupon.presentTimeMsg = 出示优惠劵时间，例如“消费前使用”
+coupon.couponDiscriptionMsg = 填写10到100以内的字
+
 
 menu.title = {0} 的菜单
 menu.tip = 没有找到您希望的菜单！
@@ -372,6 +381,7 @@ menu.addMark = +
 menu.appointment = 空缺查询·预约
 menu.todoMessage = 该位置显示服务的描述
 menu.createMenuArea = 创建菜单区域
+menu.updateMenuArea = 修改菜单区域
 menu.menuName = 菜单名
 menu.createMenu = 创建菜单
 menu.invalidCoupon = 该菜单已无效
