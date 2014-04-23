@@ -273,7 +273,7 @@ object InitialData {
     
     if(HotestKeyword.findAll.isEmpty){
       Seq(
-          HotestKeyword(new ObjectId,"烫发","HairSalon",1,true),
+    	  HotestKeyword(new ObjectId,"烫发","HairSalon",1,true),
           HotestKeyword(new ObjectId,"男士","HairSalon",2,true),
           HotestKeyword(new ObjectId,"千美","HairSalon",3,true),
           HotestKeyword(new ObjectId,"高新区","HairSalon",4,true),
@@ -282,8 +282,15 @@ object InitialData {
           HotestKeyword(new ObjectId,"剪","HairSalon",7,true),
           HotestKeyword(new ObjectId,"洗","HairSalon",8,true),
           HotestKeyword(new ObjectId,"美丽","HairSalon",9,true),
-          HotestKeyword(new ObjectId,"悦美","HairSalon",9,true)
-      ).foreach(HotestKeyword.save)
+          HotestKeyword(new ObjectId,"悦美","HairSalon",9,true),
+          HotestKeyword(new ObjectId,"悦美纤美","hairSalon",1,true),
+          HotestKeyword(new ObjectId,"悦美月容","hairSalon",1,true),
+          HotestKeyword(new ObjectId,"悦 美  彩","hairSalon",1,true),
+          HotestKeyword(new ObjectId,"剪发","hairSalon",1,true),
+          HotestKeyword(new ObjectId,"剪头发","hairSalon",1,true),
+          HotestKeyword(new ObjectId,"洗+剪+吹","hairSalon",1,true),
+          HotestKeyword(new ObjectId,"悦容美发","hairSalon",1,true)
+    	).foreach(HotestKeyword.save)
       
     }
   }

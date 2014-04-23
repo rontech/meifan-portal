@@ -136,18 +136,30 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
     Ok(views.html.stylist.cutImg(""))
   }
   
-  def checkStylistIsExist(userId: String) = Action {
+  def checkStylistIsExist(userId: String, salonId: ObjectId) = Action {
      val user = User.findOneByUserId(userId)
      user match {
-       case Some(user) => {
-         val stylist = Stylist.findOneById(user.id)
-         stylist match {
-           case Some(sty) => Ok("YES")
-           case None => Ok("NO")
-         }
-       }
-       case None => Ok("NO")
-     }
+      case Some(u) =>
+        val stylist = Stylist.findOneByStylistId(u.id)
+	      stylist match {
+	      case Some(sty) => {
+	        val isValid = SalonAndStylist.checkSalonAndStylistValid(salonId, sty.stylistId)
+	        if(isValid) {
+	          Ok("YES")
+	        } else {
+	          if(SalonAndStylist.findByStylistId(sty.stylistId).isEmpty) {
+	              Ok("YES")
+	          } else { 
+	            Ok("NO")
+	          }
+	        }
+	        
+	      } 
+	      case None => Ok("NO")
+	    }
+      case None => Ok("NO")
+    }
      
     }
+  
 }
