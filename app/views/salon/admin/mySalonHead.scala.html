@@ -4,17 +4,19 @@
 
     	<ul class="menuBG cFix">
 		<li class="fl">
-			<a href="@auth.routes.Salons.salonInfoBasic" >
+			<a href="@auth.routes.Salons.salonRegister" >
 		    	@Messages("salonAdmin.infoManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
+		@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
+		 	Salon.checkImgIsExist(salon)){			
 		<li class="fl">
 			<a href="@auth.routes.Salons.myStylist">
 		    	@Messages("salonAdmin.stylistManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
 		<li class="fl">
-			<a href="#">
+			<a href="@auth.routes.Salons.getAllStylesBySalon()">
 				@Messages("salonAdmin.styleManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
@@ -28,5 +30,27 @@
 				@Messages("salonAdmin.commentManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
+		}else{
+		<li class="fl">
+			<a>
+		    	@Messages("salonAdmin.stylistManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+		<li class="fl">
+			<a>
+				@Messages("salonAdmin.styleManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+		<li class="fl">
+			<a>
+				@Messages("salonAdmin.reserveManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>
+		<li class="fl">
+			<a>
+				@Messages("salonAdmin.commentManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>		
+		}
 		</ul>
 	<!-- ↑mainContents -->

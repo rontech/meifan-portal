@@ -6,6 +6,24 @@
 @mySalonMain("registerInformation",salon){
 	
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
+		<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+		<tbody>	
+		</tbody>
+	</table>		
+	<div>
+		<ul class="bS menuBG cFix">
+			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonRegister">@Messages("salonCheckInfoState.register")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>		
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonBasic">@Messages("salonCheckInfoState.basicInfo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+            <li class="fl">
+				<a class="current-demo" href="@auth.routes.Salons.salonDetail"> @Messages("salonCheckInfoState.detail")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.pictures")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+			</li>			
+		</ul>
+	</div>
 
 	<div class="salonRegister">
 		<div class="contentsTitleWrapper">
@@ -13,7 +31,7 @@
 		</div>
 
 		<div class="mT10 pH10">
-			@helper.form(action = auth.routes.Salons.salonInfoConsum(salon.id), 'id -> "salonRegister"){
+			@helper.form(action = auth.routes.Salons.salonRegisterUpdate(salon.id), 'id -> "salonRegister"){
 
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
@@ -61,7 +79,7 @@
 				            <td>
 				                @inputText(salonRegister("salonAccount.accountId"),'_label -> None, 'readonly -> "true",
 									 		'placeholder -> Messages("salon.login.accountId"),
-									 		'_help -> Messages("salon.register.accountId"),
+									 		'_help -> Messages("salon.registerMange.accountId"),
 									 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("salon.register.accountIdErr"))))
 				            </td>
 				        </tr>
@@ -88,7 +106,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("salonName"),'_label ->  None,'_help -> Messages("*"), 'readonly -> "true",
+				                	@inputText(salonRegister("salonName"),'_label ->  None,'_help -> Messages("salon.salonNameMange"), 'readonly -> "true",
 				                		'_error -> salonRegister("salonName").error.map(_.withMessage(Messages("salon.register.salonName"))))				             	
 				                </div>
 				            </td>
@@ -97,12 +115,12 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.type")
+				                   	<font color="cR">*</font>@Messages("salon.type")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None){(id,name,value,args) =>
+				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None,'_error -> salonRegister("salonIndustry").error.map(_.withMessage(Messages("salon.industryError")))){(id,name,value,args) =>
 								 	@for(i <- 0 to industry.length-1){
 								 		@if(salon.salonIndustry.contains(industry(i).industryName)){
 								 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
@@ -118,13 +136,13 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.mainPhone")
+				                   	<font color="cR">*</font>@Messages("salon.mainPhone")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contactMethod.mainPhone"), '_label -> None,'_help -> Messages("*"),
-				                		'_error -> salonRegister("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
+				                	@inputText(salonRegister("contactMethod.mainPhone"), '_label -> None,'_help -> Messages(""),
+				                		'_error -> salonRegister("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.phoneError"))))
 				                </div>
 				            </td>
 				        </tr>
@@ -132,12 +150,12 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.contact")
+				                   	<font color="cR">*</font>@Messages("salon.contact")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contactMethod.contact"), '_label -> None,'_help -> Messages("*"),
+				                	@inputText(salonRegister("contactMethod.contact"), '_label -> None,'_help -> Messages(""),
 				                		'_error -> salonRegister("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
 				                </div>
 				            </td>
@@ -146,12 +164,12 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("user.email")
+				                   	<font color="cR">*</font>@Messages("user.email")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contactMethod.email"), '_label -> None,'_help -> Messages("*"),
+				                	@inputText(salonRegister("contactMethod.email"), '_label -> None,'_help -> Messages(""),
 				                		'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.mailError"))))
 				                </div>
 				            </td>
@@ -288,7 +306,6 @@
 				</table>								
 				<div class="mT20 txtC">			
 					<input type = "submit" class = "buttons" value=@Messages("common.submit")>
-					<input type="reset" value=@Messages("common.reset")>
 				</div>
 			}
 

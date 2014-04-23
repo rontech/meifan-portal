@@ -23,21 +23,28 @@
 				        <tr>
 				            <th class="w222">
 				                <div class="dibBL vaM w160">
-				                    @Messages("salon.id")
+				                    <font color="cR">*</font>@Messages("salon.id")
 				                </div>
 				            </th>
 				            <td>
 				                @inputText(salonRegister("salonAccount.accountId"),'_label -> None,
+				                			'id -> "salonAccountId",
 									 		'placeholder -> Messages("salon.login.accountId"),
 									 		'_help -> Messages("salon.register.accountId"),
 									 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("salon.register.accountIdErr"))))
 				            </td>
+			            	<td rowspan="10">
+			            		<div class="mT20 txtC">
+			            			<span>@Messages("user.hasUserId")</span><br>
+			            			<a href="@auth.routes.Salons.salonLogin"><span>@Messages("user.loginBtn")</span></a>
+			            		</div>
+			            	</td>				            
 				        </tr>
 				        <tr>
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.password")
+				                   	<font color="cR">*</font>@Messages("salon.password")
 				                </div>
 				            </th>
 				            <td>
@@ -45,7 +52,7 @@
 				                	@inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,
 				                		'_help -> Messages("salon.register.password"),
 				                		'placeholder -> Messages("salon.login.password"),
-				                		'_error -> salonRegister("salonAccount.password.main").error.map(_.withMessage(Messages("user.passwordError"))))
+				                		'_error -> salonRegister("salonAccount.password.main").error.map(_.withMessage(Messages("salon.passwordError"))))
 				                </div>
 				            </td>
 				        </tr>
@@ -53,12 +60,12 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("user.confirmPas")
+				                   	<font color="cR">*</font>@Messages("user.confirmPas")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@inputPassword(salonRegister("salonAccount.password.confirm"),'_label -> None,'_help -> Messages("*"),'placeholder -> Messages("salon.confirmMessage"),
+				                	@inputPassword(salonRegister("salonAccount.password.confirm"),'_label -> None,'_help -> Messages(""),'placeholder -> Messages("salon.confirmMessage"),
 													'_error -> salonRegister.error("salonAccount.password"))
 				                </div>
 				            </td>
@@ -67,12 +74,12 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.Name")
+				                   	<font color="cR">*</font>@Messages("salon.Name")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("salonName"),'_label ->  None,'_help -> Messages("*"),
+				                	@inputText(salonRegister("salonName"),'_label ->  None,'_help -> Messages(""),
 				                		'_error -> salonRegister("salonName").error.map(_.withMessage(Messages("salon.register.salonName"))))				             	
 				                </div>
 				            </td>
@@ -81,12 +88,12 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.type")
+				                   	<font color="cR">*</font>@Messages("salon.type")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None){(id,name,value,args) =>
+				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None,'_error -> salonRegister("salonIndustry").error.map(_.withMessage(Messages("salon.industryError")))){(id,name,value,args) =>
 								 	@for(i <- 0 to industry.length-1){
 								 		<input type = "checkbox" class="" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
 								 	}
@@ -98,12 +105,12 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.mainPhone")
+				                   	<font color="cR">*</font>@Messages("salon.mainPhone")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contactMethod.mainPhone"), '_label -> None,'_help -> Messages("*"),
+				                	@inputText(salonRegister("contactMethod.mainPhone"), '_label -> None,'_help -> Messages("salon.mainPhone.Induce"),
 				                		'_error -> salonRegister("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
 				                </div>
 				            </td>
@@ -112,12 +119,12 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.contact")
+				                   	<font color="cR">*</font>@Messages("salon.contact")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contactMethod.contact"), '_label -> None,'_help -> Messages("*"),
+				                	@inputText(salonRegister("contactMethod.contact"), '_label -> None,'_help -> Messages(""),
 				                		'_error -> salonRegister("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
 				                </div>
 				            </td>
@@ -126,12 +133,12 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	@Messages("user.email")
+				                   	<font color="cR">*</font>@Messages("user.email")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contactMethod.email"), '_label -> None,'_help -> Messages("*"),
+				                	@inputText(salonRegister("contactMethod.email"), '_label -> None,'_help -> Messages(""),
 				                		'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.mailError"))))
 				                </div>
 				            </td>
@@ -143,8 +150,49 @@
 					<input type = "hidden" name="salonPics[0].picUse" value="LOGO"/>
 					<input type = "submit" class = "buttons" value=@Messages("user.registerBtn")>
 				</div>
+		  		<div class="mT20 txtC">
+					<a href= "#"><p>@Messages("salon.agreement")</p></a>
+		  		</div>				
 			}
 
 		</div>
 </div>
 }
+<script src="@routes.Assets.at("javascripts/stylist.js")" type="text/javascript"></script>
+<script type="text/javascript">
+
+ 
+ $('#salonAccountId').blur(function(){
+  var salonId = $('#salonAccountId').val();
+  var isname=/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/;
+  if(!isname.test(salonId)){
+   return;
+  }
+  var xhr = getXmlHttpRequest();
+  
+  xhr.open('get',
+       '/myPage/checkSalonIsExit/'+salonId,
+       true);
+        xhr.onreadystatechange=function(){
+            //step4 获取服务器返回的数据，更新页面
+            if(xhr.readyState == 4){
+                if(xhr.status == 200){
+                 var txt = xhr.responseText;
+                    if(txt == 'YES'){
+                     $('#salonAccountId  ~ .help-block').text('该ID已存在'); 
+                    }
+                    if(txt == 'NO'){
+                     alert('no');
+                    }
+                 
+                 
+                }else{
+                 alert('loading')
+                }
+            }else{
+             alert('error');
+            }
+        };
+        xhr.send(null);
+ });
+</script>

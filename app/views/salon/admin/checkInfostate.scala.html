@@ -34,8 +34,8 @@
                     @Messages("salonCheckInfoState.finish")
 	            </td>
                 <td>
-                	<a target="_blank" >
-                   --
+                	<a href="@auth.routes.Salons.salonRegister">
+                        @Messages("salonCheckInfoState.check")
                     </a>
                 </td>
             </tr>
@@ -119,11 +119,11 @@
                 </td>
                 <td>
                 	@if(Salon.checkImgIsExist(salon)){
-                		<a href="@auth.routes.Salons.salonShowPics">
+                		<a href="@auth.routes.Salons.salonShowPicture">
                         @Messages("salonCheckInfoState.check")
                     	</a>
                 	}else{
-                		<a href="@auth.routes.Salons.salonShowPics">
+                		<a href="@auth.routes.Salons.salonShowPicture">
                         @Messages("salonCheckInfoState.completeInfo")
                     	</a>
                 	}
@@ -142,8 +142,10 @@
 	            <a href="@noAuth.routes.Questions.getAllQuestions()">
 	            	@Messages("main.help")
 	            </a></br>
+            }else{
+            	<a href = >@Messages("stylist.submit")</a>            
             }
-            <a href = >@Messages("stylist.submit")</a>
+
         </span>
     </div>
 </div>

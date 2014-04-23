@@ -21,15 +21,22 @@
 
    			<!-- 店铺管理 -->
 			<div class='Mod Users' id='Fellows'>
-	   			<strong>@Messages("salonAdmin.mainPage")</strong>
+	   			<strong>@Messages("salonAdmin.mainPage")</strong>	   			
 	   			<div class='more'>
+			@if(!Salon.checkBasicInfoIsFill(salon) || !Salon.checkDetailIsFill(salon) ||
+		 		!Salon.checkImgIsExist(salon)){	   			
 		 			<a href="@auth.routes.Salons.checkInfoState">
 		 				<span>@Messages("salonCheckInfoState.createSalon")</span>
 		 			</a><br />
+		 			}
 		 	@if(Salon.checkBasicInfoIsFill(salon)){
 		 			<a href="@noAuth.routes.Salons.getSalon(salon.id)">
 		 				<span>@Messages("salon.getInSalon")</span>
 		 			</a><br />		 				
+		 	}else{
+		 			<a>
+		 				<span>@Messages("salon.getInSalon")</span>
+		 			</a><br />				 			
 		 			}					 			 					 					 			
 		 		</div>	
 		 		
@@ -40,22 +47,14 @@
 	   			<strong>@Messages("salonAdmin.infoManagement")</strong>
 	   			<div class='more'>
 		 			<a href="@auth.routes.Salons.salonRegister">
-		 				<span>@Messages("salonCheckInfoState.register")</span>
-		 			</a><br />
-		 			<a href="@auth.routes.Salons.salonBasic">
-		 				<span>@Messages("salonCheckInfoState.basicInfo")</span>
-		 			</a><br />
-		 			<a href="@auth.routes.Salons.salonDetail">
-		 				<span>@Messages("salonCheckInfoState.detail")</span>
-		 			</a><br />
-		 			<a href="@auth.routes.Salons.salonShowPics">
-		 				<span>@Messages("salonCheckInfoState.pictures")</span>
-		 			</a>		 					 					 			
+		 				<span>@Messages("salonCheckInfoState.basicInfoMange")</span>
+		 			</a><br />		 				   					 					 					 			
 		 		</div>	
 		 		
 			</div>
 			}
-		 	@if(Salon.checkBasicInfoIsFill(salon)){			
+			@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
+		 		Salon.checkImgIsExist(salon)){			
 			<!-- 技师管理 -->
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("salonAdmin.stylistManagement")</strong>
@@ -76,9 +75,7 @@
                 	</a>
     				</div>
 			</div>
-			}
-			<!-- 发型管理 -->			
-		 	@if(Salon.checkBasicInfoIsFill(salon)){			  			
+			<!-- 发型管理 -->						  			
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("salonAdmin.styleManagement")</strong>
 	  			<ul class='clearfix'>
@@ -89,10 +86,8 @@
 					<a href="@auth.routes.Salons.getAllStylesBySalon()">@Messages("stylistMag.showAllStyles")</a>
 				</div>
 			</div>
-			}
-			<!-- 预约管理 -->			
-		 	@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
-		 		Salon.checkImgIsExist(salon)){			
+
+			<!-- 预约管理 -->						
 			<div class='Mod Users' id='Fellows'>
     			<strong>@Messages("salonAdmin.reserveManagement")</strong>
 	  			<ul class='clearfix'>
@@ -125,10 +120,8 @@
 				
     			</div>
 			</div>
-			}
-			<!-- 评论管理 -->			
-		 	@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
-		 		Salon.checkImgIsExist(salon)){			
+
+			<!-- 评论管理 -->					
 			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.commentManagement")</strong>
 	   			<ul class='clearfix'>
@@ -139,9 +132,8 @@
        					<a href="@auth.routes.Salons.myComment">@Messages("salonAdmin.checkComment")</a>
      				</div>
 			</div>
-			}
-			<!-- 服务管理 -->			
-		 	@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon)){			
+
+			<!-- 服务管理 -->						
 			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.serviceManagement")</strong>
 	   			<ul class='clearfix'>
@@ -152,9 +144,8 @@
        					<a href="@auth.routes.Salons.myService">@Messages("salonAdmin.checkService")</a>
      				</div>
 			</div>
-			}
-			<!-- 优惠券管理 -->			
-		 	@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon)){			
+
+			<!-- 优惠券管理 -->						
 			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.couponManagement")</strong>
 	   			<ul class='clearfix'>
@@ -165,9 +156,8 @@
        					<a href="@auth.routes.Salons.myCoupon">@Messages("salonAdmin.checkCoupon")</a>
      				</div>
 			</div>
-			}
-			<!-- 菜单管理 -->			
-		 	@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon)){			
+
+			<!-- 菜单管理 -->						
 			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.menuManagement")</strong>
 	   			<ul class='clearfix'>
@@ -178,25 +168,121 @@
        					<a href="@auth.routes.Salons.myMenu">@Messages("salonAdmin.checkMenu")</a>
      				</div>
 			</div>
-			}
-			<!-- 动态管理 -->			
-		 	@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
-		 		Salon.checkImgIsExist(salon)){			
+			}else{
+			<!-- 技师管理 -->
 			<div class='Mod Users' id='Fellows'>
-	   			<strong>@Messages("salonAdmin.stateManagement")</strong>
+    			<strong>@Messages("salonAdmin.stylistManagement")</strong>
+				<ul class='clearfix'>
+	  				<li>
+    	 			</li>
+	  			</ul>
+	  			<div class='more'>
+    				<a>@Messages("salonAdmin.myStylist")
+    				(@SalonAndStylist.countStylistBySalon(salon.id))</a><br />
+    				<a>
+                	@Messages("salonAdmin.fromStylistApply")
+                	(
+                		 <span id="reviewCount">
+                               @SalonStylistApplyRecord.applingStylistCount(salon.id)
+                         </span>
+                	)
+                	</a>
+    				</div>
+			</div>
+			<!-- 发型管理 -->						  			
+			<div class='Mod Users' id='Fellows'>
+    			<strong>@Messages("salonAdmin.styleManagement")</strong>
+	  			<ul class='clearfix'>
+	  				<li>
+    	 			</li>
+	  			</ul>
+				<div class='more'>
+					<a>@Messages("stylistMag.showAllStyles")</a>
+				</div>
+			</div>
+
+			<!-- 预约管理 -->						
+			<div class='Mod Users' id='Fellows'>
+    			<strong>@Messages("salonAdmin.reserveManagement")</strong>
+	  			<ul class='clearfix'>
+	  				<li>
+    	 				<a></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    	 			</li>
+	  					
+    			</ul>
+				<div class='more'>
+					
+    			<a>@Messages("salonAdmin.needCommentRsv")
+    							(
+                            	<span id="reviewCount">
+                                0
+                            	</span>
+                            	)</a><br />
+				<a>@Messages("salonAdmin.overtimeRsv")
+                           	 (
+                            	<span id="reviewCount">
+                                1
+                            	</span>
+				)</a><br />
+				
+				<a>@Messages("salonAdmin.expireRsv")
+                           	(
+                            	<span id="reviewCount">
+                                0
+                            	</span>
+                            	)</a><br />
+				
+    			</div>
+			</div>
+
+			<!-- 评论管理 -->					
+			<div class='Mod Users' id='Fellows'>
+	   			<strong>@Messages("salonAdmin.commentManagement")</strong>
 	   			<ul class='clearfix'>
       				<li>
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-       					<a href="#">@Messages("salonAdmin.checkState")</a>
-     				</div>		 		
-     				<div class='more'>
-       					<a href="#">@Messages("user.myBlog")</a>
+       					<a>@Messages("salonAdmin.checkComment")</a>
      				</div>
-     				
 			</div>
-		}
+
+			<!-- 服务管理 -->						
+			<div class='Mod Users' id='Fellows'>
+	   			<strong>@Messages("salonAdmin.serviceManagement")</strong>
+	   			<ul class='clearfix'>
+      				<li>
+    	 			</li>
+	  			</ul>
+		 		<div class='more'>
+       					<a>@Messages("salonAdmin.checkService")</a>
+     				</div>
+			</div>
+
+			<!-- 优惠券管理 -->						
+			<div class='Mod Users' id='Fellows'>
+	   			<strong>@Messages("salonAdmin.couponManagement")</strong>
+	   			<ul class='clearfix'>
+      				<li>
+    	 			</li>
+	  			</ul>
+		 		<div class='more'>
+       					<a>@Messages("salonAdmin.checkCoupon")</a>
+     				</div>
+			</div>
+
+			<!-- 菜单管理 -->						
+			<div class='Mod Users' id='Fellows'>
+	   			<strong>@Messages("salonAdmin.menuManagement")</strong>
+	   			<ul class='clearfix'>
+      				<li>
+    	 			</li>
+	  			</ul>
+		 		<div class='more'>
+       					<a>@Messages("salonAdmin.checkMenu")</a>
+     				</div>
+			</div>			
+			}
 				<div class='RMod' id='UserSkills'>
 	  			<a href = "@auth.routes.Salons.salonLogout">@Messages("user.loginOut")</a>
 	  			</div>					
