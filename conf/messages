@@ -16,6 +16,8 @@ common.delete=删除
 common.sreach = 检索
 common.all=全部
 common.backToTop=返回顶部
+common.generalSearch = 搜索
+common.hotSearch = 热门搜索
 common.resetPassword = 找回密码
 common.requiredMsg = 不能为空
 
@@ -288,6 +290,7 @@ hair.rankingMens = 男士发型
 hair.headingAllMore = 综合排行榜  可见前20名
 hair.searchByF = 女士发型检索
 hair.searchByM = 男士发型检索
+hair.pictures=发型图片
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -436,6 +439,9 @@ stylist.stylistId = 用户ID
 stylist.workYears = 工作年数
 stylist.info = 技师专有信息
 stylist.removeStylist = 关系解除后无法恢复，请确认是否解除关系？
+stylist.rmSalon = 离开店铺后无法恢复，请确认是否离开店铺？
+stylist.rjtApply = 拒绝后无法恢复，请确认是否拒绝？
+stylist.actApply = 请确认是否同意！
 
 
 
@@ -477,6 +483,8 @@ stylistMag.futureResv = 近期预约
 stylistMag.lastBlog = 最新博客
 stylist.salon = 所属店铺
 stylist.style = 他的作品
+stylistMag.calApplying = 取消申请后无法恢复，请确认是否取消申请？
+stylistMag.wtApply = 请确认提交申请！
 
 
 
@@ -509,7 +517,7 @@ user.sexErr=请选择性别!
 user.city=城市
 user.job=职业
 user.email=电子邮箱
-user.tel=联系电话
+user.tel=手机
 user.weChat=微信
 user.login=用户登录
 user.password=密码
@@ -586,7 +594,13 @@ user.resetInfo = 点击下面的链接，重置密码
 user.loginUserIdErr = 请输入用户名！
 user.cancelBeStylist = 取消当前申请
 user.nickName = 1~10位字符！
-
+user.oldPasswordPress = 输入原始密码
+user.newPasswordPress = 输入新密码
+user.comfirmPasswordPress = 输入确认密码
+user.message.to = 收信人
+user.message.title = 标题
+user.message.content = 内容
+user.message.send = 发送
 
 #Mail
 mail.subjectOfResetPwd = 来自美范网的密码重置邮件

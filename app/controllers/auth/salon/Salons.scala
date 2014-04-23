@@ -337,7 +337,10 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   def myService = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
       val salon = loggedIn
       val serviceList = Service.findBySalonId(salon.id)
-      val serviceTypeNameList = ServiceType.findAllServiceType("Hairdressing")
+      var serviceTypeNameList: List[String] = Nil
+      salon.salonIndustry.map {industryName =>
+          serviceTypeNameList :::= ServiceType.findAllServiceType(industryName)
+      }
       val serviceTypeInserviceList = serviceList.map(service => service.serviceType)
       Ok(html.salon.admin.mySalonServiceAll(salon = salon, serviceList = serviceList, serviceTypeNameList = serviceTypeNameList, serviceTypeInserviceList = serviceTypeInserviceList))
   }
@@ -496,6 +499,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         stylists.map { sty =>
             styles :::= Style.findByStylistId(sty.stylistId)
         }
+        styles.sortBy(_.createDate).reverse
         Ok(html.salon.admin.mySalonStyles(salon = salon , styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true, isStylist = false, stylists = stylists))
   }
 
@@ -569,7 +573,19 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
                 }
             })
     }
-
+    
+    /**
+     * 后台发型基本信息查看
+     */
+    def getbackstageStyleItem(styleId : ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) {implicit request =>
+        val salon = loggedIn
+        val style = Style.findOneById(styleId)
+        style match {
+            case Some(style) => Ok(views.html.salon.admin.mySalonStyleItem(salon = salon, style = style))
+            case None => NotFound
+        }
+    }
+    
     /**
      * 店铺回复消费者的评论，后台逻辑
      */

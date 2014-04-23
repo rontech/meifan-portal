@@ -68,11 +68,19 @@ object User extends ModelCompanion[User, ObjectId] {
     // Find a user according to userId
     def findOneByUserId(userId: String): Option[User] = dao.findOne(MongoDBObject("userId" -> userId))
 
-    //
+    /**
+     * 昵称不可以重复
+     */
     def findOneByNickNm(nickName: String) = dao.findOne(MongoDBObject("nickName" -> nickName))
+    
+    /**
+     * 邮箱不可以重复
+     */
     def findOneByEmail(email: String) = dao.findOne(MongoDBObject("email" -> email))
 
-    //Check the password when logining
+    /**
+     * 登录时验证userId和password
+     */
     def authenticate(userId: String, password: String): Option[User] = {
         val user = dao.findOne(MongoDBObject("userId" -> userId))
         if (user.nonEmpty && BCrypt.checkpw(password, user.get.password)) {
@@ -101,5 +109,8 @@ object User extends ModelCompanion[User, ObjectId] {
      */
     def isFriend(userId: ObjectId)(user: User): Future[Boolean] = Future { (userId == user.id) || MyFollow.followEachOther(userId, user.id) }
     
+    /**
+     * 用于显示首页中美丽达人
+     */
     def findBeautyUsers = dao.find(MongoDBObject("userTyp" -> NORMAL_USER)).toList.sortBy(user =>user.activity)
 }

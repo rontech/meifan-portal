@@ -24,7 +24,6 @@ POST        /salonRegister                                                      
 # Common
 # get photo
 GET         /getPhoto/:name                                                      controllers.Application.getPhoto(name: ObjectId)
-GET         /getPhotoByString/:name                                              controllers.Application.getPhotoByString(name: String)
 POST        /upload                                                              controllers.Application.upload()
 #POST        /uploadWithAjax                                                      controllers.Application.uploadWithAjax
 POST        /changeLogo                                                          controllers.Application.changeLogo()
@@ -297,6 +296,11 @@ GET         /salon/:salonId/map                                                 
 GET         /salonsearch                                                         controllers.noAuth.Salons.getSalonBySearch
 POST        /salonsearch                                                         controllers.noAuth.Salons.getSalonBySearch
 
+#to salon backstage style
+GET         /mySalon/styleItem/:styleId                                          controllers.auth.Salons.getbackstageStyleItem(styleId: ObjectId)
+
+#to stylist backstage style
+GET         /myPage/styleItem/:styleId/:stylistId                                controllers.noAuth.Stylists.getbackstageStyleItem(styleId: ObjectId,stylistId: ObjectId)
 
 #notice
 GET			/doc/notice													         controllers.noAuth.Notices.getOneNotice(noticeId: ObjectId)

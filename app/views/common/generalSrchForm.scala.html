@@ -1,0 +1,35 @@
+@(nav: String = "Top")
+
+<div id="by_hot_search">
+    <div id="by">
+        @Messages("main.hairMessage")
+    </div>
+    <div id="top_search_hotlist">
+        <div id="top_search">
+            <form>
+                <div id="uboxstyle">
+                    <select name="select" id="select">
+                        <option value="@Messages("common.all")" @if(nav == "Top") {selected="selected"}> @Messages("common.all") </option>
+                        <option value="@Messages("main.hairSalon")" @if(nav == "HairSalon") {selected="selected"}> @Messages("main.hairSalon") </option>
+                        <option value="@Messages("main.hairCatalog")" @if(nav == "HairCatalog") {selected="selected"}> @Messages("main.hairCatalog") </option>
+                        <option value="@Messages("main.nailSalon")" @if(nav == "NailSalon") {selected="selected"}> @Messages("main.nailSalon") </option>
+                        <option value="@Messages("main.nailCatalog")" @if(nav == "NailCatalog") {selected="selected"}> @Messages("main.nailCatalog") </option>
+                        <option value="@Messages("main.relaxSalon")" @if(nav == "RelaxSalon") {selected="selected"}> @Messages("main.relaxSalon") </option>
+                        <option value="@Messages("main.estheSalon")" @if(nav == "EstheSalon") {selected="selected"}> @Messages("main.estheSalon") </option>
+                    </select>
+                </div>
+                <input name="" type="text" class="txt" value="请输入您要查找的内容" 
+                    onMouseOver="this.focus()" onfocus="this.select()" onClick="this.value=''" />
+                <input name="" type="button" value="搜 索" class="btn" />
+            </form>
+        </div>
+        <!--↓ Hottest Keyword-->
+        <div id="hotlist">
+            @Messages("common.hotSearch"):  
+            @for(kw <- HotestKeyword.findTopKeywordsOfDiv(nav, 5)) {
+                <a href="#"> @kw </a>
+            }
+       </div>
+       <!--↑ Hottest Keyword-->
+    </div>
+</div>
