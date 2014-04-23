@@ -41,7 +41,7 @@ object Mails extends Controller {
             "accountId" -> text
               )(Salon.findByAccountId)(_.map(s => (s.salonAccount.accountId))),        
       "newPassword" -> tuple(
-        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]{6,18}+$""")),
+        "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]{6,16}+$""")),
         "confirm" -> text).verifying(
         // Add an additional constraint: both passwords must match
         Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2)
