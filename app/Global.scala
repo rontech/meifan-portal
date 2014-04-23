@@ -270,6 +270,15 @@ object InitialData {
           SeatNums(21, 100)
       ).foreach(SeatNums.save)
     }
+    
+    if(HotestKeyword.findAll.isEmpty){
+      Seq(
+    		HotestKeyword(new ObjectId,"剪","hairSalon",1,true),
+    		HotestKeyword(new ObjectId,"洗","hairSalon",5,true),
+    		HotestKeyword(new ObjectId,"悦美","hairSalon",1,true)
+      ).foreach(HotestKeyword.save)
+      
+    }
   }
   /*---------------------------
    * Sample Data For Test. 
