@@ -15,7 +15,7 @@
 								<p class="fl fgLGray2 b mT2 mR8"> @salon.salonAddress.map(add=>add.accessMethodDesc).getOrElse(None) </p>
 							</div>
 							<p class="fr">
-								@if(logged.equals(false) || MyFollow.checkIfFollow(loginUserId,salon.id)){
+								@if(logged.equals(true) && MyFollow.checkIfFollow(loginUserId,salon.id)){
 						           <a href="@auth.routes.MyFollows.cancelFollow(salon.id)">@Messages("user.cancelFollow")</a>
 					            }else{
 						           <a href="javascript:void(0);" onclick="addFollow('@salon.id','salon')">@Messages("user.addFollow")</a>

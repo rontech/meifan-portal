@@ -30,13 +30,13 @@
 										<dd class="mT5 pT5">
 											<div class="pr">
 												<dl class="lh30">
-													<dt class="dibBL vaM w150 b fl">@Messages("user.name")</dt>
+													<dt class="dibBL vaM w150 b fl"><font class="cR">*</font>@Messages("user.name")</dt>
 													<dd class="dibBL vaM w280">
 														@inputText(field = loginForm("userId"), '_label -> None, 'placeholder -> Messages("user.name"), 'class -> "inputField",
 															'_error ->  loginForm("userId").error.map(_.withMessage(Messages("user.loginUserIdErr"))), '_help -> ""
 														)
 													</dd>
-													<dt class="dibBL vaM w150 b fl">@Messages("user.password")</dt>
+													<dt class="dibBL vaM w150 b fl"><font class="cR">*</font>@Messages("user.password")</dt>
 													<dd class="dibBL vaM w280">
 														@inputPassword(field = loginForm("password"), '_label -> None, 'placeholder ->Messages("user.password") ,
 																		'_error -> loginForm.globalError.map(_.withMessage(Messages("user.loginErr"))), 'class -> "inputField")
