@@ -383,8 +383,6 @@ coupon.endDateGtstart = 截止时间需大于开始时间
 coupon.useConditionsMsg = 优惠劵使用条件，例如“不能和其他优惠劵使用”
 coupon.presentTimeMsg = 出示优惠劵时间，例如“消费前使用”
 coupon.couponDiscriptionMsg = 填写10到100以内的字
-coupon.priceIndex=原价
-coupon.priceNow=现价
 
 menu.title = {0} 的菜单
 menu.tip = 没有找到您希望的菜单！
