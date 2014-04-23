@@ -12,6 +12,7 @@ import org.mindrot.jbcrypt.BCrypt
 import scala.concurrent.{ ExecutionContext, Future }
 import ExecutionContext.Implicits.global
 import com.mongodb.casbah.query.Imports._
+import com.mongodb.casbah.commons.Imports.{ DBObject => commonsDBObject }
 import play.Configuration
 
 /*
@@ -195,69 +196,76 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
      * 前台店铺检索
      */
     def findSalonBySearchPara(searchParaForSalon : SearchParaForSalon) = {
-        var salons : List[models.Salon] = Nil
-        var salonList : List[models.Salon] = Nil
-        //对salonFacilities条件进行变形
-        var canOnlineOrder = List(true,false)
-        var canImmediatelyOrder = List(true,false)
-        var canNominateOrder = List(true,false)
-        var canCurntDayOrder = List(true,false)
-        var canMaleUse = List(true,false)
-        var isPointAvailable = List(true,false)
-        var isPosAvailable = List(true,false)
-        var isWifiAvailable = List(true,false)
-        var hasParkingNearby = List(true,false)
-        if(searchParaForSalon.salonFacilities.canCurntDayOrder) {
-            canCurntDayOrder = List(true)
+        var salonSrchRst : List[SalonGeneralSrchRst] = Nil
+        var salons : List[Salon] = Nil
+        var salonList : List[Salon] = Nil
+
+        // List to save search conditions.
+        var srchConds: List[commonsDBObject] = Nil
+
+        // process parameters for salon facilities.
+        // if the checkbox in the general search page is checked, use it as a condition; otherwise, not use it. 
+        var faclty = searchParaForSalon.salonFacilities
+        if(faclty.canCurntDayOrder) { 
+          srchConds :::= List(commonsDBObject("salonFacilities.canCurntDayOrder" -> faclty.canCurntDayOrder))
         }
-        if(searchParaForSalon.salonFacilities.canImmediatelyOrder) {
-            canImmediatelyOrder = List(true)
+        if(faclty.canImmediatelyOrder) {
+          srchConds :::= List(commonsDBObject("salonFacilities.canImmediatelyOrder" -> faclty.canImmediatelyOrder))
         }
-        if(searchParaForSalon.salonFacilities.canMaleUse) {
-            canMaleUse = List(true)
+        if(faclty.canMaleUse) {
+          srchConds :::= List(commonsDBObject("salonFacilities.canMaleUse" -> faclty.canMaleUse))
         }
-        if(searchParaForSalon.salonFacilities.canNominateOrder) {
-            canNominateOrder = List(true)
+        if(faclty.canNominateOrder) {
+          srchConds :::= List(commonsDBObject("salonFacilities.canNominateOrder" -> faclty.canNominateOrder))
         }
-        if(searchParaForSalon.salonFacilities.canOnlineOrder) {
-            canOnlineOrder = List(true)
+        if(faclty.canOnlineOrder) {
+          srchConds :::= List(commonsDBObject("salonFacilities.canOnlineOrder" -> faclty.canOnlineOrder))
         }
-        if(searchParaForSalon.salonFacilities.hasParkingNearby) {
-            hasParkingNearby = List(true)
+        if(faclty.hasParkingNearby) {
+          srchConds :::= List(commonsDBObject("salonFacilities.hasParkingNearby" -> faclty.hasParkingNearby))
         }
-        if(searchParaForSalon.salonFacilities.isPointAvailable) {
-            isPointAvailable = List(true)
+        if(faclty.isPointAvailable) {
+          srchConds :::= List(commonsDBObject("salonFacilities.isPointAvailable" -> faclty.isPointAvailable))
         }
-        if(searchParaForSalon.salonFacilities.isPosAvailable) {
-            isPosAvailable = List(true)
+        if(faclty.isPosAvailable) {
+          srchConds :::= List(commonsDBObject("salonFacilities.isPosAvailable" -> faclty.isPosAvailable))
         }
-        if(searchParaForSalon.salonFacilities.isWifiAvailable) {
-            isWifiAvailable = List(true)
+        if(faclty.isWifiAvailable) {
+          srchConds :::= List(commonsDBObject("salonFacilities.isWifiAvailable" -> faclty.isWifiAvailable))
         }
-        //对region/salonName/salonIndustry/seatNums检索条件变形
-        //"_id" -> MongoDBObject("$exists" -> true)为恒成立条件
-        val region = if (searchParaForSalon.region.equals("all")) { "_id" -> MongoDBObject("$exists" -> true) } else { "salonAddress.region" -> searchParaForSalon.region }
-        val salonIndustry = if (searchParaForSalon.salonIndustry.equals("all")) { MongoDBObject.empty } else { "salonIndustry" $in List(searchParaForSalon.salonIndustry) }
-        val salonName = if (searchParaForSalon.salonName.isEmpty) { MongoDBObject.empty } else { "salonName" $in searchParaForSalon.salonName }
-        //以city/region/salonName/salonIndustry/seatNums/salonFacilities作为check条件
-        salonList = dao.find($and(
-            salonName,
-            salonIndustry,
-            "salonFacilities.canOnlineOrder" $in canOnlineOrder,
-            "salonFacilities.canImmediatelyOrder" $in canImmediatelyOrder,
-            "salonFacilities.canNominateOrder" $in canNominateOrder,
-            "salonFacilities.canCurntDayOrder" $in canCurntDayOrder,
-            "salonFacilities.canMaleUse" $in canMaleUse,
-            "salonFacilities.isPointAvailable" $in isPointAvailable,
-            "salonFacilities.isPosAvailable" $in isPosAvailable,
-            "salonFacilities.isWifiAvailable" $in isWifiAvailable,
-            "salonFacilities.hasParkingNearby" $in hasParkingNearby,
-            "seatNums" $lte searchParaForSalon.seatNums.maxNum $gte searchParaForSalon.seatNums.minNum,
-            MongoDBObject("salonAddress.city" -> searchParaForSalon.city,region))).toList
-        //以serviceType/haircutPrice作为check条件
+
+        // geo region
+        if (!searchParaForSalon.region.equals("all")) {
+          srchConds :::= List(commonsDBObject("salonAddress.region" -> searchParaForSalon.region))
+        }
+        // salon Industry: 
+        if (!searchParaForSalon.salonIndustry.equals("all")) {
+          srchConds :::= List("salonIndustry" $in List(searchParaForSalon.salonIndustry))
+        }
+        // salon Name: salon names shows in the search conditions checkboxs
+        if (!searchParaForSalon.salonName.isEmpty) {
+          srchConds :::= List("salonName" $in searchParaForSalon.salonName)
+        }
+
+        // salon seat numbers: Range between min and max.
+        srchConds :::= List("seatNums" $lte searchParaForSalon.seatNums.maxNum $gte searchParaForSalon.seatNums.minNum)
+        // City
+        srchConds :::= List(commonsDBObject("salonAddress.city" -> searchParaForSalon.city))
+
+        // keywords Array for Fuzzy search: will be joined with "$or" DSL operation.  
+        val fuzzyKws = contactKwdsToFuzzyConds(searchParaForSalon.keyWord.getOrElse(""))
+        // Join the normal conditions and fuzzy search keyword condition. 
+        val srchCondsWithFuzzyKws = if(!fuzzyKws.isEmpty) $and(srchConds ::: List($or(fuzzyKws))) else $and(srchConds)
+
+        // ------------------------------
+        // -  Do salon general search. 
+        // ------------------------------
+        salonList = dao.find(srchCondsWithFuzzyKws).toList
+
+        // 以serviceType/haircutPrice作为check条件
         if (searchParaForSalon.serviceType.nonEmpty) {
             salonList.map { salon =>
-                if(Service.findServiceTypeBySalonId(salon.id).intersect(searchParaForSalon.serviceType).length == searchParaForSalon.serviceType.length 
+                if((Service.findServiceTypeBySalonId(salon.id).intersect(searchParaForSalon.serviceType).length == searchParaForSalon.serviceType.length) 
                    && (searchParaForSalon.priceRange.minPrice <= findLowestPriceBySalonId(salon.id)) 
                    && (findLowestPriceBySalonId(salon.id) <= searchParaForSalon.priceRange.maxPrice)) {
                     salons ::= salon
@@ -271,7 +279,17 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
                 }
             }
         }
-        salons
+
+        for(sl <- salons) {
+          val selStyles = Style.getBestRsvedStylesInSalon(sl.id, 2)
+          val selCoupons = Coupon.findBySalon(sl.id)
+          val rvwStat = Comment.getGoodReviewsRate(sl.id)
+          val kwsHits = Nil
+          salonSrchRst :::= List(SalonGeneralSrchRst(salonInfo = sl, selectedStyles = selStyles, selectedCoupons = selCoupons,
+              reviewsStat = rvwStat, keywordsHitStrs = kwsHits))
+        }
+
+        salonSrchRst        
     }
 
 
@@ -293,13 +311,49 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
             val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|")}
             val kwsRegex =  kwsAry.mkString.dropRight(1).r
             // fields which search from 
-            val searchFields = Array("salonName", "salonNameAbbr", "salonDescription", "picDescription")
+            val searchFields = Array("salonName", "salonNameAbbr", "salonDescription", 
+                "picDescription.picTitle", "picDescription.picContent", "picDescription.picFoot")
             searchFields.map { sf => 
                 var s = dao.find(MongoDBObject(sf -> kwsRegex)).toList
                 rst :::= s
             }
             rst.distinct
         }
+    }
+
+
+    /**
+     * :
+     * Casbah Logical Operators: http://mongodb.github.io/casbah/guide/query_dsl.html
+     * for DSL $or/$and/$nor, we can join the conditions into a list:
+     *     $or( "price" $lt 5 $gt 1, "promotion" $eq true )
+     *     $or( ( "price" $lt 5 $gt 1 ) :: ( "stock" $gte 1 ) )
+     * So, we use this feature to make the search conditions.
+     * 
+     * Make salon general search keyword to fuzzy search conditions.
+     */
+    def contactKwdsToFuzzyConds(keyword: String): List[commonsDBObject] = {
+        var rst: List[commonsDBObject] = Nil 
+        // pre process for keyword: process the double byte blank to single byte blank.
+        val kws = keyword.replace("　"," ")
+        if(kws.replace(" ","").length == 0) {
+            // when keyword is not exist, return Nil.
+            rst
+        } else {
+            // when keyword is exist, convert it to regular expression.
+            val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|")}
+            val kwsRegex =  kwsAry.mkString.dropRight(1).r
+            // fields which search from 
+            val searchFields = Array("salonName", "salonNameAbbr", "salonDescription", 
+                "picDescription.picTitle", "picDescription.picContent", "picDescription.picFoot")
+            searchFields.map { sf => 
+                var s = commonsDBObject(sf -> kwsRegex)
+                rst :::= List(s)  
+            }
+            rst
+        }
+        // println($or(rst))
+        rst
     }
 
 

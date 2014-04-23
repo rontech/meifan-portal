@@ -26,7 +26,7 @@
         <!--↓ Hottest Keyword-->
         <div id="hotlist">
             @Messages("common.hotSearch"):  
-            @for(kw <- HotestKeyword.findTopKeywordsOfDiv(nav, 5)) {
+            @for(kw <- HotestKeyword.findTopKeywordsOfDiv(nav, 10)) {
                 <a href="#"> @kw </a>
             }
        </div>

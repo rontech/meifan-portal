@@ -206,6 +206,8 @@ salon.registerMange.accountId=店铺ID注册后不能修改
 salon.salonNameMange=店铺名称注册后不能修改
 salon.industryError=请至少选择一个行业
 salon.picUse.SalonCheck=店铺营业执照
+salon.reviewsRate=好评率: {0}%
+salon.reviewsTotalCnt=已有{0}人评价
 
 #salon management
 salonAdmin.mainPage = 店铺管理
