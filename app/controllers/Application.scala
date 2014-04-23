@@ -62,40 +62,17 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
 
             case None => {
               val fi = new File(play.Play.application().path() + "/public/images/user/dafaultLog/portrait.png")
-              var in = new FileInputStream(fi)
-              var bytes = Image.fileToBytes(in)
-              Ok(bytes)
+              if(fi.exists) {
+                var in = new FileInputStream(fi)
+                var bytes = Image.fileToBytes(in)
+                Ok(bytes)
+              } else {
+                Ok("")
+              }
             }
         }
     }
     
-    def getPhotoByString(sfile: String) = Action {
-
-        import com.mongodb.casbah.Implicits._
-        import ExecutionContext.Implicits.global
-        
-        val file = new ObjectId(sfile)
-
-        val db = MongoConnection()("Picture")
-        val gridFs = GridFS(db)
-        //println("get photo id "+ file)
-        gridFs.findOne(Map("_id" -> file)) match {
-            case Some(f) => SimpleResult(
-                ResponseHeader(OK, Map(
-                    CONTENT_LENGTH -> f.length.toString,
-                    CONTENT_TYPE -> f.contentType.getOrElse(BINARY),
-                    DATE -> new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", java.util.Locale.US).format(f.uploadDate))),
-                Enumerator.fromStream(f.inputStream))
-
-            case None => {
-              val fi = new File(play.Play.application().path() + "/public/images/user/dafaultLog/portrait.png")
-              var in = new FileInputStream(fi)
-              var bytes = Image.fileToBytes(in)
-              Ok(bytes)
-            }
-        }
-    }
-
     def upload = Action(parse.multipartFormData) { request =>
         request.body.file("photo") match {
             case Some(photo) =>
@@ -190,7 +167,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
       println("get keyword.."+wordText)
       val hotkeys = HotestKeyword.findHotestKeywordsByKW(wordText)
       if(hotkeys.isEmpty){
-         HotestKeyword.save(new HotestKeyword(new ObjectId,wordText,"hairSalon",(new Date).getTime(),true))
+         HotestKeyword.save(new HotestKeyword(new ObjectId,wordText,"hairSalon",1,true))
       }
       println(HotestKeyword.findAll.toList)
       var responseTxt = ""

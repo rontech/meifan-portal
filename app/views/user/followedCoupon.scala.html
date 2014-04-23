@@ -9,7 +9,7 @@
 } else {
     @for(coupon <- followInfo.followCoupon) {
     		<li class="couponItem">
-    		   @views.html.user.followItem.followCouponItem(coupon, beforeSevernDate)
+    		   @views.html.user.followItem.followCouponItem(coupon, beforeSevernDate, loginUserId)
         	</li>	
     	}
     }

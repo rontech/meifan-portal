@@ -15,7 +15,7 @@ import mongoContext._
  */
 object GeneralSrchDiv extends Enumeration {
   type GeneralSrchDiv= Value
-  val HairSalon, HairStyle, NailSalon, NailStyle, HealthSalon, CosmeSalon = Value 
+  val Top, HairSalon, HairCatalog, NailSalon, NailCatalog, RelaxSalon, EstheSalon = Value 
 }
 
 
@@ -77,6 +77,20 @@ trait HotestKeywordDAO extends ModelCompanion[HotestKeyword, ObjectId] {
             rst.distinct
         }
   } 
+
+  /**
+   * Get the hotest top N keywords.
+   */ 
+  def findTopKeywordsOfDiv(srchDiv: String = "Top", topN: Int = 0): List[String] = {
+    val cond = if(srchDiv == GeneralSrchDiv.Top.toString) MongoDBObject.empty else MongoDBObject("searchDiv" -> srchDiv) 
+    if(topN == 0) {
+      dao.find(cond).sort(MongoDBObject("hitTimes" -> -1)).toList.map {_.atomicKeyword}
+    } else {
+      dao.find(cond).sort(MongoDBObject("hitTimes" -> -1)).limit(topN).toList.map {_.atomicKeyword}
+    }
+
+  }
+
 }
 
 

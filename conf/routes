@@ -24,7 +24,6 @@ POST        /salonRegister                                                      
 # Common
 # get photo
 GET         /getPhoto/:name                                                      controllers.Application.getPhoto(name: ObjectId)
-GET         /getPhotoByString/:name                                              controllers.Application.getPhotoByString(name: String)
 POST        /upload                                                              controllers.Application.upload()
 #POST        /uploadWithAjax                                                      controllers.Application.uploadWithAjax
 POST        /changeLogo                                                          controllers.Application.changeLogo()

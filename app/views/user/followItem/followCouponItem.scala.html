@@ -1,4 +1,4 @@
-@(coupon: Coupon, beforeSevernDate: java.util.Date)
+@(coupon: Coupon, beforeSevernDate: java.util.Date, loginUserId: ObjectId)
 
       <script src="@routes.Assets.at("javascripts/jquery-1.5.1.js")" type="text/javascript"></script>
       <script src="@routes.Assets.at("javascripts/comment_dialog.js")" type="text/javascript"> </script>
@@ -139,14 +139,19 @@
                             </a>
                         </div>
                         <div class="mT8 taC">
-                            <a href="@auth.routes.MyFollows.cancelFollow(coupon.id)"
-                            class="iS arrowR">
-                                <font>
+                        	@if(MyFollow.checkIfFollow(loginUserId,coupon.id)){
+                        		<a href="@auth.routes.MyFollows.cancelFollow(coupon.id)" class="iS arrowR">
                                     <font>
                                         @Messages("user.deleteFollow")
                                     </font>
-                                </font>
-                            </a>
+                           		</a>
+                        	}else{
+                        		<a href="javascript:void(0);" onclick="addFollow('@coupon.id','coupon')" class="iS arrowR">
+                                    <font>
+                                        @Messages("user.addFollow")
+                                    </font>
+                           		</a>
+                        	}
                         </div>
                     </div>
                     <!-- TODO test by wu -->
