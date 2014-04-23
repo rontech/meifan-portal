@@ -380,7 +380,8 @@ coupon.endDateGtstart = 截止时间需大于开始时间
 coupon.useConditionsMsg = 优惠劵使用条件，例如“不能和其他优惠劵使用”
 coupon.presentTimeMsg = 出示优惠劵时间，例如“消费前使用”
 coupon.couponDiscriptionMsg = 填写10到100以内的字
-
+coupon.priceIndex=原价
+coupon.priceNow=现价
 
 menu.title = {0} 的菜单
 menu.tip = 没有找到您希望的菜单！
@@ -829,9 +830,8 @@ onUserPicture.description = 请填写沙龙简介
 onUserPicture.foot=请填写沙龙标注
 onUserPicture.picDescrition=请填写图片描述信息
 onUsePicture.selectImge = 选择文件
-onUsePicture.uploadImgSize = 建议上传图片尺寸：
-onUsePicture.size = 像素
-onUsePicture.WH = 950x320
+onUsePicture.uploadImgSize = 建议上传图片大小：
+onUsePicture.WH = ≤ 1M
 onUsePicture.process = 上传进度：
 onUsePicture.limit = 最多选择5张图片
 

@@ -30,7 +30,8 @@
 													@Messages("menu.addMark")	
 												}
                                             }
-                                            |@coupon.originalPrice @Messages("coupon.currency") => @coupon.perferentialPrice @Messages("coupon.currency")
+                                            |@Messages("coupon.priceIndex"):@coupon.originalPrice @Messages("coupon.currency")-- 
+                                            @Messages("coupon.priceNow")@coupon.perferentialPrice @Messages("coupon.currency")
                                         </font>
                                     </font>
                                 </p>
