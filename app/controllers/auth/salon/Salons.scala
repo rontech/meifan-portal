@@ -327,7 +327,10 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   def myService = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
       val salon = loggedIn
       val serviceList = Service.findBySalonId(salon.id)
-      val serviceTypeNameList = ServiceType.findAllServiceType("Hairdressing")
+      var serviceTypeNameList: List[String] = Nil
+      salon.salonIndustry.map {industryName =>
+          serviceTypeNameList :::= ServiceType.findAllServiceType(industryName)
+      }
       val serviceTypeInserviceList = serviceList.map(service => service.serviceType)
       Ok(html.salon.admin.mySalonServiceAll(salon = salon, serviceList = serviceList, serviceTypeNameList = serviceTypeNameList, serviceTypeInserviceList = serviceTypeInserviceList))
   }

@@ -489,7 +489,7 @@ user.sexErr=请选择性别!
 user.city=城市
 user.job=职业
 user.email=电子邮箱
-user.tel=联系电话
+user.tel=手机
 user.weChat=微信
 user.login=用户登录
 user.password=密码
@@ -566,7 +566,13 @@ user.resetInfo = 点击下面的链接，重置密码
 user.loginUserIdErr = 请输入用户名！
 user.cancelBeStylist = 取消当前申请
 user.nickName = 1~10位字符！
-
+user.oldPasswordPress = 输入原始密码
+user.newPasswordPress = 输入新密码
+user.comfirmPasswordPress = 输入确认密码
+user.message.to = 收信人
+user.message.title = 标题
+user.message.content = 内容
+user.message.send = 发送
 
 #Mail
 mail.subjectOfResetPwd = 来自美范网的密码重置邮件
