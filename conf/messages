@@ -16,6 +16,8 @@ common.delete=删除
 common.sreach = 检索
 common.all=全部
 common.backToTop=返回顶部
+common.generalSearch = 搜索
+common.hotSearch = 热门搜索
 
 # Index page
 index.mainPage=网站首页

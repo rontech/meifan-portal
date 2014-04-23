@@ -254,11 +254,11 @@ object InitialData {
     
     if(PriceRange.findAll.isEmpty){
        Seq(
-    	 PriceRange(0, 20),
-    	 PriceRange(21, 50),
-    	 PriceRange(51, 100),
-    	 PriceRange(101, 1000),
-    	 PriceRange(1001, 100000)
+         PriceRange(0, 20),
+         PriceRange(21, 50),
+         PriceRange(51, 100),
+         PriceRange(101, 1000),
+         PriceRange(1001, 100000)
        ).foreach(PriceRange.save)
     }
     
@@ -273,9 +273,16 @@ object InitialData {
     
     if(HotestKeyword.findAll.isEmpty){
       Seq(
-    		HotestKeyword(new ObjectId,"剪","hairSalon",1,true),
-    		HotestKeyword(new ObjectId,"洗","hairSalon",5,true),
-    		HotestKeyword(new ObjectId,"悦美","hairSalon",1,true)
+          HotestKeyword(new ObjectId,"烫发","HairSalon",1,true),
+          HotestKeyword(new ObjectId,"男士","HairSalon",2,true),
+          HotestKeyword(new ObjectId,"千美","HairSalon",3,true),
+          HotestKeyword(new ObjectId,"高新区","HairSalon",4,true),
+          HotestKeyword(new ObjectId,"苏州","HairSalon",5,true),
+          HotestKeyword(new ObjectId,"竹园路","HairSalon",6,true),
+          HotestKeyword(new ObjectId,"剪","HairSalon",7,true),
+          HotestKeyword(new ObjectId,"洗","HairSalon",8,true),
+          HotestKeyword(new ObjectId,"美丽","HairSalon",9,true),
+          HotestKeyword(new ObjectId,"悦美","HairSalon",9,true)
       ).foreach(HotestKeyword.save)
       
     }
@@ -658,8 +665,8 @@ object InitialData {
          Info(new ObjectId(), "责任说明", "基于技术和不可预见的原因而导致的服务中断，或者因会员的非法操作而造成的损失，美范网不负责任。会员应当自行承担一切因自身行为而直接或者间接导致的民事或刑事法律责任。", new ObjectId, Nil, new Date, 4, true),
          Info(new ObjectId(), "版权说明", "任何会员接受本注册协议，即表明该用户主动将其在任何时间段在本站发表的任何形式的信息的著作财产权，包括并不限于：复制权、发行权、出租权、展览权、表演权、放映权、广播权、信息网络传播权、摄制权、改编权、翻译权、汇编权以及应当由著作权人享有的其他可转让权利无偿独家转让给美范网运营商所 有，同时表明该会员许可美范网有权利就任何主体侵权而单独提起诉讼，并获得全部赔偿。本协议已经构成《著作权法》第二十五条所规定的书面协议，其效力及于用户在美范网发布的任何受著作权法保护的作品内容，无论该内容形成于本协议签订前还是本协议签订后。", new ObjectId, Nil, new Date, 4, true),
          Info(new ObjectId(), "侵权者政策", "对于被视为侵犯他人知识产权的任何用户，美范网可自行决定限制其对本网站的访问或终止其帐户。", new ObjectId, Nil, new Date, 4, true),
-		 Info(new ObjectId(), "通知", "美范网向用户发出的通知，采用电子邮件、手机短信、页面公告或常规信件的形式。服务条款的修改及其他事项的告知(包含但不限于注册结果通知、预订结果通知、手机验证通知等)，美范网将会以上述形式进行通知。", new ObjectId, Nil, new Date, 4, true),
-		 Info(new ObjectId(), "其他", "本协议条款在用户接受时对用户生效。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "通知", "美范网向用户发出的通知，采用电子邮件、手机短信、页面公告或常规信件的形式。服务条款的修改及其他事项的告知(包含但不限于注册结果通知、预订结果通知、手机验证通知等)，美范网将会以上述形式进行通知。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "其他", "本协议条款在用户接受时对用户生效。", new ObjectId, Nil, new Date, 4, true),
          Info(new ObjectId(), "用户隐私制度", "尊重用户个人隐私是本站的一项基本政策。所以，本站一定不会在未经合法用户授权时公开、编辑或透露其注册资料及保存在本站中的非公开内容。", new ObjectId, Nil, new Date, 5, true),
          Info(new ObjectId(), "用户的帐号，密码和安全性", "用户一旦注册成功，成为本站的合法用户，将得到一个密码和用户名。您可随时根据指示改变您的密码。用户需谨慎合理的保存、使用用户名和密码。用户若发现任何非法使用用户帐号或存在安全漏洞的情况，请立即通知本站和向公安机关报案。", new ObjectId, Nil, new Date, 5, true),
          Info(new ObjectId(), "对用户信息的存储和限制", "如果用户违背了国家法律法规规定或本协议约定，本站有视具体情形中止或终止对其提供网络服务的权利。", new ObjectId, Nil, new Date, 5, true),
@@ -873,8 +880,12 @@ object InitialData {
     // Test for Geting good review rate of a salon.
     println("salon good review rate = " + Comment.getGoodReviewsRate(new ObjectId("530d7288d7f2861457771bdd")))
 
+    // Test for Geting hottest keyword.
+    println("hotest keywords = " + HotestKeyword.findTopKeywordsOfDiv())
+    println("hotest keywords = " + HotestKeyword.findTopKeywordsOfDiv("Top"))
+    println("hotest keywords = " + HotestKeyword.findTopKeywordsOfDiv("Top", 8))
+    println("hotest keywords = " + HotestKeyword.findTopKeywordsOfDiv("HairSalon", 8))
+
     */
-
-
   }
 }
