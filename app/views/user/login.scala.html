@@ -4,100 +4,57 @@
 	
 	 @main(title = Messages("user.userLogin")) {
 	 	
-	 	<head>
-			<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/userLogin.css")">
-		</head>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/userLogin.css")">
 	 	
 	 	<div class="contentsTitleWrapper">
 	 		<h2 class="contentsTitleInner mT10">@Messages("user.login")</h2>
 	 	</div>
+	 	<div class=" w1" id="entry">
+		 	<div class="mc " id="bgDiv">
+		 		<div id="entry-bg">
+		 			<img src="@routes.Assets.at("images/login/dl_pic.jpg")"/>
+		 		</div>
+		 		<div class="form">
+		 			@form(action = auth.routes.Users.login(), 'method ->"post"){
+						<div class="item fore1">
+		                    <span>@Messages("user.name")</span>
+		                    <div class="item-ifo">
+		                        @inputText(field = loginForm("userId"), '_label -> None, 'placeholder -> Messages("user.name"), 'class -> "text",
+											'_error ->  loginForm("userId").error.map(_.withMessage(Messages("user.loginUserIdErr"))), '_help -> ""
+										)
+		
+		                        <div class="i-name ico"></div>
+		                        <label id="loginname_succeed" class="blank invisible succeed"></label>
+		                        <label id="loginname_error" class="focus"></label>
+		                    </div>
+		                </div>
+		                <div class="item fore2">
+	                    <span>@Messages("user.password")</span>
+	                    <div class="item-ifo">
+	                        @inputPassword(field = loginForm("password"), '_label -> None, 'placeholder ->Messages("user.password"), 'class -> "text",
+							 '_error -> loginForm.globalError.map(_.withMessage(Messages("user.loginErr"))))
+	
+	                        <div class="i-pass ico"></div>
+	                        <label id="loginpwd_succeed" class="blank invisible"></label>
+	                        <label id="loginpwd_error" class="hide"></label>
+	                    </div>
+	                </div>
+	                <div class="item fore4" id="autoentry">
+	                    <div class="item-ifo">
+	                        <label><a href="@routes.Mails.forgotPassword" class="" title="@Messages("user.forgetPassword")">@Messages("user.forgetPassword")</a></label>
+	                        <div class="clr"></div>
+	                    </div>
+	                </div>
+	                <div class="item login-btn2013">
+	                    <input type= "submit" class = "btn-img btn-entry" value="@Messages("user.loginBtn")">
+	                </div>
+				}
+		 		</div>
+					
+		 	</div>
+	 	</div>
 	 	
-	 	<div class="cFix mT20">
-			<div class="loginRBox fl">
-				<div class="loginRBoxTop">
-					<dl class="loginRBoxBottom">
-						<dt>
-							<div>
-								<p class="b fs14"><font>@Messages("user.userLogin")</font></p>
-								<p><font><font class="">@Messages("user.loginMessage")</font></font></p>
-							</div>
-						</dt>
-						<dd class="mT5 pT5">
-							<div class="pr">
-								<dl class="lh30">
-									@form(action = auth.routes.Users.login(), 'method ->"post"){
-										
-										<dd class="mT5 pT5">
-											<div class="pr">
-												<dl class="lh30">
-													<dt class="dibBL vaM w150 b fl"><font class="cR">*</font>@Messages("user.name")</dt>
-													<dd class="dibBL vaM w280">
-														@inputText(field = loginForm("userId"), '_label -> None, 'placeholder -> Messages("user.name"), 'class -> "inputField",
-															'_error ->  loginForm("userId").error.map(_.withMessage(Messages("user.loginUserIdErr"))), '_help -> ""
-														)
-													</dd>
-													<dt class="dibBL vaM w150 b fl"><font class="cR">*</font>@Messages("user.password")</dt>
-													<dd class="dibBL vaM w280">
-														@inputPassword(field = loginForm("password"), '_label -> None, 'placeholder ->Messages("user.password") ,
-																		'_error -> loginForm.globalError.map(_.withMessage(Messages("user.loginErr"))), 'class -> "inputField")
-													</dd>
-												</dl>
-											</div>
-										</dd>
-										<div class="mT15">
-											<span class="btn btn2H32 w194 mHA">
-												<span>
-													<input type= "submit" class = "loginbuttons" value="@Messages("user.loginBtn")">												
-												</span>
-											</span>
-										</div>
-			 						}	
-								</dl>
-							</div>
-						</dd>
-						<div class="mT10 taR">
-							<p><a href="@routes.Mails.forgotPassword" id="pwRemindLink" title="@Messages("user.forgetPassword")"><font><font>@Messages("user.forgetPassword")</font></font></a></p>
-						</div>
-						</dd>
-					</dl>
-				</div>
-			</div>
-			<div class="loginRBox fr">
-				<div class="loginRBoxTop">
-				    <dl class="loginRBoxBottom">
-				        <dt class="b fs14">
-				            <font>
-				                @Messages("user.newUser")
-				            </font>
-				        </dt>
-				        <dd class="mT5 pT10 taC">
-				            <p class="dibBL taL">
-				                <font>
-				                    @Messages("user.registerMessage1")
-				                </font>
-				                <br>
-				                <font>
-				                    @Messages("user.registerMessage2")
-				                </font>
-				                <br>
-				                <font>
-				                    @Messages("user.registerMessage3")
-				                </font>
-				            </p>
-				        </dd>
-				        <dd class="mT10 mB10">
-				            <div>
-				                <span class="btn btn2H32 w194 mHA">
-				                	<span>
-				                		<a href="@routes.Application.register()" class="w194">
-					                        <input type="button" class="loginbuttons w194" value="@Messages("user.registerBtn")">
-					                    </a>
-				                	</span>
-				                </span>
-				            </div>
-				        </dd>
-				    </dl>
-				</div>
-			</div>
-		</div>
+	 	<div class="free-regist">
+            <span><a href="@routes.Application.register()" >@Messages("user.registerBtn")</a></span>
+        </div>
 	 }
