@@ -6,12 +6,27 @@
            <input type="hidden" name="userMessage.senderNm" value="@loginUser.nickName">
            <input type="hidden" name="userMessage.addressee" value="@user.userId">
            <label>收信人</label>
-           <input type="text" name="userMessage.addresseeNm" value="@user.nickName"><br/>
+           <input type="text" name="userMessage.addresseeNm" value="@user.nickName" readonly=true><br/>
            <label>标题</label>
-           <input type="text" name="message.title"><br/>
+           <input type="text" name="message.title" id="title"><br/>
            <label>内容</label><br/>
-           <textarea cols="60" rows="10" name="message.content"></textarea>
-           <input type="submit" value="发送">
+           <textarea cols="60" rows="10" name="message.content" id="content"></textarea>
+           <input type="submit" value="发送" onclick="return checkNoEmpty();">
        }
    </div>
+<script type="text/javascript">
+    function checkNoEmpty(){
+        var title = document.getElementById("title" ).value;
+        if (title.trim() == "" ){;
+            alert("请输入私信的标题。");
+            return false;
+        }
 
+        var content = document.getElementById("content").value;
+        if (content.trim() == "" ){
+            alert("请输入私信的内容。");
+            return false;
+        }
+        return true;
+    }
+</script>
