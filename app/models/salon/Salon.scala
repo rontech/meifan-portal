@@ -12,6 +12,7 @@ import org.mindrot.jbcrypt.BCrypt
 import scala.concurrent.{ ExecutionContext, Future }
 import ExecutionContext.Implicits.global
 import com.mongodb.casbah.query.Imports._
+import com.mongodb.casbah.commons.Imports.{ DBObject => commonsDBObject }
 import play.Configuration
 
 /*
@@ -226,20 +227,27 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
         val salonIndustry = if (searchParaForSalon.salonIndustry.equals("all")) { MongoDBObject.empty } else { "salonIndustry" $in List(searchParaForSalon.salonIndustry) }
         val salonName = if (searchParaForSalon.salonName.isEmpty) { MongoDBObject.empty } else { "salonName" $in searchParaForSalon.salonName }
         //以city/region/salonName/salonIndustry/seatNums/salonFacilities作为check条件
-        salonList = dao.find($and(
-            salonName,
-            salonIndustry,
-            "salonFacilities.canOnlineOrder" $in canOnlineOrder,
-            "salonFacilities.canImmediatelyOrder" $in canImmediatelyOrder,
-            "salonFacilities.canNominateOrder" $in canNominateOrder,
-            "salonFacilities.canCurntDayOrder" $in canCurntDayOrder,
-            "salonFacilities.canMaleUse" $in canMaleUse,
-            "salonFacilities.isPointAvailable" $in isPointAvailable,
-            "salonFacilities.isPosAvailable" $in isPosAvailable,
-            "salonFacilities.isWifiAvailable" $in isWifiAvailable,
-            "salonFacilities.hasParkingNearby" $in hasParkingNearby,
-            "seatNums" $lte searchParaForSalon.seatNums.maxNum $gte searchParaForSalon.seatNums.minNum,
-            MongoDBObject("salonAddress.city" -> searchParaForSalon.city,region))).toList
+
+        val srchConds = salonName ::
+           salonIndustry ::
+           ("salonFacilities.canOnlineOrder" $in canOnlineOrder) ::
+           ("salonFacilities.canImmediatelyOrder" $in canImmediatelyOrder) ::
+           ("salonFacilities.canNominateOrder" $in canNominateOrder) ::
+           ("salonFacilities.canCurntDayOrder" $in canCurntDayOrder) ::
+           ("salonFacilities.canMaleUse" $in canMaleUse) ::
+           ("salonFacilities.isPointAvailable" $in isPointAvailable) ::
+           ("salonFacilities.isPosAvailable" $in isPosAvailable) ::
+           ("salonFacilities.isWifiAvailable" $in isWifiAvailable) ::
+           ("salonFacilities.hasParkingNearby" $in hasParkingNearby) ::
+           ("seatNums" $lte searchParaForSalon.seatNums.maxNum $gte searchParaForSalon.seatNums.minNum) ::
+           MongoDBObject("salonAddress.city" -> searchParaForSalon.city, region) :: Nil
+
+        // keywords for Fuzzy search  
+        val fuzzyKws = contactKwdsToFuzzyConds(searchParaForSalon.keyWord.getOrElse(""))
+
+        val srchCondsWithFuzzyKws = if(!fuzzyKws.isEmpty) $and(srchConds ::: List($or(fuzzyKws))) else $and(srchConds)
+        salonList = dao.find(srchCondsWithFuzzyKws).toList
+
         //以serviceType/haircutPrice作为check条件
         if (searchParaForSalon.serviceType.nonEmpty) {
             salonList.map { salon =>
@@ -279,13 +287,49 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
             val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|")}
             val kwsRegex =  kwsAry.mkString.dropRight(1).r
             // fields which search from 
-            val searchFields = Array("salonName", "salonNameAbbr", "salonDescription", "picDescription")
+            val searchFields = Array("salonName", "salonNameAbbr", "salonDescription", 
+                "picDescription.picTitle", "picDescription.picContent", "picDescription.picFoot")
             searchFields.map { sf => 
                 var s = dao.find(MongoDBObject(sf -> kwsRegex)).toList
                 rst :::= s
             }
             rst.distinct
         }
+    }
+
+
+    /**
+     * :
+     * Casbah Logical Operators: http://mongodb.github.io/casbah/guide/query_dsl.html
+     * for DSL $or/$and/$nor, we can join the conditions into a list:
+     *     $or( "price" $lt 5 $gt 1, "promotion" $eq true )
+     *     $or( ( "price" $lt 5 $gt 1 ) :: ( "stock" $gte 1 ) )
+     * So, we use this feature to make the search conditions.
+     * 
+     * Make salon general search keyword to fuzzy search conditions.
+     */
+    def contactKwdsToFuzzyConds(keyword: String): List[commonsDBObject] = {
+        var rst: List[commonsDBObject] = Nil 
+        // pre process for keyword: process the double byte blank to single byte blank.
+        val kws = keyword.replace("　"," ")
+        if(kws.replace(" ","").length == 0) {
+            // when keyword is not exist, return Nil.
+            rst
+        } else {
+            // when keyword is exist, convert it to regular expression.
+            val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|")}
+            val kwsRegex =  kwsAry.mkString.dropRight(1).r
+            // fields which search from 
+            val searchFields = Array("salonName", "salonNameAbbr", "salonDescription", 
+                "picDescription.picTitle", "picDescription.picContent", "picDescription.picFoot")
+            searchFields.map { sf => 
+                var s = commonsDBObject(sf -> kwsRegex)
+                rst :::= List(s)  
+            }
+            rst
+        }
+        // println($or(rst))
+        rst
     }
 
 

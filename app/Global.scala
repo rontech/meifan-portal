@@ -887,5 +887,9 @@ object InitialData {
     println("hotest keywords = " + HotestKeyword.findTopKeywordsOfDiv("HairSalon", 8))
 
     */
+    println("general salon search = " + Salon.contactKwdsToFuzzyConds("千美悦美"))
+    println("general salon search = " + Salon.contactKwdsToFuzzyConds("千美 悦美"))
+    println("general salon search = " + Salon.contactKwdsToFuzzyConds("千美　悦美"))
+
   }
 }
