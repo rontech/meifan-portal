@@ -80,14 +80,14 @@ object InitialData {
     
     if(ServiceType.findAll.isEmpty) {
         Seq (
-          ServiceType(new ObjectId("5316798cd4d5cb7e816db34b"), "Cut", "剪"),
-          ServiceType(new ObjectId("53167a91d4d5cb7e816db34d"), "Wash", "洗"),
-          ServiceType(new ObjectId("53167abbd4d5cb7e816db34f"), "Blow", "吹"),
-          ServiceType(new ObjectId("53167aced4d5cb7e816db351"), "Dye", "染"),
-          ServiceType(new ObjectId("53167ad9d4d5cb7e816db353"), "Care", "护理"),
-          ServiceType(new ObjectId("53167ae7d4d5cb7e816db355"), "Perm", "烫"),
-          ServiceType(new ObjectId("53167b3cd4d5cb7e816db359"), "Supple", "柔顺"),
-          ServiceType(new ObjectId("5316c443d4d57997ce3e6d68"), "Other", "其他")
+          ServiceType(new ObjectId("5316798cd4d5cb7e816db34b"),"Hairdressing", "Cut", "剪"),
+          ServiceType(new ObjectId("53167a91d4d5cb7e816db34d"),"Hairdressing", "Wash", "洗"),
+          ServiceType(new ObjectId("53167abbd4d5cb7e816db34f"), "Hairdressing","Blow", "吹"),
+          ServiceType(new ObjectId("53167aced4d5cb7e816db351"), "Hairdressing","Dye", "染"),
+          ServiceType(new ObjectId("53167ad9d4d5cb7e816db353"), "Hairdressing", "Care", "护理"),
+          ServiceType(new ObjectId("53167ae7d4d5cb7e816db355"), "Hairdressing", "Perm", "烫"),
+          ServiceType(new ObjectId("53167b3cd4d5cb7e816db359"), "Hairdressing", "Supple", "柔顺"),
+          ServiceType(new ObjectId("5316c443d4d57997ce3e6d68"), "Hairdressing", "Other", "其他")
         ).foreach(ServiceType.save)
     }
     
@@ -205,7 +205,10 @@ object InitialData {
         ContMethodType(new ObjectId, "QQ", "QQ"),
         ContMethodType(new ObjectId, "MSN", "MSN"),
         ContMethodType(new ObjectId, "we-chat", "微信"),
-        ContMethodType(new ObjectId, "other", "其他联系方式")
+        ContMethodType(new ObjectId, "skype", "Skype"),
+        ContMethodType(new ObjectId, "fetion", "Fetion"),
+        ContMethodType(new ObjectId, "YY", "YY语音"),
+        ContMethodType(new ObjectId, "line", "line")
       ).foreach(ContMethodType.save)
     }
 
@@ -266,6 +269,15 @@ object InitialData {
           SeatNums(11, 20),
           SeatNums(21, 100)
       ).foreach(SeatNums.save)
+    }
+    
+    if(HotestKeyword.findAll.isEmpty){
+      Seq(
+    		HotestKeyword(new ObjectId,"剪","hairSalon",1,true),
+    		HotestKeyword(new ObjectId,"洗","hairSalon",5,true),
+    		HotestKeyword(new ObjectId,"悦美","hairSalon",1,true)
+      ).foreach(HotestKeyword.save)
+      
     }
   }
   /*---------------------------

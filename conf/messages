@@ -821,7 +821,10 @@ onUsePicture.limit = 最多选择5张图片
 ContMethodType.contMethodTypeName.QQ = QQ
 ContMethodType.contMethodTypeName.MSN = MSN
 ContMethodType.contMethodTypeName.we-chat = 微信
-ContMethodType.contMethodTypeName.other = 其他联系方式
+ContMethodType.contMethodTypeName.skype = Skype
+ContMethodType.contMethodTypeName.fetion = 飞信
+ContMethodType.contMethodTypeName.YY = YY语音
+ContMethodType.contMethodTypeName.line = Line
 
 # reservation
 reservation.weekDay.1 = 日

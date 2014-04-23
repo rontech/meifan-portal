@@ -9,6 +9,7 @@ import se.radley.plugin.salat.Binders._
 
 case class ServiceType(
 		id: ObjectId = new ObjectId,
+		industryName : String,
 		serviceTypeName : String,
 		description : String
 		)
@@ -27,9 +28,9 @@ object ServiceType extends ModelCompanion[ServiceType, ObjectId]{
 	def findOneByTypeName(serviceTypeName: String): Option[ServiceType] = dao.findOne(MongoDBObject("serviceTypeName" -> serviceTypeName))
 	
 	/**
-	 * 获取所有服务类型名
+	 * 根据行业名获取该行业所有服务类型名
 	 */
-	def findAllServiceType = dao.find(MongoDBObject.empty).toList.map {
+	def findAllServiceType(industryName: String) = dao.find(MongoDBObject("industryName" -> industryName)).toList.map {
 		serviceType =>serviceType.serviceTypeName
 	}
 }

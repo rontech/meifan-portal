@@ -76,7 +76,7 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
             "serviceTypes" -> list(
              mapping (
                  "serviceTypeName" -> text
-             ){(serviceTypeName) => ServiceType(new ObjectId(), serviceTypeName, "")}
+             ){(serviceTypeName) => ServiceType(new ObjectId(), "Hairdressing", serviceTypeName, "")}
              {serviceType => Some((serviceType.serviceTypeName))}),
             "subMenuFlg" -> optional(text) 
       )(CouponServiceType.apply)(CouponServiceType.unapply)

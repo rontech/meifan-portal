@@ -26,7 +26,7 @@ POST        /salonRegister                                                      
 GET         /getPhoto/:name                                                      controllers.Application.getPhoto(name: ObjectId)
 GET         /getPhotoByString/:name                                              controllers.Application.getPhotoByString(name: String)
 POST        /upload                                                              controllers.Application.upload()
-POST        /uploadWithAjax                                                      controllers.Application.uploadWithAjax
+#POST        /uploadWithAjax                                                      controllers.Application.uploadWithAjax
 POST        /changeLogo                                                          controllers.Application.changeLogo()
 GET         /saveImg/:id                                                         controllers.auth.Users.saveImg(id :ObjectId)
 
@@ -294,5 +294,8 @@ GET         /salon/:salonId/map                                                 
 GET         /salonsearch                                                         controllers.noAuth.Salons.getSalonBySearch
 POST        /salonsearch                                                         controllers.noAuth.Salons.getSalonBySearch
 
+
 #notice
 GET			/doc/notice													         controllers.noAuth.Notices.getOneNotice(noticeId: ObjectId)
+
+GET		/getkeyWordsByajax/:wordText													 controllers.Application.getkeyWordsByajax(wordText:String)
