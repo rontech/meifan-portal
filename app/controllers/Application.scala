@@ -63,7 +63,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
             case ITEM_TYPE_ID =>
                 Ok((User.isExist(value, User.findOneByUserId)||Salon.isExist(value, Salon.findByAccountId)).toString)
             case ITEM_TYPE_NAME =>
-                Ok((User.isExist(value, User.findOneByNickNm)||Salon.isExist(value, Salon.findOneBySalonName)||Salon.isExist(value,Salon.findOneBySalonNameAbbr)).toString)
+                Ok((User.isExist(value, User.findOneByNickNm)||Salon.isExist(value, Salon.findOneBySalonName)||Salon.isExist(value, Salon.findOneBySalonNameAbbr)).toString)
             case ITEM_TYPE_EMAIL =>
                 Ok((User.isExist(value, User.findOneByEmail)||Salon.isExist(value, Salon.findOneByEmail)).toString)
             case ITEM_TYPE_TEL =>

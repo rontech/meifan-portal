@@ -4,7 +4,7 @@
 
 # Home page
 GET         /                                                                    controllers.Application.index
-GET        /checkForm/:value/:key                                                controllers.Application.itemIsExist(value, key)
+POST        /checkForm/:value/:key                                                controllers.Application.itemIsExist(value, key)
 
 # User Login & Register & Public Info.
 # Jump to User Login Page.
