@@ -1,0 +1,7 @@
+@(user :User, followInfo :FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false, style: Style)
+
+@import views.html.user._
+
+@myPageMain("styleItem", user, followInfo, loginUserId, logged ){
+	@views.html.style.admin.backstageStyleItem(style)
+}

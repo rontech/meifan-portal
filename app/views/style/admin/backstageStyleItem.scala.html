@@ -1,0 +1,166 @@
+@(style: Style)
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+<body>
+    <div>
+        <table cellspacing="0" class="wFull bdCell bgThNml fgThNml vaThT pCellV10H12">
+        <tbody>
+            <tr>
+                <th class="w120"> @Messages("hair.styleName") </th>
+                <td colspan="3" class="w620">
+                    <span class="mL5" style="background-color: #CC4466;display: block;color: white;text-align: left;">
+                        @style.styleName
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("hair.pictures") </th>
+                <td colspan="3" class="w620">
+                @style.stylePic.map {stylePic =>
+                    <li class="fl w91" style="list-style:none;">
+                        <span>
+                            <img src="@routes.Application.getPhoto(stylePic.fileObjId)" height="89" width="65" >
+                        </span>
+                    </li>    
+                }
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("hair.stylist") </th>
+                <td colspan="3" class="w620">
+                    <img src="@routes.Application.getPhoto(Stylist.findOneByStylistId(style.stylistId).get.myPics(0).fileObjId) "height="89" width="65" >
+                    <span class="detail2S hairLittleOn mL5">
+                        @Stylist.findUser(style.stylistId).nickName
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("hair.styleLength") </th>
+                <td colspan="3" class="w620">
+                    <span class="detail2S hairLittleOn mL5">
+                        @Messages("style.styleLength." +style.styleLength)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("hair.color") </th>
+                <td colspan="3" class="w620">
+                    @style.styleColor.map {color =>
+                        <li class="fl w91" style="list-style:none;">
+                        <span class="detail2S hairLittleOn mL5">
+                            @Messages("style.styleColor." +color)
+                        </span>
+                        </li>
+                    }
+                </td>
+            </tr>
+             <tr>
+                <th class="w120">@Messages("hair.impression") </th>
+                <td class="w208 vaT">
+                    <span class="detail2S hairLittleOn mL5">
+                        @Messages("style.styleImpression." +style.styleImpression)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("hair.serviceType") </th>
+                <td colspan="3" class="w620">
+                    @style.serviceType.map {serviceType =>
+                        <li class="fl w91" style="list-style:none;">
+                        <span class="detail2S hairLittleOn mL5">
+                            @Messages("ServiceType.serviceTypeName." +serviceType)
+                        </span>
+                        </li>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("hair.styleAmount") </th>
+                <td colspan="3" class="w620">
+                    @style.styleAmount.map {styleAmount =>
+                        <li class="fl w91" style="list-style:none;">
+                        <span class="detail2S hairLittleOn mL5">
+                            @Messages("style.styleAmount." +styleAmount)
+                        </span>
+                        </li>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("hair.styleQuality") </th>
+                <td colspan="3" class="w620">
+                    @style.styleQuality.map {styleQuality =>
+                        <li class="fl w91" style="list-style:none;">
+                        <span class=" hairLittleOn mL5">
+                            @Messages("style.styleQuality." +styleQuality)
+                        </span>
+                        </li>
+                    }
+                 </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("hair.styleDiameter") </th>
+                <td colspan="3" class="w620">
+                    @style.styleDiameter.map {styleDiameter =>
+                        <li class="fl w91" style="list-style:none;">
+                        <span class=" hairLittleOn mL5">
+                            @Messages("style.styleDiameter." +styleDiameter)
+                        </span>
+                        </li>
+                    }
+                 </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("hair.faceShape") </th>
+                <td colspan="3" class="w620">
+                    @style.faceShape.map {faceShape =>
+                        <li class="fl w91" style="list-style:none;">
+                        <span class=" hairLittleOn mL5">
+                            @Messages("style.faceShape." +faceShape)
+                        </span>
+                        </li>
+                    }
+                 </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("hair.consumerSex") </th>
+                <td colspan="3" class="w620">
+                        <span class=" hairLittleOn mL5">
+                            @Messages("style.sex." + style.consumerSex)
+                 </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("hair.consumerAgeGroup") </th>
+                <td colspan="3" class="w620">
+                    @style.consumerAgeGroup.map {consumerAgeGroup =>
+                        <li class="fl w91" style="list-style:none;">
+                        <span class=" hairLittleOn mL5">
+                            @Messages("style.ageGroup." + consumerAgeGroup)
+                        </span>
+                        </li>
+                    }
+                 </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("hair.consumerSocialStatus") </th>
+                <td colspan="3" class="w620">
+                    @style.consumerSocialStatus.map {consumerSocialStatus =>
+                        <li class="fl w91" style="list-style:none;">
+                        <span class=" hairLittleOn mL5">
+                            @Messages("style.socialStatus." + consumerSocialStatus)
+                        </span>
+                        </li>
+                    }
+                 </td>
+            </tr>
+            <tr>
+                <th class="w120"> @Messages("hair.assessFromStylist") </th>
+                <td colspan="3" class="w620">
+                        <span class="mL5" style="background-color: #CC4466;display: block;color: white;text-align: left;">
+                            @style.description
+                        </span>
+                 </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</body>

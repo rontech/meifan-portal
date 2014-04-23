@@ -9,27 +9,44 @@
 			    <td class="vaT bdGrayR">
 				<div class="w137 mHA">
 				    <div class="mT10 fs16 taM">
-		               <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150">
+                    @if(isStylist){
+                        @if(uId == loginUserId){
+                            <a href="@auth.routes.Stylists.styleUpdateByStylist(styles(i).id)" >
+                                <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150">
+                            </a>
+                        }else {
+                            <a href="@noAuth.routes.Stylists.getbackstageStyleItem(styles(i).id,styles(i).stylistId)" >
+                                <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150">
+                            </a>
+                        }
+                    }else {
+                         <a href="@auth.routes.Salons.getbackstageStyleItem(styles(i).id)">
+    		               <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150">
+                         </a>
+                    }
 				    </div>
 				    <div class="mT2 txtC">
 		            	<p><span >@styles(i).styleName</span></p>
 		        	</div>
 		        	<div class="txtC">
-		        	@if(uId == loginUserId){
-		        		@if(isStylist) {
+                    @if(!isStylist) {
+                        <a href="@noAuth.routes.Stylists.otherHomePage(styles(i).stylistId)">
+                            <p>
+                                <u>@Messages("hair.stylist") : @Stylist.findUser(styles(i).stylistId).nickName</u>
+                            </p>
+                        </a>
+                        @*店铺暂不能对发型进行更新,删除的操作<p>
+                            <a href="@auth.routes.Salons.styleUpdateBySalon(styles(i).id)" >@Messages("common.edit")</a>
+                            <a href="@auth.routes.Salons.styleToInvalidBySalon(styles(i).id)" >@Messages("common.delete")</a>
+                        </p>*@
+                    }else {
+    		            @if(uId == loginUserId){
     					    <p>
     			                <a href="@auth.routes.Stylists.styleUpdateByStylist(styles(i).id)" >@Messages("common.edit")</a>
     			                <a href="@auth.routes.Stylists.styleToInvalidByStylist(styles(i).id)" >@Messages("common.delete")</a>
     			            </p>
-                            
-                        }else{
-                            <p>
-                                <a href="@auth.routes.Salons.styleUpdateBySalon(styles(i).id)" >@Messages("common.edit")</a>
-                                <a href="@auth.routes.Salons.styleToInvalidBySalon(styles(i).id)" >@Messages("common.delete")</a>
-                            </p>
                         }
-		        	}
-                        
+                    }
                     </div>
 				</div>
 			    </td>
