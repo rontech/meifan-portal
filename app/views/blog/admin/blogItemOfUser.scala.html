@@ -19,7 +19,8 @@
 					</div>
 					
 			    	<div class="BlogContent" id="">
-						@Html(blog.content.slice(0, 100))
+						@*@Html(blog.content.slice(0, 100))*@
+						@Html(blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}>", "").slice(0, 100))
                 		@if(blog.content.length > 100) {...}
 			    	</div>
 			    	

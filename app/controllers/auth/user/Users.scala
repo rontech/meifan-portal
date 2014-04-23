@@ -39,7 +39,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
     mapping(
       "id" -> ignored(id),
       "userId" -> nonEmptyText(6, 16),
-      "nickName" -> nonEmptyText(4,10),
+      "nickName" -> nonEmptyText(1,10),
       "password" -> text,
       "sex" -> nonEmptyText,
       "birthDay" -> optional(date),
