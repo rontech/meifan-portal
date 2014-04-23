@@ -11,7 +11,7 @@ import play.api.PlayException
 import models._
 
 trait StyleIdUsed {
-  val styleId: Option[ObjectId]
+    val styleId: Option[ObjectId]
 }
 
 /*------------------------
@@ -33,7 +33,6 @@ case class StylePara(
 case class StyleAndSalon(
     style: Style,
     salon: Salon)
-
 
 /*------------------------
  * Main Class: Style
@@ -73,7 +72,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
      * 通过发型师ID检索该发型师所有发型
      */
     def findByStylistId(stylistId: ObjectId): List[Style] = {
-        dao.find(DBObject("stylistId" -> stylistId, "isValid" -> true)).toList
+        dao.find(DBObject("stylistId" -> stylistId, "isValid" -> true)).toList.sortBy(_.createDate).reverse
     }
 
     /**
@@ -88,9 +87,9 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
      */
     def findByStylistIdAndSex(stylistId: ObjectId, sex: String): List[Style] = {
         if (sex.equals("all")) {
-            dao.find(DBObject("stylistId" -> stylistId, "isValid" -> true)).toList
+            dao.find(DBObject("stylistId" -> stylistId, "isValid" -> true)).toList.sortBy(_.createDate).reverse
         } else {
-            dao.find(DBObject("stylistId" -> stylistId, "consumerSex" -> sex, "isValid" -> true)).toList
+            dao.find(DBObject("stylistId" -> stylistId, "consumerSex" -> sex, "isValid" -> true)).toList.sortBy(_.createDate).reverse
         }
     }
 
@@ -227,37 +226,37 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
     /**
      * 取得指定店铺的最热发型前N名
      * data: 统计依据数据，比如预约的数据，或者消费的数据
-     * N = 0, 默认值，为取得所有 
+     * N = 0, 默认值，为取得所有
      */
     def findTopStylesInSalon[T <: StyleIdUsed](data: List[T], topN: Int = 0): List[Style] = {
-      // sort by reserved counts.
-      val styleWithCnt = data.groupBy(x => x.styleId).map(y => (y._1, y._2.length)).toList.filter(_._1 != None).sortWith(_._2 > _._2) 
-      // get all stylesId or only top N stylesId of a salon according the topN parameters.  
-      val hot = if(topN == 0) styleWithCnt else styleWithCnt.slice(0, topN)
-      var hotStyles: List[Style] = Nil
-      // get all styles of a salon.  
-      hot.map { itm  => 
-        val stl = Style.findOneById(itm._1.getOrElse(new ObjectId))
-        stl match {
-          case Some(style) => hotStyles :::= List(style)
-          case None => hotStyles
+        // sort by reserved counts.
+        val styleWithCnt = data.groupBy(x => x.styleId).map(y => (y._1, y._2.length)).toList.filter(_._1 != None).sortWith(_._2 > _._2)
+        // get all stylesId or only top N stylesId of a salon according the topN parameters.  
+        val hot = if (topN == 0) styleWithCnt else styleWithCnt.slice(0, topN)
+        var hotStyles: List[Style] = Nil
+        // get all styles of a salon.  
+        hot.map { itm =>
+            val stl = Style.findOneById(itm._1.getOrElse(new ObjectId))
+            stl match {
+                case Some(style) => hotStyles :::= List(style)
+                case None => hotStyles
+            }
         }
-      }
-      // return
-      hotStyles
-    } 
+        // return
+        hotStyles
+    }
 
     /**
      * 取得指定店铺的最热发型前N名
-     * N = 0, 默认值，为取得所有 
+     * N = 0, 默认值，为取得所有
      */
     def getBestRsvedStylesInSalon(sid: ObjectId, topN: Int = 0): List[Style] = {
-      // get the reservation with which we can get the styles be reserved.
-      val rsvs = Reservation.findAllReservation(sid)
-      // use the exists method to get top styles.
-      val bestRsved = findTopStylesInSalon(rsvs, topN)
-      bestRsved
-    } 
+        // get the reservation with which we can get the styles be reserved.
+        val rsvs = Reservation.findAllReservation(sid)
+        // use the exists method to get top styles.
+        val bestRsved = findTopStylesInSalon(rsvs, topN)
+        bestRsved
+    }
 
     /**
      * 前台检索逻辑
@@ -334,7 +333,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
             consumerSocialStatus,
             consumerSex,
             consumerAgeGroup,
-            MongoDBObject("isValid" -> true, "stylistId" -> stylistId))).toList
+            MongoDBObject("isValid" -> true, "stylistId" -> stylistId))).toList.sortBy(_.createDate).reverse
     }
 
     def findStylesBySalonBack(style: models.Style, salonId: ObjectId): List[Style] = {
@@ -368,7 +367,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
                 consumerSocialStatus,
                 consumerSex,
                 consumerAgeGroup,
-                MongoDBObject("stylistId" -> style.stylistId, "isValid" -> true))).toList
+                MongoDBObject("stylistId" -> style.stylistId, "isValid" -> true))).toList.sortBy(_.createDate).reverse
         } else {
             dao.find($and(
                 styleLength,
@@ -383,7 +382,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
                 consumerSex,
                 consumerAgeGroup,
                 "stylistId" $in stylistIds,
-                MongoDBObject("isValid" -> true))).toList
+                MongoDBObject("isValid" -> true))).toList.sortBy(_.createDate).reverse
         }
     }
 
