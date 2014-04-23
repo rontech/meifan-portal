@@ -881,6 +881,10 @@ object InitialData {
     println("general salon search = " + Salon.findSalonByFuzzyConds("千美悦美"))
     println("general salon search = " + Salon.findSalonByFuzzyConds("千美 悦美"))
     println("general salon search = " + Salon.findSalonByFuzzyConds("千美　悦美"))
+    println("general salon search = " + Salon.contactKwdsToFuzzyConds("千美悦美"))
+    println("general salon search = " + Salon.contactKwdsToFuzzyConds("千美 悦美"))
+    println("general salon search = " + Salon.contactKwdsToFuzzyConds("千美　悦美"))
+
 
     // Test for Geting hotest Styles from a salon.
     println("hotest style search = " + Style.getBestRsvedStylesInSalon(new ObjectId("530d7288d7f2861457771bdd"), 2))
@@ -894,9 +898,5 @@ object InitialData {
     println("hotest keywords = " + HotestKeyword.findTopKeywordsOfDiv("HairSalon", 8))
 
     */
-    println("general salon search = " + Salon.contactKwdsToFuzzyConds("千美悦美"))
-    println("general salon search = " + Salon.contactKwdsToFuzzyConds("千美 悦美"))
-    println("general salon search = " + Salon.contactKwdsToFuzzyConds("千美　悦美"))
-
   }
 }
