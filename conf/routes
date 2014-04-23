@@ -4,6 +4,7 @@
 
 # Home page
 GET         /                                                                    controllers.Application.index
+GET        /checkForm/:value/:key                                                controllers.Application.itemIsExist(value, key)
 
 # User Login & Register & Public Info.
 # Jump to User Login Page.
@@ -26,7 +27,7 @@ POST        /salonRegister                                                      
 GET         /getPhoto/:name                                                      controllers.Application.getPhoto(name: ObjectId)
 GET         /getPhotoByString/:name                                              controllers.Application.getPhotoByString(name: String)
 POST        /upload                                                              controllers.Application.upload()
-#POST        /uploadWithAjax                                                      controllers.Application.uploadWithAjax
+POST        /uploadWithAjax                                                      controllers.Application.uploadWithAjax
 POST        /changeLogo                                                          controllers.Application.changeLogo()
 GET         /saveImg/:id                                                         controllers.auth.Users.saveImg(id :ObjectId)
 
@@ -296,6 +297,6 @@ POST        /salonsearch                                                        
 
 
 #notice
-GET			/doc/notice													         controllers.noAuth.Notices.getOneNotice(noticeId: ObjectId)
+GET         /doc/notice                                                          controllers.noAuth.Notices.getOneNotice(noticeId: ObjectId)
 
-GET		/getkeyWordsByajax/:wordText													 controllers.Application.getkeyWordsByajax(wordText:String)
+GET         /getkeyWordsByajax/:wordText                                         controllers.Application.getkeyWordsByajax(wordText:String)

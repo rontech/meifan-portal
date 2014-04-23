@@ -66,11 +66,10 @@ object User extends ModelCompanion[User, ObjectId] {
 
     // Queries
     // Find a user according to userId
-    def findOneByUserId(userId: String): Option[User] = dao.findOne(MongoDBObject("userId" -> userId))
-
-    //
+    def findOneByUserId(userId: String) = dao.findOne(MongoDBObject("userId" -> userId))
     def findOneByNickNm(nickName: String) = dao.findOne(MongoDBObject("nickName" -> nickName))
     def findOneByEmail(email: String) = dao.findOne(MongoDBObject("email" -> email))
+    def findOneByTel(tel: String) = dao.findOne(MongoDBObject("tel" -> tel))
 
     //Check the password when logining
     def authenticate(userId: String, password: String): Option[User] = {
@@ -102,4 +101,7 @@ object User extends ModelCompanion[User, ObjectId] {
     def isFriend(userId: ObjectId)(user: User): Future[Boolean] = Future { (userId == user.id) || MyFollow.followEachOther(userId, user.id) }
     
     def findBeautyUsers = dao.find(MongoDBObject("userTyp" -> NORMAL_USER)).toList.sortBy(user =>user.activity)
+
+    def isExist(value:String, f:String => Option[User]) = f(value).map(user => true).getOrElse(false)
+
 }
