@@ -1,67 +1,282 @@
 @(salonId: ObjectId, couponForm: Form[Coupon], services: List[Service])
-@*@(couponForm: Form[CreateCoupon])*@
 
 @import helper._
 
+<div class="contentsTitleWrapper">
+	<h2 class="contentsTitleInner">@Messages("coupon.createCouponArea")</h2>
+</div>
 @form(auth.routes.Coupons.createCoupon, 'id -> "couponForm") {
-	<legend class="mainTitle">@Messages("coupon.createCouponArea")</legend>
-	<div class="couponInfo">
-		<input type="hidden" name="salonId" value="@salonId" />
-		
-		@if(couponForm.hasGlobalErrors) { 
-              <div>
-                  <p align = center>@couponForm.globalError.get.message<p>
-              </div>
-         }
-		
-		@inputText(couponForm("couponName"), '_label -> Messages("coupon.couponName"),
-			'_error -> couponForm("couponName").error.map(_.withMessage(Messages("coupon.couponNameRequired")))
-		)
-		
-		<fieldset class="serviceArea">
-			<legend>@Messages("coupon.serviceArea")</legend>
-			@input(field = couponForm("serviceItems"), args = '_label ->None, 
-				'_error -> couponForm("serviceItems").error.map(_.withMessage(Messages("coupon.couponServiceRequired")))){(id,name,value,args) =>
-			 	@for(service <- services) {
-			 		<div class="serviceItemArea">
-			 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
-			 		</div>
-			 	}
-			  }
-		</fieldset>
-		
-		@inputText(couponForm("perferentialPrice"),'_label -> Messages("coupon.perferentialPrice"),
-			 '_error -> couponForm("perferentialPrice").error.map(_.withMessage(Messages("coupon.perferentialPriceErr"))))
-		
-		@*inputDate(couponForm("startDate"), '_label -> Messages("coupon.startDate"),
-			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.startDateRequired"))))*@
-		
-		@input(field = couponForm("startDate"), '_label -> Messages("coupon.startDate"), '_help -> Messages(""), 
-			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.startDateRequired")))){(id, name, value, _) =>
-				<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
-			}
-		
-		@*inputDate(couponForm("endDate"), '_label -> Messages("coupon.endDate"),
-			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.endDateRequired"))))*@
-			
-		@input(field = couponForm("endDate"), '_label -> Messages("coupon.endDate"), '_help -> Messages(""), 
-			'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.endDateRequired")))){(id, name, value, _) =>
-				<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
-			}
-		
-		@inputText(couponForm("useConditions"), '_label -> Messages("coupon.useConditions"), 
-			'_error -> couponForm("useConditions").error.map(_.withMessage(Messages("coupon.useConditionsRequired"))))
-		
-		@inputText(couponForm("presentTime"), '_label -> Messages("coupon.presentTime"), 
-			'_error -> couponForm("presentTime").error.map(_.withMessage(Messages("coupon.presentTimeRequired"))))
-		
-		@textarea(couponForm("description"), '_label -> Messages("coupon.description"), 
-			'_error -> couponForm("description").error.map(_.withMessage(Messages("coupon.couponDiscriptionErr"))))
-		
-	</div>
+	@if(couponForm.hasGlobalErrors) { 
+          <div>
+              <p>@couponForm.globalError.get.message<p>
+          </div>
+     }
+	
+	<input type="hidden" name="salonId" value="@salonId" />
+	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+	    <tbody>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.couponName")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@inputText(couponForm("couponName"), '_label -> None, '_help -> Messages(""), 'id -> "couponName",
+							'_error -> couponForm("couponName").error.map(_.withMessage(Messages("coupon.couponNameRequired")))
+						)
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.serviceArea")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@input(field = couponForm("serviceItems"), args = '_label ->None, 
+							'_error -> couponForm("serviceItems").error.map(_.withMessage(Messages("coupon.couponServiceRequired")))){(id,name,value,args) =>
+						 	@for(service <- services) {
+						 		<div class="serviceItemArea">
+						 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
+						 		</div>
+						 	}
+						  }
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.perferentialPrice")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@inputText(couponForm("perferentialPrice"),'_label -> None, '_help -> Messages(""), 'id -> "perferentialPrice",
+			 		    '_error -> couponForm("perferentialPrice").error.map(_.withMessage(Messages("coupon.perferentialPriceErr"))))
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.startDate")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@input(field = couponForm("startDate"), '_label -> None, '_help -> Messages(""),
+						'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.startDateRequired")))){(id, name, value, _) =>
+							<input class="Wdate" type="text" id = "startDate" name="@name" value="@value" onClick="WdatePicker() ">
+						}
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.endDate")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@input(field = couponForm("endDate"), '_label -> None, '_help -> Messages(""), 'id -> "endDate",
+						'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.endDateRequired")))){(id, name, value, _) =>
+							<input class="Wdate" type="text" id = "endDate" name="@name" value="@value" onClick="WdatePicker() ">
+						}
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.useConditions")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@textarea(couponForm("useConditions"), '_label -> None, 'rows -> 3, 'cols -> 50,  'id -> "useConditions", '_help -> Messages(""),
+						'placeholder -> Messages("coupon.useConditionsMsg"), '_error -> couponForm("useConditions").error.map(_.withMessage(Messages("coupon.useConditionsRequired"))))
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.presentTime")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@textarea(couponForm("presentTime"), '_label -> None, 'rows -> 3, 'cols -> 50,  'id -> "presentTime", '_help -> Messages(""),
+						'placeholder -> Messages("coupon.presentTimeMsg"), '_error -> couponForm("presentTime").error.map(_.withMessage(Messages("coupon.presentTimeRequired"))))
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.description")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@textarea(couponForm("description"), '_label -> None, 'rows -> 3, 'cols -> 50, 'id -> "description", '_help -> Messages(""),
+						'_error -> couponForm("description").error.map(_.withMessage(Messages("coupon.couponDiscriptionErr"))))
+	                </div>
+	            </td>
+	        </tr>
+	     </tbody>
+	</table>
+	
 	<div class="btnArea">
 		<input type = "submit" class = "buttons" value="@Messages("common.submit")">
             
     	<input type = "reset" class = "buttons" value="@Messages("common.reset")">
     </div>
 }
+
+<script type="text/javascript">
+	$('#couponName').blur(function(){
+		var couponName = $('#couponName').val();
+		var isname=/^[a-zA-Z][a-zA-Z0-9_]{2,15}$/;
+		if(!isname.test(couponName)){
+			$("#couponName").parent("dd").next().text('输入2~15位字符,可使用字母、数字和下划线').addClass("errorMsg");
+			return;
+		}
+		var xhr = getXmlHttpRequest();
+		
+		xhr.open('get',
+			    '/myPage/checkCouponIsExit/'+couponName,
+			    true);
+			     xhr.onreadystatechange=function(){
+			         //step4 获取服务器返回的数据，更新页面
+			         if(xhr.readyState == 4){
+			             if(xhr.status == 200){
+			            	 var txt = xhr.responseText;
+			                 if(txt == 'YES'){
+			                	 $("#couponName").parent("dd").next().text('ID已存在，重新输入').removeClass("trueMsg").addClass("errorMsg"); 
+			                 }
+			                 if(txt == 'NO'){
+			                	 $("#couponName").parent("dd").next().text('可以使用').removeClass("errorMsg").addClass("trueMsg");
+			                 }
+			            	 
+			            	 
+			             }else{
+			            	 
+			             }
+			         }else{
+			        	 
+			         }
+			     };
+			     xhr.send(null);
+	});
+
+	$('#startDate').blur(function(){
+		var startDate = $(this).val();
+		var endDate = $('#endDate').val();
+		if(startDate == "") {
+			$("#startDate").parent("dd").next().text('@Messages("common.requiredMsg")').removeClass("trueMsg").addClass("errorMsg");
+			return;
+		} else {
+			if(endDate != "" && startDate > endDate) {
+				$("#startDate").parent("dd").next().text('@Messages("coupon.startDateltEndMsg")').removeClass("trueMsg").addClass("errorMsg");
+				return;
+			} else {
+				$("#startDate").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
+			}
+		}
+	});
+	
+	$('#endDate').blur(function(){
+		var endDate = $(this).val();
+		var startDate = $('#startDate').val();
+		if(endDate == "") {
+			$("#endDate").parent("dd").next().text('@Messages("common.requiredMsg")').removeClass("trueMsg").addClass("errorMsg");
+			return;
+		} else {
+			if(startDate != "" && startDate > endDate) {
+				$("#endDate").parent("dd").next().text('@Messages("coupon.endDateGtStartMsg")').removeClass("trueMsg").addClass("errorMsg");
+				return;
+			} else {
+				$("#endDate").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
+			}
+		}
+	});
+
+	$('#perferentialPrice').blur(function(){
+		var perferentialPrice = $(this).val();
+		if(perferentialPrice == "") {
+			$("#perferentialPrice").parent("dd").next().text('@Messages("common.requiredMsg")').removeClass("trueMsg").addClass("errorMsg");
+			return;
+		} else {
+			if(isNaN(perferentialPrice)){
+				$("#perferentialPrice").parent("dd").next().text('@Messages("coupon.perferentialPriceErr")').removeClass("trueMsg").addClass("errorMsg");
+				return;
+			}else{
+				$("#perferentialPrice").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
+			}
+		}
+	});
+	
+	$('#useConditions').blur(function(){
+		var useConditions = $(this).val();
+		if(useConditions == "") {
+			$("#useConditions").parent("dd").next().text('@Messages("common.requiredMsg")').removeClass("trueMsg").addClass("errorMsg");
+			return;
+		} else {
+			$("#useConditions").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
+		}
+	});
+	
+	$('#presentTime').blur(function(){
+		var presentTime = $(this).val();
+		if(presentTime == "") {
+			$("#presentTime").parent("dd").next().text('@Messages("common.requiredMsg")').removeClass("trueMsg").addClass("errorMsg");
+			return;
+		} else {
+			$("#presentTime").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
+		}
+	});
+	
+	$('#presentTime').blur(function(){
+		var presentTime = $(this).val();
+		if(presentTime == "") {
+			$("#presentTime").parent("dd").next().text('@Messages("common.requiredMsg")').removeClass("trueMsg").addClass("errorMsg");
+			return;
+		} else {
+			$("#presentTime").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
+		}
+	});
+	
+	$('#description').blur(function(){
+		var description = $(this).val();
+		if(description.length < 10 || description.length > 100) {
+			$("#description").parent("dd").next().text('@Messages("coupon.couponDiscriptionErr")').removeClass("trueMsg").addClass("errorMsg");
+			return;
+		} else {
+			$("#description").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
+		}
+	});
+
+</script>
