@@ -152,7 +152,7 @@
                         </div>
                         <div class="postSalonInfo">
                             @Messages("main.toSalonOwners")
-                            <a target="_blank" title="@Messages("main.wantToJoin")" href="/salonLogin"
+                            <a target="_blank" title="@Messages("main.wantToJoin")" href="@auth.routes.Salons.salonInfoBasic"
                             onclick="customLinkLog('Footer Salon Link');">
                                 @Messages("main.wantToJoin")
                             </a>

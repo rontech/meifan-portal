@@ -66,8 +66,7 @@ object User extends ModelCompanion[User, ObjectId] {
 
     // Queries
     // Find a user according to userId
-    def findOneByUserId(userId: String): Option[User] = dao.findOne(MongoDBObject("userId" -> userId))
-
+    def findOneByUserId(userId: String) = dao.findOne(MongoDBObject("userId" -> userId))
     /**
      * 昵称不可以重复
      */
@@ -77,6 +76,7 @@ object User extends ModelCompanion[User, ObjectId] {
      * 邮箱不可以重复
      */
     def findOneByEmail(email: String) = dao.findOne(MongoDBObject("email" -> email))
+    def findOneByTel(tel: String) = dao.findOne(MongoDBObject("tel" -> tel))
 
     /**
      * 登录时验证userId和password
@@ -113,4 +113,7 @@ object User extends ModelCompanion[User, ObjectId] {
      * 用于显示首页中美丽达人
      */
     def findBeautyUsers = dao.find(MongoDBObject("userTyp" -> NORMAL_USER)).toList.sortBy(user =>user.activity)
+
+    def isExist(value:String, f:String => Option[User]) = f(value).map(user => true).getOrElse(false)
+
 }

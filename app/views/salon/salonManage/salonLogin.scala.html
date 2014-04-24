@@ -4,95 +4,57 @@
 	
 	 @main(title = Messages("salon.salonLogin")) {
 	 	
-	 	<head>
-			<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/userLogin.css")">
-		</head>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/userLogin.css")">
 	 	
 	 	<div class="contentsTitleWrapper">
 	 		<h2 class="contentsTitleInner mT10">@Messages("salon.salonLogin")</h2>
 	 	</div>
 	 	
-	 	<div class="cFix mT20">
-			<div class="loginRBox fl">
-				<div class="loginRBoxTop">
-					<dl class="loginRBoxBottom">
-						<dt>
-							<div>
-								<p class="b fs14"><font>@Messages("salon.salonLogin")</font></p>
-								<p><font><font class="">@Messages("salon.loginMessage")</font></font></p>
-							</div>
-						</dt>
-						<dd class="mT5 pT5">
-							<div class="pr">
-								<dl class="lh30">
-									@form(auth.routes.Salons.salonLogin(), 'method ->"post"){
-										
-										<dd class="mT5 pT5">
-											<div class="pr">
-												<dl class="lh30">
-													<dt class="dibBL vaM w150 b fl">@Messages("salon.id")</dt>
-													<dd class="dibBL vaM w280">
-														@inputText(field = salonLogin("salonAccount.accountId"), '_label -> None, 'placeholder -> Messages("salon.login.accountId"), 'class -> "inputField",
-															'_error ->  salonLogin("salonAccount.accountId").error.map(_.withMessage(Messages("salon.login.accountId"))), '_help -> ""
-														)
-													</dd>
-													<dt class="dibBL vaM w150 b fl">@Messages("user.password")</dt>
-													<dd class="dibBL vaM w280">
-														@inputPassword(field = salonLogin("salonAccount.password"), '_label -> None, 'placeholder -> Messages("salon.login.password") ,
-																		'_error -> salonLogin.globalError.map(_.withMessage(Messages("salon.loginErr"))), 'class -> "inputField")
-													</dd>
-												</dl>
-											</div>
-										</dd>
-										<div class="mT15">
-											<span class="btn btn2H32 w194 mHA">
-												<span>
-													<input type= "submit" class = "buttons" value="@Messages("user.loginBtn")">												
-												</span>
-											</span>
-										</div>
-			 						}	
-								</dl>
-							</div>
-						</dd>
-						<div class="mT10 taR">
-							<p><a href="@routes.Mails.forgotPasswordOfSalon" id="pwRemindLink" title="@Messages("user.forgetPassword")"><font><font>@Messages("user.forgetPassword")</font></font></a></p>
-						</div>
-					</dl>
-				</div>
-			</div>
-			<div class="loginRBox fr">
-				<div class="loginRBoxTop">
-				    <dl class="loginRBoxBottom">
-				        <dt class="b fs14">
-				            <font>
-				                @Messages("salon.newSalon")
-				            </font>
-				        </dt>
-				        <dd class="mT5 pT10 taC">
-				            <p class="dibBL taL">
-				                <font>
-				                    @Messages("salon.registerMessage1")
-				                </font>
-				                <br>
-				                <font>
-				                    @Messages("salon.registerMessage2")
-				                </font>
-				            </p>
-				        </dd>
-				        <dd class="mT10 mB10">
-				            <div>
-				                <span class="btn btn2H32 w194 mHA">
-				                	<span>
-				                		<a href="@routes.Application.salonRegister" class="w194">
-					                        <input type="button" class = "buttons" value="@Messages("user.registerBtn")">
-					                    </a>
-				                	</span>
-				                </span>
-				            </div>
-				        </dd>
-				    </dl>
-				</div>
-			</div>
-		</div>
+	 	<div class=" w1" id="entry">
+		 	<div class="mc " id="bgDiv">
+		 		<div id="entry-bg">
+		 			<img src="@routes.Assets.at("images/login/dl_pic.jpg")"/>
+		 		</div>
+		 		<div class="form">
+		 			@form(auth.routes.Salons.salonLogin(), 'method ->"post"){
+						<div class="item fore1">
+		                    <span>@Messages("user.name")</span>
+		                    <div class="item-ifo">
+		                        @inputText(field = salonLogin("salonAccount.accountId"), '_label -> None, 'placeholder -> Messages("salon.login.accountId"), 'class -> "text",
+								'_error ->  salonLogin("salonAccount.accountId").error.map(_.withMessage(Messages("salon.login.accountId"))), '_help -> ""
+								)
+		                        <div class="i-name ico"></div>
+		                        <label id="loginname_succeed" class="blank invisible succeed"></label>
+		                        <label id="loginname_error" class="focus"></label>
+		                    </div>
+		                </div>
+		                <div class="item fore2">
+	                    <span>@Messages("user.password")</span>
+	                    <div class="item-ifo">
+	                       @inputPassword(field = salonLogin("salonAccount.password"), '_label -> None, 'placeholder -> Messages("salon.login.password") ,
+							'_error -> salonLogin.globalError.map(_.withMessage(Messages("salon.loginErr"))), 'class -> "text")
+	
+	                        <div class="i-pass ico"></div>
+	                        <label id="loginpwd_succeed" class="blank invisible"></label>
+	                        <label id="loginpwd_error" class="hide"></label>
+	                    </div>
+	                </div>
+	                <div class="item fore4" id="autoentry">
+	                    <div class="item-ifo">
+	                        <label><a href="@routes.Mails.forgotPasswordOfSalon" class="" title="@Messages("user.forgetPassword")">@Messages("user.forgetPassword")</a></label>
+	                        <div class="clr"></div>
+	                    </div>
+	                </div>
+	                <div class="item login-btn2013">
+	                    <input type= "submit" class = "btn-img btn-entry" value="@Messages("user.loginBtn")">
+	                </div>
+				}
+		 		</div>
+					
+		 	</div>
+	 	</div>
+	 	
+	 	<div class="free-regist">
+            <span><a href="@routes.Application.salonRegister" >@Messages("user.registerBtn")</a></span>
+        </div>
 	 }

@@ -94,10 +94,12 @@ object Mails extends Controller {
 		  // 会不会到时url是以Https开头的呢？
 		  val url : String = "http://" + request.host +routes.Mails.password(uuid)  		  
 		  mail.send("A text only message", "<html><body><p>" + Messages("user.resetInfo")+ "<br><a href = " + url + ">" + url+ "</a></p></body></html>" )
-          Redirect(auth.routes.Users.logout)
+          Ok(views.html.user.checkMail())
+		  //Redirect(auth.routes.Users.logout)
 		  
     })
 	}
+  
   
   /**
    * 跳转至密码重置的页面，输入店铺的邮箱和用户名
@@ -153,6 +155,7 @@ object Mails extends Controller {
           NotFound
         }else{
 	        val user = User.findOneById(m.objId).get
+	        println(user)
 	        Ok(views.html.user.resetPassword(resetPassForm.fill((user,"")),user.userId,m.uuid))
         }
       }
@@ -171,7 +174,8 @@ object Mails extends Controller {
     val mail = Mail.findOneByUuid(uuid).get
     val user = User.findOneById(mail.objId).get
     Mails.resetPassForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.user.resetPassword(errors,user.userId, uuid)),
+//      errors => BadRequest(views.html.user.resetPassword(errors,user.userId, uuid)),
+          errors => BadRequest(views.html.user.resetFwdResult(false, errors.toString())),
       {
         case (user, main) =>
           // 一个url只能修改一次密码
@@ -179,7 +183,8 @@ object Mails extends Controller {
           Mail.save(mail.copy(uuid = newUuid), WriteConcern.Safe)
           
           User.save(user.copy(password = main), WriteConcern.Safe)
-          Redirect(routes.Application.login)
+          Ok(views.html.user.resetFwdResult(true, ""))
+          //Redirect(auth.routes.Users.logout)
     })
   }
   
