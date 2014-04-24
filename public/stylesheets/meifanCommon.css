@@ -885,8 +885,13 @@ height: 100px;
 	background-repeat:no-repeat;
 	width: 15px;
 	height: 15px;
+    padding-left: 20px;
 }
 
 div.inputField {
 margin: 5px;
+}
+
+.lt {
+	text-decoration: line-through;
 }

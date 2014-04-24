@@ -4,6 +4,7 @@
 
 # Home page
 GET         /                                                                    controllers.Application.index
+POST        /checkForm/:value/:key                                                controllers.Application.itemIsExist(value, key)
 
 # User Login & Register & Public Info.
 # Jump to User Login Page.
@@ -24,9 +25,8 @@ POST        /salonRegister                                                      
 # Common
 # get photo
 GET         /getPhoto/:name                                                      controllers.Application.getPhoto(name: ObjectId)
-GET         /getPhotoByString/:name                                              controllers.Application.getPhotoByString(name: String)
 POST        /upload                                                              controllers.Application.upload()
-#POST        /uploadWithAjax                                                      controllers.Application.uploadWithAjax
+POST        /uploadWithAjax                                                      controllers.Application.uploadWithAjax
 POST        /changeLogo                                                          controllers.Application.changeLogo()
 GET         /saveImg/:id                                                         controllers.auth.Users.saveImg(id :ObjectId)
 
@@ -289,7 +289,7 @@ GET         /reserve/salonId=:salonId&couponId=:couponId&week=:week             
 
 #cancel current apply by user(dou)
 GET         /myPage/cancelApply                                                  controllers.auth.Users.cancelApplyStylist
-GET         /mySalon/checkStylistIsExist/:userId                                 controllers.noAuth.Stylists.checkStylistIsExist(userId: String)
+GET         /mySalon/checkStylistIsExist/:userId/:salonId                                 controllers.noAuth.Stylists.checkStylistIsExist(userId: String, salonId: ObjectId)
 
 GET         /salon/:salonId/map                                                  controllers.noAuth.Salons.getMap(salonId: ObjectId)
 
@@ -304,7 +304,6 @@ GET         /mySalon/styleItem/:styleId                                         
 GET         /myPage/styleItem/:styleId/:stylistId                                controllers.noAuth.Stylists.getbackstageStyleItem(styleId: ObjectId,stylistId: ObjectId)
 
 #notice
-GET			/doc/notice													         controllers.noAuth.Notices.getOneNotice(noticeId: ObjectId)
+GET         /doc/notice                                                          controllers.noAuth.Notices.getOneNotice(noticeId: ObjectId)
 
-GET		/getkeyWordsByajax/:wordText													 controllers.Application.getkeyWordsByajax(wordText:String)
-
+GET         /getkeyWordsByajax/:wordText                                         controllers.Application.getkeyWordsByajax(wordText:String)

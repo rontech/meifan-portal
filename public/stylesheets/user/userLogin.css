@@ -1,103 +1,148 @@
 @CHARSET "UTF-8";
 
-.contentsTitleWrapper {
-background: none;
+#entry {
+background: #e8e8e8;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+padding: 5px;
+margin: 20px auto 50px;
+position: relative;
+width: 98%;
 }
 
-.contentsTitleInner {
-height: 15px;
-border-bottom: 1px solid #988989;
-background: url("/assets/images/icon_heading.png") no-repeat 0 1px;
-padding-left: 25px;
-padding-bottom: 7px;
-font-size: 15px;
-font-weight: bold;
-color: #444444;
+.w1 {
+width: 890px;
+margin: 0 auto;
 }
 
-.loginRBox {
-background-image: url("/assets/images/bg_loginbox.gif");
-background-repeat: repeat-y;
-background-position: left top;
-width: 460px;
+#entry .mc {
+border: 1px solid #e1e1e1;
+background: #ffffff;
+height: 343px;
 }
 
-.loginRBoxTop {
-background-image: url("/assets/images/bg_loginbox.gif");
-background-repeat: no-repeat;
-background-position: -460px top;
-width: 460px;
+#entry .form {
+position: absolute;
+top: 18px;
+right: 32px;
+width: 320px;
+overflow: hidden;
+height: 354px;
 }
 
-.loginRBoxBottom {
-background-image: url("/assets/images/bg_loginbox.gif");
-background-repeat: no-repeat;
-background-position: right bottom;
-width: 430px;
-padding: 10px 15px;
-}
-
-.w280 {
-width: 280px;
-}
-
-.w150 {
-width: 150px;
-}
-
-.dibBL dd {
-float: left;
-}
-
-/*
-dd.info {
-display: none;
-}
-*/
-
-.btn2H32:hover {
-background-position-y: -332px;
-}
-
-.btn2H32 {
-background: url('/assets/images/btn2.png') no-repeat left -300px;
+.free-regist {
+position: absolute;
+right: 42px;
+bottom: -31px;
+background: #e8e8e8;
+width: 115px;
+height: 32px;
+text-align: center;
 line-height: 32px;
+-moz-border-radius: 0 0 3px 3px;
+-webkit-border-radius: 0 0 3px 3px;
+border-radius: 0 0 3px 3px;
+padding: 0px 5px 5px;
 }
 
-.btn2H32 > span > input {
+.free-regist span {
+text-align: center;
+font-size: 14px;
+background: #6ec7e5;
+width: 115px;
 height: 32px;
+display: block;
+color: #FFF;
+-moz-border-radius: 0 0 3px 3px;
+-webkit-border-radius: 0 0 3px 3px;
+border-radius: 0 0 3px 3px;
 }
 
-.btn2H32 > span > a > input, .btn2H32 > span > span, .btn2H32 > span > input {
-background: url('/assets/images/btn2.png') repeat-x 0 -428px;
-color: #E53B4E;
+.free-regist a:link, .free-regist a:visited {
+color: #ffffff;
 }
 
-.btn2H32:hover > span > input, .btn2H32:hover > span > a > span {
-background-position-y: -460px;
-color: #F26F7E;
+#entry .item {
+height: 64px;
+line-height: 26px;
+overflow: visible;
+position: relative;
+width: 320px;
+z-index: 1;
 }
 
-.btn2H32 > span {
-background: url('/assets/images/btn2.png') no-repeat right -364px;
+#entry .item span {
+color: #999999;
+height: 20px;
+line-height: 20px;
+display: block;
+margin-top: 1px;
 }
 
-.w194 {
-width: 194px;
+#entry .item .item-ifo {
+position: relative;
+width: 307px;
 }
 
-.inputField {
-width: 200px;
+#entry .text {
+float: none;
+width: 282px;
+height: 24px;
+line-height: 24px;
+padding: 4px 20px 4px 3px;
+border: 1px solid #cccccc;
+font-size: 14px;
+font-family: arial,"宋体";
 }
 
-.btn > span > a > input, .btn > span > a > span {
-width: 100%;
-height: 100%;
+#entry .item-ifo .i-name {
+background: url(/assets/images/login/login-all-bg.png) no-repeat -373px -111px #fff;
+width: 16px;
+height: 16px;
+top: 8px;
+}
+
+#entry .item-ifo .i-pass {
+background: url(/assets/images/login/login-all-bg.png) no-repeat -346px -108px #fff;
+width: 14px;
+height: 19px;
+top: 8px;
+}
+
+#entry .item-ifo .ico {
+position: absolute;
+right: 12px;
+z-index: 5;
+}
+
+#entry .text {
+float: none;
+width: 282px;
+height: 24px;
+line-height: 24px;
+padding: 4px 20px 4px 3px;
+border: 1px solid #cccccc;
+font-size: 14px;
+font-family: arial,"宋体";
+}
+
+#entry .btn-entry:hover {
+background: url(/assets/images/login/login-all-bg.png) no-repeat 0 -95px;
+}
+
+#entry .btn-entry {
+width: 307px;
+height: 34px;
+line-height: 100px;
+text-indent: -9999px;
+background: url(/assets/images/login/login-all-bg.png) no-repeat 0 -61px;
+overflow: hidden;
 border: none;
-font-weight: bold;
-cursor: pointer;
 }
 
-.btn2H32 > span > a > input {
-height: 32px;
+#entry #autoentry {
+height: 37px;
+margin-top: 35px;
 }
+

@@ -154,7 +154,7 @@ object Comment extends ModelCompanion[Comment, ObjectId] {
    */
   def getGoodReviewsRate(salonId : ObjectId): ReviewsStat = {
     val reviews = findBySalon(salonId).filter(_.commentObjType  == CommentType.ToSalon.id)
-    val rate = if(reviews.isEmpty) 0 else reviews.filter(x => isGoodReview(x.complex) == ReviewRst.Good).length.toFloat / reviews.length
+    val rate = if(reviews.isEmpty) 1.0 else reviews.filter(x => isGoodReview(x.complex) == ReviewRst.Good).length.toFloat / reviews.length
     ReviewsStat(rate, reviews.length)    
   }
  

@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc._
-import models._
 import se.radley.plugin.salat.Binders._
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.gridfs.GridFS
@@ -20,8 +19,23 @@ import javax.imageio.ImageIO
 import play.api.data.Form
 import play.api.data.Forms._
 import scala.Some
+import models._
+import utils.Const._
 
 object Application extends Controller with OptionalAuthElement with UserAuthConfigImpl{
+
+    /**
+     * for ajax
+     * @return
+     */
+    def javascriptRoutes = Action { implicit request =>
+        Ok(Routes.javascriptRouter("jsRoutes")(
+            auth.routes.javascript.MyFollows.addFollow,
+            routes.javascript.Application.uploadWithAjax,
+            routes.javascript.Application.itemIsExist
+        )).as("text/javascript")
+    }
+
     def index = StackAction{ implicit request =>
       	val user = loggedIn
         Ok(views.html.index(user))
@@ -44,6 +58,18 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
         Ok(views.html.salon.salonManage.salonRegister(Salons.salonRegister,industry))
     }
 
+    def itemIsExist(value:String, key:String) = Action {
+        key match{
+            case ITEM_TYPE_ID =>
+                Ok((User.isExist(value, User.findOneByUserId)||Salon.isExist(value, Salon.findByAccountId)).toString)
+            case ITEM_TYPE_NAME =>
+                Ok((User.isExist(value, User.findOneByNickNm)||Salon.isExist(value, Salon.findOneBySalonName)||Salon.isExist(value, Salon.findOneBySalonNameAbbr)).toString)
+            case ITEM_TYPE_EMAIL =>
+                Ok((User.isExist(value, User.findOneByEmail)||Salon.isExist(value, Salon.findOneByEmail)).toString)
+            case ITEM_TYPE_TEL =>
+                Ok((User.isExist(value, User.findOneByTel)||Salon.isExist(value, Salon.findOneByMainPhone)).toString)
+        }
+    }
     
     def getPhoto(file: ObjectId) = Action {
 
@@ -62,40 +88,17 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
 
             case None => {
               val fi = new File(play.Play.application().path() + "/public/images/user/dafaultLog/portrait.png")
-              var in = new FileInputStream(fi)
-              var bytes = Image.fileToBytes(in)
-              Ok(bytes)
+              if(fi.exists) {
+                var in = new FileInputStream(fi)
+                var bytes = Image.fileToBytes(in)
+                Ok(bytes)
+              } else {
+                Ok("")
+              }
             }
         }
     }
     
-    def getPhotoByString(sfile: String) = Action {
-
-        import com.mongodb.casbah.Implicits._
-        import ExecutionContext.Implicits.global
-        
-        val file = new ObjectId(sfile)
-
-        val db = MongoConnection()("Picture")
-        val gridFs = GridFS(db)
-        //println("get photo id "+ file)
-        gridFs.findOne(Map("_id" -> file)) match {
-            case Some(f) => SimpleResult(
-                ResponseHeader(OK, Map(
-                    CONTENT_LENGTH -> f.length.toString,
-                    CONTENT_TYPE -> f.contentType.getOrElse(BINARY),
-                    DATE -> new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", java.util.Locale.US).format(f.uploadDate))),
-                Enumerator.fromStream(f.inputStream))
-
-            case None => {
-              val fi = new File(play.Play.application().path() + "/public/images/user/dafaultLog/portrait.png")
-              var in = new FileInputStream(fi)
-              var bytes = Image.fileToBytes(in)
-              Ok(bytes)
-            }
-        }
-    }
-
     def upload = Action(parse.multipartFormData) { request =>
         request.body.file("photo") match {
             case Some(photo) =>
@@ -151,10 +154,6 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
       age
     }
             
-    def javascriptRoutes = Action { implicit request =>
-    	Ok(Routes.javascriptRouter("jsRoutes")(auth.routes.javascript.MyFollows.addFollow)).as("text/javascript")
-    }
-    
     /**
      *  ajax fileupload 输出图片id到页面对应区域
      */
@@ -171,6 +170,21 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
             case None => BadRequest("no photo")
         }
     
+    }
+
+    def uploadWithAjax = Action(parse.multipartFormData) { implicit request =>
+        request.body.file("photo") match {
+            case Some(photo) =>{
+                val db = MongoConnection()("Picture")
+                val gridFs = GridFS(db)
+                val uploadedFile = gridFs.createFile(photo.ref.file)
+                uploadedFile.contentType = photo.contentType.orNull
+                uploadedFile.save()
+                Ok(uploadedFile._id.get.toString)
+            }
+            case None => BadRequest("no photo")
+        }
+
     }
     
     
@@ -189,9 +203,18 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     def getkeyWordsByajax(wordText:String) = Action{
       println("get keyword.."+wordText)
       val hotkeys = HotestKeyword.findHotestKeywordsByKW(wordText)
-      val keys: String = hotkeys.stringPrefix
+      if(hotkeys.isEmpty){
+         HotestKeyword.save(new HotestKeyword(new ObjectId,wordText,"hairSalon",1,true))
+      }
+      println(HotestKeyword.findAll.toList)
+      var responseTxt = ""
+         
+      hotkeys.map{key=>
+    	  responseTxt +=key+","
+      }
       println("keys "+hotkeys)
-      Ok(keys)
+      println(responseTxt)
+      Ok(responseTxt)
       
     }
 }

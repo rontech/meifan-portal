@@ -254,11 +254,11 @@ object InitialData {
     
     if(PriceRange.findAll.isEmpty){
        Seq(
-    	 PriceRange(0, 20),
-    	 PriceRange(21, 50),
-    	 PriceRange(51, 100),
-    	 PriceRange(101, 1000),
-    	 PriceRange(1001, 100000)
+         PriceRange(0, 20),
+         PriceRange(21, 50),
+         PriceRange(51, 100),
+         PriceRange(101, 1000),
+         PriceRange(1001, 100000)
        ).foreach(PriceRange.save)
     }
     
@@ -273,10 +273,24 @@ object InitialData {
     
     if(HotestKeyword.findAll.isEmpty){
       Seq(
-    		HotestKeyword(new ObjectId,"剪","hairSalon",1,true),
-    		HotestKeyword(new ObjectId,"洗","hairSalon",5,true),
-    		HotestKeyword(new ObjectId,"悦美","hairSalon",1,true)
-      ).foreach(HotestKeyword.save)
+    	  HotestKeyword(new ObjectId,"烫发","HairSalon",1,true),
+          HotestKeyword(new ObjectId,"男士","HairSalon",2,true),
+          HotestKeyword(new ObjectId,"千美","HairSalon",3,true),
+          HotestKeyword(new ObjectId,"高新区","HairSalon",4,true),
+          HotestKeyword(new ObjectId,"苏州","HairSalon",5,true),
+          HotestKeyword(new ObjectId,"竹园路","HairSalon",6,true),
+          HotestKeyword(new ObjectId,"剪","HairSalon",7,true),
+          HotestKeyword(new ObjectId,"洗","HairSalon",8,true),
+          HotestKeyword(new ObjectId,"美丽","HairSalon",9,true),
+          HotestKeyword(new ObjectId,"悦美","HairSalon",9,true),
+          HotestKeyword(new ObjectId,"悦美纤美","hairSalon",1,true),
+          HotestKeyword(new ObjectId,"悦美月容","hairSalon",1,true),
+          HotestKeyword(new ObjectId,"悦 美  彩","hairSalon",1,true),
+          HotestKeyword(new ObjectId,"剪发","hairSalon",1,true),
+          HotestKeyword(new ObjectId,"剪头发","hairSalon",1,true),
+          HotestKeyword(new ObjectId,"洗+剪+吹","hairSalon",1,true),
+          HotestKeyword(new ObjectId,"悦容美发","hairSalon",1,true)
+    	).foreach(HotestKeyword.save)
       
     }
   }
@@ -288,8 +302,8 @@ object InitialData {
     
     if(Salon.findAll.isEmpty) { 
       Seq(
-        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("salon01", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "悦美月容吧", Some("悦容吧"), List("Hairdressing"), Some("www.yuerong.com"), Some("美丽从这里开始！"), Some(PicDescription("美丽从这里开始","最新的潮流资讯、最顶尖的时尚发布、最贴心的造型设计、最合理的价格优势。我们立志以最时尚的理念，打造最生活的状态，塑造最自信的你！","欢迎光临悦美月容！")), Contact("051268320328", "王经理","wzw1991@126.com"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-01-12") ),
-        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("salon02", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "千美千寻吧", Some("美寻吧"), List("Hairdressing"), Some("www.meixun.com"), Some("选择我们，选择美丽！"),Some(PicDescription("选择我们，选择美丽","将细节打造为上品，力求体贴与舒适，经典与时尚。您的秀发将在这里得到个性的张扬，以更加自我的方式追寻生活的美和真谛。您的美丽人生，将在这里从“头”开始。专业和完善的美发设备，将尽显您的身份与尊贵。专业的美发产品和精湛的技术，体贴入微的全程服务，完美是您的追求，专业是我的宗旨。","欢迎光临千美千寻！")), Contact("051268320328", "李经理","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州"), Option("高新区"), None, "南京路9号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") ),
+        Salon(new ObjectId("530d7288d7f2861457771bdd"), SalonAccount("salon01", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "悦美月容吧", Some("悦容吧"), List("Hairdressing"), Some("www.yuerong.com"), Some("美丽从这里开始！"), Some(PicDescription("美丽从这里开始","最新的潮流资讯、最顶尖的时尚发布、最贴心的造型设计、最合理的价格优势。我们立志以最时尚的理念，打造最生活的状态，塑造最自信的你！","欢迎光临悦美月容！")), Contact("0512-68320328", "王经理","wzw1991@126.com"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！")),new OnUsePicture(new ObjectId,"SalonCheck",Some(1),Some("营业执照！"))), date("2014-01-12") ),
+        Salon(new ObjectId("530d7292d7f2861457771bde"), SalonAccount("salon02", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "千美千寻吧", Some("美寻吧"), List("Hairdressing"), Some("www.meixun.com"), Some("选择我们，选择美丽！"),Some(PicDescription("选择我们，选择美丽","将细节打造为上品，力求体贴与舒适，经典与时尚。您的秀发将在这里得到个性的张扬，以更加自我的方式追寻生活的美和真谛。您的美丽人生，将在这里从“头”开始。专业和完善的美发设备，将尽显您的身份与尊贵。专业的美发产品和精湛的技术，体贴入微的全程服务，完美是您的追求，专业是我的宗旨。","欢迎光临千美千寻！")), Contact("051268320328", "李经理","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州"), Option("高新区"), None, "南京路9号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！")),new OnUsePicture(new ObjectId,"SalonCheck",Some(1),Some("营业执照！"))), date("2014-03-12") ),
         Salon(new ObjectId("530d7288d7f2861457771bdf"), SalonAccount("salon03", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "忆荣吧", Some("忆荣吧"), List("Hairdressing"), Some("www.yirong.com"), Some("丽质自天成、魅力在忆容"), Some(PicDescription("丽质自天成、魅力在忆容"," 简约、干净、充满新古典风格的环境里，忆容沙龙将让每一位客人在自在的空间里，在优美旋律的陪伴下，感受专业美发技术和造型设计的美妙。","欢迎光临忆容吧！")),Contact("0512-68320328", "冯先生","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("云南省", Option("昆明"), Option("盘龙区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, false, false, true, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", Some(1), None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-01-12") ),
         Salon(new ObjectId("530d7292d7f2861457771aaa"), SalonAccount("salon04", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "虞美人", Some("虞美人"), List("Hairdressing"), Some("www.yumeiren.com"), Some("做个美丽的人"),Some(PicDescription("专业、时尚、 亲和、 信赖","为了您更美好的生活，我们一直在关注，我们一直在努力！您的肯定是我们最大的收获，您的信赖更是我们最满足的奖赏！","欢迎光临虞美人！")), Contact("0512-68320328", "马先生","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("湖南省", Option("长沙"), Option("天心区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") ),
         Salon(new ObjectId("530d7292d7f2861457771bbb"), SalonAccount("salon05", "$2a$10$q0rl.qI.X9UTPZ6mDRbVhOvxYjk9S7RsrAmJ3aXaJaEcLV/3f/bU."), "美吧", Some("美吧"), List("Hairdressing"), Some("www.meiba.com"), Some("滋润，护理，完美女人，从你做起！"),Some(PicDescription("专业、时尚、 亲和、 信赖","为了您更美好的生活，我们一直在关注，我们一直在努力！您的肯定是我们最大的收获，您的信赖更是我们最满足的奖赏！","欢迎光临美吧！")), Contact("0512-68320328", "张女士","hz-han@rontech.co.jp"), List(OptContactMethod("QQ",List("99198121"))), Some(date("2014-03-12")), Some(Address("江苏省", Option("苏州"), Option("高新区"), None, "竹园路209号", Some(100.0), Some(110.0),"地铁一号线汾湖路站1号出口向西步行500米可达")) , Some(WorkTime("9:00", "18:00")), Some(RestDay("Fixed",List("Monday"))), Some(25), Some(SalonFacilities(true, true, true, true, false, true, true, true, true, "附近有")), List(new OnUsePicture(new ObjectId, "LOGO", None, None),new OnUsePicture(new ObjectId,"Navigate",Some(1),None),new OnUsePicture(new ObjectId,"Navigate",Some(2),None),new OnUsePicture(new ObjectId,"Navigate",Some(3),None),new OnUsePicture(new ObjectId,"Atmosphere",Some(1),Some("清新怡人")),new OnUsePicture(new ObjectId,"Atmosphere",Some(2),Some("环境优雅！")),new OnUsePicture(new ObjectId,"Atmosphere",Some(3),Some("安静典雅！"))), date("2014-03-12") )
@@ -658,8 +672,8 @@ object InitialData {
          Info(new ObjectId(), "责任说明", "基于技术和不可预见的原因而导致的服务中断，或者因会员的非法操作而造成的损失，美范网不负责任。会员应当自行承担一切因自身行为而直接或者间接导致的民事或刑事法律责任。", new ObjectId, Nil, new Date, 4, true),
          Info(new ObjectId(), "版权说明", "任何会员接受本注册协议，即表明该用户主动将其在任何时间段在本站发表的任何形式的信息的著作财产权，包括并不限于：复制权、发行权、出租权、展览权、表演权、放映权、广播权、信息网络传播权、摄制权、改编权、翻译权、汇编权以及应当由著作权人享有的其他可转让权利无偿独家转让给美范网运营商所 有，同时表明该会员许可美范网有权利就任何主体侵权而单独提起诉讼，并获得全部赔偿。本协议已经构成《著作权法》第二十五条所规定的书面协议，其效力及于用户在美范网发布的任何受著作权法保护的作品内容，无论该内容形成于本协议签订前还是本协议签订后。", new ObjectId, Nil, new Date, 4, true),
          Info(new ObjectId(), "侵权者政策", "对于被视为侵犯他人知识产权的任何用户，美范网可自行决定限制其对本网站的访问或终止其帐户。", new ObjectId, Nil, new Date, 4, true),
-		 Info(new ObjectId(), "通知", "美范网向用户发出的通知，采用电子邮件、手机短信、页面公告或常规信件的形式。服务条款的修改及其他事项的告知(包含但不限于注册结果通知、预订结果通知、手机验证通知等)，美范网将会以上述形式进行通知。", new ObjectId, Nil, new Date, 4, true),
-		 Info(new ObjectId(), "其他", "本协议条款在用户接受时对用户生效。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "通知", "美范网向用户发出的通知，采用电子邮件、手机短信、页面公告或常规信件的形式。服务条款的修改及其他事项的告知(包含但不限于注册结果通知、预订结果通知、手机验证通知等)，美范网将会以上述形式进行通知。", new ObjectId, Nil, new Date, 4, true),
+         Info(new ObjectId(), "其他", "本协议条款在用户接受时对用户生效。", new ObjectId, Nil, new Date, 4, true),
          Info(new ObjectId(), "用户隐私制度", "尊重用户个人隐私是本站的一项基本政策。所以，本站一定不会在未经合法用户授权时公开、编辑或透露其注册资料及保存在本站中的非公开内容。", new ObjectId, Nil, new Date, 5, true),
          Info(new ObjectId(), "用户的帐号，密码和安全性", "用户一旦注册成功，成为本站的合法用户，将得到一个密码和用户名。您可随时根据指示改变您的密码。用户需谨慎合理的保存、使用用户名和密码。用户若发现任何非法使用用户帐号或存在安全漏洞的情况，请立即通知本站和向公安机关报案。", new ObjectId, Nil, new Date, 5, true),
          Info(new ObjectId(), "对用户信息的存储和限制", "如果用户违背了国家法律法规规定或本协议约定，本站有视具体情形中止或终止对其提供网络服务的权利。", new ObjectId, Nil, new Date, 5, true),
@@ -867,14 +881,22 @@ object InitialData {
     println("general salon search = " + Salon.findSalonByFuzzyConds("千美悦美"))
     println("general salon search = " + Salon.findSalonByFuzzyConds("千美 悦美"))
     println("general salon search = " + Salon.findSalonByFuzzyConds("千美　悦美"))
+    println("general salon search = " + Salon.contactKwdsToFuzzyConds("千美悦美"))
+    println("general salon search = " + Salon.contactKwdsToFuzzyConds("千美 悦美"))
+    println("general salon search = " + Salon.contactKwdsToFuzzyConds("千美　悦美"))
+
 
     // Test for Geting hotest Styles from a salon.
     println("hotest style search = " + Style.getBestRsvedStylesInSalon(new ObjectId("530d7288d7f2861457771bdd"), 2))
     // Test for Geting good review rate of a salon.
     println("salon good review rate = " + Comment.getGoodReviewsRate(new ObjectId("530d7288d7f2861457771bdd")))
 
+    // Test for Geting hottest keyword.
+    println("hotest keywords = " + HotestKeyword.findTopKeywordsOfDiv())
+    println("hotest keywords = " + HotestKeyword.findTopKeywordsOfDiv("Top"))
+    println("hotest keywords = " + HotestKeyword.findTopKeywordsOfDiv("Top", 8))
+    println("hotest keywords = " + HotestKeyword.findTopKeywordsOfDiv("HairSalon", 8))
+
     */
-
-
   }
 }

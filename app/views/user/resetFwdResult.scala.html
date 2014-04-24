@@ -1,0 +1,42 @@
+@(isSuccess: Boolean, msg: String)
+@import helper._
+
+@main(Messages("common.resetPassword")) {
+ 	<head>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/findPwd.css")">
+	</head>
+	
+ 	<div id="entry" class="w m">
+ 		<div class="mt">
+			<h2>@Messages("user.resetPassword")</h2>
+			<b></b>
+		</div>
+		<div class="mc">
+			<div class="step">
+	            <ul>
+	               <li class="one one1">填写账户名</li>
+	               <li class="two two1">验证身份</li>
+	               <li class="three">设置新密码</li>
+	               @if(isSuccess) {
+	               	<li class="four cur four1">完成</li>
+	               } else {
+	               	<li class="four cur four1">失败</li>
+	               }
+	               
+	            </ul>
+	        </div>
+	        <div class="form">
+	        	@if(isSuccess) {
+               	<div class="suc m-return">
+	        		<b></b><span><strong>新密码设置成功!</strong><br>请牢记您新设置的密码。返回<a href="@routes.Application.index">首页</a>或者<a href="@routes.Application.login">登录画面</a></span>
+	        	</div>
+               } else {
+               	<div class="call m-return">
+	        		<b></b><span><strong>新密码设置失败!</strong><br>可能链接过期或者网络异常等原因。返回<a href="@routes.Application.index">首页</a>或者<a href="@routes.Mails.forgotPassword">重设密码</a></span>
+	        		<font>@msg</font>
+	        	</div>
+               }
+			</div>
+  		</div>
+ 	</div>
+}		

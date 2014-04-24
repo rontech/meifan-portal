@@ -1,13 +1,13 @@
-@(navBar: List[(String, String)], user: Option[User], searchParaForSalon: SearchParaForSalon, salons: List[Salon])
+@(navBar: List[(String, String)], user: Option[User], searchParaForSalon: SearchParaForSalon, salons: List[SalonGeneralSrchRst])
 
-@main(Messages("site.title"), nav = "hair-salon", navBar) {
+@main(Messages("site.title"), nav = "HairSalon", navBar) {
 
 	<div id="generalContents">
 
 	    <div class="pT15 cFix">
 		<div class="cFix">
 		    <!-- ↓generalContentTopColumn -->
-		    @views.html.salon.general.leftColumn(searchParaForSalon,salons)
+		    @views.html.salon.general.leftColumn(searchParaForSalon, salons)
 	        <!-- ↑generalContentTopColumn -->
 	        
 		    <!-- ↓generalContentRightColumn -->

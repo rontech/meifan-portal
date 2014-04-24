@@ -1,4 +1,4 @@
-@(title: String, nav: String = "top", navBar: List[(String, String)] = Nil)(content: Html)
+@(title: String, nav: String = "Top", navBar: List[(String, String)] = Nil)(content: Html)
 
 <!DOCTYPE html>
 <html>
@@ -56,22 +56,22 @@
 					<!--顶部菜单-->
 					<div id="nav">
 					    <ul>
-					      <li class="@if(nav == "hair-salon") {btn}">
+					      <li class="@if(nav == "HairSalon") {btn}">
 					      	<a href="@noAuth.routes.Salons.index"> @Messages("main.hairSalon") </a>
 					      </li>
-					      <li class="@if(nav == "hair-catalog") {btn}">
+					      <li class="@if(nav == "HairCatalog") {btn}">
 					      	<a href="@noAuth.routes.Styles.index"> @Messages("main.hairCatalog") </a>
 					      </li>
-					      <li class="@if(nav == "nail-salon") {btn}">
+					      <li class="@if(nav == "NailSalon") {btn}">
 					      	<a href="@routes.Application.index"> @Messages("main.nailSalon") </a>
 					      </li>
-					      <li class="@if(nav == "nail-catalog") {btn}">
+					      <li class="@if(nav == "NailCatalog") {btn}">
 					      	<a href="@routes.Application.index"> @Messages("main.nailCatalog") </a>
 					      </li>
-					      <li class="@if(nav == "relax-salon") {btn}">
+					      <li class="@if(nav == "RelaxSalon") {btn}">
 					      	<a href="@routes.Application.index"> @Messages("main.relaxSalon") </a>
 					      </li>
-					      <li class="@if(nav == "esthe-salon") {btn}">
+					      <li class="@if(nav == "EstheSalon") {btn}">
 					      	<a href="@routes.Application.index"> @Messages("main.estheSalon") </a>
 					      </li>
 					    </ul>
@@ -152,7 +152,7 @@
                         </div>
                         <div class="postSalonInfo">
                             @Messages("main.toSalonOwners")
-                            <a target="_blank" title="@Messages("main.wantToJoin")" href="/salonLogin"
+                            <a target="_blank" title="@Messages("main.wantToJoin")" href="@auth.routes.Salons.salonInfoBasic"
                             onclick="customLinkLog('Footer Salon Link');">
                                 @Messages("main.wantToJoin")
                             </a>

@@ -16,6 +16,8 @@ common.delete=删除
 common.sreach = 检索
 common.all=全部
 common.backToTop=返回顶部
+common.generalSearch = 搜索
+common.hotSearch = 热门搜索
 common.resetPassword = 找回密码
 common.requiredMsg = 不能为空
 
@@ -204,6 +206,8 @@ salon.registerMange.accountId=店铺ID注册后不能修改
 salon.salonNameMange=店铺名称注册后不能修改
 salon.industryError=请至少选择一个行业
 salon.picUse.SalonCheck=店铺营业执照
+salon.reviewsRate=好评率: {0}%
+salon.reviewsTotalCnt=已有{0}人评价
 
 #salon management
 salonAdmin.mainPage = 店铺管理
@@ -239,7 +243,7 @@ salonAdmin.admin = 店铺
 salonAdmin.ApplyOperateResult = 抱歉该申请不存在或已被本人取消，将在
 salonAdmin.ApplyOperateAction = s后自动跳转，点击
 salonAdmin.ApplyOperateGo = 跳转 
-stylistAdmin.selectField = *选填
+stylistAdmin.selectField = *选填，不得超过150字
 
 # Hair
 hair.tabName=时尚靓发
@@ -382,7 +386,6 @@ coupon.useConditionsMsg = 优惠劵使用条件，例如“不能和其他优惠
 coupon.presentTimeMsg = 出示优惠劵时间，例如“消费前使用”
 coupon.couponDiscriptionMsg = 填写10到100以内的字
 
-
 menu.title = {0} 的菜单
 menu.tip = 没有找到您希望的菜单！
 menu.addMark = +
@@ -436,6 +439,9 @@ stylist.stylistId = 用户ID
 stylist.workYears = 工作年数
 stylist.info = 技师专有信息
 stylist.removeStylist = 关系解除后无法恢复，请确认是否解除关系？
+stylist.rmSalon = 离开店铺后无法恢复，请确认是否离开店铺？
+stylist.rjtApply = 拒绝后无法恢复，请确认是否拒绝？
+stylist.actApply = 请确认是否同意！
 
 
 
@@ -477,6 +483,8 @@ stylistMag.futureResv = 近期预约
 stylistMag.lastBlog = 最新博客
 stylist.salon = 所属店铺
 stylist.style = 他的作品
+stylistMag.calApplying = 取消申请后无法恢复，请确认是否取消申请？
+stylistMag.wtApply = 请确认提交申请！
 
 
 
@@ -593,6 +601,10 @@ user.message.to = 收信人
 user.message.title = 标题
 user.message.content = 内容
 user.message.send = 发送
+
+user.needfieldworks = *必填，0~100整数
+user.errorWorks = 无效的年数
+user.errorSalonId= 无效的店铺ID
 
 #Mail
 mail.subjectOfResetPwd = 来自美范网的密码重置邮件
@@ -836,9 +848,8 @@ onUserPicture.description = 请填写沙龙简介
 onUserPicture.foot=请填写沙龙标注
 onUserPicture.picDescrition=请填写图片描述信息
 onUsePicture.selectImge = 选择文件
-onUsePicture.uploadImgSize = 建议上传图片尺寸：
-onUsePicture.size = 像素
-onUsePicture.WH = 950x320
+onUsePicture.uploadImgSize = 建议上传图片大小：
+onUsePicture.WH = ≤ 1M
 onUsePicture.process = 上传进度：
 onUsePicture.limit = 最多选择5张图片
 

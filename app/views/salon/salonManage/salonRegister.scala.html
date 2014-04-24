@@ -12,7 +12,7 @@
 		</div>
 
 		<div class="mT10 pH10">
-			@helper.form(noAuth.routes.Salons.register(), 'id -> "salonRegister"){
+			@helper.form(noAuth.routes.Salons.register(), 'id -> "salonRegister", 'name ->"salonRegister"){
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
 				    	@if(salonRegister.hasGlobalErrors){
@@ -23,12 +23,12 @@
 				        <tr>
 				            <th class="w222">
 				                <div class="dibBL vaM w160">
-				                    <font color="cR">*</font>@Messages("salon.id")
+				                    <font class="cR">*</font>@Messages("salon.id")
 				                </div>
 				            </th>
 				            <td>
 				                @inputText(salonRegister("salonAccount.accountId"),'_label -> None,
-				                			'id -> "salonAccountId",
+				                			'id -> "accountId",
 									 		'placeholder -> Messages("salon.login.accountId"),
 									 		'_help -> Messages("salon.register.accountId"),
 									 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("salon.register.accountIdErr"))))
@@ -44,7 +44,7 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	<font color="cR">*</font>@Messages("salon.password")
+				                   	<font class="cR">*</font>@Messages("salon.password")
 				                </div>
 				            </th>
 				            <td>
@@ -61,7 +61,7 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	<font color="cR">*</font>@Messages("user.confirmPas")
+				                   	<font class="cR">*</font>@Messages("user.confirmPas")
 				                </div>
 				            </th>
 				            <td>
@@ -74,12 +74,12 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	<font color="cR">*</font>@Messages("salon.Name")
+				                   	<font class="cR">*</font>@Messages("salon.Name")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("salonName"),'_label ->  None,'_help -> Messages(""),'id-> "salonName_check",
+				                	@inputText(salonRegister("salonName"),'_label ->  None,'_help -> Messages(""),'id-> "salonName",
 				                		'_error -> salonRegister("salonName").error.map(_.withMessage(Messages("salon.register.salonName"))))				             	
 				                </div>
 				            </td>
@@ -88,14 +88,14 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	<font color="cR">*</font>@Messages("salon.type")
+				                   	<font class="cR">*</font>@Messages("salon.type")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
 				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None,'_error -> salonRegister("salonIndustry").error.map(_.withMessage(Messages("salon.industryError")))){(id,name,value,args) =>
 								 	@for(i <- 0 to industry.length-1){
-								 		<input type = "checkbox" class="" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
+								 		<input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
 								 	}
 								  }
 				                </div>
@@ -105,7 +105,7 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	<font color="cR">*</font>@Messages("salon.mainPhone")
+				                   	<font class="cR">*</font>@Messages("salon.mainPhone")
 				                </div>
 				            </th>
 				            <td>
@@ -119,13 +119,13 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	<font color="cR">*</font>@Messages("salon.contact")
+				                   	<font class="cR">*</font>@Messages("salon.contact")
 				                </div>
 				            </th>
 				            <td>
 				                <div>
 				                	@inputText(salonRegister("contactMethod.contact"), '_label -> None,'_help -> Messages(""),
-				                		'_error -> salonRegister("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
+                                        'id->"contact",'_error -> salonRegister("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
 				                </div>
 				            </td>
 				        </tr>
@@ -133,7 +133,7 @@
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
-				                   	<font color="cR">*</font>@Messages("user.email")
+				                   	<font class="cR">*</font>@Messages("user.email")
 				                </div>
 				            </th>
 				            <td>
@@ -148,7 +148,7 @@
 				<div class="mT20 txtC">
 					<input type = "hidden" name="salonPics[0].fileObjId" />
 					<input type = "hidden" name="salonPics[0].picUse" value="LOGO"/>
-					<input type = "submit" class = "buttons" value=@Messages("user.registerBtn")>
+					<input type = "button" class = "buttons" value=@Messages("user.registerBtn") onclick="checksOfSalonRegister();">
 				</div>
 		  		<div class="mT20 txtC">
 					<a href= "#"><p>@Messages("salon.agreement")</p></a>
@@ -158,113 +158,6 @@
 		</div>
 </div>
 }
-<style>
-	.errorMsg{
-		color:red;
-		background-image:url(@routes.Assets.at("images/vadtion/unchecked.jpg"));
-		background-repeat:no-repeat;
-		padding-left:20px;
-	}
-	.trueMsg{
-		color:green;
-		background-image:url(@routes.Assets.at("images/vadtion/checked.gif"));
-		background-repeat:no-repeat;
-		padding-left:20px;
-	}
-</style>
+
 <script src="@routes.Assets.at("javascripts/stylist.js")" type="text/javascript"></script>
-<script type="text/javascript">
-
-	
-	$('#salonAccountId').blur(function(){
-		var salonId = $('#salonAccountId').val();
-		var isname=/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/;
-		if(!isname.test(salonId)){
-			$('#salonAccountId  ~ .help-block').text('无效的ID，输入6~18位字符,可使用字母、数字和下划线').addClass("errorMsg");
-			return;
-		}
-		var xhr = getXmlHttpRequest();
-		
-		xhr.open('get',
-			    '/myPage/checkSalonIsExit/'+salonId,
-			    true);
-			     xhr.onreadystatechange=function(){
-			         //step4 获取服务器返回的数据，更新页面
-			         if(xhr.readyState == 4){
-			             if(xhr.status == 200){
-			            	 var txt = xhr.responseText;
-			                 if(txt == 'YES'){
-			                	 $('#salonAccountId  ~ .help-block').text('ID已存在，重新输入').removeClass("trueMsg").addClass("errorMsg"); 
-			                 }
-			                 if(txt == 'NO'){
-			                	 $('#salonAccountId  ~ .help-block').text('可以使用').removeClass("errorMsg").addClass("trueMsg");
-			                 }
-			            	 
-			            	 
-			             }else{
-			            	 
-			             }
-			         }else{
-			        	 
-			         }
-			     };
-			     xhr.send(null);
-	});
-
-	$('#password_main').blur(function(){
-		var password=$(this).val();
-		var ispassword=/^[a-zA-Z0-9]\w{5,17}$/;
-		if(!ispassword.test(password)){
-		$("#password_main ~ .help-block").text("密码无效").removeClass("trueMsg").addClass("errorMsg");
-		return;
-		}
-		$("#password_main ~ .help-block").text("可以使用").removeClass("errorMsg").addClass("trueMsg");
-		});
-	$('#password_confirm').blur(function(){
-		var password=$(this).val();
-		var ispassword=/^[a-zA-Z0-9]\w{5,17}$/;
-		if(!ispassword.test(password)){
-		$("#password_confirm ~ .help-block").text("密码无效").removeClass("trueMsg").addClass("errorMsg");
-		return;
-		}
-		var firstPassword=$("#password_main").val();
-		if(password!=firstPassword){
-		$("#password_confirm ~ .help-block").text("两次密码输入需一致").removeClass("trueMsg").addClass("errorMsg");
-		return;
-		}
-		$("#password_confirm ~ .help-block").text("输入正确").removeClass("errorMsg").addClass("trueMsg");
-		});
-	$('#contact_email').blur(function(){
-		var email=$(this).val();
-		var isemail=/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/;
-		if(!isemail.test(email)){
-		$("#contact_email ~ .help-block").text("邮箱无效").removeClass("trueMsg").addClass("errorMsg");
-		return;
-		}else{
-			$("#contact_email ~ .help-block").text("可以使用").removeClass("errorMsg").addClass("trueMsg");
-			}
-
-	});
-	$('#contact_tel').blur(function(){
-		var tel=$(this).val();
-		var istel=/(^(13|14|15|18)\d{9}$)/;
-		if(!istel.test(tel)){
-		$("#contact_tel ~ .help-block").text("该号码无效").removeClass("trueMsg").addClass("errorMsg");
-		return;
-		}else{
-			$("#contact_tel ~ .help-block").text("可以使用").removeClass("errorMsg").addClass("trueMsg");
-			}
-	});
-
-	$('#salonName_check').blur(function(){
-		var name=$(this).val();
-		var isname=/^[\u4E00-\u9FA5A-Za-z0-9_]{2,20}$/;
-		if(!isname.test(name)){
-			$('#salonName_check ~ .help-block').text("名字无效，长度为20以内的中、英文、数字包括下划线组合").removeClass("trueMsg").addClass("errorMsg");
-			return;
-		}else{
-			$('#salonName_check ~ .help-block').text("可以使用").removeClass("errorMsg").addClass("trueMsg");
-		}
-		
-	});	
-</script>
+<script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>

@@ -11,7 +11,22 @@
            <input type="text" name="message.title"><br/>
            <label><font class="cR">*</font>@Messages("user.message.content")</label><br/>
            <textarea cols="60" rows="10" name="message.content"></textarea>
-           <input type="submit" value="@Messages("user.message.send")">
+           <input type="submit" value="@Messages("user.message.send")" onclick="return checkNoEmpty();">
        }
    </div>
+<script type="text/javascript">
+    function checkNoEmpty(){
+        var title = document.getElementById("title" ).value;
+        if (title.trim() == "" ){;
+            alert("请输入私信的标题。");
+            return false;
+        }
 
+        var content = document.getElementById("content").value;
+        if (content.trim() == "" ){
+            alert("请输入私信的内容。");
+            return false;
+        }
+        return true;
+    }
+</script>
