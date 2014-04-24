@@ -6,10 +6,11 @@
 @myPageMain("updateStylistImage", user, followInfo, loginUserId, logged){
 	@helper.form(auth.routes.Stylists.toUpdateStylistImage, 'enctype -> "multipart/form-data") {
         <input type="file" id="filePhoto" name="photo" style="width:50"  /> 
-        <button type="submit">@Messages("user.changeImage")</button>
-        <div id="target">
-        	
+        
+        <div id="target" style="width:166px;height:215px;background-color:#DDDDDD;border:1px solid #666666;">
+        	<span style="text-aligin:center;color:#444444;">@Messages("stylist.myPictureShow")</span>
         </div>
+        <button type="submit" onclick="return uploadimages();">@Messages("user.changeImage")</button>
 	}
 }
 
@@ -19,13 +20,23 @@ function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
-            $('#target').append('<img src='+e.target.result+' style="float:left;width:150px;margin-left:30px;margin-top:40px;"'+'>');
+            $('#target').append('<img src='+e.target.result+' class="stylistimg_view" style="float:left;width:165px;height:214px;"'+'>');
         }
         reader.readAsDataURL(input.files[0]);
     }
 }
 
 $("#filePhoto").change(function() {
+	$('#target').empty();
     readURL(this);
 });
+
+function uploadimages(){
+	 var input = document.getElementById('filePhoto');
+		 if(input.files.length < 1){
+		  alert("没有找到图片");
+		  return false
+		  }
+		 return true
+}
 </script>
