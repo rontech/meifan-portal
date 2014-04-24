@@ -5617,6 +5617,6 @@ overflow: hidden;
       margin-top: 5px;
     }
 
-#couponForm dd {
+#couponForm dd, #menuForm dd {
 display: inline-block;
 }

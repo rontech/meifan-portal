@@ -42,7 +42,7 @@ $('#addressDetail').blur(function(){
 $('#accessMethodDesc').change(function(){
     checkedAccessMethodDesc()
 });
-$('#openTime').blur(function(){
+$('#openTime').change(function(){
     checkedOpenTime()
 });
 $('#closeTime').change(function(){
@@ -467,20 +467,23 @@ $('#couponName').blur(function(){
 });
 function checkedCouponName(){
     var value = $('#couponName').val();
-    var isValid=/^[a-zA-Z][a-zA-Z0-9_]{2,15}$/;
-
+    //var isValid=/^[a-zA-Z][a-zA-Z0-9_]{2,15}$/;
     if (value == ""){
-        $("#couponName").parent("dd").next().text('').removeClass("trueMsg").addClass("errorMsg");
+        $("#couponName").parent("dd").next().text('优惠券名不能为空').removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    if(!isValid.test(value)){
+    //if(!isValid.test(value)){
+    //TODO
+    if(false){
         $("#couponName").parent("dd").next().text('该优惠券名不合法，请重新输入').removeClass("trueMsg").addClass("errorMsg");
-        return;
+    }else{
+        $("#couponName").parent("dd").next().text('').removeClass("errorMsg").addClass("trueMsg");
     }
-    jsRoutes.controllers.Application.itemIsExist(salonId, ITEM_TYPE_ID).ajax({
-        /*data: formData,
+    //TODO
+    /*jsRoutes.controllers.Application.itemIsExist(salonId, ITEM_TYPE_ID).ajax({
+        *//*data: formData,
          processData: false,
-         contentType: false,*/
+         contentType: false,*//*
         async: false,
         cache: false,
         type: 'POST',
@@ -495,92 +498,248 @@ function checkedCouponName(){
         error: function(err){
             $('#accountId  ~ .help-inline').text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
         }
-    });
+    });*/
 }
 
-$('#startDate').blur(function(){
-    var startDate = $(this).val();
+function checkedStartAndEndDate(){
+    var startDate = $('#startDate').val();
     var endDate = $('#endDate').val();
+
+    if(endDate != "") {
+        $("#endDate").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
+    }
     if(startDate == "") {
         $("#startDate").parent("dd").next().text('@Messages("common.requiredMsg")').removeClass("trueMsg").addClass("errorMsg");
         return;
-    } else {
-        if(endDate != "" && startDate > endDate) {
-            $("#startDate").parent("dd").next().text('@Messages("coupon.startDateltEndMsg")').removeClass("trueMsg").addClass("errorMsg");
-            return;
-        } else {
-            $("#startDate").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
-        }
     }
-});
-
-$('#endDate').blur(function(){
-    var endDate = $(this).val();
-    var startDate = $('#startDate').val();
+    $("#startDate").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
     if(endDate == "") {
         $("#endDate").parent("dd").next().text('@Messages("common.requiredMsg")').removeClass("trueMsg").addClass("errorMsg");
         return;
-    } else {
-        if(startDate != "" && startDate > endDate) {
-            $("#endDate").parent("dd").next().text('@Messages("coupon.endDateGtStartMsg")').removeClass("trueMsg").addClass("errorMsg");
-            return;
-        } else {
-            $("#endDate").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
-        }
     }
+    if(startDate > endDate) {
+        $("#endDate").parent("dd").next().text('@Messages("coupon.startDateltEndMsg")').removeClass("trueMsg").addClass("errorMsg");
+    } else {
+        $("#endDate").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
+    }
+}
+
+$('#price').blur(function(){
+    checkedPrice()
 });
 
-$('#perferentialPrice').blur(function(){
-    var perferentialPrice = $(this).val();
-    if(perferentialPrice == "") {
-        $("#perferentialPrice").parent("dd").next().text('@Messages("common.requiredMsg")').removeClass("trueMsg").addClass("errorMsg");
-        return;
+function checkedPrice(){
+    var price = $('#price').val();
+    if(price == "") {
+        $("#price").parent("dd").next().text('@Messages("common.requiredMsg")').removeClass("trueMsg").addClass("errorMsg");
     } else {
-        if(isNaN(perferentialPrice)){
-            $("#perferentialPrice").parent("dd").next().text('@Messages("coupon.perferentialPriceErr")').removeClass("trueMsg").addClass("errorMsg");
+        if(isNaN(price)){
+            $("#price").parent("dd").next().text('@Messages("coupon.perferentialPriceErr")').removeClass("trueMsg").addClass("errorMsg");
             return;
         }else{
-            $("#perferentialPrice").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
+            $("#price").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
         }
     }
-});
+}
 
 $('#useConditions').blur(function(){
-    var useConditions = $(this).val();
+    checkedUesConditions()
+});
+function checkedUesConditions(){
+    var useConditions = $('#useConditions').val();
     if(useConditions == "") {
         $("#useConditions").parent("dd").next().text('@Messages("common.requiredMsg")').removeClass("trueMsg").addClass("errorMsg");
         return;
     } else {
         $("#useConditions").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
     }
-});
+}
 
 $('#presentTime').blur(function(){
-    var presentTime = $(this).val();
+    checkedPresentTime()
+});
+function checkedPresentTime(){
+    var presentTime = $('#presentTime').val();
     if(presentTime == "") {
         $("#presentTime").parent("dd").next().text('@Messages("common.requiredMsg")').removeClass("trueMsg").addClass("errorMsg");
         return;
     } else {
         $("#presentTime").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
     }
-});
-
-$('#presentTime').blur(function(){
-    var presentTime = $(this).val();
-    if(presentTime == "") {
-        $("#presentTime").parent("dd").next().text('@Messages("common.requiredMsg")').removeClass("trueMsg").addClass("errorMsg");
-        return;
-    } else {
-        $("#presentTime").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
-    }
-});
+}
 
 $('#description').blur(function(){
-    var description = $(this).val();
+    checkedItemDescription()
+});
+
+function checkedItemDescription(){
+    var description = $('#description').val();
     if(description.length < 10 || description.length > 100) {
         $("#description").parent("dd").next().text('@Messages("coupon.couponDiscriptionErr")').removeClass("trueMsg").addClass("errorMsg");
         return;
     } else {
         $("#description").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
     }
+}
+
+$('.serviceItem').change(function(){
+    checkedServiceItem()
 });
+function checkedServiceItem(){
+    var services = $('.serviceItem')
+    var checked = false;
+    for (var i = 0; i < services.length; i++){
+        checked = (services[i].checked ||checked)
+    }
+    if (!checked) {
+        $('.serviceItem').parent("div").parent("dd").next().text('请选择服务').removeClass("trueMsg").addClass("errorMsg");
+    }else{
+        $('.serviceItem').parent("div").parent("dd").next().text('').removeClass("errorMsg").addClass("trueMsg");
+    }
+}
+
+function checksForCoupon(){
+    checkedCouponName();
+    checkedServiceItem();
+    checkedPrice();
+    checkedStartAndEndDate();
+    checkedUesConditions();
+    checkedPresentTime();
+    checkedItemDescription();
+
+    var errInput = $('.errorMsg')
+    if (errInput.length != 0 ){
+        return false;
+    }
+    document.couponForm.submit();
+
+}
+
+/**
+ *checks for menus
+ */
+
+$('#menuName').blur(function(){
+    checkedMenuName();
+});
+
+function checkedMenuName(){
+    var value = $('#menuName').val();
+    //var isValid=/^[a-zA-Z][a-zA-Z0-9_]{2,15}$/;
+    if (value == ""){
+        $("#menuName").parent("dd").next().text('菜单名不能为空').removeClass("trueMsg").addClass("errorMsg");
+        return;
+    }
+    //if(!isValid.test(value)){
+    //TODO
+    if(false){
+        $("#menuName").parent("dd").next().text('该菜单名不合法，请重新输入').removeClass("trueMsg").addClass("errorMsg");
+    }else{
+        $("#menuName").parent("dd").next().text('').removeClass("errorMsg").addClass("trueMsg");
+    }
+    //TODO
+    /*jsRoutes.controllers.Application.itemIsExist(salonId, ITEM_TYPE_ID).ajax({
+     *//*data: formData,
+     processData: false,
+     contentType: false,*//*
+     async: false,
+     cache: false,
+     type: 'POST',
+     success: function(data){
+     if (data == "false"){
+     $('#accountId  ~ .help-inline').text("").removeClass("errorMsg").addClass("trueMsg");
+     }
+     else{
+     $('#accountId  ~ .help-inline').text("该登录ID已被使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+     }
+     },
+     error: function(err){
+     $('#accountId  ~ .help-inline').text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
+     }
+     });*/
+}
+
+function checksForMenu(){
+    checkedMenuName();
+    checkedServiceItem();
+    checkedItemDescription();
+
+    var errInput = $('.errorMsg')
+    if (errInput.length != 0 ){
+        return false;
+    }
+    document.menuForm.submit();
+}
+
+/**
+ *checks for service
+ */
+$('#serviceName').blur(function(){
+   checkedServiceName();
+});
+
+function checkedServiceName(){
+    var value = $('#serviceName').val();
+    //var isValid=/^[a-zA-Z][a-zA-Z0-9_]{2,15}$/;
+    if (value == ""){
+        $("#serviceName").parent("dd").next().text('服务名不能为空').removeClass("trueMsg").addClass("errorMsg");
+        return;
+    }
+    //if(!isValid.test(value)){
+    //TODO
+    if(false){
+        $("#serviceName").parent("dd").next().text('该服务名不合法，请重新输入').removeClass("trueMsg").addClass("errorMsg");
+    }else{
+        $("#serviceName").parent("dd").next().text('').removeClass("errorMsg").addClass("trueMsg");
+    }
+    //TODO
+    /*jsRoutes.controllers.Application.itemIsExist(salonId, ITEM_TYPE_ID).ajax({
+     *//*data: formData,
+     processData: false,
+     contentType: false,*//*
+     async: false,
+     cache: false,
+     type: 'POST',
+     success: function(data){
+     if (data == "false"){
+     $('#accountId  ~ .help-inline').text("").removeClass("errorMsg").addClass("trueMsg");
+     }
+     else{
+     $('#accountId  ~ .help-inline').text("该登录ID已被使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+     }
+     },
+     error: function(err){
+     $('#accountId  ~ .help-inline').text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
+     }
+     });*/
+}
+
+$('#duration').blur(function(){
+    checkedDuration();
+});
+
+function checkedDuration(){
+    var value=$("#duration").val();
+    var isValid=/^[1-9]\d*$/;
+    if (value == ""){
+        $("#duration").parent("dd").next().text("服务耗时不能为空").removeClass("trueMsg").addClass("errorMsg");
+        return;
+    }
+    if(!isValid.test(value)){
+        $("#duration").parent("dd").next().text("输入不合法，请输入整数").removeClass("trueMsg").addClass("errorMsg");
+    }else{
+        $("#duration").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
+    }
+}
+
+function checksForService(){
+    checkedServiceName();
+    checkedPrice();
+    checkedDuration();
+
+    var errInput = $('.errorMsg')
+    if (errInput.length != 0 ){
+        return false;
+    }
+    document.serviceForm.submit();
+}
