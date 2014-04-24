@@ -1,4 +1,4 @@
-@(salon: Salon)
+@(salon: SalonGeneralSrchRst)
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/generalSearch.css")">
 
@@ -7,18 +7,18 @@
         <div class="ygS mainContentsSecondTitleInner2">
             <div class="mainContentsST">
                 <div class="cassetteArea fs10">
-                    @salon.salonAddress.map(add=>add.province).getOrElse(None) &gt;
-                    @salon.salonAddress.map(add=>add.city).getOrElse(None) &gt;
-                    @salon.salonAddress.map(add=>add.region).getOrElse(None)
+                    @salon.salonInfo.salonAddress.map(add=>add.province).getOrElse(None) &gt;
+                    @salon.salonInfo.salonAddress.map(add=>add.city).getOrElse(None) &gt;
+                    @salon.salonInfo.salonAddress.map(add=>add.region).getOrElse(None)
                 </div>
                 <div class="cFix bdRedB mainContentsSTHead">
                     <h3 class="fl listTitleHeading cFix pT5 pL10 w410">
-                        <a href="@noAuth.routes.Salons.getSalon(salon.id)"> @salon.salonName [@salon.salonNameAbbr]</a>
+                        <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)"> @salon.salonInfo.salonName [@salon.salonInfo.salonNameAbbr]</a>
                     </h3>
-                    <p class="evalPropRight">已有100人评价</p>
-                    <p class="evalPropRight">好评率: 98%</p>
+                    <p class="evalPropRight">@Messages("salon.reviewsTotalCnt", salon.reviewsStat.reviewTotalCnt)</p>
+                    <p class="evalPropRight">@Messages("salon.reviewsRate", (salon.reviewsStat.reviewRate * 100).toInt)</p>
                     <p class="evalPropRight salonPrice">
-                        @Salon.getLowestPriceOfCut(salon.id) match {
+                        @Salon.getLowestPriceOfCut(salon.salonInfo.id) match {
                             case None => { @Messages("salon.priceCutOnlyUndefined")}
                             case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
                         }
@@ -32,7 +32,7 @@
                 </div>
                 <div class="netReserveWrapper">
                      <!--↓salon optional facilities-->
-                     @views.html.salon.component.salonOptFacilities(salon)
+                     @views.html.salon.component.salonOptFacilities(salon.salonInfo)
                      <!--↑salon optional facilities-->
                </div>
             </div>
@@ -41,39 +41,37 @@
     <div class="listBody cFix">
         <div class="fl w218 mR10 taC">
             <div class="mHA">
-                <a href="@noAuth.routes.Salons.getSalon(salon.id)">
-                    <img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"
-                    class="mT6 w218 h162 brL" alt="@salon.salonName">
+                <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)">
+                    <img src="@routes.Application.getPhoto(salon.salonInfo.salonPics(0).fileObjId)"
+                    class="mT6 w218 h162 brL" alt="@salon.salonInfo.salonName">
                 </a>
             </div>
             <ul class=" mT20 taC">
-                <li class="mR5 mL5 dibBL">
-                    <a href="">
-                        <img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"
-                        class="mT6 w89 h119 brL" oncontextmenu="return false;">
-                    </a>
-                </li>
-                <li class="mR5 mL5 dibBL">
-                    <a href="">
-                        <img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"
-                        class="mT6 w89 h119 brL" oncontextmenu="return false;">
-                    </a>
-                </li>
-            </ul>
+                @for((style, idx) <- salon.selectedStyles.zipWithIndex) {
+                    @if(idx < 2) {
+                        <li class="mR5 mL5 dibBL">
+                            <a href="@noAuth.routes.Salons.getOneStyle(salon.salonInfo.id, style.id)">
+                                <img src="@routes.Application.getPhoto(salon.selectedStyles(idx).stylePic(0).fileObjId)"
+                                class="mT6 w89 h119 brL" oncontextmenu="return false;">
+                            </a>
+                        </li>
+                    }
+                }
+          </ul>
         </div>
         <div class="fl w500">
             <p class="shopCatchCopy">
                 <b>
                     <strong>
-                        <a href="@noAuth.routes.Salons.getSalon(salon.id)">
-                            <p class="shopCatchCopy"><b><strong>@salon.picDescription.map(pic=>pic.picTitle).getOrElse(None)</strong></b></p>
+                        <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)">
+                            <p class="shopCatchCopy"><b><strong>@salon.salonInfo.picDescription.map(pic=>pic.picTitle).getOrElse(None)</strong></b></p>
                         </a>
                     </strong>
                 </b>
             </p>
             <p class="mT10 pB10">
-	        <@salon.picDescription.map(pic=>pic.picContent).getOrElse(None).toString.slice(0, 70) ...
-                <a href="@noAuth.routes.Salons.getSalon(salon.id)"> 続きを見る </a>
+	        <@salon.salonInfo.picDescription.map(pic=>pic.picContent).getOrElse(None).toString.slice(0, 70) ...
+                <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)">@Messages("common.checkFormore") </a>
             </p>
             <div>
                 <p>
@@ -100,7 +98,7 @@
             </div>
             <div class="bdLGrayT mT5">
                 <p class="fs10 b fgLGray2 mT10 mL5">
-                    @Messages("coupon.title", salon.salonNameAbbr.getOrElse(None))
+                    @Messages("coupon.title", salon.salonInfo.salonNameAbbr.getOrElse(None))
                 </p>
                 
                 <div class="CouponArea p3">
