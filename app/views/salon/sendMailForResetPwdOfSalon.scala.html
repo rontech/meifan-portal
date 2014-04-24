@@ -4,53 +4,51 @@
 
 	@main(Messages("common.resetPassword")) {
 	 	<head>
-			<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/userLogin.css")">
+			<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/findPwd.css")">
 		</head>
-		
-		<div class="contentsTitleWrapper">
-	 		<h2 class="contentsTitleInner mT10">@Messages("user.resetPassword")</h2>
-	 	</div>
-			 	
-	 	<div class="cFix mT20">
-			<div class="loginRBox fl">
-				<div class="loginRBoxTop">
-					<dl class="loginRBoxBottom">
-						<dd class="mT5 pT5">
-							<div class="pr">
-								<dl class="lh30">
-									@form(action = routes.Mails.sendMailForResetPwdOfSalon(), 'method ->"post"){
-										
-										<dd class="mT5 pT5">
-											<div class="pr">
-												<dl class="lh30">
-													<dt class="dibBL vaM w150 b fl">@Messages("salon.id")</dt>
-													<dd class="dibBL vaM w280">
-														@inputText(mailAndAccountIdForm("accountId"),'_label -> None, '_help -> "",
-															'_error ->  mailAndAccountIdForm("accountId").error.map(_.withMessage(Messages("salon.login.accountId")))
-														)
-													</dd>
-													<dt class="dibBL vaM w150 b fl">@Messages("user.email")</dt>
-													<dd class="dibBL vaM w280">
-														@inputText(mailAndAccountIdForm("email"),'_label -> None,'_help -> "",
-            												'_error -> mailAndAccountIdForm.globalError.map(_.withMessage(Messages("user.resetErr"))))
-													</dd>
-												</dl>
-											</div>
-										</dd>
-										<div class="mT15">
-											<span class="btn btn2H32 w194 mHA">
-												<span>
-													<input type= "submit" class = "buttons" value="@Messages("common.submit")">												
-												</span>
-											</span>
-										</div>
-			 						}	
-								</dl>
-							</div>
-						</dd>
-						</dd>
-					</dl>
-				</div>
+				
+		<div id="entry" class="w m">
+	 		<div class="mt">
+				<h2>@Messages("user.resetPassword")</h2>
+				<b></b>
 			</div>
-		</div>
+			<div class="mc">
+				<div class="step">
+		            <ul>
+		               <li class="one cur">@Messages("pwd.account")</li>
+		               <li class="">@Messages("pwd.verify")</li>
+		               <li class="">@Messages("pwd.setNewPwd")</li>
+		               <li class="four">@Messages("pwd.finish")</li>
+		            </ul>
+		        </div>
+		        <div class="form">
+		        	@form(action = routes.Mails.sendMailForResetPwdOfSalon(), 'method ->"post"){
+			        	<div class="item">
+							<span class="label">@Messages("salon.id"):</span>
+							<div class="fl">
+								<!-- text_error -->
+								@inputText(mailAndAccountIdForm("accountId"),'_label -> None, '_help -> "",
+								'_error ->  mailAndAccountIdForm("accountId").error.map(_.withMessage(Messages("salon.login.accountId"))))
+								<span class="clr"></span>
+								<label id="username_error" calss="" class=""></label>
+							</div>
+						</div>
+						<div class="item">
+							<span class="label">@Messages("user.email"):</span>
+							<div class="fl">
+								<!-- text_error -->
+								@inputText(mailAndAccountIdForm("email"),'_label -> None,'_help -> "",
+								'_error -> mailAndAccountIdForm.globalError.map(_.withMessage(Messages("user.resetErr"))))
+								<span class="clr"></span>
+								<label id="username_error" calss="" class=""></label>
+							</div>
+						</div>
+						<div class="item">
+							<span class="label">&nbsp;</span>
+							<input type= "submit" class = "buttons btn-img btn-entry" value="@Messages("common.submit")">
+						</div>
+					}
+		        </div>
+		     </div>
+	 	</div>
 	}		

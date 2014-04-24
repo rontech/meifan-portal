@@ -89,10 +89,10 @@ background: #ffe6bc;
 }
 
 #entry .form {
-width: 582px;
+width: 750px;
 overflow: hidden;
 margin: 0 auto;
-padding-left: 100px;
+padding-left: 50px;
 }
 
 #entry .label {
@@ -167,4 +167,12 @@ padding: 50px 0;
 
 .m-return span strong {
 color: #009900;
+}
+
+.item .fl dd {
+float: left;
+}
+
+.item .fl dd.info, .item .fl dd.error {
+margin-left: 5px;
 }
