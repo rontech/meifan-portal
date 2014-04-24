@@ -12,7 +12,7 @@
 		</div>
 
 		<div class="mT10 pH10">
-			@helper.form(noAuth.routes.Salons.register(), 'id -> "salonRegister", 'name ->"salonRegister"){
+			@helper.form(noAuth.routes.Salons.register(), 'name ->"salonRegister"){
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
 				    	@if(salonRegister.hasGlobalErrors){
@@ -148,7 +148,7 @@
 				<div class="mT20 txtC">
 					<input type = "hidden" name="salonPics[0].fileObjId" />
 					<input type = "hidden" name="salonPics[0].picUse" value="LOGO"/>
-					<input type = "button" class = "buttons" value=@Messages("user.registerBtn") onclick="checksOfSalonRegister();">
+					<input type = "button" class = "buttons" value=@Messages("user.registerBtn") onclick="checksForSalonRegister();">
 				</div>
 		  		<div class="mT20 txtC">
 					<a href= "#"><p>@Messages("salon.agreement")</p></a>
