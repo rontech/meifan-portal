@@ -2,18 +2,20 @@ package models
 
 import play.api.Play.current
 import play.api.PlayException
-import com.novus.salat.dao._
-import com.mongodb.casbah.MongoConnection
-import mongoContext._
-import se.radley.plugin.salat.Binders._
+import play.Configuration
 import java.util.Date
-import models._
-import org.mindrot.jbcrypt.BCrypt
 import scala.concurrent.{ ExecutionContext, Future }
 import ExecutionContext.Implicits.global
+import com.mongodb.casbah.MongoConnection
 import com.mongodb.casbah.query.Imports._
 import com.mongodb.casbah.commons.Imports.{ DBObject => commonsDBObject }
-import play.Configuration
+import com.mongodb.casbah.WriteConcern
+import se.radley.plugin.salat._
+import se.radley.plugin.salat.Binders._
+import com.novus.salat.dao._
+import mongoContext._
+import org.mindrot.jbcrypt.BCrypt
+
 
 /*
  * Main Class: Salon.
@@ -40,18 +42,14 @@ case class Salon(
     registerDate: Date
 )
 
-object Salon extends ModelCompanion[Salon, ObjectId] {
-  
-  def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-        "Configuration error",
-        "Could not find mongodb.default.db in settings")))("Salon")
-        
-  val dao = new SalatDAO[Salon, ObjectId](collection) {}
-  
-//// Indexes
-//  collection.ensureIndex(DBObject("accountId" -> 1), "userId", unique = true)
+object Salon extends SalonDAO
+
+trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
+
+    val dao = new SalatDAO[Salon, ObjectId](collection = mongoCollection("Salon")) {}
+    
+    //// Indexes
+    //  collection.ensureIndex(DBObject("accountId" -> 1), "userId", unique = true)
   
     def findByAccountId(salonAccountId: String): Option[Salon] = {
         dao.findOne(MongoDBObject("salonAccount.accountId" -> salonAccountId))
@@ -88,6 +86,22 @@ object Salon extends ModelCompanion[Salon, ObjectId] {
 
     def findOneByMainPhone(phone: String): Option[Salon] = {
         dao.findOne(MongoDBObject("contactMethod.mainPhone" -> phone))
+    }
+
+    /**
+     * Get all styles of a salon.
+     */
+    def getAllStyles(salonId: ObjectId): List[Style] = {
+        var styles: List[Style] = Nil
+
+        // find styles of all stylists via the relationship between [salon] and [stylist]. 
+        val stylists = SalonAndStylist.findBySalonId(salonId)
+        stylists.map { stls =>
+            var style = Style.findByStylistId(stls.stylistId)
+            styles :::= style
+        }
+        // order by create time desc.
+        styles.sortBy(_.createDate).reverse
     }
 
 

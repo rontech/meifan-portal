@@ -47,10 +47,10 @@
                 </a>
             </div>
             <ul class=" mT20 taC">
-                @for((styles, idx) <- salon.selectedStyles.zipWithIndex) {
+                @for((style, idx) <- salon.selectedStyles.zipWithIndex) {
                     @if(idx < 2) {
                         <li class="mR5 mL5 dibBL">
-                            <a href="">
+                            <a href="@noAuth.routes.Salons.getOneStyle(salon.salonInfo.id, style.id)">
                                 <img src="@routes.Application.getPhoto(salon.selectedStyles(idx).stylePic(0).fileObjId)"
                                 class="mT6 w89 h119 brL" oncontextmenu="return false;">
                             </a>
@@ -71,7 +71,7 @@
             </p>
             <p class="mT10 pB10">
 	        <@salon.salonInfo.picDescription.map(pic=>pic.picContent).getOrElse(None).toString.slice(0, 70) ...
-                <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)"> 続きを見る </a>
+                <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)">@Messages("common.checkFormore") </a>
             </p>
             <div>
                 <p>

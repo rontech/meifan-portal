@@ -20,6 +20,7 @@ common.generalSearch = 搜索
 common.hotSearch = 热门搜索
 common.resetPassword = 找回密码
 common.requiredMsg = 不能为空
+common.checkFormore = 更多
 
 # Index page
 index.mainPage=网站首页
@@ -341,7 +342,7 @@ ServiceType.serviceTypeName.Supple = 柔顺
 ServiceType.serviceTypeName.Other = 其他
 
 # Coupon&Menu
-coupon.title = {0} 的优惠券
+coupon.titleInSalon = {0} 的优惠券
 coupon.noCouponSearched = 没有找到您希望的优惠券！
 coupon.menu = 搜索条件
 coupon.searchOption = 搜索选项
@@ -386,8 +387,8 @@ coupon.useConditionsMsg = 优惠劵使用条件，例如“不能和其他优惠
 coupon.presentTimeMsg = 出示优惠劵时间，例如“消费前使用”
 coupon.couponDiscriptionMsg = 填写10到100以内的字
 
-menu.title = {0} 的菜单
-menu.tip = 没有找到您希望的菜单！
+menu.titleInSalon = {0} 的菜单
+menu.noDataMsg = 没有找到您希望的菜单！
 menu.addMark = +
 menu.appointment = 空缺查询·预约
 menu.todoMessage = 该位置显示服务的描述
@@ -400,6 +401,10 @@ menu.menuNameRequired = 菜单名必须填写！
 menu.menuNameRepeat = 菜单名已存在，请重新填写！
 menu.menuServiceRequired = 请至少选择一个服务！
 menu.menuDiscriptionErr = 填写必须10到100以内的字！
+
+service.titleInSalon = {0}的基本服务
+service.noDataMsg = 没有找到您希望的基本服务！ 
+
 
 #ApplyRecord.status
 apply.inApply = 0
@@ -927,4 +932,3 @@ salonSerachPage.sortByPrice = 价格
 salonSerachPage.sortByComment = 评论
 salonSerachPage.serviceType = 服务类别
 salonSerachPage.brand = 品牌
-salonSerachPage.more = 更多
