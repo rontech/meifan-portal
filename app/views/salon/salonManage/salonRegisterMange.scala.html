@@ -31,7 +31,7 @@
 		</div>
 
 		<div class="mT10 pH10">
-			@helper.form(action = auth.routes.Salons.salonRegisterUpdate(salon.id), 'id -> "salonRegister"){
+			@helper.form(action = auth.routes.Salons.salonRegisterUpdate(salon.id), 'id -> "salonRegister", 'name ->"salonRegister"){
 
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
@@ -77,10 +77,13 @@
 				                </div>
 				            </th>
 				            <td>
-				                @inputText(salonRegister("salonAccount.accountId"),'_label -> None, 'readonly -> "true",
-									 		'placeholder -> Messages("salon.login.accountId"),
-									 		'_help -> Messages("salon.registerMange.accountId"),
-									 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("salon.register.accountIdErr"))))
+				                @inputText(salonRegister("salonAccount.accountId"),
+                                    'id ->"accountId",
+                                    '_label -> None,
+                                    'readonly -> "true",
+									'placeholder -> Messages("salon.login.accountId"),
+									'_help -> Messages("salon.registerMange.accountId"),
+									'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("salon.register.accountIdErr"))))
 				            </td>
 				        </tr>
 				        <tr>
@@ -106,7 +109,11 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("salonName"),'_label ->  None,'_help -> Messages("salon.salonNameMange"), 'readonly -> "true",
+				                	@inputText(salonRegister("salonName"),
+                                        'id -> "salonName",
+                                        '_label ->  None,
+                                        '_help -> Messages("salon.salonNameMange"),
+                                        'readonly -> "true",
 				                		'_error -> salonRegister("salonName").error.map(_.withMessage(Messages("salon.register.salonName"))))				             	
 				                </div>
 				            </td>
@@ -123,9 +130,9 @@
 				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None,'_error -> salonRegister("salonIndustry").error.map(_.withMessage(Messages("salon.industryError")))){(id,name,value,args) =>
 								 	@for(i <- 0 to industry.length-1){
 								 		@if(salon.salonIndustry.contains(industry(i).industryName)){
-								 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
+								 			<input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
 								 		}else{
-								 			<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
+								 			<input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
 								 		}
 								 	}
 								  }
@@ -141,7 +148,10 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contactMethod.mainPhone"), '_label -> None,'_help -> Messages(""),
+				                	@inputText(salonRegister("contactMethod.mainPhone"),
+                                        'id -> "contact_tel",
+                                        '_label -> None,
+                                        '_help -> Messages(""),
 				                		'_error -> salonRegister("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.phoneError"))))
 				                </div>
 				            </td>
@@ -155,7 +165,10 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contactMethod.contact"), '_label -> None,'_help -> Messages(""),
+				                	@inputText(salonRegister("contactMethod.contact"),
+                                        'id -> "contact",
+                                        '_label -> None,
+                                        '_help -> Messages(""),
 				                		'_error -> salonRegister("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
 				                </div>
 				            </td>
@@ -169,7 +182,10 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contactMethod.email"), '_label -> None,'_help -> Messages(""),
+				                	@inputText(salonRegister("contactMethod.email"),
+                                        'id ->"contact_email",
+                                        '_label -> None,
+                                        '_help -> Messages(""),
 				                		'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.mailError"))))
 				                </div>
 				            </td>
@@ -305,7 +321,7 @@
 					</tbody>
 				</table>								
 				<div class="mT20 txtC">			
-					<input type = "submit" class = "buttons" value=@Messages("common.submit")>
+					<input type = "button" class = "buttons" value=@Messages("common.submit") onclick="checksForSalonRegister();">
 				</div>
 			}
 
@@ -402,3 +418,4 @@
 
     <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
 	<script src="@routes.Assets.at("javascripts/ajaxfileupload.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>
