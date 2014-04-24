@@ -20,6 +20,7 @@ common.generalSearch = 搜索
 common.hotSearch = 热门搜索
 common.resetPassword = 找回密码
 common.requiredMsg = 不能为空
+common.checkFormore = 更多
 
 # Index page
 index.mainPage=网站首页
@@ -58,7 +59,7 @@ main.help=常见问题
 main.myPage=我的主页
 main.myMeifan = 我的美范
 main.saveSite = 收藏本站
-main.welcomeToMeifan = 你好，欢迎来到美范！
+main.welcomeToMeifan = 您好，欢迎来到美范！
 main.hairMessage = 我们提供最权威最新的时尚美容资讯！
 
 
@@ -149,7 +150,7 @@ salon.stylistsList={0}的发型师
 salon.newSalon = 新沙龙用户
 salon.registerMessage1 = 如果您还不是该网站的沙龙会员，再次注册沙龙会员。
 salon.registerMessage2 = 我们会核实您注册后提交的申请，尽快为您开通沙龙会员！
-salon.loginMessage = 如果你已经是本网站的沙龙会员，请在下面输入店铺名和密码登录！
+salon.loginMessage = 如果您已经是本网站的沙龙会员，请在下面输入店铺名和密码登录！
 salon.true=可
 salon.accountIdMessage=注册时设定，无法修改
 salon.addPicture=添加一张图片
@@ -343,7 +344,7 @@ ServiceType.serviceTypeName.Supple = 柔顺
 ServiceType.serviceTypeName.Other = 其他
 
 # Coupon&Menu
-coupon.title = {0} 的优惠券
+coupon.titleInSalon = {0} 的优惠券
 coupon.noCouponSearched = 没有找到您希望的优惠券！
 coupon.menu = 搜索条件
 coupon.searchOption = 搜索选项
@@ -388,8 +389,8 @@ coupon.useConditionsMsg = 优惠劵使用条件，例如“不能和其他优惠
 coupon.presentTimeMsg = 出示优惠劵时间，例如“消费前使用”
 coupon.couponDiscriptionMsg = 填写10到100以内的字
 
-menu.title = {0} 的菜单
-menu.tip = 没有找到您希望的菜单！
+menu.titleInSalon = {0} 的菜单
+menu.noDataMsg = 没有找到您希望的菜单！
 menu.addMark = +
 menu.appointment = 空缺查询·预约
 menu.todoMessage = 该位置显示服务的描述
@@ -402,6 +403,10 @@ menu.menuNameRequired = 菜单名必须填写！
 menu.menuNameRepeat = 菜单名已存在，请重新填写！
 menu.menuServiceRequired = 请至少选择一个服务！
 menu.menuDiscriptionErr = 填写必须10到100以内的字！
+
+service.titleInSalon = {0}的基本服务
+service.noDataMsg = 没有找到您希望的基本服务！ 
+
 
 #ApplyRecord.status
 apply.inApply = 0
@@ -425,7 +430,7 @@ stylist.worked = 从事
 stylist.blog = 技师博客
 stylist.findAllBlog = 查看此技师所有博客
 stylist.haircatalog = {0} 的发型目录
-stylist.welcome = 期待你的光临
+stylist.welcome = 期待您的光临
 stylist.selectForReserv = 指名预约
 stylist.createBlog = 发表于
 stylist.other = 其它
@@ -563,8 +568,8 @@ user.registerMessage1 = 如果您还不是该网站的会员，免费会员注�
 user.registerMessage2 = 我们将提供24小时网上预约&空席确认和5%的积分制度！
 user.registerMessage3 = 新用户还可以免费得到20个积分点哦！
 user.userLogin = 会员登录
-user.loginMessage = 如果你已经是本网站的会员，请在下面输入用户名和密码登录！
-user.forgetPassword = 如果你忘记密码，请点击这里
+user.loginMessage = 如果您已经是本网站的会员，请在下面输入用户名和密码登录！
+user.forgetPassword = 忘记密码？
 user.quickNavigation=快速导航
 user.hasUserId = 已有美范账号？
 user.chooseEdit=选填
@@ -610,6 +615,23 @@ user.errorSalonId= 无效的店铺ID
 
 #Mail
 mail.subjectOfResetPwd = 来自美范网的密码重置邮件
+mail.limitInfo = 此链接有效期为半小时，请在半小时内点击链接进行修改，每个链接只能修改一次密码。如果您不需要修改密码，或者您从未点击过“忘记密码”按钮，请忽略本邮件。
+
+#ResetPwd
+pwd.account = 填写账户名
+pwd.verify = 验证身份
+pwd.setNewPwd = 设置新密码
+pwd.finish = 完成
+pwd.fail = 失败
+pwd.setPwdSuc = 新密码设置成功!
+pwd.setPwdFail = 新密码设置失败!
+pwd.remPwd = 请牢记您新设置的密码。返回
+pwd.failReason = 可能链接过期或者网络异常等原因。返回
+pwd.index = 首页
+pwd.or = 或者
+pwd.login = 登录画面
+pwd.seretPwd = 重设密码
+pwd.sendMailMsg = 重设密码的链接已发送到您的邮箱，请登录邮箱 并重设密码！
 
 
 
@@ -929,4 +951,3 @@ salonSerachPage.sortByPrice = 价格
 salonSerachPage.sortByComment = 评论
 salonSerachPage.serviceType = 服务类别
 salonSerachPage.brand = 品牌
-salonSerachPage.more = 更多
