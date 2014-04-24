@@ -387,6 +387,7 @@ coupon.endDateGtstart = 截止时间需大于开始时间
 coupon.useConditionsMsg = 优惠劵使用条件，例如“不能和其他优惠劵使用”
 coupon.presentTimeMsg = 出示优惠劵时间，例如“消费前使用”
 coupon.couponDiscriptionMsg = 填写10到100以内的字
+coupon.searchForMore = 查看全部优惠券和菜单
 
 menu.titleInSalon = {0} 的菜单
 menu.noDataMsg = 没有找到您希望的菜单！
