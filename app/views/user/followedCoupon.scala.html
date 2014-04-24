@@ -8,9 +8,11 @@
     </div>
 } else {
     @for(coupon <- followInfo.followCoupon) {
+    	@if(coupon.isValid){
     		<li class="couponItem">
     		   @views.html.user.followItem.followCouponItem(coupon, beforeSevernDate, loginUserId)
         	</li>	
+        }
     	}
     }
 }
