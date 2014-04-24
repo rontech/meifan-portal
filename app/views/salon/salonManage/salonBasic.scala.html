@@ -31,7 +31,7 @@
 		</div>
 
 		<div class="mT10 pH10">
-			@helper.form(action = auth.routes.Salons.salonbasicUpdate(salon.id), args = 'id -> "salonForm"){				
+			@helper.form(action = auth.routes.Salons.salonbasicUpdate(salon.id),'id -> "salonForm", 'name -> "salonBasic"){
 				
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
@@ -65,7 +65,9 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("salonNameAbbr"),'_label -> None)
+				                	@inputText(salonForm("salonNameAbbr"),
+                                        'id ->"salonNameAbbr",
+                                        '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -91,7 +93,11 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@textarea(salonForm("salonDescription"), '_label -> None,'cols -> 50,'placeholder -> Messages("salon.desMseeage"))
+				                	@textarea(salonForm("salonDescription"),
+                                        'id ->"salonDescription",
+                                        '_label -> None,
+                                        'cols -> 50,
+                                        'placeholder -> Messages("salon.desMseeage"))
 				                </div>
 				            </td>
 				        </tr>				        
@@ -124,8 +130,11 @@
 				                <div>
 				                	@*inputText(salonForm("salonAddress.addrDetail"), '_label -> None)*@
 				                	
-				                	@input(field = salonForm("salonAddress.addrDetail"), '_label -> None, '_help -> Messages("")) { (id, name, value, _) =>
-        							<input type="text" name="@name" value="@value" id="addrDetail" onChange= "searchMap();">
+				                	@input(field = salonForm("salonAddress.addrDetail"),
+                                        'id ->"addrDetail",
+                                        '_label -> None,
+                                        '_help -> Messages("")) { (id, name, value, _) =>
+        							<input type="text" name="@name" value="@value" id="addrDetail" onChange= "searchMap();checkedAddressDetail();">
 								}
 								
 				                </div>
@@ -165,7 +174,10 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@textarea(salonForm("salonAddress.accessMethodDesc"), 'cols -> 50, '_label -> None)
+				                	@textarea(salonForm("salonAddress.accessMethodDesc"),
+                                        'id -> "accessMethodDesc",
+                                        'cols -> 50,
+                                        '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -179,7 +191,7 @@
 				            <td>
 				                <div>
 				                   @input(field = salonForm("workTime.openTime"), '_label -> None, '_help -> Messages("")) { (id, name, value, _) =>
-        							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker({dateFmt:'HH:mm:ss'});">
+        							<input class="Wdate" type="text" name="@name" value="@value" id="openTime" onClick="WdatePicker({dateFmt:'HH:mm:ss'});checkedOpenTime();">
 								}
 				                </div>
 				            </td>
@@ -194,7 +206,7 @@
 				            <td>
 				                <div>
 				                	@input(field = salonForm("workTime.closeTime"), '_label -> None, '_help -> Messages("")) { (id, name, value, _) =>
-        							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker({dateFmt:'HH:mm:ss'});">
+        							<input class="Wdate" type="text" name="@name" value="@value" id="closeTime" onClick="WdatePicker({dateFmt:'HH:mm:ss'});checkedCloseTime();">
         							}
 				                </div>
 				            </td>
@@ -211,7 +223,7 @@
 				                	@*inputDate(salonForm("establishDate"), '_label -> None, '_help -> Messages("*"),
 				                		'_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate"))))*@
 				                    @input(field = salonForm("establishDate"), '_label -> None, '_help -> Messages(""), '_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate")))) { (id, name, value, _) =>
-        							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
+        							<input class="Wdate" type="text" name="@name" value="@value" id="establishDate"  onClick="WdatePicker();checkedEstablishDate(); ">
 								    }
 				                </div>
 				            </td>
@@ -228,13 +240,13 @@
 				            </th>
 				            <td>
 	            	@input(field = salonForm("salonIndustry"),args = '_label -> None,'style -> "display: none"){(id,name,value,args) =>
-					@for(i <- 0 to industry.length-1){
-						@if(salon.salonIndustry.contains(industry(i).industryName)){
-							<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
-						}else{
-							<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
-						}
-					}
+					    @for(i <- 0 to industry.length-1){
+						    @if(salon.salonIndustry.contains(industry(i).industryName)){
+							    <input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
+						    }else{
+							    <input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
+						    }
+					    }
 					}	
 				            </td>
 				        </tr>
@@ -289,32 +301,36 @@
                                     @if(salon.restDays.map(rest=>rest.restWay.equals("Fixed")).getOrElse(true)){
                                         <div id="restDays_div">
                                             @Messages("salon.selectRestDays")
-                                            <input type="checkbox" name="restDays.restDay1[0]" value="Monday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Monday")}.getOrElse(None)){checked}>@Messages("Monday")
-                                            <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Tuesday")}.getOrElse(None)){checked}>@Messages("Tuesday")
-                                            <input type="checkbox" name="restDays.restDay1[2]" value="Wednesday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Wednesday")}.getOrElse(None)){checked}>@Messages("Wednesday")
-                                            <input type="checkbox" name="restDays.restDay1[3]" value="Thursday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Thursday")}.getOrElse(None)){checked}>@Messages("Thursday")
-                                            <input type="checkbox" name="restDays.restDay1[4]" value="Friday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Friday")}.getOrElse(None)){checked}>@Messages("Friday")
-                                            <input type="checkbox" name="restDays.restDay1[5]" value="Saturday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Saturday")}.getOrElse(None)){checked}>@Messages("Saturday")
-                                            <input type="checkbox" name="restDays.restDay1[6]" value="Sunday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Sunday")}.getOrElse(None)){checked}>@Messages("Sunday")
+                                            <input type="checkbox" class="week" name="restDays.restDay1[0]" value="Monday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Monday")}.getOrElse(None)){checked}>@Messages("Monday")
+                                            <input type="checkbox" class="week" name="restDays.restDay1[1]" value="Tuesday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Tuesday")}.getOrElse(None)){checked}>@Messages("Tuesday")
+                                            <input type="checkbox" class="week" name="restDays.restDay1[2]" value="Wednesday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Wednesday")}.getOrElse(None)){checked}>@Messages("Wednesday")
+                                            <input type="checkbox" class="week" name="restDays.restDay1[3]" value="Thursday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Thursday")}.getOrElse(None)){checked}>@Messages("Thursday")
+                                            <input type="checkbox" class="week" name="restDays.restDay1[4]" value="Friday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Friday")}.getOrElse(None)){checked}>@Messages("Friday")
+                                            <input type="checkbox" class="week" name="restDays.restDay1[5]" value="Saturday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Saturday")}.getOrElse(None)){checked}>@Messages("Saturday")
+                                            <input type="checkbox" class="week" name="restDays.restDay1[6]" value="Sunday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Sunday")}.getOrElse(None)){checked}>@Messages("Sunday")
+                                            <span class="help-inline"></span>
                                         </div>
                                         <div id="noRestDays_div" style="display:none;">
                                             @Messages("salon.EnterRestDays")
-                                            <input type="text" name="restDays.restDay2[0]" >
+                                            <input type="text" name="restDays.restDay2[0]" id="restDay2">
+                                            <span class="help-inline"></span>
                                         </div>
                                     }else{
                                         <div id="restDays_div" style="display:none;">
                                             @Messages("salon.selectRestDays")
-                                            <input type="checkbox" name="restDays.restDay1[0]" value="Monday" >@Messages("Monday")
-                                            <input type="checkbox" name="restDays.restDay1[1]" value="Tuesday" >@Messages("Tuesday")
-                                            <input type="checkbox" name="restDays.restDay1[2]" value="Wednesday" >@Messages("Wednesday")
-                                            <input type="checkbox" name="restDays.restDay1[3]" value="Thursday" >@Messages("Thursday")
-                                            <input type="checkbox" name="restDays.restDay1[4]" value="Friday" >@Messages("Friday")
-                                            <input type="checkbox" name="restDays.restDay1[5]" value="Saturday" >@Messages("Saturday")
-                                            <input type="checkbox" name="restDays.restDay1[6]" value="Sunday" >@Messages("Sunday")
+                                            <input type="checkbox" class="week" name="restDays.restDay1[0]" value="Monday" >@Messages("Monday")
+                                            <input type="checkbox" class="week" name="restDays.restDay1[1]" value="Tuesday" >@Messages("Tuesday")
+                                            <input type="checkbox" class="week" name="restDays.restDay1[2]" value="Wednesday" >@Messages("Wednesday")
+                                            <input type="checkbox" class="week" name="restDays.restDay1[3]" value="Thursday" >@Messages("Thursday")
+                                            <input type="checkbox" class="week" name="restDays.restDay1[4]" value="Friday" >@Messages("Friday")
+                                            <input type="checkbox" class="week" name="restDays.restDay1[5]" value="Saturday" >@Messages("Saturday")
+                                            <input type="checkbox" class="week" name="restDays.restDay1[6]" value="Sunday" >@Messages("Sunday")
+                                            <span class="help-inline"></span>
                                         </div>
                                         <div id="noRestDays_div" >
                                             @Messages("salon.EnterRestDays")
-                                            <input type="text" name="restDays.restDay2[0]" value="@salon.restDays.map(day=>day.restDay.toList).getOrElse(None)">
+                                            <input type="text" name="restDays.restDay2[0]" id="restDay2" value="@salon.restDays.map(day=>day.restDay.toList).getOrElse(None)">
+                                            <span class="help-inline"></span>
                                         </div>
                                     }
                                 </div>
@@ -369,7 +385,7 @@
 					</tbody>
 				</table>												
 				<div class="mT20 txtC">			
-					<input type = "submit" class = "buttons" value=@Messages("common.submit")>
+					<input type = "button" class = "buttons" value=@Messages("common.submit") onclick="checksForSalonBasic();">
 				</div>
 			}
 		</div>
@@ -467,6 +483,7 @@
     }
     <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
 	<script src="@routes.Assets.at("javascripts/ajaxfileupload.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>
 
 	<script type="text/javascript" src="http://api.map.baidu.com/api?ak=KiGwIB1eqY9B7QkMl7fTxCN5&v=1.5"></script>
 	<script type="text/javascript">

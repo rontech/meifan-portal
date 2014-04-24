@@ -18,6 +18,9 @@ import play.api.libs.iteratee.Enumerator
 import controllers._
 import controllers.noAuth.Styles
 import play.api.data.validation.Constraints._
+import play.api.Routes
+import routes.javascript._
+import utils.Const._
 
 object Stylists extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl{
     
@@ -298,21 +301,26 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
 	  val followInfo = MyFollow.getAllFollowInfo(user.id)
 	  val stylist = Stylist.findOneByStylistId(user.id)
 	  stylist.map{sty=>
-	      Ok(views.html.stylist.management.myHomePage(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = sty))
+	    	SalonAndStylist.findByStylistId(sty.stylistId).map{ re=>
+	    		Ok(views.html.stylist.management.myHomePage(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = sty))
+	    	}getOrElse{
+	    		Ok(views.html.user.myPageRes(user,followInfo))
+	    	}
 	  }getOrElse{
-	      NotFound
+	      Ok(views.html.user.myPageRes(user,followInfo))
 	  }
       
   }
   
   def cancelMyApplying = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
       val user = loggedIn
+      val followInfo = MyFollow.getAllFollowInfo(user.id)
       val record = SalonStylistApplyRecord.findOneStylistApRd(user.id)
       record.map{ re =>
         SalonStylistApplyRecord.removeById(re.id, WriteConcern.Safe)
         Redirect(routes.Stylists.myHomePage)
       }getOrElse{
-        NotFound
+        Ok(views.html.stylist.management.stylistApplyingItem(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, salon = null))
       }
   }
   
@@ -338,4 +346,15 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
       
   }
   
+  def itemIsExist(value:String, key:String, stylistId:String, table:String) = Action {
+    
+        key match{
+            case ITEM_TYPE_NAME =>
+              table match{
+                case ITEM_TYPE_STYLE =>
+                  Ok((Style.isExist(value, stylistId, Style.findByNameAndStylist)).toString)
+            }
+                
+        }
+  }
 }

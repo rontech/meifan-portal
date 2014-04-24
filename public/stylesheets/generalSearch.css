@@ -186,7 +186,7 @@ margin-right: 5px;
 width: 500px;
 }
 
-.shopCatchCopy {
+.shopCatchCopy a {
 color: #CD4D72;
 font-size: 16px;
 }
@@ -291,3 +291,4 @@ color: #f60;
 vertical-align: -5px;
 margin-left: 10px;
 }
+
