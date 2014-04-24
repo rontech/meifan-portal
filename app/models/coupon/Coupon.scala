@@ -52,13 +52,25 @@ object Coupon extends ModelCompanion[Coupon, ObjectId]{
   
   // Indexes
   collection.ensureIndex(DBObject("couponName" -> 1), "couponName", unique = true)
-    
+  
+  // 查找出该沙龙所用优惠劵
   def findBySalon(salonId: ObjectId): List[Coupon] = {
     dao.find(DBObject("salonId" -> salonId)).toList
   }
   
-  def findContainCondtions(serviceTypes: Seq[String]): List[Coupon] = {
-    dao.find("serviceItems.serviceType" $all serviceTypes).toList
+  // 查找出该沙龙所有有效且没有过期的优惠劵
+  def findValidCouponBySalon(salonId: ObjectId): List[Coupon] = {
+    dao.find($and(DBObject("salonId" -> salonId, "isValid" -> true), $or("endDate" $gt new Date(), "endDate" $eq new Date()))).toList
+  }
+  
+  // 查找出该沙龙所有符合条件的有效且没有过期的优惠劵
+  def findContainCondtions(serviceTypes: Seq[String], salonId: ObjectId): List[Coupon] = {
+    dao.find($and("serviceItems.serviceType" $all serviceTypes, DBObject("salonId" -> salonId))).toList
+  }
+  
+  // 查找出该沙龙所用有效且没有过期的优惠劵
+  def findValidCouponByCondtions(serviceTypes: Seq[String], salonId: ObjectId): List[Coupon] = {
+    dao.find($and("serviceItems.serviceType" $all serviceTypes, DBObject("salonId" -> salonId, "isValid" -> true), $or("endDate" $gt new Date(), "endDate" $eq new Date()))).toList
   }
 
   def checkCouponIsExit(CouponName: String, salonId: ObjectId): Boolean = dao.find(DBObject("couponName" -> CouponName, "salonId" -> salonId)).hasNext

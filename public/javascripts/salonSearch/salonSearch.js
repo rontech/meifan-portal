@@ -18,6 +18,22 @@ $(function(){
                     $('#surePrice').click(function(){
                         var minPrice = $('#lowPrice').val();
                         var maxPrice = $('#highPrice').val();
+                        var re=/^[1-9]([0-9])*$/;
+                        if(re.test(maxPrice) && minPrice == ''){
+                        	$('.fill_priceRang_minPrice').val(0);
+                            $('.fill_priceRang_minPrice').attr("checked",'checked');
+                            $('.fill_priceRang_maxPrice').val(maxPrice);
+                            $('.fill_priceRang_maxPrice').attr("checked",'checked');
+                            submitForm();
+                            return;
+                        }
+                        if(!re.test(maxPrice) || !re.test(minPrice)){
+                        	return;
+                        }
+                        if(maxPrice < minPrice) {
+                        	return;
+                        }
+                        
                         $('.fill_priceRang_minPrice').val(minPrice);
                         //$('input[name="priceRange.minPrice"]:eq(0)').attr("checked",'checked');
                         $('.fill_priceRang_minPrice').attr("checked",'checked');
@@ -84,8 +100,8 @@ $(function(){
                     submitForm();
                 }
 
-                function unlimitedReigon(){
-                    document.getElementById("unlimitedReigon").checked=true;
+                function unlimitedRegion(){
+                    document.getElementById("unlimitedRegion").checked=true;
                     $('#areafield').empty();
                     submitForm();
                 }
