@@ -90,6 +90,21 @@ trait HotestKeywordDAO extends ModelCompanion[HotestKeyword, ObjectId] {
     }
 
   }
+  
+  def addHitTimesBykWs(keyword: String) = {
+      val kws = keyword.replace("　"," ")
+        if(kws.replace(" ","").length == 0) {
+            // when keyword is not exist, return Nil.
+            
+        } else {
+            // when keyword is exist, convert it to regular expression.
+            val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|")}
+            val kwsRegex =  kwsAry.mkString.dropRight(1).r
+            // fields which search from 
+            dao.update(MongoDBObject("atomicKeyword" -> kwsRegex), 
+            MongoDBObject("$inc" -> ( MongoDBObject("hitTimes" ->  1))),false,true)
+        }
+  }
 
 }
 
