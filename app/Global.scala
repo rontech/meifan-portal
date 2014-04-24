@@ -288,7 +288,7 @@ object InitialData {
           HotestKeyword(new ObjectId,"悦 美  彩","hairSalon",1,true),
           HotestKeyword(new ObjectId,"剪发","hairSalon",1,true),
           HotestKeyword(new ObjectId,"剪头发","hairSalon",1,true),
-          HotestKeyword(new ObjectId,"洗+剪+吹","hairSalon",1,true),
+          HotestKeyword(new ObjectId,"洗剪吹","hairSalon",1,true),
           HotestKeyword(new ObjectId,"悦容美发","hairSalon",1,true)
     	).foreach(HotestKeyword.save)
       

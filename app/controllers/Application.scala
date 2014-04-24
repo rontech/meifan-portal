@@ -201,20 +201,11 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     )
     
     def getkeyWordsByajax(wordText:String) = Action{
-      println("get keyword.."+wordText)
       val hotkeys = HotestKeyword.findHotestKeywordsByKW(wordText)
-      if(hotkeys.isEmpty){
-         HotestKeyword.save(new HotestKeyword(new ObjectId,wordText,"hairSalon",1,true))
-      }
-      println(HotestKeyword.findAll.toList)
       var responseTxt = ""
-         
       hotkeys.map{key=>
     	  responseTxt +=key+","
       }
-      println("keys "+hotkeys)
-      println(responseTxt)
       Ok(responseTxt)
-      
     }
 }
