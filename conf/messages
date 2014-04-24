@@ -608,6 +608,23 @@ user.errorSalonId= 无效的店铺ID
 
 #Mail
 mail.subjectOfResetPwd = 来自美范网的密码重置邮件
+mail.limitInfo = 此链接有效期为半小时，请在半小时内点击链接进行修改，每个链接只能修改一次密码。如果您不需要修改密码，或者您从未点击过“忘记密码”按钮，请忽略本邮件。
+
+#ResetPwd
+pwd.account = 填写账户名
+pwd.verify = 验证身份
+pwd.setNewPwd = 设置新密码
+pwd.finish = 完成
+pwd.fail = 失败
+pwd.setPwdSuc = 新密码设置成功!
+pwd.setPwdFail = 新密码设置失败!
+pwd.remPwd = 请牢记您新设置的密码。返回
+pwd.failReason = 可能链接过期或者网络异常等原因。返回
+pwd.index = 首页
+pwd.or = 或者
+pwd.login = 登录画面
+pwd.seretPwd = 重设密码
+pwd.sendMailMsg = 重设密码的链接已发送到您的邮箱，请登录邮箱 并重设密码！
 
 
 

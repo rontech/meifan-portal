@@ -93,7 +93,7 @@ object Mails extends Controller {
 //		  val url : String = "http://" + root.getString("server.hostname") +routes.Mails.password(uuid)  //OK
 		  // 会不会到时url是以Https开头的呢？
 		  val url : String = "http://" + request.host +routes.Mails.password(uuid)  		  
-		  mail.send("A text only message", "<html><body><p>" + Messages("user.resetInfo")+ "<br><a href = " + url + ">" + url+ "</a></p></body></html>" )
+		  mail.send("A text only message", "<html><body><p>" + Messages("user.resetInfo")+ "<br><a href = " + url + ">" + url+ "</a>" + "<br>" + Messages("mail.limitInfo") + "</p></body></html>" )
           Ok(views.html.user.checkMail())
 		  //Redirect(auth.routes.Users.logout)
 		  
@@ -135,8 +135,10 @@ object Mails extends Controller {
 //		  val url : String = "http://" + root.getString("server.hostname") +routes.Mails.password(uuid)  //OK
 		  // 会不会到时url是以Https开头的呢？
 		  val url : String = "http://" + request.host +routes.Mails.passwordOfSalon(uuid)  		  
-		  mail.send("A text only message", "<html><body><p>" + Messages("user.resetInfo")+ "<br><a href = " + url + ">" + url+ "</a></p></body></html>" )
-          Redirect(auth.routes.Salons.salonLogout)
+//		  mail.send("A text only message", "<html><body><p>" + Messages("user.resetInfo")+ "<br><a href = " + url + ">" + url+ "</a></p></body></html>" )
+		  mail.send("A text only message", "<html><body><p>" + Messages("user.resetInfo")+ "<br><a href = " + url + ">" + url+ "</a>" + "<br>" + Messages("mail.limitInfo") + "</p></body></html>" )
+//          Redirect(auth.routes.Salons.salonLogout)
+		  Ok(views.html.user.checkMail())
 		  
     })
 	}
@@ -155,7 +157,6 @@ object Mails extends Controller {
           NotFound
         }else{
 	        val user = User.findOneById(m.objId).get
-	        println(user)
 	        Ok(views.html.user.resetPassword(resetPassForm.fill((user,"")),user.userId,m.uuid))
         }
       }
@@ -174,8 +175,8 @@ object Mails extends Controller {
     val mail = Mail.findOneByUuid(uuid).get
     val user = User.findOneById(mail.objId).get
     Mails.resetPassForm.bindFromRequest.fold(
-//      errors => BadRequest(views.html.user.resetPassword(errors,user.userId, uuid)),
-          errors => BadRequest(views.html.user.resetFwdResult(false, errors.toString())),
+      errors => BadRequest(views.html.user.resetPassword(errors,user.userId, uuid)),
+//          errors => BadRequest(views.html.user.resetFwdResult(false, errors.toString())),
       {
         case (user, main) =>
           // 一个url只能修改一次密码
@@ -183,7 +184,7 @@ object Mails extends Controller {
           Mail.save(mail.copy(uuid = newUuid), WriteConcern.Safe)
           
           User.save(user.copy(password = main), WriteConcern.Safe)
-          Ok(views.html.user.resetFwdResult(true, ""))
+          Ok(views.html.user.resetPwdResult(true, ""))
           //Redirect(auth.routes.Users.logout)
     })
   }
@@ -224,7 +225,8 @@ object Mails extends Controller {
           Mail.save(mail.copy(uuid = newUuid), WriteConcern.Safe)
           
           Salon.save(salon.copy(salonAccount = new SalonAccount(salon.salonAccount.accountId, main)), WriteConcern.Safe)
-          Redirect(routes.Application.salonLogin)
+//          Redirect(routes.Application.salonLogin)
+          Ok(views.html.salon.resetPwdResultOfSalon(true, ""))
     })
   }
 }
