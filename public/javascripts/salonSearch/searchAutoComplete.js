@@ -68,7 +68,7 @@ function getSuggest(keyword, e) {
 	send(string): 		将请求发送到服务器。
 						string：仅用于 POST 请求
 	 */
-	 var xhr = getXmlHttpObject();//取得xhr对象
+	 xhr = getXmlHttpObject();//取得xhr对象
 	 
 	 var url = "/getkeyWordsByajax/"+keyword;
 	 xhr.open("get", url, true);
@@ -204,7 +204,7 @@ function form_submit() {
 
 //若点击某项，将某项的值设置到搜索框中并提交表单
 function theMouseClick(pos) {
-	var key = $("sug").getElementsByTagName("li")[pos].innerHTML;
+	var key = getIdOBJ("sug").getElementsByTagName("li")[pos].innerHTML;
 	//为keyword设置值
 	getIdOBJ("keyword").value = key;
 	//提交表单
