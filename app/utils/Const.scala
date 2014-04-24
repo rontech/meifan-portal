@@ -7,4 +7,5 @@ object Const {
     val ITEM_TYPE_NAME = "name"
     val ITEM_TYPE_EMAIL = "email"
     val ITEM_TYPE_TEL = "tel"
+    val ITEM_TYPE_STYLE = "style"  
 }

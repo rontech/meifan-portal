@@ -468,5 +468,11 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         dao.update(MongoDBObject("_id" -> style.id, "stylePic.showPriority" -> style.stylePic.last.showPriority.get),
             MongoDBObject("$set" -> (MongoDBObject("stylePic.$.fileObjId" -> imgId))), false, true)
     }
+    
+    def isExist(value:String, stylistId:String, f:(String,String) => Option[Style]) = f(value,stylistId).map(style => true).getOrElse(false)
+    
+    def findByNameAndStylist(name:String,stylistId:String):Option[Style] = {
+        dao.findOne(MongoDBObject("styleName" -> name, "stylistId" -> new ObjectId(stylistId), "isValid" -> true))
+    }
 }
 
