@@ -199,7 +199,7 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
                     if(serviceType.serviceTypes.isEmpty) {
                         menus = Menu.findBySalon(salon.id)
                     } else {
-                        menus = Menu.findContainCondtions(conditions)
+                        menus = Menu.findContainCondtions(conditions, salon.id)
                     }
                 }
                Ok(html.salon.admin.mySalonMenuAll(salon, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))
