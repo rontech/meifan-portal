@@ -255,9 +255,9 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         val rsvs = Reservation.findAllReservation(sid)
         // use the exists method to get top styles.
         val bestRsved = findTopStylesInSalon(rsvs, topN)
-        // TODO other styles in a salon: there is no method for search all styles of a salon?!
-        //val others = Salon.()
-        bestRsved
+        // other styles in a salon when there is no reservation styles yet. 
+        val others = Salon.getAllStyles(sid)
+        (bestRsved ::: others).distinct
     }
 
     /**

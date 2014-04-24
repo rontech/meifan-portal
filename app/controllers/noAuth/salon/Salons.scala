@@ -261,13 +261,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         salon match {
             case Some(sl) => {
                 // find styles of all stylists via the relationship between [salon] and [stylist]. 
-                val stylists = SalonAndStylist.findBySalonId(sl.id)
-                var styles: List[Style] = Nil
-                stylists.map { stls =>
-                    var style = Style.findByStylistId(stls.stylistId)
-                    styles :::= style
-                }
-                styles.sortBy(_.createDate).reverse
+                val styles = Salon.getAllStyles(salonId)
                 // navigation bar
                 val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString()))
                 // Jump to stylists page in salon. 
