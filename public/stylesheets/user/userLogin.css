@@ -63,13 +63,20 @@ border-radius: 0 0 3px 3px;
 color: #ffffff;
 }
 
+#entry .fore1 {
+z-index: 10;
+}
+
+#entry .fore2 {
+z-index: 8;
+}
+
 #entry .item {
 height: 64px;
 line-height: 26px;
 overflow: visible;
 position: relative;
 width: 320px;
-z-index: 1;
 }
 
 #entry .item span {
@@ -78,6 +85,20 @@ height: 20px;
 line-height: 20px;
 display: block;
 margin-top: 1px;
+}
+
+.item-ifo dd.error {
+position: absolute;
+width: 302px;
+padding: 2px 0 2px 3px;
+left: 0px;
+top: 34px;
+border: 1px solid #ffbdbf;
+color: #e6393d;
+float: none;
+line-height: 16px;
+z-index: 100;
+background: #ffebec;
 }
 
 #entry .item .item-ifo {

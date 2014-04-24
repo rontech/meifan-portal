@@ -7,7 +7,9 @@
 } else {
 	<ul id="listWrapper">
     @for(blog <- followInfo.followBlog) {
+    	@if(blog.isValid){
     		@views.html.user.followItem.followBlogItem(blog,loginUserId)
+    	}
     	}
     </ul>
     }

@@ -69,6 +69,9 @@ $('#picContent').change(function(){
 $('#picFoot').change(function(){
     checkedPicFoot()
 });
+/*$('#phone').change(function(){
+	checkedPhone();
+});*/
 
 
 
@@ -78,10 +81,12 @@ function checkedAccountId(){
     var isName=/^[a-zA-Z][a-zA-Z0-9_]{5,17}$/;
     if (salonId == ""){
         $('#accountId  ~ .help-inline').text("登录ID不能为空").removeClass("trueMsg").addClass("errorMsg");
+        $("#accountId").parent("dd").next().text("登录ID不能为空").removeClass("trueMsg").addClass("errorMsg");
         return;
     }
     if(!isName.test(salonId)){
         $('#accountId  ~ .help-inline').text('该登录ID不合法，请重新输入').removeClass("trueMsg").addClass("errorMsg");
+        $("#accountId").parent("dd").next().text('该登录ID不合法，请重新输入').removeClass("trueMsg").addClass("errorMsg");
         return;
     }
     jsRoutes.controllers.Application.itemIsExist(salonId, ITEM_TYPE_ID).ajax({
@@ -94,13 +99,16 @@ function checkedAccountId(){
         success: function(data){
             if (data == "false"){
                 $('#accountId  ~ .help-inline').text("").removeClass("errorMsg").addClass("trueMsg");
+                $("#accountId").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
             }
             else{
                 $('#accountId  ~ .help-inline').text("该登录ID已被使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+                $("#accountId").parent("dd").next().text("该登录ID已被使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
             }
         },
         error: function(err){
             $('#accountId  ~ .help-inline').text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
+            $("#accountId").parent("dd").next().text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
         }
     });
 }
@@ -109,13 +117,16 @@ function checkedPassword(){
     var isPassword=/^[a-zA-Z0-9]\w{5,17}$/;
     if (password == ""){
         $('#password_main  ~ .help-inline').text('密码不能为空').removeClass("trueMsg").addClass("errorMsg");
+        $("#password_main").parent("dd").next().text('密码不能为空').removeClass("trueMsg").addClass("errorMsg");
         return;
     }
     if(!isPassword.test(password)){
         $("#password_main ~ .help-inline").text("密码不合法").removeClass("trueMsg").addClass("errorMsg");
+        $("#password_main").parent("dd").next().text("密码不合法").removeClass("trueMsg").addClass("errorMsg");
         return;
     }
     $("#password_main ~ .help-inline").text("").removeClass("errorMsg").addClass("trueMsg");
+    $("#password_main").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
 }
 
 function checkedPasswordConfirm(){
@@ -124,17 +135,21 @@ function checkedPasswordConfirm(){
     if(password!=firstPassword){
         if (password == ""){
             $('#password_confirm  ~ .help-inline').text('请再次输入密码').removeClass("trueMsg").addClass("errorMsg");
+            $("#password_confirm").parent("dd").next().text('请再次输入密码').removeClass("trueMsg").addClass("errorMsg");
             return;
         }
         $("#password_confirm ~ .help-inline").text("两次输入的密码不一致，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+        $("#password_confirm").parent("dd").next().text("两次输入的密码不一致，请重新输入").removeClass("trueMsg").addClass("errorMsg");
         return;
     }else{
         if (password == ""){
             $("#password_confirm ~ .help-inline").text("").removeClass("errorMsg").removeClass("trueMsg");
+            $("#password_confirm").parent("dd").next().text("").removeClass("errorMsg").removeClass("trueMsg");
             return;
         }
     }
     $("#password_confirm ~ .help-inline").text("").removeClass("errorMsg").addClass("trueMsg");
+    $("#password_confirm").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
 }
 
 function checkedEmail(){
@@ -142,10 +157,12 @@ function checkedEmail(){
     var isEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
     if (email == ""){
         $("#contact_email ~ .help-inline").text("电子邮箱不能为空").removeClass("trueMsg").addClass("errorMsg");
+        $("#contact_email").parent("dd").next().text("电子邮箱不能为空").removeClass("trueMsg").addClass("errorMsg");
         return;
     }
     if(!isEmail.test(email)){
         $("#contact_email ~ .help-inline").text("该邮箱地址不合法，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+        $("#contact_email").parent("dd").next().text("该邮箱地址不合法，请重新输入").removeClass("trueMsg").addClass("errorMsg");
         return;
     }
     jsRoutes.controllers.Application.itemIsExist(email, ITEM_TYPE_EMAIL).ajax({
@@ -158,13 +175,16 @@ function checkedEmail(){
         success: function(data){
             if (data == "false"){
                 $('#contact_email  ~ .help-inline').text("").removeClass("errorMsg").addClass("trueMsg");
+                $("#contact_email").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
             }
             else{
                 $('#contact_email  ~ .help-inline').text("该邮箱已注册，请重新输入或登录").removeClass("trueMsg").addClass("errorMsg");
+                $("#contact_email").parent("dd").next().text("该邮箱已注册，请重新输入或登录").removeClass("trueMsg").addClass("errorMsg");
             }
         },
         error: function(err){
             $('#contact_email  ~ .help-inline').text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
+            $("#contact_email").parent("dd").next().text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
         }
     });
 }
@@ -208,6 +228,7 @@ function checkedSalonName(){
     //var isName = /^\x{4e00}-\x{9fa5}\w+$/;
     if (salonName == ""){
         $("#salonName ~ .help-inline").text("店铺名不能为空").removeClass("trueMsg").addClass("errorMsg");
+        $("#salonName").parent("dd").next().text("昵称不能为空").removeClass("trueMsg").addClass("errorMsg");
         return;
     }
     jsRoutes.controllers.Application.itemIsExist(salonName, ITEM_TYPE_NAME).ajax({
@@ -220,13 +241,16 @@ function checkedSalonName(){
         success: function(data){
             if (data == "false"){
                 $('#salonName  ~ .help-inline').text("").removeClass("errorMsg").addClass("trueMsg");
+                $("#salonName").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
             }
             else{
                 $('#salonName  ~ .help-inline').text("该店铺名已被使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+                $("#salonName").parent("dd").next().text("该昵称已被使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
             }
         },
         error: function(err){
             $('#salonName  ~ .help-inline').text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
+            $("#salonName").parent("dd").next().text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
         }
     });
 }
@@ -405,6 +429,19 @@ function checkedPicFoot(){
         $("#picFoot ~ .help-inline").text("").removeClass("errorMsg").addClass("trueMsg");
     }
 }
+
+function checkedPhone(){
+    var phone = $("#phone").val();
+    var isPhone = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+    
+    if(phone != "" && !isPhone.test(phone)){
+        $("#phone").parent("dd").next().text("该手机号不合法，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+        return;
+    }else{
+    	$("#phone").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
+    }
+    }
+
 
 
 function checksForSalonRegister(){
