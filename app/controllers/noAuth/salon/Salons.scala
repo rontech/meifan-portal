@@ -23,7 +23,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
     val salonRegister: Form[Salon] = Form(
         mapping(
             "salonAccount" -> mapping(
-                "accountId" -> nonEmptyText(6, 16).verifying(Messages("salon.register.accountIdErr"), userId => userId.matches("""^\w+$""")),
+                "accountId" -> nonEmptyText(6, 16).verifying(Messages("salon.register.accountIdErr"), accountId => accountId.matches("""^\w+$""")),
                 "password" -> tuple(
                     "main" -> text(6, 18).verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]+$""")),
                     "confirm" -> text).verifying(

@@ -91,7 +91,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@textarea(salonForm("salonDescription"), '_label -> None,'cols -> 50,'placeholder -> Messages("salon.desMseeage"))
+				                	@textarea(salonForm("salonDescription"), '_label -> None,'maxlength->"100",'rows -> 5, 'cols -> 40,'placeholder -> Messages("salon.desMseeage"))
 				                </div>
 				            </td>
 				        </tr>				        
@@ -124,8 +124,8 @@
 				                <div>
 				                	@*inputText(salonForm("salonAddress.addrDetail"), '_label -> None)*@
 				                	
-				                	@input(field = salonForm("salonAddress.addrDetail"), '_label -> None, '_help -> Messages("")) { (id, name, value, _) =>
-        							<input type="text" name="@name" value="@value" id="addrDetail" onChange= "searchMap();">
+				                	@input(field = salonForm("salonAddress.addrDetail"), '_label -> None, '_help -> Messages(""),'placeholder -> Messages("salon.addMessage")) { (id, name, value, _) =>
+        							<input type="text" name="@name" value="@value" id="addrDetail" onChange= "searchMap();"  maxlength= "50"  style= "width:350px;" placeholder=@Messages("salon.addMessage")>
 								}
 								
 				                </div>
@@ -165,7 +165,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@textarea(salonForm("salonAddress.accessMethodDesc"), 'cols -> 50, '_label -> None)
+				                	@textarea(salonForm("salonAddress.accessMethodDesc"), 'maxlength->"100",'rows -> 5, 'cols -> 40, '_label -> None,'placeholder -> Messages("salon.desAccesMethod"))
 				                </div>
 				            </td>
 				        </tr>

@@ -79,7 +79,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("salonName"),'_label ->  None,'_help -> Messages(""),'id-> "salonName",
+				                	@inputText(salonRegister("salonName"),'_label ->  None,'_help -> Messages(""),'id-> "salonName", 'maxlength->"20", 'style-> "width:200px;",
 				                		'_error -> salonRegister("salonName").error.map(_.withMessage(Messages("salon.register.salonName"))))				             	
 				                </div>
 				            </td>
@@ -138,7 +138,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contactMethod.email"), '_label -> None,'_help -> Messages(""),
+				                	@inputText(salonRegister("contactMethod.email"), '_label -> None,'_help -> Messages(""),'style-> "width:200px;",
 				                		'id->"contact_email",'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.mailError"))))
 				                </div>
 				            </td>
