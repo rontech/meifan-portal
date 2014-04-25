@@ -261,7 +261,7 @@ salonAdmin.admin = 店铺
 salonAdmin.ApplyOperateResult = 抱歉该申请不存在或已被本人取消，将在
 salonAdmin.ApplyOperateAction = s后自动跳转，点击
 salonAdmin.ApplyOperateGo = 跳转 
-stylistAdmin.selectField = *选填，不得超过150字
+stylistAdmin.selectField = 选填，不得超过150字
 
 # Hair
 hair.tabName=时尚靓发
@@ -313,6 +313,8 @@ hair.searchByM = 男士发型检索
 hair.pictures=发型图片
 hair.nameRequired = 发型名必须填写
 hair.noStyleSearched = 没有找到您希望的发型！
+hair.picturedescription = 填写该发型图片描述
+
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -629,7 +631,7 @@ user.message.title = 标题
 user.message.content = 内容
 user.message.send = 发送
 
-user.needfieldworks = *必填，0~100整数
+user.needfieldworks = 请输入0~100整数
 user.errorWorks = 无效的年数
 user.errorSalonId= 无效的店铺ID
 

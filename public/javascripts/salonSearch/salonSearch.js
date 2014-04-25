@@ -18,8 +18,20 @@ $(function() {
     $('#surePrice').click(function(){
         var minPrice = $('#lowPrice').val();
         var maxPrice = $('#highPrice').val();
-        var re=/^[1-9]([0-9])*$/;
+        var re=/^[1-9]([0-9])*|0$/;
+        if(maxPrice == ''){
+        	if(re.test(minPrice)){
+        		
+        		$('.fill_priceRang_minPrice').val(minPrice);
+                $('.fill_priceRang_minPrice').attr("checked",'checked');
+        		$('.fill_priceRang_maxPrice').val(99999999);
+        		$('.fill_priceRang_maxPrice').attr("checked",'checked');
+        		submitForm();
+        	}
+        	return;
+        }
         if(re.test(maxPrice) && minPrice == ''){
+        	alert('b');
         	$('.fill_priceRang_minPrice').val(0);
             $('.fill_priceRang_minPrice').attr("checked",'checked');
             $('.fill_priceRang_maxPrice').val(maxPrice);
@@ -28,11 +40,14 @@ $(function() {
             return;
         }
         if(!re.test(maxPrice) || !re.test(minPrice)){
+        	
         	return;
         }
-        if(maxPrice < minPrice) {
+        if(Number(minPrice) > Number(maxPrice)) {
+        	
         	return;
         }
+        
         
         $('.fill_priceRang_minPrice').val(minPrice);
         //$('input[name="priceRange.minPrice"]:eq(0)').attr("checked",'checked');
