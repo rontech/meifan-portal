@@ -410,7 +410,13 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
               var mtch = exactKwds.findAllIn(hit)
               // cut out the search rst.
               if(!mtch.isEmpty) {
-                fuzzyHits :::= List(makeAbbrStr(hit, mtch.start, mtch.start + 30))
+                var ht: String = "" 
+                if((hit.length - mtch.start) < 10) {
+                  ht = makeAbbrStr(hit, mtch.start + hit.length - 30, mtch.start + firstHit.getOrElse("").length)
+                } else {
+                  ht = makeAbbrStr(hit, mtch.start, mtch.start + 30)
+                }
+                fuzzyHits :::= List(ht) 
               }
             } 
           }
