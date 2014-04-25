@@ -5,7 +5,7 @@
 <div class="contentsTitleWrapper">
 	<h2 class="contentsTitleInner">@Messages("coupon.updateCouponArea")</h2>
 </div>
-@form(auth.routes.Coupons.updateCoupon(coupon.id), 'id -> "couponForm") {
+@form(auth.routes.Coupons.updateCoupon(coupon.id), 'id -> "couponForm",'name ->"couponForm") {
 	<input type="hidden" name="salonId" value="@salon.id" />
 	@if(couponForm.hasGlobalErrors) { 
           <div>
@@ -25,7 +25,10 @@
 	            </th>
 	            <td>
 	                <div class="inputField">
-	                	@inputText(couponForm("couponName"), '_label -> None, '_help -> Messages(""))
+	                	@inputText(couponForm("couponName"),
+                            'id -> "couponName",
+                            '_label -> None,
+                            '_help -> Messages(""))
 	                </div>
 	            </td>
 	        </tr>
@@ -50,6 +53,7 @@
 							 		}
 						 		</div>
 						 	}
+                            <dd class="info"></dd>
 						}
 	                </div>
 	            </td>
@@ -64,7 +68,7 @@
 	            </th>
 	            <td>
 	                <div class="inputField">
-	                	@inputText(couponForm("perferentialPrice"),'_label -> None, '_help -> Messages(""),
+	                	@inputText(couponForm("perferentialPrice"),'_label -> None, '_help -> Messages(""), 'id -> "price",
 			 			'_error -> couponForm("perferentialPrice").error.map(_.withMessage(Messages("coupon.perferentialPriceErr"))))
 	                </div>
 	            </td>
@@ -81,7 +85,7 @@
 	                <div class="inputField">
 	                	@input(field = couponForm("startDate"), '_label -> None, '_help -> Messages(""), 
 						'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.startDateRequired")))){(id, name, value, _) =>
-							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
+							<input class="Wdate" id = "startDate" type="text" name="@name" value="@value" onClick="WdatePicker() " onblur="checkedStartAndEndDate() ">
 						}
 	                </div>
 	            </td>
@@ -98,7 +102,7 @@
 	                <div class="inputField">
 	                	@input(field = couponForm("endDate"), '_label -> None, '_help -> Messages("coupon.endDateGtstart"), 
 						'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.endDateRequired")))){(id, name, value, _) =>
-							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
+							<input class="Wdate" id = "endDate" type="text" name="@name" value="@value" onClick="WdatePicker() " onblur="checkedStartAndEndDate() ">
 						}
 	                </div>
 	            </td>
@@ -113,7 +117,7 @@
 	            </th>
 	            <td>
 	                <div class="inputField">
-	                	@textarea(couponForm("useConditions"), '_label -> None, '_help -> Messages("coupon.useConditionsMsg"),
+	                	@textarea(couponForm("useConditions"), '_label -> None, '_help -> Messages("coupon.useConditionsMsg"), 'id -> "useConditions",
 						'_error -> couponForm("useConditions").error.map(_.withMessage(Messages("coupon.useConditionsRequired"))))
 	                </div>
 	            </td>
@@ -128,7 +132,7 @@
 	            </th>
 	            <td>
 	                <div class="inputField">
-	                	@textarea(couponForm("presentTime"), '_label -> None, '_help -> Messages("coupon.presentTimeMsg"),
+	                	@textarea(couponForm("presentTime"), '_label -> None, '_help -> Messages("coupon.presentTimeMsg"),'id -> "presentTime",
 						'_error -> couponForm("presentTime").error.map(_.withMessage(Messages("coupon.presentTimeRequired"))))
 	                </div>
 	            </td>
@@ -143,7 +147,8 @@
 	            </th>
 	            <td>
 	                <div class="inputField">
-	                	@textarea(couponForm("description"), '_label -> None, 'rows -> 3, 'cols -> 50, '_help -> Messages("coupon.couponDiscriptionMsg"), 
+	                	@textarea(couponForm("description"), '_label -> None, 'rows -> 3, 'cols -> 50, '_help -> Messages("coupon.couponDiscriptionMsg"),
+                        'id -> "description",
 						'_error -> couponForm("description").error.map(_.withMessage(Messages("coupon.couponDiscriptionErr"))))
 	                </div>
 	            </td>
@@ -152,8 +157,9 @@
 	</table>
 	
 	<div class="btnArea">
-		<input type = "submit" class = "buttons" value="@Messages("common.submit")">
+        <input type = "button" class = "buttons" value="@Messages("common.submit")" onclick="checksForCoupon();">
 	            
 	    <a href="@auth.routes.Salons.myCoupon"><input type = "button" class = "buttons" value="@Messages("common.backUp")"></a>
 	</div>
 }
+<script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>
