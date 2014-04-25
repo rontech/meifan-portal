@@ -8,6 +8,7 @@
     </div>
     } else {
         @for(style <- followInfo.followStyle){
+        	@if(style.isValid){
     		<li class="couponItem">
     		<div class = "styleResult">
     		   @views.html.user.followItem.followStyleItem(style)
@@ -18,7 +19,8 @@
     		   		<a href="javascript:void(0);" onclick="addFollow('@style.id','style')">@Messages("user.addFollow")</a>
     		   }
             </div>
-        	</li>	
+        	</li>
+        	}
         }
     }
 }

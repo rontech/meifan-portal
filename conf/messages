@@ -296,6 +296,7 @@ hair.headingAllMore = 综合排行榜  可见前20名
 hair.searchByF = 女士发型检索
 hair.searchByM = 男士发型检索
 hair.pictures=发型图片
+hair.nameRequired = 发型名必须填写
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -388,6 +389,7 @@ coupon.endDateGtstart = 截止时间需大于开始时间
 coupon.useConditionsMsg = 优惠劵使用条件，例如“不能和其他优惠劵使用”
 coupon.presentTimeMsg = 出示优惠劵时间，例如“消费前使用”
 coupon.couponDiscriptionMsg = 填写10到100以内的字
+coupon.searchForMore = 查看全部优惠券和菜单
 
 menu.titleInSalon = {0} 的菜单
 menu.noDataMsg = 没有找到您希望的菜单！
@@ -449,6 +451,7 @@ stylist.removeStylist = 关系解除后无法恢复，请确认是否解除关�
 stylist.rmSalon = 离开店铺后无法恢复，请确认是否离开店铺？
 stylist.rjtApply = 拒绝后无法恢复，请确认是否拒绝？
 stylist.actApply = 请确认是否同意！
+stylist.myPictureShow = 展示图片上传
 
 
 
@@ -492,6 +495,7 @@ stylist.salon = 所属店铺
 stylist.style = 他的作品
 stylistMag.calApplying = 取消申请后无法恢复，请确认是否取消申请？
 stylistMag.wtApply = 请确认提交申请！
+stylistMag.operateMyAPMSG = 该记录已被申请的店铺操作， 
 
 
 

@@ -59,8 +59,8 @@
         <p class="title">@Messages("salonSerachPage.location")</p>
         <div class="rBox">
             <div class="notto">
-                <a href="javascript:unlimitedRegion();" id="unlimitedRegion" class="cur" method="l_no">@Messages("salonSerachPage.unlimited")</a>
-                <input name="region" style="display:none;" type="radio" value="all" checked>
+                <a href="javascript:unlimitedRegion();" class="cur" method="l_no">@Messages("salonSerachPage.unlimited")</a>
+                <input name="region" id="unlimitedRegion" style="display:none;" type="radio" value="all" checked>
                 <input type="hidden" id="fill_region" value="@searchParaForSalon.region">
             </div>
             <ul class="place" id="locationTab">

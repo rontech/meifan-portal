@@ -307,3 +307,5 @@ GET         /myPage/styleItem/:styleId/:stylistId                               
 GET         /doc/notice                                                          controllers.noAuth.Notices.getOneNotice(noticeId: ObjectId)
 
 GET         /getkeyWordsByajax/:wordText                                         controllers.Application.getkeyWordsByajax(wordText:String)
+
+POST        /checkStyleForm/:value/:key/:type/:table                             controllers.auth.Stylists.itemIsExist(value:String,key:String,type:String,table:String)
