@@ -31,6 +31,7 @@ function getAreaByCity(){
 	var cmbCity = document.getElementById('getcity_name');
 	var city = cmbCity.value;
 	$('#areafield').empty();
+	$('#unlimitedRegion').attr("checked",'checked');
 	for(var i=0; i<provinceList.length; i++)
 	 {
 	   var citys = provinceList[i].cityList;

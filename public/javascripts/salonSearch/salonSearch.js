@@ -6,7 +6,7 @@ $(function(){
                     $('.seatNums_MinNum').click(function(){
                         var minSeatObj=$('input:radio[name="seatNums.minNum"]:checked');
                         minSeatObj.next().attr("checked",'checked');
-                     submitForm();
+                        submitForm();
                     });
 
                     $('.priceRang_minPrice').click(function(){
@@ -18,8 +18,20 @@ $(function(){
                     $('#surePrice').click(function(){
                         var minPrice = $('#lowPrice').val();
                         var maxPrice = $('#highPrice').val();
-                        var re=/^[1-9]([0-9])*$/;
+                        var re=/^[1-9]([0-9])*|0$/;
+                        if(maxPrice == ''){
+                        	if(re.test(minPrice)){
+                        		
+                        		$('.fill_priceRang_minPrice').val(minPrice);
+                                $('.fill_priceRang_minPrice').attr("checked",'checked');
+                        		$('.fill_priceRang_maxPrice').val(1000000);
+                        		$('.fill_priceRang_maxPrice').attr("checked",'checked');
+                        		submitForm();
+                        	}
+                        	return;
+                        }
                         if(re.test(maxPrice) && minPrice == ''){
+                        	alert('b');
                         	$('.fill_priceRang_minPrice').val(0);
                             $('.fill_priceRang_minPrice').attr("checked",'checked');
                             $('.fill_priceRang_maxPrice').val(maxPrice);
@@ -28,11 +40,14 @@ $(function(){
                             return;
                         }
                         if(!re.test(maxPrice) || !re.test(minPrice)){
+                        	
                         	return;
                         }
-                        if(maxPrice < minPrice) {
+                        if(Number(minPrice) > Number(maxPrice)) {
+                        	
                         	return;
                         }
+                        
                         
                         $('.fill_priceRang_minPrice').val(minPrice);
                         //$('input[name="priceRange.minPrice"]:eq(0)').attr("checked",'checked');
@@ -65,8 +80,6 @@ $(function(){
                     $('.condtions_item').click(function(){
                         submitForm();
                     });
-                    
-                    
                 }); 
 
                 function unlimitedCondtions(){
@@ -108,4 +121,12 @@ $(function(){
 
                 function submitForm(){
                     document.getElementById("salonSearchForm").submit();
+                }
+                
+                function clickSalonSearch(){
+                	var city = $('#getcity_name').val();
+                	if(city == '中文/拼音'){
+                		return;
+                	}
+                	submitForm();
                 }
