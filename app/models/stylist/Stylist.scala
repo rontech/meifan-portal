@@ -66,7 +66,7 @@ trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
   
   val dao = new SalatDAO[Stylist, ObjectId](collection){}
   
-  collection.ensureIndex(DBObject("stylistId" -> 1), "userId", unique = true)
+  collection.ensureIndex(DBObject("stylistId" -> 1), "stylistId", unique = true)
   
   def findGoodAtStyle: GoodAtStyle  = {
        val position = Position.findAll().toList

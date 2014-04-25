@@ -2,6 +2,11 @@
 @import helper._
 
 <div>
+     @if(styles.isEmpty){
+   	    <div class="bgAlertMsg mT20">
+        	<p class="alertMsg">@Messages("hair.noStyleSearched")</p>
+  		</div>
+     }else{
        @for(i <- 0 to styles.length-1){
        	<table class="styleItem">
 		    <tbody>
@@ -12,16 +17,16 @@
                     @if(isStylist){
                         @if(uId == loginUserId){
                             <a href="@auth.routes.Stylists.styleUpdateByStylist(styles(i).id)" >
-                                <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150">
+                                <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150" title=@Messages("salon.styleTitle")>
                             </a>
                         }else {
                             <a href="@noAuth.routes.Stylists.getbackstageStyleItem(styles(i).id,styles(i).stylistId)" >
-                                <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150">
+                                <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150" title=@Messages("salon.styleTitle")>
                             </a>
                         }
                     }else {
                          <a href="@auth.routes.Salons.getbackstageStyleItem(styles(i).id)">
-    		               <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150">
+    		               <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150" title=@Messages("salon.styleTitle")>
                          </a>
                     }
 				    </div>
@@ -36,14 +41,19 @@
                             </p>
                         </a>
                         @*店铺暂不能对发型进行更新,删除的操作<p>
-                            <a href="@auth.routes.Salons.styleUpdateBySalon(styles(i).id)" >@Messages("common.edit")</a>
-                            <a href="@auth.routes.Salons.styleToInvalidBySalon(styles(i).id)" >@Messages("common.delete")</a>
-                        </p>*@
+                            <a href="@auth.routes.Salons.styleUpdateBySalon(styles(i).id)" >@Messages("common.edit")</a>*@
+                            @*<a href="@auth.routes.Salons.styleToInvalidBySalon(styles(i).id)" >@Messages("common.delete")</a>*@
+                            @*下面的一句是可以弹出js确认框的*@
+                            @*<a onclick="del('@auth.routes.Salons.styleToInvalidBySalon(styles(i).id)','@Messages("common.deleteMsg")');" >@Messages("common.delete")</a>*@
+                        @*</p>*@
                     }else {
     		            @if(uId == loginUserId){
     					    <p>
     			                <a href="@auth.routes.Stylists.styleUpdateByStylist(styles(i).id)" >@Messages("common.edit")</a>
-    			                <a href="@auth.routes.Stylists.styleToInvalidByStylist(styles(i).id)" >@Messages("common.delete")</a>
+    			                @*<a href="@auth.routes.Stylists.styleToInvalidByStylist(styles(i).id)" >@Messages("common.delete")</a>*@
+    			                @*<a onclick="del('/myPage/invalidStyle/','@styles(i).id');" >@Messages("common.delete")</a>*@
+    			                @*<a onclick="del('/myPage/invalidStyle/'+'@styles(i).id','@Messages("common.deleteMsg")');" >@Messages("common.delete")</a>*@
+    			                <a onclick="del('@auth.routes.Stylists.styleToInvalidByStylist(styles(i).id)','@Messages("common.deleteMsg")');" >@Messages("common.delete")</a>
     			            </p>
                         }
                     }
@@ -62,5 +72,6 @@
 			</tr>
 		    </tbody>
 		</table>
+       }
        }
 </div>

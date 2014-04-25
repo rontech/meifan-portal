@@ -5,7 +5,7 @@
 <div class="contentsTitleWrapper">
 	<h2 class="contentsTitleInner">@Messages("menu.updateMenuArea")</h2>
 </div>
-@form(auth.routes.Menus.updateMenu(menu.id), 'id -> "menuForm") {
+@form(auth.routes.Menus.updateMenu(menu.id), 'id -> "menuForm", 'name -> "menuForm") {
 	
 	@if(menuForm.hasGlobalErrors) { 
           <div>
@@ -26,7 +26,7 @@
 	            </th>
 	            <td>
 	                <div class="inputField">
-	                	@inputText(menuForm("menuName"), '_label -> None, '_help -> Messages(""),
+	                	@inputText(menuForm("menuName"), '_label -> None, '_help -> Messages(""), 'id -> "menuName",
 						'_error -> menuForm("menuName").error.map(_.withMessage(Messages("menu.menuNameRequired"))))
 	                </div>
 	            </td>
@@ -51,6 +51,7 @@
 						 		}
 					 		</div>
 					 	}
+                       <dd class="info"></dd>
 					  }
 	                </div>
 	            </td>
@@ -66,7 +67,7 @@
 	            <td>
 	                <div class="inputField">
 	                	@textarea(menuForm("description"), '_label -> None, 'rows -> 3, 'cols -> 50, '_help -> Messages("coupon.couponDiscriptionMsg"),
-						 '_error -> menuForm("description").error.map(_.withMessage(Messages("menu.menuDiscriptionErr"))))
+						 'id -> "description", '_error -> menuForm("description").error.map(_.withMessage(Messages("menu.menuDiscriptionErr"))))
 	                </div>
 	            </td>
 	        </tr>
@@ -75,8 +76,9 @@
 	
 	
 	<div class="btnArea">
-		<input type = "submit" class = "buttons" value="@Messages("common.submit")">
+		<input type = "button" class = "buttons" value="@Messages("common.submit")" onclick="checksForMenu();">
 	            
 	    <a href="@auth.routes.Salons.myMenu"><input type = "button" class = "buttons" value="@Messages("common.backUp")"></a>
 	</div>
 }
+<script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>

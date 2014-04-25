@@ -1,5 +1,9 @@
 @(salons: List[SalonGeneralSrchRst])
 
-@for(sl <- salons) {
-    @views.html.salon.search.salonSrchRstItem(sl)
-}
+<div id="generalSrchRst">
+
+    @for(sl <- salons) {
+        @views.html.salon.search.salonSrchRstItem(sl)
+    }
+
+</div>

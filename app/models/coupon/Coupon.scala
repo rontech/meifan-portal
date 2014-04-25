@@ -60,7 +60,7 @@ object Coupon extends ModelCompanion[Coupon, ObjectId]{
   
   // 查找出该沙龙所有有效且没有过期的优惠劵
   def findValidCouponBySalon(salonId: ObjectId): List[Coupon] = {
-    dao.find($and(DBObject("salonId" -> salonId, "isValid" -> true), $or("endDate" $gt new Date(), "endDate" $eq new Date()))).toList
+    dao.find($and(DBObject("salonId" -> salonId, "isValid" -> true), "endDate" $gt new Date(), "startDate" $lt new Date())).toList
   }
   
   // 查找出该沙龙所有符合条件的有效且没有过期的优惠劵
@@ -70,7 +70,7 @@ object Coupon extends ModelCompanion[Coupon, ObjectId]{
   
   // 查找出该沙龙所用有效且没有过期的优惠劵
   def findValidCouponByCondtions(serviceTypes: Seq[String], salonId: ObjectId): List[Coupon] = {
-    dao.find($and("serviceItems.serviceType" $all serviceTypes, DBObject("salonId" -> salonId, "isValid" -> true), $or("endDate" $gt new Date(), "endDate" $eq new Date()))).toList
+    dao.find($and("serviceItems.serviceType" $all serviceTypes, DBObject("salonId" -> salonId, "isValid" -> true), "endDate" $gt new Date(),  "startDate" $lt new Date())).toList
   }
 
   def checkCouponIsExit(CouponName: String, salonId: ObjectId): Boolean = dao.find(DBObject("couponName" -> CouponName, "salonId" -> salonId)).hasNext

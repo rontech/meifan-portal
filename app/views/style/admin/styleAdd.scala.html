@@ -45,7 +45,7 @@
             }
             @input(field = styleAddForm("styleImpression"),args = '_label ->Messages("hair.impression")){(id,name,value,args) =>
                 @for(i <- 0 to stylePara.styleImpression.length-1){
-                      <input type = "radio" class="" name = "styleImpression", value = "@stylePara.styleImpression(i)">@Messages("style.styleImpression." + stylePara.styleImpression(i))
+                      <input type = "radio" class="" name = "styleImpression", value = "@stylePara.styleImpression(i)" @if(i==0){checked}>@Messages("style.styleImpression." + stylePara.styleImpression(i))
                 }
             }
             @input(field = styleAddForm("styleColor"),args = '_label ->Messages("hair.color")){(id,name,value,args) =>
@@ -96,7 +96,7 @@
             </div>
             <div>
                 @Messages("hair.assessFromStylist")
-                @inputText(styleAddForm("description"), '_label -> None, 'id -> "Description", 'class ->  "font1",'_help -> Messages("stylistAdmin.selectField"))
+                @textarea(styleAddForm("description"), '_label -> None, 'id -> "Description", 'rows -> 4, 'cols -> 40, 'class ->  "font1",'_help -> Messages("stylistAdmin.selectField"))
             </div>
             <div class="demo">
                 <div class="logoupload">
@@ -256,7 +256,7 @@
         @textarea(
             field("description"),
             'rows -> 2, 'cols -> 15, 
-            'placeholder -> Messages("onUserPicture.description"), 'class -> "imagesDescriptionfelid"
+            'placeholder -> Messages("hair.picturedescription"), 'class -> "imagesDescriptionfelid"
         )
         
     </div>
@@ -388,6 +388,10 @@
                 file_queued_handler : fileQueued,
                 file_dialog_complete_handler: fileDialogComplete,
                 upload_start_handler : function (file) {
+                	var $picturediv = $('.picture_error_msg');
+                	if($picturediv.length==1){
+                		$('.picture_error_msg').remove();
+                	}
                     initProgress();
                     updateProgress(file);
                 },
@@ -495,11 +499,17 @@
 	function styleSubmit(){
 		checkStyleName();
 		checkDescription();
+		var $obj=$('.imageoffileobjid');
+		$('.picture_error_msg').remove();
+		if($obj.length == 1){
+		$('.demo').append('<div class="picture_error_msg"><span class="errorMsg">至少选择一张图片</span><div>');
+			return;
+		}
 		var errInput = $('.errorMsg')
 	    if (errInput.length != 0 ){
-	        return false;
+	        return;
 	    }
-	    document.getElementById("styleAddForm").submit()
+	    document.getElementById("styleAddForm").submit();
 	}
         
         

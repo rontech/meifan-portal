@@ -47,6 +47,10 @@
         var f = 1, k = /^\s*(\d+)((px)|\%)?\s*$/i, v = /(^\s*(\d+)((px)|\%)?\s*$)|^$/i, o = /^\d+px$/,
             w = function () {
                 var a = this.getValue(), b = this.getDialog(), d = a.match(k);
+                // 现在图片的宽度最大设定是500px，当想通过文本框的输入来改变宽度时，不让他键入大于500像素的值
+                if(a > 500){
+                	this.setValue(500);
+                }
                 d && ("%" == d[2] && l(b, !1), a = d[1]);
                 b.lockRatio && (d = b.originalElement, "true" == d.getCustomData("isReady") && ("txtHeight" == this.id ? (a && "0" != a && (a = Math.round(d.$.width * (a / d.$.height))), isNaN(a) || b.setValueOf("info", "txtWidth", a)) : (a && "0" != a && (a = Math.round(d.$.height * (a / d.$.width))), isNaN(a) || b.setValueOf("info", "txtHeight", a))));
                 g(b)
@@ -75,8 +79,11 @@
                 var b = a.originalElement;
                 if ("true" == b.getCustomData("isReady")) {
                     var d = a.getContentElement("info", "txtWidth"), e = a.getContentElement("info", "txtHeight");
-                    d && d.setValue(b.$.width);
-                    e && e.setValue(b.$.height)
+                    // 当上传的图片的宽度大于500px时,设置宽度的值为500px
+                    var width = b.$.width > 500 ? 500 : b.$.width
+//                    d && d.setValue(b.$.width); //这是以前的代码
+            		d && d.setValue(width);
+//                    e && e.setValue(b.$.height) //这是以前的代码
                 }
                 g(a)
             }, y = function (a, b) {
@@ -196,7 +203,7 @@
                                     this.setValue(d);
                                     this.setInitValue()
                                 }
-                            }, commit: function (a, b) {
+                            }, commit: function (a, b) {                        
                                 a == f && (this.getValue() || this.isChanged()) ? (b.data("cke-saved-src", this.getValue()), b.setAttribute("src",
                                     this.getValue())) : 8 == a && (b.setAttribute("src", ""), b.removeAttribute("src"))
                             }, validate: CKEDITOR.dialog.validate.notEmpty(c.lang.image.urlMissing)},
@@ -214,18 +221,18 @@
                         {id: "basic", type: "vbox", children: [
                             {type: "hbox", requiredContent: "img{width,height}", widths: ["50%", "50%"], children: [
                                 {type: "vbox", padding: 1, children: [
-                                    {type: "text", width: "45px", id: "txtWidth", label: c.lang.common.width, onKeyUp: w, onChange: function () {
+                                    {type: "text", width: "45px", id: "txtWidth", label: c.lang.common.width, onKeyUp: w, onChange: function () {//触发上面的w
                                         i.call(this, "advanced:txtdlgGenStyle")
                                     }, validate: function () {
-                                        var a = this.getValue().match(v);
-                                        (a = !!(a && 0 !== parseInt(a[1], 10))) || alert(c.lang.common.invalidWidth);
+                                        var a = this.getValue().match(v);                                   
+                                        (a = !!(a && 0 !== parseInt(a[1], 10))) || alert(c.lang.common.invalidWidth);                                  
                                         return a
                                     }, setup: y, commit: function (a, b, d) {
-                                        var c = this.getValue();
+                                        var c = this.getValue();                                       
                                         a == f ? (c ? b.setStyle("width", CKEDITOR.tools.cssLength(c)) : b.removeStyle("width"), !d && b.removeAttribute("width")) : 4 == a ? c.match(k) ? b.setStyle("width", CKEDITOR.tools.cssLength(c)) : (a = this.getDialog().originalElement, "true" == a.getCustomData("isReady") && b.setStyle("width", a.$.width + "px")) : 8 == a && (b.removeAttribute("width"), b.removeStyle("width"))
                                     }},
                                     {type: "text", id: "txtHeight",
-                                        width: "45px", label: c.lang.common.height, onKeyUp: w, onChange: function () {
+                                        width: "45px", label: c.lang.common.height, onKeyUp: w, onChange: function () {//触发上面的w
                                         i.call(this, "advanced:txtdlgGenStyle")
                                     }, validate: function () {
                                         var a = this.getValue().match(v);

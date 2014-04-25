@@ -267,7 +267,7 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
         srchConds :::= List(commonsDBObject("salonAddress.city" -> searchParaForSalon.city))
 
         // keywords Array for Fuzzy search: will be joined with "$or" DSL operation.  
-        val fuzzyRegex = convertKwdsToFuzzyRegex(searchParaForSalon.keyWord.getOrElse(""))(x => (".*" + x.trim + ".*|"))
+        val fuzzyRegex = convertKwdsToFuzzyRegex(searchParaForSalon.keyWord.getOrElse(""))(x => (".*" + x + ".*|"))
         // from which fields the keyword be searched.
         val targetFields = getSrchTargetFields()
         val fuzzyConds = searchByFuzzyConds(targetFields, fuzzyRegex)
@@ -298,7 +298,7 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
         }
  
         // exact regex keyword which used to get the exact words matched to the keyword.
-        val exactRegex = convertKwdsToFuzzyRegex(searchParaForSalon.keyWord.getOrElse(""))(x => (x.trim + "|")) 
+        val exactRegex = convertKwdsToFuzzyRegex(searchParaForSalon.keyWord.getOrElse(""))(x => (x + "|")) 
         for(sl <- salons) {
           // get top 2 styles of salon.
           val selStyles = Style.getBestRsvedStylesInSalon(sl.id, 2)
@@ -326,9 +326,9 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
       present match {
         case None => abbrPres
         case Some(pres) => 
-          abbrPres :::= List("..." + pres.picTitle.slice(0, 30) + "...")
-          abbrPres :::= List("..." + pres.picContent.slice(0, 30) + "...")
-          abbrPres :::= List("..." + pres.picFoot.slice(0, 30) + "...")
+          abbrPres :::= List(makeAbbrStr(pres.picTitle, 0, 30))
+          abbrPres :::= List(makeAbbrStr(pres.picContent, 0, 30))
+          abbrPres :::= List(makeAbbrStr(pres.picFoot, 0, 30))
       }
 
       abbrPres
@@ -338,6 +338,7 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
      * Get keywords hit strings.
      *   Slice 
      */
+    /*
     def getKeywordsHitStrs1(fuzzyKwds: List[commonsDBObject], exactKwds: Regex): List[String] = {
       var fuzzyHits: List[String] = Nil
 
@@ -345,7 +346,7 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
         // TODO can below done with reflection?
         var hit: String = ""
         if(fz.contains("salonName")) hit = dao.find(fz).map {_.salonName}.mkString
-        if(fz.contains("salonNameAbbr")) hit = dao.find(fz).map {_.salonNameAbbr}.mkString
+        if(fz.contains("salonNameAbbr")) hit = dao.find(fz).map {_.salonNameAbbr.getOrElse("")}.mkString
         if(fz.contains("salonDescription")) hit = dao.find(fz).map {_.salonDescription.getOrElse("")}.mkString
         // for a salon valid, it is impossible that field [picDescription] is null.
         if(fz.contains("picDescription.picTitle")) hit = dao.find(fz).map {_.picDescription.get.picTitle}.mkString
@@ -374,6 +375,8 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
       // println("fuzzyHits" + fuzzyHits)
       fuzzyHits.toList
     }
+    */
+ 
 
     /**
      * Get the slice of keyword matched fields.  
@@ -391,8 +394,9 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
   
           // TODO can below done with reflection?
           if(tgtf == "salonName") hit = dao.find(fzKws).map {_.salonName}.mkString
-          if(tgtf == "salonNameAbbr") hit = dao.find(fzKws).map {_.salonNameAbbr}.mkString
-          if(tgtf == "salonDescription") hit = dao.find(fzKws).map {_.salonDescription}.mkString
+          if(tgtf == "salonNameAbbr") hit = dao.find(fzKws).map {_.salonNameAbbr.getOrElse("")}.mkString
+          if(tgtf == "salonDescription") hit = dao.find(fzKws).map {_.salonDescription.getOrElse("")}.mkString
+          // for a salon valid, it is impossible that field [picDescription] is null.
           if(tgtf == "picDescription.picTitle") hit = dao.find(fzKws).map {_.picDescription.get.picTitle}.mkString
           if(tgtf == "picDescription.picContent") hit = dao.find(fzKws).map {_.picDescription.get.picContent}.mkString
           if(tgtf == "picDescription.picFoot") hit = dao.find(fzKws).map {_.picDescription.get.picFoot}.mkString
@@ -406,16 +410,22 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
               var mtch = exactKwds.findAllIn(hit)
               // cut out the search rst.
               if(!mtch.isEmpty) {
-                fuzzyHits :::= List("..." + hit.slice(mtch.start, mtch.start + 30) + "...")
+                var ht: String = "" 
+                if((hit.length - mtch.start) < 10) {
+                  ht = makeAbbrStr(hit, mtch.start + hit.length - 30, mtch.start + firstHit.getOrElse("").length)
+                } else {
+                  ht = makeAbbrStr(hit, mtch.start, mtch.start + 30)
+                }
+                fuzzyHits :::= List(ht) 
               }
             } 
           }
         }
       }
 
-      println("fuzzyKwds = " + fuzzyKwds)
-      println("exactKwds = " + exactKwds)
-      println("fuzzyHits = " + fuzzyHits)
+      // println("fuzzyKwds = " + fuzzyKwds)
+      // println("exactKwds = " + exactKwds)
+      // println("fuzzyHits = " + fuzzyHits)
       fuzzyHits.toList
     }
 
@@ -432,11 +442,20 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
 
 
     /**
+     * Make Abbr string for salon's various names and descriptions.
+     */
+    def makeAbbrStr(source: String, start: Int, end: Int): String = {
+        "..." + source.slice(start, end) + "..." 
+    }
+
+
+    /**
      * Fuzzy search to salon: can search by salon name, salon abbr name, salonDescription, picDescription...... 
      * TODO:
      *     For now, only consider multi-keywords separated by blank, 
      *     Not consider the way that deviding keyword into multi-keywords automatically. 
      */
+    /*
     def findSalonByFuzzyConds(keyword: String): List[Salon] = {
         var rst: List[Salon] = Nil
         // pre process for keyword: process the double byte blank to single byte blank.
@@ -457,7 +476,7 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
             rst.distinct
         }
     }
-
+    */
 
     /**
      * :
@@ -496,7 +515,7 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
      */
     def convertKwdsToFuzzyRegex(keyword: String)(f: String => String) = {
         // pre process for keyword: process the double byte blank to single byte blank.
-        val kws = keyword.replace("　"," ")
+        val kws = keyword.replace("　"," ").trim
         if(kws.replace(" ","").length == 0) {
             // when keyword is not exist, return Nil.
             "".r
