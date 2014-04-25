@@ -92,7 +92,7 @@
 			                		'_label -> None,
 			                		'_help -> Messages("user.nickName"), 
 			                		'placeholder -> Messages("user.nickNm"),
-			                		'id -> "salonName",
+			                		'id -> "nickName",
 							        '_error -> userForm("nickName").error.map(_.withMessage("user.nickNameErr"))
 							            )
 			                </div>
@@ -140,23 +140,3 @@
 
     
     <script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>
-    <script type="text/javascript">
-    function checksForUserRegister(){
-        //当为修改注册信息页面时，用户ID：readonly；
-        //当为注册页面时，用户ID为必填项；
-        if (!$('#accountId').attr("readonly")){
-            checkedAccountId();
-            checkedPassword();
-            checkedPasswordConfirm();
-            checkedSalonName();
-            checkedEmail();
-        }
-
-        checkedTel();
-        var errInput = $('.errorMsg')
-        if (errInput.length != 0 ){
-            return false;
-        }
-        document.userForm.submit();
-    }
-    </script>

@@ -114,6 +114,24 @@ object User extends ModelCompanion[User, ObjectId] {
      */
     def findBeautyUsers = dao.find(MongoDBObject("userTyp" -> NORMAL_USER)).toList.sortBy(user =>user.activity)
 
-    def isExist(value:String, f:String => Option[User]) = f(value).map(user => true).getOrElse(false)
+    /**
+     * checks for accountId
+     * @param value
+     * @param f
+     * @return
+     */
+    def isExist(value:String,
+                f:String => Option[User]) = f(value).map(user => true).getOrElse(false)
 
+    /**
+     * checks for nickName,email,tel
+     * @param value
+     * @param loggedUser
+     * @param f
+     * @return
+     */
+    def isValid(value:String,
+                loggedUser:User,
+                f:String => Option[User]) =
+        f(value).map(_.id==loggedUser.id).getOrElse(true)
 }

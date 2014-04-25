@@ -524,7 +524,25 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
         lowestPrice
     }
 
+    /**
+     * checks for accountId,salonName
+     * @param value
+     * @param f
+     * @return
+     */
     def isExist(value:String, f:String => Option[Salon]) = f(value).map(salon => true).getOrElse(false)
+
+    /**
+     * checks for salonNameAbbr
+     * @param value
+     * @param loggedSalon
+     * @param f
+     * @return
+     */
+    def isValid(value:String,
+                loggedSalon:Salon,
+                f:String => Option[Salon]) = f(value).map( _.id==loggedSalon.id).getOrElse(true)
+
 }
 
 /*----------------------------

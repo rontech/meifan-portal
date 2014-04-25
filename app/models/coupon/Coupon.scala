@@ -64,16 +64,16 @@ object Coupon extends ModelCompanion[Coupon, ObjectId]{
   }
   
   // 查找出该沙龙所有符合条件的有效且没有过期的优惠劵
-  def findContainCondtions(serviceTypes: Seq[String], salonId: ObjectId): List[Coupon] = {
+  def findContainConditions(serviceTypes: Seq[String], salonId: ObjectId): List[Coupon] = {
     dao.find($and("serviceItems.serviceType" $all serviceTypes, DBObject("salonId" -> salonId))).toList
   }
   
   // 查找出该沙龙所用有效且没有过期的优惠劵
-  def findValidCouponByCondtions(serviceTypes: Seq[String], salonId: ObjectId): List[Coupon] = {
+  def findValidCouponByConditions(serviceTypes: Seq[String], salonId: ObjectId): List[Coupon] = {
     dao.find($and("serviceItems.serviceType" $all serviceTypes, DBObject("salonId" -> salonId, "isValid" -> true), $or("endDate" $gt new Date(), "endDate" $eq new Date()))).toList
   }
 
-  def checkCouponIsExit(CouponName: String, salonId: ObjectId): Boolean = dao.find(DBObject("couponName" -> CouponName, "salonId" -> salonId)).hasNext
+  def checkCouponIsExist(CouponName: String, salonId: ObjectId): Boolean = dao.find(DBObject("couponName" -> CouponName, "salonId" -> salonId)).hasNext
 
   def isOwner(couponId: ObjectId)(salon: Salon): Future[Boolean] = Future {Coupon.findOneById(couponId).map(coupon => coupon.salonId.equals(salon.id)).getOrElse(false)}
 }

@@ -16,6 +16,7 @@ import com.mongodb.casbah.WriteConcern
 import org.mindrot.jbcrypt.BCrypt
 import controllers.auth.Coupons
 import views.html
+import utils.Const._
 
 object Salons extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
@@ -375,7 +376,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 
                     val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
                     if (serviceType.subMenuFlg == None) {
-                        //coupons = Coupon.findContainCondtions(serviceTypes)
+                        //coupons = Coupon.findContainConditions(serviceTypes)
                     } else {
                         if (serviceType.serviceTypes.isEmpty) {
                             coupons = Coupon.findValidCouponBySalon(salonId)
@@ -387,8 +388,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                                 servicesByTypes = y :: servicesByTypes
                             }
                         } else {
-                            coupons = Coupon.findValidCouponByCondtions(conditions, salonId)
-                            menus = Menu.findValidMenusByCondtions(conditions, salonId)
+                            coupons = Coupon.findValidCouponByConditions(conditions, salonId)
+                            menus = Menu.findValidMenusByConditions(conditions, salonId)
                             for (serviceTypeOne <- serviceType.serviceTypes) {
                                 var servicesByType: ServiceByType = ServiceByType("", Nil)
                                 val y = servicesByType.copy(serviceTypeName = serviceTypeOne.serviceTypeName, serviceItems = Service.getTypeListBySalonId(salonId, serviceTypeOne.serviceTypeName))
@@ -454,5 +455,4 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             }
         )
     }
-    
 }

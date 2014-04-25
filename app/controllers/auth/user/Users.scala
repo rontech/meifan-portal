@@ -14,6 +14,11 @@ import play.api.i18n.Messages
 import org.mindrot.jbcrypt.BCrypt
 import controllers._
 import play.api.data.validation.Constraints._
+import utils.Const._
+import scala.Some
+import models.StylistApply
+import models.OptContactMethod
+import models.Address
 
 object Users extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl {
 
@@ -299,8 +304,33 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
       }getOrElse{
          NotFound
       }
-      
-  }  
+  }
 
+    /**
+     * checks for email,nickName,accountId,phone
+     */
+    def checkIsExist(value:String, key : String) = StackAction(AuthorityKey -> isLoggedIn _){implicit request =>
+        val loggedUser = loggedIn
+        key match{
+            case ITEM_TYPE_ID =>
+                Ok((User.isExist(value, User.findOneByUserId)||Salon.isExist(value, Salon.findByAccountId)).toString)
+            case ITEM_TYPE_NAME =>
+                if(User.isValid(value, loggedUser, User.findOneByNickNm)){
+                    Ok((Salon.isExist(value,Salon.findOneBySalonName)||Salon.isExist(value,Salon.findOneBySalonNameAbbr)).toString)
+                }else{
+                    Ok("true")
+                }
+            case ITEM_TYPE_NAME_ABBR =>
+                if(User.isExist(value,User.findOneByNickNm)){
+                    Ok("true")
+                }else{
+                    Redirect(controllers.auth.routes.Salons.checkIsValid(value,key))
+                }
+            case ITEM_TYPE_EMAIL =>
+                Ok((!User.isValid(value, loggedUser, User.findOneByEmail)).toString)
+            case ITEM_TYPE_TEL =>
+                Ok((!User.isValid(value, loggedUser, User.findOneByTel)).toString)
+        }
+    }
 
 }

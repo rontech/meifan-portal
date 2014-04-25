@@ -3,63 +3,119 @@
  */
 var ITEM_TYPE_ID = "loginId"
 var ITEM_TYPE_NAME = "name"
+var ITEM_TYPE_NAME_ABBR = "nameAbbr"
 var ITEM_TYPE_EMAIL = "email"
 var ITEM_TYPE_TEL = "tel"
+var ITEM_TYPE_STYLE = "style"
+var ITEM_TYPE_COUPON = "coupon"
+var ITEM_TYPE_SERVICE = "service"
+var ITEM_TYPE_MENU = "menu"
 
+/**
+ * listening userId and salonAccountId
+ */
 $('#accountId').change(function(){
     checkedAccountId();
 });
+/**
+ * listening password
+ */
 $('#password_main').change(function(){
     checkedPassword()
 });
 $('#password_confirm').change(function(){
     checkedPasswordConfirm()
 });
+/**
+ * listening emails in user,salon
+ */
 $('#contact_email').change(function(){
     checkedEmail()
 });
+/**
+ * listening fixed-line telephone in salon
+ */
 $('#contact_tel').change(function(){
     checkedTel()
 });
+/**
+ * listening salonName
+ */
 $('#salonName').change(function(){
     checkedSalonName()
 });
+/**
+ * listening salonNameAbbr
+ */
 $('#salonNameAbbr').change(function(){
     checkedSalonNameAbbr()
 });
+/**
+ * listening salonDescription
+ */
 $('#salonDescription').change(function(){
-    checkedDescription()
+    checkedSalonDescription()
 });
+/**
+ * listening contact in salon
+ */
 $('#contact').change(function(){
     checkedContact()
 });
+/**
+ * listening checkBoxes of salonIndustry
+ */
 $('.salonIndustry').change(function(){
     checkedIndustry()
 });
+/**
+ * listening addressDetail of salon
+ */
 $('#addressDetail').blur(function(){
     checkedAddressDetail()
 });
+/**
+ * listening accessMethodDesc of salon
+ */
 $('#accessMethodDesc').change(function(){
     checkedAccessMethodDesc()
 });
+/**
+ * listening openTime and closeTime of Salon
+ */
 $('#openTime').change(function(){
     checkedOpenTime()
 });
 $('#closeTime').change(function(){
     checkedCloseTime()
 });
+/**
+ * listening establishDate of salon
+ */
 $('#establishDate').change(function(){
     checkedEstablishDate()
 });
+/**
+ * listening checkBoxes of fixed restDay
+ */
 $('.week').change(function(){
     checkedRestDays()
 });
+/**
+ * listening indefinite restDay
+ */
 $('#restDay2').change(function(){
     checkedRestDays()
 });
+/**
+ * listening seat's number of Salon
+ */
 $('#seatNums').change(function(){
     checkedSeatNums()
 });
+/**
+ * listening the descriptions of picture in salon
+ */
 $('#picTitle').change(function(){
     checkedPicTitle()
 });
@@ -69,13 +125,22 @@ $('#picContent').change(function(){
 $('#picFoot').change(function(){
     checkedPicFoot()
 });
-/*$('#phone').change(function(){
-	checkedPhone();
-});*/
+/**
+ * listening phone in user,salon contact
+ */
+$('#phone').change(function(){
+    checkedPhone();
+});
+/**
+ * listening nickName in user
+ */
+$('#nickName').change(function(){
+    checkedNickName();
+});
 
-
-
-
+/**
+ * check for userId and salonAccountId
+ */
 function checkedAccountId(){
     var salonId = $('#accountId').val();
     var isName=/^[a-zA-Z][a-zA-Z0-9_]{5,17}$/;
@@ -90,9 +155,6 @@ function checkedAccountId(){
         return;
     }
     jsRoutes.controllers.Application.itemIsExist(salonId, ITEM_TYPE_ID).ajax({
-        /*data: formData,
-         processData: false,
-         contentType: false,*/
         async: false,
         cache: false,
         type: 'POST',
@@ -107,14 +169,18 @@ function checkedAccountId(){
             }
         },
         error: function(err){
+            alert("err"+err.status);
             $('#accountId  ~ .help-inline').text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
             $("#accountId").parent("dd").next().text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
         }
     });
 }
+/**
+ * check for password
+ */
 function checkedPassword(){
     var password=$('#password_main').val();
-    var isPassword=/^[a-zA-Z0-9]\w{5,17}$/;
+    var isPassword=/^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]{6,16}$/;
     if (password == ""){
         $('#password_main  ~ .help-inline').text('密码不能为空').removeClass("trueMsg").addClass("errorMsg");
         $("#password_main").parent("dd").next().text('密码不能为空').removeClass("trueMsg").addClass("errorMsg");
@@ -129,6 +195,9 @@ function checkedPassword(){
     $("#password_main").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
 }
 
+/**
+ * check for password confirm
+ */
 function checkedPasswordConfirm(){
     var password=$('#password_confirm').val();
     var firstPassword=$("#password_main").val();
@@ -151,7 +220,9 @@ function checkedPasswordConfirm(){
     $("#password_confirm ~ .help-inline").text("").removeClass("errorMsg").addClass("trueMsg");
     $("#password_confirm").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
 }
-
+/**
+ * check for email
+ */
 function checkedEmail(){
     var email=$("#contact_email").val();
     var isEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
@@ -166,9 +237,6 @@ function checkedEmail(){
         return;
     }
     jsRoutes.controllers.Application.itemIsExist(email, ITEM_TYPE_EMAIL).ajax({
-        /*data: formData,
-         processData: false,
-         contentType: false,*/
         cache: false,
         async: false,
         type: 'POST',
@@ -189,6 +257,9 @@ function checkedEmail(){
     });
 }
 
+/**
+ * check fixed-line telephone in salon
+ */
 function checkedTel(){
     var tel=$("#contact_tel").val();
     var isTel=/^\d{3,4}-\d{7,8}$/;
@@ -196,76 +267,61 @@ function checkedTel(){
         $("#contact_tel ~ .help-inline").text("固定电话不能为空").removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-
     if(!isTel.test(tel)){
         $("#contact_tel ~ .help-inline").text("电话号码不合法，请输入固定电话").removeClass("trueMsg").addClass("errorMsg");
-        return;
     }else{
         $("#contact_tel ~ .help-inline").text("").removeClass("errorMsg").addClass("trueMsg");
     }
-    /*jsRoutes.controllers.Application.itemIsExist(tel, ITEM_TYPE_TEL).ajax({
-        *//*data: formData,
-         processData: false,
-         contentType: false,*//*
-        cache: false,
-        type: 'POST',
-        success: function(data){
-            if (data == "false"){
-                $('#contact_tel  ~ .help-inline').text("").removeClass("errorMsg").addClass("trueMsg");
-            }
-            else{
-                $('#contact_tel  ~ .help-inline').text("该号码已登记，请重新输入").removeClass("trueMsg").addClass("errorMsg");
-            }
-        },
-        error: function(err){
-            alert(err.status+"出现异常错误");
-        }
-    });*/
 }
 
+/**
+ * check for salon Name
+ */
 function checkedSalonName(){
+    //TODO
     var salonName=$("#salonName").val();
-    //var isName = /^\x{4e00}-\x{9fa5}\w+$/;
+    var len = salonName.replace(/[^\x00-\xff]/g, "**").length;
+    if (len < 4||len  > 40){
+        $("#salonName ~ .help-inline").text("店铺名不合法，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+        return;
+    }
     if (salonName == ""){
         $("#salonName ~ .help-inline").text("店铺名不能为空").removeClass("trueMsg").addClass("errorMsg");
-        $("#salonName").parent("dd").next().text("昵称不能为空").removeClass("trueMsg").addClass("errorMsg");
         return;
     }
     jsRoutes.controllers.Application.itemIsExist(salonName, ITEM_TYPE_NAME).ajax({
-        /*data: formData,
-         processData: false,
-         contentType: false,*/
         async: false,
         cache: false,
         type: 'POST',
         success: function(data){
             if (data == "false"){
                 $('#salonName  ~ .help-inline').text("").removeClass("errorMsg").addClass("trueMsg");
-                $("#salonName").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
             }
             else{
                 $('#salonName  ~ .help-inline').text("该店铺名已被使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
-                $("#salonName").parent("dd").next().text("该昵称已被使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
             }
         },
         error: function(err){
             $('#salonName  ~ .help-inline').text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
-            $("#salonName").parent("dd").next().text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
         }
     });
 }
 
+/**
+ * check for salonNameAbbr
+ */
 function checkedSalonNameAbbr(){
     var salonNameAbbr=$("#salonNameAbbr").val();
-    //var isName = /^\x{4e00}-\x{9fa5}\w+$/;
+    var len = salonName.replace(/[^\x00-\xff]/g, "**").length;
     if (salonNameAbbr == ""){
         $("#salonNameAbbr ~ .help-inline").text("店铺名略称不能为空").removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    /*jsRoutes.controllers.Application.itemIsExist(salonNameAbbr, ITEM_TYPE_NAME).ajax({
-        *//*data: formData,
-         processData: false,
-         contentType: false,*//*
+    if (len < 4||len  > 40){
+        $("#salonNameAbbr ~ .help-inline").text("店铺名略称不合法，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+        return;
+    }
+    jsRoutes.controllers.Application.itemIsExist(salonNameAbbr, ITEM_TYPE_NAME_ABBR).ajax({
         async: false,
         cache: false,
         type: 'POST',
@@ -280,22 +336,55 @@ function checkedSalonNameAbbr(){
         error: function(err){
             $('#salonNameAbbr  ~ .help-inline').text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
         }
-    });*/
+    });
 }
 
-function checkedDescription(){
+function checkedNickName(){
+    var nickName=$("#nickName").val();
+    var len = nickName.replace(/[^\x00-\xff]/g, "**").length;
+    if (nickName == ""){
+        $("#nickName").parent("dd").next().text("昵称不能为空").removeClass("trueMsg").addClass("errorMsg");
+        return;
+    }
+    if (len < 1||len  > 10){
+        $("#nickName").parent("dd").next().text("昵称不合法，请输入1~10位字符").removeClass("trueMsg").addClass("errorMsg");
+        return;
+    }
+    jsRoutes.controllers.Application.itemIsExist(nickName, ITEM_TYPE_NAME).ajax({
+        async: false,
+        cache: false,
+        type: 'POST',
+        success: function(data){
+            if (data == "false"){
+                $("#nickName").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
+            }
+            else{
+                $("#nickName").parent("dd").next().text("该昵称已被使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+            }
+        },
+        error: function(err){
+            alert("err" +err.status);
+            $("#nickName").parent("dd").next().text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
+        }
+    });
+}
+
+/**
+ * check for salon's description
+ */
+function checkedSalonDescription(){
     var value=$("#salonDescription").val();
     if (value == ""){
         $("#salonDescription ~ .help-inline").text("简介不能为空").removeClass("trueMsg").addClass("errorMsg");
-        return;
-    }else if(value.length > 100){
-        $("#salonDescription ~ .help-inline").text("最多可输入50个字符").removeClass("trueMsg").addClass("errorMsg");
         return;
     }else{
         $("#salonDescription ~ .help-inline").text("").removeClass("errorMsg").addClass("trueMsg");
     }
 }
 
+/**
+ * check for detail address of salon
+ */
 function checkedAddressDetail(){
     var value=$("#addrDetail").val();
     if (value == ""){
@@ -306,8 +395,12 @@ function checkedAddressDetail(){
     }
 }
 
+/**
+ * check for contact of salon
+ */
 function checkedContact(){
     var value=$("#contact").val();
+    //TODO
     if (value == ""){
         $("#contact ~ .help-inline").text("联系人不能为空").removeClass("trueMsg").addClass("errorMsg");
         return;
@@ -316,36 +409,45 @@ function checkedContact(){
     }
 }
 
+/**
+ * check for openTime of salon
+ */
 function checkedOpenTime(){
     var value=$("#openTime").val();
     if (value == ""){
         $("#openTime ~ .help-inline").text("营业开始时间不能为空").removeClass("trueMsg").addClass("errorMsg");
-        return;
     }else{
         $("#openTime ~ .help-inline").text("").removeClass("errorMsg").addClass("trueMsg");
     }
 }
 
+/**
+ * check for closeTime of salon
+ */
 function checkedCloseTime(){
     var value=$("#closeTime").val();
     if (value == ""){
         $("#closeTime ~ .help-inline").text("营业结束时间不能为空").removeClass("trueMsg").addClass("errorMsg");
-        return;
     }else{
         $("#closeTime ~ .help-inline").text("").removeClass("errorMsg").addClass("trueMsg");
     }
 }
 
+/**
+ * check for establish date of salon
+ */
 function checkedEstablishDate(){
     var value=$("#establishDate").val();
     if (value == ""){
         $("#establishDate ~ .help-inline").text("开业日期不能为空").removeClass("trueMsg").addClass("errorMsg");
-        return;
     }else{
         $("#establishDate ~ .help-inline").text("").removeClass("errorMsg").addClass("trueMsg");
     }
 }
 
+/**
+ * check for access method of salon
+ */
 function checkedAccessMethodDesc(){
     var value=$("#accessMethodDesc").val();
     if (value == ""){
@@ -356,6 +458,9 @@ function checkedAccessMethodDesc(){
     }
 }
 
+/**
+ * check for restDay of salon
+ */
 function checkedRestDays(){
     if ($("#restDays_restWay_Fixed").attr("checked")){
         var restDay = $('.week')
@@ -380,6 +485,9 @@ function checkedRestDays(){
     }
 }
 
+/**
+ * check for checkBoxes of salonIndustry
+ */
 function checkedIndustry(){
     var Industry = $('.salonIndustry')
     var checked = false;
@@ -397,7 +505,7 @@ function checkedSeatNums(){
     var value=$("#seatNums").val();
     var isValid=/^[1-9]\d*$/;
     if (value == ""){
-        $("#contact_tel ~ .help-inline").text("席位数不能为空").removeClass("trueMsg").addClass("errorMsg");
+        $("#seatNums ~ .help-inline").text("席位数不能为空").removeClass("trueMsg").addClass("errorMsg");
     }
     if(!isValid.test(value)){
         $("#seatNums ~ .help-inline").text("输入不合法，请输入数字").removeClass("trueMsg").addClass("errorMsg");
@@ -442,7 +550,23 @@ function checkedPhone(){
     }
     }
 
-
+function checksForUserRegister(){
+    //当为修改注册信息页面时，用户ID：readonly；
+    //当为注册页面时，用户ID为必填项；
+    if (!$('#accountId').attr("readonly")){
+        checkedAccountId();
+        checkedPassword();
+        checkedPasswordConfirm();
+    }
+    checkedEmail();
+    checkedNickName();
+    checkedPhone();
+    var errInput = $('.errorMsg')
+    if (errInput.length != 0 ){
+        return false;
+    }
+    document.userForm.submit();
+}
 
 function checksForSalonRegister(){
     //当为修改注册信息页面时，店铺ID：readonly；
@@ -467,7 +591,7 @@ function checksForSalonRegister(){
 
 function checksForSalonBasic(){
     checkedSalonNameAbbr();
-    checkedDescription();
+    checkedSalonDescription();
     checkedAddressDetail();
     checkedAccessMethodDesc();
     checkedOpenTime();
@@ -504,38 +628,32 @@ $('#couponName').blur(function(){
 });
 function checkedCouponName(){
     var value = $('#couponName').val();
-    //var isValid=/^[a-zA-Z][a-zA-Z0-9_]{2,15}$/;
+    var len = value.replace(/[^\x00-\xff]/g, "**").length;
     if (value == ""){
         $("#couponName").parent("dd").next().text('优惠券名不能为空').removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    //if(!isValid.test(value)){
-    //TODO
-    if(false){
+    if(len < 4|| len > 40){
         $("#couponName").parent("dd").next().text('该优惠券名不合法，请重新输入').removeClass("trueMsg").addClass("errorMsg");
     }else{
         $("#couponName").parent("dd").next().text('').removeClass("errorMsg").addClass("trueMsg");
     }
-    //TODO
-    /*jsRoutes.controllers.Application.itemIsExist(salonId, ITEM_TYPE_ID).ajax({
-        *//*data: formData,
-         processData: false,
-         contentType: false,*//*
+    jsRoutes.controllers.noAuth.routes.Users.checkIsExist(value, ITEM_TYPE_COUPON).ajax({
         async: false,
         cache: false,
         type: 'POST',
         success: function(data){
             if (data == "false"){
-                $('#accountId  ~ .help-inline').text("").removeClass("errorMsg").addClass("trueMsg");
+                $("#couponName").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
             }
             else{
-                $('#accountId  ~ .help-inline').text("该登录ID已被使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+                $("#couponName").parent("dd").next().text("该优惠券名已使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
             }
         },
         error: function(err){
-            $('#accountId  ~ .help-inline').text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
+            $("#couponName").parent("dd").next().text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
         }
-    });*/
+    });
 }
 
 function checkedStartAndEndDate(){
@@ -610,8 +728,9 @@ $('#description').blur(function(){
 });
 
 function checkedItemDescription(){
-    var description = $('#description').val();
-    if(description.length < 10 || description.length > 100) {
+    var value = $('#description').val();
+    var len = value.replace(/[^\x00-\xff]/g, "**").length;
+    if(len < 10 || len > 100) {
         $("#description").parent("dd").next().text('@Messages("coupon.couponDiscriptionErr")').removeClass("trueMsg").addClass("errorMsg");
         return;
     } else {
@@ -636,7 +755,9 @@ function checkedServiceItem(){
 }
 
 function checksForCoupon(){
-    checkedCouponName();
+    if (!$('#couponName').attr("readonly")){
+        checkedCouponName();
+    }
     checkedServiceItem();
     checkedPrice();
     checkedStartAndEndDate();
@@ -649,7 +770,6 @@ function checksForCoupon(){
         return false;
     }
     document.couponForm.submit();
-
 }
 
 /**
@@ -662,42 +782,38 @@ $('#menuName').blur(function(){
 
 function checkedMenuName(){
     var value = $('#menuName').val();
-    //var isValid=/^[a-zA-Z][a-zA-Z0-9_]{2,15}$/;
+    var len = value.replace(/[^\x00-\xff]/g, "**").length;
     if (value == ""){
         $("#menuName").parent("dd").next().text('菜单名不能为空').removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    //if(!isValid.test(value)){
-    //TODO
-    if(false){
+    if(len < 4 ||len > 40){
         $("#menuName").parent("dd").next().text('该菜单名不合法，请重新输入').removeClass("trueMsg").addClass("errorMsg");
     }else{
         $("#menuName").parent("dd").next().text('').removeClass("errorMsg").addClass("trueMsg");
     }
-    //TODO
-    /*jsRoutes.controllers.Application.itemIsExist(salonId, ITEM_TYPE_ID).ajax({
-     *//*data: formData,
-     processData: false,
-     contentType: false,*//*
+    jsRoutes.controllers.Application.itemIsExist(value, ITEM_TYPE_MENU).ajax({
      async: false,
      cache: false,
      type: 'POST',
      success: function(data){
      if (data == "false"){
-     $('#accountId  ~ .help-inline').text("").removeClass("errorMsg").addClass("trueMsg");
+         $("#menuName").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
      }
      else{
-     $('#accountId  ~ .help-inline').text("该登录ID已被使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+         $("#menuName").parent("dd").next().text("该菜单名已使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
      }
      },
      error: function(err){
-     $('#accountId  ~ .help-inline').text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
+         $("#menuName").parent("dd").next().text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
      }
-     });*/
+     });
 }
 
 function checksForMenu(){
-    checkedMenuName();
+    if (!$('#menuName').attr("readonly")){
+        checkedMenuName();
+    }
     checkedServiceItem();
     checkedItemDescription();
 
@@ -717,38 +833,32 @@ $('#serviceName').blur(function(){
 
 function checkedServiceName(){
     var value = $('#serviceName').val();
-    //var isValid=/^[a-zA-Z][a-zA-Z0-9_]{2,15}$/;
+    var len = value.replace(/[^\x00-\xff]/g, "**").length;
     if (value == ""){
         $("#serviceName").parent("dd").next().text('服务名不能为空').removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    //if(!isValid.test(value)){
-    //TODO
-    if(false){
+    if(len < 4 ||len > 40){
         $("#serviceName").parent("dd").next().text('该服务名不合法，请重新输入').removeClass("trueMsg").addClass("errorMsg");
     }else{
         $("#serviceName").parent("dd").next().text('').removeClass("errorMsg").addClass("trueMsg");
     }
-    //TODO
-    /*jsRoutes.controllers.Application.itemIsExist(salonId, ITEM_TYPE_ID).ajax({
-     *//*data: formData,
-     processData: false,
-     contentType: false,*//*
-     async: false,
-     cache: false,
-     type: 'POST',
-     success: function(data){
-     if (data == "false"){
-     $('#accountId  ~ .help-inline').text("").removeClass("errorMsg").addClass("trueMsg");
-     }
-     else{
-     $('#accountId  ~ .help-inline').text("该登录ID已被使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
-     }
-     },
-     error: function(err){
-     $('#accountId  ~ .help-inline').text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
-     }
-     });*/
+    jsRoutes.controllers.Application.itemIsExist(value, ITEM_TYPE_MENU).ajax({
+        async: false,
+        cache: false,
+        type: 'POST',
+        success: function(data){
+            if (data == "false"){
+                $("#serviceName").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
+            }
+            else{
+                $("#serviceName").parent("dd").next().text("该服务名已使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+            }
+        },
+        error: function(err){
+            $("#serviceName").parent("dd").next().text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
+        }
+    });
 }
 
 $('#duration').blur(function(){
@@ -770,7 +880,9 @@ function checkedDuration(){
 }
 
 function checksForService(){
-    checkedServiceName();
+    if (!$('#serviceName').attr("readonly")){
+        checkedServiceName();
+    }
     checkedPrice();
     checkedDuration();
 
@@ -779,4 +891,52 @@ function checksForService(){
         return false;
     }
     document.serviceForm.submit();
+}
+
+
+/***
+ *
+ */
+
+$('#StyleName').blur(function(){
+    checkStyleName()
+});
+
+function checkStyleName(){
+    var value = $('#StyleName').val();
+    var len = value.replace(/[^\x00-\xff]/g, "**").length;
+    if (value == ""){
+        $("#StyleName").parent("dd").next().text('发型名不能为空').removeClass("trueMsg").addClass("errorMsg");
+        return;
+    }
+    if(len < 4 ||len > 40){
+        $("#StyleName").parent("dd").next().text('该发型名不合法，请重新输入').removeClass("trueMsg").addClass("errorMsg");
+    }else{
+        $("#StyleName").parent("dd").next().text('').removeClass("errorMsg").addClass("trueMsg");
+    }
+    jsRoutes.controllers.auth.Stylists.itemIsExist(value, ITEM_TYPE_STYLE).ajax({
+        async: false,
+        cache: false,
+        type: 'POST',
+        success: function(data){
+            if (data == "false"){
+                $('#StyleName').parent('dd').next().text('').removeClass("errorMsg").addClass("trueMsg");
+            }
+            else{
+                $('#StyleName').parent('dd').next().text('该发型名已使用').removeClass("trueMsg").addClass("errorMsg");
+            }
+        },
+        error: function(err){
+            $('#StyleName').parent('dd').next().text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
+        }
+    });
+}
+
+function checksForStyle(){
+    checkStyleName();
+    var errInput = $('.errorMsg')
+    if (errInput.length != 0 ){
+        return false;
+    }
+    document.styleForm.submit();
 }

@@ -60,16 +60,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     }
 
     def itemIsExist(value:String, key:String) = Action {
-        key match{
-            case ITEM_TYPE_ID =>
-                Ok((User.isExist(value, User.findOneByUserId)||Salon.isExist(value, Salon.findByAccountId)).toString)
-            case ITEM_TYPE_NAME =>
-                Ok((User.isExist(value, User.findOneByNickNm)||Salon.isExist(value, Salon.findOneBySalonName)||Salon.isExist(value, Salon.findOneBySalonNameAbbr)).toString)
-            case ITEM_TYPE_EMAIL =>
-                Ok((User.isExist(value, User.findOneByEmail)||Salon.isExist(value, Salon.findOneByEmail)).toString)
-            case ITEM_TYPE_TEL =>
-                Ok((User.isExist(value, User.findOneByTel)||Salon.isExist(value, Salon.findOneByMainPhone)).toString)
-        }
+        Redirect(auth.routes.Users.checkIsExist(value, key))
     }
     
     def getPhoto(file: ObjectId) = Action {
