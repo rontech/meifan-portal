@@ -90,9 +90,6 @@ object Blog extends ModelCompanion[Blog, ObjectId] {
     dao.find(MongoDBObject("authorId" -> userId, "isValid" -> true, "isVisible" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
   }
   
-  override
-  def findOneById(id: ObjectId): Option[Blog] = dao.findOne(MongoDBObject("_id" -> id, "isValid" -> true))
-  
   /**
    * 删除指定的blog
    */

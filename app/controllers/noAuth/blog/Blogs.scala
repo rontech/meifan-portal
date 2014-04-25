@@ -67,11 +67,17 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
      val user = loggedIn
      val salon: Option[Salon] = Salon.findOneById(salonId)
      var blogList = getBlogBySalonAndYM(salonId, month)
-     val listYM = getYMCatesOfSalon(salon.get)
-     // navigation bar
-     val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.blogs"), controllers.noAuth.Blogs.getAllBlogsOfSalon(salon.get.id).toString()))
-     // Jump to blogs page in salon. 
-     Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogList, listYM = listYM, navBar = navBar, user=user))
+     salon match {
+       case Some(s) =>{
+         val listYM = getYMCatesOfSalon(s)
+	     // navigation bar
+	     val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.blogs"), controllers.noAuth.Blogs.getAllBlogsOfSalon(s.id).toString()))
+	     // Jump to blogs page in salon. 
+	     Ok(views.html.salon.store.salonInfoBlogAll(salon = s, blogs = blogList, listYM = listYM, navBar = navBar, user=user))
+       }
+       case None => NotFound
+     }
+
   }  
 
      
@@ -136,12 +142,17 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
       val user = loggedIn
       val salon: Option[Salon] = Salon.findOneById(salonId)
       val blogs: List[Blog] = Blog.findBySalon(salonId)
-      val listYM = getYMCatesOfSalon(salon.get)
-      // navigation bar
-      val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.blogs"), ""))
-      // Jump to blogs page in salon.
-      // TODO: process the salon not exist pattern.
-      Ok(views.html.salon.store.salonInfoBlogAll(salon = salon.get, blogs = blogs, listYM = listYM, navBar = navBar,user =user))
+      salon match {
+        case Some(s) =>{
+          val listYM = getYMCatesOfSalon(s)
+	      // navigation bar
+	      val navBar = SalonNavigation.getSalonNavBar(salon) ::: List((Messages("salon.blogs"), ""))
+	      // Jump to blogs page in salon.
+	      // TODO: process the salon not exist pattern.
+	      Ok(views.html.salon.store.salonInfoBlogAll(salon = s, blogs = blogs, listYM = listYM, navBar = navBar,user =user))
+        }
+        case None => NotFound
+      }
    }
    
    /**
