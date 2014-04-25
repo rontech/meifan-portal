@@ -144,6 +144,13 @@ function toUpPage(){
 	toPage(i);
 }
 
-
+//删除提示
+function del(url,msg){
+ 	if(!confirm(msg)){    
+ 	  	return;
+ 	    }else{
+ 	      location.href=url; 
+ 	    } 
+}
 
 

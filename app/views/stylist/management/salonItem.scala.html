@@ -58,7 +58,7 @@
 									</div>
 								</dd>
 								<dt class="fl fgLGray2 b">@Messages("salon.seatNums")</dt>
-								<dd class="fl w80"><div class="mL10">@Messages("salon.seatNumsMsg", salon.seatNums.map{num => num})</div></dd>
+								<dd class="fl w80"><div class="mL10">@Messages("salon.seatNumsMsg", salon.seatNums.getOrElse(""))</div></dd>
 								</dl>
 								<dl class="cFix mB2">
 								<dt class="fl fgLGray2 b">@Messages("salon.stylistNums")</dt>
@@ -101,7 +101,7 @@
 												<dl class="cFix">
 												@if(Coupon.findBySalon(salon.id).length > 0){
 													<dt class="iS couponTypeSmallCT02 offL CouponMark fl"></dt><dd class="fr b mL10">@Coupon.findBySalon(salon.id).last.perferentialPrice</dd>
-													<dd class="oh"><a href="#">@Coupon.findBySalon(salon.id).last.description</a></dd>
+													<dd class="oh"><a href="@noAuth.routes.Salons.getAllCoupons(salon.id)">@Coupon.findBySalon(salon.id).last.description</a></dd>
 												}else{
 													@Messages("user.salonCouponNoFound")
 												}

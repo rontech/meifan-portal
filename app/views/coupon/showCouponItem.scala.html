@@ -139,7 +139,19 @@
                         </div>
                         <div class="pV10 fs12">
                         <div>
-                            <a href="@auth.routes.Coupons.invalidCoupon(coupon.id)"
+                            @*<a href="@auth.routes.Coupons.invalidCoupon(coupon.id)"
+                            class="btn btn2H50 btnWlines w70 mHA">
+                                <span>
+                                    <span>
+                                        <font>
+                                            <font>
+                                                @Messages("coupon.invalid")
+                                            </font>
+                                        </font>
+                                    </span>
+                                </span>
+                            </a>*@
+                            <a onclick="del('@auth.routes.Coupons.invalidCoupon(coupon.id)','@Messages("common.isValidMsg")');"
                             class="btn btn2H50 btnWlines w70 mHA">
                                 <span>
                                     <span>

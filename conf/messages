@@ -21,6 +21,8 @@ common.hotSearch = 热门搜索
 common.resetPassword = 找回密码
 common.requiredMsg = 不能为空
 common.checkFormore = 更多
+common.deleteMsg = 删除后无法恢复，请确认是否删除？
+common.isValidMsg = 无效后无法恢复，请确认是否无效？
 
 # Index page
 index.mainPage=网站首页
@@ -310,6 +312,7 @@ hair.searchByF = 女士发型检索
 hair.searchByM = 男士发型检索
 hair.pictures=发型图片
 hair.nameRequired = 发型名必须填写
+hair.noStyleSearched = 没有找到您希望的发型！
 
 # Cosmetic
 cosmetic.salon=美容沙龙
