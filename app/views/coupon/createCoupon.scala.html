@@ -5,7 +5,7 @@
 <div class="contentsTitleWrapper">
 	<h2 class="contentsTitleInner">@Messages("coupon.createCouponArea")</h2>
 </div>
-@form(auth.routes.Coupons.createCoupon, 'id -> "couponForm") {
+@form(auth.routes.Coupons.createCoupon, 'id -> "couponForm", 'name ->"couponForm") {
 	@if(couponForm.hasGlobalErrors) { 
           <div>
               <p>@couponForm.globalError.get.message<p>
@@ -41,13 +41,15 @@
 	            </th>
 	            <td>
 	                <div class="inputField">
-	                	@input(field = couponForm("serviceItems"), args = '_label ->None, 
+	                	@input(field = couponForm("serviceItems"),
+                            '_label ->None,
 							'_error -> couponForm("serviceItems").error.map(_.withMessage(Messages("coupon.couponServiceRequired")))){(id,name,value,args) =>
 						 	@for(service <- services) {
 						 		<div class="serviceItemArea">
-						 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
+						 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id" value = "@service.id">@service.serviceName
 						 		</div>
 						 	}
+                            <dd class="info"></dd>
 						  }
 	                </div>
 	            </td>
@@ -62,7 +64,7 @@
 	            </th>
 	            <td>
 	                <div class="inputField">
-	                	@inputText(couponForm("perferentialPrice"),'_label -> None, '_help -> Messages(""), 'id -> "perferentialPrice",
+	                	@inputText(couponForm("perferentialPrice"),'_label -> None, '_help -> Messages(""), 'id -> "price",
 			 		    '_error -> couponForm("perferentialPrice").error.map(_.withMessage(Messages("coupon.perferentialPriceErr"))))
 	                </div>
 	            </td>
@@ -79,7 +81,7 @@
 	                <div class="inputField">
 	                	@input(field = couponForm("startDate"), '_label -> None, '_help -> Messages(""),
 						'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.startDateRequired")))){(id, name, value, _) =>
-							<input class="Wdate" type="text" id = "startDate" name="@name" value="@value" onClick="WdatePicker() ">
+							<input class="Wdate" type="text" id = "startDate" name="@name" value="@value" onClick="WdatePicker();" onblur="checkedStartAndEndDate() ">
 						}
 	                </div>
 	            </td>
@@ -94,9 +96,9 @@
 	            </th>
 	            <td>
 	                <div class="inputField">
-	                	@input(field = couponForm("endDate"), '_label -> None, '_help -> Messages(""), 'id -> "endDate",
+	                	@input(field = couponForm("endDate"), '_label -> None, '_help -> Messages(""),
 						'_error -> couponForm("startDate").error.map(_.withMessage(Messages("coupon.endDateRequired")))){(id, name, value, _) =>
-							<input class="Wdate" type="text" id = "endDate" name="@name" value="@value" onClick="WdatePicker() ">
+							<input class="Wdate" type="text" id = "endDate" name="@name" value="@value" onClick="WdatePicker();" onblur="checkedStartAndEndDate()">
 						}
 	                </div>
 	            </td>
@@ -150,7 +152,7 @@
 	</table>
 	
 	<div class="btnArea">
-		<input type = "submit" class = "buttons" value="@Messages("common.submit")">
+		<input type = "button" class = "buttons" value="@Messages("common.submit")" onclick="checksForCoupon();">
             
     	<input type = "reset" class = "buttons" value="@Messages("common.reset")">
     </div>
