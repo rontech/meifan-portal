@@ -1,19 +1,17 @@
 @(salon: Salon, menus: Seq[Menu])
 
 <div class="yS mainContentsSecondTitleOuter mT50">
-	<h2 class="yS mainContentsSecondTitleInner">@Messages("menu.title", salon.salonName)</h2>
+   <h2 class="yS mainContentsSecondTitleInner">@Messages("menu.titleInSalon", salon.salonName)</h2>
 </div>
 
 <div class="mT50">
 @if(menus.isEmpty) {
-	<div class="bgAlertMsg mT20">
-		<p class="alertMsg">@Messages("menu.tip")</p>
-	</div>
+   <div class="bgAlertMsg mT20">
+      <p class="alertMsg">@Messages("menu.noDataMsg")</p>
+   </div>
 } else {
-	@for(menu <- menus) {
-		@if(menu.isValid) {
-			@views.html.menu.menuItem(menu)
-		}
-	}
+   @for(menu <- menus) {
+   	  @views.html.menu.menuItem(menu)
+   }
 }
 </div>

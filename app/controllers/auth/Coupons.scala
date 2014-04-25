@@ -223,7 +223,7 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
                     if(serviceType.serviceTypes.isEmpty) {
                         coupons = Coupon.findBySalon(salon.id)
                     } else {
-                        coupons = Coupon.findContainCondtions(conditions)
+                        coupons = Coupon.findContainCondtions(conditions, salon.id)
                     }
                 }
                Ok(html.salon.admin.mySalonCouponAll(salon, Coupons.conditionForm.fill(couponServiceType), serviceTypes, coupons))

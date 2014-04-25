@@ -47,10 +47,10 @@
                 </a>
             </div>
             <ul class=" mT20 taC">
-                @for((styles, idx) <- salon.selectedStyles.zipWithIndex) {
+                @for((style, idx) <- salon.selectedStyles.zipWithIndex) {
                     @if(idx < 2) {
                         <li class="mR5 mL5 dibBL">
-                            <a href="">
+                            <a href="@noAuth.routes.Salons.getOneStyle(salon.salonInfo.id, style.id)">
                                 <img src="@routes.Application.getPhoto(salon.selectedStyles(idx).stylePic(0).fileObjId)"
                                 class="mT6 w89 h119 brL" oncontextmenu="return false;">
                             </a>
@@ -64,70 +64,83 @@
                 <b>
                     <strong>
                         <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)">
-                            <p class="shopCatchCopy"><b><strong>@salon.salonInfo.picDescription.map(pic=>pic.picTitle).getOrElse(None)</strong></b></p>
+                            @salon.salonInfo.picDescription.map(pic=>pic.picTitle).getOrElse(None)
                         </a>
                     </strong>
                 </b>
             </p>
             <p class="mT10 pB10">
-	        <@salon.salonInfo.picDescription.map(pic=>pic.picContent).getOrElse(None).toString.slice(0, 70) ...
-                <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)"> 続きを見る </a>
+	        @salon.salonInfo.picDescription.map(pic=>pic.picContent).getOrElse(None).toString.slice(0, 70) ...
+                <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)">@Messages("common.checkFormore") </a>
             </p>
             <div>
-                <p>
-                    …
-                    <span class="highlightFw">
-                        可愛
-                    </span>
-                    らしいサロンです☆　４席以下の小型サロン/駐車場あり/ヘア…
-                </p>
-                <ul class="cFix">
-                    <li class="fr">
-                        <div class="jscMySalonSaveLayer">
-                            <p class="jscMySlnSvStIdH000266028">
-                                <a href="javascript:void(0);" class="iS arrowR jscBtnSaveToMySalon jscTextMode">
-                                    マイサロンに保存
-                                </a>
-                                <span class="txtSaveToMySalonDone iS arrowR">
-                                    マイサロンに保存済
-                                </span>
-                            </p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="bdLGrayT mT5">
-                <p class="fs10 b fgLGray2 mT10 mL5">
-                    @Messages("coupon.title", salon.salonInfo.salonNameAbbr.getOrElse(None))
-                </p>
-                
-                <div class="CouponArea p3">
-                    <dl class="cFix">
-                        <dt class="iS couponTypeSmallCT02 offL CouponMark fl">
-                        </dt>
-                        <dd class="fl">
-                            <a href="">
-                                【ヘアケア商品10%OFF☆】
-                            </a>
-                        </dd>
-                    </dl>
-                    <dl class="cFix">
-                        <dt class="iS couponTypeSmallCT01 offL CouponMark fl">
-                        </dt>
-                        <dd class="fl">
-                            <a href="">
-                                【ヘアケア商品10%OFF☆】
-                            </a>
-                        </dd>
-                    </dl>
-               </div>
-
-            </div>
+                @for(kwdHits <- salon.keywordsHitStrs) {
+                    <p>
+                        @*<span class="highlightFw"> </span>*@
+                        @kwdHits
+                    </p>
+                }
+                @*
+		<ul class="cFix">
+		    <li class="fr">
+			<div class="jscMySalonSaveLayer">
+			    <p class="jscMySlnSvStIdH000269725">
+				<a href="javascript:void(0); onclick="addFollow('@salon.salonInfo.id','salon')""
+                                    class="btn btn3H24 addIntoMySalon jscBtnSaveToMySalon fs11" rel="nofollow">
+				    <span>
+					<span>
+					    @Messages("salon.followSalon")
+					</span>
+				    </span>
+				</a>
+                                <!-- TODO check if the login user followed this salon.-->
+				<span class="btnSaveToMySalonDone">
+				    <a href=""
+				    class="btnBm btnBmH24 fs11 mHA" rel="nofollow">
+					<span class="btnBmLeft">
+					    <span class="btnSaveToMySalonDoneInner btnBmRight">
+						<span class="btnSaveToMySalonDoneInnerLinkText b">
+						    ブックマーク
+						</span>
+						済み
+					    </span>
+					</span>
+				    </a>
+				</span>
+			    </p>
+			</div>
+		    </li>
+		</ul>
+                *@
+           </div>
+            <!--↓ Coupons in this Salon.-->
+            @if(!salon.selectedCoupons.isEmpty) {
+                <div class="bdLGrayT mT5">
+                    <p class="fs10 b fgLGray2 mT10 mL5">
+                        @Messages("coupon.titleInSalon", salon.salonInfo.salonNameAbbr.getOrElse(None))
+                    </p>
+                    <div class="CouponArea p3">
+                        @for((cp, idx) <- salon.selectedCoupons.zipWithIndex) {
+                            <dl class="cFix">
+                                <dt class="iS @if(idx == 0) {couponTypeSmallCT02} else {couponTypeSmallCT01} offL CouponMark fl">
+                                </dt>
+                                <dd class="fl">
+                                    <a href="@noAuth.routes.Salons.getAllCoupons(cp.salonId)">
+                                        @cp.couponName
+                                    </a>
+                                </dd>
+                            </dl>
+                        }
+                    </div>
+                </div>
+            }
+            <br/>
             <p class="taR mTN5">
-                <a class="iS arrowR" href="">
-                    このサロンのクーポン一覧へ
+                <a class="iS arrowR" href="@noAuth.routes.Salons.getAllCoupons(salon.salonInfo.id)">
+                    @Messages("coupon.searchForMore")
                 </a>
             </p>
+            <!--↑ Coupons in this Salon.-->
         </div>
     </div>
 </li>

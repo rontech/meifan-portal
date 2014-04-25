@@ -255,9 +255,9 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         val rsvs = Reservation.findAllReservation(sid)
         // use the exists method to get top styles.
         val bestRsved = findTopStylesInSalon(rsvs, topN)
-        // TODO other styles in a salon: there is no method for search all styles of a salon?!
-        //val others = Salon.()
-        bestRsved
+        // If there is no reservation styles yet, get the latest styles in the salon.
+        val others = Salon.getAllStyles(sid)
+        (bestRsved ::: others).distinct
     }
 
     /**
@@ -467,6 +467,12 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
     def saveStyleImage(style: Style, imgId: ObjectId) = {
         dao.update(MongoDBObject("_id" -> style.id, "stylePic.showPriority" -> style.stylePic.last.showPriority.get),
             MongoDBObject("$set" -> (MongoDBObject("stylePic.$.fileObjId" -> imgId))), false, true)
+    }
+    
+    def isExist(value:String, stylistId:String, f:(String,String) => Option[Style]) = f(value,stylistId).map(style => true).getOrElse(false)
+    
+    def findByNameAndStylist(name:String,stylistId:String):Option[Style] = {
+        dao.findOne(MongoDBObject("styleName" -> name, "stylistId" -> new ObjectId(stylistId), "isValid" -> true))
     }
 }
 

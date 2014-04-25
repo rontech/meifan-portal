@@ -261,13 +261,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         salon match {
             case Some(sl) => {
                 // find styles of all stylists via the relationship between [salon] and [stylist]. 
-                val stylists = SalonAndStylist.findBySalonId(sl.id)
-                var styles: List[Style] = Nil
-                stylists.map { stls =>
-                    var style = Style.findByStylistId(stls.stylistId)
-                    styles :::= style
-                }
-                styles.sortBy(_.createDate).reverse
+                val styles = Salon.getAllStyles(salonId)
                 // navigation bar
                 val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString()))
                 // Jump to stylists page in salon. 
@@ -322,8 +316,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         val salon: Option[Salon] = Salon.findOneById(salonId)
         salon match {
             case Some(sl) => {
-                val coupons: List[Coupon] = Coupon.findBySalon(sl.id)
-                val menus: List[Menu] = Menu.findBySalon(sl.id)
+                val coupons: List[Coupon] = Coupon.findValidCouponBySalon(sl.id)
+                val menus: List[Menu] = Menu.findValidMenusBySalon(sl.id)
                 val srvTypes: List[ServiceType] = ServiceType.findAll().toList
                 val serviceTypeNames: List[String] = Service.getServiceTypeList
                 val couponSchDefaultConds: CouponServiceType = CouponServiceType(Nil, Some("1"))
@@ -384,8 +378,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                         //coupons = Coupon.findContainCondtions(serviceTypes)
                     } else {
                         if (serviceType.serviceTypes.isEmpty) {
-                            coupons = Coupon.findBySalon(salonId)
-                            menus = Menu.findBySalon(salonId)
+                            coupons = Coupon.findValidCouponBySalon(salonId)
+                            menus = Menu.findValidMenusBySalon(salonId)
                             serviceTypeNames = Service.getServiceTypeList
                             for (serviceType <- serviceTypeNames) {
                                 var servicesByType: ServiceByType = ServiceByType("", Nil)
@@ -393,8 +387,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                                 servicesByTypes = y :: servicesByTypes
                             }
                         } else {
-                            coupons = Coupon.findContainCondtions(conditions)
-                            menus = Menu.findContainCondtions(conditions)
+                            coupons = Coupon.findValidCouponByCondtions(conditions, salonId)
+                            menus = Menu.findValidMenusByCondtions(conditions, salonId)
                             for (serviceTypeOne <- serviceType.serviceTypes) {
                                 var servicesByType: ServiceByType = ServiceByType("", Nil)
                                 val y = servicesByType.copy(serviceTypeName = serviceTypeOne.serviceTypeName, serviceItems = Service.getTypeListBySalonId(salonId, serviceTypeOne.serviceTypeName))
