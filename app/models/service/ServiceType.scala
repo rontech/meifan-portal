@@ -33,4 +33,18 @@ object ServiceType extends ModelCompanion[ServiceType, ObjectId]{
 	def findAllServiceType(industryName: String) = dao.find(MongoDBObject("industryName" -> industryName)).toList.map {
 		serviceType =>serviceType.serviceTypeName
 	}
+	
+	/**
+	 * 根据行业名获得所有服务类型
+	 */
+	def findAllServiceTypes(salonIndustrys: List[String]) = {
+	  var serviceTypes: List[ServiceType] = Nil
+	  
+	  for(salonIndustry <- salonIndustrys) {
+	    val serviceType: List[ServiceType] = dao.find(MongoDBObject("industryName" -> salonIndustry)).toList
+	    serviceTypes = serviceTypes ::: serviceType
+	  }
+	  
+	  serviceTypes
+	}
 }
