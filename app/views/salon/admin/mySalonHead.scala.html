@@ -3,11 +3,19 @@
 	<!-- ↓mainContents -->
 
     	<ul class="menuBG cFix">
+    	@if(Salon.checkBasicInfoIsFill(salon)){
 		<li class="fl">
 			<a href="@auth.routes.Salons.salonRegister" >
 		    	@Messages("salonAdmin.infoManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
-		</li>
+		</li>    		
+    	}else{
+ 		<li class="fl">
+			<a >
+		    	@Messages("salonAdmin.infoManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>   	
+    	}
 		@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
 		 	Salon.checkImgIsExist(salon)){			
 		<li class="fl">

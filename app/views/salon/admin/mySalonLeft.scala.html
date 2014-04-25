@@ -6,7 +6,11 @@
        			 </div>	
 				<span class='U'>
 					<p class='opts'>
+					@if(!salon.salonNameAbbr.equals(None)){
+						<span style="font-size:16px;">@Messages("stylist.hello")&nbsp;</span> @salon.salonNameAbbr
+					}else{
 						<span style="font-size:16px;">@Messages("stylist.hello")&nbsp;</span> @salon.salonName
+					}						
 					</p>
       				<a href="" class='Name' title='female'></a>
 
@@ -52,6 +56,16 @@
 		 		</div>	
 		 		
 			</div>
+			}else{
+			<div class='Mod Users' id='Fellows'>
+	   			<strong>@Messages("salonAdmin.infoManagement")</strong>
+	   			<div class='more'>
+		 			<a>
+		 				<span>@Messages("salonCheckInfoState.basicInfoMange")</span>
+		 			</a><br />		 				   					 					 					 			
+		 		</div>	
+		 		
+			</div>			
 			}
 			@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
 		 		Salon.checkImgIsExist(salon)){			
