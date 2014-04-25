@@ -615,6 +615,14 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     }
     
     /**
+     * 无权限时跳转页面
+     */
+    def checkAuth = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+        val salon = loggedIn
+    	Ok(views.html.salon.salonManage.checkAuth(salon))
+    }    
+    
+    /**
      * 店铺LOGO上传页面
      */
     def salonLogoPicture = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>

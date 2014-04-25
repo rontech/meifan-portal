@@ -17,16 +17,16 @@
                     @if(isStylist){
                         @if(uId == loginUserId){
                             <a href="@auth.routes.Stylists.styleUpdateByStylist(styles(i).id)" >
-                                <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150">
+                                <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150" title=@Messages("salon.styleTitle")>
                             </a>
                         }else {
                             <a href="@noAuth.routes.Stylists.getbackstageStyleItem(styles(i).id,styles(i).stylistId)" >
-                                <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150">
+                                <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150" title=@Messages("salon.styleTitle")>
                             </a>
                         }
                     }else {
                          <a href="@auth.routes.Salons.getbackstageStyleItem(styles(i).id)">
-    		               <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150">
+    		               <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150" title=@Messages("salon.styleTitle")>
                          </a>
                     }
 				    </div>
