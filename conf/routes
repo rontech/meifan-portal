@@ -199,6 +199,7 @@ GET         /mySalon/removeStylist/:stylistId                                   
 GET         /mySalon/replyComment/:commentObjId/:commentObjType                  controllers.auth.Salons.replyBySalon(commentObjId : ObjectId, commentObjType : Int)
 # TODO
 GET         /mySalon/checkInfoState                                              controllers.auth.Salons.checkInfoState
+GET         /mySalon/checkAuth                                              	 controllers.auth.Salons.checkAuth
 
 GET         /salonBasic                                                          controllers.auth.Salons.salonBasic
 GET         /salonDetail                                                         controllers.auth.Salons.salonDetail

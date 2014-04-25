@@ -89,7 +89,7 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
             Menu.save(menuTemp)
             
 		    val menus: List[Menu] = Menu.findBySalon(menu.salonId)
-		    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+		    val serviceTypes: List[ServiceType] = ServiceType.findAllServiceTypes(salon.salonIndustry)
 		    val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
 		    
             Ok(html.salon.admin.mySalonMenuAll(salon, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))
@@ -141,7 +141,7 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
             }
             
             val menus: List[Menu] = Menu.findBySalon(menu.salonId)
-            val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+            val serviceTypes: List[ServiceType] = ServiceType.findAllServiceTypes(salon.salonIndustry)
 		    val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
 		    
             Ok(html.salon.admin.mySalonMenuAll(salon, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))
@@ -156,7 +156,7 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
   def invalidMenu(menuId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
       val salon = loggedIn
     val menu: Option[Menu] = Menu.findOneById(menuId)
-    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+    val serviceTypes: List[ServiceType] = ServiceType.findAllServiceTypes(salon.salonIndustry)
     val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
     
     menu match {
@@ -192,7 +192,7 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
                 }
                 couponServiceType = couponServiceType.copy(serviceTypes = typeBySearches)
 
-                val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+                val serviceTypes: List[ServiceType] = ServiceType.findAllServiceTypes(salon.salonIndustry)
                 if(serviceType.subMenuFlg == None) {
                     //coupons = Coupon.findContainCondtions(serviceTypes)
                 } else {

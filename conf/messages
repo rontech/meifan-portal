@@ -21,6 +21,8 @@ common.hotSearch = 热门搜索
 common.resetPassword = 找回密码
 common.requiredMsg = 不能为空
 common.checkFormore = 更多
+common.deleteMsg = 删除后无法恢复，请确认是否删除？
+common.isValidMsg = 无效后无法恢复，请确认是否无效？
 
 # Index page
 index.mainPage=网站首页
@@ -142,7 +144,9 @@ salon.registerTime=美容平台注册日期
 salon.idMessage=请输入至少6位有效店铺ID
 salon.passwordMessage=请输入至少6位密码
 salon.confirmMessage=请再次输入密码
-salon.desMseeage=您最多可以输入50个字符
+salon.desMessage=您最多可以输入100个字符
+salon.desAccesMethod=例：地铁一号线汾湖路站1号出口向西步行500米可达。您最多可以输入100个字符。
+salon.addMessage=请填写详细地址，如：苏州市高新区竹园路209号3号楼1805室
 salon.salonLogin=店铺登录
 salon.stylistsList={0}的发型师
 salon.newSalon = 新沙龙用户
@@ -159,7 +163,7 @@ salon.pushToMobile = 发送到手机
 salon.iss=店铺功能
 salon.login.accountId=请输入您的店铺ID
 salon.login.password=请输入您的密码
-salon.register.accountId=请输入6~18位字符,可使用字母、数字和下划线
+salon.register.accountId=请输入6~18位以字母开头的字符,可使用字母、数字和下划线
 salon.register.password=请输入6~16位字符,可使用字符、数字或符号的组合
 salon.register.salonName = 请重新输入店铺名
 salon.register.mainPhone = 电话格式不合法
@@ -209,6 +213,19 @@ salon.industryError=请至少选择一个行业
 salon.picUse.SalonCheck=店铺营业执照
 salon.reviewsRate=好评率: {0}%
 salon.reviewsTotalCnt=已有{0}人评价
+salon.parkDes=例：店铺前有免费停车位，您最多可输入40个字符
+salon.registerManage=店铺注册信息填写
+salon.pictureLimit=图片上传须知
+salon.picLimitDes1=我们支持
+salon.picLimitDes2=jpg、gif、png
+salon.picLimitDes3=格式的图片，且文件小于
+salon.picLimitDes4=1M
+salon.numberLimit=您可以此页面共上传3张照片以展示您的店铺。
+salon.logoNumberLimit=您只能选择一张LOGO图片。
+salon.checkNumberLimit=请上传真实有效的营业执照。
+salon.typeLimit=请勿上传血腥暴力，低俗内容等违反国家相关规定的图片。
+salon.styleTitle=点击图片可查看发型详细信息
+salon.stylistTitle=点击图片可查看技师信息
 
 #salon management
 salonAdmin.mainPage = 店铺管理
@@ -295,7 +312,9 @@ hair.searchByF = 女士发型检索
 hair.searchByM = 男士发型检索
 hair.pictures=发型图片
 hair.nameRequired = 发型名必须填写
+hair.noStyleSearched = 没有找到您希望的发型！
 hair.picturedescription = 填写该发型图片描述
+
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -870,9 +889,9 @@ style.socialStatus.T-stage = T台
 style.socialStatus.others = 其它
 
 #onUsePicture
-onUserPicture.picTitle=请填写沙龙简介标题
-onUserPicture.description = 请填写沙龙简介
-onUserPicture.foot=请填写沙龙标注
+onUserPicture.picTitle=请填写沙龙简介标题，您最多可输入100个字符
+onUserPicture.description = 请填写沙龙简介，您最多可输入100个字符
+onUserPicture.foot=请填写沙龙标注，您最多可输入100个字符
 onUserPicture.picDescrition=请填写图片描述信息
 onUsePicture.selectImge = 选择文件
 onUsePicture.uploadImgSize = 建议上传图片大小：
@@ -926,6 +945,7 @@ salonCheckInfoState.uploadAtom=店铺环境
 salonCheckInfoState.uploadStore=店铺营业执照
 salonCheckInfoState.basicInfoMange=信息管理
 salonCheckInfoState.basic=基本信息
+salonCheckInfoState.auth=对不起，您目前没有权限进入，请先完善您的资料
 
 #slaonRelax
 salonRelax.footSpa=足疗按摩

@@ -49,7 +49,6 @@
 				@Messages("onUsePicture.selectImge")&nbsp;
 				<a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
 			</div>
-			<div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b></div>
 			<div class="progress-box fl-progress" style="display:none;">
 				<div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
 				<div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
@@ -68,8 +67,20 @@
 	</script>
 	<div class="mT20 txtC">			
 		<input type = "submit" class = "buttons" value=@Messages("common.submit")>
-	</div>
+	</div></br></br>
 	}
+	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+		<tbody>	
+		</tbody>
+	</table>	
+	<div class="regPoint">
+		<h3>@Messages("salon.pictureLimit")</h3>
+		<p>@Messages("salon.picLimitDes1")<strong>@Messages("salon.picLimitDes2")</strong>@Messages("salon.picLimitDes3")<strong>@Messages("salon.picLimitDes4")</strong>。
+			<br/>
+			@Messages("salon.numberLimit")<br/>
+			@Messages("salon.typeLimit")
+		</p>
+	</div>	
 	</body>
 	@pictureGroup(
 		salonPicsForm("salonPics[x]"),

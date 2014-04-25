@@ -12,6 +12,7 @@
 <script src="@routes.Assets.at("javascripts/salonSearch/salonSearch.js")" type="text/javascript"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/salonSearch/searchAutoComplete.js")"></script>
 </head>
+
 <form action=@noAuth.routes.Salons.getSalonBySearch method="post" id="salonSearchForm">
 <div class="left w768">
     <!-- 城市 、行业、关键字检索 -->
@@ -43,8 +44,8 @@
             </li>*@
             <li><input name="salonIndustry" type="hidden" value="Hairdressing"></li>
             <li>@Messages("salonSerachPage.keyword")</li>
-            <li><input id="keyword" name="keyWord" type="text" value="@searchParaForSalon.keyWord" placeholder="" onblur="hidekeys();" autocomplete="off" class="text" onkeyup="getSuggest(this.value, event);setPosition(getIdOBJ('keyword'));updown(event)" onkeydown="if(getKeyCode(event) == 13)form_submit();">
-            	<div id="dSuggest" style="display:none;width:17%;" ></div>
+			<li><input id="keyword" name="keyWord" type="text" value="@searchParaForSalon.keyWord" placeholder="" onblur="hidekeys();" autocomplete="off" class="text" onkeyup="getSuggest(this.value, event);setPosition(getIdOBJ('keyword'));updown(event)" onkeydown="if(getKeyCode(event) == 13)form_submit();">
+				<div id="dSuggest" style="display:none;width:17%;" ></div>
             </li>
             <li><input name="" type="button" onclick="clickSalonSearch();" class="btn" value = @Messages("hair.search")></li>
         </ul>

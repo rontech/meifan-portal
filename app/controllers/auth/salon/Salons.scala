@@ -352,7 +352,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   def myCoupon = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
       val salon = loggedIn
       val coupons = Coupon.findBySalon(salon.id)
-      val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+      val serviceTypes: List[ServiceType] = ServiceType.findAllServiceTypes(salon.salonIndustry)
       val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
       Ok(html.salon.admin.mySalonCouponAll(salon, Coupons.conditionForm.fill(couponServiceType), serviceTypes, coupons))
   }
@@ -363,7 +363,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   def myMenu = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
       val salon = loggedIn
       val menus: List[Menu] = Menu.findBySalon(salon.id)
-      val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+      val serviceTypes: List[ServiceType] = ServiceType.findAllServiceTypes(salon.salonIndustry)
       val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
       Ok(html.salon.admin.mySalonMenuAll(salon, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))
   }
@@ -613,6 +613,14 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         if(!Salon.checkImgIsExist(salon)) counts+=1
     	Ok(views.html.salon.admin.checkInfostate(salon, counts))
     }
+    
+    /**
+     * 无权限时跳转页面
+     */
+    def checkAuth = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+        val salon = loggedIn
+    	Ok(views.html.salon.salonManage.checkAuth(salon))
+    }    
     
     /**
      * 店铺LOGO上传页面
