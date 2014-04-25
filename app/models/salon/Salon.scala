@@ -15,7 +15,7 @@ import se.radley.plugin.salat.Binders._
 import com.novus.salat.dao._
 import mongoContext._
 import org.mindrot.jbcrypt.BCrypt
-
+import scala.util.matching.Regex
 
 /*
  * Main Class: Salon.
@@ -267,9 +267,12 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
         srchConds :::= List(commonsDBObject("salonAddress.city" -> searchParaForSalon.city))
 
         // keywords Array for Fuzzy search: will be joined with "$or" DSL operation.  
-        val fuzzyKws = contactKwdsToFuzzyConds(searchParaForSalon.keyWord.getOrElse(""))
+        val fuzzyRegex = convertKwdsToFuzzyRegex(searchParaForSalon.keyWord.getOrElse(""))(x => (".*" + x.trim + ".*|"))
+        // from which fields the keyword be searched.
+        val targetFields = getSrchTargetFields()
+        val fuzzyConds = searchByFuzzyConds(targetFields, fuzzyRegex)
         // Join the normal conditions and fuzzy search keyword condition. 
-        val srchCondsWithFuzzyKws = if(!fuzzyKws.isEmpty) $and(srchConds ::: List($or(fuzzyKws))) else $and(srchConds)
+        val srchCondsWithFuzzyKws = if(!fuzzyConds.isEmpty) $and(srchConds ::: List($or(fuzzyConds))) else $and(srchConds)
 
         // ------------------------------
         // -  Do salon general search. 
@@ -293,17 +296,138 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
                 }
             }
         }
-
+ 
+        // exact regex keyword which used to get the exact words matched to the keyword.
+        val exactRegex = convertKwdsToFuzzyRegex(searchParaForSalon.keyWord.getOrElse(""))(x => (x.trim + "|")) 
         for(sl <- salons) {
+          // get top 2 styles of salon.
           val selStyles = Style.getBestRsvedStylesInSalon(sl.id, 2)
           val selCoupons = Coupon.findBySalon(sl.id)
           val rvwStat = Comment.getGoodReviewsRate(sl.id)
-          val kwsHits = Nil
+          // get the keywords hit strings.
+          var kwsHits: List[String] = getKeywordsHitStrs(targetFields, fuzzyRegex, exactRegex)
+          if(kwsHits.isEmpty) {
+            kwsHits = getSalonPresentationAbbr(sl.picDescription)
+          }
+
           salonSrchRst :::= List(SalonGeneralSrchRst(salonInfo = sl, selectedStyles = selStyles, selectedCoupons = selCoupons,
               reviewsStat = rvwStat, keywordsHitStrs = kwsHits))
         }
 
         salonSrchRst        
+    }
+
+ 
+    /**
+     *
+     */
+    def getSalonPresentationAbbr(present: Option[PicDescription]): List[String] = {
+      var abbrPres: List[String] = Nil
+      present match {
+        case None => abbrPres
+        case Some(pres) => 
+          abbrPres :::= List("..." + pres.picTitle.slice(0, 30) + "...")
+          abbrPres :::= List("..." + pres.picContent.slice(0, 30) + "...")
+          abbrPres :::= List("..." + pres.picFoot.slice(0, 30) + "...")
+      }
+
+      abbrPres
+    }
+
+    /**
+     * Get keywords hit strings.
+     *   Slice 
+     */
+    def getKeywordsHitStrs1(fuzzyKwds: List[commonsDBObject], exactKwds: Regex): List[String] = {
+      var fuzzyHits: List[String] = Nil
+
+      for(fz <- fuzzyKwds) { 
+        // TODO can below done with reflection?
+        var hit: String = ""
+        if(fz.contains("salonName")) hit = dao.find(fz).map {_.salonName}.mkString
+        if(fz.contains("salonNameAbbr")) hit = dao.find(fz).map {_.salonNameAbbr}.mkString
+        if(fz.contains("salonDescription")) hit = dao.find(fz).map {_.salonDescription.getOrElse("")}.mkString
+        // for a salon valid, it is impossible that field [picDescription] is null.
+        if(fz.contains("picDescription.picTitle")) hit = dao.find(fz).map {_.picDescription.get.picTitle}.mkString
+        if(fz.contains("picDescription.picContent")) hit = dao.find(fz).map {_.picDescription.get.picContent}.mkString
+        if(fz.contains("picDescription.picFoot")) hit = dao.find(fz).map {_.picDescription.get.picFoot}.mkString
+
+        // first hit words, fz's value is a Regex type variable.
+        val regx = exactKwds 
+        var firstHit = regx.findFirstIn(hit)
+        firstHit match {
+          case None => fuzzyHits
+          case Some(fstHit) => {
+            // first hit index.
+            var mtch = regx.findAllIn(hit)
+            // cut out the search rst.
+            if(!mtch.isEmpty) {
+              fuzzyHits :::= List("..." + hit.slice(mtch.start, mtch.start + 30) + "...")
+            }
+            else {
+              fuzzyHits
+            }
+          } 
+        }
+      }
+
+      // println("fuzzyHits" + fuzzyHits)
+      fuzzyHits.toList
+    }
+
+    /**
+     * Get the slice of keyword matched fields.  
+     *   # Check if the fields contains the keyword by fuzzy match, but get the match slice by exact match. #
+     *
+     */
+    def getKeywordsHitStrs(targetFields: Array[String], fuzzyKwds: Regex, exactKwds: Regex): List[String] = {
+      var fuzzyHits: List[String] = Nil
+
+      for(tgtf <- targetFields) { 
+        var hit: String = ""
+
+        if((fuzzyKwds.toString != "") && (exactKwds != "")) {
+          val fzKws = commonsDBObject(tgtf -> fuzzyKwds)
+  
+          // TODO can below done with reflection?
+          if(tgtf == "salonName") hit = dao.find(fzKws).map {_.salonName}.mkString
+          if(tgtf == "salonNameAbbr") hit = dao.find(fzKws).map {_.salonNameAbbr}.mkString
+          if(tgtf == "salonDescription") hit = dao.find(fzKws).map {_.salonDescription}.mkString
+          if(tgtf == "picDescription.picTitle") hit = dao.find(fzKws).map {_.picDescription.get.picTitle}.mkString
+          if(tgtf == "picDescription.picContent") hit = dao.find(fzKws).map {_.picDescription.get.picContent}.mkString
+          if(tgtf == "picDescription.picFoot") hit = dao.find(fzKws).map {_.picDescription.get.picFoot}.mkString
+  
+          // Use the Regex type method to get the first hit words in the target string.
+          var firstHit = exactKwds.findFirstIn(hit)
+          firstHit match {
+            case None => fuzzyHits
+            case Some(fstHit) => {
+              // get the first hit index by Regex method.
+              var mtch = exactKwds.findAllIn(hit)
+              // cut out the search rst.
+              if(!mtch.isEmpty) {
+                fuzzyHits :::= List("..." + hit.slice(mtch.start, mtch.start + 30) + "...")
+              }
+            } 
+          }
+        }
+      }
+
+      println("fuzzyKwds = " + fuzzyKwds)
+      println("exactKwds = " + exactKwds)
+      println("fuzzyHits = " + fuzzyHits)
+      fuzzyHits.toList
+    }
+
+
+    /**
+     * Get the general search target fields.
+     */
+    def getSrchTargetFields(): Array[String] = {
+      val srchFields = Array("salonName", "salonNameAbbr", "salonDescription", 
+          "picDescription.picTitle", "picDescription.picContent", "picDescription.picFoot")
+
+      srchFields 
     }
 
 
@@ -325,8 +449,7 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
             val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|")}
             val kwsRegex =  kwsAry.mkString.dropRight(1).r
             // fields which search from 
-            val searchFields = Array("salonName", "salonNameAbbr", "salonDescription", 
-                "picDescription.picTitle", "picDescription.picContent", "picDescription.picFoot")
+            val searchFields = getSrchTargetFields() 
             searchFields.map { sf => 
                 var s = dao.find(MongoDBObject(sf -> kwsRegex)).toList
                 rst :::= s
@@ -346,28 +469,45 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
      * 
      * Make salon general search keyword to fuzzy search conditions.
      */
-    def contactKwdsToFuzzyConds(keyword: String): List[commonsDBObject] = {
+    def searchByFuzzyConds(searchFields: Array[String], kwdsRegex: Regex): List[commonsDBObject] = {
         var rst: List[commonsDBObject] = Nil 
-        // pre process for keyword: process the double byte blank to single byte blank.
-        val kws = keyword.replace("　"," ")
-        if(kws.replace(" ","").length == 0) {
+        // convert keyword to Regex type string.
+        if(kwdsRegex.toString == "") {
             // when keyword is not exist, return Nil.
             rst
         } else {
             // when keyword is exist, convert it to regular expression.
-            val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|")}
-            val kwsRegex =  kwsAry.mkString.dropRight(1).r
-            // fields which search from 
-            val searchFields = Array("salonName", "salonNameAbbr", "salonDescription", 
-                "picDescription.picTitle", "picDescription.picContent", "picDescription.picFoot")
+            // param searchFields contains the fields which search from 
             searchFields.map { sf => 
-                var s = commonsDBObject(sf -> kwsRegex)
+                var s = commonsDBObject(sf -> kwdsRegex)
                 rst :::= List(s)  
             }
             rst
         }
-        // println($or(rst))
-        rst
+    }
+
+
+    /**
+     * 
+     * For example.
+     *     1. f = x => (".*" + x + ".*|") 
+     *     2. f = x => (x|") 
+     *     3. ....
+     */
+    def convertKwdsToFuzzyRegex(keyword: String)(f: String => String) = {
+        // pre process for keyword: process the double byte blank to single byte blank.
+        val kws = keyword.replace("　"," ")
+        if(kws.replace(" ","").length == 0) {
+            // when keyword is not exist, return Nil.
+            "".r
+        } else {
+            // when keyword is exist, convert it to regular expression.
+            val kwsStr = kws.split(" ").map { x => f(x.trim)}.mkString
+            if(kwsStr.endsWith("|")) 
+                kwsStr.dropRight(1).r
+            else
+                kwsStr.r
+       }
     }
 
 
