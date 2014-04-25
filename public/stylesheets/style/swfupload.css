@@ -38,10 +38,10 @@
 	color:#ff6600;
 }
 *{margin:0;padding:0;list-style-type:none;}
-a{blr:expression(this.onFocus=this.blur())}/*蜴ｻ謗餌譬�ｭｾ逧�劒郤ｿ譯�ｼ碁∩蜈榊�邇ｰ螂��逧��荳ｭ蛹ｺ蝓�/
+a{blr:expression(this.onFocus=this.blur())}/*去掉a标签的虚线框，避免出现奇怪的选中区域*/
 a,img{border:0;}
-body{_background-image:url(about:blank);/*逕ｨ豬剰ｧ亥勣遨ｺ逋ｽ鬘ｵ髱｢菴應ｸｺ閭梧勹*/_background-attachment:fixed; /* prevent screen flash in IE6 遑ｮ菫晄ｻ壼勘譚｡貊壼勘譌ｶ�悟�邏�ｸ埼略蜉ｨ*/ } 
-body{font:12px/180% Arial,Lucida,Verdana,"螳倶ｽ�,Helvetica,sans-serif;color:#333;background:#fff;}
+body{_background-image:url(about:blank);/*用浏览器空白页面作为背景*/_background-attachment:fixed; /* prevent screen flash in IE6 确保滚动条滚动时，元素不闪动*/ } 
+body{font:12px/180% Arial,Lucida,Verdana,"宋体",Helvetica,sans-serif;color:#333;background:#fff;}
 
 
 .demo{padding:10px;width:760px;margin:0 auto;}
