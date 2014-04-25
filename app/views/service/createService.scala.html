@@ -24,7 +24,7 @@
                 </th>
                 <td>
                     <div class="inputField">
-                    @inputText(serviceForm("serviceName"), '_label -> None, 'id -> "serviceName",
+                    @inputText(serviceForm("serviceName"), '_label -> None, 'id -> "serviceName",'_help -> Messages(""),
                         '_error -> serviceForm("serviceName").error.map(_.withMessage(Messages("service.addErrorMsg")))
                     )
                     </div>
@@ -58,7 +58,7 @@
                 </th>
                 <td>
                     <div class="inputField">
-                    @inputText(serviceForm("price"),'_label -> None,'id -> "price",
+                    @inputText(serviceForm("price"),'_label -> None,'id -> "price",'_help -> Messages(""),
                         '_error -> serviceForm("price").error.map(_.withMessage(Messages("service.priceErrorMsg")))
                     )
                     </div>
@@ -73,7 +73,7 @@
                 </th>
                 <td>
                     <div class="inputField">
-                    @inputText(serviceForm("duration"),'_label -> None, 'id -> "duration",
+                    @inputText(serviceForm("duration"),'_label -> None, 'id -> "duration",'_help -> Messages(""),
                         '_error -> serviceForm("duration").error.map(_.withMessage(Messages("service.durationErrorMsg")))
                     )
                     </div>

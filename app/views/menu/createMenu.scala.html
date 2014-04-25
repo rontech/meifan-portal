@@ -61,7 +61,7 @@
 	            </th>
 	            <td>
 	                <div class="inputField">
-	                	@textarea(menuForm("description"), '_label -> None, 'rows -> 3, 'cols -> 50, '_help -> Messages("coupon.couponDiscriptionMsg"),
+	                	@textarea(menuForm("description"), '_label -> None, 'rows -> 3, 'cols -> 50, 'placeholder -> Messages("coupon.couponDiscriptionMsg"),'_help -> Messages(""),
 						 'id -> "description", '_error -> menuForm("description").error.map(_.withMessage(Messages("menu.menuDiscriptionErr"))))
 	                </div>
 	            </td>
