@@ -2,6 +2,11 @@
 @import helper._
 
 <div>
+     @if(styles.isEmpty){
+   	    <div class="bgAlertMsg mT20">
+        	<p class="alertMsg">@Messages("hair.noStyleSearched")</p>
+  		</div>
+     }else{
        @for(i <- 0 to styles.length-1){
        	<table class="styleItem">
 		    <tbody>
@@ -36,14 +41,19 @@
                             </p>
                         </a>
                         @*店铺暂不能对发型进行更新,删除的操作<p>
-                            <a href="@auth.routes.Salons.styleUpdateBySalon(styles(i).id)" >@Messages("common.edit")</a>
-                            <a href="@auth.routes.Salons.styleToInvalidBySalon(styles(i).id)" >@Messages("common.delete")</a>
-                        </p>*@
+                            <a href="@auth.routes.Salons.styleUpdateBySalon(styles(i).id)" >@Messages("common.edit")</a>*@
+                            @*<a href="@auth.routes.Salons.styleToInvalidBySalon(styles(i).id)" >@Messages("common.delete")</a>*@
+                            @*下面的一句是可以弹出js确认框的*@
+                            @*<a onclick="del('@auth.routes.Salons.styleToInvalidBySalon(styles(i).id)','@Messages("common.deleteMsg")');" >@Messages("common.delete")</a>*@
+                        @*</p>*@
                     }else {
     		            @if(uId == loginUserId){
     					    <p>
     			                <a href="@auth.routes.Stylists.styleUpdateByStylist(styles(i).id)" >@Messages("common.edit")</a>
-    			                <a href="@auth.routes.Stylists.styleToInvalidByStylist(styles(i).id)" >@Messages("common.delete")</a>
+    			                @*<a href="@auth.routes.Stylists.styleToInvalidByStylist(styles(i).id)" >@Messages("common.delete")</a>*@
+    			                @*<a onclick="del('/myPage/invalidStyle/','@styles(i).id');" >@Messages("common.delete")</a>*@
+    			                @*<a onclick="del('/myPage/invalidStyle/'+'@styles(i).id','@Messages("common.deleteMsg")');" >@Messages("common.delete")</a>*@
+    			                <a onclick="del('@auth.routes.Stylists.styleToInvalidByStylist(styles(i).id)','@Messages("common.deleteMsg")');" >@Messages("common.delete")</a>
     			            </p>
                         }
                     }
@@ -62,5 +72,6 @@
 			</tr>
 		    </tbody>
 		</table>
+       }
        }
 </div>
