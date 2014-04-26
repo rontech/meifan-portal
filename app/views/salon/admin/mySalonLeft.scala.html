@@ -6,7 +6,11 @@
        			 </div>	
 				<span class='U'>
 					<p class='opts'>
+					@if(!salon.salonNameAbbr.equals(None)){
+						<span style="font-size:16px;">@Messages("stylist.hello")&nbsp;</span> @salon.salonNameAbbr
+					}else{
 						<span style="font-size:16px;">@Messages("stylist.hello")&nbsp;</span> @salon.salonName
+					}						
 					</p>
       				<a href="" class='Name' title='female'></a>
 
@@ -29,19 +33,20 @@
 		 				<span>@Messages("salonCheckInfoState.createSalon")</span>
 		 			</a><br />
 		 			}
-		 	@if(Salon.checkBasicInfoIsFill(salon)){
+			@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
+		 		Salon.checkImgIsExist(salon)){			
 		 			<a href="@noAuth.routes.Salons.getSalon(salon.id)">
 		 				<span>@Messages("salon.getInSalon")</span>
 		 			</a><br />		 				
 		 	}else{
-		 			<a>
+		 			<a href="@auth.routes.Salons.checkAuth">
 		 				<span>@Messages("salon.getInSalon")</span>
 		 			</a><br />				 			
 		 			}					 			 					 					 			
 		 		</div>	
 		 		
 			</div>
-		 	@if(Salon.checkBasicInfoIsFill(salon)){						
+			@if(Salon.checkBasicInfoIsFill(salon)){							
    			<!-- 店铺基本信息管理 -->
 			<div class='Mod Users' id='Fellows'>
 	   			<strong>@Messages("salonAdmin.infoManagement")</strong>
@@ -52,6 +57,16 @@
 		 		</div>	
 		 		
 			</div>
+			}else{
+			<div class='Mod Users' id='Fellows'>
+	   			<strong>@Messages("salonAdmin.infoManagement")</strong>
+	   			<div class='more'>
+		 			<a href="@auth.routes.Salons.checkAuth">
+		 				<span>@Messages("salonCheckInfoState.basicInfoMange")</span>
+		 			</a><br />		 				   					 					 					 			
+		 		</div>	
+		 		
+			</div>			
 			}
 			@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
 		 		Salon.checkImgIsExist(salon)){			
@@ -177,15 +192,13 @@
     	 			</li>
 	  			</ul>
 	  			<div class='more'>
-    				<a>@Messages("salonAdmin.myStylist")
+    				<a href="@auth.routes.Salons.checkAuth">@Messages("salonAdmin.myStylist")
     				(@SalonAndStylist.countStylistBySalon(salon.id))</a><br />
-    				<a>
+    				<a href="@auth.routes.Salons.checkAuth">
                 	@Messages("salonAdmin.fromStylistApply")
-                	(
                 		 <span id="reviewCount">
-                               @SalonStylistApplyRecord.applingStylistCount(salon.id)
+                               (@SalonStylistApplyRecord.applingStylistCount(salon.id))
                          </span>
-                	)
                 	</a>
     				</div>
 			</div>
@@ -197,7 +210,7 @@
     	 			</li>
 	  			</ul>
 				<div class='more'>
-					<a>@Messages("stylistMag.showAllStyles")</a>
+					<a href="@auth.routes.Salons.checkAuth">@Messages("stylistMag.showAllStyles")</a>
 				</div>
 			</div>
 
@@ -212,20 +225,20 @@
     			</ul>
 				<div class='more'>
 					
-    			<a>@Messages("salonAdmin.needCommentRsv")
+					<a href="@auth.routes.Salons.checkAuth">@Messages("salonAdmin.needCommentRsv")
     							(
                             	<span id="reviewCount">
                                 0
                             	</span>
                             	)</a><br />
-				<a>@Messages("salonAdmin.overtimeRsv")
+					<a href="@auth.routes.Salons.checkAuth">@Messages("salonAdmin.overtimeRsv")
                            	 (
                             	<span id="reviewCount">
                                 1
                             	</span>
 				)</a><br />
 				
-				<a>@Messages("salonAdmin.expireRsv")
+					<a href="@auth.routes.Salons.checkAuth">@Messages("salonAdmin.expireRsv")
                            	(
                             	<span id="reviewCount">
                                 0
@@ -243,7 +256,7 @@
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-       					<a>@Messages("salonAdmin.checkComment")</a>
+					<a href="@auth.routes.Salons.checkAuth">@Messages("salonAdmin.checkComment")</a>
      				</div>
 			</div>
 
@@ -256,7 +269,6 @@
 	  			</ul>
 		 		<div class='more'>
        					<a>@Messages("salonAdmin.checkServiceIsExist")</a>
-     				</div>
 			</div>
 
 			<!-- 优惠券管理 -->						
@@ -267,7 +279,7 @@
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-       					<a>@Messages("salonAdmin.checkCoupon")</a>
+					<a href="@auth.routes.Salons.checkAuth">@Messages("salonAdmin.checkCoupon")</a>
      				</div>
 			</div>
 
@@ -279,7 +291,7 @@
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-       					<a>@Messages("salonAdmin.checkMenu")</a>
+					<a href="@auth.routes.Salons.checkAuth">@Messages("salonAdmin.checkMenu")</a>
      				</div>
 			</div>			
 			}

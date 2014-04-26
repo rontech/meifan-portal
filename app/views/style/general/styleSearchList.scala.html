@@ -7,26 +7,31 @@
             @Messages("hair.style")
         </h3>
     </div>
-    
-   	@for(i <- 0 to styleAndSalon.length-1){
-   		<div class="styleResult">
-	   		<a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" >
-	   			<img src="@routes.Application.getPhoto(styleAndSalon(i).style.stylePic(0).fileObjId)" class="w120 h150" alt="@styleAndSalon(i).style.styleName" >
-	   		</a>
-			<div class="layer jscLayer jscFixPng">
-				<p>
-					<a href="javascript:void(0);" onclick="addFollow('@styleAndSalon(i).style.id','style')" >@Messages("hair.ToCollect")</a>
-				</p>
-				<p><a href="">@Messages("hair.detailInfo")</a></p>
+    @if(styleAndSalon.isEmpty){
+   	    <div class="bgAlertMsg mT20">
+        	<p class="alertMsg">@Messages("hair.noStyleSearched")</p>
+  		</div>
+    }else{   
+	   	@for(i <- 0 to styleAndSalon.length-1){
+	   		<div class="styleResult">
+		   		<a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" >
+		   			<img src="@routes.Application.getPhoto(styleAndSalon(i).style.stylePic(0).fileObjId)" class="w120 h150" alt="@styleAndSalon(i).style.styleName" >
+		   		</a>
+				<div class="layer jscLayer jscFixPng">
+					<p>
+						<a href="javascript:void(0);" onclick="addFollow('@styleAndSalon(i).style.id','style')" >@Messages("hair.ToCollect")</a>
+					</p>
+					<p><a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)">@Messages("hair.detailInfo")</a></p>
+				</div>
+				<div class="mT2">
+					<a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" class="rankingListInnerAnchor" >
+						<p><span class="photoCaption">@styleAndSalon(i).style.styleName</span></p>
+						<div class="mT2">
+							<p class="rankingListShop">@styleAndSalon(i).salon.salonName</p>
+						</div>
+					</a>
+				</div>
 			</div>
-			<div class="mT2">
-				<a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" class="rankingListInnerAnchor" >
-					<p><span class="photoCaption">@styleAndSalon(i).style.styleName</span></p>
-					<div class="mT2">
-						<p class="rankingListShop">@styleAndSalon(i).salon.salonName</p>
-					</div>
-				</a>
-			</div>
-		</div>
+	   	}
    	}
 </div>

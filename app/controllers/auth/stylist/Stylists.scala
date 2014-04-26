@@ -136,15 +136,15 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
 	    }
 	  }
 	  
-	 def updateStylistInfo(stylistId: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(stylistId) _) { implicit request =>
+	 def updateStylistInfo(sid: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(sid) _) { implicit request =>
 	    val user = loggedIn
+	    val sty = Stylist.findOneByStylistId(user.id).get
 	    val followInfo = MyFollow.getAllFollowInfo(user.id)
 	    stylistForm.bindFromRequest.fold(
 	      errors => BadRequest(views.html.index()),
 	      {
 	        case(stylist) => {
-	          val newStylist = stylist.copy(id = stylistId)
-	            Stylist.save(newStylist) //需修改图片更新
+	            Stylist.save(stylist.copy(id = sty.id,stylistId = user.id)) //需修改图片更新
 	            Redirect(auth.routes.Users.myPage())
 	        }
 	      })

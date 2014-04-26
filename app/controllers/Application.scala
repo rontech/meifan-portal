@@ -100,13 +100,19 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
                     CONTENT_TYPE -> f.contentType.getOrElse(BINARY),
                     DATE -> new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", java.util.Locale.US).format(f.uploadDate))),
                 Enumerator.fromStream(f.inputStream))
+                // TODO ? is this necessary ? Enumerator.eof  
 
             case None => {
               val fi = new File(play.Play.application().path() + "/public/images/user/dafaultLog/portrait.png")
+              var in: FileInputStream = null
               if(fi.exists) {
-                var in = new FileInputStream(fi)
-                var bytes = Image.fileToBytes(in)
-                Ok(bytes)
+                in = new FileInputStream(fi)
+                try {
+                  val bytes = Image.fileToBytes(in)
+                  Ok(bytes)
+                } finally {
+                  in.close
+                }
               } else {
                 Ok("")
               }
@@ -140,22 +146,25 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
                     //intValue,img.h.intValue-2  防止截取图片尺寸超过图片本身尺寸
                     val newImage = originImage.getSubimage(img.x1.intValue,img.y1.intValue,img.w.intValue-2,img.h.intValue-2)
 
-                    val  os = new ByteArrayOutputStream();
-
-                    ImageIO.write(newImage, "jpeg", os);
-
-                    val inputStream = new ByteArrayInputStream(os.toByteArray());
-
-                    val uploadedFile = gridFs.createFile(inputStream)
-
-                    uploadedFile.contentType = photo.contentType.orNull
-                    uploadedFile.save()
-                    Redirect(auth.routes.Users.saveImg(uploadedFile._id.get))
+                    var os: ByteArrayOutputStream = null
+                    var inputStream: ByteArrayInputStream = null
+                    try {
+                        os = new ByteArrayOutputStream();
+                        ImageIO.write(newImage, "jpeg", os);
+                        inputStream = new ByteArrayInputStream(os.toByteArray());
+    
+                        val uploadedFile = gridFs.createFile(inputStream)
+                        uploadedFile.contentType = photo.contentType.orNull
+                        uploadedFile.save()
+                        Redirect(auth.routes.Users.saveImg(uploadedFile._id.get))
+                    } finally {
+                        os.close
+                        inputStream.close
+                    }
                 }
             )
         }.getOrElse(Ok(Html("无图片")))
     }
-
 
     
     /**

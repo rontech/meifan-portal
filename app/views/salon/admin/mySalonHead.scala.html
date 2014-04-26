@@ -3,11 +3,19 @@
 	<!-- ↓mainContents -->
 
     	<ul class="menuBG cFix">
+    	@if(Salon.checkBasicInfoIsFill(salon)){
 		<li class="fl">
 			<a href="@auth.routes.Salons.salonRegister" >
 		    	@Messages("salonAdmin.infoManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
-		</li>
+		</li>    		
+    	}else{
+ 		<li class="fl">
+			<a href="@auth.routes.Salons.checkAuth">
+		    	@Messages("salonAdmin.infoManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    </a>
+		</li>   	
+    	}
 		@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
 		 	Salon.checkImgIsExist(salon)){			
 		<li class="fl">
@@ -21,7 +29,7 @@
 		    </a>
 		</li>
 		<li class="fl">
-			<a href="@auth.routes.Salons.myService">
+			<a href="#">
 				@Messages("salonAdmin.reserveManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
@@ -32,22 +40,22 @@
 		</li>
 		}else{
 		<li class="fl">
-			<a>
+			<a href="@auth.routes.Salons.checkAuth">
 		    	@Messages("salonAdmin.stylistManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
 		<li class="fl">
-			<a>
+			<a href="@auth.routes.Salons.checkAuth">
 				@Messages("salonAdmin.styleManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
 		<li class="fl">
-			<a>
+			<a href="@auth.routes.Salons.checkAuth">
 				@Messages("salonAdmin.reserveManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
 		<li class="fl">
-			<a>
+			<a href="@auth.routes.Salons.checkAuth">
 				@Messages("salonAdmin.commentManagement")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>		

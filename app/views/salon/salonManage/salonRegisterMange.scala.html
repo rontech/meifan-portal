@@ -27,7 +27,7 @@
 
 	<div class="salonRegister">
 		<div class="contentsTitleWrapper">
-			<h2 class="contentsTitleInner">@Messages("salon.register")</h2>
+			<h2 class="contentsTitleInner">@Messages("salon.registerManage")</h2>
 		</div>
 
 		<div class="mT10 pH10">
@@ -80,7 +80,8 @@
 				                @inputText(salonRegister("salonAccount.accountId"),
                                     'id ->"accountId",
                                     '_label -> None,
-                                    'readonly -> "true",
+                                    'disabled -> "true",
+                                    'style-> "width:200px;",
 									'placeholder -> Messages("salon.login.accountId"),
 									'_help -> Messages("salon.registerMange.accountId"),
 									'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("salon.register.accountIdErr"))))
@@ -113,7 +114,8 @@
                                         'id -> "salonName",
                                         '_label ->  None,
                                         '_help -> Messages("salon.salonNameMange"),
-                                        'readonly -> "true",
+                                        'disabled -> "true",
+										'style-> "width:200px;",
 				                		'_error -> salonRegister("salonName").error.map(_.withMessage(Messages("salon.register.salonName"))))				             	
 				                </div>
 				            </td>
@@ -152,6 +154,7 @@
                                         'id -> "contact_tel",
                                         '_label -> None,
                                         '_help -> Messages(""),
+                                        'style-> "width:200px;",
 				                		'_error -> salonRegister("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.phoneError"))))
 				                </div>
 				            </td>
@@ -169,6 +172,7 @@
                                         'id -> "contact",
                                         '_label -> None,
                                         '_help -> Messages(""),
+                                        'style-> "width:200px;",
 				                		'_error -> salonRegister("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
 				                </div>
 				            </td>
@@ -186,6 +190,7 @@
                                         'id ->"contact_email",
                                         '_label -> None,
                                         '_help -> Messages(""),
+										'style-> "width:200px;",
 				                		'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.mailError"))))
 				                </div>
 				            </td>

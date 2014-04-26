@@ -24,7 +24,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
     val salonRegister: Form[Salon] = Form(
         mapping(
             "salonAccount" -> mapping(
-                "accountId" -> nonEmptyText(6, 16).verifying(Messages("salon.register.accountIdErr"), userId => userId.matches("""^\w+$""")),
+                "accountId" -> nonEmptyText(6, 16).verifying(Messages("salon.register.accountIdErr"), accountId => accountId.matches("""^\w+$""")),
                 "password" -> tuple(
                     "main" -> text(6, 18).verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]+$""")),
                     "confirm" -> text).verifying(
@@ -319,15 +319,21 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             case Some(sl) => {
                 val coupons: List[Coupon] = Coupon.findValidCouponBySalon(sl.id)
                 val menus: List[Menu] = Menu.findValidMenusBySalon(sl.id)
-                val srvTypes: List[ServiceType] = ServiceType.findAll().toList
+                val srvTypes: List[ServiceType] = ServiceType.findAllServiceTypes(sl.salonIndustry)
                 val serviceTypeNames: List[String] = Service.getServiceTypeList
                 val couponSchDefaultConds: CouponServiceType = CouponServiceType(Nil, Some("1"))
 
                 var servicesByTypes: List[ServiceByType] = Nil
                 for (serviceType <- serviceTypeNames) {
                     var servicesByType: ServiceByType = ServiceByType("", Nil)
-                    val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(sl.id, serviceType))
-                    servicesByTypes = y :: servicesByTypes
+                    // 如果根据服务名查找出来的服务为空，那么不添加到指定列表中
+                    var services: List[Service] = Service.getTypeListBySalonId(sl.id, serviceType)
+                    if(!services.isEmpty) {
+                      val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = services)
+                      servicesByTypes = y :: servicesByTypes
+                    } else {
+                      
+                    }
                 }
 
                 // 获取当前时间的前7天的日期，用于判断是否为新券还是旧券
@@ -361,6 +367,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                     var conditions: List[String] = Nil
                     var servicesByTypes: List[ServiceByType] = Nil
                     var typebySearchs: List[ServiceType] = Nil
+                    var serviceTypes: List[ServiceType] = Nil
                     var couponServiceType: CouponServiceType = CouponServiceType(Nil, serviceType.subMenuFlg)
 
                     for (serviceTypeOne <- serviceType.serviceTypes) {
@@ -371,10 +378,9 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                             case None => NotFound
                         }
                     }
-
+                	
                     couponServiceType = couponServiceType.copy(serviceTypes = typebySearchs)
 
-                    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
                     if (serviceType.subMenuFlg == None) {
                         //coupons = Coupon.findContainConditions(serviceTypes)
                     } else {
@@ -384,16 +390,26 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                             serviceTypeNames = Service.getServiceTypeList
                             for (serviceType <- serviceTypeNames) {
                                 var servicesByType: ServiceByType = ServiceByType("", Nil)
-                                val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = Service.getTypeListBySalonId(salonId, serviceType))
-                                servicesByTypes = y :: servicesByTypes
+                                var services: List[Service] = Service.getTypeListBySalonId(salonId, serviceType)
+			                    if(!services.isEmpty) {
+			                      val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = services)
+			                      servicesByTypes = y :: servicesByTypes
+			                    } else {
+			                      
+			                    }
                             }
                         } else {
                             coupons = Coupon.findValidCouponByConditions(conditions, salonId)
                             menus = Menu.findValidMenusByConditions(conditions, salonId)
                             for (serviceTypeOne <- serviceType.serviceTypes) {
                                 var servicesByType: ServiceByType = ServiceByType("", Nil)
-                                val y = servicesByType.copy(serviceTypeName = serviceTypeOne.serviceTypeName, serviceItems = Service.getTypeListBySalonId(salonId, serviceTypeOne.serviceTypeName))
-                                servicesByTypes = y :: servicesByTypes
+                                var services: List[Service] = Service.getTypeListBySalonId(salonId, serviceTypeOne.serviceTypeName)
+			                    if(!services.isEmpty) {
+			                      val y = servicesByType.copy(serviceTypeName = serviceTypeOne.serviceTypeName, serviceItems = services)
+			                      servicesByTypes = y :: servicesByTypes
+			                    } else {
+			                      
+			                    }
                             }
                         }
                     }
@@ -408,6 +424,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                         case Some(s) => {
                             // Navigation Bar
                             var navBar = SalonNavigation.getSalonNavBar(Some(s)) ::: List((Messages("salon.couponMenus"), ""))
+                            serviceTypes = ServiceType.findAllServiceTypes(s.salonIndustry)
                             Ok(views.html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), navBar, user))
                         }
                         case None => NotFound

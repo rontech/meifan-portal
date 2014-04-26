@@ -67,6 +67,7 @@
 				                <div>
 				                	@inputText(salonForm("salonNameAbbr"),
                                         'id ->"salonNameAbbr",
+                                        'style-> "width:200px;",
                                         '_label -> None)
 				                </div>
 				            </td>
@@ -80,7 +81,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("homepage"), '_label -> None)
+				                	@inputText(salonForm("homepage"), 'style-> "width:200px;",'_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -96,8 +97,10 @@
 				                	@textarea(salonForm("salonDescription"),
                                         'id ->"salonDescription",
                                         '_label -> None,
-                                        'cols -> 50,
-                                        'placeholder -> Messages("salon.desMseeage"))
+										'maxlength->"100",
+										'rows -> 5,
+                                        'cols -> 40,
+                                        'placeholder -> Messages("salon.desMessage"))
 				                </div>
 				            </td>
 				        </tr>				        
@@ -128,13 +131,12 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@*inputText(salonForm("salonAddress.addrDetail"), '_label -> None)*@
-				                	
+				                	@*inputText(salonForm("salonAddress.addrDetail"), '_label -> None)*@			                	
 				                	@input(field = salonForm("salonAddress.addrDetail"),
                                         'id ->"addrDetail",
                                         '_label -> None,
                                         '_help -> Messages("")) { (id, name, value, _) =>
-        							<input type="text" name="@name" value="@value" id="addrDetail" onChange= "searchMap();checkedAddressDetail();">
+        							<input type="text" name="@name" value="@value" id="addrDetail" onChange= "searchMap();checkedAddressDetail();"  maxlength= "50" style="width:350px;" placeholder=@Messages("salon.addMessage")>
 								}
 								
 				                </div>
@@ -176,8 +178,11 @@
 				                <div>
 				                	@textarea(salonForm("salonAddress.accessMethodDesc"),
                                         'id -> "accessMethodDesc",
-                                        'cols -> 50,
-                                        '_label -> None)
+                                        'maxlength->"100",
+										'rows -> 5, 
+										'cols -> 40,
+                                        '_label -> None,
+										'placeholder -> Messages("salon.desAccesMethod"))
 				                </div>
 				            </td>
 				        </tr>

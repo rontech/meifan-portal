@@ -158,11 +158,12 @@
 		    }
 	    </div>
 	    <div>
-			@Messages("hair.assessFromStylist")<input type = "text" class="" name = "description" value = "@style.description">
+			@Messages("hair.assessFromStylist") 
+			@textarea(styleUpdateForm("description"), '_label -> None,'rows -> 4, 'cols -> 40, 'id -> "Description", 'class ->  "font1",'_help -> Messages("stylistAdmin.selectField"))
 	    </div>
 	    <div align="center">
 	        <input type = "reset" class = "buttons" value=@Messages("common.reset")>
-		    <input type="submit" class = "buttons" value=@Messages("common.submit")>
+		    <input type="button" onclick="return styleSubmit();" class = "buttons" value=@Messages("common.submit")>
         </div>	
 		}
 	</div>
@@ -321,6 +322,10 @@ $("#filePhoto").change(function() {
 			file_queued_handler : fileQueued,
 			file_dialog_complete_handler: fileDialogComplete,
 			upload_start_handler : function (file) {
+				var $picturediv = $('.picture_error_msg');
+	                	if($picturediv.length==1){
+	                		$('.picture_error_msg').remove();
+	                	}
 				initProgress();
 				updateProgress(file);
 			},
@@ -375,4 +380,31 @@ $("#filePhoto").change(function() {
 		swfImageUpload = new SWFUpload(settings);
 		initImageListFn();
 	});
+	
+	$('#Description').blur(function(){
+		checkDescription();
+	});  
+	   
+	function checkDescription(){
+		var value=$('#Description').val();
+		if(value.length>150){
+			$('#Description').parent('dd').next().text('超出长度限制').removeClass("trueMsg").addClass("errorMsg");
+		}
+	}
+	
+	function styleSubmit(){
+		
+		checkDescription();
+		var $obj=$('.imageoffileobjid');
+		$('.picture_error_msg').remove();
+		if($obj.length == 1){
+		$('.demo').append('<div class="picture_error_msg"><span class="errorMsg">至少选择一张图片</span><div>');
+			return;
+		}
+		var errInput = $('.errorMsg')
+	    if (errInput.length != 0 ){
+	        return;
+	    }
+	    document.getElementById("styleUpdateForm").submit();
+	}
 </script>

@@ -5,6 +5,10 @@ function getIdOBJ(str){
 	return document.getElementById(str);
 }
 
+function hidekeys(){
+	setTimeout("hideSearch()", 1000);
+}
+
 function hideSearch(){
 	getIdOBJ("dSuggest").style.display = "none";
 }
@@ -84,7 +88,7 @@ function getSuggest(keyword, e) {
 			if(tips.length!=0){
                 for(var i=0;i<tips.length;i++){
                     if(tips[i] !=""){
-                	inserthtml = inserthtml+"<li onkeydown=\'if(getKeyCode(event) == 13)form_submit();\' onmouseover=\'theMouseOver(" + i + ");\' onmouseout=\'theMouseOut("+ i +")';\ onclick=\'theMouseClick("+ i +");'\>" + tips[i] + "</li>";
+                	inserthtml = inserthtml+"<li onkeydown=\'if(getKeyCode(event) == 13)form_submit();\' onmouseover=\'theMouseOver(" + i + ");\' onmouseout=\'theMouseOut("+ i +")';\ onclick='theMouseClick("+ i +");'>" + tips[i] + "</li>";
 
                     }
                 }   

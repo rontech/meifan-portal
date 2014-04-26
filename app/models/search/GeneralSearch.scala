@@ -69,7 +69,8 @@ trait HotestKeywordDAO extends ModelCompanion[HotestKeyword, ObjectId] {
             val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|")}
             val kwsRegex =  kwsAry.mkString.dropRight(1).r
             // fields which search from 
-            var s = dao.find(MongoDBObject("atomicKeyword" -> kwsRegex)).toList
+            var s = dao.find(MongoDBObject("atomicKeyword" -> kwsRegex)).toList.sortBy(_.hitTimes)
+            if(s.length<8) s else s.slice(0, 8)
             s.map{key=>
               rst :::= List(key.atomicKeyword)
             }   

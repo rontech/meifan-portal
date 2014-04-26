@@ -68,6 +68,7 @@
 				                	@inputText(salonForm("seatNums"),
                                         'id -> "seatNums",
                                         '_label -> None,
+                                        '_help -> Messages(""),
 				                		'_error -> salonForm("seatNums").error.map(_.withMessage(Messages("salon.register.seatNums"))))
 				                </div>
 				            </td>
@@ -102,7 +103,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("salonFacilities.parkingDesc"), '_label -> None,'_help -> Messages(""))
+				                	@inputText(salonForm("salonFacilities.parkingDesc"), '_label -> None,'maxlength->"40", 'style-> "width:300px;",'_help -> Messages(""),'placeholder -> Messages("salon.parkDes"))
 				                </div>
 				            </td>
 				        </tr>										        
@@ -379,6 +380,7 @@
 	    @textarea(
 	            field("picTitle"),
                 'id -> "picTitle",
+                'maxlength->"100",
 	            '_label -> Messages("salon.pic.title"),
 	            'rows -> 5, 'cols -> 40, 
 	            'placeholder -> Messages("onUserPicture.picTitle")   
@@ -388,6 +390,7 @@
 	    @textarea(
 	            field("picContent"),
                 'id -> "picContent",
+                'maxlength->"100",
 	            '_label -> Messages("salon.pic.content"),
 	            'rows -> 5, 'cols -> 40, 
 	            'placeholder -> Messages("onUserPicture.description")
@@ -397,6 +400,7 @@
 	    @textarea(
 	            field("picFoot"),
                 'id -> "picFoot",
+                'maxlength->"100",
 	            '_label -> Messages("salon.pic.foot"),
 	            'rows -> 5, 'cols -> 40 ,
 	            'placeholder -> Messages("onUserPicture.foot")

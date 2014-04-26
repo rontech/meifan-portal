@@ -87,7 +87,8 @@ object InitialData {
           ServiceType(new ObjectId("53167ad9d4d5cb7e816db353"), "Hairdressing", "Care", "护理"),
           ServiceType(new ObjectId("53167ae7d4d5cb7e816db355"), "Hairdressing", "Perm", "烫"),
           ServiceType(new ObjectId("53167b3cd4d5cb7e816db359"), "Hairdressing", "Supple", "柔顺"),
-          ServiceType(new ObjectId("5316c443d4d57997ce3e6d68"), "Hairdressing", "Other", "其他")
+          ServiceType(new ObjectId("5316c443d4d57997ce3e6d68"), "Hairdressing", "Other", "其他"),
+          ServiceType(new ObjectId("5316c443d4d57997ce3e6d69"), "Manicures", "setColor", "上色")
         ).foreach(ServiceType.save)
     }
     

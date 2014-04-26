@@ -113,11 +113,21 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
                 case None => NotFound
               }
             }
-            val couponTemp = coupon.copy(couponId = coupon.id.toString(), salonId = salon.id, serviceItems = services, originalPrice = originalPrice, serviceDuration = serviceDuration)
+            
+            // 处理截至时间，将截止时间的时分秒改为23:59:59
+            var endDate: Date = coupon.endDate
+            var endTime: Calendar = Calendar.getInstance()
+		    endTime.setTime(endDate)
+		    endTime.set(Calendar.HOUR_OF_DAY, 23)
+		    endTime.set(Calendar.MINUTE, 59)
+		    endTime.set(Calendar.SECOND, 59)
+            
+            val couponTemp = coupon.copy(couponId = coupon.id.toString(), salonId = salon.id, serviceItems = services, 
+                							originalPrice = originalPrice, serviceDuration = serviceDuration, endDate = endTime.getTime())
             Coupon.save(couponTemp)
             
 		    val coupons: List[Coupon] = Coupon.findBySalon(salon.id)
-		    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+		    val serviceTypes: List[ServiceType] = ServiceType.findAllServiceTypes(salon.salonIndustry)
             val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
             Ok(html.salon.admin.mySalonCouponAll(salon, conditionForm.fill(couponServiceType), serviceTypes, coupons))
         }
@@ -147,6 +157,7 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
         errors => BadRequest(html.salon.admin.editSalonCoupon(salon, errors, Service.findBySalonId(salon.id), Coupon.findOneById(couponId).get)),
         {
           coupon =>
+            val oldCoupon: Option[Coupon] = Coupon.findOneById(couponId)
             var services: List[Service] = Nil
             var originalPrice: BigDecimal = 0
             var serviceDuration: Int = 0
@@ -160,11 +171,26 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
                 case None => NotFound
               }
             }
-            val couponTemp = coupon.copy(id = couponId, couponId = couponId.toString(), salonId =salon.id, serviceItems = services, originalPrice = originalPrice, serviceDuration = serviceDuration)
-            Coupon.save(couponTemp)
+            
+            // 处理截至时间，将截止时间的时分秒改为23:59:59
+            var endDate: Date = coupon.endDate
+            var endTime: Calendar = Calendar.getInstance()
+		    endTime.setTime(endDate)
+		    endTime.set(Calendar.HOUR_OF_DAY, 23)
+		    endTime.set(Calendar.MINUTE, 59)
+		    endTime.set(Calendar.SECOND, 59)
+            
+            
+            oldCoupon match {
+              case Some(c) => {val newCoupon = c.copy(serviceItems = services, originalPrice = originalPrice, perferentialPrice = coupon.perferentialPrice,
+            		  								  serviceDuration = serviceDuration, startDate = coupon.startDate, endDate = endTime.getTime(), useConditions = coupon.useConditions,
+            		  								  presentTime = coupon.presentTime, description = coupon.description)
+            		  		  Coupon.save(newCoupon)}
+              case None => NotFound
+            }
             
 		    val coupons: List[Coupon] = Coupon.findBySalon(salon.id)
-		    val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+		    val serviceTypes: List[ServiceType] = ServiceType.findAllServiceTypes(salon.salonIndustry)
 		    val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
             Ok(html.salon.admin.mySalonCouponAll(salon, conditionForm.fill(couponServiceType), serviceTypes, coupons))
         }
@@ -183,7 +209,7 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
       case Some(s) => val couponTemp = s.copy(isValid = false)
                       Coupon.save(couponTemp)
                       val coupons: List[Coupon] = Coupon.findBySalon(salon.id)
-                      val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+                      val serviceTypes: List[ServiceType] = ServiceType.findAllServiceTypes(salon.salonIndustry)
                       val couponServiceType: CouponServiceType = CouponServiceType(Nil, None)
                       Ok(html.salon.admin.mySalonCouponAll(salon, conditionForm.fill(couponServiceType), serviceTypes, coupons))
       case None => NotFound
@@ -216,7 +242,7 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
                 }
                 couponServiceType = couponServiceType.copy(serviceTypes = typeBySearches)
 
-                val serviceTypes: List[ServiceType] = ServiceType.findAll().toList
+                val serviceTypes: List[ServiceType] = ServiceType.findAllServiceTypes(salon.salonIndustry)
                 if(serviceType.subMenuFlg == None) {
                     //coupons = Coupon.findContainConditions(serviceTypes)
                 } else {
