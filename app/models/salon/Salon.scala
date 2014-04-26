@@ -541,8 +541,7 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
      */
     def isValid(value:String,
                 loggedSalon:Salon,
-                f:String => Option[Salon]) = f(value).map( _.id==loggedSalon.id).getOrElse(true)
-
+                f:String => Option[Salon]) = f(value).map(_.id==loggedSalon.id).getOrElse(true)
 }
 
 /*----------------------------

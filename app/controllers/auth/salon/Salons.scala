@@ -682,17 +682,10 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
                 Ok(Menu.checkMenuIsExist(value, salon.id).toString)
             case ITEM_TYPE_SERVICE =>
                 Ok(Service.checkServiceIsExist(value, salon.id).toString)
-        }
-    }
-
-    /**
-     * checks for nickName，salonName，salonNameAbbr
-     */
-    def checkIsValid(value:String, key : String) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
-        val loggedSalon = loggedIn
-        key match {
             case  ITEM_TYPE_NAME_ABBR =>
-                Ok((!Salon.isValid(value, loggedSalon, Salon.findOneBySalonName) || !Salon.isValid(value, loggedSalon, Salon.findOneBySalonNameAbbr)).toString)
+                Ok((User.isExist(value,User.findOneByNickNm)||
+                    !Salon.isValid(value, salon, Salon.findOneBySalonName)||
+                    !Salon.isValid(value, salon, Salon.findOneBySalonNameAbbr)).toString)
         }
     }
 }

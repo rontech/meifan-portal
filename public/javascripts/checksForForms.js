@@ -154,7 +154,7 @@ function checkedAccountId(){
         $("#accountId").parent("dd").next().text('该登录ID不合法，请重新输入').removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    jsRoutes.controllers.Application.itemIsExist(salonId, ITEM_TYPE_ID).ajax({
+    jsRoutes.controllers.noAuth.Users.checkIsExist(salonId, ITEM_TYPE_ID).ajax({
         async: false,
         cache: false,
         type: 'POST',
@@ -168,8 +168,7 @@ function checkedAccountId(){
                 $("#accountId").parent("dd").next().text("该登录ID已被使用，请重新输入").removeClass("trueMsg").addClass("errorMsg");
             }
         },
-        error: function(err){
-            alert("err"+err.status);
+        error:function(err){
             $('#accountId  ~ .help-inline').text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
             $("#accountId").parent("dd").next().text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
         }
@@ -236,7 +235,7 @@ function checkedEmail(){
         $("#contact_email").parent("dd").next().text("该邮箱地址不合法，请重新输入").removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    jsRoutes.controllers.Application.itemIsExist(email, ITEM_TYPE_EMAIL).ajax({
+    jsRoutes.controllers.noAuth.Users.checkIsExist(email, ITEM_TYPE_EMAIL).ajax({
         cache: false,
         async: false,
         type: 'POST',
@@ -251,6 +250,7 @@ function checkedEmail(){
             }
         },
         error: function(err){
+            alert("123123"+err.status);
             $('#contact_email  ~ .help-inline').text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
             $("#contact_email").parent("dd").next().text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
         }
@@ -281,15 +281,15 @@ function checkedSalonName(){
     //TODO
     var salonName=$("#salonName").val();
     var len = salonName.replace(/[^\x00-\xff]/g, "**").length;
-    if (len < 4||len  > 40){
-        $("#salonName ~ .help-inline").text("店铺名不合法，请重新输入").removeClass("trueMsg").addClass("errorMsg");
-        return;
-    }
     if (salonName == ""){
         $("#salonName ~ .help-inline").text("店铺名不能为空").removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    jsRoutes.controllers.Application.itemIsExist(salonName, ITEM_TYPE_NAME).ajax({
+    if (len < 4||len  > 40){
+        $("#salonName ~ .help-inline").text("店铺名长度不合法，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+        return;
+    }
+    jsRoutes.controllers.noAuth.Users.checkIsExist(salonName, ITEM_TYPE_NAME).ajax({
         async: false,
         cache: false,
         type: 'POST',
@@ -312,7 +312,7 @@ function checkedSalonName(){
  */
 function checkedSalonNameAbbr(){
     var salonNameAbbr=$("#salonNameAbbr").val();
-    var len = salonName.replace(/[^\x00-\xff]/g, "**").length;
+    var len = salonNameAbbr.replace(/[^\x00-\xff]/g, "**").length;
     if (salonNameAbbr == ""){
         $("#salonNameAbbr ~ .help-inline").text("店铺名略称不能为空").removeClass("trueMsg").addClass("errorMsg");
         return;
@@ -321,7 +321,7 @@ function checkedSalonNameAbbr(){
         $("#salonNameAbbr ~ .help-inline").text("店铺名略称不合法，请重新输入").removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    jsRoutes.controllers.Application.itemIsExist(salonNameAbbr, ITEM_TYPE_NAME_ABBR).ajax({
+    jsRoutes.controllers.auth.Salons.itemIsExist(salonNameAbbr, ITEM_TYPE_NAME_ABBR).ajax({
         async: false,
         cache: false,
         type: 'POST',
@@ -350,7 +350,7 @@ function checkedNickName(){
         $("#nickName").parent("dd").next().text("昵称不合法，请输入1~10位字符").removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    jsRoutes.controllers.Application.itemIsExist(nickName, ITEM_TYPE_NAME).ajax({
+    jsRoutes.controllers.noAuth.Users.checkIsExist(nickName, ITEM_TYPE_NAME).ajax({
         async: false,
         cache: false,
         type: 'POST',
@@ -623,7 +623,7 @@ function checksForSalonDetail(){
 /**
  * checks for coupon
  */
-$('#couponName').blur(function(){
+$('#couponName').change(function(){
     checkedCouponName()
 });
 function checkedCouponName(){
@@ -635,15 +635,15 @@ function checkedCouponName(){
     }
     if(len < 4|| len > 40){
         $("#couponName").parent("dd").next().text('该优惠券名不合法，请重新输入').removeClass("trueMsg").addClass("errorMsg");
-    }else{
-        $("#couponName").parent("dd").next().text('').removeClass("errorMsg").addClass("trueMsg");
+        return;
     }
-    jsRoutes.controllers.noAuth.routes.Users.checkIsExist(value, ITEM_TYPE_COUPON).ajax({
+    jsRoutes.controllers.auth.Salons.itemIsExist(value, ITEM_TYPE_COUPON).ajax({
         async: false,
         cache: false,
         type: 'POST',
         success: function(data){
             if (data == "false"){
+
                 $("#couponName").parent("dd").next().text("").removeClass("errorMsg").addClass("trueMsg");
             }
             else{
@@ -651,6 +651,7 @@ function checkedCouponName(){
             }
         },
         error: function(err){
+            alert("123123123123"+err.status);
             $("#couponName").parent("dd").next().text("很抱歉！检测失败，请稍候重试！").removeClass("trueMsg").addClass("errorMsg");
         }
     });
@@ -776,7 +777,7 @@ function checksForCoupon(){
  *checks for menus
  */
 
-$('#menuName').blur(function(){
+$('#menuName').change(function(){
     checkedMenuName();
 });
 
@@ -792,7 +793,7 @@ function checkedMenuName(){
     }else{
         $("#menuName").parent("dd").next().text('').removeClass("errorMsg").addClass("trueMsg");
     }
-    jsRoutes.controllers.Application.itemIsExist(value, ITEM_TYPE_MENU).ajax({
+    jsRoutes.controllers.auth.Salons.itemIsExist(value, ITEM_TYPE_COUPON).ajax({
      async: false,
      cache: false,
      type: 'POST',
@@ -827,7 +828,7 @@ function checksForMenu(){
 /**
  *checks for service
  */
-$('#serviceName').blur(function(){
+$('#serviceName').change(function(){
    checkedServiceName();
 });
 
@@ -843,7 +844,7 @@ function checkedServiceName(){
     }else{
         $("#serviceName").parent("dd").next().text('').removeClass("errorMsg").addClass("trueMsg");
     }
-    jsRoutes.controllers.Application.itemIsExist(value, ITEM_TYPE_MENU).ajax({
+    jsRoutes.controllers.auth.Salons.itemIsExist(value, ITEM_TYPE_COUPON).ajax({
         async: false,
         cache: false,
         type: 'POST',
@@ -898,7 +899,7 @@ function checksForService(){
  *
  */
 
-$('#StyleName').blur(function(){
+$('#StyleName').change(function(){
     checkStyleName()
 });
 

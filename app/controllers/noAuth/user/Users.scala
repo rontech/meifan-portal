@@ -78,7 +78,7 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
     /**
      * checks for email,nickName,accountId,phone
      */
-    /*def checkIsExist(value:String, key : String) = StackAction{implicit request =>
+    def checkIsExist(value:String, key : String) = StackAction{implicit request =>
         val loggedUser = loggedIn
         key match{
             case ITEM_TYPE_ID =>
@@ -89,16 +89,10 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
                 }else{
                     Ok("true")
                 }
-            case ITEM_TYPE_NAME_ABBR =>
-                if(User.isExist(value,User.findOneByNickNm)){
-                    Ok("true")
-                }else{
-                    Redirect(controllers.auth.routes.Salons.checkIsValid(value,key))
-                }
             case ITEM_TYPE_EMAIL =>
                 Ok((!User.isValid(value, loggedUser, User.findOneByEmail)).toString)
             case ITEM_TYPE_TEL =>
                 Ok((!User.isValid(value, loggedUser, User.findOneByTel)).toString)
         }
-    }*/
+    }
 }

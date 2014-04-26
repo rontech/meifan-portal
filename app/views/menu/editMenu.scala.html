@@ -26,8 +26,11 @@
 	            </th>
 	            <td>
 	                <div class="inputField">
-	                	@inputText(menuForm("menuName"), '_label -> None, '_help -> Messages(""), 'id -> "menuName",
-						'_error -> menuForm("menuName").error.map(_.withMessage(Messages("menu.menuNameRequired"))))
+	                	@inputText(menuForm("menuName"),
+                            '_label -> None,
+                            '_help -> Messages(""),
+                            'id -> "menuName",
+                            'readonly ->true)
 	                </div>
 	            </td>
 	        </tr>

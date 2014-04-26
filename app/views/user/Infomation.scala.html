@@ -122,7 +122,10 @@
 				                </div>
 				            </th>
 				            <td>
-				               @inputText(userForm("email"),'_label -> None, 'readonly -> "true", '_help -> Messages(""))
+				               @inputText(userForm("email"),
+                                   'id -> "contact_email",
+                                   '_label -> None,
+                                   '_help -> Messages(""))
 				            </td>
 				        </tr>
 				        <tr>

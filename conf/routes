@@ -4,10 +4,8 @@
 
 # Home page
 GET         /                                                                    controllers.Application.index
-POST        /checkRegisterForms/:value/:key                                      controllers.Application.itemIsExist(value, key)
-POST        /checkIsExist/:value/:key                                            controllers.auth.Users.checkIsExist(value, key)
+POST        /checkIsExist/:value/:key                                            controllers.noAuth.Users.checkIsExist(value, key)
 POST        /itemIsExist/:value/:key                                             controllers.auth.Salons.itemIsExist(value, key)
-POST        /checkIsValid/:value/:key                                            controllers.auth.Salons.checkIsValid(value, key)
 POST        /checkStyleForm/:value/:key                                          controllers.auth.Stylists.itemIsExist(value,key)
 
 # User Login & Register & Public Info.

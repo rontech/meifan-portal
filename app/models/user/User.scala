@@ -131,7 +131,10 @@ object User extends ModelCompanion[User, ObjectId] {
      * @return
      */
     def isValid(value:String,
-                loggedUser:User,
+                loggedUser:Option[User],
                 f:String => Option[User]) =
-        f(value).map(_.id==loggedUser.id).getOrElse(true)
+        f(value).map(
+            user =>
+                loggedUser.map(_.id ==user.id).getOrElse(false)
+            ).getOrElse(true)
 }

@@ -32,8 +32,9 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
         Ok(Routes.javascriptRouter("jsRoutes")(
             auth.routes.javascript.MyFollows.addFollow,
             routes.javascript.Application.uploadWithAjax,
-            routes.javascript.Application.itemIsExist,
-            auth.routes.javascript.Stylists.itemIsExist
+            auth.routes.javascript.Stylists.itemIsExist,
+            auth.routes.javascript.Salons.itemIsExist,
+            noAuth.routes.javascript.Users.checkIsExist
         )).as("text/javascript")
     }
 
@@ -59,10 +60,32 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
         Ok(views.html.salon.salonManage.salonRegister(Salons.salonRegister,industry))
     }
 
-    def itemIsExist(value:String, key:String) = Action {
-        Redirect(auth.routes.Users.checkIsExist(value, key))
-    }
-    
+    /*def itemIsExist(value:String, key:String, accountId :String) = Action {
+        //Redirect(auth.routes.Users.checkIsExist(value, key))
+        /*val loggedUser = User.findOneByUserId(accountId)
+        val loggedSalon = Salon.findByAccountId(accountId)
+            key match{
+                case ITEM_TYPE_ID =>
+                    Ok((User.isExist(value, User.findOneByUserId)||Salon.isExist(value, Salon.findByAccountId)).toString)
+                case ITEM_TYPE_NAME =>
+                if(User.isValid(value, loggedUser, User.findOneByNickNm)){
+                    Ok((Salon.isExist(value,Salon.findOneBySalonName)||Salon.isExist(value,Salon.findOneBySalonNameAbbr)).toString)
+                }else{
+                    Ok("true")
+                }
+                case ITEM_TYPE_NAME_ABBR =>
+                    if(User.isExist(value,User.findOneByNickNm)){
+                        Ok("true")
+                    }else{
+                        Ok((!Salon.isValid(value, loggedSalon, Salon.findOneBySalonName) || !Salon.isValid(value, loggedSalon, Salon.findOneBySalonNameAbbr)).toString)
+                    }
+                case ITEM_TYPE_EMAIL =>
+                    Ok((!User.isValid(value, loggedUser, User.findOneByEmail)).toString)
+                case ITEM_TYPE_TEL =>
+                    Ok((!User.isValid(value, loggedUser, User.findOneByTel)).toString)
+            }*/
+    }*/
+
     def getPhoto(file: ObjectId) = Action {
 
         import com.mongodb.casbah.Implicits._

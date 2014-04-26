@@ -37,7 +37,6 @@ trait UserAuthConfigImpl extends AuthConfig {
 
   def authorizationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful{
       Status(play.api.http.Status.FORBIDDEN)
-
   }
 
   def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = authority(user)

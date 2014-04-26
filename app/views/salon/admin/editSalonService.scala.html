@@ -20,7 +20,7 @@
                           </th>
                           <td>
                               <div class="inputField">
-                              @inputText(serviceForm("serviceName"), '_label -> None, 'id -> "serviceName",
+                              @inputText(serviceForm("serviceName"), '_label -> None, 'id -> "serviceName", 'readonly ->true,
                                   '_error -> serviceForm("serviceName").error.map(_.withMessage(Messages("service.addErrorMsg")))
                               )
                               </div>
