@@ -31,7 +31,7 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
       menu => Some((menu.menuName, menu.salonId.toString, menu.serviceItems, menu.description))
     }.verifying(
         Messages("menu.menuNameRepeat"),
-        menu => !Menu.checkMenuIsExit(menu.menuName, menu.salonId)   
+        menu => !Menu.checkMenuIsExist(menu.menuName, menu.salonId)
     )
   }
   
@@ -194,12 +194,12 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
 
                 val serviceTypes: List[ServiceType] = ServiceType.findAllServiceTypes(salon.salonIndustry)
                 if(serviceType.subMenuFlg == None) {
-                    //coupons = Coupon.findContainCondtions(serviceTypes)
+                    //coupons = Coupon.findContainConditions(serviceTypes)
                 } else {
                     if(serviceType.serviceTypes.isEmpty) {
                         menus = Menu.findBySalon(salon.id)
                     } else {
-                        menus = Menu.findContainCondtions(conditions, salon.id)
+                        menus = Menu.findContainConditions(conditions, salon.id)
                     }
                 }
                Ok(html.salon.admin.mySalonMenuAll(salon, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))

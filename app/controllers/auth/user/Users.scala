@@ -14,6 +14,11 @@ import play.api.i18n.Messages
 import org.mindrot.jbcrypt.BCrypt
 import controllers._
 import play.api.data.validation.Constraints._
+import utils.Const._
+import scala.Some
+import models.StylistApply
+import models.OptContactMethod
+import models.Address
 
 object Users extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl {
 
@@ -299,8 +304,6 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
       }getOrElse{
          NotFound
       }
-      
-  }  
-
+  }
 
 }

@@ -40,7 +40,7 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
           coupon.endDate, coupon.useConditions, coupon.presentTime, coupon.description))
     }.verifying(
         Messages("coupon.couponNameRepeat"),
-        coupon => !Coupon.checkCouponIsExit(coupon.couponName, coupon.salonId)
+        coupon => !Coupon.checkCouponIsExist(coupon.couponName, coupon.salonId)
     ).verifying(Messages("coupon.endDateGtstartMsg"),
         coupon => coupon.startDate.before(coupon.endDate))
   }
@@ -244,12 +244,12 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
 
                 val serviceTypes: List[ServiceType] = ServiceType.findAllServiceTypes(salon.salonIndustry)
                 if(serviceType.subMenuFlg == None) {
-                    //coupons = Coupon.findContainCondtions(serviceTypes)
+                    //coupons = Coupon.findContainConditions(serviceTypes)
                 } else {
                     if(serviceType.serviceTypes.isEmpty) {
                         coupons = Coupon.findBySalon(salon.id)
                     } else {
-                        coupons = Coupon.findContainCondtions(conditions, salon.id)
+                        coupons = Coupon.findContainConditions(conditions, salon.id)
                     }
                 }
                Ok(html.salon.admin.mySalonCouponAll(salon, Coupons.conditionForm.fill(couponServiceType), serviceTypes, coupons))

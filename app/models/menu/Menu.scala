@@ -46,15 +46,15 @@ object Menu extends ModelCompanion[Menu, ObjectId]{
     def findValidMenusBySalon(salonId: ObjectId): List[Menu] = dao.find(MongoDBObject("salonId" -> salonId, "isValid" -> true)).toList
     
     // 查找沙龙中是否已存在该菜单
-    def checkMenuIsExit(menuName: String, salonId: ObjectId) = dao.find(DBObject("menuName" -> menuName, "salonId" -> salonId)).hasNext
+    def checkMenuIsExist(menuName: String, salonId: ObjectId) = dao.find(DBObject("menuName" -> menuName, "salonId" -> salonId)).hasNext
     
     // 查找出该沙龙符合条件的所有菜单
-    def findContainCondtions(serviceTypes: Seq[String], salonId: ObjectId): List[Menu] = {
+    def findContainConditions(serviceTypes: Seq[String], salonId: ObjectId): List[Menu] = {
     	dao.find($and("serviceItems.serviceType" $all serviceTypes, DBObject("salonId" -> salonId))).toList
     }
     
     // 查找出该沙龙符合条件的有效的菜单
-    def findValidMenusByCondtions(serviceTypes: Seq[String], salonId: ObjectId): List[Menu] = {
+    def findValidMenusByConditions(serviceTypes: Seq[String], salonId: ObjectId): List[Menu] = {
     	dao.find($and("serviceItems.serviceType" $all serviceTypes, DBObject("salonId" -> salonId, "isValid" -> true))).toList
     }
     
@@ -62,7 +62,7 @@ object Menu extends ModelCompanion[Menu, ObjectId]{
     	dao.find("menuName" $eq menuName).toList
     }
     
-    def findByCondtions(serviceTypes: Seq[String], menuName: String): List[Menu] = {
+    def findByConditions(serviceTypes: Seq[String], menuName: String): List[Menu] = {
     	dao.find($and("serviceItems.serviceType" $all serviceTypes, "menuName" $eq menuName)).toList
     }
 

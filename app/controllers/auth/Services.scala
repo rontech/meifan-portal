@@ -28,7 +28,7 @@ object Services extends Controller with AuthElement with SalonAuthConfigImpl{
         service => Some((service.id, service.serviceName, service.description, service.serviceType, service.salonId.toString(), service.price, service.duration))
       }.verifying(
         Messages("service.serviceNameNotAvalid"),
-        service => !Service.checkService(service.serviceName, service.salonId)   
+        service => !Service.checkServiceIsExist(service.serviceName, service.salonId)
     )
   )
   

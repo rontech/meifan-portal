@@ -346,15 +346,11 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
       
   }
   
-  def itemIsExist(value:String, key:String, stylistId:String, table:String) = Action {
-    
+  def itemIsExist(value:String, key:String) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+        val stylist = loggedIn
         key match{
-            case ITEM_TYPE_NAME =>
-              table match{
-                case ITEM_TYPE_STYLE =>
-                  Ok((Style.isExist(value, stylistId, Style.findByNameAndStylist)).toString)
-            }
-                
+            case ITEM_TYPE_STYLE =>
+                Ok((Style.checkStyleIsExist(value,stylist.id)).toString)
         }
   }
 }

@@ -13,6 +13,9 @@ import play.api.i18n.Messages
 import jp.t2v.lab.play2.auth._
 import org.mindrot.jbcrypt.BCrypt
 import controllers._
+import utils.Const._
+import models.OptContactMethod
+import scala.Some
 
 object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl{
 
@@ -60,7 +63,7 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
   /**
    * 浏览他人主页
    */
-  def userPage(userId : String) = StackAction{ implicit request =>
+  def userPage(userId : String) = StackAction{implicit request =>
       User.findOneByUserId(userId).map{ user =>
         if((user.userTyp.toUpperCase()).equals("NORMALUSER")) {
           Redirect(controllers.noAuth.routes.Blogs.getAllBlogsOfUser(userId))
@@ -70,7 +73,26 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
       }getOrElse{
          NotFound
       }
-      
-      
   }
+
+    /**
+     * checks for email,nickName,accountId,phone
+     */
+    def checkIsExist(value:String, key : String) = StackAction{implicit request =>
+        val loggedUser = loggedIn
+        key match{
+            case ITEM_TYPE_ID =>
+                Ok((User.isExist(value, User.findOneByUserId)||Salon.isExist(value, Salon.findByAccountId)).toString)
+            case ITEM_TYPE_NAME =>
+                if(User.isValid(value, loggedUser, User.findOneByNickNm)){
+                    Ok((Salon.isExist(value,Salon.findOneBySalonName)||Salon.isExist(value,Salon.findOneBySalonNameAbbr)).toString)
+                }else{
+                    Ok("true")
+                }
+            case ITEM_TYPE_EMAIL =>
+                Ok((!User.isValid(value, loggedUser, User.findOneByEmail)).toString)
+            case ITEM_TYPE_TEL =>
+                Ok((!User.isValid(value, loggedUser, User.findOneByTel)).toString)
+        }
+    }
 }
