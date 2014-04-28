@@ -9,8 +9,8 @@
             <form action="@noAuth.routes.GeneralSearch.getGeneralSearch" method="POST">
                 <div id="uboxstyle">
                     <select name="category" id="select">
-                        <option value="Top")" @if(nav == "Top") {selected="selected"}> @Messages("common.all") </option>
-                        <option value="HairSalon")" @if(nav == "HairSalon") {selected="selected"}> @Messages("main.hairSalon") </option>
+                        <option value="Top" @if(nav == "Top") {selected="selected"}> @Messages("common.all") </option>
+                        <option value="HairSalon" @if(nav == "HairSalon") {selected="selected"}> @Messages("main.hairSalon") </option>
                         <option value="HairCatalog" @if(nav == "HairCatalog") {selected="selected"}> @Messages("main.hairCatalog") </option>
                         <option value="NailSalon" @if(nav == "NailSalon") {selected="selected"}> @Messages("main.nailSalon") </option>
                         <option value="NailCatalog" @if(nav == "NailCatalog") {selected="selected"}> @Messages("main.nailCatalog") </option>
