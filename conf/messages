@@ -953,26 +953,32 @@ salonRelax.bodySpa=全身SPA
 salonRelax.sportSpa=瘦身健美
 salonRelax.yoGa=瑜伽
 
-#salonSerachPage
-salonSerachPage.city = 城市
-salonSerachPage.location = 位置：
-salonSerachPage.region = 地区
-salonSerachPage.businessArea = 商圈
-salonSerachPage.keyword = 关键词
-salonSerachPage.manualDefine = 自定义
-salonSerachPage.confirm = 确定
-salonSerachPage.setNumber = 座位数
-salonSerachPage.unlimited = 不限
-salonSerachPage.otherCondtion = 店铺设备
-salonSerachPage.otherCondtion = 其它 
-salonSerachPage.over = 元以上
-salonSerachPage.rmb = 元
-salonSerachPage.below = 元以下
-salonSerachPage.meifanRec = 美范推荐
-salonSerachPage.sortByHot = 热度
-salonSerachPage.sortByPrice = 价格
-salonSerachPage.sortByComment = 评论
-salonSerachPage.serviceType = 服务类别
-salonSerachPage.brand = 品牌
-salonSerachPage.requiredCity = 请输入城市名称
-salonSerachPage.cannotFind = 对不起，找不到
+#salonSearchPage
+salonSearchPage.city = 城市
+salonSearchPage.location = 位置：
+salonSearchPage.region = 地区
+salonSearchPage.businessArea = 商圈
+salonSearchPage.keyword = 关键词
+salonSearchPage.manualDefine = 自定义
+salonSearchPage.confirm = 确定
+salonSearchPage.setNumber = 座位数
+salonSearchPage.unlimited = 不限
+salonSearchPage.otherCondtion = 店铺设备
+salonSearchPage.otherCondtion = 其它 
+salonSearchPage.over = 元以上
+salonSearchPage.rmb = 元
+salonSearchPage.below = 元以下
+salonSearchPage.serviceType = 服务类别
+salonSearchPage.brand = 品牌
+# for example: 点击按评价由高到低; 点击按价格由低到高; 点击按热度由高到低;
+salonSearchPage.sortTips=点击按{0}{1}
+# for example: 按评价由高到低; 按价格由低到高; 按热度由高到低;
+salonSearchPage.sortTipsDef=按{0}{1}
+salonSearchPage.sortAsc=由低到高
+salonSearchPage.sortDesc=由高到低
+salonSearchPage.meifanRecomm = 美范推荐
+salonSearchPage.sortByPopularity = 人气 
+salonSearchPage.sortByPrice = 价格
+salonSearchPage.sortByReview = 评价
+salonSearchPage.requiredCity = 请输入城市名称
+salonSearchPage.cannotFind = 对不起，找不到

@@ -895,3 +895,7 @@ margin: 5px;
 .lt {
 	text-decoration: line-through;
 }
+
+.pointerCursor {
+  cursor: pointer;
+}
