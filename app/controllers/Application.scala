@@ -34,7 +34,10 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
             routes.javascript.Application.uploadWithAjax,
             auth.routes.javascript.Stylists.itemIsExist,
             auth.routes.javascript.Salons.itemIsExist,
-            noAuth.routes.javascript.Users.checkIsExist
+            noAuth.routes.javascript.Users.checkIsExist,
+            auth.routes.javascript.MyFollows.followedCoupon,
+            auth.routes.javascript.MyFollows.followedBlog,
+            auth.routes.javascript.MyFollows.followedStyle
         )).as("text/javascript")
     }
 
