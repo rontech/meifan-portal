@@ -888,10 +888,68 @@ height: 100px;
     padding-left: 20px;
 }
 
-div.inputField {
-margin: 5px;
+.inputField {
+margin: 15px 5px;
 }
 
 .lt {
 	text-decoration: line-through;
+}
+
+.mainContentsSecondTitleInnerForAdmin {
+line-height: 21px;
+border-bottom: 1px solid #666666;
+background: none;
+padding-bottom: 1px;
+font-size: 14px;
+font-weight: bold;
+color: #444444;
+padding: 3px;
+}
+
+.searchBtn {
+background: #f09499;
+vertical-align: middle;
+width: 60px;
+height: 28px;
+border: none;
+color: #fff;
+cursor: pointer;
+}
+
+.serviceItemArea {
+float: left;
+min-width: 120px;
+margin: 5px 0;
+}
+
+.btnArea {
+border-top: 1px solid #dedddc;
+margin-top: 10px;
+text-align: center;
+}
+
+div.btnArea .buttons{
+background: #f09499;
+margin-top: 30px;
+width: 50px;
+height: 28px;
+border: none;
+color: #fff;
+margin-right: 20px;
+cursor: pointer;
+padding: 0;
+}
+
+.buttons {
+background: #f09499;
+padding: 7px;
+border: none;
+color: #fff;
+cursor: pointer;
+}
+
+a:hover.buttons {
+	text-decoration: none;
+	color: #fff;
 }

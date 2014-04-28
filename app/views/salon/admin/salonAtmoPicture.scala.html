@@ -2,47 +2,11 @@
 
 @import helper._
 @import helper.twitterBootstrap._
-@import views.html.salon.admin.mySalonMain
+@import views.html.salon.admin.mySalonPictureMain
 
-@mySalonMain("checkSalonInfo", salon){
-	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-		<tbody>	
-		</tbody>
-	</table>		
-	<div>
-		<ul class="bS menuBG cFix">
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonRegister">@Messages("salonCheckInfoState.register")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>		
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonBasic">@Messages("salonCheckInfoState.basicInfo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonDetail"> @Messages("salonCheckInfoState.detail")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.pictures")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-		</ul>
-	</div>
+@mySalonPictureMain("my-atmoPicture", salon){
 	<body>
 	@form(auth.routes.Salons.updateSalonPics(), 'id -> "styleAddForm"){		
-	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-		<tbody>	
-		</tbody>
-	</table>		
-	<div>
-		<ul class="bS menuBG cFix">
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.uploadpics")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>		
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonAtmoPicture">@Messages("salonCheckInfoState.uploadAtom")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonLogoPicture">@Messages("salonCheckInfoState.uploadLogo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonCheckPicture">@Messages("salonCheckInfoState.uploadStore")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-		</ul>
-	</div>
 	<div class="demo">
 		<div class="logoupload">
 			<div class="btnbox">

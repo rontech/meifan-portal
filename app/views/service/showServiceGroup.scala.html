@@ -1,6 +1,6 @@
 @(salon: Salon, serviceList: List[Service], serviceTypeNameList: List[String], serviceTypeInserviceList : List[String])
 
-<div class="showMenu">
+<div class="showMenu mT40">
 <div class="taC fr">
     <a href="@auth.routes.Services.serviceMain"
     class="iS arrowR">
@@ -12,7 +12,7 @@
     </a>
 </div>
 <div class="yS mainContentsSecondTitleOuter">
-	<h2 class="yS mainContentsSecondTitleInner">@Messages("service.title", salon.salonName)</h2>
+	<h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("service.title", salon.salonName)</h2>
 </div>
 
 <div>

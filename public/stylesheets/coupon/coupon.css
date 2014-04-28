@@ -728,11 +728,6 @@ width: 76%;
 border-bottom: 1px solid #dedddc;
 }
 
-.btnArea {
-border-top: 1px solid #dedddc;
-margin-top: 10px;	
-}
-
 .couponInfo {
 margin-top: 10px;
 }
@@ -758,16 +753,6 @@ float: left;
 .serviceArea {
 border: 1px solid #c1c7c5;
 margin-bottom: 10px;
-}
-
-.serviceItemArea {
-float: left;
-min-width: 80px;
-}
-
-#couponForm > div.btnArea .buttons {
-background: #feeedf;
-margin-top: 10px;
 }
 
 .couponInfo .serviceArea dl {

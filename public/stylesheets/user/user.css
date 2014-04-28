@@ -425,7 +425,7 @@
       color: #333333;
     }
     .Owner {
-      background: #ad4a23;
+      background: #f09499;
       padding: 15px 5px 15px 10px;
       position: relative;
     }
@@ -465,13 +465,14 @@
     }
     .Owner span.U {
       float: left;
-      width: 130px;
+      width: 120px;
+      margin-top: 10px;
     }
     .Owner span.U .Name {
       color: #FFF;
       font-size: 14pt;
       display: block;
-      margin: 0 0 12px 0;
+      margin-bottom: 5px;
       font-weight: bold;
       word-wrap: break-word;
     }
@@ -489,6 +490,11 @@
       background-color: #fff;
       color: #ad4a23;
     }
+    .opts img {
+	width: 14px;
+	top: -4.5px;
+	position: relative;
+	}
     .Owner a#gender_icon {
       text-indent: -9999px;
       background-color: #ad4a23;
@@ -506,6 +512,9 @@
     .Owner .stat a span {
       font-size: 9pt;
     }
+    div.sta {
+	float: right;
+	}
     .Resume {
       background: #ae6755 url('/img/2012/resume24.png') no-repeat left bottom;
       margin: 3px 0 0 0;
@@ -581,8 +590,8 @@
     }
     .Mod strong {
       display: block;
-      font-size: 12pt;
-      border-bottom: 2px solid #ae6755;
+      font-size: 14px;
+      border-bottom: 2px solid #f09499;
       padding: 0 10px 5px 10px;
       color: #666666;
     }
@@ -965,9 +974,14 @@
     }
     .RMod {
       border: 1px solid #eee;
-      background: #fff;
-      padding: 10px;
+	  background: #f09499;
+	  padding: 5px;
+	  text-align: center;
     }
+    .RMod a {
+	color: #fff;
+	font-size: 14px;
+	}
     .RMod strong {
       color: #333333;
       display: block;
@@ -2545,22 +2559,6 @@
 @charset "utf-8";
 
 
-#headerWrapper {
-	border-bottom: 2px solid #998a8a;
-	border-top: 16px solid #BFB4AB;
-	zoom: 1;
-}
-#header {
-	width: 1000px;
-	margin: 0 auto -2px;
-	position: relative;
-	border-bottom: 2px solid #998a8a;
-}
-#headerWrapperMy {
-	border-bottom: 2px solid #999999;
-	border-top:    16px solid #BFB4AB;
-	zoom: 1;
-}
 #headerMy {
 	width: 1000px;
 	margin: 0 auto -2px;
@@ -2776,53 +2774,10 @@
 	margin-top: 30px;
 }
 
-#footer {
-	height: 60px;
-	border-top: 1px solid #DDDDDD;
-	padding-top: 10px;
-	margin-top: 20px;
-	position: relative;
-}
-#copyright {
-	position: absolute;
-	top: 10px;
-	left: 30px;
-}
-#footerLinks {
-	font-size: 10px;
-	overflow: hidden;
-	position: absolute;
-	top: 20px;
-	right: 30px;
-}
-#footerLinks li {
-	float: left;
-	border-right: 1px solid #DDD;
-	padding-right: 15px;
-	*padding-right: 16px;
-	margin-left: 15px;
-	margin-right: -1px;
-}
-
 #copyrightnew {
 	float:left;
 	margin : 0 10px ;
 }
-
-.postSalonInfo {
-	position: absolute;
-	top: 20px;
-	left: 320px;
-	background: url("/CSP/img/common/icon_postsalon.png?switch=20140227") no-repeat left top;
-	padding-left: 20px;
-	line-height: 16px;
-	font-weight: bold;
-}
-.postSalonInfo a {
-	margin-left: 5px;
-	font-weight: normal;
-}
-
 #popUpWrapper {
 	width: 580px;
 	background-color: #FFFFFF;
@@ -3291,8 +3246,7 @@
 	*width: 1.5em;
 	height: 1.5em;
 	vertical-align: middle;
-	margin: 0 5px 0 5px;
-	*margin: 0 2px 0 3px;
+	margin: 10px 5px;
 	padding: 0;
 }
 .sbmF {
@@ -5620,3 +5574,157 @@ overflow: hidden;
 #couponForm dd, #menuForm dd {
 display: inline-block;
 }
+
+
+/*右边快捷菜单的样式 ST*/
+.sns-tab {
+position: relative;
+z-index: 1;
+margin-top: 10px;
+}
+
+.tab-app ul {
+border-bottom: 1px solid #dcdcdc;
+padding-left: 10px;
+margin-bottom: -1px;
+}
+
+.sns-tab ul {
+position: relative;
+z-index: 10;
+height: 24px;
+}
+
+.tab-app li.selected {
+border: 1px solid #DCDCDC;
+border-bottom: none;
+background-color: #fff;
+}
+
+.tab-app ul li {
+margin-bottom: -1px;
+}
+
+.sns-tab ul li {
+float: left;
+position: relative;
+z-index: 10;
+margin: 0 3px;
+font-size: 13px;
+}
+
+.tab-app li a, .tab-app li a:visited {
+height: 25px;
+line-height: 25px;
+font-weight: normal;
+color: #913a43;
+text-decoration: none;
+}
+
+.tab-app li.selected a, .tab-app li.selected a:visited {
+color: #333;
+text-decoration: none;
+font-weight: bold;
+}
+
+.tab-app li.selected a {
+height: 24px;
+line-height: 23px;
+}
+
+.sns-tab ul li a {
+float: left;
+padding: 0 10px;
+text-decoration: none;
+}
+
+.tab-app li a:hover {
+border: 1px solid #dcdcdc;
+border-bottom: none;
+height: 24px;
+line-height: 23px;
+padding: 0 9px;
+background-color: #fff;
+margin-bottom: 1px;
+color: #000;
+text-decoration: none;
+}
+
+.tab-app li.selected a:hover {
+border: none;
+height: 23px;
+padding: 0 10px;
+}
+
+ul.tab-sub {
+border-bottom: 1px solid #D1D1D1;
+padding: 5px 10px 4px 10px;
+background-color: #fff;
+border-top: 1px solid #dcdcdc;
+z-index: 1;
+height: 25px;
+}
+
+ul.tab-sub li {
+border: none;
+background: none;
+float: left;
+position: relative;
+z-index: 10;
+margin: 0 3px;
+margin-bottom: 0;
+}
+
+.tab-sub li a, .tab-sub li a:visited{
+height: 25px;
+line-height: 25px;
+color: #313131;
+text-decoration: none;
+font-weight: 100;
+padding: 0 10px;
+}
+
+ul.tab-sub li a:hover {
+border: 1px solid #dcdcdc;
+height: 25px;
+line-height: 25px;
+padding: 3px 9px;
+background-color: #fff;
+margin-bottom: 1px;
+text-decoration: none;
+}
+
+ul.tab-sub li.selected a:hover{
+border: 1px solid #dcdcdc;
+height: 25px;
+line-height: 25px;
+padding: 3px 9px;
+}
+
+ul.tabInfoTitle li.selected{
+border: 1px solid #dcdcdc;
+height: 25px;
+line-height: 25px;
+padding: 0 5px;
+margin: 0 5px;
+font-weight: bold;
+}
+
+ul.tabInfoTitle {
+height: 32px;
+border-bottom: 1px solid #dcdcdc;
+margin-top: 5px;
+}
+
+.tab-sub li.selected a, .tab-sub li.selected a:visited {
+color: #666;
+font-weight: 700;
+border: 1px solid #dcdcdc;
+padding: 3px 9px;
+text-decoration: none;
+}
+
+ul.sub-sub {
+margin-top: -1px;
+}
+/*右边快捷菜单的样式 e*/

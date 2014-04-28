@@ -134,3 +134,21 @@ display: none;
 table.display03 {
 display: none;
 }
+
+.account .input {
+height: 27px;
+}
+
+a.addAccount.buttons.success {
+position: relative;
+top: -29px;
+}
+
+div.isCan .clearfix {
+min-width: 110px;
+margin: 5px 25px 5px 5px;
+}
+
+div.isCan .clearfix label {
+	float: right;
+}
