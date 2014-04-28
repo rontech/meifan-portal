@@ -82,11 +82,9 @@
     				(@SalonAndStylist.countStylistBySalon(salon.id))</a><br />
     				<a href="@auth.routes.Salons.checkHoldApply">
                 	@Messages("salonAdmin.fromStylistApply")
-                	(
                 		 <span id="reviewCount">
-                               @SalonStylistApplyRecord.applingStylistCount(salon.id)
+                               (@SalonStylistApplyRecord.applingStylistCount(salon.id))
                          </span>
-                	)
                 	</a>
     				</div>
 			</div>
@@ -156,7 +154,7 @@
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-       					<a href="@auth.routes.Salons.myService">@Messages("salonAdmin.checkServiceIsExist")</a>
+       					<a href="@auth.routes.Salons.myService">@Messages("salonAdmin.checkService")</a>
      				</div>
 			</div>
 
@@ -268,7 +266,8 @@
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-       					<a>@Messages("salonAdmin.checkServiceIsExist")</a>
+       				<a href="@auth.routes.Salons.checkAuth">@Messages("salonAdmin.checkService")</a>
+				</div>
 			</div>
 
 			<!-- 优惠券管理 -->						
