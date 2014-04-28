@@ -3431,6 +3431,31 @@ a:hover .imgFrame {
 .inputHidden {
     display: none;
 }
+
+.style_ranking_display_block {
+	width:795px;
+    clear:both;
+    overflow:hidden;
+}
+
+.style_ranking_display_none {
+    DISPLAY: none;
+    CLEAR: both
+}
+
+ #style_nvfxjs_nr_box {
+        TEXT-ALIGN: center;HEIGHT: 30px; CLEAR: both; padding-bottom:2px;
+    }
+    #style_nvfxjs_nr_box h2 {
+        margin:0px; padding:0px 0px 0px 0px; width:98px; float:left; height:36px; font:bold 12px/30px "宋体"; text-align:center; overflow:hidden; color:#333; border-right:1px solid #FFF;
+    }
+    #style_nvfxjs_nr_box h2.menuOn {
+        font:normal 16px/30px "微软雅黑"; cursor:hand; background-color:#f6d7d7; width:93px; height:30px; color:#8b0009;
+    }
+    #style_nvfxjs_nr_box h2.menuNo {
+        font:normal 16px/30px "微软雅黑"; cursor:hand; background-color:#a79d9d; width:93px; height:30px; color:#fff;
+    }
+
 #salon_tjtj {
 width: 795px;
 clear: both;
@@ -3471,3 +3496,4 @@ padding: 2px;
 #salon_tjtj_nr p{
 	width:98px;	
 }
+
