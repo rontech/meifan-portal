@@ -2,10 +2,13 @@
 
 @mySalonMain(navInSalon, salon){
 	<div>
-		<div class="contentsTitleWrapper">
-			<h2 class="contentsTitleInner">@Messages("salonAdmin.myStylist")</h2>
-		</div>
-		
+		<ul class="tabInfoTitle">
+			<li class="fl selected">
+				@Messages("salonAdmin.myStylist")
+			</li>		
+		</ul>
+	</div>
+	<div class = "mT40">
 		<div class="mysalon-stylist-search mT20">
 			<form action="@auth.routes.Salons.searchStylistById" id="getStylistForm" method="get">
 				@Messages("stylist.stylistId")<input name="searchStylistById" id="stylist-search-stylist"/>&nbsp;&nbsp;&nbsp;

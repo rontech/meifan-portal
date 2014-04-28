@@ -2,11 +2,19 @@
 
 @import helper._
 
-@mySalonMain(navInSalon = "salon-coupon", salon){
+@mySalonMain(navInSalon = "my-services", salon){
 
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/menu.css")">
 	
-   <div class="serviceInfo">
+	
+	<div>
+		<ul class="tabInfoTitle">
+			<li class="fl selected">
+				@Messages("service.editService")
+			</li>		
+		</ul>
+	</div>
+   	<div class="serviceInfo mT40">
   		  @form(auth.routes.Services.updateService(service.id), 'id -> "serviceForm", 'name -> "serviceForm") {
 			    <input type="hidden" name="salonId" value="@salon.id" />
                 <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
@@ -90,10 +98,11 @@
               </tr>
                     </tbody>
                 </table>
-   			    <div class="btnAreaUpdate">
-	  			    <input type="button" class = "buttons" value="@Messages("service.update")" onclick="checksForService()">
- 		        </div>
+                
+                <div class="btnArea">
+					<input type="button" class = "buttons" value="@Messages("service.update")" onclick="checksForService()">
+			    </div>
   		  }
-  </div>
+    </div>
 }
 <script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>

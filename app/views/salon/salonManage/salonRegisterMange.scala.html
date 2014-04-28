@@ -1,36 +1,15 @@
 @(salonRegister: Form[Salon],industry: List[Industry],salon:Salon)
 @import helper._
 @import helper.twitterBootstrap._
-@import views.html.salon.admin.mySalonMain
+@import views.html.salon.admin.mySalonInfoManageMain
 
-@mySalonMain("registerInformation",salon){
+@mySalonInfoManageMain("my-registerInfo", salon){
 	
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
-		<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-		<tbody>	
-		</tbody>
-	</table>		
-	<div>
-		<ul class="bS menuBG cFix">
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonRegister">@Messages("salonCheckInfoState.register")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>		
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonBasic">@Messages("salonCheckInfoState.basicInfo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonDetail"> @Messages("salonCheckInfoState.detail")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.pictures")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-		</ul>
-	</div>
-
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
+	
 	<div class="salonRegister">
-		<div class="contentsTitleWrapper">
-			<h2 class="contentsTitleInner">@Messages("salon.registerManage")</h2>
-		</div>
 
-		<div class="mT10 pH10">
+		<div class="mT40 pH10">
 			@helper.form(action = auth.routes.Salons.salonRegisterUpdate(salon.id), 'id -> "salonRegister", 'name ->"salonRegister"){
 
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
@@ -79,6 +58,7 @@
 				            <td>
 				                @inputText(salonRegister("salonAccount.accountId"),
                                     'id ->"accountId",
+                                    'class -> "inputField",
                                     '_label -> None,
                                     'disabled -> "true",
                                     'style-> "width:200px;",
@@ -95,7 +75,7 @@
 				                </div>
 				            </th>
 				            <td>
-				                <div>
+				                <div class = "inputField">
 									<a href="@auth.routes.Salons.password"/> @Messages("user.changePassword")
 									<input type="hidden" name="salonAccount.password" readonly="readonly" value="@salon.salonAccount.password">
 				                </div>
@@ -113,6 +93,7 @@
 				                	@inputText(salonRegister("salonName"),
                                         'id -> "salonName",
                                         '_label ->  None,
+                                        'class -> "inputField",
                                         '_help -> Messages("salon.salonNameMange"),
                                         'disabled -> "true",
 										'style-> "width:200px;",
@@ -128,8 +109,8 @@
 				                </div>
 				            </th>
 				            <td>
-				                <div>
-				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None,'_error -> salonRegister("salonIndustry").error.map(_.withMessage(Messages("salon.industryError")))){(id,name,value,args) =>
+				                <div class = "inputField">
+				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None,'class -> "inputField",'_error -> salonRegister("salonIndustry").error.map(_.withMessage(Messages("salon.industryError")))){(id,name,value,args) =>
 								 	@for(i <- 0 to industry.length-1){
 								 		@if(salon.salonIndustry.contains(industry(i).industryName)){
 								 			<input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
@@ -153,6 +134,7 @@
 				                	@inputText(salonRegister("contactMethod.mainPhone"),
                                         'id -> "contact_tel",
                                         '_label -> None,
+                                        'class -> "inputField",
                                         '_help -> Messages(""),
                                         'style-> "width:200px;",
 				                		'_error -> salonRegister("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.phoneError"))))
@@ -171,6 +153,7 @@
 				                	@inputText(salonRegister("contactMethod.contact"),
                                         'id -> "contact",
                                         '_label -> None,
+                                        'class -> "inputField",
                                         '_help -> Messages(""),
                                         'style-> "width:200px;",
 				                		'_error -> salonRegister("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
@@ -189,6 +172,7 @@
 				                	@inputText(salonRegister("contactMethod.email"),
                                         'id ->"contact_email",
                                         '_label -> None,
+                                        'class -> "inputField",
                                         '_help -> Messages(""),
 										'style-> "width:200px;",
 				                		'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.mailError"))))
@@ -324,10 +308,10 @@
 				            </td>
 				        </tr>
 					</tbody>
-				</table>								
-				<div class="mT20 txtC">			
+				</table>
+				<div class="btnArea">
 					<input type = "button" class = "buttons" value=@Messages("common.submit") onclick="checksForSalonRegister();">
-				</div>
+			    </div>								
 			}
 
 		</div>

@@ -345,6 +345,7 @@ service.update=更新
 service.minutes = 分钟
 service.title = {0} 的服务
 service.createServiceArea = 创建服务区域
+service.editService = 修改服务
 service.addErrorMsg = 请输入服务名！
 service.priceErrorMsg = 请输入单价！
 service.durationErrorMsg = 请输入估计的耗时！
@@ -929,7 +930,7 @@ reservation.salonResvMessage = ※即时预约，预约成功之后即可以到�
 reservation.onlineResv = 即时预约
 
 #salonCheckInfoState
-salonCheckInfoState.conditions =  开店条件：
+salonCheckInfoState.conditions =  开店条件
 salonCheckInfoState.condition = 事项
 salonCheckInfoState.status = 是否完善
 salonCheckInfoState.operate = 操作
