@@ -8,7 +8,9 @@
         <h2 class="yS mainContentsSecondTitleInner">@Messages("hair.salonStyleTitle", salon.salonName)</h2>
     </div>
     <!-- styleGroupMenu -->
-    @views.html.style.styleGroupMenu(sex, salon)
+    @if(styles.nonEmpty) {
+        @views.html.style.styleGroupMenu(sex, salon)
+    }
     <!-- get all the salons with all the styles.  -->
     @views.html.style.styleGroup(styles, salon)
 
