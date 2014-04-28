@@ -974,3 +974,5 @@ salonSerachPage.sortByPrice = 价格
 salonSerachPage.sortByComment = 评论
 salonSerachPage.serviceType = 服务类别
 salonSerachPage.brand = 品牌
+salonSerachPage.requiredCity = 请输入城市名称
+salonSerachPage.cannotFind = 对不起，找不到
