@@ -4245,20 +4245,20 @@ table td.demandTdOuter table.demandTbInner th {
 .deleteMySalon				{ background-position: 0px -180px; width: 165px; height: 24px; }
 .deleteMySalon:hover		{ background-position: 0px -204px; }
 
-.toReserveList					{ background-position: -170px -180px; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*髣費ｿｽ縺費ｿｽ・ｴ・ｽ・ｽ・ｽ・ｸ・ｽ・ｽ・ｽ・ｦ・ｽ・ｧ(驛｢譎・ｽｧ・ｭ邵ｺ・ｽ・ｹ譎擾ｽ｣・ｹ・ｽ・ｽ驛｢・ｧ・ｽ・ｸ驛｢譎冗樟郢晢ｽ｣驛｢譎丞ｹｲ遶擾ｿｽ*/
+.toReserveList					{ background-position: -170px -180px; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*鬮｣雋ｻ�ｿ�ｽ邵ｺ雋ｻ�ｿ�ｽ繝ｻ�ｴ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｸ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｦ繝ｻ�ｽ繝ｻ�ｧ(鬩幢ｽ｢隴弱��ｽ�ｧ繝ｻ�ｭ驍ｵ�ｺ繝ｻ�ｽ繝ｻ�ｹ隴取得�ｽ�｣繝ｻ�ｹ繝ｻ�ｽ繝ｻ�ｽ鬩幢ｽ｢繝ｻ�ｧ繝ｻ�ｽ繝ｻ�ｸ鬩幢ｽ｢隴主�讓滄Δ譎｢�ｽ�｣鬩幢ｽ｢隴惹ｸ橸ｽｹ�ｲ驕ｶ謫ｾ�ｿ�ｽ*/
 .toReserveList:hover			{ background-position: -170px -204px; }
-.reservationHistory				{ background-position: -1560px -120px; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}/*髣費ｿｽ縺費ｿｽ・ｴ・ｽ・ｽ・ｽ・ｱ・ｽ・･髮趣ｿｽ・ｽ・ｴ驍ｵ・ｺ・ｽ・ｸ*/
+.reservationHistory				{ background-position: -1560px -120px; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}/*鬮｣雋ｻ�ｿ�ｽ邵ｺ雋ｻ�ｿ�ｽ繝ｻ�ｴ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｱ繝ｻ�ｽ繝ｻ�･鬮ｮ雜｣�ｿ�ｽ繝ｻ�ｽ繝ｻ�ｴ鬩搾ｽｵ繝ｻ�ｺ繝ｻ�ｽ繝ｻ�ｸ*/
 .reservationHistory:hover		{ background-position: -1560px -144px; }
-.reservationHistorySalon		{ background-position: -1030px 0; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}/*驛｢・ｧ・ｽ・ｵ驛｢譎｢・ｽ・ｭ驛｢譎｢・ｽ・ｳ髣費ｿｽ縺費ｿｽ・ｴ・ｽ・ｽ・ｽ・ｱ・ｽ・･髮趣ｿｽ・ｽ・ｴ驍ｵ・ｺ・ｽ・ｸ*/
+.reservationHistorySalon		{ background-position: -1030px 0; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden;}/*鬩幢ｽ｢繝ｻ�ｧ繝ｻ�ｽ繝ｻ�ｵ鬩幢ｽ｢隴趣ｽ｢繝ｻ�ｽ繝ｻ�ｭ鬩幢ｽ｢隴趣ｽ｢繝ｻ�ｽ繝ｻ�ｳ鬮｣雋ｻ�ｿ�ｽ邵ｺ雋ｻ�ｿ�ｽ繝ｻ�ｴ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｱ繝ｻ�ｽ繝ｻ�･鬮ｮ雜｣�ｿ�ｽ繝ｻ�ｽ繝ｻ�ｴ鬩搾ｽｵ繝ｻ�ｺ繝ｻ�ｽ繝ｻ�ｸ*/
 .reservationHistorySalon:hover	{ background-position: -1030px -24px; }
 
-.reservationCancel				{ background-position: -1215px 0; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*驍ｵ・ｺ髦ｮ蜻ｻ・ｿ・ｽ髣費ｿｽ縺費ｿｽ・ｴ・ｽ・ｽ・ｽ蝣､・ｹ・ｧ・ｽ・ｭ驛｢譎｢・ｽ・｣驛｢譎｢・ｽ・ｳ驛｢・ｧ・ｽ・ｻ驛｢譎｢・ｽ・ｫ驍ｵ・ｺ陷ｷ・ｶ・ｽ・ｽ/
+.reservationCancel				{ background-position: -1215px 0; width:165px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*鬩搾ｽｵ繝ｻ�ｺ鬮ｦ�ｮ陷ｻ�ｻ繝ｻ�ｿ繝ｻ�ｽ鬮｣雋ｻ�ｿ�ｽ邵ｺ雋ｻ�ｿ�ｽ繝ｻ�ｴ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｽ陜｣�､繝ｻ�ｹ繝ｻ�ｧ繝ｻ�ｽ繝ｻ�ｭ鬩幢ｽ｢隴趣ｽ｢繝ｻ�ｽ繝ｻ�｣鬩幢ｽ｢隴趣ｽ｢繝ｻ�ｽ繝ｻ�ｳ鬩幢ｽ｢繝ｻ�ｧ繝ｻ�ｽ繝ｻ�ｻ鬩幢ｽ｢隴趣ｽ｢繝ｻ�ｽ繝ｻ�ｫ鬩搾ｽｵ繝ｻ�ｺ髯ｷ�ｷ繝ｻ�ｶ繝ｻ�ｽ繝ｻ�ｽ/
 .reservationCancel:hover		{ background-position: -1215px -24px; }
-.reservationHistoryList         { background-position: -450px -240px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*髣費ｿｽ縺費ｿｽ・ｴ・ｽ・ｽ・ｽ・ｱ・ｽ・･髮趣ｿｽ・ｽ・ｴ&驛｢・ｧ・ｽ・ｯ驛｢譎｢・ｽ・ｪ驛｢譎｢・ｿ・ｽ・ｽ・ｽ驍ｵ・ｺ・ｽ・ｮ髣費ｿｽ縺費ｿｽ・ｴ・ｽ・ｽ・ｽ・ｱ・ｽ・･髮趣ｿｽ・ｽ・ｴ*/
+.reservationHistoryList         { background-position: -450px -240px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*鬮｣雋ｻ�ｿ�ｽ邵ｺ雋ｻ�ｿ�ｽ繝ｻ�ｴ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｱ繝ｻ�ｽ繝ｻ�･鬮ｮ雜｣�ｿ�ｽ繝ｻ�ｽ繝ｻ�ｴ&鬩幢ｽ｢繝ｻ�ｧ繝ｻ�ｽ繝ｻ�ｯ鬩幢ｽ｢隴趣ｽ｢繝ｻ�ｽ繝ｻ�ｪ鬩幢ｽ｢隴趣ｽ｢繝ｻ�ｿ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｽ鬩搾ｽｵ繝ｻ�ｺ繝ｻ�ｽ繝ｻ�ｮ鬮｣雋ｻ�ｿ�ｽ邵ｺ雋ｻ�ｿ�ｽ繝ｻ�ｴ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｱ繝ｻ�ｽ繝ｻ�･鬮ｮ雜｣�ｿ�ｽ繝ｻ�ｽ繝ｻ�ｴ*/
 .reservationHistoryList:hover   { background-position: -450px -264px; }
 .reservationHistoryListCurrent  { background-position: -450px -288px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }
 .reservationHistoryListDisabled  { background-position: -450px -312px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }
-.clipList         				{ background-position: -528px -240px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*髣費ｿｽ縺費ｿｽ・ｴ・ｽ・ｽ・ｽ・ｱ・ｽ・･髮趣ｿｽ・ｽ・ｴ&驛｢・ｧ・ｽ・ｯ驛｢譎｢・ｽ・ｪ驛｢譎｢・ｿ・ｽ・ｽ・ｽ驍ｵ・ｺ・ｽ・ｮ驛｢・ｧ・ｽ・ｯ驛｢譎｢・ｽ・ｪ驛｢譎｢・ｿ・ｽ・ｽ・ｽ*/
+.clipList         				{ background-position: -528px -240px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }/*鬮｣雋ｻ�ｿ�ｽ邵ｺ雋ｻ�ｿ�ｽ繝ｻ�ｴ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｱ繝ｻ�ｽ繝ｻ�･鬮ｮ雜｣�ｿ�ｽ繝ｻ�ｽ繝ｻ�ｴ&鬩幢ｽ｢繝ｻ�ｧ繝ｻ�ｽ繝ｻ�ｯ鬩幢ｽ｢隴趣ｽ｢繝ｻ�ｽ繝ｻ�ｪ鬩幢ｽ｢隴趣ｽ｢繝ｻ�ｿ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｽ鬩搾ｽｵ繝ｻ�ｺ繝ｻ�ｽ繝ｻ�ｮ鬩幢ｽ｢繝ｻ�ｧ繝ｻ�ｽ繝ｻ�ｯ鬩幢ｽ｢隴趣ｽ｢繝ｻ�ｽ繝ｻ�ｪ鬩幢ｽ｢隴趣ｽ｢繝ｻ�ｿ繝ｻ�ｽ繝ｻ�ｽ繝ｻ�ｽ*/
 .clipList:hover   				{ background-position: -528px -264px; }
 .clipListCurrent         		{ background-position: -528px -288px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }
 .clipListDisabled         		{ background-position: -528px -312px; width:78px; height:24px; text-indent: -9999px; display: block; overflow: hidden; }
