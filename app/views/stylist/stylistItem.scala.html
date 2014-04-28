@@ -10,7 +10,7 @@
                 case Some(wk) => {
                     <div class="taC">
                         <a href="@noAuth.routes.Salons.getOneStylist(wk.salonId, wk.stylistId)">
-                            <img src="@routes.Application.getPhoto(st.stylistInfo.get.myPics(0).fileObjId)" alt="@st.basicInfo.nickName" class="bdImgGray w164 h219">
+                            <img src="@routes.Application.getPhoto(st.stylistInfo.get.myPics(0).fileObjId)"  title=@Messages("stylist.picTitle") alt="@st.basicInfo.nickName" class="bdImgGray w164 h219">
                         </a>
                     </div>
                 }
