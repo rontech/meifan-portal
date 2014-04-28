@@ -490,6 +490,9 @@ stylist.myBoom = 兴趣爱好
 stylist.myPR = 自我宣传
 stylist.submit = 提交申请
 stylist.reset = 重置
+stylist.writeApplyInfo = 填写技师资料
+stylist.uploadApplyImg = 上传技师图片
+stylist.nextStep = 下一步
 
 
 #Stylist management
