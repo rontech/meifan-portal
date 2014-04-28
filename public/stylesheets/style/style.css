@@ -3431,3 +3431,43 @@ a:hover .imgFrame {
 .inputHidden {
     display: none;
 }
+#salon_tjtj {
+width: 795px;
+clear: both;
+overflow: hidden;
+padding-bottom: 15px;
+}
+#salon_tjtj h2 {
+width: 795px;
+clear: both;
+overflow: hidden;
+border-top: 1px solid #f39aa3;
+}
+#salon_tjtj_nr {
+width: 795px;
+clear: both;
+overflow: hidden;
+padding-top: 8px;
+}
+#salon_tjtj table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+#salon_tjtj table[Attributes Style] {
+width: 793px;
+border-top-width: 0px;
+border-right-width: 0px;
+border-bottom-width: 0px;
+border-left-width: 0px;
+}
+#salon_tjtj table {
+display: table;
+}
+.fx_pic_t {
+clear: both;
+margin: 0 auto 5px;
+padding: 2px;
+}
+#salon_tjtj_nr p{
+	width:98px;	
+}

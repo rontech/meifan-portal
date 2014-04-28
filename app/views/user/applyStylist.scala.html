@@ -4,15 +4,21 @@
 @myPageMain(navInMyPage = "my-reservation",user, followInfo, user.id, true){
 	
 	<div class="container">
-
+	       
     <div class="content">
-
+    
+				<div class="step">
+		            <ul>
+		               <li class="one cur">@Messages("stylist.writeApplyInfo")</li>
+		               <li class="four">@Messages("stylist.uploadApplyImg")</li>
+		            </ul>
+		        </div> 
       <div class="page-header">
         <h1>@Messages("user.applyStylist")</h1>
       </div>
 	@if(isCommit){
 		<div id="apply_message">
-			<p>@Messages("user.applyStylistMessage_1")<span id="times">5</span>@Messages("user.applyStylistMessage_2")<a href="javascript:go('')"></a>@Messages("user.applyStylistMessage_3")</p>
+			<p>@Messages("user.applyStylistMessage_1")<span id="times">10</span>@Messages("user.applyStylistMessage_2")<a href="javascript:go('')"></a>@Messages("user.applyStylistMessage_3")</p>
 		</div>
 		<script language="javascript" type="text/javascript">
 			var timer = null;
@@ -78,7 +84,7 @@
 			            <td>
 			                <div>
 			                	<div id="optContactMethods">
-									@repeat(stylistApplyForm("position")){position=>
+									@repeat(stylistApplyForm("stylist.position")){position=>
 										@stylistPosition(position)
 									}
 									@**
@@ -107,7 +113,7 @@
 			                <div>
 			                	@input(field = stylistApplyForm("stylist.goodAtImage"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to goodAtStylePara.goodAtImage.length-1){
-								 		<input type = "checkbox" name = "goodAtImage[@i]" value = "@goodAtStylePara.goodAtImage(i)">@Messages("style.styleImpression."+goodAtStylePara.goodAtImage(i))&nbsp;
+								 		<input type = "checkbox" name = "stylist.goodAtImage[@i]" value = "@goodAtStylePara.goodAtImage(i)">@Messages("style.styleImpression."+goodAtStylePara.goodAtImage(i))&nbsp;
 								 	}
 								  }
 			                </div>
@@ -124,7 +130,7 @@
 			                <div>
 			                	@input(field = stylistApplyForm("stylist.goodAtStatus"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to goodAtStylePara.goodAtStatus.length-1){
-								 		<input type = "checkbox" name = "goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@Messages("style.socialStatus."+goodAtStylePara.goodAtStatus(i))
+								 		<input type = "checkbox" name = "stylist.goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@Messages("style.socialStatus."+goodAtStylePara.goodAtStatus(i))
 								 	}
 								}
 	
@@ -241,7 +247,7 @@
 				</tbody>
 			</table>
 		  	
-		<input type="submit" onclick="return checkForApplyStylist();"　class = "buttons" value="@Messages("stylist.submit")">
+		<input type="submit" onclick="return checkForApplyStylist();"　class = "buttons" value="@Messages("stylist.nextStep")">
             
         <input type = "reset" class = "buttons" value="@Messages("stylist.reset")">
         </div>
