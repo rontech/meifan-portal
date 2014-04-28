@@ -397,10 +397,10 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         paraStyleImpression.map { para =>
             paraStyleImpressions :::= List(para.styleImpression)
         }
-        val paraServiceType = ServiceType.findAll().toList
+        val paraServiceType = ServiceType.findAllServiceType("Hairdressing").toList
         var paraServiceTypes: List[String] = Nil
         paraServiceType.map { para =>
-            paraServiceTypes :::= List(para.serviceTypeName)
+            paraServiceTypes :::= List(para)
         }
         val paraStyleLength = StyleLength.findAll().toList
         var paraStyleLengths: List[String] = Nil
