@@ -9,6 +9,7 @@
             <form action="@noAuth.routes.GeneralSearch.getGeneralSearch" method="POST">
                 <div id="uboxstyle">
                     <select name="category" id="select">
+<<<<<<< HEAD
                         <option value="Top")" @if(nav == "Top") {selected="selected"}> @Messages("common.all") </option>
                         <option value="HairSalon")" @if(nav == "HairSalon") {selected="selected"}> @Messages("main.hairSalon") </option>
                         <option value="HairCatalog" @if(nav == "HairCatalog") {selected="selected"}> @Messages("main.hairCatalog") </option>
@@ -16,6 +17,15 @@
                         <option value="NailCatalog" @if(nav == "NailCatalog") {selected="selected"}> @Messages("main.nailCatalog") </option>
                         <option value="RelaxSalon" @if(nav == "RelaxSalon") {selected="selected"}> @Messages("main.relaxSalon") </option>
                         <option value="EstheSalon" @if(nav == "EstheSalon") {selected="selected"}> @Messages("main.estheSalon") </option>
+=======
+                        <option value="@Messages("common.all")" @if(nav == "Top") {selected="selected"}> @Messages("common.all") </option>
+                        <option value="@Messages("main.hairSalon")" @if(nav == "HairSalon") {selected="selected"}> @Messages("main.hairSalon") </option>
+                        <option value="@Messages("main.hairCatalog")" @if(nav == "HairCatalog") {selected="selected"}> @Messages("main.hairCatalog") </option>
+                        <option value="@Messages("main.nailSalon")" @if(nav == "NailSalon") {selected="selected"}> @Messages("main.nailSalon") </option>
+                        <option value="@Messages("main.nailCatalog")" @if(nav == "NailCatalog") {selected="selected"}> @Messages("main.nailCatalog") </option>
+                        <option value="@Messages("main.relaxSalon")" @if(nav == "RelaxSalon") {selected="selected"}> @Messages("main.relaxSalon") </option>
+                        <option value="@Messages("main.estheSalon")" @if(nav == "EstheSalon") {selected="selected"}> @Messages("main.estheSalon") </option>
+>>>>>>> 1c6fdc7fde842b6698f031240015977dc337fae2
                     </select>
                 </div>
                 <input name="keyword" type="hidden" id="keyword" value="">

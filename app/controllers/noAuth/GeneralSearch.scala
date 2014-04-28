@@ -8,7 +8,6 @@ import jp.t2v.lab.play2.auth._
 import controllers._
 import com.mongodb.casbah.commons.Imports._
 import java.util.Date
-import play.api.i18n.Messages
 
 object GeneralSearch extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
