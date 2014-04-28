@@ -630,6 +630,7 @@ user.message.to = 收信人
 user.message.title = 标题
 user.message.content = 内容
 user.message.send = 发送
+user.other=他
 
 user.needfieldworks = 请输入0~100整数
 user.errorWorks = 无效的年数
