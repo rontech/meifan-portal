@@ -121,10 +121,16 @@ function unlimitedRegion(){
 }
 
 function submitForm(){
+	if($('#getcity_name').val()=='中文/拼音'){
+		$('.com_city_bug').css('display', 'inline');
+		return;
+	}
     document.getElementById("salonSearchForm").submit();
 }
 
-
+function clickSalonSearch(){
+	submitForm();
+}
 
 
 /*------------------------------

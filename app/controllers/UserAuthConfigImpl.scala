@@ -30,13 +30,22 @@ trait UserAuthConfigImpl extends AuthConfig {
 
   def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful {
         request.headers.get("X-Requested-With") match {
-            case Some("XMLHttpRequest") => Unauthorized("Authentication failed")
-            case _ => Redirect(routes.Application.login).withSession("user_access_uri" -> request.uri)
+            case Some("XMLHttpRequest") =>
+                Unauthorized("Authentication failed")
+            case _ => 
+                Redirect(routes.Application.login).withSession("user_access_uri" -> request.uri)
         }
     }
 
   def authorizationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful{
-      Status(play.api.http.Status.FORBIDDEN)
+      request.headers.get("X-Requested-With") match {
+          case Some("XMLHttpRequest") => 
+              Status(play.api.http.Status.FORBIDDEN).withSession("uri" -> request.headers.get("Referer").getOrElse(""))
+          case _ => 
+              val follow_uri = request.session.get("uri").getOrElse(routes.Application.index.url.toString)
+              Redirect(follow_uri).withSession(request.session - "uri")
+      }
+
   }
 
   def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = authority(user)

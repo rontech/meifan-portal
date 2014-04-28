@@ -1,17 +1,22 @@
-
-<div class="mT40">
-    <div class="skinHeadingWrapper1 mB15 cFix pr">
-        <h3 class="fl skinHeading1 offL headingImage">
-            @Messages("hair.styleImage")
-        </h3>
-    </div>
-    <ul class="cFix">
+<div id="salon_tjtj">
+    
+        <h2><img src="@routes.Assets.at("images/haircatalog/hair_label/salon_fgfx_title.jpg")" width="795" height="35" /></h2>
+    	<div id="salon_tjtj_nr">
+         <table width="793" border="0">
+            <tr>
+    			
         @SearchByImpression.findAll.map { searchByImpression =>
-            <li class="fl mR10">
+            <td>
+            	<div class="fx_pic_t">
                 <a href="@noAuth.routes.Styles.findByImpression(searchByImpression.styleImpression,searchByImpression.sex)">
                     <img src="@routes.Application.getPhoto(searchByImpression.stylePic)" alt="@searchByImpression.styleImpression" class="imgFrame" width="94px">
                 </a>
-            </li>
+                </div>
+                <p align="center">@Messages("style.styleImpression." + searchByImpression.styleImpression)</p>
+            </td>
         }
-    </ul>
+        
+			        </tr>
+			</table>
+		</div>
 </div>

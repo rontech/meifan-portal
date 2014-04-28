@@ -1,6 +1,6 @@
   function addFollow(followId, followObjType) {
       var date = new Date().getTime().toString();
-	jsRoutes.controllers.auth.MyFollows.addFollow(followId, followObjType,date).ajax(ajax1);
+	jsRoutes.controllers.auth.MyFollows.addFollow(followId, followObjType, date).ajax(ajax1);
   }
 
   var successFn = function(data) {

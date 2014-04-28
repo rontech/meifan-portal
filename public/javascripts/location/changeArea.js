@@ -1,6 +1,7 @@
 $('#getcity_name').change(function(){
 				$('#areafield').empty();
 				getAreaByCity();
+				$('.com_error').css('display', 'none');
 			});
 $('#getcity_name').blur(function(){
 				$('#areafield').empty();

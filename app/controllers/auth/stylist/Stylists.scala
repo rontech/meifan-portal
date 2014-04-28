@@ -183,10 +183,11 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
 	     val user = loggedIn
 	     val followInfo = MyFollow.getAllFollowInfo(user.id)
 	     val stylist = Stylist.findOneByStylistId(user.id)
+	     val goodAtStylePara = Stylist.findGoodAtStyle
 	     stylist match {
 	        case Some(sty) => {
 	        Stylist.updateImages(sty, imgId)
-	        Redirect(routes.Stylists.myHomePage())
+	        Ok(views.html.user.applyStylist(controllers.auth.Users.stylistApplyForm, user, goodAtStylePara, followInfo, true))
 	       }
 	      case None => NotFound
 	    }
