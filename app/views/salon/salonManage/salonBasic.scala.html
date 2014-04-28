@@ -196,7 +196,7 @@
 				            <td>
 				                <div>
 				                   @input(field = salonForm("workTime.openTime"), '_label -> None, '_help -> Messages("")) { (id, name, value, _) =>
-        							<input class="Wdate" type="text" name="@name" value="@value" id="openTime" onClick="WdatePicker({dateFmt:'HH:mm:ss'});checkedOpenTime();">
+        							<input class="Wdate" type="text" name="@name" value="@value" id="openTime" onClick="WdatePicker({dateFmt:'HH:mm'});checkedOpenTime();">
 								}
 				                </div>
 				            </td>
@@ -211,7 +211,7 @@
 				            <td>
 				                <div>
 				                	@input(field = salonForm("workTime.closeTime"), '_label -> None, '_help -> Messages("")) { (id, name, value, _) =>
-        							<input class="Wdate" type="text" name="@name" value="@value" id="closeTime" onClick="WdatePicker({dateFmt:'HH:mm:ss'});checkedCloseTime();">
+        							<input class="Wdate" type="text" name="@name" value="@value" id="closeTime" onClick="WdatePicker({dateFmt:'HH:mm'});checkedCloseTime();">
         							}
 				                </div>
 				            </td>
@@ -302,7 +302,7 @@
 				            </th>
 				            <td>
                                 <div class="restDays">
-                                    @inputRadioGroup(salonForm("restDays.restWay"), options = options("Fixed" -> Messages("restWay.fixed"),"Indefinite" -> Messages("restWay.indefinite")) , '_label -> None)
+                                    @inputRadioGroup(salonForm("restDays.restWay"), options = options("Fixed" -> Messages("restWay.fixed"),"Indefinite" -> Messages("restWay.indefinite")) , '_label -> None, '_help -> Messages(""))
                                     @if(salon.restDays.map(rest=>rest.restWay.equals("Fixed")).getOrElse(true)){
                                         <div id="restDays_div">
                                             @Messages("salon.selectRestDays")
@@ -396,7 +396,6 @@
 		</div>
 
 	</div>
-</div>
 }
 
 @views.html.salon.admin.salonSwfupload("")
@@ -465,7 +464,8 @@
             options = options(
                 "LOGO" -> Messages("salon.picUse.logo"),
                 "Navigate" -> Messages("salon.picUse.Navigate"),
-                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+                "Atmosphere" -> Messages("salon.picUse.Atmosphere"),
+                "SalonCheck" ->  Messages("salon.picUse.SalonCheck")
             ),
              '_label -> None,
              'placeholder -> Messages("salon.picUse"),
