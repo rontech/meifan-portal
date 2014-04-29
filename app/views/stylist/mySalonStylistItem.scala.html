@@ -14,7 +14,7 @@
     <p class="mT10">
         
            @stylist.position.map{po=>
-           	@po.positionName&nbsp;@po.industryName
+           	@Messages(po.industryName)&nbsp;@Messages("position."+po.positionName)
            }
         
     </p>
