@@ -17,8 +17,9 @@
         <span class="fgPink">
       		@stylist.myWords
       	</span>
-  （@stylist.workYears
-  @Messages("stylist.workYears")）
+  @*（@stylist.workYears
+  @Messages("stylist.workYears")）*@
+  [@Messages("stylist.experienceYears", stylist.workYears)] 
     </div>
     <div class="bdDotT mT5 pT5 fs10 hMin30">
     </div>
