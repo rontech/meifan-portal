@@ -3392,4 +3392,6 @@ padding: 2px;
 #salon_tjtj_nr p{
 	width:98px;	
 }
-
+.bdGrayL {
+border-left: 1px solid #8B8181;
+}
