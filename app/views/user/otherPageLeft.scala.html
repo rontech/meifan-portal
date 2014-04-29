@@ -55,7 +55,7 @@
     </div>
 }
 			<div class='Mod Users' id='Fellows'>
-    			<strong>@Messages("user.followSalon")</strong>
+    			<strong>@Messages("user.other")@Messages("user.followSalon")</strong>
 	  			<ul class='clearfix'>
     	 			@followInfo.followSalon.slice(0,8).map {salon =>
 	  						<li>
@@ -70,7 +70,7 @@
     			</div>
 			</div>
 			<div class='Mod Users' id='Fellows'>
-    			<strong>@Messages("user.followStylist")</strong>
+    			<strong>@Messages("user.other")@Messages("user.followStylist")</strong>
 	  			<ul class='clearfix'>
 	  				@followInfo.followStylist.slice(0,8).map {stylist =>
 	  					<li>
@@ -85,7 +85,7 @@
     			</div>
 			</div>
 			<div class='Mod Users' id='Fans'>
-	   			<strong>@Messages("user.followUser")</strong>
+	   			<strong>@Messages("user.other")@Messages("user.followUser")</strong>
 	   			<ul class='clearfix'>
 	  				@followInfo.followUser.slice(0,8).map {user =>
 	  					<li>

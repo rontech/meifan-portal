@@ -129,14 +129,14 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
 
     /**
      * 前台检索逻辑
-     * 前台综合排名检索
+     * 前台综合排名检索-热度
      */
     def findByRanking: List[models.Style] = {
         val reservationAll = Reservation.findByStatusAndStyleId
         var reservations: List[models.Reservation] = Nil
         reservationAll.map { reservation =>
             if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
-                if (Style.findByStyleId(reservation.styleId.get).nonEmpty) {
+                if (findByStyleId(reservation.styleId.get).nonEmpty) {
                     reservations = reservation :: reservations
                 }
             }
@@ -154,7 +154,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         var reservations: List[models.Reservation] = Nil
         reservationAll.map { reservation =>
             if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
-                Style.findByStyleId(reservation.styleId.get) match {
+                findByStyleId(reservation.styleId.get) match {
                     case Some(style) => {
                         if (style.styleLength.equals(styleLength) && style.consumerSex.equals(consumerSex)) {
                             reservations :::= List(reservation)
@@ -170,14 +170,14 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
 
     /**
      * 前台检索逻辑
-     * 前台热度加男式排名检索
+     * 前台热度加性别排名检索
      */
-    def findByRankingForM(consumerSex: String): List[models.Style] = {
+    def findByRankingAndSex(consumerSex: String): List[models.Style] = {
         val reservationAll = Reservation.findByStatusAndStyleId
         var reservations: List[models.Reservation] = Nil
         reservationAll.map { reservation =>
             if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
-                Style.findByStyleId(reservation.styleId.get) match {
+                findByStyleId(reservation.styleId.get) match {
                     case Some(style) => {
                         if (style.consumerSex.equals(consumerSex)) {
                             reservations :::= List(reservation)
@@ -196,29 +196,31 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
      * ranking分组排序
      */
     def sortForRanking(reservationAll: List[models.Reservation]): List[models.Style] = {
-        val reservations = reservationAll.sortBy(_.styleId)
-        var lists: List[(ObjectId, Int)] = Nil
         var styles: List[models.Style] = Nil
-        var count = 1
-        var styleId = reservations(0).styleId.get
-        for (i <- 0 to reservations.length - 1) {
-            if (i > 0) {
-                if (reservations(i).styleId.equals(reservations(i - 1).styleId)) {
-                    count = count + 1
-                } else {
-                    styleId = reservations(i - 1).styleId.get
-                    lists :::= List((styleId, count))
-                    styleId = reservations(i).styleId.get
-                    count = 1
+        if (reservationAll.nonEmpty) {
+            val reservations = reservationAll.sortBy(_.styleId)
+            var lists: List[(ObjectId, Int)] = Nil
+            var count = 1
+            var styleId = reservations(0).styleId.get
+            for (i <- 0 to reservations.length - 1) {
+                if (i > 0) {
+                    if (reservations(i).styleId.equals(reservations(i - 1).styleId)) {
+                        count = count + 1
+                    } else {
+                        styleId = reservations(i - 1).styleId.get
+                        lists :::= List((styleId, count))
+                        styleId = reservations(i).styleId.get
+                        count = 1
+                    }
                 }
             }
-        }
-        lists :::= List((styleId, count))
-        val listAll = lists.sortWith((f, s) => f._2 < s._2) //递增排序
-        //val listAll =   lists.sortBy(_._2).reverse  此方法同样可以实现
-        listAll.map { list =>
-            val style = Style.findOneById(list._1).get
-            styles = style :: styles
+            lists :::= List((styleId, count))
+            val listAll = lists.sortWith((f, s) => f._2 < s._2) //递增排序
+            //val listAll =   lists.sortBy(_._2).reverse  此方法同样可以实现
+            listAll.map { list =>
+                val style = Style.findOneById(list._1).get
+                styles = style :: styles
+            }
         }
         styles
     }
@@ -468,10 +470,10 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         dao.update(MongoDBObject("_id" -> style.id, "stylePic.showPriority" -> style.stylePic.last.showPriority.get),
             MongoDBObject("$set" -> (MongoDBObject("stylePic.$.fileObjId" -> imgId))), false, true)
     }
-    
-    def isExist(value:String, stylistId:String, f:(String,String) => Option[Style]) = f(value,stylistId).map(style => true).getOrElse(false)
-    
-    def checkStyleIsExist(name:String,stylistId:ObjectId):Option[Style] = {
+
+    def isExist(value: String, stylistId: String, f: (String, String) => Option[Style]) = f(value, stylistId).map(style => true).getOrElse(false)
+
+    def checkStyleIsExist(name: String, stylistId: ObjectId): Option[Style] = {
         dao.findOne(MongoDBObject("styleName" -> name, "stylistId" -> stylistId))
     }
 }

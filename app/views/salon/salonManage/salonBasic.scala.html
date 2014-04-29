@@ -1,36 +1,15 @@
 @(salonForm:Form[Salon],industry: List[Industry], salon: Salon)
 @import helper._
 @import helper.twitterBootstrap._
-@import views.html.salon.admin.mySalonMain
+@import views.html.salon.admin.mySalonInfoManageMain
 
-@mySalonMain("basicInformation",salon){
+@mySalonInfoManageMain("my-basicInfo",salon){
 	
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
-	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-		<tbody>	
-		</tbody>
-	</table>		
-	<div>
-		<ul class="bS menuBG cFix">
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonRegister">@Messages("salonCheckInfoState.register")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>		
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonBasic">@Messages("salonCheckInfoState.basicInfo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonDetail"> @Messages("salonCheckInfoState.detail")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.pictures")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-		</ul>
-	</div>
 
 	<div class="salonRegister">
-		<div class="contentsTitleWrapper">
-			<h2 class="contentsTitleInner">@Messages("salon.basicInformation")</h2>
-		</div>
 
-		<div class="mT10 pH10">
+		<div class="mT40 pH10">
 			@helper.form(action = auth.routes.Salons.salonbasicUpdate(salon.id),'id -> "salonForm", 'name -> "salonBasic"){
 				
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
@@ -283,7 +262,7 @@
 					                )
 					                
 					                <div class="manage">
-					                    <a class="addOptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
+					                    <a class="addOptContactMethod buttons success">@Messages("optContactMethod.AddOptContactMethod")</a>
 					                </div>
 					            
 					            </div>
@@ -388,10 +367,11 @@
 				            </td>
 				        </tr>
 					</tbody>
-				</table>												
-				<div class="mT20 txtC">			
+				</table>
+				
+				<div class="btnArea">
 					<input type = "button" class = "buttons" value=@Messages("common.submit") onclick="checksForSalonBasic();">
-				</div>
+			    </div>
 			}
 		</div>
 
@@ -402,14 +382,14 @@
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
         <input type="text" name="@name" value="@value"> 
-        <a class="removeAccount btn danger">@Messages("optContactMethod.Remove")</a>
+        <a class="removeAccount buttons danger">@Messages("optContactMethod.Remove")</a>
     }
 }
 
 @optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
     <div class="twipsies well @className">
         
-        <a class="removeOptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
+        <a class="removeOptContactMethod buttons danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
         
         @select(
         	field("contMethodType"), 
@@ -436,7 +416,7 @@
             
             <div class="clearfix">
                 <div class="input">
-                    <a class="addAccount btn success">@Messages("optContactMethod.AddNumber")</a>
+                    <a class="addAccount buttons success">@Messages("optContactMethod.AddNumber")</a>
                 </div>
             </div>
         

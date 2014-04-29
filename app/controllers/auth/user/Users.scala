@@ -85,7 +85,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
    * 用户申请技师用表单
    */
 
-  val stylistApplyForm: Form[StylistApply] = Form(
+  def stylistApplyForm: Form[StylistApply] = Form(
         mapping("stylist" -> 
 		    mapping(
 		    	"workYears" -> number.verifying(min(1),max(100)),
@@ -287,7 +287,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
           Salon.findByAccountId(stylistApply.salonAccountId).map{salon=>
             val applyRecord = new SalonStylistApplyRecord(new ObjectId, salon.id, user.id, 1, new Date, 0, None)
             SalonStylistApplyRecord.save(applyRecord)
-            Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara, followInfo, true))
+            Redirect(controllers.auth.routes.Stylists.updateStylistImage)
           }getOrElse{
         	  NotFound
           }

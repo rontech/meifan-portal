@@ -1,54 +1,5 @@
 @charset "utf-8";
 
-/* ヘッダー */
-#headerWrapper {
-	border-bottom: 2px solid #998a8a;
-	border-top:    16px solid #BFB4AB;
-	zoom: 1;
-}
-#header {
-	width: 1000px;
-	margin: 0 auto;
-	position: relative;
-}
-#headSummary {
-	font-size: 10px;
-	font-weight: normal;
-	color: #FFFFFF;
-	padding-left: 18px;
-	margin-top: -16px;
-	position: absolute;
-}
-#logoNavi {
-	height: 68px;
-	position: relative;
-	z-index: 0;
-}
-#logo {
-	position: absolute;
-	top: 9px;
-	left: 12px;
-	z-index: 0;
-}
-.user {
-	position: absolute;
-	top: 0;
-	right: 20px;
-	line-height: 33px;
-	z-index: 1;
-}
-.user .arrowR {
-	display: inline-block;
-	background-position: -196px -234px;
-	background-repeat: no-repeat;
-}
-.move {
-	position: absolute;
-	bottom: -2px;
-	_bottom: -3px;
-	right: 20px;
-	z-index: 3;
-}
 
 /* ラッパー */
 #wrapper {
@@ -273,61 +224,6 @@
 	margin-top: 30px;
 }
 
-/* フッター */
-#footer {
-	height: 60px;
-	border-top: 1px solid #DDDDDD;
-	padding-top: 10px;
-	margin-top: 20px;
-	position: relative;
-}
-#copyright {
-	position: absolute;
-	top: 10px;
-	left: 30px;
-}
-#footerLinks {
-	font-size: 10px;
-	overflow: hidden;
-	position: absolute;
-	top: 20px;
-	right: 30px;
-}
-#footerLinks li {
-	float: left;
-	border-right: 1px solid #DDD;
-	padding-right: 15px;
-	*padding-right: 16px;
-	margin-left: 15px;
-	margin-right: -1px;
-}
-
-#copyrightnew {
-	float:left;
-	margin : 0 10px ;
-}
-#copyrightnew p a {
-	font-size: 10px;
-	font-weight: bold;
-	font-family: 'メイリオ',Meiryo,'ヒラギノ角ゴ Pro W3','ＭＳ Ｐゴシック',MS PGothic,sans-serif;
-	line-height: 2;
-	color: #435B67 !important;
-	text-decoration: underline !important;
-}
-
-.postSalonInfo {
-	position: absolute;
-	top: 20px;
-	left: 320px;
-	background: url("/assets/images/icon_postsalon.png?switch=20140227") no-repeat left top;
-	padding-left: 20px;
-	line-height: 16px;
-	font-weight: bold;
-}
-.postSalonInfo a {
-	margin-left: 5px;
-	font-weight: normal;
-}
 
 /* 個社フッター */
 #salonFooterLinks {
@@ -3431,3 +3327,69 @@ a:hover .imgFrame {
 .inputHidden {
     display: none;
 }
+
+.style_ranking_display_block {
+	width:795px;
+    clear:both;
+    overflow:hidden;
+}
+
+.style_ranking_display_none {
+    DISPLAY: none;
+    CLEAR: both
+}
+
+ #style_nvfxjs_nr_box {
+        TEXT-ALIGN: center;HEIGHT: 30px; CLEAR: both; padding-bottom:2px;
+    }
+    #style_nvfxjs_nr_box h2 {
+        margin:0px; padding:0px 0px 0px 0px; width:98px; float:left; height:36px; font:bold 12px/30px "宋体"; text-align:center; overflow:hidden; color:#333; border-right:1px solid #FFF;
+    }
+    #style_nvfxjs_nr_box h2.menuOn {
+        font:normal 16px/30px "微软雅黑"; cursor:hand; background-color:#f6d7d7; width:93px; height:30px; color:#8b0009;
+    }
+    #style_nvfxjs_nr_box h2.menuNo {
+        font:normal 16px/30px "微软雅黑"; cursor:hand; background-color:#a79d9d; width:93px; height:30px; color:#fff;
+    }
+
+#salon_tjtj {
+width: 795px;
+clear: both;
+overflow: hidden;
+padding-bottom: 15px;
+}
+#salon_tjtj h2 {
+width: 795px;
+clear: both;
+overflow: hidden;
+border-top: 1px solid #f39aa3;
+}
+#salon_tjtj_nr {
+width: 795px;
+clear: both;
+overflow: hidden;
+padding-top: 8px;
+}
+#salon_tjtj table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+#salon_tjtj table[Attributes Style] {
+width: 793px;
+border-top-width: 0px;
+border-right-width: 0px;
+border-bottom-width: 0px;
+border-left-width: 0px;
+}
+#salon_tjtj table {
+display: table;
+}
+.fx_pic_t {
+clear: both;
+margin: 0 auto 5px;
+padding: 2px;
+}
+#salon_tjtj_nr p{
+	width:98px;	
+}
+

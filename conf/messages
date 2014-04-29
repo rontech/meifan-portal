@@ -345,6 +345,7 @@ service.update=更新
 service.minutes = 分钟
 service.title = {0} 的服务
 service.createServiceArea = 创建服务区域
+service.editService = 修改服务
 service.addErrorMsg = 请输入服务名！
 service.priceErrorMsg = 请输入单价！
 service.durationErrorMsg = 请输入估计的耗时！
@@ -490,6 +491,9 @@ stylist.myBoom = 兴趣爱好
 stylist.myPR = 自我宣传
 stylist.submit = 提交申请
 stylist.reset = 重置
+stylist.writeApplyInfo = 填写技师资料
+stylist.uploadApplyImg = 上传技师图片
+stylist.nextStep = 下一步
 
 
 #Stylist management
@@ -631,6 +635,7 @@ user.message.to = 收信人
 user.message.title = 标题
 user.message.content = 内容
 user.message.send = 发送
+user.other=他
 
 user.needfieldworks = 请输入0~100整数
 user.errorWorks = 无效的年数
@@ -925,7 +930,7 @@ reservation.salonResvMessage = ※即时预约，预约成功之后即可以到�
 reservation.onlineResv = 即时预约
 
 #salonCheckInfoState
-salonCheckInfoState.conditions =  开店条件：
+salonCheckInfoState.conditions =  开店条件
 salonCheckInfoState.condition = 事项
 salonCheckInfoState.status = 是否完善
 salonCheckInfoState.operate = 操作
