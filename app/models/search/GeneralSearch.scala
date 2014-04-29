@@ -37,7 +37,17 @@ case class SearchParaForSalon(
     priceRange: PriceRange, 
     seatNums: SeatNums,
     salonFacilities: SalonFacilities,
-    sortByCondition: String
+    sortByConditions: SortByConditions 
+)
+
+
+/**
+ * Assistant Class: sort by conditions 
+ */
+case class SortByConditions(
+    sortByPopuAsc: Boolean = false,        // 热度: by popularity
+    sortByReviewAsc: Boolean = false,      // 评价: by review
+    sortByPriceAsc: Boolean = true         // 价格: by price
 )
 
 
@@ -118,6 +128,7 @@ case class SalonGeneralSrchRst(
   salonInfo: Salon,               // 沙龙基本情报
   selectedStyles: List[Style],    // 发型集合
   selectedCoupons: List[Coupon],  // 优惠券集合
+  priceForCut: Option[BigDecimal],        // 最低剪发价格
   reviewsStat: ReviewsStat,       // 店铺评价状况
   keywordsHitStrs: List[String]   // 检索中和关键字匹配的内容拔粹
 )

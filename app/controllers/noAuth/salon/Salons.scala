@@ -146,7 +146,12 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                         Some((salonFacilities.canOnlineOrder, salonFacilities.canImmediatelyOrder, salonFacilities.canNominateOrder, salonFacilities.canCurntDayOrder, salonFacilities.canMaleUse, salonFacilities.isPointAvailable, salonFacilities.isPosAvailable, salonFacilities.isWifiAvailable,
                             salonFacilities.hasParkingNearby))
                 },
-                "sortByCondition" -> text)(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
+                "sortByConditions" -> mapping(
+                    "sortByPopuAsc" -> boolean,
+                    "sortByReviewAsc" -> boolean,
+                    "sortByPriceAsc" -> boolean
+                ) (SortByConditions.apply)(SortByConditions.unapply) 
+        )(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
 
     /**
      * 店铺注册
@@ -167,7 +172,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
      -------------------------*/
     def index = StackAction { implicit request =>
         val user = loggedIn
-        val searchParaForSalon = new SearchParaForSalon(None,"苏州","all",List(),"Hairdressing",List(),PriceRange(0,1000000),SeatNums(0,10000),SalonFacilities(false,false,false,false,false,false,false,false,false,""),"热度")
+        val searchParaForSalon = new SearchParaForSalon(None,"苏州","all",List(),"Hairdressing",List(),PriceRange(0,1000000),SeatNums(0,10000),SalonFacilities(false,false,false,false,false,false,false,false,false,""), SortByConditions(false, false, true))
         val salons = Salon.findSalonBySearchPara(searchParaForSalon)
         Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
     }
