@@ -31,7 +31,7 @@
 				<div class="fs14 b wwbw">
 				@if(salon != null){
 					<a href="@noAuth.routes.Blogs.getOneBlogOfSalon(salon.id, blog.id)">@blog.title</a>
-					<span class="iS upLately offL dib vaM">UP</span>
+					@*<span class="iS upLately offL dib vaM">UP</span>*@
 				}else{
 					<a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)">@blog.title</a>
 					<a href="@auth.routes.MyFollows.cancelFollow(blog.id)"

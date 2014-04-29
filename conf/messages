@@ -473,12 +473,13 @@ stylist.rjtApply = 拒绝后无法恢复，请确认是否拒绝？
 stylist.actApply = 请确认是否同意！
 stylist.myPictureShow = 展示图片上传
 stylist.picTitle=点击可查看技师资料
+stylist.salonNoStylist= 没有找到您希望的技师！
 
 
 
 #Stylist Apply
 stylist.name = 昵称
-stylist.years = 年
+stylist.years = {0}年
 stylist.industry = 类别
 stylist.position = 职位
 stylist.goodAtImage = 擅长风格
@@ -736,7 +737,7 @@ blog.quoteComment = 引用来自" {0} "的评论
 blog.new = 新博客
 blog.toCollect=收藏此博客
 blog.noCollect = 暂无收藏的博客！
-blog.salonNoBlog= 该店铺还未有博客！
+blog.salonNoBlog= 没有找到您希望的博客！
 blog.preBlog = 前一篇
 blog.nextBlog = 后一篇
 blog.noPreNext = 没有啦！
@@ -744,7 +745,7 @@ blog.noPreNext = 没有啦！
 # Comment
 comment.comment = 评论
 comment.salonCommentTitle = {0} 的评论
-comment.noComment = 该店铺暂无评论
+comment.noComment = 没有找到您希望的评论！
 comment.passDate = [投稿日]
 comment.usedCoupon = 预约时使用的优惠券
 comment.usedServices = [用到的技术]
@@ -786,6 +787,7 @@ style.ranking.second=2位
 
 # 发型图片
 style.picTitle=点击可查看发型信息
+
 
 #-------------------------------
 # Master Table Translation Area.
