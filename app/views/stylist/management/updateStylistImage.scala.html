@@ -1,19 +1,62 @@
-@(user :User, followInfo :FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false, stylist: Stylist)
+@(user :User, followInfo :FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false, stylist: Stylist, roles: String)
 
 @import helper._
 @import views.html.user._
 
 @myPageMain("updateStylistImage", user, followInfo, loginUserId, logged){
-	@helper.form(auth.routes.Stylists.toUpdateStylistImage, 'enctype -> "multipart/form-data") {
-        <input type="file" id="filePhoto" name="photo" style="width:50"  /> 
-        
-        <div id="target" style="width:166px;height:215px;background-color:#DDDDDD;border:1px solid #666666;">
-        	<span style="text-aligin:center;color:#444444;">@Messages("stylist.myPictureShow")</span>
+	@if(roles.equals("user")){
+				<div class="step">
+		            <ul>
+		               <li class="one cur">@Messages("stylist.writeApplyInfo")</li>
+		               <li class="four">@Messages("stylist.uploadApplyImg")</li>
+		            </ul>
+		        </div>
+	}
+	@helper.form(auth.routes.Stylists.toUpdateStylistImage(roles), 'enctype -> "multipart/form-data") {
+        <div class="upMain">
+	        <input type="file" id="filePhoto" name="photo" style="width:50"  /> 
+	        
+	        <div id="target" style="width:166px;height:215px;background-color:#DDDDDD;border:1px solid #666666;">
+	        	<span style="text-aligin:center;color:#444444;">@Messages("stylist.myPictureShow")</span>
+	        </div>
+	        <button type="submit" onclick="return uploadimages();">
+	        	@if(roles.equals("user")){@Messages("stylist.submit")}else{@Messages("user.changeImage")}
+	        </button>
+	        <div class="regPoint">
+				<h3>@Messages("stylistUploadIMG.h3_0")</h3>
+				<p>@Messages("stylistUploadIMG.weSupport")<strong>jpg</strong>、<strong>png</strong>@Messages("stylistUploadIMG.formatandlimit")<strong>2M</strong>。
+					<br>
+					@Messages("stylistUploadIMG.unsupport_1")<br>
+					@Messages("stylistUploadIMG.prompt_0")
+				</p>
+				<h3>@Messages("stylistUploadIMG.h3_1")</h3>
+				<p>@Messages("stylistUploadIMG.prompt_1")<strong>@Messages("stylistUploadIMG.strong_0")</strong>；
+					<br>@Messages("stylistUploadIMG.prompt_2")<strong>@Messages("stylistUploadIMG.strong_1")</strong>.
+					<br>
+
+				</p>
+			</div>
         </div>
-        <button type="submit" onclick="return uploadimages();">@Messages("stylist.submit")</button>
 	}
 }
-
+<style>
+.upMain h3 {
+display: block;
+margin: 0 0 2px 0;
+font-weight: 700;
+}
+.upMain p {
+margin: 0 0 15px 0;
+}
+.upMain p strong {
+color: #ff6600;
+}
+.upMain {
+line-height: 24px;
+overflow: hidden;
+zoom: 1;
+}
+</style>
 <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
 <script type="text/javascript">
 function readURL(input) {

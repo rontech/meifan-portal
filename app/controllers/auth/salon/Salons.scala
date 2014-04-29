@@ -286,7 +286,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     def saveSalonImg(imgId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
         val salon = loggedIn
         Salon.updateSalonLogo(salon, imgId)
-        Redirect(routes.Salons.salonInfoBasic)
+        Redirect(routes.Salons.checkInfoState)
     }
 
     /**

@@ -35,7 +35,10 @@ object GeneralSearch extends Controller with OptionalAuthElement with UserAuthCo
                             Ok(views.html.index())
                         }
                         case "HairSalon" => {
-                            val searchParaForSalon = new SearchParaForSalon(Option(generalSearch._2), "苏州", "all", List(), "Hairdressing", List(), PriceRange(0, 1000000), SeatNums(0, 10000), SalonFacilities(false, false, false, false, false, false, false, false, false, ""), "热度")
+                            val searchParaForSalon = new SearchParaForSalon(Option(generalSearch._2), "苏州", "all", List(), "Hairdressing", List(), 
+                                    PriceRange(0, 1000000), SeatNums(0, 10000),
+                                    SalonFacilities(false, false, false, false, false, false, false, false, false, ""),
+                                    SortByConditions(false, false, true))
                             val salons = Salon.findSalonBySearchPara(searchParaForSalon)
                             Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
                         }

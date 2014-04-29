@@ -4,14 +4,12 @@
 <body>
 <div class="w166 mHA">
     <div class="taC">
-        <a href="@*routes.Stylists.findStylistById(stylist.stylistId)*@">
+        <a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
             <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" class="bdImgGray w164 h219">
         </a>
     </div>
     <p class="mT10">
-        <a href="#">
-           <p>@Stylist.findUserName(stylist.stylistId)</p>
-        </a>
+        <p>@Stylist.findUserName(stylist.stylistId)</p>
     </p>
     <div class="bdDotT mT5 pT5 fs10">
         <span class="fgPink">

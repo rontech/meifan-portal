@@ -159,9 +159,9 @@ GET         /myPage/toApplySalon/:salonId                                       
 GET         /myPage/salon                                                        controllers.auth.Stylists.findSalonBySalonAccountId
 
 # TODO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-GET         /updateStylistImage                                                  controllers.auth.Stylists.updateStylistImage
-POST        /toUpdateStylistImage                                                controllers.auth.Stylists.toUpdateStylistImage
-GET         /saveStylistImg/:imgId                                               controllers.auth.Stylists.saveStylistImg(imgId: ObjectId)
+GET         /updateStylistImage                                                  controllers.auth.Stylists.updateStylistImage(role: String)
+POST        /toUpdateStylistImage                                                controllers.auth.Stylists.toUpdateStylistImage(role: String)
+GET         /saveStylistImg/:imgId/:role                                         controllers.auth.Stylists.saveStylistImg(imgId: ObjectId, role: String)
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 GET         /myPage/StylistInfo                                                  controllers.auth.Stylists.stylistInfo
 POST        /myPage/updateStylistInfo/:stylistId                                 controllers.auth.Stylists.updateStylistInfo(stylistId: ObjectId)
