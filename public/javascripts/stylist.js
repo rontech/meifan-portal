@@ -42,6 +42,7 @@ function checkStylistExist(){
                  if(txt == 'NO'){
                 	 $('#stylistSerchMsg').text("没有发现此技师或该技师已属其它店铺，请重新输入");
                 	 $('.searchStylistDisplay').remove();
+                	 return false;
                  }
             	 
             	 
