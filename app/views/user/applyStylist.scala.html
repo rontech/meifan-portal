@@ -148,7 +148,7 @@
 			                <div>
 			                	@input(field = stylistApplyForm("stylist.goodAtService"),args = '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to goodAtStylePara.goodAtService.length-1){
-								 		<input type = "checkbox" name = "stylist.goodAtService[@i]" value = "@goodAtStylePara.goodAtService(i)">@Messages(goodAtStylePara.goodAtService(i))
+								 		<input type = "checkbox" name = "stylist.goodAtService[@i]" value = "@goodAtStylePara.goodAtService(i)">@Messages("ServiceType.serviceTypeName."+goodAtStylePara.goodAtService(i))
 								 		@if((i+1)%6==0){
 								 			<br />
 								 		}
@@ -280,7 +280,14 @@
         &nbsp;&nbsp;
         @select(
                 field("positionName"), 
-                options = options(goodAtStylePara.position),
+                options = options(
+					"Manager" -> Messages("position.Manager"),
+					"ChiefStylist" -> Messages("position.ChiefStylist"),
+					"Stylist" -> Messages("position.Stylist"),
+					"AdvanceAssistant" -> Messages("position.AdvancedAssistant"),
+					"Assistant" -> Messages("position.Assistant")
+	
+				),
                 'placeholder -> Messages("positionName"),
                 '_default -> Messages("ChoosePosition"),
                 '_label -> None,

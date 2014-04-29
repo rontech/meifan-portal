@@ -8,9 +8,11 @@
      <ul>
      @for(qust <- questions) {
          <li>
-             <h1>@qust.questName</h1>
+             <h1><font size = "5px">@qust.questName</font></h1>
+             <hr>
              <br/>
              <p>@Html(qust.questContent)</p>
+             <br/><br/><br/><br/><br/>
          </li>
      }
      </ul>

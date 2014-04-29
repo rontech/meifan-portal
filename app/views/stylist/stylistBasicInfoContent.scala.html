@@ -70,7 +70,9 @@
                                 
                     <tr> <th class="w100">@Messages("stylist.goodAtImage") </th>
                         <td> @stylist.stylistInfo.get.goodAtImage.map{image=>
-                        	@image&nbsp;
+                        	@*
+                        	@image&nbsp;*@
+                        	@Messages("style.styleImpression." + image)&nbsp;
                         }</td>
                     </tr>
                     <tr>
