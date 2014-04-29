@@ -1,7 +1,7 @@
 @(user: Option[User])
 
 <div id="index_member">
-    	<h2></h2>
+    	<a href="@auth.routes.Users.myPage"><h2></h2></a>
         <div id="index_member_nr">
         <p class="ad">
         @Messages("point.policyCond")</br>
@@ -10,7 +10,7 @@
         <p class="fk">
 				@user match {
                                             case None => {@Messages("user.welcome", Messages("user.guestName"))}
-                                            case Some(user) => {@Messages("user.welcome", user.nickName)}
+                                            case Some(user) => {<a href="@auth.routes.Users.myPage">@Messages("user.welcome", user.nickName)</a>}
                                         }
 				</p>
         <p class="hydl">

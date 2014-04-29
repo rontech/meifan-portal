@@ -1,18 +1,20 @@
-@(navInSalon: String = "my-salonInfo",salon:Salon,industry: List[Industry])
+@(navInSalon: String = "my-infomation",salon:Salon,industry: List[Industry])
 @import helper._
 @import helper.twitterBootstrap._
 @import views.html.salon.admin._
 
-@mySalonMain(navInSalon, salon){
+@mySalonMain("my-infomation", salon){
 	
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
-
-    <div class="mT30">
-        <div class="yS mainContentsSecondTitleOuter">
-        <h2 class="yS mainContentsSecondTitleInner">
-            @Messages("salon.salonData", salon.salonName)
-        </h2>
-        </div>
+	
+	<div>
+		<ul class="tabInfoTitle">
+			<li class="fl selected">
+				@Messages("salon.salonData", salon.salonName)
+			</li>		
+		</ul>
+	</div>
+    <div class="mT40">
         <p class="mT5 taR"> <i> <em class="seoCaption"> @salon.salonName </em> </i> </p>
         <table cellspacing="0" class="wFull bdCell bgThNml fgThNml vaThT pCellV10H12">
         <tbody>
