@@ -19,6 +19,7 @@ import scala.Some
 import models.StylistApply
 import models.OptContactMethod
 import models.Address
+import play.api.templates.Html
 
 object Users extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl {
 
@@ -65,7 +66,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
           "contMethodType" -> text,
           "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
       "socialStatus" -> optional(text),
-      "registerTime" -> date,
+      "registerTime" -> longNumber,
       "userTyp" -> text,
       "userBehaviorLevel" ->text,
       "point" ->number,
@@ -85,7 +86,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
    * 用户申请技师用表单
    */
 
-  val stylistApplyForm: Form[StylistApply] = Form(
+  def stylistApplyForm: Form[StylistApply] = Form(
         mapping("stylist" -> 
 		    mapping(
 		    	"workYears" -> number.verifying(min(1),max(100)),
@@ -177,7 +178,8 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
     val loginUser = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     Users.userForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.user.Infomation(errors, loginUser, followInfo)),
+      //errors => BadRequest(views.html.user.Infomation(errors, loginUser, followInfo)),
+    errors => BadRequest(Html(errors.toString)),
       {
         user =>
           User.save(user.copy(id = loginUser.id), WriteConcern.Safe)
@@ -287,7 +289,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
           Salon.findByAccountId(stylistApply.salonAccountId).map{salon=>
             val applyRecord = new SalonStylistApplyRecord(new ObjectId, salon.id, user.id, 1, new Date, 0, None)
             SalonStylistApplyRecord.save(applyRecord)
-            Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara, followInfo, true))
+            Redirect(controllers.auth.routes.Stylists.updateStylistImage("user"))
           }getOrElse{
         	  NotFound
           }

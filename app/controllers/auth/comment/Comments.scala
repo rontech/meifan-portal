@@ -76,7 +76,9 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
 	        Comment.addCommentToCoupon(user.userId, content, commentObjId, commentObjType, complex, atmosphere, service, skill, price)
 	        if (commentObjType == 2) { 
 	          // TODO 等到预约做好后，由于预约表中有与用户相关的字段，到时候可以跳转
-	          Ok("成功插入到数据库中了啦，哈哈！")
+//	          Redirect(auth.routes.MyFollows.followedCoupon(user.id))
+	          // 目前暂时跳转到我的主页
+	          Redirect(auth.routes.Users.myPage)
 	        }
 	        else {
 	          Ok("")

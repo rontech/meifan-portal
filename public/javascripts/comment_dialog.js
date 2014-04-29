@@ -104,8 +104,9 @@ function create_comment_dialog(commentObjId, commentObjType) {
     })
     //为send按钮注册点击事件
     jQuery("#send_message").click(function () {
-    	
-    	var url = "/addCommentToCoupon/" + commentObjId + "/" + commentObjType;
+    	// TODO fix href with routes ...
+    	var url = "/myPage/coupon/addComment/" + commentObjId + "/" + commentObjType;
+//    	var url = @auth.routes.Comments.addCommentToCoupon(commentObjId, commentObjType);
     	$("#myForm").attr("action", url);
     	if(complex == 0) {
 //    		alert("您还没有给第一项打分呢！");

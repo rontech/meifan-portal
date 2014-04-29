@@ -2,7 +2,15 @@
 
 @import helper._
 
-    @main(title = Messages("service.addServiceType")) {
+<div>
+	<ul class="tabInfoTitle">
+		<li class="fl selected">
+			@Messages("service.addService")
+		</li>		
+	</ul>
+</div>
+<div class = "mT40">
+	@main(title = Messages("service.addServiceType")) {
 
 		<head>
 		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/service/service.css")">
@@ -23,12 +31,18 @@
       
 		  </fieldset>
 		  
-            <input type="submit" class = "buttons" value="@Messages("service.addBton")">
+			<div class="btnArea">
+				<input type="submit" class = "buttons" value="@Messages("service.addBton")">
             
-            <input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+            	<input type = "reset" class = "buttons" value="@Messages("service.resetBton")">
+			</div>
+		  
+            
            
         }
         
         </body>
 
     }
+</div> 
+   

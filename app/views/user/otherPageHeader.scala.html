@@ -3,18 +3,18 @@
 	<!-- ↓mainContents -->
     	<ul class="bS menuBG cFix">
 		<li class="fl">
-		    <a href="@auth.routes.MyFollows.followedCoupon(user.id)" onclick= "isForbidden('@user.id')">
-				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.collectCoupon")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    <a href="@auth.routes.MyFollows.followedCoupon(user.id)" onclick= "followedCouponIsForbidden('@user.id')">
+				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.other")@Messages("user.collectCoupon")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
 		<li class="fl">
-		    <a href="@auth.routes.MyFollows.followedBlog(user.id)">
-				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.collectBlog")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    <a href="@auth.routes.MyFollows.followedBlog(user.id)" onclick= "followedBlogIsForbidden('@user.id')">
+				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.other")@Messages("user.collectBlog")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
 		<li class="fl">
-		    <a href="@auth.routes.MyFollows.followedStyle(user.id)">
-				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.collectStyle")&nbsp&nbsp&nbsp&nbsp&nbsp
+		    <a href="@auth.routes.MyFollows.followedStyle(user.id)" onclick= "followedStyleIsForbidden('@user.id')">
+				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.other")@Messages("user.collectStyle")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
   		</ul>

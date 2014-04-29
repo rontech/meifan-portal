@@ -2,12 +2,16 @@
 
 @import views.html.salon.admin.mySalonMain
 
-@mySalonMain("checkSalonInfo", salon){
+@mySalonMain("my-infomation", salon){
 	
-	<div id="J_ChooseDesc">
-    <span class="new-shop-title">
-        @Messages("salonCheckInfoState.conditions")
-    </span>
+	<div>
+		<ul class="tabInfoTitle">
+			<li class="fl selected">
+				@Messages("salonCheckInfoState.conditions")
+			</li>		
+		</ul>
+	</div>
+	<div id="J_ChooseDesc" class="mT40">
     <table class="table salonInfoState">
         <thead>
             <tr>

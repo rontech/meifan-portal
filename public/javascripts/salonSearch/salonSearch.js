@@ -31,8 +31,7 @@ $(function() {
         	return;
         }
         if(re.test(maxPrice) && minPrice == ''){
-        	alert('b');
-        	$('.fill_priceRang_minPrice').val(0);
+            $('.fill_priceRang_minPrice').val(0);
             $('.fill_priceRang_minPrice').attr("checked",'checked');
             $('.fill_priceRang_maxPrice').val(maxPrice);
             $('.fill_priceRang_maxPrice').attr("checked",'checked');
@@ -80,8 +79,38 @@ $(function() {
     $('.condtions_item').click(function(){
         submitForm();
     });
+
+    // Sort by price.
+    $('#price').click(function() {
+        // alert($('#price').prop('checked'));
+        submitForm();
+    })
+
+    // Sort by popularity.
+    $('#popu').click(function() {
+        submitForm();
+    })
+
+    // Sort by review.
+    $('#review').click(function() {
+        submitForm();
+    })
     
-}); 
+});
+
+
+/**
+ * Function to get checkbox values in a group.
+ */
+function setChkBoxValueInGrp(grpId, inputTag) {
+    var checkArray = document.getElementById(grpId).getElementsByTagName(inputTag);
+    for(var i=0; i<checkArray.length; i++){
+        if(checkArray[i].type=='checkbox'){
+            checkArray[i].checked=false;
+        }
+    }
+}
+
 
 function unlimitedCondtions(){
     var checkArray = document.getElementById("otherCondtion_group").getElementsByTagName("input");
@@ -94,6 +123,7 @@ function unlimitedCondtions(){
     
 }
 
+
 function unlimitSalons(){
     var checkArray = document.getElementById("unlimitSalons_group").getElementsByTagName("input");
     for(var i=0; i<checkArray.length; i++){
@@ -103,6 +133,7 @@ function unlimitSalons(){
     }
     submitForm();
 }
+
 
 function unlimitServiceType(){
     var checkArray = document.getElementById("unlimitServiceType_group").getElementsByTagName("input");
@@ -121,17 +152,23 @@ function unlimitedRegion(){
 }
 
 function submitForm(){
+	if($('#getcity_name').val()=='中文/拼音'){
+		$('.com_city_bug').css('display', 'inline');
+		return;
+	}
     document.getElementById("salonSearchForm").submit();
 }
 
-
+function clickSalonSearch(){
+	submitForm();
+}
 
 
 /*------------------------------
  * Highlight search result.
  *------------------------------*/
 $(document).ready(function() {
-    highlight($('#keyword').val());
+    //highlight($('#keyword').val());
 });
 
 function encode(s){

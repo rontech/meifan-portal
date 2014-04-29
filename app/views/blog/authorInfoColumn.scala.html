@@ -4,7 +4,7 @@
 <dd class="list p10 bgDGray2">
 	<div class="taC">
             <a href="@noAuth.routes.Salons.getOneStylist(salon.id, stylist.stylistId)">
-		<img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" alt="salon.salonName">
+		<img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" alt="salon.salonName" width = "89px" height = "119px">
             </a>
 	</div>
 	<p class="fgPink fs10 mT5">@stylist.position.map {position => @position.positionName}</p>

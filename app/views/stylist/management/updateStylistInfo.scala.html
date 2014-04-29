@@ -28,7 +28,7 @@
 	<div class="twipsies well @className">
 		<a class="removeOptContactMethod btn danger pull-right">@Messages("removePositionAndIndusty")</a>
 		<div class="industry">
-        @select(
+       	@select(
                 field("industryName"), 
                 options = options("Hairdressing"-> Messages("industry.industryName.Hairdressing"),
                 	"Manicures" -> Messages("industry.industryName.Manicures"),
@@ -45,7 +45,14 @@
         &nbsp;&nbsp;
         @select(
                 field("positionName"), 
-                options = options(goodAtStylePara.position),
+                options = options(
+					"Manager" -> Messages("position.Manager"),
+					"ChiefStylist" -> Messages("position.ChiefStylist"),
+					"Stylist" -> Messages("position.Stylist"),
+					"AdvanceAssistant" -> Messages("position.AdvancedAssistant"),
+					"Assistant" -> Messages("position.Assistant")
+	
+				),
                 'placeholder -> Messages("positionName"),
                 '_default -> Messages("ChoosePosition"),
                 '_label -> None,
@@ -172,7 +179,7 @@
 								 		@if(stylist.goodAtService.contains(goodAtStylePara.goodAtService(i))){
 								 			<input type = "checkbox" name = "goodAtService[@i]" checked="checked" value = "@goodAtStylePara.goodAtService(i)">@Messages(goodAtStylePara.goodAtService(i))	
 								 		}else{
-								 			<input type = "checkbox" name = "goodAtService[@i]" value = "@goodAtStylePara.goodAtService(i)">@Messages(goodAtStylePara.goodAtService(i))
+								 			<input type = "checkbox" name = "goodAtService[@i]" value = "@goodAtStylePara.goodAtService(i)">@Messages("ServiceType.serviceTypeName.s"+goodAtStylePara.goodAtService(i))
 								 		}
 								 			
 								 		@if((i+1)%6==0){

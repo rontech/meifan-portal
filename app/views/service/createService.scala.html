@@ -3,9 +3,14 @@
 @import helper._
 @import helper.twitterBootstrap._
 
-<div class="contentsTitleWrapper">
-    <h2 class="contentsTitleInner">@Messages("service.createServiceArea")</h2>
+<div>
+	<ul class="tabInfoTitle">
+		<li class="fl selected">
+			@Messages("service.createServiceArea")
+		</li>		
+	</ul>
 </div>
+<div class="mT40">
 @helper.form(auth.routes.Services.addService, 'id -> "serviceForm", 'name -> "serviceForm") {
     @if(serviceForm.hasGlobalErrors) {
         <div>
@@ -84,7 +89,7 @@
             <tr>
                 <th>
                     <div class="dibBL vaM w154">
-                        @Messages("service.description")
+                        <font class="cR">*</font>                        @Messages("service.description")
                     </div>
                 </th>
                 <td>

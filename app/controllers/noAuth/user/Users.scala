@@ -37,7 +37,7 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
       "accept" -> checked("You must accept the conditions")
     ){
           (id, userId, password, nickName, email, optContactMethods,_) =>
-          User(new ObjectId, userId, nickName, BCrypt.hashpw(password._1, BCrypt.gensalt()), "M", None, None, DefaultLog.getImgId, None, email, optContactMethods, None, User.NORMAL_USER,  User.HIGH, 20, 0, new Date(), Permission.valueOf(LoggedIn), true)
+          User(new ObjectId, userId, nickName, BCrypt.hashpw(password._1, BCrypt.gensalt()), "M", None, None, DefaultLog.getImgId, None, email, optContactMethods, None, User.NORMAL_USER,  User.HIGH, 20, 0, (new Date()).getTime, Permission.valueOf(LoggedIn), true)
       } {
         user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.email, user.optContactMethods, false))
       })
@@ -57,7 +57,7 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
       {
         user =>
           User.save(user, WriteConcern.Safe)
-          Ok(views.html.user.login(Users.loginForm))
+          Redirect(auth.routes.Users.login)
       })
   }
 
