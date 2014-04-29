@@ -477,7 +477,7 @@ stylist.picTitle=点击可查看技师资料
 
 #Stylist Apply
 stylist.name = 昵称
-stylist.years = 年
+stylist.years = {0}年
 stylist.industry = 类别
 stylist.position = 职位
 stylist.goodAtImage = 擅长风格
@@ -775,6 +775,7 @@ style.ranking.second=2位
 
 # 发型图片
 style.picTitle=点击可查看发型信息
+
 
 #-------------------------------
 # Master Table Translation Area.
