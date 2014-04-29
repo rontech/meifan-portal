@@ -15,7 +15,7 @@ object Services extends Controller with AuthElement with SalonAuthConfigImpl{
   def serviceForm(id: ObjectId = new ObjectId): Form[Service] = Form(
     mapping(
       "id" -> ignored(id),
-      "serviceName" -> nonEmptyText,
+      "serviceName" -> text,
       "description" -> text,
       "serviceType" -> text,
       "salonId" -> text,
@@ -35,7 +35,7 @@ object Services extends Controller with AuthElement with SalonAuthConfigImpl{
   def serviceUpdateForm(id: ObjectId = new ObjectId): Form[Service] = Form(
     mapping(
       "id" -> ignored(id),
-      "serviceName" -> nonEmptyText,
+      "serviceName" -> text,
       "description" -> text,
       "serviceType" -> text,
       "salonId" -> text,

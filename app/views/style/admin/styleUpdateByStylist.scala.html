@@ -1,6 +1,7 @@
 @(styleUpdateForm: Form[Style], stylePara: models.StylePara, style: models.Style)
 
 @import helper._
+@import helper.twitterBootstrap._
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">
 <head>
@@ -15,7 +16,7 @@
 </head>
 <body>
 	<div>
-		@form(auth.routes.Stylists.styleUpdateNewByStylist, 'id -> "styleUpdateForm"){
+		@helper.form(auth.routes.Stylists.styleUpdateNewByStylist, 'id -> "styleForm", 'name ->"styleForm"){
 		<div>
 			<input type = "hidden" class="" name = "id" value = "@style.id">
 		</div>
@@ -163,7 +164,7 @@
 	    </div>
 	    <div align="center">
 	        <input type = "reset" class = "buttons" value=@Messages("common.reset")>
-		    <input type="button" onclick="return styleSubmit();" class = "buttons" value=@Messages("common.submit")>
+		    <input type="button" onclick="checksForStyle();" class = "buttons" value=@Messages("common.submit")>
         </div>	
 		}
 	</div>
@@ -172,9 +173,9 @@
 @stylePicOneGroup(field: Field, className: String = "stylePicGroup") = {
     <li>
 		<div class="delete-pic"></div>
-		@field("fileObjId").value.map{fileid=>
-			@if(!fileid.equals("")){
-				<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
+		@field("fileObjId").value.map{fileId=>
+			@if(!fileId.equals("")){
+				<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileId))'/></div>
 			}
 		}
 		<div class="twipsies well @className">
@@ -203,7 +204,7 @@
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/swfupload.css")">
     <script src="@routes.Assets.at("javascripts/jquery-1.8.2.min.js")" type="text/javascript"></script>
-    
+    <script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/swfupload/swfupload.js")"></script>
 	<script type="text/javascript" src="@routes.Assets.at("javascripts/swfupload/swfupload.queue.js")"></script>
 	<script type="text/javascript" src="@routes.Assets.at("javascripts/swfupload/swfupload.speed.js")"></script>
@@ -379,32 +380,5 @@ $("#filePhoto").change(function() {
 		};
 		swfImageUpload = new SWFUpload(settings);
 		initImageListFn();
-	});
-	
-	$('#Description').blur(function(){
-		checkDescription();
-	});  
-	   
-	function checkDescription(){
-		var value=$('#Description').val();
-		if(value.length>150){
-			$('#Description').parent('dd').next().text('超出长度限制').removeClass("trueMsg").addClass("errorMsg");
-		}
-	}
-	
-	function styleSubmit(){
-		
-		checkDescription();
-		var $obj=$('.imageoffileobjid');
-		$('.picture_error_msg').remove();
-		if($obj.length == 1){
-		$('.demo').append('<div class="picture_error_msg"><span class="errorMsg">至少选择一张图片</span><div>');
-			return;
-		}
-		var errInput = $('.errorMsg')
-	    if (errInput.length != 0 ){
-	        return;
-	    }
-	    document.getElementById("styleUpdateForm").submit();
-	}
+	})
 </script>

@@ -53,7 +53,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             )(SalonAccount.apply)(SalonAccount.unapply),
             "salonName" -> text,
             "salonNameAbbr" -> optional(text),
-            "salonIndustry" -> list(nonEmptyText),
+            "salonIndustry" -> list(text),
             "homepage" -> optional(text),
             "salonDescription" -> optional(text),
             "picDescription" -> optional(mapping(
@@ -62,9 +62,9 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
                 "picFoot" -> text
             )(PicDescription.apply)(PicDescription.unapply)),
             "contactMethod" -> mapping(
-                "mainPhone" -> nonEmptyText.verifying(Messages("salon.phoneError"), email => email.matches("""\d{3}-\d{8}|\d{4}-\d{8}""")),
-                "contact" -> nonEmptyText,
-                "email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$"""))
+                "mainPhone" -> text,
+                "contact" -> text,
+                "email" -> text
             )(Contact.apply)(Contact.unapply),
             "optContactMethods" -> list(
                 mapping(

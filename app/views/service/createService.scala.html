@@ -1,11 +1,12 @@
 @(salonId: ObjectId, serviceForm: Form[Service], serviceType: List[String])
 
 @import helper._
+@import helper.twitterBootstrap._
 
 <div class="contentsTitleWrapper">
     <h2 class="contentsTitleInner">@Messages("service.createServiceArea")</h2>
 </div>
-@form(auth.routes.Services.addService, 'id -> "serviceForm", 'name -> "serviceForm") {
+@helper.form(auth.routes.Services.addService, 'id -> "serviceForm", 'name -> "serviceForm") {
     @if(serviceForm.hasGlobalErrors) {
         <div>
             <p>@serviceForm.globalError.get.message<p>
@@ -24,8 +25,8 @@
                 </th>
                 <td>
                     <div class="inputField">
-                    @inputText(serviceForm("serviceName"), '_label -> None, 'id -> "serviceName",'_help -> Messages(""),
-                        '_error -> serviceForm("serviceName").error.map(_.withMessage(Messages("service.addErrorMsg")))
+                    @inputText(serviceForm("serviceName"),
+                        '_label -> None
                     )
                     </div>
                 </td>
@@ -58,8 +59,9 @@
                 </th>
                 <td>
                     <div class="inputField">
-                    @inputText(serviceForm("price"),'_label -> None,'id -> "price",'_help -> Messages(""),
-                        '_error -> serviceForm("price").error.map(_.withMessage(Messages("service.priceErrorMsg")))
+                    @inputText(serviceForm("price"),
+                        '_help -> "",
+                        '_label -> None
                     )
                     </div>
                 </td>
@@ -73,9 +75,9 @@
                 </th>
                 <td>
                     <div class="inputField">
-                    @inputText(serviceForm("duration"),'_label -> None, 'id -> "duration",'_help -> Messages(""),
-                        '_error -> serviceForm("duration").error.map(_.withMessage(Messages("service.durationErrorMsg")))
-                    )
+                    @inputText(serviceForm("duration"),
+                        '_label -> None,
+                        '_help -> "")
                     </div>
                 </td>
             </tr>
@@ -87,7 +89,7 @@
                 </th>
                 <td>
                     <div class="inputField">
-                    @textarea(field = serviceForm("description"),'rows -> 2, 'cols -> 20, '_label ->None)
+                    @textarea(field = serviceForm("description"),'rows ->3, 'cols -> 40, '_label ->None)
                     </div>
                 </td>
             </tr>

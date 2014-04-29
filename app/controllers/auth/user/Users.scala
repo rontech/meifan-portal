@@ -23,7 +23,7 @@ import models.Address
 object Users extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl {
 
   val loginForm = Form(mapping(
-    "userId" -> nonEmptyText,
+    "userId" -> text,
     "password" -> text)(User.authenticate)(_.map(u => (u.userId, "")))
     .verifying(Messages("user.loginErr"), result => result.isDefined))
 
@@ -44,10 +44,10 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   def userForm(id: ObjectId = new ObjectId) = Form(
     mapping(
       "id" -> ignored(id),
-      "userId" -> nonEmptyText(6, 16),
-      "nickName" -> nonEmptyText(1,10),
+      "userId" -> text,
+      "nickName" -> text,
       "password" -> text,
-      "sex" -> nonEmptyText,
+      "sex" -> text,
       "birthDay" -> optional(date),
       "address" ->  optional(mapping(
          "province" -> text,
@@ -58,8 +58,8 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
           address => Some((address.province,address.city,address.region))
       }),
       "userPics" -> text,
-      "tel" -> optional(text.verifying(Messages("user.telError"), tel => tel.matches("""^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$"""))),
-      "email" -> email,
+      "tel" -> optional(text),
+      "email" -> text,
       "optContactMethods" -> seq(
         mapping(
           "contMethodType" -> text,

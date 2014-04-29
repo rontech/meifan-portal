@@ -78,13 +78,8 @@
 				            </th>
 				            <td>
 				                @inputText(salonRegister("salonAccount.accountId"),
-                                    'id ->"accountId",
                                     '_label -> None,
-                                    'disabled -> "true",
-                                    'style-> "width:200px;",
-									'placeholder -> Messages("salon.login.accountId"),
-									'_help -> Messages("salon.registerMange.accountId"),
-									'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("salon.register.accountIdErr"))))
+                                    'readonly -> "true")
 				            </td>
 				        </tr>
 				        <tr>
@@ -96,7 +91,7 @@
 				            </th>
 				            <td>
 				                <div>
-									<a href="@auth.routes.Salons.password"/> @Messages("user.changePassword")
+									<a href="@auth.routes.Salons.password"> @Messages("user.changePassword")</a>
 									<input type="hidden" name="salonAccount.password" readonly="readonly" value="@salon.salonAccount.password">
 				                </div>
 				            </td>
@@ -111,12 +106,9 @@
 				            <td>
 				                <div>
 				                	@inputText(salonRegister("salonName"),
-                                        'id -> "salonName",
+                                        'id -> "salonNameReadOnly",
                                         '_label ->  None,
-                                        '_help -> Messages("salon.salonNameMange"),
-                                        'disabled -> "true",
-										'style-> "width:200px;",
-				                		'_error -> salonRegister("salonName").error.map(_.withMessage(Messages("salon.register.salonName"))))				             	
+                                        'readonly -> "true")
 				                </div>
 				            </td>
 				        </tr>
@@ -152,10 +144,7 @@
 				                <div>
 				                	@inputText(salonRegister("contactMethod.mainPhone"),
                                         'id -> "contact_tel",
-                                        '_label -> None,
-                                        '_help -> Messages(""),
-                                        'style-> "width:200px;",
-				                		'_error -> salonRegister("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.phoneError"))))
+                                        '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -170,10 +159,7 @@
 				                <div>
 				                	@inputText(salonRegister("contactMethod.contact"),
                                         'id -> "contact",
-                                        '_label -> None,
-                                        '_help -> Messages(""),
-                                        'style-> "width:200px;",
-				                		'_error -> salonRegister("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
+                                        '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -188,10 +174,7 @@
 				                <div>
 				                	@inputText(salonRegister("contactMethod.email"),
                                         'id ->"contact_email",
-                                        '_label -> None,
-                                        '_help -> Messages(""),
-										'style-> "width:200px;",
-				                		'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.mailError"))))
+                                        '_label -> None)
 				                </div>
 				            </td>
 				        </tr>					        					        
@@ -383,9 +366,9 @@
 @pictureGroup(field: Field, className: String = "salonPic") = {
 	<li>
 	<div class="delete-pic"></div>
-		@field("fileObjId").value.map{fileid=>
-			@if(!fileid.equals("")){	
-			<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
+		@field("fileObjId").value.map{fileId=>
+			@if(!fileId.equals("")){	
+			<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileId))'/></div>
 		}
 	}
     <div class="addstyles-byStylist twipsies well @className">

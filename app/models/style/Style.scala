@@ -471,8 +471,8 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
     
     def isExist(value:String, stylistId:String, f:(String,String) => Option[Style]) = f(value,stylistId).map(style => true).getOrElse(false)
     
-    def checkStyleIsExist(name:String,stylistId:ObjectId):Option[Style] = {
-        dao.findOne(MongoDBObject("styleName" -> name, "stylistId" -> stylistId))
+    def checkStyleIsExist(name:String,stylistId:ObjectId): Boolean= {
+        dao.find(MongoDBObject("styleName" -> name, "stylistId" -> stylistId)).hasNext
     }
 }
 

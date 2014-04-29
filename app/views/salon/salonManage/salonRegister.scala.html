@@ -27,11 +27,9 @@
 				                </div>
 				            </th>
 				            <td>
-				                @inputText(salonRegister("salonAccount.accountId"),'_label -> None,'style-> "width:200px;",
-				                			'id -> "accountId",
-									 		'placeholder -> Messages("salon.login.accountId"),
-									 		'_help -> Messages("salon.register.accountId"),
-									 		'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("salon.register.accountIdErr"))))
+				                @inputText(salonRegister("salonAccount.accountId"),
+                                            '_label -> None,
+				                			'id -> "accountId")
 				            </td>
 			            	<td rowspan="10">
 			            		<div class="mT20 txtC">
@@ -49,11 +47,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,'style-> "width:200px;",
-				                		'id -> "password_main",
-				                		'_help -> Messages("salon.register.password"),
-				                		'placeholder -> Messages("salon.login.password"),
-				                		'_error -> salonRegister("salonAccount.password.main").error.map(_.withMessage(Messages("salon.passwordError"))))
+				                	@inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,
+				                		'id -> "password_main")
 				                </div>
 				            </td>
 				        </tr>
@@ -66,7 +61,9 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputPassword(salonRegister("salonAccount.password.confirm"),'_label -> None,'_help -> Messages(""),'placeholder -> Messages("salon.confirmMessage"),'style-> "width:200px;",'id ->"password_confirm",'_error -> salonRegister.error("salonAccount.password"))
+				                	@inputPassword(salonRegister("salonAccount.password.confirm"),
+                                        '_label -> None,
+                                        'id ->"password_confirm")
 				                </div>
 				            </td>
 				        </tr>
@@ -79,8 +76,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("salonName"),'_label ->  None,'_help -> Messages(""),'id-> "salonName",'style-> "width:200px;",
-				                		'_error -> salonRegister("salonName").error.map(_.withMessage(Messages("salon.register.salonName"))))				             	
+				                	@inputText(salonRegister("salonName"),
+                                        '_label ->  None)
 				                </div>
 				            </td>
 				        </tr>
@@ -93,7 +90,8 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None,'_error -> salonRegister("salonIndustry").error.map(_.withMessage(Messages("salon.industryError")))){(id,name,value,args) =>
+				                	@input(field = salonRegister("salonIndustry"),
+                                        '_label -> None){(id,name,value,args) =>
 								 	@for(i <- 0 to industry.length-1){
 								 		<input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
 								 	}
@@ -110,8 +108,9 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contactMethod.mainPhone"), '_label -> None,'_help -> Messages(""),'style-> "width:200px;",
-				                	'id -> "contact_tel",	'_error -> salonRegister("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.register.mainPhone"))))
+				                	@inputText(salonRegister("contactMethod.mainPhone"),
+                                        '_label -> None,
+				                	    'id -> "contact_tel")
 				                </div>
 				            </td>
 				        </tr>
@@ -124,8 +123,9 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contactMethod.contact"), '_label -> None,'_help -> Messages(""),'style-> "width:200px;",
-                                        'id->"contact",'_error -> salonRegister("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
+				                	@inputText(salonRegister("contactMethod.contact"),
+                                        '_label -> None,
+                                        'id->"contact")
 				                </div>
 				            </td>
 				        </tr>
@@ -138,23 +138,27 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonRegister("contactMethod.email"), '_label -> None,'_help -> Messages(""),'style-> "width:200px;",
-				                		'id->"contact_email",'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.mailError"))))
+				                	@inputText(salonRegister("contactMethod.email"),
+                                        '_label -> None,
+				                		'id->"contact_email")
 				                </div>
 				            </td>
 				        </tr>					        					        
 				    </tbody>
 				</table>
+                <div class="mT20 txtC">
+                @checkbox(
+                    salonRegister("accept"),
+                    '_label -> None,
+                    '_text -> Messages("user.agreement"),
+                    '_showConstraints -> false)
+                </div>
 				<div class="mT20 txtC">
 					<input type = "hidden" name="salonPics[0].fileObjId" />
 					<input type = "hidden" name="salonPics[0].picUse" value="LOGO"/>
-					<input type = "button" class = "buttons" value=@Messages("user.registerBtn") onclick="checksForSalonRegister();">
+					<input type = "button" class = "buttons" value=@Messages("user.registerBtn") onclick="checksForSalonRegister();"/>
 				</div>
-		  		<div class="mT20 txtC">
-					<a href= "#"><p>@Messages("salon.agreement")</p></a>
-		  		</div>				
 			}
-
 		</div>
 </div>
 }

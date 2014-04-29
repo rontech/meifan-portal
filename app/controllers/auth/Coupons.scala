@@ -17,7 +17,7 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
     
   def couponForm: Form[Coupon] = Form {
     mapping(
-        "couponName" -> nonEmptyText,
+        "couponName" -> text,
         "salonId" -> text,
         "serviceItems" -> list(
          mapping(
@@ -28,9 +28,9 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
           "perferentialPrice" -> bigDecimal,
           "startDate" -> date,
           "endDate" -> date,
-          "useConditions" -> nonEmptyText,
-          "presentTime" -> nonEmptyText,
-          "description" -> nonEmptyText
+          "useConditions" -> text,
+          "presentTime" -> text,
+          "description" -> text
     ){
       (couponName, salonId, serviceItems, perferentialPrice, startDate, endDate, useConditions, presentTime, description) => Coupon(new ObjectId, "", couponName,
           new ObjectId(salonId), serviceItems, BigDecimal(0), perferentialPrice, 0, startDate, endDate, useConditions, presentTime, description, true)
@@ -47,7 +47,7 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
   
   def couponUpdateForm: Form[Coupon] = Form {
     mapping(
-        "couponName" -> nonEmptyText,
+        "couponName" -> text,
         "salonId" -> text,
         "serviceItems" -> list(
          mapping(
@@ -58,9 +58,9 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl{
           "perferentialPrice" -> bigDecimal,
           "startDate" -> date,
           "endDate" -> date,
-          "useConditions" -> nonEmptyText,
-          "presentTime" -> nonEmptyText,
-          "description" -> nonEmptyText
+          "useConditions" -> text,
+          "presentTime" -> text,
+          "description" -> text
     ){
       (couponName, salonId, serviceItems, perferentialPrice, startDate, endDate, useConditions, presentTime, description) => Coupon(new ObjectId, "", couponName,
           new ObjectId(salonId), serviceItems, BigDecimal(0), perferentialPrice, 0, startDate, endDate, useConditions, presentTime, description, true)

@@ -1,11 +1,12 @@
 @(salon: Salon, menuForm: Form[Menu], services: List[Service], menu: Menu)
 
 @import helper._
+@import helper.twitterBootstrap._
 
 <div class="contentsTitleWrapper">
 	<h2 class="contentsTitleInner">@Messages("menu.updateMenuArea")</h2>
 </div>
-@form(auth.routes.Menus.updateMenu(menu.id), 'id -> "menuForm", 'name -> "menuForm") {
+@helper.form(auth.routes.Menus.updateMenu(menu.id), 'id -> "menuForm", 'name -> "menuForm") {
 	
 	@if(menuForm.hasGlobalErrors) { 
           <div>
@@ -27,9 +28,8 @@
 	            <td>
 	                <div class="inputField">
 	                	@inputText(menuForm("menuName"),
+                            'id ->"menuNameReadOnly",
                             '_label -> None,
-                            '_help -> Messages(""),
-                            'id -> "menuName",
                             'readonly ->true)
 	                </div>
 	            </td>
@@ -44,17 +44,17 @@
 	            </th>
 	            <td>
 	                <div class="inputField">
-	                	@input(field = menuForm("serviceItems"), args = '_label ->None, '_error -> menuForm("serviceItems").error.map(_.withMessage(Messages("menu.menuServiceRequired")))){(id,name,value,args) =>
+	                	@input(field = menuForm("serviceItems"),
+                            '_label ->None){(id,name,value,args) =>
 					 	@for(service <- services) {
 					 		<div class="serviceItemArea">
 						 		@if(Service.getServiceIdList(menu.serviceItems).contains(service.id)) {
-						 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id" checked ="checked">@service.serviceName
+						 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id" value = "@service.id" checked ="checked">@service.serviceName
 						 		} else {
-						 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
+						 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id" value = "@service.id">@service.serviceName
 						 		}
 					 		</div>
 					 	}
-                       <dd class="info"></dd>
 					  }
 	                </div>
 	            </td>
@@ -69,8 +69,10 @@
 	            </th>
 	            <td>
 	                <div class="inputField">
-	                	@textarea(menuForm("description"), '_label -> None, 'rows -> 3, 'cols -> 50, '_help -> Messages("coupon.couponDiscriptionMsg"),
-						 'id -> "description", '_error -> menuForm("description").error.map(_.withMessage(Messages("menu.menuDiscriptionErr"))))
+	                	@textarea(menuForm("description"),
+                            '_label -> None,
+                            'rows -> 3,
+                            'cols ->40)
 	                </div>
 	            </td>
 	        </tr>
