@@ -158,14 +158,14 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
 	 }
 	  
 	
-	 def updateStylistImage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+	 def updateStylistImage(roles: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
 	    val user = loggedIn
 	    val followInfo = MyFollow.getAllFollowInfo(user.id)
 	    val stylist = Stylist.findOneByStylistId(user.id).get
-	    Ok(views.html.stylist.management.updateStylistImage(user = user, stylist = stylist, followInfo = followInfo))
+	    Ok(views.html.stylist.management.updateStylistImage(user = user, stylist = stylist, followInfo = followInfo, loginUserId = user.id, logged = true, roles = roles))
 	  }
 	  
-	 def toUpdateStylistImage = Action(parse.multipartFormData) { request =>
+	 def toUpdateStylistImage(role: String) = Action(parse.multipartFormData) { request =>
 	        request.body.file("photo") match {
 	            case Some(photo) =>
 	                val db = MongoConnection()("Picture")
@@ -173,20 +173,27 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
 	                val uploadedFile = gridFs.createFile(photo.ref.file)
 	                uploadedFile.contentType = photo.contentType.orNull
 	                uploadedFile.save()
-	                Redirect(routes.Stylists.saveStylistImg(uploadedFile._id.get))
+	                Redirect(routes.Stylists.saveStylistImg(uploadedFile._id.get, role))
 	            case None => BadRequest("no photo")
 	        }
 	    
 	  }
 	  
-	 def saveStylistImg(imgId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _){implicit request =>
+	 def saveStylistImg(imgId: ObjectId, role: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _){implicit request =>
 	     val user = loggedIn
 	     val followInfo = MyFollow.getAllFollowInfo(user.id)
 	     val stylist = Stylist.findOneByStylistId(user.id)
+	     val goodAtStylePara = Stylist.findGoodAtStyle
 	     stylist match {
 	        case Some(sty) => {
 	        Stylist.updateImages(sty, imgId)
-	        Redirect(routes.Stylists.myHomePage())
+	        if(role.equals("user")){
+	        	Ok(views.html.user.applyStylist(controllers.auth.Users.stylistApplyForm, user, goodAtStylePara, followInfo, true))
+	        }else if(role.equals("stylist")){
+	        	Redirect(routes.Stylists.myHomePage)
+	        }else{
+	        	NotFound
+	        }
 	       }
 	      case None => NotFound
 	    }

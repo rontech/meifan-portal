@@ -7,14 +7,14 @@
 		</a>
     </div>
     <p class="mT10">
-        <a href="#">
+        <a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
            <p>@Stylist.findUserName(stylist.stylistId)</p>
         </a>
     </p>
     <p class="mT10">
         
            @stylist.position.map{po=>
-           	@po.positionName&nbsp;@po.industryName
+           	@Messages(po.industryName)&nbsp;@Messages("position."+po.positionName)
            }
         
     </p>

@@ -55,7 +55,7 @@ main.idUsePolicy=ID利用约定
 main.usePolicy=使用须知
 main.securityPolicy=个人情报保护方针
 main.userGuide=使用指南
-main.wantToJoin=沙龙用户登录入口
+main.wantToJoin=我的沙龙
 main.toSalonOwners=致沙龙
 main.help=常见问题
 main.myPage=我的主页
@@ -146,7 +146,7 @@ salon.passwordMessage=请输入至少6位密码
 salon.confirmMessage=请再次输入密码
 salon.desMessage=您最多可以输入100个字符
 salon.desAccesMethod=例：地铁一号线汾湖路站1号出口向西步行500米可达。您最多可以输入100个字符。
-salon.addMessage=请填写详细地址，如：苏州市高新区竹园路209号3号楼1805室
+salon.addMessage=请填写详细地址，如：竹园路209号3号楼1805室
 salon.salonLogin=店铺登录
 salon.stylistsList={0}的发型师
 salon.newSalon = 新沙龙用户
@@ -345,6 +345,7 @@ service.update=更新
 service.minutes = 分钟
 service.title = {0} 的服务
 service.createServiceArea = 创建服务区域
+service.editService = 修改服务
 service.addErrorMsg = 请输入服务名！
 service.priceErrorMsg = 请输入单价！
 service.durationErrorMsg = 请输入估计的耗时！
@@ -361,6 +362,7 @@ ServiceType.serviceTypeName.Care = 护理
 ServiceType.serviceTypeName.Perm = 烫
 ServiceType.serviceTypeName.Supple = 柔顺
 ServiceType.serviceTypeName.Other = 其他
+ServiceType.serviceTypeName.setColor = 上色
 
 # Coupon&Menu
 coupon.titleInSalon = {0} 的优惠券
@@ -470,6 +472,7 @@ stylist.rmSalon = 离开店铺后无法恢复，请确认是否离开店铺？
 stylist.rjtApply = 拒绝后无法恢复，请确认是否拒绝？
 stylist.actApply = 请确认是否同意！
 stylist.myPictureShow = 展示图片上传
+stylist.picTitle=点击可查看技师资料
 
 
 
@@ -489,6 +492,19 @@ stylist.myBoom = 兴趣爱好
 stylist.myPR = 自我宣传
 stylist.submit = 提交申请
 stylist.reset = 重置
+stylist.writeApplyInfo = 填写技师资料
+stylist.uploadApplyImg = 上传技师图片
+stylist.nextStep = 下一步
+stylistUploadIMG.h3_0 = 技师形象照上传须知
+stylistUploadIMG.h3_1 = 为什么要设置技师形象照？
+stylistUploadIMG.weSupport = 我们支持
+stylistUploadIMG.formatandlimit = 格式的图片文件，且文件小于
+stylistUploadIMG.unsupport_1 = 请勿上传身份证照片。
+stylistUploadIMG.prompt_0 =  为保证在店铺显示，给顾客提供您的服务，美范网会人工审核您所提交的形象照。请上传您本人的形象照片。
+stylistUploadIMG.prompt_1 = 1.清晰亮丽的形象照能为您吸引更多的顾客，可以
+stylistUploadIMG.strong_0 = 给顾客一个好的印象
+stylistUploadIMG.prompt_2 = 2.您需要上传并设置形象照才能
+stylistUploadIMG.strong_1 = 成功申请成为技师，并被所有会员及店铺查看
 
 
 #Stylist management
@@ -630,6 +646,7 @@ user.message.to = 收信人
 user.message.title = 标题
 user.message.content = 内容
 user.message.send = 发送
+user.other=他
 
 user.needfieldworks = 请输入0~100整数
 user.errorWorks = 无效的年数
@@ -767,7 +784,8 @@ questions.common=常见问题
 style.ranking.first=1位
 style.ranking.second=2位
 
-
+# 发型图片
+style.picTitle=点击可查看发型信息
 
 #-------------------------------
 # Master Table Translation Area.
@@ -818,6 +836,11 @@ Blow = 吹发
 Wash = 洗发
 Cut = 剪发
 salonAccountId = 店铺账号
+position.Manager = 店长
+position.ChiefStylist = 首席技师
+position.Stylist = 技师
+position.AdvancedAssistant = 高级助手
+position.Assistant = 助手
 
 #StyleImpression
 style.styleImpression.natural = 自然
@@ -923,7 +946,7 @@ reservation.salonResvMessage = ※即时预约，预约成功之后即可以到�
 reservation.onlineResv = 即时预约
 
 #salonCheckInfoState
-salonCheckInfoState.conditions =  开店条件：
+salonCheckInfoState.conditions =  开店条件
 salonCheckInfoState.condition = 事项
 salonCheckInfoState.status = 是否完善
 salonCheckInfoState.operate = 操作
@@ -982,3 +1005,4 @@ salonSearchPage.sortByPrice = 价格
 salonSearchPage.sortByReview = 评价
 salonSearchPage.requiredCity = 请输入城市名称
 salonSearchPage.cannotFind = 对不起，找不到
+

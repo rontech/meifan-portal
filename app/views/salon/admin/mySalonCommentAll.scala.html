@@ -1,10 +1,7 @@
 @(navInSalon: String = "my-comment", salon: Salon, commentList: List[Comment])
 
 @mySalonMain(navInSalon, salon){
-	<div class="contentsTitleWrapper">
-		<h2 class="contentsTitleInner">@Messages("salonAdmin.myComment")</h2>
-	</div>
-	<div class="mc mT20">
+	<div class="mc mT40">
    		<div class="tabcon hide" data-widget="tab-content" style="display: block;">  			
         	@views.html.comment.admin.mySalonCommentGroup(salon, commentList)
         </div>
