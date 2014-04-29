@@ -81,7 +81,7 @@
             </tr>
              <tr>
                 <th class="w120">@Messages("salon.mainPhone") </th>
-                <td class="w208 vaT"><a href="#"/> @salon.contactMethod.mainPhone </td>
+                <td class="w208 vaT"><a> @salon.contactMethod.mainPhone </a></td>
                 <th class="w120">@Messages("salon.contact")  </th>
                 <td class="w208 vaT"> @salon.contactMethod.contact </td>
             </tr>              
@@ -94,7 +94,7 @@
                     }
                 </td>
                 <th class="w120"> @Messages("salon.seatNums") </th>
-                <td class="w208 vaT"> @Messages("salon.seatNumsMsg", salon.seatNums.getOrElse("")) </td>
+                <td class="w208 vaT"> @Messages("salon.seatNumsMsg", salon.seatNums.getOrElse("0")) </td>
             </tr>
             <tr>
                 <th class="w120"> @Messages("salon.stylistNums") </th>
