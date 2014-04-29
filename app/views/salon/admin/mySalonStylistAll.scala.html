@@ -11,7 +11,7 @@
 	<div class = "mT40">
 		<div class="mysalon-stylist-search mT20">
 			<form action="@auth.routes.Salons.searchStylistById" id="getStylistForm" method="get">
-				@Messages("stylist.stylistId")<input name="searchStylistById" id="stylist-search-stylist"/>&nbsp;&nbsp;&nbsp;
+				@Messages("stylist.stylistId")<input name="searchStylistById" id="stylist-search-stylist" onkeydown="javascript:butOnClick();"/>&nbsp;&nbsp;&nbsp;
 					<input type="hidden" name="salonId" id="stylist-search-salon" value="@salon.id">
 				<input type="button" id="searchStylistToSubmit" value="@Messages("stylist.search")" onclick="checkStylistExist();"><br />
 				<span id="stylistSerchMsg" style="color:red;"></span>
