@@ -1,0 +1,75 @@
+.sl_show_abj {
+width: 386px;
+overflow: hidden;
+clear: both;
+padding: 5px;
+border-bottom: 1px #CCC dotted;
+padding-left: 0px;
+margin-bottom: 6px;
+}
+
+.sl_show_an {
+padding: 4px;
+height: 17px;
+background: #fefafa;
+border: 1px #e8e4e4 solid;
+float: left;
+margin-right: 8px;
+padding-top: 1px;
+}
+
+#nav2 {
+width: 760px;
+clear: both;
+overflow: hidden;
+height: 32px;
+padding-top: 10px;
+}
+
+#nav2 ul li {
+float: left;
+padding: 0 2px;
+}
+
+#nav2 ul li.btn a {
+background: url("/assets/images/nav_btn_.jpg") no-repeat;
+width: 113px;
+height: 32px;
+line-height: 32px;
+font-size: 14px;
+font-family: "微软雅黑";
+display: block;
+text-align: center;
+text-decoration: none;
+color: #f36d7a;
+}
+
+#nav2 ul li a {
+background: url("/assets/images/nav_btn_.jpg") no-repeat;
+width: 113px;
+height: 32px;
+line-height: 32px;
+font-size: 14px;
+font-family: "微软雅黑";
+display: block;
+text-align: center;
+color: #000;
+}
+
+.sl_show_yy {
+width: 140px;
+height: 30px;
+overflow: hidden;
+clear: both;
+margin: 2px auto 0px;
+background: url("/assets/images/salon_head_an.jpg") repeat-x;
+font-size: 14px;
+border: 1PX #bb4f59 solid;
+padding-top: 10px;
+}
+
+.sl_show_yy a {
+color: #FFF;
+text-decoration: none;
+display: block;
+}
