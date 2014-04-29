@@ -56,6 +56,15 @@ function checkStylistExist(){
     
 }
 
+
+function butOnClick() {
+	if (event.keyCode == 13) {
+		var button = document.getElementById("searchStylistToSubmit");
+		button.click();
+		return false;
+	}
+}
+
 function checkSalonExist(){
 	var salonId = $('#stylist-search-salon').val();
 	var xhr = getXmlHttpRequest();
