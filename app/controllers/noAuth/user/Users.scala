@@ -56,7 +56,7 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
       {
         user =>
           User.save(user, WriteConcern.Safe)
-          Ok(views.html.user.login(Users.loginForm))
+          Redirect(auth.routes.Users.login)
       })
   }
 

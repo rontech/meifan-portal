@@ -8,12 +8,11 @@
         <div class="fr sprtHeaderInnerR pa right0 w180">
         <ul class="p10">
             <li class="pa top10 left10">
-            <a href=""
-            class="btn btn1H60 w156">
-                <span>
-                    <span>@Messages("reserve.confirmAndReserve")</span>
-                </span>
-            </a>
+            <div class="sl_show_yy">
+               <p align="center">
+                   <a href = "#">@Messages("reserve.confirmAndReserve")</a>
+               </p>
+            </div>
             </li>
             <li class="mT50 pT15">
             <div class="jscMySalonSaveLayer">
@@ -75,29 +74,31 @@
             </div>
         </div>
         </div>
-        <ul class="bS menuBG cFix">
-            <li class="fl">
-                <a href="@noAuth.routes.Salons.getSalon(salon.id)" class="bS db @if(navInSalon == "salon-basic") {salonInformationCurrent} else {salonInformation} offL">@Messages("salon.salonBasic")</a>
+        <div id = "nav2">
+        <ul>
+            <li class="@if(navInSalon == "salon-basic") {btn} else {}">
+                <a href="@noAuth.routes.Salons.getSalon(salon.id)">@Messages("salon.salonBasic")</a>
             </li>
-            <li class="fl">
-                <a href="@noAuth.routes.Salons.getAllCoupons(salon.id)" class="bS db @if(navInSalon == "salon-coupon") {couponAndMenuCurrent} else {couponAndMenu} offL">@Messages("salon.couponMenus") </a>
+            <li @if(navInSalon == "salon-coupon"){class="btn"}>
+                <a href="@noAuth.routes.Salons.getAllCoupons(salon.id)">@Messages("salon.couponMenus") </a>
             </li>
-            <li class="fl">
-                <a href="@noAuth.routes.Salons.getAllStylists(salon.id)" class="bS db @if(navInSalon == "salon-stylist") {stylistCurrent} else {stylist} offL">@Messages("salon.stylists")</a>
+            <li @if(navInSalon == "salon-stylist"){class="btn"}>
+                <a href="@noAuth.routes.Salons.getAllStylists(salon.id)">@Messages("salon.stylists")</a>
             </li>
-            <li class="fl">
-                <a href="@noAuth.routes.Salons.getAllStyles(salon.id)" class="bS db @if(navInSalon == "salon-style") {styleCurrent} else {style} offL">@Messages("salon.styles")</a>
+            <li @if(navInSalon == "salon-style"){class="btn"}>
+                <a href="@noAuth.routes.Salons.getAllStyles(salon.id)">@Messages("salon.styles")</a>
             </li>
-            <li class="fl">
-                <a href="@noAuth.routes.Blogs.getAllBlogsOfSalon(salon.id)" class="bS db @if(navInSalon == "salon-blog") {blogCurrent} else {blog} offL">@Messages("salon.blogs")</a>
+            <li @if(navInSalon == "salon-blog"){class="btn"}>
+                <a href="@noAuth.routes.Blogs.getAllBlogsOfSalon(salon.id)">@Messages("salon.blogs")</a>
             </li>
-            <li class="fl">
-                <a href="@noAuth.routes.Salons.getMap(salon.id)" class="bS db @if(navInSalon == "salon-accessmap") {accessMapCurrent} else {accessMap} offL">@Messages("salon.accessMap")</a>
+            <li @if(navInSalon == "salon-accessmap"){class="btn"}>
+                <a href="@noAuth.routes.Salons.getMap(salon.id)">@Messages("salon.accessMap")</a>
             </li>
-            <li class="fr">
-                <a href="@noAuth.routes.Comments.findBySalon(salon.id)" class="bS db @if(navInSalon == "salon-comment") {kuchikomiCurrent} else {kuchikomi} offL">@Messages("salon.comments")</a>
+            <li @if(navInSalon == "salon-comment"){class="btn"}>
+                <a href="@noAuth.routes.Comments.findBySalon(salon.id)">@Messages("salon.comments")</a>
             </li>
         </ul>
+        </div>
     </div>
 </div>
 

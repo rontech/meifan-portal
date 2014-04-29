@@ -556,123 +556,102 @@ object InitialData {
 <p>
     （8）若想和当前所在店铺解除劳动关系，可点击<span style="color: rgb(217, 150, 148);">“我的店铺</span>”图标，点击右上角的<span style="color: rgb(217, 150, 148);">“离开店铺”</span>即可，此时在您的<strong>个人主页</strong>的左侧原先“<span style="color: rgb(217, 150, 148);">我的店铺”</span>区域将变为“<span style="color: rgb(217, 150, 148);">来自店铺的邀请”</span>，可重新<span style="text-decoration: underline;"><em>提出申请</em></span>或者<span style="text-decoration: underline;"><em>接受店铺的邀请</em></span>；<br/>
 </p>""", new Date, 1, true),
-        Question(new ObjectId(), "店铺用户如何注册", """<p>
-    <span style="color: rgb(255, 0, 0);"><em><strong>(1)店铺账号注册：</strong></em></span>
+        Question(new ObjectId(), "店铺用户如何注册", """<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    <span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">(1)店铺账号注册：</span>
 </p>
-<p>
-    &nbsp; &nbsp; 店铺用户需先在网站上的“<span style="color: rgb(227, 108, 9);">店铺注册</span>”处注册，注册完成后成为准店铺状态。
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    &nbsp; &nbsp; 店铺用户需先在网站上的“<span style="margin: 0px; padding: 0px; color: rgb(227, 108, 9);">店铺注册</span>”处注册，注册完成后成为准店铺状态。
 </p>
-<p>
-    &nbsp; &nbsp;&nbsp;<span style="color: rgb(227, 108, 9);">注册须知</span>：
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    &nbsp; &nbsp;&nbsp;<span style="margin: 0px; padding: 0px; color: rgb(227, 108, 9);">注册须知</span>：
 </p>
-<p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
     &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;a):店铺账号，店铺名称一经注册，不能修改。
 </p>
-<p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
     &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b):注册完成后，会自动跳转到登录页面，用户可以根据注册的账户ID和密码登录到该账户的信息管理页面。
 </p>
-<p>
-    <span style="color: rgb(255, 0, 0);"><em><strong>(2)店铺信息完善：</strong></em></span>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    <span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">(2)店铺信息完善：</span>
 </p>
-<p>
-    &nbsp; &nbsp; 进入店铺后台，点击店铺管理菜单中的“<span style="color: rgb(227, 108, 9);">店铺申请</span>”按钮，进入店铺申请页面。请按照要求填写店铺信息并完善。
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    &nbsp; &nbsp; 进入店铺后台，点击店铺管理菜单中的“<span style="margin: 0px; padding: 0px; color: rgb(227, 108, 9);">店铺申请</span>”按钮，进入店铺申请页面。请按照要求填写店铺信息并完善。
 </p>
-<p>
-    &nbsp; &nbsp; <span style="color: rgb(227, 108, 9);">店铺信息完善手册</span>：
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    &nbsp; &nbsp;&nbsp;<span style="margin: 0px; padding: 0px; color: rgb(227, 108, 9);">店铺信息完善手册</span>：
 </p>
-<p>
-    &nbsp; &nbsp; a):店铺logo：店铺logo可以在左上角部分点击“<span style="color: rgb(227, 108, 9);">更换头像</span>”按钮来更换logo，也可以在图片上传中更换logo。
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    &nbsp; &nbsp; a):店铺logo：店铺logo可以在左上角部分点击“<span style="margin: 0px; padding: 0px; color: rgb(227, 108, 9);">更换头像</span>”按钮来更换logo，也可以在图片上传中更换logo。
 </p>
-<p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
     &nbsp; &nbsp; b):基本信息：用户可在基本信息页面填写店铺基本信息（此项目完善后可开通店铺浏览，店铺检索等功能，无预约功能）。
 </p>
-<p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
     &nbsp; &nbsp; c):详细信息：请根据您的店铺实际情况，填写店铺详细信息。
 </p>
-<p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
     &nbsp; &nbsp; d):图片上传：用户可在该页面上传图片，包括logo，展示图片，氛围图片。（c,d项目完成后，可开通预约功能）
 </p>
-<p>
-    <span style="color: rgb(255, 0, 0);"><em><strong>(3)店铺申请，审核：</strong></em></span>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    <span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">(3)店铺申请，审核：</span>
 </p>
-<p>
-    &nbsp; &nbsp; 店铺信息填写完成后，在该页面下方点击”<span style="color: rgb(227, 108, 9);">店铺申请</span>“，等待网站管理平台认证通过。
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    &nbsp; &nbsp; 店铺信息填写完成后，在该页面下方点击”<span style="margin: 0px; padding: 0px; color: rgb(227, 108, 9);">店铺申请</span>“，等待网站管理平台认证通过。
 </p>
-<p>
-    <span style="color: rgb(255, 0, 0);"><em><strong>(4)店铺上线：</strong></em></span>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    <span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">(4)店铺上线：</span>
 </p>
-<p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
     &nbsp; &nbsp; 网站管理平台认证通过后，店铺即正式上线。
 </p>
 <p>
-    <br/>
-</p>
-<p>
-    <br/>
-</p>
-<p>
-    <br/>
+    <em style="color: rgb(255, 0, 0); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;"><strong><br/></strong></em>
 </p>""", new Date, 1, true),
         Question(new ObjectId(), "如何根据详细条件检索", "请这样根据详细条件检索：......", new Date, 1, true),
         Question(new ObjectId(), "预约后想取消", "请按以下步骤取消：......", new Date, 1, true),
-        Question(new ObjectId(), "如何获取店铺权限", """<p>
-    &nbsp; &nbsp;<span style="color: rgb(255, 0, 0);"><em><strong> (1)店铺一级权限：</strong></em></span>
+        Question(new ObjectId(), "如何获取店铺权限", """<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    <span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">(1)店铺一级权限：</span>
 </p>
-<p>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a):店铺后台管理：<span style="color: rgb(227, 108, 9);">店铺管理模块</span>，<span style="color: rgb(227, 108, 9);">店铺信息管理模块</span>，<span style="color: rgb(227, 108, 9);">发型管理模块</span>，<span style="color: rgb(227, 108, 9);">技师管理模块</span>。
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a):店铺后台管理：<span style="margin: 0px; padding: 0px; color: rgb(227, 108, 9);">店铺管理模块</span>，<span style="margin: 0px; padding: 0px; color: rgb(227, 108, 9);">店铺信息管理模块</span>，<span style="margin: 0px; padding: 0px; color: rgb(227, 108, 9);">发型管理模块</span>，<span style="margin: 0px; padding: 0px; color: rgb(227, 108, 9);">技师管理模块</span>。
 </p>
-<p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b):店铺前台显示：根据后台信息，显示在店铺页面，并且可被访问。
 </p>
-<p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c):检索功能：该店铺可以被其他用户检索并查看。
 </p>
-<p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
     &nbsp; &nbsp; (该权限在填完基本信息后即可拥有。当您的信息管理，发型管理，技师管理都完善后，将自动拥有二级权限。)
 </p>
-<p>
-    <em><strong><span style="color: rgb(255, 0, 0);">&nbsp; &nbsp; (2)店铺二级权限 ：</span></strong></em>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    <span style="color: rgb(0, 0, 0);">(2)店铺二级权限 ：</span>
 </p>
-<p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a):店铺一级权限的全部内容。
 </p>
-<p>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b):开放<span style="color: rgb(227, 108, 9);">服务管理模块</span>，优惠券管理模块，<span style="color: rgb(227, 108, 9);">菜单管理模块</span> &nbsp;
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b):开放<span style="margin: 0px; padding: 0px; color: rgb(227, 108, 9);">服务管理模块</span>，优惠券管理模块，<span style="margin: 0px; padding: 0px; color: rgb(227, 108, 9);">菜单管理模块</span>&nbsp;&nbsp;
 </p>
-<p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(该权限在完善信息管理模块，发型管理模块，技师管理模块之后拥有，当您的服务管理，优惠券管理，菜单管理都完善后，将自动拥有三级权限) &nbsp; &nbsp;
 </p>
-<p>
-    <span style="color: rgb(255, 0, 0);"><em><strong>&nbsp; &nbsp; (3)店铺三级权限：</strong></em></span>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    <span style="color: rgb(0, 0, 0);">(3)店铺三级权限：</span>
 </p>
-<p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a):店铺一级权限全部功能 &nbsp;。
 </p>
-<p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b):店铺二级权限全部功能 &nbsp;。
 </p>
-<p>
-    <span style="font-size: 12.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c):开放</span><span style="font-size: 12.5px; color: rgb(227, 108, 9);">预约管理模块</span><span style="font-size: 12.5px;">，</span><span style="font-size: 12.5px; color: rgb(227, 108, 9);">评论管理模块</span><span style="font-size: 12.5px;">，</span><span style="font-size: 12.5px; color: rgb(227, 108, 9);">动态管理模块</span>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
+    <span style="margin: 0px; padding: 0px; font-size: 12.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c):开放</span><span style="margin: 0px; padding: 0px; font-size: 12.5px; color: rgb(227, 108, 9);">预约管理模块</span><span style="margin: 0px; padding: 0px; font-size: 12.5px;">，</span><span style="margin: 0px; padding: 0px; font-size: 12.5px; color: rgb(227, 108, 9);">评论管理模块</span><span style="margin: 0px; padding: 0px; font-size: 12.5px;">，</span><span style="margin: 0px; padding: 0px; font-size: 12.5px; color: rgb(227, 108, 9);">动态管理模块</span>
 </p>
 <p>
-    <br/>
+    <span style="margin: 0px; padding: 0px; font-size: 12.5px; color: rgb(227, 108, 9);"><br/></span>
 </p>
-<p>
-    <br/>
-</p>
-<p>
-    <br/>
-</p>
-<p>
-    <br/>
-</p>
-<p>
-    <br/>
-</p>
-<p>
-    <br/>
-</p>
-<p>
+<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: &#39;Microsoft YaHei&#39;, Arial, Helvetica, &#39;MS PGothic&#39;, sans-serif; font-size: 12px; line-height: 18px; white-space: normal;">
     <br/>
 </p>""", new Date, 1, true)
       ).foreach(Question.save)
