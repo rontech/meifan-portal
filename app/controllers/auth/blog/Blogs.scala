@@ -44,7 +44,11 @@ object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
   def listToString(list : List[String]) ={
     var strs : String = ""
     list.foreach(str =>
-    strs += str + "," 
+      if(!list.last.equals(str)){
+    	  strs += str + "," 
+      }else{
+        strs += str
+      }
     )
     strs
   }

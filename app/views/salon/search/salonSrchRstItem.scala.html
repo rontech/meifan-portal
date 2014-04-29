@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/generalSearch.css")">
 
-<li name="keywordHitResult" class="listCassette">
+<li class="listCassette">
     <div class="ygS mainContentsSecondTitleOuterFw">
         <div class="ygS mainContentsSecondTitleInner2">
             <div class="mainContentsST">
@@ -18,7 +18,7 @@
                     <p class="evalPropRight">@Messages("salon.reviewsTotalCnt", salon.reviewsStat.reviewTotalCnt)</p>
                     <p class="evalPropRight">@Messages("salon.reviewsRate", (salon.reviewsStat.reviewRate * 100).toInt)</p>
                     <p class="evalPropRight salonPrice">
-                        @Salon.getLowestPriceOfCut(salon.salonInfo.id) match {
+                        @salon.priceForCut match {
                             case None => { @Messages("salon.priceCutOnlyUndefined")}
                             case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
                         }
