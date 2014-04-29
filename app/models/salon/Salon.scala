@@ -264,7 +264,7 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
         // salon seat numbers: Range between min and max.
         srchConds :::= List("seatNums" $lte searchParaForSalon.seatNums.maxNum $gte searchParaForSalon.seatNums.minNum)
         // City
-        srchConds :::= List(commonsDBObject("salonAddress.city" -> searchParaForSalon.city))
+        srchConds :::= List(commonsDBObject("salonAddress.city" -> searchParaForSalon.city.r))
 
         // keywords Array for Fuzzy search: will be joined with "$or" DSL operation.  
         val fuzzyRegex = convertKwdsToFuzzyRegex(searchParaForSalon.keyWord.getOrElse(""))(x => (".*" + x + ".*|"))
@@ -308,7 +308,7 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
           val selCoupons = Coupon.findBySalon(sl.id)
           val rvwStat = Comment.getGoodReviewsRate(sl.id)
           // get the keywords hit strings.
-          var kwsHits: List[String] =getKeywordsHit(sl, targetFields, exactRegex)
+          var kwsHits: List[String] = getKeywordsHit(sl, targetFields, exactRegex)
 
           salonSrchRst :::= List(SalonGeneralSrchRst(salonInfo = sl, selectedStyles = selStyles, selectedCoupons = selCoupons,
               priceForCut = priceOfCut, reviewsStat = rvwStat, keywordsHitStrs = kwsHits))
