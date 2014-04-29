@@ -587,6 +587,7 @@ user.password=密码
 user.loginErr=用户名或密码错误，请重新输入!
 user.loginBtn=登录
 user.registerBtn=注册
+user.register=用户注册
 user.new=新用户
 user.userIdErr=用户名不合法!
 user.agree=必须同意!

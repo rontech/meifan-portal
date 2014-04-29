@@ -35,7 +35,10 @@
 						<input type="hidden" name="picDescription.picTitle" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picTitle).getOrElse(None)">
 						<input type="hidden" name="picDescription.picContent" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picContent).getOrElse(None)">
 						<input type="hidden" name="picDescription.picFoot" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picFoot).getOrElse(None)">
-				        <tr>
+                        @inputText(salonForm("salonAddress.town"), '_label -> None,'_help -> "", 'style -> "display: none")
+                        @inputText(salonForm("salonAddress.longitude"), '_label -> None,'_help -> "",'style -> "display: none")
+                        @inputText(salonForm("salonAddress.latitude"), '_label -> None,'_help -> "",'style -> "display: none")
+                        <tr>
 				            <th class="w222 ">
 				                <!-- -->
 				                <div class="dibBL vaM w154">
@@ -46,7 +49,6 @@
 				                <div>
 				                	@inputText(salonForm("salonNameAbbr"),
                                         'id ->"salonNameAbbr",
-                                        'style-> "width:200px;",
                                         '_label -> None)
 				                </div>
 				            </td>
@@ -60,7 +62,7 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@inputText(salonForm("homepage"), 'style-> "width:200px;",'_label -> None)
+				                	@inputText(salonForm("homepage"), '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -78,8 +80,7 @@
                                         '_label -> None,
 										'maxlength->"100",
 										'rows -> 5,
-                                        'cols -> 40,
-                                        'placeholder -> Messages("salon.desMessage"))
+                                        'cols -> 40)
 				                </div>
 				            </td>
 				        </tr>				        
@@ -113,18 +114,13 @@
 				                	@*inputText(salonForm("salonAddress.addrDetail"), '_label -> None)*@			                	
 				                	@input(field = salonForm("salonAddress.addrDetail"),
                                         'id ->"addrDetail",
-                                        '_label -> None,
-                                        '_help -> Messages("")) { (id, name, value, _) =>
-        							<input type="text" name="@name" value="@value" id="addrDetail" onChange= "searchMap();checkedAddressDetail();"  maxlength= "50" style="width:350px;" placeholder=@Messages("salon.addMessage")>
+                                        '_label -> None) { (id, name, value, _) =>
+        							<input type="text" name="@name" value="@value" id="addrDetail" onChange= "searchMap();"  maxlength= "50" style="width:350px;"/>
 								}
 								
 				                </div>
 				            </td>
 				        </tr>
-				        			@inputText(salonForm("salonAddress.town"), '_label -> None,'_help -> Messages(""),'style -> "display: none")
-				                	@inputText(salonForm("salonAddress.longitude"), '_label -> None,'_help -> Messages(""),'style -> "display: none")
-				                	@inputText(salonForm("salonAddress.latitude"), '_label -> None,'_help -> Messages(""),'style -> "display: none")
-				                	
 				        <tr height = "425px">
 				            <th class="w222 ">
 				                <!-- -->
@@ -160,8 +156,7 @@
                                         'maxlength->"100",
 										'rows -> 5, 
 										'cols -> 40,
-                                        '_label -> None,
-										'placeholder -> Messages("salon.desAccesMethod"))
+                                        '_label -> None)
 				                </div>
 				            </td>
 				        </tr>
@@ -174,8 +169,9 @@
 				            </th>
 				            <td>
 				                <div>
-				                   @input(field = salonForm("workTime.openTime"), '_label -> None, '_help -> Messages("")) { (id, name, value, _) =>
-        							<input class="Wdate" type="text" name="@name" value="@value" id="openTime" onClick="WdatePicker({dateFmt:'HH:mm'});checkedOpenTime();">
+				                   @input(field = salonForm("workTime.openTime"),
+                                       '_label -> None) { (id, name, value, _) =>
+        							<input class="Wdate" type="text" name="@name" value="@value" id="openTime" onClick="WdatePicker({dateFmt:'HH:mm:ss'})">
 								}
 				                </div>
 				            </td>
@@ -189,8 +185,9 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@input(field = salonForm("workTime.closeTime"), '_label -> None, '_help -> Messages("")) { (id, name, value, _) =>
-        							<input class="Wdate" type="text" name="@name" value="@value" id="closeTime" onClick="WdatePicker({dateFmt:'HH:mm'});checkedCloseTime();">
+				                	@input(field = salonForm("workTime.closeTime"),
+                                        '_label -> None) { (id, name, value, _) =>
+        							<input class="Wdate" type="text" name="@name" value="@value" id="closeTime" onClick="WdatePicker({dateFmt:'HH:mm:ss'})">
         							}
 				                </div>
 				            </td>
@@ -204,9 +201,9 @@
 				            </th>
 				            <td>
 				                <div>
-				                	@*inputDate(salonForm("establishDate"), '_label -> None, '_help -> Messages("*"),
-				                		'_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate"))))*@
-				                    @input(field = salonForm("establishDate"), '_label -> None, '_help -> Messages(""), '_error -> salonForm("establishDate").error.map(_.withMessage(Messages("salon.register.establishDate")))) { (id, name, value, _) =>
+				                    @input(field = salonForm("establishDate"),
+                                        '_label -> None,
+                                        '_help -> Messages("")) { (id, name, value, _) =>
         							<input class="Wdate" type="text" name="@name" value="@value" id="establishDate"  onClick="WdatePicker();checkedEstablishDate(); ">
 								    }
 				                </div>
@@ -226,9 +223,9 @@
 	            	@input(field = salonForm("salonIndustry"),args = '_label -> None,'style -> "display: none"){(id,name,value,args) =>
 					    @for(i <- 0 to industry.length-1){
 						    @if(salon.salonIndustry.contains(industry(i).industryName)){
-							    <input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
+							    <input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
 						    }else{
-							    <input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
+							    <input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
 						    }
 					    }
 					}	
@@ -381,8 +378,8 @@
 @views.html.salon.admin.salonSwfupload("")
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
-        <input type="text" name="@name" value="@value"> 
-        <a class="removeAccount buttons danger">@Messages("optContactMethod.Remove")</a>
+        <input type="text" name="@name" value="@value"/>
+        <a class="removeAccount btn danger">@Messages("optContactMethod.Remove")</a>
     }
 }
 
@@ -428,9 +425,9 @@
 @pictureGroup(field: Field, className: String = "salonPic") = {
 	<li>
 	<div class="delete-pic"></div>
-		@field("fileObjId").value.map{fileid=>
-			@if(!fileid.equals("")){	
-			<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
+		@field("fileObjId").value.map{fileId=>
+			@if(!fileId.equals("")){	
+			<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileId))'/></div>
 		}
 	}
     <div class="addstyles-byStylist twipsies well @className">
