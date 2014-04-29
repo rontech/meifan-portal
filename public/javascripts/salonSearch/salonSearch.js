@@ -168,7 +168,7 @@ function clickSalonSearch(){
  * Highlight search result.
  *------------------------------*/
 $(document).ready(function() {
-    highlight($('#keyword').val());
+    //highlight($('#keyword').val());
 });
 
 function encode(s){
