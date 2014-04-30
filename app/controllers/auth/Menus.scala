@@ -15,7 +15,7 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
   
   def menuForm: Form[Menu] = Form {
     mapping(
-        "menuName" -> nonEmptyText,
+        "menuName" -> text,
         "salonId" -> text,
         "serviceItems" -> list(
          mapping(
@@ -23,7 +23,7 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
          ){(id) => Service(new ObjectId(id), "", "", "", new ObjectId(), BigDecimal(0), 0, null, null, true)}
          {service => Some((service.id.toString))}
          ).verifying(Messages("menu.menuServiceRequired"), serviceItems => !serviceItems.isEmpty),
-          "description" -> nonEmptyText(10, 100)
+          "description" -> text
     ){
       (menuName, salonId, serviceItems, description) => Menu(new ObjectId, menuName, description, new ObjectId(salonId), serviceItems, 0, BigDecimal(0), new Date(), None, true)
     }
@@ -37,7 +37,7 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
   
   def menuUpdateForm: Form[Menu] = Form {
     mapping(
-        "menuName" -> nonEmptyText,
+        "menuName" -> text,
         "salonId" -> text,
         "serviceItems" -> list(
          mapping(
@@ -45,7 +45,7 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
          ){(id) => Service(new ObjectId(id), "", "", "", new ObjectId(), BigDecimal(0), 0, null, null, true)}
          {service => Some((service.id.toString))}
          ).verifying(Messages("menu.menuServiceRequired"), serviceItems => !serviceItems.isEmpty),
-          "description" -> nonEmptyText(10, 100)
+          "description" -> text
     ){
       (menuName, salonId, serviceItems, description) => Menu(new ObjectId, menuName, description, new ObjectId(salonId), serviceItems, 0, BigDecimal(0), new Date(), None, true)
     }

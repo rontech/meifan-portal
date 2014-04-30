@@ -16,7 +16,7 @@
                     case Some(info) => {
                         <div class="stylePageTileOuter">
                             <div class="fgPink b fs10">
-                                @info.position.map { p => @p.positionName &nbsp; }
+                                @info.position.map { p => @Messages("position." + p.positionName) &nbsp; }
                             </div>
                             <h2 class="fs16 dibBL">
                                 @dtl.basicInfo.nickName
