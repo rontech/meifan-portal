@@ -447,7 +447,7 @@ function checkedNickName(){
         $("#nickName  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-        if (len < 4 || len < 20){
+        if (len < 2 || len > 20){
         $("#nickName  ~ .help-inline").text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
@@ -832,10 +832,11 @@ $('#price').focus(function(){
 
 function checkedPrice(){
     var price = $('#price').val();
+    var isValid = /^(([1-9]+)|([0-9]+\.[0-9]{1,2}))$/;
     if(price == "") {
         $("#price  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
     } else {
-        if(isNaN(price)){
+        if(!isValid.test(price)){
             $("#price  ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
             return;
         }else{
@@ -845,7 +846,7 @@ function checkedPrice(){
 }
 
 $('#useConditions').focus(function(){
-    this.setAttribute("length",40);
+    this.setAttribute("maxlength",40);
     $('#useConditions  ~ .help-inline').text("请输入该优惠劵的使用条件，如“不能和其他优惠劵一起使用”").removeClass("errorMsg").removeClass("trueMsg");
 }).blur(function(){
     checkedUesConditions()
@@ -860,7 +861,7 @@ function checkedUesConditions(){
 }
 
 $('#presentTime').focus(function(){
-    this.setAttribute("length",40);
+    this.setAttribute("maxlength",40);
     $('#presentTime  ~ .help-inline').text("请输入该优惠劵使用的出示时间，如“消费前出示”").removeClass("errorMsg").removeClass("trueMsg");
 }).blur(function(){
     checkedPresentTime()
@@ -875,6 +876,7 @@ function checkedPresentTime(){
 }
 
 $('#description').focus(function(){
+    this.setAttribute("maxlength",100);
     $('#description  ~ .help-inline').text("请输入描述内容，10~100个字符，最多50个汉字").removeClass("errorMsg").removeClass("trueMsg");
 }).blur(function(){
     checkedItemDescription()
@@ -888,8 +890,8 @@ function checkedItemDescription(){
         $("#description  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    if(len < 10 ) {
-        $("#description  ~ .help-inline").text("描述内容过于简短，请补充").removeClass("trueMsg").addClass("errorMsg");
+    if(len < 10 || len > 100) {
+        $("#description  ~ .help-inline").text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
     } else {
         $("#description  ~ .help-inline").text("").removeClass("errorMsg").addClass("trueMsg");
     }
@@ -1006,6 +1008,7 @@ function checkedServiceName(){
     }
     if(len < 4 || len >30){
         $("#serviceName  ~ .help-inline").text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
+        return;
     }
     jsRoutes.controllers.auth.Salons.itemIsExist(value, ITEM_TYPE_SERVICE).ajax({
         async: false,
