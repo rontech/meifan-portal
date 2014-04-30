@@ -2,12 +2,12 @@ package models
 
 import play.api.Play.current
 import play.api.PlayException
-import com.novus.salat.dao._
 import com.mongodb.casbah.commons.Imports._
 import com.mongodb.casbah.MongoConnection
 import se.radley.plugin.salat.Binders._
 import mongoContext._
 import java.util.Date
+import com.meifannet.framework.db._
 
 case class SalonStylistApplyRecord(
 		id: ObjectId = new ObjectId,
@@ -19,17 +19,8 @@ case class SalonStylistApplyRecord(
 		verifiedDate: Option[Date]
 )
 
-object SalonStylistApplyRecord extends SalonStylistApplyRecordDAO
-
-trait SalonStylistApplyRecordDAO extends ModelCompanion[SalonStylistApplyRecord, ObjectId] {  
-  def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-          "Configuration error",
-          "Could not find mongodb.default.db in settings"))
-  )("SalonStylistApplyRecord")
-  
-  val dao = new SalatDAO[SalonStylistApplyRecord, ObjectId](collection){}
+object SalonStylistApplyRecord extends MeifanNetModelCompanion[SalonStylistApplyRecord]{
+  val dao = new MeifanNetDAO[SalonStylistApplyRecord](collection = loadCollection()){}
   
   /**
    *  根据店铺id查找申请中的技师
