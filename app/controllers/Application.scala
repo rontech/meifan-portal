@@ -145,10 +145,11 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
                     val gridFs = GridFS(db)
                     val file = photo.ref.file
                     val originImage =  ImageIO.read(file)
-
-                    //intValue,img.h.intValue-2  防止截取图片尺寸超过图片本身尺寸
-                    val newImage = originImage.getSubimage(img.x1.intValue,img.y1.intValue,img.w.intValue-2,img.h.intValue-2)
-
+                    var newImage = originImage;
+                    if (img.w != 0){
+                        //intValue,img.h.intValue-2  防止截取图片尺寸超过图片本身尺寸
+                        newImage = originImage.getSubimage(img.x1.intValue,img.y1.intValue,img.w.intValue-2,img.h.intValue-2)
+                    }
                     var os: ByteArrayOutputStream = null
                     var inputStream: ByteArrayInputStream = null
                     try {

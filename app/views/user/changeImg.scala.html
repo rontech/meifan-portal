@@ -4,12 +4,12 @@
     @helper.form(routes.Application.changeLogo,'enctype -> "multipart/form-data") {
         <input type="file" id="filePhoto" name="photo" style="width:450"/>
         <div class="inline-labels" style="display: none">
-            <label>X1 <input type="text" size="4" id="x1" name="x1" /></label>
-            <label>Y1 <input type="text" size="4" id="y1" name="y1" /></label>
-            <label>X2 <input type="text" size="4" id="x2" name="x2" /></label>
-            <label>Y2 <input type="text" size="4" id="y2" name="y2" /></label>
-            <label>W <input type="text" size="4" id="w" name="w" /></label>
-            <label>H <input type="text" size="4" id="h" name="h" /></label>
+            <label>X1 <input type="text" size="4" id="x1" name="x1" value="0"/></label>
+            <label>Y1 <input type="text" size="4" id="y1" name="y1" value="0"/></label>
+            <label>X2 <input type="text" size="4" id="x2" name="x2" value="0"/></label>
+            <label>Y2 <input type="text" size="4" id="y2" name="y2" value="0"/></label>
+            <label>W <input type="text" size="4" id="w" name="w" value="0"/></label>
+            <label>H <input type="text" size="4" id="h" name="h" value="0"/></label>
         </div>
         <button type="submit">@Messages("user.changeImage")</button>
     }
