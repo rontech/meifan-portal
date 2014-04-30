@@ -4,7 +4,6 @@ import java.util.Date
 import com.mongodb.casbah.query.Imports._
 import mongoContext._
 import se.radley.plugin.salat.Binders._
-import com.mongodb.casbah.Imports.MongoConnection
 import play.api.Play._
 import play.api.PlayException
 import models._
@@ -57,16 +56,9 @@ case class Style(
     createDate: Date,
     isValid: Boolean)
 
-object Style extends StyleDAO
+object Style extends MeifanNetModelCompanion[Style] {
 
-trait StyleDAO extends MeifanNetModelCompanion[Style] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("Style")
-
-    val dao = new MeifanNetDAO[Style](collection) {}
+    val dao = new MeifanNetDAO[Style](collection = loadCollection()) {}
 
     /**
      * 通过发型师ID检索该发型师所有发型

@@ -1,27 +1,37 @@
 @(blog: Blog, loginUserId:ObjectId)
 
-<div class="mT10">
+@import java.text.DateFormat
+
+<li class="listCassette cFix">
+	<div class="fr">
+		<div class="cFix">
+			<div class="fl blogS blogCategoryBL10 mT5 hMin19 mR70 vaM">@blog.blogCategory</div>
+			<div class="fl">
+				<dl class="cFix">
+					<dt class="fl">@Messages("blog.passDate")</dt>
+					<dd class="fl">@DateFormat.getDateInstance.format(blog.createTime)</dd>
+				</dl>
+				<dl class="cFix">
+					<dt class="fl">@Messages("blog.author")</dt>
+					<dd class="fl">
+						<a href="@noAuth.routes.Blogs.getAllBlogsOfUser(blog.authorId)">
+	                    	@User.findOneByUserId(blog.authorId).get.nickName</a>
+	                    </a>
+					</dd>
+				</dl>
+			</div>
+		</div>
+		<div class="mT10">
 			<div class="cFix">
-				<div class="fs14 b wwbw">
-					<a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)">@blog.title</a>
-					
-					@if(MyFollow.checkIfFollow(loginUserId,blog.id)){
-						<a href="@auth.routes.MyFollows.cancelFollow(blog.id)" class="iS arrowR">
-                                <font>
-                                    <font>
-                                        @Messages("user.deleteFollow")
-                                    </font>
-                                </font>
-                         </a>
-					}else{
-						<a href="javascript:void(0);" onclick="addFollow('@blog.id','blog')" class="iS arrowR">
-                                <font>
-                                    <font>
-                                        @Messages("user.addFollow")
-                                    </font>
-                                </font>
-                         </a>
-					}
+				<div class="wwbw followBlogBtn">
+					<a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)" class="blogTitle">@blog.title</a>
+					<a href="@auth.routes.MyFollows.cancelFollow(blog.id)" class="buttons">
+	                    <font>
+	                        <font>
+	                            @Messages("user.deleteFollow")
+	                        </font>
+	                    </font>
+                    </a>
 				</div>
 			</div>
 			<div class="mT5 wwbw">
@@ -29,3 +39,5 @@
                 @if(blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}/>", "").length > 100) {...}
 			</div>
 		</div>
+	</div>
+</li>

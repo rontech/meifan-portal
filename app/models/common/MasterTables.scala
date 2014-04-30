@@ -5,7 +5,6 @@ import play.api.PlayException
 import com.novus.salat._
 import com.novus.salat.Context 
 import com.mongodb.casbah.commons.Imports._
-import com.mongodb.casbah.MongoConnection
 import mongoContext._
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._

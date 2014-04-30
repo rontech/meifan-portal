@@ -2,8 +2,8 @@
 
 @import views.html.user._
 
-@myPageMain("stylistMySalon", user, followInfo, loginUserId, logged){
-	<div class="mysalon-stylist-group">
+@InfoChange("my-salon", user, followInfo, loginUserId, logged){
+	<div class="mysalon-stylist-group mT40">
 		@views.html.stylist.management.salonItem(user, loginUserId, logged, salon)
 	</div>
 }

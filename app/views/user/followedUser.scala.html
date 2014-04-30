@@ -1,27 +1,48 @@
 @(user :User, followInfo:FollowInformation, isFans: Boolean ,loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
 
-@myPageMain("followedUser", user, followInfo, loginUserId, logged) {
-    <div id="content_head">
-    @if(isFans.equals(true)){
-        <p><strong>@user.nickName@Messages("user.fansOf")</strong></p>
-    }else{
-        <p><strong>@user.nickName@Messages("user.followedUser")</strong></p>
-    }
-    </div>
-    <div id='SpaceMain'>
-    <div class="MMod" id="Logs">
-        <ul>
-        @if(isFans.equals(true)){
-            @followInfo.follower.map{user =>
-                @views.html.user.followedUserItem(user,loginUserId,logged)
-            }
-        }else{
-            @followInfo.followUser.map{user =>
-                @views.html.user.followedUserItem(user,loginUserId,logged)
-            }
-        }
-        </ul>
-    </div>
-    </div>
-}
+	@if(isFans.equals(true)){
+	    @myRelevantsMain("my-follows", user, followInfo, loginUserId, logged) {
+	    	
+	    	<div id="content_head" class="mT40">
+	    		<div class="yS mainContentsSecondTitleOuter">
+					<h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("user.myFansCount", followInfo.follower.length)</h2>
+				</div>
+			    <div class="MMod" id="Logs">
+			        <ul>
+			        @if(isFans.equals(true)){
+			            @followInfo.follower.map{user =>
+			                @views.html.user.followedUserItem(user,loginUserId,logged)
+			            }
+			        }else{
+			            @followInfo.followUser.map{user =>
+			                @views.html.user.followedUserItem(user,loginUserId,logged)
+			            }
+			        }
+			        </ul>
+			    </div>
+		    </div>
+	    }
+	}else{
+	    @myFollowsMain("my-followUser", user, followInfo, loginUserId, logged) {
+			<div id="content_head" class="mT40">
+				<div class="yS mainContentsSecondTitleOuter">
+					<h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("user.myFollowUsersCount", followInfo.followUser.length)</h2>
+				</div>
+			    <div class="MMod" id="Logs">
+			        <ul>
+			        @if(isFans.equals(true)){
+			            @followInfo.follower.map{user =>
+			                @views.html.user.followedUserItem(user,loginUserId,logged)
+			            }
+			        }else{
+			            @followInfo.followUser.map{user =>
+			                @views.html.user.followedUserItem(user,loginUserId,logged)
+			            }
+			        }
+			        </ul>
+			    </div>
+		    </div>
+	    }
+	}
+
 

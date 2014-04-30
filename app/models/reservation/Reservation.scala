@@ -6,7 +6,6 @@ import se.radley.plugin.salat.Binders._
 import mongoContext._
 import java.util.Date
 import com.meifannet.framework.db._
-
 case class ResvItem (
 		resvType: String, //coupon: 优惠劵; menu: 菜单; service: 服务
 		mainResvObjId: ObjectId,

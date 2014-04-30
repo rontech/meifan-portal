@@ -13,7 +13,7 @@
     <table summary="summary" cellspacing="1" class="mT2 wFull bgLGray2 fs10 couponTable">
         <tbody>
             <tr>
-                <td class="bgPink8 fgWhite bd0 taC p5 fs12 b">
+                <td class="bgPink8 fgWhite bd0 taC p5 fs12 b couponLeft">
                     <font> @Messages("coupon.newCoupon") </font>
                     <br>
                     <font> @Messages("coupon.coupon") </font>
@@ -52,14 +52,14 @@
                                 </p>
                             </div>
                         </div>
-                        <p class="mT10 fgGray fs10">
+                        <p class="fgGray fs10 p10">
                             <font>
                                 <font class="">
                                     @coupon.description
                                 </font>
                             </font>
                         </p>
-                        <dl class="mT10">
+                        <dl class="p10">
                             <dt class="di fgPink">
                                 <font>
                                     <font>
@@ -67,7 +67,7 @@
                                     </font>
                                 </font>
                             </dt>
-                            <dd class="di mR10 pR10 fgGray bdLGrayR">
+                            <dd class="di mR10 fgGray bdLGrayR">
                                 <font>
                                     <font>
                                         @coupon.presentTime
@@ -105,7 +105,7 @@
                         </dl>
                     </div>
                 </td>
-                <td class="bdWhite bgLLGray2 vaM">
+                <td class="bdWhite bgLLGray2 vaM couponRight">
                     <div class="pV10 fs12">
                     @if(coupon.isValid && coupon.endDate.after(new java.util.Date()) && coupon.startDate.before(new java.util.Date())){
                         <div>
@@ -154,9 +154,6 @@
                         	}
                         </div>
                     </div>
-                    <!-- TODO test by wu -->
-                    <body data-key="@Messages("comment.noFirst")">
-                    <input type="button" value="@Messages("comment.comment")" onclick="addComment('@coupon.id' , '2');" />
                     }else{
                     <div>
                             <a href="#"

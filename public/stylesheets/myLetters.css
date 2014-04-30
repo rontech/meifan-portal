@@ -1,0 +1,31 @@
+@CHARSET "UTF-8";
+
+div.letterTitle label {
+font-size: 14px;
+float: left;
+}
+
+div.myLetters {
+padding: 10px;
+}
+
+.cR {
+color: red;
+}
+
+div.letterTitle label {
+min-width: 90px;
+}
+
+input.buttons {
+clear: both;
+background: #f09499;
+color: #fff;
+border: none;
+padding: 5px 15px;
+}
+
+div.submitBtn {
+text-align: center;
+margin-top: 10px;
+}
