@@ -1,7 +1,7 @@
 	@charset "utf-8";
 /* CSS Document */
 body{
-	margin:0px; padding:0px; font-family:"宋体"; font-size:12px; line-height:22px; color:#333333;
+	margin:0px; padding:0px; font-size:12px; line-height:22px; color:#333333;
 }
 /*------------------------Start 解决12号字在google和傲游浏览器的不识别小于12号的英文字体-------------*/
 html{-webkit-text-size-adjust:none;}

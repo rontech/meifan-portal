@@ -1,11 +1,11 @@
 @(user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
 
-@myPageMain("followedSalon", user, followInfo, loginUserId, logged) {
+@myFollowsMain("my-followSalon", user, followInfo, loginUserId, logged) {
 	
-    <div id="content_head">
-        <p><strong>@user.nickName@Messages("user.followedSalon")</strong></p>
-    </div>
-    <div id='SpaceMain'>
+    <div id='SpaceMain' class="mT40">
+   	  <div class="yS mainContentsSecondTitleOuter">
+	  	<h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("user.myFollowSalonsCount", followInfo.followSalon.length)</h2>
+	  </div>
 	  <div class="MMod" id="Logs">
     	  <ul id="listWrapper">
     		  @followInfo.followSalon.map{salon =>
