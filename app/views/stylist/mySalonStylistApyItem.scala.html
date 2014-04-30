@@ -27,7 +27,8 @@
 		<span>@Messages("stylist.applyCreateTime"): </span><span>@DateFormat.getDateInstance().format(SalonStylistApplyRecord.findOneStylistApRd(stylist.stylistId).get.applyDate)</span>
 	</div>
 	@*<a href="@auth.routes.Salons.agreeStylistApply(stylist.stylistId)" class="salon-stylist-acceptApply">@Messages("stylist.acceptApply")</a>|*@
-	<a href="" class="salon-stylist-acceptApply_@stylist.stylistId" data-stylist="@stylist.stylistId" >@Messages("stylist.acceptApply")</a>
+	@*<a href="" class="salon-stylist-acceptApply_@stylist.stylistId" data-stylist="@stylist.stylistId" >@Messages("stylist.acceptApply")</a>*@
+	<a onclick="del('@auth.routes.Salons.agreeStylistApply(stylist.stylistId)','@Messages("stylist.actApply")');">@Messages("stylist.acceptApply")</a>
 	@*<a href="@auth.routes.Salons.rejectStylistApply(stylist.stylistId)" class="salon-stylist-rejectApply">@Messages("stylist.rejectApply")</a>*@
 	<a href="" class="salon-stylist-rejectApply_@stylist.stylistId" data-stylist="@stylist.stylistId" >@Messages("stylist.rejectApply")</a>
 </div>

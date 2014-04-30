@@ -2,10 +2,9 @@ package models
 
 import play.api.Play.current
 import play.api.PlayException
-import com.novus.salat.dao._
 import com.mongodb.casbah.commons.Imports._
-import com.mongodb.casbah.MongoConnection
 import mongoContext._
+import com.meifannet.framework.db._
 
 /**
  * The table of styleLength
@@ -15,16 +14,8 @@ case class StyleLength(
     styleLength: String,
     description: String)
 
-object StyleLength extends StyleLengthDAO
-
-trait StyleLengthDAO extends ModelCompanion[StyleLength, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("StyleLength")
-
-    val dao = new SalatDAO[StyleLength, ObjectId](collection) {}
+object StyleLength extends MeifanNetModelCompanion[StyleLength] {
+    val dao = new MeifanNetDAO[StyleLength](collection = loadCollection()) {}
 }
 
 /**
@@ -35,16 +26,8 @@ case class StyleColor(
     styleColor: String,
     description: String)
 
-object StyleColor extends StyleColorDAO
-
-trait StyleColorDAO extends ModelCompanion[StyleColor, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("StyleColor")
-
-    val dao = new SalatDAO[StyleColor, ObjectId](collection) {}
+object StyleColor extends MeifanNetModelCompanion[StyleColor] {
+    val dao = new MeifanNetDAO[StyleColor](collection = loadCollection()) {}
 }
 
 /**
@@ -55,16 +38,8 @@ case class StyleImpression(
     styleImpression: String,
     description: String)
 
-object StyleImpression extends StyleImpressionDAO
-
-trait StyleImpressionDAO extends ModelCompanion[StyleImpression, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("StyleImpression")
-
-    val dao = new SalatDAO[StyleImpression, ObjectId](collection) {}
+object StyleImpression extends MeifanNetModelCompanion[StyleImpression] {
+    val dao = new MeifanNetDAO[StyleImpression](collection = loadCollection()) {}
 }
 
 /**
@@ -75,16 +50,8 @@ case class StyleAmount(
     styleAmount: String,
     description: String)
 
-object StyleAmount extends StyleAmountDAO
-
-trait StyleAmountDAO extends ModelCompanion[StyleAmount, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("StyleAmount")
-
-    val dao = new SalatDAO[StyleAmount, ObjectId](collection) {}
+object StyleAmount extends MeifanNetModelCompanion[StyleAmount] {
+    val dao = new MeifanNetDAO[StyleAmount](collection = loadCollection()) {}
 }
 
 /**
@@ -95,16 +62,8 @@ case class StyleQuality(
     styleQuality: String,
     description: String)
 
-object StyleQuality extends StyleQualityDAO
-
-trait StyleQualityDAO extends ModelCompanion[StyleQuality, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("StyleQuality")
-
-    val dao = new SalatDAO[StyleQuality, ObjectId](collection) {}
+object StyleQuality extends MeifanNetModelCompanion[StyleQuality] {
+    val dao = new MeifanNetDAO[StyleQuality](collection = loadCollection()) {}
 }
 
 /**
@@ -115,16 +74,8 @@ case class StyleDiameter(
     styleDiameter: String,
     description: String)
 
-object StyleDiameter extends StyleDiameterDAO
-
-trait StyleDiameterDAO extends ModelCompanion[StyleDiameter, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("StyleDiameter")
-
-    val dao = new SalatDAO[StyleDiameter, ObjectId](collection) {}
+object StyleDiameter extends MeifanNetModelCompanion[StyleDiameter] {
+    val dao = new MeifanNetDAO[StyleDiameter](collection = loadCollection()) {}
 }
 
 /**
@@ -135,16 +86,8 @@ case class FaceShape(
     faceShape: String,
     description: String)
 
-object FaceShape extends FaceShapeDAO
-
-trait FaceShapeDAO extends ModelCompanion[FaceShape, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("FaceShape")
-
-    val dao = new SalatDAO[FaceShape, ObjectId](collection) {}
+object FaceShape extends MeifanNetModelCompanion[FaceShape] {
+    val dao = new MeifanNetDAO[FaceShape](collection = loadCollection()) {}
 }
 
 /**
@@ -155,15 +98,8 @@ case class SocialStatus(
     socialStatus: String,
     description: String)
 
-object SocialStatus extends SocialStatusDAO
-
-trait SocialStatusDAO extends ModelCompanion[SocialStatus, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("SocialStatus")
-    val dao = new SalatDAO[SocialStatus, ObjectId](collection) {}
+object SocialStatus extends MeifanNetModelCompanion[SocialStatus] {
+    val dao = new MeifanNetDAO[SocialStatus](collection = loadCollection()) {}
 }
 
 /**
@@ -174,16 +110,8 @@ case class AgeGroup(
     ageGroup: String,
     description: String)
 
-object AgeGroup extends AgeGroupDAO
-
-trait AgeGroupDAO extends ModelCompanion[AgeGroup, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("AgeGroup")
-
-    val dao = new SalatDAO[AgeGroup, ObjectId](collection) {}
+object AgeGroup extends MeifanNetModelCompanion[AgeGroup] {
+    val dao = new MeifanNetDAO[AgeGroup](collection = loadCollection()) {}
 }
 
 /**
@@ -193,16 +121,8 @@ case class Sex(
     id: ObjectId = new ObjectId,
     sex: String)
 
-object Sex extends SexDAO
-
-trait SexDAO extends ModelCompanion[Sex, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("Sex")
-
-    val dao = new SalatDAO[Sex, ObjectId](collection) {}
+object Sex extends MeifanNetModelCompanion[Sex] {
+    val dao = new MeifanNetDAO[Sex](collection = loadCollection()) {}
 }
 
 /**
@@ -215,16 +135,8 @@ case class SearchByLengthForF(
     stylePic: ObjectId,
     description: String)
 
-object SearchByLengthForF extends SearchByLengthForFDAO
-
-trait SearchByLengthForFDAO extends ModelCompanion[SearchByLengthForF, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("SearchByLengthForF")
-
-    val dao = new SalatDAO[SearchByLengthForF, ObjectId](collection) {}
+object SearchByLengthForF extends MeifanNetModelCompanion[SearchByLengthForF] {
+    val dao = new MeifanNetDAO[SearchByLengthForF](collection = loadCollection()) {}
     //保存图片
     def saveSearchByLengthForFImage(searchByLengthForF: SearchByLengthForF, imgId: ObjectId) = {
       dao.update(MongoDBObject("_id" -> searchByLengthForF.id), 
@@ -242,16 +154,8 @@ case class SearchByLengthForM(
     stylePic: ObjectId,
     description: String)
 
-object SearchByLengthForM extends SearchByLengthForMDAO
-
-trait SearchByLengthForMDAO extends ModelCompanion[SearchByLengthForM, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("SearchByLengthForM")
-
-    val dao = new SalatDAO[SearchByLengthForM, ObjectId](collection) {}
+object SearchByLengthForM extends MeifanNetModelCompanion[SearchByLengthForM] {
+    val dao = new MeifanNetDAO[SearchByLengthForM](collection = loadCollection()) {}
     //保存图片
     def saveSearchByLengthForMImage(searchByLengthForM: SearchByLengthForM, imgId: ObjectId) = {
       dao.update(MongoDBObject("_id" -> searchByLengthForM.id), 
@@ -269,16 +173,8 @@ case class SearchByImpression(
     stylePic: ObjectId,
     description: String)
 
-object SearchByImpression extends SearchByImpressionDAO
-
-trait SearchByImpressionDAO extends ModelCompanion[SearchByImpression, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("SearchByImpression")
-
-    val dao = new SalatDAO[SearchByImpression, ObjectId](collection) {}
+object SearchByImpression extends MeifanNetModelCompanion[SearchByImpression] {
+    val dao = new MeifanNetDAO[SearchByImpression](collection = loadCollection()) {}
     //保存图片
     def saveSearchByImpressionImage(searchByImpression: SearchByImpression, imgId: ObjectId) = {
       dao.update(MongoDBObject("_id" -> searchByImpression.id), 

@@ -81,8 +81,8 @@ $('#salonName').focus(function(){
  */
 //TODO
 $('#salonNameAbbr').focus(function(){
-    this.setAttribute("maxlength",40);
-    $('#salonNameAbbr  ~ .help-inline').text("请填写工商局注册的全称。2~40位字符，可由中英文、数字及“_”、“-”、（）组成").removeClass("trueMsg").removeClass("errorMsg");
+    this.setAttribute("maxlength",20);
+    $('#salonNameAbbr  ~ .help-inline').text("请填写店铺的略称,2~20位字符").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedSalonNameAbbr()
 });
@@ -376,9 +376,14 @@ function checkedHomepage(){
 function checkedSalonName(){
     //TODO 正则表达式待补充
     var salonName=$("#salonName").val();
+    var isValid = /^[A-Za-z0-9\u4e00-\u9fa5\(\)\-\_]+$/;
     var len = salonName.replace(/[^\x00-\xff]/g, "**").length;
     if (salonName == ""){
         $("#salonName ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
+        return;
+    }
+    if (!isValid.test(salonName)){
+        $("#salonName ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
     if (len < 2 || len > 80){
@@ -413,7 +418,7 @@ function checkedSalonNameAbbr(){
         $("#salonNameAbbr ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    if (len < 2 || len > 80){
+    if (len < 2 || len > 20){
         $("#salonNameAbbr ~ .help-inline").text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
@@ -496,9 +501,14 @@ function checkedAddressDetail(){
 function checkedContact(){
     var value=$("#contact").val();
     //TODO
+    var isValid = /^[A-Za-z\u4e00-\u9fa5]+$/;
+    var len = value.replace(/[^\x00-\xff]/g, "**").length;
     if (value == ""){
         $("#contact ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
+    }
+    if(!isValid.test(value)|| len<2 || len>20){
+        $("#contact ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
     }else{
         $("#contact ~ .help-inline").text(MESSAGE_OK).removeClass("errorMsg").addClass("trueMsg");
     }

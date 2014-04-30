@@ -14,118 +14,236 @@
     </div>
 </head>
 @if(isStylist){
-    <body>
+<body>
+    <div>
+    @helper.form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm",'name -> "styleForm"){
         <div>
-        @helper.form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm",'name -> "styleForm"){
-            <div>
-                @Messages("hair.styleName")
-                @inputText(styleAddForm("styleName"),
-                    '_label -> None,
-                    'class ->  "font1")
-            </div>
-            <div>
-            <fieldset class="addOtherStylePic">
-                <legend>@Messages("user.optContactMethod")</legend>
-                <div id="optContactMethods">
-                    @**
-                     * Keep an hidden block that will be used as template for Javascript copy code
-                     **@
-                    @stylePicOneGroup(
-                        styleAddForm("stylePic[x]"),
-                        className = "optContactMethod_template"
-                    )
-                </div>
-            </fieldset>
-            </div>
-            <div>
-                <input type = "hidden" class="" name = "stylistId" id="stylistId" field = styleAddForm("stylistId") value = "@stylists(0).stylistId">
-            </div>
-            <div align="left">  
-            @input(field = styleAddForm("styleLength"),'_label ->Messages("hair.styleLength")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.styleLength.length-1){
-                      <input type = "radio" class="" name = "styleLength" value = "@stylePara.styleLength(i)" @if(i==0){checked}>@Messages("style.styleLength." + stylePara.styleLength(i))
-                }
-            }
-            @input(field = styleAddForm("styleImpression"), '_label ->Messages("hair.impression")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.styleImpression.length-1){
-                      <input type = "radio" class="" name = "styleImpression" value = "@stylePara.styleImpression(i)" @if(i==0){checked}>@Messages("style.styleImpression." + stylePara.styleImpression(i))
-                }
-            }
-            @input(field = styleAddForm("styleColor"),args = '_label ->Messages("hair.color")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.styleColor.length-1){
-                      <input type = "checkbox" class="" name = "styleColor[@i]"value = "@stylePara.styleColor(i)">@Messages("style.styleColor." + stylePara.styleColor(i))
-                }
-            }
-            @input(field = styleAddForm("serviceType"),args = '_label ->Messages("hair.serviceType")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.serviceType.length-1){
-                      <input type = "checkbox" class="" name = "serviceType[@i]"value = "@stylePara.serviceType(i)">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
-                }
-            }
-            @input(field = styleAddForm("styleAmount"),args = '_label ->Messages("hair.styleAmount")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.styleAmount.length-1){
-                      <input type = "checkbox" class="" name = "styleAmount[@i]"value = "@stylePara.styleAmount(i)">@Messages("style.styleAmount." + stylePara.styleAmount(i))
-                }
-            }
-            @input(field = styleAddForm("styleQuality"),args = '_label ->Messages("hair.styleQuality")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.styleQuality.length-1){
-                      <input type = "checkbox" class="" name = "styleQuality[@i]" value = "@stylePara.styleQuality(i)">@Messages("style.styleQuality." + stylePara.styleQuality(i))
-                }
-            }
-            @input(field = styleAddForm("styleDiameter"),args = '_label ->Messages("hair.styleDiameter")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.styleDiameter.length-1){
-                      <input type = "checkbox" class="" name = "styleDiameter[@i]" value = "@stylePara.styleDiameter(i)">@Messages("style.styleDiameter." + stylePara.styleDiameter(i))
-                }
-            }
-            @input(field = styleAddForm("faceShape"),args = '_label ->Messages("hair.faceShape")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.faceShape.length-1){
-                      <input type = "checkbox" class="" name = "faceShape[@i]" value = "@stylePara.faceShape(i)">@Messages("style.faceShape." + stylePara.faceShape(i))
-                }
-            }
-            @input(field = styleAddForm("consumerSocialStatus"),args = '_label ->Messages("hair.consumerSocialStatus")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
-                      <input type = "checkbox" class="" name = "consumerSocialStatus[@i]" value = "@stylePara.consumerSocialStatus(i)">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))
-                }
-            }
-            @input(field = styleAddForm("consumerSex"),args = '_label ->Messages("hair.consumerSex")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.consumerSex.length-1){
-                      <input type = "radio" class="" name = "consumerSex" @if(i==0){checked} value = "@stylePara.consumerSex(i)">@Messages("style.sex." + stylePara.consumerSex(i))
-                }
-            }
-            @input(field = styleAddForm("consumerAgeGroup"),args = '_label ->Messages("hair.consumerAgeGroup")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.consumerAgeGroup.length-1){
-                      <input type = "checkbox" class="" name = "consumerAgeGroup[@i]" value = "@stylePara.consumerAgeGroup(i)">@Messages("style.ageGroup." + stylePara.consumerAgeGroup(i))
-                }
-            }
-            </div>
-            <div>
-                @Messages("hair.assessFromStylist")
-                @textarea(styleAddForm("description"), '_label -> None, 'id -> "description", 'rows -> 4, 'cols -> 40, 'class ->  "font1")
-            </div>
-            <div class="demo">
-                <div class="logoupload">
-                    <div class="btnbox">
-                        @Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
-                        <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImage")</a>
-                    </div>
-                    <div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
-                    
-                    <div class="progress-box fl-progress" style="display:none;">
-                        <div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
-                        <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
-                    </div>
-                    
-                </div>
-                <div class="batch-pic">
-                    <ul>
-                    </ul>
-                </div>
-            </div>
-            <div align="center">
-                <input type="button" onclick="checksForStyle();" class = "buttons" value=@Messages("common.submit")>
-            </div>
-         }
+            <input type = "hidden" class="" name = "stylistId" id="stylistId" field = styleAddForm("stylistId") value = "@stylists(0).stylistId">
         </div>
-
+        <fieldset class="addOtherStylePic">
+            <legend>@Messages("user.optContactMethod")</legend>
+            <div id="optContactMethods">
+                @**
+                 * Keep an hidden block that will be used as template for Javascript copy code
+                 **@
+                @stylePicOneGroup(
+                    styleAddForm("stylePic[x]"),
+                    className = "optContactMethod_template"
+                )
+            </div>
+        </fieldset>
+        <table cellspacing="0" class="wFull bdCell bgThNml fgThNml vaThT pCellV10H12">
+            <tbody>
+                <tr>
+                    <th class="w120"> 
+                        <div class="dibBL vaM w154">
+                            <font class="cR">*</font>@Messages("hair.styleName")
+                        </div> 
+                    </th>
+                    <td colspan="3" class="w620">
+                        @inputText(styleAddForm("styleName"), '_label -> None, 'id -> "styleName", 'class ->  "font1",'_help -> Messages("hair.nameRequired"))
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w120"> 
+                        <div class="dibBL vaM w154">
+                            <font class="cR">*</font>@Messages("hair.pictures")
+                        </div> 
+                    </th>
+                    <td colspan="3" class="w620">
+                        <div>
+                            <div class="demo">
+                                <div class="logoupload">
+                                    <div class="btnbox">
+                                        @Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
+                                        <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImage")</a>
+                                    </div>
+                                    
+                                    <div class="progress-box fl-progress" style="display:none;">
+                                        <div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
+                                        <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="batch-pic">
+                                    <ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w120"> 
+                        <div class="dibBL vaM w154">
+                            <font class="cR">*</font>@Messages("hair.styleLength")
+                        </div> 
+                    </th>
+                    <td colspan="3" class="w620">
+                         @input(field = styleAddForm("styleLength"),'_label ->None){(id,name,value,args) =>
+                             @for(i <- 0 to stylePara.styleLength.length-1){
+                                 <input type = "radio" class="" name = "styleLength" value = "@stylePara.styleLength(i)" @if(i==0){checked}>@Messages("style.styleLength." + stylePara.styleLength(i))
+                             }
+                         }
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w120"> 
+                        <div class="dibBL vaM w154">
+                            <font class="cR">*</font>@Messages("hair.impression")
+                        </div> 
+                    </th>
+                    <td colspan="3" class="w620">
+                        @input(field = styleAddForm("styleImpression"), '_label ->None){(id,name,value,args) =>
+                            @for(i <- 0 to stylePara.styleImpression.length-1){
+                                <input type = "radio" class="" name = "styleImpression" value = "@stylePara.styleImpression(i)" @if(i==0){checked}>@Messages("style.styleImpression." + stylePara.styleImpression(i))
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w120"> 
+                        <div class="dibBL vaM w154">
+                            <font class="cR"></font>@Messages("hair.color")
+                        </div> 
+                    </th>
+                    <td colspan="3" class="w620">
+                        @input(field = styleAddForm("styleColor"),args = '_label ->None){(id,name,value,args) =>
+                            @for(i <- 0 to stylePara.styleColor.length-1){
+                                <input type = "checkbox" class="" name = "styleColor[@i]"value = "@stylePara.styleColor(i)">@Messages("style.styleColor." + stylePara.styleColor(i))
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w120"> 
+                        <div class="dibBL vaM w154">
+                            <font class="cR"></font>@Messages("hair.serviceType")
+                        </div> 
+                    </th>
+                    <td colspan="3" class="w620">
+                        @input(field = styleAddForm("serviceType"),args = '_label ->None){(id,name,value,args) =>
+                            @for(i <- 0 to stylePara.serviceType.length-1){
+                                <input type = "checkbox" class="" name = "serviceType[@i]"value = "@stylePara.serviceType(i)">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w120"> 
+                        <div class="dibBL vaM w154">
+                            <font class="cR"></font>@Messages("hair.styleAmount")
+                        </div> 
+                    </th>
+                    <td colspan="3" class="w620">
+                        @input(field = styleAddForm("styleAmount"),args = '_label ->None){(id,name,value,args) =>
+                            @for(i <- 0 to stylePara.styleAmount.length-1){
+                                <input type = "checkbox" class="" name = "styleAmount[@i]"value = "@stylePara.styleAmount(i)">@Messages("style.styleAmount." + stylePara.styleAmount(i))
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w120"> 
+                        <div class="dibBL vaM w154">
+                            <font class="cR"></font>@Messages("hair.styleQuality")
+                        </div> 
+                    </th>
+                    <td colspan="3" class="w620">
+                        @input(field = styleAddForm("styleQuality"),args = '_label ->None){(id,name,value,args) =>
+                            @for(i <- 0 to stylePara.styleQuality.length-1){
+                                <input type = "checkbox" class="" name = "styleQuality[@i]" value = "@stylePara.styleQuality(i)">@Messages("style.styleQuality." + stylePara.styleQuality(i))
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w120"> 
+                        <div class="dibBL vaM w154">
+                            <font class="cR"></font>@Messages("hair.styleDiameter")
+                        </div> 
+                    </th>
+                    <td colspan="3" class="w620">
+                        @input(field = styleAddForm("styleDiameter"),args = '_label ->None){(id,name,value,args) =>
+                            @for(i <- 0 to stylePara.styleDiameter.length-1){
+                                <input type = "checkbox" class="" name = "styleDiameter[@i]" value = "@stylePara.styleDiameter(i)">@Messages("style.styleDiameter." + stylePara.styleDiameter(i))
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w120"> 
+                        <div class="dibBL vaM w154">
+                            <font class="cR"></font>@Messages("hair.faceShape")
+                        </div> 
+                    </th>
+                    <td colspan="3" class="w620">
+                         @input(field = styleAddForm("faceShape"),args = '_label ->None){(id,name,value,args) =>
+                            @for(i <- 0 to stylePara.faceShape.length-1){
+                                <input type = "checkbox" class="" name = "faceShape[@i]" value = "@stylePara.faceShape(i)">@Messages("style.faceShape." + stylePara.faceShape(i))
+                            }
+                         }
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w120"> 
+                        <div class="dibBL vaM w154">
+                            <font class="cR"></font>@Messages("hair.consumerSocialStatus")
+                        </div> 
+                    </th>
+                    <td colspan="3" class="w620">
+                        @input(field = styleAddForm("consumerSocialStatus"),args = '_label ->None){(id,name,value,args) =>
+                            @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
+                                <input type = "checkbox" class="" name = "consumerSocialStatus[@i]" value = "@stylePara.consumerSocialStatus(i)">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w120"> 
+                        <div class="dibBL vaM w154">
+                            <font class="cR">*</font>@Messages("hair.consumerSex")
+                        </div> 
+                    </th>
+                    <td colspan="3" class="w620">
+                        @input(field = styleAddForm("consumerSex"),args = '_label ->None){(id,name,value,args) =>
+                            @for(i <- 0 to stylePara.consumerSex.length-1){
+                                <input type = "radio" class="" name = "consumerSex" @if(i==0){checked} value = "@stylePara.consumerSex(i)">@Messages("style.sex." + stylePara.consumerSex(i))
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w120"> 
+                        <div class="dibBL vaM w154">
+                            <font class="cR"></font>@Messages("hair.consumerAgeGroup")
+                        </div> 
+                    </th>
+                    <td colspan="3" class="w620">
+                        @input(field = styleAddForm("consumerAgeGroup"),args = '_label ->None){(id,name,value,args) =>
+                            @for(i <- 0 to stylePara.consumerAgeGroup.length-1){
+                                <input type = "checkbox" class="" name = "consumerAgeGroup[@i]" value = "@stylePara.consumerAgeGroup(i)">@Messages("style.ageGroup." + stylePara.consumerAgeGroup(i))
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w120"> 
+                        <div class="dibBL vaM w154">
+                            <font class="cR">*</font>@Messages("hair.assessFromStylist")
+                        </div> 
+                    </th>
+                    <td colspan="3" class="w620">
+                        @textarea(styleAddForm("description"), '_label -> None, 'id -> "description", 'rows -> 4, 'cols -> 40, 'class ->  "font1")
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div align="center">
+            <input type="button" onclick="checksForStyle();" class = "buttons" value=@Messages("common.submit")>
+        </div>
+     }
+    </div>
 </body> 
 }else {
     <body>
@@ -222,7 +340,6 @@
                         @Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
                         <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
                     </div>
-                    <div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
                     
                     <div class="progress-box fl-progress" style="display:none;">
                         <div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
@@ -230,13 +347,14 @@
                     </div>
                     
                 </div>
+                
                 <div class="batch-pic">
                     <ul>
                     </ul>
                 </div>
             </div>
             <div align="center">
-                <input type="button" onclick="checksForStyle();" class = "buttons" value=@Messages("common.submit")/>
+                @*<input type="button" onclick="checksForStyle();" class = "buttons" value=@Messages("common.submit")/>*@
             </div>
          }
         </div>

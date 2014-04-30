@@ -6,16 +6,15 @@ import play.Configuration
 import java.util.Date
 import scala.concurrent.{ ExecutionContext, Future }
 import ExecutionContext.Implicits.global
-import com.mongodb.casbah.MongoConnection
 import com.mongodb.casbah.query.Imports._
 import com.mongodb.casbah.commons.Imports.{ DBObject => commonsDBObject }
 import com.mongodb.casbah.WriteConcern
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
-import com.novus.salat.dao._
 import mongoContext._
 import org.mindrot.jbcrypt.BCrypt
 import scala.util.matching.Regex
+import com.meifannet.framework.db._
 
 /*
  * Main Class: Salon.
@@ -42,11 +41,9 @@ case class Salon(
     registerDate: Date
 )
 
-object Salon extends SalonDAO
+object Salon extends MeifanNetModelCompanion[Salon] {
 
-trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
-
-    val dao = new SalatDAO[Salon, ObjectId](collection = mongoCollection("Salon")) {}
+    val dao = new MeifanNetDAO[Salon](collection = loadCollection()){}
     
     //// Indexes
     //  collection.ensureIndex(DBObject("accountId" -> 1), "userId", unique = true)
@@ -654,14 +651,8 @@ case class SalonFacilities (
    parkingDesc: String
 )
 
-object SalonFacilities extends ModelCompanion[SalonFacilities, ObjectId] {
-    def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-        "Configuration error",
-        "Could not find mongodb.default.db in settings")))("SalonFacilities")
-        
-        val dao = new SalatDAO[SalonFacilities, ObjectId](collection) {}
+object SalonFacilities extends MeifanNetModelCompanion[SalonFacilities] {
+    val dao = new MeifanNetDAO[SalonFacilities](collection = loadCollection()){}
 }
 
 /**
