@@ -957,3 +957,8 @@ a:hover.buttons {
 	text-decoration: none;
 	color: #fff;
 }
+
+div.input input[type="text"] {
+    width:200px;
+    max-width: 15;
+}
