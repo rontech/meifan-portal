@@ -6,14 +6,14 @@
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
         <input type="text" name="@name" value="@value"> 
-        <a class="removeAccount btn danger">@Messages("optContactMethod.Remove")</a>
+        <a class="removeAccount buttons danger">@Messages("optContactMethod.Remove")</a>
     }
 }
 
 @optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
     <div class="twipsies well @className">
         
-        <a class="removeOptContactMethod btn danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
+        <a class="removeOptContactMethod buttons danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
         
         @select(
         	field("contMethodType"), 
@@ -40,7 +40,7 @@
             
             <div class="clearfix">
                 <div class="input">
-                    <a class="addAccount btn success">@Messages("optContactMethod.AddNumber")</a>
+                    <a class="addAccount buttons success">@Messages("optContactMethod.AddNumber")</a>
                 </div>
             </div>
         
@@ -49,11 +49,11 @@
     </div>
 }
 
-    @InfoChange(user, followInfo, user.id, true)  {
+    @InfoChange("my-basicInfo", user, followInfo, user.id, true)  {
     	
     	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
     	
-		<div class="mT10 pH10">
+		<div class="mT40 pH10">
 			@helper.form(auth.routes.Users.updateInfo(user.userId), 'id -> "userForm", 'name -> "userForm") {
 				
 				<input type="hidden" name="password" value="@user.password">
@@ -134,7 +134,7 @@
 				                </div>
 				            </th>
 				            <td>
-				               @inputText(userForm("socialStatus"),'_label -> None)
+				               @inputText(userForm("socialStatus"),'_label -> None, 'class -> "inputField")
 				            </td>
 				        <tr>
 				            <th class="w222">
@@ -154,8 +154,8 @@
 				                    @Messages("salon.address")
 				                </div>
 				            </th>
-				            <td>
-				            	@Messages("salon.province"):  <select id="Select1" name = "address.province" value = "@userForm("address.province").value")></select>
+				            <td class = "inputField mL5">
+				            	@Messages("salon.province"):  <select id="Select1" class="inputField" name = "address.province" value = "@userForm("address.province").value")></select>
 				                @Messages("salon.city"):  <select id="Select2" name = "address.city" value = "@userForm("address.city").value"></select>
 				                @Messages("salon.region"):  <select id="Select3" name = "address.region" value = "@userForm("address.region").value"></select>
 				                <script type="text/javascript">
@@ -170,7 +170,7 @@
 				                </div>
 				            </th>
 				            <td>
-				               <div id="optContactMethods">
+				               <div id="optContactMethods" class = "inputField">
             
 					                @repeat(userForm("optContactMethods"), min = 0) { optContactMethod =>
 					                
@@ -187,7 +187,7 @@
 					                )
 					                
 					                <div class="manage">
-					                    <a class="addOptContactMethod btn success">@Messages("optContactMethod.AddOptContactMethod")</a>
+					                    <a class="addOptContactMethod buttons success">@Messages("optContactMethod.AddOptContactMethod")</a>
 					                </div>
 					            
 					            </div>

@@ -5,13 +5,6 @@
       padding: 0;
       margin: 0;
     }
-    a {
-      color: #4466bb;
-      outline: 0;
-    }
-    a:hover {
-      color: #0000aa;
-    }
     ul,
     ol {
       list-style-type: none;
@@ -389,9 +382,6 @@
       float: left;
       width: 220px;
     }
-    #SpaceLeft a {
-      text-decoration: none;
-    }
     #SpaceMain {
       right: 0;
       top: 0;
@@ -468,15 +458,13 @@
       width: 120px;
       margin-top: 10px;
     }
-    .Owner span.U .Name {
+    .Owner span.U .Name, .Owner span.myPageA .Name {
       color: #FFF;
-      font-size: 14pt;
+      font-size: 16px;
       display: block;
       margin-bottom: 5px;
       font-weight: bold;
       word-wrap: break-word;
-    }
-    .Owner span.U .Name {
       background: none;
     }
     .Owner span.U .opts {
@@ -512,9 +500,6 @@
     .Owner .stat a span {
       font-size: 9pt;
     }
-    div.sta {
-	float: right;
-	}
     .Resume {
       background: #ae6755 url('/img/2012/resume24.png') no-repeat left bottom;
       margin: 3px 0 0 0;
@@ -534,29 +519,27 @@
       padding: 5px;
     }
     .Opts {
-      margin: 3px 0 0 0;
+      margin: 8px 0;
     }
     .Opts a {
       cursor: pointer;
-      float: left;
-      width: 110px;
-      height: 30px;
     }
     .Opts a.a1 {
-      background-color: #a86644;
-    }
-    .Opts a.a1:hover {
-      background-color: #845035;
+      background-color: #f09499;
+	  padding: 8px 24px;
+	  margin-left: 5px;
+	  color: #fff;
     }
     .Opts a.a2 {
-      background-color: #8e554c;
+      background-color: #f09499;
+      padding: 8px 25px;
+      color: #fff;
     }
-    .Opts a.a2:hover {
-      background-color: #6d413a;
+    .Opts a.a1:hover, .Opts a.a2:hover {
+      text-decoration: underline;
     }
     .Opts a span {
-      padding: 82px 0 0 10px;
-      font-size: 11pt;
+      font-size: 14px;
       color: #fff;
     }
     .Opts a i {
@@ -610,7 +593,7 @@
       float: left;
     }
     .Users ul li a {
-      margin: 1px 1px 0 0;
+      margin: 1px 3px 0 0;
     }
     .Users ul li img {
       width: 45px;
@@ -714,7 +697,7 @@
       color: #FFF;
       display: inline-block;
       line-height: 20px;
-      background: #ad4a23;
+      background: #f09499;
       font-style: normal;
       padding: 1px 8px;
       margin-right: 10px;
@@ -978,6 +961,12 @@
 	  padding: 5px;
 	  text-align: center;
     }
+    .myPoint {
+      border: 1px solid #eee;
+	  background: #fff;
+	  padding: 5px;
+	  text-align: center;
+    }
     .RMod a {
 	color: #fff;
 	font-size: 14px;
@@ -1123,8 +1112,6 @@
       display: block;
     }
     #UserSkills #OtherScore {
-      border-bottom: 1px dashed #eee;
-      padding: 5px 0 5px 20px;
       overflow: hidden;
     }
     #UserSkills #OtherScore h1 {
@@ -1143,11 +1130,11 @@
       text-align: right;
     }
     #UserSkills #OtherScore h1 a {
-      color: #999;
-      text-decoration: none;
-      display: block;
-      text-align: left;
-      width: 140px;
+      height: 25px;
+	  line-height: 25px;
+	  font-weight: normal;
+	  text-decoration: none;
+	  color: #913a43;
     }
     #UserSkills #OtherScore h1 a:hover {
       color: #000;
@@ -4089,16 +4076,16 @@ table td.demandTdOuter table.demandTbInner th {
 /************************************************************
 *********************************************************/
 
-.ympS	{ background-image: url("/CSP/img/my/sprites/y_mypage.png?switch=20140227"); }
+.ympS	{ background-image: url("/assets/images/y_mypage.png?switch=20140227"); }
 
 .middleContentsInner				{ background-position: 0px top; background-repeat: repeat-y; }
 .middleContentsInnerHead		{ border-top: 1px solid #D8D5C9; }
 .middleContentsInnerBottom	{ background-position: -1530px bottom; background-repeat: no-repeat; padding-bottom:20px; zoom: 1; }
 
 .shopInformation							{ background-position: -2295px top; background-repeat: repeat-y; zoom: 1; }
-.shopInformationHead					{ background-position: -3020px top; background-repeat: no-repeat; padding-top: 6px; display: block; text-decoration: none; }
-.shopInformationBottom				{ background-position: -3745px bottom; background-repeat: no-repeat; padding-bottom: 6px; zoom: 1; }
-.shopInformationMysalon				{ background-position: -2295px top; background-repeat: repeat-y; padding: 4px 0; zoom: 1; }
+.shopInformationHead					{ background-position: -2920px top; background-repeat: no-repeat; padding-top: 6px; display: block; text-decoration: none; }
+.shopInformationBottom				{ background-position: -3620px bottom; background-repeat: no-repeat; padding-bottom: 6px; zoom: 1; }
+.shopInformationMysalon				{ background-position: -2219px top; background-repeat: repeat-y; padding: 4px 0; zoom: 1; }
 
 .couponArea				{ background-position: -4470px top; background-repeat: repeat-y; }
 .couponAreaHead		{ background-position: -4934px top; background-repeat: no-repeat; }
@@ -4400,7 +4387,7 @@ table td.demandTdOuter table.demandTbInner th {
 .arrowPagingWeekR	{ background-position: right -244px; padding-right: 8px; }
 .arrowPagingWeekROff{ background-position: right -464px; padding-right: 8px; }
 
-.couponTypeSmallCT02{ background-position: -177px -3950px; display: block; width: 23px; height: 13px;}
+.couponTypeSmallCT02{ background-position: -177px -3946px; display: block; width: 23px; height: 18px;}
 .couponTypeSmallCT03{ background-position: -177px -4063px; display: block; width: 23px; height: 13px; }
 .couponTypeSmallCT01{ background-position: -177px -4176px; display: block; width: 23px; height: 13px; }
 .couponTypeCT02		{ background-position: -177px -580px; display: block; width: 23px; height: 23px; }
@@ -5352,7 +5339,7 @@ table td.demandTdOuter table.demandTbInner th {
 .reserveNumberHistory{ position: absolute; top:24px; right: 0; z-index: 1;}
 .tableHistoryWrapper2 { margin-top:10px; min-height: 56px; width: 510px; margin-right: 10px;}
 .tableHistory		 { padding-top:10px; min-height: 30px; width: 510px; margin-right: 10px; zoom: 1;}
-.cassetteHeading         {padding: 7px 14px 8px; border-bottom:2px solid #AA3355; }
+.cassetteHeading         {padding: 7px 14px 8px; border-bottom:2px solid #f09499; }
 .cassetteContentsHeading {padding-left: 8px; font-weight:bold; color:#666666; border-left: 5px solid #988989; line-height:14px; }
 
 .shopNameWrapper{
@@ -5394,9 +5381,9 @@ float: left;
 width: 150px;
 }
 .listCassette {
-margin-top: 20px;
-padding-top: 20px;
-border-top: 1px dotted #999;
+margin-bottom: 20px;
+padding-bottom: 20px;
+border-bottom: 1px dotted #999;
 }
 .w397 {
 width: 397px;
@@ -5412,7 +5399,6 @@ _height: 19px;
 
 #userForm dt {
     display: inline-block;
-    width: 80px;
     float: left;
 }
 
@@ -5449,11 +5435,6 @@ text-align: right;
 width: 50px;
 }
 
-
-.optContactMethod {
-    margin-left: 32px;
-}
-
 .optContactMethod:first-child > .danger {
     display: none;
 }
@@ -5478,7 +5459,9 @@ width: 50px;
 
 
 .pull-right {
-  float: right;
+  left: 150px;
+  position: relative;
+  top: 58px;
 }
 form .clearfix {
   margin-bottom: 18px;
@@ -5515,8 +5498,7 @@ form .clearfix.success input:focus, form .clearfix.success textarea:focus {
   box-shadow: 0 0 6px #9acc9a;
 }
 .manage {
-    margin-left: 32px;
-    margin-bottom: 20px;
+    margin: 15px 0 25px 5px;
 }
 
 .loginForm {
@@ -5573,6 +5555,19 @@ overflow: hidden;
 
 #couponForm dd, #menuForm dd {
 display: inline-block;
+}
+
+ul.clearfix.quickNav li {
+float: left;
+background: #f09499;
+margin: 0 2px 5px 3px;
+padding: 5px;
+width: 85px;
+text-align: center;
+}
+
+ul.clearfix.quickNav li a {
+color: #fff;
 }
 
 
@@ -5727,4 +5722,460 @@ text-decoration: none;
 ul.sub-sub {
 margin-top: -1px;
 }
-/*右边快捷菜单的样式 e*/
+
+/*右边快捷菜单的样式 END*/
+
+/*用户消息的样式 ST*/
+.B_message_box .W_main_c .all_msg_list .msg_list_node {
+margin: 0 20px;
+}
+
+.WB_msg_type .id_avatar {
+float: left;
+width: 50px;
+height: 50px;
+position: relative;
+}
+
+.WB_msg_type .msg_main {
+margin-left: 65px;
+height: 50px;
+overflow: hidden;
+_width: 492px;
+}
+
+.WB_msg_type .msg_main .msg_title {
+margin-bottom: 5px;
+}
+
+.W_f14 {
+font-size: 14px;
+}
+
+.W_fb {
+font-weight: 700;
+}
+
+.WB_msg_type .msg_main .msg_detail {
+line-height: 30px;
+white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden;
+margin-right: 2em;
+_margin-right: 0;
+_width: 463px;
+_zoom: 1;
+_float: left;
+}
+
+.S_txt2, .SW_fun2:hover .S_txt3 {
+color: #808080;
+}
+
+.S_line2 {
+border-color: #e6e6e6;
+}
+
+.WB_msg_type .msg_list_node {
+border-bottom-width: 1px;
+border-bottom-style: solid;
+padding-top: 20px;
+padding-bottom: 15px;
+position: relative;
+width: 100%
+}
+
+.WB_msg_type .msg_ctrls {
+position: absolute;
+right: 0;
+top: 22px;
+}
+
+div.page-limit {
+float: right;
+margin-top: 20px;
+}
+
+div.WB_msg_type {
+margin: 0 5px;
+}
+
+.msg_dialogue {
+margin-top: 25px;
+padding: 0 20px;
+line-height: 22px;
+}
+
+.msg_dialogue_list {
+margin-bottom: 20px;
+}
+
+.msg_dialist_l .msg_dialist_pic {
+float: left;
+_margin-right: 15px;
+}
+
+.msg_dialist_l .msg_dialist_content {
+float: left;
+margin-left: 15px;
+_margin-left: 0;
+}
+
+.msg_dialogue_list .msg_dialist_content {
+border-width: 1px;
+border-style: solid;
+border-radius: 5px;
+position: relative;
+zoom: 1;
+box-shadow: 0 3px 3px rgba(0,0,0,.05);
+border-color: #e6e6e6;
+}
+
+.msg_dialogue_list .msg_dialist_content .msg_arrow {
+position: absolute;
+top: 15px;
+width: 10px;
+overflow: hidden;
+}
+
+.msg_dialogue_list .msg_dialist_content .msg_arrow * {
+font-family: "SimSun";
+overflow: hidden;
+font-size: 20px;
+line-height: 1.231;
+display: block;
+height: 20px;
+}
+
+.msg_dialogue_list .msg_dialist_content .msg_dialist_main {
+border-radius: 5px;
+}
+
+.msg_dialogue_list .msg_dialist_content .msg_diamain_box {
+width: 550px;
+padding: 15px 20px 10px;
+}
+
+
+
+.msg_dialist_l .msg_arrow {
+left: -10px;
+}
+
+.S_line2_c {
+color: #e6e6e6;
+}
+
+.S_bg5_c {
+color: #ffffff;
+}
+
+em {
+font-style: normal;
+font-weight: normal;
+}
+
+.msg_dialist_l .msg_arrow span {
+margin: -20px 0 0 1px;
+}
+
+fieldset {
+display: block;
+padding: 0 0 0 20px;
+border-style: solid;
+border-width: 1px 0 0 0;
+}
+
+.msg_time_line {
+margin: 5px 10px 25px 65px;
+_margin-bottom: 0;
+text-align: center;
+padding: 0 0 0 148px;
+_padding-bottom: 25px;
+}
+
+.msg_time_line .time_tit {
+width: 120px;
+text-align: center;
+font-weight: 400;
+}
+
+.S_txt3 {
+color: #aeaeae;
+}
+
+#content_head .MMod ul li {
+padding-bottom: 15px;
+border-bottom: 1px solid #e6e6e6;
+margin-bottom: 10px;
+}
+/*用户消息的样式 END*/
+
+/*收藏样式 ST*/
+.stylistBtn a, .styleResult a.styleBtn, .styleBtn a {
+background: #f09499;
+color: #fff;
+padding: 5px 5px;
+}
+
+.styleBtn {
+	margin-top: 8px;
+}
+
+li.styleItem {
+display: inline;
+float: left;
+}
+
+div.styleResult {
+border-right: 1px solid #DDDDDD;
+padding: 0 8px;
+}
+
+.blogS {
+background-color: #7c25ff;
+}
+
+.blogCategoryBL10 {
+background-position: -360px 0;
+display: block;
+width: 107px;
+height: 19px;
+text-align: center;
+color: white;
+}
+
+.mR70 {
+margin-right: 70px;
+}
+
+.followBlogBtn .buttons {
+color: #fff;
+font-size: 9px;
+padding: 2px;
+float: right;
+margin-right: 15px;
+}
+
+a.blogTitle {
+text-decoration: underline;
+font-size: 13px;
+font-weight: bold;
+}
+
+.couponTable {
+border-spacing: 1px;
+vertical-align: top;
+margin-bottom: 20px;
+}
+
+.couponLeft {
+width: 25px;
+}
+
+.couponRight {
+width: 100px;
+padding: 0 5px;
+}
+/*收藏样式 END*/
+
+/*我的作品 ST*/
+.styleList .styleItem {
+float: left;
+padding: 0px 10px 15px 0px;
+border-right: 1px solid #dddddd;
+margin: 0 5px;
+}
+
+.bbl {
+border-bottom: 1px solid #dddddd;
+padding-bottom: 10px;
+}
+/*我的作品 END*/
+
+/*我的动态  ST*/
+li.Blog {
+display: inline;
+float: left;
+border-bottom: 1px solid #dddddd;
+padding-bottom: 10px;
+margin-top: 10px;
+}
+
+.blogList a.newBlog {
+width: 100%;
+padding-bottom: 10px;
+border-bottom: 1px solid #dddddd;
+float: left;
+}
+
+.blogList .buttons {
+border-bottom: 1px solid #dddddd;
+padding: 5px;
+}
+
+div.BlogTitle h1 {
+font-size: 15px;
+margin-bottom: 5px;
+}
+
+.BlogEntity .BlogTitle {
+padding-bottom: 5px;
+border-bottom: 2px solid #f09499;
+margin-bottom: 15px;
+}
+
+.BlogEntity ul {
+margin-top: 10px;
+}
+
+.BlogEntity ul li {
+float: left;
+}
+
+.BlogEntity ul li a {
+text-decoration: underline;
+}
+
+.BlogEntity li.nextPost {
+float: right;
+}
+
+.blogContents dl dt label {
+font-weight: bold;
+}
+
+.blogContents dl dt {
+margin-bottom: 5px;
+}
+
+.blogContents dl {
+margin-bottom: 20px;
+}
+
+.blogContents dl dd select {
+white-space: nowrap;
+line-height: 30px;
+color: #999;
+border: 2px solid #999;
+font-size: 9pt;
+padding: 3px 1px;
+cursor: pointer;
+}
+
+.blogContents input#tags {
+width: 100%;
+height: 30px;
+}
+
+.blogContents dl#isVisible_field dt, .blogContents dl#pushToSalon_field dt, .blogContents dl#allowComment_field dt {
+float: left;
+margin-right: 30px;
+margin-top: -1px;
+min-width: 100px;
+}
+
+.blogContents dl#isVisible_field dt label, .blogContents dl#pushToSalon_field dt label,
+.blogContents dl#allowComment_field dt label {
+font-weight: normal;
+}
+
+.blogContents dl#isVisible_field, .blogContents dl#pushToSalon_field,
+.blogContents dl#allowComment_field {
+margin-bottom: 5px;
+}
+
+div.blogSet font {
+font-weight: bold;
+}
+
+div.blogSet {
+margin-bottom: 5px;
+}
+
+.blogContents .buttons {
+padding: 7px 50px;
+margin-top: 20px;
+}
+/*我的动态 END*/
+
+/*我的信息 ST*/
+div.mysalon-stylist-group li {
+display: inline;
+}
+
+.cassetteHeading h4 a {
+text-decoration: underline;
+}
+
+a.removeSalon, a.followBtn {
+padding: 5px;
+background: #f09499;
+color: #fff;
+}
+
+div.listBody {
+margin-top: 10px;
+}
+
+.listBody .bl {
+border: 1px solid #dddddd;
+}
+
+.h170 {
+	height: 170px;
+}
+
+.w440 {
+	width: 440px;
+}
+
+p.picTitle {
+color: #f09499;
+font-size: 16px;
+font-weight: bold;
+}
+
+.mW65 {
+	min-width: 60px;
+}
+
+.mW90 {
+	min-width: 90px;
+}
+
+.pl5 {
+padding-left: 5px;
+}
+
+.CouponArea .couponItem {
+padding-bottom: 1px;
+border-bottom: 1px dotted;
+}
+
+.CouponArea .couponItem:last-child {
+border-bottom: none;
+}
+/*我的信息 END*/
+/*申请技师 ST*/
+#getSalonForm .buttons {
+padding: 2px 10px;
+}
+a.applyToStylist {
+color: #fff;
+padding: 5px 10px;
+margin-left: 10px;
+}
+
+div.mysalon-stylist-group {
+margin-top: 20px;
+}
+/*申请技师 END*/
+.checkboxArea {
+float: left;
+min-width: 70px;
+}
+
+.reserveArea .buttons {
+padding: 5px 15px;
+}
