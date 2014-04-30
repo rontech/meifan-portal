@@ -78,7 +78,7 @@ $('#salonName').focus(function(){
  */
 //TODO
 $('#salonNameAbbr').focus(function(){
-    $('#salonNameAbbr  ~ .help-inline').text("请填写工商局注册的全称。4~40位字符，可由中英文、数字及“_”、“-”、（）组成").removeClass("trueMsg").removeClass("errorMsg");
+    $('#salonNameAbbr  ~ .help-inline').text("请填写店铺的略称。1~20位字符").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedSalonNameAbbr()
 });
@@ -361,12 +361,13 @@ function checkedHomepage(){
 function checkedSalonName(){
     //TODO
     var salonName=$("#salonName").val();
+    var isValid = /^[A-Za-z0-9\u4e00-\u9fa5\(\)\-\_]+$/;
     var len = salonName.replace(/[^\x00-\xff]/g, "**").length;
     if (salonName == ""){
         $("#salonName ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    if (len < 4||len  > 40){
+    if (!isValid.test(salonName)||len < 4||len  > 40){
         $("#salonName ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
@@ -398,7 +399,7 @@ function checkedSalonNameAbbr(){
         $("#salonNameAbbr ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    if (len < 4||len  > 40){
+    if (len < 1||len  > 20){
         $("#salonNameAbbr ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
@@ -481,9 +482,14 @@ function checkedAddressDetail(){
 function checkedContact(){
     var value=$("#contact").val();
     //TODO
+    var isValid = /^[A-Za-z\u4e00-\u9fa5]+$/;
+    var len = value.replace(/[^\x00-\xff]/g, "**").length;
     if (value == ""){
         $("#contact ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
+    }
+    if(!isValid.test(value)|| len<2 || len>20){
+        $("#contact ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
     }else{
         $("#contact ~ .help-inline").text(MESSAGE_OK).removeClass("errorMsg").addClass("trueMsg");
     }
@@ -879,9 +885,9 @@ function checkedServiceItem(){
         checked = (services[i].checked ||checked)
     }
     if (!checked) {
-        $('.serviceItem').parent("div").next().text('请选择服务').removeClass("trueMsg").addClass("errorMsg");
+        $('.serviceItem').parent("div").next("span").text('请选择服务').removeClass("trueMsg").addClass("errorMsg");
     }else{
-        $('.serviceItem').parent("div").next().text('').removeClass("errorMsg").addClass("trueMsg");
+        $('.serviceItem').parent("div").next("span").text('').removeClass("errorMsg").addClass("trueMsg");
     }
 }
 
@@ -1082,6 +1088,7 @@ function checksForStyle(){
     if (!isCreate){
         checkStyleName();
     }
+    checkedItemDescription();
 
     $('.picture_error_msg').remove();
 

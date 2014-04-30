@@ -1,12 +1,10 @@
 package models
 
-import play.api.Play.current
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
-import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
 import scala.collection.mutable.ListBuffer
+import com.meifannet.framework.db._
 
 case class MyFollow(
   id: ObjectId = new ObjectId,
@@ -15,9 +13,9 @@ case class MyFollow(
   followObjType: String   //关注店铺:salon；关注技师:stylist；收藏风格:style；收藏优惠劵:coupon；收藏博客:blog;关注用户:user
   )
 
-object MyFollow extends ModelCompanion[MyFollow, ObjectId] {
+object MyFollow extends MeifanNetModelCompanion[MyFollow] {
 
-  val dao = new SalatDAO[MyFollow, ObjectId](collection = mongoCollection("MyFollow")) {}
+    val dao = new MeifanNetDAO[MyFollow](collection = loadCollection()){}
 
   val FOLLOW_SALON = "salon"
   val FOLLOW_STYLIST = "stylist"

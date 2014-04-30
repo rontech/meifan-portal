@@ -232,106 +232,262 @@
             <div class="skinHeadingWrapper2 mB15 cFix pr">
                 <h3 class="fl skinHeading1 headingSearch offL">@Messages("hair.search")</h3>
             </div>
-            <br/>@Messages("hair.styleLength")<br/>
-                        <input type = "radio" class = "" name = "styleLength" value = "all" checked="checked">@Messages("common.all")
-                @for(i <- 0 to stylePara.styleLength.length-1){
-                    @if(styleSearchForm.get.styleLength.equals(stylePara.styleLength(i))){
-                        <input type = "radio" class="" name = "styleLength", value = "@stylePara.styleLength(i)" checked="checked">@Messages("style.styleLength." + stylePara.styleLength(i))
-                    }else{
-                        <input type = "radio" class="" name = "styleLength", value = "@stylePara.styleLength(i)">@Messages("style.styleLength." + stylePara.styleLength(i))
-                    }
-                }
-            <br/>@Messages("hair.impression")<br/>
-                        <input type = "radio" class = "" name = "styleImpression" value = "all" checked="checked">@Messages("common.all")
-                @for(i <- 0 to stylePara.styleImpression.length-1){
-                    @if(styleSearchForm.get.styleImpression.equals(stylePara.styleImpression(i))){
-                        <input type = "radio" class="" name = "styleImpression", value = "@stylePara.styleImpression(i)" checked="checked">@Messages("style.styleImpression." + stylePara.styleImpression(i))
-                    }else{
-                        <input type = "radio" class="" name = "styleImpression", value = "@stylePara.styleImpression(i)">@Messages("style.styleImpression." + stylePara.styleImpression(i))
-                    }
-                }
-            @input(field = styleSearchForm("styleColor"),args = '_label ->Messages("hair.color")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.styleColor.length-1){
-                    @if(styleSearchForm.get.styleColor.contains(stylePara.styleColor(i))){
-                          <input type = "checkbox" class="" name = "styleColor[@i]", value = "@stylePara.styleColor(i)" checked="checked">@Messages("style.styleColor." + stylePara.styleColor(i))
-                    }else{
-                        <input type = "checkbox" class="" name = "styleColor[@i]", value = "@stylePara.styleColor(i)">@Messages("style.styleColor." + stylePara.styleColor(i))
-                    }
-                }
-            }
-            @input(field = styleSearchForm("serviceType"),args = '_label ->Messages("hair.serviceType")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.serviceType.length-1){
-                    @if(styleSearchForm.get.serviceType.contains(stylePara.serviceType(i))){
-                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)" checked="checked">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
-                    }else{
-                        <input type = "checkbox" class="" name = "serviceType[@i]", value = "@stylePara.serviceType(i)">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
-                    }
-                }
-            }
-            @input(field = styleSearchForm("styleAmount"),args = '_label ->Messages("hair.styleAmount")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.styleAmount.length-1){
-                    @if(styleSearchForm.get.styleAmount.contains(stylePara.styleAmount(i))){
-                        <input type = "checkbox" class="" name = "styleAmount[@i]", value = "@stylePara.styleAmount(i)" checked="checked">@Messages("style.styleAmount." + stylePara.styleAmount(i))
-                    }else{
-                        <input type = "checkbox" class="" name = "styleAmount[@i]", value = "@stylePara.styleAmount(i)">@Messages("style.styleAmount." + stylePara.styleAmount(i))
-                    }
-                }
-            }
-            @input(field = styleSearchForm("styleQuality"),args = '_label ->Messages("hair.styleQuality")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.styleQuality.length-1){
-                    @if(styleSearchForm.get.styleQuality.contains(stylePara.styleQuality(i))){
-                        <input type = "checkbox" class="" name = "styleQuality[@i]", value = "@stylePara.styleQuality(i)" checked="checked">@Messages("style.styleQuality." + stylePara.styleQuality(i))
-                    }else{
-                        <input type = "checkbox" class="" name = "styleQuality[@i]", value = "@stylePara.styleQuality(i)">@Messages("style.styleQuality." + stylePara.styleQuality(i))
-                    }
-                }
-            }
-            @input(field = styleSearchForm("styleDiameter"),args = '_label ->Messages("hair.styleDiameter")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.styleDiameter.length-1){
-                    @if(styleSearchForm.get.styleDiameter.contains(stylePara.styleDiameter(i))){
-                        <input type = "checkbox" class="" name = "styleDiameter[@i]", value = "@stylePara.styleDiameter(i)" checked="checked">@Messages("style.styleDiameter." + stylePara.styleDiameter(i))
-                    }else{
-                        <input type = "checkbox" class="" name = "styleDiameter[@i]", value = "@stylePara.styleDiameter(i)">@Messages("style.styleDiameter." + stylePara.styleDiameter(i))
-                    }
-                }
-            }
-            @input(field = styleSearchForm("faceShape"),args = '_label ->Messages("hair.faceShape")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.faceShape.length-1){
-                    @if(styleSearchForm.get.faceShape.contains(stylePara.faceShape(i))){
-                        <input type = "checkbox" class="" name = "faceShape[@i]", value = "@stylePara.faceShape(i)" checked="checked">@Messages("style.faceShape." + stylePara.faceShape(i))
-                    }else{
-                        <input type = "checkbox" class="" name = "faceShape[@i]", value = "@stylePara.faceShape(i)">@Messages("style.faceShape." + stylePara.faceShape(i))
-                    }
-                }
-            }
-            @input(field = styleSearchForm("consumerSocialStatus"),args = '_label ->Messages("hair.consumerSocialStatus")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
-                    @if(styleSearchForm.get.consumerSocialStatus.contains(stylePara.consumerSocialStatus(i))){
-                        <input type = "checkbox" class="" name = "consumerSocialStatus[@i]", value = "@stylePara.consumerSocialStatus(i)" checked="checked">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))
-                    }else{
-                        <input type = "checkbox" class="" name = "consumerSocialStatus[@i]", value = "@stylePara.consumerSocialStatus(i)">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))
-                    }
-                }
-            }
-            @input(field = styleSearchForm("consumerSex"),args = '_label ->Messages("hair.consumerSex")){(id,name,value,args) =>
-                        <input type = "radio" class = "" name = "consumerSex" value = "all" checked="checked">@Messages("common.all")
-                @for(i <- 0 to stylePara.consumerSex.length-1){
-                    @if(styleSearchForm.get.consumerSex.equals(stylePara.consumerSex(i))){
-                        <input type = "radio" class="" name = "consumerSex", value = "@stylePara.consumerSex(i)" checked="checked">@Messages("style.sex." + stylePara.consumerSex(i))
-                    }else{
-                        <input type = "radio" class="" name = "consumerSex", value = "@stylePara.consumerSex(i)">@Messages("style.sex." + stylePara.consumerSex(i))
-                    }
-                }
-            }
-            @input(field = styleSearchForm("consumerAgeGroup"),args = '_label ->Messages("hair.consumerAgeGroup")){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.consumerAgeGroup.length-1){
-                      @if(styleSearchForm.get.consumerAgeGroup.contains(stylePara.consumerAgeGroup(i))){
-                          <input type = "checkbox" class="" name = "consumerAgeGroup[@i]", value = "@stylePara.consumerAgeGroup(i)" checked="checked">@Messages("style.ageGroup." + stylePara.consumerAgeGroup(i))
-                    }else{
-                        <input type = "checkbox" class="" name = "consumerAgeGroup[@i]", value = "@stylePara.consumerAgeGroup(i)">@Messages("style.ageGroup." + stylePara.consumerAgeGroup(i))
-                    }
-                }
-            }
+            <div class="skinTbl1Wrapper">
+            <table class="skinTbl1 pCell1" width="100%">
+                <tbody>
+                    <tr>
+                        <th class="w85 vaM taC nowrap">@Messages("hair.styleLength")</th>
+                        <td colspan="3" style="width: 633px;">
+                        <ul class="cFix" id="jsiLengthPanel">
+                            <li class="dibBL mR2">
+                                <input type="radio" class="cbF" name="styleLength" id="lengthCd_ALL"  value = "all" checked="checked">
+                                <label for="lengthCd_ALL">@Messages("common.all")</label>
+                            </li>
+                            @for(i <- 0 to stylePara.styleLength.length-1){
+                                <li class="dibBL mR2">
+                                    @if(styleSearchForm.get.styleLength.equals(stylePara.styleLength(i))){
+                                        <input type = "radio" class = "cbF" name = "styleLength" id="lengthCd_HL@i" value = "@stylePara.styleLength(i)" checked="checked">
+                                    }else{
+                                        <input type = "radio" class = "cbF" name = "styleLength" id="lengthCd_HL@i" value = "@stylePara.styleLength(i)">
+                                    }
+                                        <label for="lengthCd_HL@i">@Messages("style.styleLength." + stylePara.styleLength(i))</label>
+                                </li>
+                            }
+                        </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+                    <tr>
+                        <th class="w85 vaM taC nowrap">@Messages("hair.impression")</th>
+                        <td colspan="3" style="padding-right: 0 !important;">
+                        <ul>
+                            <li class="dibBL mR2">
+                                <input type="radio" class="cbF" name="styleImpression" id="hairColorCd_ALL"  value = "all" checked="checked">
+                                <label for="hairColorCd_ALL">@Messages("common.all")</label>
+                            </li>
+                            @for(i <- 0 to stylePara.styleImpression.length-1){
+                                <li class="dibBL mR2">
+                                @if(styleSearchForm.get.styleImpression.equals(stylePara.styleImpression(i))){
+                                    <input type = "radio" class = "cbF" name = "styleImpression" id="hairColorCd_HI@i" value = "@stylePara.styleImpression(i)" checked="checked">
+                                }else{
+                                    <input type = "radio" class = "cbF" name = "styleImpression" id="hairColorCd_HI@i" value = "@stylePara.styleImpression(i)">
+                                }
+                                    <label for="hairColorCd_HI@i">@Messages("style.styleImpression." + stylePara.styleImpression(i))</label>
+                                </li>
+                            }
+                        </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+                    <tr>
+                        <th class="w85 vaM taC nowrap">@Messages("hair.color")</th>
+                        <td colspan="3" style="padding-right: 0 !important;">
+                        <ul>
+                            @input(field = styleSearchForm("styleColor"),args = '_label -> None){(id,name,value,args) =>
+                                @for(i <- 0 to stylePara.styleColor.length-1){
+                                    <li class="dibBL mR2">
+                                    @if(styleSearchForm.get.styleColor.contains(stylePara.styleColor(i))){
+                                        <input type = "checkbox" class = "cbF" name = "styleColor[@i]" id="hairColorCd_HC@i" value = "@stylePara.styleColor(i)" checked="checked">
+                                    }else{
+                                        <input type = "checkbox" class = "cbF" name = "styleColor[@i]" id="hairColorCd_HC@i" value = "@stylePara.styleColor(i)">
+                                    }
+                                        <label for="hairColorCd_HC@i">@Messages("style.styleColor." + stylePara.styleColor(i))</label>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+                    <tr>
+                        <th class="w85 vaM taC nowrap">@Messages("hair.serviceType")</th>
+                        <td colspan="3" style="padding-right: 0 !important;">
+                        <ul>
+                            @input(field = styleSearchForm("serviceType"), args = '_label -> None){(id,name,value,args) =>
+                                @for(i <- 0 to stylePara.serviceType.length-1){
+                                    <li class="dibBL mR2">
+                                    @if(styleSearchForm.get.serviceType.contains(stylePara.serviceType(i))){
+                                        <input type = "checkbox" class = "cbF" name = "serviceType[@i]" id="hairColorCd_HT@i" value = "@stylePara.serviceType(i)" checked="checked">
+                                    }else{
+                                        <input type = "checkbox" class = "cbF" name = "serviceType[@i]" id="hairColorCd_HT@i" value = "@stylePara.serviceType(i)">
+                                    }
+                                        <label for="hairColorCd_HT@i">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))</label>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+                    <tr>
+                        <th class="w85 vaM taC nowrap">@Messages("hair.styleAmount")</th>
+                        <td colspan="3" style="padding-right: 0 !important;">
+                        <ul>
+                            @input(field = styleSearchForm("styleAmount"), args = '_label -> None){(id,name,value,args) =>
+                                @for(i <- 0 to stylePara.styleAmount.length-1){
+                                    <li class="dibBL mR2">
+                                    @if(styleSearchForm.get.styleAmount.contains(stylePara.styleAmount(i))){
+                                        <input type = "checkbox" class = "cbF" name = "styleAmount[@i]" id="hairColorCd_HA@i" value = "@stylePara.styleAmount(i)" checked="checked">
+                                    }else{
+                                        <input type = "checkbox" class = "cbF" name = "styleAmount[@i]" id="hairColorCd_HA@i" value = "@stylePara.styleAmount(i)">
+                                    }
+                                        <label for="hairColorCd_HA@i">@Messages("style.styleAmount." + stylePara.styleAmount(i))</label>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+                    <tr>
+                        <th class="w85 vaM taC nowrap">@Messages("hair.styleQuality")</th>
+                        <td colspan="3" style="padding-right: 0 !important;">
+                        <ul>
+                            @input(field = styleSearchForm("styleQuality"), args = '_label -> None){(id,name,value,args) =>
+                                @for(i <- 0 to stylePara.styleQuality.length-1){
+                                    <li class="dibBL mR2">
+                                    @if(styleSearchForm.get.styleQuality.contains(stylePara.styleQuality(i))){
+                                        <input type = "checkbox" class = "cbF" name = "styleQuality[@i]" id="hairColorCd_HQ@i" value = "@stylePara.styleQuality(i)" checked="checked">
+                                        
+                                    }else{
+                                        <input type = "checkbox" class = "cbF" name = "styleQuality[@i]" id="hairColorCd_HQ@i" value = "@stylePara.styleQuality(i)">
+                                    }
+                                        <label for="hairColorCd_HQ@i">@Messages("style.styleQuality." + stylePara.styleQuality(i))</label>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+                    <tr>
+                        <th class="w85 vaM taC nowrap">@Messages("hair.styleDiameter")</th>
+                        <td colspan="3" style="padding-right: 0 !important;">
+                        <ul>
+                            @input(field = styleSearchForm("styleDiameter"), args = '_label -> None){(id,name,value,args) =>
+                                @for(i <- 0 to stylePara.styleDiameter.length-1){
+                                    <li class="dibBL mR2">
+                                    @if(styleSearchForm.get.styleDiameter.contains(stylePara.styleDiameter(i))){
+                                        <input type = "checkbox" class = "cbF" name = "styleDiameter[@i]" id="hairColorCd_HD@i" value = "@stylePara.styleDiameter(i)" checked="checked">
+                                    }else{
+                                        <input type = "checkbox" class = "cbF" name = "styleDiameter[@i]" id="hairColorCd_HD@i" value = "@stylePara.styleDiameter(i)">
+                                    }
+                                        <label for="hairColorCd_HD@i">@Messages("style.styleDiameter." + stylePara.styleDiameter(i))</label>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+                    <tr>
+                        <th class="w85 vaM taC nowrap">@Messages("hair.faceShape")</th>
+                        <td colspan="3" style="padding-right: 0 !important;">
+                        <ul>
+                            @input(field = styleSearchForm("faceShape"), args = '_label -> None){(id,name,value,args) =>
+                                @for(i <- 0 to stylePara.faceShape.length-1){
+                                    <li class="dibBL mR2">
+                                    @if(styleSearchForm.get.faceShape.contains(stylePara.faceShape(i))){
+                                        <input type = "checkbox" class = "cbF" name = "faceShape[@i]" id="hairColorCd_HF@i" value = "@stylePara.faceShape(i)" checked="checked">
+                                        
+                                    }else{
+                                        <input type = "checkbox" class = "cbF" name = "faceShape[@i]" id="hairColorCd_HF@i" value = "@stylePara.faceShape(i)">
+                                    }
+                                        <label for="hairColorCd_HF@i">@Messages("style.faceShape." + stylePara.faceShape(i))</label>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+                    <tr>
+                        <th class="w85 vaM taC nowrap">@Messages("hair.consumerSocialStatus")</th>
+                        <td colspan="3" style="padding-right: 0 !important;">
+                        <ul>
+                            @input(field = styleSearchForm("consumerSocialStatus"), args = '_label -> None){(id,name,value,args) =>
+                                @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
+                                    <li class="dibBL mR2">
+                                    @if(styleSearchForm.get.consumerSocialStatus.contains(stylePara.consumerSocialStatus(i))){
+                                        <input type = "checkbox" class = "cbF" name = "consumerSocialStatus[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialStatus(i)" checked="checked">
+                                        
+                                    }else{
+                                        <input type = "checkbox" class = "cbF" name = "consumerSocialStatus[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialStatus(i)">
+                                    }
+                                        <label for="hairColorCd_HS@i">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))</label>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+                    <tr>
+                        <th class="w85 vaM taC nowrap">@Messages("hair.consumerSex")</th>
+                        <td colspan="3" style="padding-right: 0 !important;">
+                        <ul>
+                            @input(field = styleSearchForm("consumerSex"), args = '_label -> None){(id,name,value,args) =>
+                                <li class="dibBL mR2">
+                                    <input type="radio" class="cbF" name="consumerSex" id="sexCd_ALL"  value = "all" checked="checked">
+                                    <label for="sexCd_ALL">@Messages("common.all")</label>
+                                </li>
+                                @for(i <- 0 to stylePara.consumerSex.length-1){
+                                    <li class="dibBL mR2">
+                                    @if(styleSearchForm.get.consumerSex.equals(stylePara.consumerSex(i))){
+                                        <input type = "radio" class = "cbF" name = "consumerSex" id="hairColorCd_HX@i" value = "@stylePara.consumerSex(i)" checked="checked">
+                                    }else{
+                                        <input type = "radio" class = "cbF" name = "consumerSex" id="hairColorCd_HX@i" value = "@stylePara.consumerSex(i)">
+                                    }
+                                        <label for="hairColorCd_HX@i">@Messages("style.sex." + stylePara.consumerSex(i))</label>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+                    <tr>
+                        <th class="w85 vaM taC nowrap">@Messages("hair.consumerAgeGroup")</th>
+                        <td colspan="3" style="padding-right: 0 !important;">
+                        <ul>
+                            @input(field = styleSearchForm("consumerAgeGroup"), args = '_label -> None){(id,name,value,args) =>
+                                @for(i <- 0 to stylePara.consumerAgeGroup.length-1){
+                                    <li class="dibBL mR2">
+                                    @if(styleSearchForm.get.consumerAgeGroup.contains(stylePara.consumerAgeGroup(i))){
+                                        <input type = "checkbox" class = "cbF" name = "consumerAgeGroup[@i]" id="hairColorCd_HA@i" value = "@stylePara.consumerAgeGroup(i)" checked="checked">
+                                    }else{
+                                        <input type = "checkbox" class = "cbF" name = "consumerAgeGroup[@i]" id="hairColorCd_HA@i" value = "@stylePara.consumerAgeGroup(i)">
+                                    }
+                                        <label for="hairColorCd_HA@i">@Messages("style.ageGroup." + stylePara.consumerAgeGroup(i))</label>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
             <div align="center">
                 <input type = "reset" class = "buttons" value=@Messages("common.reset")>
                 <input type="submit" class = "buttons" value=@Messages("hair.search")>

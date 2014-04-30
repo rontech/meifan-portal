@@ -1,15 +1,16 @@
 .container-map {
 position: relative;
-width: 765px;
-height: 652px;
+width: 600px;
+height: 500px;
 }
 
 .map-view {
 position: absolute;
 margin-top:30px; 
-width: 765px; 
-height: 590px; 
+width: 600px; 
+height: 450px; 
 top: 50; 
 border: 1px solid gray;
 overflow:hidden;
+left: 75px;
 }

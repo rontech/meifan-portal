@@ -181,9 +181,9 @@
                                      @for(i <- 0 to goodAtStylePara.goodAtService.length-1){
                                          <div class="checkboxArea">
                                              @if(stylist.goodAtService.contains(goodAtStylePara.goodAtService(i))){
-                                                 <input type = "checkbox" name = "goodAtService[@i]" checked="checked" value = "@goodAtStylePara.goodAtService(i)">@Messages(goodAtStylePara.goodAtService(i))    
+                                                 <input type = "checkbox" name = "goodAtService[@i]" checked="checked" value = "@goodAtStylePara.goodAtService(i)">@Messages("ServiceType.serviceTypeName."+goodAtStylePara.goodAtService(i))    
                                              }else{
-                                                 <input type = "checkbox" name = "goodAtService[@i]" value = "@goodAtStylePara.goodAtService(i)">@Messages("ServiceType.serviceTypeName.s"+goodAtStylePara.goodAtService(i))
+                                                 <input type = "checkbox" name = "goodAtService[@i]" value = "@goodAtStylePara.goodAtService(i)">@Messages("ServiceType.serviceTypeName."+goodAtStylePara.goodAtService(i))
                                              }
                                                  
                                              @if((i+1)%6==0){
@@ -298,7 +298,7 @@
             </table>
               
                @repeat(stylistForm("myPics")) { myPic =>
-                
+               	
                     @usePictuerGroup(myPic)
                 
              }

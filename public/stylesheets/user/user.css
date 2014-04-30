@@ -4076,16 +4076,16 @@ table td.demandTdOuter table.demandTbInner th {
 /************************************************************
 *********************************************************/
 
-.ympS	{ background-image: url("/CSP/img/my/sprites/y_mypage.png?switch=20140227"); }
+.ympS	{ background-image: url("/assets/images/y_mypage.png?switch=20140227"); }
 
 .middleContentsInner				{ background-position: 0px top; background-repeat: repeat-y; }
 .middleContentsInnerHead		{ border-top: 1px solid #D8D5C9; }
 .middleContentsInnerBottom	{ background-position: -1530px bottom; background-repeat: no-repeat; padding-bottom:20px; zoom: 1; }
 
 .shopInformation							{ background-position: -2295px top; background-repeat: repeat-y; zoom: 1; }
-.shopInformationHead					{ background-position: -3020px top; background-repeat: no-repeat; padding-top: 6px; display: block; text-decoration: none; }
-.shopInformationBottom				{ background-position: -3745px bottom; background-repeat: no-repeat; padding-bottom: 6px; zoom: 1; }
-.shopInformationMysalon				{ background-position: -2295px top; background-repeat: repeat-y; padding: 4px 0; zoom: 1; }
+.shopInformationHead					{ background-position: -2920px top; background-repeat: no-repeat; padding-top: 6px; display: block; text-decoration: none; }
+.shopInformationBottom				{ background-position: -3620px bottom; background-repeat: no-repeat; padding-bottom: 6px; zoom: 1; }
+.shopInformationMysalon				{ background-position: -2219px top; background-repeat: repeat-y; padding: 4px 0; zoom: 1; }
 
 .couponArea				{ background-position: -4470px top; background-repeat: repeat-y; }
 .couponAreaHead		{ background-position: -4934px top; background-repeat: no-repeat; }
@@ -4387,7 +4387,7 @@ table td.demandTdOuter table.demandTbInner th {
 .arrowPagingWeekR	{ background-position: right -244px; padding-right: 8px; }
 .arrowPagingWeekROff{ background-position: right -464px; padding-right: 8px; }
 
-.couponTypeSmallCT02{ background-position: -177px -3950px; display: block; width: 23px; height: 13px;}
+.couponTypeSmallCT02{ background-position: -177px -3946px; display: block; width: 23px; height: 18px;}
 .couponTypeSmallCT03{ background-position: -177px -4063px; display: block; width: 23px; height: 13px; }
 .couponTypeSmallCT01{ background-position: -177px -4176px; display: block; width: 23px; height: 13px; }
 .couponTypeCT02		{ background-position: -177px -580px; display: block; width: 23px; height: 23px; }
@@ -5339,7 +5339,7 @@ table td.demandTdOuter table.demandTbInner th {
 .reserveNumberHistory{ position: absolute; top:24px; right: 0; z-index: 1;}
 .tableHistoryWrapper2 { margin-top:10px; min-height: 56px; width: 510px; margin-right: 10px;}
 .tableHistory		 { padding-top:10px; min-height: 30px; width: 510px; margin-right: 10px; zoom: 1;}
-.cassetteHeading         {padding: 7px 14px 8px; border-bottom:2px solid #AA3355; }
+.cassetteHeading         {padding: 7px 14px 8px; border-bottom:2px solid #f09499; }
 .cassetteContentsHeading {padding-left: 8px; font-weight:bold; color:#666666; border-left: 5px solid #988989; line-height:14px; }
 
 .shopNameWrapper{
@@ -6099,7 +6099,83 @@ margin-top: 20px;
 }
 /*我的动态 END*/
 
+/*我的信息 ST*/
+div.mysalon-stylist-group li {
+display: inline;
+}
+
+.cassetteHeading h4 a {
+text-decoration: underline;
+}
+
+a.removeSalon, a.followBtn {
+padding: 5px;
+background: #f09499;
+color: #fff;
+}
+
+div.listBody {
+margin-top: 10px;
+}
+
+.listBody .bl {
+border: 1px solid #dddddd;
+}
+
+.h170 {
+	height: 170px;
+}
+
+.w440 {
+	width: 440px;
+}
+
+p.picTitle {
+color: #f09499;
+font-size: 16px;
+font-weight: bold;
+}
+
+.mW65 {
+	min-width: 60px;
+}
+
+.mW90 {
+	min-width: 90px;
+}
+
+.pl5 {
+padding-left: 5px;
+}
+
+.CouponArea .couponItem {
+padding-bottom: 1px;
+border-bottom: 1px dotted;
+}
+
+.CouponArea .couponItem:last-child {
+border-bottom: none;
+}
+/*我的信息 END*/
+/*申请技师 ST*/
+#getSalonForm .buttons {
+padding: 2px 10px;
+}
+a.applyToStylist {
+color: #fff;
+padding: 5px 10px;
+margin-left: 10px;
+}
+
+div.mysalon-stylist-group {
+margin-top: 20px;
+}
+/*申请技师 END*/
 .checkboxArea {
 float: left;
 min-width: 70px;
+}
+
+.reserveArea .buttons {
+padding: 5px 15px;
 }

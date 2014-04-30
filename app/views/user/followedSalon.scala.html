@@ -2,16 +2,14 @@
 
 @myFollowsMain("my-followSalon", user, followInfo, loginUserId, logged) {
 	
-    <div id='SpaceMain' class="mT40">
+    <div class="mT40">
    	  <div class="yS mainContentsSecondTitleOuter">
 	  	<h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("user.myFollowSalonsCount", followInfo.followSalon.length)</h2>
 	  </div>
-	  <div class="MMod" id="Logs">
-    	  <ul id="listWrapper">
-    		  @followInfo.followSalon.map{salon =>
-    			  @views.html.user.followedSalonItem(salon,loginUserId,logged)
-    		  }
-    	  </ul>
-   	  </div>
+   	  <ul id="listWrapper">
+   		  @followInfo.followSalon.map{salon =>
+   			  @views.html.user.followedSalonItem(salon,loginUserId,logged)
+   		  }
+   	  </ul>
    	</div>
 }

@@ -3,16 +3,18 @@
 @import helper._
 @import views.html.user._
 
-@InfoChange("followedStylist", user, followInfo, loginUserId, logged){
+@InfoChange("my-wantToApply", user, followInfo, loginUserId, logged){
 	<div class="mT40">
 		@form(auth.routes.Stylists.findSalonBySalonAccountId, 'id -> "getSalonForm"){
 			@Messages("salon.id")&nbsp;<input name="salonId" id="stylist-search-salon">
 			<span id="nameMsg"></span>
-			<input type="button" id="searchStylistToSubmit" onclick="checkSalonExist();" value="@Messages("stylist.search")"><br />
+			<input type="button" id="searchStylistToSubmit" onclick="checkSalonExist();" class="buttons" value="@Messages("stylist.search")"><br />
 			<span id="salonSerchMsg" style="color:red;"></span>
 		}
 		@salon.map{ sa =>
-			@views.html.stylist.management.salonItem(user, loginUserId, logged, sa, true, true)	
+			<ul id="listWrapper">
+				@views.html.stylist.management.salonItem(user, loginUserId, logged, sa, true, true)
+			</ul>	
 		}
 	</div>
 }

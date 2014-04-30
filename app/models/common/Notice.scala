@@ -6,10 +6,10 @@ package models
 
 import play.api.Play.current
 import java.util.Date
-import com.novus.salat.dao._
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
+import com.meifannet.framework.db._
 
 case class Notice(
                       id : ObjectId,
@@ -20,7 +20,7 @@ case class Notice(
                       isValid: Boolean
                       )
 
-object Notice extends ModelCompanion[Notice, ObjectId] {
+object Notice extends MeifanNetModelCompanion[Notice] {
 
-    val dao = new SalatDAO[Notice, ObjectId](collection = mongoCollection("Notice")) {}
+    val dao = new MeifanNetDAO[Notice](collection = loadCollection()){}
 }

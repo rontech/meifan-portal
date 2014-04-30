@@ -550,7 +550,8 @@ stylist.salon = 所属店铺
 stylist.style = 他的作品
 stylistMag.calApplying = 取消申请后无法恢复，请确认是否取消申请？
 stylistMag.wtApply = 请确认提交申请！
-stylistMag.operateMyAPMSG = 该记录已被申请的店铺操作， 
+stylistMag.operateMyAPMSG = 该记录已被申请的店铺操作，
+stylistMag.changeImage = 更换形象 
 
 
 
@@ -683,6 +684,7 @@ user.myCollectBlogsCount=您已收藏{0}条博客
 user.myCollectCouponsCount=您已收藏{0}个优惠劵
 user.myCollectStylesCount=您已收藏{0}个风格
 user.notWriteBlog=该用户未添加博客……
+use.followThisSalon=收藏该店铺
 
 
 user.needfieldworks = 请输入0~100整数

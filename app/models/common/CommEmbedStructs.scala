@@ -3,9 +3,7 @@ package models
 import play.api.Play.current
 import play.api.PlayException
 import com.novus.salat._
-import com.novus.salat.dao._
 import com.mongodb.casbah.commons.Imports._
-import com.mongodb.casbah.MongoConnection
 import com.novus.salat.Context
 import mongoContext._
 import org.bson.types.ObjectId
@@ -15,7 +13,7 @@ import com.mongodb.casbah.gridfs.GridFS
 import play.api.libs.iteratee.Enumerator
 import scala.concurrent.ExecutionContext
 import play.api.i18n.Messages
-
+import com.meifannet.framework.db._
 /**
  * Embed Structure.
 */
@@ -26,19 +24,11 @@ case class OnUsePicture(
     description: Option[String]
 )
 
-object OnUsePicture extends OnUsePictureDAO
-
-trait OnUsePictureDAO extends ModelCompanion[OnUsePicture, ObjectId] {
-      def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-          "Configuration error",
-          "Could not find mongodb.default.db in settings"))
-  )("OnUsePicture")
+object OnUsePicture extends MeifanNetModelCompanion[OnUsePicture] {
   
-  val dao = new SalatDAO[OnUsePicture, ObjectId](collection){}
+  val dao = new MeifanNetDAO[OnUsePicture](collection = loadCollection()){}
       
-  collection.ensureIndex(DBObject("fileObjId" -> 1), "id", unique = true)
+//  collection.ensureIndex(DBObject("fileObjId" -> 1), "id", unique = true)
   
   
 }
@@ -57,18 +47,10 @@ case class ContMethodType (
 	contMethodTypeName : String,
 	description : String
 	)
-	
 
-object ContMethodType extends ContMethodTypeDAO
+object ContMethodType extends MeifanNetModelCompanion[ContMethodType] {
 
-trait ContMethodTypeDAO extends ModelCompanion[ContMethodType, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("ContMethodType")
-
-    val dao = new SalatDAO[ContMethodType, ObjectId](collection) {}
+    val dao = new MeifanNetDAO[ContMethodType](collection = loadCollection()){}
     
     def getAllContMethodTypes  = dao.find(MongoDBObject.empty).toSeq.map{
         	contMethodType => contMethodType.contMethodTypeName ->Messages("ContMethodType.contMethodTypeName."+ contMethodType.contMethodTypeName)}
@@ -82,16 +64,10 @@ case class DefaultLog(
 	imgId : ObjectId
 )
 
-object DefaultLog extends DefaultLogDAO
 
-trait DefaultLogDAO extends ModelCompanion[DefaultLog, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("DefaultLog")
+object DefaultLog extends MeifanNetModelCompanion[DefaultLog] {
                 
-    val dao = new SalatDAO[DefaultLog,ObjectId](collection) {}
+    val dao = new MeifanNetDAO[DefaultLog](collection = loadCollection()){}
     
     /**
      * 保存图片

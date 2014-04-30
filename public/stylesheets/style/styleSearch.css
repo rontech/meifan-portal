@@ -1,5 +1,25 @@
 @CHARSET "UTF-8";
+.newFilter .wBox {
+border-bottom: 1px dashed #dfdfdf;
+padding: 5px 0 0 0;
+}
+.newFilter .rBox .notto {
+width: 36px;
+float: left;
+text-align: center;
+margin-right: 5px;
+}
+.newFilter .rBox .notto a.cur {
+background: #e65361;
+color: #fff;
+}
 
+.newFilter .rBox .notto a {
+padding: 0 5px;
+display: inline-block;
+text-decoration: none;
+color: #666;
+}
 #select .mb {
 position: relative;
 overflow: visible;
@@ -33,15 +53,15 @@ padding: 0 32px 0 24px;
 line-height: 24px;
 }
 #filterArea ul{
-width:600px;
+width:680px;
 }
 #filterArea li{
 width:78px;
 }
 .styleImpressionDIV .v-option {
 position: absolute;
-right: 10px;
-top: 43px;
+right: 250px;
+top: 165px;
 width: 105px;
 height: 20px;
 padding-top: 2px;
@@ -49,7 +69,7 @@ padding-top: 2px;
 .styleImpressionDIV .o-more {
 float: right;
 position: relative;
-width: 31px;
+width: 45px;
 height: 20px;
 padding-right: 14px;
 line-height: 20px;
@@ -63,15 +83,15 @@ color: #005AA0;
 .serviceTypeDIV .v-option {
 position: absolute;
 right: 10px;
-top: 80px;
-width: 105px;
+right: 250px;
+top: 197px;
 height: 20px;
 padding-top: 2px;
 }
 .serviceTypeDIV .o-more {
 float: right;
 position: relative;
-width: 31px;
+width: 45px;
 height: 20px;
 padding-right: 14px;
 line-height: 20px;
@@ -81,6 +101,51 @@ text-decoration: none;
 cursor: pointer;
 color: #005AA0;
 }
+.newFilter .wBox p.style_title {
+width: 65px;
+color: #666;
+line-height: 25px;
+font-weight: bold;
+float: left;
+display: inline-block;
+text-align: right;
+}
+.style_title {
+display: block;
+line-height: 20px;
+padding: 0px 10px 2px;
+}
 .hide_li{
 display:none;	
+}
+#lessProp .hiddenIcon{
+width: 11px;
+height: 11px;
+display: inline-block;
+background: url(/assets/images/meifan2014.png) no-repeat -11px -948px;
+margin-left: 5px;
+vertical-align: middle;
+}
+#moreProp .xlicon{
+width: 11px;
+height: 11px;
+display: inline-block;
+background: url(/assets/images/meifan2014.png) no-repeat 0 -948px;
+margin-left: 5px;
+vertical-align: middle;	
+}
+.v-option .unfold b{
+width: 9px;
+height: 5px;
+background: url(/assets/images/meifan2014.png) no-repeat 0 -880px;
+display: inline-block;
+margin-left: 2px;
+
+}
+.v-option .fold b{
+width: 9px;
+height: 5px;
+background: url(/assets/images/meifan2014.png) no-repeat 0 -893px;
+display: inline-block;
+margin-left: 2px;
 }
