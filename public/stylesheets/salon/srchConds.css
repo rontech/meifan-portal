@@ -20,12 +20,12 @@
 
 .newFilter{border:1px solid #d9e8ff;}
 .newFilter .wBox{border-bottom:1px dashed #dfdfdf;padding:5px 0 0 0}
-.newFilter .wBox p.title{width:70px;color:#666;line-height:18px;font-weight:bold;float:left;display:inline-block;text-align:center}
+.newFilter .wBox p.title{width:70px;color:#666;line-height:18px;font-weight:bold;float:left;display:inline-block;text-align:right}
 .newFilter .rBox .notto{width:36px;float:left;text-align:center;margin-right:5px}
 .newFilter .rBox .notto a{padding:0 5px;display:inline-block;text-decoration:none;color:#666}
 .newFilter .rBox .notto a.cur{background:#e65361;color:#fff}
 .newFilter .wBox .place{float:left;}
-.newFilter .wBox .place li{height:25px;float:left;display:inline;margin:0 7px;color:#666}
+.newFilter .wBox .place li{height:25px;float:left;margin:0 7px;color:#666;width: 120px;}
 .newFilter .wBox .place li input{float:left;vertical-align:middle;margin-top:3px;*margin-top:0}
 .newFilter .wBox .place li label{width:78px;height:20px;float:left;overflow:hidden;cursor:pointer;vertical-align:middle;margin-top:2px\9;padding-left:3px}
 .newFilter .wBox .place li label:hover{background:#ecf7ff}
@@ -42,7 +42,7 @@
 .newFilter .wBox .filterShow .cols:hover{background:url(../pic/hotels2012.png?t=201403312125) no-repeat -48px -862px}
 .newFilter .wBox .prices input{vertical-align:middle;margin-right:2px}
 .newFilter .wBox .prices li a{padding:1px 8px 0 8px}
-.newFilter .wBox .optional{width:220px;float:left;color:#666}
+.newFilter .wBox .optional{width:220px;margin-left: 120px;color:#666}
 .newFilter .wBox .optional .priTxt{width:38px;height:18px;border:1px solid #999;margin:0 3px;vertical-align:middle}
 .newFilter .wBox .optional .priBut{width:35px;height:20px;background:#f5f8ff;border:1px solid #e65361;color:#e65361;vertical-align:middle;cursor:pointer}
 .newFilter .wBox .optional .priBut:hover{background:#e65361;color:#fff;border-color:#e65361; }
@@ -81,7 +81,7 @@ width: 90%;
 }
 
 .newFilter .wBox .place {
-width: 85%;
+width: 80%;
 }
 
 .newFilter .wBox .prices li {
@@ -123,3 +123,29 @@ margin-bottom: 20px;
 .listSEO{width:1158px;padding:10px 20px;border:1px solid #eee;color:#999}
 }
 
+.hide_li{
+display:none;	
+}
+.v-option {
+width: 40px;
+height: 20px;
+padding-top: 2px;
+float: right;
+cursor: pointer;
+color: #005AA0;
+}
+.v-option .unfold b{
+width: 9px;
+height: 5px;
+background: url(/assets/images/meifan2014.png) no-repeat 0 -880px;
+display: inline-block;
+margin-left: 2px;
+
+}
+.v-option .fold b{
+width: 9px;
+height: 5px;
+background: url(/assets/images/meifan2014.png) no-repeat 0 -893px;
+display: inline-block;
+margin-left: 2px;
+}

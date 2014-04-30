@@ -53,10 +53,14 @@
 			</div>
 			<div class="taC mT10">
 				@if(status == 1){
-				<a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv">@Messages("stylist.checkRsv")</a>
+					<a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv">@Messages("stylist.checkRsv")</a>		
 				}
 				@if(status == 2){
-				<a href="@auth.routes.Salons.inviteStylist(stylist.stylistId)" class="salon-stylist-reserv">@Messages("stylist.invite")</a>	
+					@if(SalonStylistApplyRecord.findOneSalonApRd(salon.id,stylist.stylistId) != None){
+						<span class="salon-stylist-reserv">@Messages("salonSearchStylist.haveInvite")</span>	
+					}else{
+						<a href="@auth.routes.Salons.inviteStylist(stylist.stylistId)" class="salon-stylist-reserv">@Messages("stylist.invite")</a>	
+					}
 				}
 			</div>
 			</div>

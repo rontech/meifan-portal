@@ -77,3 +77,25 @@ color: #690;
 color: #F70B0B;
 font-size: 16px;
 }
+
+b.iconfont.greenfont {
+width: 18px;
+height: 18px;
+display: inline-block;
+background: url(/assets/images/vadtion/checked.png) no-repeat;
+vertical-align: middle;
+}
+b.iconfont.greenfont {
+width: 18px;
+height: 18px;
+display: inline-block;
+background: url(/assets/images/vadtion/checked.png) no-repeat;
+vertical-align: middle;
+}
+b.iconfont.redfont{
+width: 18px;
+height: 18px;
+display: inline-block;
+background: url(/assets/images/vadtion/unchecked.png) no-repeat;
+vertical-align: middle;
+}
