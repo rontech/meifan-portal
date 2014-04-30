@@ -55,6 +55,7 @@ case class StylistApply(
 
 object Stylist extends MeifanNetModelCompanion[Stylist]{
   val dao = new MeifanNetDAO[Stylist](collection = loadCollection()){}
+  loadCollection().ensureIndex(DBObject("stylistId" -> 1), "stylistId", unique = true)
   
   def findGoodAtStyle: GoodAtStyle  = {
        val position = Position.findAll().toList
