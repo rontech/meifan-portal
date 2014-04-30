@@ -14,13 +14,13 @@ import play.api.Routes
 import java.io._
 import jp.t2v.lab.play2.auth._
 import play.api.templates.Html
-import com.mongodb.casbah.MongoConnection
 import javax.imageio.ImageIO
 import play.api.data.Form
 import play.api.data.Forms._
 import scala.Some
 import models._
 import utils.Const._
+import com.meifannet.framework.db._
 
 object Application extends Controller with OptionalAuthElement with UserAuthConfigImpl{
 
@@ -94,7 +94,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
         import com.mongodb.casbah.Implicits._
         import ExecutionContext.Implicits.global
 
-        val db = MongoConnection()("Picture")
+        val db = DBDelegate.picDB
         val gridFs = GridFS(db)
         gridFs.findOne(Map("_id" -> file)) match {
             case Some(f) => SimpleResult(
@@ -126,7 +126,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     def upload = Action(parse.multipartFormData) { request =>
         request.body.file("photo") match {
             case Some(photo) =>
-                val db = MongoConnection()("Picture")
+                val db = DBDelegate.picDB
                 val gridFs = GridFS(db)
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull
@@ -141,7 +141,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
             imgForm.bindFromRequest.fold(
                 errors =>Ok(Html(errors.toString)),
                 img =>{
-                    val db = MongoConnection()("Picture")
+                    val db = DBDelegate.picDB
                     val gridFs = GridFS(db)
                     val file = photo.ref.file
                     val originImage =  ImageIO.read(file)
@@ -188,7 +188,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     def fileUploadAction = Action(parse.multipartFormData) { implicit request =>
     	request.body.file("Filedata") match {
             case Some(photo) =>{
-            	val db = MongoConnection()("Picture")
+                val db = DBDelegate.picDB
                 val gridFs = GridFS(db)
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull
@@ -203,7 +203,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     def uploadWithAjax = Action(parse.multipartFormData) { implicit request =>
         request.body.file("photo") match {
             case Some(photo) =>{
-                val db = MongoConnection()("Picture")
+                val db = DBDelegate.picDB
                 val gridFs = GridFS(db)
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull

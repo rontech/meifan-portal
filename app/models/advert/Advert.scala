@@ -22,8 +22,8 @@ case class Advert(
 
 object Advert extends AdvertDAO
 
-trait AdvertDAO extends MeifanNetModelCompanion[Advert] {
-  def collection = mongoCollection("Advert")
-  val dao = new MeifanNetDAO[Advert](collection) {}
+trait AdvertDAO extends MeifanNetModelCompanion[Advert]{
+
+  val dao = new MeifanNetDAO[Advert](collection = loadCollection()){}
 
 }
