@@ -20,6 +20,7 @@ import play.api.data.validation.Constraints._
 import play.api.Routes
 import routes.javascript._
 import utils.Const._
+import com.meifannet.framework.db._
 
 object Stylists extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl{
     

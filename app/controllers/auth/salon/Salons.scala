@@ -18,6 +18,7 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import utils.Tools
 import utils.Const._
+import com.meifannet.framework.db._
 
 object Salons extends Controller with LoginLogout with AuthElement with SalonAuthConfigImpl{
   

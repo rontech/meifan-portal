@@ -4,7 +4,6 @@ import play.api.Play.current
 import play.api.PlayException
 import com.novus.salat._
 import com.mongodb.casbah.commons.Imports._
-import com.mongodb.casbah.MongoConnection
 import com.novus.salat.Context
 import mongoContext._
 import org.bson.types.ObjectId
@@ -15,7 +14,6 @@ import play.api.libs.iteratee.Enumerator
 import scala.concurrent.ExecutionContext
 import play.api.i18n.Messages
 import com.meifannet.framework.db._
-
 /**
  * Embed Structure.
 */
@@ -27,16 +25,10 @@ case class OnUsePicture(
 )
 
 object OnUsePicture extends MeifanNetModelCompanion[OnUsePicture] {
-      def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-          "Configuration error",
-          "Could not find mongodb.default.db in settings"))
-  )("OnUsePicture")
   
   val dao = new MeifanNetDAO[OnUsePicture](collection = loadCollection()){}
       
-  collection.ensureIndex(DBObject("fileObjId" -> 1), "id", unique = true)
+//  collection.ensureIndex(DBObject("fileObjId" -> 1), "id", unique = true)
   
   
 }
@@ -57,11 +49,6 @@ case class ContMethodType (
 	)
 
 object ContMethodType extends MeifanNetModelCompanion[ContMethodType] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("ContMethodType")
 
     val dao = new MeifanNetDAO[ContMethodType](collection = loadCollection()){}
     
@@ -79,11 +66,6 @@ case class DefaultLog(
 
 
 object DefaultLog extends MeifanNetModelCompanion[DefaultLog] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("DefaultLog")
                 
     val dao = new MeifanNetDAO[DefaultLog](collection = loadCollection()){}
     
