@@ -81,6 +81,20 @@ text-decoration: none;
 cursor: pointer;
 color: #005AA0;
 }
+.newFilter .wBox p.style_title {
+width: 65px;
+color: #666;
+line-height: 25px;
+font-weight: bold;
+float: left;
+display: inline-block;
+text-align: right;
+}
+.style_title {
+display: block;
+line-height: 20px;
+padding: 0px 10px 2px;
+}
 .hide_li{
 display:none;	
 }
