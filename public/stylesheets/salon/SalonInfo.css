@@ -73,3 +73,19 @@ color: #FFF;
 text-decoration: none;
 display: block;
 }
+
+.sl_show_xx{
+width: 142px;
+height: 31px;
+overflow: hidden;
+clear: both;
+background: url("/assets/images/sl_show_dpan3.jpg") repeat-x;
+font-size: 10px;
+padding-top: 5px;
+}
+
+.sl_show_xx a {
+color: #333333;
+text-decoration: none;
+display: block;
+}
