@@ -2,8 +2,16 @@
 
 @import views.html.salon.admin.mySalonMain
 
-@mySalonMain("checkSalonInfo", salon){
-	<div class="a_auth">
+@mySalonMain("my-infomation", salon){
+	
+	<div>
+		<ul class="tabInfoTitle">
+			<li class="fl selected">
+				@Messages("salonCheckInfoState.conditions")
+			</li>		
+		</ul>
+	</div>
+	<div class="a_auth mT40">
 		<span class="auth">
 			@Messages("salonCheckInfoState.auth")
 		</span>

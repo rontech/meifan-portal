@@ -1,7 +1,7 @@
 @(navInMyPage:String = "my-reservation", user :User)
 
 	<!-- ↓mainContents -->
-    	<ul class="bS menuBG cFix">
+    	<!-- <ul class="bS menuBG cFix">
 		<li class="fl">
 		    <a href="@auth.routes.MyFollows.followedCoupon(user.id)" onclick= "followedCouponIsForbidden('@user.id')">
 				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.other")@Messages("user.collectCoupon")&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -17,5 +17,43 @@
 				&nbsp&nbsp&nbsp&nbsp&nbsp@Messages("user.other")@Messages("user.collectStyle")&nbsp&nbsp&nbsp&nbsp&nbsp
 		    </a>
 		</li>
-  		</ul>
+  		</ul> -->
+    	
+  		
+  		<div class="sns-tab tab-app">
+	    	<ul>
+	    		@if(user.userTyp.equals(User.STYLIST)){
+					<li class="@if(navInMyPage == "my-styles") {selected}">
+						<a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)" >
+					    	<span>@Messages("stylist.style")</span>
+					    </a>
+					</li>
+					<li class="@if(navInMyPage == "my-infomation") {selected}">
+						<a href="@noAuth.routes.Stylists.mySalonFromStylist(user.id)" >
+					    	<span>@Messages("user.otherInfomation")</span>
+					    </a>
+					</li>
+				}
+				<li class="@if(navInMyPage == "my-follows") {selected}">
+					<a href="@noAuth.routes.MyFollows.followedSalon(user.id)">
+				    	<span>@Messages("user.otherFollows")</span>
+				    </a>
+				</li>
+				<li class="@if(navInMyPage == "my-collects") {selected}">
+					<a href="@auth.routes.MyFollows.followedCoupon(user.id)" onclick= "followedCouponIsForbidden('@user.id')">
+				    	<span>@Messages("user.otherCollects")</span>
+				    </a>
+				</li>
+				<li class="@if(navInMyPage == "my-acts") {selected}">
+					<a href="@noAuth.routes.Blogs.getAllBlogsOfUser(user.userId)" >
+				    	<span>@Messages("user.otherActs")</span>
+				    </a>
+				</li>
+				<li class="@if(navInMyPage == "my-relevants") {selected}">
+					<a href="@noAuth.routes.MyFollows.followers(user.id)" >
+				    	<span>@Messages("user.otherRelevants")</span>
+				    </a>
+				</li>
+			</ul>
+		</div>
 	<!-- ↑mainContents -->

@@ -9,7 +9,13 @@
 		    </div>
 		} else {
 			<div class="yS mainContentsSecondTitleOuter">
-				<h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("user.myCollectBlogsCount", followInfo.followBlog.length)</h2>
+				<h2 class="yS mainContentsSecondTitleInnerForAdmin">
+				@if(loginUserId.equals(user.id)){
+					@Messages("user.myCollectBlogsCount", followInfo.followBlog.length)
+				} else {
+					@Messages("user.otherCollectBlogsCount", followInfo.followBlog.length)
+				}
+				</h2>
 			</div>
 			<ul id="listWrapper" class="mT20">
 			    @for(blog <- followInfo.followBlog) {

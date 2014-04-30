@@ -6,10 +6,12 @@
 		<ul class="tab-sub">
 			<li class="fl  @if(subNavInSalon == "my-follows") {selected}">
 				<a class="current-demo" href="@noAuth.routes.MyFollows.followers(user.id)">@Messages("user.myFollowers")</a>
-			</li>		
-            <li class="fl  @if(subNavInSalon == "my-messages") {selected}">
-				<a class="current-demo" href="@auth.routes.UserLetters.messageList("unRead")">@Messages("user.myMessages")</a>
-			</li>			
+			</li>
+			@if(loginUserId.equals(user.id)){
+	  			<li class="fl  @if(subNavInSalon == "my-messages") {selected}">
+					<a class="current-demo" href="@auth.routes.UserLetters.messageList("unRead")">@Messages("user.myMessages")</a>
+				</li>
+	  		}	
 		</ul>
 	</div>
 	@content

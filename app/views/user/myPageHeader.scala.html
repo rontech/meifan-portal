@@ -13,11 +13,13 @@
 			    	<span>@Messages("user.myInfomation")</span>
 			    </a>
 			</li>
-			<li class="@if(navInMyPage == "my-styles") {selected}">
-				<a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)" >
-			    	<span>@Messages("stylistMag.myStyle")</span>
-			    </a>
-			</li>
+			@if(user.userTyp.equals(User.STYLIST)){
+				<li class="@if(navInMyPage == "my-styles") {selected}">
+					<a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)" >
+				    	<span>@Messages("stylistMag.myStyle")</span>
+				    </a>
+				</li>
+			}
 			<li class="@if(navInMyPage == "my-follows") {selected}">
 				<a href="@noAuth.routes.MyFollows.followedSalon(user.id)" >
 			    	<span>@Messages("user.myFollows")</span>

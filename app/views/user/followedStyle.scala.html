@@ -8,7 +8,14 @@
 		    </div>
 	    } else {
 	    	<div class="yS mainContentsSecondTitleOuter">
-				<h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("user.myCollectStylesCount", followInfo.followBlog.length)</h2>
+				<h2 class="yS mainContentsSecondTitleInnerForAdmin">
+					@if(loginUserId.equals(user.id)){
+						@Messages("user.myCollectStylesCount", followInfo.followBlog.length)	
+					} else {
+						@Messages("user.otherCollectStylesCount", followInfo.followBlog.length)
+					}
+					
+				</h2>
 			</div>
 			<div class="mT20">
 				@for(style <- followInfo.followStyle){

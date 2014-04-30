@@ -871,12 +871,12 @@
     }
     .BlogCommentForm .comment_form {
       padding-left: 70px;
-      width: 650px;
+      width: 630px;
     }
     .blg_submit_btn {
       padding: 5px 10px;
       text-decoration: none;
-      background: #ad4a23;
+      background: #f09499;
       font-size: 12px;
       color: #FFF;
       display: inline-block;
@@ -6096,6 +6096,10 @@ margin-bottom: 5px;
 .blogContents .buttons {
 padding: 7px 50px;
 margin-top: 20px;
+}
+
+div.BlogComments {
+margin-top: 50px;
 }
 /*我的动态 END*/
 
