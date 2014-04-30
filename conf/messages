@@ -550,7 +550,8 @@ stylist.salon = 所属店铺
 stylist.style = 他的作品
 stylistMag.calApplying = 取消申请后无法恢复，请确认是否取消申请？
 stylistMag.wtApply = 请确认提交申请！
-stylistMag.operateMyAPMSG = 该记录已被申请的店铺操作， 
+stylistMag.operateMyAPMSG = 该记录已被申请的店铺操作，
+stylistMag.changeImage = 更换形象 
 
 
 
