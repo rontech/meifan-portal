@@ -1,14 +1,11 @@
 package models
 
-import play.api.Play.current
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
 import java.util.Date
-import play.api.PlayException
 import com.meifannet.framework.db._
-
 case class ResvItem (
 		resvType: String, //coupon: 优惠劵; menu: 菜单; service: 服务
 		mainResvObjId: ObjectId,
@@ -67,10 +64,8 @@ case class ResvSchedule (
 
 object Reservation extends MeifanNetModelCompanion[Reservation]{
     
-    def collection = loadCollection()
-
-    val dao = new MeifanNetDAO[Reservation](collection){}
-
+	val dao = new MeifanNetDAO[Reservation](collection = loadCollection()){}
+    
     def findAllReservation(salonId: ObjectId):List[Reservation] = dao.find(MongoDBObject("salonId" -> salonId, "status" -> 0)).sort(MongoDBObject("expectedDate" -> -1)).toList
    
     /**
