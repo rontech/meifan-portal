@@ -1,10 +1,9 @@
 package models
 
-import play.api.Play.current
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import mongoContext._
+import com.meifannet.framework.db._
 
 
 case class BlogCategory(
@@ -13,8 +12,8 @@ case class BlogCategory(
   isValid : Boolean
 )
 
-object BlogCategory extends ModelCompanion[BlogCategory, ObjectId] {
-  val dao = new SalatDAO[BlogCategory, ObjectId](collection = mongoCollection("BlogCategory")) {}
+object BlogCategory extends MeifanNetModelCompanion[BlogCategory] {
+  val dao = new MeifanNetDAO[BlogCategory](collection = loadCollection()){}
   
   /**
    * 取得分类
