@@ -213,26 +213,6 @@ html,html body{_background-image:url('about:blank');_background-attachment:fixed
 #w_sec_nav .w_help{color:#de3101}
 #w_sec_nav_k .anone{text-decoration:none}
 #dec_line{height:4px;font:2px/4px arial;line-height:4px;margin:0;background:#fff url(../pic/com_bg.png?t=201403311516) repeat-x 0 -835px}
-#e_footer{clear:both;margin:10px auto 8px auto;text-align:center;border-top:1px #000 dotted;width:960px;font-size:11px}
-#e_footer p{margin:5px 0;padding:0}
-#e_footer a.link_gray{color:#777;text-decoration:none}
-#e_footer .verisign{display:inline-block;width:70px;height:38px;background:url(../pic/el_com.png?t=201403311516) no-repeat -319px -52px;vertical-align:middle}
-#e_footer .alipay{display:inline-block;width:70px;height:38px;background:url(../pic/el_com.png?t=201403311516) no-repeat -390px -52px;vertical-align:middle}
-#e_footer .hightech{display:inline-block;width:70px;height:38px;background:url(../pic/el_com.png?t=201403311516) no-repeat -238px -52px;vertical-align:middle}
-#e_footer .trusted{display:inline-block;width:64px;height:38px;background:url(../pic/el_com.png?t=201403311516) no-repeat -484px -48px;vertical-align:middle}
-#e_footer .view{background:url(../pic/el_com.png?t=201403311516) no-repeat -282px -52px;width:21px;height:23px;display:inline-block;vertical-align:middle}
-#footer{width:960px;margin:30px auto 0;color:#666;text-align:left;padding-top:8px;padding-bottom:20px;border-top:2px #ccc solid}
-#footer a{color:#666;text-decoration:none;margin:0 5px}
-#footer a:hover{color:#666;text-decoration:underline}
-#footer div.border_left{border-left:1px solid #CCC;padding:15px 0 10px 5px}
-#footer .verisign{width:70px;height:38px;background:url(../pic/el_com.png?t=201403311516) no-repeat -319px -52px;display:inline-block}
-#footer .alipay{width:70px;height:38px;background:url(../pic/el_com.png?t=201403311516) no-repeat -390px -52px;display:inline-block}
-#footer .hightech{width:32px;height:32px;background:url(../pic/el_com.png?t=201403311516) no-repeat -238px -52px;display:inline-block}
-#footer .trusted{width:64px;height:33px;background:url(../pic/el_com.png?t=201403311516) no-repeat -484px -52px;display:inline-block}
-#footer .view{width:21px;height:23px;background:url(../pic/el_com.png?t=201403311516) no-repeat -282px -52px;display:inline-block;vertical-align:middle}
-#footer .logo_new{width:138px;height:30px;background:url(../pic/el_com.png?t=201403311516) no-repeat -562px -52px;display:inline-block}
-#footer .new_ic_fbg{width:17px;height:19px;background:url(../pic/el_com.png?t=201403311516) no-repeat 0 -492px;display:inline-block}
-#footer .integrity{width:100px;height:32px;background:url(../pic/el_com.png?t=201403311516) no-repeat -125px -53px;display:inline-block}
 .com_cbox_b{background:transparent url(../pic/el_com.png?t=201403311516) no-repeat}
 .com_cbox_lt{width:5px;height:5px;position:absolute;top:-1px;left:-1px;_overflow:hidden;background-position:-32px 0}
 .com_cbox_lb{width:5px;height:5px;position:absolute;left:-1px;bottom:-1px;_bottom:-11px;background-position:-32px -6px}

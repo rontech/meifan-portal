@@ -327,6 +327,11 @@ ol {
 -webkit-padding-start: 0;
 }
 
+.pankuzu {
+-webkit-margin-before: 1em;
+-webkit-margin-after: 1em;
+}
+
 .imgFrame {
 border: 1px solid #EEEEEE;
 padding: 1px;
