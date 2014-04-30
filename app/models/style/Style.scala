@@ -135,7 +135,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         val reservationAll = Reservation.findByStatusAndStyleId
         var reservations: List[models.Reservation] = Nil
         reservationAll.map { reservation =>
-            if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
+            if (SalonAndStylist.findByStylistId(reservation.stylistId.get) != None) {
                 if (findByStyleId(reservation.styleId.get).nonEmpty) {
                     reservations = reservation :: reservations
                 }
@@ -153,7 +153,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         val reservationAll = Reservation.findByStatusAndStyleId
         var reservations: List[models.Reservation] = Nil
         reservationAll.map { reservation =>
-            if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
+            if (SalonAndStylist.findByStylistId(reservation.stylistId.get) != None) {
                 findByStyleId(reservation.styleId.get) match {
                     case Some(style) => {
                         if (style.styleLength.equals(styleLength) && style.consumerSex.equals(consumerSex)) {
@@ -176,7 +176,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         val reservationAll = Reservation.findByStatusAndStyleId
         var reservations: List[models.Reservation] = Nil
         reservationAll.map { reservation =>
-            if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
+            if (SalonAndStylist.findByStylistId(reservation.stylistId.get) != None) {
                 findByStyleId(reservation.styleId.get) match {
                     case Some(style) => {
                         if (style.consumerSex.equals(consumerSex)) {

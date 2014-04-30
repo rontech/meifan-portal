@@ -2,21 +2,15 @@ package models
 
 import play.api.Play.current
 import play.api.PlayException
-
 import com.novus.salat._
-import com.novus.salat.dao._
 import com.novus.salat.Context 
-
 import com.mongodb.casbah.commons.Imports._
 import com.mongodb.casbah.MongoConnection
-
-
 import mongoContext._
-
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import java.util.Date
-
+import com.meifannet.framework.db._
 
 
 /**
@@ -27,8 +21,8 @@ case class Industry (
     industryName: String
 )
 
-object Industry extends ModelCompanion[Industry, ObjectId]{
-  val dao = new SalatDAO[Industry, ObjectId](collection = mongoCollection("Industry")){}
+object Industry extends MeifanNetModelCompanion[Industry]{
+  val dao = new MeifanNetDAO[Industry](collection = loadCollection()){}
   
   def findById(id: ObjectId): Option[Industry] = dao.findOne(MongoDBObject("_id" -> id))
   
@@ -47,9 +41,9 @@ case class PictureUse(
    division: Int
 )
 
-object PictureUse extends ModelCompanion[PictureUse, ObjectId]{
+object PictureUse extends MeifanNetModelCompanion[PictureUse]{
 
-  val dao = new SalatDAO[PictureUse, ObjectId](collection = mongoCollection("PictureUse")) {}
+  val dao = new MeifanNetDAO[PictureUse](collection = loadCollection()){}
   
 }
 

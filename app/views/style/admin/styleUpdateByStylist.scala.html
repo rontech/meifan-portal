@@ -5,9 +5,6 @@
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">
 <head>
-	<div>
-		<h2>@Messages("hair.styleUpdate")</h2>
-	</div>
 	<style type="text/css">
             .batch-pic li .delete-pic{
             background:url(@routes.Assets.at("images/swfupload/red-close-btn.gif")) no-repeat;width:27px;height:27px;overflow:hidden;cursor:pointer;position:absolute;right:-7px;top:-13px;
@@ -15,13 +12,16 @@
         </style>
 </head>
 <body>
+    <div>
+        <h2>@Messages("hair.styleUpdate")</h2>
+    </div>
 	<div>
 		@helper.form(auth.routes.Stylists.styleUpdateNewByStylist, 'id -> "styleForm", 'name ->"styleForm"){
 		<div>
 			<input type = "hidden" class="" name = "id" value = "@style.id">
 		</div>
 		<div>
-			@Messages("hair.styleName")<input type = "text" class="" name = "styleName" value = "@style.styleName" readonly>
+			@Messages("hair.styleName")<input type = "text" class="" name = "styleName" value = "@style.styleName" readonly="true">
 		</div>
 		<div>
 		<div class="demo">
@@ -30,7 +30,6 @@
                         @Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
                         <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
                     </div>
-                    <div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
                     
                     <div class="progress-box fl-progress" style="display:none;">
                         <div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
@@ -160,11 +159,11 @@
 	    </div>
 	    <div>
 			@Messages("hair.assessFromStylist") 
-			@textarea(styleUpdateForm("description"), '_label -> None,'rows -> 4, 'cols -> 40, 'id -> "Description", 'class ->  "font1",'_help -> Messages("stylistAdmin.selectField"))
+			@textarea(styleUpdateForm("description"), '_label -> None,'rows -> 4, 'cols -> 40, 'id -> "description", 'class ->  "font1")
 	    </div>
 	    <div align="center">
-	        <input type = "reset" class = "buttons" value=@Messages("common.reset")>
-		    <input type="button" onclick="checksForStyle();" class = "buttons" value=@Messages("common.submit")>
+	        <input type = "reset" class = "buttons" value="@Messages("common.reset")">
+		    <input type="button" onclick="checksForStyle();" class = "buttons" value="@Messages("common.submit")">
         </div>	
 		}
 	</div>
@@ -196,7 +195,7 @@
             field("description"),
             '_label -> None,
             'rows -> 2, 'cols -> 15, 
-            'placeholder -> Messages("onUserPicture.description"), 'class -> "imagesDescriptionfelid"
+            'placeholder -> Messages("hair.picturedescription"), 'class -> "imagesDescriptionfelid"
        		)
 	    </div>
     </li>

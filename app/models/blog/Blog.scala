@@ -1,11 +1,10 @@
 package models
 
-import play.api.Play.current
 import java.util.Date
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import mongoContext._
+import com.meifannet.framework.db._
 
 /**
  * A All Info structs of blog including belows
@@ -44,8 +43,8 @@ case class Blog(
     allowComment : Boolean,
     isValid : Boolean)
 
-object Blog extends ModelCompanion[Blog, ObjectId] {
-  val dao = new SalatDAO[Blog, ObjectId](collection = mongoCollection("Blog")) {}
+object Blog extends MeifanNetModelCompanion[Blog] {
+  val dao = new MeifanNetDAO[Blog](collection = loadCollection()){}
   
   /**
    * 找到该店铺下面所有发型师的Blog
