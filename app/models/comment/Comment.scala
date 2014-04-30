@@ -1,11 +1,10 @@
 package models
 
-import play.api.Play.current
 import java.util.Date
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import mongoContext._
+import com.meifannet.framework.db._
 
 case class CommentOfSalon(commentInfo: Comment, salonInfo: Option[Salon]) {
   def apply(commentInfo: Comment, salonInfo: Option[Salon]) = new CommentOfSalon(commentInfo, salonInfo) 
@@ -51,8 +50,8 @@ case class Comment(
     createTime : Date = new Date,
     isValid : Boolean)
 
-object Comment extends ModelCompanion[Comment, ObjectId] {
-  val dao = new SalatDAO[Comment, ObjectId](collection = mongoCollection("Comment")) {}
+object Comment extends MeifanNetModelCompanion[Comment] {
+  val dao = new MeifanNetDAO[Comment](collection = loadCollection()){}
   
   // the average review judgement stardands: for [1-5] is the available review values, use the middle value.
   val CONST_AVG_REVIEW = 3
