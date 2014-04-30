@@ -6,14 +6,14 @@
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">
 <head>
 	<style type="text/css">
-            .batch-pic li .delete-pic{
-            background:url(@routes.Assets.at("images/swfupload/red-close-btn.gif")) no-repeat;width:27px;height:27px;overflow:hidden;cursor:pointer;position:absolute;right:-7px;top:-13px;
-            }
-        </style>
+        .batch-pic li .delete-pic{
+        background:url(@routes.Assets.at("images/swfupload/red-close-btn.gif")) no-repeat;width:27px;height:27px;overflow:hidden;cursor:pointer;position:absolute;right:-7px;top:-13px;
+        }
+    </style>
 </head>
 <body>
     <div>
-        <h2>@Messages("hair.styleUpdate")</h2>
+        <p class="f24 b">@Messages("hair.styleUpdate")</p>
     </div>
 	<div>
 		@helper.form(auth.routes.Stylists.styleUpdateNewByStylist, 'id -> "styleForm", 'name ->"styleForm"){

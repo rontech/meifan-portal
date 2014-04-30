@@ -69,7 +69,7 @@ padding-top: 2px;
 .styleImpressionDIV .o-more {
 float: right;
 position: relative;
-width: 31px;
+width: 45px;
 height: 20px;
 padding-right: 14px;
 line-height: 20px;
@@ -91,7 +91,7 @@ padding-top: 2px;
 .serviceTypeDIV .o-more {
 float: right;
 position: relative;
-width: 31px;
+width: 45px;
 height: 20px;
 padding-right: 14px;
 line-height: 20px;
@@ -117,4 +117,35 @@ padding: 0px 10px 2px;
 }
 .hide_li{
 display:none;	
+}
+#lessProp .hiddenIcon{
+width: 11px;
+height: 11px;
+display: inline-block;
+background: url(/assets/images/meifan2014.png) no-repeat -11px -948px;
+margin-left: 5px;
+vertical-align: middle;
+}
+#moreProp .xlicon{
+width: 11px;
+height: 11px;
+display: inline-block;
+background: url(/assets/images/meifan2014.png) no-repeat 0 -948px;
+margin-left: 5px;
+vertical-align: middle;	
+}
+.v-option .unfold b{
+width: 9px;
+height: 5px;
+background: url(/assets/images/meifan2014.png) no-repeat 0 -880px;
+display: inline-block;
+margin-left: 2px;
+
+}
+.v-option .fold b{
+width: 9px;
+height: 5px;
+background: url(/assets/images/meifan2014.png) no-repeat 0 -893px;
+display: inline-block;
+margin-left: 2px;
 }
