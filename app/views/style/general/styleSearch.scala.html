@@ -1,227 +1,294 @@
 @(styleSearchForm: Form[Style], stylePara : models.StylePara, stylistId : ObjectId = new ObjectId)
 
 @import helper._
-
-<div class="sreachtabBody">
+<head>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanIndex.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/hotelslist_2013.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/srchOption.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/searchMain.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/searchComplete.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/styleSearch.css")">
+<script src="@routes.Assets.at("javascripts/swfupload/jquery-1.8.2.min.js")" type="text/javascript"></script>
+<script src="@routes.Assets.at("javascripts/styleSearch/styleSearch.js")" type="text/javascript"></script>
+</head>
+<div class="">
     @form(noAuth.routes.Styles.styleSearchList, 'id -> "styleSearchForm"){
     	<div class="skinHeadingWrapper2 mB15 cFix pr">
 			<h3 class="fl skinHeading1 headingSearch offL">@Messages("hair.search")</h3>
 		</div>
-		<div class="skinTbl1Wrapper">
-			<table class="skinTbl1 pCell1" width="100%">
-				<tbody>
-					<tr>
-						<th class="w85 vaM taC nowrap">@Messages("hair.styleLength")</th>
-						<td colspan="3" style="width: 633px;">
-						<ul class="cFix" id="jsiLengthPanel">
-							<li class="dibBL mR2">
+		<div class="listBox">      
+			<div class="newFilter newFiltermvt1" id="filterArea" tab="noPop">
+				<!--长度  -->
+				<div class="wBox" id="wbox_b">
+					<p class="style_title">@Messages("hair.styleLength")：</p>
+					<div class="rBox">
+						<div class="notto">
+							<a href="javascript:unlimitStyleLength();" class="cur" method="b_no">@Messages("salonSearchPage.unlimited")</a>
+						</div>
+						<ul id="unlimitStyleLength_group">
+							<li style="display:none;">
 								<input type="radio" class="cbF" name="styleLength" id="lengthCd_ALL"  value = "all" checked="checked">
 								<label for="lengthCd_ALL">@Messages("common.all")</label>
 							</li>
 							@for(i <- 0 to stylePara.styleLength.length-1){
 								<li class="dibBL mR2">
-						        	<input type = "radio" class = "cbF" name = "styleLength" id="lengthCd_HL@i" value = "@stylePara.styleLength(i)">
+						        	<input type = "radio" class = "cbF StyleLength_item" name = "styleLength" id="lengthCd_HL@i" value = "@stylePara.styleLength(i)">
 						        	<label for="lengthCd_HL@i">@Messages("style.styleLength." + stylePara.styleLength(i))</label>
 					        	</li>
 					        }
 						</ul>
-						</td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
-					<tr>
-						<th class="w85 vaM taC nowrap">@Messages("hair.impression")</th>
-						<td colspan="3" style="padding-right: 0 !important;">
+					</div>
+					<div class="clear">
+					</div>
+				</div>
+				<!-- 风格 -->
+				<div class="wBox styleImpressionDIV" id="wbox_b">
+					<p class="style_title">@Messages("hair.impression")：</p>
+					<div class="rBox">
+						<div class="notto">
+							<a href="javascript:unlimitStyleImpression();" class="cur" method="b_no">@Messages("salonSearchPage.unlimited")</a>
+						</div>
 						<ul>
-							<li class="dibBL mR2">
+							<li style="display:none;">
 								<input type="radio" class="cbF" name="styleImpression" id="hairColorCd_ALL"  value = "all" checked="checked">
 								<label for="hairColorCd_ALL">@Messages("common.all")</label>
 							</li>
 							@for(i <- 0 to stylePara.styleImpression.length-1){
+								@if(i<6){
 								<li class="dibBL mR2">
-						        	<input type = "radio" class = "cbF" name = "styleImpression" id="hairColorCd_HI@i" value = "@stylePara.styleImpression(i)">
+						        	<input type = "radio" class = "cbF styleImpression_item" name = "styleImpression" id="hairColorCd_HI@i" value = "@stylePara.styleImpression(i)">
 						        	<label for="hairColorCd_HI@i">@Messages("style.styleImpression." + stylePara.styleImpression(i))</label>
 					        	</li>
+					        	}else{
+					        	<li class="mR2 styleImpression_hide hide_li">
+						        	<input type = "radio" class = "cbF styleImpression_item" name = "styleImpression" id="hairColorCd_HI@i" value = "@stylePara.styleImpression(i)">
+						        	<label for="hairColorCd_HI@i">@Messages("style.styleImpression." + stylePara.styleImpression(i))</label>
+					        	</li>
+					        	}
 					        }
 						</ul>
-						</td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
-					<tr>
-						<th class="w85 vaM taC nowrap">@Messages("hair.color")</th>
-						<td colspan="3" style="padding-right: 0 !important;">
-						<ul>
-							@input(field = styleSearchForm("styleColor"),args = '_label -> None){(id,name,value,args) =>
-					            @for(i <- 0 to stylePara.styleColor.length-1){
-					            	<li class="dibBL mR2">
-					            		<input type = "checkbox" class = "cbF" name = "styleColor[@i]" id="hairColorCd_HC@i" value = "@stylePara.styleColor(i)">
-						        		<label for="hairColorCd_HC@i">@Messages("style.styleColor." + stylePara.styleColor(i))</label>
-					            	</li>
-					            }
-					        }
-						</ul>
-						</td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
-					<tr>
-						<th class="w85 vaM taC nowrap">@Messages("hair.serviceType")</th>
-						<td colspan="3" style="padding-right: 0 !important;">
-						<ul>
+					</div>
+					<div class="v-option hide" option="more" onclick="moreExpandValue(this,'styleImpression_hide');" style="display: block;"><span class="o-more unfold"><b></b>@Messages("common.checkFormore")</span></div>
+					<div class="v-option hide" onclick="lessExpandValue(this,'styleImpression_hide');" style="display: none;"><span class="o-more fold"><b></b>@Messages("styleSearch.lessOption")</span></div>
+					<div class="clear">
+					</div>
+				</div>
+				<!-- 技术类别 -->
+				<div class="wBox serviceTypeDIV" id="wbox_b">
+					<p class="style_title">@Messages("hair.serviceType")：</p>
+					<div class="rBox">
+						<div class="notto">
+							<a href="javascript:unlimitServiceType();" class="cur" method="b_no">@Messages("salonSearchPage.unlimited")</a>
+						</div>
+						<ul id="unlimitServiceType_group">
 							@input(field = styleSearchForm("serviceType"), args = '_label -> None){(id,name,value,args) =>
-					            @for(i <- 0 to stylePara.serviceType.length-1){
-					            	<li class="dibBL mR2">
-					            		<input type = "checkbox" class = "cbF" name = "serviceType[@i]" id="hairColorCd_HT@i" value = "@stylePara.serviceType(i)">
-						        		<label for="hairColorCd_HT@i">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))</label>
-					            	</li>
-					            }
-					        }
+								@for(i <- 0 to stylePara.serviceType.length-1){
+									@if(i < 6){
+								    <li class="dibBL mR2">
+								        <input type = "checkbox" class = "cbF serviceType_item" name = "serviceType[@i]" id="hairColorCd_HT@i" value = "@stylePara.serviceType(i)">
+									    <label for="hairColorCd_HT@i">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))</label>
+								    </li>
+								    }else{
+								    <li class="mR2 serviceType_hide hide_li">
+								        <input type = "checkbox" class = "cbF serviceType_item" name = "serviceType[@i]" id="hairColorCd_HT@i" value = "@stylePara.serviceType(i)">
+									    <label for="hairColorCd_HT@i">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))</label>
+								    </li>
+								    }
+								}
+							}
 						</ul>
-						</td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
-					<tr>
-						<th class="w85 vaM taC nowrap">@Messages("hair.styleAmount")</th>
-						<td colspan="3" style="padding-right: 0 !important;">
-						<ul>
-							@input(field = styleSearchForm("styleAmount"), args = '_label -> None){(id,name,value,args) =>
-					            @for(i <- 0 to stylePara.styleAmount.length-1){
-					            	<li class="dibBL mR2">
-					            		<input type = "checkbox" class = "cbF" name = "styleAmount[@i]" id="hairColorCd_HA@i" value = "@stylePara.styleAmount(i)">
-						        		<label for="hairColorCd_HA@i">@Messages("style.styleAmount." + stylePara.styleAmount(i))</label>
-					            	</li>
-					            }
-					        }
-						</ul>
-						</td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
-					<tr>
-						<th class="w85 vaM taC nowrap">@Messages("hair.styleQuality")</th>
-						<td colspan="3" style="padding-right: 0 !important;">
-						<ul>
-							@input(field = styleSearchForm("styleQuality"), args = '_label -> None){(id,name,value,args) =>
-					            @for(i <- 0 to stylePara.styleQuality.length-1){
-					            	<li class="dibBL mR2">
-					            		<input type = "checkbox" class = "cbF" name = "styleQuality[@i]" id="hairColorCd_HQ@i" value = "@stylePara.styleQuality(i)">
-						        		<label for="hairColorCd_HQ@i">@Messages("style.styleQuality." + stylePara.styleQuality(i))</label>
-					            	</li>
-					            }
-					        }
-						</ul>
-						</td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
-					<tr>
-						<th class="w85 vaM taC nowrap">@Messages("hair.styleDiameter")</th>
-						<td colspan="3" style="padding-right: 0 !important;">
-						<ul>
-							@input(field = styleSearchForm("styleDiameter"), args = '_label -> None){(id,name,value,args) =>
-					            @for(i <- 0 to stylePara.styleDiameter.length-1){
-					            	<li class="dibBL mR2">
-					            		<input type = "checkbox" class = "cbF" name = "styleDiameter[@i]" id="hairColorCd_HD@i" value = "@stylePara.styleDiameter(i)">
-						        		<label for="hairColorCd_HD@i">@Messages("style.styleDiameter." + stylePara.styleDiameter(i))</label>
-					            	</li>
-					            }
-					        }
-						</ul>
-						</td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
-					<tr>
-						<th class="w85 vaM taC nowrap">@Messages("hair.faceShape")</th>
-						<td colspan="3" style="padding-right: 0 !important;">
-						<ul>
+					</div>
+					<div class="v-option hide" option="more" onclick="moreExpandValue(this,'serviceType_hide');" style="display: block;"><span class="o-more unfold"><b></b>@Messages("common.checkFormore")</span></div>
+					<div class="v-option hide" onclick="lessExpandValue(this,'serviceType_hide');" style="display: none;"><span class="o-more fold"><b></b>@Messages("styleSearch.lessOption")</span></div>
+					<div class="clear">
+					</div>
+				</div>
+				<!-- 脸型 -->
+				<div class="wBox" id="wbox_s">
+					<p class="style_title">@Messages("hair.faceShape")：</p>
+					<div class="rBox">
+						<div class="notto"><a href="javascript:unlimitFaceShape();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
+						<ul id="unlimitFaceShape_group">
 							@input(field = styleSearchForm("faceShape"), args = '_label -> None){(id,name,value,args) =>
 					            @for(i <- 0 to stylePara.faceShape.length-1){
 					            	<li class="dibBL mR2">
-					            		<input type = "checkbox" class = "cbF" name = "faceShape[@i]" id="hairColorCd_HF@i" value = "@stylePara.faceShape(i)">
+					            		<input type = "checkbox" class = "cbF faceShape_item" name = "faceShape[@i]" id="hairColorCd_HF@i" value = "@stylePara.faceShape(i)">
 						        		<label for="hairColorCd_HF@i">@Messages("style.faceShape." + stylePara.faceShape(i))</label>
 					            	</li>
 					            }
 					        }
 						</ul>
-						</td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
-					<tr>
-						<th class="w85 vaM taC nowrap">@Messages("hair.consumerSocialStatus")</th>
-						<td colspan="3" style="padding-right: 0 !important;">
-						<ul>
-							@input(field = styleSearchForm("consumerSocialStatus"), args = '_label -> None){(id,name,value,args) =>
-					            @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
-					            	<li class="dibBL mR2">
-					            		<input type = "checkbox" class = "cbF" name = "consumerSocialStatus[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialStatus(i)">
-						        		<label for="hairColorCd_HS@i">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))</label>
-					            	</li>
-					            }
-					        }
-						</ul>
-						</td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
-					<tr>
-						<th class="w85 vaM taC nowrap">@Messages("hair.consumerSex")</th>
-						<td colspan="3" style="padding-right: 0 !important;">
+					</div>
+					<div class="clear">
+					</div>
+				</div>
+				<!-- 性别 -->
+				<div class="wBox" id="wbox_s">
+					<p class="style_title">@Messages("hair.consumerSex")：</p>
+					<div class="rBox">
+						<div class="notto"><a href="javascript:unlimitConsumerSex();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
 						<ul>
 							@input(field = styleSearchForm("consumerSex"), args = '_label -> None){(id,name,value,args) =>
-							    <li class="dibBL mR2">
+							    <li style="display:none;">
                                     <input type="radio" class="cbF" name="consumerSex" id="sexCd_ALL"  value = "all" checked="checked">
                                     <label for="sexCd_ALL">@Messages("common.all")</label>
                                 </li>
 					            @for(i <- 0 to stylePara.consumerSex.length-1){
 					            	<li class="dibBL mR2">
-					            		<input type = "radio" class = "cbF" name = "consumerSex" id="hairColorCd_HX@i" value = "@stylePara.consumerSex(i)">
+					            		<input type = "radio" class = "cbF consumerSex_item" name = "consumerSex" id="hairColorCd_HX@i" value = "@stylePara.consumerSex(i)">
 						        		<label for="hairColorCd_HX@i">@Messages("style.sex." + stylePara.consumerSex(i))</label>
 					            	</li>
 					            }
 					        }
 						</ul>
-						</td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
-					<tr>
-						<th class="w85 vaM taC nowrap">@Messages("hair.consumerAgeGroup")</th>
-						<td colspan="3" style="padding-right: 0 !important;">
-						<ul>
+					</div>
+					<div class="clear">
+					</div>
+				</div>
+				<!-- 隐藏  更多 -->
+				<div id="moreSearchOption" style="display:none;">
+				<!-- 颜色 -->
+				<div class="wBox" id="wbox_s">
+					<p class="style_title">@Messages("hair.color")：</p>
+					<div class="rBox">
+						<div class="notto"><a href="javascript:unlimitStyleColor();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
+						<ul id="unlimitStyleColor_group">
+							@input(field = styleSearchForm("styleColor"),args = '_label -> None){(id,name,value,args) =>
+					            @for(i <- 0 to stylePara.styleColor.length-1){
+					            	<li class="dibBL mR2">
+					            		<input type = "checkbox" class = "cbF styleColor_item" name = "styleColor[@i]" id="hairColorCd_HC@i" value = "@stylePara.styleColor(i)">
+						        		<label for="hairColorCd_HC@i">@Messages("style.styleColor." + stylePara.styleColor(i))</label>
+					            	</li>
+					            }
+					        }
+						</ul>
+					</div>
+					<div class="clear">
+					</div>
+				</div>
+				<!-- 适合场合 -->
+				<div class="wBox" id="wbox_s">
+					<p class="style_title">@Messages("hair.consumerSocialStatus")：</p>
+					<div class="rBox">
+						<div class="notto"><a href="javascript:unlimitConsumerSocialStatus();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
+						<ul id="unlimitConsumerSocialStatus_group">
+							@input(field = styleSearchForm("consumerSocialStatus"), args = '_label -> None){(id,name,value,args) =>
+					            @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
+					            	<li class="dibBL mR2">
+					            		<input type = "checkbox" class = "cbF consumerSocialStatus_item" name = "consumerSocialStatus[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialStatus(i)">
+						        		<label for="hairColorCd_HS@i">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))</label>
+					            	</li>
+					            }
+					        }
+						</ul>
+					</div>
+					<div class="clear">
+					</div>
+				</div>
+				<!-- 年龄 -->
+				<div class="wBox" id="wbox_s">
+					<p class="style_title">@Messages("hair.consumerAgeGroup")：</p>
+					<div class="rBox">
+						<div class="notto"><a href="javascript:unlimitConsumerAgeGroup();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
+						<ul id="unlimitConsumerAgeGroup_group">
 							@input(field = styleSearchForm("consumerAgeGroup"), args = '_label -> None){(id,name,value,args) =>
 					            @for(i <- 0 to stylePara.consumerAgeGroup.length-1){
 					            	<li class="dibBL mR2">
-					            		<input type = "checkbox" class = "cbF" name = "consumerAgeGroup[@i]" id="hairColorCd_HA@i" value = "@stylePara.consumerAgeGroup(i)">
+					            		<input type = "checkbox" class = "cbF consumerAgeGroup_item" name = "consumerAgeGroup[@i]" id="hairColorCd_HA@i" value = "@stylePara.consumerAgeGroup(i)">
 						        		<label for="hairColorCd_HA@i">@Messages("style.ageGroup." + stylePara.consumerAgeGroup(i))</label>
 					            	</li>
 					            }
 					        }
 						</ul>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+					</div>
+					<div class="clear">
+					</div>
+				</div>
+				<!-- 发量 -->
+				<div class="wBox" id="wbox_s">
+					<p class="style_title">@Messages("hair.styleAmount")：</p>
+					<div class="rBox">
+						<div class="notto"><a href="javascript:unlimitStyleAmount();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
+						<ul id="unlimitStyleAmount_group">
+							@input(field = styleSearchForm("styleAmount"), args = '_label -> None){(id,name,value,args) =>
+					            @for(i <- 0 to stylePara.styleAmount.length-1){
+					            	<li class="dibBL mR2">
+					            		<input type = "checkbox" class = "cbF styleAmount_item" name = "styleAmount[@i]" id="hairColorCd_HAM@i" value = "@stylePara.styleAmount(i)">
+						        		<label for="hairColorCd_HAM@i">@Messages("style.styleAmount." + stylePara.styleAmount(i))</label>
+					            	</li>
+					            }
+					        }
+						</ul>
+					</div>
+					<div class="clear">
+					</div>
+				</div>
+				<!-- 发质 -->
+				<div class="wBox" id="wbox_s">
+					<p class="style_title">@Messages("hair.styleQuality")：</p>
+					<div class="rBox">
+						<div class="notto"><a href="javascript:unlimitStyleQuality();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
+						<ul id="unlimitStyleQuality_group">
+							@input(field = styleSearchForm("styleQuality"), args = '_label -> None){(id,name,value,args) =>
+					            @for(i <- 0 to stylePara.styleQuality.length-1){
+					            	<li class="dibBL mR2">
+					            		<input type = "checkbox" class = "cbF styleQuality_item" name = "styleQuality[@i]" id="hairColorCd_HQ@i" value = "@stylePara.styleQuality(i)">
+						        		<label for="hairColorCd_HQ@i">@Messages("style.styleQuality." + stylePara.styleQuality(i))</label>
+					            	</li>
+					            }
+					        }
+						</ul>
+					</div>
+					<div class="clear">
+					</div>
+				</div>
+				<!-- 直径 -->
+				<div class="wBox" id="wbox_s">
+					<p class="style_title">@Messages("hair.styleDiameter")：</p>
+					<div class="rBox">
+						<div class="notto"><a href="javascript:unlimitStyleDiameter();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
+						<ul id="unlimitStyleDiameter_group">
+							@input(field = styleSearchForm("styleDiameter"), args = '_label -> None){(id,name,value,args) =>
+					            @for(i <- 0 to stylePara.styleDiameter.length-1){
+					            	<li class="dibBL mR2">
+					            		<input type = "checkbox" class = "cbF styleDiameter_item" name = "styleDiameter[@i]" id="hairColorCd_HD@i" value = "@stylePara.styleDiameter(i)">
+						        		<label for="hairColorCd_HD@i">@Messages("style.styleDiameter." + stylePara.styleDiameter(i))</label>
+					            	</li>
+					            }
+					        }
+						</ul>
+					</div>
+					<div class="clear">
+					</div>
+				</div>
+				</div>
+				<div id="select">
+					<div class="mb" id="moreProp" onclick="moreProp(this);" style="display: block;">
+						<div class="attr-extra">
+							<div>
+							@Messages("styleSearch.moreOption")<b></b>
+							</div>
+						</div>
+					</div>
+					<div class="mb hide" id="lessProp" onclick="lessProp(this);" style="display: none;">
+						<div class="attr-extra open">
+							<div>@Messages("styleSearch.lessOption")<b></b></div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- end -->
+			</div>
+		</div>	
         <div class="inputHidden">
             <input type = "hidden" name = "stylistId" value = @stylistId>
         </div>
-        <div class="mT20" align="center">
+        <div class="mT20" align="center" style="display:none;">
             <input type = "submit" class = "buttons" value = @Messages("hair.search")>
         </div>
      }    
 </div>
-
+<style>
+</style>
+<script type="text/javascript" charset="utf-8">
+</script>
