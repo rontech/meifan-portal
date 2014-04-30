@@ -1,13 +1,11 @@
 
 package models
 
-import play.api.Play.current
 import java.util.Date
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
-import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
+import com.meifannet.framework.db._
 
 case class Service(
 		id: ObjectId = new ObjectId,
@@ -27,9 +25,9 @@ case class ServiceByType(
 		serviceItems: Seq[Service]
 )
 
-object Service extends ModelCompanion[Service, ObjectId]{
+object Service extends MeifanNetModelCompanion[Service]{
 
-	val dao = new SalatDAO[Service, ObjectId](collection = mongoCollection("Service")){}
+    val dao = new MeifanNetDAO[Service](collection = loadCollection()){}
 
 	/**
 	 * 添加服务

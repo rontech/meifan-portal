@@ -20,7 +20,7 @@
 			<div class="newFilter newFiltermvt1" id="filterArea" tab="noPop">
 				<!--长度  -->
 				<div class="wBox" id="wbox_b">
-					<p class="title">@Messages("hair.styleLength")：</p>
+					<p class="style_title">@Messages("hair.styleLength")：</p>
 					<div class="rBox">
 						<div class="notto">
 							<a href="javascript:unlimitStyleLength();" class="cur" method="b_no">@Messages("salonSearchPage.unlimited")</a>
@@ -47,7 +47,7 @@
 				</div>
 				<!-- 风格 -->
 				<div class="wBox styleImpressionDIV" id="wbox_b">
-					<p class="title">@Messages("hair.impression")：</p>
+					<p class="style_title">@Messages("hair.impression")：</p>
 					<div class="rBox">
 						<div class="notto">
 							<a href="javascript:unlimitStyleImpression();" class="cur" method="b_no">@Messages("salonSearchPage.unlimited")</a>
@@ -80,14 +80,14 @@
 					        }
 						</ul>
 					</div>
-					<div class="v-option hide" option="more" onclick="moreExpandValue(this,'styleImpression_hide');" style="display: block;"><span class="o-more unfold"><b></b>@Messages("common.checkFormore")</span></div>
-					<div class="v-option hide" onclick="lessExpandValue(this,'styleImpression_hide');" style="display: none;"><span class="o-more fold"><b></b>@Messages("styleSearch.lessOption")</span></div>
+					<div class="v-option hide" option="more" onclick="moreExpandValue(this,'styleImpression_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
+					<div class="v-option hide" onclick="lessExpandValue(this,'styleImpression_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
 					<div class="clear">
 					</div>
 				</div>
 				<!-- 技术类别 -->
 				<div class="wBox serviceTypeDIV" id="wbox_b">
-					<p class="title">@Messages("hair.serviceType")：</p>
+					<p class="style_title">@Messages("hair.serviceType")：</p>
 					<div class="rBox">
 						<div class="notto">
 							<a href="javascript:unlimitServiceType();" class="cur" method="b_no">@Messages("salonSearchPage.unlimited")</a>
@@ -118,14 +118,14 @@
 							}
 						</ul>
 					</div>
-					<div class="v-option hide" option="more" onclick="moreExpandValue(this,'serviceType_hide');" style="display: block;"><span class="o-more unfold"><b></b>@Messages("common.checkFormore")</span></div>
-					<div class="v-option hide" onclick="lessExpandValue(this,'serviceType_hide');" style="display: none;"><span class="o-more fold"><b></b>@Messages("styleSearch.lessOption")</span></div>
+					<div class="v-option hide" option="more" onclick="moreExpandValue(this,'serviceType_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
+					<div class="v-option hide" onclick="lessExpandValue(this,'serviceType_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
 					<div class="clear">
 					</div>
 				</div>
 				<!-- 脸型 -->
 				<div class="wBox" id="wbox_s">
-					<p class="title">@Messages("hair.faceShape")：</p>
+					<p class="style_title">@Messages("hair.faceShape")：</p>
 					<div class="rBox">
 						<div class="notto"><a href="javascript:unlimitFaceShape();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
 						<ul id="unlimitFaceShape_group">
@@ -149,7 +149,7 @@
 				</div>
 				<!-- 性别 -->
 				<div class="wBox" id="wbox_s">
-					<p class="title">@Messages("hair.consumerSex")：</p>
+					<p class="style_title">@Messages("hair.consumerSex")：</p>
 					<div class="rBox">
 						<div class="notto"><a href="javascript:unlimitConsumerSex();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
 						<ul>
@@ -178,7 +178,7 @@
 				<div id="moreSearchOption" style="display:none;">
 				<!-- 颜色 -->
 				<div class="wBox" id="wbox_s">
-					<p class="title">@Messages("hair.color")：</p>
+					<p class="style_title">@Messages("hair.color")：</p>
 					<div class="rBox">
 						<div class="notto"><a href="javascript:unlimitStyleColor();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
 						<ul id="unlimitStyleColor_group">
@@ -201,7 +201,7 @@
 				</div>
 				<!-- 适合场合 -->
 				<div class="wBox" id="wbox_s">
-					<p class="title">@Messages("hair.consumerSocialStatus")：</p>
+					<p class="style_title">@Messages("hair.consumerSocialStatus")：</p>
 					<div class="rBox">
 						<div class="notto"><a href="javascript:unlimitConsumerSocialStatus();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
 						<ul id="unlimitConsumerSocialStatus_group">
@@ -225,7 +225,7 @@
 				</div>
 				<!-- 年龄 -->
 				<div class="wBox" id="wbox_s">
-					<p class="title">@Messages("hair.consumerAgeGroup")：</p>
+					<p class="style_title">@Messages("hair.consumerAgeGroup")：</p>
 					<div class="rBox">
 						<div class="notto"><a href="javascript:unlimitConsumerAgeGroup();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
 						<ul id="unlimitConsumerAgeGroup_group">
@@ -249,7 +249,7 @@
 				</div>
 				<!-- 发量 -->
 				<div class="wBox" id="wbox_s">
-					<p class="title">@Messages("hair.styleAmount")：</p>
+					<p class="style_title">@Messages("hair.styleAmount")：</p>
 					<div class="rBox">
 						<div class="notto"><a href="javascript:unlimitStyleAmount();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
 						<ul id="unlimitStyleAmount_group">
@@ -273,7 +273,7 @@
 				</div>
 				<!-- 发质 -->
 				<div class="wBox" id="wbox_s">
-					<p class="title">@Messages("hair.styleQuality")：</p>
+					<p class="style_title">@Messages("hair.styleQuality")：</p>
 					<div class="rBox">
 						<div class="notto"><a href="javascript:unlimitStyleQuality();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
 						<ul id="unlimitStyleQuality_group">
@@ -297,7 +297,7 @@
 				</div>
 				<!-- 直径 -->
 				<div class="wBox" id="wbox_s">
-					<p class="title">@Messages("hair.styleDiameter")：</p>
+					<p class="style_title">@Messages("hair.styleDiameter")：</p>
 					<div class="rBox">
 						<div class="notto"><a href="javascript:unlimitStyleDiameter();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
 						<ul id="unlimitStyleDiameter_group">
@@ -324,13 +324,13 @@
 					<div class="mb" id="moreProp" onclick="moreProp(this);" style="display: block;">
 						<div class="attr-extra">
 							<div>
-							@Messages("styleSearch.moreOption")<b></b>
+							@Messages("styleSearch.moreOption")<b class="xlicon"></b>
 							</div>
 						</div>
 					</div>
 					<div class="mb hide" id="lessProp" onclick="lessProp(this);" style="display: none;">
 						<div class="attr-extra open">
-							<div>@Messages("styleSearch.lessOption")<b></b></div>
+							<div>@Messages("styleSearch.lessOption")<b class="hiddenIcon"></b></div>
 						</div>
 					</div>
 				</div>
@@ -346,5 +346,11 @@
         </div>
      }    
 </div>
+<style>
+.serviceType_hide,.styleImpression_hide{
+/*margin-left:41px;*/
+}
+
+</style>
 <script type="text/javascript" charset="utf-8">
 </script>

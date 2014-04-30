@@ -19,7 +19,9 @@
         @helper.form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm",'name -> "styleForm"){
             <div>
                 @Messages("hair.styleName")
-                @inputText(styleAddForm("styleName"), '_label -> None, 'id -> "styleName", 'class ->  "font1",'_help -> Messages("hair.nameRequired"))
+                @inputText(styleAddForm("styleName"),
+                    '_label -> None,
+                    'class ->  "font1")
             </div>
             <div>
             <fieldset class="addOtherStylePic">
@@ -46,7 +48,7 @@
             }
             @input(field = styleAddForm("styleImpression"), '_label ->Messages("hair.impression")){(id,name,value,args) =>
                 @for(i <- 0 to stylePara.styleImpression.length-1){
-                      <input type = "radio" class="" name = "styleImpression", value = "@stylePara.styleImpression(i)" @if(i==0){checked}>@Messages("style.styleImpression." + stylePara.styleImpression(i))
+                      <input type = "radio" class="" name = "styleImpression" value = "@stylePara.styleImpression(i)" @if(i==0){checked}>@Messages("style.styleImpression." + stylePara.styleImpression(i))
                 }
             }
             @input(field = styleAddForm("styleColor"),args = '_label ->Messages("hair.color")){(id,name,value,args) =>
@@ -97,7 +99,7 @@
             </div>
             <div>
                 @Messages("hair.assessFromStylist")
-                @textarea(styleAddForm("description"), '_label -> None, 'id -> "description", 'rows -> 4, 'cols -> 40, 'class ->  "font1",'_help -> Messages("stylistAdmin.selectField"))
+                @textarea(styleAddForm("description"), '_label -> None, 'id -> "description", 'rows -> 4, 'cols -> 40, 'class ->  "font1")
             </div>
             <div class="demo">
                 <div class="logoupload">
@@ -105,7 +107,6 @@
                         @Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
                         <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImage")</a>
                     </div>
-                    <div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
                     
                     <div class="progress-box fl-progress" style="display:none;">
                         <div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
@@ -130,7 +131,7 @@
         <div>
         @form(auth.routes.Salons.newStyleAddBySalon, 'id -> "styleAddForm", 'name -> "styleForm"){
             <div>
-                @Messages("hair.styleName")<input type = "text" class="" name = "styleName" value = "">
+                @Messages("hair.styleName")<input type = "text" class="" name = "styleName">
             </div>
             <div>
             <fieldset class="addOtherStylePic">
@@ -220,7 +221,6 @@
                         @Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
                         <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
                     </div>
-                    <div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
                     
                     <div class="progress-box fl-progress" style="display:none;">
                         <div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
@@ -228,13 +228,14 @@
                     </div>
                     
                 </div>
+                
                 <div class="batch-pic">
                     <ul>
                     </ul>
                 </div>
             </div>
             <div align="center">
-                <input type="button" onclick="checksForStyle();" class = "buttons" value=@Messages("common.submit")>
+                <input type="button" onclick="checksForStyle();" class = "buttons" value=@Messages("common.submit")/>
             </div>
          }
         </div>
