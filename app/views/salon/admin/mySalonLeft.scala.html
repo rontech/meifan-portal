@@ -96,7 +96,8 @@
     	 			</li>
 	  			</ul>
 				<div class='more'>
-					<a href="@auth.routes.Salons.getAllStylesBySalon()">@Messages("stylistMag.showAllStyles")</a>
+					<a href="@auth.routes.Salons.getAllStylesBySalon()">@Messages("stylistMag.showAllStyles")
+					(@Salon.getAllStyles(salon.id).length)</a>
 				</div>
 			</div>
 

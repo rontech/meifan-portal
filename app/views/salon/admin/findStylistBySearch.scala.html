@@ -1,6 +1,6 @@
 @(navInSalon: String = "my-stylists", salon: Salon, stylist: Stylist, status: Int)
 
-@mySalonMain(navInSalon, salon){
+@mySalonMain("my-stylists", salon){
 	<div>
 		<ul class="tabInfoTitle">
 			<li class="fl selected">
@@ -10,7 +10,7 @@
 	</div>
 	<div class="mysalon-stylist-search mT40">
 		<form action="@auth.routes.Salons.searchStylistById" id="getStylistForm" method="get">
-				@Messages("stylist.stylistId")<input name="searchStylistById" id="stylist-search-stylist"  onKeyDown="if (event.keyCode==13){return false;}"/>&nbsp;&nbsp;&nbsp;
+				@Messages("stylist.stylistId") <input name="searchStylistById" id="stylist-search-stylist"  onKeyDown="if (event.keyCode==13){return false;}"/>&nbsp;&nbsp;&nbsp;
 				<input type="hidden" name="salonId" id="stylist-search-salon" value="@salon.id">
 				<input type="password" style="display:none">
 				<input type="button" id="searchStylistToSubmit" value="@Messages("stylist.search")" onclick="checkStylistExist();"><br />
@@ -26,8 +26,8 @@
 				<span id="stylistSerchMsg" style="color:red;"></span>
 		</form>
    		<div class="tabcon hide searchStylistDisplay" data-widget="tab-content" style="display: block;">
-   			<div class="mc">
-   			<div class="w166 mHA">
+   			<div class="mc mT10">
+   			<div class="w164 mHA">
 			    <div class="taC">
 					<a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
 						@*<img src="@routes.Application.getPhoto(User.findOneById(stylist.stylistId).get.userPics)" class="bdImgGray w164 h219" >*@
@@ -53,12 +53,13 @@
 			</div>
 			<div class="taC mT10">
 				@if(status == 1){
-					<a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv">@Messages("stylist.checkRsv")</a>		
+					<a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv buttons applyToStylist">@Messages("stylist.checkRsv")</a>		
 				}
 				@if(status == 2){
 					@if(SalonStylistApplyRecord.findOneSalonApRd(salon.id,stylist.stylistId) != None){
-						<span class="salon-stylist-reserv">@Messages("salonSearchStylist.haveInvite")</span>	
+						<span class="salon-stylist-reserv buttons applyToStylist">@Messages("salonSearchStylist.haveInvite")</span>	
 					}else{
+						<a href="@auth.routes.Salons.inviteStylist(stylist.stylistId)" class="salon-stylist-reserv buttons applyToStylist">@Messages("stylist.invite")</a>
 						<a href="@auth.routes.Salons.inviteStylist(stylist.stylistId)" class="salon-stylist-reserv">@Messages("stylist.invite")</a>	
 					}
 				}

@@ -1,7 +1,7 @@
 	@charset "utf-8";
 /* CSS Document */
 body{
-	margin:0px; padding:0px; font-family:"宋体"; font-size:12px; line-height:22px; color:#333333;
+	margin:0px; padding:0px; font-size:12px; line-height:22px; color:#333333;
 }
 /*------------------------Start 解决12号字在google和傲游浏览器的不识别小于12号的英文字体-------------*/
 html{-webkit-text-size-adjust:none;}
@@ -956,4 +956,52 @@ cursor: pointer;
 a:hover.buttons {
 	text-decoration: none;
 	color: #fff;
+}
+
+
+div.input input[type="text"] {
+    width:200px;
+}
+
+.sl_show_xx{
+width: 120px;
+height: 20px;
+overflow: hidden;
+clear: both;
+background: url("/assets/images/sl_show_dpan_02.jpg") repeat-x 0 -1px;
+font-size: 10px;
+padding-top: 2px;
+}
+
+.sl_show_xx a {
+color: #333333;
+text-decoration: none;
+display: block;
+}
+
+.sl_show_xy{
+width: 142px;
+height: 31px;
+overflow: hidden;
+clear: both;
+background: url("/assets/images/sl_show_dpan3.jpg") repeat-x;
+font-size: 10px;
+padding-top: 5px;
+margin-left: auto;
+margin-right: auto
+}
+
+.sl_show_xy a {
+color: #333333;
+text-decoration: none;
+display: block;
+}
+
+.sl_show {
+float: right;
+}
+
+.searchCoupon {
+width: 80px;
+background-color: rgb(252, 234, 234);
 }

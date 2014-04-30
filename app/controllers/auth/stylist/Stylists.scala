@@ -168,8 +168,8 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
 	 def toUpdateStylistImage(role: String) = Action(parse.multipartFormData) { request =>
 	        request.body.file("photo") match {
 	            case Some(photo) =>
-	                val db = DBDelegate.picDB
-	                val gridFs = GridFS(db)
+	            	val db = DBDelegate.picDB
+                    val gridFs = GridFS(db)
 	                val uploadedFile = gridFs.createFile(photo.ref.file)
 	                uploadedFile.contentType = photo.contentType.orNull
 	                uploadedFile.save()

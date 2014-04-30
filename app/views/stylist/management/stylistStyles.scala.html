@@ -2,16 +2,21 @@
 
 @import views.html.user._
 
-@myPageMain("updateStylistInfo",user,followInfo,loginUserId,logged){
+
+@myPageMain("my-styles",user,followInfo,loginUserId,logged) {
+	
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
+
 	
 	@views.html.style.admin.backstageStyleSearch(styleSearchForm, styleParaAll, isFirstSearch, isStylist, stylist)
-    <hr/>
+    <br/>
     @if(user.id == loginUserId){
-    <a href="@auth.routes.Stylists.styleAddByStylist" >@Messages("hair.addStyle")</a>
+    	<div class="styleBtn bbl">
+    		<a href="@auth.routes.Stylists.styleAddByStylist" >@Messages("hair.addStyle")</a>
+    	</div>
     }
-	<hr/>
+	<br/>
 	@views.html.style.admin.backstageStyleSearchList(styles, isStylist, user.id, loginUserId)
 	
 }
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">

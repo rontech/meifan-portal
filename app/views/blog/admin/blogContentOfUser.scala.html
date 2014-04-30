@@ -115,7 +115,7 @@
         }
     }
     document.write("<ul><li><b>@Messages("blog.preBlog"): </b>" + "<a href='" + prePost.url + "'>" + prePost.title + "</a></li>");
-    document.write("<li><b>@Messages("blog.nextBlog"): </b>"+"<a href='"+nextPost.url+"'>"+nextPost.title+"</a></li></ul>");
+    document.write("<li class=" + "nextPost" + "><a href='"+nextPost.url+"'>"+nextPost.title+"</a>" + "<b>: @Messages("blog.nextBlog")</b></li></ul>");
 </script>
       
 	</div>

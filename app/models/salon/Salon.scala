@@ -6,7 +6,6 @@ import play.Configuration
 import java.util.Date
 import scala.concurrent.{ ExecutionContext, Future }
 import ExecutionContext.Implicits.global
-import com.mongodb.casbah.MongoConnection
 import com.mongodb.casbah.query.Imports._
 import com.mongodb.casbah.commons.Imports.{ DBObject => commonsDBObject }
 import com.mongodb.casbah.WriteConcern
@@ -653,13 +652,7 @@ case class SalonFacilities (
 )
 
 object SalonFacilities extends MeifanNetModelCompanion[SalonFacilities] {
-    def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-        "Configuration error",
-        "Could not find mongodb.default.db in settings")))("SalonFacilities")
-        
-        val dao = new MeifanNetDAO[SalonFacilities](collection = loadCollection()){}
+    val dao = new MeifanNetDAO[SalonFacilities](collection = loadCollection()){}
 }
 
 /**

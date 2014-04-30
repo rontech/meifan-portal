@@ -23,9 +23,12 @@
                         <div class="">
                         </div>
                         <div class="bdGrayL">
-                                <a id="mysIdh01L000544169" href="javascript:void(0);" onclick="addFollow('style.id','style')" class="bS db addIntoMyStylePink offL fr mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
-                                    @Messages("hair.ToCollect")
-                                </a>
+                                <!--  <a id="mysIdh01L000544169" href="javascript:void(o);" onclick="addFollow('@styleAndSalon(0).style.id','style')" class="bS db addIntoMyStylePink offL fr mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">@Messages("hair.ToCollect")</a>-->
+                                <div class="sl_show_xy">
+               						<p align="center">
+                  						 <a href = "javascript:void(0);" onclick="addFollow('@styleAndSalon(0).style.id','style')" >@Messages("hair.ToCollect")</a>
+               						</p>
+            					</div>
                         </div>
                     </div>
                     <div class="bgLGray w700">
@@ -66,9 +69,11 @@
                                 <img src="@routes.Application.getPhoto(styleAndSalon(i).style.stylePic(0).fileObjId)" class="w120 h150" alt="@styleAndSalon(i).style.styleName" >
                             </a>
                             <div class="layer jscLayer jscFixPng">
-                                <p>
-                                    <a href="javascript:void(0);" onclick="addFollow('@styleAndSalon(i).style.id','style')" >@Messages("hair.ToCollect")</a>
-                                </p>
+                                <div class="sl_show_xx">
+               						<p align="center">
+                   						<a href="javascript:void(0);" onclick="addFollow('@styleAndSalon(i).style.id','style')" >@Messages("hair.ToCollect")</a>
+               						</p>
+            					</div>
                                 <p><a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)">@Messages("hair.detailInfo")</a></p>
                             </div>
                             <div class="mT2">

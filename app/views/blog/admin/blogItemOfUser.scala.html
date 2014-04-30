@@ -4,13 +4,12 @@
      
 					<div class="BlogTitle">
 			    		<div class="title">
-			            	<h2><span class="icon" style="background:#44ac57;" title=""></span>	<a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)">@blog.title</a></h2>			    	
+			            	<h2><a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)" class="blogTitle">@blog.title</a></h2>			    	
 			        		<div class="outline">
 			            	  <span class="">
 													@Messages("blog.blogCategory"): 
 									@blog.blogCategory			   							                			            		
 							  </span>
-							  <br />		  
 							  @if(logged){
 			                  <span class="blog_admin">( <a href="@auth.routes.Blogs.editBlog(blog.id)">@Messages("common.edit")</a> | <a href="" class="deleteBlog" data-blog="@blog.id">@Messages("common.delete")</a> )</span>
 			                  }
