@@ -89,7 +89,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   def stylistApplyForm: Form[StylistApply] = Form(
         mapping("stylist" -> 
 		    mapping(
-		    	"workYears" -> number.verifying(min(1),max(100)),
+		    	"workYears" -> number,
 			    "position" -> list(
 			    	mapping(
 			    		"positionName" -> text,
@@ -120,14 +120,13 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
 		          stylist.goodAtImage, stylist.goodAtStatus, stylist.goodAtService, stylist.goodAtUser,
 		          stylist.goodAtAgeGroup, stylist.myWords, stylist.mySpecial, stylist.myBoom, stylist.myPR)
 		    },
-		    "salonAccountId" -> nonEmptyText(6, 16)
+		    "salonAccountId" -> text
 		    ){
 		      (stylist, salonAccountId) => StylistApply(stylist, salonAccountId)
 		    }{
 		      stylistApply => Some((stylistApply.stylist, stylistApply.salonAccountId))
-		    }.verifying(
-		    		Messages("salon.noExist"), stylistApply => Salon.findByAccountId(stylistApply.salonAccountId).nonEmpty)
-		  	)
+		    }
+  )
   /**
    * 用户登录验证
    */
