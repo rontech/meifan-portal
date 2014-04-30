@@ -670,7 +670,8 @@ user.message.title = 标题
 user.message.content = 内容
 user.message.send = 发送
 user.other=他
-user.notWriteBlog=该用户未添加博客……
+user.notWriteBlog=未添加博客……
+use.followThisSalon=收藏该店铺
 
 user.needfieldworks = 请输入0~100整数
 user.errorWorks = 无效的年数
