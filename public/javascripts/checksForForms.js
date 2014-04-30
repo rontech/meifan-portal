@@ -14,6 +14,7 @@ var ITEM_TYPE_MENU = "menu"
 var MESSAGE_OK = ""
 var MESSAGE_REQUIRED = "该项目不能为空"
 var MESSAGE_FORMAT_ERR = "格式不正确，请重新输入"
+var MESSAGE_LENGTH_ERR = "长度不符合，请重新输入"
 var MESSAGE_NAME_USED = "该名称已被使用，请重新输入"
 var MESSAGE_NICKNAME_USED = "该昵称已被使用，请重新输入"
 var MESSAGE_ID_USED = "该ID已被注册，请重新输入"
@@ -24,7 +25,8 @@ var MESSAGE_CHECK_ERR = "很抱歉！检测失败，请稍候重试"
  * listening userId and salonAccountId
  */
 $('#accountId').focus(function(){
-    $('#accountId  ~ .help-inline').text("6~18位字符，可使用字母、数字和下划线，注册成功后不可修改").removeClass("trueMsg").removeClass("errorMsg");
+    $('#accountId  ~ .help-inline').text("6~18位，支持以字母为首、数字和下划线（_）组合").removeClass("trueMsg").removeClass("errorMsg");
+    this.setAttribute("maxlength",18);
 }).blur(function(){
     checkedAccountId();
 });
@@ -32,7 +34,7 @@ $('#accountId').focus(function(){
  * listening password
  */
 $('#password_main').focus(function(){
-    $('#password_main  ~ .help-inline').text("6~16位字符,可使用字母、数字或符号的组合，区分大小写").removeClass("trueMsg").removeClass("errorMsg");
+    $('#password_main  ~ .help-inline').text("6~16位,支持字母、数字或符号的组合，区分大小写").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedPassword()
 });
@@ -45,7 +47,7 @@ $('#password_confirm').focus(function(){
  * listening emails in user
  */
 $('#email').focus(function(){
-    $('#email  ~ .help-inline').text("请输入常用邮箱，用于账户激活、找回密码").removeClass("trueMsg").removeClass("errorMsg");
+    $('#email  ~ .help-inline').text("请输入常用邮箱，用于激活用户、找回密码").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedEmail()
 });
@@ -53,7 +55,7 @@ $('#email').focus(function(){
  * listening emails in salon
  */
 $('#contact_email').focus(function(){
-    $('#contact_email  ~ .help-inline').text("请输入常用邮箱，用于账户激活、找回密码").removeClass("trueMsg").removeClass("errorMsg");
+    $('#contact_email  ~ .help-inline').text("请输入常用邮箱，用于激活用户、找回密码").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedSalonEmail()
 });
@@ -61,7 +63,7 @@ $('#contact_email').focus(function(){
  * listening fixed-line telephone in salon
  */
 $('#contact_tel').focus(function(){
-    $('#contact_tel  ~ .help-inline').text("请填写联系人常用的电话，以便顾客联系，如：“0512-67776777”").removeClass("trueMsg").removeClass("errorMsg");
+    $('#contact_tel  ~ .help-inline').text("请填写联系人固定电话，以便于我们联系，如：“0512-67776777”").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedTel()
 });
@@ -69,6 +71,7 @@ $('#contact_tel').focus(function(){
  * listening salonName
  */
 $('#salonName').focus(function(){
+    this.setAttribute("maxlength",40);
     $('#salonName  ~ .help-inline').text("请填写工商局注册的全称。4~40位字符，可由中英文、数字及“_”、“-”、（）组成").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedSalonName()
@@ -78,7 +81,8 @@ $('#salonName').focus(function(){
  */
 //TODO
 $('#salonNameAbbr').focus(function(){
-    $('#salonNameAbbr  ~ .help-inline').text("请填写店铺的略称。1~20位字符").removeClass("trueMsg").removeClass("errorMsg");
+    this.setAttribute("maxlength",20);
+    $('#salonNameAbbr  ~ .help-inline').text("请填写店铺的略称,2~20位字符").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedSalonNameAbbr()
 });
@@ -87,6 +91,7 @@ $('#salonNameAbbr').focus(function(){
  */
 //TODO
 $('#salonDescription').focus(function(){
+    this.setAttribute("maxlength",100);
     $('#salonDescription  ~ .help-inline').text("100字以内，该字段对应店铺基本信息表格中信息").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedSalonDescription()
@@ -95,7 +100,8 @@ $('#salonDescription').focus(function(){
  * listening contact in salon
  */
 $('#contact').focus(function(){
-    $('#contact  ~ .help-inline').text("2~20位字符，可使用中文或英文组合").removeClass("trueMsg").removeClass("errorMsg");
+    this.setAttribute("maxlength",20);
+    $('#contact  ~ .help-inline').text("2~20位字符，支持中文和英文组合").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedContact()
 });
@@ -113,6 +119,7 @@ $('#accept').change(function(){
  * listening homepage of salon
  */
 $('#homepage').focus(function(){
+    this.setAttribute("maxlength",40);
     $('#homepage  ~ .help-inline').text("请填写店铺主页，如：http://www.sz-rontech.com").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedHomepage()
@@ -121,6 +128,7 @@ $('#homepage').focus(function(){
  * listening addressDetail of salon
  */
 $('#addrDetail').focus(function(){
+    this.setAttribute("maxlength",50);
     $('#addrDetail  ~ .help-inline').text("请填写店铺详细地址，如“竹园路209号5号楼1805室”").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedAddressDetail()
@@ -129,6 +137,7 @@ $('#addrDetail').focus(function(){
  * listening accessMethodDesc of salon
  */
 $('#accessMethodDesc').focus(function(){
+    this.setAttribute("maxlength",100);
     $('#accessMethodDesc  ~ .help-inline').text("100字以内，如“地铁一号线汾湖路站1号出口向西步行500米可达”").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedAccessMethodDesc()
@@ -137,12 +146,12 @@ $('#accessMethodDesc').focus(function(){
  * listening openTime and closeTime of Salon
  */
 $('#openTime').focus(function(){
-    $('#openTime  ~ .help-inline').text("请填写店铺营业的开始时间").removeClass("trueMsg").removeClass("errorMsg");
+    $('#openTime  ~ .help-inline').text("请填写店铺营业开始时间").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedOpenTime()
 });
 $('#closeTime').focus(function(){
-    $('#closeTime  ~ .help-inline').text("请填写店铺营业的结束时间").removeClass("trueMsg").removeClass("errorMsg");
+    $('#closeTime  ~ .help-inline').text("请填写店铺营业结束时间").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedCloseTime()
 });
@@ -150,7 +159,7 @@ $('#closeTime').focus(function(){
  * listening establishDate of salon
  */
 $('#establishDate').focus(function(){
-    $('#establishDate  ~ .help-inline').text("请填写店铺成立的时间").removeClass("trueMsg").removeClass("errorMsg");
+    $('#establishDate  ~ .help-inline').text("请填写店铺成立时间").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedEstablishDate()
 });
@@ -164,6 +173,7 @@ $('.week').change(function(){
  * listening indefinite restDay
  */
 $('#restDay2').focus(function(){
+    this.setAttribute("maxlength",40);
     $('#restDay2  ~ .help-inline').text("请填写店铺休息规律").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedRestDays()
@@ -172,7 +182,8 @@ $('#restDay2').focus(function(){
  * listening seat's number of Salon
  */
 $('#seatNums').focus(function(){
-    $('#seatNums  ~ .help-inline').text("请填写店铺席位数").removeClass("trueMsg").removeClass("errorMsg");
+    this.setAttribute("maxlength",3);
+    $('#seatNums  ~ .help-inline').text("请填写店铺拥有席位数").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedSeatNums()
 });
@@ -180,17 +191,20 @@ $('#seatNums').focus(function(){
  * listening the descriptions of picture in salon
  */
 $('#picTitle').focus(function(){
-    $('#picTitle  ~ .help-inline').text("100字以内，该描述将用于沙龙信息描述的标题显示").removeClass("trueMsg").removeClass("errorMsg");
+    this.setAttribute("maxlength",30);
+    $('#picTitle  ~ .help-inline').text("30字以内，该描述将用于沙龙信息描述的标题显示").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedPicTitle()
 });
 $('#picContent').focus(function(){
-    $('#picContent  ~ .help-inline').text("100字以内，该描述将用于沙龙信息描述的主要内容显示").removeClass("trueMsg").removeClass("errorMsg");
+    this.setAttribute("maxlength",150);
+    $('#picContent  ~ .help-inline').text("150字以内，该描述将用于沙龙信息描述的主要内容显示").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedPicContent()
 });
 $('#picFoot').focus(function(){
-    $('#picFoot  ~ .help-inline').text("100字以内，该描述将用于沙龙信息描述的标注显示").removeClass("trueMsg").removeClass("errorMsg");
+    this.setAttribute("maxlength",40);
+    $('#picFoot  ~ .help-inline').text("40字以内，该描述将用于沙龙信息描述的标注显示").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedPicFoot()
 });
@@ -198,7 +212,7 @@ $('#picFoot').focus(function(){
  * listening phone in user,salon contact
  */
 $('#phone').focus(function(){
-    $('#phone  ~ .help-inline').text('请输入常用手机号，服务预约时使用').removeClass("trueMsg").removeClass("errorMsg");
+    $('#phone  ~ .help-inline').text('请输入常用手机号，预约服务使用').removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedPhone();
 });
@@ -206,7 +220,8 @@ $('#phone').focus(function(){
  * listening nickName in user
  */
 $('#nickName').focus(function(){
-    $('#nickName  ~ .help-inline').text('请输入昵称，1~10位字符').removeClass("trueMsg").removeClass("errorMsg");
+    this.setAttribute("maxlength",20);
+    $('#nickName  ~ .help-inline').text('请输入昵称，2~20位字符，最多10个汉字').removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedNickName();
 });
@@ -359,7 +374,7 @@ function checkedHomepage(){
  * check for salon Name
  */
 function checkedSalonName(){
-    //TODO
+    //TODO 正则表达式待补充
     var salonName=$("#salonName").val();
     var isValid = /^[A-Za-z0-9\u4e00-\u9fa5\(\)\-\_]+$/;
     var len = salonName.replace(/[^\x00-\xff]/g, "**").length;
@@ -367,8 +382,12 @@ function checkedSalonName(){
         $("#salonName ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    if (!isValid.test(salonName)||len < 4||len  > 40){
+    if (!isValid.test(salonName)){
         $("#salonName ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
+        return;
+    }
+    if (len < 2 || len > 80){
+        $("#salonName ~ .help-inline").text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
     jsRoutes.controllers.noAuth.Users.checkIsExist(salonName, ITEM_TYPE_NAME).ajax({
@@ -399,8 +418,8 @@ function checkedSalonNameAbbr(){
         $("#salonNameAbbr ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    if (len < 1||len  > 20){
-        $("#salonNameAbbr ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
+    if (len < 2 || len > 20){
+        $("#salonNameAbbr ~ .help-inline").text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
     jsRoutes.controllers.auth.Salons.itemIsExist(salonNameAbbr, ITEM_TYPE_NAME_ABBR).ajax({
@@ -428,8 +447,8 @@ function checkedNickName(){
         $("#nickName  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    if (len < 1||len  > 10){
-        $("#nickName  ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
+        if (len < 2 || len > 20){
+        $("#nickName  ~ .help-inline").text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
     jsRoutes.controllers.noAuth.Users.checkIsExist(nickName, ITEM_TYPE_NAME).ajax({
@@ -614,6 +633,7 @@ function checkedSeatNums(){
     }
 }
 function checkedPicTitle(){
+    //TODO
     var value=$("#picTitle").val();
     if (value == ""){
         $("#picTitle ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
@@ -733,7 +753,8 @@ function checksForSalonDetail(){
  * checks for coupon
  */
 $('#couponName').focus(function(){
-    $("#couponName  ~ .help-inline").text("请输入4~40个字符（一个汉字为2个字符）").removeClass("trueMsg").removeClass("errorMsg");
+    this.setAttribute("maxlength",30)
+    $("#couponName  ~ .help-inline").text("请输入4~30个字符，最多15个汉字").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedCouponName()
 });
@@ -744,8 +765,8 @@ function checkedCouponName(){
         $("#couponName  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    if(len < 4|| len > 40){
-        $("#couponName  ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
+    if(len < 4 || len > 30){
+        $("#couponName  ~ .help-inline").text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
     jsRoutes.controllers.auth.Salons.itemIsExist(value, ITEM_TYPE_COUPON).ajax({
@@ -797,24 +818,25 @@ function checkedStartAndEndDate(){
         return;
     }
     if(startDate > endDate) {
-        $("#endDate  ~ .help-inline").text('截至日期不能在开始日期之前').removeClass("trueMsg").addClass("errorMsg");
+        $("#endDate  ~ .help-inline").text('结束日期不能早于开始日期').removeClass("trueMsg").addClass("errorMsg");
     } else {
         $("#endDate  ~ .help-inline").text(MESSAGE_OK).removeClass("errorMsg").addClass("trueMsg");
     }
 }
 
 $('#price').focus(function(){
-    $('#price  ~ .help-inline').text("请输入数字，可以为小数").removeClass("errorMsg").removeClass("trueMsg");
+    $('#price  ~ .help-inline').text("请输入金额").removeClass("errorMsg").removeClass("trueMsg");
 }).blur(function(){
     checkedPrice()
 });
 
 function checkedPrice(){
     var price = $('#price').val();
+    var isValid = /^(([1-9]+)|([0-9]+\.[0-9]{1,2}))$/;
     if(price == "") {
         $("#price  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
     } else {
-        if(isNaN(price)){
+        if(!isValid.test(price)){
             $("#price  ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
             return;
         }else{
@@ -824,7 +846,8 @@ function checkedPrice(){
 }
 
 $('#useConditions').focus(function(){
-    $('#useConditions  ~ .help-inline').text("请输入该优惠劵使用的条件，如“不能和其他优惠劵一起使用”").removeClass("errorMsg").removeClass("trueMsg");
+    this.setAttribute("maxlength",40);
+    $('#useConditions  ~ .help-inline').text("请输入该优惠劵的使用条件，如“不能和其他优惠劵一起使用”").removeClass("errorMsg").removeClass("trueMsg");
 }).blur(function(){
     checkedUesConditions()
 });
@@ -832,14 +855,14 @@ function checkedUesConditions(){
     var useConditions = $('#useConditions').val();
     if(useConditions == "") {
         $("#useConditions  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
-        return;
     } else {
         $("#useConditions  ~ .help-inline").text(MESSAGE_OK).removeClass("errorMsg").addClass("trueMsg");
     }
 }
 
 $('#presentTime').focus(function(){
-    $('#presentTime  ~ .help-inline').text("请输入使用该优惠劵出示的时间，如“消费前出示”").removeClass("errorMsg").removeClass("trueMsg");
+    this.setAttribute("maxlength",40);
+    $('#presentTime  ~ .help-inline').text("请输入该优惠劵使用的出示时间，如“消费前出示”").removeClass("errorMsg").removeClass("trueMsg");
 }).blur(function(){
     checkedPresentTime()
 });
@@ -847,14 +870,14 @@ function checkedPresentTime(){
     var presentTime = $('#presentTime').val();
     if(presentTime == "") {
         $("#presentTime  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
-        return;
     } else {
         $("#presentTime  ~ .help-inline").text(MESSAGE_OK).removeClass("errorMsg").addClass("trueMsg");
     }
 }
 
 $('#description').focus(function(){
-    $('#description  ~ .help-inline').text("请输入描述内容，10~50个字符（一个汉字为2个字符）").removeClass("errorMsg").removeClass("trueMsg");
+    this.setAttribute("maxlength",100);
+    $('#description  ~ .help-inline').text("请输入描述内容，10~100个字符，最多50个汉字").removeClass("errorMsg").removeClass("trueMsg");
 }).blur(function(){
     checkedItemDescription()
 });
@@ -867,9 +890,8 @@ function checkedItemDescription(){
         $("#description  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    if(len < 10 ) {
-        $("#description  ~ .help-inline").text("描述内容不足").removeClass("trueMsg").addClass("errorMsg");
-        return;
+    if(len < 10 || len > 100) {
+        $("#description  ~ .help-inline").text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
     } else {
         $("#description  ~ .help-inline").text("").removeClass("errorMsg").addClass("trueMsg");
     }
@@ -885,7 +907,7 @@ function checkedServiceItem(){
         checked = (services[i].checked ||checked)
     }
     if (!checked) {
-        $('.serviceItem').parent("div").next("span").text('请选择服务').removeClass("trueMsg").addClass("errorMsg");
+        $('.serviceItem').parent("div").next("span").text('请至少选择一项服务').removeClass("trueMsg").addClass("errorMsg");
     }else{
         $('.serviceItem').parent("div").next("span").text('').removeClass("errorMsg").addClass("trueMsg");
     }
@@ -916,7 +938,8 @@ function checksForCoupon(){
  */
 
 $('#menuName').focus(function(){
-    $("#menuName  ~ .help-inline").text("请输入4~40个字符（一个汉字为2个字符）").removeClass("trueMsg").removeClass("errorMsg");
+    this.setAttribute("maxlength",30)
+    $("#menuName  ~ .help-inline").text("请输入4~30个字符，最多15个汉字").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedMenuName();
 });
@@ -928,10 +951,9 @@ function checkedMenuName(){
         $("#menuName  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    if(len < 4 ||len > 40){
-        $("#menuName  ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
-    }else{
-        $("#menuName  ~ .help-inline").text('').removeClass("errorMsg").addClass("trueMsg");
+    if(len < 4 || len > 30){
+        $("#menuName  ~ .help-inline").text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
+        return;
     }
     jsRoutes.controllers.auth.Salons.itemIsExist(value, ITEM_TYPE_MENU).ajax({
      async: false,
@@ -971,7 +993,8 @@ function checksForMenu(){
  *checks for service
  */
 $('#serviceName').focus(function(){
-    $("#serviceName  ~ .help-inline").text("请输入4~40个字符（一个汉字为2个字符）").removeClass("trueMsg").removeClass("errorMsg");
+    this.setAttribute("maxlength",30)
+    $("#serviceName  ~ .help-inline").text("请输入4~30个字符,最多15个汉字").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
    checkedServiceName();
 });
@@ -983,10 +1006,9 @@ function checkedServiceName(){
         $("#serviceName  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    if(len < 4 ||len > 40){
-        $("#serviceName  ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
-    }else{
-        $("#serviceName  ~ .help-inline").text('').removeClass("errorMsg").addClass("trueMsg");
+    if(len < 4 || len >30){
+        $("#serviceName  ~ .help-inline").text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
+        return;
     }
     jsRoutes.controllers.auth.Salons.itemIsExist(value, ITEM_TYPE_SERVICE).ajax({
         async: false,
@@ -1007,7 +1029,7 @@ function checkedServiceName(){
 }
 
 $('#duration').focus(function(){
-    $("#duration  ~ .help-inline").text("请输入整数（单位：分）").removeClass("trueMsg").removeClass("errorMsg");
+    $("#duration  ~ .help-inline").text("请输入分钟数").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedDuration();
 });
@@ -1048,7 +1070,8 @@ function checksForService(){
  */
 
 $('#styleName').focus(function(){
-    $("#styleName  ~ .help-inline").text("请输入4~40个字符（一个汉字为2个字符）").removeClass("trueMsg").removeClass("errorMsg");
+    this.setAttribute("maxlength",40)
+    $("#styleName  ~ .help-inline").text("请输入4~30个字符，最多15个汉字").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkStyleName()
 });
@@ -1060,8 +1083,8 @@ function checkStyleName(){
         $("#styleName  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
-    if(len < 4 ||len > 40){
-        $("#styleName  ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
+    if(len < 4 || len > 30){
+        $("#styleName  ~ .help-inline").text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
         return;
     }
     jsRoutes.controllers.auth.Stylists.itemIsExist(value, ITEM_TYPE_STYLE).ajax({

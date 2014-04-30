@@ -281,6 +281,7 @@ salonAdmin.ApplyOperateResult = 抱歉该申请不存在或已被本人取消，
 salonAdmin.ApplyOperateAction = s后自动跳转，点击
 salonAdmin.ApplyOperateGo = 跳转 
 stylistAdmin.selectField = 选填，不得超过150字
+salonSearchStylist.haveInvite = 当前该技师已处于被您邀请状态，请耐心等待答复
 
 # Hair
 hair.tabName=时尚靓发

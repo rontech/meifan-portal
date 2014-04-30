@@ -235,3 +235,77 @@ function replace(s,dest){
     }
     return cnt;
 }
+
+/**
+ * TODO for auto show form condition.
+ */
+
+function moreExpandValue(obj,type){
+	var el = $(obj)
+	el.css('display','none');
+	el.next().css('display','block');
+	var txt = '.'+type;
+	$(txt).removeClass('hide_li').addClass('dibBL');
+}
+
+function lessExpandValue(obj,type){
+	var el = $(obj)
+	el.css('display','none');
+	el.prev().css('display','block');
+	var txt = '.'+type;
+	$(txt).removeClass('dibBL').addClass('hide_li');
+}
+
+function checkHideOption(){
+	 var salonServiceType_hide = $('.salonServiceType_hide');
+	 salonServiceType_hide.each(function(i){
+	    	if($(this).children(':checked').length>0){
+	    		$('.salonServiceType_hide').removeClass('hide_li').addClass('dibBL');
+	    		$(this).parents('.rBox').prev().prev().prev().css('display','none');
+	    		$(this).parents('.rBox').prev().prev().css('display','block');
+	    		return;
+	    	}
+	    });
+	    
+	 var salonSalonName_hide = $('.salonSalonName_hide');
+	 salonSalonName_hide.each(function(i){
+	    	if($(this).children(':checked').length>0){
+	    		$('.salonSalonName_hide').removeClass('hide_li').addClass('dibBL');
+	    		$(this).parents('.rBox').prev().prev().prev().css('display','none');
+	    		$(this).parents('.rBox').prev().prev().css('display','block');
+	    		return;
+	    	}
+	    });  
+
+	 var salonPriceRandge_hide = $('.salonPriceRandge_hide');
+	 salonPriceRandge_hide.each(function(i){
+	    	if($(this).children(':checked').length>0){
+	    		$('.salonPriceRandge_hide').removeClass('hide_li').addClass('dibBL');
+	    		$(this).parents('.rBox').prev().prev().prev().css('display','none');
+	    		$(this).parents('.rBox').prev().prev().css('display','block');
+	    		return;
+	    	}
+	    });
+
+	 var salonOtherCon_hide = $('.salonOtherCon_hide');
+	 salonOtherCon_hide.each(function(i){
+	    	if($(this).children(':checked').length>0){
+	    		$('.salonOtherCon_hide').removeClass('hide_li').addClass('dibBL');
+	    		$(this).parents('.rBox').prev().prev().prev().css('display','none');
+	    		$(this).parents('.rBox').prev().prev().css('display','block');
+	    		return;
+	    	}
+	    });
+	 var minPrice = $('#lowPrice').val();
+     var maxPrice = $('#highPrice').val();
+     if(minPrice != '' || maxPrice !=''){
+    	 $('.salonPriceRandge_hide').removeClass('hide_li').addClass('dibBL');
+    		$(this).parents('.rBox').prev().prev().prev().css('display','none');
+    		$(this).parents('.rBox').prev().prev().css('display','block');
+    		return;
+	 }        
+}
+$(document).ready(function() {
+	setTimeout('checkHideOption()', 600);
+    
+});

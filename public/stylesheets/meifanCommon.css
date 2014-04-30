@@ -958,6 +958,11 @@ a:hover.buttons {
 	color: #fff;
 }
 
+
+div.input input[type="text"] {
+    width:200px;
+}
+
 .sl_show_xx{
 width: 120px;
 height: 20px;
