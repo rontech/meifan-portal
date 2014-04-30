@@ -999,6 +999,7 @@ salonRelax.bodySpa=全身SPA
 salonRelax.sportSpa=瘦身健美
 salonRelax.yoGa=瑜伽
 
+
 #salonSearchPage
 salonSearchPage.city = 城市
 salonSearchPage.location = 位置：
@@ -1028,4 +1029,8 @@ salonSearchPage.sortByPrice = 价格
 salonSearchPage.sortByReview = 评价
 salonSearchPage.requiredCity = 请输入城市名称
 salonSearchPage.cannotFind = 对不起，找不到
+
+#style search
+styleSearch.moreOption = 更多选项
+styleSearch.lessOption = 收起
 
