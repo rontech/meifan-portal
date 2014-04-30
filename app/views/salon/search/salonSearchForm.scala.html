@@ -2,11 +2,13 @@
 
 <head>
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanIndex.css")">
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/hotelslist_2013.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/srchConds.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/srchOption.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/searchMain.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/searchComplete.css")">
 <link rel="stylesheet" href="@routes.Assets.at("stylesheets/salon/jquery.bigautocomplete.css") type="text/css" />
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonInfo.css")">
+
 <script src="@routes.Assets.at("javascripts/swfupload/jquery-1.8.2.min.js")" type="text/javascript"></script>
 <script src="@routes.Assets.at("javascripts/jquery-1.7.2.min.js")" type="text/javascript"></script>
 <script src="@routes.Assets.at("javascripts/salonSearch/salonSearch.js")" type="text/javascript"></script>
@@ -348,10 +350,10 @@
 <!--↓ Sort by Conditions.-->
 <div class="listMain sort" method="sortArea">
     <ul id="sortConditions">
-        <input id="sortKey" name="sortKey" type="hidden" value="" />
+        <input id="selSortKey" name="sortByConditions.selSortKey" type="hidden" value="price" />
         <!--↓ Sort by popularity.-->
         <!-- Usually sort Desc. -->
-        @if(!searchParaForSalon.sortByConditions.sortByPopuAsc) {
+        @if(searchParaForSalon.sortByConditions.sortByPopuAsc) {
             <li class="def">
                 <label class="downl pointerCursor" onfocus="this.blur();" for="popu"
                     title="@Messages("salonSearchPage.sortTipsDef", Messages("salonSearchPage.sortByPopularity"), Messages("salonSearchPage.sortDesc"))">
@@ -372,7 +374,7 @@
 
         <!--↓ Sort by review.-->
         <!-- Usually sort Desc. -->
-        @if(!searchParaForSalon.sortByConditions.sortByReviewAsc) {
+        @if(searchParaForSalon.sortByConditions.sortByReviewAsc) {
             <li class="def">
                 <label class="downl pointerCursor" onfocus="this.blur();" for="review"
                     title="@Messages("salonSearchPage.sortTipsDef", Messages("salonSearchPage.sortByReview"), Messages("salonSearchPage.sortDesc"))">
