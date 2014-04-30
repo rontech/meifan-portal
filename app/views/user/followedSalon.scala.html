@@ -4,7 +4,13 @@
 	
     <div class="mT40">
    	  <div class="yS mainContentsSecondTitleOuter">
-	  	<h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("user.myFollowSalonsCount", followInfo.followSalon.length)</h2>
+	  	<h2 class="yS mainContentsSecondTitleInnerForAdmin">
+	  		@if(loginUserId.equals(user.id)){
+	  			@Messages("user.myFollowSalonsCount", followInfo.followSalon.length)
+	  		} else {
+	  			@Messages("user.otherFollowSalonsCount", followInfo.followSalon.length)
+	  		}
+	  	</h2>
 	  </div>
    	  <ul id="listWrapper">
    		  @followInfo.followSalon.map{salon =>

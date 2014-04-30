@@ -4,14 +4,17 @@
 	
 	<div>
 		<ul class="tab-sub">
-			<li class="fl  @if(subNavInSalon == "my-basicInfo") {selected}">
-				<a class="current-demo" href="@auth.routes.Users.myInfo">@Messages("user.basicInfo")</a>
-			</li>
-			@if(user.userTyp.equals(User.STYLIST)){		
-	            <li class="fl  @if(subNavInSalon == "my-stylistInfo") {selected}">
-					<a class="current-demo" href="@auth.routes.Stylists.stylistInfo">@Messages("user.stylistInfo")</a>
+			@if(loginUserId.equals(user.id)){
+				<li class="fl  @if(subNavInSalon == "my-basicInfo") {selected}">
+					<a class="current-demo" href="@auth.routes.Users.myInfo">@Messages("user.basicInfo")</a>
 				</li>
+				@if(user.userTyp.equals(User.STYLIST)){		
+		            <li class="fl  @if(subNavInSalon == "my-stylistInfo") {selected}">
+						<a class="current-demo" href="@auth.routes.Stylists.stylistInfo">@Messages("user.stylistInfo")</a>
+					</li>
+				}
 			}
+			
 			@if(subNavInSalon == "my-salon") {
 				<li class="fl  selected">
 					<a class="current-demo" href="@noAuth.routes.Stylists.mySalonFromStylist(user.id)">@Messages("stylistMag.mySalon")</a>
@@ -34,14 +37,20 @@
 					}
 				}
 			}
-            <li class="fl  @if(subNavInSalon == "my-changePwd") {selected}">
-				<a class="current-demo" href="@auth.routes.Users.password"> @Messages("user.changePassword")</a>
-			</li>
-			@if(user.userTyp.equals(User.STYLIST)){	
-				<li class="fl  @if(subNavInSalon == "my-changeImage") {selected}">
-					<a class="current-demo" href="@auth.routes.Users.changeImage">@Messages("user.changeImage")</a>
+			@if(loginUserId.equals(user.id)){
+				<li class="fl  @if(subNavInSalon == "my-changePwd") {selected}">
+					<a class="current-demo" href="@auth.routes.Users.password"> @Messages("user.changePassword")</a>
 				</li>
-			}			
+				@if(user.userTyp.equals(User.STYLIST)){	
+					<li class="fl  @if(subNavInSalon == "my-changeImage") {selected}">
+						<a class="current-demo" href="@auth.routes.Stylists.updateStylistImage("stylist")">@Messages("stylistMag.changeImage")</a>
+					</li>
+				} else {
+					<li class="fl  @if(subNavInSalon == "my-changeImage") {selected}">
+						<a class="current-demo" href="@auth.routes.Users.changeImage">@Messages("user.changeImage")</a>
+					</li>
+				}	
+			}
 		</ul>
 	</div>
 	@content

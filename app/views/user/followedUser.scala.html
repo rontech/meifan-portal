@@ -5,7 +5,13 @@
 	    	
 	    	<div id="content_head" class="mT40">
 	    		<div class="yS mainContentsSecondTitleOuter">
-					<h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("user.myFansCount", followInfo.follower.length)</h2>
+					<h2 class="yS mainContentsSecondTitleInnerForAdmin">
+						@if(loginUserId.equals(user.id)){
+				  			@Messages("user.myFansCount", followInfo.follower.length)
+				  		} else {
+				  			@Messages("user.otherFansCount", followInfo.follower.length)
+				  		}
+					</h2>
 				</div>
 			    <div class="MMod" id="Logs">
 			        <ul>
@@ -26,7 +32,13 @@
 	    @myFollowsMain("my-followUser", user, followInfo, loginUserId, logged) {
 			<div id="content_head" class="mT40">
 				<div class="yS mainContentsSecondTitleOuter">
-					<h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("user.myFollowUsersCount", followInfo.followUser.length)</h2>
+					<h2 class="yS mainContentsSecondTitleInnerForAdmin">
+						@if(loginUserId.equals(user.id)){
+				  			@Messages("user.myFollowUsersCount", followInfo.followUser.length)
+				  		} else {
+				  			@Messages("user.otherFollowUsersCount", followInfo.followUser.length)
+				  		}
+					</h2>
 				</div>
 			    <div class="MMod" id="Logs">
 			        <ul>

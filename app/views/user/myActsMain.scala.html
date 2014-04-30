@@ -5,7 +5,14 @@
 	<div>
 		<ul class="tab-sub">
 			<li class="fl  @if(subNavInSalon == "my-blogs") {selected}">
-				<a class="current-demo" href="@noAuth.routes.Blogs.getAllBlogsOfUser(user.userId)">@Messages("user.myBlog")</a>
+				<a class="current-demo" href="@noAuth.routes.Blogs.getAllBlogsOfUser(user.userId)">
+					@if(loginUserId.equals(user.id)){
+						@Messages("user.myBlog")
+					} else {
+						@Messages("user.otherBlog")
+					}
+					
+				</a>
 			</li>		
 		</ul>
 	</div>
