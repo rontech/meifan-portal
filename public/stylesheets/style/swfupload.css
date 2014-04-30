@@ -85,3 +85,25 @@ body{font:12px/180% Arial,Lucida,Verdana,"宋体",Helvetica,sans-serif;color:#33
 	clear:left;
 	margin-left: 180px;
 }
+
+.picDesLimit h3 {
+	display: block;
+	margin: 0 0 2px 0;
+	font-weight: 700;
+}
+.picDesLimit p {
+	margin: 0 0 15px 0;
+}
+.picDesLimit p strong {
+	color: #ff6600;
+}
+.picDesLimit {
+	padding: 15px;
+	margin: 15px 17px 0 0;
+	border: 1px solid #cce3f6;
+	background: #f5faff;
+	line-height: 20px;
+	color: #666;
+	overflow: hidden;
+	zoom: 1;
+}

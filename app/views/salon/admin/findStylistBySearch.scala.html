@@ -10,9 +10,19 @@
 	</div>
 	<div class="mysalon-stylist-search mT40">
 		<form action="@auth.routes.Salons.searchStylistById" id="getStylistForm" method="get">
-				@Messages("stylist.stylistId")<input name="searchStylistById" id="stylist-search-stylist"/>&nbsp;&nbsp;&nbsp;
+				@Messages("stylist.stylistId")<input name="searchStylistById" id="stylist-search-stylist"  onKeyDown="if (event.keyCode==13){return false;}"/>&nbsp;&nbsp;&nbsp;
 				<input type="hidden" name="salonId" id="stylist-search-salon" value="@salon.id">
+				<input type="password" style="display:none">
 				<input type="button" id="searchStylistToSubmit" value="@Messages("stylist.search")" onclick="checkStylistExist();"><br />
+				<script type="text/javascript">
+				$(document).ready(function() {
+			        $(document).keydown(function(e) {
+			        if (e.keyCode == 13) {
+			        	checkStylistExist()
+			        }
+			        });
+			    });
+				</script>
 				<span id="stylistSerchMsg" style="color:red;"></span>
 		</form>
    		<div class="tabcon hide searchStylistDisplay" data-widget="tab-content" style="display: block;">
@@ -29,7 +39,7 @@
 			    <div class="bdDotT mT5 pT5 fs10">
 			       <p class="mT10">
         			@stylist.position.map{po=>
-			           	@po.positionName&nbsp;@po.industryName
+			           	@Messages(po.industryName)&nbsp;@Messages("position."+po.positionName)
 			           }
         			</p>
 			       

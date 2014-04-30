@@ -42,6 +42,7 @@ function checkStylistExist(){
                  if(txt == 'NO'){
                 	 $('#stylistSerchMsg').text("没有发现此技师或该技师已属其它店铺，请重新输入");
                 	 $('.searchStylistDisplay').remove();
+                	 return false;
                  }
             	 
             	 
@@ -54,15 +55,6 @@ function checkStylistExist(){
      };
      xhr.send(null);
     
-}
-
-
-function butOnClick() {
-	if (event.keyCode == 13) {
-		var button = document.getElementById("searchStylistToSubmit");
-		button.click();
-		return false;
-	}
 }
 
 function checkSalonExist(){
