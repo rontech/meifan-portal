@@ -2,7 +2,9 @@
 
 @import views.html.user._
 
-	@myPageMain(navInMyPage = "my-blog", user, followInfo, loginUserId, logged) {
-		@views.html.blog.admin.blogContentOfUser(blog, user, commentList, followInfo, loginUserId, logged, blogList)
+	@myActsMain("my-blogs", user, followInfo, loginUserId, logged) {
+		<div class="mT40">
+			@views.html.blog.admin.blogContentOfUser(blog, user, commentList, followInfo, loginUserId, logged, blogList)		
+		</div>
 	}
 

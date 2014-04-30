@@ -4,20 +4,20 @@
 
 @if(status == 1){
 	@stylists.map{sty=>
-<div class="w166 mHA">
-	<div class="taC">
-	@if(stylists.length<=1){
-		@stylists.map{st =>
-			<p><a href="@noAuth.routes.Salons.getOneStylist(salon.id, st.id)">@Messages("salonAdmin.findAllStylists")</a></p>
-		}
-    }
+	<div class="w164 mHA">
+		<div class="taC">
+			@if(stylists.length<=1){
+				@stylists.map{st =>
+					<p><a href="@noAuth.routes.Salons.getOneStylist(salon.id, st.id)">@Messages("salonAdmin.findAllStylists")</a></p>
+				}
+		    }
+		</div>
 	</div>
-</div>
-<div class="mysalon-stylist-group">
+	<div class="mysalon-stylist-group">
 		<div class="mysalon-stylist-@(stylists.indexOf(sty)%4)">
 			@views.html.stylist.mySalonStylistItem(sty, salon)
 		</div>
-</div>		
+	</div>	
 	}
 }else{
 	@stylists.map{sty=>

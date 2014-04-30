@@ -1,7 +1,7 @@
 @(styles: List[models.Style], isStylist: Boolean, uId: ObjectId = new ObjectId, loginUserId: ObjectId = new ObjectId)
 @import helper._
 
-<div>
+<div class="styleList">
      @if(styles.isEmpty){
    	    <div class="bgAlertMsg mT20">
         	<p class="alertMsg">@Messages("hair.noStyleSearched")</p>
@@ -11,22 +11,22 @@
        	<table class="styleItem">
 		    <tbody>
 			<tr>
-			    <td class="vaT bdGrayR">
-				<div class="w137 mHA">
+			    <td class="vaT">
+				<div class="mHA">
 				    <div class="mT10 fs16 taM">
                     @if(isStylist){
                         @if(uId == loginUserId){
                             <a href="@auth.routes.Stylists.styleUpdateByStylist(styles(i).id)" >
-                                <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150" title=@Messages("salon.styleTitle")>
+                                <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w150 h200" title=@Messages("salon.styleTitle")>
                             </a>
                         }else {
                             <a href="@noAuth.routes.Stylists.getbackstageStyleItem(styles(i).id,styles(i).stylistId)" >
-                                <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150" title=@Messages("salon.styleTitle")>
+                                <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w150 h200" title=@Messages("salon.styleTitle")>
                             </a>
                         }
                     }else {
                          <a href="@auth.routes.Salons.getbackstageStyleItem(styles(i).id)">
-    		               <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w120 h150" title=@Messages("salon.styleTitle")>
+    		               <img src="@routes.Application.getPhoto(styles(i).stylePic(0).fileObjId)" alt="@styles(i).styleName" class="w150 h200" title=@Messages("salon.styleTitle")>
                          </a>
                     }
 				    </div>
@@ -48,7 +48,7 @@
                         @*</p>*@
                     }else {
     		            @if(uId == loginUserId){
-    					    <p>
+    					    <p class="styleBtn">
     			                <a href="@auth.routes.Stylists.styleUpdateByStylist(styles(i).id)" >@Messages("common.edit")</a>
     			                @*<a href="@auth.routes.Stylists.styleToInvalidByStylist(styles(i).id)" >@Messages("common.delete")</a>*@
     			                @*<a onclick="del('/myPage/invalidStyle/','@styles(i).id');" >@Messages("common.delete")</a>*@
