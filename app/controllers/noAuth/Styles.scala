@@ -237,5 +237,32 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
                     }
                 })
     }
+    
+    /**
+     * 前台发型Rangking内页
+     */
+    def findByRanking(styleLength: String, consumerSex: String) = StackAction { implicit request => 
+        val user = loggedIn
+        var styles: List[Style] = Nil
+        var styleAndSalons: List[StyleAndSalon] = Nil
+        if(styleLength.equals("all")) {
+            styles = Style.findByRankingAndSex(consumerSex)
+        } else {
+            styles = Style.findByRankingAndLengthForF(styleLength, consumerSex)
+        }
+        styles.map { style =>
+            val salonOne = Style.findSalonByStyle(style.stylistId)
+            salonOne match {
+                case Some(salonOne) => {
+                    val styleAndSalon = new StyleAndSalon(style, salonOne)
+                    styleAndSalons :::= List(styleAndSalon)
+                }
+                case None => null
+            }
+        }
+        //递减排序
+        val styAndSal = styleAndSalons.reverse
+        Ok(html.style.general.styleRankingResultPage(styleSearchForm, styAndSal, Style.findParaAll, user))
+    }
 
 }

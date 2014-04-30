@@ -23,6 +23,7 @@ common.requiredMsg = 不能为空
 common.checkFormore = 更多
 common.deleteMsg = 删除后无法恢复，请确认是否删除？
 common.isValidMsg = 无效后无法恢复，请确认是否无效？
+common.seat = 位
 
 # Index page
 index.mainPage=网站首页
@@ -324,14 +325,15 @@ hair.rankingVeryShort = 超短发
 hair.rankingHairSet = 盘发
 hair.rankingMrs = 成熟发型
 hair.rankingMens = 男士发型
-hair.headingAllMore = 综合排行榜  可见前20名
+hair.headingAllMore = 查看完整榜单
 hair.searchByF = 女士发型检索
 hair.searchByM = 男士发型检索
 hair.pictures=发型图片
 hair.nameRequired = 发型名必须填写
 hair.noStyleSearched = 没有找到您希望的发型！
 hair.picturedescription = 填写该发型图片描述
-
+hair.info = 发型信息
+hair.ranking = Rangking 排行
 
 # Cosmetic
 cosmetic.salon=美容沙龙
