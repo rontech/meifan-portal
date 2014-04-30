@@ -2,7 +2,6 @@
 
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0}
 body{font-size:12px;font-family:arial,SimSun,Verdana,Geneva,Helvetica;color:#131313;line-height:20px;-webkit-text-size-adjust:none}
-a{color:#001D75;text-decoration:underline}
 a:hover{color:#F30;text-decoration:none}
 table{border-collapse:collapse;border-spacing:0}
 fieldset,img{border:0}

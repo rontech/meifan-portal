@@ -188,7 +188,7 @@
         	<div class="comment_portrait">
         		<img src="@if(User.findOneById(loginUserId).equals(None) || User.findOneById(loginUserId).get.id.getTime.equals(User.findOneById(loginUserId).get.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(User.findOneById(loginUserId).get.userPics)"}" align="absmiddle" alt="" title="" class="LargePortrait">        	</div>
         	<div class="comment_form">
-        		<textarea name="content" id="wmd-input" style="width:650px;height:80px;" placeholder=""></textarea>
+        		<textarea name="content" id="wmd-input" style="width:630px;height:80px;" placeholder=""></textarea>
 				<p>
 					<button type="submit" class="blg_submit_btn" onclick="return submitForm();" style="float:right;">@Messages("blog.postComment")</button>
 					<span class="NoData" id="cmt_tip"></span>

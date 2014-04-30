@@ -129,7 +129,7 @@ position: absolute;
 	padding:0 2px;
 }
 #nav ul li a{
-	background:url(/assets/images/nav_btn.jpg) no-repeat;
+	background:url(/assets/images/nav_btn.jpg) no-repeat 0 1px;
 	width:113px;
 	height:32px;
 	line-height:32px;
