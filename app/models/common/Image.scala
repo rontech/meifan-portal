@@ -1,31 +1,27 @@
 package models
 
 import java.io.File
-import play.api.Play.current
-import play.api.PlayException
-import com.novus.salat.dao._
 import com.mongodb.casbah.gridfs.GridFS
 import com.mongodb.casbah.commons.Imports._
 import com.mongodb.casbah.MongoConnection
 import mongoContext._
 import java.io.InputStream
 import java.io.ByteArrayOutputStream
+import com.meifannet.framework.db._
+
+
+object ImageDAO extends MeifanNetDAO[Image](
+  collection = DBDelegate.db("Picture"))
 
 case class Image(
   id: ObjectId,
   file: File,
   label: String)
 
-object ImageDAO extends SalatDAO[Image, ObjectId](
-  collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-        "Configuration error",
-        "Could not find mongodb.default.db in settings")))("Picture"))
 
 object Image {
   import com.mongodb.casbah.Implicits._
-  val db = MongoConnection()("Picture")
+  val db = DBDelegate.picDB
 
   val gridFs = GridFS(db)
 

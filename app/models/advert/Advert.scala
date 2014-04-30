@@ -2,10 +2,10 @@ package models
 
 import play.api.Play.current
 import java.util.Date
-import com.novus.salat.dao._
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
+import com.meifannet.framework.db._
 
 case class Advert(
 	 id: ObjectId = new ObjectId,	
@@ -22,8 +22,8 @@ case class Advert(
 
 object Advert extends AdvertDAO
 
-trait AdvertDAO extends ModelCompanion[Advert, ObjectId] {
-  def collection = mongoCollection("Advert")
-  val dao = new SalatDAO[Advert, ObjectId](collection) {}
+trait AdvertDAO extends MeifanNetModelCompanion[Advert]{
+
+  val dao = new MeifanNetDAO[Advert](collection = loadCollection()){}
 
 }
