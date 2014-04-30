@@ -89,3 +89,15 @@ background-position: 0 -680px;
 width: 132px;
 height: 31px;
 }
+
+.bgAlertMsg {
+background-color: #F5F3EF;
+padding: 15px;
+text-align: center;
+}
+
+.alertMsg {
+font-size: 16px;
+color: #DD0000;
+font-weight: bold;
+}

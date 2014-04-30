@@ -24,7 +24,7 @@ import scala.util.matching.Regex
 case class Salon(
     id: ObjectId = new ObjectId,   	
     salonAccount: SalonAccount,
-    salonName: String,                  
+    salonName: String,
     salonNameAbbr: Option[String],      
     salonIndustry: List[String],       // Ref to Master [Industry] table.           
     homepage: Option[String],           
@@ -264,7 +264,7 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
         // salon seat numbers: Range between min and max.
         srchConds :::= List("seatNums" $lte searchParaForSalon.seatNums.maxNum $gte searchParaForSalon.seatNums.minNum)
         // City
-        srchConds :::= List(commonsDBObject("salonAddress.city" -> searchParaForSalon.city))
+        srchConds :::= List(commonsDBObject("salonAddress.city" -> searchParaForSalon.city.r))
 
         // keywords Array for Fuzzy search: will be joined with "$or" DSL operation.  
         val fuzzyRegex = convertKwdsToFuzzyRegex(searchParaForSalon.keyWord.getOrElse(""))(x => (".*" + x + ".*|"))
@@ -299,24 +299,76 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
  
         // exact regex keyword which used to get the exact words matched to the keyword.
         val exactRegex = convertKwdsToFuzzyRegex(searchParaForSalon.keyWord.getOrElse(""))(x => (x + "|")) 
+        // from which fields the keyword be searched.
         for(sl <- salons) {
+          // get the lowest price for cut.
+          val priceOfCut = Salon.getLowestPriceOfCut(sl.id)
           // get top 2 styles of salon.
           val selStyles = Style.getBestRsvedStylesInSalon(sl.id, 2)
           val selCoupons = Coupon.findBySalon(sl.id)
           val rvwStat = Comment.getGoodReviewsRate(sl.id)
           // get the keywords hit strings.
-          var kwsHits: List[String] = getKeywordsHitStrs(targetFields, fuzzyRegex, exactRegex)
-          if(kwsHits.isEmpty) {
-            kwsHits = getSalonPresentationAbbr(sl.picDescription)
-          }
+          var kwsHits: List[String] = getKeywordsHit(sl, targetFields, exactRegex)
 
           salonSrchRst :::= List(SalonGeneralSrchRst(salonInfo = sl, selectedStyles = selStyles, selectedCoupons = selCoupons,
-              reviewsStat = rvwStat, keywordsHitStrs = kwsHits))
+              priceForCut = priceOfCut, reviewsStat = rvwStat, keywordsHitStrs = kwsHits))
         }
 
-        salonSrchRst        
+        // Sort the result by sort conditions.
+        sortRstByConditions(salonSrchRst, searchParaForSalon.sortByConditions) 
     }
 
+
+    /**
+     * Get keywords hit result.
+     */
+    def getKeywordsHit(sl: Salon, fields: Array[String], reg: Regex): List[String] = {
+      var kwsHits: List[String] = Nil
+      // when it is searched without keyword, list the .
+      if(reg.toString == "") {
+        kwsHits = getSalonPresentationAbbr(sl.picDescription)
+      } else {
+        kwsHits = getKeywordsHitStrs(sl, fields, reg) 
+      }
+
+      kwsHits
+    }
+
+    /**
+     * Sort the search result by required order conditions.
+     */
+    def sortRstByConditions(orgRst: List[SalonGeneralSrchRst], sortConds: SortByConditions): List[SalonGeneralSrchRst] = {
+
+      // TODO should we consider the Group by functions to implement the sort function like that 
+      // order by A asc, B desc, C asc.....
+      var sortRst: List[SalonGeneralSrchRst] = Nil
+
+      // Sort By price.
+      if(sortConds.selSortKey == "price") {
+        sortRst = orgRst.sortBy(_.priceForCut)
+        if(!sortConds.sortByPriceAsc) {
+          sortRst = sortRst.reverse 
+        }
+      }
+
+      // Sort By popularity.
+      if(sortConds.selSortKey == "popu") {
+        sortRst = orgRst.sortBy(_.reviewsStat.reviewTotalCnt)
+        if(!sortConds.sortByPopuAsc) {
+          sortRst = sortRst.reverse 
+        }
+      }
+
+      // Sort By review.
+      if(sortConds.selSortKey == "review") {
+        sortRst = orgRst.sortBy(_.reviewsStat.reviewRate)
+        if(!sortConds.sortByReviewAsc) {
+          sortRst = sortRst.reverse 
+        }
+      }
+
+      sortRst
+    }
  
     /**
      *
@@ -383,23 +435,21 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
      *   # Check if the fields contains the keyword by fuzzy match, but get the match slice by exact match. #
      *
      */
-    def getKeywordsHitStrs(targetFields: Array[String], fuzzyKwds: Regex, exactKwds: Regex): List[String] = {
+    def getKeywordsHitStrs(salon: Salon, targetFields: Array[String], exactKwds: Regex): List[String] = {
       var fuzzyHits: List[String] = Nil
-
       for(tgtf <- targetFields) { 
         var hit: String = ""
 
-        if((fuzzyKwds.toString != "") && (exactKwds != "")) {
-          val fzKws = commonsDBObject(tgtf -> fuzzyKwds)
+        if(exactKwds != "") {
   
           // TODO can below done with reflection?
-          if(tgtf == "salonName") hit = dao.find(fzKws).map {_.salonName}.mkString
-          if(tgtf == "salonNameAbbr") hit = dao.find(fzKws).map {_.salonNameAbbr.getOrElse("")}.mkString
-          if(tgtf == "salonDescription") hit = dao.find(fzKws).map {_.salonDescription.getOrElse("")}.mkString
+          //if(tgtf == "salonName") hit = salon.salonName
+          //if(tgtf == "salonNameAbbr") hit = salon.salonNameAbbr.getOrElse("")
+          if(tgtf == "salonDescription") hit = salon.salonDescription.getOrElse("")
           // for a salon valid, it is impossible that field [picDescription] is null.
-          if(tgtf == "picDescription.picTitle") hit = dao.find(fzKws).map {_.picDescription.get.picTitle}.mkString
-          if(tgtf == "picDescription.picContent") hit = dao.find(fzKws).map {_.picDescription.get.picContent}.mkString
-          if(tgtf == "picDescription.picFoot") hit = dao.find(fzKws).map {_.picDescription.get.picFoot}.mkString
+          if(tgtf == "picDescription.picTitle") hit = salon.picDescription.get.picTitle
+          if(tgtf == "picDescription.picContent") hit = salon.picDescription.get.picContent
+          if(tgtf == "picDescription.picFoot") hit = salon.picDescription.get.picFoot
   
           // Use the Regex type method to get the first hit words in the target string.
           var firstHit = exactKwds.findFirstIn(hit)
@@ -411,12 +461,16 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
               // cut out the search rst.
               if(!mtch.isEmpty) {
                 var ht: String = "" 
-                if((hit.length - mtch.start) < 10) {
-                  ht = makeAbbrStr(hit, mtch.start + hit.length - 30, mtch.start + firstHit.getOrElse("").length)
-                } else {
+                if(hit.length < 10) {
+                  ht = makeAbbrStr(hit, 0, hit.length)
+                } else if((hit.length / 2) > mtch.start) {
                   ht = makeAbbrStr(hit, mtch.start, mtch.start + 30)
+                } else {
+                  ht = makeAbbrStr(hit, mtch.start + hit.length - 30, mtch.start + firstHit.getOrElse("").length)
                 }
-                fuzzyHits :::= List(ht) 
+                
+                if(!ht.isEmpty)
+                  fuzzyHits :::= List(ht) 
               }
             } 
           }
@@ -445,7 +499,10 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
      * Make Abbr string for salon's various names and descriptions.
      */
     def makeAbbrStr(source: String, start: Int, end: Int): String = {
-        "..." + source.slice(start, end) + "..." 
+        if(!source.isEmpty && start < end)
+            "..." + source.slice(start, end) + "..." 
+        else 
+            ""
     }
 
 
@@ -521,7 +578,7 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
             "".r
         } else {
             // when keyword is exist, convert it to regular expression.
-            val kwsStr = kws.split(" ").map { x => f(x.trim)}.mkString
+            val kwsStr = kws.split(" ").map { x => if(!x.trim.isEmpty) f(x.trim)}.mkString
             if(kwsStr.endsWith("|")) 
                 kwsStr.dropRight(1).r
             else

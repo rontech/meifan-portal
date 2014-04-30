@@ -1,6 +1,7 @@
 @(styleAddForm: Form[Style], stylePara : models.StylePara, stylists: List[models.Stylist], isStylist: Boolean)
 
 @import helper._
+@import helper.twitterBootstrap._
 
 <head>
     <div>
@@ -14,10 +15,10 @@
 @if(isStylist){
     <body>
         <div>
-        @form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm",'name -> "styleForm"){
+        @helper.form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "styleAddForm",'name -> "styleForm"){
             <div>
                 @Messages("hair.styleName")
-                @inputText(styleAddForm("styleName"), '_label -> None, 'id -> "StyleName", 'class ->  "font1",'_help -> Messages("hair.nameRequired"))
+                @inputText(styleAddForm("styleName"), '_label -> None, 'id -> "styleName", 'class ->  "font1",'_help -> Messages("hair.nameRequired"))
             </div>
             <div>
             <fieldset class="addOtherStylePic">
@@ -34,7 +35,7 @@
             </fieldset>
             </div>
             <div>
-                <input type = "hidden" class="" name = "stylistId" id="StylistId" field = styleAddForm("stylistId") value = "@stylists(0).stylistId"> 
+                <input type = "hidden" class="" name = "stylistId" id="stylistId" field = styleAddForm("stylistId") value = "@stylists(0).stylistId">
             </div>
             <div align="left">  
             @input(field = styleAddForm("styleLength"),'_label ->Messages("hair.styleLength")){(id,name,value,args) =>
@@ -95,13 +96,13 @@
             </div>
             <div>
                 @Messages("hair.assessFromStylist")
-                @textarea(styleAddForm("description"), '_label -> None, 'id -> "Description", 'rows -> 4, 'cols -> 40, 'class ->  "font1",'_help -> Messages("stylistAdmin.selectField"))
+                @textarea(styleAddForm("description"), '_label -> None, 'id -> "description", 'rows -> 4, 'cols -> 40, 'class ->  "font1",'_help -> Messages("stylistAdmin.selectField"))
             </div>
             <div class="demo">
                 <div class="logoupload">
                     <div class="btnbox">
                         @Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
-                        <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
+                        <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImage")</a>
                     </div>
                     <div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
                     
@@ -117,7 +118,7 @@
                 </div>
             </div>
             <div align="center">
-                <input type="button" onclick="styleForm();" class = "buttons" value=@Messages("common.submit")>
+                <input type="button" onclick="checksForStyle();" class = "buttons" value=@Messages("common.submit")>
             </div>
          }
         </div>
@@ -126,7 +127,7 @@
 }else {
     <body>
         <div>
-        @form(auth.routes.Salons.newStyleAddBySalon, 'id -> "styleAddForm"){
+        @form(auth.routes.Salons.newStyleAddBySalon, 'id -> "styleAddForm", 'name -> "styleForm"){
             <div>
                 @Messages("hair.styleName")<input type = "text" class="" name = "styleName" value = "">
             </div>
@@ -232,7 +233,7 @@
                 </div>
             </div>
             <div align="center">
-                <input type="submit" class = "buttons" value=@Messages("common.submit")>
+                <input type="button" onclick="checksForStyle();" class = "buttons" value=@Messages("common.submit")>
             </div>
          }
         </div>
@@ -272,8 +273,6 @@
     <script type="text/javascript" src="@routes.Assets.at("javascripts/swfupload/handlers.js")"></script>
     <script src="@routes.Assets.at("javascripts/ajaxfileupload.js")" type="text/javascript"></script>
     <script type="text/javascript" charset="utf-8">
-        var ITEM_TYPE_NAME = "name";
-        var ITEM_FIND_STYLE = "style";
         $('.removeOptContactMethod').live('click', function(e) {
             $(this).parents('.optContactMethod').remove()
             renumber()

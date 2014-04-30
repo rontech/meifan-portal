@@ -896,6 +896,10 @@ margin: 15px 5px;
 	text-decoration: line-through;
 }
 
+.pointerCursor {
+  cursor: pointer;
+}
+
 .mainContentsSecondTitleInnerForAdmin {
 line-height: 21px;
 border-bottom: 1px solid #666666;

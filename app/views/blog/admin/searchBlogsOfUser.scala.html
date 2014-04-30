@@ -3,16 +3,21 @@
 
 	@myActsMain("my-blogs", user, followInfo, loginUserId, logged) {
 		
-		<div class="mT40 blogList">
-			@if(loginUserId.equals(user.id)){		
-	   			<a href = "@auth.routes.Blogs.newBlog" class="newBlog"><input type="button"  class="buttons" value="@Messages("blog.newBlog")" ></a>
-	    	}
-			
+	<div class="mT40 blogList">
+		@if(loginUserId.equals(user.id)){		
+   			<a href = "@auth.routes.Blogs.newBlog" class="newBlog"><input type="button" class="buttons" value="@Messages("blog.newBlog")" ></a>
+    	}
+    			
+		@if(blogList.isEmpty){
+			<div class="bgAlertMsg mT20">
+        		<p class="alertMsg">@Messages("user.notWriteBlog")</p>
+    		</div>
+		}else{
 			@blogList.map { blog =>
-			<li class="Blog">
-				@views.html.blog.admin.blogItemOfUser(blog, logged)				
-			</li>
-			}
-		</div>
-	
+				<li class="Blog">
+					@views.html.blog.admin.blogItemOfUser(blog, logged)				
+				</li>
+			}	
+		}
+	</div>
 	}

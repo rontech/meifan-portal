@@ -1,6 +1,7 @@
 @(salonId: ObjectId, menuForm: Form[Menu], services: List[Service])
 
 @import helper._
+@import helper.twitterBootstrap._
 
 
 <div>
@@ -11,69 +12,71 @@
 	</ul>
 </div>
 <div class="mT40">
-	@form(auth.routes.Menus.createMenu, 'id -> "menuForm", 'name -> "menuForm") {
-		@if(menuForm.hasGlobalErrors) { 
-	          <div>
-	              <p>@menuForm.globalError.get.message<p>
-	          </div>
-	     }
-		
-		<input type="hidden" name="salonId" value="@salonId" />
-		<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-		    <tbody>
-		        <tr>
-		            <th>
-		                <!-- -->
-		                <div class="dibBL vaM w154">
-		                	<font class="cR">*</font>
-		                   	@Messages("menu.menuName")
-		                </div>
-		            </th>
-		            <td>
-		                <div class="inputField">
-		                	@inputText(menuForm("menuName"), '_label -> None, '_help -> Messages(""),'id -> "menuName",
-							'_error -> menuForm("menuName").error.map(_.withMessage(Messages("menu.menuNameRequired"))))
-		                </div>
-		            </td>
-		        </tr>
-		        <tr>
-		            <th>
-		                <!-- -->
-		                <div class="dibBL vaM w154">
-		                	<font class="cR">*</font>
-		                   	@Messages("coupon.serviceArea")
-		                </div>
-		            </th>
-		            <td>
-		                <div class="inputField">
-		                	@input(field = menuForm("serviceItems"), args = '_label ->None, '_error -> menuForm("serviceItems").error.map(_.withMessage(Messages("menu.menuServiceRequired")))){(id,name,value,args) =>
-							 	@for(service <- services) {
-							 		<div class="serviceItemArea">
-							 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id", value = "@service.id">@service.serviceName
-							 		</div>
-							 	}
-	                            <dd class="info"></dd>
-							}
-		                </div>
-		            </td>
-		        </tr>
-		        <tr>
-		            <th>
-		                <!-- -->
-		                <div class="dibBL vaM w154">
-		                	<font class="cR">*</font>
-		                   	@Messages("coupon.description")
-		                </div>
-		            </th>
-		            <td>
-		                <div class="inputField">
-		                	@textarea(menuForm("description"), '_label -> None, 'rows -> 3, 'cols -> 50, 'placeholder -> Messages("coupon.couponDiscriptionMsg"),'_help -> Messages(""),
-							 'id -> "description", '_error -> menuForm("description").error.map(_.withMessage(Messages("menu.menuDiscriptionErr"))))
-		                </div>
-		            </td>
-		        </tr>
-		     </tbody>
-		</table>
+@helper.form(auth.routes.Menus.createMenu, 'id -> "menuForm", 'name -> "menuForm") {
+	@if(menuForm.hasGlobalErrors) { 
+          <div>
+              <p>@menuForm.globalError.get.message<p>
+          </div>
+     }
+	
+	<input type="hidden" name="salonId" value="@salonId" />
+	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+	    <tbody>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("menu.menuName")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@inputText(menuForm("menuName"),
+                            '_label -> None)
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.serviceArea")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@input(field = menuForm("serviceItems"),
+                            '_label ->None){(id,name,value,args) =>
+						 	@for(service <- services) {
+						 		<div class="serviceItemArea">
+						 			<input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id" value = "@service.id">@service.serviceName
+						 		</div>
+						 	}
+						}
+	                </div>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>
+	                <!-- -->
+	                <div class="dibBL vaM w154">
+	                	<font class="cR">*</font>
+	                   	@Messages("coupon.description")
+	                </div>
+	            </th>
+	            <td>
+	                <div class="inputField">
+	                	@textarea(menuForm("description"),
+                            '_label -> None,
+                            'rows -> 3,
+                            'cols -> 40)
+	                </div>
+	            </td>
+	        </tr>
+	     </tbody>
+	</table>
 	
 		<div class="btnArea">
 			<input type = "button" class = "buttons" value="@Messages("common.submit")" onclick="checksForMenu();">

@@ -1,23 +1,32 @@
 @(salon: Salon)
 
-<dl class="cFix pV5 pL10">
+<div class="faciGrp">
     @if(salon.salonFacilities.map(fac=>fac.canOnlineOrder).getOrElse(false)) {
-        <dt class="fl fs10 fgLGray2 b mR5">@Messages("salon.canOnlineOrderValue")</dt>
-    }
-    @if(salon.salonFacilities.map(fac=>fac.canImmediatelyOrder).getOrElse(false)) {
-        <dd class="fl iS offL listImmediately mR5">@Messages("salon.canImmediatelyOrderValue")</dd>
+        <div class="faciUnit canOnline">@Messages("salon.canOnlineOrderValue")</div>
     }
     @if(salon.salonFacilities.map(fac=>fac.canNominateOrder).getOrElse(false)) {
-        <dd class="fl iS offL listNominate mR5">@Messages("salon.canNominateOrderValue")</dd>
+        <div class="faciUnit canNominate">@Messages("salon.canNominateOrderValue")</div>
     }
     @if(salon.salonFacilities.map(fac=>fac.canCurntDayOrder).getOrElse(false)) {
-        <dd class="fl iS offL listTheDay mR5">@Messages("salon.canCurntDayOrderValue")</dd>
+        <div class="faciUnit canCurntDay">@Messages("salon.canCurntDayOrderValue")</div>
     }
-    @if(salon.salonFacilities.map(fac=>fac.isPointAvailable).getOrElse(false)) {
-        <dd class="fl iS offL listPoint mR5">@Messages("salon.isPointAvaliableValue")</dd>
+    @if(salon.salonFacilities.map(fac=>fac.canImmediatelyOrder).getOrElse(false)) {
+        <div class="faciUnit canImmed">@Messages("salon.canImmediatelyOrderValue")</div>
+    }
+    @if(salon.salonFacilities.map(fac=>fac.isPosAvailable).getOrElse(false)) {
+        <div class="faciUnit posAvail">@Messages("salon.posAvailable")</div>
+    }
+    @if(salon.salonFacilities.map(fac=>fac.hasParkingNearby).getOrElse(false)) {
+        <div class="faciUnit hasPark">@Messages("salon.hasParkingNearByMsg")</div>
+    }
+    @if(salon.salonFacilities.map(fac=>fac.isWifiAvailable).getOrElse(false)) {
+        <div class="faciUnit wifiAvail">@Messages("salon.isWifiAvailable")</div>
     }
     @if(salon.salonFacilities.map(fac=>fac.canMaleUse).getOrElse(false)) {
-        <dd class="fl iS offL listMensOK mR5">@Messages("salon.canMaleUseValue")</dd>
+        <div class="faciUnit canMaleUse">@Messages("salon.canMaleUseValue")</div>
     }
-</dl>
+    @if(salon.salonFacilities.map(fac=>fac.isPointAvailable).getOrElse(false)) {
+        <div class="faciUnit pointAvail">@Messages("salon.isPointAvailValue")</div>
+    }
+ </div>
  

@@ -19,11 +19,12 @@ import scala.Some
 import models.StylistApply
 import models.OptContactMethod
 import models.Address
+import play.api.templates.Html
 
 object Users extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl {
 
   val loginForm = Form(mapping(
-    "userId" -> nonEmptyText,
+    "userId" -> text,
     "password" -> text)(User.authenticate)(_.map(u => (u.userId, "")))
     .verifying(Messages("user.loginErr"), result => result.isDefined))
 
@@ -44,10 +45,10 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   def userForm(id: ObjectId = new ObjectId) = Form(
     mapping(
       "id" -> ignored(id),
-      "userId" -> nonEmptyText(6, 16),
-      "nickName" -> nonEmptyText(1,10),
+      "userId" -> text,
+      "nickName" -> text,
       "password" -> text,
-      "sex" -> nonEmptyText,
+      "sex" -> text,
       "birthDay" -> optional(date),
       "address" ->  optional(mapping(
          "province" -> text,
@@ -58,14 +59,14 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
           address => Some((address.province,address.city,address.region))
       }),
       "userPics" -> text,
-      "tel" -> optional(text.verifying(Messages("user.telError"), tel => tel.matches("""^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$"""))),
-      "email" -> email,
+      "tel" -> optional(text),
+      "email" -> text,
       "optContactMethods" -> seq(
         mapping(
           "contMethodType" -> text,
           "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
       "socialStatus" -> optional(text),
-      "registerTime" -> date,
+      "registerTime" -> longNumber,
       "userTyp" -> text,
       "userBehaviorLevel" ->text,
       "point" ->number,
@@ -177,7 +178,8 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
     val loginUser = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     Users.userForm().bindFromRequest.fold(
-      errors => BadRequest(views.html.user.Infomation(errors, loginUser, followInfo)),
+      //errors => BadRequest(views.html.user.Infomation(errors, loginUser, followInfo)),
+    errors => BadRequest(Html(errors.toString)),
       {
         user =>
           User.save(user.copy(id = loginUser.id), WriteConcern.Safe)
@@ -287,7 +289,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
           Salon.findByAccountId(stylistApply.salonAccountId).map{salon=>
             val applyRecord = new SalonStylistApplyRecord(new ObjectId, salon.id, user.id, 1, new Date, 0, None)
             SalonStylistApplyRecord.save(applyRecord)
-            Redirect(controllers.auth.routes.Stylists.updateStylistImage)
+            Redirect(controllers.auth.routes.Stylists.updateStylistImage("user"))
           }getOrElse{
         	  NotFound
           }
