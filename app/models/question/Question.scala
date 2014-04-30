@@ -1,5 +1,6 @@
 package models
 
+
 import com.mongodb.casbah.commons.Imports._
 import mongoContext._
 import se.radley.plugin.salat.Binders._

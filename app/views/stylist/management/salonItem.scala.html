@@ -23,7 +23,8 @@
 						           @*<a href="@auth.routes.Stylists.removeSalon(salon.id)">
 	    								@Messages("stylist.removeSalon")
 	    						   </a>*@
-	    						   <a href="" class="removeSalon" data-salon="@salon.id" >@Messages("stylist.removeSalon")</a>
+	    						   @*<a href="" class="removeSalon" data-salon="@salon.id" >@Messages("stylist.removeSalon")</a>*@
+	    						   <a onclick="del('@auth.routes.Stylists.removeSalon(salon.id)','@Messages("stylist.rmSalon")');">@Messages("stylist.removeSalon")</a>
 					            }
 					        }    
 							</p>
@@ -128,9 +129,11 @@
 				 	@if((!SalonAndStylist.checkSalonAndStylistValid(salon.id, user.id)) && (isStylistApply == false)){
 						<p>
 					    	@*<a href="@auth.routes.Stylists.agreeSalonApply(salon.id)">@Messages("stylist.acceptApply")</a>|*@
-					    	<a href="" class="agreeSalonApply_@salon.id buttons applyToStylist" data-salon="@salon.id" >@Messages("stylist.acceptApply")</a>
+					    	@*<a href="" class="agreeSalonApply_@salon.id" data-salon="@salon.id" >@Messages("stylist.acceptApply")</a>|*@
+					    	<a onclick="del('@auth.routes.Stylists.agreeSalonApply(salon.id)','@Messages("stylist.actApply")');">@Messages("stylist.acceptApply")</a>|
 					    	@*<a href="@auth.routes.Stylists.rejectSalonApply(salon.id)">@Messages("stylist.rejectApply")</a>*@
-					    	<a href="" class="rejectSalonApply_@salon.id buttons applyToStylist" data-salon="@salon.id" >@Messages("stylist.rejectApply")</a>
+					    	@*<a href="" class="rejectSalonApply_@salon.id" data-salon="@salon.id" >@Messages("stylist.rejectApply")</a>*@
+					    	<a onclick="del('@auth.routes.Stylists.rejectSalonApply(salon.id)','@Messages("stylist.rjtApply")');">@Messages("stylist.rejectApply")</a>
 				    	</p>          
 					}
 					@*技师取消自己的申请*@ 
@@ -138,14 +141,16 @@
 						@*<a href="@auth.routes.Stylists.cancelMyApplying">
     						<p>@Messages("stylistMag.cancelApplying")</p>
     					</a>*@
-    					<a href="" class="cancelApplying buttons applyToStylist" >@Messages("stylistMag.cancelApplying")</a>
+    					@*<a href="" class="cancelApplying" >@Messages("stylistMag.cancelApplying")</a>*@
+    					<a onclick="del('@auth.routes.Stylists.cancelMyApplying','@Messages("stylistMag.calApplying")');">@Messages("stylistMag.cancelApplying")</a>
 					}
 					@*技师搜索店铺后，申请*@
 					@if((!SalonAndStylist.checkSalonAndStylistValid(salon.id, user.id)) && isStylistApply && isStylistSearch){
 						@*<a href="@auth.routes.Stylists.toApplySalon(salon.id)">
 					    	<p>@Messages("stylistMag.wantToApply")</p>
 					    </a>*@
-					    <a href="" class="toApplySalon_@salon.id buttons applyToStylist" data-salon="@salon.id">@Messages("stylistMag.wantToApply")</a>
+					    @*<a href="" class="toApplySalon_@salon.id" data-salon="@salon.id" >@Messages("stylistMag.wantToApply")</a>*@
+					    <a onclick="del('@auth.routes.Stylists.toApplySalon(salon.id)','@Messages("stylistMag.wtApply")');">@Messages("stylistMag.wantToApply")</a>
 					}
 				}
 			</div>
