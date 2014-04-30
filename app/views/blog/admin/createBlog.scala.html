@@ -5,30 +5,38 @@
 
 <script src="@routes.Assets.at("javascripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
 
-@myPageMain(navInMyPage = "my-blog", user, followInfo, user.id, true) {
-  @form(action = auth.routes.Blogs.writeBlog, 'id -> "blog-form") {
-      @*<fieldset>*@
-      <div class="write-blog">
-        @inputText(newBlogForm("title"),'_label -> Messages("blog.title"), '_error -> newBlogForm("title").error.map(_.withMessage(Messages("blog.titleErr"))), '_help -> "")             
-		@textarea(newBlogForm("content"), '_label -> Messages("blog.content"), 'rows -> 5, 'cols -> 20, '_error -> newBlogForm("content").error.map(_.withMessage(Messages("blog.contentErr"))), '_help -> "")
-		@select(
-	        field = newBlogForm("blogCategory"), 
-	        options = options(listBlogCategory),
-	        '_label -> Messages("blog.blogCategory")
-        )	             
-        @*@inputText(newBlogForm("blogPics"), args = '_label -> "上传图片")*@   
-		@inputText(newBlogForm("tags"), args = '_label -> Messages("blog.tags"), 'placeholder -> Messages("blog.placeholder"), 'name -> "tags")
-		@inputRadioGroup(field = newBlogForm("isVisible").copy(value=newBlogForm("isVisible").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> Messages("blog.visible"), "false" -> Messages("blog.unVisible")) , '_label -> Messages("blog.isVisible"), '_help -> "")
-		@if(user.userTyp.equals(User.STYLIST)) {
-		  @inputRadioGroup(field = newBlogForm("pushToSalon").copy(value=newBlogForm("pushToSalon").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> Messages("blog.pushToSalon"), "false" -> Messages("blog.notPushToSalon")) , '_label -> Messages("blog.isPushToSalon"), '_help -> "")
-		}
-		@inputRadioGroup(field = newBlogForm("allowComment").copy(value=newBlogForm("allowComment").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> Messages("blog.allowComment"), "false" -> Messages("blog.notAllowComment")) , '_label -> Messages("blog.isAllowComment"), '_help -> "")
-        <input type="submit" class = "buttons" value="@Messages("blog.newBlog")" >
-      </div>
-     @*</fieldset>*@
-     
-     <script>
-     	CKEDITOR.replace( 'content' );
-     </script>
-   }
+@myPageMain("my-acts", user, followInfo, user.id, true) {
+	<div>
+		<ul class="tabInfoTitle">
+			<li class="fl selected">
+				@Messages("blog.newBlog")
+			</li>		
+		</ul>
+	</div>
+	<div class="mT40 blogContents">
+		@form(action = auth.routes.Blogs.writeBlog, 'id -> "blog-form") {
+	      <div class="write-blog">
+	        @inputText(newBlogForm("title"),'_label -> Messages("blog.title"), '_error -> newBlogForm("title").error.map(_.withMessage(Messages("blog.titleErr"))), '_help -> "")             
+			@textarea(newBlogForm("content"), '_label -> Messages("blog.content"), 'rows -> 5, 'cols -> 20, '_error -> newBlogForm("content").error.map(_.withMessage(Messages("blog.contentErr"))), '_help -> "")
+			@select(
+		        field = newBlogForm("blogCategory"), 
+		        options = options(listBlogCategory),
+		        '_label -> Messages("blog.blogCategory")
+	        )	             
+	        @*@inputText(newBlogForm("blogPics"), args = '_label -> "上传图片")*@   
+			@inputText(newBlogForm("tags"), args = '_label -> Messages("blog.tags"), 'placeholder -> Messages("blog.placeholder"), 'name -> "tags")
+			<div class="blogSet"><font>@Messages("blog.blogSet")</font></div>
+			@inputRadioGroup(field = newBlogForm("isVisible").copy(value=newBlogForm("isVisible").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> Messages("blog.visible"), "false" -> Messages("blog.unVisible")) , '_label -> Messages("blog.isVisible"), '_help -> "")
+			@if(user.userTyp.equals(User.STYLIST)) {
+			  @inputRadioGroup(field = newBlogForm("pushToSalon").copy(value=newBlogForm("pushToSalon").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> Messages("blog.pushToSalon"), "false" -> Messages("blog.notPushToSalon")) , '_label -> Messages("blog.isPushToSalon"), '_help -> "")
+			}
+			@inputRadioGroup(field = newBlogForm("allowComment").copy(value=newBlogForm("allowComment").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> Messages("blog.allowComment"), "false" -> Messages("blog.notAllowComment")) , '_label -> Messages("blog.isAllowComment"), '_help -> "")
+	        <input type="submit" class = "buttons" value="@Messages("blog.newBlog")" >
+	      </div>
+	     
+	     <script>
+	     	CKEDITOR.replace( 'content' );
+	     </script>
+	   }
+	</div>
 }

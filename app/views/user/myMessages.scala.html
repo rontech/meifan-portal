@@ -1,27 +1,38 @@
 @(letters: List[UserLetter], count: Long, pages: Int, page:Int, user:User, followInfo:FollowInformation)
 
-@myPageMain(navInMyPage = "messages", user, followInfo, user.id, true){
-	<div class="content-core">
+@myRelevantsMain("my-messages", user, followInfo, user.id, true){
+	<div class="content-core mT40">
+		<div class="yS mainContentsSecondTitleOuter">
+			<h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("user.messageList")</h2>
+		</div>
 		<input type="hidden" name="page" id="page" value="@page">
 		<input type="hidden" name="totalPage" id="totalPage" value="@pages">
-		<table id="messageMain" border="1px solid black" cellspacing="0" cellpadding="0">
-			<thead>
-				<tr>
-					<td>发件人</td>
-					<td>标题</td>
-					<td>发送时间</td>
-				</tr>
-			</thead>
-			<tbody>
-				@letters.map{letter=>
-				<tr>
-					<td>@letter.userMessage.senderNm</td>                        
-					<td><a href="@auth.routes.UserLetters.showMessage(letter.userMessage.id)">@letter.message.title</a></td>
-					<td>@letter.userMessage.createdTime.format("yyyy-MM-dd hh:mm")</td>
-				</tr>
-				}
-			</tbody>
-		</table>
+		
+		@letters.map{letter=>
+			<div class="WB_msg_type">
+				<div class="msg_list_node S_line2 clearfix">
+		            <div class="id_avatar">
+			            <a href="@noAuth.routes.Users.userPage(User.findOneByNickNm(letter.userMessage.senderNm).get.userId)">
+		    	 			<img src="@routes.Application.getPhoto(User.findOneByNickNm(letter.userMessage.senderNm).get.userPics)" alt="@letter.userMessage.senderNm"
+		    	 				 title="@letter.userMessage.senderNm" align="absmiddle" class = "SmallPortrait" width="50" height="50"/>
+		                </a>
+		            </div>
+		            <div class="msg_main">
+		                <div class="W_f14 W_fb msg_title">
+		                	<a href="@auth.routes.UserLetters.showMessage(letter.userMessage.id)">@letter.message.title</a>
+		                </div>
+		                
+		                <div class="W_f14 msg_detail S_txt2">
+		                	@letter.message.content.slice(0,100) ...
+		                </div>
+		            </div>
+		            <div class="msg_ctrls">
+		                <span class="S_txt2">@letter.userMessage.createdTime.format("yyyy-MM-dd HH:mm")</span>
+		            </div>
+		        </div>
+			</div>
+		}
+		
 		<div class="page-limit">
 			<a href="javascript:toUpPage();">上一页</a>
 			@for(i <-1 to pages){

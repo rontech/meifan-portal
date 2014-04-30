@@ -2,12 +2,13 @@
 
 @import views.html.user._
 
-@myPageMain("stylistHomepage",user,followInfo,loginUserId,logged){
+@myPageMain("my-reservation",user,followInfo,loginUserId,logged){
 	<div>
-		<div class="contentsTitleWrapper">
-			<h2 class="contentsTitleInner">@Messages("stylistMag.futureResv")</h2>
-		</div>
-		
+		<ul class="tabInfoTitle">
+			<li class="fl selected">
+				@Messages("stylistMag.futureResv")
+			</li>		
+		</ul>
 	</div>
 	
 }

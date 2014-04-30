@@ -1,38 +1,40 @@
 @(user: User,followInfo:FollowInformation)
 
-@myPageMain(navInMyPage = " ", user, followInfo, user.id, true) {
-    @helper.form(routes.Application.changeLogo,'enctype -> "multipart/form-data") {
-        <input type="file" id="filePhoto" name="photo" style="width:450"/>
-        <div class="inline-labels" style="display: none">
-            <label>X1 <input type="text" size="4" id="x1" name="x1" value="0"/></label>
-            <label>Y1 <input type="text" size="4" id="y1" name="y1" value="0"/></label>
-            <label>X2 <input type="text" size="4" id="x2" name="x2" value="0"/></label>
-            <label>Y2 <input type="text" size="4" id="y2" name="y2" value="0"/></label>
-            <label>W <input type="text" size="4" id="w" name="w" value="0"/></label>
-            <label>H <input type="text" size="4" id="h" name="h" value="0"/></label>
-        </div>
-        <button type="submit">@Messages("user.changeImage")</button>
-    }
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <div class="jc-demo-box">
-
-                    <img src='@routes.Assets.at("javascripts/jcrop/photo.jpg")' id="target">
-
-                    <div id="preview-pane">
-                        <div class="preview-container">
-                            <img src='@routes.Assets.at("javascripts/jcrop/photo.jpg")' class="jcrop-preview" id="preview" alt="Preview" />
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="temple_hidden" style="display: none"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+@InfoChange("my-changeImage", user, followInfo, user.id, true) {
+	<div class="mT40">
+		@helper.form(routes.Application.changeLogo,'enctype -> "multipart/form-data") {
+	        <input type="file" id="filePhoto" name="photo" style="width:450"/>
+	        <div class="inline-labels" style="display: none">
+	            <label>X1 <input type="text" size="4" id="x1" name="x1" value="0"/></label>
+	            <label>Y1 <input type="text" size="4" id="y1" name="y1" value="0"/></label>
+	            <label>X2 <input type="text" size="4" id="x2" name="x2" value="0"/></label>
+	            <label>Y2 <input type="text" size="4" id="y2" name="y2" value="0"/></label>
+	            <label>W <input type="text" size="4" id="w" name="w" value="0"/></label>
+	            <label>H <input type="text" size="4" id="h" name="h" value="0"/></label>
+	        </div>
+	        <button type="submit" class="buttons">@Messages("user.changeImage")</button>
+	    }
+	    <div class="container">
+	        <div class="row">
+	            <div class="span12">
+	                <div class="jc-demo-box">
+	
+	                    <img src='@routes.Assets.at("javascripts/jcrop/photo.jpg")' id="target">
+	
+	                    <div id="preview-pane">
+	                        <div class="preview-container">
+	                            <img src='@routes.Assets.at("javascripts/jcrop/photo.jpg")' class="jcrop-preview" id="preview" alt="Preview" />
+	                        </div>
+	                    </div>
+	                    <div class="clearfix"></div>
+	                    <div class="temple_hidden" style="display: none"></div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 }
-
+    
 <link rel="stylesheet" href="@routes.Assets.at("javascripts/jcrop/css/main.css")" type="text/css" />
 <link rel="stylesheet" href="@routes.Assets.at("javascripts/jcrop/css/demos.css")" type="text/css" />
 <link rel="stylesheet" href="@routes.Assets.at("javascripts/jcrop/css/jquery.Jcrop.css")" type="text/css" />

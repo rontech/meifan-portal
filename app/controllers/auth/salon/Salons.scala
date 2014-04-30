@@ -11,13 +11,14 @@ import se.radley.plugin.salat.Binders._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.Messages
-import com.mongodb.casbah.{MongoConnection, WriteConcern}
+import com.mongodb.casbah.WriteConcern
 import com.mongodb.casbah.gridfs.GridFS
 import org.mindrot.jbcrypt.BCrypt
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import utils.Tools
 import utils.Const._
+import com.meifannet.framework.db._
 
 object Salons extends Controller with LoginLogout with AuthElement with SalonAuthConfigImpl{
   
@@ -296,7 +297,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         val salon = loggedIn
         request.body.file("logo") match {
             case Some(logo) =>
-                val db = MongoConnection()("Picture")
+                val db = DBDelegate.picDB
                 val gridFs = GridFS(db)
                 val uploadedFile = gridFs.createFile(logo.ref.file)
                 uploadedFile.contentType = logo.contentType.orNull

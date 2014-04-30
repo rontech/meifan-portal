@@ -5,17 +5,17 @@
 </head>
 <li>
 	<div class="mysalon-stylist hMin399">
-		<div class="mysalon-stylist-search w166 mHA p10">
+		<div class="mysalon-stylist-search w150 mHA p10">
                     <div class="taC">
                         <a href="@noAuth.routes.Users.userPage(User.findOneById(stylist.stylistId).get.userId)">
-                            <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" align="absmiddle" alt="" title="@Stylist.findUserName(stylist.stylistId)" class="bdImgGray w164 h219">
+                            <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" align="absmiddle" alt="" title="@Stylist.findUserName(stylist.stylistId)" class="bdImgGray w150 h200">
                         </a>
                     </div>
                     <div class="bdDotT mT5 pT5 fs10">
                         <span class="fgPink">
-                            @stylist.position(0).positionName
+                            @Messages("position." + stylist.position(0).positionName)
                         </span>
-                        [@stylist.workYears] 
+                         [@Messages("stylist.experienceYears", stylist.workYears)]
                     </div>
             <div class="bdDotT mT5 pT5 fs10 hMin20"> <p> @Stylist.findUserName(stylist.stylistId)</p> </div>
             <!--Stylist's words-->
@@ -24,7 +24,7 @@
                         @if(stylist.myWords.length > 20) {...}
                     </div> 
         </div>
-        <div class="taC mT10">
+        <div class="taC mT10 stylistBtn">
             @if(logged.equals(true) && MyFollow.checkIfFollow(loginUserId,stylist.stylistId)){
 						<a href="@auth.routes.MyFollows.cancelFollow(stylist.stylistId)">@Messages("user.cancelFollow")</a>
 					}else{

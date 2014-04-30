@@ -281,6 +281,7 @@ salonAdmin.ApplyOperateResult = 抱歉该申请不存在或已被本人取消，
 salonAdmin.ApplyOperateAction = s后自动跳转，点击
 salonAdmin.ApplyOperateGo = 跳转 
 stylistAdmin.selectField = 选填，不得超过150字
+salonSearchStylist.haveInvite = 当前该技师已处于被您邀请状态，请耐心等待答复
 
 # Hair
 hair.tabName=时尚靓发
@@ -550,7 +551,8 @@ stylist.salon = 所属店铺
 stylist.style = 他的作品
 stylistMag.calApplying = 取消申请后无法恢复，请确认是否取消申请？
 stylistMag.wtApply = 请确认提交申请！
-stylistMag.operateMyAPMSG = 该记录已被申请的店铺操作， 
+stylistMag.operateMyAPMSG = 该记录已被申请的店铺操作，
+stylistMag.changeImage = 更换形象 
 
 
 
@@ -574,6 +576,11 @@ user.collectCoupon=收藏的优惠劵
 user.collectBlog=收藏的博客
 user.collectStyle=收藏的风格
 user.reservation=我的预约
+user.myFollows=我的关注
+user.myInfomation=我的信息
+user.myCollects=我的收藏
+user.myActs=我的动态
+user.myRelevants=和我相关
 user.salonAct=店铺的动态
 user.name=用户名
 user.nickNm=昵称
@@ -669,7 +676,17 @@ user.message.title = 标题
 user.message.content = 内容
 user.message.send = 发送
 user.other=他
+user.messageList=消息列表
+user.myFansCount=已有{0}人关注你 
+user.myFollowUsersCount=您已关注{0}个美丽达人
+user.myFollowStylistsCount=您已关注{0}个技师
+user.myFollowSalonsCount=您已关注{0}个店铺
+user.myCollectBlogsCount=您已收藏{0}条博客
+user.myCollectCouponsCount=您已收藏{0}个优惠劵
+user.myCollectStylesCount=您已收藏{0}个风格
 user.notWriteBlog=该用户未添加博客……
+use.followThisSalon=收藏该店铺
+
 
 user.needfieldworks = 请输入0~100整数
 user.errorWorks = 无效的年数
@@ -763,6 +780,8 @@ blog.salonNoBlog= 没有找到您希望的博客！
 blog.preBlog = 前一篇
 blog.nextBlog = 后一篇
 blog.noPreNext = 没有啦！
+blog.editBlog = 编辑博客
+blog.blogSet = 设置
 
 # Comment
 comment.comment = 评论
