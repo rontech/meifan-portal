@@ -13,9 +13,9 @@
                     </div>
                     <div class="bdDotT mT5 pT5 fs10">
                         <span class="fgPink">
-                            @stylist.position(0).positionName
+                            @Messages("position." + stylist.position(0).positionName)
                         </span>
-                        [@stylist.workYears] 
+                         [@Messages("stylist.experienceYears", stylist.workYears)]
                     </div>
             <div class="bdDotT mT5 pT5 fs10 hMin20"> <p> @Stylist.findUserName(stylist.stylistId)</p> </div>
             <!--Stylist's words-->
