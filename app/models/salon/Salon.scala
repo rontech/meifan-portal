@@ -337,26 +337,35 @@ object Salon extends MeifanNetModelCompanion[Salon] {
      */
     def sortRstByConditions(orgRst: List[SalonGeneralSrchRst], sortConds: SortByConditions): List[SalonGeneralSrchRst] = {
 
-        var byPrice = orgRst.sortBy(_.priceForCut)
+      // TODO should we consider the Group by functions to implement the sort function like that 
+      // order by A asc, B desc, C asc.....
+      var sortRst: List[SalonGeneralSrchRst] = Nil
+
+      // Sort By price.
+      if(sortConds.selSortKey == "price") {
+        sortRst = orgRst.sortBy(_.priceForCut)
         if(!sortConds.sortByPriceAsc) {
-            byPrice = byPrice.reverse
+          sortRst = sortRst.reverse 
         }
+      }
 
-        byPrice
-
-        // TODO Group By
-/*
-        var byPopu = byPrice.sortBy(sl => sl.reviewsStat.reviewTotalCnt)
+      // Sort By popularity.
+      if(sortConds.selSortKey == "popu") {
+        sortRst = orgRst.sortBy(_.reviewsStat.reviewTotalCnt)
         if(!sortConds.sortByPopuAsc) {
-            byPopu = byPopu.reverse
+          sortRst = sortRst.reverse 
         }
+      }
 
-        var byReview = byPopu.sortBy(sl => sl.reviewsStat.reviewRate)
+      // Sort By review.
+      if(sortConds.selSortKey == "review") {
+        sortRst = orgRst.sortBy(_.reviewsStat.reviewRate)
         if(!sortConds.sortByReviewAsc) {
-            byReview = byReview.reverse
+          sortRst = sortRst.reverse 
         }
-        byReview
-*/
+      }
+
+      sortRst
     }
  
     /**

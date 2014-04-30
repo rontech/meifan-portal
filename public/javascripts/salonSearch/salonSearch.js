@@ -82,18 +82,27 @@ $(function() {
 
     // Sort by price.
     $('#price').click(function() {
-        // alert($('#price').prop('checked'));
+        $('#selSortKey').val('price');
         submitForm();
-    })
+   })
 
     // Sort by popularity.
     $('#popu').click(function() {
-        submitForm();
+        // TODO
+        //alert($('#popu').prop('checked'));
+        //if(!$('#popu').prop('checked')) {
+            $('#selSortKey').val('popu');
+            submitForm();
+        //}
     })
 
     // Sort by review.
     $('#review').click(function() {
-        submitForm();
+        // TODO
+        //if(!$('#review').prop('checked')) {
+            $('#selSortKey').val('review');
+            submitForm();
+        //}
     })
     
 });
