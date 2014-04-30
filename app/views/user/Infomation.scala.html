@@ -1,6 +1,7 @@
 @* UserInfomation Template File *@
 @(userForm: Form[User], user: User,  followInfo:FollowInformation)
- @import helper._
+@import helper._
+@import helper.twitterBootstrap._
 
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
@@ -53,7 +54,7 @@
     	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
     	
 		<div class="mT10 pH10">
-			@form(auth.routes.Users.updateInfo(user.userId), 'id -> "userForm", 'name -> "userForm") {
+			@helper.form(auth.routes.Users.updateInfo(user.userId), 'id -> "userForm", 'name -> "userForm") {
 				
 				<input type="hidden" name="password" value="@user.password">
                 <input type="hidden" name="userPics" value="@user.userPics">
@@ -62,8 +63,8 @@
                 <input type="hidden" name="point" value="@user.point">
                 <input type="hidden" name="permission" value="@user.permission">
                 <input type="hidden" name="activity" value="@user.activity">
-                @inputDate(userForm("registerTime"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
-                
+                <input type="hidden" name="registerTime" value="@user.registerTime">
+
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
 				    <tbody>
 				        <tr>
@@ -73,7 +74,9 @@
 				                </div>
 				            </th>
 				            <td>
-				               @inputText(userForm("userId"),'_label -> None, 'readonly -> "true", '_help -> Messages(""), 'id -> "accountId")
+				               @inputText(userForm("userId"),
+                                   '_label -> None,
+                                   'readonly -> "true")
 				            </td>
 				        </tr>
 				        <tr>
@@ -84,10 +87,7 @@
 				            </th>
 				            <td>
 				               @inputText(userForm("nickName"),
-				               	'_label -> None, 
-				               	'_error -> userForm("nickName").error.map(_.withMessage(Messages("user.nickNameErr"))), 
-				               	'id -> "nickName",
-				               	'_help -> Messages("user.nickName"))
+				               	'_label -> None)
 				            </td>
 				        </tr>
 				        <tr>
@@ -97,8 +97,9 @@
 				                </div>
 				            </th>
 				            <td>
-				               @*inputDate(userForm("birthDay"), '_label -> None, '_error -> userForm("birthDay").error.map(_.withMessage(Messages("user.birthDayErr"))), '_help -> Messages(""))*@
-				               @input(field = userForm("birthDay"), '_label -> None, '_help -> Messages("")) { (id, name, value, _) =>
+				               @input(field = userForm("birthDay"),
+                                   '_help -> "",
+                                   '_label -> None) { (id, name, value, _) =>
         							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
 								}
 				            </td>
@@ -110,10 +111,10 @@
 				                </div>
 				            </th>
 				            <td>
-				               @inputRadioGroup(userForm("sex"),options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")) , '_label -> None, '_help -> Messages(""),
-                  								'_error -> userForm("sex").error.map(_.withMessage(Messages("user.sexErr"))))
+				               @inputRadioGroup(userForm("sex"),
+                                   options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")),
+                                   '_label -> None)
 				            </td>
-				        </tr>
 				        </tr>
 				        <tr>
 				            <th class="w222">
@@ -123,9 +124,7 @@
 				            </th>
 				            <td>
 				               @inputText(userForm("email"),
-                                   'id -> "contact_email",
-                                   '_label -> None,
-                                   '_help -> Messages(""))
+                                   '_label -> None)
 				            </td>
 				        </tr>
 				        <tr>
@@ -146,9 +145,7 @@
 				            <td>
 				               @inputText(userForm("tel"), 
 				               	'_label -> None, 
-				               	'_help -> Messages(""),
-				               	'id -> "phone", 
-				               	'_error -> userForm("tel").error.map(_.withMessage(Messages("user.telError"))))
+				               	'id -> "phone"	)
 				            </td>
 				        </tr>
 				        <tr>
@@ -244,8 +241,5 @@
         }
         
     </script>
-   
-
     }
-
     <script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>

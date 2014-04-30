@@ -57,14 +57,9 @@
 				            </th>
 				            <td>
 				                @inputText(salonRegister("salonAccount.accountId"),
-                                    'id ->"accountId",
                                     'class -> "inputField",
                                     '_label -> None,
-                                    'disabled -> "true",
-                                    'style-> "width:200px;",
-									'placeholder -> Messages("salon.login.accountId"),
-									'_help -> Messages("salon.registerMange.accountId"),
-									'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("salon.register.accountIdErr"))))
+                                    'readonly -> "true")
 				            </td>
 				        </tr>
 				        <tr>
@@ -91,13 +86,10 @@
 				            <td>
 				                <div>
 				                	@inputText(salonRegister("salonName"),
-                                        'id -> "salonName",
+                                        'id -> "salonNameReadOnly",
                                         '_label ->  None,
-                                        'class -> "inputField",
-                                        '_help -> Messages("salon.salonNameMange"),
-                                        'disabled -> "true",
-										'style-> "width:200px;",
-				                		'_error -> salonRegister("salonName").error.map(_.withMessage(Messages("salon.register.salonName"))))				             	
+                                        'readonly -> "true",
+                                        'class -> "inputField")
 				                </div>
 				            </td>
 				        </tr>
@@ -134,10 +126,7 @@
 				                	@inputText(salonRegister("contactMethod.mainPhone"),
                                         'id -> "contact_tel",
                                         '_label -> None,
-                                        'class -> "inputField",
-                                        '_help -> Messages(""),
-                                        'style-> "width:200px;",
-				                		'_error -> salonRegister("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.phoneError"))))
+                                        'class -> "inputField")
 				                </div>
 				            </td>
 				        </tr>
@@ -153,10 +142,7 @@
 				                	@inputText(salonRegister("contactMethod.contact"),
                                         'id -> "contact",
                                         '_label -> None,
-                                        'class -> "inputField",
-                                        '_help -> Messages(""),
-                                        'style-> "width:200px;",
-				                		'_error -> salonRegister("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
+                                        'class -> "inputField")
 				                </div>
 				            </td>
 				        </tr>
@@ -172,10 +158,7 @@
 				                	@inputText(salonRegister("contactMethod.email"),
                                         'id ->"contact_email",
                                         '_label -> None,
-                                        'class -> "inputField",
-                                        '_help -> Messages(""),
-										'style-> "width:200px;",
-				                		'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.mailError"))))
+                                        'class -> "inputField")
 				                </div>
 				            </td>
 				        </tr>					        					        
@@ -367,9 +350,9 @@
 @pictureGroup(field: Field, className: String = "salonPic") = {
 	<li>
 	<div class="delete-pic"></div>
-		@field("fileObjId").value.map{fileid=>
-			@if(!fileid.equals("")){	
-			<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
+		@field("fileObjId").value.map{fileId=>
+			@if(!fileId.equals("")){	
+			<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileId))'/></div>
 		}
 	}
     <div class="addstyles-byStylist twipsies well @className">

@@ -48,8 +48,7 @@
                                         'id -> "seatNums",
                                         '_label -> None,
                                         'class -> "inputField",
-                                        '_help -> Messages(""),
-				                		'_error -> salonForm("seatNums").error.map(_.withMessage(Messages("salon.register.seatNums"))))
+                                        '_help -> Messages(""))
 				                </div>
 				            </td>
 				        </tr>
@@ -83,7 +82,11 @@
 				            </th>
 				            <td>
 				                <div class="inputField">
-				                	@inputText(salonForm("salonFacilities.parkingDesc"), '_label -> None,'maxlength->"40", 'style-> "width:300px;",'_help -> Messages(""),'placeholder -> Messages("salon.parkDes"))
+				                	@inputText(salonForm("salonFacilities.parkingDesc"),
+                                        '_label -> None,
+                                        'maxlength->"40",
+                                        'style-> "width:300px;",
+                                        'placeholder -> Messages("salon.parkDes"))
 				                </div>
 				            </td>
 				        </tr>										        
@@ -98,12 +101,14 @@
 				                </div>
 				            </th>
 				            <td>
-	            	@input(field = salonForm("salonIndustry"),args = '_label -> None,'style -> "display: none"){(id,name,value,args) =>
+	            	@input(field = salonForm("salonIndustry"),
+                        '_label -> None,
+                        'style -> "display: none"){(id,name,value,args) =>
 					@for(i <- 0 to industry.length-1){
 						@if(salon.salonIndustry.contains(industry(i).industryName)){
-							<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
+							<input type = "checkbox" class="" name = "salonIndustry[@i]" value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
 						}else{
-							<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
+							<input type = "checkbox" class="" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
 						}
 					}
 					}	
@@ -359,31 +364,31 @@
 	<div>
 	    @textarea(
 	            field("picTitle"),
-                'id -> "picTitle",
+                'id ->"picTitle",
                 'maxlength->"100",
 	            '_label -> Messages("salon.pic.title"),
-	            'rows -> 5, 'cols -> 40, 
-	            'placeholder -> Messages("onUserPicture.picTitle")   
+	            'rows -> 5,
+                'cols -> 40
 	            )
     </div>        
     <div>    
 	    @textarea(
 	            field("picContent"),
-                'id -> "picContent",
+                'id ->"picContent",
                 'maxlength->"100",
 	            '_label -> Messages("salon.pic.content"),
-	            'rows -> 5, 'cols -> 40, 
-	            'placeholder -> Messages("onUserPicture.description")
+	            'rows -> 5,
+                'cols -> 40
 	            )
     </div>
     <div>            
 	    @textarea(
 	            field("picFoot"),
-                'id -> "picFoot",
+                'id ->"picFoot",
                 'maxlength->"100",
 	            '_label -> Messages("salon.pic.foot"),
-	            'rows -> 5, 'cols -> 40 ,
-	            'placeholder -> Messages("onUserPicture.foot")
+	            'rows -> 5,
+                'cols -> 40
 	            )
     </div>     
 }

@@ -30,3 +30,6 @@ dist
 
 # individual work plan not to commit.
 doc/plan
+
+# exlude directory under app
+!app/framework/db

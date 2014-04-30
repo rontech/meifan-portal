@@ -16,30 +16,31 @@ import controllers._
 import utils.Const._
 import models.OptContactMethod
 import scala.Some
+import models.OptContactMethod
+import scala.Some
 
 object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl{
 
   def registerForm(id: ObjectId = new ObjectId) = Form(
     mapping(
       "id" -> ignored(id),
-      "userId" -> nonEmptyText(6, 18).verifying(Messages("user.userIdErr"), userId => userId.matches("""^\w+$""")),
+      "userId" -> text,
       "password" -> tuple(
-        "main" -> text(6, 16).verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]+$""")),
-        "confirm" -> text).verifying(
-          // Add an additional constraint: both passwords must match
-            Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2),
-      "nickName" -> nonEmptyText(1,10),
-      "email" -> email,
+        "main" -> text,
+        "confirm" -> text),
+      "nickName" -> text,
+      "email" -> text,
       "optContactMethods" -> seq(
         mapping(
           "contMethodType" -> text,
-          "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply))){
-          (id, userId, password, nickName, email, optContactMethods) =>
-          User(new ObjectId, userId, nickName, BCrypt.hashpw(password._1, BCrypt.gensalt()), "M", None, None, DefaultLog.getImgId, None, email, optContactMethods, None, User.NORMAL_USER,  User.HIGH, 20, 0, new Date(), Permission.valueOf(LoggedIn), true)
+          "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
+      "accept" -> checked("You must accept the conditions")
+    ){
+          (id, userId, password, nickName, email, optContactMethods,_) =>
+          User(new ObjectId, userId, nickName, BCrypt.hashpw(password._1, BCrypt.gensalt()), "M", None, None, DefaultLog.getImgId, None, email, optContactMethods, None, User.NORMAL_USER,  User.HIGH, 20, 0, (new Date()).getTime, Permission.valueOf(LoggedIn), true)
       } {
-        user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.email, user.optContactMethods))
-      }.verifying(
-        Messages("user.userIdNotAvailable"), user => !User.findOneByUserId(user.userId).nonEmpty))
+        user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.email, user.optContactMethods, false))
+      })
 
   val loginForm = Form(mapping(
     "userId" -> nonEmptyText,
@@ -56,7 +57,7 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
       {
         user =>
           User.save(user, WriteConcern.Safe)
-          Ok(views.html.user.login(Users.loginForm))
+          Redirect(auth.routes.Users.login)
       })
   }
 

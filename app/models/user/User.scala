@@ -28,7 +28,7 @@ case class User(
     userBehaviorLevel: String,
     point: Int,
     activity: Int,
-    registerTime: Date,
+    registerTime: Long,
     permission: String,
     isValid: Boolean)
 

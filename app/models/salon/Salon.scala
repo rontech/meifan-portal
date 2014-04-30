@@ -24,7 +24,7 @@ import scala.util.matching.Regex
 case class Salon(
     id: ObjectId = new ObjectId,   	
     salonAccount: SalonAccount,
-    salonName: String,                  
+    salonName: String,
     salonNameAbbr: Option[String],      
     salonIndustry: List[String],       // Ref to Master [Industry] table.           
     homepage: Option[String],           
