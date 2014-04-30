@@ -3,6 +3,7 @@ package models
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat.Binders._
 import com.meifannet.framework.db._
+import mongoContext._
 
 case class FollowType(
 		id: ObjectId = new ObjectId,

@@ -24,7 +24,7 @@ object Menu extends MeifanNetModelCompanion[Menu]{
     val dao = new MeifanNetDAO[Menu](collection = loadCollection()){}
     
     // Indexes
-    collection.ensureIndex(DBObject("menuName" -> 1), "menuName", unique = true)
+    //collection.ensureIndex(DBObject("menuName" -> 1), "menuName", unique = true)
 
     def addMenu (menu :Menu) = dao.save(menu, WriteConcern.Safe)
 

@@ -55,7 +55,7 @@ object User extends MeifanNetModelCompanion[User] {
     val dao = new MeifanNetDAO[User](collection = loadCollection()){}
 
     // Indexes
-    collection.ensureIndex(DBObject("userId" -> 1), "userId", unique = true)
+    //collection.ensureIndex(DBObject("userId" -> 1), "userId", unique = true)
 
     // Queries
     // Find a user according to userId

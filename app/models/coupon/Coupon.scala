@@ -42,7 +42,7 @@ object Coupon extends MeifanNetModelCompanion[Coupon]{
     val dao = new MeifanNetDAO[Coupon](collection = loadCollection()){}
   
   // Indexes
-  collection.ensureIndex(DBObject("couponName" -> 1), "couponName", unique = true)
+  //collection.ensureIndex(DBObject("couponName" -> 1), "couponName", unique = true)
   
   // 查找出该沙龙所用优惠劵
   def findBySalon(salonId: ObjectId): List[Coupon] = {
