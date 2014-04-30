@@ -11,7 +11,6 @@ import play.api.data.Forms._
 import play.api.mvc._
 import scala.concurrent._
 import play.api.i18n.Messages
-import com.mongodb.casbah.MongoConnection
 import com.mongodb.casbah.gridfs.Imports._
 import com.mongodb.casbah.gridfs.GridFS
 import play.api.libs.iteratee.Enumerator
@@ -168,7 +167,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
 	 def toUpdateStylistImage(role: String) = Action(parse.multipartFormData) { request =>
 	        request.body.file("photo") match {
 	            case Some(photo) =>
-	                val db = MongoConnection()("Picture")
+                        val db = DBDelegate.picDB
 	                val gridFs = GridFS(db)
 	                val uploadedFile = gridFs.createFile(photo.ref.file)
 	                uploadedFile.contentType = photo.contentType.orNull

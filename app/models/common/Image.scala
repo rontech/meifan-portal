@@ -3,7 +3,6 @@ package models
 import java.io.File
 import com.mongodb.casbah.gridfs.GridFS
 import com.mongodb.casbah.commons.Imports._
-import com.mongodb.casbah.MongoConnection
 import mongoContext._
 import java.io.InputStream
 import java.io.ByteArrayOutputStream
