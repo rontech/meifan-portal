@@ -1,8 +1,6 @@
 package models
 
-import play.api.PlayException
 import com.mongodb.casbah.commons.Imports._
-import com.mongodb.casbah.MongoConnection
 import mongoContext._
 import se.radley.plugin.salat.Binders._
 import java.util.Date

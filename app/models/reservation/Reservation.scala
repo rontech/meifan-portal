@@ -1,13 +1,11 @@
 package models
 
-import play.api.Play.current
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
 import java.util.Date
-import play.api.PlayException
+import com.meifannet.framework.db._
 
 case class ResvItem (
 		resvType: String, //coupon: 优惠劵; menu: 菜单; service: 服务
@@ -65,15 +63,9 @@ case class ResvSchedule (
 )
 
 
-object Reservation extends ModelCompanion[Reservation, ObjectId]{
+object Reservation extends MeifanNetModelCompanion[Reservation]{
     
-    def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-        "Configuration error",
-        "Could not find mongodb.default.db in settings")))("Reservation")
-
-    val dao = new SalatDAO[Reservation, ObjectId](collection){}
+	val dao = new MeifanNetDAO[Reservation](collection = loadCollection()){}
     
     def findAllReservation(salonId: ObjectId):List[Reservation] = dao.find(MongoDBObject("salonId" -> salonId, "status" -> 0)).sort(MongoDBObject("expectedDate" -> -1)).toList
    

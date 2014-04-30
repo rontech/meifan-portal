@@ -1,13 +1,9 @@
 package models
 
-import play.api.Play.current
-import play.api.PlayException
-import com.novus.salat.dao._
-import com.mongodb.casbah.commons.Imports._
-import com.mongodb.casbah.MongoConnection
 import mongoContext._
 import se.radley.plugin.salat.Binders._
 import java.util.Date
+import com.meifannet.framework.db._
 
 
 
@@ -21,15 +17,9 @@ case class Question(
 )
 
 
-object Question extends ModelCompanion[Question, ObjectId] {
+object Question extends MeifanNetModelCompanion[Question] {
 
-    def collection = MongoConnection()(
-      current.configuration.getString("mongodb.default.db")
-        .getOrElse(throw new PlayException(
-          "Configuration error",
-          "Could not find mongodb.default.db in settings")))("Question")
- 
-    val dao = new SalatDAO[Question, ObjectId](collection) {}
+    val dao = new MeifanNetDAO[Question](collection = loadCollection()){}
  
 } 
 
