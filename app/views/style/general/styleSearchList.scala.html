@@ -13,7 +13,7 @@
   		</div>
     }else{   
 	   	@for(i <- 0 to styleAndSalon.length-1){
-	   		<div class="styleResult">
+	   		<div class="styleResult h240">
 		   		<a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" >
 		   			<img src="@routes.Application.getPhoto(styleAndSalon(i).style.stylePic(0).fileObjId)" class="w120 h150" alt="@styleAndSalon(i).style.styleName" >
 		   		</a>

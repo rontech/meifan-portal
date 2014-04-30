@@ -165,6 +165,7 @@ object Style extends MeifanNetModelCompanion[Style] {
      * 前台热度加性别排名检索
      */
     def findByRankingAndSex(consumerSex: String): List[models.Style] = {
+        
         val reservationAll = Reservation.findByStatusAndStyleId
         var reservations: List[models.Reservation] = Nil
         reservationAll.map { reservation =>
@@ -261,15 +262,15 @@ object Style extends MeifanNetModelCompanion[Style] {
     def findByPara(style: models.Style): List[Style] = {
         val styleLength = if (style.styleLength.equals("all")) { "styleLength" $in Style.findParaAll.styleLength } else { MongoDBObject("styleLength" -> style.styleLength) }
         val styleImpression = if (style.styleImpression.equals("all")) { "styleImpression" $in Style.findParaAll.styleImpression } else { MongoDBObject("styleImpression" -> style.styleImpression) }
-        val styleColor = if (style.styleColor.isEmpty) { "styleColor" $in Style.findParaAll.styleColor } else { "styleColor" $in style.styleColor }
-        val serviceType = if (style.serviceType.isEmpty) { "serviceType" $in Style.findParaAll.serviceType } else { "serviceType" $in style.serviceType }
-        val styleAmount = if (style.styleAmount.isEmpty) { "styleAmount" $in Style.findParaAll.styleAmount } else { "styleAmount" $in style.styleAmount }
-        val styleQuality = if (style.styleQuality.isEmpty) { "styleQuality" $in Style.findParaAll.styleQuality } else { "styleQuality" $in style.styleQuality }
-        val styleDiameter = if (style.styleDiameter.isEmpty) { "styleDiameter" $in Style.findParaAll.styleDiameter } else { "styleDiameter" $in style.styleDiameter }
-        val faceShape = if (style.faceShape.isEmpty) { "faceShape" $in Style.findParaAll.faceShape } else { "faceShape" $in style.faceShape }
-        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { "consumerSocialStatus" $in Style.findParaAll.consumerSocialStatus } else { "consumerSocialStatus" $in style.consumerSocialStatus }
+        val styleColor = if (style.styleColor.isEmpty) { MongoDBObject.empty } else { "styleColor" $in style.styleColor }
+        val serviceType = if (style.serviceType.isEmpty) { MongoDBObject.empty } else { "serviceType" $in style.serviceType }
+        val styleAmount = if (style.styleAmount.isEmpty) { MongoDBObject.empty } else { "styleAmount" $in style.styleAmount }
+        val styleQuality = if (style.styleQuality.isEmpty) { MongoDBObject.empty } else { "styleQuality" $in style.styleQuality }
+        val styleDiameter = if (style.styleDiameter.isEmpty) { MongoDBObject.empty } else { "styleDiameter" $in style.styleDiameter }
+        val faceShape = if (style.faceShape.isEmpty) { MongoDBObject.empty } else { "faceShape" $in style.faceShape }
+        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { MongoDBObject.empty } else { "consumerSocialStatus" $in style.consumerSocialStatus }
         val consumerSex = if (style.consumerSex.equals("all")) { "consumerSex" $in Style.findParaAll.consumerSex } else { MongoDBObject("consumerSex" -> style.consumerSex) }
-        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { "consumerAgeGroup" $in Style.findParaAll.consumerAgeGroup } else { "consumerAgeGroup" $in style.consumerAgeGroup }
+        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { MongoDBObject.empty } else { "consumerAgeGroup" $in style.consumerAgeGroup }
 
         dao.find($and(
             styleLength,
@@ -307,15 +308,15 @@ object Style extends MeifanNetModelCompanion[Style] {
     def findStylesByStylistBack(style: models.Style, stylistId: ObjectId): List[Style] = {
         val styleLength = if (style.styleLength.equals("all")) { "styleLength" $in Style.findParaAll.styleLength } else { MongoDBObject("styleLength" -> style.styleLength) }
         val styleImpression = if (style.styleImpression.equals("all")) { "styleImpression" $in Style.findParaAll.styleImpression } else { MongoDBObject("styleImpression" -> style.styleImpression) }
-        val styleColor = if (style.styleColor.isEmpty) { "styleColor" $in Style.findParaAll.styleColor } else { "styleColor" $in style.styleColor }
-        val serviceType = if (style.serviceType.isEmpty) { "serviceType" $in Style.findParaAll.serviceType } else { "serviceType" $in style.serviceType }
-        val styleAmount = if (style.styleAmount.isEmpty) { "styleAmount" $in Style.findParaAll.styleAmount } else { "styleAmount" $in style.styleAmount }
-        val styleQuality = if (style.styleQuality.isEmpty) { "styleQuality" $in Style.findParaAll.styleQuality } else { "styleQuality" $in style.styleQuality }
-        val styleDiameter = if (style.styleDiameter.isEmpty) { "styleDiameter" $in Style.findParaAll.styleDiameter } else { "styleDiameter" $in style.styleDiameter }
-        val faceShape = if (style.faceShape.isEmpty) { "faceShape" $in Style.findParaAll.faceShape } else { "faceShape" $in style.faceShape }
-        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { "consumerSocialStatus" $in Style.findParaAll.consumerSocialStatus } else { "consumerSocialStatus" $in style.consumerSocialStatus }
+        val styleColor = if (style.styleColor.isEmpty) { MongoDBObject.empty } else { "styleColor" $in style.styleColor }
+        val serviceType = if (style.serviceType.isEmpty) { MongoDBObject.empty } else { "serviceType" $in style.serviceType }
+        val styleAmount = if (style.styleAmount.isEmpty) { MongoDBObject.empty } else { "styleAmount" $in style.styleAmount }
+        val styleQuality = if (style.styleQuality.isEmpty) { MongoDBObject.empty } else { "styleQuality" $in style.styleQuality }
+        val styleDiameter = if (style.styleDiameter.isEmpty) { MongoDBObject.empty } else { "styleDiameter" $in style.styleDiameter }
+        val faceShape = if (style.faceShape.isEmpty) { MongoDBObject.empty } else { "faceShape" $in style.faceShape }
+        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { MongoDBObject.empty } else { "consumerSocialStatus" $in style.consumerSocialStatus }
         val consumerSex = if (style.consumerSex.equals("all")) { "consumerSex" $in Style.findParaAll.consumerSex } else { MongoDBObject("consumerSex" -> style.consumerSex) }
-        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { "consumerAgeGroup" $in Style.findParaAll.consumerAgeGroup } else { "consumerAgeGroup" $in style.consumerAgeGroup }
+        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { MongoDBObject.empty } else { "consumerAgeGroup" $in style.consumerAgeGroup }
 
         dao.find($and(
             styleLength,
@@ -335,15 +336,15 @@ object Style extends MeifanNetModelCompanion[Style] {
     def findStylesBySalonBack(style: models.Style, salonId: ObjectId): List[Style] = {
         val styleLength = if (style.styleLength.equals("all")) { "styleLength" $in Style.findParaAll.styleLength } else { MongoDBObject("styleLength" -> style.styleLength) }
         val styleImpression = if (style.styleImpression.equals("all")) { "styleImpression" $in Style.findParaAll.styleImpression } else { MongoDBObject("styleImpression" -> style.styleImpression) }
-        val styleColor = if (style.styleColor.isEmpty) { "styleColor" $in Style.findParaAll.styleColor } else { "styleColor" $in style.styleColor }
-        val serviceType = if (style.serviceType.isEmpty) { "serviceType" $in Style.findParaAll.serviceType } else { "serviceType" $in style.serviceType }
-        val styleAmount = if (style.styleAmount.isEmpty) { "styleAmount" $in Style.findParaAll.styleAmount } else { "styleAmount" $in style.styleAmount }
-        val styleQuality = if (style.styleQuality.isEmpty) { "styleQuality" $in Style.findParaAll.styleQuality } else { "styleQuality" $in style.styleQuality }
-        val styleDiameter = if (style.styleDiameter.isEmpty) { "styleDiameter" $in Style.findParaAll.styleDiameter } else { "styleDiameter" $in style.styleDiameter }
-        val faceShape = if (style.faceShape.isEmpty) { "faceShape" $in Style.findParaAll.faceShape } else { "faceShape" $in style.faceShape }
-        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { "consumerSocialStatus" $in Style.findParaAll.consumerSocialStatus } else { "consumerSocialStatus" $in style.consumerSocialStatus }
+        val styleColor = if (style.styleColor.isEmpty) { MongoDBObject.empty } else { "styleColor" $in style.styleColor }
+        val serviceType = if (style.serviceType.isEmpty) { MongoDBObject.empty } else { "serviceType" $in style.serviceType }
+        val styleAmount = if (style.styleAmount.isEmpty) { MongoDBObject.empty } else { "styleAmount" $in style.styleAmount }
+        val styleQuality = if (style.styleQuality.isEmpty) { MongoDBObject.empty } else { "styleQuality" $in style.styleQuality }
+        val styleDiameter = if (style.styleDiameter.isEmpty) { MongoDBObject.empty } else { "styleDiameter" $in style.styleDiameter }
+        val faceShape = if (style.faceShape.isEmpty) { MongoDBObject.empty } else { "faceShape" $in style.faceShape }
+        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { MongoDBObject.empty } else { "consumerSocialStatus" $in style.consumerSocialStatus }
         val consumerSex = if (style.consumerSex.equals("all")) { "consumerSex" $in Style.findParaAll.consumerSex } else { MongoDBObject("consumerSex" -> style.consumerSex) }
-        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { "consumerAgeGroup" $in Style.findParaAll.consumerAgeGroup } else { "consumerAgeGroup" $in style.consumerAgeGroup }
+        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { MongoDBObject.empty } else { "consumerAgeGroup" $in style.consumerAgeGroup }
         //利用传过来的stylistId判断后台检索是检索某一发型师的发型，还是检索店铺全部发型师的发型
         val stylists = SalonAndStylist.findBySalonId(salonId)
         var stylistIds: List[ObjectId] = Nil

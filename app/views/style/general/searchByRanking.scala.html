@@ -1,19 +1,7 @@
 
 <div class="mT30" id="salon_nvfxjs_title">
-    <script type="text/javascript">
-    function switchmodTag(modtag,modcontent,modk) {
-        for(i=1; i <9; i++) {
-            if (i==modk) {
-                document.getElementById(modtag+i).className="menuOn";
-                document.getElementById(modcontent+i).className="style_ranking_display_block";}
-            else {
-                document.getElementById(modtag+i).className="menuNo";
-                document.getElementById(modcontent+i).className="style_ranking_display_none";}
-            }
-    }
-    </script>
     <div id="salon_nvfxjs_title">
-            <img src="@routes.Assets.at("images/haircatalog/hair_label/salon_rq_title.jpg")" width="795" height="35">
+            <img src="@routes.Assets.at("images/haircatalog/hair_label/salon_rq_title.jpg")" width="768" height="35">
     </div>
     <div id="style_nvfxjs_nr_box">
         <h2 id="mod1" class="menuOn" onClick="switchmodTag('mod','styleRankingList','1');this.blur();">@Messages("hair.rankingAll")</h2>
@@ -53,7 +41,7 @@
                     </li>
                 }
             </ul>
-            <div class="mT20">
+            <div class="mR1">
                 @if(Style.findByRankingAndSex("female").length > 5){
                     <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("all","female")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
                 }
@@ -89,7 +77,7 @@
                     </li>
                 }
             </ul>
-            <div class="mT20">
+            <div class="mR1">
                 @if(Style.findByRankingAndLengthForF("super-short","female").length > 5) {
                     <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("super-short","female")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
                 }
@@ -125,7 +113,7 @@
                     </li>
                 }
             </ul>
-            <div class="mT20">
+            <div class="mR1">
                 @if(Style.findByRankingAndLengthForF("short","female").length > 5) {
                     <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("short","female")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
                 }
@@ -161,7 +149,7 @@
                     </li>
                 }
             </ul>
-            <div class="mT20">
+            <div class="mR1">
                 @if(Style.findByRankingAndLengthForF("near-shoulder-length","female").length > 5) {
                     <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("near-shoulder-length","female")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
                 }
@@ -197,7 +185,7 @@
                     </li>
                 }
             </ul>
-            <div class="mT20">
+            <div class="mR1">
                 @if(Style.findByRankingAndLengthForF("shoulder-length","female").length > 5) {
                     <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("shoulder-length","female")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
                 }
@@ -233,7 +221,7 @@
                     </li>
                 }
             </ul>
-            <div class="mT20">
+            <div class="mR1">
                 @if(Style.findByRankingAndLengthForF("mid-length","female").length > 5) {
                     <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("mid-length","female")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
                 }
@@ -269,7 +257,7 @@
                     </li>
                 }
             </ul>
-            <div class="mT20">
+            <div class="mR1">
                 @if(Style.findByRankingAndLengthForF("long","female").length > 5) {
                     <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("long","female")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
                 }
@@ -305,7 +293,7 @@
                     </li>
                 }
             </ul>
-            <div class="mT20">
+            <div class="mR1">
                 @if(Style.findByRankingAndSex("male").length > 5){
                     <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("all","male")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
                 }
@@ -314,3 +302,15 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function switchmodTag(modtag,modcontent,modk) {
+        for(i=1; i <9; i++) {
+            if (i==modk) {
+                document.getElementById(modtag+i).className="menuOn";
+                document.getElementById(modcontent+i).className="style_ranking_display_block";}
+            else {
+                document.getElementById(modtag+i).className="menuNo";
+                document.getElementById(modcontent+i).className="style_ranking_display_none";}
+            }
+    }
+</script>
