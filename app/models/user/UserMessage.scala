@@ -1,13 +1,11 @@
 package models
 
-import play.api.Play.current
 import java.util.Date
-import com.novus.salat.dao._
 import com.mongodb.casbah.query.Imports._
-import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
 import com.mongodb.casbah.WriteConcern
+import com.meifannet.framework.db._
 
 case class UserMessage(
   id: ObjectId,
@@ -27,7 +25,7 @@ case class UserMessage(
   }
 }
 
-object UserMessage extends ModelCompanion[UserMessage, ObjectId] {
+object UserMessage extends MeifanNetModelCompanion[UserMessage] {
 
   val OUTBOX_SENT = "sent"
   val OUTBOX_SAVE = "save"
@@ -37,7 +35,7 @@ object UserMessage extends ModelCompanion[UserMessage, ObjectId] {
   val INBOX_DEL = "delete"
   val INBOX_ALL = "all"
 
-  val dao = new SalatDAO[UserMessage, ObjectId](collection = mongoCollection("UserMessage")) {}
+  val dao = new MeifanNetDAO[UserMessage](collection = loadCollection()){}
 
   def read(userMessage: UserMessage) = dao.save(userMessage.copy(inBoxStatus = INBOX_READ), WriteConcern.Safe)
 

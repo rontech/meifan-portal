@@ -45,6 +45,7 @@ case class SearchParaForSalon(
  * Assistant Class: sort by conditions 
  */
 case class SortByConditions(
+    selSortKey: String = "price",          // 选择的优先排序
     sortByPopuAsc: Boolean = false,        // 热度: by popularity
     sortByReviewAsc: Boolean = false,      // 评价: by review
     sortByPriceAsc: Boolean = true         // 价格: by price

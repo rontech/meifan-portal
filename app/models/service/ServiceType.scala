@@ -1,11 +1,9 @@
 package models
 
-import play.api.Play.current
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
-import se.radley.plugin.salat._
 import mongoContext._
 import se.radley.plugin.salat.Binders._
+import com.meifannet.framework.db._
 
 case class ServiceType(
 		id: ObjectId = new ObjectId,
@@ -14,8 +12,9 @@ case class ServiceType(
 		description : String
 		)
 
-object ServiceType extends ModelCompanion[ServiceType, ObjectId]{
-	val dao = new SalatDAO[ServiceType, ObjectId](collection = mongoCollection("ServiceType")){}
+object ServiceType extends MeifanNetModelCompanion[ServiceType]{
+
+    val dao = new MeifanNetDAO[ServiceType](collection = loadCollection()){}
 
 	/**
 	 * 添加服务类型

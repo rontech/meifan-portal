@@ -12,10 +12,10 @@ import com.mongodb.casbah.commons.Imports.{ DBObject => commonsDBObject }
 import com.mongodb.casbah.WriteConcern
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
-import com.novus.salat.dao._
 import mongoContext._
 import org.mindrot.jbcrypt.BCrypt
 import scala.util.matching.Regex
+import com.meifannet.framework.db._
 
 /*
  * Main Class: Salon.
@@ -42,11 +42,9 @@ case class Salon(
     registerDate: Date
 )
 
-object Salon extends SalonDAO
+object Salon extends MeifanNetModelCompanion[Salon] {
 
-trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
-
-    val dao = new SalatDAO[Salon, ObjectId](collection = mongoCollection("Salon")) {}
+    val dao = new MeifanNetDAO[Salon](collection = loadCollection()){}
     
     //// Indexes
     //  collection.ensureIndex(DBObject("accountId" -> 1), "userId", unique = true)
@@ -339,26 +337,35 @@ trait SalonDAO extends ModelCompanion[Salon, ObjectId] {
      */
     def sortRstByConditions(orgRst: List[SalonGeneralSrchRst], sortConds: SortByConditions): List[SalonGeneralSrchRst] = {
 
-        var byPrice = orgRst.sortBy(_.priceForCut)
+      // TODO should we consider the Group by functions to implement the sort function like that 
+      // order by A asc, B desc, C asc.....
+      var sortRst: List[SalonGeneralSrchRst] = Nil
+
+      // Sort By price.
+      if(sortConds.selSortKey == "price") {
+        sortRst = orgRst.sortBy(_.priceForCut)
         if(!sortConds.sortByPriceAsc) {
-            byPrice = byPrice.reverse
+          sortRst = sortRst.reverse 
         }
+      }
 
-        byPrice
-
-        // TODO Group By
-/*
-        var byPopu = byPrice.sortBy(sl => sl.reviewsStat.reviewTotalCnt)
+      // Sort By popularity.
+      if(sortConds.selSortKey == "popu") {
+        sortRst = orgRst.sortBy(_.reviewsStat.reviewTotalCnt)
         if(!sortConds.sortByPopuAsc) {
-            byPopu = byPopu.reverse
+          sortRst = sortRst.reverse 
         }
+      }
 
-        var byReview = byPopu.sortBy(sl => sl.reviewsStat.reviewRate)
+      // Sort By review.
+      if(sortConds.selSortKey == "review") {
+        sortRst = orgRst.sortBy(_.reviewsStat.reviewRate)
         if(!sortConds.sortByReviewAsc) {
-            byReview = byReview.reverse
+          sortRst = sortRst.reverse 
         }
-        byReview
-*/
+      }
+
+      sortRst
     }
  
     /**
@@ -645,14 +652,14 @@ case class SalonFacilities (
    parkingDesc: String
 )
 
-object SalonFacilities extends ModelCompanion[SalonFacilities, ObjectId] {
+object SalonFacilities extends MeifanNetModelCompanion[SalonFacilities] {
     def collection = MongoConnection()(
     current.configuration.getString("mongodb.default.db")
       .getOrElse(throw new PlayException(
         "Configuration error",
         "Could not find mongodb.default.db in settings")))("SalonFacilities")
         
-        val dao = new SalatDAO[SalonFacilities, ObjectId](collection) {}
+        val dao = new MeifanNetDAO[SalonFacilities](collection = loadCollection()){}
 }
 
 /**

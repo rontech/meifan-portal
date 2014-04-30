@@ -1,18 +1,16 @@
 package models
 
-import play.api.Play.current
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
-import se.radley.plugin.salat._
-import mongoContext._
 import se.radley.plugin.salat.Binders._
+import com.meifannet.framework.db._
+import mongoContext._
 
 case class FollowType(
 		id: ObjectId = new ObjectId,
 		followTypeName : String
 		)
 
-object FollowType extends ModelCompanion[FollowType, ObjectId]{
+object FollowType extends MeifanNetModelCompanion[FollowType]{
 
   val FOLLOW_SALON = "salon"
   val FOLLOW_STYLIST = "stylist"
@@ -21,7 +19,7 @@ object FollowType extends ModelCompanion[FollowType, ObjectId]{
   val FOLLOW_BLOG = "blog"
   val FOLLOW_COUPON = "coupon"
 
-	val dao = new SalatDAO[FollowType, ObjectId](collection = mongoCollection("FollowType")){}
+    val dao = new MeifanNetDAO[FollowType](collection = loadCollection()){}
 	
 	def addFollowType(FollowType : FollowType) = dao.save(FollowType, WriteConcern.Safe)
 	

@@ -2,7 +2,7 @@ package models
 
 import play.api.Play.current
 import play.api.PlayException
-import com.novus.salat.dao._
+import com.meifannet.framework.db._
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
@@ -16,19 +16,8 @@ case class IndustryAndPosition(
   positionName: String,
   industryName: String)
 
-object IndustryAndPosition extends IndustryAndPositionDAO
-
-trait IndustryAndPositionDAO extends ModelCompanion[IndustryAndPosition, ObjectId] {
-  def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-        "Configuration error",
-        "Could not find mongodb.default.db in settings")))("IndustryAndPosition")
-
-  val dao = new SalatDAO[IndustryAndPosition, ObjectId](collection) {}
-
-  collection.ensureIndex(DBObject("_id" -> 1), "id", unique = true)
-
+object IndustryAndPosition extends MeifanNetModelCompanion[IndustryAndPosition]{
+  val dao = new MeifanNetDAO[IndustryAndPosition](collection = loadCollection()){}
 }
 
 
@@ -41,15 +30,6 @@ case class Position(
   positionName: String
  )
 
-object Position extends PositionDAO
-
-trait PositionDAO extends ModelCompanion[Position, ObjectId] {
-  def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-        "Configuration error",
-        "Could not find mongodb.default.db in settings")))("Position")
-
-  val dao = new SalatDAO[Position, ObjectId](collection) {}
-
+object Position extends MeifanNetModelCompanion[Position]{
+   val dao = new MeifanNetDAO[Position](collection = loadCollection()){}
 }
