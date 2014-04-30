@@ -368,7 +368,7 @@ a:hover .imgFrame {
 }
 
 .style_ranking_display_block {
-	width:795px;
+	width:768px;
     clear:both;
     overflow:hidden;
 }
@@ -392,19 +392,19 @@ a:hover .imgFrame {
     }
 
 #salon_tjtj {
-width: 795px;
+width: 768px;
 clear: both;
 overflow: hidden;
 padding-bottom: 15px;
 }
 #salon_tjtj h2 {
-width: 795px;
+width: 768px;
 clear: both;
 overflow: hidden;
 border-top: 1px solid #f39aa3;
 }
 #salon_tjtj_nr {
-width: 795px;
+width: 768px;
 clear: both;
 overflow: hidden;
 padding-top: 8px;
@@ -414,7 +414,7 @@ border-collapse: collapse;
 border-spacing: 0;
 }
 #salon_tjtj table[Attributes Style] {
-width: 793px;
+width: 768px;
 border-top-width: 0px;
 border-right-width: 0px;
 border-bottom-width: 0px;
@@ -434,3 +434,7 @@ padding: 2px;
 .bdGrayL {
 border-left: 1px solid #8B8181;
 }
+
+.mR1  { margin-right: 1px; }
+.h240 { height: 240px; }
+

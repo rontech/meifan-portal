@@ -4,19 +4,6 @@
   </h2>
   <div id="index_zxfx_nr">
       <div id=index_zxfxleft>
-          <SCRIPT language=javascript>
-              function switchmodTag(modtag, modcontent, modk) {
-                  for (i = 1; i < 3; i++) {
-                      if (i == modk) {
-                          document.getElementById(modtag + i).className = "menuOn";
-                          document.getElementById(modcontent + i).className = "index_zxfxleftList";
-                      } else {
-                          document.getElementById(modtag + i).className = "menuNo";
-                          document.getElementById(modcontent + i).className = "index_zxfxleftList_none";
-                      }
-                  }
-              }
-          </SCRIPT>
           @if(Style.findByRanking.length > 0) {
           <div id=index_zxfxleftList1 class=index_zxfxleftList>
               <div id="index_zxfx_pic">
@@ -96,3 +83,16 @@
         </div>
     </div>
 </div>
+<SCRIPT language=javascript>
+  function switchmodTag(modtag, modcontent, modk) {
+      for (i = 1; i < 3; i++) {
+          if (i == modk) {
+              document.getElementById(modtag + i).className = "menuOn";
+              document.getElementById(modcontent + i).className = "index_zxfxleftList";
+          } else {
+              document.getElementById(modtag + i).className = "menuNo";
+              document.getElementById(modcontent + i).className = "index_zxfxleftList_none";
+          }
+      }
+  }
+</SCRIPT>
