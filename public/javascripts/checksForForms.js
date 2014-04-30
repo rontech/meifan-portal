@@ -879,9 +879,9 @@ function checkedServiceItem(){
         checked = (services[i].checked ||checked)
     }
     if (!checked) {
-        $('.serviceItem').parent("div").next().text('请选择服务').removeClass("trueMsg").addClass("errorMsg");
+        $('.serviceItem').parent("div").next("span").text('请选择服务').removeClass("trueMsg").addClass("errorMsg");
     }else{
-        $('.serviceItem').parent("div").next().text('').removeClass("errorMsg").addClass("trueMsg");
+        $('.serviceItem').parent("div").next("span").text('').removeClass("errorMsg").addClass("trueMsg");
     }
 }
 
@@ -1082,6 +1082,7 @@ function checksForStyle(){
     if (!isCreate){
         checkStyleName();
     }
+    checkedItemDescription();
 
     $('.picture_error_msg').remove();
 

@@ -1,15 +1,12 @@
 package models
 
 import java.util.Date
-import com.novus.salat.dao._
 import com.mongodb.casbah.query.Imports._
 import mongoContext._
 import se.radley.plugin.salat.Binders._
-import com.mongodb.casbah.Imports.MongoConnection
-import play.api.Play._
-import play.api.PlayException
 import scala.concurrent.{ ExecutionContext, Future }
 import ExecutionContext.Implicits.global
+import com.meifannet.framework.db._
 
 
 case class Coupon (
@@ -40,15 +37,9 @@ case class CreateCoupon (
 		services: List[Service]
 )
 
-object Coupon extends ModelCompanion[Coupon, ObjectId]{
-    
-  def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-        "Configuration error",
-        "Could not find mongodb.default.db in settings")))("Coupon")
+object Coupon extends MeifanNetModelCompanion[Coupon]{
 
-  val dao = new SalatDAO[Coupon, ObjectId](collection){}
+    val dao = new MeifanNetDAO[Coupon](collection = loadCollection()){}
   
   // Indexes
   collection.ensureIndex(DBObject("couponName" -> 1), "couponName", unique = true)

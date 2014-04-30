@@ -1,15 +1,13 @@
 package models
 
-import play.api.Play.current
 import java.util.Date
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
-import play.api.PlayException
 import scala.concurrent.{ ExecutionContext, Future }
 import ExecutionContext.Implicits.global
 import org.mindrot.jbcrypt.BCrypt
+import com.meifannet.framework.db._
 
 case class User(
     id: ObjectId = new ObjectId,
@@ -32,7 +30,7 @@ case class User(
     permission: String,
     isValid: Boolean)
 
-object User extends ModelCompanion[User, ObjectId] {
+object User extends MeifanNetModelCompanion[User] {
 
     /*
     * 用户类别
@@ -54,12 +52,7 @@ object User extends ModelCompanion[User, ObjectId] {
     //底
     val LOW = "low"
 
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("User")
-    val dao = new SalatDAO[User, ObjectId](collection) {}
+    val dao = new MeifanNetDAO[User](collection = loadCollection()){}
 
     // Indexes
     collection.ensureIndex(DBObject("userId" -> 1), "userId", unique = true)

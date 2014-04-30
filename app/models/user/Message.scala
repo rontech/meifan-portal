@@ -1,12 +1,9 @@
 package models
 
-import play.api.Play.current
 import java.util.Date
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
-import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
-import mongoContext._
+import com.meifannet.framework.db._
 
 case class Message(
 		id : ObjectId,
@@ -15,9 +12,9 @@ case class Message(
 		createdTime: Date
 )
 
-object Message extends ModelCompanion[Message, ObjectId] {
+object Message extends MeifanNetModelCompanion[Message] {
 
-  val dao = new SalatDAO[Message, ObjectId](collection = mongoCollection("Message")) {}
+  val dao = new MeifanNetDAO[Message](collection = loadCollection()){}
   
   def findById(id: ObjectId): Option[Message] = dao.findOne(MongoDBObject("_id" -> id))
 }

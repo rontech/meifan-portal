@@ -1,13 +1,10 @@
 package models
 
-import play.api.Play.current
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
-import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
 import java.util.Date
-import play.api.PlayException
+import com.meifannet.framework.db._
 
 case class Menu (
         id: ObjectId = new ObjectId,
@@ -22,15 +19,9 @@ case class Menu (
         isValid: Boolean
 )
 
-object Menu extends ModelCompanion[Menu, ObjectId]{
-    
-    def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-        "Configuration error",
-        "Could not find mongodb.default.db in settings")))("Menu")
+object Menu extends MeifanNetModelCompanion[Menu]{
 
-    val dao = new SalatDAO[Menu, ObjectId](collection){}
+    val dao = new MeifanNetDAO[Menu](collection = loadCollection()){}
     
     // Indexes
     collection.ensureIndex(DBObject("menuName" -> 1), "menuName", unique = true)
