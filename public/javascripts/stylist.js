@@ -47,7 +47,7 @@ function checkStylistExist(){
             	 
             	 
              }else{
-            	 $('#stylistSerchMsg').text("发生错误");
+            	 $('#stylistSerchMsg').text("很抱歉，检测失败，请稍候重试");
              }
          }else{
         	 $('#stylistSerchMsg').text("正在查询");
@@ -77,7 +77,7 @@ function checkSalonExist(){
             	 
             	 
              }else{
-            	 $('#salonSerchMsg').text("发生错误").removeClass("trueMsg").addClass("errorMsg");
+            	 $('#salonSerchMsg').text("很抱歉，检测失败，请稍候重试").removeClass("trueMsg").addClass("errorMsg");
              }
          }else{
         	 $('#salonSerchMsg').text("正在查询");
@@ -87,20 +87,17 @@ function checkSalonExist(){
     
 }
 
-$('#SalonAccountId').blur(function(){
+$('#SalonAccountId').focus(function(){
+    $('#SalonAccountId').next().text("请输入您所属店铺的店铺ID").removeClass("trueMsg").removeClass("errorMsg");
+}).blur(function(){
 	checkSalonAccountId()
 });
 
 function checkSalonAccountId(){
 	var value = $('#SalonAccountId').val();
-    var isValid = /^[a-zA-Z][a-zA-Z0-9_]{5,17}$/;
     if (value == ""){
     	$('#applySerchSalonMsg').text("店铺ID不能为空").removeClass("trueMsg").addClass("errorMsg");
     	return;
-    }
-    if(!isValid.test(value)){
-    	$('#applySerchSalonMsg').text("该ID不合法，请重新输入").removeClass("trueMsg").addClass("errorMsg");
-        return;
     }
     var xhr = getXmlHttpRequest();
 	xhr.open('get',
@@ -115,12 +112,12 @@ function checkSalonAccountId(){
                 	 $('#applySerchSalonMsg').text("").removeClass("errorMsg").addClass("trueMsg");
                  }
                  if(txt == 'NO'){
-                	 $('#applySerchSalonMsg').text("查找不到此店铺，请重新输入").removeClass("trueMsg").addClass("errorMsg");
+                	 $('#applySerchSalonMsg').text("查找不到此店铺，确认无误后，请重新输入").removeClass("trueMsg").addClass("errorMsg");
                  }
             	 
             	 
              }else{
-            	 $('applySerchSalonMsg').text("发生错误");
+            	 $('applySerchSalonMsg').text("很抱歉，检测失败，请稍候重试");
              }
          }else{
         	 $('#applySerchSalonMsgg').text("正在查询");
@@ -129,7 +126,9 @@ function checkSalonAccountId(){
      xhr.send(null);
 }
 
-$('#WorkYears').blur(function(){
+$('#WorkYears').focus(function(){
+    $('#WorkYears  ~ .help-inline').text("工作年数请取整").removeClass("trueMsg").removeClass("errorMsg");
+}).blur(function(){
 	checkWorkYears();
 });
 
@@ -137,14 +136,13 @@ function checkWorkYears(){
     var value = $('#WorkYears').val();
 	var isValid =/^([1-9]|[1-9][0-9])$/;
 	if(value ==''){
-		$('#WorkYears').parent('dd').next().text('年数不能为空，请重新输入').removeClass("trueMsg").addClass("errorMsg");
+		$('#WorkYears  ~ .help-inline').text('工作年数不能为空，请输入').removeClass("trueMsg").addClass("errorMsg");
 		return;
 	}
 	if(!isValid.test(value)){
-		$('#WorkYears').parent('dd').next().text('无效的年数，请重新输入').removeClass("trueMsg").addClass("errorMsg");
-		return;
+		$('#WorkYears  ~ .help-inline').text('格式不正确，请重新输入').removeClass("trueMsg").addClass("errorMsg");
 	}else{
-		$('#WorkYears').parent('dd').next().text('').removeClass("errorMsg").addClass("trueMsg");
+		$('#WorkYears  ~ .help-inline').text('').removeClass("errorMsg").addClass("trueMsg");
 	}
 }
 
@@ -157,7 +155,7 @@ function checkForApplyStylist(){
 			
 		}else{
 			if($indust.eq(i).val()==''){
-				$(this).parent('dd').next().text('无效的行业').removeClass("trueMsg").addClass("errorMsg");
+				$(this).next().text('请选择行业').removeClass("trueMsg").addClass("errorMsg");
 			}
 		}
 		
@@ -168,30 +166,30 @@ function checkForApplyStylist(){
 			
 		}else{
 			if($Position.eq(i).val()==''){
-				$(this).parent('dd').next().text('无效的职位').removeClass("trueMsg").addClass("errorMsg");
+				$(this).next().text('请选择职位').removeClass("trueMsg").addClass("errorMsg");
 			}
 		}
 		
 	});
-	var errInput = $('.errorMsg')
+	var errInput = $('.errorMsg');
     if (errInput.length != 0 ){
         return false;
     }
-	return true;
+    document.stylistForm.submit();
 }
 
 function checkPositionName(obj){
-	if(obj.value == ''){
-		$(obj).parent('dd').next().text('无效的职位').removeClass("trueMsg").addClass("errorMsg"); 
+	if(obj.value == ""){
+		$(obj).next().text('请选择职位').removeClass("trueMsg").addClass("errorMsg");
 	}else{
-		$(obj).parent('dd').next().text('').removeClass("errorMsg").addClass("trueMsg");
+		$(obj).next().text('').removeClass("errorMsg").addClass("trueMsg");
 	}
 }
 
 function checkIndustryName(obj){
-	if(obj.value == ''){
-		$(obj).parent('dd').next().text('无效的行业').removeClass("trueMsg").addClass("errorMsg"); 
+	if(obj.value == ""){
+		$(obj).next().text('请选择行业').removeClass("trueMsg").addClass("errorMsg");
 	}else{
-		$(obj).parent('dd').next().text('').removeClass("errorMsg").addClass("trueMsg");
+		$(obj).next().text('').removeClass("errorMsg").addClass("trueMsg");
 	}
 }
