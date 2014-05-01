@@ -110,12 +110,13 @@
                         <div id="copyrightnew">
                             <a href="@routes.Application.index" target="_blank">
                                 <img src="@routes.Assets.at("images/logo_footer.jpg")" alt="(C) Rontech Lifestyle Co.,Ltd." />
+                                @Messages("main.weAppeal")
                             </a>
                         </div>
                         <div class="postSalonInfo">
                             @Messages("main.toSalonOwners")
                             <a target="_blank" title="@Messages("main.wantToJoin")" href="@auth.routes.Salons.salonInfoBasic"
-                            onclick="customLinkLog('Footer Salon Link');">
+                                    onclick="customLinkLog('Footer Salon Link');">
                                 @Messages("main.wantToJoin")
                             </a>
                         </div>
