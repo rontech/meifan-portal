@@ -1,11 +1,14 @@
 package models
 
-import com.mongodb.casbah.Imports._
+//import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
 import java.util.Date
+import com.mongodb.casbah.query.Imports._
 import com.meifannet.framework.db._
+
+
 case class ResvItem (
 		resvType: String, //coupon: 优惠劵; menu: 菜单; service: 服务
 		mainResvObjId: ObjectId,
@@ -66,8 +69,27 @@ object Reservation extends MeifanNetModelCompanion[Reservation]{
     
 	val dao = new MeifanNetDAO[Reservation](collection = loadCollection()){}
     
-    def findAllReservation(salonId: ObjectId):List[Reservation] = dao.find(MongoDBObject("salonId" -> salonId, "status" -> 0)).sort(MongoDBObject("expectedDate" -> -1)).toList
-   
+    /**
+     * Get the best reserved Styles' reservations in a salon.
+     */
+     def findAllReservation(salonId: ObjectId): List[Reservation] = {
+         dao.find($and(MongoDBObject("salonId" -> salonId), ("status" $in (0, 1)))).sort(MongoDBObject("expectedDate" -> -1)).toList
+     }
+
+    /**
+     * Get the best reserved Styles' ObjectId.
+     *     Ignore the data without styleId.
+     */
+    def findBestReservedStyles(topN: Int = 0): List[ObjectId] = {
+        val rsvedStyles = dao.find($and(("styleId" $exists true), ("status" $in (0, 1)))).sort(MongoDBObject("styleId" -> -1)).toList.map {_.styleId.get}
+        // styleId is exists absolutely.
+        val styleWithCnt = rsvedStyles.groupBy(x => x).map(y => (y._1, y._2.length)).toList.sortWith(_._2 > _._2)
+        // get all stylesId or only top N stylesId of a salon according the topN parameters.  
+        val top = if (topN == 0) styleWithCnt.map{_._1} else styleWithCnt.map(_._1).slice(0, topN)
+        top
+    }
+
+
     /**
 	 * 根据预定时间查找预约信息
 	 */

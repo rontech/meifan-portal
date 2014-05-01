@@ -1,4 +1,4 @@
-@(styleAndSalon: List[models.StyleAndSalon])
+@(styleAndSalon: List[models.StyleWithAllInfo])
 @import helper._
 
 <div class="mT40">
@@ -16,14 +16,13 @@
                 <div class="">
                     <div class="w660 h75">
                         <div class="">
-                             <a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(0).salon.id, styleAndSalon(0).style.id)" class="rankingListInnerAnchor" >
+                             <a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(0).salonId, styleAndSalon(0).style.id)" class="rankingListInnerAnchor" >
                                 <p class="fs22 b"><span class="photoCaption">@styleAndSalon(0).style.styleName</span></p>
                              </a>
                         </div>
                         <div class="">
                         </div>
                         <div class="bdGrayL">
-                                <!--  <a id="mysIdh01L000544169" href="javascript:void(o);" onclick="addFollow('@styleAndSalon(0).style.id','style')" class="bS db addIntoMyStylePink offL fr mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">@Messages("hair.ToCollect")</a>-->
                                 <div class="sl_show_xy">
                						<p align="center">
                   						 <a href = "javascript:void(0);" onclick="addFollow('@styleAndSalon(0).style.id','style')" >@Messages("hair.ToCollect")</a>
@@ -42,8 +41,8 @@
                             <div class="oh zoom1">
                                 <p class="fs10 w397">@styleAndSalon(0).style.description</p>
                                 <div class="mT5">
-                                    <p>@Messages("salon.Name") ： @Style.findSalonByStyle(styleAndSalon(0).style.stylistId).get.salonName</p>
-                                    <p>@Messages("hair.stylist") ： @Stylist.findUser(styleAndSalon(0).style.stylistId).nickName</p>
+                                    <p>@Messages("salon.Name") ： @styleAndSalon(0).salonName</p>
+                                    <p>@Messages("hair.stylist") ： @styleAndSalon(0).stylistNickname</p>
                                 </div>
                             </div>
                         </div>
@@ -65,7 +64,7 @@
                             <h4 class="rankingListHeading icnCrownOther"><p class="b fs18">@(i+1)@Messages("common.seat")</p></h4>
                         }
                         <div class="styleResult">
-                            <a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" >
+                            <a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salonId, styleAndSalon(i).style.id)" >
                                 <img src="@routes.Application.getPhoto(styleAndSalon(i).style.stylePic(0).fileObjId)" class="w120 h150" alt="@styleAndSalon(i).style.styleName" >
                             </a>
                             <div class="layer jscLayer jscFixPng">
@@ -74,13 +73,13 @@
                    						<a href="javascript:void(0);" onclick="addFollow('@styleAndSalon(i).style.id','style')" >@Messages("hair.ToCollect")</a>
                						</p>
             					</div>
-                                <p><a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)">@Messages("hair.detailInfo")</a></p>
+                                <p><a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salonId, styleAndSalon(i).style.id)">@Messages("hair.detailInfo")</a></p>
                             </div>
                             <div class="mT2">
-                                <a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salon.id, styleAndSalon(i).style.id)" class="rankingListInnerAnchor" >
+                                <a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(i).salonId, styleAndSalon(i).style.id)" class="rankingListInnerAnchor" >
                                     <p><span class="photoCaption">@styleAndSalon(i).style.styleName</span></p>
                                     <div class="mT2">
-                                        <p class="rankingListShop">@styleAndSalon(i).salon.salonName</p>
+                                        <p class="rankingListShop">@styleAndSalon(i).salonName</p>
                                     </div>
                                 </a>
                             </div>

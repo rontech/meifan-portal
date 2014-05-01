@@ -103,6 +103,35 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
 
     /**
+     * Get a specified Style from a salon.
+     */
+    def getOneStyle(salonId: ObjectId, styleId: ObjectId): Option[Style] = { 
+        // First of all, check that if the salon is acitve.
+        val salon: Option[Salon] = Salon.findOneById(salonId)
+        salon match {
+            case None => None 
+            case Some(sl) => {
+                // Second, check if the style is exist.
+                val style: Option[Style] = Style.findOneById(styleId)
+                style match {
+                    // If style is not exist, show nothing but must in the salon's page.
+                    case None => None
+                    case Some(st) => {
+                        // Third, we need to check the relationship between slaon and stylist to check if the style is active.
+                        if (SalonAndStylist.isStylistActive(salonId, st.stylistId)) {
+                            // If style is active, jump to the style show page in salon.
+                            Some(st) 
+                        } else {
+                            // If style is not active, show nothing but must in the salon's page.
+                            None
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Get the stylists count of a salon.
      */
     def getCountOfStylists(salonId: ObjectId) = {
