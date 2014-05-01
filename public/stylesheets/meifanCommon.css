@@ -736,6 +736,11 @@ text-align:center;
 	line-height:30px;
 }
 
+#copyrightnew {
+float: left;
+margin: 10px 10px 0 10px;
+}
+
 .postSalonInfo {
 	position: absolute;
 	top: 20px;
@@ -1003,5 +1008,9 @@ float: right;
 
 .searchCoupon {
 width: 80px;
-background-color: rgb(252, 234, 234);
+height: 30px;
+}
+
+.h150 {
+height: 150px;
 }

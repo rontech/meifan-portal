@@ -76,59 +76,160 @@ border-radius: 2px;
 }
 
 #nav2 {
-width: 760px;
 clear: both;
 overflow: hidden;
-height: 32px;
-padding-top: 10px;
+height: 35px;
+background: url("/assets/images/salonTitleLine.png") no-repeat left bottom;
+padding: 10px 5px 2px 7px;
 }
 
 #nav2 ul li {
-float: left;
-padding: 0 2px;
+margin-right: 2px;
 }
 
-#nav2 ul li.btn a {
-background: url("/assets/images/nav_btn_.jpg") no-repeat;
-width: 113px;
-height: 32px;
-line-height: 32px;
-font-size: 14px;
-font-family: "微软雅黑";
-display: block;
-text-align: center;
-text-decoration: none;
-color: #f36d7a;
+.bts	{
+background-image: url(/assets/images/salonTitle.png);
+background-repeat: no-repeat;
+background-color: transparent;
+border: 0;
 }
 
-#nav2 ul li a {
-background: url("/assets/images/nav_btn_.jpg") no-repeat;
-width: 113px;
-height: 32px;
-line-height: 32px;
-font-size: 14px;
-font-family: "微软雅黑";
-display: block;
-text-align: center;
-color: #000;
+.bS	{
+background-image: url(/assets/images/b.png);
+background-repeat: no-repeat;
+background-color: transparent;
+border: 0;
+}
+
+.salonInformation {
+background-position: 0 0;
+width: 140px;
+height: 35px;
+}
+
+.couponAndMenu {
+background-position: -140px 0px;
+width: 140px;
+height: 35px;
+}
+
+.stylist {
+background-position: -280px 0px;
+width: 85px;
+height: 35px;
+}
+
+.style {
+background-position: -365px 0px;
+width: 85px;
+height: 35px;
+}
+
+.blog {
+background-position: -450px 0px;
+width: 85px;
+height: 35px;
+}
+
+.accessMap {
+background-position: -535px 0px;
+width: 85px;
+height: 35px;
+}
+
+.kuchikomi {
+background-position: -620px 0px;
+width: 90px;
+height: 35px;
+}
+
+.salonInformation:hover {
+background-position: 0 -60px;
+}
+
+.couponAndMenu:hover {
+background-position: -140px -60px;
+}
+
+.stylist:hover {
+background-position: -280px -60px;
+}
+
+.style:hover {
+background-position: -365px -60px;
+}
+
+.blog:hover {
+background-position: -450px -60px;
+}
+
+.accessMap:hover {
+background-position: -535px -60px;
+}
+
+.kuchikomi:hover {
+background-position: -620px -60px;
+}
+
+.salonInformationCurrent {
+background-position: 0 -120px;
+width: 140px;
+height: 37px;
+}
+
+.couponAndMenuCurrent {
+background-position: -140px -120px;
+width: 140px;
+height: 37px;
+}
+
+.stylistCurrent {
+background-position: -280px -120px;
+width: 85px;
+height: 37px;
+}
+
+.styleCurrent {
+background-position: -365px -120px;
+width: 85px;
+height: 37px;
+}
+
+.blogCurrent {
+background-position: -450px -120px;
+width: 85px;
+height: 37px;
+}
+
+.accessMapCurrent {
+background-position: -535px -120px;
+width: 85px;
+height: 37px;
+}
+
+.kuchikomiCurrent {
+background-position: -620px -120px;
+width: 90px;
+height: 37px;
 }
 
 .sl_show_yy {
-width: 140px;
-height: 30px;
+width: 154px;
+height: 60px;
 overflow: hidden;
 clear: both;
 margin: 2px auto 0px;
-background: url("/assets/images/salon_head_an.jpg") repeat-x;
+background: url("/assets/images/salon_head_btn.png");
 font-size: 14px;
-border: 1PX #bb4f59 solid;
-padding-top: 10px;
 }
 
 .sl_show_yy a {
 color: #FFF;
 text-decoration: none;
+width: 155px;
+height: 60px;
 display: block;
+text-indent: -999px;
 }
 
 .sl_show_xx{
@@ -145,4 +246,12 @@ padding-top: 5px;
 color: #333333;
 text-decoration: none;
 display: block;
+}
+
+.faciUnit {
+margin-bottom: 5px;
+}
+
+#salonMainContents li.atmoPic:last-child {
+	border-right: none;
 }

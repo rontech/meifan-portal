@@ -23,17 +23,16 @@
 				</div>
 				<div class="pH10 mT20 oh w745">
 					<ul class="cFix w786">
-					<li class="fl w221 bdGrayR mR20 pR20">
 					@if(salon.salonPics.size > 0){
 						@for(i <- 0 to salon.salonPics.size-1){
 							@if(salon.salonPics(i).picUse == "Atmosphere" ){
-								<div class="taC"><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)" class="bdImgGray"  width="220" height="164"/></div>
-								<p class="fgGray fs10 mT10">@salon.salonPics(i).description</p>								
-									}
+								<li class="fl w221 bdGrayR mR20 pR20 atmoPic">
+									<div class="taC"><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)" class="bdImgGray"  width="205" height="150"/></div>
+									<p class="fgGray fs10 mT10 taC">@salon.salonPics(i).description</p>	
+								</li>							
+							}
 						}
 					}
-						</li>
 					</ul>
 				</div>
-				<p class="mT5 taR"><i><em class="seoCaption">@Messages("salon.picUse.Atmosphere")</em></i></p>
 			</div>
