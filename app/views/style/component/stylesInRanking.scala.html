@@ -1,0 +1,36 @@
+@(styles: List[StyleWithAllInfo], limitCnt: Int, lengthType: String = "all", sex: String = "female")
+
+<div class="mT20 w748 oh">
+    <div class="jscRankList current pr top0 left0">
+        <ul class="cFix rankingList">
+            @for((style, i) <- styles.zipWithIndex){
+                @if((i < styles.length) && (i < limitCnt)) {
+                    <li class="fl w137 mR15">
+                        <a href="@noAuth.routes.Salons.getOneStyle(style.salonId, style.style.id)">
+                            @if(i < 3) {
+                                <h4 class="rankingListHeading icnCrown@i"><img src="/assets/images/text_ranking_@i'.png"></h4>
+                            } else {
+                                <h4 class="rankingListHeading icnCrownOther"><img src="/assets/images/text_ranking_@i'.png"></h4>
+                            }
+                            
+                            <div>
+                                <p><img src="@routes.Application.getPhoto(style.style.stylePic(0).fileObjId)" class="imgFrame w134 h182 msInterMode"
+                                         alt="@style.style.styleName" oncontextmenu="return false;"  width="138px"></p>
+                                <div class="mT2">
+                                    <p class="rankingListInnerAnchor">@style.style.styleName</p>
+                                    <div class="mT2">
+                                        <p class="rankingListShop">@style.salonName</p>
+                                        <p class="rankingListStylist">@style.stylistNickname</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+        <div class="mR1">
+            <p class="taR"><a href="@noAuth.routes.Styles.findByRanking(lengthType, sex)" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
+        </div>
+    </div>
+</div>

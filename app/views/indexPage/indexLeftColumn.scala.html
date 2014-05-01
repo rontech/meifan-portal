@@ -1,7 +1,7 @@
 <div id="left_container">
 	<div class="h489">
 		<!-- ↓热门发型 -->
-		@views.html.style.general.styleRanking()
+		@views.html.style.general.styleRanking(Style.findByRanking(6))
 		<!-- ↑热门发型 -->
 		
 		<!-- ↓系统通知 -->

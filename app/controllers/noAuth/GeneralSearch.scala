@@ -44,18 +44,7 @@ object GeneralSearch extends Controller with OptionalAuthElement with UserAuthCo
                         }
                         case "HairCatalog" => {
                             val styleSearch = new Style(new ObjectId, "", new ObjectId, Nil, "all", Nil, "all", Nil, Nil, Nil, Nil, Nil, "", Nil, "all", Nil, new Date, true)
-                            val styleSearchInfo = Style.findByPara(styleSearch)
-                            var styleAndSalons: List[StyleAndSalon] = Nil
-                            styleSearchInfo.map { styleInfo =>
-                                val salonOne = Style.findSalonByStyle(styleInfo.stylistId)
-                                salonOne match {
-                                    case Some(salonOne) => {
-                                        val styleAndSalon = new StyleAndSalon(styleInfo, salonOne)
-                                        styleAndSalons :::= List(styleAndSalon)
-                                    }
-                                    case None => null
-                                }
-                            }
+                            var styleAndSalons: List[StyleWithAllInfo] = Style.findByPara(styleSearch)
                             Ok(views.html.style.general.styleSearchResultPage(Styles.styleSearchForm.fill(styleSearch), styleAndSalons, Style.findParaAll, user))
                         }
                         case "NailSalon" => {
