@@ -14,13 +14,13 @@ import play.api.Routes
 import java.io._
 import jp.t2v.lab.play2.auth._
 import play.api.templates.Html
-import com.mongodb.casbah.MongoConnection
 import javax.imageio.ImageIO
 import play.api.data.Form
 import play.api.data.Forms._
 import scala.Some
 import models._
 import utils.Const._
+import com.meifannet.framework.db._
 
 object Application extends Controller with OptionalAuthElement with UserAuthConfigImpl{
 
@@ -32,8 +32,12 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
         Ok(Routes.javascriptRouter("jsRoutes")(
             auth.routes.javascript.MyFollows.addFollow,
             routes.javascript.Application.uploadWithAjax,
-            routes.javascript.Application.itemIsExist,
-            auth.routes.javascript.Stylists.itemIsExist
+            auth.routes.javascript.Stylists.itemIsExist,
+            auth.routes.javascript.Salons.itemIsExist,
+            noAuth.routes.javascript.Users.checkIsExist,
+            auth.routes.javascript.MyFollows.followedCoupon,
+            auth.routes.javascript.MyFollows.followedBlog,
+            auth.routes.javascript.MyFollows.followedStyle
         )).as("text/javascript")
     }
 
@@ -59,25 +63,38 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
         Ok(views.html.salon.salonManage.salonRegister(Salons.salonRegister,industry))
     }
 
-    def itemIsExist(value:String, key:String) = Action {
-        key match{
-            case ITEM_TYPE_ID =>
-                Ok((User.isExist(value, User.findOneByUserId)||Salon.isExist(value, Salon.findByAccountId)).toString)
-            case ITEM_TYPE_NAME =>
-                Ok((User.isExist(value, User.findOneByNickNm)||Salon.isExist(value, Salon.findOneBySalonName)||Salon.isExist(value, Salon.findOneBySalonNameAbbr)).toString)
-            case ITEM_TYPE_EMAIL =>
-                Ok((User.isExist(value, User.findOneByEmail)||Salon.isExist(value, Salon.findOneByEmail)).toString)
-            case ITEM_TYPE_TEL =>
-                Ok((User.isExist(value, User.findOneByTel)||Salon.isExist(value, Salon.findOneByMainPhone)).toString)
-        }
-    }
-    
+    /*def itemIsExist(value:String, key:String, accountId :String) = Action {
+        //Redirect(auth.routes.Users.checkIsExist(value, key))
+        /*val loggedUser = User.findOneByUserId(accountId)
+        val loggedSalon = Salon.findByAccountId(accountId)
+            key match{
+                case ITEM_TYPE_ID =>
+                    Ok((User.isExist(value, User.findOneByUserId)||Salon.isExist(value, Salon.findByAccountId)).toString)
+                case ITEM_TYPE_NAME =>
+                if(User.isValid(value, loggedUser, User.findOneByNickNm)){
+                    Ok((Salon.isExist(value,Salon.findOneBySalonName)||Salon.isExist(value,Salon.findOneBySalonNameAbbr)).toString)
+                }else{
+                    Ok("true")
+                }
+                case ITEM_TYPE_NAME_ABBR =>
+                    if(User.isExist(value,User.findOneByNickNm)){
+                        Ok("true")
+                    }else{
+                        Ok((!Salon.isValid(value, loggedSalon, Salon.findOneBySalonName) || !Salon.isValid(value, loggedSalon, Salon.findOneBySalonNameAbbr)).toString)
+                    }
+                case ITEM_TYPE_EMAIL =>
+                    Ok((!User.isValid(value, loggedUser, User.findOneByEmail)).toString)
+                case ITEM_TYPE_TEL =>
+                    Ok((!User.isValid(value, loggedUser, User.findOneByTel)).toString)
+            }*/
+    }*/
+
     def getPhoto(file: ObjectId) = Action {
 
         import com.mongodb.casbah.Implicits._
         import ExecutionContext.Implicits.global
 
-        val db = MongoConnection()("Picture")
+        val db = DBDelegate.picDB
         val gridFs = GridFS(db)
         gridFs.findOne(Map("_id" -> file)) match {
             case Some(f) => SimpleResult(
@@ -109,7 +126,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     def upload = Action(parse.multipartFormData) { request =>
         request.body.file("photo") match {
             case Some(photo) =>
-                val db = MongoConnection()("Picture")
+                val db = DBDelegate.picDB
                 val gridFs = GridFS(db)
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull
@@ -124,14 +141,15 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
             imgForm.bindFromRequest.fold(
                 errors =>Ok(Html(errors.toString)),
                 img =>{
-                    val db = MongoConnection()("Picture")
+                    val db = DBDelegate.picDB
                     val gridFs = GridFS(db)
                     val file = photo.ref.file
                     val originImage =  ImageIO.read(file)
-
-                    //intValue,img.h.intValue-2  防止截取图片尺寸超过图片本身尺寸
-                    val newImage = originImage.getSubimage(img.x1.intValue,img.y1.intValue,img.w.intValue-2,img.h.intValue-2)
-
+                    var newImage = originImage;
+                    if (img.w != 0){
+                        //intValue,img.h.intValue-2  防止截取图片尺寸超过图片本身尺寸
+                        newImage = originImage.getSubimage(img.x1.intValue,img.y1.intValue,img.w.intValue-2,img.h.intValue-2)
+                    }
                     var os: ByteArrayOutputStream = null
                     var inputStream: ByteArrayInputStream = null
                     try {
@@ -170,7 +188,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     def fileUploadAction = Action(parse.multipartFormData) { implicit request =>
     	request.body.file("Filedata") match {
             case Some(photo) =>{
-            	val db = MongoConnection()("Picture")
+                val db = DBDelegate.picDB
                 val gridFs = GridFS(db)
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull
@@ -185,7 +203,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     def uploadWithAjax = Action(parse.multipartFormData) { implicit request =>
         request.body.file("photo") match {
             case Some(photo) =>{
-                val db = MongoConnection()("Picture")
+                val db = DBDelegate.picDB
                 val gridFs = GridFS(db)
                 val uploadedFile = gridFs.createFile(photo.ref.file)
                 uploadedFile.contentType = photo.contentType.orNull

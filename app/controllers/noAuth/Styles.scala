@@ -181,38 +181,20 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
 
     def findByLength(styleLength: String, consumerSex: String) = StackAction { implicit request =>
         val user = loggedIn
-        val styleSearchInfo = Style.findByLength(styleLength, consumerSex)
-        val styleSearchByLength: Style = Style(new ObjectId, "", new ObjectId, Nil, "", Nil, styleLength, Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
-        var styleAndSalons: List[StyleAndSalon] = Nil
-        styleSearchInfo.map { styleInfo =>
-            val salonOne = Style.findSalonByStyle(styleInfo.stylistId)
-            salonOne match {
-                case Some(salonOne) => {
-                    val styleAndSalon = new StyleAndSalon(styleInfo, salonOne)
-                    styleAndSalons :::= List(styleAndSalon)
-                }
-                case None => null
-            }
-        }
-        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleAndSalons, Style.findParaAll, user))
+        val styleSearchByLength: Style = Style(new ObjectId, "", new ObjectId, Nil, "", Nil, styleLength,
+               Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
+        val styleAllInfo: List[StyleWithAllInfo] = Style.findByLength(styleLength, consumerSex)
+
+        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleAllInfo, Style.findParaAll, user))
     }
 
     def findByImpression(styleImpression: String, consumerSex: String) = StackAction { implicit request =>
         val user = loggedIn
-        val styleSearchInfo = Style.findByImpression(styleImpression, consumerSex)
-        val styleSearchByImpression: Style = Style(new ObjectId, "", new ObjectId, Nil, styleImpression, Nil, "", Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
-        var styleAndSalons: List[StyleAndSalon] = Nil
-        styleSearchInfo.map { styleInfo =>
-            val salonOne = Style.findSalonByStyle(styleInfo.stylistId)
-            salonOne match {
-                case Some(salonOne) => {
-                    val styleAndSalon = new StyleAndSalon(styleInfo, salonOne)
-                    styleAndSalons :::= List(styleAndSalon)
-                }
-                case None => null
-            }
-        }
-        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByImpression), styleAndSalons, Style.findParaAll, user))
+        val styleSearchByImpression: Style = Style(new ObjectId, "", new ObjectId, Nil, styleImpression,
+                 Nil, "", Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
+        var styleAllInfo: List[StyleWithAllInfo] = Style.findByImpression(styleImpression, consumerSex) 
+ 
+        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByImpression), styleAllInfo, Style.findParaAll, user))
     }
 
     def styleSearchList = StackAction { implicit request =>
@@ -221,21 +203,24 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
                 errors => BadRequest(views.html.index()),
                 {
                     case (styleSearch) => {
-                        val styleSearchInfo = Style.findByPara(styleSearch)
-                        var styleAndSalons: List[StyleAndSalon] = Nil
-                        styleSearchInfo.map { styleInfo =>
-                            val salonOne = Style.findSalonByStyle(styleInfo.stylistId)
-                            salonOne match {
-                                case Some(salonOne) => {
-                                    val styleAndSalon = new StyleAndSalon(styleInfo, salonOne)
-                                    styleAndSalons :::= List(styleAndSalon)
-                                }
-                                case None => null
-                            }
-                        }
-                        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearch), styleAndSalons, Style.findParaAll, user))
+                        val styleAllInfo: List[StyleWithAllInfo] = Style.findByPara(styleSearch)
+                        Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearch), styleAllInfo, Style.findParaAll, user))
                     }
                 })
+    }
+    
+    /**
+     * 前台发型Rangking内页
+     */
+    def findByRanking(styleLength: String, consumerSex: String) = StackAction { implicit request => 
+        val user = loggedIn
+        var stlAllInfo: List[StyleWithAllInfo] = Nil
+        if(styleLength.equals("all")) {
+            stlAllInfo = Style.findByRankingAndSex(consumerSex)
+        } else {
+            stlAllInfo = Style.findByRankingAndLengthForF(styleLength, consumerSex)
+        }
+        Ok(html.style.general.styleRankingResultPage(styleSearchForm, stlAllInfo, Style.findParaAll, user))
     }
 
 }

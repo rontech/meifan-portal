@@ -4,7 +4,9 @@
 
 # Home page
 GET         /                                                                    controllers.Application.index
-POST        /checkForm/:value/:key                                                controllers.Application.itemIsExist(value, key)
+POST        /checkIsExist/:value/:key                                            controllers.noAuth.Users.checkIsExist(value, key)
+POST        /itemIsExist/:value/:key                                             controllers.auth.Salons.itemIsExist(value, key)
+POST        /checkStyleForm/:value/:key                                          controllers.auth.Stylists.itemIsExist(value,key)
 
 # User Login & Register & Public Info.
 # Jump to User Login Page.
@@ -68,6 +70,7 @@ GET         /style                                                              
 POST        /style/searchPage                                                    controllers.noAuth.Styles.styleSearchList
 GET         /style/length/:styleLength/:consumerSex                              controllers.noAuth.Styles.findByLength(styleLength: String, consumerSex: String)
 GET         /style/impression/:styleImpression/:consumerSex                      controllers.noAuth.Styles.findByImpression(styleImpression: String, consumerSex: String)
+GET         /style/rangking/:styleLength/:consumerSex                            controllers.noAuth.Styles.findByRanking(styleLength: String, consumerSex: String)
 
 # User
 GET         /user/:userId                                                        controllers.noAuth.Users.userPage(userId)
@@ -157,9 +160,9 @@ GET         /myPage/toApplySalon/:salonId                                       
 GET         /myPage/salon                                                        controllers.auth.Stylists.findSalonBySalonAccountId
 
 # TODO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-GET         /updateStylistImage                                                  controllers.auth.Stylists.updateStylistImage
-POST        /toUpdateStylistImage                                                controllers.auth.Stylists.toUpdateStylistImage
-GET         /saveStylistImg/:imgId                                               controllers.auth.Stylists.saveStylistImg(imgId: ObjectId)
+GET         /updateStylistImage                                                  controllers.auth.Stylists.updateStylistImage(role: String)
+POST        /toUpdateStylistImage                                                controllers.auth.Stylists.toUpdateStylistImage(role: String)
+GET         /saveStylistImg/:imgId/:role                                         controllers.auth.Stylists.saveStylistImg(imgId: ObjectId, role: String)
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 GET         /myPage/StylistInfo                                                  controllers.auth.Stylists.stylistInfo
 POST        /myPage/updateStylistInfo/:stylistId                                 controllers.auth.Stylists.updateStylistInfo(stylistId: ObjectId)
@@ -271,14 +274,14 @@ POST        /imagesUpload                                                       
 GET         /forgotPassword                                                      controllers.Mails.forgotPassword
 POST        /forgotPassword                                                      controllers.Mails.sendMailForResetPwd
 
-GET         /s/forgotPassword                                                      controllers.Mails.forgotPasswordOfSalon
-POST        /s/forgotPassword                                                      controllers.Mails.sendMailForResetPwdOfSalon
+GET         /s/forgotPassword                                                    controllers.Mails.forgotPasswordOfSalon
+POST        /s/forgotPassword                                                    controllers.Mails.sendMailForResetPwdOfSalon
 
 GET         /resetPwd                                                            controllers.Mails.password(uuid : String)
 POST        /resetPwd                                                            controllers.Mails.resetPassword(uuid : String)
 
-GET         /s/resetPwd                                                            controllers.Mails.passwordOfSalon(uuid : String)
-POST        /s/resetPwd                                                            controllers.Mails.resetPasswordOfSalon(uuid : String)
+GET         /s/resetPwd                                                          controllers.Mails.passwordOfSalon(uuid : String)
+POST        /s/resetPwd                                                          controllers.Mails.resetPasswordOfSalon(uuid : String)
 
 #add salonPics 
 POST        /mySalon/updatepictures                                              controllers.auth.Salons.updateSalonPics
@@ -290,12 +293,12 @@ GET         /reserve/salonId=:salonId&couponId=:couponId&week=:week             
 
 #cancel current apply by user(dou)
 GET         /myPage/cancelApply                                                  controllers.auth.Users.cancelApplyStylist
-GET         /mySalon/checkStylistIsExist/:userId/:salonId                                 controllers.noAuth.Stylists.checkStylistIsExist(userId: String, salonId: ObjectId)
+GET         /mySalon/checkStylistIsExist/:userId/:salonId                        controllers.noAuth.Stylists.checkStylistIsExist(userId: String, salonId: ObjectId)
 
 GET         /salon/:salonId/map                                                  controllers.noAuth.Salons.getMap(salonId: ObjectId)
 
 #to salon search main page
-GET         /salonsearch                                                         controllers.noAuth.Salons.getSalonBySearch
+#GET         /salonsearch                                                         controllers.noAuth.Salons.getSalonBySearch
 POST        /salonsearch                                                         controllers.noAuth.Salons.getSalonBySearch
 
 #to salon backstage style
@@ -309,4 +312,5 @@ GET         /doc/notice                                                         
 
 GET         /getkeyWordsByajax/:wordText                                         controllers.Application.getkeyWordsByajax(wordText:String)
 
-POST        /checkStyleForm/:value/:key/:type/:table                             controllers.auth.Stylists.itemIsExist(value:String,key:String,type:String,table:String)
+#generalSearch
+POST        /generalSearch                                                       controllers.noAuth.GeneralSearch.getGeneralSearch

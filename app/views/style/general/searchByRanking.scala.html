@@ -1,56 +1,61 @@
 
-<div class="mT30">
-    <div>
-        <div class="skinHeadingWrapper1 mB15 cFix pr">
-            <h3 class="fl skinHeading1 offL headingRanking">@Messages("hair.styleRanking")</h3>
-        </div>
-        <div>
-            <ul class="cFix tabRanking mB10" id="jsiRankingTab">
-                <li class="fl mR3 current"><a href="javascript: void(0);" class="offL tabRankingAll"><span class="vaM">@Messages("hair.rankingAll")</span></a></li>
-                <li class="fl mR3"><a href="javascript: void(0);" class="offL tabRankingMedium">@Messages("hair.rankingMedium")</a></li>
-                <li class="fl mR3"><a href="javascript: void(0);" class="offL tabRankingShort">@Messages("hair.rankingShort")</a></li>
-                <li class="fl mR3"><a href="javascript: void(0);" class="offL tabRankingSemiLong">@Messages("hair.rankingSemiLong")</a></li>
-                <li class="fl mR3"><a href="javascript: void(0);" class="offL tabRankingLong">@Messages("hair.rankingLong")</a></li>
-                <li class="fl mR3"><a href="javascript: void(0);" class="offL tabRankingVeryShort">@Messages("hair.rankingVeryShort")</a></li>
-                <li class="fl mR3"><a href="javascript: void(0);" class="offL tabRankingHairSet">@Messages("hair.rankingHairSet")</a></li>
-                <li class="fl mR3"><a href="javascript: void(0);" class="offL tabRankingMrs">@Messages("hair.rankingMrs")</a></li>
-                <li class="fl"><a href="javascript: void(0);" class="offL tabRankingMens">@Messages("hair.rankingMens")</a></li>
-        	</ul>
-        </div>
+<div class="mT30" id="salon_nvfxjs_title">
+    <div id="salon_nvfxjs_title">
+            <img src="@routes.Assets.at("images/haircatalog/hair_label/salon_rq_title.jpg")" width="768" height="35">
     </div>
-    <div class="mT20 w748 oh">
-        <div class="rankingListWrapper" id="jsiRankListWrapper">
-            <div id="jsiRankListInner">
-                <div class="jscRankList current pr top0 left0">
-                <ul class="cFix rankingList">
-                	@for(i <- 0 until (if (Style.findByRanking.length > 5) 5 else Style.findByRanking.length)){
-                		<li class="fl w137 mR15">
-	                        <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRanking(i).stylistId).get.id, Style.findByRanking(i).id)">
-	                        	@if(i < 3) {
-	                        		<h4 class="rankingListHeading icnCrown@i"><img src="/assets/images/text_ranking_@i'.png"></h4>
-	                        	} else {
-	                        		<h4 class="rankingListHeading icnCrownOther"><img src="/assets/images/text_ranking_@i'.png"></h4>
-	                        	}
-	                        	
-	                            <div>
-	                                <p><img src="@routes.Application.getPhoto(Style.findByRanking(i).stylePic(0).fileObjId)" class="imgFrame w134 h182 msInterMode" alt="@Style.findByRanking(i).styleName" oncontextmenu="return false;"  width="138px"></p>
-	                                <div class="mT2">
-	                                    <p class="rankingListInnerAnchor">@Style.findByRanking(i).styleName</p>
-	                                    <div class="mT2">
-	                                        <p class="rankingListShop">@Style.findSalonByStyle(Style.findByRanking(i).stylistId).get.salonName</p>
-	                                        <p class="rankingListStylist">@Stylist.findUser(Style.findByRanking(i).stylistId).nickName</p>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </a>
-                        </li>
-                	}
-                </ul>
-                <div class="mT20">
-                    <p class="taR"><a href="#" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
-                </div>
-                </div>
-            </div>
-        </div>
+    <div id="style_nvfxjs_nr_box">
+        <h2 id="mod1" class="menuOn" onClick="switchmodTag('mod','styleRankingList','1');this.blur();">@Messages("hair.rankingAll")</h2>
+        <h2 id="mod2" class="menuNo" onClick="switchmodTag('mod','styleRankingList','2');this.blur();">@Messages("style.styleLength.super-short")</h2>
+        <h2 id="mod3" class="menuNo" onClick="switchmodTag('mod','styleRankingList','3');this.blur();">@Messages("style.styleLength.short")</h2>
+        <h2 id="mod4" class="menuNo" onClick="switchmodTag('mod','styleRankingList','4');this.blur();">@Messages("style.styleLength.near-shoulder-length")</h2>
+        <h2 id="mod5" class="menuNo" onClick="switchmodTag('mod','styleRankingList','5');this.blur();">@Messages("style.styleLength.shoulder-length")</h2>
+        <h2 id="mod6" class="menuNo" onClick="switchmodTag('mod','styleRankingList','6');this.blur();">@Messages("style.styleLength.mid-length")</h2>
+        <h2 id="mod7" class="menuNo" onClick="switchmodTag('mod','styleRankingList','7');this.blur();">@Messages("style.styleLength.long")</h2>
+        <h2 id="mod8" class="menuNo" onClick="switchmodTag('mod','styleRankingList','8');this.blur();">@Messages("hair.rankingMens")</h2>
     </div>
+    
+    <div class="style_ranking_display_block" id="styleRankingList1">
+        @views.html.style.component.stylesInRanking(Style.findByRankingAndSex("female", 5), 5, "all", "female")
+    </div>
+    
+    <div class="style_ranking_display_none" id="styleRankingList2">
+        @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("super-short", "female", 5), 5, "all", "female")
+    </div>
+    
+    <div class="style_ranking_display_none" id="styleRankingList3">
+        @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("short", "female", 5), 5, "all", "female")
+    </div>
+    
+    <div class="style_ranking_display_none" id="styleRankingList4">
+        @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("near-shoulder-length", "female", 5), 5, "all", "female")
+    </div>
+    
+    <div class="style_ranking_display_none" id="styleRankingList5">
+        @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("shoulder-length", "female", 5), 5, "all", "female")
+    </div>
+    
+    <div class="style_ranking_display_none" id="styleRankingList6">
+        @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("mid-length", "female", 5), 5, "all", "female")
+    </div>
+    
+    <div class="style_ranking_display_none" id="styleRankingList7">
+        @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("long", "female", 5), 5, "all", "female")
+    </div>
+    
+    <div class="style_ranking_display_none" id="styleRankingList8">
+        @views.html.style.component.stylesInRanking(Style.findByRankingAndSex("male", 5), 5, "all", "male")
+   </div>
 </div>
+
+<script type="text/javascript">
+    function switchmodTag(modtag,modcontent,modk) {
+        for(i=1; i <9; i++) {
+            if (i==modk) {
+                document.getElementById(modtag+i).className="menuOn";
+                document.getElementById(modcontent+i).className="style_ranking_display_block";}
+            else {
+                document.getElementById(modtag+i).className="menuNo";
+                document.getElementById(modcontent+i).className="style_ranking_display_none";}
+            }
+    }
+</script>

@@ -1,7 +1,7 @@
 @(user :User,followInfo:FollowInformation)
 			<div class ="Owner">
 				<a href="#" class='Img'><img src="@routes.Application.getPhoto(user.userPics)"/></a>
-				<span class='U'>
+				<span class='myPageA'>
       				<a href="@auth.routes.Users.myPage" class='Name' title='female'>@user.nickName</a>
 					<span class='opts'>
 						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='absmiddle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
@@ -10,11 +10,11 @@
 				</span>
     			<div class="clear"></div>
 				<div class ="sta">
-					<a href="@noAuth.routes.MyFollows.followers(user.id)"><font color="gray">@Messages("user.myFollowers")<span>(@followInfo.follower.length)</span></font></a>
-					<a href="@auth.routes.UserLetters.messageList("unRead")"><font color="gray">@Messages("user.myMessages")<span>(@UserMessage.countByCondition("unRead",user.userId))</span></font></a>
+					<a href="@noAuth.routes.MyFollows.followers(user.id)"><font>@Messages("user.myFollowers")<span>(@followInfo.follower.length)</span></font></a>
+					<a href="@auth.routes.UserLetters.messageList("unRead")"><font>@Messages("user.myMessages")<span>(@UserMessage.countByCondition("unRead",user.userId))</span></font></a>
 				</div>
 			</div>
-			<div class='RMod' id='UserSkills'>
+			<div class='myPoint' id='UserSkills'>
 	  			<div id="OtherScore">
         			<h1><a href="#" title="@Messages("user.howToGetPoint")">@Messages("user.availablePoint")<em>@user.point</em>@Messages("user.point")</a></h1>
     			</div> 
@@ -54,6 +54,15 @@
                 <!-- 我的发型 -->
                 <div class='Mod Users' id='Fellows'>
                     <strong>@Messages("stylistMag.myStyle")</strong>
+                    <ul class='clearfix'>
+	  					@Style.findByStylistId(user.id).slice(0,8).map {style =>
+	  						<li>
+    	 						<a href="#">
+                                    <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)" alt="@style.styleName" title="@style.styleName" align="absmiddle" class = "SmallPortrait">
+                                </a>
+    	 			     	</li>
+	  					}
+    				</ul>
                     <div class='more'>
                         <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
                             (@Stylist.countStyleByStylist(user.id))</a>
@@ -69,7 +78,7 @@
                                     <img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)" alt="@salon.salonNameAbbr" title="@salon.salonNameAbbr" align="absmiddle" class = "SmallPortrait">
                                 </a>
     	 			     	</li>
-	  				}
+	  					}
     			</ul>
 				<div class='more'>
     				<a href="@noAuth.routes.MyFollows.followedSalon(user.id)">@Messages("user.showAllFollow")@followInfo.followSalon.length)</a>
@@ -84,7 +93,7 @@
     	 				           <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" alt="@Stylist.findUserName(stylist.stylistId)" title="@Stylist.findUserName(stylist.stylistId)" align="absmiddle" class = "SmallPortrait">
     	 				       </a>
     	 			    </li>
-	  					}
+	  				}
     			</ul>
 				<div class='more'>
     				<a href="@noAuth.routes.MyFollows.followedStylist(user.id)">@Messages("user.showAllFollow")@followInfo.followStylist.length)</a>
@@ -107,12 +116,12 @@
 			</div>
 			<div class='Mod Users' id='Fans'>
 				<strong>@Messages("user.quickNavigation")</strong>
-        		<ul class='clearfix'>
-                    <li><a href="@auth.routes.Users.myReservation">@Messages("user.reservation")</a></li><br>
-        			<li><a href="@auth.routes.MyFollows.followedCoupon(user.id)">@Messages("user.collectCoupon")</a></li><br>
-        			<li><a href="@auth.routes.MyFollows.followedBlog(user.id)">@Messages("user.collectBlog")</a></li><br>
-        			<li><a href="@auth.routes.MyFollows.followedStyle(user.id)">@Messages("user.collectStyle")</a></li><br>
-        			<li><a href="@auth.routes.Users.password">@Messages("user.changePassword")</a></li><br>
+        		<ul class='clearfix quickNav'>
+                    <li><a href="@auth.routes.Users.myReservation">@Messages("user.reservation")</a></li>
+        			<li><a href="@auth.routes.MyFollows.followedCoupon(user.id)">@Messages("user.collectCoupon")</a></li>
+        			<li><a href="@auth.routes.MyFollows.followedBlog(user.id)">@Messages("user.collectBlog")</a></li>
+        			<li><a href="@auth.routes.MyFollows.followedStyle(user.id)">@Messages("user.collectStyle")</a></li>
+        			<li><a href="@auth.routes.Users.password">@Messages("user.changePassword")</a></li>
         			@if(user.userTyp.equals(User.NORMAL_USER)){
         			<li>
         				@if(SalonStylistApplyRecord.checkStylistApply(user.id)){

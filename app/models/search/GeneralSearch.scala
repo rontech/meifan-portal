@@ -1,14 +1,12 @@
 package models
 
-import play.api.Play.current
 import java.util.Date
 import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.WriteConcern
 import mongoContext._
-
+import com.meifannet.framework.db._
 
 /**
  * 通用检索区分: 全部|美发沙龙|时尚靓发|美甲沙龙|时尚靓甲| 
@@ -37,7 +35,18 @@ case class SearchParaForSalon(
     priceRange: PriceRange, 
     seatNums: SeatNums,
     salonFacilities: SalonFacilities,
-    sortByCondition: String
+    sortByConditions: SortByConditions 
+)
+
+
+/**
+ * Assistant Class: sort by conditions 
+ */
+case class SortByConditions(
+    selSortKey: String = "price",          // 选择的优先排序
+    sortByPopuAsc: Boolean = false,        // 热度: by popularity
+    sortByReviewAsc: Boolean = false,      // 评价: by review
+    sortByPriceAsc: Boolean = true         // 价格: by price
 )
 
 
@@ -54,8 +63,8 @@ case class HotestKeyword(
   isValid: Boolean
 )
 object HotestKeyword extends HotestKeywordDAO
-trait HotestKeywordDAO extends ModelCompanion[HotestKeyword, ObjectId] {
-  val dao = new SalatDAO[HotestKeyword, ObjectId](collection = mongoCollection("HotestKeyword")) {}
+trait HotestKeywordDAO extends MeifanNetModelCompanion[HotestKeyword] {
+  val dao = new MeifanNetDAO[HotestKeyword](collection = loadCollection()) {}
   
   def findHotestKeywordsByKW(keyword: String): List[String] = {
     var rst: List[String] = Nil
@@ -118,6 +127,7 @@ case class SalonGeneralSrchRst(
   salonInfo: Salon,               // 沙龙基本情报
   selectedStyles: List[Style],    // 发型集合
   selectedCoupons: List[Coupon],  // 优惠券集合
+  priceForCut: Option[BigDecimal],        // 最低剪发价格
   reviewsStat: ReviewsStat,       // 店铺评价状况
   keywordsHitStrs: List[String]   // 检索中和关键字匹配的内容拔粹
 )
@@ -136,19 +146,15 @@ case class SalonGeneralSrchRst(
  */
 case class PriceRange( minPrice: BigDecimal, maxPrice: BigDecimal)
 object PriceRange extends PriceRangeDAO
-trait PriceRangeDAO extends ModelCompanion[PriceRange, ObjectId] {
-  val dao = new SalatDAO[PriceRange, ObjectId](collection = mongoCollection("PriceRange")) {}
+trait PriceRangeDAO extends MeifanNetModelCompanion[PriceRange] {
+  val dao = new MeifanNetDAO[PriceRange](collection = loadCollection()) {}
 }
-
 
 /**
  * 沙龙检索条件: 席位数区间(店铺规模)
  */
 case class SeatNums( minNum: Int, maxNum: Int)
 object SeatNums extends SeatNumsDAO
-trait SeatNumsDAO extends ModelCompanion[SeatNums, ObjectId] {
-  val dao = new SalatDAO[SeatNums, ObjectId](collection = mongoCollection("SeatNums")) {}
+trait SeatNumsDAO extends MeifanNetModelCompanion[SeatNums] {
+  val dao = new MeifanNetDAO[SeatNums](collection = loadCollection()) {}
 }
-
-
-

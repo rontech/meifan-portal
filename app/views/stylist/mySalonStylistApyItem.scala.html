@@ -2,38 +2,35 @@
 
 @import java.text.DateFormat
 <body>
-<div class="w166 mHA">
+<div class="w150 mHA">
     <div class="taC">
-        <a href="@*routes.Stylists.findStylistById(stylist.stylistId)*@">
-            <img src="@if(stylist.id.getTime.equals(stylist.myPics(0).fileObjId.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(stylist.myPics(0).fileObjId)"}" class="bdImgGray w164 h219">
+        <a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
+            <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" class="bdImgGray w150 h200">
         </a>
     </div>
-    <p class="mT10">
-        <a href="#">
-           <p>@Stylist.findUserName(stylist.stylistId)</p>
-        </a>
-    </p>
-    <div class="bdDotT mT5 pT5 fs10">
+    <p class="mT10 taC">@Stylist.findUserName(stylist.stylistId)</p>
+    <div class="bdDotT bdDotB mT5 pT5 fs10">
         <span class="fgPink">
-      		@stylist.myWords
+      		@stylist.myWords.slice(0,15) ...
       	</span>
-  （@stylist.workYears
-  @Messages("stylist.workYears")）
-    </div>
-    <div class="bdDotT mT5 pT5 fs10 hMin30">
+  @*（@stylist.workYears
+  @Messages("stylist.workYears")）*@
+  [@Messages("stylist.experienceYears", stylist.workYears)] 
     </div>
 </div>
 <div class="taC mT10">
-	<div>
+	<div class="mB5 bdDotB">
 		<span>@Messages("stylist.applyCreateTime"): </span><span>@DateFormat.getDateInstance().format(SalonStylistApplyRecord.findOneStylistApRd(stylist.stylistId).get.applyDate)</span>
 	</div>
-	@*<a href="@auth.routes.Salons.agreeStylistApply(stylist.stylistId)" class="salon-stylist-acceptApply">@Messages("stylist.acceptApply")</a>|*@
-	<a href="" class="salon-stylist-acceptApply_@stylist.stylistId" data-stylist="@stylist.stylistId" >@Messages("stylist.acceptApply")</a>
-	@*<a href="@auth.routes.Salons.rejectStylistApply(stylist.stylistId)" class="salon-stylist-rejectApply">@Messages("stylist.rejectApply")</a>*@
-	<a href="" class="salon-stylist-rejectApply_@stylist.stylistId" data-stylist="@stylist.stylistId" >@Messages("stylist.rejectApply")</a>
+	<div class="pT5">
+		@*<a href="@auth.routes.Salons.agreeStylistApply(stylist.stylistId)" class="salon-stylist-acceptApply">@Messages("stylist.acceptApply")</a>|*@
+		@*<a href="" class="salon-stylist-acceptApply_@stylist.stylistId" data-stylist="@stylist.stylistId" >@Messages("stylist.acceptApply")</a>*@
+		<a onclick="del('@auth.routes.Salons.agreeStylistApply(stylist.stylistId)','@Messages("stylist.actApply")');" class="buttons applyToStylist">@Messages("stylist.acceptApply")</a>
+		@*<a href="@auth.routes.Salons.rejectStylistApply(stylist.stylistId)" class="salon-stylist-rejectApply">@Messages("stylist.rejectApply")</a>*@
+		<a href="" class="salon-stylist-rejectApply_@stylist.stylistId buttons applyToStylist" data-stylist="@stylist.stylistId" >@Messages("stylist.rejectApply")</a>
+	</div>
 </div>
 	
-</div>
 </body>
 
 <script type="text/javascript">

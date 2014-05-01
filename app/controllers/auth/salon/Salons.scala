@@ -11,12 +11,14 @@ import se.radley.plugin.salat.Binders._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.Messages
-import com.mongodb.casbah.{MongoConnection, WriteConcern}
+import com.mongodb.casbah.WriteConcern
 import com.mongodb.casbah.gridfs.GridFS
 import org.mindrot.jbcrypt.BCrypt
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import utils.Tools
+import utils.Const._
+import com.meifannet.framework.db._
 
 object Salons extends Controller with LoginLogout with AuthElement with SalonAuthConfigImpl{
   
@@ -52,7 +54,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             )(SalonAccount.apply)(SalonAccount.unapply),
             "salonName" -> text,
             "salonNameAbbr" -> optional(text),
-            "salonIndustry" -> list(nonEmptyText),
+            "salonIndustry" -> list(text),
             "homepage" -> optional(text),
             "salonDescription" -> optional(text),
             "picDescription" -> optional(mapping(
@@ -61,9 +63,9 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
                 "picFoot" -> text
             )(PicDescription.apply)(PicDescription.unapply)),
             "contactMethod" -> mapping(
-                "mainPhone" -> nonEmptyText.verifying(Messages("salon.phoneError"), email => email.matches("""\d{3}-\d{8}|\d{4}-\d{8}""")),
-                "contact" -> nonEmptyText,
-                "email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$"""))
+                "mainPhone" -> text,
+                "contact" -> text,
+                "email" -> text
             )(Contact.apply)(Contact.unapply),
             "optContactMethods" -> list(
                 mapping(
@@ -285,7 +287,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     def saveSalonImg(imgId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
         val salon = loggedIn
         Salon.updateSalonLogo(salon, imgId)
-        Redirect(routes.Salons.salonInfoBasic)
+        Redirect(routes.Salons.checkInfoState)
     }
 
     /**
@@ -295,7 +297,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
         val salon = loggedIn
         request.body.file("logo") match {
             case Some(logo) =>
-                val db = MongoConnection()("Picture")
+                val db = DBDelegate.picDB
                 val gridFs = GridFS(db)
                 val uploadedFile = gridFs.createFile(logo.ref.file)
                 uploadedFile.contentType = logo.contentType.orNull
@@ -674,7 +676,26 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
                 Salon.save(salon.copy(salonPics = salonpictures.salonPics), WriteConcern.Safe)
                 Redirect(routes.Salons.checkInfoState)
         })
-        
+    }
+
+    /**
+     * checks for menu，service, coupon name
+     */
+
+    def itemIsExist(value:String, key:String) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+        val salon = loggedIn
+        key match{
+            case ITEM_TYPE_COUPON =>
+                Ok(Coupon.checkCouponIsExist(value, salon.id).toString)
+            case ITEM_TYPE_MENU =>
+                Ok(Menu.checkMenuIsExist(value, salon.id).toString)
+            case ITEM_TYPE_SERVICE =>
+                Ok(Service.checkServiceIsExist(value, salon.id).toString)
+            case  ITEM_TYPE_NAME_ABBR =>
+                Ok((User.isExist(value,User.findOneByNickNm)||
+                    !Salon.isValid(value, salon, Salon.findOneBySalonName)||
+                    !Salon.isValid(value, salon, Salon.findOneBySalonNameAbbr)).toString)
+        }
     }
 }
 

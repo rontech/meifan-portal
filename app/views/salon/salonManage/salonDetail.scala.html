@@ -1,36 +1,15 @@
 @(salonForm:Form[Salon],industry: List[Industry], salon: Salon)
 @import helper._
 @import helper.twitterBootstrap._
-@import views.html.salon.admin.mySalonMain
+@import views.html.salon.admin.mySalonInfoManageMain
 
-@mySalonMain("detailInformation",salon){
+@mySalonInfoManageMain("my-detailInfo",salon){
 	
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
-	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-		<tbody>	
-		</tbody>
-	</table>		
-	<div>
-		<ul class="bS menuBG cFix">
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonRegister">@Messages("salonCheckInfoState.register")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>		
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonBasic">@Messages("salonCheckInfoState.basicInfo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonDetail"> @Messages("salonCheckInfoState.detail")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.pictures")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-		</ul>
-	</div>
 
 	<div class="salonRegister">
-		<div class="contentsTitleWrapper">
-			<h2 class="contentsTitleInner">@Messages("salon.detailInformation")</h2>
-		</div>
 
-		<div class="mT10 pH10">
+		<div class="mT40 pH10">
 			@helper.form(action = auth.routes.Salons.salonDetailUpdate(salon.id),'id -> "salonForm", 'name ->"salonDetail"){
 				
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
@@ -68,8 +47,8 @@
 				                	@inputText(salonForm("seatNums"),
                                         'id -> "seatNums",
                                         '_label -> None,
-                                        '_help -> Messages(""),
-				                		'_error -> salonForm("seatNums").error.map(_.withMessage(Messages("salon.register.seatNums"))))
+                                        'class -> "inputField",
+                                        '_help -> Messages(""))
 				                </div>
 				            </td>
 				        </tr>
@@ -81,7 +60,7 @@
 				                </div>
 				            </th>
 				            <td>
-				                <div>
+				                <div class="inputField isCan">
 				                	@checkbox(salonForm("salonFacilities.canOnlineOrder"), '_label -> Messages("salon.canOnlineOrder"),'_help -> Messages(""))
 				                	@checkbox(salonForm("salonFacilities.canImmediatelyOrder"), '_label -> Messages("salon.canImmediatelyOrder"),'_help -> Messages(""))
 									@checkbox(salonForm("salonFacilities.canNominateOrder"), '_label -> Messages("salon.canNominateOrder"),'_help -> Messages(""))
@@ -102,8 +81,12 @@
 				                </div>
 				            </th>
 				            <td>
-				                <div>
-				                	@inputText(salonForm("salonFacilities.parkingDesc"), '_label -> None,'maxlength->"40", 'style-> "width:300px;",'_help -> Messages(""),'placeholder -> Messages("salon.parkDes"))
+				                <div class="inputField">
+				                	@inputText(salonForm("salonFacilities.parkingDesc"),
+                                        '_label -> None,
+                                        'maxlength->"40",
+                                        'style-> "width:300px;",
+                                        'placeholder -> Messages("salon.parkDes"))
 				                </div>
 				            </td>
 				        </tr>										        
@@ -118,12 +101,14 @@
 				                </div>
 				            </th>
 				            <td>
-	            	@input(field = salonForm("salonIndustry"),args = '_label -> None,'style -> "display: none"){(id,name,value,args) =>
+	            	@input(field = salonForm("salonIndustry"),
+                        '_label -> None,
+                        'style -> "display: none"){(id,name,value,args) =>
 					@for(i <- 0 to industry.length-1){
 						@if(salon.salonIndustry.contains(industry(i).industryName)){
-							<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
+							<input type = "checkbox" class="" name = "salonIndustry[@i]" value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
 						}else{
-							<input type = "checkbox" class="" name = "salonIndustry[@i]", value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)			 			
+							<input type = "checkbox" class="" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
 						}
 					}
 					}	
@@ -222,7 +207,7 @@
 							  </div>
 							</th>			 
 			 			<td>	
-							<div class="picture-show-description">
+							<div class="picture-show-description inputField">
 								@picDescriptions(
 									salonForm("picDescription"),
 									className = "salonShowPicsDes"
@@ -285,7 +270,6 @@
 		</div>
 
 	</div>
-</div>
 }
 
 @accountField(field: Field, className: String = "account") = {
@@ -354,7 +338,8 @@
             options = options(
                 "LOGO" -> Messages("salon.picUse.logo"),
                 "Navigate" -> Messages("salon.picUse.Navigate"),
-                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+                "Atmosphere" -> Messages("salon.picUse.Atmosphere"),
+                "SalonCheck" ->  Messages("salon.picUse.SalonCheck")
             ),
              '_label -> None,
              'placeholder -> Messages("salon.picUse"),
@@ -367,7 +352,8 @@
         @textarea(
             field("description"),
             '_label -> None,
-            'rows -> 2, 'cols -> 15, 
+            'rows -> 2,
+            'cols -> 15,
             'placeholder -> Messages("onUserPicture.description"), 'class -> "imagesDescriptionfelid"
 )
         
@@ -379,31 +365,28 @@
 	<div>
 	    @textarea(
 	            field("picTitle"),
-                'id -> "picTitle",
-                'maxlength->"100",
+                'id ->"picTitle",
 	            '_label -> Messages("salon.pic.title"),
-	            'rows -> 5, 'cols -> 40, 
-	            'placeholder -> Messages("onUserPicture.picTitle")   
+	            'rows -> 4,
+                'cols -> 40
 	            )
     </div>        
     <div>    
 	    @textarea(
 	            field("picContent"),
-                'id -> "picContent",
-                'maxlength->"100",
+                'id ->"picContent",
 	            '_label -> Messages("salon.pic.content"),
-	            'rows -> 5, 'cols -> 40, 
-	            'placeholder -> Messages("onUserPicture.description")
+	            'rows -> 8,
+                'cols -> 40
 	            )
     </div>
     <div>            
 	    @textarea(
 	            field("picFoot"),
-                'id -> "picFoot",
-                'maxlength->"100",
+                'id ->"picFoot",
 	            '_label -> Messages("salon.pic.foot"),
-	            'rows -> 5, 'cols -> 40 ,
-	            'placeholder -> Messages("onUserPicture.foot")
+	            'rows -> 4,
+                'cols -> 40
 	            )
     </div>     
 }

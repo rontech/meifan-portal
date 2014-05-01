@@ -1,15 +1,12 @@
 package models
 
 import java.util.Date
-import com.novus.salat.dao._
 import com.mongodb.casbah.query.Imports._
 import mongoContext._
 import se.radley.plugin.salat.Binders._
-import com.mongodb.casbah.Imports.MongoConnection
-import play.api.Play._
-import play.api.PlayException
 import scala.concurrent.{ ExecutionContext, Future }
 import ExecutionContext.Implicits.global
+import com.meifannet.framework.db._
 
 
 case class Coupon (
@@ -40,18 +37,12 @@ case class CreateCoupon (
 		services: List[Service]
 )
 
-object Coupon extends ModelCompanion[Coupon, ObjectId]{
-    
-  def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-        "Configuration error",
-        "Could not find mongodb.default.db in settings")))("Coupon")
+object Coupon extends MeifanNetModelCompanion[Coupon]{
 
-  val dao = new SalatDAO[Coupon, ObjectId](collection){}
+    val dao = new MeifanNetDAO[Coupon](collection = loadCollection()){}
   
   // Indexes
-  collection.ensureIndex(DBObject("couponName" -> 1), "couponName", unique = true)
+  //collection.ensureIndex(DBObject("couponName" -> 1), "couponName", unique = true)
   
   // 查找出该沙龙所用优惠劵
   def findBySalon(salonId: ObjectId): List[Coupon] = {
@@ -64,16 +55,16 @@ object Coupon extends ModelCompanion[Coupon, ObjectId]{
   }
   
   // 查找出该沙龙所有符合条件的有效且没有过期的优惠劵
-  def findContainCondtions(serviceTypes: Seq[String], salonId: ObjectId): List[Coupon] = {
+  def findContainConditions(serviceTypes: Seq[String], salonId: ObjectId): List[Coupon] = {
     dao.find($and("serviceItems.serviceType" $all serviceTypes, DBObject("salonId" -> salonId))).toList
   }
   
   // 查找出该沙龙所用有效且没有过期的优惠劵
-  def findValidCouponByCondtions(serviceTypes: Seq[String], salonId: ObjectId): List[Coupon] = {
+  def findValidCouponByConditions(serviceTypes: Seq[String], salonId: ObjectId): List[Coupon] = {
     dao.find($and("serviceItems.serviceType" $all serviceTypes, DBObject("salonId" -> salonId, "isValid" -> true), "endDate" $gt new Date(),  "startDate" $lt new Date())).toList
   }
 
-  def checkCouponIsExit(CouponName: String, salonId: ObjectId): Boolean = dao.find(DBObject("couponName" -> CouponName, "salonId" -> salonId)).hasNext
+  def checkCouponIsExist(CouponName: String, salonId: ObjectId): Boolean = dao.find(DBObject("couponName" -> CouponName, "salonId" -> salonId)).hasNext
 
   def isOwner(couponId: ObjectId)(salon: Salon): Future[Boolean] = Future {Coupon.findOneById(couponId).map(coupon => coupon.salonId.equals(salon.id)).getOrElse(false)}
 }

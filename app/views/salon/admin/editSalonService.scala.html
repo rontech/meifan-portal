@@ -1,13 +1,22 @@
 @(salon: Salon, serviceForm: Form[Service], service: Service)
 
 @import helper._
+@import helper.twitterBootstrap._
 
-@mySalonMain(navInSalon = "salon-coupon", salon){
+@mySalonMain(navInSalon = "my-services", salon){
 
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/menu.css")">
 	
-   <div class="serviceInfo">
-  		  @form(auth.routes.Services.updateService(service.id), 'id -> "serviceForm", 'name -> "serviceForm") {
+	
+	<div>
+		<ul class="tabInfoTitle">
+			<li class="fl selected">
+				@Messages("service.editService")
+			</li>		
+		</ul>
+	</div>
+   	<div class="serviceInfo mT40">
+  		  @helper.form(auth.routes.Services.updateService(service.id), 'id -> "serviceForm", 'name -> "serviceForm") {
 			    <input type="hidden" name="salonId" value="@salon.id" />
                 <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
                     <tbody>
@@ -20,9 +29,10 @@
                           </th>
                           <td>
                               <div class="inputField">
-                              @inputText(serviceForm("serviceName"), '_label -> None, 'id -> "serviceName",'_help -> Messages(""),
-                                  '_error -> serviceForm("serviceName").error.map(_.withMessage(Messages("service.addErrorMsg")))
-                              )
+                              @inputText(serviceForm("serviceName"),
+                                  'id ->"serviceNameReadOnly",
+                                  '_label -> None,
+                                  'readonly ->true)
                               </div>
                           </td>
                       </tr>
@@ -53,8 +63,9 @@
                   </th>
                   <td>
                       <div class="inputField">
-                      @inputText(serviceForm("price"),'_label -> None,'id -> "price",'_help -> Messages(""),
-                          '_error -> serviceForm("price").error.map(_.withMessage(Messages("service.priceErrorMsg")))
+                      @inputText(serviceForm("price"),
+                          '_help -> "",
+                          '_label -> None
                       )
                       </div>
                   </td>
@@ -69,8 +80,9 @@
                   </th>
                   <td>
                       <div class="inputField">
-                      @inputText(serviceForm("duration"),'_label -> None, 'id -> "duration",'_help -> Messages(""),
-                          '_error -> serviceForm("duration").error.map(_.withMessage(Messages("service.durationErrorMsg")))
+                      @inputText(serviceForm("duration"),
+                          '_help -> "",
+                          '_label -> None
                       )
                       </div>
                   </td>
@@ -84,16 +96,20 @@
                   </th>
                   <td>
                       <div class="inputField">
-                      @textarea(field = serviceForm("description"),'rows -> 2, 'cols -> 20, '_label ->None)
+                      @textarea(field = serviceForm("description"),
+                          'rows -> 3,
+                          'cols -> 40,
+                          '_label ->None)
                       </div>
                   </td>
               </tr>
                     </tbody>
                 </table>
-   			    <div class="btnAreaUpdate">
-	  			    <input type="button" class = "buttons" value="@Messages("service.update")" onclick="checksForService()">
- 		        </div>
+                
+                <div class="btnArea">
+					<input type="button" class = "buttons" value="@Messages("service.update")" onclick="checksForService()">
+			    </div>
   		  }
-  </div>
+    </div>
 }
 <script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>

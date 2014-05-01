@@ -1,0 +1,171 @@
+@CHARSET "UTF-8";
+
+/* */
+
+.filterShow .notab{border-bottom:1px solid #d9e8ff;padding:5px;padding-left:0;float:left;margin-top:-5px;_margin-top:-15px}
+.filterShow .notab li{float:left;padding:2px 5px;color:#666;margin-right:10px;cursor:pointer}
+.filterShow .notab li.active{background:#838279;color:#fff}
+.filterShow .normal{_margin-top:-20px}
+.filterShow .normal li{float:left;display:inline;color:#666;height:18px;padding:1px 4px 1px 0;overflow:hidden;margin-top:4px}
+.filterShow .normal li input{margin-right:2px;vertical-align:middle;float:left;margin-top:3px;*margin-top:-2px}
+.filterShow .normal li label{width:107px;float:left;display:inline-block;overflow:hidden;cursor:pointer;padding-left:3px}
+.filterShow .normal li label:hover{background:#ecf7ff}
+.filterShow .normal li.ao label{background:#e65361;color:#fff}
+.filterShow .normal li a{color:#666}
+.filterShow .normal li a:hover{background:#e65361;display:inline-block;color:#fff;text-decoration:none}
+.filterShow .normal li.more{width:50px;float:left;vertical-align:middle;cursor:pointer}
+.filterShow .normal li span.jt{width:9px;height:5px;background:url(../pic/hotels2012.png?t=201403312125) no-repeat 0 -880px;display:inline-block;margin-left:2px;_background-position:0 -875px}
+.
+
+
+.newFilter{border:1px solid #d9e8ff;}
+.newFilter .wBox{border-bottom:1px dashed #dfdfdf;padding:5px 0 0 0}
+.newFilter .wBox p.title{width:70px;color:#666;line-height:18px;font-weight:bold;float:left;display:inline-block;text-align:right}
+.newFilter .rBox .notto{width:36px;float:left;text-align:center;margin-right:5px}
+.newFilter .rBox .notto a{padding:0 5px;display:inline-block;text-decoration:none;color:#666}
+.newFilter .rBox .notto a.cur{background:#e65361;color:#fff}
+.newFilter .wBox .place{float:left;}
+.newFilter .wBox .place li{height:25px;float:left;margin:0 7px;color:#666;width: 120px;}
+.newFilter .wBox .place li input{float:left;vertical-align:middle;margin-top:3px;*margin-top:0}
+.newFilter .wBox .place li label:hover{background:#ecf7ff}
+.newFilter .wBox .place li.ao label{background:#e65361;color:#fff}
+.newFilter .wBox .place li a{display:inline-block;height:18px;line-height:18px;padding:1px 8px 6px 8px;margin-top:-1px;color:#666;border-top:2px solid #fff}
+.newFilter .wBox .place li a:hover{color:#36c;text-decoration:none}
+.newFilter .wBox .place li a .iconjt{width:7px;height:4px;background:url(../pic/hotels2012.png?t=201403312125) 0 -825px;_background-position:0 -820px;display:inline-block;margin-left:5px;vertical-align:middle}
+.newFilter .wBox .place li.active a{background:#f8faff;border:#d9e8ff 1px solid;border-bottom:#f8faff 1px solid;border-top:2px solid #e65361;font-weight:bold}
+.newFilter .wBox .place li.activexz a{background:#e65361;border-bottom:#f8faff 1px solid;border-top:2px solid #e65361;font-weight:bold;color:#fff}
+.newFilter .wBox .place li.acMvt2 a{background:#fff;border:0;border-top:2px solid #fff;font-weight:bold;color:#e65361}
+.newFilter .wBox .place li.activeks a{color:#f80;font-weight:normal}
+.newFilter .wBox .filterShow{background:#f8faff;border:1px solid #d9e8ff;padding:3px 10px 7px 10px;_padding:10px 10px 25px 10px;margin:0 20px 5px 60px;display:block;clear:both}
+.newFilter .wBox .filterShow .cols{width:17px;height:17px;background:url(../pic/hotels2012.png?t=201403312125) no-repeat -48px -845px;display:inline-block;cursor:pointer;float:right;*margin-top:-15px}
+.newFilter .wBox .filterShow .cols:hover{background:url(../pic/hotels2012.png?t=201403312125) no-repeat -48px -862px}
+.newFilter .wBox .prices input{vertical-align:middle;margin-right:2px}
+.newFilter .wBox .prices li a{padding:1px 8px 0 8px}
+.newFilter .wBox .optional{width:220px;margin-left: 120px;color:#666}
+.newFilter .wBox .optional .priTxt{width:38px;height:18px;border:1px solid #999;margin:0 3px;vertical-align:middle}
+.newFilter .wBox .optional .priBut{width:35px;height:20px;background:#f5f8ff;border:1px solid #e65361;color:#e65361;vertical-align:middle;cursor:pointer}
+.newFilter .wBox .optional .priBut:hover{background:#e65361;color:#fff;border-color:#e65361; }
+.newFilter .wBox .prver input{vertical-align:middle;margin-right:2px}
+.newFilter .wBox .prver li.more{width:50px;float:left;vertical-align:middle;cursor:pointer}
+.newFilter .wBox .prver li span.jt{width:9px;height:5px;background:url(../pic/hotels2012.png?t=201403312125) no-repeat 0 -880px;display:inline-block;margin-left:2px;_background-position:0 -875px}
+.newFilter .nobor{border-bottom:0}
+.newFilter .fBox{border-top:1px solid #d9e8ff;background:#f9fbff}
+.newFilter .fBox .title{height:30px;float:left;color:#333;line-height:30px;margin-right:5px}
+.newFilter .fBox .title strong{font-size:16px;font-family:Tahoma,sans-serif;margin:0 5px;font-weight:bold;color:#f80}
+.newFilter .fBox .tiaojian{float:left}
+.newFilter .fBox .tiaojian li{margin-top:6px;margin-right:5px;height:15px;line-height:15px;border:1px solid #ccc;float:left;padding-left:5px;padding-right:19px;position:relative}
+.newFilter .fBox .tiaojian li span{width:16px;height:15px;background:url(../pic/hotels2012.png?t=201403312125) 0 -845px;position:absolute;top:0;right:0;display:inline-block;cursor:pointer}
+.newFilter .fBox .tiaojian li span:hover{background:url(../pic/hotels2012.png?t=201403312125) 0 -860px}
+.newFilter .fBox .del{width:70px;height:30px;float:right;text-align:center;line-height:30px}
+.newFilter .fBoxmvt1{border-top:0;background:#fff}
+.newFilter .fBox .tiaojianmvt1{width:650px;float:left}
+.newFilter .fBox .tiaojianmvt1 li{border:1px dotted #6f9ed8;background:#f8faff;cursor:pointer}
+.newFilter .fBox .tiaojianmvt1 li:hover{background:#f80;border:1px solid #f80;color:#fff}
+.newFilter .fBox .tiaojianmvt1 li span{width:16px;height:15px;background:url(../pic/hotels2012.png?t=201403312125) 0 -959px;position:absolute;top:0;right:0;display:inline-block;cursor:pointer}
+.newFilter .fBox .tiaojianmvt1 li:hover span{background:url(../pic/hotels2012.png?t=201403312125) 0 -974px}
+.newFilter .fBox .delmvt1{width:70px;height:30px;float:left;text-align:center;line-height:30px}
+.newFilter .boxcolor{border:1px solid #cdcdcd;}
+.newFiltermvt1{border:1px solid #fff}
+.newFilter .boxcolor .boxbut{width:140px;height:30px;background:#f8faff;border:1px solid #d9e8ff;border-top:1px solid #fff;position:absolute;right:1px;_padding-top:10px;_height:20px;text-align:center;color:#555;line-height:30px}
+.newFilter .boxcolor .boxbut a{color:#e65361; text-decoration:none}
+.newFilter .boxcolor .boxbut a:hover{color:#e65361; text-decoration:underline;}
+.newFilter .boxcolor .boxbut .xlicon{width:11px;height:11px;display:inline-block;background:url(../pic/hotels2012.png?t=201403312125) no-repeat 0 -948px;margin-left:5px;vertical-align:middle}
+.newFilter .boxcolor .boxbut .xliconz{width:11px;height:11px;display:inline-block;background:url(../pic/hotels2012.png?t=201403312125) no-repeat -11px -948px;margin-left:5px;vertical-align:middle}
+
+
+.newFilter .wBox .place {
+width: 90%;
+}
+
+.newFilter .wBox .prices li {
+min-width: 30px;
+}
+
+.listBox {
+margin: 0 auto;
+clear: both;
+position: relative;
+margin-bottom: 20px;
+}
+
+
+@media(min-width:795px){
+.newFilter .fBox .tiaojianmvt1{width:850px;overflow:hidden}
+.listSidebar{width:360px}
+.listSidebar .mapnew{width:360px;height:430px;border:1px solid #c1c1c1;position:relative;cursor:pointer}
+#sidebarMap{width:360px}
+.listSidebar .nocu{cursor:default}
+.aiOneNew .intxt{border:1px solid #d8d8d8;width:180px;height:18px;padding:5px 0 5px 5px;line-height:18px;font-size:14px;box-shadow:inset 1px 1px 2px #e9e9e9;border-radius:3px}
+.aiOneNew .intxt.city{background:#fff url(../pic/hotels2012.png?t=201403312125) no-repeat 171px -16px}
+.aiOneNew .intxt.date{background:#fff url(../pic/hotels2012.png?t=201403312125) no-repeat 164px 6px}
+.listMain .listSubway .rightcon{width:760px}
+.RpList .roomTypes li p.rw1{width:220px}
+.RpList .roomBox li p.rw1{width:200px}
+.listMain .newHotelInfo .helpInf dt{width:740px}
+.listMain .newHotelInfo .helpInf dd{width:738px}
+.listMain .newHotelInfo{border-left:5px solid #fff}
+.listMain .newHotelInfo:hover{border-left:5px solid #cadbf1}
+.listSidebar .wrap .hotelname{width:260px}
+.listMain .newHotelInfo .t2{width:370px;min-height:72px;height:auto!important;_height:72px}
+.listMain .newHotelInfo .t2 dd .hide-text{max-width:320px;_width:320px}
+.listMain .newHotelInfo .t2 dd .hide-text-addr{max-width:280px;_width:280px}
+#header .header_top{width:1200px}
+#header .tools{margin-right:50px}
+#header .nav_box{min-width:1200px}
+#nav{width:1200px}
+.RpList .roomTypes li p.rw10{width:50px;text-align:center;display:block}
+.listSEO{width:1158px;padding:10px 20px;border:1px solid #eee;color:#999}
+}
+
+.newFilter .rBox {
+float: left;
+width: 80%;
+}
+
+.newFilter .wBox .place li label {
+height: 20px;
+float: left;
+overflow: hidden;
+cursor: pointer;
+vertical-align: middle;
+margin-top: 2px	9;
+padding-left: 3px;
+}
+
+.newFilter .wBox .prver li {
+min-width: 100px;
+}	
+
+.newFilter .wBox .optional {
+width: 220px;
+float: left;
+color: #666;
+margin-left: 65px;
+margin-bottom: 5px;
+}	
+.hide_li{
+display:none;	
+}
+.v-option {
+width: 40px;
+height: 20px;
+padding-top: 2px;
+float: right;
+cursor: pointer;
+color: #005AA0;
+}
+.v-option .unfold b{
+width: 9px;
+height: 5px;
+background: url(/assets/images/meifan2014.png) no-repeat 0 -880px;
+display: inline-block;
+margin-left: 2px;
+
+}
+.v-option .fold b{
+width: 9px;
+height: 5px;
+background: url(/assets/images/meifan2014.png) no-repeat 0 -893px;
+display: inline-block;
+margin-left: 2px;
+}

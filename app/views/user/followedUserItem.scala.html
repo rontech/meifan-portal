@@ -1,5 +1,6 @@
 @(followUser:User, loginUserId:ObjectId, logged:Boolean)
-	<li><table class="ostable">
+<li>
+	<table class="ostable">
 		<tbody>
 			<tr>
 				<td class="avatar"><a href="@noAuth.routes.Users.userPage(followUser.userId)" title=""><img src="@routes.Application.getPhoto(followUser.userPics)" align="middle"></a></td>
@@ -19,5 +20,5 @@
 				}
 			</tr>
 		</tbody>
-		</table>
+	</table>
 </li>

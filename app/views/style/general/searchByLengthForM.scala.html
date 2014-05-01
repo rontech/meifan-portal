@@ -1,14 +1,23 @@
-
-<div>
-    <div>
-        <ul class="cFix">
-        @SearchByLengthForM.findAll.map { searchByLengthForM =>
-            <li class="fl mR10">
-                <a href="@noAuth.routes.Styles.findByLength(searchByLengthForM.styleLength,searchByLengthForM.sex)">
-                    <img src="@routes.Application.getPhoto(searchByLengthForM.stylePic)" alt="@searchByLengthForM.styleLength" class="imgFrame" width="94px">
-                </a>
-            </li>
-        }
-    	</ul>
-    </div>
-</div>
+<div id="salon_tjtj">
+    <h2>
+    	<img src="@routes.Assets.at("images/haircatalog/hair_label/salon_nxfx_title.jpg")" width="768" height="35" />
+    </h2> 
+    <div id="salon_tjtj_nr">
+         <table width="768" border="0">
+            <tr>
+                 @SearchByLengthForM.findAll.map { searchByLengthForM =>
+                    <td>
+                    	<div class="fx_pic_t">
+                       <a href="@noAuth.routes.Styles.findByLength(searchByLengthForM.styleLength,searchByLengthForM.sex)">
+                            <img src="@routes.Application.getPhoto(searchByLengthForM.stylePic)" alt="@searchByLengthForM.styleLength" class="imgFrame" width="94px">
+                        </a>
+                        </div>
+                        <p align="center">
+                        	@Messages("style.styleLength." + searchByLengthForM.styleLength)
+                        </p>
+                    </td>
+                }
+			</tr>
+		</table>
+	</div>
+</div>  

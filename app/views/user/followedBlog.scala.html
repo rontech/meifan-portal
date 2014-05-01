@@ -1,16 +1,29 @@
 @(user:User, followInfo:FollowInformation, loginUserId:ObjectId)
-@myPageMain("followedBlog", user, followInfo, loginUserId, true){
-  @if(followInfo.followBlog.isEmpty) {
-    <div class="bgAlertMsg mT20">
-        <p class="alertMsg">@Messages("user.noBlogSearched")</p>
-    </div>
-} else {
-	<ul id="listWrapper">
-    @for(blog <- followInfo.followBlog) {
-    	@if(blog.isValid){
-    		@views.html.user.followItem.followBlogItem(blog,loginUserId)
-    	}
-    	}
-    </ul>
-    }
+
+@myCollectsMain("my-collectBlog", user, followInfo, loginUserId, true){
+	
+	<div class="mT40">
+		@if(followInfo.followBlog.isEmpty) {
+		    <div class="bgAlertMsg">
+		        <p class="alertMsg">@Messages("user.noBlogSearched")</p>
+		    </div>
+		} else {
+			<div class="yS mainContentsSecondTitleOuter">
+				<h2 class="yS mainContentsSecondTitleInnerForAdmin">
+				@if(loginUserId.equals(user.id)){
+					@Messages("user.myCollectBlogsCount", followInfo.followBlog.length)
+				} else {
+					@Messages("user.otherCollectBlogsCount", followInfo.followBlog.length)
+				}
+				</h2>
+			</div>
+			<ul id="listWrapper" class="mT20">
+			    @for(blog <- followInfo.followBlog) {
+			    	@if(blog.isValid){
+			    		@views.html.user.followItem.followBlogItem(blog,loginUserId)
+			    	}
+			    }
+		    </ul>
+		}
+	</div>
 }

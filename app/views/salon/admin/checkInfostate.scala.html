@@ -2,12 +2,16 @@
 
 @import views.html.salon.admin.mySalonMain
 
-@mySalonMain("checkSalonInfo", salon){
+@mySalonMain("my-infomation", salon){
 	
-	<div id="J_ChooseDesc">
-    <span class="new-shop-title">
-        @Messages("salonCheckInfoState.conditions")
-    </span>
+	<div>
+		<ul class="tabInfoTitle">
+			<li class="fl selected">
+				@Messages("salonCheckInfoState.conditions")
+			</li>		
+		</ul>
+	</div>
+	<div id="J_ChooseDesc" class="mT40">
     <table class="table salonInfoState">
         <thead>
             <tr>
@@ -28,9 +32,9 @@
                    @Messages("salonCheckInfoState.register")
                 </td>
                 <td>
-	                <i class="iconfont greenfont">
+	                <b class="iconfont greenfont">
                     
-                    </i>
+                    </b>
                     @Messages("salonCheckInfoState.finish")
 	            </td>
                 <td>
@@ -45,14 +49,14 @@
                 </td>
                 <td>
 	                @if(Salon.checkBasicInfoIsFill(salon)){
-	                	<i class="iconfont greenfont">
+	                	<b class="iconfont greenfont">
                         
-                    	</i>
+                    	</b>
                     	@Messages("salonCheckInfoState.finish")
                     }else{
-	                	<i class="iconfont redfont">
+	                	<b class="iconfont redfont">
                         
-                    	</i>
+                    	</b>
                     	@Messages("salonCheckInfoState.needTodo")
                     	
 	                }
@@ -75,14 +79,14 @@
                 </td>
                 <td>
 	                @if(Salon.checkDetailIsFill(salon)){
-	                	<i class="iconfont greenfont">
+	                	<b class="iconfont greenfont">
                         
-                    	</i>
+                    	</b>
                     	@Messages("salonCheckInfoState.finish")
                     }else{
-	                	<i class="iconfont redfont">
+	                	<b class="iconfont redfont">
                         
-                    	</i>
+                    	</b>
                     	@Messages("salonCheckInfoState.needTodo")
                     	
 	                }
@@ -105,14 +109,14 @@
                 </td>
                 <td>
 	                @if(Salon.checkImgIsExist(salon)){
-	                	<i class="iconfont greenfont">
+	                	<b class="iconfont greenfont">
                         
-                    	</i>
+                    	</b>
                     	@Messages("salonCheckInfoState.finish")
 	                }else{
-	                	<i class="iconfont redfont">
+	                	<b class="iconfont redfont">
                         
-                    	</i>
+                    	</b>
                     	@Messages("salonCheckInfoState.needTodo")
                     	
 	                }

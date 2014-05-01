@@ -98,39 +98,6 @@
 }
 
 
-/* 販売店情報ナビ */
-.menuBG {
-	padding: 0 11px 0 10px;
-	background-position: 0 -940px;
-	height: 37px;
-}
-.menuBG .fl {
-	margin-right: 2px;
-}
-.salonInformation			{ background-position: 0 -750px; width: 140px; height: 35px; }
-.salonInformation:hover		{ background-position: 0 -810px; }
-.salonInformationCurrent	{ background-position: 0 -870px; width: 140px; height: 37px; }
-.couponAndMenu				{ background-position: -140px -750px; width: 140px; height: 35px; }
-.couponAndMenu:hover		{ background-position: -140px -810px; }
-.couponAndMenuCurrent		{ background-position: -140px -870px; width: 140px; height: 37px; }
-.stylist					{ background-position: -280px -750px; width: 85px; height: 35px; }
-.stylist:hover				{ background-position: -280px -810px; }
-.stylistCurrent				{ background-position: -280px -870px; width: 85px; height: 37px; }
-.style						{ background-position: -365px -750px; width: 85px; height: 35px; }
-.style:hover				{ background-position: -365px -810px; }
-.styleCurrent				{ background-position: -365px -870px; width: 85px; height: 37px; }
-.blog						{ background-position: -450px -750px; width: 85px; height: 35px; }
-.blog:hover					{ background-position: -450px -810px; }
-.blogCurrent				{ background-position: -450px -870px; width: 85px; height: 37px; }
-.accessMap					{ background-position: -535px -750px; width: 85px; height: 35px; }
-.accessMap:hover			{ background-position: -535px -810px; }
-.accessMapCurrent			{ background-position: -535px -870px; width: 85px; height: 37px; }
-.kuchikomi					{ background-position: -620px -750px; width: 90px; height: 35px; }
-.kuchikomi:hover			{ background-position: -620px -810px; }
-.kuchikomiCurrent			{ background-position: -620px -870px; width: 90px; height: 37px; }
-.salonMenu					{ background-position: -710px -750px; width: 90px; height: 35px; }
-.salonMenu:hover			{ background-position: -710px -810px; }
-.salonMenuCurrent			{ background-position: -710px -870px; width: 90px; height: 37px; }
 
 /* クーポン */
 .couponList {
@@ -728,11 +695,6 @@ width: 76%;
 border-bottom: 1px solid #dedddc;
 }
 
-.btnArea {
-border-top: 1px solid #dedddc;
-margin-top: 10px;	
-}
-
 .couponInfo {
 margin-top: 10px;
 }
@@ -758,16 +720,6 @@ float: left;
 .serviceArea {
 border: 1px solid #c1c7c5;
 margin-bottom: 10px;
-}
-
-.serviceItemArea {
-float: left;
-min-width: 80px;
-}
-
-#couponForm > div.btnArea .buttons {
-background: #feeedf;
-margin-top: 10px;
 }
 
 .couponInfo .serviceArea dl {

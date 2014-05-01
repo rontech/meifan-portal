@@ -23,6 +23,7 @@ common.requiredMsg = 不能为空
 common.checkFormore = 更多
 common.deleteMsg = 删除后无法恢复，请确认是否删除？
 common.isValidMsg = 无效后无法恢复，请确认是否无效？
+common.seat = 位
 
 # Index page
 index.mainPage=网站首页
@@ -55,7 +56,8 @@ main.idUsePolicy=ID利用约定
 main.usePolicy=使用须知
 main.securityPolicy=个人情报保护方针
 main.userGuide=使用指南
-main.wantToJoin=沙龙用户登录入口
+main.wantToJoin=沙龙用户登录/注册
+main.toMySalon=我的沙龙
 main.toSalonOwners=致沙龙
 main.help=常见问题
 main.myPage=我的主页
@@ -63,7 +65,7 @@ main.myMeifan = 我的美范
 main.saveSite = 收藏本站
 main.welcomeToMeifan = 您好，欢迎来到美范！
 main.hairMessage = 我们提供最权威最新的时尚美容资讯！
-
+main.weAppeal=享受生活 爱美有范
 
 # Salon
 salon.salonLogin=店铺登录
@@ -130,14 +132,14 @@ salon.canMaleUse=是否男性可用
 salon.canMaleUseValue=男性使用OK
 salon.isPointAvailable=是否Point加盟店
 salon.isPointAvailValue=Point加盟店
-salon.isPosAvailable=可刷卡
-salon.posAvailable=可
+salon.isPosAvailable=可否刷卡
+salon.posAvailable=可刷卡
 salon.posNotAvailable=不可
 salon.isWifiAvailable=wifi
 salon.hasParkingNearby=附近有无停车场
 salon.parkingDesc=停车场状况描述
 salon.facilities=可否网上预约
-salon.hasParkingNearByMsg=有
+salon.hasParkingNearByMsg=附近有停车场
 salon.hasNoParkingNearByMsg=无
 salon.pictures=展示图片
 salon.registerTime=美容平台注册日期
@@ -146,7 +148,7 @@ salon.passwordMessage=请输入至少6位密码
 salon.confirmMessage=请再次输入密码
 salon.desMessage=您最多可以输入100个字符
 salon.desAccesMethod=例：地铁一号线汾湖路站1号出口向西步行500米可达。您最多可以输入100个字符。
-salon.addMessage=请填写详细地址，如：苏州市高新区竹园路209号3号楼1805室
+salon.addMessage=请填写详细地址，如：竹园路209号3号楼1805室
 salon.salonLogin=店铺登录
 salon.stylistsList={0}的发型师
 salon.newSalon = 新沙龙用户
@@ -215,12 +217,29 @@ salon.reviewsRate=好评率: {0}%
 salon.reviewsTotalCnt=已有{0}人评价
 salon.parkDes=例：店铺前有免费停车位，您最多可输入40个字符
 salon.registerManage=店铺注册信息填写
-salon.pictureLimit=图片上传须知
+
+#salon picture
+salon.showPicReason_01=为什么要上传展示图片?
+salon.showPicReason_02=为什么要上传店铺环境图片?
+salon.showPicReason_03=为什么要上传营业执照?
+salon.reason_01=该页面图片将在店铺
+salon.reason_02=沙龙情报
+salon.reason_03=模块显示，以展示店铺的独有风格。
+salon.reason_04=在您的店铺审核中，展示图片将作为
+salon.reason_05=审核条件。
+salon.reason_06=营业执照是店铺审核时的
+salon.reason_06_01=重要审核条件
+salon.reason_07=营业执照是证明贵店铺合法性的
+salon.reason_07_01=重要依据
+salon.reason_08=营业执照是平台与商家利益关系的
+salon.reason_08_01=重要保障
+salon.pictureLimit=店铺图片上传须知：
 salon.picLimitDes1=我们支持
 salon.picLimitDes2=jpg、gif、png
 salon.picLimitDes3=格式的图片，且文件小于
-salon.picLimitDes4=1M
-salon.numberLimit=您可以此页面共上传3张照片以展示您的店铺。
+salon.picLimitDes4=2M
+salon.numberLimit=为达到更好显示效果，请您保持该页面的图片数量为3张。
+salon.picLimit_01=为了您的店铺形象，请上传真实有效的展示图片。
 salon.logoNumberLimit=您只能选择一张LOGO图片。
 salon.checkNumberLimit=请上传真实有效的营业执照。
 salon.typeLimit=请勿上传血腥暴力，低俗内容等违反国家相关规定的图片。
@@ -262,6 +281,7 @@ salonAdmin.ApplyOperateResult = 抱歉该申请不存在或已被本人取消，
 salonAdmin.ApplyOperateAction = s后自动跳转，点击
 salonAdmin.ApplyOperateGo = 跳转 
 stylistAdmin.selectField = 选填，不得超过150字
+salonSearchStylist.haveInvite = 当前该技师已处于被您邀请状态，请耐心等待答复
 
 # Hair
 hair.tabName=时尚靓发
@@ -307,14 +327,15 @@ hair.rankingVeryShort = 超短发
 hair.rankingHairSet = 盘发
 hair.rankingMrs = 成熟发型
 hair.rankingMens = 男士发型
-hair.headingAllMore = 综合排行榜  可见前20名
+hair.headingAllMore = 查看完整榜单
 hair.searchByF = 女士发型检索
 hair.searchByM = 男士发型检索
 hair.pictures=发型图片
 hair.nameRequired = 发型名必须填写
 hair.noStyleSearched = 没有找到您希望的发型！
 hair.picturedescription = 填写该发型图片描述
-
+hair.info = 发型信息
+hair.ranking = Rangking 排行
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -345,6 +366,7 @@ service.update=更新
 service.minutes = 分钟
 service.title = {0} 的服务
 service.createServiceArea = 创建服务区域
+service.editService = 修改服务
 service.addErrorMsg = 请输入服务名！
 service.priceErrorMsg = 请输入单价！
 service.durationErrorMsg = 请输入估计的耗时！
@@ -361,6 +383,7 @@ ServiceType.serviceTypeName.Care = 护理
 ServiceType.serviceTypeName.Perm = 烫
 ServiceType.serviceTypeName.Supple = 柔顺
 ServiceType.serviceTypeName.Other = 其他
+ServiceType.serviceTypeName.setColor = 上色
 
 # Coupon&Menu
 coupon.titleInSalon = {0} 的优惠券
@@ -470,12 +493,14 @@ stylist.rmSalon = 离开店铺后无法恢复，请确认是否离开店铺？
 stylist.rjtApply = 拒绝后无法恢复，请确认是否拒绝？
 stylist.actApply = 请确认是否同意！
 stylist.myPictureShow = 展示图片上传
+stylist.picTitle=点击可查看技师资料
+stylist.salonNoStylist= 没有找到您希望的技师！
 
 
 
 #Stylist Apply
 stylist.name = 昵称
-stylist.years = 年
+stylist.years = {0}年
 stylist.industry = 类别
 stylist.position = 职位
 stylist.goodAtImage = 擅长风格
@@ -489,6 +514,19 @@ stylist.myBoom = 兴趣爱好
 stylist.myPR = 自我宣传
 stylist.submit = 提交申请
 stylist.reset = 重置
+stylist.writeApplyInfo = 填写技师资料
+stylist.uploadApplyImg = 上传技师图片
+stylist.nextStep = 下一步
+stylistUploadIMG.h3_0 = 技师形象照上传须知
+stylistUploadIMG.h3_1 = 为什么要设置技师形象照？
+stylistUploadIMG.weSupport = 我们支持
+stylistUploadIMG.formatandlimit = 格式的图片文件，且文件小于
+stylistUploadIMG.unsupport_1 = 请勿上传身份证照片。
+stylistUploadIMG.prompt_0 =  为保证在店铺显示，给顾客提供您的服务，美范网会人工审核您所提交的形象照。请上传您本人的形象照片。
+stylistUploadIMG.prompt_1 = 1.清晰亮丽的形象照能为您吸引更多的顾客，可以
+stylistUploadIMG.strong_0 = 给顾客一个好的印象
+stylistUploadIMG.prompt_2 = 2.您需要上传并设置形象照才能
+stylistUploadIMG.strong_1 = 成功申请成为技师，并被所有会员及店铺查看
 
 
 #Stylist management
@@ -513,7 +551,8 @@ stylist.salon = 所属店铺
 stylist.style = 他的作品
 stylistMag.calApplying = 取消申请后无法恢复，请确认是否取消申请？
 stylistMag.wtApply = 请确认提交申请！
-stylistMag.operateMyAPMSG = 该记录已被申请的店铺操作， 
+stylistMag.operateMyAPMSG = 该记录已被申请的店铺操作，
+stylistMag.changeImage = 更换形象 
 
 
 
@@ -537,6 +576,16 @@ user.collectCoupon=收藏的优惠劵
 user.collectBlog=收藏的博客
 user.collectStyle=收藏的风格
 user.reservation=我的预约
+user.myFollows=我的关注
+user.otherFollows=他的关注
+user.myInfomation=我的信息
+user.otherInfomation=他的信息
+user.myCollects=我的收藏
+user.otherCollects=他的收藏
+user.myActs=我的动态
+user.otherActs=他的动态
+user.myRelevants=和我相关
+user.otherRelevants=和他相关
 user.salonAct=店铺的动态
 user.name=用户名
 user.nickNm=昵称
@@ -553,6 +602,7 @@ user.password=密码
 user.loginErr=用户名或密码错误，请重新输入!
 user.loginBtn=登录
 user.registerBtn=注册
+user.register=用户注册
 user.new=新用户
 user.userIdErr=用户名不合法!
 user.agree=必须同意!
@@ -630,6 +680,25 @@ user.message.to = 收信人
 user.message.title = 标题
 user.message.content = 内容
 user.message.send = 发送
+user.other=他
+user.messageList=消息列表
+user.myFansCount=已有{0}人关注你 
+user.myFollowUsersCount=您已关注{0}个美丽达人
+user.myFollowStylistsCount=您已关注{0}个技师
+user.myFollowSalonsCount=您已关注{0}个店铺
+user.myCollectBlogsCount=您已收藏{0}条博客
+user.myCollectCouponsCount=您已收藏{0}个优惠劵
+user.myCollectStylesCount=您已收藏{0}个风格
+user.otherFansCount=已有{0}人关注他
+user.otherFollowUsersCount=他已关注{0}个美丽达人
+user.otherFollowStylistsCount=他已关注{0}个技师
+user.otherFollowSalonsCount=他已关注{0}个店铺
+user.otherCollectBlogsCount=他已收藏{0}条博客
+user.otherCollectCouponsCount=他已收藏{0}个优惠劵
+user.otherCollectStylesCount=他已收藏{0}个风格
+user.notWriteBlog=该用户未添加博客……
+use.followThisSalon=收藏该店铺
+
 
 user.needfieldworks = 请输入0~100整数
 user.errorWorks = 无效的年数
@@ -719,15 +788,17 @@ blog.quoteComment = 引用来自" {0} "的评论
 blog.new = 新博客
 blog.toCollect=收藏此博客
 blog.noCollect = 暂无收藏的博客！
-blog.salonNoBlog= 该店铺还未有博客！
+blog.salonNoBlog= 没有找到您希望的博客！
 blog.preBlog = 前一篇
 blog.nextBlog = 后一篇
 blog.noPreNext = 没有啦！
+blog.editBlog = 编辑博客
+blog.blogSet = 设置
 
 # Comment
 comment.comment = 评论
 comment.salonCommentTitle = {0} 的评论
-comment.noComment = 该店铺暂无评论
+comment.noComment = 没有找到您希望的评论！
 comment.passDate = [投稿日]
 comment.usedCoupon = 预约时使用的优惠券
 comment.usedServices = [用到的技术]
@@ -767,6 +838,8 @@ questions.common=常见问题
 style.ranking.first=1位
 style.ranking.second=2位
 
+# 发型图片
+style.picTitle=点击可查看发型信息
 
 
 #-------------------------------
@@ -818,6 +891,11 @@ Blow = 吹发
 Wash = 洗发
 Cut = 剪发
 salonAccountId = 店铺账号
+position.Manager = 店长
+position.ChiefStylist = 首席技师
+position.Stylist = 技师
+position.AdvancedAssistant = 高级助手
+position.Assistant = 助手
 
 #StyleImpression
 style.styleImpression.natural = 自然
@@ -923,7 +1001,7 @@ reservation.salonResvMessage = ※即时预约，预约成功之后即可以到�
 reservation.onlineResv = 即时预约
 
 #salonCheckInfoState
-salonCheckInfoState.conditions =  开店条件：
+salonCheckInfoState.conditions =  开店条件
 salonCheckInfoState.condition = 事项
 salonCheckInfoState.status = 是否完善
 salonCheckInfoState.operate = 操作
@@ -953,24 +1031,38 @@ salonRelax.bodySpa=全身SPA
 salonRelax.sportSpa=瘦身健美
 salonRelax.yoGa=瑜伽
 
-#salonSerachPage
-salonSerachPage.city = 城市
-salonSerachPage.location = 位置：
-salonSerachPage.region = 地区
-salonSerachPage.businessArea = 商圈
-salonSerachPage.keyword = 关键词
-salonSerachPage.manualDefine = 自定义
-salonSerachPage.confirm = 确定
-salonSerachPage.setNumber = 座位数
-salonSerachPage.unlimited = 不限
-salonSerachPage.otherCondtion = 店铺设备
-salonSerachPage.otherCondtion = 其它 
-salonSerachPage.over = 元以上
-salonSerachPage.rmb = 元
-salonSerachPage.below = 元以下
-salonSerachPage.meifanRec = 美范推荐
-salonSerachPage.sortByHot = 热度
-salonSerachPage.sortByPrice = 价格
-salonSerachPage.sortByComment = 评论
-salonSerachPage.serviceType = 服务类别
-salonSerachPage.brand = 品牌
+
+#salonSearchPage
+salonSearchPage.city = 城市
+salonSearchPage.location = 位置：
+salonSearchPage.region = 地区
+salonSearchPage.businessArea = 商圈
+salonSearchPage.keyword = 关键词
+salonSearchPage.manualDefine = 自定义
+salonSearchPage.confirm = 确定
+salonSearchPage.setNumber = 座位数
+salonSearchPage.unlimited = 不限
+salonSearchPage.otherCondtion = 店铺设备
+salonSearchPage.otherCondtion = 其它 
+salonSearchPage.over = 元以上
+salonSearchPage.rmb = 元
+salonSearchPage.below = 元以下
+salonSearchPage.serviceType = 服务类别
+salonSearchPage.brand = 品牌
+# for example: 点击按评价由高到低; 点击按价格由低到高; 点击按热度由高到低;
+salonSearchPage.sortTips=点击按{0}{1}
+# for example: 按评价由高到低; 按价格由低到高; 按热度由高到低;
+salonSearchPage.sortTipsDef=按{0}{1}
+salonSearchPage.sortAsc=由低到高
+salonSearchPage.sortDesc=由高到低
+salonSearchPage.meifanRecomm = 美范推荐
+salonSearchPage.sortByPopularity = 人气 
+salonSearchPage.sortByPrice = 价格
+salonSearchPage.sortByReview = 评价
+salonSearchPage.requiredCity = 请输入城市名称
+salonSearchPage.cannotFind = 对不起，找不到
+
+#style search
+styleSearch.moreOption = 更多选项
+styleSearch.lessOption = 收起
+

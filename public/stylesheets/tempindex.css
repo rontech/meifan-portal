@@ -1210,7 +1210,7 @@ text-align:right;
  * スプライト画像 - 横長画像（b.png）
  ************************************************************/
 
-.bS		{ background-image: url(/assets/images/b.png); background-repeat: no-repeat; background-color: transparent; border: 0; }
+
 
 .viewMore		{ background-position: 0 -60px; display: block; width: 79px; height: 24px; }
 .viewMore:hover		{ background-position: 0 -84px; }
@@ -1680,90 +1680,10 @@ height: 37px;
 }
 
 
-.salonInformation {
-background-position: 0 -750px;
-width: 140px;
-height: 35px;
-}
-
-.couponAndMenu {
-background-position: -140px -750px;
-width: 140px;
-height: 35px;
-}
-
-.stylist {
-background-position: -280px -750px;
-width: 85px;
-height: 35px;
-}
-
-.style {
-background-position: -365px -750px;
-width: 85px;
-height: 35px;
-}
-
-.blog {
-background-position: -450px -750px;
-width: 85px;
-height: 35px;
-}
-
-.accessMap {
-background-position: -535px -750px;
-width: 85px;
-height: 35px;
-}
-
-.kuchikomi {
-background-position: -620px -750px;
-width: 90px;
-height: 35px;
-}
 
 
-.salonInformationCurrent {
-background-position: 0 -870px;
-width: 140px;
-height: 37px;
-}
 
-.couponAndMenuCurrent {
-background-position: -140px -870px;
-width: 140px;
-height: 37px;
-}
 
-.stylistCurrent {
-background-position: -280px -870px;
-width: 85px;
-height: 37px;
-}
-
-.styleCurrent {
-background-position: -365px -870px;
-width: 85px;
-height: 37px;
-}
-
-.blogCurrent {
-background-position: -450px -870px;
-width: 85px;
-height: 37px;
-}
-
-.accessMapCurrent {
-background-position: -535px -870px;
-width: 85px;
-height: 37px;
-}
-
-.kuchikomiCurrent {
-background-position: -620px -870px;
-width: 90px;
-height: 37px;
-}
 
 
 .w156 {

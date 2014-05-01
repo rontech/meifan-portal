@@ -2,47 +2,12 @@
 
 @import helper._
 @import helper.twitterBootstrap._
-@import views.html.salon.admin.mySalonMain
+@import views.html.salon.admin.mySalonPictureMain
 
-@mySalonMain("checkSalonInfo", salon){
+@mySalonPictureMain("my-showPicture", salon){
 	<body>
-	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-		<tbody>	
-		</tbody>
-	</table>		
-	<div>
-		<ul class="bS menuBG cFix">
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonRegister">@Messages("salonCheckInfoState.register")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>		
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonBasic">@Messages("salonCheckInfoState.basicInfo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonDetail"> @Messages("salonCheckInfoState.detail")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.pictures")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-		</ul>
-	</div>
 	@form(auth.routes.Salons.updateSalonPics(), 'id -> "styleAddForm"){		
-	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-		<tbody>	
-		</tbody>
-	</table>		
-	<div>
-		<ul class="bS menuBG cFix">
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.uploadpics")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>		
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonAtmoPicture">@Messages("salonCheckInfoState.uploadAtom")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonLogoPicture">@Messages("salonCheckInfoState.uploadLogo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonCheckPicture">@Messages("salonCheckInfoState.uploadStore")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-		</ul>
-	</div>
+	
 	<div class="demo">
 		<div class="logoupload">
 			<div class="btnbox">
@@ -62,24 +27,22 @@
 			</ul>
 		</div>
 	</div>
-	<script language="javascript" type="text/javascript">
-			setTimeout("checkLogo()", 500);
-	</script>
 	<div class="mT20 txtC">			
 		<input type = "submit" class = "buttons" value=@Messages("common.submit")>
 	</div></br></br>
-	}
-	<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-		<tbody>	
-		</tbody>
-	</table>	
-	<div class="regPoint">
+	}	
+	<div class="picDesLimit">
 		<h3>@Messages("salon.pictureLimit")</h3>
 		<p>@Messages("salon.picLimitDes1")<strong>@Messages("salon.picLimitDes2")</strong>@Messages("salon.picLimitDes3")<strong>@Messages("salon.picLimitDes4")</strong>。
 			<br/>
 			@Messages("salon.numberLimit")<br/>
 			@Messages("salon.typeLimit")
 		</p>
+		<h3>@Messages("salon.showPicReason_01")</h3>
+		<p>@Messages("salon.reason_01")<strong>@Messages("salon.reason_02")</strong>@Messages("salon.reason_03")。
+			<br/>
+			@Messages("salon.reason_04")<strong>@Messages("salon.reason_05")</strong><br/>
+		</p>		
 	</div>	
 	</body>
 	@pictureGroup(

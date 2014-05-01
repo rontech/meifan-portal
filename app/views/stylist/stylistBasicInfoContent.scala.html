@@ -16,9 +16,11 @@
 
         <!-- ST Follow this stylist. -->
         <div class="mT20 pT10">
-            <a href="javascript:void(0);" onclick="addFollow('@stylist.stylistInfo.get.stylistId','stylist')" 
-                class="bS db addIntoMyStylist offL mHA"> @Messages("stylist.followStylist")
-            </a>
+            <div class="sl_show_xy">
+               	<p align="center">
+                	<a href = "javascript:void(0);" onclick="addFollow('@stylist.stylistInfo.get.stylistId','stylist')"  >@Messages("stylist.followStylist")</a>
+               	</p>
+            </div>
         </div>
         <!-- END Follow this stylist. -->
     </div>
@@ -70,7 +72,9 @@
                                 
                     <tr> <th class="w100">@Messages("stylist.goodAtImage") </th>
                         <td> @stylist.stylistInfo.get.goodAtImage.map{image=>
-                        	@image&nbsp;
+                        	@*
+                        	@image&nbsp;*@
+                        	@Messages("style.styleImpression." + image)&nbsp;
                         }</td>
                     </tr>
                     <tr>

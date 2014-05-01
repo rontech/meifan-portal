@@ -1,15 +1,14 @@
-@(navInSalon: String = "my-reservation", salon: Salon, stylist: List[Stylist], status: Int = 0)
+@(navInSalon: String = "my-stylists", salon: Salon, stylist: List[Stylist], status: Int = 0)
 @import views._
 @mySalonMain(navInSalon, salon){
 	<div>
-		<div class="mt">
-        	<ul class="tab">
-				<li clstag="click|keycount|myhome|tuangouqian" data-widget="tab-item" class="curr"><s></s><b></b>@Messages("salonAdmin.applyStylists")</li>
-            </ul>
-		</div>
-		
+		<ul class="tabInfoTitle">
+			<li class="fl selected">
+				@Messages("salonAdmin.applyStylists")
+			</li>		
+		</ul>
 	</div>
-	<div class="mc">
+	<div class="mc mT40">
 		@if(stylist != Nil){
 		<div class="tabcon hide" data-widget="tab-content" style="display: block;">
    			@views.html.stylist.mySalonStylistGroup(stylist, salon, status)

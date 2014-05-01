@@ -23,7 +23,8 @@
 						           @*<a href="@auth.routes.Stylists.removeSalon(salon.id)">
 	    								@Messages("stylist.removeSalon")
 	    						   </a>*@
-	    						   <a href="" class="removeSalon" data-salon="@salon.id" >@Messages("stylist.removeSalon")</a>
+	    						   @*<a href="" class="removeSalon" data-salon="@salon.id" >@Messages("stylist.removeSalon")</a>*@
+	    						   <a onclick="del('@auth.routes.Stylists.removeSalon(salon.id)','@Messages("stylist.rmSalon")');">@Messages("stylist.removeSalon")</a>
 					            }
 					        }    
 							</p>
@@ -32,23 +33,27 @@
 					<!-- ↑cassetteHeading -->
 					<!-- ↓listBody -->
 					<div class="listBody cFix">
-						<div class="fl w221 mR10 taC">
+						<div class="fl w221 h170 mR10 taC mL10 bl">
 							<div class="mHA">
 								<a href="@noAuth.routes.Salons.getSalon(salon.id)" target="blank"><img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)" align="absmiddle" alt="" title="@salon.salonName" class="SmallPortrait"></a>
 							</div>
 						</div>
-						<div class="fr w464">
+						<div class="fr w440 mR10">
 							<div>
-								<p class="mT10 pB10">
-									@if(salon.salonDescription.nonEmpty){
-										@salon.salonDescription.get.slice(0, 100)
-										@if(salon.salonDescription.get.length > 100) {...}
+								<p class="mT10 picTitle">
+									@if(salon.picDescription.nonEmpty){
+										@salon.picDescription.get.picTitle
 									}								
+								</p>
+								<p class="mT10 pB10 picContent">
+									@if(salon.picDescription.nonEmpty){
+										@salon.picDescription.get.picContent.slice(0, 100) ...
+									}	
 								</p>
 							</div>
 							<div>
-								<dl class="cFix mB2">
-								<dt class="fl fgLGray2 b">@Messages("salon.priceCutOnly")</dt>
+								<dl class="cFix">
+								<dt class="fl fgLGray2 b mW65">@Messages("salon.priceCutOnly")</dt>
 								<dd class="fl w100">
 									<div class="mL10">
 										@Salon.getLowestPriceOfCut(salon.id) match {
@@ -57,17 +62,17 @@
                     					}
 									</div>
 								</dd>
-								<dt class="fl fgLGray2 b">@Messages("salon.seatNums")</dt>
+								<dt class="fl fgLGray2 b mW90">@Messages("salon.seatNums")</dt>
 								<dd class="fl w80"><div class="mL10">@Messages("salon.seatNumsMsg", salon.seatNums.getOrElse(""))</div></dd>
 								</dl>
-								<dl class="cFix mB2">
-								<dt class="fl fgLGray2 b">@Messages("salon.stylistNums")</dt>
+								<dl class="cFix">
+								<dt class="fl fgLGray2 b mW65">@Messages("salon.stylistNums")</dt>
 								<dd class="fl w100">
 									<div class="mL10">
 										@Messages("slaon.stylistNumUnit", Salon.getCountOfStylists(salon.id))
 									</div>
 								</dd>
-								<dt class="fl fgLGray2 b">@Messages("salon.parkingDesc")</dt>
+								<dt class="fl fgLGray2 b mW90">@Messages("salon.parkingDesc")</dt>
 								<dd class="fl w80">
 									<div class="mL10">
 									 @if(salon.salonFacilities.map(fac=>fac.hasParkingNearby).getOrElse(None)) { @salon.salonFacilities.get.parkingDesc} else { @Messages("salon.hasNoParkingNearByMsg")}
@@ -75,9 +80,9 @@
 								</dd>
 								</dl>
 							</div>
-							<div class="mT20 w451">
+							<div class="mT20 w440">
 								<h3 class="cassetteContentsHeading mT14 mL2">@Messages("user.salonBlogTitle", salon.salonName)</h3>
-									<div class="CouponArea zoom1">
+									<div class="CouponArea zoom1 mT5">
 										<div class="CouponAreaCoupon cFix">
 											<div class="CouponAreaInner">
 												<dl class="cFix">
@@ -93,18 +98,22 @@
 									</div>
 							</div>
 							
-							<div class="mT20 w451">
+							<div class="mT20 w440">
 								<h3 class="cassetteContentsHeading mT14 mL2">@Messages("user.salonCouponTitle", salon.salonName)</h3>
-									<div class="CouponArea zoom1">
+									<div class="CouponArea zoom1 mT5">
 										<div class="CouponAreaCoupon cFix">
 											<div class="CouponAreaInner">
 												<dl class="cFix">
-												@if(Coupon.findBySalon(salon.id).length > 0){
-													<dt class="iS couponTypeSmallCT02 offL CouponMark fl"></dt><dd class="fr b mL10">@Coupon.findBySalon(salon.id).last.perferentialPrice</dd>
-													<dd class="oh"><a href="@noAuth.routes.Salons.getAllCoupons(salon.id)">@Coupon.findBySalon(salon.id).last.description</a></dd>
-												}else{
-													@Messages("user.salonCouponNoFound")
-												}
+													@if(Coupon.findValidCouponBySalon(salon.id).length > 0){
+														@for(i <- 0 to (if(Coupon.findValidCouponBySalon(salon.id).length > 5) 4 else Coupon.findValidCouponBySalon(salon.id).length - 1)) {
+															<div class="couponItem">
+																<dt class="iS couponTypeSmallCT02 offL CouponMark fl"></dt><dd class="fr b mL10">@Coupon.findValidCouponBySalon(salon.id)(i).perferentialPrice</dd>
+																<dd class="oh pl5"><a href="@noAuth.routes.Salons.getAllCoupons(salon.id)">@Coupon.findValidCouponBySalon(salon.id)(i).description.slice(0, 30) ...</a></dd>
+															</div>
+														}
+													}else{
+														@Messages("user.salonCouponNoFound")
+													}
 												</dl>
 											</div>
 										</div>
@@ -120,9 +129,11 @@
 				 	@if((!SalonAndStylist.checkSalonAndStylistValid(salon.id, user.id)) && (isStylistApply == false)){
 						<p>
 					    	@*<a href="@auth.routes.Stylists.agreeSalonApply(salon.id)">@Messages("stylist.acceptApply")</a>|*@
-					    	<a href="" class="agreeSalonApply_@salon.id" data-salon="@salon.id" >@Messages("stylist.acceptApply")</a>|
+					    	@*<a href="" class="agreeSalonApply_@salon.id" data-salon="@salon.id" >@Messages("stylist.acceptApply")</a>|*@
+					    	<a onclick="del('@auth.routes.Stylists.agreeSalonApply(salon.id)','@Messages("stylist.actApply")');">@Messages("stylist.acceptApply")</a>|
 					    	@*<a href="@auth.routes.Stylists.rejectSalonApply(salon.id)">@Messages("stylist.rejectApply")</a>*@
-					    	<a href="" class="rejectSalonApply_@salon.id" data-salon="@salon.id" >@Messages("stylist.rejectApply")</a>
+					    	@*<a href="" class="rejectSalonApply_@salon.id" data-salon="@salon.id" >@Messages("stylist.rejectApply")</a>*@
+					    	<a onclick="del('@auth.routes.Stylists.rejectSalonApply(salon.id)','@Messages("stylist.rjtApply")');">@Messages("stylist.rejectApply")</a>
 				    	</p>          
 					}
 					@*技师取消自己的申请*@ 
@@ -130,14 +141,16 @@
 						@*<a href="@auth.routes.Stylists.cancelMyApplying">
     						<p>@Messages("stylistMag.cancelApplying")</p>
     					</a>*@
-    					<a href="" class="cancelApplying" >@Messages("stylistMag.cancelApplying")</a>
+    					@*<a href="" class="cancelApplying" >@Messages("stylistMag.cancelApplying")</a>*@
+    					<a onclick="del('@auth.routes.Stylists.cancelMyApplying','@Messages("stylistMag.calApplying")');">@Messages("stylistMag.cancelApplying")</a>
 					}
 					@*技师搜索店铺后，申请*@
 					@if((!SalonAndStylist.checkSalonAndStylistValid(salon.id, user.id)) && isStylistApply && isStylistSearch){
 						@*<a href="@auth.routes.Stylists.toApplySalon(salon.id)">
 					    	<p>@Messages("stylistMag.wantToApply")</p>
 					    </a>*@
-					    <a href="" class="toApplySalon_@salon.id" data-salon="@salon.id" >@Messages("stylistMag.wantToApply")</a>
+					    @*<a href="" class="toApplySalon_@salon.id" data-salon="@salon.id" >@Messages("stylistMag.wantToApply")</a>*@
+					    <a onclick="del('@auth.routes.Stylists.toApplySalon(salon.id)','@Messages("stylistMag.wtApply")');">@Messages("stylistMag.wantToApply")</a>
 					}
 				}
 			</div>

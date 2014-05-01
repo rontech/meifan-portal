@@ -2,14 +2,13 @@ package models
 
 import play.api.Play.current
 import java.util.Date
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
 import play.api.PlayException
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
-
+import com.meifannet.framework.db._
 /**
  * A All Info structs of stylist including belows
  *   1. basic info as a user.   
@@ -54,19 +53,9 @@ case class StylistApply(
     salonAccountId: String
 )
 
-object Stylist extends StylistDAO
-
-trait StylistDAO extends ModelCompanion[Stylist, ObjectId]{
-  def collection = MongoConnection()(
-    current.configuration.getString("mongodb.default.db")
-      .getOrElse(throw new PlayException(
-          "Configuration error",
-          "Could not find mongodb.default.db in settings"))
-  )("Stylist")
-  
-  val dao = new SalatDAO[Stylist, ObjectId](collection){}
-  
-  collection.ensureIndex(DBObject("stylistId" -> 1), "stylistId", unique = true)
+object Stylist extends MeifanNetModelCompanion[Stylist]{
+  val dao = new MeifanNetDAO[Stylist](collection = loadCollection()){}
+  loadCollection().ensureIndex(DBObject("stylistId" -> 1), "stylistId", unique = true)
   
   def findGoodAtStyle: GoodAtStyle  = {
        val position = Position.findAll().toList

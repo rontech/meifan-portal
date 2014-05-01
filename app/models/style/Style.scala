@@ -1,14 +1,13 @@
 package models
 
 import java.util.Date
-import com.novus.salat.dao._
 import com.mongodb.casbah.query.Imports._
 import mongoContext._
 import se.radley.plugin.salat.Binders._
-import com.mongodb.casbah.Imports.MongoConnection
 import play.api.Play._
 import play.api.PlayException
 import models._
+import com.meifannet.framework.db._
 
 trait StyleIdUsed {
     val styleId: Option[ObjectId]
@@ -34,6 +33,15 @@ case class StyleAndSalon(
     style: Style,
     salon: Salon)
 
+case class StyleWithAllInfo(
+    style: Style,
+    salonId: ObjectId,
+    salonName: String,
+    salonNameAbbr: String,
+    stylistId: ObjectId,
+    stylistNickname: String
+)
+
 /*------------------------
  * Main Class: Style
  *------------------------*/
@@ -57,16 +65,9 @@ case class Style(
     createDate: Date,
     isValid: Boolean)
 
-object Style extends StyleDAO
+object Style extends MeifanNetModelCompanion[Style] {
 
-trait StyleDAO extends ModelCompanion[Style, ObjectId] {
-    def collection = MongoConnection()(
-        current.configuration.getString("mongodb.default.db")
-            .getOrElse(throw new PlayException(
-                "Configuration error",
-                "Could not find mongodb.default.db in settings")))("Style")
-
-    val dao = new SalatDAO[Style, ObjectId](collection) {}
+    val dao = new MeifanNetDAO[Style](collection = loadCollection()) {}
 
     /**
      * 通过发型师ID检索该发型师所有发型
@@ -96,7 +97,7 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
     /**
      * 通过店铺ID检索该店铺所有签约的发型师
      */
-    def findStylistBySalonId(salonId: ObjectId): List[models.Stylist] = {
+    def findStylistBySalonId(salonId: ObjectId): List[Stylist] = {
         val salonAndStylists = SalonAndStylist.findBySalonId(salonId)
         var stylists: List[Stylist] = Nil
         salonAndStylists.map { salonAndStylist =>
@@ -115,110 +116,128 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
      * 前台检索逻辑
      * 导航栏，男女式发型长度快捷
      */
-    def findByLength(styleLength: String, consumerSex: String): List[Style] = {
-        dao.find(MongoDBObject("styleLength" -> styleLength, "consumerSex" -> consumerSex, "isValid" -> true)).toList
-    }
+    def findByLength(styleLength: String, consumerSex: String, limitCnt: Int = 0): List[StyleWithAllInfo] = {
+        val bstLength = dao.find(MongoDBObject("styleLength" -> styleLength, "consumerSex" -> consumerSex, "isValid" -> true)).toList
+        val lenStyles = bstLength.map {_.id} 
+        val styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(lenStyles)(limitCnt)( x => true)
+
+        styleInfo
+     }
 
     /**
      * 前台检索逻辑
      * 导航栏，女式发型风格快捷
      */
-    def findByImpression(styleImpression: String, consumerSex: String): List[Style] = {
-        dao.find(MongoDBObject("styleImpression" -> styleImpression, "consumerSex" -> consumerSex, "isValid" -> true)).toList
+    def findByImpression(styleImpression: String, consumerSex: String, limitCnt: Int = 0): List[StyleWithAllInfo] = {
+        val bstImp = dao.find(MongoDBObject("styleImpression" -> styleImpression, "consumerSex" -> consumerSex, "isValid" -> true)).toList
+        val impStyles = bstImp.map {_.id}
+        val styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(impStyles)(limitCnt)( x => true)
+
+        styleInfo
     }
 
     /**
      * 前台检索逻辑
-     * 前台综合排名检索
+     * 前台综合排名检索-热度
      */
-    def findByRanking: List[models.Style] = {
-        val reservationAll = Reservation.findByStatusAndStyleId
-        var reservations: List[models.Reservation] = Nil
-        reservationAll.map { reservation =>
-            if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
-                if (Style.findByStyleId(reservation.styleId.get).nonEmpty) {
-                    reservations = reservation :: reservations
-                }
-            }
-        }
-        val styles: List[models.Style] = sortForRanking(reservations)
-        styles
-    }
+    def findByRanking(limitCnt: Int = 0): List[StyleWithAllInfo] = {
+        // get all reservations with styleId, ignore the data without style.
+        val bestRsv = Reservation.findBestReservedStyles(0)
+        val styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(bestRsv)(limitCnt)( x => true)
+
+        styleInfo
+   }
 
     /**
      * 前台检索逻辑
      * 前台热度加女士长度排名检索
      */
-    def findByRankingAndLengthForF(styleLength: String, consumerSex: String): List[models.Style] = {
-        val reservationAll = Reservation.findByStatusAndStyleId
-        var reservations: List[models.Reservation] = Nil
-        reservationAll.map { reservation =>
-            if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
-                Style.findByStyleId(reservation.styleId.get) match {
-                    case Some(style) => {
-                        if (style.styleLength.equals(styleLength) && style.consumerSex.equals(consumerSex)) {
-                            reservations :::= List(reservation)
-                        }
-                    }
-                    case None => None
-                }
-            }
-        }
-        val styles: List[models.Style] = sortForRanking(reservations)
-        styles
+    def findByRankingAndLengthForF(styleLength: String, consumerSex: String, limitCnt: Int = 0): List[StyleWithAllInfo] = {
+        // get all reservations with styleId, ignore the data without style.
+        val bestRsv = Reservation.findBestReservedStyles(0)
+
+        val styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(bestRsv)(limitCnt)( x =>
+                    (x.styleLength == styleLength) && (x.consumerSex == consumerSex)) 
+
+        styleInfo
     }
 
     /**
-     * 前台检索逻辑
-     * 前台热度加男式排名检索
+     * Get Style Info with salon id/name, stylist id/name.
+     *   @styleIds: the sorted list of stylist id.
+     *   @limitCnt: the required cnt of result, Top N.
+     *   @filter: function to filter the result.
+     *   @return: List[StyleWithAllInfo]
      */
-    def findByRankingForM(consumerSex: String): List[models.Style] = {
-        val reservationAll = Reservation.findByStatusAndStyleId
-        var reservations: List[models.Reservation] = Nil
-        reservationAll.map { reservation =>
-            if (SalonAndStylist.findByStylistId(reservation.stylistId.get).nonEmpty) {
-                Style.findByStyleId(reservation.styleId.get) match {
-                    case Some(style) => {
-                        if (style.consumerSex.equals(consumerSex)) {
-                            reservations :::= List(reservation)
-                        }
+    def getStyleInfoFromRanking(styleIds: List[ObjectId])(limitCnt: Int = 0)(filter: Style => Boolean): List[StyleWithAllInfo] = {
+        var styleInfo: List[StyleWithAllInfo] = Nil
+        var cnt: Int = 0
+        for(styleId <- styleIds) {
+            if(limitCnt == 0 || cnt <= limitCnt) {
+                val style = Style.findOneById(styleId)
+                // Filter the data by function filter.
+                if(style != None && filter(style.get)) {
+                    // only when the stylist is in workship with a salon, the style can be searched by ranking.
+                    val stlstInSalon = SalonAndStylist.findByStylistId(style.get.stylistId)
+                    if(stlstInSalon != None) {
+                        val stylistName = Stylist.findUserName(stlstInSalon.get.stylistId)
+                        val salon = Salon.findOneById(stlstInSalon.get.salonId)
+                        val st = StyleWithAllInfo(style.get, salon.get.id, salon.get.salonName, salon.get.salonNameAbbr.getOrElse(salon.get.salonName),
+                                stlstInSalon.get.stylistId, stylistName)
+                        styleInfo = styleInfo ::: List(st) 
+                        cnt += 1
                     }
-                    case None => None
                 }
             }
-        }
-        val styles: List[models.Style] = sortForRanking(reservations)
-        styles
+       }
+
+       styleInfo
+    }
+
+
+    /**
+     * 前台检索逻辑
+     * 前台热度加性别排名检索
+     */
+    def findByRankingAndSex(consumerSex: String, limitCnt: Int = 0): List[StyleWithAllInfo] = {
+        // get all reservations with styleId, ignore the data without style.
+        val bestRsv = Reservation.findBestReservedStyles(0)
+        var styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(bestRsv)(limitCnt)( x =>
+                     (x.consumerSex == consumerSex)) 
+
+        styleInfo
     }
 
     /**
      * 前台检索逻辑
      * ranking分组排序
      */
-    def sortForRanking(reservationAll: List[models.Reservation]): List[models.Style] = {
-        val reservations = reservationAll.sortBy(_.styleId)
-        var lists: List[(ObjectId, Int)] = Nil
-        var styles: List[models.Style] = Nil
-        var count = 1
-        var styleId = reservations(0).styleId.get
-        for (i <- 0 to reservations.length - 1) {
-            if (i > 0) {
-                if (reservations(i).styleId.equals(reservations(i - 1).styleId)) {
-                    count = count + 1
-                } else {
-                    styleId = reservations(i - 1).styleId.get
-                    lists :::= List((styleId, count))
-                    styleId = reservations(i).styleId.get
-                    count = 1
+    def sortForRanking(reservationAll: List[Reservation]): List[Style] = {
+        var styles: List[Style] = Nil
+        if (reservationAll.nonEmpty) {
+            val reservations = reservationAll.sortBy(_.styleId)
+            var lists: List[(ObjectId, Int)] = Nil
+            var count = 1
+            var styleId = reservations(0).styleId.get
+            for (i <- 0 to reservations.length - 1) {
+                if (i > 0) {
+                    if (reservations(i).styleId.equals(reservations(i - 1).styleId)) {
+                        count = count + 1
+                    } else {
+                        styleId = reservations(i - 1).styleId.get
+                        lists :::= List((styleId, count))
+                        styleId = reservations(i).styleId.get
+                        count = 1
+                    }
                 }
             }
-        }
-        lists :::= List((styleId, count))
-        val listAll = lists.sortWith((f, s) => f._2 < s._2) //递增排序
-        //val listAll =   lists.sortBy(_._2).reverse  此方法同样可以实现
-        listAll.map { list =>
-            val style = Style.findOneById(list._1).get
-            styles = style :: styles
+            lists :::= List((styleId, count))
+            val listAll = lists.sortWith((f, s) => f._2 < s._2) //递增排序
+            //val listAll =   lists.sortBy(_._2).reverse  此方法同样可以实现
+            listAll.map { list =>
+                val style = Style.findOneById(list._1).get
+                styles = style :: styles
+            }
         }
         styles
     }
@@ -259,25 +278,26 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         val others = Salon.getAllStyles(sid)
         (bestRsved ::: others).distinct
     }
+ 
 
     /**
      * 前台检索逻辑
      * 前台详细检索
      */
-    def findByPara(style: models.Style): List[Style] = {
+    def findByPara(style: Style, limitCnt: Int = 0): List[StyleWithAllInfo] = {
         val styleLength = if (style.styleLength.equals("all")) { "styleLength" $in Style.findParaAll.styleLength } else { MongoDBObject("styleLength" -> style.styleLength) }
         val styleImpression = if (style.styleImpression.equals("all")) { "styleImpression" $in Style.findParaAll.styleImpression } else { MongoDBObject("styleImpression" -> style.styleImpression) }
-        val styleColor = if (style.styleColor.isEmpty) { "styleColor" $in Style.findParaAll.styleColor } else { "styleColor" $in style.styleColor }
-        val serviceType = if (style.serviceType.isEmpty) { "serviceType" $in Style.findParaAll.serviceType } else { "serviceType" $in style.serviceType }
-        val styleAmount = if (style.styleAmount.isEmpty) { "styleAmount" $in Style.findParaAll.styleAmount } else { "styleAmount" $in style.styleAmount }
-        val styleQuality = if (style.styleQuality.isEmpty) { "styleQuality" $in Style.findParaAll.styleQuality } else { "styleQuality" $in style.styleQuality }
-        val styleDiameter = if (style.styleDiameter.isEmpty) { "styleDiameter" $in Style.findParaAll.styleDiameter } else { "styleDiameter" $in style.styleDiameter }
-        val faceShape = if (style.faceShape.isEmpty) { "faceShape" $in Style.findParaAll.faceShape } else { "faceShape" $in style.faceShape }
-        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { "consumerSocialStatus" $in Style.findParaAll.consumerSocialStatus } else { "consumerSocialStatus" $in style.consumerSocialStatus }
+        val styleColor = if (style.styleColor.isEmpty) { MongoDBObject.empty } else { "styleColor" $in style.styleColor }
+        val serviceType = if (style.serviceType.isEmpty) { MongoDBObject.empty } else { "serviceType" $in style.serviceType }
+        val styleAmount = if (style.styleAmount.isEmpty) { MongoDBObject.empty } else { "styleAmount" $in style.styleAmount }
+        val styleQuality = if (style.styleQuality.isEmpty) { MongoDBObject.empty } else { "styleQuality" $in style.styleQuality }
+        val styleDiameter = if (style.styleDiameter.isEmpty) { MongoDBObject.empty } else { "styleDiameter" $in style.styleDiameter }
+        val faceShape = if (style.faceShape.isEmpty) { MongoDBObject.empty } else { "faceShape" $in style.faceShape }
+        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { MongoDBObject.empty } else { "consumerSocialStatus" $in style.consumerSocialStatus }
         val consumerSex = if (style.consumerSex.equals("all")) { "consumerSex" $in Style.findParaAll.consumerSex } else { MongoDBObject("consumerSex" -> style.consumerSex) }
-        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { "consumerAgeGroup" $in Style.findParaAll.consumerAgeGroup } else { "consumerAgeGroup" $in style.consumerAgeGroup }
+        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { MongoDBObject.empty } else { "consumerAgeGroup" $in style.consumerAgeGroup }
 
-        dao.find($and(
+        val srchedStls = dao.find($and(
             styleLength,
             styleColor,
             styleImpression,
@@ -290,19 +310,25 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
             consumerSex,
             consumerAgeGroup,
             MongoDBObject("isValid" -> true))).toList
+
+        val srchStyleIds = srchedStls.map {_.id}
+        val styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(srchStyleIds)(limitCnt)( x =>
+                    (x.styleLength == styleLength) && (x.consumerSex == consumerSex)) 
+
+        styleInfo
     }
 
     /**
      * 通过发型中的技师ID查询其绑定的店铺
      */
-    def findSalonByStyle(stylistId: ObjectId): Option[models.Salon] = {
+    def findSalonByStyle(stylistId: ObjectId): Option[Salon] = {
         val salonAndStylist = SalonAndStylist.findByStylistId(stylistId)
-        var salonOne: Option[models.Salon] = None
+        var salonOne: Option[Salon] = None
         salonAndStylist match {
+            case None => None
             case Some(salonAndStylist) => {
                 salonOne = Salon.findOneById(salonAndStylist.salonId)
             }
-            case None => None
         }
         salonOne
     }
@@ -310,18 +336,18 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
     /**
      * 后台检索逻辑
      */
-    def findStylesByStylistBack(style: models.Style, stylistId: ObjectId): List[Style] = {
+    def findStylesByStylistBack(style: Style, stylistId: ObjectId): List[Style] = {
         val styleLength = if (style.styleLength.equals("all")) { "styleLength" $in Style.findParaAll.styleLength } else { MongoDBObject("styleLength" -> style.styleLength) }
         val styleImpression = if (style.styleImpression.equals("all")) { "styleImpression" $in Style.findParaAll.styleImpression } else { MongoDBObject("styleImpression" -> style.styleImpression) }
-        val styleColor = if (style.styleColor.isEmpty) { "styleColor" $in Style.findParaAll.styleColor } else { "styleColor" $in style.styleColor }
-        val serviceType = if (style.serviceType.isEmpty) { "serviceType" $in Style.findParaAll.serviceType } else { "serviceType" $in style.serviceType }
-        val styleAmount = if (style.styleAmount.isEmpty) { "styleAmount" $in Style.findParaAll.styleAmount } else { "styleAmount" $in style.styleAmount }
-        val styleQuality = if (style.styleQuality.isEmpty) { "styleQuality" $in Style.findParaAll.styleQuality } else { "styleQuality" $in style.styleQuality }
-        val styleDiameter = if (style.styleDiameter.isEmpty) { "styleDiameter" $in Style.findParaAll.styleDiameter } else { "styleDiameter" $in style.styleDiameter }
-        val faceShape = if (style.faceShape.isEmpty) { "faceShape" $in Style.findParaAll.faceShape } else { "faceShape" $in style.faceShape }
-        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { "consumerSocialStatus" $in Style.findParaAll.consumerSocialStatus } else { "consumerSocialStatus" $in style.consumerSocialStatus }
+        val styleColor = if (style.styleColor.isEmpty) { MongoDBObject.empty } else { "styleColor" $in style.styleColor }
+        val serviceType = if (style.serviceType.isEmpty) { MongoDBObject.empty } else { "serviceType" $in style.serviceType }
+        val styleAmount = if (style.styleAmount.isEmpty) { MongoDBObject.empty } else { "styleAmount" $in style.styleAmount }
+        val styleQuality = if (style.styleQuality.isEmpty) { MongoDBObject.empty } else { "styleQuality" $in style.styleQuality }
+        val styleDiameter = if (style.styleDiameter.isEmpty) { MongoDBObject.empty } else { "styleDiameter" $in style.styleDiameter }
+        val faceShape = if (style.faceShape.isEmpty) { MongoDBObject.empty } else { "faceShape" $in style.faceShape }
+        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { MongoDBObject.empty } else { "consumerSocialStatus" $in style.consumerSocialStatus }
         val consumerSex = if (style.consumerSex.equals("all")) { "consumerSex" $in Style.findParaAll.consumerSex } else { MongoDBObject("consumerSex" -> style.consumerSex) }
-        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { "consumerAgeGroup" $in Style.findParaAll.consumerAgeGroup } else { "consumerAgeGroup" $in style.consumerAgeGroup }
+        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { MongoDBObject.empty } else { "consumerAgeGroup" $in style.consumerAgeGroup }
 
         dao.find($and(
             styleLength,
@@ -338,18 +364,18 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
             MongoDBObject("isValid" -> true, "stylistId" -> stylistId))).toList.sortBy(_.createDate).reverse
     }
 
-    def findStylesBySalonBack(style: models.Style, salonId: ObjectId): List[Style] = {
+    def findStylesBySalonBack(style: Style, salonId: ObjectId): List[Style] = {
         val styleLength = if (style.styleLength.equals("all")) { "styleLength" $in Style.findParaAll.styleLength } else { MongoDBObject("styleLength" -> style.styleLength) }
         val styleImpression = if (style.styleImpression.equals("all")) { "styleImpression" $in Style.findParaAll.styleImpression } else { MongoDBObject("styleImpression" -> style.styleImpression) }
-        val styleColor = if (style.styleColor.isEmpty) { "styleColor" $in Style.findParaAll.styleColor } else { "styleColor" $in style.styleColor }
-        val serviceType = if (style.serviceType.isEmpty) { "serviceType" $in Style.findParaAll.serviceType } else { "serviceType" $in style.serviceType }
-        val styleAmount = if (style.styleAmount.isEmpty) { "styleAmount" $in Style.findParaAll.styleAmount } else { "styleAmount" $in style.styleAmount }
-        val styleQuality = if (style.styleQuality.isEmpty) { "styleQuality" $in Style.findParaAll.styleQuality } else { "styleQuality" $in style.styleQuality }
-        val styleDiameter = if (style.styleDiameter.isEmpty) { "styleDiameter" $in Style.findParaAll.styleDiameter } else { "styleDiameter" $in style.styleDiameter }
-        val faceShape = if (style.faceShape.isEmpty) { "faceShape" $in Style.findParaAll.faceShape } else { "faceShape" $in style.faceShape }
-        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { "consumerSocialStatus" $in Style.findParaAll.consumerSocialStatus } else { "consumerSocialStatus" $in style.consumerSocialStatus }
+        val styleColor = if (style.styleColor.isEmpty) { MongoDBObject.empty } else { "styleColor" $in style.styleColor }
+        val serviceType = if (style.serviceType.isEmpty) { MongoDBObject.empty } else { "serviceType" $in style.serviceType }
+        val styleAmount = if (style.styleAmount.isEmpty) { MongoDBObject.empty } else { "styleAmount" $in style.styleAmount }
+        val styleQuality = if (style.styleQuality.isEmpty) { MongoDBObject.empty } else { "styleQuality" $in style.styleQuality }
+        val styleDiameter = if (style.styleDiameter.isEmpty) { MongoDBObject.empty } else { "styleDiameter" $in style.styleDiameter }
+        val faceShape = if (style.faceShape.isEmpty) { MongoDBObject.empty } else { "faceShape" $in style.faceShape }
+        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { MongoDBObject.empty } else { "consumerSocialStatus" $in style.consumerSocialStatus }
         val consumerSex = if (style.consumerSex.equals("all")) { "consumerSex" $in Style.findParaAll.consumerSex } else { MongoDBObject("consumerSex" -> style.consumerSex) }
-        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { "consumerAgeGroup" $in Style.findParaAll.consumerAgeGroup } else { "consumerAgeGroup" $in style.consumerAgeGroup }
+        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { MongoDBObject.empty } else { "consumerAgeGroup" $in style.consumerAgeGroup }
         //利用传过来的stylistId判断后台检索是检索某一发型师的发型，还是检索店铺全部发型师的发型
         val stylists = SalonAndStylist.findBySalonId(salonId)
         var stylistIds: List[ObjectId] = Nil
@@ -397,10 +423,10 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
         paraStyleImpression.map { para =>
             paraStyleImpressions :::= List(para.styleImpression)
         }
-        val paraServiceType = ServiceType.findAll().toList
+        val paraServiceType = ServiceType.findAllServiceType("Hairdressing").toList
         var paraServiceTypes: List[String] = Nil
         paraServiceType.map { para =>
-            paraServiceTypes :::= List(para.serviceTypeName)
+            paraServiceTypes :::= List(para)
         }
         val paraStyleLength = StyleLength.findAll().toList
         var paraStyleLengths: List[String] = Nil
@@ -471,8 +497,8 @@ trait StyleDAO extends ModelCompanion[Style, ObjectId] {
     
     def isExist(value:String, stylistId:String, f:(String,String) => Option[Style]) = f(value,stylistId).map(style => true).getOrElse(false)
     
-    def findByNameAndStylist(name:String,stylistId:String):Option[Style] = {
-        dao.findOne(MongoDBObject("styleName" -> name, "stylistId" -> new ObjectId(stylistId), "isValid" -> true))
+    def checkStyleIsExist(name:String,stylistId:ObjectId): Boolean= {
+        dao.find(MongoDBObject("styleName" -> name, "stylistId" -> stylistId)).hasNext
     }
 }
 

@@ -15,7 +15,7 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
   
   def menuForm: Form[Menu] = Form {
     mapping(
-        "menuName" -> nonEmptyText,
+        "menuName" -> text,
         "salonId" -> text,
         "serviceItems" -> list(
          mapping(
@@ -23,7 +23,7 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
          ){(id) => Service(new ObjectId(id), "", "", "", new ObjectId(), BigDecimal(0), 0, null, null, true)}
          {service => Some((service.id.toString))}
          ).verifying(Messages("menu.menuServiceRequired"), serviceItems => !serviceItems.isEmpty),
-          "description" -> nonEmptyText(10, 100)
+          "description" -> text
     ){
       (menuName, salonId, serviceItems, description) => Menu(new ObjectId, menuName, description, new ObjectId(salonId), serviceItems, 0, BigDecimal(0), new Date(), None, true)
     }
@@ -31,13 +31,13 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
       menu => Some((menu.menuName, menu.salonId.toString, menu.serviceItems, menu.description))
     }.verifying(
         Messages("menu.menuNameRepeat"),
-        menu => !Menu.checkMenuIsExit(menu.menuName, menu.salonId)   
+        menu => !Menu.checkMenuIsExist(menu.menuName, menu.salonId)
     )
   }
   
   def menuUpdateForm: Form[Menu] = Form {
     mapping(
-        "menuName" -> nonEmptyText,
+        "menuName" -> text,
         "salonId" -> text,
         "serviceItems" -> list(
          mapping(
@@ -45,7 +45,7 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
          ){(id) => Service(new ObjectId(id), "", "", "", new ObjectId(), BigDecimal(0), 0, null, null, true)}
          {service => Some((service.id.toString))}
          ).verifying(Messages("menu.menuServiceRequired"), serviceItems => !serviceItems.isEmpty),
-          "description" -> nonEmptyText(10, 100)
+          "description" -> text
     ){
       (menuName, salonId, serviceItems, description) => Menu(new ObjectId, menuName, description, new ObjectId(salonId), serviceItems, 0, BigDecimal(0), new Date(), None, true)
     }
@@ -194,12 +194,12 @@ object Menus extends Controller with AuthElement with SalonAuthConfigImpl{
 
                 val serviceTypes: List[ServiceType] = ServiceType.findAllServiceTypes(salon.salonIndustry)
                 if(serviceType.subMenuFlg == None) {
-                    //coupons = Coupon.findContainCondtions(serviceTypes)
+                    //coupons = Coupon.findContainConditions(serviceTypes)
                 } else {
                     if(serviceType.serviceTypes.isEmpty) {
                         menus = Menu.findBySalon(salon.id)
                     } else {
-                        menus = Menu.findContainCondtions(conditions, salon.id)
+                        menus = Menu.findContainConditions(conditions, salon.id)
                     }
                 }
                Ok(html.salon.admin.mySalonMenuAll(salon, Coupons.conditionForm.fill(couponServiceType), serviceTypes, menus))

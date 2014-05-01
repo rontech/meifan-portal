@@ -1,36 +1,15 @@
 @(salonRegister: Form[Salon],industry: List[Industry],salon:Salon)
 @import helper._
 @import helper.twitterBootstrap._
-@import views.html.salon.admin.mySalonMain
+@import views.html.salon.admin.mySalonInfoManageMain
 
-@mySalonMain("registerInformation",salon){
+@mySalonInfoManageMain("my-registerInfo", salon){
 	
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
-		<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-		<tbody>	
-		</tbody>
-	</table>		
-	<div>
-		<ul class="bS menuBG cFix">
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonRegister">@Messages("salonCheckInfoState.register")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>		
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonBasic">@Messages("salonCheckInfoState.basicInfo")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-            <li class="fl">
-				<a class="current-demo" href="@auth.routes.Salons.salonDetail"> @Messages("salonCheckInfoState.detail")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-			<li class="fl"><a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.pictures")&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-			</li>			
-		</ul>
-	</div>
-
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
+	
 	<div class="salonRegister">
-		<div class="contentsTitleWrapper">
-			<h2 class="contentsTitleInner">@Messages("salon.registerManage")</h2>
-		</div>
 
-		<div class="mT10 pH10">
+		<div class="mT40 pH10">
 			@helper.form(action = auth.routes.Salons.salonRegisterUpdate(salon.id), 'id -> "salonRegister", 'name ->"salonRegister"){
 
 				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
@@ -78,13 +57,9 @@
 				            </th>
 				            <td>
 				                @inputText(salonRegister("salonAccount.accountId"),
-                                    'id ->"accountId",
+                                    'class -> "inputField",
                                     '_label -> None,
-                                    'disabled -> "true",
-                                    'style-> "width:200px;",
-									'placeholder -> Messages("salon.login.accountId"),
-									'_help -> Messages("salon.registerMange.accountId"),
-									'_error -> salonRegister("salonAccount.accountId").error.map(_.withMessage(Messages("salon.register.accountIdErr"))))
+                                    'readonly -> "true")
 				            </td>
 				        </tr>
 				        <tr>
@@ -95,7 +70,7 @@
 				                </div>
 				            </th>
 				            <td>
-				                <div>
+				                <div class = "inputField">
 									<a href="@auth.routes.Salons.password"/> @Messages("user.changePassword")
 									<input type="hidden" name="salonAccount.password" readonly="readonly" value="@salon.salonAccount.password">
 				                </div>
@@ -111,12 +86,10 @@
 				            <td>
 				                <div>
 				                	@inputText(salonRegister("salonName"),
-                                        'id -> "salonName",
+                                        'id -> "salonNameReadOnly",
                                         '_label ->  None,
-                                        '_help -> Messages("salon.salonNameMange"),
-                                        'disabled -> "true",
-										'style-> "width:200px;",
-				                		'_error -> salonRegister("salonName").error.map(_.withMessage(Messages("salon.register.salonName"))))				             	
+                                        'readonly -> "true",
+                                        'class -> "inputField")
 				                </div>
 				            </td>
 				        </tr>
@@ -128,8 +101,8 @@
 				                </div>
 				            </th>
 				            <td>
-				                <div>
-				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None,'_error -> salonRegister("salonIndustry").error.map(_.withMessage(Messages("salon.industryError")))){(id,name,value,args) =>
+				                <div class = "inputField">
+				                	@input(field = salonRegister("salonIndustry"),args = '_label -> None,'class -> "inputField",'_error -> salonRegister("salonIndustry").error.map(_.withMessage(Messages("salon.industryError")))){(id,name,value,args) =>
 								 	@for(i <- 0 to industry.length-1){
 								 		@if(salon.salonIndustry.contains(industry(i).industryName)){
 								 			<input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
@@ -153,9 +126,7 @@
 				                	@inputText(salonRegister("contactMethod.mainPhone"),
                                         'id -> "contact_tel",
                                         '_label -> None,
-                                        '_help -> Messages(""),
-                                        'style-> "width:200px;",
-				                		'_error -> salonRegister("contactMethod.mainPhone").error.map(_.withMessage(Messages("salon.phoneError"))))
+                                        'class -> "inputField")
 				                </div>
 				            </td>
 				        </tr>
@@ -171,9 +142,7 @@
 				                	@inputText(salonRegister("contactMethod.contact"),
                                         'id -> "contact",
                                         '_label -> None,
-                                        '_help -> Messages(""),
-                                        'style-> "width:200px;",
-				                		'_error -> salonRegister("contactMethod.contact").error.map(_.withMessage(Messages("salon.register.contact"))))
+                                        'class -> "inputField")
 				                </div>
 				            </td>
 				        </tr>
@@ -189,9 +158,7 @@
 				                	@inputText(salonRegister("contactMethod.email"),
                                         'id ->"contact_email",
                                         '_label -> None,
-                                        '_help -> Messages(""),
-										'style-> "width:200px;",
-				                		'_error -> salonRegister("contactMethod.email").error.map(_.withMessage(Messages("salon.mailError"))))
+                                        'class -> "inputField")
 				                </div>
 				            </td>
 				        </tr>					        					        
@@ -324,10 +291,10 @@
 				            </td>
 				        </tr>
 					</tbody>
-				</table>								
-				<div class="mT20 txtC">			
+				</table>
+				<div class="btnArea">
 					<input type = "button" class = "buttons" value=@Messages("common.submit") onclick="checksForSalonRegister();">
-				</div>
+			    </div>								
 			}
 
 		</div>
@@ -383,9 +350,9 @@
 @pictureGroup(field: Field, className: String = "salonPic") = {
 	<li>
 	<div class="delete-pic"></div>
-		@field("fileObjId").value.map{fileid=>
-			@if(!fileid.equals("")){	
-			<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileid))'/></div>
+		@field("fileObjId").value.map{fileId=>
+			@if(!fileId.equals("")){	
+			<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileId))'/></div>
 		}
 	}
     <div class="addstyles-byStylist twipsies well @className">
@@ -399,7 +366,8 @@
             options = options(
                 "LOGO" -> Messages("salon.picUse.logo"),
                 "Navigate" -> Messages("salon.picUse.Navigate"),
-                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+                "Atmosphere" -> Messages("salon.picUse.Atmosphere"),
+                "SalonCheck" ->  Messages("salon.picUse.SalonCheck")
             ),
              '_label -> None,
              'placeholder -> Messages("salon.picUse"),

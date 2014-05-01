@@ -18,31 +18,32 @@ TODO
 
 @main(salon.salonName, "hair-salon", navBar) {
 
-<!-- ↓contents -->
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonInfo.css")">
+    <!-- ↓contents -->
 
-        <!-- ↓mainContents -->
-        <div id="salonMainContents">
+    <!-- ↓mainContents -->
+    <div id="salonMainContents">
 
-	    <!-- ↓salonInfoHeader -->
-	    @views.html.salon.store.salonInfoHeader(navInSalon, salon)
-	    <!-- ↑salonInfoHeader -->
+        <!-- ↓salonInfoHeader -->
+        @views.html.salon.store.salonInfoHeader(navInSalon, salon)
+        <!-- ↑salonInfoHeader -->
 
-            <!-- ↓salonInfoBody -->
-            <!-- show different body contents according to the NAV tab. -->
-            @content
-            <!-- ↑salonInfoBody -->  
+        <!-- ↓salonInfoBody -->
+        <!-- show different body contents according to the NAV tab. -->
+        @content
+        <!-- ↑salonInfoBody -->  
 
-            <!-- ↓salonInfoFooter  -->
-            @views.html.salon.store.salonInfoFooter(navInSalon, salon)
-            <!-- ↑salonInfoFooter  -->  
+        <!-- ↓salonInfoFooter  -->
+        @views.html.salon.store.salonInfoFooter(navInSalon, salon)
+        <!-- ↑salonInfoFooter  -->  
 
-        </div>
-        <!-- ↑mainContents -->
+    </div>
+    <!-- ↑mainContents -->
 
-        <!-- ↓sideContents -->
-        @views.html.salon.store.rightColumn(user)
-        <!-- ↑sideContents -->
+    <!-- ↓sideContents -->
+    @views.html.salon.store.rightColumn(user)
+    <!-- ↑sideContents -->
 
-<!-- ↑contents -->
+    <!-- ↑contents -->
 
 }

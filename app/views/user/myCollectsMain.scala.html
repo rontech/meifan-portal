@@ -1,0 +1,20 @@
+@(subNavInSalon: String = "my-followSalon", user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)(content: Html)
+
+@myPageMain("my-collects", user, followInfo, loginUserId, logged){
+	
+	<div>
+		<ul class="tab-sub">
+			<li class="fl  @if(subNavInSalon == "my-collectCoupon") {selected}">
+				<a class="current-demo" href="@auth.routes.MyFollows.followedCoupon(user.id)">@Messages("user.collectCoupon")</a>
+			</li>		
+            <li class="fl  @if(subNavInSalon == "my-collectBlog") {selected}">
+				<a class="current-demo" href="@auth.routes.MyFollows.followedBlog(user.id)">@Messages("user.collectBlog")</a>
+			</li>			
+            <li class="fl  @if(subNavInSalon == "my-collectStyle") {selected}">
+				<a class="current-demo" href="@auth.routes.MyFollows.followedStyle(user.id)">@Messages("user.collectStyle")</a>
+			</li>			
+		</ul>
+	</div>
+	@content
+	
+}

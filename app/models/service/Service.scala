@@ -1,13 +1,11 @@
 
 package models
 
-import play.api.Play.current
 import java.util.Date
-import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
-import se.radley.plugin.salat._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
+import com.meifannet.framework.db._
 
 case class Service(
 		id: ObjectId = new ObjectId,
@@ -27,9 +25,9 @@ case class ServiceByType(
 		serviceItems: Seq[Service]
 )
 
-object Service extends ModelCompanion[Service, ObjectId]{
+object Service extends MeifanNetModelCompanion[Service]{
 
-	val dao = new SalatDAO[Service, ObjectId](collection = mongoCollection("Service")){}
+    val dao = new MeifanNetDAO[Service](collection = loadCollection()){}
 
 	/**
 	 * 添加服务
@@ -90,7 +88,7 @@ object Service extends ModelCompanion[Service, ObjectId]{
 	/**
 	 * 检验该店铺是否已登录此服务
 	 */
-	def checkService(serviceNm:String, salonId: ObjectId): Boolean = dao.find(MongoDBObject("serviceName" -> serviceNm, "salonId"->salonId)).hasNext
+	def checkServiceIsExist(serviceNm:String, salonId: ObjectId): Boolean = dao.find(MongoDBObject("serviceName" -> serviceNm, "salonId"->salonId)).hasNext
 
 	/**
      * 获取服务列表中的所有服务id

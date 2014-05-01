@@ -1,20 +1,17 @@
 package models
 
-import play.api.Play.current
-import play.api.PlayException
-import com.novus.salat.dao._
 import com.mongodb.casbah.commons.Imports._
-import com.mongodb.casbah.MongoConnection
 import mongoContext._
 import se.radley.plugin.salat.Binders._
 import java.util.Date
+import com.meifannet.framework.db._
 
 
 // 资讯
 case class Info(
-    id: ObjectId = new ObjectId,   	
-    title: String,                  
-    content: String,                  
+    id: ObjectId = new ObjectId,
+    title: String,
+    content: String,
     authorId: ObjectId,
 //    infoPics: ObjectId,
     infoPics: List[OnUsePicture],
@@ -24,71 +21,65 @@ case class Info(
 )
 
 
-object Info extends ModelCompanion[Info, ObjectId] {
+object Info extends MeifanNetModelCompanion[Info] {
 
-    def collection = MongoConnection()(
-      current.configuration.getString("mongodb.default.db")
-        .getOrElse(throw new PlayException(
-          "Configuration error",
-          "Could not find mongodb.default.db in settings")))("Info")
- 
-    val dao = new SalatDAO[Info, ObjectId](collection) {}
-    
+    val dao = new MeifanNetDAO[Info](collection = loadCollection()){}
+
     /**
      * meifan资讯
      */
-    def findInfoForHome(num : Int) : List[Info]= {    
+    def findInfoForHome(num : Int) : List[Info]= {
       val infoList= dao.find(MongoDBObject("isValid" -> true, "infoType" -> 1)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
       infoList.sortBy(info => info.createTime)
     }
-    
+
     /**
      * 整形资讯
      */
-    def findEstheInfo(num : Int) : List[Info]= {    
+    def findEstheInfo(num : Int) : List[Info]= {
       val infoList= dao.find(MongoDBObject("isValid" -> true, "infoType" -> 2)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
       infoList
     }
-    
+
     /**
      * 取得ID利用规约
      */
     // TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
-    def findIdUsePolicyInfo : List[Info]= {    
+    def findIdUsePolicyInfo : List[Info]= {
       val infoList= dao.find(MongoDBObject("isValid" -> true, "infoType" -> 3)).sort(MongoDBObject("createTime" -> -1)).toList
       infoList
     }
-    
+
     /**
      * 取得ID利用规约
      */
     // TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
-    def findUsePolicyInfo : List[Info]= {    
+    def findUsePolicyInfo : List[Info]= {
       val infoList= dao.find(MongoDBObject("isValid" -> true, "infoType" -> 4)).sort(MongoDBObject("createTime" -> -1)).toList
       infoList
     }
-    
+
     /**
      * 取得ID利用规约
      */
     // TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
-    def findSecurityPolicyInfo : List[Info]= {    
+    def findSecurityPolicyInfo : List[Info]= {
       val infoList= dao.find(MongoDBObject("isValid" -> true, "infoType" -> 5)).sort(MongoDBObject("createTime" -> -1)).toList
       infoList
     }
-    
+
     /**
      * 取得ID利用规约
      */
     // TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
-    def findAdInfo(num : Int) : List[Info]= {    
+    def findAdInfo(num : Int) : List[Info]= {
       val infoList= dao.find(MongoDBObject("isValid" -> true, "infoType" -> 6)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
       infoList
     }
-    
+
     def updateInfoImage(info: Info, imgId: ObjectId) = {
       dao.update(MongoDBObject("_id" -> info.id, "infoPics.picUse" -> "logo"),
       MongoDBObject("$set" -> (MongoDBObject("infoPics.$.fileObjId" -> imgId))), false, true)
     }
-} 
+}
 

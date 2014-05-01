@@ -1,7 +1,7 @@
 	@charset "utf-8";
 /* CSS Document */
 body{
-	margin:0px; padding:0px; font-family:"宋体"; font-size:12px; line-height:22px; color:#333333;
+	margin:0px; padding:0px; font-size:12px; line-height:22px; color:#333333;
 }
 /*------------------------Start 解决12号字在google和傲游浏览器的不识别小于12号的英文字体-------------*/
 html{-webkit-text-size-adjust:none;}
@@ -129,7 +129,7 @@ position: absolute;
 	padding:0 2px;
 }
 #nav ul li a{
-	background:url(/assets/images/nav_btn.jpg) no-repeat;
+	background:url(/assets/images/nav_btn.jpg) no-repeat 0 1px;
 	width:113px;
 	height:32px;
 	line-height:32px;
@@ -736,6 +736,11 @@ text-align:center;
 	line-height:30px;
 }
 
+#copyrightnew {
+float: left;
+margin: 10px 10px 0 10px;
+}
+
 .postSalonInfo {
 	position: absolute;
 	top: 20px;
@@ -888,10 +893,124 @@ height: 100px;
     padding-left: 20px;
 }
 
-div.inputField {
-margin: 5px;
+.inputField {
+margin: 15px 5px;
 }
 
 .lt {
 	text-decoration: line-through;
+}
+
+.pointerCursor {
+  cursor: pointer;
+}
+
+.mainContentsSecondTitleInnerForAdmin {
+line-height: 21px;
+border-bottom: 1px solid #666666;
+background: none;
+padding-bottom: 1px;
+font-size: 14px;
+font-weight: bold;
+color: #444444;
+padding: 3px;
+}
+
+.searchBtn {
+background: #f09499;
+vertical-align: middle;
+width: 60px;
+height: 28px;
+border: none;
+color: #fff;
+cursor: pointer;
+}
+
+.serviceItemArea {
+float: left;
+min-width: 120px;
+margin: 5px 0;
+}
+
+.btnArea {
+border-top: 1px solid #dedddc;
+margin-top: 10px;
+text-align: center;
+}
+
+div.btnArea .buttons{
+background: #f09499;
+margin-top: 30px;
+width: 50px;
+height: 28px;
+border: none;
+color: #fff;
+margin-right: 20px;
+cursor: pointer;
+padding: 0;
+}
+
+.buttons {
+background: #f09499;
+padding: 7px;
+border: none;
+color: #fff;
+cursor: pointer;
+}
+
+a:hover.buttons {
+	text-decoration: none;
+	color: #fff;
+}
+
+
+div.input input[type="text"] {
+    width:200px;
+}
+
+.sl_show_xx{
+width: 120px;
+height: 20px;
+overflow: hidden;
+clear: both;
+background: url("/assets/images/sl_show_dpan_02.jpg") repeat-x 0 -1px;
+font-size: 10px;
+padding-top: 2px;
+}
+
+.sl_show_xx a {
+color: #333333;
+text-decoration: none;
+display: block;
+}
+
+.sl_show_xy{
+width: 142px;
+height: 31px;
+overflow: hidden;
+clear: both;
+background: url("/assets/images/sl_show_dpan3.jpg") repeat-x;
+font-size: 10px;
+padding-top: 5px;
+margin-left: auto;
+margin-right: auto
+}
+
+.sl_show_xy a {
+color: #333333;
+text-decoration: none;
+display: block;
+}
+
+.sl_show {
+float: right;
+}
+
+.searchCoupon {
+width: 80px;
+height: 30px;
+}
+
+.h150 {
+height: 150px;
 }

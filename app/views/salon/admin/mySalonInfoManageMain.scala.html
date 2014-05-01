@@ -1,0 +1,23 @@
+@(subNavInSalon: String = "my-registerInfo", salon: Salon)(content: Html)
+
+@mySalonMain("my-infomation",salon){
+	
+	<div>
+		<ul class="tab-sub">
+			<li class="fl  @if(subNavInSalon == "my-registerInfo") {selected}">
+				<a class="current-demo" href="@auth.routes.Salons.salonRegister">@Messages("salonCheckInfoState.register")</a>
+			</li>		
+            <li class="fl  @if(subNavInSalon == "my-basicInfo") {selected}">
+				<a class="current-demo" href="@auth.routes.Salons.salonBasic">@Messages("salonCheckInfoState.basicInfo")</a>
+			</li>			
+            <li class="fl  @if(subNavInSalon == "my-detailInfo") {selected}">
+				<a class="current-demo" href="@auth.routes.Salons.salonDetail"> @Messages("salonCheckInfoState.detail")</a>
+			</li>			
+			<li class="fl  @if(subNavInSalon == "my-pictureInfo") {selected}">
+				<a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.pictures")</a>
+			</li>			
+		</ul>
+	</div>
+	@content
+	
+}

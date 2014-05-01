@@ -1,26 +1,41 @@
 @(user: User, followInfo:FollowInformation, loginUserId:ObjectId)
 
-@myPageMain("followedStyle", user, followInfo, loginUserId, true){
-	
-     @if(followInfo.followStyle.isEmpty){
-    <div class="bgAlertMsg mT20">
-        <p class="alertMsg">@Messages("user.noStyleSearched")</p>
-    </div>
-    } else {
-        @for(style <- followInfo.followStyle){
-        	@if(style.isValid){
-    		<li class="couponItem">
-    		<div class = "styleResult">
-    		   @views.html.user.followItem.followStyleItem(style)
-    		   
-    		   @if(MyFollow.checkIfFollow(loginUserId,style.id)){
-    		   		<a href="@auth.routes.MyFollows.cancelFollow(style.id)">@Messages("user.deleteFollow")</a>
-    		   }else{
-    		   		<a href="javascript:void(0);" onclick="addFollow('@style.id','style')">@Messages("user.addFollow")</a>
-    		   }
-            </div>
-        	</li>
-        	}
-        }
-    }
+@myCollectsMain("my-collectStyle", user, followInfo, loginUserId, true){
+	<div class="mT40">
+		 @if(followInfo.followStyle.isEmpty){
+		    <div class="bgAlertMsg">
+		        <p class="alertMsg">@Messages("user.noStyleSearched")</p>
+		    </div>
+	    } else {
+	    	<div class="yS mainContentsSecondTitleOuter">
+				<h2 class="yS mainContentsSecondTitleInnerForAdmin">
+					@if(loginUserId.equals(user.id)){
+						@Messages("user.myCollectStylesCount", followInfo.followBlog.length)	
+					} else {
+						@Messages("user.otherCollectStylesCount", followInfo.followBlog.length)
+					}
+					
+				</h2>
+			</div>
+			<div class="mT20">
+				@for(style <- followInfo.followStyle){
+		        	@if(style.isValid){
+			    		<li class="styleItem">
+				    		<div class = "styleResult">
+				    		   @views.html.user.followItem.followStyleItem(style)
+				    		   
+				    		   <p class="txtC">
+					    		   @if(MyFollow.checkIfFollow(loginUserId,style.id)){
+					    		   		<a href="@auth.routes.MyFollows.cancelFollow(style.id)" class="styleBtn">@Messages("user.deleteFollow")</a>
+					    		   }else{
+					    		   		<a href="javascript:void(0);" onclick="addFollow('@style.id','style')" class="styleBtn">@Messages("user.addFollow")</a>
+					    		   }
+				    		   </p>
+				            </div>
+			        	</li>
+		        	}
+		        }
+			</div>
+	    }
+	</div>
 }

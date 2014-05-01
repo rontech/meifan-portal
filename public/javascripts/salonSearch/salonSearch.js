@@ -31,8 +31,7 @@ $(function() {
         	return;
         }
         if(re.test(maxPrice) && minPrice == ''){
-        	alert('b');
-        	$('.fill_priceRang_minPrice').val(0);
+            $('.fill_priceRang_minPrice').val(0);
             $('.fill_priceRang_minPrice').attr("checked",'checked');
             $('.fill_priceRang_maxPrice').val(maxPrice);
             $('.fill_priceRang_maxPrice').attr("checked",'checked');
@@ -80,8 +79,47 @@ $(function() {
     $('.condtions_item').click(function(){
         submitForm();
     });
+
+    // Sort by price.
+    $('#price').click(function() {
+        $('#selSortKey').val('price');
+        submitForm();
+   })
+
+    // Sort by popularity.
+    $('#popu').click(function() {
+        // TODO
+        //alert($('#popu').prop('checked'));
+        //if(!$('#popu').prop('checked')) {
+            $('#selSortKey').val('popu');
+            submitForm();
+        //}
+    })
+
+    // Sort by review.
+    $('#review').click(function() {
+        // TODO
+        //if(!$('#review').prop('checked')) {
+            $('#selSortKey').val('review');
+            submitForm();
+        //}
+    })
     
-}); 
+});
+
+
+/**
+ * Function to get checkbox values in a group.
+ */
+function setChkBoxValueInGrp(grpId, inputTag) {
+    var checkArray = document.getElementById(grpId).getElementsByTagName(inputTag);
+    for(var i=0; i<checkArray.length; i++){
+        if(checkArray[i].type=='checkbox'){
+            checkArray[i].checked=false;
+        }
+    }
+}
+
 
 function unlimitedCondtions(){
     var checkArray = document.getElementById("otherCondtion_group").getElementsByTagName("input");
@@ -94,6 +132,7 @@ function unlimitedCondtions(){
     
 }
 
+
 function unlimitSalons(){
     var checkArray = document.getElementById("unlimitSalons_group").getElementsByTagName("input");
     for(var i=0; i<checkArray.length; i++){
@@ -103,6 +142,7 @@ function unlimitSalons(){
     }
     submitForm();
 }
+
 
 function unlimitServiceType(){
     var checkArray = document.getElementById("unlimitServiceType_group").getElementsByTagName("input");
@@ -121,17 +161,23 @@ function unlimitedRegion(){
 }
 
 function submitForm(){
+	if($('#getcity_name').val()=='中文/拼音'){
+		$('.com_city_bug').css('display', 'inline');
+		return;
+	}
     document.getElementById("salonSearchForm").submit();
 }
 
-
+function clickSalonSearch(){
+	submitForm();
+}
 
 
 /*------------------------------
  * Highlight search result.
  *------------------------------*/
 $(document).ready(function() {
-    highlight($('#keyword').val());
+    //highlight($('#keyword').val());
 });
 
 function encode(s){
@@ -189,3 +235,77 @@ function replace(s,dest){
     }
     return cnt;
 }
+
+/**
+ * TODO for auto show form condition.
+ */
+
+function moreExpandValue(obj,type){
+	var el = $(obj)
+	el.css('display','none');
+	el.next().css('display','block');
+	var txt = '.'+type;
+	$(txt).removeClass('hide_li').addClass('dibBL');
+}
+
+function lessExpandValue(obj,type){
+	var el = $(obj)
+	el.css('display','none');
+	el.prev().css('display','block');
+	var txt = '.'+type;
+	$(txt).removeClass('dibBL').addClass('hide_li');
+}
+
+function checkHideOption(){
+	 var salonServiceType_hide = $('.salonServiceType_hide');
+	 salonServiceType_hide.each(function(i){
+	    	if($(this).children(':checked').length>0){
+	    		$('.salonServiceType_hide').removeClass('hide_li').addClass('dibBL');
+	    		$(this).parents('.rBox').prev().prev().prev().css('display','none');
+	    		$(this).parents('.rBox').prev().prev().css('display','block');
+	    		return;
+	    	}
+	    });
+	    
+	 var salonSalonName_hide = $('.salonSalonName_hide');
+	 salonSalonName_hide.each(function(i){
+	    	if($(this).children(':checked').length>0){
+	    		$('.salonSalonName_hide').removeClass('hide_li').addClass('dibBL');
+	    		$(this).parents('.rBox').prev().prev().prev().css('display','none');
+	    		$(this).parents('.rBox').prev().prev().css('display','block');
+	    		return;
+	    	}
+	    });  
+
+	 var salonPriceRandge_hide = $('.salonPriceRandge_hide');
+	 salonPriceRandge_hide.each(function(i){
+	    	if($(this).children(':checked').length>0){
+	    		$('.salonPriceRandge_hide').removeClass('hide_li').addClass('dibBL');
+	    		$(this).parents('.rBox').prev().prev().prev().css('display','none');
+	    		$(this).parents('.rBox').prev().prev().css('display','block');
+	    		return;
+	    	}
+	    });
+
+	 var salonOtherCon_hide = $('.salonOtherCon_hide');
+	 salonOtherCon_hide.each(function(i){
+	    	if($(this).children(':checked').length>0){
+	    		$('.salonOtherCon_hide').removeClass('hide_li').addClass('dibBL');
+	    		$(this).parents('.rBox').prev().prev().prev().css('display','none');
+	    		$(this).parents('.rBox').prev().prev().css('display','block');
+	    		return;
+	    	}
+	    });
+	 var minPrice = $('#lowPrice').val();
+     var maxPrice = $('#highPrice').val();
+     if(minPrice != '' || maxPrice !=''){
+    	 $('.salonPriceRandge_hide').removeClass('hide_li').addClass('dibBL');
+    		$(this).parents('.rBox').prev().prev().prev().css('display','none');
+    		$(this).parents('.rBox').prev().prev().css('display','block');
+    		return;
+	 }        
+}
+$(document).ready(function() {
+	setTimeout('checkHideOption()', 600);
+    
+});

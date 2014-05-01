@@ -16,6 +16,17 @@ import com.mongodb.casbah.WriteConcern
 import org.mindrot.jbcrypt.BCrypt
 import controllers.auth.Coupons
 import views.html
+import utils.Const._
+import models.SearchParaForSalon
+import models.WorkTime
+import models.SalonAccount
+import scala.Some
+import models.PicDescription
+import models.CouponServiceType
+import models.ServiceByType
+import models.Contact
+import models.OptContactMethod
+import models.Address
 
 object Salons extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
@@ -23,19 +34,17 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
     val salonRegister: Form[Salon] = Form(
         mapping(
             "salonAccount" -> mapping(
-                "accountId" -> nonEmptyText(6, 16).verifying(Messages("salon.register.accountIdErr"), accountId => accountId.matches("""^\w+$""")),
+                "accountId" -> text,
                 "password" -> tuple(
-                    "main" -> text(6, 18).verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]+$""")),
-                    "confirm" -> text).verifying(
-                        // Add an additional constraint: both passwords must match
-                        Messages("user.twicePasswordError"), password => password._1 == password._2)) {
+                    "main" -> text,
+                    "confirm" -> text)){
                     (accountId, password) => SalonAccount(accountId, BCrypt.hashpw(password._1, BCrypt.gensalt()))
                 } {
                     salonAccount => Some(salonAccount.accountId, (salonAccount.password, ""))
                 },
-            "salonName" -> nonEmptyText(2,20).verifying(Messages("salon.salonNameNotAvaible"), salonName => !Salon.findOneBySalonName(salonName).nonEmpty),
+            "salonName" -> text,
             "salonNameAbbr" -> optional(text),
-            "salonIndustry" -> list(nonEmptyText),
+            "salonIndustry" -> list(text),
             "homepage" -> optional(text),
             "salonDescription" -> optional(text),
             "picDescription" -> optional(mapping(
@@ -43,9 +52,9 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                 "picContent" -> text,
                 "picFoot" -> text)(PicDescription.apply)(PicDescription.unapply)),
             "contactMethod" -> mapping(
-                "mainPhone" -> nonEmptyText.verifying(Messages("salon.phoneError"), email => email.matches("""\d{3}-\d{8}|\d{4}-\d{8}""")),
-                "contact" -> nonEmptyText,
-                "email" -> nonEmptyText.verifying(Messages("salon.mailError"), email => email.matches("""^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$""")))(Contact.apply)(Contact.unapply),
+                "mainPhone" -> text,
+                "contact" -> text,
+                "email" -> text)(Contact.apply)(Contact.unapply),
             "optContactMethods" -> list(
                 mapping(
                     "contMethodType" -> text,
@@ -92,19 +101,19 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                         (fileObjId, picUse, showPriority, description) => OnUsePicture(new ObjectId, picUse, Option(0), Option("none"))
                     } {
                         salonPics => Some(salonPics.fileObjId.toString(), salonPics.picUse, salonPics.showPriority, salonPics.description)
-                    })) {
+                    }),
+            "accept" ->checked("")) {
                 (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
-                workTime, restDays, seatNums, salonFacilities, salonPics) =>
+                workTime, restDays, seatNums, salonFacilities, salonPics,_) =>
                     Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
                         workTime, restDays, seatNums, salonFacilities, salonPics, new Date())
             } {
                 salonRegister =>
                     Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.picDescription, salonRegister.contactMethod,
                         salonRegister.optContactMethods, salonRegister.establishDate, salonRegister.salonAddress,
-                        salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics)
-            }.verifying(
-
-                Messages("user.userIdNotAvailable"), salon => !Salon.findByAccountId(salon.salonAccount.accountId).nonEmpty))
+                        salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics,false)
+            }
+    )
 
     /**
      * 定义一个店铺查询数据表单
@@ -145,7 +154,13 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                         Some((salonFacilities.canOnlineOrder, salonFacilities.canImmediatelyOrder, salonFacilities.canNominateOrder, salonFacilities.canCurntDayOrder, salonFacilities.canMaleUse, salonFacilities.isPointAvailable, salonFacilities.isPosAvailable, salonFacilities.isWifiAvailable,
                             salonFacilities.hasParkingNearby))
                 },
-                "sortByCondition" -> text)(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
+                "sortByConditions" -> mapping(
+                    "selSortKey" -> text,
+                    "sortByPopuAsc" -> boolean,
+                    "sortByReviewAsc" -> boolean,
+                    "sortByPriceAsc" -> boolean
+                ) (SortByConditions.apply)(SortByConditions.unapply) 
+        )(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
 
     /**
      * 店铺注册
@@ -166,7 +181,10 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
      -------------------------*/
     def index = StackAction { implicit request =>
         val user = loggedIn
-        val searchParaForSalon = new SearchParaForSalon(None,"苏州","all",List(),"Hairdressing",List(),PriceRange(0,1000000),SeatNums(0,10000),SalonFacilities(false,false,false,false,false,false,false,false,false,""),"热度")
+        val searchParaForSalon = new SearchParaForSalon(None,"苏州","all",List(),"Hairdressing",List(),
+                    PriceRange(0,1000000),SeatNums(0,10000),
+                    SalonFacilities(false,false,false,false,false,false,false,false,false,""),
+                    SortByConditions("price", false, false, true))
         val salons = Salon.findSalonBySearchPara(searchParaForSalon)
         Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
     }
@@ -381,7 +399,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
                     couponServiceType = couponServiceType.copy(serviceTypes = typebySearchs)
 
                     if (serviceType.subMenuFlg == None) {
-                        //coupons = Coupon.findContainCondtions(serviceTypes)
+                        //coupons = Coupon.findContainConditions(serviceTypes)
                     } else {
                         if (serviceType.serviceTypes.isEmpty) {
                             coupons = Coupon.findValidCouponBySalon(salonId)
@@ -398,8 +416,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
 			                    }
                             }
                         } else {
-                            coupons = Coupon.findValidCouponByCondtions(conditions, salonId)
-                            menus = Menu.findValidMenusByCondtions(conditions, salonId)
+                            coupons = Coupon.findValidCouponByConditions(conditions, salonId)
+                            menus = Menu.findValidMenusByConditions(conditions, salonId)
                             for (serviceTypeOne <- serviceType.serviceTypes) {
                                 var servicesByType: ServiceByType = ServiceByType("", Nil)
                                 var services: List[Service] = Service.getTypeListBySalonId(salonId, serviceTypeOne.serviceTypeName)
@@ -471,5 +489,4 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             }
         )
     }
-    
 }

@@ -82,11 +82,9 @@
     				(@SalonAndStylist.countStylistBySalon(salon.id))</a><br />
     				<a href="@auth.routes.Salons.checkHoldApply">
                 	@Messages("salonAdmin.fromStylistApply")
-                	(
                 		 <span id="reviewCount">
-                               @SalonStylistApplyRecord.applingStylistCount(salon.id)
+                               (@SalonStylistApplyRecord.applingStylistCount(salon.id))
                          </span>
-                	)
                 	</a>
     				</div>
 			</div>
@@ -98,7 +96,8 @@
     	 			</li>
 	  			</ul>
 				<div class='more'>
-					<a href="@auth.routes.Salons.getAllStylesBySalon()">@Messages("stylistMag.showAllStyles")</a>
+					<a href="@auth.routes.Salons.getAllStylesBySalon()">@Messages("stylistMag.showAllStyles")
+					(@Salon.getAllStyles(salon.id).length)</a>
 				</div>
 			</div>
 
@@ -113,25 +112,22 @@
     			</ul>
 				<div class='more'>
 					
-    			<a href="#">@Messages("salonAdmin.needCommentRsv")
-    							(
+    			<a href="#">@Messages("salonAdmin.needCommentRsv")    							
                             	<span id="reviewCount">
-                                0
+                                (0)
                             	</span>
-                            	)</a><br />
-				<a href="#">@Messages("salonAdmin.overtimeRsv")
-                           	 (
+                            	</a><br />
+				<a href="#">@Messages("salonAdmin.overtimeRsv")                           	 
                             	<span id="reviewCount">
-                                1
+                                (1)
                             	</span>
-				)</a><br />
+				</a><br />
 				
 				<a href="#">@Messages("salonAdmin.expireRsv")
-                           	(
                             	<span id="reviewCount">
-                                0
+                                (0)
                             	</span>
-                            	)</a><br />
+                            	</a><br />
 				
     			</div>
 			</div>
@@ -226,24 +222,21 @@
 				<div class='more'>
 					
 					<a href="@auth.routes.Salons.checkAuth">@Messages("salonAdmin.needCommentRsv")
-    							(
                             	<span id="reviewCount">
-                                0
+                                (0)
                             	</span>
-                            	)</a><br />
+                            	</a><br />
 					<a href="@auth.routes.Salons.checkAuth">@Messages("salonAdmin.overtimeRsv")
-                           	 (
                             	<span id="reviewCount">
-                                1
+                                (0)
                             	</span>
-				)</a><br />
+				</a><br />
 				
 					<a href="@auth.routes.Salons.checkAuth">@Messages("salonAdmin.expireRsv")
-                           	(
                             	<span id="reviewCount">
-                                0
+                                (0)
                             	</span>
-                            	)</a><br />
+                            	</a><br />
 				
     			</div>
 			</div>
@@ -268,8 +261,8 @@
     	 			</li>
 	  			</ul>
 		 		<div class='more'>
-					<a href="@auth.routes.Salons.checkAuth">@Messages("salonAdmin.checkService")</a>
-     				</div>
+       				<a href="@auth.routes.Salons.checkAuth">@Messages("salonAdmin.checkService")</a>
+				</div>
 			</div>
 
 			<!-- 优惠券管理 -->						

@@ -15,7 +15,7 @@ object Services extends Controller with AuthElement with SalonAuthConfigImpl{
   def serviceForm(id: ObjectId = new ObjectId): Form[Service] = Form(
     mapping(
       "id" -> ignored(id),
-      "serviceName" -> nonEmptyText,
+      "serviceName" -> text,
       "description" -> text,
       "serviceType" -> text,
       "salonId" -> text,
@@ -28,14 +28,14 @@ object Services extends Controller with AuthElement with SalonAuthConfigImpl{
         service => Some((service.id, service.serviceName, service.description, service.serviceType, service.salonId.toString(), service.price, service.duration))
       }.verifying(
         Messages("service.serviceNameNotAvalid"),
-        service => !Service.checkService(service.serviceName, service.salonId)   
+        service => !Service.checkServiceIsExist(service.serviceName, service.salonId)
     )
   )
   
   def serviceUpdateForm(id: ObjectId = new ObjectId): Form[Service] = Form(
     mapping(
       "id" -> ignored(id),
-      "serviceName" -> nonEmptyText,
+      "serviceName" -> text,
       "description" -> text,
       "serviceType" -> text,
       "salonId" -> text,
