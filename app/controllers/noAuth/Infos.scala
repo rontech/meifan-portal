@@ -40,6 +40,13 @@ object Infos extends Controller {
         Ok(html.info.general.idUsePolicy(info)) //html 名字重命名  TODO 重用
     }
     
+    /**
+     * get the contact info of rontech
+     */
+    def getContactInfo = Action {
+    	Ok(html.info.general.contactUs())
+    }
+    
 //    /**
 //     * get the Ad info
 //     */
