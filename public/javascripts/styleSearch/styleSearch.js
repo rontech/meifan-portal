@@ -198,8 +198,8 @@
 	    styleImpression_hide.each(function(i){
 	    	if($(this).children(':checked').length>0){
 	    		$('.styleImpression_hide').removeClass('hide_li').addClass('dibBL');
-	    		$(this).parents('.rBox').next().css('display','none');
-	    		$(this).parents('.rBox').next().next().css('display','block');
+	    		$(this).parents('.rBox').prev().prev().prev().css('display','none');
+	    		$(this).parents('.rBox').prev().prev().css('display','block');
 	    		return;
 	    	}
 	    });
@@ -208,8 +208,8 @@
 	    serviceType_hide.each(function(i){
 	    	if($(this).children(':checked').length>0){
 	    		$('.serviceType_hide').removeClass('hide_li').addClass('dibBL');
-	    		$(this).parents('.rBox').next().css('display','none');
-	    		$(this).parents('.rBox').next().next().css('display','block');
+	    		$(this).parents('.rBox').prev().prev().prev().css('display','none');
+	    		$(this).parents('.rBox').prev().prev().css('display','block');
 	    		return;
 	    	}
 	    });
