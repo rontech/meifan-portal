@@ -312,8 +312,7 @@ object Style extends MeifanNetModelCompanion[Style] {
             MongoDBObject("isValid" -> true))).toList
 
         val srchStyleIds = srchedStls.map {_.id}
-        val styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(srchStyleIds)(limitCnt)( x =>
-                    (x.styleLength == styleLength) && (x.consumerSex == consumerSex)) 
+        val styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(srchStyleIds)(limitCnt)( x => true) 
 
         styleInfo
     }
