@@ -262,7 +262,25 @@
 				            </td>
 				        </tr>
 					</tbody>
-				</table>						            				
+				</table>
+				<div class="tipbox hide" id="step1">
+				    <div class="tipword">
+				    </div>
+				    <span class="tipboxBtn" onclick="hideTip()">
+				    </span>
+				</div>
+				<div class="tipbox hide" id="step2">
+				    <div class="tipword">
+				    </div>
+				    <span class="tipboxBtn" onclick="hideTip()">
+				    </span>
+				</div>
+				<div class="tipbox hide" id="step3">
+				    <div class="tipword">
+				    </div>
+				    <span class="tipboxBtn" onclick="hideTip()">
+				    </span>
+				</div>						            				
 				<div class="mT20 txtC">
                     <input type = "button" class = "buttons" value=@Messages("common.submit") onclick="checksForSalonDetail();">
 				</div>
@@ -271,7 +289,8 @@
 
 	</div>
 }
-
+<style>
+</style>
 @accountField(field: Field, className: String = "account") = {
     @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
         <input type="text" name="@name" value="@value"> 
@@ -362,35 +381,54 @@
     </li>
     }
 @picDescriptions(field: Field, className: String = "salonPicDescription") = {
+	<div class="picDescriptions">
 	<div>
 	    @textarea(
 	            field("picTitle"),
                 'id ->"picTitle",
 	            '_label -> Messages("salon.pic.title"),
 	            'rows -> 4,
-                'cols -> 40
-	            )
+                'cols -> 40,
+                'onFocus -> "show('step1')",
+                'onblur -> "hide('step1')"
+                )
     </div>        
     <div>    
 	    @textarea(
 	            field("picContent"),
                 'id ->"picContent",
-	            '_label -> Messages("salon.pic.content"),
+                '_label -> Messages("salon.pic.content"),
 	            'rows -> 8,
-                'cols -> 40
+                'cols -> 40,
+                'onFocus -> "show('step2')",
+                'onblur -> "hide('step2')"
 	            )
     </div>
     <div>            
 	    @textarea(
 	            field("picFoot"),
                 'id ->"picFoot",
-	            '_label -> Messages("salon.pic.foot"),
+                '_label -> Messages("salon.pic.foot"),
 	            'rows -> 4,
-                'cols -> 40
+                'cols -> 40,
+                'onFocus -> "show('step3')",
+                'onblur -> "hide('step3')"
 	            )
+    </div>
     </div>     
 }
 
     <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
 	<script src="@routes.Assets.at("javascripts/ajaxfileupload.js")" type="text/javascript"></script>
     <script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>
+    <script type="text/javascript" charset="utf-8">
+		function show(step){
+			var txt = '#'+step;
+			$(txt).removeClass('hide');
+		}
+
+		function hide(step){
+			var txt = '#'+step;
+			$(txt).addClass('hide');
+		}
+    </script>
