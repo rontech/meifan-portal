@@ -1,0 +1,32 @@
+@CHARSET "UTF-8";
+
+.commonContent {
+margin: auto;
+margin-top: 20px;
+}
+
+.contactImage {
+width: 910px;
+margin: auto;
+}
+
+.contactUs {
+min-height: 500px;
+width: 910px;
+margin: auto;
+background: url("/assets/images/contact/contactConBg.jpg");
+}
+
+.contactUs img {
+float: right;
+margin-right: 30px;
+margin-top: 50px;
+width: 430px;
+}
+
+.contactContent {
+float: left;
+margin: 30px 70px 10px 30px;
+}
+
+
