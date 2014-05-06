@@ -8,6 +8,7 @@ import play.api.Play._
 import play.api.PlayException
 import models._
 import com.meifannet.framework.db._
+import com.mongodb.casbah.commons.Imports.{ DBObject => commonsDBObject }
 
 trait StyleIdUsed {
     val styleId: Option[ObjectId]
@@ -285,38 +286,55 @@ object Style extends MeifanNetModelCompanion[Style] {
      * 前台详细检索
      */
     def findByPara(style: Style, limitCnt: Int = 0): List[StyleWithAllInfo] = {
-        val styleLength = if (style.styleLength.equals("all")) { "styleLength" $in Style.findParaAll.styleLength } else { MongoDBObject("styleLength" -> style.styleLength) }
-        val styleImpression = if (style.styleImpression.equals("all")) { "styleImpression" $in Style.findParaAll.styleImpression } else { MongoDBObject("styleImpression" -> style.styleImpression) }
-        val styleColor = if (style.styleColor.isEmpty) { MongoDBObject.empty } else { "styleColor" $in style.styleColor }
-        val serviceType = if (style.serviceType.isEmpty) { MongoDBObject.empty } else { "serviceType" $in style.serviceType }
-        val styleAmount = if (style.styleAmount.isEmpty) { MongoDBObject.empty } else { "styleAmount" $in style.styleAmount }
-        val styleQuality = if (style.styleQuality.isEmpty) { MongoDBObject.empty } else { "styleQuality" $in style.styleQuality }
-        val styleDiameter = if (style.styleDiameter.isEmpty) { MongoDBObject.empty } else { "styleDiameter" $in style.styleDiameter }
-        val faceShape = if (style.faceShape.isEmpty) { MongoDBObject.empty } else { "faceShape" $in style.faceShape }
-        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { MongoDBObject.empty } else { "consumerSocialStatus" $in style.consumerSocialStatus }
-        val consumerSex = if (style.consumerSex.equals("all")) { "consumerSex" $in Style.findParaAll.consumerSex } else { MongoDBObject("consumerSex" -> style.consumerSex) }
-        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { MongoDBObject.empty } else { "consumerAgeGroup" $in style.consumerAgeGroup }
-
-        val srchedStls = dao.find($and(
-            styleLength,
-            styleColor,
-            styleImpression,
-            serviceType,
-            styleAmount,
-            styleQuality,
-            styleDiameter,
-            faceShape,
-            consumerSocialStatus,
-            consumerSex,
-            consumerAgeGroup,
-            MongoDBObject("isValid" -> true))).toList
-
+        var srchConds = commonSrchConds(style)
+        val srchedStls = dao.find($and(srchConds)).toList
         val srchStyleIds = srchedStls.map {_.id}
         val styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(srchStyleIds)(limitCnt)( x => true) 
 
         styleInfo
     }
 
+    /**
+     * 发型检索主要字段整合
+     */
+    def commonSrchConds(style: Style) : List[commonsDBObject] = {
+        var srchConds: List[commonsDBObject] = Nil
+        if (!style.styleLength.equals("all")) {
+            srchConds :::= List(commonsDBObject("styleLength" -> style.styleLength))
+        }
+        if (!style.styleImpression.equals("all")) {
+            srchConds :::= List(commonsDBObject("styleImpression" -> style.styleImpression))
+        }
+        if (style.styleColor.nonEmpty) {
+            srchConds :::= List("styleColor" $in style.styleColor)
+        }
+        if (style.serviceType.nonEmpty) {
+            srchConds :::= List("serviceType" $in style.serviceType)
+        }
+        if (style.styleAmount.nonEmpty) {
+            srchConds :::= List("styleAmount" $in style.styleAmount)
+        }
+        if (style.styleQuality.nonEmpty) {
+            srchConds :::= List("styleQuality" $in style.styleQuality)
+        }
+        if (style.styleDiameter.nonEmpty) {
+            srchConds :::= List("styleDiameter" $in style.styleDiameter)
+        }
+        if (style.faceShape.nonEmpty) {
+            srchConds :::= List("faceShape" $in style.faceShape)
+        }
+        if (style.consumerSocialStatus.nonEmpty) {
+            srchConds :::= List("consumerSocialStatus" $in style.consumerSocialStatus)
+        }
+        if (!style.consumerSex.equals("all")) {
+            srchConds :::= List(commonsDBObject("consumerSex" -> style.consumerSex))
+        }
+        if (style.consumerAgeGroup.nonEmpty) {
+            srchConds :::= List("consumerAgeGroup" $in style.consumerAgeGroup)
+        }
+        srchConds :::= List(commonsDBObject("isValid" -> true))
+        srchConds
+    }
     /**
      * 通过发型中的技师ID查询其绑定的店铺
      */
@@ -336,45 +354,13 @@ object Style extends MeifanNetModelCompanion[Style] {
      * 后台检索逻辑
      */
     def findStylesByStylistBack(style: Style, stylistId: ObjectId): List[Style] = {
-        val styleLength = if (style.styleLength.equals("all")) { "styleLength" $in Style.findParaAll.styleLength } else { MongoDBObject("styleLength" -> style.styleLength) }
-        val styleImpression = if (style.styleImpression.equals("all")) { "styleImpression" $in Style.findParaAll.styleImpression } else { MongoDBObject("styleImpression" -> style.styleImpression) }
-        val styleColor = if (style.styleColor.isEmpty) { MongoDBObject.empty } else { "styleColor" $in style.styleColor }
-        val serviceType = if (style.serviceType.isEmpty) { MongoDBObject.empty } else { "serviceType" $in style.serviceType }
-        val styleAmount = if (style.styleAmount.isEmpty) { MongoDBObject.empty } else { "styleAmount" $in style.styleAmount }
-        val styleQuality = if (style.styleQuality.isEmpty) { MongoDBObject.empty } else { "styleQuality" $in style.styleQuality }
-        val styleDiameter = if (style.styleDiameter.isEmpty) { MongoDBObject.empty } else { "styleDiameter" $in style.styleDiameter }
-        val faceShape = if (style.faceShape.isEmpty) { MongoDBObject.empty } else { "faceShape" $in style.faceShape }
-        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { MongoDBObject.empty } else { "consumerSocialStatus" $in style.consumerSocialStatus }
-        val consumerSex = if (style.consumerSex.equals("all")) { "consumerSex" $in Style.findParaAll.consumerSex } else { MongoDBObject("consumerSex" -> style.consumerSex) }
-        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { MongoDBObject.empty } else { "consumerAgeGroup" $in style.consumerAgeGroup }
-
-        dao.find($and(
-            styleLength,
-            styleColor,
-            styleImpression,
-            serviceType,
-            styleAmount,
-            styleQuality,
-            styleDiameter,
-            faceShape,
-            consumerSocialStatus,
-            consumerSex,
-            consumerAgeGroup,
-            MongoDBObject("isValid" -> true, "stylistId" -> stylistId))).toList.sortBy(_.createDate).reverse
+        var srchConds = commonSrchConds(style)
+        srchConds :::= List(commonsDBObject("stylistId" -> stylistId))
+        dao.find($and(srchConds)).toList.sortBy(_.createDate).reverse
     }
 
     def findStylesBySalonBack(style: Style, salonId: ObjectId): List[Style] = {
-        val styleLength = if (style.styleLength.equals("all")) { "styleLength" $in Style.findParaAll.styleLength } else { MongoDBObject("styleLength" -> style.styleLength) }
-        val styleImpression = if (style.styleImpression.equals("all")) { "styleImpression" $in Style.findParaAll.styleImpression } else { MongoDBObject("styleImpression" -> style.styleImpression) }
-        val styleColor = if (style.styleColor.isEmpty) { MongoDBObject.empty } else { "styleColor" $in style.styleColor }
-        val serviceType = if (style.serviceType.isEmpty) { MongoDBObject.empty } else { "serviceType" $in style.serviceType }
-        val styleAmount = if (style.styleAmount.isEmpty) { MongoDBObject.empty } else { "styleAmount" $in style.styleAmount }
-        val styleQuality = if (style.styleQuality.isEmpty) { MongoDBObject.empty } else { "styleQuality" $in style.styleQuality }
-        val styleDiameter = if (style.styleDiameter.isEmpty) { MongoDBObject.empty } else { "styleDiameter" $in style.styleDiameter }
-        val faceShape = if (style.faceShape.isEmpty) { MongoDBObject.empty } else { "faceShape" $in style.faceShape }
-        val consumerSocialStatus = if (style.consumerSocialStatus.isEmpty) { MongoDBObject.empty } else { "consumerSocialStatus" $in style.consumerSocialStatus }
-        val consumerSex = if (style.consumerSex.equals("all")) { "consumerSex" $in Style.findParaAll.consumerSex } else { MongoDBObject("consumerSex" -> style.consumerSex) }
-        val consumerAgeGroup = if (style.consumerAgeGroup.isEmpty) { MongoDBObject.empty } else { "consumerAgeGroup" $in style.consumerAgeGroup }
+        var srchConds = commonSrchConds(style)
         //利用传过来的stylistId判断后台检索是检索某一发型师的发型，还是检索店铺全部发型师的发型
         val stylists = SalonAndStylist.findBySalonId(salonId)
         var stylistIds: List[ObjectId] = Nil
@@ -382,35 +368,9 @@ object Style extends MeifanNetModelCompanion[Style] {
             stylistIds :::= List(stylist.stylistId)
         }
         if (stylistIds.contains(style.stylistId)) {
-            dao.find($and(
-                styleLength,
-                styleColor,
-                styleImpression,
-                serviceType,
-                styleAmount,
-                styleQuality,
-                styleDiameter,
-                faceShape,
-                consumerSocialStatus,
-                consumerSex,
-                consumerAgeGroup,
-                MongoDBObject("stylistId" -> style.stylistId, "isValid" -> true))).toList.sortBy(_.createDate).reverse
-        } else {
-            dao.find($and(
-                styleLength,
-                styleColor,
-                styleImpression,
-                serviceType,
-                styleAmount,
-                styleQuality,
-                styleDiameter,
-                faceShape,
-                consumerSocialStatus,
-                consumerSex,
-                consumerAgeGroup,
-                "stylistId" $in stylistIds,
-                MongoDBObject("isValid" -> true))).toList.sortBy(_.createDate).reverse
-        }
+            srchConds :::= List(commonsDBObject("stylistId" -> style.stylistId))
+        } 
+        dao.find($and(srchConds)).toList.sortBy(_.createDate).reverse
     }
 
     /**
