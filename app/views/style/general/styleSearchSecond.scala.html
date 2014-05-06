@@ -18,6 +18,7 @@
 		</div>
        	<div class="listBox">      
 			<div class="newFilter newFiltermvt1" id="filterArea" tab="noPop">
+				<div style="border: 1px solid #cdcdcd;">
 				<!--长度  -->
 				<div class="wBox" id="wbox_b">
 					<p class="style_title">@Messages("hair.styleLength")：</p>
@@ -47,12 +48,14 @@
 				</div>
 				<!-- 风格 -->
 				<div class="wBox styleImpressionDIV" id="wbox_b">
+					<div class="v-option hide" option="more" onclick="moreExpandValue(this,'styleImpression_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
+					<div class="v-option hide" onclick="lessExpandValue(this,'styleImpression_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
 					<p class="style_title">@Messages("hair.impression")：</p>
 					<div class="rBox">
 						<div class="notto">
 							<a href="javascript:unlimitStyleImpression();" class="cur" method="b_no">@Messages("salonSearchPage.unlimited")</a>
 						</div>
-						<ul>
+						<ul class="place">
 							<li style="display:none;">
 								<input type="radio" class="cbF" name="styleImpression" id="hairColorCd_ALL"  value = "all" checked="checked">
 								<label for="hairColorCd_ALL">@Messages("common.all")</label>
@@ -80,19 +83,19 @@
 					        }
 						</ul>
 					</div>
-					<div class="v-option hide" option="more" onclick="moreExpandValue(this,'styleImpression_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
-					<div class="v-option hide" onclick="lessExpandValue(this,'styleImpression_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
 					<div class="clear">
 					</div>
 				</div>
 				<!-- 技术类别 -->
 				<div class="wBox serviceTypeDIV" id="wbox_b">
+					<div class="v-option hide" option="more" onclick="moreExpandValue(this,'serviceType_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
+					<div class="v-option hide" onclick="lessExpandValue(this,'serviceType_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
 					<p class="style_title">@Messages("hair.serviceType")：</p>
 					<div class="rBox">
 						<div class="notto">
 							<a href="javascript:unlimitServiceType();" class="cur" method="b_no">@Messages("salonSearchPage.unlimited")</a>
 						</div>
-						<ul id="unlimitServiceType_group">
+						<ul id="unlimitServiceType_group place" style="width: 70%;float: left;">
 							@input(field = styleSearchForm("serviceType"), args = '_label -> None){(id,name,value,args) =>
 								@for(i <- 0 to stylePara.serviceType.length-1){
 									@if(i < 6){
@@ -118,8 +121,6 @@
 							}
 						</ul>
 					</div>
-					<div class="v-option hide" option="more" onclick="moreExpandValue(this,'serviceType_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
-					<div class="v-option hide" onclick="lessExpandValue(this,'serviceType_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
 					<div class="clear">
 					</div>
 				</div>
@@ -318,6 +319,7 @@
 					</div>
 					<div class="clear">
 					</div>
+				</div>
 				</div>
 				</div>
 				<div id="select">

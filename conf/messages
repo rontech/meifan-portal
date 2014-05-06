@@ -65,7 +65,8 @@ main.myMeifan = 我的美范
 main.saveSite = 收藏本站
 main.welcomeToMeifan = 您好，欢迎来到美范！
 main.hairMessage = 我们提供最权威最新的时尚美容资讯！
-main.weAppeal=享受生活 爱美有范
+main.weAppeal=乐享生活 爱美有范
+main.contactUs=联系我们
 
 # Salon
 salon.salonLogin=店铺登录

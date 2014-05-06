@@ -98,6 +98,7 @@ GET         /info/:infoId                                                       
 GET         /doc/id/terms                                                        controllers.noAuth.Infos.getIdUsePolicyInfo
 GET         /doc/use/terms                                                       controllers.noAuth.Infos.getUsePolicyInfo
 GET         /doc/policy/privacy                                                  controllers.noAuth.Infos.getSecurityPolicyInfo
+GET         /contactUs                                                           controllers.noAuth.Infos.getContactInfo
 
 #-------------------------------------------------
 # 用户管理：登录用户能看到的跳转
