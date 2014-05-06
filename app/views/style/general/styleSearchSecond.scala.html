@@ -100,7 +100,7 @@
 								    	@if(styleSearchForm.get.serviceType.contains(stylePara.serviceType(i))){
 	                                        <input type = "checkbox" class = "cbF serviceType_item" name = "serviceType[@i]" id="hairColorCd_HT@i" value = "@stylePara.serviceType(i)" checked="checked">
 	                                    }else{
-	                                        <input type = "checkbox" class = "cbF" name = "serviceType[@i]" id="hairColorCd_HT@i" value = "@stylePara.serviceType(i)">
+	                                        <input type = "checkbox" class = "cbF serviceType_item" name = "serviceType[@i]" id="hairColorCd_HT@i" value = "@stylePara.serviceType(i)">
 	                                    }
 								        <label for="hairColorCd_HT@i">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))</label>
 								    </li>
