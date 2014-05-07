@@ -10,17 +10,15 @@
         </div>
         <!-- TODO ST Reserve this sytlist. -->
         <div class="mT20 pT10">
-            <a href="" class="bS db nominatedReserve offL mHA">@Messages("stylist.selectForReserv")</a>
+            <a href="" class="bS db nominatedReserve mHA">@Messages("stylist.selectForReserv")</a>
         </div>
         <!-- TODO END Reserve this sytlist. -->
 
         <!-- ST Follow this stylist. -->
         <div class="mT20 pT10">
-            <div class="sl_show_xy">
-               	<p align="center">
-                	<a href = "javascript:void(0);" onclick="addFollow('@stylist.stylistInfo.get.stylistId','stylist')"  >@Messages("stylist.followStylist")</a>
-               	</p>
-            </div>
+        	<a href = "javascript:void(0);" onclick="addFollow('@stylist.stylistInfo.get.stylistId','stylist')"  class="jscBookmarkStylist btn bS fs11 mHA w165 addIntoMyStylist">
+        		<span><span>@Messages("stylist.followStylist")</span></span>
+        	</a>
         </div>
         <!-- END Follow this stylist. -->
     </div>

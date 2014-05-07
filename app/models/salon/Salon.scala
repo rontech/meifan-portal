@@ -331,7 +331,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
           val priceOfCut = Salon.getLowestPriceOfCut(sl.id)
           // get top 2 styles of salon.
           val selStyles = Style.getBestRsvedStylesInSalon(sl.id, 2)
-          val selCoupons = Coupon.findBySalon(sl.id)
+          val selCoupons = Coupon.findValidCouponBySalon(sl.id)
           val rvwStat = Comment.getGoodReviewsRate(sl.id)
           // get the keywords hit strings.
           var kwsHits: List[String] = getKeywordsHit(sl, targetFields, exactRegex)

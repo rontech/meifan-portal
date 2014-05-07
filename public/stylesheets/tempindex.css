@@ -1836,8 +1836,8 @@ margin-right: 180px;
 
 .addIntoMyPage				{ background-position: 0 0; width: 160px; height: 19px; }
 .addIntoMyPage:hover		{ background-position: 0 -24px; }
-.sendToMobile				{ background-position: -180px 0; width: 160px; height: 19px; }
-.sendToMobile:hover			{ background-position: -180px -24px; }
+.sendToMobile				{ background-position: -145px 0; width: 160px; height: 19px; }
+.sendToMobile:hover			{ background-position: -145px -24px; }
 .rsvWithCoupon				{ background-position: -360px 0; width: 105px; height: 20px; }
 .rsvWithCoupon:hover		{ background-position: -360px -20px; }
 
@@ -1888,8 +1888,6 @@ margin-right: 180px;
 .addIntoMySalon:hover		{ background-position: -1320px -144px; }
 .addIntoMyStyle				{ background-position: -1440px -120px; width: 115px; height: 24px; margin:0 5px;}
 .addIntoMyStyle:hover		{ background-position: -1440px -144px; }
-.addIntoMyStylePink			{ background-position: -1220px -760px; width: 145px; height: 32px; margin:0 5px;}
-.addIntoMyStylePink:hover	{ background-position: -1220px -792px; }
 .carouselPrev				{ background-position: -1600px -120px; width: 24px; height: 24px;}
 .carouselPrev:hover			{ background-position: -1600px -144px; }
 .carouselNext				{ background-position: -1634px -120px; width: 24px; height: 24px;}
@@ -1913,8 +1911,8 @@ margin-right: 180px;
 .entryOrderSheet:hover		{ background-position: -1190px -204px; }
 .backSelectDate				{ background-position: -1360px -180px; width:165px; height:24px; }
 .backSelectDate:hover		{ background-position: -1360px -204px; }
-.addIntoMyStylist			{ background-position: -1530px -180px; width: 165px; height: 24px; }
-.addIntoMyStylist:hover		{ background-position: -1530px -204px; }
+.addIntoMyStylist			{ background-position: -327px 0; width: 165px; height: 24px; }
+.addIntoMyStylist:hover		{ background-position: -327px -24px; }
 
 .searchSalon				{ background-position: 0 -250px; width: 73px; height: 21px; }
 .searchSalon:hover			{ background-position: 0 -271px; }
@@ -1986,8 +1984,8 @@ margin-right: 180px;
 .reserveSalon2				{ background-position: -1578px -600px; width: 194px; height: 30px; }
 .reserveSalon2:hover		{ background-position: -1578px -630px; }
 
-.nominatedReserve			{ background-position: 0 -680px; width: 132px; height: 31px; }
-.nominatedReserve:hover		{ background-position: 0 -711px; }
+.nominatedReserve			{ background-position: 0 0; width: 132px; height: 31px; }
+.nominatedReserve:hover		{ background-position: 0 -31px; }
 .nominatedReserveN			{ background-position: -160px -680px; width: 80px; height: 24px; }
 .nominatedReserveN:hover	{ background-position: -160px -704px; }
 .nominatedReserveW115H24	{ background-position: -260px -680px; width: 115px; height: 24px; }
