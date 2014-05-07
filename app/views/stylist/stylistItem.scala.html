@@ -32,7 +32,7 @@
              @st.stylistInfo match {
                 case None => {}
                 case Some(sinfo) => {
-                   <div class="bdDotT mT5 pT5 fs10 hMin35">
+                   <div class="bdDotT mT5 pT5 fs10 hMin50">
                         @sinfo.myWords.slice(0, 20)
                         @if(sinfo.myWords.length > 20) {...}
                     </div> 
@@ -40,7 +40,7 @@
             }
         </div>
         <div class="taC mT10">
-            <a href="#" class="bS db nominatedReserve offL mHA">@Messages("stylist.selectForReserv")</a>
+            <a href="#" class="bS db nominatedReserve mHA">@Messages("stylist.selectForReserv")</a>
         </div>
     }
 }
