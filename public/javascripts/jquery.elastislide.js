@@ -89,7 +89,7 @@
 							// (unless of course minItems is higher than the total number of elements)
 		current		: 0,	// index of the current item
 							// when we resize the window, the carousel will make sure this item is visible 
-		onClick		: function() { return false; } // click item callback
+		//onClick		: function() { return false; } // click item callback
     };
 	
 	$.elastislide.prototype 	= {
@@ -263,10 +263,10 @@
 			});
 			
 			// item click event
-			this.$items.bind('click.elastislide', function( event ) {
+			/*this.$items.bind('click.elastislide', function( event ) {
 				instance.options.onClick( $(this) );
 				return false;
-			});
+			});*/
 			
 			// touch events
 			instance.$slider.touchwipe({

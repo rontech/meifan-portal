@@ -95,7 +95,7 @@ border: 0;
 }
 
 .bS	{
-background-image: url(/assets/images/b.png);
+background-image: url(/assets/images/btn1.png);
 background-repeat: no-repeat;
 background-color: transparent;
 border: 0;
@@ -214,13 +214,14 @@ height: 37px;
 }
 
 .sl_show_yy {
-width: 154px;
+width: 160px;
 height: 60px;
 overflow: hidden;
 clear: both;
 margin: 2px auto 0px;
 background: url("/assets/images/salon_head_btn.png");
 font-size: 14px;
+background-size: 160px 60px;
 }
 
 .sl_show_yy a {
@@ -343,11 +344,11 @@ position: relative;
 }
 /* 发型页面中该技师的其他发型展示js效果 */
 /* 发型页面中前后中展示效果 */
-#containerPic {position:relative; width:271px; height:305px; background:#888; margin:10px auto; font-family:verdana, arial, sans-serif; font-size:12px;}
+#containerPic {position:relative; width:271px; height:361px; background:#888; margin:10px auto; font-family:verdana, arial, sans-serif; font-size:12px;}
 #containerPic a.pics span {display:none; border:0; text-align:center;}
 #containerPic a.pics img.thumb {display:block; border:0;}
 
-#containerPic a.pics span img {margin:10px auto; width:271px; height:305px;}
+#containerPic a.pics span img {margin:10px auto; width:271px; height:361px;}
 
 #containerPic a.pics:hover span {display:block; position:absolute; top:-10px; z-index:10;}
 
@@ -355,3 +356,34 @@ position: relative;
 
 #containerPic a.pics:focus span {display:block; position:absolute; top:-10px; z-index:5; outline:0;}
 /* 发型页面中前后中展示效果  */
+
+a.nominatedReserve {
+color: #fff;
+line-height: 30px;
+font-weight: bold;
+text-align: center;
+}
+
+a.addIntoMyStylist, a.sendToMobile {
+text-align: center;
+line-height: 24px;
+font-weight: bold;
+}
+
+a.sendToMobile {
+line-height: 20px;
+}
+
+.addIntoMyStylePink {
+background-position: -327px 0;
+width: 165px;
+height: 24px;
+margin: 0 5px;
+line-height: 24px;
+font-weight: bold;
+text-align: center;
+}
+
+.addIntoMyStylePink:hover { 
+background-position: -327px -24px; 
+}
