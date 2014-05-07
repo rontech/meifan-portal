@@ -24,6 +24,7 @@ common.checkFormore = 更多
 common.deleteMsg = 删除后无法恢复，请确认是否删除？
 common.isValidMsg = 无效后无法恢复，请确认是否无效？
 common.seat = 位
+common.userLogin = 会员登陆
 
 # Index page
 index.mainPage=网站首页
@@ -337,6 +338,7 @@ hair.noStyleSearched = 没有找到您希望的发型！
 hair.picturedescription = 填写该发型图片描述
 hair.info = 发型信息
 hair.ranking = Rangking 排行
+hair.searchResultMsg = 个发型满足要求
 
 # Cosmetic
 cosmetic.salon=美容沙龙

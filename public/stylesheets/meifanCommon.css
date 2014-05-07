@@ -596,6 +596,21 @@ text-align:center;
 	margin:0 auto;
 	clear:both;
 	overflow:hidden;
+	background: url("/assets/images/right_member_btn.jpg");
+	height: 28px;
+	line-height: 28px;
+	font-size: 15px;
+	text-align: center;
+}
+#index_member_nr p.hydl a {
+	width: 165px;
+	height: 28px;
+	display: block;
+	color: #f45e6a;
+}
+#index_member_nr p.hydl span {
+	color: #f45e6a;
+	font-weight: bold;
 }
 #index_member_nr ul{
 	width:140px;
@@ -1056,4 +1071,28 @@ width: 120px;
 
 .w190 {
 width: 190px;
+}
+
+.pT40 {
+padding-top: 40px;
+}
+
+.bS	{
+background-image: url(/assets/images/btn1.png);
+background-repeat: no-repeat;
+background-color: transparent;
+border: 0;
+}
+
+.styleCollect {
+height: 25px;
+background-position: -511px 0;
+width: 120px;
+text-align: center;
+line-height: 25px;
+margin: 5px;
+}
+
+.styleCollect:hover {
+background-position: -511px -25px;
 }

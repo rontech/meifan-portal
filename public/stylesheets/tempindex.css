@@ -1264,7 +1264,7 @@ text-align:right;
 ************************************************************/
 /* ボタン */
 
-.btn {
+.btn, .btn1 {
 	display: block;
 	border: 0;
 	padding-left: 4px;
@@ -1272,12 +1272,17 @@ text-align:right;
 	text-decoration: none;
 	font-weight: bold;
 }
-.btn > span {
+a.btn1:link, a.btn1:visited {
+color: #fff;
+}
+.btn > span, .btn1 > span {
 	padding-right: 4px;
 	display: block;
 }
 .btn > span > input,
-.btn > span > span {
+.btn > span > span, 
+.btn1 > span > input,
+.btn1 > span > span {
 	display: block;
 	width: 100%;
 	height: 100%;
@@ -1310,25 +1315,25 @@ text-align:right;
 	color: #FFF;
 }
 .btn1H60 {
-	background: url('/assets/images/btn2.png') no-repeat left -1374px;
+	background: url('/assets/images/btn2.png') no-repeat left 0;
 	line-height: 60px;
 }
 .btn1H60 > span {
-	background: url('/assets/images/btn2.png') no-repeat right -1494px;
+	background: url('/assets/images/btn2.png') no-repeat right -120px;
 }
 .btn1H60 > span > span {
-	background: url('/assets/images/btn2.png') repeat-x 0 -1614px;
+	background: url('/assets/images/btn2.png') repeat-x 0 -240px;
 	color: #FFF;
 	font-size: 15px;
 }
 .btn1H60:hover {
-	background: url('/assets/images/btn2.png') no-repeat left -1434px;
+	background: url('/assets/images/btn2.png') no-repeat left -60px;
 }
 .btn1H60:hover > span {
-	background: url('/assets/images/btn2.png') no-repeat right -1554px;
+	background: url('/assets/images/btn2.png') no-repeat right -180px;
 }
 .btn1H60:hover > span > span {
-	background-position: 0 -1674px;
+	background-position: 0 -300px;
 	color: #FFF;
 }
 
@@ -1836,8 +1841,8 @@ margin-right: 180px;
 
 .addIntoMyPage				{ background-position: 0 0; width: 160px; height: 19px; }
 .addIntoMyPage:hover		{ background-position: 0 -24px; }
-.sendToMobile				{ background-position: -145px 0; width: 160px; height: 19px; }
-.sendToMobile:hover			{ background-position: -145px -24px; }
+.sendToMobile				{ background-position: -826px 0; width: 160px; height: 30px; }
+.sendToMobile:hover			{ background-position: -826px -30px; }
 .rsvWithCoupon				{ background-position: -360px 0; width: 105px; height: 20px; }
 .rsvWithCoupon:hover		{ background-position: -360px -20px; }
 
@@ -1911,8 +1916,8 @@ margin-right: 180px;
 .entryOrderSheet:hover		{ background-position: -1190px -204px; }
 .backSelectDate				{ background-position: -1360px -180px; width:165px; height:24px; }
 .backSelectDate:hover		{ background-position: -1360px -204px; }
-.addIntoMyStylist			{ background-position: -327px 0; width: 165px; height: 24px; }
-.addIntoMyStylist:hover		{ background-position: -327px -24px; }
+.addIntoMyStylist			{ background-position: -645px 0; width: 151px; height: 30px;}
+.addIntoMyStylist:hover		{ background-position: -645px -30px; }
 
 .searchSalon				{ background-position: 0 -250px; width: 73px; height: 21px; }
 .searchSalon:hover			{ background-position: 0 -271px; }

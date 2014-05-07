@@ -94,13 +94,6 @@ background-color: transparent;
 border: 0;
 }
 
-.bS	{
-background-image: url(/assets/images/btn1.png);
-background-repeat: no-repeat;
-background-color: transparent;
-border: 0;
-}
-
 .salonInformation {
 background-position: 0 0;
 width: 140px;
@@ -317,9 +310,12 @@ position: relative;
 }
 .es-carousel ul li a img{
 	display:block;
-	border:none;
+	border: 1px solid #fff;
 	max-height:100%;
 	max-width:100%;
+}
+.es-carousel ul li a:hover img{
+	border: 1px solid #CC4466;
 }
 
 .es-nav span{
@@ -366,24 +362,23 @@ text-align: center;
 
 a.addIntoMyStylist, a.sendToMobile {
 text-align: center;
-line-height: 24px;
+line-height: 30px;
 font-weight: bold;
 }
 
-a.sendToMobile {
-line-height: 20px;
-}
-
 .addIntoMyStylePink {
-background-position: -327px 0;
-width: 165px;
-height: 24px;
-margin: 0 5px;
-line-height: 24px;
+background-position: -645px 0;
+width: 151px;
+height: 30px;
+line-height: 30px;
 font-weight: bold;
 text-align: center;
 }
 
 .addIntoMyStylePink:hover { 
-background-position: -327px -24px; 
+background-position: -645px -30px; 
+}
+
+a.pics {
+cursor: pointer;
 }

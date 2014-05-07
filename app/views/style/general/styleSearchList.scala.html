@@ -2,48 +2,53 @@
 
 @import helper._
 
-<div class="mT40">
-    <div class="skinHeadingWrapper">
-        <h3> @Messages("hair.style") </h3>
-    </div>
+<div class="mT40 pT40">
 
+	<div class="searchResults">
+		<span class="styleLength">@styleAndSalon.length</span>
+		<span>@Messages("hair.searchResultMsg")</span>
+	</div>
     @if(styleAndSalon.isEmpty){
         <div class="bgAlertMsg mT20"> 
            <p class="alertMsg"> @Messages("hair.noStyleSearched") </p>
         </div>
     }
 
-    @for(style <- styleAndSalon) { 
-        <div class="styleResult h240">
-            <a href="@noAuth.routes.Salons.getOneStyle(style.salonId, style.style.id)">
-                <img src="@routes.Application.getPhoto(style.style.stylePic(0).fileObjId)"
-                class="w120 h150" alt="@style.style.styleName">
-            </a>
-            <div class="layer jscLayer jscFixPng">
-                <div class="sl_show_xx">
-                    <p align="center">
-                        <a href="javascript:void(0);" onclick="addFollow('@style.style.id','style')">
-                            @Messages("hair.ToCollect")
-                        </a>
-                    </p>
-                </div>
-                <p>
-                    <a href="@noAuth.routes.Salons.getOneStyle(style.salonId, style.style.id)">
-                        @Messages("hair.detailInfo")
-                    </a>
-                </p>
-            </div>
-            <div class="mT2">
-                <a href="@noAuth.routes.Salons.getOneStyle(style.salonId, style.style.id)"
-                class="rankingListInnerAnchor">
-                    <p>
-                        <span class="photoCaption"> @style.style.styleName </span>
-                    </p>
-                    <div class="mT2">
-                        <p class="rankingListShop"> @style.salonName </p>
-                    </div>
-                </a>
-            </div>
-        </div>
+    @for(style <- styleAndSalon) {
+    	<div class="styleContainer">
+    		<div class="styleResult h240">
+	            <a href="@noAuth.routes.Salons.getOneStyle(style.salonId, style.style.id)">
+	                <img src="@routes.Application.getPhoto(style.style.stylePic(0).fileObjId)"
+	                class="w120 h150" alt="@style.style.styleName">
+	            </a>
+	            <div class="layer jscLayer jscFixPng">
+	            	<div class="mT2">
+						<a href="javascript:void(0);" onclick="addFollow('@style.style.id','style')" class="bS db styleCollect mHA">
+	                        @Messages("hair.ToCollect")
+	                    </a>	            	
+	            	</div>
+	                <p class="txtC">
+	                    <a href="@noAuth.routes.Salons.getOneStyle(style.salonId, style.style.id)">
+	                        @Messages("hair.detailInfo")
+	                    </a>
+	                </p>
+	            </div>
+	            <div class="mT2">
+	                <a href="@noAuth.routes.Salons.getOneStyle(style.salonId, style.style.id)"
+	                class="rankingListInnerAnchor">
+	                    <p class="txtC">
+	                        <span class="photoCaption"> @style.style.styleName </span>
+	                    </p>
+	                </a>
+	            </div>
+	            <div class="mT2">
+	                    <p class="rankingListShop txtC">
+	                    <a href="@noAuth.routes.Salons.getSalon(style.style.id)"> 
+	                    	@style.salonName 
+	                    </a>
+	                    </p>
+	            </div>
+	        </div>
+    	</div> 
     }
 </div>
