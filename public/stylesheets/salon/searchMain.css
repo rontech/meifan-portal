@@ -142,6 +142,9 @@
 	overflow:hidden;
 	border-top:1px solid #f39aa3;
 }
+#salon_tjtj h2.nvfxjs{
+	border-top:1px solid #8bd0ef;
+}
 #salon_tjtj_nr{
 	clear:both;
 	overflow:hidden;
@@ -305,5 +308,15 @@ a[data-sort-asc="asc"] {
 
 .hidCheckBox {
   display: None;
+}
+
+.searchResults {
+border-bottom: 2px solid #ddd;
+padding: 5px 0;
+}
+
+.styleLength {
+font-size: 18px;
+color: #CC4466;
 }
 
