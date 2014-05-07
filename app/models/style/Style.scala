@@ -444,9 +444,15 @@ object Style extends MeifanNetModelCompanion[Style] {
             MongoDBObject("isValid" -> false))))
     }
 
-    def updateStyleImage(style: Style, imgId: ObjectId) = {
-        dao.update(MongoDBObject("_id" -> style.id, "stylePic.picUse" -> "logo"),
-            MongoDBObject("$set" -> (MongoDBObject("stylePic.$.fileObjId" -> imgId))), false, true)
+    def updateStyleImage(style: Style, imgIdList: List[ObjectId]) = {
+        dao.update(MongoDBObject("_id" -> style.id, "stylePic.fileObjId" -> style.stylePic(0).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("stylePic.$.fileObjId" -> imgIdList(2)))),false,true)
+            
+        dao.update(MongoDBObject("_id" -> style.id, "stylePic.fileObjId" -> style.stylePic(1).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("stylePic.$.fileObjId" -> imgIdList(1)))),false,true)
+            
+        dao.update(MongoDBObject("_id" -> style.id, "stylePic.fileObjId" -> style.stylePic(2).fileObjId), 
+            MongoDBObject("$set" -> ( MongoDBObject("stylePic.$.fileObjId" -> imgIdList(0)))),false,true)
     }
 
     def saveStyleImage(style: Style, imgId: ObjectId) = {
