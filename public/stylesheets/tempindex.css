@@ -1360,37 +1360,40 @@ color: #fff;
 	color: #F26F7E;
 }
 .btn2H30 {
-	background: url('/assets/images/btn2.png') no-repeat left -1914px;
+	background: url('/assets/images/btn2.png') no-repeat left -360px;
 	line-height: 30px;
 }
 .btn2H30 > span {
-	background: url('/assets/images/btn2.png') no-repeat right -1974px;
+	background: url('/assets/images/btn2.png') no-repeat right -420px;
 }
 .btn2H30 > span > span {
-	background: url('/assets/images/btn2.png') repeat-x 0 -2034px;
+	background: url('/assets/images/btn2.png') repeat-x 0 -480px;
 	color: #e74557;
 	font-weight:normal;
 }
 .btn2H30:hover {
-	background: url('/assets/images/btn2.png') no-repeat left -1944px;
+	background: url('/assets/images/btn2.png') no-repeat left -390px;
 }
 .btn2H30:hover > span {
-	background: url('/assets/images/btn2.png') no-repeat right -2004px;
+	background: url('/assets/images/btn2.png') no-repeat right -450px;
 }
 .btn2H30:hover > span > span {
-	background-position: 0 -2064px;
+	background-position: 0 -510px;
 	color: #ee7d8a;
 }
+a.btn2H50:visited, a.btn2H30:visited {
+	color: #E53B4E;
+}
 .btn2H32 {
-	background: url('/CSP/img/my/sprites/btn2.png') no-repeat left -300px;
+	background: url('/CSP/img/my/sprites/btn3.png') no-repeat left -300px;
 	line-height: 32px;
 }
 .btn2H32 > span {
-	background: url('/CSP/img/my/sprites/btn2.png') no-repeat right -364px;
+	background: url('/CSP/img/my/sprites/btn3.png') no-repeat right -364px;
 }
 .btn2H32 > span > input,
 .btn2H32 > span > span {
-	background: url('/CSP/img/my/sprites/btn2.png') repeat-x 0 -428px;
+	background: url('/CSP/img/my/sprites/btn3.png') repeat-x 0 -428px;
 	color: #E53B4E;
 }
 .btn2H32 > span > input {
@@ -1408,15 +1411,15 @@ color: #fff;
 	color: #F26F7E;
 }
 .btn2H50 {
-	background: url('/assets/images/btn2.png') no-repeat 0 0;
+	background: url('/assets/images/btn3.png') no-repeat 0 0;
 	line-height: 50px;
 }
 .btn2H50 > span {
-	background: url('/assets/images/btn2.png') no-repeat right -100px;
+	background: url('/assets/images/btn3.png') no-repeat right -100px;
 }
 .btn2H50 > span > input,
 .btn2H50 > span > span {
-	background: url('/assets/images/btn2.png') repeat-x 0 -200px;
+	background: url('/assets/images/btn3.png') repeat-x 0 -200px;
 	color: #E53B4E;
 	font-size: 13px;
 }
@@ -1951,8 +1954,14 @@ margin-right: 180px;
 .reserveW80H30:hover		{ background-position: -90px -550px; }
 .oNext						{ background-position: -180px -520px; width: 120px; height: 30px; }
 .oNext:hover				{ background-position: -180px -550px; }
-.showDetailW131H30			{ background-position: -310px -520px; width: 131px; height: 30px; }
-.showDetailW131H30:hover	{ background-position: -310px -550px; }
+.showDetailW131H30 { 
+	background-position: 0 -74px;
+ 	width: 131px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px; 
+}
+.showDetailW131H30:hover	{ background-position: 0 -104px; }
 .searchByStation			{ background-position: -450px -520px; width: 150px; height: 30px; }
 .searchByStation:hover		{ background-position: -450px -550px; }
 .noNext						{ background-position: -610px -520px; width: 150px; height: 30px; }
