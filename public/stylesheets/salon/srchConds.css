@@ -169,3 +169,21 @@ background: url(/assets/images/meifan2014.png) no-repeat 0 -893px;
 display: inline-block;
 margin-left: 2px;
 }
+
+.salonSearchBtn {
+background: url("/assets/images/right_member_btn.jpg");
+background-size: 100px 24px;
+width: 100px;
+height: 24px;
+color: #f45e6a;
+font-size: 10px;
+border: none;
+line-height: 20px;
+cursor: pointer;
+}
+
+.salonSearchBtn:hover, .salonSearchBtn:active {
+text-decoration: underline;
+border: none;
+}
+
