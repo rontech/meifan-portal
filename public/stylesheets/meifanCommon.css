@@ -1096,3 +1096,7 @@ margin: 5px;
 .styleCollect:hover {
 background-position: -511px -25px;
 }
+
+.lh34 {
+line-height: 34px;
+}
