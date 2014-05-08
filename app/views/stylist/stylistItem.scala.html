@@ -21,7 +21,7 @@
                 case Some(sinfo) => {
                     <div class="bdDotT mT5 pT5 fs10">
                         <span class="fgPink">
-                            @sinfo.position.map { ps => @Messages("position."+ps.positionName) &nbsp;&nbsp; }
+                            @sinfo.position.map { ps => @Messages("position.positionName."+ps.positionName) &nbsp;&nbsp; }
                         </span>
                         [@Messages("stylist.experienceYears", sinfo.workYears)] 
                     </div>

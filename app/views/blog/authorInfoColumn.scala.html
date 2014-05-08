@@ -7,7 +7,10 @@
 		<img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" alt="salon.salonName" width = "89px" height = "119px">
             </a>
 	</div>
-	<p class="fgPink fs10 mT5">@stylist.position.map {position => @position.positionName}</p>
+	<p class="fgPink fs10 mT5">@stylist.position.map {position =>
+            @Messages("position.positionName." + position.positionName)
+        }
+        </p>
 	<p class="mT5">
 		<a href="@noAuth.routes.Salons.getOneStylist(salon.id, stylist.stylistId)">@User.findOneByUserId(blog.authorId).get.nickName</a>
 	</p>

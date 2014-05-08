@@ -20,8 +20,8 @@
                     <div class="fgPink fs10">
                         <font>
                             <font>
-                                @stylist.workInfo.get.position.map { p=>
-                                	@p.positionName &nbsp;
+                                @stylist.stylistInfo.get.position.map { p=>
+                                	@Messages("position.positionName." + p.positionName)
                                 }
                             </font>
                         </font>

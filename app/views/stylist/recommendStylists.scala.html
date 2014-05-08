@@ -8,7 +8,7 @@
     		</a>	
     	</dd>
         <dd class="txt">
-        <font style="font-size:14px; line-height:30px;">@Stylist.findRecommendStylists(0).position.map { p => @Messages("position." + p.positionName) &nbsp; }</font><br />
+        <font style="font-size:14px; line-height:30px;">@Stylist.findRecommendStylists(0).position.map { p => @Messages("position.positionName." + p.positionName) &nbsp; }</font><br />
         @Stylist.findRecommendStylists(0).myWords.slice(0,22)
         @if(Stylist.findRecommendStylists(0).myWords.length > 22) {...}
         <span>
