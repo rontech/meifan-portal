@@ -74,22 +74,6 @@ padding: 3px;
 background-color: #F8F2EC;
 }
 
-.showDetailW131H30 {
-background-position: -310px -520px;
-width: 131px;
-height: 30px;
-}
-
-.nominatedReserve:hover {
-background-position: 0 -711px;
-}
-
-.nominatedReserve {
-background-position: 0 -680px;
-width: 132px;
-height: 31px;
-}
-
 .bgAlertMsg {
 background-color: #F5F3EF;
 padding: 15px;
