@@ -76,13 +76,39 @@ object Reservation extends MeifanNetModelCompanion[Reservation]{
          dao.find($and(MongoDBObject("salonId" -> salonId), ("status" $in (0, 1)))).sort(MongoDBObject("expectedDate" -> -1)).toList
      }
 
+
     /**
      * Get the best reserved Styles' ObjectId.
      *     Ignore the data without styleId.
      */
     def findBestReservedStyles(topN: Int = 0): List[ObjectId] = {
-        val rsvedStyles = dao.find($and(("styleId" $exists true), ("status" $in (0, 1)))).sort(MongoDBObject("styleId" -> -1)).toList.map {_.styleId.get}
+        val reservs = dao.find($and(("styleId" $exists true), ("status" $in (0, 1)))).sort(
+                MongoDBObject("styleId" -> -1)).toList
         // styleId is exists absolutely.
+        val topStyleIds = getBestRsvedStyleIds(reservs, topN)
+        topStyleIds
+    }
+
+
+    /**
+     * Get the best reserved Styles' ObjectId in a salon.
+     *     Ignore the data without styleId.
+     */
+    def findBestReservedStylesInSalon(salonId: ObjectId, topN: Int = 0): List[ObjectId] = {
+        val reservs = dao.find($and(MongoDBObject("salonId" -> salonId), ("styleId" $exists true), ("status" $in (0, 1)))).sort(
+                MongoDBObject("styleId" -> -1)).toList
+        // styleId is exists absolutely.
+        val topStyleIds = getBestRsvedStyleIds(reservs, topN)
+        topStyleIds
+    }
+
+    /**
+     * Get the best reserved styles' ObjectId from the reservation data.
+     * TODO: Can the styleId not None check do in type T or trait?
+     */
+    def getBestRsvedStyleIds(rsvs: List[Reservation], topN: Int = 0): List[ObjectId] = {
+        // styleId is exists absolutely.
+        val rsvedStyles = rsvs.filter(_.styleId != None).map {_.styleId.get}
         val styleWithCnt = rsvedStyles.groupBy(x => x).map(y => (y._1, y._2.length)).toList.sortWith(_._2 > _._2)
         // get all stylesId or only top N stylesId of a salon according the topN parameters.  
         val top = if (topN == 0) styleWithCnt.map{_._1} else styleWithCnt.map(_._1).slice(0, topN)
@@ -91,12 +117,13 @@ object Reservation extends MeifanNetModelCompanion[Reservation]{
 
 
     /**
-	 * 根据预定时间查找预约信息
-	 */
-	def findReservationByDate(reservations: List[Reservation], expectedDateStart: Date, expectedDateEnd: Date): Long = {
-		reservations.filter(r => (r.expectedDate.before(expectedDateEnd) && r.expectedDate.after(expectedDateStart))).size.toLong
-	}
-    
+     * 根据预定时间查找预约信息
+     */
+    def findReservationByDate(reservations: List[Reservation], expectedDateStart: Date, expectedDateEnd: Date): Long = {
+        reservations.filter(r => (r.expectedDate.before(expectedDateEnd) && r.expectedDate.after(expectedDateStart))).size.toLong
+    }
+
+
     /**
      * 根据状态为1和发型非空检索出符合热门排名的所有预约券
      */

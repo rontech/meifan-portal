@@ -190,8 +190,6 @@ h1, h2 {
 /* フッター */
 
 .footerwrapper {
-	background:#f6f4f3 url("/CSP/img/top/bg_footerwrapper.gif") top;
-	background-repeat: repeat-x;
 }
 
 .footercontents {

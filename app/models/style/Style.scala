@@ -248,6 +248,7 @@ object Style extends MeifanNetModelCompanion[Style] {
      * data: 统计依据数据，比如预约的数据，或者消费的数据
      * N = 0, 默认值，为取得所有
      */
+    /*
     def findTopStylesInSalon[T <: StyleIdUsed](data: List[T], topN: Int = 0): List[Style] = {
         // sort by reserved counts.
         val styleWithCnt = data.groupBy(x => x.styleId).map(y => (y._1, y._2.length)).toList.filter(_._1 != None).sortWith(_._2 > _._2)
@@ -265,14 +266,28 @@ object Style extends MeifanNetModelCompanion[Style] {
         // return
         hotStyles
     }
-
-    /**
+    */
+    def findTopStylesInSalon(hottestStyles: List[ObjectId], topN: Int = 0): List[Style] = {
+        var hotStyles: List[Style] = Nil
+        // get all styles of a salon.  
+        hottestStyles.map { stid =>
+            val stl = Style.findOneById(stid)
+            stl match {
+                case Some(style) => hotStyles = hotStyles ::: List(style)
+                case None => hotStyles
+            }
+        }
+        // return
+        hotStyles
+    }
+     /**
      * 取得指定店铺的最热发型前N名
      * N = 0, 默认值，为取得所有
      */
     def getBestRsvedStylesInSalon(sid: ObjectId, topN: Int = 0): List[Style] = {
         // get the reservation with which we can get the styles be reserved.
-        val rsvs = Reservation.findAllReservation(sid)
+        //val rsvs = Reservation.findAllReservation(sid)
+        val rsvs = Reservation.findBestReservedStylesInSalon(sid, topN) 
         // use the exists method to get top styles.
         val bestRsved = findTopStylesInSalon(rsvs, topN)
         // If there is no reservation styles yet, get the latest styles in the salon.
