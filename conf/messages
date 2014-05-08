@@ -894,11 +894,12 @@ Blow = 吹发
 Wash = 洗发
 Cut = 剪发
 salonAccountId = 店铺账号
-position.Manager = 店长
-position.ChiefStylist = 首席技师
-position.Stylist = 技师
-position.AdvancedAssistant = 高级助手
-position.Assistant = 助手
+#
+position.positionName.Manager = 店长
+position.positionName.ChiefStylist = 首席发型师 
+position.positionName.AdvancedStylist = 高级发型师
+position.positionName.Stylist = 发型师 
+position.positionName.Assistant = 助手
 
 #StyleImpression
 style.styleImpression.natural = 自然
@@ -1068,4 +1069,6 @@ salonSearchPage.cannotFind = 对不起，找不到
 #style search
 styleSearch.moreOption = 更多选项
 styleSearch.lessOption = 收起
+
+
 
