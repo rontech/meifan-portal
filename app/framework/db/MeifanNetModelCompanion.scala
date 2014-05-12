@@ -20,9 +20,7 @@ package com.meifannet.framework.db
 import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import play.api.Play.current
-import play.api.PlayException
 import play.api.Configuration
-import se.radley.plugin.salat.OptionsFromConfig
 
 /**
  * Wrapper for the <code>ModelCompanion</code> class.
@@ -30,15 +28,21 @@ import se.radley.plugin.salat.OptionsFromConfig
  * @since 1.0
  * @see com.movus.salat.dao.ModelCompanion
  */
-abstract class MeifanNetModelCompanion[ObjectType <: AnyRef](implicit mot :Manifest[ObjectType]) extends ModelCompanion[ObjectType, ObjectId] {
+abstract class MeifanNetModelCompanion[ObjectType <: AnyRef](implicit mot :Manifest[ObjectType])
+  extends ModelCompanion[ObjectType, ObjectId] {
     /**
      * Load collection according to the model name.
      * @param c (String) model name
      *
      */
-    def loadCollection(c: String = mot.runtimeClass.getSimpleName) = {
-        DBDelegate.db(c)
-    }
+    def loadCollection(c: String = mot.runtimeClass.getSimpleName) = DBDelegate.db(c)
+}
+
+/**
+ * Keep methods only for DBDelegate object.
+ *
+ */
+trait DBDelegate {
 }
 
 /**
@@ -52,25 +56,32 @@ object DBDelegate {
     final val DEFAULT_DB_NAME = "fashion-mongo"
     /** default image db  */
     final val DEFAULT_IMAGE_DB = "Picture"
+    /** default mongodb options map  */
+    final val DEFAULT_OPS_MAP = Map("connectionsPerHost" -> "300",
+                                "threadsAllowedToBlockForConnectionMultiplier" -> "1000",
+                                "connectTimeout" -> "60000")
 
     /** configuration */
-    val conf  = current.configuration
-    val options = OptionsFromConfig(conf.getConfig("mongodb.default.options")).get
+    val options = current.configuration.getConfig("mongodb.default.options")
+                      .getOrElse(Configuration.from(DEFAULT_OPS_MAP))
 
     /** Limit connection counts */
     val builder = new MongoClientOptions.Builder()
-    builder.connectionsPerHost(options.connectionsPerHost)
-    builder.connectTimeout(options.connectTimeout)
-    builder.threadsAllowedToBlockForConnectionMultiplier(options.threadsAllowedToBlockForConnectionMultiplier)
+    builder.connectionsPerHost(options.getInt("connectionsPerHost").get)
+    builder.connectTimeout(options.getInt("connectTimeout").get)
+    builder.threadsAllowedToBlockForConnectionMultiplier(
+        options.getInt("threadsAllowedToBlockForConnectionMultiplier").get)
 
     /** connection pool */
     val mongoClient = MongoClient(
-                        conf.getString("mongodb.default.host").getOrElse(DEFAULT_DB_HOST),
-                        builder.build())
+        current.configuration.getString("mongodb.default.host").getOrElse(DEFAULT_DB_HOST),
+        builder.build())
 
     /** database excluding pictures */
-    val db = mongoClient(conf.getString("mongodb.default.db").getOrElse(DEFAULT_DB_NAME))
+    val db = mongoClient(current.configuration.getString("mongodb.default.db")
+                                              .getOrElse(DEFAULT_DB_NAME))
 
     /** database for pictures  */
-    val picDB = mongoClient(conf.getString("mongodb.image.db").getOrElse(DEFAULT_IMAGE_DB))
+    val picDB = mongoClient(current.configuration.getString("mongodb.image.db")
+                                                .getOrElse(DEFAULT_IMAGE_DB))
 }

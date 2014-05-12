@@ -15,20 +15,29 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package com.meifannet.framework.db
+package com.meifannet.framework.utils;
 
-import com.novus.salat._
-import com.novus.salat.dao._
-import com.mongodb.casbah.Imports._
+import java.lang.reflect.Constructor;
+
 /**
- * Wrapper for the <code>SalatDao</code> class.
- * Refering SalatDao directly is not recommended since we are not sure
- * the continuty of SalatDao class.
+ * Utils class using reflection to operate class/function/variables.
  *
- * @since 1.0
- * @see com.movus.salat.dao.SalatDao
  */
-class MeifanNetDAO[ObjectType <: AnyRef](override val collection: MongoCollection)
-                                                   (implicit mot: Manifest[ObjectType], mid: Manifest[ObjectId], ctx: Context)
-                                                   extends SalatDAO[ObjectType,  ObjectId](collection)(mot, mid, ctx) {
+public class ROperations {
+    /**
+     * return a new instance with reflection.
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T invokePrivateConstructor(String type, T obj) {
+        try {
+            Class clazz = Class.forName(type);
+            Constructor constructor = clazz.getDeclaredConstructor();
+            //set accessiblity
+            constructor.setAccessible(true);
+            return (T)constructor.newInstance();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
