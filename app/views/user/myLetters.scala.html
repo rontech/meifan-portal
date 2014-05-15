@@ -1,33 +1,33 @@
 @(user: User,loginUser: User)
 @import helper._
    <div class="myLetters">
-   	   <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/myLetters.css")">
-       @form(auth.routes.UserLetters.sendLetter(), 'method -> "post"){
-           <input type="hidden" name="userMessage.sender" value="@loginUser.userId">
-           <input type="hidden" name="userMessage.senderNm" value="@loginUser.nickName">
-           <input type="hidden" name="userMessage.addressee" value="@user.userId">
-           <div class="letterTitle"><label><font class="cR">*</font>@Messages("user.message.to")</label></div>
-           <input type="text" name="userMessage.addresseeNm" value="@user.nickName" readonly = "true">
-           <div class="letterTitle"><label><font class="cR">*</font>@Messages("user.message.title")</label></div>
-           <input type="text" name="message.title"><br/>
-           <div class="letterTitle"><label><font class="cR">*</font>@Messages("user.message.content")</label></div>
-           <textarea cols="60" rows="10" name="message.content"></textarea>
-           <div class="submitBtn"><input type="submit" value="@Messages("user.message.send")" onclick="return checkNoEmpty();" class="buttons"></div>
-       }
+     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/myLetters.css")">
+    @form(auth.routes.UserLetters.sendLetter(), 'method -> "post"){
+      <input type="hidden" name="userMessage.sender" value="@loginUser.userId">
+      <input type="hidden" name="userMessage.senderNm" value="@loginUser.nickName">
+      <input type="hidden" name="userMessage.addressee" value="@user.userId">
+      <div class="letterTitle"><label><font class="cR">*</font>@Messages("user.message.to")</label></div>
+      <input type="text" name="userMessage.addresseeNm" value="@user.nickName" readonly = "true">
+      <div class="letterTitle"><label><font class="cR">*</font>@Messages("user.message.title")</label></div>
+      <input type="text" name="message.title"><br/>
+      <div class="letterTitle"><label><font class="cR">*</font>@Messages("user.message.content")</label></div>
+      <textarea cols="60" rows="10" name="message.content"></textarea>
+      <div class="submitBtn"><input type="submit" value="@Messages("user.message.send")" onclick="return checkNoEmpty();" class="buttons"></div>
+    }
    </div>
 <script type="text/javascript">
-    function checkNoEmpty(){
-        var title = document.getElementById("title" ).value;
-        if (title.trim() == "" ){;
-            alert("请输入私信的标题。");
-            return false;
-        }
-
-        var content = document.getElementById("content").value;
-        if (content.trim() == "" ){
-            alert("请输入私信的内容。");
-            return false;
-        }
-        return true;
+  function checkNoEmpty(){
+    var title = document.getElementById("title" ).value;
+    if (title.trim() == "" ){;
+      alert("请输入私信的标题。");
+      return false;
     }
+
+    var content = document.getElementById("content").value;
+    if (content.trim() == "" ){
+      alert("请输入私信的内容。");
+      return false;
+    }
+    return true;
+  }
 </script>

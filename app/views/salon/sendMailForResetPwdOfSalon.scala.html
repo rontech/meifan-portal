@@ -1,54 +1,54 @@
 @(mailAndAccountIdForm: Form[Option[Salon]])
 
-	@import helper._
+  @import helper._
 
-	@main(Messages("common.resetPassword")) {
-	 	<head>
-			<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/findPwd.css")">
-		</head>
-				
-		<div id="entry" class="w m">
-	 		<div class="mt">
-				<h2>@Messages("user.resetPassword")</h2>
-				<b></b>
-			</div>
-			<div class="mc">
-				<div class="step">
-		            <ul>
-		               <li class="one cur">@Messages("pwd.account")</li>
-		               <li class="">@Messages("pwd.verify")</li>
-		               <li class="">@Messages("pwd.setNewPwd")</li>
-		               <li class="four">@Messages("pwd.finish")</li>
-		            </ul>
-		        </div>
-		        <div class="form">
-		        	@form(action = routes.Mails.sendMailForResetPwdOfSalon(), 'method ->"post"){
-			        	<div class="item">
-							<span class="label">@Messages("salon.id"):</span>
-							<div class="fl">
-								<!-- text_error -->
-								@inputText(mailAndAccountIdForm("accountId"),'_label -> None, '_help -> "",
-								'_error ->  mailAndAccountIdForm("accountId").error.map(_.withMessage(Messages("salon.login.accountId"))))
-								<span class="clr"></span>
-								<label id="username_error" calss="" class=""></label>
-							</div>
-						</div>
-						<div class="item">
-							<span class="label">@Messages("user.email"):</span>
-							<div class="fl">
-								<!-- text_error -->
-								@inputText(mailAndAccountIdForm("email"),'_label -> None,'_help -> "",
-								'_error -> mailAndAccountIdForm.globalError.map(_.withMessage(Messages("user.resetErr"))))
-								<span class="clr"></span>
-								<label id="username_error" calss="" class=""></label>
-							</div>
-						</div>
-						<div class="item">
-							<span class="label">&nbsp;</span>
-							<input type= "submit" class = "buttons btn-img btn-entry" value="@Messages("common.submit")">
-						</div>
-					}
-		        </div>
-		     </div>
-	 	</div>
-	}		
+  @main(Messages("common.resetPassword")) {
+     <head>
+      <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/findPwd.css")">
+    </head>
+        
+    <div id="entry" class="w m">
+       <div class="mt">
+        <h2>@Messages("user.resetPassword")</h2>
+        <b></b>
+      </div>
+      <div class="mc">
+        <div class="step">
+          <ul>
+            <li class="one cur">@Messages("pwd.account")</li>
+            <li class="">@Messages("pwd.verify")</li>
+            <li class="">@Messages("pwd.setNewPwd")</li>
+            <li class="four">@Messages("pwd.finish")</li>
+          </ul>
+        </div>
+        <div class="form">
+          @form(action = routes.Mails.sendMailForResetPwdOfSalon(), 'method ->"post"){
+            <div class="item">
+              <span class="label">@Messages("salon.id"):</span>
+              <div class="fl">
+                <!-- text_error -->
+                @inputText(mailAndAccountIdForm("accountId"),'_label -> None, '_help -> "",
+                '_error ->  mailAndAccountIdForm("accountId").error.map(_.withMessage(Messages("salon.login.accountId"))))
+                <span class="clr"></span>
+                <label id="username_error" calss="" class=""></label>
+              </div>
+            </div>
+            <div class="item">
+              <span class="label">@Messages("user.email"):</span>
+              <div class="fl">
+                <!-- text_error -->
+                @inputText(mailAndAccountIdForm("email"),'_label -> None,'_help -> "",
+                '_error -> mailAndAccountIdForm.globalError.map(_.withMessage(Messages("user.resetErr"))))
+                <span class="clr"></span>
+                <label id="username_error" calss="" class=""></label>
+              </div>
+            </div>
+            <div class="item">
+              <span class="label">&nbsp;</span>
+              <input type= "submit" class = "buttons btn-img btn-entry" value="@Messages("common.submit")">
+            </div>
+          }
+        </div>
+       </div>
+     </div>
+  }        

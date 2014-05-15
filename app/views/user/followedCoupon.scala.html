@@ -1,33 +1,33 @@
 @(user: User,followInfo:FollowInformation, loginUserId:ObjectId, beforeSevernDate: java.util.Date)
 
 @myCollectsMain("my-collectCoupon", user, followInfo, loginUserId, true) {
-	
-	<div class="mT40">
-		@if(followInfo.followCoupon.isEmpty) {
-		    <div class="bgAlertMsg">
-		        <p class="alertMsg">@Messages("user.noCouponSearched")</p>
-		    </div>
-		} else {
-			<div class="yS mainContentsSecondTitleOuter">
-				<h2 class="yS mainContentsSecondTitleInnerForAdmin">
-					@if(loginUserId.equals(user.id)){
-						@Messages("user.myCollectCouponsCount", followInfo.followBlog.length)	
-					} else {
-						@Messages("user.otherCollectCouponsCount", followInfo.followBlog.length)
-					}
-					
-				</h2>
-			</div>
-			<ul class="mT20">
-				@for(coupon <- followInfo.followCoupon) {
-			    	@if(coupon.isValid){
-			    		<li class="couponItem">
-			    		   @views.html.user.followItem.followCouponItem(coupon, beforeSevernDate, loginUserId)
-			        	</li>	
-			        }
-			    }
-			</ul>
-		}
-	</div>
-    
+  
+  <div class="mT40">
+    @if(followInfo.followCoupon.isEmpty) {
+      <div class="bgAlertMsg">
+        <p class="alertMsg">@Messages("user.noCouponSearched")</p>
+      </div>
+    } else {
+      <div class="yS mainContentsSecondTitleOuter">
+        <h2 class="yS mainContentsSecondTitleInnerForAdmin">
+          @if(loginUserId.equals(user.id)){
+            @Messages("user.myCollectCouponsCount", followInfo.followBlog.length)    
+          } else {
+            @Messages("user.otherCollectCouponsCount", followInfo.followBlog.length)
+          }
+          
+        </h2>
+      </div>
+      <ul class="mT20">
+        @for(coupon <- followInfo.followCoupon) {
+          @if(coupon.isValid){
+            <li class="couponItem">
+              @views.html.user.followItem.followCouponItem(coupon, beforeSevernDate, loginUserId)
+            </li>    
+          }
+        }
+      </ul>
+    }
+  </div>
+  
 }

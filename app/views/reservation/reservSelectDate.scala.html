@@ -1,100 +1,100 @@
 @(salon: Salon, resvSchedule: ResvSchedule, week: Int = 0)
 
 <div id="jsRsvCdTbl" class="ReserveConditionTable underTabContents">
-	<div class="coverTable">
-		<div class="whiteTable2">
-			<table class="innerTable taC nowrap" cellpadding="0" cellspacing="0">
-				<tbody>
-					<tr>
-						@if(week == 0) {
-							<th rowspan="2" class="timeColor"><span class="iS arrowPagingWeekLOff">@Messages("reservation.beforeWeek")</span></th>
-						} else {
-							<th rowspan="2" class="timeColor">
-								<a href="@routes.Reservations.reservShowDate(salon.id, salon.id, week-1)" title="@Messages("reservation.beforeWeek")" class="iS arrowPagingWeekL">@Messages("reservation.beforeWeek")</a>
-							</th>
-						}
-						@for(yearPart <- resvSchedule.yearsPart) {
-							<th colspan="@yearPart.yearNum" class="monthColor pV10">@yearPart.years</th>
-						}
-						@if(week == 0) {
-							<th rowspan="2" class="timeColor">
-								<a href="@routes.Reservations.reservShowDate(salon.id, salon.id, week+1)" title="@Messages("reservation.afterWeek")" class="iS arrowPagingWeekR">@Messages("reservation.afterWeek")</a>
-							</th>
-						} else {
-							<th rowspan="2" class="timeColor"><span class="iS arrowPagingWeekROff">@Messages("reservation.afterWeek")</span></th>
-						}
-					</tr>
-					<tr>
-						@for(dayPart <- resvSchedule.daysPart) {
-							@if(dayPart.weekDay == 7) {
-								<th class="sat">@dayPart.day<br>(@Messages("reservation.weekDay." + dayPart.weekDay))</th>
-							} else {
-								@if(dayPart.weekDay == 1) {
-									<th class="sun">@dayPart.day<br>(@Messages("reservation.weekDay." + dayPart.weekDay))</th>
-								} else {
-									<th class="dayCell">@dayPart.day<br>(@Messages("reservation.weekDay." + dayPart.weekDay))</th>
-								}
-							}
-							
-						}
-					</tr>
-					<tr>
-						<th class="innerCell">
-							<table cellpadding="0" cellspacing="0" class="moreInnerTable vaT">
-								<tbody>
-									@for(timePart <- resvSchedule.timesPart) {
-										<tr><th class="timeCell"><p class="hourR">@timePart</p></th></tr>
-										<tr><th class="separate"></th></tr>
-									}
-								</tbody>
-							</table>
-						</th>
-						@for(resvInfoItems <- resvSchedule.resvInfoPart) {
-							@if(resvInfoItems.isRestFlg) {
-								<th class="innerCloseCell">
-									<table cellpadding="0" cellspacing="0" class="moreInnerTable">
-										<tbody>
-											<tr><td><span class="rsvS closeday offL">@Messages("reservation.rest")</span></td></tr>
-										</tbody>
-									</table>
-								</th>
-							} else {
-								<th class="innerCell">
-									<table cellpadding="0" cellspacing="0" class="moreInnerTable">
-										<tbody>
-											@for(resvInfoItem <- resvInfoItems.resvInfoItemPart) {
-												@if(resvInfoItem.isResvFlg) {
-													<tr>
-														<td class="openColor"><p class="scheduleR"><a href="#" title="◎" class="bS db reserveImmediately offL vaT">◎</a></p></td>
-													</tr>
-												} else {
-													<tr>
-														<td class="closeColor"><p class="scheduleR"><span class="bS db reserveImpossible offL">×</span></p></td>
-													</tr>
-												}
-												
-												@if((resvInfoItems.resvInfoItemPart.size - 1) != resvInfoItems.resvInfoItemPart.indexOf(resvInfoItem)) {
-													<tr><th class="separate"></th></tr>
-												}
-											}
-										</tbody>
-									</table>
-								</th>
-							}
-						}
-						<th class="innerCell">
-							<table cellpadding="0" cellspacing="0" class="moreInnerTable vaT">
-								<tbody>
-									@for(timePart <- resvSchedule.timesPart) {
-										<tr><th class="timeCell"><p class="hourR">@timePart</p></th></tr>
-										<tr><th class="separate"></th></tr>
-									}
-								</tbody>
-							</table>
-						</th>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>	
+  <div class="coverTable">
+    <div class="whiteTable2">
+      <table class="innerTable taC nowrap" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            @if(week == 0) {
+              <th rowspan="2" class="timeColor"><span class="iS arrowPagingWeekLOff">@Messages("reservation.beforeWeek")</span></th>
+            } else {
+              <th rowspan="2" class="timeColor">
+                <a href="@routes.Reservations.reservShowDate(salon.id, salon.id, week-1)" title="@Messages("reservation.beforeWeek")" class="iS arrowPagingWeekL">@Messages("reservation.beforeWeek")</a>
+              </th>
+            }
+            @for(yearPart <- resvSchedule.yearsPart) {
+              <th colspan="@yearPart.yearNum" class="monthColor pV10">@yearPart.years</th>
+            }
+            @if(week == 0) {
+              <th rowspan="2" class="timeColor">
+                <a href="@routes.Reservations.reservShowDate(salon.id, salon.id, week+1)" title="@Messages("reservation.afterWeek")" class="iS arrowPagingWeekR">@Messages("reservation.afterWeek")</a>
+              </th>
+            } else {
+              <th rowspan="2" class="timeColor"><span class="iS arrowPagingWeekROff">@Messages("reservation.afterWeek")</span></th>
+            }
+          </tr>
+          <tr>
+            @for(dayPart <- resvSchedule.daysPart) {
+              @if(dayPart.weekDay == 7) {
+                <th class="sat">@dayPart.day<br>(@Messages("reservation.weekDay." + dayPart.weekDay))</th>
+              } else {
+                @if(dayPart.weekDay == 1) {
+                  <th class="sun">@dayPart.day<br>(@Messages("reservation.weekDay." + dayPart.weekDay))</th>
+                } else {
+                  <th class="dayCell">@dayPart.day<br>(@Messages("reservation.weekDay." + dayPart.weekDay))</th>
+                }
+              }
+              
+            }
+          </tr>
+          <tr>
+            <th class="innerCell">
+              <table cellpadding="0" cellspacing="0" class="moreInnerTable vaT">
+                <tbody>
+                  @for(timePart <- resvSchedule.timesPart) {
+                    <tr><th class="timeCell"><p class="hourR">@timePart</p></th></tr>
+                    <tr><th class="separate"></th></tr>
+                  }
+                </tbody>
+              </table>
+            </th>
+            @for(resvInfoItems <- resvSchedule.resvInfoPart) {
+              @if(resvInfoItems.isRestFlg) {
+                <th class="innerCloseCell">
+                  <table cellpadding="0" cellspacing="0" class="moreInnerTable">
+                    <tbody>
+                      <tr><td><span class="rsvS closeday offL">@Messages("reservation.rest")</span></td></tr>
+                    </tbody>
+                  </table>
+                </th>
+              } else {
+                <th class="innerCell">
+                  <table cellpadding="0" cellspacing="0" class="moreInnerTable">
+                    <tbody>
+                      @for(resvInfoItem <- resvInfoItems.resvInfoItemPart) {
+                        @if(resvInfoItem.isResvFlg) {
+                          <tr>
+                            <td class="openColor"><p class="scheduleR"><a href="#" title="◎" class="bS db reserveImmediately offL vaT">◎</a></p></td>
+                          </tr>
+                        } else {
+                          <tr>
+                            <td class="closeColor"><p class="scheduleR"><span class="bS db reserveImpossible offL">×</span></p></td>
+                          </tr>
+                        }
+                        
+                        @if((resvInfoItems.resvInfoItemPart.size - 1) != resvInfoItems.resvInfoItemPart.indexOf(resvInfoItem)) {
+                          <tr><th class="separate"></th></tr>
+                        }
+                      }
+                    </tbody>
+                  </table>
+                </th>
+              }
+            }
+            <th class="innerCell">
+              <table cellpadding="0" cellspacing="0" class="moreInnerTable vaT">
+                <tbody>
+                  @for(timePart <- resvSchedule.timesPart) {
+                    <tr><th class="timeCell"><p class="hourR">@timePart</p></th></tr>
+                    <tr><th class="separate"></th></tr>
+                  }
+                </tbody>
+              </table>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>    
 </div>

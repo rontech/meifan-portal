@@ -1,3 +1,20 @@
+/**
+ * RONTECH CONFIDENTIAL
+ * __________________
+ *
+ *  [2014] - SuZhou Rontech Co.,Ltd.(http://www.sz-rontech.com)
+ *  All Rights Reserved.
+ *
+ * NOTICE:  All information contained herein is, and remains
+ * the property of SuZhou Rontech Co.,Ltd. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to SuZhou Rontech Co.,Ltd.
+ * and its suppliers and may be covered by China and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from SuZhou Rontech Co.,Ltd..
+ */
 package controllers.auth
 
 import play.api._
@@ -47,13 +64,13 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
             if (commentObjType == 1) {
               val blog = Blog.findOneById(commentObjId)
               blog match {
-	              case Some(blog) =>{
-	                Comment.addComment(user.userId, content, commentObjId, commentObjType)		        
-			        Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
-	              }
-	              case None=>{
-	                Unauthorized
-	              }
+                  case Some(blog) =>{
+                    Comment.addComment(user.userId, content, commentObjId, commentObjType)                
+                    Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
+                  }
+                  case None=>{
+                    Unauthorized
+                  }
               }
             }
             else{
@@ -73,16 +90,16 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
         errors => BadRequest(views.html.comment.errorMsg1(commentToCouponForm)),
         {
           case (complex, atmosphere, service, skill, price, content) =>         
-	        Comment.addCommentToCoupon(user.userId, content, commentObjId, commentObjType, complex, atmosphere, service, skill, price)
-	        if (commentObjType == 2) { 
-	          // TODO 等到预约做好后，由于预约表中有与用户相关的字段，到时候可以跳转
-//	          Redirect(auth.routes.MyFollows.followedCoupon(user.id))
-	          // 目前暂时跳转到我的主页
-	          Redirect(auth.routes.Users.myPage)
-	        }
-	        else {
-	          Ok("")
-	        }
+            Comment.addCommentToCoupon(user.userId, content, commentObjId, commentObjType, complex, atmosphere, service, skill, price)
+            if (commentObjType == 2) { 
+              // TODO 等到预约做好后，由于预约表中有与用户相关的字段，到时候可以跳转
+//              Redirect(auth.routes.MyFollows.followedCoupon(user.id))
+              // 目前暂时跳转到我的主页
+              Redirect(auth.routes.Users.myPage)
+            }
+            else {
+              Ok("")
+            }
         } 
       )
   }
@@ -99,8 +116,8 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
         errors => BadRequest(views.html.comment.errorMsg("")),
         {
           case (content) =>
-	        Comment.reply(user.userId, content, commentObjId, commentObjType) 
-	        Redirect(noAuth.routes.Blogs.getOneBlogById(blogId))
+            Comment.reply(user.userId, content, commentObjId, commentObjType) 
+            Redirect(noAuth.routes.Blogs.getOneBlogById(blogId))
 
         } 
       )

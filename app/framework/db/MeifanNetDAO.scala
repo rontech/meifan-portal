@@ -22,14 +22,14 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 /**
  * Wrapper for the <code>SalatDAO</code> class.
- * Refering SalatDao directly is not recommended since we are not sure
- * the continuty of SalatDAO class.
+ * Referring SalatDAO directly is not recommended since we are not sure
+ * the continuity of SalatDAO class.
  *
  * @since 1.0
  * @see com.movus.salat.dao.SalatDAO
  */
 class MeifanNetDAO[ObjectType <: AnyRef]
-                  (override val collection: MongoCollection)
-                  (implicit mot: Manifest[ObjectType], mid: Manifest[ObjectId], ctx: Context)
-                  extends SalatDAO[ObjectType,  ObjectId](collection)(mot, mid, ctx) {
+  (override val collection: MongoCollection)
+  (implicit mot: Manifest[ObjectType], mid: Manifest[ObjectId], ctx: Context)
+  extends SalatDAO[ObjectType,  ObjectId](collection)(mot, mid, ctx) {
 }

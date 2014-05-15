@@ -1,10 +1,10 @@
 @(navInSalon: String = "my-styles", salon: Salon, styles: List[Style], styleSearchForm: Form[models.Style], styleParaAll: models.StylePara, isFirstSearch: Boolean, isStylist: Boolean,stylists: List[models.Stylist])
 
 @mySalonMain(navInSalon, salon){
-	@*<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">*@
-    @views.html.style.admin.backstageStyleSearch(styleSearchForm, styleParaAll, isFirstSearch, isStylist, null, stylists)
-    <hr/>
-    @*店铺这里暂没有添加，删除的权限<a href="@auth.routes.Salons.styleAddBySalon" >@Messages("hair.addStyle")</a>*@
-    @views.html.style.admin.backstageStyleSearchList(styles, isStylist)
-	
+  @*<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">*@
+  @views.html.style.admin.backstageStyleSearch(styleSearchForm, styleParaAll, isFirstSearch, isStylist, null, stylists)
+  <hr/>
+  @*店铺这里暂没有添加，删除的权限<a href="@auth.routes.Salons.styleAddBySalon" >@Messages("hair.addStyle")</a>*@
+  @views.html.style.admin.backstageStyleSearchList(styles, isStylist)
+  
 }

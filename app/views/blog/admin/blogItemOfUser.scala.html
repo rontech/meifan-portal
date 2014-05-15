@@ -1,37 +1,37 @@
 @(blog : Blog, logged : Boolean)
 
 @import java.text.DateFormat
-     
-					<div class="BlogTitle">
-			    		<div class="title">
-			            	<h2><a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)" class="blogTitle">@blog.title</a></h2>			    	
-			        		<div class="outline">
-			            	  <span class="">
-													@Messages("blog.blogCategory"): 
-									@blog.blogCategory			   							                			            		
-							  </span>
-							  @if(logged){
-			                  <span class="blog_admin">( <a href="@auth.routes.Blogs.editBlog(blog.id)">@Messages("common.edit")</a> | <a href="" class="deleteBlog" data-blog="@blog.id">@Messages("common.delete")</a> )</span>
-			                  }
-			        	    </div>
-			    		</div>		
-					</div>
-					
-			    	<div class="BlogContent" id="">
-						@Html(blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}/>", "").slice(0, 100))
-						@*@blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}/>", "")*@
-						@*如果不加最后一个/的话，和img标签同一行的的其他标签也会被替换掉。测试google浏览器上传本地图片或网络图片时都会有最后一个/.暂时没有问题
-						还有就是关于用三个点分割的话，至少应该是去除img后的长度吧？
-						目前的现象：一篇blog只上传图片时，缩略显示时没有内容*@
-		                @*@if(blog.content.length > 100) {...}*@
-		                @if(blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}/>", "").length > 100) {...}
-			    	</div>
-			    	
-					<div class="bottom">	
-						@Messages("blog.createAt",DateFormat.getDateInstance.format(blog.createTime)), | @Messages("blog.comment") (@noAuth.Comments.clean @Comment.all(blog.id).size)@*| 收藏(0)*@
-			    		<a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)" class="fullcontent">@Messages("blog.readFullBlog")</a>
-			    	</div>
-			    	
+   
+          <div class="BlogTitle">
+            <div class="title">
+              <h2><a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)" class="blogTitle">@blog.title</a></h2>                    
+              <div class="outline">
+               <span class="">
+                          @Messages("blog.blogCategory"): 
+                  @blog.blogCategory                                                                                           
+               </span>
+               @if(logged){
+               <span class="blog_admin">( <a href="@auth.routes.Blogs.editBlog(blog.id)">@Messages("common.edit")</a> | <a href="" class="deleteBlog" data-blog="@blog.id">@Messages("common.delete")</a> )</span>
+               }
+              </div>
+            </div>        
+          </div>
+          
+          <div class="BlogContent" id="">
+            @Html(blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}/>", "").slice(0, 100))
+            @*@blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}/>", "")*@
+            @*如果不加最后一个/的话，和img标签同一行的的其他标签也会被替换掉。测试google浏览器上传本地图片或网络图片时都会有最后一个/.暂时没有问题
+            还有就是关于用三个点分割的话，至少应该是去除img后的长度吧？
+            目前的现象：一篇blog只上传图片时，缩略显示时没有内容*@
+            @*@if(blog.content.length > 100) {...}*@
+            @if(blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}/>", "").length > 100) {...}
+          </div>
+          
+          <div class="bottom">    
+            @Messages("blog.createAt",DateFormat.getDateInstance.format(blog.createTime)), | @Messages("blog.comment") (@noAuth.Comments.clean @Comment.all(blog.id).size)@*| 收藏(0)*@
+            <a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)" class="fullcontent">@Messages("blog.readFullBlog")</a>
+          </div>
+          
    
 
 

@@ -30,12 +30,12 @@ import play.api.Configuration
  */
 abstract class MeifanNetModelCompanion[ObjectType <: AnyRef](implicit mot :Manifest[ObjectType])
   extends ModelCompanion[ObjectType, ObjectId] {
-    /**
-     * Load collection according to the model name.
-     * @param c (String) model name
-     *
-     */
-    def loadCollection(c: String = mot.runtimeClass.getSimpleName) = DBDelegate.db(c)
+  /**
+   * Load collection according to the model name.
+   * @param c (String) model name
+   *
+   */
+  def loadCollection(c: String = mot.runtimeClass.getSimpleName) = DBDelegate.db(c)
 }
 
 /**
@@ -49,39 +49,42 @@ trait DBDelegate {
  * Preserve a single connection pool.
  *
  */
-object DBDelegate {
-    /** default db host */
-    final val DEFAULT_DB_HOST = "127.0.0.1"
-    /** default db name  */
-    final val DEFAULT_DB_NAME = "fashion-mongo"
-    /** default image db  */
-    final val DEFAULT_IMAGE_DB = "Picture"
-    /** default mongodb options map  */
-    final val DEFAULT_OPS_MAP = Map("connectionsPerHost" -> "300",
-                                "threadsAllowedToBlockForConnectionMultiplier" -> "1000",
-                                "connectTimeout" -> "60000")
+object DBDelegate extends DBDelegate {
+  /** default db host */
+  final val DEFAULT_DB_HOST = "127.0.0.1"
+  /** default db name  */
+  final val DEFAULT_DB_NAME = "fashion-mongo"
+  /** default image db  */
+  final val DEFAULT_IMAGE_DB = "Picture"
+  /** default mongodb options map  */
+  final val DEFAULT_OPS_MAP =
+    Map("connectionsPerHost" -> "300",
+        "threadsAllowedToBlockForConnectionMultiplier" -> "1000",
+        "connectTimeout" -> "60000")
 
-    /** configuration */
-    val options = current.configuration.getConfig("mongodb.default.options")
-                      .getOrElse(Configuration.from(DEFAULT_OPS_MAP))
+  /** configuration */
+  val options = current.configuration.getConfig("mongodb.default.options")
+    .getOrElse(Configuration.from(DEFAULT_OPS_MAP))
 
-    /** Limit connection counts */
-    val builder = new MongoClientOptions.Builder()
-    builder.connectionsPerHost(options.getInt("connectionsPerHost").get)
-    builder.connectTimeout(options.getInt("connectTimeout").get)
-    builder.threadsAllowedToBlockForConnectionMultiplier(
-        options.getInt("threadsAllowedToBlockForConnectionMultiplier").get)
+  /** Limit connection counts */
+  val builder = new MongoClientOptions.Builder()
+  builder.connectionsPerHost(options.getInt("connectionsPerHost").get)
+  builder.connectTimeout(options.getInt("connectTimeout").get)
+  builder.threadsAllowedToBlockForConnectionMultiplier(
+    options.getInt("threadsAllowedToBlockForConnectionMultiplier").get)
 
-    /** connection pool */
-    val mongoClient = MongoClient(
-        current.configuration.getString("mongodb.default.host").getOrElse(DEFAULT_DB_HOST),
-        builder.build())
+  /** connection pool */
+  val mongoClient = MongoClient(
+    current.configuration.getString("mongodb.default.host").getOrElse(DEFAULT_DB_HOST),
+    builder.build())
 
-    /** database excluding pictures */
-    val db = mongoClient(current.configuration.getString("mongodb.default.db")
-                                              .getOrElse(DEFAULT_DB_NAME))
+  /** database excluding pictures */
+  val db = mongoClient(
+    current.configuration.getString("mongodb.default.db")
+   .getOrElse(DEFAULT_DB_NAME))
 
-    /** database for pictures  */
-    val picDB = mongoClient(current.configuration.getString("mongodb.image.db")
-                                                .getOrElse(DEFAULT_IMAGE_DB))
+  /** database for pictures  */
+  val picDB = mongoClient(
+    current.configuration.getString("mongodb.image.db")
+    .getOrElse(DEFAULT_IMAGE_DB))
 }

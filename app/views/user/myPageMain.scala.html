@@ -1,43 +1,43 @@
 @(navInMyPage: String = "my-reservation", user :User, followInfo :FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false)(content: Html)
 
 @main(Messages("site.title")) {
-	
-	
-	<head>
-		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
-	</head>
+  
+  
+  <head>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
+  </head>
 
 <!-- ↓contents -->
 
-        <div id="OSC_Content">
-        	<div id='SpaceLeft'>
-            @if(loginUserId.equals(user.id)){
-        		@views.html.user.myPageLeft(user, followInfo)
-            }else{
-                @views.html.user.otherPageLeft(user, followInfo, loginUserId, logged)
-            }
-        	</div>
-			<div id='SpaceMain'>
-                @if(loginUserId.equals(user.id)){
-                    @views.html.user.myPageHeader(navInMyPage, user)
-                }else{
-                    @views.html.user.otherPageHeader(navInMyPage, user)
-                }
-	    		@content
-       		</div>	        
-       		 	
-       </div>
-    <script type="text/javascript">
-    $("#sendMsg").click(function() {
-    var userId =this.getAttribute("value");
-    var url = "/user/createLetterPage/"+userId;
-    window.open(url,"","width=600,height=400");
-    });
-    $(".sendMsg").click(function() {
-    var userId =this.getAttribute("value");
-    var url = "/user/createLetterPage/"+userId;
-    window.open(url,"","width=600,height=400");
-    });
-    </script>
+    <div id="OSC_Content">
+      <div id='SpaceLeft'>
+      @if(loginUserId.equals(user.id)){
+        @views.html.user.myPageLeft(user, followInfo)
+      }else{
+        @views.html.user.otherPageLeft(user, followInfo, loginUserId, logged)
+      }
+      </div>
+      <div id='SpaceMain'>
+        @if(loginUserId.equals(user.id)){
+          @views.html.user.myPageHeader(navInMyPage, user)
+        }else{
+          @views.html.user.otherPageHeader(navInMyPage, user)
+        }
+        @content
+        </div>            
+          
+    </div>
+  <script type="text/javascript">
+  $("#sendMsg").click(function() {
+  var userId =this.getAttribute("value");
+  var url = "/user/createLetterPage/"+userId;
+  window.open(url,"","width=600,height=400");
+  });
+  $(".sendMsg").click(function() {
+  var userId =this.getAttribute("value");
+  var url = "/user/createLetterPage/"+userId;
+  window.open(url,"","width=600,height=400");
+  });
+  </script>
 <!-- ↑contents -->
 }

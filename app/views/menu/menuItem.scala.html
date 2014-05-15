@@ -1,54 +1,54 @@
 @(menu: Menu)
 
 <table summary="summary" cellspacing="1" class="wFull bgLGray2 mT10 fs10 couponTable">
-    <tbody>
-        <tr>
-            <td class="w580 bgWhite">
-                <div class="w560 p10">
-                    <div class="">
-                        <div class="">
-                            <ul class="couponMenuIcons fs10 cFix">
-                                @for(service <- menu.serviceItems) {
-                                    <li class="couponMenuIcon mB5">
-                                        @Messages("ServiceType.serviceTypeName." + service.serviceType)
-                                    </li>
-                                    }
-                            </ul>
-                        </div>
-                        <div class="mT5 b fs12 cFix">
-                           <p class="fl">
-                               @for(serviceItem <- menu.serviceItems) {
-                                   @serviceItem.serviceName
-                                   @if(menu.serviceItems.indexOf(serviceItem) !=( (menu.serviceItems).size -1)) {
-                                       @Messages( "menu.addMark") 
-                                   }
-                               } 
-                            </p>
-                            <p class="fr">
-                                <span class="fs13">
-                                    @menu.originalPrice @Messages("coupon.currency")
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <p class="mT10 fgGray fs10">
-                    </p>
-                </div>
-            </td>
-            <td class="bdWhite bgLLGray2 vaM">
-                <div class="pV10 fs12">
-                    <div>
-                        <a href="#" class="btn btn2H50 w146 mHA">
-                            <span><span>@Messages("menu.appointment")</span></span>
-                        </a>
-                    </div>
-                    <div class="mT5 taC">
-                        <a href="#" class="iS arrowR">
-                            @Messages("coupon.addMenu")
-                        </a>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </tbody>
+  <tbody>
+    <tr>
+      <td class="w580 bgWhite">
+        <div class="w560 p10">
+          <div class="">
+            <div class="">
+              <ul class="couponMenuIcons fs10 cFix">
+                @for(service <- menu.serviceItems) {
+                  <li class="couponMenuIcon mB5">
+                    @Messages("ServiceType.serviceTypeName." + service.serviceType)
+                  </li>
+                  }
+              </ul>
+            </div>
+            <div class="mT5 b fs12 cFix">
+              <p class="fl">
+                @for(serviceItem <- menu.serviceItems) {
+                  @serviceItem.serviceName
+                  @if(menu.serviceItems.indexOf(serviceItem) !=( (menu.serviceItems).size -1)) {
+                    @Messages( "menu.addMark") 
+                  }
+                } 
+              </p>
+              <p class="fr">
+                <span class="fs13">
+                  @menu.originalPrice @Messages("coupon.currency")
+                </span>
+              </p>
+            </div>
+          </div>
+          <p class="mT10 fgGray fs10">
+          </p>
+        </div>
+      </td>
+      <td class="bdWhite bgLLGray2 vaM">
+        <div class="pV10 fs12">
+          <div>
+            <a href="#" class="btn btn2H50 w146 mHA">
+              <span><span>@Messages("menu.appointment")</span></span>
+            </a>
+          </div>
+          <div class="mT5 taC">
+            <a href="#" class="iS arrowR">
+              @Messages("coupon.addMenu")
+            </a>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
 </table>

@@ -1,23 +1,23 @@
 @(subToSubNav: String = "my-pictureInfo", salon: Salon)(content: Html)
 
 @mySalonInfoManageMain("my-pictureInfo",salon){
-	
-	<div>
-		<ul class="tab-sub sub-sub">
-			<li class="fl @if(subToSubNav == "my-showPicture") {selected}">
-				<a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.uploadpics")</a>
-			</li>		
-            <li class="fl @if(subToSubNav == "my-atmoPicture") {selected}">
-				<a class="current-demo" href="@auth.routes.Salons.salonAtmoPicture">@Messages("salonCheckInfoState.uploadAtom")</a>
-			</li>			
-            <li class="fl @if(subToSubNav == "my-logoPicture") {selected}">
-				<a class="current-demo" href="@auth.routes.Salons.salonLogoPicture">@Messages("salonCheckInfoState.uploadLogo")</a>
-			</li>			
-			<li class="fl @if(subToSubNav == "my-checkPicture") {selected}">
-				<a class="current-demo" href="@auth.routes.Salons.salonCheckPicture">@Messages("salonCheckInfoState.uploadStore")</a>
-			</li>			
-		</ul>
-	</div>
-	@content
-	
+  
+  <div>
+    <ul class="tab-sub sub-sub">
+      <li class="fl @if(subToSubNav == "my-showPicture") {selected}">
+        <a class="current-demo" href="@auth.routes.Salons.salonShowPicture">@Messages("salonCheckInfoState.uploadpics")</a>
+      </li>        
+      <li class="fl @if(subToSubNav == "my-atmoPicture") {selected}">
+        <a class="current-demo" href="@auth.routes.Salons.salonAtmoPicture">@Messages("salonCheckInfoState.uploadAtom")</a>
+      </li>            
+      <li class="fl @if(subToSubNav == "my-logoPicture") {selected}">
+        <a class="current-demo" href="@auth.routes.Salons.salonLogoPicture">@Messages("salonCheckInfoState.uploadLogo")</a>
+      </li>            
+      <li class="fl @if(subToSubNav == "my-checkPicture") {selected}">
+        <a class="current-demo" href="@auth.routes.Salons.salonCheckPicture">@Messages("salonCheckInfoState.uploadStore")</a>
+      </li>            
+    </ul>
+  </div>
+  @content
+  
 }

@@ -1,13 +1,13 @@
 @(notices: List[Notice] = Notice.findAll.toList)
 <div id="pl">
-    <div class="pl_bt">
-    	<h2><img src="@routes.Assets.at("images/tz_bt.jpg")" width="210" height="36" /></h2>
-    </div>
-    <div id="index_xxtg">
-        <ul>
-            @for(notice <- notices){
-                <li><a href="@noAuth.routes.Notices.getOneNotice(notice.id)">@notice.title</a></li>
-            }
-        </ul>
-    </div>
+  <div class="pl_bt">
+    <h2><img src="@routes.Assets.at("images/tz_bt.jpg")" width="210" height="36" /></h2>
+  </div>
+  <div id="index_xxtg">
+    <ul>
+      @for(notice <- notices){
+        <li><a href="@noAuth.routes.Notices.getOneNotice(notice.id)">@notice.title</a></li>
+      }
+    </ul>
+  </div>
 </div>

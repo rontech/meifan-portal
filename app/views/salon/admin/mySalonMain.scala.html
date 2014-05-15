@@ -3,26 +3,26 @@
 
 @import controllers._
 @main(Messages("site.title")){
-	<head>
-		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mySalon.css")">
-		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
-		<head>
-			<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
-		</head>
-		<script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"> </script>
-		<script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("javascripts/stylist.js")" type="text/javascript"> </script>
-	</head>
+  <head>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mySalon.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
+    <head>
+      <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
+    </head>
+    <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/stylist.js")" type="text/javascript"> </script>
+  </head>
 
 <!-- ↓contents -->
-		<div id="OSC_Content">
-        	<div id='SpaceLeft'>
-        		@views.html.salon.admin.mySalonLeft(salon)
-        	</div>
-			<div id='SpaceMain'>
-				@views.html.salon.admin.mySalonHead(navInSalon, salon)
-	    		@content
-       		</div>	        
-        </div>
+    <div id="OSC_Content">
+      <div id='SpaceLeft'>
+        @views.html.salon.admin.mySalonLeft(salon)
+      </div>
+      <div id='SpaceMain'>
+        @views.html.salon.admin.mySalonHead(navInSalon, salon)
+        @content
+        </div>            
+    </div>
 <!-- ↑contents -->
 }

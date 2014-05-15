@@ -1,18 +1,18 @@
 <div id="index_tjsh">
-	<h2><img src="@routes.Assets.at("images/index_tjsh_title.jpg")" width="255" height="36" /></h2>
-    <div id="index_tjsh_nr">
-    	@if(Salon.findAll.toList.length > 0){
-   		@for(i <- 0 to (if (Salon.findAll.toList.length > 4) 3 else Salon.findAll.toList.length-1)){
-			<dl>
-  	 			<dt><a href="@noAuth.routes.Salons.getSalon(Salon.findAll.toList(i).id)" class="link-green">@Salon.findAll.toList(i).salonName</a></dt>
-       			<dd class="pic"><a href="@noAuth.routes.Salons.getSalon(Salon.findAll.toList(i).id)"><img src="@routes.Application.getPhoto(Salon.findAll.toList(i).salonPics(0).fileObjId)" width="80" height="90" /></a></dd>
-       			<dd class="txt">                		
-       				@Salon.findAll.toList(i).picDescription.map(pic=>pic.picContent.slice(0,15))
-   					@if(Salon.findAll.toList(i).picDescription.map(pic=>pic.picContent.length > 15)) {...}
-       			</dd>
-           		<dd class="more"><a href="@noAuth.routes.Salons.getSalon(Salon.findAll.toList(i).id)"><img src="@routes.Assets.at("images/more.jpg")" width="40" height="10" /></a></dd>
-			</dl>            
-       		}          	
-   	}
-	</div>
+  <h2><img src="@routes.Assets.at("images/index_tjsh_title.jpg")" width="255" height="36" /></h2>
+  <div id="index_tjsh_nr">
+    @if(Salon.findAll.toList.length > 0){
+      @for(i <- 0 to (if (Salon.findAll.toList.length > 4) 3 else Salon.findAll.toList.length-1)){
+      <dl>
+          <dt><a href="@noAuth.routes.Salons.getSalon(Salon.findAll.toList(i).id)" class="link-green">@Salon.findAll.toList(i).salonName</a></dt>
+          <dd class="pic"><a href="@noAuth.routes.Salons.getSalon(Salon.findAll.toList(i).id)"><img src="@routes.Application.getPhoto(Salon.findAll.toList(i).salonPics(0).fileObjId)" width="80" height="90" /></a></dd>
+          <dd class="txt">                        
+            @Salon.findAll.toList(i).picDescription.map(pic=>pic.picContent.slice(0,15))
+            @if(Salon.findAll.toList(i).picDescription.map(pic=>pic.picContent.length > 15)) {...}
+          </dd>
+          <dd class="more"><a href="@noAuth.routes.Salons.getSalon(Salon.findAll.toList(i).id)"><img src="@routes.Assets.at("images/more.jpg")" width="40" height="10" /></a></dd>
+      </dl>            
+        }              
+    }
+  </div>
 </div><!--美发沙龙-->

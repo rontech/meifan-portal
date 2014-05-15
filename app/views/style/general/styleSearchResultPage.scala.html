@@ -2,27 +2,27 @@
 
 @main(title = Messages("hair.tabName"), nav = "HairCatalog") {
 
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
-    <div>
-        <div style="float:left;width:80%">
-        	<!-- The title of Style. -->
-        	<div class="hcHeader">
-				<div class="pr hcHeaderTopPage">
-					<h2 class="hcHeading offL">@Messages("hair.styleCatalogTitle")</h2>
-					<h3 class="pa right0 bottom0 hcHeadingCaption">@Messages("site.title")</h3>
-				</div>
-			</div>
-            <!-- Style Search Result Page , Search. -->    
-            @views.html.style.general.styleSearchSecond(styleSearchForm, stylePara)
-            
-            <!-- Style Search Result Page, SearchList. -->    
-            @views.html.style.general.styleSearchList(styleAndSalon)
-            
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+  <div>
+    <div style="float:left;width:80%">
+      <!-- The title of Style. -->
+      <div class="hcHeader">
+        <div class="pr hcHeaderTopPage">
+          <h2 class="hcHeading offL">@Messages("hair.styleCatalogTitle")</h2>
+          <h3 class="pa right0 bottom0 hcHeadingCaption">@Messages("site.title")</h3>
         </div>
-        <div style="">
-            <!-- ↓generalContentRightColumn -->
-            @views.html.salon.general.rightColumn(user)
-            <!-- ↑generalContentRightColumn -->
-        </div>
+      </div>
+      <!-- Style Search Result Page , Search. -->    
+      @views.html.style.general.styleSearchSecond(styleSearchForm, stylePara)
+      
+      <!-- Style Search Result Page, SearchList. -->    
+      @views.html.style.general.styleSearchList(styleAndSalon)
+      
     </div>
+    <div style="">
+      <!-- ↓generalContentRightColumn -->
+      @views.html.salon.general.rightColumn(user)
+      <!-- ↑generalContentRightColumn -->
+    </div>
+  </div>
 }

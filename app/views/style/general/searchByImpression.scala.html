@@ -1,20 +1,20 @@
 <div id="salon_tjtj">
-    
-        <h2><img src="@routes.Assets.at("images/haircatalog/hair_label/salon_fgfx_title.jpg")" width="768" height="35" /></h2>
-    	<div id="salon_tjtj_nr">
-             <table width="768" border="0">
-                <tr>
-                    @SearchByImpression.findAll.map { searchByImpression =>
-                        <td>
-                        	<div class="fx_pic_t">
-                            <a href="@noAuth.routes.Styles.findByImpression(searchByImpression.styleImpression,searchByImpression.sex)">
-                                <img src="@routes.Application.getPhoto(searchByImpression.stylePic)" alt="@searchByImpression.styleImpression" class="imgFrame" width="94px">
-                            </a>
-                            </div>
-                            <p align="center">@Messages("style.styleImpression." + searchByImpression.styleImpression)</p>
-                        </td>
-                    }
-    			</tr>
-    		</table>
-		</div>
+  
+    <h2><img src="@routes.Assets.at("images/haircatalog/hair_label/salon_fgfx_title.jpg")" width="768" height="35" /></h2>
+    <div id="salon_tjtj_nr">
+       <table width="768" border="0">
+        <tr>
+          @SearchByImpression.findAll.map { searchByImpression =>
+            <td>
+              <div class="fx_pic_t">
+              <a href="@noAuth.routes.Styles.findByImpression(searchByImpression.styleImpression,searchByImpression.sex)">
+                <img src="@routes.Application.getPhoto(searchByImpression.stylePic)" alt="@searchByImpression.styleImpression" class="imgFrame" width="94px">
+              </a>
+              </div>
+              <p align="center">@Messages("style.styleImpression." + searchByImpression.styleImpression)</p>
+            </td>
+          }
+        </tr>
+      </table>
+    </div>
 </div>

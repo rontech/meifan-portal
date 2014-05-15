@@ -1,33 +1,33 @@
 <div id="index_tjhs">
   <h2><img src="@routes.Assets.at("images/index_tjhs_title.jpg")" width="255" height="36" /></h2>
-    <div id="index_tjhs_nr">
-    	<dl>
-    	<dd class="pic">
-    		<a href="@noAuth.routes.Salons.getOneStylist(Stylist.mySalon(Stylist.findRecommendStylists(0).stylistId).id, Stylist.findRecommendStylists(0).stylistId)">
-    			<img src="@routes.Application.getPhoto(Stylist.findRecommendStylists(0).myPics(0).fileObjId)" width="156" height="210" />
-    		</a>	
-    	</dd>
-        <dd class="txt">
-        <font style="font-size:14px; line-height:30px;">@Stylist.findRecommendStylists(0).position.map { p => @Messages("position.positionName." + p.positionName) &nbsp; }</font><br />
-        @Stylist.findRecommendStylists(0).myWords.slice(0,22)
-        @if(Stylist.findRecommendStylists(0).myWords.length > 22) {...}
-        <span>
-        	<a href="@noAuth.routes.Salons.getOneStylist(Stylist.mySalon(Stylist.findRecommendStylists(0).stylistId).id, Stylist.findRecommendStylists(0).stylistId)">
-        		<img src="@routes.Assets.at("images/index_tjhs_more.jpg")" width="33" height="7" />
-        	</a>
-        </span>
-        </dd>
-        <dd class="list">
-        	<ul>
-        		@Stylist.findRecommendStylists.filterNot(p=> Stylist.findRecommendStylists.indexOf(p)== 0).map{ stylist=>
-        			<li>
-        				<a href="@noAuth.routes.Salons.getOneStylist(Stylist.mySalon(stylist.stylistId).id, stylist.stylistId)">
-        					<img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" width="55" height="62" />
-        				</a>
-        			</li>	
-        		}
-            </ul>
-        </dd>
-        </dl>
-    </div>
+  <div id="index_tjhs_nr">
+    <dl>
+    <dd class="pic">
+      <a href="@noAuth.routes.Salons.getOneStylist(Stylist.mySalon(Stylist.findRecommendStylists(0).stylistId).id, Stylist.findRecommendStylists(0).stylistId)">
+        <img src="@routes.Application.getPhoto(Stylist.findRecommendStylists(0).myPics(0).fileObjId)" width="156" height="210" />
+      </a>    
+    </dd>
+    <dd class="txt">
+    <font style="font-size:14px; line-height:30px;">@Stylist.findRecommendStylists(0).position.map { p => @Messages("position.positionName." + p.positionName) &nbsp; }</font><br />
+    @Stylist.findRecommendStylists(0).myWords.slice(0,22)
+    @if(Stylist.findRecommendStylists(0).myWords.length > 22) {...}
+    <span>
+      <a href="@noAuth.routes.Salons.getOneStylist(Stylist.mySalon(Stylist.findRecommendStylists(0).stylistId).id, Stylist.findRecommendStylists(0).stylistId)">
+        <img src="@routes.Assets.at("images/index_tjhs_more.jpg")" width="33" height="7" />
+      </a>
+    </span>
+    </dd>
+    <dd class="list">
+      <ul>
+        @Stylist.findRecommendStylists.filterNot(p=> Stylist.findRecommendStylists.indexOf(p)== 0).map{ stylist=>
+          <li>
+            <a href="@noAuth.routes.Salons.getOneStylist(Stylist.mySalon(stylist.stylistId).id, stylist.stylistId)">
+              <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" width="55" height="62" />
+            </a>
+          </li>    
+        }
+      </ul>
+    </dd>
+    </dl>
+  </div>
 </div>

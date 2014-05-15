@@ -1,48 +1,48 @@
 @(styles: Seq[Style] = Nil, salon: Salon)
 
 @if(styles.isEmpty){
-    <div class="bgAlertMsg mT20">
-    	<p class="alertMsg">@Messages("hair.noStyleSearched")</p>
-	</div>
+  <div class="bgAlertMsg mT20">
+    <p class="alertMsg">@Messages("hair.noStyleSearched")</p>
+  </div>
 }else{
 <ol class="fl">
-    @for(style <- styles) {
-	<table class="styleItem">
-	    <tbody>
-		<tr>
-		    <td class="vaT bdGrayR">
-			<div class="w176 mHA">
-			    <div class="mT10 fs16 taM">
-				<a href="@noAuth.routes.Salons.getOneStyle(salon.id, style.id)">
-				    <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)" class="w120 h150" title=@Messages("style.picTitle")>
-				</a>
-			    </div>
-			    <p class="mT10 lh13 taM">
-				<a href="@noAuth.routes.Salons.getOneStyle(salon.id, style.id)">
-				    <u>@style.styleName</u>
-				</a>
-			    </p>
-			</div>
-			<div class="w156 mHA">
-			    <div class="bdDotT mT5 pT2">
-			    </div>
-			</div>
-            <div class=""w176 mHA"">
-                <p class="mT10 lh13 taM">@Messages("hair.stylist") : @Stylist.findUser(style.stylistId).nickName</p>
-            </div>
-		    </td>
-		</tr>
-	    </tbody>
-	    <tbody>
-		<tr>
-		    <td colspan="4">
-			<div class="separateLine">
-			    &nbsp;
-			</div>
-		    </td>
-		</tr>
-	    </tbody>
-	</table>
-    }
+  @for(style <- styles) {
+  <table class="styleItem">
+    <tbody>
+    <tr>
+      <td class="vaT bdGrayR">
+      <div class="w176 mHA">
+        <div class="mT10 fs16 taM">
+        <a href="@noAuth.routes.Salons.getOneStyle(salon.id, style.id)">
+          <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)" class="w120 h150" title=@Messages("style.picTitle")>
+        </a>
+        </div>
+        <p class="mT10 lh13 taM">
+        <a href="@noAuth.routes.Salons.getOneStyle(salon.id, style.id)">
+          <u>@style.styleName</u>
+        </a>
+        </p>
+      </div>
+      <div class="w156 mHA">
+        <div class="bdDotT mT5 pT2">
+        </div>
+      </div>
+      <div class=""w176 mHA"">
+        <p class="mT10 lh13 taM">@Messages("hair.stylist") : @Stylist.findUser(style.stylistId).nickName</p>
+      </div>
+      </td>
+    </tr>
+    </tbody>
+    <tbody>
+    <tr>
+      <td colspan="4">
+      <div class="separateLine">
+        &nbsp;
+      </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  }
 </ol>
 }

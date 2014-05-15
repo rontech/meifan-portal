@@ -1,20 +1,20 @@
 @(adverts: List[Info] = Info.findAdInfo(3))
 <!-- Module for advertisement.
-    
-    Contents maybe change according the page and area.....
+  
+  Contents maybe change according the page and area.....
 
 TODO
 
   -->
 
    <div class="w180 mHA">
-        @for(info <- adverts) {
-         <div class="mT10 bl">
-            <a href="@noAuth.routes.Infos.getOneInfo(info.id)" target="_blank">
-            	<img src="@routes.Application.getPhoto(info.infoPics(0).fileObjId)" width="178" />
-            </a>
-        </div>
-        }
+    @for(info <- adverts) {
+     <div class="mT10 bl">
+      <a href="@noAuth.routes.Infos.getOneInfo(info.id)" target="_blank">
+        <img src="@routes.Application.getPhoto(info.infoPics(0).fileObjId)" width="178" />
+      </a>
     </div>
+    }
+  </div>
 
 

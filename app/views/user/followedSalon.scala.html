@@ -1,21 +1,21 @@
 @(user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
 
 @myFollowsMain("my-followSalon", user, followInfo, loginUserId, logged) {
-	
-    <div class="mT40">
-   	  <div class="yS mainContentsSecondTitleOuter">
-	  	<h2 class="yS mainContentsSecondTitleInnerForAdmin">
-	  		@if(loginUserId.equals(user.id)){
-	  			@Messages("user.myFollowSalonsCount", followInfo.followSalon.length)
-	  		} else {
-	  			@Messages("user.otherFollowSalonsCount", followInfo.followSalon.length)
-	  		}
-	  	</h2>
-	  </div>
-   	  <ul id="listWrapper">
-   		  @followInfo.followSalon.map{salon =>
-   			  @views.html.user.followedSalonItem(salon,loginUserId,logged)
-   		  }
-   	  </ul>
-   	</div>
+  
+  <div class="mT40">
+     <div class="yS mainContentsSecondTitleOuter">
+     <h2 class="yS mainContentsSecondTitleInnerForAdmin">
+       @if(loginUserId.equals(user.id)){
+         @Messages("user.myFollowSalonsCount", followInfo.followSalon.length)
+       } else {
+         @Messages("user.otherFollowSalonsCount", followInfo.followSalon.length)
+       }
+     </h2>
+   </div>
+     <ul id="listWrapper">
+       @followInfo.followSalon.map{salon =>
+         @views.html.user.followedSalonItem(salon,loginUserId,logged)
+       }
+     </ul>
+    </div>
 }

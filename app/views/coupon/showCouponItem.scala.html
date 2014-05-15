@@ -1,190 +1,190 @@
 @(coupon: Coupon)
 
 <div>
-    <table summary="summary" cellspacing="1" class="mT5 wFull bgLGray2 fs10 couponTable mB5">
-        <tbody>
-            <tr>
-                <td class="w595 bgWhite">
-                    <div class="w585 p10">
-                        <div class="">
-                                <ul class="couponMenuIcons fs10 cFix">
-                                    @for(service <- coupon.serviceItems) { 
-                                    	<li class="couponMenuIcon mB5">
-                                        <font>
-                                            <font>
-                                                @Messages("ServiceType.serviceTypeName." + service.serviceType)
-                                            </font>
-                                        </font>
-                                        </li>
-                                     }
-                                </ul>
-                            </div>
-                            <div class="mT5 b fs12 cFix">
-                                <p class="fl">
-                                    <font>
-                                        <font>
-                                            [@coupon.couponName]
-                                            @for(service <- coupon.serviceItems) { 
-                                            	@service.serviceName
-												@if(coupon.serviceItems.indexOf(service) != ((coupon.serviceItems).size -1)) {
-													@Messages("menu.addMark")	
-												}
-                                            }
-                                            |<font class="lt mR5">@coupon.originalPrice @Messages("coupon.currency")</font>→
-                                             @coupon.perferentialPrice @Messages("coupon.currency")
-                                        </font>
-                                    </font>
-                                </p>
-                            </div>
-                        </div>
-                        <p class="fgGray fs10 pl10">
-                            <font>
-                                <font class="">
-                                    @coupon.description
-                                </font>
-                            </font>
-                        </p>
-                        <dl class="mT10 pl10">
-                            <dt class="di fgPink">
-                                <font>
-                                    <font>
-                                        @Messages("coupon.serviceDuration")
-                                    </font>
-                                </font>
-                            </dt>
-                            <dd class="di mR10 pR10 fgGray bdLGrayR">
-                                <font>
-                                    <font>
-                                        @coupon.serviceDuration @Messages("service.minutes")
-                                    </font>
-                                </font>
-                            </dd>
-                            <dt class="di fgPink">
-                                <font>
-                                    <font>
-                                        @Messages("coupon.startDate")
-                                    </font>
-                                </font>
-                            </dt>
-                            <dd class="di mR10 pR10 fgGray bdLGrayR">
-                                <font>
-                                    <font>
-                                        @coupon.startDate.format("yyyy-MM-dd")
-                                    </font>
-                                </font>
-                            </dd>
-                            <dt class="di fgPink">
-                                <font>
-                                    <font>
-                                        @Messages("coupon.endDate")
-                                    </font>
-                                </font>
-                            </dt>
-                            <dd class="di mR20 fgGray">
-                                <font>
-                                    <font>
-                                        @coupon.endDate.format("yyyy-MM-dd")
-                                    </font>
-                                </font>
-                            </dd>
-                        </dl>
-                        <dl class="mT10 pl10">
-                            <dt class="di fgPink">
-                                <font>
-                                    <font>
-                                        @Messages("coupon.presentTime")
-                                    </font>
-                                </font>
-                            </dt>
-                            <dd class="di mR10 pR10 fgGray bdLGrayR">
-                                <font>
-                                    <font>
-                                        @coupon.presentTime
-                                    </font>
-                                </font>
-                            </dd>
-                            <dt class="di fgPink">
-                                <font>
-                                    <font>
-                                        @Messages("coupon.useConditions")
-                                    </font>
-                                </font>
-                            </dt>
-                            <dd class="di mR10 pR10 fgGray bdLGrayR">
-                                <font>
-                                    <font>
-                                        @coupon.useConditions
-                                    </font>
-                                </font>
-                            </dd>
-                        </dl>
-                    </div>
-                </td>
-                @if(coupon.isValid && coupon.endDate.after(new java.util.Date())) {
-                	<td class="bdWhite bgLLGray2 vaM">
-                    <div class="pV10 fs12">
-                        <div>
-                            <a href="@auth.routes.Coupons.editCouponInfo(coupon.id)"
-                            class="btn btn2H50 btnWlines w70 mHA">
-                                <span>
-                                    <span>
-                                        <font>
-                                            <font>
-                                                @Messages("coupon.modify")
-                                            </font>
-                                        </font>
-                                    </span>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="pV10 fs12">
-                        <div>
-                            @*<a href="@auth.routes.Coupons.invalidCoupon(coupon.id)"
-                            class="btn btn2H50 btnWlines w70 mHA">
-                                <span>
-                                    <span>
-                                        <font>
-                                            <font>
-                                                @Messages("coupon.invalid")
-                                            </font>
-                                        </font>
-                                    </span>
-                                </span>
-                            </a>*@
-                            <a onclick="del('@auth.routes.Coupons.invalidCoupon(coupon.id)','@Messages("common.isValidMsg")');"
-                            class="btn btn2H50 btnWlines w70 mHA">
-                                <span>
-                                    <span>
-                                        <font>
-                                            <font>
-                                                @Messages("coupon.invalid")
-                                            </font>
-                                        </font>
-                                    </span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </td>
-               } else {
-               	   <td class="bdWhite bgLLGray2 vaM txtM">
-                       <div class="pV10 fs12">
-                        <div>
-                           <span class ="txtM">
-                             <font class="fgRed">
-                             	 @if(coupon.endDate.before(new java.util.Date())) {
-               	   					@Messages("coupon.expiredCoupon")	
-               	   				 } 
-								 @if(!coupon.isValid){
-               	   				 	@Messages("coupon.invalidCoupon")
-               	   				 }
-                             </font>
-                           </span>
-                        </div>
-                      </div>
-                   </td>
-               }
-            </tr>
-        </tbody>
-    </table>
+  <table summary="summary" cellspacing="1" class="mT5 wFull bgLGray2 fs10 couponTable mB5">
+    <tbody>
+      <tr>
+        <td class="w595 bgWhite">
+          <div class="w585 p10">
+            <div class="">
+                <ul class="couponMenuIcons fs10 cFix">
+                  @for(service <- coupon.serviceItems) { 
+                    <li class="couponMenuIcon mB5">
+                    <font>
+                      <font>
+                        @Messages("ServiceType.serviceTypeName." + service.serviceType)
+                      </font>
+                    </font>
+                    </li>
+                   }
+                </ul>
+              </div>
+              <div class="mT5 b fs12 cFix">
+                <p class="fl">
+                  <font>
+                    <font>
+                      [@coupon.couponName]
+                      @for(service <- coupon.serviceItems) { 
+                        @service.serviceName
+                        @if(coupon.serviceItems.indexOf(service) != ((coupon.serviceItems).size -1)) {
+                          @Messages("menu.addMark")    
+                        }
+                      }
+                      |<font class="lt mR5">@coupon.originalPrice @Messages("coupon.currency")</font>→
+                       @coupon.perferentialPrice @Messages("coupon.currency")
+                    </font>
+                  </font>
+                </p>
+              </div>
+            </div>
+            <p class="fgGray fs10 pl10">
+              <font>
+                <font class="">
+                  @coupon.description
+                </font>
+              </font>
+            </p>
+            <dl class="mT10 pl10">
+              <dt class="di fgPink">
+                <font>
+                  <font>
+                    @Messages("coupon.serviceDuration")
+                  </font>
+                </font>
+              </dt>
+              <dd class="di mR10 pR10 fgGray bdLGrayR">
+                <font>
+                  <font>
+                    @coupon.serviceDuration @Messages("service.minutes")
+                  </font>
+                </font>
+              </dd>
+              <dt class="di fgPink">
+                <font>
+                  <font>
+                    @Messages("coupon.startDate")
+                  </font>
+                </font>
+              </dt>
+              <dd class="di mR10 pR10 fgGray bdLGrayR">
+                <font>
+                  <font>
+                    @coupon.startDate.format("yyyy-MM-dd")
+                  </font>
+                </font>
+              </dd>
+              <dt class="di fgPink">
+                <font>
+                  <font>
+                    @Messages("coupon.endDate")
+                  </font>
+                </font>
+              </dt>
+              <dd class="di mR20 fgGray">
+                <font>
+                  <font>
+                    @coupon.endDate.format("yyyy-MM-dd")
+                  </font>
+                </font>
+              </dd>
+            </dl>
+            <dl class="mT10 pl10">
+              <dt class="di fgPink">
+                <font>
+                  <font>
+                    @Messages("coupon.presentTime")
+                  </font>
+                </font>
+              </dt>
+              <dd class="di mR10 pR10 fgGray bdLGrayR">
+                <font>
+                  <font>
+                    @coupon.presentTime
+                  </font>
+                </font>
+              </dd>
+              <dt class="di fgPink">
+                <font>
+                  <font>
+                    @Messages("coupon.useConditions")
+                  </font>
+                </font>
+              </dt>
+              <dd class="di mR10 pR10 fgGray bdLGrayR">
+                <font>
+                  <font>
+                    @coupon.useConditions
+                  </font>
+                </font>
+              </dd>
+            </dl>
+          </div>
+        </td>
+        @if(coupon.isValid && coupon.endDate.after(new java.util.Date())) {
+          <td class="bdWhite bgLLGray2 vaM">
+          <div class="pV10 fs12">
+            <div>
+              <a href="@auth.routes.Coupons.editCouponInfo(coupon.id)"
+              class="btn btn2H50 btnWlines w70 mHA">
+                <span>
+                  <span>
+                    <font>
+                      <font>
+                        @Messages("coupon.modify")
+                      </font>
+                    </font>
+                  </span>
+                </span>
+              </a>
+            </div>
+            <div class="pV10 fs12">
+            <div>
+              @*<a href="@auth.routes.Coupons.invalidCoupon(coupon.id)"
+              class="btn btn2H50 btnWlines w70 mHA">
+                <span>
+                  <span>
+                    <font>
+                      <font>
+                        @Messages("coupon.invalid")
+                      </font>
+                    </font>
+                  </span>
+                </span>
+              </a>*@
+              <a onclick="del('@auth.routes.Coupons.invalidCoupon(coupon.id)','@Messages("common.isValidMsg")');"
+              class="btn btn2H50 btnWlines w70 mHA">
+                <span>
+                  <span>
+                    <font>
+                      <font>
+                        @Messages("coupon.invalid")
+                      </font>
+                    </font>
+                  </span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </td>
+        } else {
+           <td class="bdWhite bgLLGray2 vaM txtM">
+            <div class="pV10 fs12">
+            <div>
+              <span class ="txtM">
+               <font class="fgRed">
+                 @if(coupon.endDate.before(new java.util.Date())) {
+                     @Messages("coupon.expiredCoupon")    
+                    } 
+                 @if(!coupon.isValid){
+                      @Messages("coupon.invalidCoupon")
+                    }
+               </font>
+              </span>
+            </div>
+           </div>
+          </td>
+        }
+      </tr>
+    </tbody>
+  </table>
 </div>

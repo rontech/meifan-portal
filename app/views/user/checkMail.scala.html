@@ -1,28 +1,28 @@
 @import helper._
 
 @main(Messages("common.resetPassword")) {
- 	<head>
-		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/findPwd.css")">
-	</head>
-	
- 	<div id="entry" class="w m">
- 		<div class="mt">
-			<h2>@Messages("user.resetPassword")</h2>
-			<b></b>
-		</div>
-		<div class="mc">
-			<div class="step">
-	            <ul>
-	               <li class="one">@Messages("pwd.account")</li>
-	               <li class="two cur">@Messages("pwd.verify")</li>
-	               <li class="">@Messages("pwd.setNewPwd")</li>
-	               <li class="four">@Messages("pwd.finish")</li>
-	            </ul>
-	        </div>
-	        <div class="form">
-    		<div class="call suc m-return">
-                <b></b><span><strong>@Messages("pwd.sendMailMsg")</strong></span>
-            </div>
-  		</div>
- 	</div>
-}		
+   <head>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/findPwd.css")">
+  </head>
+  
+   <div id="entry" class="w m">
+     <div class="mt">
+      <h2>@Messages("user.resetPassword")</h2>
+      <b></b>
+    </div>
+    <div class="mc">
+      <div class="step">
+        <ul>
+          <li class="one">@Messages("pwd.account")</li>
+          <li class="two cur">@Messages("pwd.verify")</li>
+          <li class="">@Messages("pwd.setNewPwd")</li>
+          <li class="four">@Messages("pwd.finish")</li>
+        </ul>
+      </div>
+      <div class="form">
+      <div class="call suc m-return">
+        <b></b><span><strong>@Messages("pwd.sendMailMsg")</strong></span>
+      </div>
+     </div>
+   </div>
+}        

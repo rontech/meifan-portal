@@ -1,19 +1,19 @@
 @(subNavInSalon: String = "my-followSalon", user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)(content: Html)
 
 @myPageMain("my-relevants", user, followInfo, loginUserId, logged){
-	
-	<div>
-		<ul class="tab-sub">
-			<li class="fl  @if(subNavInSalon == "my-follows") {selected}">
-				<a class="current-demo" href="@noAuth.routes.MyFollows.followers(user.id)">@Messages("user.myFollowers")</a>
-			</li>
-			@if(loginUserId.equals(user.id)){
-	  			<li class="fl  @if(subNavInSalon == "my-messages") {selected}">
-					<a class="current-demo" href="@auth.routes.UserLetters.messageList("unRead")">@Messages("user.myMessages")</a>
-				</li>
-	  		}	
-		</ul>
-	</div>
-	@content
-	
+  
+  <div>
+    <ul class="tab-sub">
+      <li class="fl  @if(subNavInSalon == "my-follows") {selected}">
+        <a class="current-demo" href="@noAuth.routes.MyFollows.followers(user.id)">@Messages("user.myFollowers")</a>
+      </li>
+      @if(loginUserId.equals(user.id)){
+         <li class="fl  @if(subNavInSalon == "my-messages") {selected}">
+          <a class="current-demo" href="@auth.routes.UserLetters.messageList("unRead")">@Messages("user.myMessages")</a>
+        </li>
+       }    
+    </ul>
+  </div>
+  @content
+  
 }

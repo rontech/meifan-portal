@@ -2,92 +2,92 @@
 
 
 <div id="index_zxfx">
-    <h2>
-        <img src="@routes.Assets.at("images/index_zxfx_title.jpg")" width="255" height="36" />
+  <h2>
+    <img src="@routes.Assets.at("images/index_zxfx_title.jpg")" width="255" height="36" />
   </h2>
   <div id="index_zxfx_nr">
-      <div id=index_zxfxleft>
-          @if(styles.length > 0) {
-          <div id=index_zxfxleftList1 class=index_zxfxleftList>
-              <div id="index_zxfx_pic">
-                  <ul>
-                      <li class="g1">
-                          @Messages("style.ranking.first")
-                      </li>
-                      <li class="one">
-                          <a href="@noAuth.routes.Salons.getOneStyle(styles(0).salonId, styles(0).style.id)">
-                              <img src="@routes.Application.getPhoto(styles(0).style.stylePic(0).fileObjId)" width="220" height="250" />
-                              <span>
-                                  <p> @styles(0).style.styleName </P>
-                                  <br />
-                                  <p> @styles(0).salonName </P>
-                              </span>
-                          </a>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-          }
-          @if(styles.length > 1) {
-              <div id=index_zxfxleftList2 class=index_zxfxleftList_none>
-                  <div id="index_zxfx_pic">
-                      <ul>
-                          <li class="g2">
-                              @Messages("style.ranking.second")
-                          </li>
-                          <li class="one">
-                              <a href="@noAuth.routes.Salons.getOneStyle(styles(1).salonId, styles(1).style.id)">
-                                  <img src="@routes.Application.getPhoto(styles(1).style.stylePic(0).fileObjId)" width="220" height="250" />
-                                  <span>
-                                      <p> @styles(1).style.styleName </P>
-                                      <br />
-                                      <p> @styles(1).salonName </P>
-                                  </span>
-                              </a>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-              <div id=index_zxfxleft_box>
-                  <h3 id=mod1 class=menuOn onmouseover="switchmodTag('mod','index_zxfxleftList','1');this.blur();">
-                      <img src="@routes.Application.getPhoto(styles(0).style.stylePic(0).fileObjId)" width="90" height="110" />
-                  </h3>
-                  <h3 id=mod2 class=menuNo onmouseover="switchmodTag('mod','index_zxfxleftList','2');this.blur();">
-                      <img src="@routes.Application.getPhoto(styles(1).style.stylePic(0).fileObjId)" width="90" height="110" />
-                  </h3>
-              </div>
-          }
-      </div>
-      <div id="index_zxfxlist">
-          <ul>
-              @if(styles.length > 2) {
-                  @for(i <- 2 until (if (styles.length > 6) 6 else styles.length)){
-                  <li>
-                   <a href="@noAuth.routes.Salons.getOneStyle(styles(i).salonId, styles(i).style.id)">
-                       <img src="@routes.Application.getPhoto(styles(i).style.stylePic(0).fileObjId)" width="150" height="171" />
-                       <span>
-                           @styles(i).style.styleName
-                           <br />
-                           @styles(i).salonName
-                       </span>
-                   </a>
-                  </li>    
-                  }
-              }
-            </ul>
-        </div>
+   <div id=index_zxfxleft>
+     @if(styles.length > 0) {
+     <div id=index_zxfxleftList1 class=index_zxfxleftList>
+       <div id="index_zxfx_pic">
+         <ul>
+           <li class="g1">
+             @Messages("style.ranking.first")
+           </li>
+           <li class="one">
+             <a href="@noAuth.routes.Salons.getOneStyle(styles(0).salonId, styles(0).style.id)">
+               <img src="@routes.Application.getPhoto(styles(0).style.stylePic(0).fileObjId)" width="220" height="250" />
+               <span>
+                 <p> @styles(0).style.styleName </P>
+                 <br />
+                 <p> @styles(0).salonName </P>
+               </span>
+             </a>
+           </li>
+         </ul>
+       </div>
+     </div>
+     }
+     @if(styles.length > 1) {
+       <div id=index_zxfxleftList2 class=index_zxfxleftList_none>
+         <div id="index_zxfx_pic">
+           <ul>
+             <li class="g2">
+               @Messages("style.ranking.second")
+             </li>
+             <li class="one">
+               <a href="@noAuth.routes.Salons.getOneStyle(styles(1).salonId, styles(1).style.id)">
+                 <img src="@routes.Application.getPhoto(styles(1).style.stylePic(0).fileObjId)" width="220" height="250" />
+                 <span>
+                   <p> @styles(1).style.styleName </P>
+                   <br />
+                   <p> @styles(1).salonName </P>
+                 </span>
+               </a>
+             </li>
+           </ul>
+         </div>
+       </div>
+       <div id=index_zxfxleft_box>
+         <h3 id=mod1 class=menuOn onmouseover="switchmodTag('mod','index_zxfxleftList','1');this.blur();">
+           <img src="@routes.Application.getPhoto(styles(0).style.stylePic(0).fileObjId)" width="90" height="110" />
+         </h3>
+         <h3 id=mod2 class=menuNo onmouseover="switchmodTag('mod','index_zxfxleftList','2');this.blur();">
+           <img src="@routes.Application.getPhoto(styles(1).style.stylePic(0).fileObjId)" width="90" height="110" />
+         </h3>
+       </div>
+     }
+   </div>
+   <div id="index_zxfxlist">
+     <ul>
+       @if(styles.length > 2) {
+         @for(i <- 2 until (if (styles.length > 6) 6 else styles.length)){
+         <li>
+          <a href="@noAuth.routes.Salons.getOneStyle(styles(i).salonId, styles(i).style.id)">
+            <img src="@routes.Application.getPhoto(styles(i).style.stylePic(0).fileObjId)" width="150" height="171" />
+            <span>
+              @styles(i).style.styleName
+              <br />
+              @styles(i).salonName
+            </span>
+          </a>
+         </li>    
+         }
+       }
+      </ul>
     </div>
+  </div>
 </div>
 <SCRIPT language=javascript>
   function switchmodTag(modtag, modcontent, modk) {
-      for (i = 1; i < 3; i++) {
-          if (i == modk) {
-              document.getElementById(modtag + i).className = "menuOn";
-              document.getElementById(modcontent + i).className = "index_zxfxleftList";
-          } else {
-              document.getElementById(modtag + i).className = "menuNo";
-              document.getElementById(modcontent + i).className = "index_zxfxleftList_none";
-          }
-      }
+   for (i = 1; i < 3; i++) {
+     if (i == modk) {
+       document.getElementById(modtag + i).className = "menuOn";
+       document.getElementById(modcontent + i).className = "index_zxfxleftList";
+     } else {
+       document.getElementById(modtag + i).className = "menuNo";
+       document.getElementById(modcontent + i).className = "index_zxfxleftList_none";
+     }
+   }
   }
 </SCRIPT>

@@ -1,3 +1,20 @@
+/**
+ * RONTECH CONFIDENTIAL
+ * __________________
+ *
+ *  [2014] - SuZhou Rontech Co.,Ltd.(http://www.sz-rontech.com)
+ *  All Rights Reserved.
+ *
+ * NOTICE:  All information contained herein is, and remains
+ * the property of SuZhou Rontech Co.,Ltd. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to SuZhou Rontech Co.,Ltd.
+ * and its suppliers and may be covered by China and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from SuZhou Rontech Co.,Ltd..
+ */
 package models
 
 import java.util.Date
@@ -29,19 +46,19 @@ case class BlogOfStylist(userInfo : User, stylistInfo : Stylist, blogListOfStyli
 
 
 case class Blog(
-    id : ObjectId = new ObjectId,
-    title : String, 
-    content : String,
-    authorId: String, 
-    createTime: Date, 
-    updateTime : Date,
-    blogCategory : String,
-    blogPics : Option[List[String]], // TODO
-    tags : List[String],
-    isVisible : Boolean,
-    pushToSalon : Option[Boolean],
-    allowComment : Boolean,
-    isValid : Boolean)
+  id : ObjectId = new ObjectId,
+  title : String, 
+  content : String,
+  authorId: String, 
+  createTime: Date, 
+  updateTime : Date,
+  blogCategory : String,
+  blogPics : Option[List[String]], // TODO
+  tags : List[String],
+  isVisible : Boolean,
+  pushToSalon : Option[Boolean],
+  allowComment : Boolean,
+  isValid : Boolean)
 
 object Blog extends MeifanNetModelCompanion[Blog] {
   val dao = new MeifanNetDAO[Blog](collection = loadCollection()){}
@@ -50,35 +67,35 @@ object Blog extends MeifanNetModelCompanion[Blog] {
    * 找到该店铺下面所有发型师的Blog
    */
   def findBySalon(salonId: ObjectId): List[Blog] = {
-    var blogList : List[Blog] = Nil
-    val stylistList = Stylist.findBySalon(salonId)
-    var blog : List[Blog] = Nil
-    stylistList.foreach({ row => 
-        var user = User.findOneById(row.stylistId).get
-        blog = Blog.find(DBObject("authorId" -> user.userId, "isValid" -> true, "pushToSalon" -> true)).toList
-        if(!blog.isEmpty)
-          blogList :::= blog
-      }
-    )
-    blogList.sortBy(blog => blog.createTime).reverse
+  var blogList : List[Blog] = Nil
+  val stylistList = Stylist.findBySalon(salonId)
+  var blog : List[Blog] = Nil
+  stylistList.foreach({ row => 
+    var user = User.findOneById(row.stylistId).get
+    blog = Blog.find(DBObject("authorId" -> user.userId, "isValid" -> true, "pushToSalon" -> true)).toList
+    if(!blog.isEmpty)
+     blogList :::= blog
+   }
+  )
+  blogList.sortBy(blog => blog.createTime).reverse
   }
   
   /**
    * 查找店铺的最新blog（显示不多于5条）
    */
   def getNewestBlogsOfSalon(salonId: ObjectId) = {
-    if(findBySalon(salonId).size <= 5){
-      findBySalon(salonId)
-    }else{
-      findBySalon(salonId).dropRight(findBySalon(salonId).size-5)
-    }
+  if(findBySalon(salonId).size <= 5){
+   findBySalon(salonId)
+  }else{
+   findBySalon(salonId).dropRight(findBySalon(salonId).size-5)
+  }
   }
 
   /**
    * 通过该用户的UserId找到该用户的blog
    */
   def getBlogByUserId(userId : String) = {
-    dao.find(MongoDBObject("authorId" -> userId, "isValid" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
+  dao.find(MongoDBObject("authorId" -> userId, "isValid" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
   }
   
   /**
@@ -86,33 +103,33 @@ object Blog extends MeifanNetModelCompanion[Blog] {
    * 通过该用户的UserId找到该用户的blog
    */
   def getOtherBlogByUserId(userId : String) = {
-    dao.find(MongoDBObject("authorId" -> userId, "isValid" -> true, "isVisible" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
+  dao.find(MongoDBObject("authorId" -> userId, "isValid" -> true, "isVisible" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
   }
   
   /**
    * 删除指定的blog
    */
   def delete(id : ObjectId) = {
-    val blog = findOneById(id).get
-    dao.update(MongoDBObject("_id" -> blog.id), MongoDBObject("$set" -> MongoDBObject("isValid" -> false)))
+  val blog = findOneById(id).get
+  dao.update(MongoDBObject("_id" -> blog.id), MongoDBObject("$set" -> MongoDBObject("isValid" -> false)))
   }
   
   /**
    * 通过User ObjectId 找到该发型师的blog
    */
   def getStylistBlogByStylistId(objId: ObjectId) = {
-    val user = User.findOneById(objId)
-    user match {
-      case None => Nil
-      case Some(usr) => getStylistBlogByUserId(usr.userId)
-    }
+  val user = User.findOneById(objId)
+  user match {
+   case None => Nil
+   case Some(usr) => getStylistBlogByUserId(usr.userId)
+  }
   }
 
   /**
    * 通过UserId找到该发型师的blog
    */
   def getStylistBlogByUserId(userId : String) = {
-    dao.find(MongoDBObject("authorId" -> userId, "isValid" -> true, "pushToSalon" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
+  dao.find(MongoDBObject("authorId" -> userId, "isValid" -> true, "pushToSalon" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
   }
   
   /**
@@ -121,34 +138,34 @@ object Blog extends MeifanNetModelCompanion[Blog] {
    */
   // TODO
   def findBlogForHome(num : Int) : List[BlogOfSalon]= {
-    var blogOfSalonList : List[BlogOfSalon] = Nil
-    val blogList= dao.find(MongoDBObject("isVisible" -> true, "isValid" -> true, "pushToSalon" -> true)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
-    blogList.foreach({
-      row =>
-        val user = User.findOneByUserId(row.authorId)
-		user match {
-		    case None => None
-		    case Some(u) => {
-		      val stylist = Stylist.findOneById(u.id)
-		      stylist match {
-			      case None => None
-			      case Some(st) => {
-			        val salonAndStylist= SalonAndStylist.findByStylistId(st.stylistId)
-			        salonAndStylist match {
-			          case None => None
-			          case Some(salonSt) => {
-			            val salon = Salon.findOneById(salonSt.salonId)
-			            val blogOfSalon = BlogOfSalon(row, salon)			            
-			            blogOfSalonList :::= List(blogOfSalon)
-			          }
-			        }
-			        }
-			      }
-		      }
-		    }
-        }    
-    )
-    blogOfSalonList.sortBy(blogOfSalon => blogOfSalon.blogInfo.createTime).reverse
+  var blogOfSalonList : List[BlogOfSalon] = Nil
+  val blogList= dao.find(MongoDBObject("isVisible" -> true, "isValid" -> true, "pushToSalon" -> true)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
+  blogList.foreach({
+   row =>
+    val user = User.findOneByUserId(row.authorId)
+    user match {
+      case None => None
+      case Some(u) => {
+       val stylist = Stylist.findOneById(u.id)
+       stylist match {
+         case None => None
+         case Some(st) => {
+          val salonAndStylist= SalonAndStylist.findByStylistId(st.stylistId)
+          salonAndStylist match {
+           case None => None
+           case Some(salonSt) => {
+            val salon = Salon.findOneById(salonSt.salonId)
+            val blogOfSalon = BlogOfSalon(row, salon)                        
+            blogOfSalonList :::= List(blogOfSalon)
+           }
+          }
+          }
+         }
+       }
+      }
+    }    
+  )
+  blogOfSalonList.sortBy(blogOfSalon => blogOfSalon.blogInfo.createTime).reverse
   }
   
   /**
@@ -156,22 +173,22 @@ object Blog extends MeifanNetModelCompanion[Blog] {
    */
   //TODO 上面取的店铺的blog的方法可能需要重构
   def getBlogsOfStylistInSalon(salonId: ObjectId) : List[BlogOfStylist] = {
-    var blogsOfStylistList : List[BlogOfStylist] = Nil
-    val stylistList = Stylist.findBySalon(salonId)
-    stylistList.foreach({ stl => 
-        var user = User.findOneById(stl.stylistId)
-        user match {
-          case None => None
-          case Some(u) => {
-            val blogList = getStylistBlogByUserId(u.userId)
-            val blogOfStylist = BlogOfStylist(u, stl, blogList)
-            blogsOfStylistList :::= List(blogOfStylist)
-          }
-        }
-      }
-    )
-    
-    blogsOfStylistList
+  var blogsOfStylistList : List[BlogOfStylist] = Nil
+  val stylistList = Stylist.findBySalon(salonId)
+  stylistList.foreach({ stl => 
+    var user = User.findOneById(stl.stylistId)
+    user match {
+     case None => None
+     case Some(u) => {
+      val blogList = getStylistBlogByUserId(u.userId)
+      val blogOfStylist = BlogOfStylist(u, stl, blogList)
+      blogsOfStylistList :::= List(blogOfStylist)
+     }
+    }
+   }
+  )
+  
+  blogsOfStylistList
   }
   
   

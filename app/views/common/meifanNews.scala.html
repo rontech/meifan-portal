@@ -1,20 +1,20 @@
 @(infoList : List[Info] = Info.findInfoForHome(6))
 <div id="index_leis">
-	<h2><img src="@routes.Assets.at("images/index_mnews_title.jpg")" width="272" height="36" /></h2>
-    <div id="index_leis_nr">
-	    @for(info <- infoList){
-	    	<dl>
-	        	<dt><a href="@noAuth.routes.Infos.getOneInfo(info.id)" class="link-green">@info.title.slice(0, 13) ...</a></dt>
-	            <dd class="pic"><a href="@noAuth.routes.Infos.getOneInfo(info.id)"><img src="@routes.Application.getPhoto(info.infoPics(0).fileObjId)" width="80" height="90" /></a></dd>
-	            <dd class="txt">
-	            @Html(info.content.slice(0, 25)) ...
-	            </dd>
-	            <dd class="more">
-	            	<a href="@noAuth.routes.Infos.getOneInfo(info.id)">
-	            		<img src="@routes.Assets.at("images/more.jpg")" width="40" height="10">
-	            	</a>
-	            </dd>
-	        </dl>
-	    }
-    </div>
+  <h2><img src="@routes.Assets.at("images/index_mnews_title.jpg")" width="272" height="36" /></h2>
+  <div id="index_leis_nr">
+    @for(info <- infoList){
+      <dl>
+        <dt><a href="@noAuth.routes.Infos.getOneInfo(info.id)" class="link-green">@info.title.slice(0, 13) ...</a></dt>
+        <dd class="pic"><a href="@noAuth.routes.Infos.getOneInfo(info.id)"><img src="@routes.Application.getPhoto(info.infoPics(0).fileObjId)" width="80" height="90" /></a></dd>
+        <dd class="txt">
+        @Html(info.content.slice(0, 25)) ...
+        </dd>
+        <dd class="more">
+          <a href="@noAuth.routes.Infos.getOneInfo(info.id)">
+            <img src="@routes.Assets.at("images/more.jpg")" width="40" height="10">
+          </a>
+        </dd>
+      </dl>
+    }
+  </div>
 </div>

@@ -1,11 +1,11 @@
 @(navInSalon: String = "my-services", salon: Salon, serviceList: List[Service], serviceTypeNameList: List[String], serviceTypeInserviceList : List[String])
 
 @mySalonMain(navInSalon, salon){
-	
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/menu.css")">
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/service/service.css")">
-	
-	@views.html.service.showServiceGroup(salon, serviceList, serviceTypeNameList, serviceTypeInserviceList)
-	
+  
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/menu.css")">
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/service/service.css")">
+  
+  @views.html.service.showServiceGroup(salon, serviceList, serviceTypeNameList, serviceTypeInserviceList)
+  
 }

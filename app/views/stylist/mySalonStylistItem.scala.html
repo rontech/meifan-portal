@@ -1,56 +1,56 @@
 @(stylist: Stylist, salon: Salon)
 <body>
 <div class="mysalon-stylist-search w150 mHA">
-    <div class="taC">
-		<a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
-        	<img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" class="bdImgGray w150 h200" title=@Messages("salon.stylistTitle")>
-		</a>
-    </div>
-    <p class="mT10">
-        <a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
-           <p>@Stylist.findUserName(stylist.stylistId)</p>
-        </a>
-    </p>
-    <p class="mT10">
-        
-           @stylist.position.map{po=>
-           	@Messages(po.industryName)&nbsp;@Messages("position.positionName."+po.positionName)
-           }
-        
-    </p>
-    <div class="bdDotT mT5 pT5 fs10">
-        <span class="fgPink">
-       
-       	&nbsp;
-      
-        </span>
+  <div class="taC">
+    <a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
+      <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" class="bdImgGray w150 h200" title=@Messages("salon.stylistTitle")>
+    </a>
+  </div>
+  <p class="mT10">
+    <a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
+      <p>@Stylist.findUserName(stylist.stylistId)</p>
+    </a>
+  </p>
+  <p class="mT10">
+    
+      @stylist.position.map{po=>
+        @Messages(po.industryName)&nbsp;@Messages("position.positionName."+po.positionName)
+      }
+    
+  </p>
+  <div class="bdDotT mT5 pT5 fs10">
+    <span class="fgPink">
+    
+      &nbsp;
+   
+    </span>
   @*（@stylist.workYears
   年）*@
   [@Messages("stylist.experienceYears", stylist.workYears)] 
-    </div>
+  </div>
 </div>
 <div class="taC mT10">
-	@*<a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv">查看日程</a>*@
-		<p>
-	    	@*<a href="@auth.routes.Salons.removeStylist(stylist.stylistId)">
-	    		@Messages("salonAdmin.removeStylist")
-	    	</a>*@
-	    	<a href="" class="removeStylist_@stylist.stylistId buttons applyToStylist" data-stylist="@stylist.stylistId" >@Messages("salonAdmin.removeStylist")</a>
-	    </p>
+  @*<a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv">查看日程</a>*@
+    <p>
+      @*<a href="@auth.routes.Salons.removeStylist(stylist.stylistId)">
+        @Messages("salonAdmin.removeStylist")
+      </a>*@
+      <a href="" class="removeStylist_@stylist.stylistId buttons applyToStylist" data-stylist="@stylist.stylistId" >@Messages("salonAdmin.removeStylist")</a>
+    </p>
 </div>
 </body>
 
 <script type="text/javascript">
 $('.removeStylist_@stylist.stylistId').click(function(e) {
-	  e.preventDefault();
-	  stylistId = $(this).data('stylist');
-    @*if(!confirm("关系解除后无法恢复，请确认是否解除关系？")){*@
-   	if(!confirm("@Messages("stylist.removeStylist")")){    
-  	return;
-    }else{
-      @*location.href="@auth.routes.Salons.removeStylist(stylistId)";*@
-      location.href="/mySalon/removeStylist/" + stylistId; 
-    } 
-	});
+   e.preventDefault();
+   stylistId = $(this).data('stylist');
+  @*if(!confirm("关系解除后无法恢复，请确认是否解除关系？")){*@
+    if(!confirm("@Messages("stylist.removeStylist")")){    
+   return;
+  }else{
+   @*location.href="@auth.routes.Salons.removeStylist(stylistId)";*@
+   location.href="/mySalon/removeStylist/" + stylistId; 
+  } 
+  });
 
 </script>

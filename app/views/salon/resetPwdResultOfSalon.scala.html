@@ -2,41 +2,41 @@
 @import helper._
 
 @main(Messages("common.resetPassword")) {
- 	<head>
-		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/findPwd.css")">
-	</head>
-	
- 	<div id="entry" class="w m">
- 		<div class="mt">
-			<h2>@Messages("user.resetPassword")</h2>
-			<b></b>
-		</div>
-		<div class="mc">
-			<div class="step">
-	            <ul>
-	               <li class="one one1">@Messages("pwd.account")</li>
-	               <li class="two two1">@Messages("pwd.verify")</li>
-	               <li class="three">@Messages("pwd.setNewPwd")</li>
-	               @if(isSuccess) {
-	               	<li class="four cur four1">@Messages("pwd.finish")</li>
-	               } else {
-	               	<li class="four cur four1">@Messages("pwd.fail")</li>
-	               }
-	               
-	            </ul>
-	        </div>
-	        <div class="form">
-	        	@if(isSuccess) {
-               	<div class="suc m-return">
-	        		<b></b><span><strong>@Messages("pwd.setPwdSuc")</strong><br>@Messages("pwd.remPwd")<a href="@routes.Application.index">@Messages("pwd.index")</a>@Messages("pwd.or")<a href="@routes.Application.salonLogin">@Messages("pwd.login")</a></span>
-	        	</div>
-               } else {
-               	<div class="call m-return">
-	        		<b></b><span><strong>@Messages("pwd.setPwdFail")</strong><br>@Messages("pwd.failReason")<a href="@routes.Application.index">@Messages("pwd.index")</a>@Messages("pwd.or")<a href="@routes.Mails.forgotPasswordOfSalon">@Messages("pwd.seretPwd")</a></span>
-	        		@*<font>@msg</font>*@
-	        	</div>
-               }
-			</div>
-  		</div>
- 	</div>
-}		
+   <head>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/findPwd.css")">
+  </head>
+  
+   <div id="entry" class="w m">
+     <div class="mt">
+      <h2>@Messages("user.resetPassword")</h2>
+      <b></b>
+    </div>
+    <div class="mc">
+      <div class="step">
+        <ul>
+          <li class="one one1">@Messages("pwd.account")</li>
+          <li class="two two1">@Messages("pwd.verify")</li>
+          <li class="three">@Messages("pwd.setNewPwd")</li>
+          @if(isSuccess) {
+            <li class="four cur four1">@Messages("pwd.finish")</li>
+          } else {
+            <li class="four cur four1">@Messages("pwd.fail")</li>
+          }
+          
+        </ul>
+      </div>
+      <div class="form">
+        @if(isSuccess) {
+          <div class="suc m-return">
+          <b></b><span><strong>@Messages("pwd.setPwdSuc")</strong><br>@Messages("pwd.remPwd")<a href="@routes.Application.index">@Messages("pwd.index")</a>@Messages("pwd.or")<a href="@routes.Application.salonLogin">@Messages("pwd.login")</a></span>
+        </div>
+        } else {
+          <div class="call m-return">
+          <b></b><span><strong>@Messages("pwd.setPwdFail")</strong><br>@Messages("pwd.failReason")<a href="@routes.Application.index">@Messages("pwd.index")</a>@Messages("pwd.or")<a href="@routes.Mails.forgotPasswordOfSalon">@Messages("pwd.seretPwd")</a></span>
+          @*<font>@msg</font>*@
+        </div>
+        }
+      </div>
+     </div>
+   </div>
+}        

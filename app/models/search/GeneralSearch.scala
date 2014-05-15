@@ -1,3 +1,20 @@
+/**
+ * RONTECH CONFIDENTIAL
+ * __________________
+ *
+ *  [2014] - SuZhou Rontech Co.,Ltd.(http://www.sz-rontech.com)
+ *  All Rights Reserved.
+ *
+ * NOTICE:  All information contained herein is, and remains
+ * the property of SuZhou Rontech Co.,Ltd. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to SuZhou Rontech Co.,Ltd.
+ * and its suppliers and may be covered by China and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from SuZhou Rontech Co.,Ltd..
+ */
 package models
 
 import java.util.Date
@@ -26,16 +43,16 @@ object GeneralSrchDiv extends Enumeration {
  * salon检索条件字段合成类
  */
 case class SearchParaForSalon(
-    keyWord : Option[String],
-    city : String,
-    region: String,
-    salonName: List[String],
-    salonIndustry: String,
-    serviceType: List[String],
-    priceRange: PriceRange, 
-    seatNums: SeatNums,
-    salonFacilities: SalonFacilities,
-    sortByConditions: SortByConditions 
+  keyWord : Option[String],
+  city : String,
+  region: String,
+  salonName: List[String],
+  salonIndustry: String,
+  serviceType: List[String],
+  priceRange: PriceRange, 
+  seatNums: SeatNums,
+  salonFacilities: SalonFacilities,
+  sortByConditions: SortByConditions 
 )
 
 
@@ -43,10 +60,10 @@ case class SearchParaForSalon(
  * Assistant Class: sort by conditions 
  */
 case class SortByConditions(
-    selSortKey: String = "price",          // 选择的优先排序
-    sortByPopuAsc: Boolean = false,        // 热度: by popularity
-    sortByReviewAsc: Boolean = false,      // 评价: by review
-    sortByPriceAsc: Boolean = true         // 价格: by price
+  selSortKey: String = "price",          // 选择的优先排序
+  sortByPopuAsc: Boolean = false,        // 热度: by popularity
+  sortByReviewAsc: Boolean = false,      // 评价: by review
+  sortByPriceAsc: Boolean = true         // 价格: by price
 )
 
 
@@ -67,53 +84,53 @@ trait HotestKeywordDAO extends MeifanNetModelCompanion[HotestKeyword] {
   val dao = new MeifanNetDAO[HotestKeyword](collection = loadCollection()) {}
   
   def findHotestKeywordsByKW(keyword: String): List[String] = {
-    var rst: List[String] = Nil
-        // pre process for keyword: process the double byte blank to single byte blank.
-        val kws = keyword.replace("　"," ")
-        if(kws.replace(" ","").length == 0) {
-            // when keyword is not exist, return Nil.
-            rst
-        } else {
-            // when keyword is exist, convert it to regular expression.
-            val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|")}
-            val kwsRegex =  kwsAry.mkString.dropRight(1).r
-            // fields which search from 
-            var s = dao.find(MongoDBObject("atomicKeyword" -> kwsRegex)).toList.sortBy(_.hitTimes)
-            if(s.length<8) s else s.slice(0, 8)
-            s.map{key=>
-              rst :::= List(key.atomicKeyword)
-            }   
-            
-            rst.distinct
-        }
+  var rst: List[String] = Nil
+    // pre process for keyword: process the double byte blank to single byte blank.
+    val kws = keyword.replace("　"," ")
+    if(kws.replace(" ","").length == 0) {
+      // when keyword is not exist, return Nil.
+      rst
+    } else {
+      // when keyword is exist, convert it to regular expression.
+      val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|")}
+      val kwsRegex =  kwsAry.mkString.dropRight(1).r
+      // fields which search from 
+      var s = dao.find(MongoDBObject("atomicKeyword" -> kwsRegex)).toList.sortBy(_.hitTimes)
+      if(s.length<8) s else s.slice(0, 8)
+      s.map{key=>
+       rst :::= List(key.atomicKeyword)
+      }   
+      
+      rst.distinct
+    }
   } 
 
   /**
    * Get the hotest top N keywords.
    */ 
   def findTopKeywordsOfDiv(srchDiv: String = "Top", topN: Int = 0): List[String] = {
-    val cond = if(srchDiv == GeneralSrchDiv.Top.toString) MongoDBObject.empty else MongoDBObject("searchDiv" -> srchDiv) 
-    if(topN == 0) {
-      dao.find(cond).sort(MongoDBObject("hitTimes" -> -1)).toList.map {_.atomicKeyword}
-    } else {
-      dao.find(cond).sort(MongoDBObject("hitTimes" -> -1)).limit(topN).toList.map {_.atomicKeyword}
-    }
+  val cond = if(srchDiv == GeneralSrchDiv.Top.toString) MongoDBObject.empty else MongoDBObject("searchDiv" -> srchDiv) 
+  if(topN == 0) {
+   dao.find(cond).sort(MongoDBObject("hitTimes" -> -1)).toList.map {_.atomicKeyword}
+  } else {
+   dao.find(cond).sort(MongoDBObject("hitTimes" -> -1)).limit(topN).toList.map {_.atomicKeyword}
+  }
 
   }
   
   def addHitTimesBykWs(keyword: String) = {
-      val kws = keyword.replace("　"," ")
-        if(kws.replace(" ","").length == 0) {
-            // when keyword is not exist, return Nil.
-            
-        } else {
-            // when keyword is exist, convert it to regular expression.
-            val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|")}
-            val kwsRegex =  kwsAry.mkString.dropRight(1).r
-            // fields which search from 
-            dao.update(MongoDBObject("atomicKeyword" -> kwsRegex), 
-            MongoDBObject("$inc" -> ( MongoDBObject("hitTimes" ->  1))),false,true)
-        }
+   val kws = keyword.replace("　"," ")
+    if(kws.replace(" ","").length == 0) {
+      // when keyword is not exist, return Nil.
+      
+    } else {
+      // when keyword is exist, convert it to regular expression.
+      val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|")}
+      val kwsRegex =  kwsAry.mkString.dropRight(1).r
+      // fields which search from 
+      dao.update(MongoDBObject("atomicKeyword" -> kwsRegex), 
+      MongoDBObject("$inc" -> ( MongoDBObject("hitTimes" ->  1))),false,true)
+    }
   }
 
 }

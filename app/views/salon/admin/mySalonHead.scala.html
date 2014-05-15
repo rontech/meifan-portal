@@ -1,86 +1,86 @@
 @(navInMyPage:String = "my-reservation", salon :Salon)
 
-	<!-- ↓mainContents -->
-	<div class="sns-tab tab-app">
-    	<ul>
-    	@if(Salon.checkBasicInfoIsFill(salon)){
-		<li class="@if(navInMyPage == "my-infomation") {selected}">
-			<a href="@auth.routes.Salons.salonRegister" >
-		    	<span>@Messages("salonAdmin.infoManagement")</span>
-		    </a>
-		</li>    		
-    	}else{
- 		<li class="@if(navInMyPage == "my-infomation") {selected}">
-			<a href="@auth.routes.Salons.checkAuth">
-		    	@Messages("salonAdmin.infoManagement")
-		    </a>
-		</li>   	
-    	}
-		@if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
-		 	Salon.checkImgIsExist(salon)){			
-		<li class="@if(navInMyPage == "my-stylists") {selected}">
-			<a href="@auth.routes.Salons.myStylist">
-		    	@Messages("salonAdmin.stylistManagement")
-		    </a>
-		</li>
-		<li class="@if(navInMyPage == "my-styles") {selected}">
-			<a href="@auth.routes.Salons.getAllStylesBySalon()">
-				@Messages("salonAdmin.styleManagement")
-		    </a>
-		</li>
-		<li class="@if(navInMyPage == "my-reservation") {selected}">
-			<a href="#">
-				@Messages("salonAdmin.reserveManagement")
-		    </a>
-		</li>
-		<li class="@if(navInMyPage == "my-comment") {selected}">
-			<a href="@auth.routes.Salons.myComment">
-				@Messages("salonAdmin.commentManagement")
-		    </a>
-		</li>
-		@if(navInMyPage == "my-services") {
-			<li class="@if(navInMyPage == "my-services") {selected}">
-				<a href="@auth.routes.Salons.myService">
-					@Messages("salonAdmin.serviceManagement")
-			    </a>
-			</li>
-		}
-		@if(navInMyPage == "my-coupons") {
-			<li class="@if(navInMyPage == "my-coupons") {selected}">
-				<a href="@auth.routes.Salons.myCoupon">
-					@Messages("salonAdmin.couponManagement")
-			    </a>
-			</li>
-		}
-		@if(navInMyPage == "my-menus") {
-			<li class="@if(navInMyPage == "my-menus") {selected}">
-				<a href="@auth.routes.Salons.myMenu">
-					@Messages("salonAdmin.menuManagement")
-			    </a>
-			</li>
-		}
-		}else{
-		<li class="@if(navInMyPage == "my-stylists") {selected}">
-			<a href="@auth.routes.Salons.checkAuth">
-		    	@Messages("salonAdmin.stylistManagement")
-		    </a>
-		</li>
-		<li class="@if(navInMyPage == "my-styles") {selected}">
-			<a href="@auth.routes.Salons.checkAuth">
-				@Messages("salonAdmin.styleManagement")
-		    </a>
-		</li>
-		<li class="@if(navInMyPage == "my-reservation") {selected}">
-			<a href="@auth.routes.Salons.checkAuth">
-				@Messages("salonAdmin.reserveManagement")
-		    </a>
-		</li>
-		<li class="@if(navInMyPage == "my-comment") {selected}">
-			<a href="@auth.routes.Salons.checkAuth">
-				@Messages("salonAdmin.commentManagement")
-		    </a>
-		</li>		
-		}
-		</ul>
-	</div>
-	<!-- ↑mainContents -->
+  <!-- ↓mainContents -->
+  <div class="sns-tab tab-app">
+    <ul>
+    @if(Salon.checkBasicInfoIsFill(salon)){
+    <li class="@if(navInMyPage == "my-infomation") {selected}">
+      <a href="@auth.routes.Salons.salonRegister" >
+        <span>@Messages("salonAdmin.infoManagement")</span>
+      </a>
+    </li>            
+    }else{
+     <li class="@if(navInMyPage == "my-infomation") {selected}">
+      <a href="@auth.routes.Salons.checkAuth">
+        @Messages("salonAdmin.infoManagement")
+      </a>
+    </li>       
+    }
+    @if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
+       Salon.checkImgIsExist(salon)){            
+    <li class="@if(navInMyPage == "my-stylists") {selected}">
+      <a href="@auth.routes.Salons.myStylist">
+        @Messages("salonAdmin.stylistManagement")
+      </a>
+    </li>
+    <li class="@if(navInMyPage == "my-styles") {selected}">
+      <a href="@auth.routes.Salons.getAllStylesBySalon()">
+        @Messages("salonAdmin.styleManagement")
+      </a>
+    </li>
+    <li class="@if(navInMyPage == "my-reservation") {selected}">
+      <a href="#">
+        @Messages("salonAdmin.reserveManagement")
+      </a>
+    </li>
+    <li class="@if(navInMyPage == "my-comment") {selected}">
+      <a href="@auth.routes.Salons.myComment">
+        @Messages("salonAdmin.commentManagement")
+      </a>
+    </li>
+    @if(navInMyPage == "my-services") {
+      <li class="@if(navInMyPage == "my-services") {selected}">
+        <a href="@auth.routes.Salons.myService">
+          @Messages("salonAdmin.serviceManagement")
+        </a>
+      </li>
+    }
+    @if(navInMyPage == "my-coupons") {
+      <li class="@if(navInMyPage == "my-coupons") {selected}">
+        <a href="@auth.routes.Salons.myCoupon">
+          @Messages("salonAdmin.couponManagement")
+        </a>
+      </li>
+    }
+    @if(navInMyPage == "my-menus") {
+      <li class="@if(navInMyPage == "my-menus") {selected}">
+        <a href="@auth.routes.Salons.myMenu">
+          @Messages("salonAdmin.menuManagement")
+        </a>
+      </li>
+    }
+    }else{
+    <li class="@if(navInMyPage == "my-stylists") {selected}">
+      <a href="@auth.routes.Salons.checkAuth">
+        @Messages("salonAdmin.stylistManagement")
+      </a>
+    </li>
+    <li class="@if(navInMyPage == "my-styles") {selected}">
+      <a href="@auth.routes.Salons.checkAuth">
+        @Messages("salonAdmin.styleManagement")
+      </a>
+    </li>
+    <li class="@if(navInMyPage == "my-reservation") {selected}">
+      <a href="@auth.routes.Salons.checkAuth">
+        @Messages("salonAdmin.reserveManagement")
+      </a>
+    </li>
+    <li class="@if(navInMyPage == "my-comment") {selected}">
+      <a href="@auth.routes.Salons.checkAuth">
+        @Messages("salonAdmin.commentManagement")
+      </a>
+    </li>        
+    }
+    </ul>
+  </div>
+  <!-- ↑mainContents -->

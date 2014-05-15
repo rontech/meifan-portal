@@ -1,20 +1,20 @@
 @(subNavInSalon: String = "my-followSalon", user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)(content: Html)
 
 @myPageMain("my-follows", user, followInfo, loginUserId, logged){
-	
-	<div>
-		<ul class="tab-sub">
-			<li class="fl  @if(subNavInSalon == "my-followSalon") {selected}">
-				<a class="current-demo" href="@noAuth.routes.MyFollows.followedSalon(user.id)">@Messages("user.followSalon")</a>
-			</li>		
-            <li class="fl  @if(subNavInSalon == "my-followStylist") {selected}">
-				<a class="current-demo" href="@noAuth.routes.MyFollows.followedStylist(user.id)">@Messages("user.followStylist")</a>
-			</li>			
-            <li class="fl  @if(subNavInSalon == "my-followUser") {selected}">
-				<a class="current-demo" href="@noAuth.routes.MyFollows.followedUser(user.id)">@Messages("user.followUser")</a>
-			</li>			
-		</ul>
-	</div>
-	@content
-	
+  
+  <div>
+    <ul class="tab-sub">
+      <li class="fl  @if(subNavInSalon == "my-followSalon") {selected}">
+        <a class="current-demo" href="@noAuth.routes.MyFollows.followedSalon(user.id)">@Messages("user.followSalon")</a>
+      </li>        
+      <li class="fl  @if(subNavInSalon == "my-followStylist") {selected}">
+        <a class="current-demo" href="@noAuth.routes.MyFollows.followedStylist(user.id)">@Messages("user.followStylist")</a>
+      </li>            
+      <li class="fl  @if(subNavInSalon == "my-followUser") {selected}">
+        <a class="current-demo" href="@noAuth.routes.MyFollows.followedUser(user.id)">@Messages("user.followUser")</a>
+      </li>            
+    </ul>
+  </div>
+  @content
+  
 }

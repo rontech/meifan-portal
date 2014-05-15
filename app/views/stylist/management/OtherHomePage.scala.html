@@ -3,19 +3,19 @@
 @import views.html.user._
 
 @myPageMain("stylistHomepage",user,followInfo,loginUserId,logged){
-	<div class="cFix mT30 pH10">
-	<div class="mT30">
-        <div class="yS mainContentsSecondTitleOuter">
-	        <h3 class="yS mainContentsSecondTitleInner">
-	        @Messages("stylist.haircatalog",Stylist.findUserName(user.id))
-	        </h3>&nbsp;&nbsp;&nbsp;
-	        <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")</a>
-	    </div>
+  <div class="cFix mT30 pH10">
+  <div class="mT30">
+    <div class="yS mainContentsSecondTitleOuter">
+      <h3 class="yS mainContentsSecondTitleInner">
+      @Messages("stylist.haircatalog",Stylist.findUserName(user.id))
+      </h3>&nbsp;&nbsp;&nbsp;
+      <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")</a>
     </div>
-                
-    <!-- get all the salons with all the styles.  -->
-       @views.html.stylist.styleGroup(styles)
-	</div>
+  </div>
+        
+  <!-- get all the salons with all the styles.  -->
+    @views.html.stylist.styleGroup(styles)
+  </div>
 }
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">

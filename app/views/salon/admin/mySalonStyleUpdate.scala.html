@@ -1,6 +1,6 @@
 @(navInSalon: String = "my-stylists", salon: Salon, style: models.Style, stylists: List[Stylist], styleUpdateForm: Form[models.Style], styleParaAll: models.StylePara)
 @mySalonMain(navInSalon, salon){
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
-    @views.html.style.admin.styleUpdateBySalon(styleUpdateForm, styleParaAll, style)
-    <hr/>
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+  @views.html.style.admin.styleUpdateBySalon(styleUpdateForm, styleParaAll, style)
+  <hr/>
 }

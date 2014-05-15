@@ -5,111 +5,111 @@
 
 @mySalonMain(navInSalon = "my-services", salon){
 
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/menu.css")">
-	
-	
-	<div>
-		<ul class="tabInfoTitle">
-			<li class="fl selected">
-				@Messages("service.editService")
-			</li>		
-		</ul>
-	</div>
-   	<div class="serviceInfo mT40">
-  		  @helper.form(auth.routes.Services.updateService(service.id), 'id -> "serviceForm", 'name -> "serviceForm") {
-			    <input type="hidden" name="salonId" value="@salon.id" />
-                <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-                    <tbody>
-                        <tr>
-                          <th>
-                              <div class="dibBL vaM w154">
-                                  <font class="cR">*</font>
-                                  @Messages("service.name")
-                              </div>
-                          </th>
-                          <td>
-                              <div class="inputField">
-                              @inputText(serviceForm("serviceName"),
-                                  'id ->"serviceNameReadOnly",
-                                  '_label -> None,
-                                  'readonly ->true)
-                              </div>
-                          </td>
-                      </tr>
-                        <tr>
-                          <th>
-                                  <!-- -->
-                              <div class="dibBL vaM w154">
-                                  <font class="cR">*</font>
-                                  @Messages("service.type")
-                              </div>
-                          </th>
-                          <td>
-                              <div class="inputField">
-                                  <input type="hidden" name="serviceType" value="@service.serviceType">
-                                  <dl>
-                                      <input type = "text" name = "" value = @Messages("ServiceType.serviceTypeName."+ service.serviceType) readonly="readonly">
-                                  </dl>
-                              </div>
-                          </td>
-                      </tr>
-                        <tr>
-                  <th>
-                          <!-- -->
-                      <div class="dibBL vaM w154">
-                          <font class="cR">*</font>
-                          @Messages("service.price")
-                      </div>
-                  </th>
-                  <td>
-                      <div class="inputField">
-                      @inputText(serviceForm("price"),
-                          '_help -> "",
-                          '_label -> None
-                      )
-                      </div>
-                  </td>
-              </tr>
-                        <tr>
-                  <th>
-                          <!-- -->
-                      <div class="dibBL vaM w154">
-                          <font class="cR">*</font>
-                          @Messages("service.tsCost")
-                      </div>
-                  </th>
-                  <td>
-                      <div class="inputField">
-                      @inputText(serviceForm("duration"),
-                          '_help -> "",
-                          '_label -> None
-                      )
-                      </div>
-                  </td>
-              </tr>
-                        <tr>
-                  <th>
-                          <!-- -->
-                      <div class="dibBL vaM w154">
-                          @Messages("service.description")
-                      </div>
-                  </th>
-                  <td>
-                      <div class="inputField">
-                      @textarea(field = serviceForm("description"),
-                          'rows -> 3,
-                          'cols -> 40,
-                          '_label ->None)
-                      </div>
-                  </td>
-              </tr>
-                    </tbody>
-                </table>
-                
-                <div class="btnArea">
-					<input type="button" class = "buttons" value="@Messages("service.update")" onclick="checksForService()">
-			    </div>
-  		  }
-    </div>
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/menu.css")">
+  
+  
+  <div>
+    <ul class="tabInfoTitle">
+      <li class="fl selected">
+        @Messages("service.editService")
+      </li>        
+    </ul>
+  </div>
+    <div class="serviceInfo mT40">
+      @helper.form(auth.routes.Services.updateService(service.id), 'id -> "serviceForm", 'name -> "serviceForm") {
+        <input type="hidden" name="salonId" value="@salon.id" />
+        <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+          <tbody>
+            <tr>
+             <th>
+               <div class="dibBL vaM w154">
+                 <font class="cR">*</font>
+                 @Messages("service.name")
+               </div>
+             </th>
+             <td>
+               <div class="inputField">
+               @inputText(serviceForm("serviceName"),
+                 'id ->"serviceNameReadOnly",
+                 '_label -> None,
+                 'readonly ->true)
+               </div>
+             </td>
+           </tr>
+            <tr>
+             <th>
+                 <!-- -->
+               <div class="dibBL vaM w154">
+                 <font class="cR">*</font>
+                 @Messages("service.type")
+               </div>
+             </th>
+             <td>
+               <div class="inputField">
+                 <input type="hidden" name="serviceType" value="@service.serviceType">
+                 <dl>
+                   <input type = "text" name = "" value = @Messages("ServiceType.serviceTypeName."+ service.serviceType) readonly="readonly">
+                 </dl>
+               </div>
+             </td>
+           </tr>
+            <tr>
+         <th>
+             <!-- -->
+           <div class="dibBL vaM w154">
+             <font class="cR">*</font>
+             @Messages("service.price")
+           </div>
+         </th>
+         <td>
+           <div class="inputField">
+           @inputText(serviceForm("price"),
+             '_help -> "",
+             '_label -> None
+           )
+           </div>
+         </td>
+       </tr>
+            <tr>
+         <th>
+             <!-- -->
+           <div class="dibBL vaM w154">
+             <font class="cR">*</font>
+             @Messages("service.tsCost")
+           </div>
+         </th>
+         <td>
+           <div class="inputField">
+           @inputText(serviceForm("duration"),
+             '_help -> "",
+             '_label -> None
+           )
+           </div>
+         </td>
+       </tr>
+            <tr>
+         <th>
+             <!-- -->
+           <div class="dibBL vaM w154">
+             @Messages("service.description")
+           </div>
+         </th>
+         <td>
+           <div class="inputField">
+           @textarea(field = serviceForm("description"),
+             'rows -> 3,
+             'cols -> 40,
+             '_label ->None)
+           </div>
+         </td>
+       </tr>
+          </tbody>
+        </table>
+        
+        <div class="btnArea">
+          <input type="button" class = "buttons" value="@Messages("service.update")" onclick="checksForService()">
+        </div>
+      }
+  </div>
 }
 <script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>

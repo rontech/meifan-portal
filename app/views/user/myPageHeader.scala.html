@@ -1,45 +1,45 @@
 @(navInMyPage:String = "my-reservation", user :User)
 
-	<!-- ↓mainContents -->
-    <div class="sns-tab tab-app">
-    	<ul>
-    		<li class="@if(navInMyPage == "my-reservation") {selected}">
-				<a href="@auth.routes.Users.myReservation" >
-			    	<span>@Messages("user.reservation")</span>
-			    </a>
-			</li>
-			<li class="@if(navInMyPage == "my-infomation") {selected}">
-				<a href="@auth.routes.Users.myInfo" >
-			    	<span>@Messages("user.myInfomation")</span>
-			    </a>
-			</li>
-			@if(user.userTyp.equals(User.STYLIST)){
-				<li class="@if(navInMyPage == "my-styles") {selected}">
-					<a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)" >
-				    	<span>@Messages("stylistMag.myStyle")</span>
-				    </a>
-				</li>
-			}
-			<li class="@if(navInMyPage == "my-follows") {selected}">
-				<a href="@noAuth.routes.MyFollows.followedSalon(user.id)" >
-			    	<span>@Messages("user.myFollows")</span>
-			    </a>
-			</li>
-			<li class="@if(navInMyPage == "my-collects") {selected}">
-				<a href="@auth.routes.MyFollows.followedCoupon(user.id)" >
-			    	<span>@Messages("user.myCollects")</span>
-			    </a>
-			</li>
-			<li class="@if(navInMyPage == "my-acts") {selected}">
-				<a href="@noAuth.routes.Blogs.getAllBlogsOfUser(user.userId)" >
-			    	<span>@Messages("user.myActs")</span>
-			    </a>
-			</li>
-			<li class="@if(navInMyPage == "my-relevants") {selected}">
-				<a href="@noAuth.routes.MyFollows.followers(user.id)" >
-			    	<span>@Messages("user.myRelevants")</span>
-			    </a>
-			</li>
-		</ul>
-	</div>
-	<!-- ↑mainContents -->
+  <!-- ↓mainContents -->
+  <div class="sns-tab tab-app">
+    <ul>
+      <li class="@if(navInMyPage == "my-reservation") {selected}">
+        <a href="@auth.routes.Users.myReservation" >
+          <span>@Messages("user.reservation")</span>
+        </a>
+      </li>
+      <li class="@if(navInMyPage == "my-infomation") {selected}">
+        <a href="@auth.routes.Users.myInfo" >
+          <span>@Messages("user.myInfomation")</span>
+        </a>
+      </li>
+      @if(user.userTyp.equals(User.STYLIST)){
+        <li class="@if(navInMyPage == "my-styles") {selected}">
+          <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)" >
+            <span>@Messages("stylistMag.myStyle")</span>
+          </a>
+        </li>
+      }
+      <li class="@if(navInMyPage == "my-follows") {selected}">
+        <a href="@noAuth.routes.MyFollows.followedSalon(user.id)" >
+          <span>@Messages("user.myFollows")</span>
+        </a>
+      </li>
+      <li class="@if(navInMyPage == "my-collects") {selected}">
+        <a href="@auth.routes.MyFollows.followedCoupon(user.id)" >
+          <span>@Messages("user.myCollects")</span>
+        </a>
+      </li>
+      <li class="@if(navInMyPage == "my-acts") {selected}">
+        <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(user.userId)" >
+          <span>@Messages("user.myActs")</span>
+        </a>
+      </li>
+      <li class="@if(navInMyPage == "my-relevants") {selected}">
+        <a href="@noAuth.routes.MyFollows.followers(user.id)" >
+          <span>@Messages("user.myRelevants")</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!-- ↑mainContents -->

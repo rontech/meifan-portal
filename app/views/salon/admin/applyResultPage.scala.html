@@ -4,39 +4,39 @@
 @import controllers._
 
 @mySalonMain("",salon){
-	<body onload="success('@salon.id')">
-		<div>
-			<div class="mt">
-	        	<ul class="tab">
-					<li clstag="click|keycount|myhome|tuangouqian" data-widget="tab-item" class="curr"><s></s><b></b>@Messages("salonAdmin.applyStylists")</li>
-	            </ul>
-			</div>
-			<div>
-				<p id="apply_message">@Messages("salonAdmin.ApplyOperateResult")<span id="times">5</span>@Messages("salonAdmin.ApplyOperateAction")
-				<a href="javascript:go('@salon.id');">@Messages("salonAdmin.ApplyOperateGo")</a></p>
-			</div>
-		</div>
-		<script language="javascript" type="text/javascript">
-			setTimeout("go()", 10000);
-		</script>
-	</body>	
+  <body onload="success('@salon.id')">
+    <div>
+      <div class="mt">
+        <ul class="tab">
+          <li clstag="click|keycount|myhome|tuangouqian" data-widget="tab-item" class="curr"><s></s><b></b>@Messages("salonAdmin.applyStylists")</li>
+        </ul>
+      </div>
+      <div>
+        <p id="apply_message">@Messages("salonAdmin.ApplyOperateResult")<span id="times">5</span>@Messages("salonAdmin.ApplyOperateAction")
+        <a href="javascript:go('@salon.id');">@Messages("salonAdmin.ApplyOperateGo")</a></p>
+      </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+      setTimeout("go()", 10000);
+    </script>
+  </body>    
 }
 <script language="javascript" type="text/javascript">
 var timer = null;
 var i=10;
 function success(salonId){
-	timer=window.setInterval('showTimes()',1000);
-	//timer=window.setTimeout('go('+salonId+')',6000);
+  timer=window.setInterval('showTimes()',1000);
+  //timer=window.setTimeout('go('+salonId+')',6000);
 }
 function go() {//定义函数
-	window.location="/mySalon/checkHoldApply";//页面跳转
+  window.location="/mySalon/checkHoldApply";//页面跳转
  }
 function showTimes(){
-		document.getElementById("times").innerHTML=i;
-		i--;
-		if(i==0){
-			window.clearInterval(timer);
-		}
+    document.getElementById("times").innerHTML=i;
+    i--;
+    if(i==0){
+      window.clearInterval(timer);
+    }
 }
 </script>
 

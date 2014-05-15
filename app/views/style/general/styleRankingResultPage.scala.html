@@ -2,16 +2,16 @@
 
 @main(title = Messages("hair.tabName"), nav = "hair-catalog") {
 
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
-    <div>
-        <div style="float:left;width:80%">
-            <!-- Style Ranking Result Page, SearchList. -->    
-            @views.html.style.general.styleRankingList(styleAndSalon)
-        </div>
-        <div style="">
-            <!-- ↓generalContentRightColumn -->
-            @views.html.salon.general.rightColumn(user)
-            <!-- ↑generalContentRightColumn -->
-        </div>
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+  <div>
+    <div style="float:left;width:80%">
+      <!-- Style Ranking Result Page, SearchList. -->    
+      @views.html.style.general.styleRankingList(styleAndSalon)
     </div>
+    <div style="">
+      <!-- ↓generalContentRightColumn -->
+      @views.html.salon.general.rightColumn(user)
+      <!-- ↑generalContentRightColumn -->
+    </div>
+  </div>
 }

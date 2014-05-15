@@ -1,32 +1,32 @@
 @(service: Service, salon: Salon)
 
 <div>
-	<table summary="summary" cellspacing="1" class="wFull bgLGray2 mT10 fs10 couponTable w765">
-		<tbody>
-				<tr>
-				<td class="w580 bgWhite">
-					<a id="MN00000001062756" name="MN00000001062756"><!-- --></a>
-					<div class="p10">
-						<div class="">
-							<div class="w560 b fs12 cFix">
-								<p class="fl"><font><font>@service.serviceName</font></font></p>
-								<p class="fr"><span class="fs13"><font><font>@service.price @Messages("coupon.currency")</font></font></span></p>
-							</div>
-						</div>
-						<p class="mT5 fgGray fs10"><font><font>@Messages("coupon.serviceDuration") &nbsp;&nbsp;&nbsp; @service.duration@Messages("service.minutes")</font></font></p>
-						<p class="mT5 fgGray fs10"><font><font>@service.description</font></font></p>
-					</div>
-				</td>
-				<td class="bdWhite bgLLGray2 vaM">
-					<div class="pV10 fs12">
-					     <div>
-							@*<a href="@auth.routes.Services.deleteService(service.id)" class="btn btn2H30 w120 mHA"><span><span class="fs12 b"><font><font>@Messages("service.delete")</font></font></span></span></a>*@
-							<a onclick="del('@auth.routes.Services.deleteService(service.id)','@Messages("common.deleteMsg")');" class="btn btn2H30 w120 mHA"><span><span class="fs12 b"><font><font>@Messages("service.delete")</font></font></span></span></a>
-							<a href="@auth.routes.Services.showService(service.id)" class="btn btn2H30 w120 mHA"><span><span class="fs12 b"><font><font>@Messages("coupon.modify")</font></font></span></span></a>
-						</div>
-					</div>
-				</td>
-				</tr>
-			</tbody>
-	</table>
+  <table summary="summary" cellspacing="1" class="wFull bgLGray2 mT10 fs10 couponTable w765">
+    <tbody>
+        <tr>
+        <td class="w580 bgWhite">
+          <a id="MN00000001062756" name="MN00000001062756"><!-- --></a>
+          <div class="p10">
+            <div class="">
+              <div class="w560 b fs12 cFix">
+                <p class="fl"><font><font>@service.serviceName</font></font></p>
+                <p class="fr"><span class="fs13"><font><font>@service.price @Messages("coupon.currency")</font></font></span></p>
+              </div>
+            </div>
+            <p class="mT5 fgGray fs10"><font><font>@Messages("coupon.serviceDuration") &nbsp;&nbsp;&nbsp; @service.duration@Messages("service.minutes")</font></font></p>
+            <p class="mT5 fgGray fs10"><font><font>@service.description</font></font></p>
+          </div>
+        </td>
+        <td class="bdWhite bgLLGray2 vaM">
+          <div class="pV10 fs12">
+             <div>
+              @*<a href="@auth.routes.Services.deleteService(service.id)" class="btn btn2H30 w120 mHA"><span><span class="fs12 b"><font><font>@Messages("service.delete")</font></font></span></span></a>*@
+              <a onclick="del('@auth.routes.Services.deleteService(service.id)','@Messages("common.deleteMsg")');" class="btn btn2H30 w120 mHA"><span><span class="fs12 b"><font><font>@Messages("service.delete")</font></font></span></span></a>
+              <a href="@auth.routes.Services.showService(service.id)" class="btn btn2H30 w120 mHA"><span><span class="fs12 b"><font><font>@Messages("coupon.modify")</font></font></span></span></a>
+            </div>
+          </div>
+        </td>
+        </tr>
+      </tbody>
+  </table>
 </div>

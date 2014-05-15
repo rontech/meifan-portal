@@ -1,61 +1,61 @@
 
 <div class="mT30" id="salon_nvfxjs_title">
-    <div id="salon_nvfxjs_title">
-            <img src="@routes.Assets.at("images/haircatalog/hair_label/salon_rq_title.jpg")" width="768" height="35">
-    </div>
-    <div id="style_nvfxjs_nr_box">
-        <h2 id="mod1" class="menuOn" onClick="switchmodTag('mod','styleRankingList','1');this.blur();">@Messages("hair.rankingAll")</h2>
-        <h2 id="mod2" class="menuNo" onClick="switchmodTag('mod','styleRankingList','2');this.blur();">@Messages("style.styleLength.super-short")</h2>
-        <h2 id="mod3" class="menuNo" onClick="switchmodTag('mod','styleRankingList','3');this.blur();">@Messages("style.styleLength.short")</h2>
-        <h2 id="mod4" class="menuNo" onClick="switchmodTag('mod','styleRankingList','4');this.blur();">@Messages("style.styleLength.near-shoulder-length")</h2>
-        <h2 id="mod5" class="menuNo" onClick="switchmodTag('mod','styleRankingList','5');this.blur();">@Messages("style.styleLength.shoulder-length")</h2>
-        <h2 id="mod6" class="menuNo" onClick="switchmodTag('mod','styleRankingList','6');this.blur();">@Messages("style.styleLength.mid-length")</h2>
-        <h2 id="mod7" class="menuNo" onClick="switchmodTag('mod','styleRankingList','7');this.blur();">@Messages("style.styleLength.long")</h2>
-        <h2 id="mod8" class="menuNo" onClick="switchmodTag('mod','styleRankingList','8');this.blur();">@Messages("hair.rankingMens")</h2>
-    </div>
-    
-    <div class="style_ranking_display_block" id="styleRankingList1">
-        @views.html.style.component.stylesInRanking(Style.findByRankingAndSex("female", 5), 5, "all", "female")
-    </div>
-    
-    <div class="style_ranking_display_none" id="styleRankingList2">
-        @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("super-short", "female", 5), 5, "all", "female")
-    </div>
-    
-    <div class="style_ranking_display_none" id="styleRankingList3">
-        @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("short", "female", 5), 5, "all", "female")
-    </div>
-    
-    <div class="style_ranking_display_none" id="styleRankingList4">
-        @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("near-shoulder-length", "female", 5), 5, "all", "female")
-    </div>
-    
-    <div class="style_ranking_display_none" id="styleRankingList5">
-        @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("shoulder-length", "female", 5), 5, "all", "female")
-    </div>
-    
-    <div class="style_ranking_display_none" id="styleRankingList6">
-        @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("mid-length", "female", 5), 5, "all", "female")
-    </div>
-    
-    <div class="style_ranking_display_none" id="styleRankingList7">
-        @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("long", "female", 5), 5, "all", "female")
-    </div>
-    
-    <div class="style_ranking_display_none" id="styleRankingList8">
-        @views.html.style.component.stylesInRanking(Style.findByRankingAndSex("male", 5), 5, "all", "male")
+  <div id="salon_nvfxjs_title">
+      <img src="@routes.Assets.at("images/haircatalog/hair_label/salon_rq_title.jpg")" width="768" height="35">
+  </div>
+  <div id="style_nvfxjs_nr_box">
+    <h2 id="mod1" class="menuOn" onClick="switchmodTag('mod','styleRankingList','1');this.blur();">@Messages("hair.rankingAll")</h2>
+    <h2 id="mod2" class="menuNo" onClick="switchmodTag('mod','styleRankingList','2');this.blur();">@Messages("style.styleLength.super-short")</h2>
+    <h2 id="mod3" class="menuNo" onClick="switchmodTag('mod','styleRankingList','3');this.blur();">@Messages("style.styleLength.short")</h2>
+    <h2 id="mod4" class="menuNo" onClick="switchmodTag('mod','styleRankingList','4');this.blur();">@Messages("style.styleLength.near-shoulder-length")</h2>
+    <h2 id="mod5" class="menuNo" onClick="switchmodTag('mod','styleRankingList','5');this.blur();">@Messages("style.styleLength.shoulder-length")</h2>
+    <h2 id="mod6" class="menuNo" onClick="switchmodTag('mod','styleRankingList','6');this.blur();">@Messages("style.styleLength.mid-length")</h2>
+    <h2 id="mod7" class="menuNo" onClick="switchmodTag('mod','styleRankingList','7');this.blur();">@Messages("style.styleLength.long")</h2>
+    <h2 id="mod8" class="menuNo" onClick="switchmodTag('mod','styleRankingList','8');this.blur();">@Messages("hair.rankingMens")</h2>
+  </div>
+  
+  <div class="style_ranking_display_block" id="styleRankingList1">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndSex("female", 5), 5, "all", "female")
+  </div>
+  
+  <div class="style_ranking_display_none" id="styleRankingList2">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("super-short", "female", 5), 5, "all", "female")
+  </div>
+  
+  <div class="style_ranking_display_none" id="styleRankingList3">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("short", "female", 5), 5, "all", "female")
+  </div>
+  
+  <div class="style_ranking_display_none" id="styleRankingList4">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("near-shoulder-length", "female", 5), 5, "all", "female")
+  </div>
+  
+  <div class="style_ranking_display_none" id="styleRankingList5">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("shoulder-length", "female", 5), 5, "all", "female")
+  </div>
+  
+  <div class="style_ranking_display_none" id="styleRankingList6">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("mid-length", "female", 5), 5, "all", "female")
+  </div>
+  
+  <div class="style_ranking_display_none" id="styleRankingList7">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("long", "female", 5), 5, "all", "female")
+  </div>
+  
+  <div class="style_ranking_display_none" id="styleRankingList8">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndSex("male", 5), 5, "all", "male")
    </div>
 </div>
 
 <script type="text/javascript">
-    function switchmodTag(modtag,modcontent,modk) {
-        for(i=1; i <9; i++) {
-            if (i==modk) {
-                document.getElementById(modtag+i).className="menuOn";
-                document.getElementById(modcontent+i).className="style_ranking_display_block";}
-            else {
-                document.getElementById(modtag+i).className="menuNo";
-                document.getElementById(modcontent+i).className="style_ranking_display_none";}
-            }
-    }
+  function switchmodTag(modtag,modcontent,modk) {
+    for(i=1; i <9; i++) {
+      if (i==modk) {
+        document.getElementById(modtag+i).className="menuOn";
+        document.getElementById(modcontent+i).className="style_ranking_display_block";}
+      else {
+        document.getElementById(modtag+i).className="menuNo";
+        document.getElementById(modcontent+i).className="style_ranking_display_none";}
+      }
+  }
 </script>

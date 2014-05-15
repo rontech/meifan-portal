@@ -5,56 +5,56 @@
 @import views.html.salon.admin.mySalonPictureMain
 
 @mySalonPictureMain("my-showPicture", salon){
-	<body>
-	@form(auth.routes.Salons.updateSalonPics(), 'id -> "styleAddForm"){		
-	
-	<div class="demo">
-		<div class="logoupload">
-			<div class="btnbox">
-				@Messages("onUsePicture.selectImge")&nbsp;
-				<a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
-			</div>
-			<div class="progress-box fl-progress" style="display:none;">
-				<div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
-				<div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
-			</div>
-		</div>
-		<div class="batch-pic">
-			<ul>
-				@repeat(salonPicsForm("salonPics")) { salonPic =>
-				@pictureGroup(salonPic)
-				}
-			</ul>
-		</div>
-	</div>
-	<div class="mT20 txtC">			
-		<input type = "submit" class = "buttons" value=@Messages("common.submit")>
-	</div></br></br>
-	}	
-	<div class="picDesLimit">
-		<h3>@Messages("salon.pictureLimit")</h3>
-		<p>@Messages("salon.picLimitDes1")<strong>@Messages("salon.picLimitDes2")</strong>@Messages("salon.picLimitDes3")<strong>@Messages("salon.picLimitDes4")</strong>。
-			<br/>
-			@Messages("salon.numberLimit")<br/>
-			@Messages("salon.typeLimit")
-		</p>
-		<h3>@Messages("salon.showPicReason_01")</h3>
-		<p>@Messages("salon.reason_01")<strong>@Messages("salon.reason_02")</strong>@Messages("salon.reason_03")。
-			<br/>
-			@Messages("salon.reason_04")<strong>@Messages("salon.reason_05")</strong><br/>
-		</p>		
-	</div>	
-	</body>
-	@pictureGroup(
-		salonPicsForm("salonPics[x]"),
-		className = "salonPic_template"
-	)
+  <body>
+  @form(auth.routes.Salons.updateSalonPics(), 'id -> "styleAddForm"){        
+  
+  <div class="demo">
+    <div class="logoupload">
+      <div class="btnbox">
+        @Messages("onUsePicture.selectImge")&nbsp;
+        <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
+      </div>
+      <div class="progress-box fl-progress" style="display:none;">
+        <div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
+        <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+      </div>
+    </div>
+    <div class="batch-pic">
+      <ul>
+        @repeat(salonPicsForm("salonPics")) { salonPic =>
+        @pictureGroup(salonPic)
+        }
+      </ul>
+    </div>
+  </div>
+  <div class="mT20 txtC">            
+    <input type = "submit" class = "buttons" value=@Messages("common.submit")>
+  </div></br></br>
+  }    
+  <div class="picDesLimit">
+    <h3>@Messages("salon.pictureLimit")</h3>
+    <p>@Messages("salon.picLimitDes1")<strong>@Messages("salon.picLimitDes2")</strong>@Messages("salon.picLimitDes3")<strong>@Messages("salon.picLimitDes4")</strong>。
+      <br/>
+      @Messages("salon.numberLimit")<br/>
+      @Messages("salon.typeLimit")
+    </p>
+    <h3>@Messages("salon.showPicReason_01")</h3>
+    <p>@Messages("salon.reason_01")<strong>@Messages("salon.reason_02")</strong>@Messages("salon.reason_03")。
+      <br/>
+      @Messages("salon.reason_04")<strong>@Messages("salon.reason_05")</strong><br/>
+    </p>        
+  </div>    
+  </body>
+  @pictureGroup(
+    salonPicsForm("salonPics[x]"),
+    className = "salonPic_template"
+  )
 
 }
 @pictureGroup(field: Field, className: String = "salonPic") = {
-	@field("picUse").value.map{picUse=>
- 	@if(picUse.equals("Navigate")){
- 		<li>
+  @field("picUse").value.map{picUse=>
+   @if(picUse.equals("Navigate")){
+     <li>
  <div class="delete-pic"></div>
   @field("fileObjId").value.map{fileid=>
    @if(!fileid.equals("")){ 
@@ -62,69 +62,69 @@
   }
  }
  <div class="addstyles-byStylist twipsies well @className">
-        @inputText(
-            field("fileObjId"), 
-   			'_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
-        )
-        @field("picUse").value.map{picUse=>
-        @if(picUse == "LOGO" || picUse == "Atmosphere" || picUse == "SalonCheck"){
-         @select(
+    @inputText(
+      field("fileObjId"), 
+        '_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
+    )
+    @field("picUse").value.map{picUse=>
+    @if(picUse == "LOGO" || picUse == "Atmosphere" || picUse == "SalonCheck"){
+     @select(
 
-            field ("picUse"), 
-            options = options(
-             "LOGO" -> Messages("salon.picUse.logo"),
-                "Navigate" -> Messages("salon.picUse.Navigate"),
-                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
-            ),
-             '_label -> None,
-             'placeholder -> Messages("salon.picUse"),
-             '_help -> Messages(""),
-             'class -> "picuseOfSalon"
+      field ("picUse"), 
+      options = options(
+       "LOGO" -> Messages("salon.picUse.logo"),
+        "Navigate" -> Messages("salon.picUse.Navigate"),
+        "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+      ),
+       '_label -> None,
+       'placeholder -> Messages("salon.picUse"),
+       '_help -> Messages(""),
+       'class -> "picuseOfSalon"
 
-         )
-        }else{
-         @select(
-            field ("picUse"), 
-            options = options(
-             "Navigate" -> Messages("salon.picUse.Navigate")
-            ),
-             '_label -> None,
-             'placeholder -> Messages("salon.picUse"),
-             '_help -> Messages(""),
-             'class -> "picuseOfSalon"
+     )
+    }else{
+     @select(
+      field ("picUse"), 
+      options = options(
+       "Navigate" -> Messages("salon.picUse.Navigate")
+      ),
+       '_label -> None,
+       'placeholder -> Messages("salon.picUse"),
+       '_help -> Messages(""),
+       'class -> "picuseOfSalon"
 
-         )
-        } 
-        
-        }.getOrElse{
-         @select(
-            field ("picUse"), 
-            options = options(
-             "Navigate" -> Messages("salon.picUse.Navigate")
-            ),
-             '_label -> None,
-             'placeholder -> Messages("salon.picUse"),
-             '_help -> Messages(""),
-             'class -> "picuseOfSalon"
-		)
+     )
+    } 
+    
+    }.getOrElse{
+     @select(
+      field ("picUse"), 
+      options = options(
+       "Navigate" -> Messages("salon.picUse.Navigate")
+      ),
+       '_label -> None,
+       'placeholder -> Messages("salon.picUse"),
+       '_help -> Messages(""),
+       'class -> "picuseOfSalon"
+    )
 
-        }       
-        @inputText(
-            field("showPriority"), 
-   			'_label -> None, 'class -> "imgShowPriority"
-        )
-        @textarea(
-            field("description"),
-            '_label -> None,
-            'rows -> 2, 'cols -> 15, 
-            'placeholder -> Messages("onUserPicture.picDescrition"), 'class -> "imagesDescriptionfelid"
+    }       
+    @inputText(
+      field("showPriority"), 
+        '_label -> None, 'class -> "imgShowPriority"
+    )
+    @textarea(
+      field("description"),
+      '_label -> None,
+      'rows -> 2, 'cols -> 15, 
+      'placeholder -> Messages("onUserPicture.picDescrition"), 'class -> "imagesDescriptionfelid"
 )
-        
-    </div>
+    
+  </div>
 
-    </li>
- 	}else{
- 		<li style="display:none;">
+  </li>
+   }else{
+     <li style="display:none;">
  <div class="delete-pic"></div>
   @field("fileObjId").value.map{fileid=>
    @if(!fileid.equals("")){ 
@@ -132,71 +132,71 @@
   }
  }
  <div class="addstyles-byStylist twipsies well @className">
-        @inputText(
-            field("fileObjId"), 
-  			 '_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
-        )
-        @field("picUse").value.map{picUse=>
-        @if(picUse == "LOGO" || picUse == "Atmosphere" || picUse == "SalonCheck"){
-         @select(
+    @inputText(
+      field("fileObjId"), 
+        '_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
+    )
+    @field("picUse").value.map{picUse=>
+    @if(picUse == "LOGO" || picUse == "Atmosphere" || picUse == "SalonCheck"){
+     @select(
 
-            field ("picUse"), 
-            options = options(
-             "LOGO" -> Messages("salon.picUse.logo"),
-                "SalonCheck" -> Messages("salon.picUse.SalonCheck"),
-                "Atmosphere" -> Messages("salon.picUse.Atmosphere")
-            ),
-             '_label -> None,
-             'placeholder -> Messages("salon.picUse"),
-             '_help -> Messages(""),
-             'class -> "picuseOfSalon"
+      field ("picUse"), 
+      options = options(
+       "LOGO" -> Messages("salon.picUse.logo"),
+        "SalonCheck" -> Messages("salon.picUse.SalonCheck"),
+        "Atmosphere" -> Messages("salon.picUse.Atmosphere")
+      ),
+       '_label -> None,
+       'placeholder -> Messages("salon.picUse"),
+       '_help -> Messages(""),
+       'class -> "picuseOfSalon"
 
-         )
-        }else{
-         @select(
-            field ("picUse"), 
-            options = options(
-             "Navigate" -> Messages("salon.picUse.Navigate")
-            ),
-             '_label -> None,
-             'placeholder -> Messages("salon.picUse"),
-             '_help -> Messages(""),
-             'class -> "picuseOfSalon"
+     )
+    }else{
+     @select(
+      field ("picUse"), 
+      options = options(
+       "Navigate" -> Messages("salon.picUse.Navigate")
+      ),
+       '_label -> None,
+       'placeholder -> Messages("salon.picUse"),
+       '_help -> Messages(""),
+       'class -> "picuseOfSalon"
 
-         )
-        } 
-        
-        }.getOrElse{
-         @select(
-            field ("picUse"), 
-            options = options(
-             "Navigate" -> Messages("salon.picUse.Navigate")
-            ),
-             '_label -> None,
-             'placeholder -> Messages("salon.picUse"),
-             '_help -> Messages(""),
-             'class -> "picuseOfSalon"
-		)
+     )
+    } 
+    
+    }.getOrElse{
+     @select(
+      field ("picUse"), 
+      options = options(
+       "Navigate" -> Messages("salon.picUse.Navigate")
+      ),
+       '_label -> None,
+       'placeholder -> Messages("salon.picUse"),
+       '_help -> Messages(""),
+       'class -> "picuseOfSalon"
+    )
 
-        }       
-        @inputText(
-            field("showPriority"), 
-   			'_label -> None, 'class -> "imgShowPriority"
-        )
-        @textarea(
-            field("description"),
-            '_label -> None,
-            'rows -> 2, 'cols -> 15, 
-            'placeholder -> Messages("onUserPicture.picDescrition"), 'class -> "imagesDescriptionfelid"
+    }       
+    @inputText(
+      field("showPriority"), 
+        '_label -> None, 'class -> "imgShowPriority"
+    )
+    @textarea(
+      field("description"),
+      '_label -> None,
+      'rows -> 2, 'cols -> 15, 
+      'placeholder -> Messages("onUserPicture.picDescrition"), 'class -> "imagesDescriptionfelid"
 )
-        
-    </div>
+    
+  </div>
 
-    </li>
- 	
- 	}
+  </li>
+   
+   }
  }.getOrElse{
- 	<li>
+   <li>
  <div class="delete-pic"></div>
   @field("fileObjId").value.map{fileid=>
    @if(!fileid.equals("")){ 
@@ -204,36 +204,36 @@
   }
  }
  <div class="addstyles-byStylist twipsies well @className">
-        @inputText(
-            field("fileObjId"), 
-   			'_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
-        )
-        
-         @select(
-            field ("picUse"), 
-            options = options(
-             "Navigate" -> Messages("salon.picUse.Navigate")
-            ),
-             '_label -> None,
-             'placeholder -> Messages("salon.picUse"),
-             '_help -> Messages(""),
-             'class -> "picuseOfSalon"
-		)
+    @inputText(
+      field("fileObjId"), 
+        '_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
+    )
+    
+     @select(
+      field ("picUse"), 
+      options = options(
+       "Navigate" -> Messages("salon.picUse.Navigate")
+      ),
+       '_label -> None,
+       'placeholder -> Messages("salon.picUse"),
+       '_help -> Messages(""),
+       'class -> "picuseOfSalon"
+    )
 
-              
-        @inputText(
-            field("showPriority"), 
-   			'_label -> None, 'class -> "imgShowPriority"
-        )
-        @textarea(
-            field("description"),
-            '_label -> None,
-            'rows -> 2, 'cols -> 15, 
-            'placeholder -> Messages("onUserPicture.picDescrition"), 'class -> "imagesDescriptionfelid"
+       
+    @inputText(
+      field("showPriority"), 
+        '_label -> None, 'class -> "imgShowPriority"
+    )
+    @textarea(
+      field("description"),
+      '_label -> None,
+      'rows -> 2, 'cols -> 15, 
+      'placeholder -> Messages("onUserPicture.picDescrition"), 'class -> "imagesDescriptionfelid"
 )     
-    </div>
+  </div>
 
-    </li>
+  </li>
  }
  
 }
