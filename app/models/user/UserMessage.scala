@@ -35,10 +35,10 @@ case class UserMessage(
   inBoxStatus: String,
   createdTime: Date) {
   def setAdd() = {
-  if (this.addressee.isEmpty)
-   this.addressee = User.findOneByNickNm(this.addresseeNm).get.userId
-  else
-   this.addresseeNm = User.findOneByUserId(this.addressee).get.nickName
+    if (this.addressee.isEmpty)
+      this.addressee = User.findOneByNickNm(this.addresseeNm).get.userId
+    else
+      this.addresseeNm = User.findOneByUserId(this.addressee).get.nickName
   }
 }
 
@@ -52,7 +52,7 @@ object UserMessage extends MeifanNetModelCompanion[UserMessage] {
   val INBOX_DEL = "delete"
   val INBOX_ALL = "all"
 
-  val dao = new MeifanNetDAO[UserMessage](collection = loadCollection()){}
+  val dao = new MeifanNetDAO[UserMessage](collection = loadCollection()) {}
 
   def read(userMessage: UserMessage) = dao.save(userMessage.copy(inBoxStatus = INBOX_READ), WriteConcern.Safe)
 
@@ -65,44 +65,43 @@ object UserMessage extends MeifanNetModelCompanion[UserMessage] {
   def delFromInBox(userMessage: UserMessage) = dao.save(userMessage.copy(inBoxStatus = INBOX_DEL), WriteConcern.Safe)
 
   def findByQuery(requirement: String, userId: String, page: Int, pageSize: Int) = {
-   val query = getQuery(requirement, userId: String)
-   dao.find(query).sort(MongoDBObject("createdTime" -> -1)).skip((page - 1) * pageSize).limit(pageSize).toList
+    val query = getQuery(requirement, userId: String)
+    dao.find(query).sort(MongoDBObject("createdTime" -> -1)).skip((page - 1) * pageSize).limit(pageSize).toList
   }
- 
+
   def countByCondition(requirement: String, userId: String) = {
-  val query = getQuery(requirement, userId: String)
-  dao.count(query)
+    val query = getQuery(requirement, userId: String)
+    dao.count(query)
   }
 
   def getQuery(requirement: String, userId: String) = {
-  requirement match {
-   case INBOX_UNREAD => MongoDBObject("addressee" -> userId, "inBoxStatus" -> INBOX_UNREAD)
-   case INBOX_ALL =>    $and(MongoDBObject("addressee" -> userId), "inBoxStatus" $ne INBOX_DEL)
-   case OUTBOX_SENT => MongoDBObject("seeder" -> userId, "outBoxStatus" -> OUTBOX_SENT)
-   case OUTBOX_SAVE => MongoDBObject("seeder" -> userId, "outBoxStatus" -> OUTBOX_SAVE)
-  }
+    requirement match {
+      case INBOX_UNREAD => MongoDBObject("addressee" -> userId, "inBoxStatus" -> INBOX_UNREAD)
+      case INBOX_ALL => $and(MongoDBObject("addressee" -> userId), "inBoxStatus" $ne INBOX_DEL)
+      case OUTBOX_SENT => MongoDBObject("seeder" -> userId, "outBoxStatus" -> OUTBOX_SENT)
+      case OUTBOX_SAVE => MongoDBObject("seeder" -> userId, "outBoxStatus" -> OUTBOX_SAVE)
+    }
 
   }
-  
-  def sendFollowMsg(sender :User, followId : ObjectId, followObjType:String) =  {
-  val letter = followObjType match{
-   case FollowType.FOLLOW_SALON =>
-    val salon = Salon.findOneById(followId).get
-    UserMessage(new ObjectId, sender.userId, sender.nickName, "zhenglu", "关雨", new ObjectId("531964e0d4d57d0a43771811"), OUTBOX_SENT, INBOX_UNREAD, new Date)
-   case FollowType.FOLLOW_STYLIST =>
-    val stylist = Stylist.findOneByStylistId(followId).get
-    val user = Stylist.findUser(stylist.stylistId)
-    UserMessage(new ObjectId, sender.userId, sender.nickName, user.userId, user.nickName, new ObjectId("531964e0d4d57d0a43771811"), OUTBOX_SENT, INBOX_UNREAD, new Date)
-   case FollowType.FOLLOW_USER =>
-    val addressee = User.findOneById(followId).get
-    UserMessage(new ObjectId, sender.userId, sender.nickName, addressee.userId, addressee.nickName, new ObjectId("531964e0d4d57d0a43771812"), OUTBOX_SENT, INBOX_UNREAD, new Date)
-  } 
-  UserMessage.save(letter, WriteConcern.Safe)
+
+  def sendFollowMsg(sender: User, followId: ObjectId, followObjType: String) = {
+    val letter = followObjType match {
+      case FollowType.FOLLOW_SALON =>
+        val salon = Salon.findOneById(followId).get
+        UserMessage(new ObjectId, sender.userId, sender.nickName, "zhenglu", "关雨", new ObjectId("531964e0d4d57d0a43771811"), OUTBOX_SENT, INBOX_UNREAD, new Date)
+      case FollowType.FOLLOW_STYLIST =>
+        val stylist = Stylist.findOneByStylistId(followId).get
+        val user = Stylist.findUser(stylist.stylistId)
+        UserMessage(new ObjectId, sender.userId, sender.nickName, user.userId, user.nickName, new ObjectId("531964e0d4d57d0a43771811"), OUTBOX_SENT, INBOX_UNREAD, new Date)
+      case FollowType.FOLLOW_USER =>
+        val addressee = User.findOneById(followId).get
+        UserMessage(new ObjectId, sender.userId, sender.nickName, addressee.userId, addressee.nickName, new ObjectId("531964e0d4d57d0a43771812"), OUTBOX_SENT, INBOX_UNREAD, new Date)
+    }
+    UserMessage.save(letter, WriteConcern.Safe)
   }
 }
 
 case class UserLetter(
   userMessage: UserMessage,
   message: Message)
-
 

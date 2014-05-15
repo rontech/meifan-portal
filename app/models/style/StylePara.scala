@@ -156,8 +156,8 @@ object SearchByLengthForF extends MeifanNetModelCompanion[SearchByLengthForF] {
   val dao = new MeifanNetDAO[SearchByLengthForF](collection = loadCollection()) {}
   //保存图片
   def saveSearchByLengthForFImage(searchByLengthForF: SearchByLengthForF, imgId: ObjectId) = {
-   dao.update(MongoDBObject("_id" -> searchByLengthForF.id), 
-      MongoDBObject("$set" -> ( MongoDBObject("stylePic" ->  imgId))),false,true)
+    dao.update(MongoDBObject("_id" -> searchByLengthForF.id),
+      MongoDBObject("$set" -> (MongoDBObject("stylePic" -> imgId))), false, true)
   }
 }
 
@@ -175,8 +175,8 @@ object SearchByLengthForM extends MeifanNetModelCompanion[SearchByLengthForM] {
   val dao = new MeifanNetDAO[SearchByLengthForM](collection = loadCollection()) {}
   //保存图片
   def saveSearchByLengthForMImage(searchByLengthForM: SearchByLengthForM, imgId: ObjectId) = {
-   dao.update(MongoDBObject("_id" -> searchByLengthForM.id), 
-      MongoDBObject("$set" -> ( MongoDBObject("stylePic" ->  imgId))),false,true)
+    dao.update(MongoDBObject("_id" -> searchByLengthForM.id),
+      MongoDBObject("$set" -> (MongoDBObject("stylePic" -> imgId))), false, true)
   }
 }
 
@@ -194,7 +194,7 @@ object SearchByImpression extends MeifanNetModelCompanion[SearchByImpression] {
   val dao = new MeifanNetDAO[SearchByImpression](collection = loadCollection()) {}
   //保存图片
   def saveSearchByImpressionImage(searchByImpression: SearchByImpression, imgId: ObjectId) = {
-   dao.update(MongoDBObject("_id" -> searchByImpression.id), 
-      MongoDBObject("$set" -> ( MongoDBObject("stylePic" ->  imgId))),false,true)
+    dao.update(MongoDBObject("_id" -> searchByImpression.id),
+      MongoDBObject("$set" -> (MongoDBObject("stylePic" -> imgId))), false, true)
   }
 }

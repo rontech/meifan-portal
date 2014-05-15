@@ -17,7 +17,6 @@
  */
 package models
 
-
 import com.mongodb.casbah.commons.Imports._
 import mongoContext._
 import se.radley.plugin.salat.Binders._
@@ -30,9 +29,7 @@ case class Question(
   questContent: String,
   questedDate: Date = new Date,
   questedNum: Int = 1,
-  isValid: Boolean = true
-)
-
+  isValid: Boolean = true)
 
 object Question extends MeifanNetModelCompanion[Question] {
   val dao = new MeifanNetDAO[Question](collection = loadCollection()) {}

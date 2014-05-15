@@ -69,7 +69,7 @@ object User extends MeifanNetModelCompanion[User] {
   //底
   val LOW = "low"
 
-  val dao = new MeifanNetDAO[User](collection = loadCollection()){}
+  val dao = new MeifanNetDAO[User](collection = loadCollection()) {}
 
   // Indexes
   //collection.ensureIndex(DBObject("userId" -> 1), "userId", unique = true)
@@ -81,7 +81,7 @@ object User extends MeifanNetModelCompanion[User] {
    * 昵称不可以重复
    */
   def findOneByNickNm(nickName: String) = dao.findOne(MongoDBObject("nickName" -> nickName))
-  
+
   /**
    * 邮箱不可以重复
    */
@@ -99,7 +99,7 @@ object User extends MeifanNetModelCompanion[User] {
       return None
     }
   }
-  
+
   /**
    * 通过邮箱重置密码时需要输入以下两个值，判断他们在数据库中是否存在
    */
@@ -118,11 +118,11 @@ object User extends MeifanNetModelCompanion[User] {
    * 用于判断userId与当前用户是否互相关注(强关系)
    */
   def isFriend(userId: ObjectId)(user: User): Future[Boolean] = Future { (userId == user.id) || MyFollow.followEachOther(userId, user.id) }
-  
+
   /**
    * 用于显示首页中美丽达人
    */
-  def findBeautyUsers = dao.find(MongoDBObject("userTyp" -> NORMAL_USER)).toList.sortBy(user =>user.activity)
+  def findBeautyUsers = dao.find(MongoDBObject("userTyp" -> NORMAL_USER)).toList.sortBy(user => user.activity)
 
   /**
    * checks for accountId
@@ -130,8 +130,8 @@ object User extends MeifanNetModelCompanion[User] {
    * @param f
    * @return
    */
-  def isExist(value:String,
-        f:String => Option[User]) = f(value).map(user => true).getOrElse(false)
+  def isExist(value: String,
+    f: String => Option[User]) = f(value).map(user => true).getOrElse(false)
 
   /**
    * checks for nickName,email,tel
@@ -140,11 +140,10 @@ object User extends MeifanNetModelCompanion[User] {
    * @param f
    * @return
    */
-  def isValid(value:String,
-        loggedUser:Option[User],
-        f:String => Option[User]) =
+  def isValid(value: String,
+    loggedUser: Option[User],
+    f: String => Option[User]) =
     f(value).map(
       user =>
-        loggedUser.map(_.id ==user.id).getOrElse(false)
-      ).getOrElse(true)
+        loggedUser.map(_.id == user.id).getOrElse(false)).getOrElse(true)
 }

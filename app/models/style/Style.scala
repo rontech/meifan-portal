@@ -57,8 +57,7 @@ case class StyleWithAllInfo(
   salonName: String,
   salonNameAbbr: String,
   stylistId: ObjectId,
-  stylistNickname: String
-)
+  stylistNickname: String)
 
 /*------------------------
  * Main Class: Style
@@ -136,11 +135,11 @@ object Style extends MeifanNetModelCompanion[Style] {
    */
   def findByLength(styleLength: String, consumerSex: String, limitCnt: Int = 0): List[StyleWithAllInfo] = {
     val bstLength = dao.find(MongoDBObject("styleLength" -> styleLength, "consumerSex" -> consumerSex, "isValid" -> true)).toList
-    val lenStyles = bstLength.map {_.id} 
-    val styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(lenStyles)(limitCnt)( x => true)
+    val lenStyles = bstLength.map { _.id }
+    val styleInfo: List[StyleWithAllInfo] = getStyleInfoFromRanking(lenStyles)(limitCnt)(x => true)
 
     styleInfo
-   }
+  }
 
   /**
    * 前台检索逻辑
@@ -148,8 +147,8 @@ object Style extends MeifanNetModelCompanion[Style] {
    */
   def findByImpression(styleImpression: String, consumerSex: String, limitCnt: Int = 0): List[StyleWithAllInfo] = {
     val bstImp = dao.find(MongoDBObject("styleImpression" -> styleImpression, "consumerSex" -> consumerSex, "isValid" -> true)).toList
-    val impStyles = bstImp.map {_.id}
-    val styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(impStyles)(limitCnt)( x => true)
+    val impStyles = bstImp.map { _.id }
+    val styleInfo: List[StyleWithAllInfo] = getStyleInfoFromRanking(impStyles)(limitCnt)(x => true)
 
     styleInfo
   }
@@ -161,10 +160,10 @@ object Style extends MeifanNetModelCompanion[Style] {
   def findByRanking(limitCnt: Int = 0): List[StyleWithAllInfo] = {
     // get all reservations with styleId, ignore the data without style.
     val bestRsv = Reservation.findBestReservedStyles(0)
-    val styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(bestRsv)(limitCnt)( x => true)
+    val styleInfo: List[StyleWithAllInfo] = getStyleInfoFromRanking(bestRsv)(limitCnt)(x => true)
 
     styleInfo
-   }
+  }
 
   /**
    * 前台检索逻辑
@@ -174,8 +173,8 @@ object Style extends MeifanNetModelCompanion[Style] {
     // get all reservations with styleId, ignore the data without style.
     val bestRsv = Reservation.findBestReservedStyles(0)
 
-    val styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(bestRsv)(limitCnt)( x =>
-          (x.styleLength == styleLength) && (x.consumerSex == consumerSex)) 
+    val styleInfo: List[StyleWithAllInfo] = getStyleInfoFromRanking(bestRsv)(limitCnt)(x =>
+      (x.styleLength == styleLength) && (x.consumerSex == consumerSex))
 
     styleInfo
   }
@@ -190,19 +189,19 @@ object Style extends MeifanNetModelCompanion[Style] {
   def getStyleInfoFromRanking(styleIds: List[ObjectId])(limitCnt: Int = 0)(filter: Style => Boolean): List[StyleWithAllInfo] = {
     var styleInfo: List[StyleWithAllInfo] = Nil
     var cnt: Int = 0
-    for(styleId <- styleIds) {
-      if(limitCnt == 0 || cnt <= limitCnt) {
+    for (styleId <- styleIds) {
+      if (limitCnt == 0 || cnt <= limitCnt) {
         val style = Style.findOneById(styleId)
         // Filter the data by function filter.
-        if(style != None && filter(style.get)) {
+        if (style != None && filter(style.get)) {
           // only when the stylist is in workship with a salon, the style can be searched by ranking.
           val stlstInSalon = SalonAndStylist.findByStylistId(style.get.stylistId)
-          if(stlstInSalon != None) {
+          if (stlstInSalon != None) {
             val stylistName = Stylist.findUserName(stlstInSalon.get.stylistId)
             val salon = Salon.findOneById(stlstInSalon.get.salonId)
             val st = StyleWithAllInfo(style.get, salon.get.id, salon.get.salonName, salon.get.salonNameAbbr.getOrElse(salon.get.salonName),
-                stlstInSalon.get.stylistId, stylistName)
-            styleInfo = styleInfo ::: List(st) 
+              stlstInSalon.get.stylistId, stylistName)
+            styleInfo = styleInfo ::: List(st)
             cnt += 1
           }
         }
@@ -212,7 +211,6 @@ object Style extends MeifanNetModelCompanion[Style] {
     styleInfo
   }
 
-
   /**
    * 前台检索逻辑
    * 前台热度加性别排名检索
@@ -220,8 +218,8 @@ object Style extends MeifanNetModelCompanion[Style] {
   def findByRankingAndSex(consumerSex: String, limitCnt: Int = 0): List[StyleWithAllInfo] = {
     // get all reservations with styleId, ignore the data without style.
     val bestRsv = Reservation.findBestReservedStyles(0)
-    var styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(bestRsv)(limitCnt)( x =>
-           (x.consumerSex == consumerSex)) 
+    var styleInfo: List[StyleWithAllInfo] = getStyleInfoFromRanking(bestRsv)(limitCnt)(x =>
+      (x.consumerSex == consumerSex))
 
     styleInfo
   }
@@ -297,21 +295,20 @@ object Style extends MeifanNetModelCompanion[Style] {
     // return
     hotStyles
   }
-   /**
+  /**
    * 取得指定店铺的最热发型前N名
    * N = 0, 默认值，为取得所有
    */
   def getBestRsvedStylesInSalon(sid: ObjectId, topN: Int = 0): List[Style] = {
     // get the reservation with which we can get the styles be reserved.
     //val rsvs = Reservation.findAllReservation(sid)
-    val rsvs = Reservation.findBestReservedStylesInSalon(sid, topN) 
+    val rsvs = Reservation.findBestReservedStylesInSalon(sid, topN)
     // use the exists method to get top styles.
     val bestRsved = findTopStylesInSalon(rsvs, topN)
     // If there is no reservation styles yet, get the latest styles in the salon.
     val others = Salon.getAllStyles(sid)
     (bestRsved ::: others).distinct
   }
- 
 
   /**
    * 前台检索逻辑
@@ -320,8 +317,8 @@ object Style extends MeifanNetModelCompanion[Style] {
   def findByPara(style: Style, limitCnt: Int = 0): List[StyleWithAllInfo] = {
     var srchConds = commonSrchConds(style)
     val srchedStls = dao.find($and(srchConds)).toList
-    val srchStyleIds = srchedStls.map {_.id}
-    val styleInfo: List[StyleWithAllInfo] =  getStyleInfoFromRanking(srchStyleIds)(limitCnt)( x => true) 
+    val srchStyleIds = srchedStls.map { _.id }
+    val styleInfo: List[StyleWithAllInfo] = getStyleInfoFromRanking(srchStyleIds)(limitCnt)(x => true)
 
     styleInfo
   }
@@ -329,7 +326,7 @@ object Style extends MeifanNetModelCompanion[Style] {
   /**
    * 发型检索主要字段整合
    */
-  def commonSrchConds(style: Style) : List[commonsDBObject] = {
+  def commonSrchConds(style: Style): List[commonsDBObject] = {
     var srchConds: List[commonsDBObject] = Nil
     if (!style.styleLength.equals("all")) {
       srchConds :::= List(commonsDBObject("styleLength" -> style.styleLength))
@@ -401,7 +398,7 @@ object Style extends MeifanNetModelCompanion[Style] {
     }
     if (stylistIds.contains(style.stylistId)) {
       srchConds :::= List(commonsDBObject("stylistId" -> style.stylistId))
-    } 
+    }
     dao.find($and(srchConds)).toList.sortBy(_.createDate).reverse
   }
 
@@ -477,24 +474,24 @@ object Style extends MeifanNetModelCompanion[Style] {
   }
 
   def updateStyleImage(style: Style, imgIdList: List[ObjectId]) = {
-    dao.update(MongoDBObject("_id" -> style.id, "stylePic.fileObjId" -> style.stylePic(0).fileObjId), 
-      MongoDBObject("$set" -> ( MongoDBObject("stylePic.$.fileObjId" -> imgIdList(2)))),false,true)
-      
-    dao.update(MongoDBObject("_id" -> style.id, "stylePic.fileObjId" -> style.stylePic(1).fileObjId), 
-      MongoDBObject("$set" -> ( MongoDBObject("stylePic.$.fileObjId" -> imgIdList(1)))),false,true)
-      
-    dao.update(MongoDBObject("_id" -> style.id, "stylePic.fileObjId" -> style.stylePic(2).fileObjId), 
-      MongoDBObject("$set" -> ( MongoDBObject("stylePic.$.fileObjId" -> imgIdList(0)))),false,true)
+    dao.update(MongoDBObject("_id" -> style.id, "stylePic.fileObjId" -> style.stylePic(0).fileObjId),
+      MongoDBObject("$set" -> (MongoDBObject("stylePic.$.fileObjId" -> imgIdList(2)))), false, true)
+
+    dao.update(MongoDBObject("_id" -> style.id, "stylePic.fileObjId" -> style.stylePic(1).fileObjId),
+      MongoDBObject("$set" -> (MongoDBObject("stylePic.$.fileObjId" -> imgIdList(1)))), false, true)
+
+    dao.update(MongoDBObject("_id" -> style.id, "stylePic.fileObjId" -> style.stylePic(2).fileObjId),
+      MongoDBObject("$set" -> (MongoDBObject("stylePic.$.fileObjId" -> imgIdList(0)))), false, true)
   }
 
   def saveStyleImage(style: Style, imgId: ObjectId) = {
     dao.update(MongoDBObject("_id" -> style.id, "stylePic.showPriority" -> style.stylePic.last.showPriority.get),
       MongoDBObject("$set" -> (MongoDBObject("stylePic.$.fileObjId" -> imgId))), false, true)
   }
-  
-  def isExist(value:String, stylistId:String, f:(String,String) => Option[Style]) = f(value,stylistId).map(style => true).getOrElse(false)
-  
-  def checkStyleIsExist(name:String,stylistId:ObjectId): Boolean= {
+
+  def isExist(value: String, stylistId: String, f: (String, String) => Option[Style]) = f(value, stylistId).map(style => true).getOrElse(false)
+
+  def checkStyleIsExist(name: String, stylistId: ObjectId): Boolean = {
     dao.find(MongoDBObject("styleName" -> name, "stylistId" -> stylistId)).hasNext
   }
 }

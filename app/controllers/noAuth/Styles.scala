@@ -46,7 +46,7 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
       "consumerAgeGroup" -> list(text),
       "consumerSex" -> text,
       "consumerSocialStatus" -> list(text)) {
-        (stylistId,styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, consumerAgeGroup, consumerSex, consumerSocialStatus) =>
+        (stylistId, styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, consumerAgeGroup, consumerSex, consumerSocialStatus) =>
           Style(new ObjectId, "", new ObjectId(stylistId), List(),
             styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, "", consumerAgeGroup, consumerSex, consumerSocialStatus, new Date, true)
       } {
@@ -169,8 +169,7 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
       case None => NotFound
     }
   }
-  
-  
+
   def getStyleInfoOfSalon(salonId: ObjectId, styleId: ObjectId) = StackAction { implicit request =>
     val user = loggedIn
     val salon: Option[Salon] = Salon.findOneById(salonId)
@@ -179,7 +178,7 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
       case Some(salon) => {
         style match {
           case Some(style) => {
-            Ok(html.salon.store.salonInfoStyle(salon = salon, style = style, user= user))
+            Ok(html.salon.store.salonInfoStyle(salon = salon, style = style, user = user))
           }
           case None => NotFound
         }
@@ -199,7 +198,7 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
   def findByLength(styleLength: String, consumerSex: String) = StackAction { implicit request =>
     val user = loggedIn
     val styleSearchByLength: Style = Style(new ObjectId, "", new ObjectId, Nil, "", Nil, styleLength,
-        Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
+      Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
     val styleAllInfo: List[StyleWithAllInfo] = Style.findByLength(styleLength, consumerSex)
 
     Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleAllInfo, Style.findParaAll, user))
@@ -208,31 +207,31 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
   def findByImpression(styleImpression: String, consumerSex: String) = StackAction { implicit request =>
     val user = loggedIn
     val styleSearchByImpression: Style = Style(new ObjectId, "", new ObjectId, Nil, styleImpression,
-         Nil, "", Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
-    var styleAllInfo: List[StyleWithAllInfo] = Style.findByImpression(styleImpression, consumerSex) 
- 
+      Nil, "", Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
+    var styleAllInfo: List[StyleWithAllInfo] = Style.findByImpression(styleImpression, consumerSex)
+
     Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByImpression), styleAllInfo, Style.findParaAll, user))
   }
 
   def styleSearchList = StackAction { implicit request =>
     val user = loggedIn
-      styleSearchForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.index()),
-        {
-          case (styleSearch) => {
-            val styleAllInfo: List[StyleWithAllInfo] = Style.findByPara(styleSearch)
-            Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearch), styleAllInfo, Style.findParaAll, user))
-          }
-        })
+    styleSearchForm.bindFromRequest.fold(
+      errors => BadRequest(views.html.index()),
+      {
+        case (styleSearch) => {
+          val styleAllInfo: List[StyleWithAllInfo] = Style.findByPara(styleSearch)
+          Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearch), styleAllInfo, Style.findParaAll, user))
+        }
+      })
   }
-  
+
   /**
    * 前台发型Rangking内页
    */
-  def findByRanking(styleLength: String, consumerSex: String) = StackAction { implicit request => 
+  def findByRanking(styleLength: String, consumerSex: String) = StackAction { implicit request =>
     val user = loggedIn
     var stlAllInfo: List[StyleWithAllInfo] = Nil
-    if(styleLength.equals("all")) {
+    if (styleLength.equals("all")) {
       stlAllInfo = Style.findByRankingAndSex(consumerSex)
     } else {
       stlAllInfo = Style.findByRankingAndLengthForF(styleLength, consumerSex)

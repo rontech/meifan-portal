@@ -15,29 +15,23 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package com.meifannet.framework.utils;
+package com.meifannet.framework.utils
 
-import java.lang.reflect.Constructor;
+import scala.reflect.runtime.universe._
 
 /**
  * Utils class using reflection to operate class/function/variables.
  *
  */
-public class ROperations {
-    /**
-     * return a new instance with reflection.
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> T invokePrivateConstructor(String type, T obj) {
-        try {
-            Class clazz = Class.forName(type);
-            Constructor constructor = clazz.getDeclaredConstructor();
-            //set accessiblity
-            constructor.setAccessible(true);
-            return (T)constructor.newInstance();
-        } catch(Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+object ReflectionOperations {
+  /**
+   * Return a new instance with typeTag solution.
+   * Private constructor cannot be invoked before 2.11.0-M6.
+   */
+  def newInstance[T: TypeTag]: T = {
+    val clazz = typeTag[T].mirror reflectClass typeOf[T].typeSymbol.asClass
+    val init = typeOf[T].members find { case m: MethodSymbol => m.isConstructor case _ => false } get
+    val ctor = clazz reflectConstructor init.asMethod
+    ctor().asInstanceOf[T]
+  }
 }

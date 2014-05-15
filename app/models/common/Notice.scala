@@ -29,15 +29,14 @@ import mongoContext._
 import com.meifannet.framework.db._
 
 case class Notice(
-           id : ObjectId,
-           title: String,
-           content: String,
-           author: String,
-           createdTime: Date,
-           isValid: Boolean
-           )
+  id: ObjectId,
+  title: String,
+  content: String,
+  author: String,
+  createdTime: Date,
+  isValid: Boolean)
 
 object Notice extends MeifanNetModelCompanion[Notice] {
 
-  val dao = new MeifanNetDAO[Notice](collection = loadCollection()){}
+  val dao = new MeifanNetDAO[Notice](collection = loadCollection()) {}
 }

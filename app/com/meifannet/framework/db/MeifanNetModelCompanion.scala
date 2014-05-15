@@ -28,7 +28,7 @@ import play.api.Configuration
  * @since 1.0
  * @see com.movus.salat.dao.ModelCompanion
  */
-abstract class MeifanNetModelCompanion[ObjectType <: AnyRef](implicit mot :Manifest[ObjectType])
+abstract class MeifanNetModelCompanion[ObjectType <: AnyRef](implicit mot: Manifest[ObjectType])
   extends ModelCompanion[ObjectType, ObjectId] {
   /**
    * Load collection according to the model name.
@@ -59,8 +59,8 @@ object DBDelegate extends DBDelegate {
   /** default mongodb options map  */
   final val DEFAULT_OPS_MAP =
     Map("connectionsPerHost" -> "300",
-        "threadsAllowedToBlockForConnectionMultiplier" -> "1000",
-        "connectTimeout" -> "60000")
+      "threadsAllowedToBlockForConnectionMultiplier" -> "1000",
+      "connectTimeout" -> "60000")
 
   /** configuration */
   val options = current.configuration.getConfig("mongodb.default.options")
@@ -81,10 +81,10 @@ object DBDelegate extends DBDelegate {
   /** database excluding pictures */
   val db = mongoClient(
     current.configuration.getString("mongodb.default.db")
-   .getOrElse(DEFAULT_DB_NAME))
+      .getOrElse(DEFAULT_DB_NAME))
 
   /** database for pictures  */
   val picDB = mongoClient(
     current.configuration.getString("mongodb.image.db")
-    .getOrElse(DEFAULT_IMAGE_DB))
+      .getOrElse(DEFAULT_IMAGE_DB))
 }

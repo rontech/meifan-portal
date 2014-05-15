@@ -42,7 +42,7 @@ object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
   /**
    * 添加关注或收藏
    */
-  def addFollow(followId: ObjectId, followObjType: String, date:String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+  def addFollow(followId: ObjectId, followObjType: String, date: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     MyFollow.checkIfFollow(user.id, followId) match {
       case false => {
@@ -55,27 +55,27 @@ object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
         Ok("true")
     }
   }
-  
+
   /**
    * 收藏的优惠劵
    */
-  def followedCoupon(userId : ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
+  def followedCoupon(userId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
     val loginUser = loggedIn
     val user = User.findOneById(userId).get
     val followInfo = MyFollow.getAllFollowInfo(userId)
-    
+
     // 获取当前时间的前7天的日期，用于判断是否为新券还是旧券
     var beforeSevernDate = Calendar.getInstance()
     beforeSevernDate.setTime(new Date())
     beforeSevernDate.add(Calendar.DAY_OF_YEAR, -7)
-    
-    Ok(views.html.user.followedCoupon(user,followInfo,loginUser.id,beforeSevernDate.getTime()))
+
+    Ok(views.html.user.followedCoupon(user, followInfo, loginUser.id, beforeSevernDate.getTime()))
   }
-  
+
   /**
    * 收藏的博客
    */
-  def followedBlog(userId : ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
+  def followedBlog(userId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
     val loginUser = loggedIn
     val user = User.findOneById(userId).get
     val followInfo = MyFollow.getAllFollowInfo(user.id)
@@ -85,7 +85,7 @@ object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
   /**
    * 收藏的风格
    */
-  def followedStyle(userId : ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
+  def followedStyle(userId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
     val loginUser = loggedIn
     val user = User.findOneById(userId).get
     val followInfo = MyFollow.getAllFollowInfo(user.id)

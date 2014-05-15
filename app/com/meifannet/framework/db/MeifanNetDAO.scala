@@ -28,8 +28,6 @@ import com.mongodb.casbah.Imports._
  * @since 1.0
  * @see com.movus.salat.dao.SalatDAO
  */
-class MeifanNetDAO[ObjectType <: AnyRef]
-  (override val collection: MongoCollection)
-  (implicit mot: Manifest[ObjectType], mid: Manifest[ObjectId], ctx: Context)
-  extends SalatDAO[ObjectType,  ObjectId](collection)(mot, mid, ctx) {
+class MeifanNetDAO[ObjectType <: AnyRef](override val collection: MongoCollection)(implicit mot: Manifest[ObjectType], mid: Manifest[ObjectId], ctx: Context)
+  extends SalatDAO[ObjectType, ObjectId](collection)(mot, mid, ctx) {
 }

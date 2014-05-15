@@ -39,7 +39,7 @@ import models._
 import utils.Const._
 import com.meifannet.framework.db._
 
-object Application extends Controller with OptionalAuthElement with UserAuthConfigImpl{
+object Application extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
   /**
    * for ajax
@@ -54,12 +54,11 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
       noAuth.routes.javascript.Users.checkIsExist,
       auth.routes.javascript.MyFollows.followedCoupon,
       auth.routes.javascript.MyFollows.followedBlog,
-      auth.routes.javascript.MyFollows.followedStyle
-    )).as("text/javascript")
+      auth.routes.javascript.MyFollows.followedStyle)).as("text/javascript")
   }
 
-  def index = StackAction{ implicit request =>
-     val user = loggedIn
+  def index = StackAction { implicit request =>
+    val user = loggedIn
     Ok(views.html.index(user))
   }
 
@@ -77,7 +76,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
 
   def salonRegister() = Action {
     val industry = Industry.findAll.toList
-    Ok(views.html.salon.salonManage.salonRegister(Salons.salonRegister,industry))
+    Ok(views.html.salon.salonManage.salonRegister(Salons.salonRegister, industry))
   }
 
   /*def itemIsExist(value:String, key:String, accountId :String) = Action {
@@ -120,26 +119,26 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
           CONTENT_TYPE -> f.contentType.getOrElse(BINARY),
           DATE -> new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", java.util.Locale.US).format(f.uploadDate))),
         Enumerator.fromStream(f.inputStream))
-        // TODO ? is this necessary ? Enumerator.eof  
+      // TODO ? is this necessary ? Enumerator.eof  
 
       case None => {
-       val fi = new File(play.Play.application().path() + "/public/images/user/dafaultLog/portrait.png")
-       var in: FileInputStream = null
-       if(fi.exists) {
-        in = new FileInputStream(fi)
-        try {
-         val bytes = Image.fileToBytes(in)
-         Ok(bytes)
-        } finally {
-         in.close
+        val fi = new File(play.Play.application().path() + "/public/images/user/dafaultLog/portrait.png")
+        var in: FileInputStream = null
+        if (fi.exists) {
+          in = new FileInputStream(fi)
+          try {
+            val bytes = Image.fileToBytes(in)
+            Ok(bytes)
+          } finally {
+            in.close
+          }
+        } else {
+          Ok("")
         }
-       } else {
-        Ok("")
-       }
       }
     }
   }
-  
+
   def upload = Action(parse.multipartFormData) { request =>
     request.body.file("photo") match {
       case Some(photo) =>
@@ -153,19 +152,19 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     }
   }
 
-  def changeLogo = Action(parse.multipartFormData) {implicit request =>
-    request.body.file("photo").map{ photo =>
+  def changeLogo = Action(parse.multipartFormData) { implicit request =>
+    request.body.file("photo").map { photo =>
       imgForm.bindFromRequest.fold(
-        errors =>Ok(Html(errors.toString)),
-        img =>{
+        errors => Ok(Html(errors.toString)),
+        img => {
           val db = DBDelegate.picDB
           val gridFs = GridFS(db)
           val file = photo.ref.file
-          val originImage =  ImageIO.read(file)
+          val originImage = ImageIO.read(file)
           var newImage = originImage;
-          if (img.w != 0){
+          if (img.w != 0) {
             //intValue,img.h.intValue-2  防止截取图片尺寸超过图片本身尺寸
-            newImage = originImage.getSubimage(img.x1.intValue,img.y1.intValue,img.w.intValue-2,img.h.intValue-2)
+            newImage = originImage.getSubimage(img.x1.intValue, img.y1.intValue, img.w.intValue - 2, img.h.intValue - 2)
           }
           var os: ByteArrayOutputStream = null
           var inputStream: ByteArrayInputStream = null
@@ -173,7 +172,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
             os = new ByteArrayOutputStream();
             ImageIO.write(newImage, "jpeg", os);
             inputStream = new ByteArrayInputStream(os.toByteArray());
-  
+
             val uploadedFile = gridFs.createFile(inputStream)
             uploadedFile.contentType = photo.contentType.orNull
             uploadedFile.save()
@@ -182,44 +181,27 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
             os.close
             inputStream.close
           }
-        }
-      )
+        })
     }.getOrElse(Ok(Html("无图片")))
   }
 
-  
   /**
    * 根据出生年月得到相应日期的年龄
    */
-  def getAge(birthday : Date) : Long ={
-   val currentTime = new Date().getTime()
-   val birthdayTime = birthday.getTime()
-   val time = currentTime - birthdayTime
-   val age = time/1000/3600/24/365
-   age
+  def getAge(birthday: Date): Long = {
+    val currentTime = new Date().getTime()
+    val birthdayTime = birthday.getTime()
+    val time = currentTime - birthdayTime
+    val age = time / 1000 / 3600 / 24 / 365
+    age
   }
-      
+
   /**
    *  ajax fileupload 输出图片id到页面对应区域
    */
   def fileUploadAction = Action(parse.multipartFormData) { implicit request =>
     request.body.file("Filedata") match {
-      case Some(photo) =>{
-        val db = DBDelegate.picDB
-        val gridFs = GridFS(db)
-        val uploadedFile = gridFs.createFile(photo.ref.file)
-        uploadedFile.contentType = photo.contentType.orNull
-        uploadedFile.save()
-        Ok(uploadedFile._id.get.toString)
-      }    
-      case None => BadRequest("no photo")
-    }
-  
-  }
-
-  def uploadWithAjax = Action(parse.multipartFormData) { implicit request =>
-    request.body.file("photo") match {
-      case Some(photo) =>{
+      case Some(photo) => {
         val db = DBDelegate.picDB
         val gridFs = GridFS(db)
         val uploadedFile = gridFs.createFile(photo.ref.file)
@@ -231,26 +213,37 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     }
 
   }
-  
-  
 
+  def uploadWithAjax = Action(parse.multipartFormData) { implicit request =>
+    request.body.file("photo") match {
+      case Some(photo) => {
+        val db = DBDelegate.picDB
+        val gridFs = GridFS(db)
+        val uploadedFile = gridFs.createFile(photo.ref.file)
+        uploadedFile.contentType = photo.contentType.orNull
+        uploadedFile.save()
+        Ok(uploadedFile._id.get.toString)
+      }
+      case None => BadRequest("no photo")
+    }
 
-  val imgForm : Form[ImgForCrop] =Form(
+  }
+
+  val imgForm: Form[ImgForCrop] = Form(
     mapping(
-      "x1"->bigDecimal,
-      "y1"->bigDecimal,
-      "x2"->bigDecimal,
-      "y2"->bigDecimal,
-      "w"->bigDecimal,
-      "h"->bigDecimal)(ImgForCrop.apply)(ImgForCrop.unapply)
-  )
-  
-  def getkeyWordsByajax(wordText:String) = Action{
-   val hotkeys = HotestKeyword.findHotestKeywordsByKW(wordText)
-   var responseTxt = ""
-   hotkeys.map{key=>
-     responseTxt +=key+","
-   }
-   Ok(responseTxt)
+      "x1" -> bigDecimal,
+      "y1" -> bigDecimal,
+      "x2" -> bigDecimal,
+      "y2" -> bigDecimal,
+      "w" -> bigDecimal,
+      "h" -> bigDecimal)(ImgForCrop.apply)(ImgForCrop.unapply))
+
+  def getkeyWordsByajax(wordText: String) = Action {
+    val hotkeys = HotestKeyword.findHotestKeywordsByKW(wordText)
+    var responseTxt = ""
+    hotkeys.map { key =>
+      responseTxt += key + ","
+    }
+    Ok(responseTxt)
   }
 }

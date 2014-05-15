@@ -54,7 +54,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         "accountId" -> text,
         "password" -> tuple(
           "main" -> text,
-          "confirm" -> text)){
+          "confirm" -> text)) {
           (accountId, password) => SalonAccount(accountId, BCrypt.hashpw(password._1, BCrypt.gensalt()))
         } {
           salonAccount => Some(salonAccount.accountId, (salonAccount.password, ""))
@@ -119,38 +119,35 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
           } {
             salonPics => Some(salonPics.fileObjId.toString(), salonPics.picUse, salonPics.showPriority, salonPics.description)
           }),
-      "accept" ->checked("")) {
+      "accept" -> checked("")) {
         (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
-        workTime, restDays, seatNums, salonFacilities, salonPics,_) =>
+        workTime, restDays, seatNums, salonFacilities, salonPics, _) =>
           Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
             workTime, restDays, seatNums, salonFacilities, salonPics, new Date())
       } {
         salonRegister =>
           Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.picDescription, salonRegister.contactMethod,
             salonRegister.optContactMethods, salonRegister.establishDate, salonRegister.salonAddress,
-            salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics,false)
-      }
-  )
+            salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics, false)
+      })
 
   /**
    * 定义一个店铺查询数据表单
    */
   val salonSearchForm: Form[SearchParaForSalon] = Form(
     mapping(
-      "keyWord"-> optional(text),
+      "keyWord" -> optional(text),
       "city" -> text,
       "region" -> text,
       "salonName" -> list(text),
       "salonIndustry" -> text,
       "serviceType" -> list(text),
       "priceRange" -> mapping(
-          "minPrice" -> bigDecimal,
-          "maxPrice"-> bigDecimal
-          )(PriceRange.apply)(PriceRange.unapply),
-      "seatNums" ->  mapping(
-          "minNum" -> number,
-          "maxNum"-> number
-          )(SeatNums.apply)(SeatNums.unapply),
+        "minPrice" -> bigDecimal,
+        "maxPrice" -> bigDecimal)(PriceRange.apply)(PriceRange.unapply),
+      "seatNums" -> mapping(
+        "minNum" -> number,
+        "maxNum" -> number)(SeatNums.apply)(SeatNums.unapply),
       "salonFacilities" -> mapping(
         "canOnlineOrder" -> boolean,
         "canImmediatelyOrder" -> boolean,
@@ -171,13 +168,11 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             Some((salonFacilities.canOnlineOrder, salonFacilities.canImmediatelyOrder, salonFacilities.canNominateOrder, salonFacilities.canCurntDayOrder, salonFacilities.canMaleUse, salonFacilities.isPointAvailable, salonFacilities.isPosAvailable, salonFacilities.isWifiAvailable,
               salonFacilities.hasParkingNearby))
         },
-        "sortByConditions" -> mapping(
-          "selSortKey" -> text,
-          "sortByPopuAsc" -> boolean,
-          "sortByReviewAsc" -> boolean,
-          "sortByPriceAsc" -> boolean
-        ) (SortByConditions.apply)(SortByConditions.unapply) 
-    )(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
+      "sortByConditions" -> mapping(
+        "selSortKey" -> text,
+        "sortByPopuAsc" -> boolean,
+        "sortByReviewAsc" -> boolean,
+        "sortByPriceAsc" -> boolean)(SortByConditions.apply)(SortByConditions.unapply))(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
 
   /**
    * 店铺注册
@@ -185,12 +180,12 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
   def register() = Action { implicit request =>
     val industry = Industry.findAll.toList
     salonRegister.bindFromRequest.fold(
-    errors => BadRequest(views.html.salon.salonManage.salonRegister(errors,industry)),
-    {
-      salonRegister =>
-        Salon.save(salonRegister, WriteConcern.Safe)
+      errors => BadRequest(views.html.salon.salonManage.salonRegister(errors, industry)),
+      {
+        salonRegister =>
+          Salon.save(salonRegister, WriteConcern.Safe)
           Redirect(auth.routes.
-              Salons.salonLogin)
+            Salons.salonLogin)
       })
   }
   /*-------------------------
@@ -198,10 +193,10 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
    -------------------------*/
   def index = StackAction { implicit request =>
     val user = loggedIn
-    val searchParaForSalon = new SearchParaForSalon(None,"苏州","all",List(),"Hairdressing",List(),
-          PriceRange(0,1000000),SeatNums(0,10000),
-          SalonFacilities(false,false,false,false,false,false,false,false,false,""),
-          SortByConditions("price", false, false, true))
+    val searchParaForSalon = new SearchParaForSalon(None, "苏州", "all", List(), "Hairdressing", List(),
+      PriceRange(0, 1000000), SeatNums(0, 10000),
+      SalonFacilities(false, false, false, false, false, false, false, false, false, ""),
+      SortByConditions("price", false, false, true))
     val salons = Salon.findSalonBySearchPara(searchParaForSalon)
     Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
   }
@@ -362,11 +357,11 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
           var servicesByType: ServiceByType = ServiceByType("", Nil)
           // 如果根据服务名查找出来的服务为空，那么不添加到指定列表中
           var services: List[Service] = Service.getTypeListBySalonId(sl.id, serviceType)
-          if(!services.isEmpty) {
-           val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = services)
-           servicesByTypes = y :: servicesByTypes
+          if (!services.isEmpty) {
+            val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = services)
+            servicesByTypes = y :: servicesByTypes
           } else {
-           
+
           }
         }
 
@@ -412,7 +407,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
               case None => NotFound
             }
           }
-          
+
           couponServiceType = couponServiceType.copy(serviceTypes = typebySearchs)
 
           if (serviceType.subMenuFlg == None) {
@@ -425,11 +420,11 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
               for (serviceType <- serviceTypeNames) {
                 var servicesByType: ServiceByType = ServiceByType("", Nil)
                 var services: List[Service] = Service.getTypeListBySalonId(salonId, serviceType)
-                if(!services.isEmpty) {
-                 val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = services)
-                 servicesByTypes = y :: servicesByTypes
+                if (!services.isEmpty) {
+                  val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = services)
+                  servicesByTypes = y :: servicesByTypes
                 } else {
-                 
+
                 }
               }
             } else {
@@ -438,11 +433,11 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
               for (serviceTypeOne <- serviceType.serviceTypes) {
                 var servicesByType: ServiceByType = ServiceByType("", Nil)
                 var services: List[Service] = Service.getTypeListBySalonId(salonId, serviceTypeOne.serviceTypeName)
-                if(!services.isEmpty) {
-                 val y = servicesByType.copy(serviceTypeName = serviceTypeOne.serviceTypeName, serviceItems = services)
-                 servicesByTypes = y :: servicesByTypes
+                if (!services.isEmpty) {
+                  val y = servicesByType.copy(serviceTypeName = serviceTypeOne.serviceTypeName, serviceItems = services)
+                  servicesByTypes = y :: servicesByTypes
                 } else {
-                 
+
                 }
               }
             }
@@ -478,19 +473,18 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
       case None => NotFound
     }
   }
-  
 
   def getMap(salonId: ObjectId) = Action {
     val salon: Option[Salon] = Salon.findOneById(salonId)
     salon match {
-      case Some(s) => 
-        val address = s.salonAddress.get.province + s.salonAddress.get.city.getOrElse("") + s.salonAddress.get.region.getOrElse("") + 
+      case Some(s) =>
+        val address = s.salonAddress.get.province + s.salonAddress.get.city.getOrElse("") + s.salonAddress.get.region.getOrElse("") +
           s.salonAddress.get.town.getOrElse("") + s.salonAddress.get.addrDetail
         Ok(html.salon.store.map(s, SalonNavigation.getSalonNavBar(salon), None, address))
       case None => NotFound
     }
   }
-  
+
   /**
    * 店铺前台检索
    */
@@ -499,11 +493,10 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
     salonSearchForm.bindFromRequest.fold(
       errors => BadRequest(views.html.error.errorMsg(errors)),
       {
-         case (salonSearchForm) => {
-           val salons = Salon.findSalonBySearchPara(salonSearchForm)
-           Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = salonSearchForm, salons = salons))
-         }
-      }
-    )
+        case (salonSearchForm) => {
+          val salons = Salon.findSalonBySearchPara(salonSearchForm)
+          Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = salonSearchForm, salons = salons))
+        }
+      })
   }
 }

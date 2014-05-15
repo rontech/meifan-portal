@@ -30,7 +30,7 @@ object Questions extends Controller {
   /**
    * Get the required question.
    */
-   def getOneQuestion(qId: ObjectId) = Action {
+  def getOneQuestion(qId: ObjectId) = Action {
     val quests: List[Question] = Question.findOneById(qId).toList
     Ok(html.question.general.overview(quests))
   }

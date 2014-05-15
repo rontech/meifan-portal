@@ -30,21 +30,19 @@ object ServiceTypes extends Controller {
       "id" -> ignored(id),
       "industryName" -> text,
       "serviceTypeName" -> nonEmptyText,
-      "description" -> text
-      )(ServiceType.apply)(ServiceType.unapply)   
-  )
-  
-  def serviceTypeMain = Action{
-        Ok(views.html.service.addServiceType(serviceTypeForm()))
+      "description" -> text)(ServiceType.apply)(ServiceType.unapply))
+
+  def serviceTypeMain = Action {
+    Ok(views.html.service.addServiceType(serviceTypeForm()))
   }
-  
+
   def addServiceType = Action { implicit request =>
     serviceTypeForm().bindFromRequest.fold(
       errors => BadRequest(views.html.service.addServiceType(errors)),
       {
         serviceType =>
           ServiceType.addServiceType(serviceType)
-          Ok(Html("<p>添加成功！</p>"))                   
+          Ok(Html("<p>添加成功！</p>"))
       })
   }
 }

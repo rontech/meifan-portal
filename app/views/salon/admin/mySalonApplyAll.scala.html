@@ -1,6 +1,8 @@
-@(navInSalon: String = "my-stylists", salon: Salon, stylist: List[Stylist], status: Int = 0)
-@import views._
-@mySalonMain(navInSalon, salon){
+@(navInSalon: String = "my-stylists", mySalon: Salon, stylist: List[Stylist], status: Int = 0)
+
+@import models.Salon
+
+@views.html.salon.admin.mySalonMain(navInSalon, mySalon){
   <div>
     <ul class="tabInfoTitle">
       <li class="fl selected">
@@ -11,7 +13,7 @@
   <div class="mc mT40">
     @if(stylist != Nil){
     <div class="tabcon hide" data-widget="tab-content" style="display: block;">
-        @views.html.stylist.mySalonStylistGroup(stylist, salon, status)
+        @views.html.stylist.mySalonStylistGroup(stylist, mySalon, status)
     </div>
     }else{
       <span>@Messages("stylist.empty")</span>

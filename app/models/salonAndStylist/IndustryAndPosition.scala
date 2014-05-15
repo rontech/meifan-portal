@@ -33,20 +33,17 @@ case class IndustryAndPosition(
   positionName: String,
   industryName: String)
 
-object IndustryAndPosition extends MeifanNetModelCompanion[IndustryAndPosition]{
-  val dao = new MeifanNetDAO[IndustryAndPosition](collection = loadCollection()){}
+object IndustryAndPosition extends MeifanNetModelCompanion[IndustryAndPosition] {
+  val dao = new MeifanNetDAO[IndustryAndPosition](collection = loadCollection()) {}
 }
 
-
-
 /**
- * 
+ *
  */
 case class Position(
   id: ObjectId,
-  positionName: String
- )
+  positionName: String)
 
-object Position extends MeifanNetModelCompanion[Position]{
-   val dao = new MeifanNetDAO[Position](collection = loadCollection()){}
+object Position extends MeifanNetModelCompanion[Position] {
+  val dao = new MeifanNetDAO[Position](collection = loadCollection()) {}
 }

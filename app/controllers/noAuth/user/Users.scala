@@ -36,75 +36,73 @@ import scala.Some
 import models.OptContactMethod
 import scala.Some
 
-object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl{
+object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
   def registerForm(id: ObjectId = new ObjectId) = Form(
-  mapping(
-   "id" -> ignored(id),
-   "userId" -> text,
-   "password" -> tuple(
-    "main" -> text,
-    "confirm" -> text),
-   "nickName" -> text,
-   "email" -> text,
-   "optContactMethods" -> seq(
     mapping(
-     "contMethodType" -> text,
-     "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
-   "accept" -> checked("You must accept the conditions")
-  ){
-     (id, userId, password, nickName, email, optContactMethods,_) =>
-     User(new ObjectId, userId, nickName, BCrypt.hashpw(password._1, BCrypt.gensalt()), "M", None, None, DefaultLog.getImgId, None, email, optContactMethods, None, User.NORMAL_USER,  User.HIGH, 20, 0, (new Date()).getTime, Permission.valueOf(LoggedIn), true)
-   } {
-    user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.email, user.optContactMethods, false))
-   })
+      "id" -> ignored(id),
+      "userId" -> text,
+      "password" -> tuple(
+        "main" -> text,
+        "confirm" -> text),
+      "nickName" -> text,
+      "email" -> text,
+      "optContactMethods" -> seq(
+        mapping(
+          "contMethodType" -> text,
+          "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
+      "accept" -> checked("You must accept the conditions")) {
+        (id, userId, password, nickName, email, optContactMethods, _) =>
+          User(new ObjectId, userId, nickName, BCrypt.hashpw(password._1, BCrypt.gensalt()), "M", None, None, DefaultLog.getImgId, None, email, optContactMethods, None, User.NORMAL_USER, User.HIGH, 20, 0, (new Date()).getTime, Permission.valueOf(LoggedIn), true)
+      } {
+        user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.email, user.optContactMethods, false))
+      })
 
   val loginForm = Form(mapping(
-  "userId" -> nonEmptyText,
-  "password" -> nonEmptyText)(User.authenticate)(_.map(u => (u.userId, "")))
-  .verifying(Messages("user.loginErr"), result => result.isDefined))
+    "userId" -> nonEmptyText,
+    "password" -> nonEmptyText)(User.authenticate)(_.map(u => (u.userId, "")))
+    .verifying(Messages("user.loginErr"), result => result.isDefined))
 
-  
   /**
    * 用户注册
    */
   def register = Action { implicit request =>
-  Users.registerForm().bindFromRequest.fold(
-   errors => BadRequest(views.html.user.register(errors)),
-   {
-    user =>
-     User.save(user, WriteConcern.Safe)
-     Redirect(auth.routes.Users.login)
-   })
+    Users.registerForm().bindFromRequest.fold(
+      errors => BadRequest(views.html.user.register(errors)),
+      {
+        user =>
+          User.save(user, WriteConcern.Safe)
+          Redirect(auth.routes.Users.login)
+      })
   }
 
   /**
    * 浏览他人主页
    */
-  def userPage(userId : String) = StackAction{implicit request =>
-   User.findOneByUserId(userId).map{ user =>
-    if((user.userTyp.toUpperCase()).equals("NORMALUSER")) {
-     Redirect(controllers.noAuth.routes.Blogs.getAllBlogsOfUser(userId))
-    } else {
-     Redirect(controllers.noAuth.routes.Stylists.otherHomePage(user.id))
+  def userPage(userId: String) = StackAction { implicit request =>
+    User.findOneByUserId(userId).map { user =>
+      if ((user.userTyp.toUpperCase()).equals("NORMALUSER")) {
+        Redirect(controllers.noAuth.routes.Blogs.getAllBlogsOfUser(userId))
+      } else {
+        Redirect(controllers.noAuth.routes.Stylists.otherHomePage(user.id))
+      }
+    } getOrElse {
+      NotFound
     }
-   }getOrElse{
-     NotFound
-   }
   }
 
   /**
    * checks for email,nickName,accountId,phone
    */
-  def checkIsExist(value:String, key : String) = StackAction{implicit request =>
+  def checkIsExist(value: String, key: String) = StackAction { implicit request =>
     val loggedUser = loggedIn
-    key match{
+    key match {
       case ITEM_TYPE_ID =>
-        Ok((User.isExist(value, User.findOneByUserId)||Salon.isExist(value, Salon.findByAccountId)).toString)
+        Ok((User.isExist(value, User.findOneByUserId) || Salon.isExist(value, Salon.findByAccountId)).toString)
       case ITEM_TYPE_NAME =>
-        if(User.isValid(value, loggedUser, User.findOneByNickNm)){
-          Ok((Salon.isExist(value,Salon.findOneBySalonName)||Salon.isExist(value,Salon.findOneBySalonNameAbbr)).toString)
-        }else{
+        if (User.isValid(value, loggedUser, User.findOneByNickNm)) {
+          Ok((Salon.isExist(value, Salon.findOneBySalonName) || Salon.isExist(value, Salon.findOneBySalonNameAbbr)).toString)
+        } else {
           Ok("true")
         }
       case ITEM_TYPE_EMAIL =>
