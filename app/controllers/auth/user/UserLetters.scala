@@ -71,10 +71,10 @@ object UserLetters extends Controller with AuthElement with UserAuthConfigImpl {
   def messageList(requirement: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val count = UserMessage.countByCondition(requirement, user.userId)
-    val unReadMsgs = UserMessage.findByQuery(requirement, user.userId, 1, pageSize)
+    val unReadMsgs = UserMessage.findByCondition(requirement, user.userId, 1, pageSize)
     var userMsgs: List[models.UserMessage] = Nil
     if (unReadMsgs.isEmpty) {
-      val inBoxMsgs = UserMessage.findByQuery(UserMessage.INBOX_ALL, user.userId, 1, pageSize)
+      val inBoxMsgs = UserMessage.findByCondition(UserMessage.INBOX_ALL, user.userId, 1, pageSize)
       userMsgs = inBoxMsgs
     } else {
       userMsgs = unReadMsgs

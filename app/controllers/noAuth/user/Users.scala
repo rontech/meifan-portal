@@ -38,6 +38,11 @@ import scala.Some
 
 object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
+  /**
+   * create a user's register form
+   * @param id new ObjectId for user
+   * @return register form
+   */
   def registerForm(id: ObjectId = new ObjectId) = Form(
     mapping(
       "id" -> ignored(id),
@@ -58,14 +63,9 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
         user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.email, user.optContactMethods, false))
       })
 
-  val loginForm = Form(mapping(
-    "userId" -> nonEmptyText,
-    "password" -> nonEmptyText)(User.authenticate)(_.map(u => (u.userId, "")))
-    .verifying(Messages("user.loginErr"), result => result.isDefined))
-
   /**
-   * 用户注册
-   */
+   * Handler guest user's register request
+   * */
   def register = Action { implicit request =>
     Users.registerForm().bindFromRequest.fold(
       errors => BadRequest(views.html.user.register(errors)),
@@ -77,7 +77,9 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
   }
 
   /**
-   * 浏览他人主页
+   * Redirect to other user's home page
+   * @param userId user's userId
+   * @return
    */
   def userPage(userId: String) = StackAction { implicit request =>
     User.findOneByUserId(userId).map { user =>
@@ -92,7 +94,10 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
   }
 
   /**
-   * checks for email,nickName,accountId,phone
+   * Checks for email,nickName,accountId,phone
+   * @param value need to checks value
+   * @param key the type of checks ;e.g. ITEM_TYPE_EMAIL
+   * @return
    */
   def checkIsExist(value: String, key: String) = StackAction { implicit request =>
     val loggedUser = loggedIn
