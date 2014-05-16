@@ -1,10 +1,13 @@
 import play.api._
 import models._
-import anorm._
-import com.mongodb.casbah.commons.Imports._
 import org.bson.types.ObjectId
 import java.util.Date
 import java.io.File
+import play.api.mvc.Results._
+import play.api.mvc._
+import scala.concurrent.Future
+
+
 object Global extends GlobalSettings {
   
   override def onStart(app: Application) {
@@ -13,7 +16,21 @@ object Global extends GlobalSettings {
     // Initial Test Data.
     InitialData.insertSampleData()
    }
-  
+
+   // called when a route is found, but it was not possible to bind the request parameters
+   override def onBadRequest(request: RequestHeader, error: String) = {
+        Future.successful(BadRequest("Bad Request: " + error))
+    }
+
+    // 500 - internal server error
+    override def onError(request: RequestHeader, throwable: Throwable) = {
+        Future.successful(InternalServerError(views.html.error.onError(throwable)))
+    }
+
+    // 404 - page not found error
+    override def onHandlerNotFound(request: RequestHeader): Future[SimpleResult] = {
+        Future.successful(NotFound(views.html.error.onHandlerNotFound(request)))
+    }
 }
 /**
  * Initial set of data to be imported 

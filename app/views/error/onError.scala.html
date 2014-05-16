@@ -1,3 +1,8 @@
-/**
- * Created by YS-HAN on 14/04/30.
- */
+@(throwable: Throwable)
+
+@main("onError Happened") {
+
+    <h1>onError Happened</h1>
+    <p>@throwable.getMessage</p>
+
+}
