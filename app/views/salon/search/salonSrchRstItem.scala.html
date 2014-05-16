@@ -3,144 +3,144 @@
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/generalSearch.css")">
 
 <li class="listCassette">
-    <div class="ygS mainContentsSecondTitleOuterFw">
-        <div class="ygS mainContentsSecondTitleInner2">
-            <div class="mainContentsST">
-                <div class="cassetteArea fs10">
-                    @salon.salonInfo.salonAddress.map(add=>add.province).getOrElse(None) &gt;
-                    @salon.salonInfo.salonAddress.map(add=>add.city).getOrElse(None) &gt;
-                    @salon.salonInfo.salonAddress.map(add=>add.region).getOrElse(None)
-                </div>
-                <div class="cFix bdRedB mainContentsSTHead">
-                    <h3 class="fl listTitleHeading cFix pT5 pL10 w410">
-                        <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)"> @salon.salonInfo.salonName [@salon.salonInfo.salonNameAbbr]</a>
-                    </h3>
-                    <p class="evalPropRight">@Messages("salon.reviewsTotalCnt", salon.reviewsStat.reviewTotalCnt)</p>
-                    <p class="evalPropRight">@Messages("salon.reviewsRate", (salon.reviewsStat.reviewRate * 100).toInt)</p>
-                    <p class="evalPropRight salonPrice">
-                        @salon.priceForCut match {
-                            case None => { @Messages("salon.priceCutOnlyUndefined")}
-                            case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
-                        }
-                    </p>
-                    @*<p class="fr pR10 pT5">
-                        <a href="#"
-                        class="bS reserveW115H24 offL db">
-                            @Messages("reserve.confirmAndReserve")
-                        </a>
-                    </p>*@
-                </div>
-                <div class="netReserveWrapper">
-                     <!--↓salon optional facilities-->
-                     @views.html.salon.component.salonOptFacilities(salon.salonInfo)
-                     <!--↑salon optional facilities-->
-               </div>
-            </div>
+  <div class="ygS mainContentsSecondTitleOuterFw">
+    <div class="ygS mainContentsSecondTitleInner2">
+      <div class="mainContentsST">
+        <div class="cassetteArea fs10">
+          @salon.salonInfo.salonAddress.map(add=>add.province).getOrElse(None) &gt;
+          @salon.salonInfo.salonAddress.map(add=>add.city).getOrElse(None) &gt;
+          @salon.salonInfo.salonAddress.map(add=>add.region).getOrElse(None)
         </div>
-    </div>
-    <div class="listBody cFix">
-        <div class="fl w218 mR10 taC">
-            <div class="mHA">
-                <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)">
-                    <img src="@routes.Application.getPhoto(salon.salonInfo.salonPics(0).fileObjId)"
-                    class="mT6 w218 h162 brL" alt="@salon.salonInfo.salonName">
-                </a>
-            </div>
-            <ul class=" mT20 taC">
-                @for((style, idx) <- salon.selectedStyles.zipWithIndex) {
-                    @if(idx < 2) {
-                        <li class="mR5 mL5 dibBL">
-                            <a href="@noAuth.routes.Salons.getOneStyle(salon.salonInfo.id, style.id)">
-                                <img src="@routes.Application.getPhoto(salon.selectedStyles(idx).stylePic(0).fileObjId)"
-                                class="mT6 w89 h119 brL" oncontextmenu="return false;">
-                            </a>
-                        </li>
-                    }
-                }
-          </ul>
-        </div>
-        <div class="fl w500">
-            <p class="shopCatchCopy">
-                <b>
-                    <strong>
-                        <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)">
-                            @salon.salonInfo.picDescription.map(pic=>pic.picTitle).getOrElse(None)
-                        </a>
-                    </strong>
-                </b>
-            </p>
-            <p class="mT10 pB10">
-	        @salon.salonInfo.picDescription.map(pic=>pic.picContent).getOrElse(None).toString.slice(0, 70) ...
-                <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)">@Messages("common.checkFormore") </a>
-            </p>
-            <div>
-                @for(kwdHits <- salon.keywordsHitStrs) {
-                    <p>
-                        @*<span class="highlightFw"> </span>*@
-                        @kwdHits
-                    </p>
-                }
-                @*
-		<ul class="cFix">
-		    <li class="fr">
-			<div class="jscMySalonSaveLayer">
-			    <p class="jscMySlnSvStIdH000269725">
-				<a href="javascript:void(0); onclick="addFollow('@salon.salonInfo.id','salon')""
-                                    class="btn btn3H24 addIntoMySalon jscBtnSaveToMySalon fs11" rel="nofollow">
-				    <span>
-					<span>
-					    @Messages("salon.followSalon")
-					</span>
-				    </span>
-				</a>
-                                <!-- TODO check if the login user followed this salon.-->
-				<span class="btnSaveToMySalonDone">
-				    <a href=""
-				    class="btnBm btnBmH24 fs11 mHA" rel="nofollow">
-					<span class="btnBmLeft">
-					    <span class="btnSaveToMySalonDoneInner btnBmRight">
-						<span class="btnSaveToMySalonDoneInnerLinkText b">
-						    ブックマーク
-						</span>
-						済み
-					    </span>
-					</span>
-				    </a>
-				</span>
-			    </p>
-			</div>
-		    </li>
-		</ul>
-                *@
-           </div>
-            <!--↓ Coupons in this Salon.-->
-            @if(!salon.selectedCoupons.isEmpty) {
-                <div class="bdLGrayT mT5">
-                    <p class="fs10 b fgLGray2 mT10 mL5">
-                        @Messages("coupon.titleInSalon", salon.salonInfo.salonNameAbbr.getOrElse(None))
-                    </p>
-                    <div class="CouponArea p3">
-                        @for((cp, idx) <- salon.selectedCoupons.zipWithIndex) {
-                            <dl class="cFix">
-                                <dt class="iS @if(idx == 0) {couponTypeSmallCT02} else {couponTypeSmallCT01} offL CouponMark fl">
-                                </dt>
-                                <dd class="fl">
-                                    <a href="@noAuth.routes.Salons.getAllCoupons(cp.salonId)">
-                                        @cp.couponName
-                                    </a>
-                                </dd>
-                            </dl>
-                        }
-                    </div>
-                </div>
+        <div class="cFix bdRedB mainContentsSTHead">
+          <h3 class="fl listTitleHeading cFix pT5 pL10 w410">
+            <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)"> @salon.salonInfo.salonName [@salon.salonInfo.salonNameAbbr]</a>
+          </h3>
+          <p class="evalPropRight">@Messages("salon.reviewsTotalCnt", salon.reviewsStat.reviewTotalCnt)</p>
+          <p class="evalPropRight">@Messages("salon.reviewsRate", (salon.reviewsStat.reviewRate * 100).toInt)</p>
+          <p class="evalPropRight salonPrice">
+            @salon.priceForCut match {
+              case None => { @Messages("salon.priceCutOnlyUndefined")}
+              case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
             }
-            <br/>
-            <p class="taR mTN5">
-                <a class="iS arrowR" href="@noAuth.routes.Salons.getAllCoupons(salon.salonInfo.id)">
-                    @Messages("coupon.searchForMore")
-                </a>
-            </p>
-            <!--↑ Coupons in this Salon.-->
+          </p>
+          @*<p class="fr pR10 pT5">
+            <a href="#"
+            class="bS reserveW115H24 offL db">
+              @Messages("reserve.confirmAndReserve")
+            </a>
+          </p>*@
         </div>
+        <div class="netReserveWrapper">
+           <!--↓salon optional facilities-->
+           @views.html.salon.component.salonOptFacilities(salon.salonInfo)
+           <!--↑salon optional facilities-->
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="listBody cFix">
+    <div class="fl w218 mR10 taC">
+      <div class="mHA">
+        <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)">
+          <img src="@routes.Application.getPhoto(salon.salonInfo.salonPics(0).fileObjId)"
+          class="mT6 w218 h162 brL" alt="@salon.salonInfo.salonName">
+        </a>
+      </div>
+      <ul class=" mT20 taC">
+        @for((style, idx) <- salon.selectedStyles.zipWithIndex) {
+          @if(idx < 2) {
+            <li class="mR5 mL5 dibBL">
+              <a href="@noAuth.routes.Salons.getOneStyle(salon.salonInfo.id, style.id)">
+                <img src="@routes.Application.getPhoto(salon.selectedStyles(idx).stylePic(0).fileObjId)"
+                class="mT6 w89 h119 brL" oncontextmenu="return false;">
+              </a>
+            </li>
+          }
+        }
+     </ul>
+    </div>
+    <div class="fl w500">
+      <p class="shopCatchCopy">
+        <b>
+          <strong>
+            <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)">
+              @salon.salonInfo.picDescription.map(pic=>pic.picTitle).getOrElse(None)
+            </a>
+          </strong>
+        </b>
+      </p>
+      <p class="mT10 pB10">
+      @salon.salonInfo.picDescription.map(pic=>pic.picContent).getOrElse(None).toString.slice(0, 70) ...
+        <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)">@Messages("common.checkFormore") </a>
+      </p>
+      <div>
+        @for(kwdHits <- salon.keywordsHitStrs) {
+          <p>
+            @*<span class="highlightFw"> </span>*@
+            @kwdHits
+          </p>
+        }
+        @*
+    <ul class="cFix">
+      <li class="fr">
+      <div class="jscMySalonSaveLayer">
+        <p class="jscMySlnSvStIdH000269725">
+        <a href="javascript:void(0); onclick="addFollow('@salon.salonInfo.id','salon')""
+                  class="btn btn3H24 addIntoMySalon jscBtnSaveToMySalon fs11" rel="nofollow">
+          <span>
+          <span>
+            @Messages("salon.followSalon")
+          </span>
+          </span>
+        </a>
+                <!-- TODO check if the login user followed this salon.-->
+        <span class="btnSaveToMySalonDone">
+          <a href=""
+          class="btnBm btnBmH24 fs11 mHA" rel="nofollow">
+          <span class="btnBmLeft">
+            <span class="btnSaveToMySalonDoneInner btnBmRight">
+            <span class="btnSaveToMySalonDoneInnerLinkText b">
+              ブックマーク
+            </span>
+            済み
+            </span>
+          </span>
+          </a>
+        </span>
+        </p>
+      </div>
+      </li>
+    </ul>
+        *@
+      </div>
+      <!--↓ Coupons in this Salon.-->
+      @if(!salon.selectedCoupons.isEmpty) {
+        <div class="bdLGrayT mT5">
+          <p class="fs10 b fgLGray2 mT10 mL5">
+            @Messages("coupon.titleInSalon", salon.salonInfo.salonNameAbbr.getOrElse(None))
+          </p>
+          <div class="CouponArea p3">
+            @for((cp, idx) <- salon.selectedCoupons.zipWithIndex) {
+              <dl class="cFix">
+                <dt class="iS @if(idx == 0) {couponTypeSmallCT02} else {couponTypeSmallCT01} offL CouponMark fl">
+                </dt>
+                <dd class="fl">
+                  <a href="@noAuth.routes.Salons.getAllCoupons(cp.salonId)">
+                    @cp.couponName
+                  </a>
+                </dd>
+              </dl>
+            }
+          </div>
+        </div>
+      }
+      <br/>
+      <p class="taR mTN5">
+        <a class="iS arrowR" href="@noAuth.routes.Salons.getAllCoupons(salon.salonInfo.id)">
+          @Messages("coupon.searchForMore")
+        </a>
+      </p>
+      <!--↑ Coupons in this Salon.-->
+    </div>
+  </div>
 </li>

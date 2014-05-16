@@ -1,12 +1,12 @@
 @(salon: Salon, menuForm: Form[Menu], services: List[Service])
 
 @mySalonMain(navInSalon = "my-menus", salon) {
-	
-	<head>
-		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/menu.css")">	
-	</head>
-	
-    <!-- Get the Salon with all the coupons.  -->
-    @views.html.menu.createMenu(salon.id, menuForm, services)
+  
+  <head>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/menu.css")">    
+  </head>
+  
+  <!-- Get the Salon with all the coupons.  -->
+  @views.html.menu.createMenu(salon.id, menuForm, services)
 
 }

@@ -1,3 +1,20 @@
+/**
+ * RONTECH CONFIDENTIAL
+ * __________________
+ *
+ *  [2014] - SuZhou Rontech Co.,Ltd.(http://www.sz-rontech.com)
+ *  All Rights Reserved.
+ *
+ * NOTICE:  All information contained herein is, and remains
+ * the property of SuZhou Rontech Co.,Ltd. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to SuZhou Rontech Co.,Ltd.
+ * and its suppliers and may be covered by China and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from SuZhou Rontech Co.,Ltd..
+ */
 package controllers.auth
 
 import play.api.mvc._
@@ -31,7 +48,7 @@ object UserLetters extends Controller with AuthElement with UserAuthConfigImpl {
         "title" -> nonEmptyText,
         "content" -> nonEmptyText) { (title, content) => Message(new ObjectId, title, content, new Date) } { message => Some((message.title, message.content)) })(UserLetter.apply)(UserLetter.unapply))
 
-//TODO
+  //TODO
   def sendMessage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     UserLetters.userLetterForm.bindFromRequest.fold(
       //errors => BadRequest(views.html.user.userLetter(errors)),
@@ -55,18 +72,16 @@ object UserLetters extends Controller with AuthElement with UserAuthConfigImpl {
     val user = loggedIn
     val count = UserMessage.countByCondition(requirement, user.userId)
     val unReadMsgs = UserMessage.findByQuery(requirement, user.userId, 1, pageSize)
-    var userMsgs:List[models.UserMessage] = Nil
+    var userMsgs: List[models.UserMessage] = Nil
     if (unReadMsgs.isEmpty) {
-       val inBoxMsgs =UserMessage.findByQuery(UserMessage.INBOX_ALL, user.userId, 1, pageSize)
-       userMsgs = inBoxMsgs
+      val inBoxMsgs = UserMessage.findByQuery(UserMessage.INBOX_ALL, user.userId, 1, pageSize)
+      userMsgs = inBoxMsgs
+    } else {
+      userMsgs = unReadMsgs
     }
-    else{
-       userMsgs = unReadMsgs
-  }
-    val letters = userMsgs.map(userMsg => 
-      UserLetter(userMsg, Message.findOneById(userMsg.msgId).get)
-      ) 
-    
+    val letters = userMsgs.map(userMsg =>
+      UserLetter(userMsg, Message.findOneById(userMsg.msgId).get))
+
     var pages: Int = 0
     if (count % pageSize == 0) {
       pages = count.toInt / pageSize
@@ -76,31 +91,31 @@ object UserLetters extends Controller with AuthElement with UserAuthConfigImpl {
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     Ok(views.html.user.myMessages(letters, count, pages, 1, user, followInfo))
   }
-  
-  def showMessage(id : ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+
+  def showMessage(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val userMsg = UserMessage.findOneById(id).get
     val msg = Message.findOneById(userMsg.msgId).get
     UserMessage.read(userMsg)
-    Ok(views.html.user.message(UserLetter(userMsg, msg),user,followInfo))
+    Ok(views.html.user.message(UserLetter(userMsg, msg), user, followInfo))
   }
 
-  def sendLetterPage(id : String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+  def sendLetterPage(id: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val loginUser = loggedIn
     val user = User.findOneById(new ObjectId(id)).get
-    Ok(views.html.user.myLetters(user,loginUser))
+    Ok(views.html.user.myLetters(user, loginUser))
   }
 
   def sendLetter() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     UserLetters.userLetterForm.bindFromRequest.fold(
-    errors => BadRequest("发送失败，请重试！"),
-    {
-      userLetter =>
-        Message.save(userLetter.message, WriteConcern.Safe)
-        val userMessage = userLetter.userMessage.copy(msgId = userLetter.message.id)
-        UserMessage.save(userMessage, WriteConcern.Safe)
-        Ok(Html("<p><strong>发送成功！！</strong></p>"))
-    })
+      errors => BadRequest("发送失败，请重试！"),
+      {
+        userLetter =>
+          Message.save(userLetter.message, WriteConcern.Safe)
+          val userMessage = userLetter.userMessage.copy(msgId = userLetter.message.id)
+          UserMessage.save(userMessage, WriteConcern.Safe)
+          Ok(Html("<p><strong>发送成功！！</strong></p>"))
+      })
   }
 }

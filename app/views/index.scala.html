@@ -1,77 +1,77 @@
 @(user: Option[User] = None)
 
 @main(Messages("site.title")) {
-	
-	<script src="@routes.Assets.at("javascripts/slidenav.js")" type="text/javascript"></script>
-	<script src="@routes.Assets.at("javascripts/sc.js")" type="text/javascript"></script>
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanIndex.css")">
-	
-	<!-- ↓mainContents -->
-	<div id="mainContents">
-            <!--↓ General Search Form-->
-            @views.html.common.generalSrchForm(nav = "Top") 
-            <!--↑ General Search Form-->
-	    <div id="banner">
-			<ul class="mainImage" id="jsiMainImage">
-				<li class="current">
-					<a href="@noAuth.routes.Salons.index">
-						<img alt="@Messages("index.hairSalonRsv")" src="@routes.Assets.at("images/mainImg_hair.jpg")" width="760" height="397" />
-					</a>
-				</li>
-				<li>
-					<a href="@noAuth.routes.Styles.index">
-						<img alt="@Messages("index.nailSalonRsv")" src="@routes.Assets.at("images/mainImg_nail.jpg")" width="760" height="397" />
-					</a>
-				</li>
-				<li>
-					<a href="@noAuth.routes.Styles.index">
-						<img alt="@Messages("index.cosmSalonRsv")" src="@routes.Assets.at("images/mainImg_relax.jpg")" width="760" height="397" />
-					</a>
-				</li>
-				<li>
-					<a href="@noAuth.routes.Styles.index">
-						<img alt="@Messages("index.massageSalonRsv")" src="@routes.Assets.at("images/mainImg_esthe.jpg")" width="760" height="397" />
-					</a>
-				</li>
-			</ul>
-			<div class="imgNaviWrapper">
-			<div class="naviBar" id="jsiNaviBar"></div>
-				<ul class="mainImage_navi" id="jsiImageNavi">
-					<li class="hair_reserve currentNav">
-						<a href="@noAuth.routes.Salons.index">@Messages("index.hairSalonRsv")</a>
-					</li>
-					<li class="nail_reserve">
-						<a href="@noAuth.routes.Styles.index">@Messages("index.nailSalonRsv")</a>
-					</li>
-					<li class="relax_reserve">
-						<a href="@noAuth.routes.Styles.index">@Messages("index.cosmSalonRsv")</a>
-					</li>
-					<li class="esthe_reserve">
-						<a href="@noAuth.routes.Styles.index">@Messages("index.massageSalonRsv")</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		
-		<div id="container">
-			<div id="left">
-				@views.html.indexPage.indexLeftColumn()
-			</div>
-			
-			<div id="right">
-				@views.html.indexPage.indexRightColumn(user)
-			</div>
-			
-			<!-- ↓整容整形 -->
-		  	@views.html.estheSalon.cosmeticSurgery()
-			<!-- ↑整容整形 -->
-		</div>
-	    
-	    <div class="cFix mT34">
-		<div class="cFix">
-		</div>
-	    </div>
-	</div>
-	<!-- ↑mainContents -->
+  
+  <script src="@routes.Assets.at("javascripts/slidenav.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/sc.js")" type="text/javascript"></script>
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanIndex.css")">
+  
+  <!-- ↓mainContents -->
+  <div id="mainContents">
+      <!--↓ General Search Form-->
+      @views.html.common.generalSrchForm(nav = "Top") 
+      <!--↑ General Search Form-->
+    <div id="banner">
+      <ul class="mainImage" id="jsiMainImage">
+        <li class="current">
+          <a href="@noAuth.routes.Salons.index">
+            <img alt="@Messages("index.hairSalonRsv")" src="@routes.Assets.at("images/mainImg_hair.jpg")" width="760" height="397" />
+          </a>
+        </li>
+        <li>
+          <a href="@noAuth.routes.Styles.index">
+            <img alt="@Messages("index.nailSalonRsv")" src="@routes.Assets.at("images/mainImg_nail.jpg")" width="760" height="397" />
+          </a>
+        </li>
+        <li>
+          <a href="@noAuth.routes.Styles.index">
+            <img alt="@Messages("index.cosmSalonRsv")" src="@routes.Assets.at("images/mainImg_relax.jpg")" width="760" height="397" />
+          </a>
+        </li>
+        <li>
+          <a href="@noAuth.routes.Styles.index">
+            <img alt="@Messages("index.massageSalonRsv")" src="@routes.Assets.at("images/mainImg_esthe.jpg")" width="760" height="397" />
+          </a>
+        </li>
+      </ul>
+      <div class="imgNaviWrapper">
+      <div class="naviBar" id="jsiNaviBar"></div>
+        <ul class="mainImage_navi" id="jsiImageNavi">
+          <li class="hair_reserve currentNav">
+            <a href="@noAuth.routes.Salons.index">@Messages("index.hairSalonRsv")</a>
+          </li>
+          <li class="nail_reserve">
+            <a href="@noAuth.routes.Styles.index">@Messages("index.nailSalonRsv")</a>
+          </li>
+          <li class="relax_reserve">
+            <a href="@noAuth.routes.Styles.index">@Messages("index.cosmSalonRsv")</a>
+          </li>
+          <li class="esthe_reserve">
+            <a href="@noAuth.routes.Styles.index">@Messages("index.massageSalonRsv")</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div id="container">
+      <div id="left">
+        @views.html.indexPage.indexLeftColumn()
+      </div>
+      
+      <div id="right">
+        @views.html.indexPage.indexRightColumn(user)
+      </div>
+      
+      <!-- ↓整容整形 -->
+       @views.html.estheSalon.cosmeticSurgery()
+      <!-- ↑整容整形 -->
+    </div>
+    
+    <div class="cFix mT34">
+    <div class="cFix">
+    </div>
+    </div>
+  </div>
+  <!-- ↑mainContents -->
 
 }

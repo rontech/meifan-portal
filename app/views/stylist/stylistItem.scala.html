@@ -2,45 +2,45 @@
 
 
 @stylist match {
-    case None => { <h1>Not Found</h1> }
-    case Some(st) => {
-        <div class="mysalon-stylist-search w166 mHA p10">
-            @st.workInfo match {
-                case None => {Not Found}
-                case Some(wk) => {
-                    <div class="taC">
-                        <a href="@noAuth.routes.Salons.getOneStylist(wk.salonId, wk.stylistId)">
-                            <img src="@routes.Application.getPhoto(st.stylistInfo.get.myPics(0).fileObjId)"  title=@Messages("stylist.picTitle") alt="@st.basicInfo.nickName" class="bdImgGray w164 h219">
-                        </a>
-                    </div>
-                }
-            }
+  case None => { <h1>Not Found</h1> }
+  case Some(st) => {
+    <div class="mysalon-stylist-search w166 mHA p10">
+      @st.workInfo match {
+        case None => {Not Found}
+        case Some(wk) => {
+          <div class="taC">
+            <a href="@noAuth.routes.Salons.getOneStylist(wk.salonId, wk.stylistId)">
+              <img src="@routes.Application.getPhoto(st.stylistInfo.get.myPics(0).fileObjId)"  title=@Messages("stylist.picTitle") alt="@st.basicInfo.nickName" class="bdImgGray w164 h219">
+            </a>
+          </div>
+        }
+      }
 
-            @st.stylistInfo match {
-                case None => {Not Known}
-                case Some(sinfo) => {
-                    <div class="bdDotT mT5 pT5 fs10">
-                        <span class="fgPink">
-                            @sinfo.position.map { ps => @Messages("position."+ps.positionName) &nbsp;&nbsp; }
-                        </span>
-                        [@Messages("stylist.experienceYears", sinfo.workYears)] 
-                    </div>
-                }
-            }
-            <div class="bdDotT mT5 pT5 fs10 hMin20"> <p> @st.basicInfo.nickName </p> </div>
-            <!--Stylist's words-->
-             @st.stylistInfo match {
-                case None => {}
-                case Some(sinfo) => {
-                   <div class="bdDotT mT5 pT5 fs10 hMin35">
-                        @sinfo.myWords.slice(0, 20)
-                        @if(sinfo.myWords.length > 20) {...}
-                    </div> 
-                }
-            }
-        </div>
-        <div class="taC mT10">
-            <a href="#" class="bS db nominatedReserve offL mHA">@Messages("stylist.selectForReserv")</a>
-        </div>
-    }
+      @st.stylistInfo match {
+        case None => {Not Known}
+        case Some(sinfo) => {
+          <div class="bdDotT mT5 pT5 fs10">
+            <span class="fgPink">
+              @sinfo.position.map { ps => @Messages("position.positionName."+ps.positionName) &nbsp;&nbsp; }
+            </span>
+            [@Messages("stylist.experienceYears", sinfo.workYears)] 
+          </div>
+        }
+      }
+      <div class="bdDotT mT5 pT5 fs10 hMin20"> <p> @st.basicInfo.nickName </p> </div>
+      <!--Stylist's words-->
+       @st.stylistInfo match {
+        case None => {}
+        case Some(sinfo) => {
+          <div class="bdDotT mT5 pT5 fs10 hMin50">
+            @sinfo.myWords.slice(0, 20)
+            @if(sinfo.myWords.length > 20) {...}
+          </div> 
+        }
+      }
+    </div>
+    <div class="taC mT10">
+      <a href="#" class="bS db nominatedReserve mHA">@Messages("stylist.selectForReserv")</a>
+    </div>
+  }
 }

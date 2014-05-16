@@ -3,9 +3,9 @@
 @import views.html.user._
 
 @InfoChange("my-applyFromSalon", user, followInfo, loginUserId, logged){
-	<div class="mT40">
-		@salons.map{salon =>
-			@views.html.stylist.management.stylistApplyingSalonItem(user, loginUserId, logged, salon)
-		}
-	</div>
+  <div class="mT40">
+    @salons.map{salon =>
+      @views.html.stylist.management.stylistApplyingSalonItem(user, loginUserId, logged, salon)
+    }
+  </div>
 }

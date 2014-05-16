@@ -1,139 +1,139 @@
 @(user :User,followInfo:FollowInformation)
-			<div class ="Owner">
-				<a href="#" class='Img'><img src="@routes.Application.getPhoto(user.userPics)"/></a>
-				<span class='myPageA'>
-      				<a href="@auth.routes.Users.myPage" class='Name' title='female'>@user.nickName</a>
-					<span class='opts'>
-						<img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='absmiddle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
-						<a href = "@auth.routes.Users.changeImage">@Messages("user.changeImage")</a>
-					</span>
-				</span>
-    			<div class="clear"></div>
-				<div class ="sta">
-					<a href="@noAuth.routes.MyFollows.followers(user.id)"><font>@Messages("user.myFollowers")<span>(@followInfo.follower.length)</span></font></a>
-					<a href="@auth.routes.UserLetters.messageList("unRead")"><font>@Messages("user.myMessages")<span>(@UserMessage.countByCondition("unRead",user.userId))</span></font></a>
-				</div>
-			</div>
-			<div class='myPoint' id='UserSkills'>
-	  			<div id="OtherScore">
-        			<h1><a href="#" title="@Messages("user.howToGetPoint")">@Messages("user.availablePoint")<em>@user.point</em>@Messages("user.point")</a></h1>
-    			</div> 
-	  		</div>
-   			<div class='Opts clearfix'>
-                <a href="@auth.routes.Users.myInfo" class='a2 admin'><span>@Messages("user.changeInfo")</span></a>
-				<a href="@noAuth.routes.Blogs.getAllBlogsOfUser(user.userId)" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
-			</div>
-            @if(user.userTyp.equals(User.STYLIST)){
-                <!-- 我的沙龙，如果没有则显示来自沙龙的邀请 -->
-                <div class='Mod Users' id='Fans'>
-                @if(SalonAndStylist.findByStylistId(user.id).isEmpty){
-                    <a href="@auth.routes.Stylists.applyFromSalon">
-                    
-                        <strong>@Messages("stylistMag.salonApply")</strong>
-                        <div class='more'>
-                        @if(SalonStylistApplyRecord.checkStylistApply(user.id)){
-                    		<a href="@auth.routes.Stylists.findStylistApplying">@Messages("stylistMag.myAppling")</a>&nbsp;
-                    	}else{
-                    		<a href="@auth.routes.Stylists.wantToApply">@Messages("stylistMag.wantToApply")</a>&nbsp;
-                    	}
-                            <a href="@auth.routes.Stylists.applyFromSalon">@Messages("stylistMag.countSalonApply")
-                                (@SalonStylistApplyRecord.applingSalonCount(user.id))
-                            </a>
-                        </div>
-                        }else{
-                    <a href="@noAuth.routes.Stylists.mySalonFromStylist(user.id)">
-                        <strong>@Messages("stylistMag.mySalon")</strong>
-                        <div class='more'>
-							<a href="@noAuth.routes.Stylists.mySalonFromStylist(user.id)">
-                                <img src="@routes.Application.getPhoto(Stylist.mySalon(user.id).salonPics(0).fileObjId)" alt="@Stylist.mySalon(user.id).salonNameAbbr" title="@Stylist.mySalon(user.id).salonNameAbbr" align="absmiddle" class = "SmallPortrait"/>
-								<span>@Stylist.mySalon(user.id).salonName</span>
-                            </a>
-                        </div>
-                        }
-                </div>
-                <!-- 我的发型 -->
-                <div class='Mod Users' id='Fellows'>
-                    <strong>@Messages("stylistMag.myStyle")</strong>
-                    <ul class='clearfix'>
-	  					@Style.findByStylistId(user.id).slice(0,8).map {style =>
-	  						<li>
-    	 						<a href="#">
-                                    <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)" alt="@style.styleName" title="@style.styleName" align="absmiddle" class = "SmallPortrait">
-                                </a>
-    	 			     	</li>
-	  					}
-    				</ul>
-                    <div class='more'>
-                        <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
-                            (@Stylist.countStyleByStylist(user.id))</a>
-                    </div>
-                </div>
+      <div class ="Owner">
+        <a href="#" class='Img'><img src="@routes.Application.getPhoto(user.userPics)"/></a>
+        <span class='myPageA'>
+           <a href="@auth.routes.Users.myPage" class='Name' title='female'>@user.nickName</a>
+          <span class='opts'>
+            <img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='absmiddle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
+            <a href = "@auth.routes.Users.changeImage">@Messages("user.changeImage")</a>
+          </span>
+        </span>
+        <div class="clear"></div>
+        <div class ="sta">
+          <a href="@noAuth.routes.MyFollows.followers(user.id)"><font>@Messages("user.myFollowers")<span>(@followInfo.follower.length)</span></font></a>
+          <a href="@auth.routes.UserLetters.messageList("unRead")"><font>@Messages("user.myMessages")<span>(@UserMessage.countByCondition("unRead",user.userId))</span></font></a>
+        </div>
+      </div>
+      <div class='myPoint' id='UserSkills'>
+         <div id="OtherScore">
+          <h1><a href="#" title="@Messages("user.howToGetPoint")">@Messages("user.availablePoint")<em>@user.point</em>@Messages("user.point")</a></h1>
+        </div> 
+       </div>
+        <div class='Opts clearfix'>
+        <a href="@auth.routes.Users.myInfo" class='a2 admin'><span>@Messages("user.changeInfo")</span></a>
+        <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(user.userId)" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
+      </div>
+      @if(user.userTyp.equals(User.STYLIST)){
+        <!-- 我的沙龙，如果没有则显示来自沙龙的邀请 -->
+        <div class='Mod Users' id='Fans'>
+        @if(SalonAndStylist.findByStylistId(user.id).isEmpty){
+          <a href="@auth.routes.Stylists.applyFromSalon">
+          
+            <strong>@Messages("stylistMag.salonApply")</strong>
+            <div class='more'>
+            @if(SalonStylistApplyRecord.checkStylistApply(user.id)){
+              <a href="@auth.routes.Stylists.findStylistApplying">@Messages("stylistMag.myAppling")</a>&nbsp;
+            }else{
+              <a href="@auth.routes.Stylists.wantToApply">@Messages("stylistMag.wantToApply")</a>&nbsp;
             }
-			<div class='Mod Users' id='Fellows'>
-    			<strong>@Messages("user.followSalon")</strong>
-	  			<ul class='clearfix'>
-	  					@followInfo.followSalon.slice(0,8).map {salon =>
-	  						<li>
-    	 						<a href="@noAuth.routes.Salons.getSalon(salon.id)">
-                                    <img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)" alt="@salon.salonNameAbbr" title="@salon.salonNameAbbr" align="absmiddle" class = "SmallPortrait">
-                                </a>
-    	 			     	</li>
-	  					}
-    			</ul>
-				<div class='more'>
-    				<a href="@noAuth.routes.MyFollows.followedSalon(user.id)">@Messages("user.showAllFollow")@followInfo.followSalon.length)</a>
-    			</div>
-			</div>
-			<div class='Mod Users' id='Fellows'>
-    			<strong>@Messages("user.followStylist")</strong>
-	  			<ul class='clearfix'>
-	  				@followInfo.followStylist.slice(0,8).map {stylist =>
-	  					<li>
-    	 				       <a href="@noAuth.routes.Users.userPage(User.findOneById(stylist.stylistId).get.userId)">
-    	 				           <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" alt="@Stylist.findUserName(stylist.stylistId)" title="@Stylist.findUserName(stylist.stylistId)" align="absmiddle" class = "SmallPortrait">
-    	 				       </a>
-    	 			    </li>
-	  				}
-    			</ul>
-				<div class='more'>
-    				<a href="@noAuth.routes.MyFollows.followedStylist(user.id)">@Messages("user.showAllFollow")@followInfo.followStylist.length)</a>
-    			</div>
-			</div>
-			<div class='Mod Users' id='Fans'>
-	   			<strong>@Messages("user.followUser")</strong>
-	   			<ul class='clearfix'>
-      				@followInfo.followUser.slice(0,8).map {user =>
-	  					<li>
-    	 				       <a href="@noAuth.routes.Users.userPage(user.userId)">
-    	 				       		<img src="@routes.Application.getPhoto(user.userPics)" alt="@user.nickName" title="@user.nickName" align="absmiddle" class = "SmallPortrait"/>
-    	 				       </a>
-    	 			    </li>
-	  					}
-				</ul>
-		 		<div class='more'>
-       				<a href="@noAuth.routes.MyFollows.followedUser(user.id)">@Messages("user.showAllFollow")@followInfo.followUser.length)</a>
-     			</div>
-			</div>
-			<div class='Mod Users' id='Fans'>
-				<strong>@Messages("user.quickNavigation")</strong>
-        		<ul class='clearfix quickNav'>
-                    <li><a href="@auth.routes.Users.myReservation">@Messages("user.reservation")</a></li>
-        			<li><a href="@auth.routes.MyFollows.followedCoupon(user.id)">@Messages("user.collectCoupon")</a></li>
-        			<li><a href="@auth.routes.MyFollows.followedBlog(user.id)">@Messages("user.collectBlog")</a></li>
-        			<li><a href="@auth.routes.MyFollows.followedStyle(user.id)">@Messages("user.collectStyle")</a></li>
-        			<li><a href="@auth.routes.Users.password">@Messages("user.changePassword")</a></li>
-        			@if(user.userTyp.equals(User.NORMAL_USER)){
-        			<li>
-        				@if(SalonStylistApplyRecord.checkStylistApply(user.id)){
-        					<a href="@auth.routes.Users.cancelApplyStylist">@Messages("user.cancelBeStylist")</a>
-        				}else{
-        					<a href="@auth.routes.Users.applyStylist">@Messages("user.tobeStylist")</a>
-        				}
-        			</li>
-        			}
-        		</ul>
-	  		</div>
-	  		<div class='RMod' id='UserSkills'>
-	  			<a href = "@auth.routes.Users.logout">@Messages("user.loginOut")</a>
-	  		</div>
-	<!-- ↑mainContents -->
+              <a href="@auth.routes.Stylists.applyFromSalon">@Messages("stylistMag.countSalonApply")
+                (@SalonStylistApplyRecord.applingSalonCount(user.id))
+              </a>
+            </div>
+            }else{
+          <a href="@noAuth.routes.Stylists.mySalonFromStylist(user.id)">
+            <strong>@Messages("stylistMag.mySalon")</strong>
+            <div class='more'>
+              <a href="@noAuth.routes.Stylists.mySalonFromStylist(user.id)">
+                <img src="@routes.Application.getPhoto(Stylist.mySalon(user.id).salonPics(0).fileObjId)" alt="@Stylist.mySalon(user.id).salonNameAbbr" title="@Stylist.mySalon(user.id).salonNameAbbr" align="absmiddle" class = "SmallPortrait"/>
+                <span>@Stylist.mySalon(user.id).salonName</span>
+              </a>
+            </div>
+            }
+        </div>
+        <!-- 我的发型 -->
+        <div class='Mod Users' id='Fellows'>
+          <strong>@Messages("stylistMag.myStyle")</strong>
+          <ul class='clearfix'>
+             @Style.findByStylistId(user.id).slice(0,8).map {style =>
+               <li>
+                 <a href="#">
+                  <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)" alt="@style.styleName" title="@style.styleName" align="absmiddle" class = "SmallPortrait">
+                </a>
+               </li>
+             }
+          </ul>
+          <div class='more'>
+            <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
+              (@Stylist.countStyleByStylist(user.id))</a>
+          </div>
+        </div>
+      }
+      <div class='Mod Users' id='Fellows'>
+        <strong>@Messages("user.followSalon")</strong>
+         <ul class='clearfix'>
+             @followInfo.followSalon.slice(0,8).map {salon =>
+               <li>
+                 <a href="@noAuth.routes.Salons.getSalon(salon.id)">
+                  <img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)" alt="@salon.salonNameAbbr" title="@salon.salonNameAbbr" align="absmiddle" class = "SmallPortrait">
+                </a>
+               </li>
+             }
+        </ul>
+        <div class='more'>
+          <a href="@noAuth.routes.MyFollows.followedSalon(user.id)">@Messages("user.showAllFollow")@followInfo.followSalon.length)</a>
+        </div>
+      </div>
+      <div class='Mod Users' id='Fellows'>
+        <strong>@Messages("user.followStylist")</strong>
+         <ul class='clearfix'>
+           @followInfo.followStylist.slice(0,8).map {stylist =>
+             <li>
+                <a href="@noAuth.routes.Users.userPage(User.findOneById(stylist.stylistId).get.userId)">
+                  <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" alt="@Stylist.findUserName(stylist.stylistId)" title="@Stylist.findUserName(stylist.stylistId)" align="absmiddle" class = "SmallPortrait">
+                </a>
+             </li>
+           }
+        </ul>
+        <div class='more'>
+          <a href="@noAuth.routes.MyFollows.followedStylist(user.id)">@Messages("user.showAllFollow")@followInfo.followStylist.length)</a>
+        </div>
+      </div>
+      <div class='Mod Users' id='Fans'>
+          <strong>@Messages("user.followUser")</strong>
+          <ul class='clearfix'>
+           @followInfo.followUser.slice(0,8).map {user =>
+             <li>
+                <a href="@noAuth.routes.Users.userPage(user.userId)">
+                    <img src="@routes.Application.getPhoto(user.userPics)" alt="@user.nickName" title="@user.nickName" align="absmiddle" class = "SmallPortrait"/>
+                </a>
+             </li>
+             }
+        </ul>
+         <div class='more'>
+            <a href="@noAuth.routes.MyFollows.followedUser(user.id)">@Messages("user.showAllFollow")@followInfo.followUser.length)</a>
+         </div>
+      </div>
+      <div class='Mod Users' id='Fans'>
+        <strong>@Messages("user.quickNavigation")</strong>
+        <ul class='clearfix quickNav'>
+          <li><a href="@auth.routes.Users.myReservation">@Messages("user.reservation")</a></li>
+          <li><a href="@auth.routes.MyFollows.followedCoupon(user.id)">@Messages("user.collectCoupon")</a></li>
+          <li><a href="@auth.routes.MyFollows.followedBlog(user.id)">@Messages("user.collectBlog")</a></li>
+          <li><a href="@auth.routes.MyFollows.followedStyle(user.id)">@Messages("user.collectStyle")</a></li>
+          <li><a href="@auth.routes.Users.password">@Messages("user.changePassword")</a></li>
+          @if(user.userTyp.equals(User.NORMAL_USER)){
+          <li>
+            @if(SalonStylistApplyRecord.checkStylistApply(user.id)){
+              <a href="@auth.routes.Users.cancelApplyStylist">@Messages("user.cancelBeStylist")</a>
+            }else{
+              <a href="@auth.routes.Users.applyStylist">@Messages("user.tobeStylist")</a>
+            }
+          </li>
+          }
+        </ul>
+       </div>
+       <div class='RMod' id='UserSkills'>
+         <a href = "@auth.routes.Users.logout">@Messages("user.loginOut")</a>
+       </div>
+  <!-- ↑mainContents -->

@@ -7,11 +7,11 @@
 <div class="mT50">
 @if(menus.isEmpty) {
    <div class="bgAlertMsg mT20">
-      <p class="alertMsg">@Messages("menu.noDataMsg")</p>
+   <p class="alertMsg">@Messages("menu.noDataMsg")</p>
    </div>
 } else {
    @for(menu <- menus) {
-   	  @views.html.menu.menuItem(menu)
+     @views.html.menu.menuItem(menu)
    }
 }
 </div>

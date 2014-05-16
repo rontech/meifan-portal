@@ -5,25 +5,25 @@
 
 <!-- ↓contents -->
 
-        <!-- ↓mainContents -->
-        <div id="salonMainContents">
-        	@views.html.reservation.reservationTop(salon)
+    <!-- ↓mainContents -->
+    <div id="salonMainContents">
+      @views.html.reservation.reservationTop(salon)
 
-            <!-- ↓salonInfoBody -->
-            <!-- show different body contents according to the NAV tab. -->
-            @content
-            <!-- ↑salonInfoBody -->  
+      <!-- ↓salonInfoBody -->
+      <!-- show different body contents according to the NAV tab. -->
+      @content
+      <!-- ↑salonInfoBody -->  
 
-            <!-- ↓salonInfoFooter  -->
-            @views.html.salon.store.salonInfoFooter(navInSalon, salon)
-            <!-- ↑salonInfoFooter  -->  
+      <!-- ↓salonInfoFooter  -->
+      @views.html.salon.store.salonInfoFooter(navInSalon, salon)
+      <!-- ↑salonInfoFooter  -->  
 
-        </div>
-        <!-- ↑mainContents -->
+    </div>
+    <!-- ↑mainContents -->
 
-        <!-- ↓sideContents -->
-        @views.html.salon.store.rightColumn(user = None)
-        <!-- ↑sideContents -->
+    <!-- ↓sideContents -->
+    @views.html.salon.store.rightColumn(user = None)
+    <!-- ↑sideContents -->
 
 <!-- ↑contents -->
 

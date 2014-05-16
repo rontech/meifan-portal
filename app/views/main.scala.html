@@ -2,137 +2,138 @@
 
 <!DOCTYPE html>
 <html>
-    
-    <head>
-        <title> @title </title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/tempindex.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/tempAppend.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanCommon.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"> </script>
-        <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"> </script>
-        <script src="@routes.Assets.at("javascripts/jsAddress.js")" type="text/javascript"> </script>
-        <script src="@routes.Assets.at("javascripts/tempmain.js")" type="text/javascript"> </script>
-        <script src="@routes.Assets.at("javascripts/My97DatePicker/WdatePicker.js")" type="text/javascript"> </script>
-        <script src="@routes.Assets.at("javascripts/follow.js")" type="text/javascript"> </script>
-        <script src="@routes.Assets.at("javascripts/httpError.js")" type="text/javascript"> </script>
-        <script type="text/javascript" src="@routes.Application.javascriptRoutes"> </script>
-        <meta name="robots" content="index, follow" />
-        <meta name="robots" content="noodp" />
-        <meta name="robots" content="noydir" />
-        <meta name="description" content="@Messages("site.description")"/>
-        <meta name="keywords" content="@Messages("site.keywords")"/>
-        <meta name="copyright" content="@Messages("site.copyright")"/>
-    </head>
-    
-    <body id="pageTop">
-        <!-- ↓header -->
-        <div id="headerWrapper">
-            <div id="header">
-                <h1 id="headSummary"> @Messages("main.headSummary") </h1>
-            </div>
-        </div>
-        <div id="top_bg">
-            <div id="top">
-                <a href="@routes.Application.index">
-                    <img src="@routes.Assets.at("images/logo.jpg")" width="212" height="60" class="logo" />
+  
+  <head>
+    <title> @title </title>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/tempindex.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/tempAppend.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanCommon.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+    <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/jsAddress.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/tempmain.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/My97DatePicker/WdatePicker.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/follow.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/httpError.js")" type="text/javascript"> </script>
+    <script type="text/javascript" src="@routes.Application.javascriptRoutes"> </script>
+    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="noodp" />
+    <meta name="robots" content="noydir" />
+    <meta name="description" content="@Messages("site.description")"/>
+    <meta name="keywords" content="@Messages("site.keywords")"/>
+    <meta name="copyright" content="@Messages("site.copyright")"/>
+  </head>
+  
+  <body id="pageTop">
+    <!-- ↓header -->
+    <div id="headerWrapper">
+      <div id="header">
+        <h1 id="headSummary"> @Messages("main.headSummary") </h1>
+      </div>
+    </div>
+    <div id="top_bg">
+      <div id="top">
+        <a href="@routes.Application.index">
+          <img src="@routes.Assets.at("images/logo.png")" height="45" class="logo" />
+        </a>
+        <div id="top_right">
+          <div id="top_list">
+            <ul>
+              <li> @Messages("main.welcomeToMeifan") </li>
+              <li class="sc">
+                <a href="@auth.routes.Users.myPage"> @Messages("main.myMeifan") </a>
+              </li>
+              <li class="sc">
+                <a onclick="AddFavorite(window.location,document.title)" href="javascript:void(0)">
+                  @Messages("main.saveSite")
                 </a>
-                <div id="top_right">
-                    <div id="top_list">
-                        <ul>
-                            <li> @Messages("main.welcomeToMeifan") </li>
-                            <li class="sc">
-                                <a href="@auth.routes.Users.myPage"> @Messages("main.myMeifan") </a>
-                            </li>
-                            <li class="sc">
-                                <a onclick="AddFavorite(window.location,document.title)" href="javascript:void(0)">
-                                    @Messages("main.saveSite")
-                                </a>
-                            </li>
-                            <li class="sc">
-                                <a href="@noAuth.routes.Questions.getAllQuestions()"> @Messages("main.help") </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--↓ the main Tabs of Meifan.-->
-                    <div id="nav">
-                        <ul>
-                            <li class="@if(nav == "HairSalon") {btn}">
-                                <a href="@noAuth.routes.Salons.index"> @Messages("main.hairSalon") </a>
-                            </li>
-                            <li class="@if(nav == "HairCatalog") {btn}">
-                                <a href="@noAuth.routes.Styles.index"> @Messages("main.hairCatalog") </a>
-                            </li>
-                            <li class="@if(nav == "NailSalon") {btn}">
-                                <a href="@routes.Application.index"> @Messages("main.nailSalon") </a>
-                            </li>
-                            <li class="@if(nav == "NailCatalog") {btn}">
-                                <a href="@routes.Application.index"> @Messages("main.nailCatalog") </a>
-                            </li>
-                            <li class="@if(nav == "RelaxSalon") {btn}">
-                                <a href="@routes.Application.index"> @Messages("main.relaxSalon") </a>
-                            </li>
-                            <li class="@if(nav == "EstheSalon") {btn}">
-                                <a href="@routes.Application.index"> @Messages("main.estheSalon") </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--↑ the main Tabs of Meifan.-->
-                </div>
-            </div>
+              </li>
+              <li class="sc">
+                <a href="@noAuth.routes.Questions.getAllQuestions()"> @Messages("main.help") </a>
+              </li>
+            </ul>
+          </div>
+          <!--↓ the main Tabs of Meifan.-->
+          <div id="nav">
+            <ul>
+              <li class="@if(nav == "HairSalon") {btn}">
+                <a href="@noAuth.routes.Salons.index"> @Messages("main.hairSalon") </a>
+              </li>
+              <li class="@if(nav == "HairCatalog") {btn}">
+                <a href="@noAuth.routes.Styles.index"> @Messages("main.hairCatalog") </a>
+              </li>
+              <li class="@if(nav == "NailSalon") {btn}">
+                <a href="@routes.Application.index"> @Messages("main.nailSalon") </a>
+              </li>
+              <li class="@if(nav == "NailCatalog") {btn}">
+                <a href="@routes.Application.index"> @Messages("main.nailCatalog") </a>
+              </li>
+              <li class="@if(nav == "RelaxSalon") {btn}">
+                <a href="@routes.Application.index"> @Messages("main.relaxSalon") </a>
+              </li>
+              <li class="@if(nav == "EstheSalon") {btn}">
+                <a href="@routes.Application.index"> @Messages("main.estheSalon") </a>
+              </li>
+            </ul>
+          </div>
+          <!--↑ the main Tabs of Meifan.-->
         </div>
-        <!-- ↑header -->
-        <!-- ↓wrapper -->
-        <div id="wrapper">
-            <!-- ↓contents -->
-            <!-- ↓preContents: navigation bar-->
-            <!--TODO need a datat structure to keep the navigation path.-->
-            @views.html.common.navigationBar(navBar)
-            <!-- ↓preContents: navigation bar-->
-            <div id="contents" class="cFix">
-                <!-- ↓mainContents -->
-                @content
-                <!-- ↑mainContents -->
+      </div>
+    </div>
+    <!-- ↑header -->
+    <!-- ↓wrapper -->
+    <div id="wrapper">
+      <!-- ↓contents -->
+      <!-- ↓preContents: navigation bar-->
+      <!--TODO need a datat structure to keep the navigation path.-->
+      @views.html.common.navigationBar(navBar)
+      <!-- ↓preContents: navigation bar-->
+      <div id="contents" class="cFix">
+        <!-- ↓mainContents -->
+        @content
+        <!-- ↑mainContents -->
+      </div>
+      <!-- ↑contents -->
+    </div>
+    <!-- ↑wrapper -->
+    <!-- ↓footerwrapper -->
+    <div class="footerwrapper">
+      <!-- ↓footermaincontents -->
+      <div class="footermaincontents mT25 cFix">
+        <!-- ↓seoContents -->
+        <!-- ↑seoContents -->
+        <!-- ↓footercontents -->
+        <div class="footercontents">
+          <!-- ↓footer -->
+          <div id="footer" class="cFix">
+            <div id="copyrightnew">
+              <a href="@routes.Application.index" target="_blank">
+                <img src="@routes.Assets.at("images/logo_footer.jpg")" alt="(C) Rontech Lifestyle Co.,Ltd." />
+                @Messages("main.weAppeal")
+              </a>
             </div>
-            <!-- ↑contents -->
-        </div>
-        <!-- ↑wrapper -->
-        <!-- ↓footerwrapper -->
-        <div class="footerwrapper">
-            <!-- ↓footermaincontents -->
-            <div class="footermaincontents mT25 cFix">
-                <!-- ↓seoContents -->
-                <!-- ↑seoContents -->
-                <!-- ↓footercontents -->
-                <div class="footercontents">
-                    <!-- ↓footer -->
-                    <div id="footer" class="cFix">
-                        <div id="copyrightnew">
-                            <a href="@routes.Application.index" target="_blank">
-                                <img src="@routes.Assets.at("images/logo_footer.jpg")" alt="(C) Rontech Lifestyle Co.,Ltd." />
-                            </a>
-                        </div>
-                        <div class="postSalonInfo">
-                            @Messages("main.toSalonOwners")
-                            <a target="_blank" title="@Messages("main.wantToJoin")" href="@auth.routes.Salons.salonInfoBasic"
-                            onclick="customLinkLog('Footer Salon Link');">
-                                @Messages("main.wantToJoin")
-                            </a>
-                        </div>
-                        <ul id="footerLinks">
-                            <li> <a href="@noAuth.routes.Infos.getIdUsePolicyInfo" id="mterms"> @Messages("main.idUsePolicy") </a> </li>
-                            <li> <a href="@noAuth.routes.Infos.getUsePolicyInfo" id="terms"> @Messages("main.usePolicy") </a> </li>
-                            <li> <a href="@noAuth.routes.Infos.getSecurityPolicyInfo" id="privacy"> @Messages("main.securityPolicy") </a> </li>
-                            <li> <a href="" id="guide"> @Messages("main.userGuide") </a> </li>
-                        </ul>
-                    </div>
-                    <!-- ↑footer -->
-                </div>
-                <!-- ↑footercontents -->
+            <div class="postSalonInfo">
+              @Messages("main.toSalonOwners")
+              <a target="_blank" title="@Messages("main.wantToJoin")" href="@auth.routes.Salons.salonInfoBasic"
+                  onclick="customLinkLog('Footer Salon Link');">
+                @Messages("main.wantToJoin")
+              </a>
             </div>
-            <!-- ↑footermaincontents -->
+            <ul id="footerLinks">
+              <li> <a href="@noAuth.routes.Infos.getIdUsePolicyInfo" id="mterms"> @Messages("main.idUsePolicy") </a> </li>
+              <li> <a href="@noAuth.routes.Infos.getUsePolicyInfo" id="terms"> @Messages("main.usePolicy") </a> </li>
+              <li> <a href="@noAuth.routes.Infos.getSecurityPolicyInfo" id="privacy"> @Messages("main.securityPolicy") </a> </li>
+              <li> <a href="@noAuth.routes.Infos.getContactInfo" id="contact"> @Messages("main.contactUs") </a> </li>
+            </ul>
+          </div>
+          <!-- ↑footer -->
         </div>
-        <!-- ↑footerwrapper -->
-    </body>
+        <!-- ↑footercontents -->
+      </div>
+      <!-- ↑footermaincontents -->
+    </div>
+    <!-- ↑footerwrapper -->
+  </body>
 
 </html>

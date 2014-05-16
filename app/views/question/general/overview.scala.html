@@ -5,19 +5,19 @@
  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/tempindex.css")">
  
  <div id = "salonMainContents">
-     <ul>
-     @for(qust <- questions) {
-         <li>
-             <h1><font size = "5px">@qust.questName</font></h1>
-             <hr>
-             <br/>
-             <p>@Html(qust.questContent)</p>
-             <br/><br/><br/><br/><br/>
-         </li>
-     }
-     </ul>
-    </div>
-    <div id="sideContents">
-     @views.html.common.questionsModule()
-    </div>
+   <ul>
+   @for(qust <- questions) {
+     <li>
+       <h1><font size = "5px">@qust.questName</font></h1>
+       <hr>
+       <br/>
+       <p>@Html(qust.questContent)</p>
+       <br/><br/><br/><br/><br/>
+     </li>
+   }
+   </ul>
+  </div>
+  <div id="sideContents">
+   @views.html.common.questionsModule()
+  </div>
 }

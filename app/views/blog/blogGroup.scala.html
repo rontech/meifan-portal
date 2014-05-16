@@ -1,16 +1,16 @@
 @(blogs: List[Blog] = Nil, salon: Salon)
 
 @if(blogs.isEmpty){
-	<div class="bgAlertMsg mT20">
-        	<p class="alertMsg">@Messages("blog.salonNoBlog")</p>
-	</div>
+  <div class="bgAlertMsg mT20">
+      <p class="alertMsg">@Messages("blog.salonNoBlog")</p>
+  </div>
 }else{
 <div class="leftContents w557 fl">
-	<div class="pH10"><h3 class="fs18 b">@Messages("blog.latestBlog")</h3></div>
-    <ul id="listWrapper">
-        @for(blog <- blogs) { 
-            @views.html.blog.blogItem(blog, salon)
-        }
-    </ul>
+  <div class="pH10"><h3 class="fs18 b">@Messages("blog.latestBlog")</h3></div>
+  <ul id="listWrapper">
+    @for(blog <- blogs) { 
+      @views.html.blog.blogItem(blog, salon)
+    }
+  </ul>
 </div>
 }

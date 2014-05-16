@@ -1,11 +1,11 @@
 @(salon: Salon, serviceForm: Form[Service], serviceType: List[String])
 
 @mySalonMain(navInSalon = "my-services", salon) {
-	
-	<head>
-		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/menu.css")">
-	</head>
-	
-    @views.html.service.createService(salon.id, serviceForm, serviceType)
+  
+  <head>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/menu.css")">
+  </head>
+  
+  @views.html.service.createService(salon.id, serviceForm, serviceType)
 
 }

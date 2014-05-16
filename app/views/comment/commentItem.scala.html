@@ -2,92 +2,92 @@
 
 @import java.text.DateFormat
 
-@if(comment.commentObjType == 2) {													
-	<div class="reportHeaderPickup">
-		<div class="shopInfo reportPickupTitle cFix">
-			<p class="fl w580 pL25">
-				<span class="b">@User.findOneByUserId(comment.authorId).get.nickName</span>
-				<span class="mL5 fs10 fgGray"> （@User.findOneByUserId(comment.authorId).get.sex/@if(User.findOneByUserId(comment.authorId).get.birthDay.nonEmpty){@Application.getAge(User.findOneByUserId(comment.authorId).get.birthDay.get)/}@User.findOneByUserId(comment.authorId).get.socialStatus）</span>
-			</p>
-			<div class="fr mT2">
-				<p class="fs10 fgGray">@Messages("comment.passDate") @DateFormat.getDateInstance.format(comment.createTime)</p>
-			</div>
-		</div>
-		
-		<ul class="judgeList cFix">
-			    <li class="bdN fgGray b">
-			       @Messages("comment.complex")
-			        <span class="mL5 mR10 fgPink">
-			            @comment.complex
-			        </span>
-			        @for(i <- 0 until comment.complex){
-		        	 	<span class="iconStarOn">
-				           	 ★
-				        </span>
-			        }
-			        @for(i <- comment.complex until 5){			     
-				        <span class="iconStarOff">
-				           	 ★
-				        </span>
-			        }
-			    </li>
-			    <li>
-			        <span class="fgGray">
-			            @Messages("comment.atmosphere")
-			        </span>
-			        <span class="mL10 fgPink b">
-			            @comment.atmosphere
-			        </span>
-			    </li>
-			    <li>
-			        <span class="fgGray">
-			            @Messages("comment.service")
-			        </span>
-			        <span class="mL10 fgPink b">
-			            @comment.service
-			        </span>
-			    </li>
-			    <li>
-			        <span class="fgGray">
-			           @Messages("comment.skill")
-			        </span>
-			        <span class="mL10 fgPink b">
-			            @comment.skill
-			        </span>
-			    </li>
-			    <li class="bdN">
-			        <span class="fgGray">
-			           @Messages("comment.price")
-			        </span>
-			        <span class="mL10 fgPink b">
-			            @comment.price
-			        </span>
-			    </li>
-			</ul>
-		
-	</div>
-	
-	<div class="mT10 pH10">
-		<p class="mT10 wwbw">@comment.content</p>
-		<dl class="mT25">
-			<dt class="couponMenuTitle fl">@Messages("comment.usedCoupon")</dt>
-			<dd class="oh zoom1">
-				<p>
-					@Coupon.findOneById(comment.commentObjId).get.couponName
-				</p>
-				<p class="fs10">@Messages("comment.usedServices")
-					@Coupon.findOneById(comment.commentObjId).get.serviceItems.map { service => @service.serviceName}
-				</p>
-			</dd>
-		</dl>
-	</div>
+@if(comment.commentObjType == 2) {                                                    
+  <div class="reportHeaderPickup">
+    <div class="shopInfo reportPickupTitle cFix">
+      <p class="fl w580 pL25">
+        <span class="b">@User.findOneByUserId(comment.authorId).get.nickName</span>
+        <span class="mL5 fs10 fgGray"> （@User.findOneByUserId(comment.authorId).get.sex/@if(User.findOneByUserId(comment.authorId).get.birthDay.nonEmpty){@Application.getAge(User.findOneByUserId(comment.authorId).get.birthDay.get)/}@User.findOneByUserId(comment.authorId).get.socialStatus）</span>
+      </p>
+      <div class="fr mT2">
+        <p class="fs10 fgGray">@Messages("comment.passDate") @DateFormat.getDateInstance.format(comment.createTime)</p>
+      </div>
+    </div>
+    
+    <ul class="judgeList cFix">
+        <li class="bdN fgGray b">
+          @Messages("comment.complex")
+          <span class="mL5 mR10 fgPink">
+            @comment.complex
+          </span>
+          @for(i <- 0 until comment.complex){
+             <span class="iconStarOn">
+                ★
+            </span>
+          }
+          @for(i <- comment.complex until 5){                 
+            <span class="iconStarOff">
+                ★
+            </span>
+          }
+        </li>
+        <li>
+          <span class="fgGray">
+            @Messages("comment.atmosphere")
+          </span>
+          <span class="mL10 fgPink b">
+            @comment.atmosphere
+          </span>
+        </li>
+        <li>
+          <span class="fgGray">
+            @Messages("comment.service")
+          </span>
+          <span class="mL10 fgPink b">
+            @comment.service
+          </span>
+        </li>
+        <li>
+          <span class="fgGray">
+            @Messages("comment.skill")
+          </span>
+          <span class="mL10 fgPink b">
+            @comment.skill
+          </span>
+        </li>
+        <li class="bdN">
+          <span class="fgGray">
+            @Messages("comment.price")
+          </span>
+          <span class="mL10 fgPink b">
+            @comment.price
+          </span>
+        </li>
+      </ul>
+    
+  </div>
+  
+  <div class="mT10 pH10">
+    <p class="mT10 wwbw">@comment.content</p>
+    <dl class="mT25">
+      <dt class="couponMenuTitle fl">@Messages("comment.usedCoupon")</dt>
+      <dd class="oh zoom1">
+        <p>
+          @Coupon.findOneById(comment.commentObjId).get.couponName
+        </p>
+        <p class="fs10">@Messages("comment.usedServices")
+          @Coupon.findOneById(comment.commentObjId).get.serviceItems.map { service => @service.serviceName}
+        </p>
+      </dd>
+    </dl>
+  </div>
 }else {
-	<div class="mT20 mH10 pV5 pH9 bdGray">
-		<div class="bdDotGrayB pB5 cFix">
-			<p class="fl fgPink b">@Messages("comment.reply", salon.salonName)</p>
-			<div class="fr">
-			</div>
-		</div>
-		<p class="mT10 wwbw">@comment.content</p>
-	</div>
+  <div class="mT20 mH10 pV5 pH9 bdGray">
+    <div class="bdDotGrayB pB5 cFix">
+      <p class="fl fgPink b">@Messages("comment.reply", salon.salonName)</p>
+      <div class="fr">
+      </div>
+    </div>
+    <p class="mT10 wwbw">@comment.content</p>
+  </div>
 }

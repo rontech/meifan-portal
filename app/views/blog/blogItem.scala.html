@@ -4,58 +4,58 @@
 
 
 <li class="listCassette cFix">
-	<div class="fr w557">
-		<div class="cFix">
-			<div class="fl blogS blogCategoryBL10 mT5 hMin19 mR70 vaM">@blog.blogCategory</div>
-			<div class="fl">
-				<dl class="cFix">
-					<dt class="fl">@Messages("blog.passDate")</dt>
-					<dd class="fl">@DateFormat.getDateInstance.format(blog.createTime)</dd>
-				</dl>
-				<dl class="cFix">
-					<dt class="fl">@Messages("blog.author")</dt>
-					<dd class="fl">
-					@if(salon != null){
-					    <a href="@noAuth.routes.Blogs.getAuthorOfSalonBlog(salon.id, blog.authorId)">
-					}else{
-					    <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(blog.authorId)">
-					}
-                                        @User.findOneByUserId(blog.authorId).get.nickName</a>
-					
-					</dd>
-				</dl>
-			</div>
-		</div>
-		<div class="mT10">
-			<div class="cFix">
-				<div class="fs14 b wwbw">
-				@if(salon != null){
-					<a href="@noAuth.routes.Blogs.getOneBlogOfSalon(salon.id, blog.id)">@blog.title</a>
-					@*<span class="iS upLately offL dib vaM">UP</span>*@
-				}else{
-					<a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)">@blog.title</a>
-					<a href="@auth.routes.MyFollows.cancelFollow(blog.id)"
-                            class="iS arrowR">
-                                <font>
-                                    <font>
-                                        @Messages("user.deleteFollow")
-                                    </font>
-                                </font>
-                            </a>
-				}
-				</div>
-			</div>
-			<div class="mT5 wwbw">
-				@*@Html(blog.content.slice(0, 100))*@
-				@Html(blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}/>", "").slice(0, 100))
-				@*@blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}/>", "")*@
-				@*如果不加最后一个/的话，和img标签同一行的的其他标签也会被替换掉。测试google浏览器上传本地图片或网络图片时都会有最后一个/.暂时没有问题
-				还有就是关于用三个点分割的话，至少应该是去除img后的长度吧？
-				目前的现象：一篇blog只上传图片时，缩略显示时没有内容*@
-                @*@if(blog.content.length > 100) {...}*@
-                @if(blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}/>", "").length > 100) {...}
-			</div>
-		</div>
-	</div>
+  <div class="fr w557">
+    <div class="cFix">
+      <div class="fl blogS blogCategoryBL10 mT5 hMin19 mR70 vaM">@blog.blogCategory</div>
+      <div class="fl">
+        <dl class="cFix">
+          <dt class="fl">@Messages("blog.passDate")</dt>
+          <dd class="fl">@DateFormat.getDateInstance.format(blog.createTime)</dd>
+        </dl>
+        <dl class="cFix">
+          <dt class="fl">@Messages("blog.author")</dt>
+          <dd class="fl">
+          @if(salon != null){
+            <a href="@noAuth.routes.Blogs.getAuthorOfSalonBlog(salon.id, blog.authorId)">
+          }else{
+            <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(blog.authorId)">
+          }
+                    @User.findOneByUserId(blog.authorId).get.nickName</a>
+          
+          </dd>
+        </dl>
+      </div>
+    </div>
+    <div class="mT10">
+      <div class="cFix">
+        <div class="fs14 b wwbw">
+        @if(salon != null){
+          <a href="@noAuth.routes.Blogs.getOneBlogOfSalon(salon.id, blog.id)">@blog.title</a>
+          @*<span class="iS upLately offL dib vaM">UP</span>*@
+        }else{
+          <a href="@noAuth.routes.Blogs.getOneBlogById(blog.id)">@blog.title</a>
+          <a href="@auth.routes.MyFollows.cancelFollow(blog.id)"
+              class="iS arrowR">
+                <font>
+                  <font>
+                    @Messages("user.deleteFollow")
+                  </font>
+                </font>
+              </a>
+        }
+        </div>
+      </div>
+      <div class="mT5 wwbw">
+        @*@Html(blog.content.slice(0, 100))*@
+        @Html(blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}/>", "").slice(0, 100))
+        @*@blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}/>", "")*@
+        @*如果不加最后一个/的话，和img标签同一行的的其他标签也会被替换掉。测试google浏览器上传本地图片或网络图片时都会有最后一个/.暂时没有问题
+        还有就是关于用三个点分割的话，至少应该是去除img后的长度吧？
+        目前的现象：一篇blog只上传图片时，缩略显示时没有内容*@
+        @*@if(blog.content.length > 100) {...}*@
+        @if(blog.content.replaceAll("<img\\s+.*\\s*\\/{0,1}/>", "").length > 100) {...}
+      </div>
+    </div>
+  </div>
 </li>
 

@@ -24,6 +24,7 @@ common.checkFormore = 更多
 common.deleteMsg = 删除后无法恢复，请确认是否删除？
 common.isValidMsg = 无效后无法恢复，请确认是否无效？
 common.seat = 位
+common.userLogin = 会员登陆
 
 # Index page
 index.mainPage=网站首页
@@ -65,7 +66,8 @@ main.myMeifan = 我的美范
 main.saveSite = 收藏本站
 main.welcomeToMeifan = 您好，欢迎来到美范！
 main.hairMessage = 我们提供最权威最新的时尚美容资讯！
-
+main.weAppeal=乐享生活 爱美有范
+main.contactUs=联系我们
 
 # Salon
 salon.salonLogin=店铺登录
@@ -281,6 +283,7 @@ salonAdmin.ApplyOperateResult = 抱歉该申请不存在或已被本人取消，
 salonAdmin.ApplyOperateAction = s后自动跳转，点击
 salonAdmin.ApplyOperateGo = 跳转 
 stylistAdmin.selectField = 选填，不得超过150字
+salonSearchStylist.haveInvite = 当前该技师已处于被您邀请状态，请耐心等待答复
 
 # Hair
 hair.tabName=时尚靓发
@@ -335,6 +338,7 @@ hair.noStyleSearched = 没有找到您希望的发型！
 hair.picturedescription = 填写该发型图片描述
 hair.info = 发型信息
 hair.ranking = Rangking 排行
+hair.searchResultMsg = 个发型满足要求
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -576,10 +580,15 @@ user.collectBlog=收藏的博客
 user.collectStyle=收藏的风格
 user.reservation=我的预约
 user.myFollows=我的关注
+user.otherFollows=他的关注
 user.myInfomation=我的信息
+user.otherInfomation=他的信息
 user.myCollects=我的收藏
+user.otherCollects=他的收藏
 user.myActs=我的动态
+user.otherActs=他的动态
 user.myRelevants=和我相关
+user.otherRelevants=和他相关
 user.salonAct=店铺的动态
 user.name=用户名
 user.nickNm=昵称
@@ -683,6 +692,13 @@ user.myFollowSalonsCount=您已关注{0}个店铺
 user.myCollectBlogsCount=您已收藏{0}条博客
 user.myCollectCouponsCount=您已收藏{0}个优惠劵
 user.myCollectStylesCount=您已收藏{0}个风格
+user.otherFansCount=已有{0}人关注他
+user.otherFollowUsersCount=他已关注{0}个美丽达人
+user.otherFollowStylistsCount=他已关注{0}个技师
+user.otherFollowSalonsCount=他已关注{0}个店铺
+user.otherCollectBlogsCount=他已收藏{0}条博客
+user.otherCollectCouponsCount=他已收藏{0}个优惠劵
+user.otherCollectStylesCount=他已收藏{0}个风格
 user.notWriteBlog=该用户未添加博客……
 use.followThisSalon=收藏该店铺
 
@@ -878,11 +894,12 @@ Blow = 吹发
 Wash = 洗发
 Cut = 剪发
 salonAccountId = 店铺账号
-position.Manager = 店长
-position.ChiefStylist = 首席技师
-position.Stylist = 技师
-position.AdvancedAssistant = 高级助手
-position.Assistant = 助手
+#
+position.positionName.Manager = 店长
+position.positionName.ChiefStylist = 首席发型师 
+position.positionName.AdvancedStylist = 高级发型师
+position.positionName.Stylist = 发型师 
+position.positionName.Assistant = 助手
 
 #StyleImpression
 style.styleImpression.natural = 自然
@@ -1052,4 +1069,6 @@ salonSearchPage.cannotFind = 对不起，找不到
 #style search
 styleSearch.moreOption = 更多选项
 styleSearch.lessOption = 收起
+
+
 

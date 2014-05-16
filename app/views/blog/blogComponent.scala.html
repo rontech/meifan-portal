@@ -1,17 +1,17 @@
 @(blogs: List[Blog] = Nil, salon: Salon, listYM : List[String])
 
 <div class="mT30">
-	<div class="yS mainContentsSecondTitleOuter">
-		<h2 class="yS mainContentsSecondTitleInner">@Messages("blog.salonBlogTitle", salon.salonName)</h2>
-	</div>
+  <div class="yS mainContentsSecondTitleOuter">
+    <h2 class="yS mainContentsSecondTitleInner">@Messages("blog.salonBlogTitle", salon.salonName)</h2>
+  </div>
 </div>
 <div class="mT20 cFix">
 
-	<!-- Get All the Salons with all the blogs.  -->
-	@views.html.blog.blogGroup(blogs, salon)
-    
-	<!-- the right column -->
-	<dl class="rightContents fr w187">
-		@views.html.blog.rightBlogColumn(salon, listYM)
-	</dl>
+  <!-- Get All the Salons with all the blogs.  -->
+  @views.html.blog.blogGroup(blogs, salon)
+  
+  <!-- the right column -->
+  <dl class="rightContents fr w187">
+    @views.html.blog.rightBlogColumn(salon, listYM)
+  </dl>
 </div>

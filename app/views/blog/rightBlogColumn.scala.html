@@ -2,40 +2,40 @@
 @import controllers.noAuth.Blogs
 
 <dt class="titleBlog">
-    @Messages("blog.staff")
+  @Messages("blog.staff")
 </dt>
 <dd class="list p10">
-    @*@Stylist.findBySalon(salon.id).map { stylist => @if(!Blog.getStylistBlogByUserId(User.findOneById(Stylist.findOneById(stylist.stylistId).get.stylistId).get.userId).isEmpty){
-    <p>
-        <a href="/salon/@salon.id/blogs/@stylist.stylistId">
-            @User.findOneById(Stylist.findOneById(stylist.stylistId).get.stylistId).get.nickName
-            （@Blog.getStylistBlogByUserId(User.findOneById(Stylist.findOneById(stylist.stylistId).get.stylistId).get.userId).size）
-        </a>
+  @*@Stylist.findBySalon(salon.id).map { stylist => @if(!Blog.getStylistBlogByUserId(User.findOneById(Stylist.findOneById(stylist.stylistId).get.stylistId).get.userId).isEmpty){
+  <p>
+    <a href="/salon/@salon.id/blogs/@stylist.stylistId">
+      @User.findOneById(Stylist.findOneById(stylist.stylistId).get.stylistId).get.nickName
+      （@Blog.getStylistBlogByUserId(User.findOneById(Stylist.findOneById(stylist.stylistId).get.stylistId).get.userId).size）
+    </a>
+  </p>
+  } }*@
+  
+  @Blog.getBlogsOfStylistInSalon(salon.id).map { blogOfStylist => @if(!blogOfStylist.blogListOfStylist.isEmpty){
+     <p>
+      <a href="@noAuth.routes.Blogs.getAllBlogsOfStylist(salon.id, blogOfStylist.stylistInfo.stylistId)">
+        @blogOfStylist.userInfo.nickName
+          （@blogOfStylist.blogListOfStylist.size）
+      </a>
     </p>
-    } }*@
-    
-    @Blog.getBlogsOfStylistInSalon(salon.id).map { blogOfStylist => @if(!blogOfStylist.blogListOfStylist.isEmpty){
-  		<p>
-	        <a href="@noAuth.routes.Blogs.getAllBlogsOfStylist(salon.id, blogOfStylist.stylistInfo.stylistId)">
-	            @blogOfStylist.userInfo.nickName
-	            	（@blogOfStylist.blogListOfStylist.size）
-	        </a>
-    	</p>
-    	}
     }
+  }
 </dd>
 <dt class="titleBlog">
-    @Messages("blog.oldBlogs")
+  @Messages("blog.oldBlogs")
 </dt>
 <dd class="list p10">
-    @listYM.map { yM => @if(Blogs.getBlogBySalonAndYM(salon.id, yM).size != 0) {
-        <p>
-            <a href="@noAuth.routes.Blogs.getAllBlogsOfSalonByMonth(salon.id, yM)">
-                @yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size）
-            </a>
-        </p>
-    } else {
-        <p> @yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size） </p>
-    } }
+  @listYM.map { yM => @if(Blogs.getBlogBySalonAndYM(salon.id, yM).size != 0) {
+    <p>
+      <a href="@noAuth.routes.Blogs.getAllBlogsOfSalonByMonth(salon.id, yM)">
+        @yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size）
+      </a>
+    </p>
+  } else {
+    <p> @yM（@Blogs.getBlogBySalonAndYM(salon.id, yM).size） </p>
+  } }
 </dd>
 

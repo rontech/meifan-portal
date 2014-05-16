@@ -3,16 +3,16 @@
 @import views.html.user._
 
 @myPageMain("my-styles", user, followInfo, loginUserId, logged ){
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
-	
-	<div>
-		<ul class="tabInfoTitle">
-			<li class="fl selected">
-				@Messages("hair.styleAdd")
-			</li>		
-		</ul>
-	</div>
-	<div class="mT40">
-		@views.html.style.admin.styleAdd(styleAddForm, styleParaAll, stylists, isStylist)
-	</div>
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+  
+  <div>
+    <ul class="tabInfoTitle">
+      <li class="fl selected">
+        @Messages("hair.styleAdd")
+      </li>        
+    </ul>
+  </div>
+  <div class="mT40">
+    @views.html.style.admin.styleAdd(styleAddForm, styleParaAll, stylists, isStylist)
+  </div>
 }

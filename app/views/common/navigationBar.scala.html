@@ -1,11 +1,11 @@
 @(geoNavList: Seq[(String, String)] = Nil)
 
 <!-- parameters: Sequences of Map[String, String] 
-    1. navigator path/geo area path.  for example: 総合トップ
-    2. site path. for example: http://beauty.hotpepper.jp/top/"
+  1. navigator path/geo area path.  for example: 総合トップ
+  2. site path. for example: http://beauty.hotpepper.jp/top/"
 
 TODO:
-    1. 
+  1. 
 
  -->
 
@@ -14,14 +14,14 @@ TODO:
 <ol class="pankuzu cFix">
 
    @for(((navKey, navValue), index) <- geoNavList.zipWithIndex) {
-        <li>
-            @if(index != (geoNavList.size -1)) {
-                <a href="@navValue">@navKey</a> &nbsp;&nbsp;&gt;&nbsp;&nbsp;
-            } else {
-                <strong>@navKey</strong>
-            }
-        </li>
-    }
+    <li>
+      @if(index != (geoNavList.size -1)) {
+        <a href="@navValue">@navKey</a> &nbsp;&nbsp;&gt;&nbsp;&nbsp;
+      } else {
+        <strong>@navKey</strong>
+      }
+    </li>
+  }
 
 </ol>
 </div>

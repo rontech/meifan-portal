@@ -1,67 +1,72 @@
 @(navInSalon: String = "my-stylists", salon: Salon, stylist: Stylist, status: Int)
 
 @mySalonMain("my-stylists", salon){
-	<div>
-		<ul class="tabInfoTitle">
-			<li class="fl selected">
-				@Messages("stylist.searchResults")
-			</li>		
-		</ul>
-	</div>
-	<div class="mysalon-stylist-search mT40">
-		<form action="@auth.routes.Salons.searchStylistById" id="getStylistForm" method="get">
-				@Messages("stylist.stylistId") <input name="searchStylistById" id="stylist-search-stylist"  onKeyDown="if (event.keyCode==13){return false;}"/>&nbsp;&nbsp;&nbsp;
-				<input type="hidden" name="salonId" id="stylist-search-salon" value="@salon.id">
-				<input type="password" style="display:none">
-				<input type="button" id="searchStylistToSubmit" value="@Messages("stylist.search")" onclick="checkStylistExist();"><br />
-				<script type="text/javascript">
-				$(document).ready(function() {
-			        $(document).keydown(function(e) {
-			        if (e.keyCode == 13) {
-			        	checkStylistExist()
-			        }
-			        });
-			    });
-				</script>
-				<span id="stylistSerchMsg" style="color:red;"></span>
-		</form>
-   		<div class="tabcon hide searchStylistDisplay" data-widget="tab-content" style="display: block;">
-   			<div class="mc mT10">
-   			<div class="w164 mHA">
-			    <div class="taC">
-					<a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
-						@*<img src="@routes.Application.getPhoto(User.findOneById(stylist.stylistId).get.userPics)" class="bdImgGray w164 h219" >*@
-						<img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" class="bdImgGray w164 h219" >
-			        </a>
-			    </div>
-			    <p class="mT10">
-			        <p>@Stylist.findUserName(stylist.stylistId)</p>
-			    </p>
-			    <div class="bdDotT mT5 pT5 fs10">
-			       <p class="mT10">
-        			@stylist.position.map{po=>
-			           	@Messages(po.industryName)&nbsp;@Messages("position."+po.positionName)
-			           }
-        			</p>
-			       
-			        
-			  （@stylist.workYears
-			  @Messages("stylist.workYears")）
-			    </div>
-			    <div class="bdDotT mT5 pT5 fs10 hMin30">
-			    </div>
-			</div>
-			<div class="taC mT10">
-				@if(status == 1){
-				<a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv buttons applyToStylist">@Messages("stylist.checkRsv")</a>
-				}
-				@if(status == 2){
-				<a href="@auth.routes.Salons.inviteStylist(stylist.stylistId)" class="salon-stylist-reserv buttons applyToStylist">@Messages("stylist.invite")</a>	
-				}
-			</div>
-			</div>
-		</div>
+  <div>
+    <ul class="tabInfoTitle">
+      <li class="fl selected">
+        @Messages("stylist.searchResults")
+      </li>        
+    </ul>
+  </div>
+  <div class="mysalon-stylist-search mT40">
+    <form action="@auth.routes.Salons.searchStylistById" id="getStylistForm" method="get">
+        @Messages("stylist.stylistId") <input name="searchStylistById" id="stylist-search-stylist"  onKeyDown="if (event.keyCode==13){return false;}"/>&nbsp;&nbsp;&nbsp;
+        <input type="hidden" name="salonId" id="stylist-search-salon" value="@salon.id">
+        <input type="password" style="display:none">
+        <input type="button" id="searchStylistToSubmit" value="@Messages("stylist.search")" onclick="checkStylistExist();"><br />
+        <script type="text/javascript">
+        $(document).ready(function() {
+          $(document).keydown(function(e) {
+          if (e.keyCode == 13) {
+            checkStylistExist()
+          }
+          });
+        });
+        </script>
+        <span id="stylistSerchMsg" style="color:red;"></span>
+    </form>
+      <div class="tabcon hide searchStylistDisplay" data-widget="tab-content" style="display: block;">
+        <div class="mc mT10">
+        <div class="w164 mHA">
+        <div class="taC">
+          <a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
+            @*<img src="@routes.Application.getPhoto(User.findOneById(stylist.stylistId).get.userPics)" class="bdImgGray w164 h219" >*@
+            <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" class="bdImgGray w164 h219" >
+          </a>
+        </div>
+        <p class="mT10">
+          <p>@Stylist.findUserName(stylist.stylistId)</p>
+        </p>
+        <div class="bdDotT mT5 pT5 fs10">
+          <p class="mT10">
+          @stylist.position.map{po=>
+              @Messages(po.industryName)&nbsp;@Messages("position.positionName."+po.positionName)
+            }
+          </p>
+          
+          
+       （@stylist.workYears
+       @Messages("stylist.workYears")）
+        </div>
+        <div class="bdDotT mT5 pT5 fs10 hMin30">
+        </div>
+      </div>
+      <div class="taC mT10">
+        @if(status == 1){
+          <a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv buttons applyToStylist">@Messages("stylist.checkRsv")</a>        
+        }
+        @if(status == 2){
+          @if(SalonStylistApplyRecord.findOneSalonApRd(salon.id,stylist.stylistId) != None){
+            <span class="salon-stylist-reserv buttons applyToStylist">@Messages("salonSearchStylist.haveInvite")</span>    
+          }else{
+            <a href="@auth.routes.Salons.inviteStylist(stylist.stylistId)" class="salon-stylist-reserv buttons applyToStylist">@Messages("stylist.invite")</a>
+            <a href="@auth.routes.Salons.inviteStylist(stylist.stylistId)" class="salon-stylist-reserv">@Messages("stylist.invite")</a>    
+          }
+        }
+      </div>
+      </div>
     </div>
+  </div>
 }
 <script src="@routes.Assets.at("javascripts/swfupload/jquery-1.8.2.min.js")" type="text/javascript"></script>
 <script src="@routes.Assets.at("javascripts/stylist.js")" type="text/javascript"></script>

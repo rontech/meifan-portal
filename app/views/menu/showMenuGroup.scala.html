@@ -2,28 +2,28 @@
 
 <div class="showMenu mT40">
 <div class="taC fr">
-    <a href="@auth.routes.Menus.menuMain"
-    class="iS arrowR">
-        <font>
-            <font class="b">
-                @Messages("menu.createMenu")
-            </font>
-        </font>
-    </a>
+  <a href="@auth.routes.Menus.menuMain"
+  class="iS arrowR">
+    <font>
+      <font class="b">
+        @Messages("menu.createMenu")
+      </font>
+    </font>
+  </a>
 </div>
 <div class="yS mainContentsSecondTitleOuter">
-	<h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("menu.titleInSalon", salon.salonName)</h2>
+  <h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("menu.titleInSalon", salon.salonName)</h2>
 </div>
 
 <div>
 @if(menus.isEmpty) {
-	<div class="bgAlertMsg mT20">
-		<p class="alertMsg">@Messages("menu.noDataMsg")</p>
-	</div>
+  <div class="bgAlertMsg mT20">
+    <p class="alertMsg">@Messages("menu.noDataMsg")</p>
+  </div>
 } else {
-	@for(menu <- menus) {
-		@views.html.menu.showMenuItem(menu)
-	}
+  @for(menu <- menus) {
+    @views.html.menu.showMenuItem(menu)
+  }
 }
 </div>
 </div>

@@ -2,19 +2,19 @@
 
 @main(Messages("site.title"), nav = "HairSalon", navBar) {
 
-	<div id="generalContents">
+  <div id="generalContents">
 
-	    <div class="pT15 cFix">
-		<div class="cFix">
-		    <!-- ↓generalContentTopColumn -->
-		    @views.html.salon.general.leftColumn(searchParaForSalon, salons)
-	        <!-- ↑generalContentTopColumn -->
-	        
-		    <!-- ↓generalContentRightColumn -->
-		    @views.html.salon.general.rightColumn(user)
-		    <!-- ↑generalContentRightColumn -->
-		</div>
-	    </div>
-	</div>
+    <div class="pT15 cFix">
+    <div class="cFix">
+      <!-- ↓generalContentTopColumn -->
+      @views.html.salon.general.leftColumn(searchParaForSalon, salons)
+      <!-- ↑generalContentTopColumn -->
+      
+      <!-- ↓generalContentRightColumn -->
+      @views.html.salon.general.rightColumn(user)
+      <!-- ↑generalContentRightColumn -->
+    </div>
+    </div>
+  </div>
 
 }

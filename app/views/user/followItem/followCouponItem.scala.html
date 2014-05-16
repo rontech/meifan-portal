@@ -1,188 +1,188 @@
 @(coupon: Coupon, beforeSevernDate: java.util.Date, loginUserId: ObjectId)
 
-      <script src="@routes.Assets.at("javascripts/jquery-1.5.1.js")" type="text/javascript"></script>
-      <script src="@routes.Assets.at("javascripts/comment_dialog.js")" type="text/javascript"> </script>
-      <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comment/comment_dialog.css")" />
-      
+   <script src="@routes.Assets.at("javascripts/jquery-1.5.1.js")" type="text/javascript"></script>
+   <script src="@routes.Assets.at("javascripts/comment_dialog.js")" type="text/javascript"> </script>
+   <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comment/comment_dialog.css")" />
+   
    <script type="text/javascript">
-	function addComment(commentObjId, commentObjType){
-	    create_comment_dialog(commentObjId, commentObjType);
-	}
+  function addComment(commentObjId, commentObjType){
+    create_comment_dialog(commentObjId, commentObjType);
+  }
    </script>
 <div>
-    <table summary="summary" cellspacing="1" class="mT2 wFull bgLGray2 fs10 couponTable">
-        <tbody>
-            <tr>
-                <td class="bgPink8 fgWhite bd0 taC p5 fs12 b couponLeft">
-                    <font> @Messages("coupon.newCoupon") </font>
-                    <br>
-                    <font> @Messages("coupon.coupon") </font>
-                </td>
-                <td class="w554 bgWhite">
-                    <div class="w534 p10">
-                        <div class="">
-                                <ul class="couponMenuIcons fs10 cFix">
-                                    @for(service <- coupon.serviceItems) { 
-                                    	<li class="couponMenuIcon mB5">
-                                        <font>
-                                            <font>
-                                                @Messages("ServiceType.serviceTypeName." + service.serviceType)
-                                            </font>
-                                        </font>
-                                        </li>
-                                        }
-                                </ul>
-                            </div>
-                            <div class="mT5 b fs12 cFix">
-                                <p class="fl">
-                                    <font>
-                                        <font>
-                                            @coupon.couponName
-                                        </font>
-                                    </font>
-                                </p>
-                                <p class="fr fgRed">
-                                    <span class="fs13">
-                                        <font>
-                                            <font>
-                                                @coupon.perferentialPrice @Messages("coupon.currency")
-                                            </font>
-                                        </font>
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                        <p class="fgGray fs10 p10">
-                            <font>
-                                <font class="">
-                                    @coupon.description
-                                </font>
-                            </font>
-                        </p>
-                        <dl class="p10">
-                            <dt class="di fgPink">
-                                <font>
-                                    <font>
-                                        @Messages("coupon.presentTime")
-                                    </font>
-                                </font>
-                            </dt>
-                            <dd class="di mR10 fgGray bdLGrayR">
-                                <font>
-                                    <font>
-                                        @coupon.presentTime
-                                    </font>
-                                </font>
-                            </dd>
-                            <dt class="di fgPink">
-                                <font>
-                                    <font>
-                                        @Messages("coupon.useConditions")
-                                    </font>
-                                </font>
-                            </dt>
-                            <dd class="di mR10 pR10 fgGray bdLGrayR">
-                                <font>
-                                    <font>
-                                        @coupon.useConditions
-                                    </font>
-                                </font>
-                            </dd>
-                            <dt class="di fgPink">
-                                <font>
-                                    <font>
-                                        @Messages("coupon.endDate")
-                                    </font>
-                                </font>
-                            </dt>
-                            <dd class="di mR20 fgGray">
-                                <font>
-                                    <font>
-                                        @coupon.endDate.format("yyyy-MM-dd")
-                                    </font>
-                                </font>
-                            </dd>
-                        </dl>
-                    </div>
-                </td>
-                <td class="bdWhite bgLLGray2 vaM couponRight">
-                    <div class="pV10 fs12">
-                    @if(coupon.isValid && coupon.endDate.after(new java.util.Date()) && coupon.startDate.before(new java.util.Date())){
-                        <div>
-                            <a href="#"
-                            class="btn btn2H50 btnWlines w146 mHA">
-                                <span>
-                                    <span>
-                                    	<font>
-                                            <font>
-                                                @Messages("coupon.appointment1")
-                                            </font>
-                                        </font>
-                                        <br>
-                                        <font>
-                                            <font>
-                                                @Messages("coupon.appointment2")
-                                            </font>
-                                        </font>
-                                    </span>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="mT8 taC">
-                            <a href="#"
-                            class="iS arrowR">
-                                <font>
-                                    <font>
-                                        @Messages("coupon.addMenu")
-                                    </font>
-                                </font>
-                            </a>
-                        </div>
-                        <div class="mT8 taC">
-                        	@if(MyFollow.checkIfFollow(loginUserId,coupon.id)){
-                        		<a href="@auth.routes.MyFollows.cancelFollow(coupon.id)" class="iS arrowR">
-                                    <font>
-                                        @Messages("user.deleteFollow")
-                                    </font>
-                           		</a>
-                        	}else{
-                        		<a href="javascript:void(0);" onclick="addFollow('@coupon.id','coupon')" class="iS arrowR">
-                                    <font>
-                                        @Messages("user.addFollow")
-                                    </font>
-                           		</a>
-                        	}
-                        </div>
-                    </div>
-                    }else{
-                    <div>
-                            <a href="#"
-                            class="btn btn2H50 btnWlines w146 mHA">
-                                <span>
-                                    <span>
-                                    	<font>
-                                            <font>
-                                                @Messages("coupon.invalidCoupon")
-                                            </font>
-                                        </font>  
-                                    </span>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="mT8 taC">
-                            <a href="@auth.routes.MyFollows.cancelFollow(coupon.id)"
-                            class="iS arrowR">
-                                <font>
-                                    <font>
-                                        @Messages("user.deleteFollow")
-                                    </font>
-                                </font>
-                            </a>
-                        </div>
-                    </div>
+  <table summary="summary" cellspacing="1" class="mT2 wFull bgLGray2 fs10 couponTable">
+    <tbody>
+      <tr>
+        <td class="bgPink8 fgWhite bd0 taC p5 fs12 b couponLeft">
+          <font> @Messages("coupon.newCoupon") </font>
+          <br>
+          <font> @Messages("coupon.coupon") </font>
+        </td>
+        <td class="w554 bgWhite">
+          <div class="w534 p10">
+            <div class="">
+                <ul class="couponMenuIcons fs10 cFix">
+                  @for(service <- coupon.serviceItems) { 
+                    <li class="couponMenuIcon mB5">
+                    <font>
+                      <font>
+                        @Messages("ServiceType.serviceTypeName." + service.serviceType)
+                      </font>
+                    </font>
+                    </li>
                     }
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                </ul>
+              </div>
+              <div class="mT5 b fs12 cFix">
+                <p class="fl">
+                  <font>
+                    <font>
+                      @coupon.couponName
+                    </font>
+                  </font>
+                </p>
+                <p class="fr fgRed">
+                  <span class="fs13">
+                    <font>
+                      <font>
+                        @coupon.perferentialPrice @Messages("coupon.currency")
+                      </font>
+                    </font>
+                  </span>
+                </p>
+              </div>
+            </div>
+            <p class="fgGray fs10 p10">
+              <font>
+                <font class="">
+                  @coupon.description
+                </font>
+              </font>
+            </p>
+            <dl class="p10">
+              <dt class="di fgPink">
+                <font>
+                  <font>
+                    @Messages("coupon.presentTime")
+                  </font>
+                </font>
+              </dt>
+              <dd class="di mR10 fgGray bdLGrayR">
+                <font>
+                  <font>
+                    @coupon.presentTime
+                  </font>
+                </font>
+              </dd>
+              <dt class="di fgPink">
+                <font>
+                  <font>
+                    @Messages("coupon.useConditions")
+                  </font>
+                </font>
+              </dt>
+              <dd class="di mR10 pR10 fgGray bdLGrayR">
+                <font>
+                  <font>
+                    @coupon.useConditions
+                  </font>
+                </font>
+              </dd>
+              <dt class="di fgPink">
+                <font>
+                  <font>
+                    @Messages("coupon.endDate")
+                  </font>
+                </font>
+              </dt>
+              <dd class="di mR20 fgGray">
+                <font>
+                  <font>
+                    @coupon.endDate.format("yyyy-MM-dd")
+                  </font>
+                </font>
+              </dd>
+            </dl>
+          </div>
+        </td>
+        <td class="bdWhite bgLLGray2 vaM couponRight">
+          <div class="pV10 fs12">
+          @if(coupon.isValid && coupon.endDate.after(new java.util.Date()) && coupon.startDate.before(new java.util.Date())){
+            <div>
+              <a href="#"
+              class="btn btn2H50 btnWlines w146 mHA">
+                <span>
+                  <span>
+                    <font>
+                      <font>
+                        @Messages("coupon.appointment1")
+                      </font>
+                    </font>
+                    <br>
+                    <font>
+                      <font>
+                        @Messages("coupon.appointment2")
+                      </font>
+                    </font>
+                  </span>
+                </span>
+              </a>
+            </div>
+            <div class="mT8 taC">
+              <a href="#"
+              class="iS arrowR">
+                <font>
+                  <font>
+                    @Messages("coupon.addMenu")
+                  </font>
+                </font>
+              </a>
+            </div>
+            <div class="mT8 taC">
+              @if(MyFollow.checkIfFollow(loginUserId,coupon.id)){
+                <a href="@auth.routes.MyFollows.cancelFollow(coupon.id)" class="iS arrowR">
+                  <font>
+                    @Messages("user.deleteFollow")
+                  </font>
+                  </a>
+              }else{
+                <a href="javascript:void(0);" onclick="addFollow('@coupon.id','coupon')" class="iS arrowR">
+                  <font>
+                    @Messages("user.addFollow")
+                  </font>
+                  </a>
+              }
+            </div>
+          </div>
+          }else{
+          <div>
+              <a href="#"
+              class="btn btn2H50 btnWlines w146 mHA">
+                <span>
+                  <span>
+                    <font>
+                      <font>
+                        @Messages("coupon.invalidCoupon")
+                      </font>
+                    </font>  
+                  </span>
+                </span>
+              </a>
+            </div>
+            <div class="mT8 taC">
+              <a href="@auth.routes.MyFollows.cancelFollow(coupon.id)"
+              class="iS arrowR">
+                <font>
+                  <font>
+                    @Messages("user.deleteFollow")
+                  </font>
+                </font>
+              </a>
+            </div>
+          </div>
+          }
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

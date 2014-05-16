@@ -1,46 +1,46 @@
 @* message Template File *@
 @(letter: UserLetter, user: User, followInfo:FollowInformation)
 @myRelevantsMain("my-messages", user, followInfo, user.id, true){
-	
-	<div class="mT40">
-    <!-- <h1>@letter.message.title</h1> -->
-    <div class="msg_dialogue">
-    	<fieldset class="S_line2 msg_time_line">
-           <legend class="time_tit S_txt3">@letter.userMessage.createdTime.format("yyyy-MM-dd HH:mm")</legend>
-        </fieldset>
-        <div class="msg_dialogue_list msg_dialist_l clearfix " style="z-index: 99;">
-            <div class="msg_dialist_box clearfix">
-                <div class="msg_dialist_pic">
-                    <a href="@noAuth.routes.Users.userPage(User.findOneByNickNm(letter.userMessage.senderNm).get.userId)">
-                        <img src="@routes.Application.getPhoto(User.findOneByNickNm(letter.userMessage.senderNm).get.userPics)"
-                        alt="@letter.userMessage.senderNm" width="50" height="50">
-                    </a>
-                </div>
-                <div class="msg_dialist_content S_line1 S_bg1">
-                    <div class="msg_arrow">
-                        <em class="S_line2_c">
-                           	 ◆
-                        </em>
-                        <span class="S_bg5_c">
-                                                                  ◆
-                        </span>
-                    </div>
-                    <div class="msg_dialist_main">
-                        <div class="msg_diamain_box">
-                            <div class="msg_diamain_con clearfix">
-                                <!-- 内容：文本 -->
-                                <div class="msg_dia_con">
-                                    <p>
-                                        @letter.message.content
-                                    </p>
-                                </div>
-                                <!-- /内容：文本 -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  
+  <div class="mT40">
+  <!-- <h1>@letter.message.title</h1> -->
+  <div class="msg_dialogue">
+    <fieldset class="S_line2 msg_time_line">
+      <legend class="time_tit S_txt3">@letter.userMessage.createdTime.format("yyyy-MM-dd HH:mm")</legend>
+    </fieldset>
+    <div class="msg_dialogue_list msg_dialist_l clearfix " style="z-index: 99;">
+      <div class="msg_dialist_box clearfix">
+        <div class="msg_dialist_pic">
+          <a href="@noAuth.routes.Users.userPage(User.findOneByNickNm(letter.userMessage.senderNm).get.userId)">
+            <img src="@routes.Application.getPhoto(User.findOneByNickNm(letter.userMessage.senderNm).get.userPics)"
+            alt="@letter.userMessage.senderNm" width="50" height="50">
+          </a>
         </div>
+        <div class="msg_dialist_content S_line1 S_bg1">
+          <div class="msg_arrow">
+            <em class="S_line2_c">
+                ◆
+            </em>
+            <span class="S_bg5_c">
+                                 ◆
+            </span>
+          </div>
+          <div class="msg_dialist_main">
+            <div class="msg_diamain_box">
+              <div class="msg_diamain_con clearfix">
+                <!-- 内容：文本 -->
+                <div class="msg_dia_con">
+                  <p>
+                    @letter.message.content
+                  </p>
+                </div>
+                <!-- /内容：文本 -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 }

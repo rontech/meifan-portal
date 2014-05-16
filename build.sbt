@@ -21,3 +21,7 @@ routesImport += "se.radley.plugin.salat.Binders._"
 
 templatesImport += "org.bson.types.ObjectId"
 
+ScoverageSbtPlugin.instrumentSettings
+
+ScoverageSbtPlugin.ScoverageKeys.excludedPackages in ScoverageSbtPlugin.scoverage :=
+  "<empty>;Reverse.*;.*AuthService.*;models.data..*"

@@ -1,49 +1,58 @@
 @(subNavInSalon: String = "my-basicInfo", user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)(content: Html)
 
 @myPageMain("my-infomation", user, followInfo, loginUserId, logged){
-	
-	<div>
-		<ul class="tab-sub">
-			<li class="fl  @if(subNavInSalon == "my-basicInfo") {selected}">
-				<a class="current-demo" href="@auth.routes.Users.myInfo">@Messages("user.basicInfo")</a>
-			</li>
-			@if(user.userTyp.equals(User.STYLIST)){		
-	            <li class="fl  @if(subNavInSalon == "my-stylistInfo") {selected}">
-					<a class="current-demo" href="@auth.routes.Stylists.stylistInfo">@Messages("user.stylistInfo")</a>
-				</li>
-			}
-			@if(subNavInSalon == "my-salon") {
-				<li class="fl  selected">
-					<a class="current-demo" href="@noAuth.routes.Stylists.mySalonFromStylist(user.id)">@Messages("stylistMag.mySalon")</a>
-				</li>
-			} else {
-				@if(subNavInSalon == "my-appling") {
-					<li class="fl  selected">
-						<a class="current-demo" href="@auth.routes.Stylists.findStylistApplying">@Messages("stylistMag.myAppling")</a>
-					</li>
-				} else {
-					@if(subNavInSalon == "my-wantToApply") {
-						<li class="fl  selected">
-							<a class="current-demo" href="@auth.routes.Stylists.wantToApply">@Messages("stylistMag.wantToApply")</a>
-						</li>
-					}
-					@if(subNavInSalon == "my-applyFromSalon") {
-						<li class="fl  selected">
-							<a class="current-demo" href="@auth.routes.Stylists.applyFromSalon">@Messages("stylistMag.countSalonApply")</a>
-						</li>
-					}
-				}
-			}
-            <li class="fl  @if(subNavInSalon == "my-changePwd") {selected}">
-				<a class="current-demo" href="@auth.routes.Users.password"> @Messages("user.changePassword")</a>
-			</li>
-			@if(user.userTyp.equals(User.STYLIST)){	
-				<li class="fl  @if(subNavInSalon == "my-changeImage") {selected}">
-					<a class="current-demo" href="@auth.routes.Users.changeImage">@Messages("user.changeImage")</a>
-				</li>
-			}			
-		</ul>
-	</div>
-	@content
-	
+  
+  <div>
+    <ul class="tab-sub">
+      @if(loginUserId.equals(user.id)){
+        <li class="fl  @if(subNavInSalon == "my-basicInfo") {selected}">
+          <a class="current-demo" href="@auth.routes.Users.myInfo">@Messages("user.basicInfo")</a>
+        </li>
+        @if(user.userTyp.equals(User.STYLIST)){        
+          <li class="fl  @if(subNavInSalon == "my-stylistInfo") {selected}">
+            <a class="current-demo" href="@auth.routes.Stylists.stylistInfo">@Messages("user.stylistInfo")</a>
+          </li>
+        }
+      }
+      
+      @if(subNavInSalon == "my-salon") {
+        <li class="fl  selected">
+          <a class="current-demo" href="@noAuth.routes.Stylists.mySalonFromStylist(user.id)">@Messages("stylistMag.mySalon")</a>
+        </li>
+      } else {
+        @if(subNavInSalon == "my-appling") {
+          <li class="fl  selected">
+            <a class="current-demo" href="@auth.routes.Stylists.findStylistApplying">@Messages("stylistMag.myAppling")</a>
+          </li>
+        } else {
+          @if(subNavInSalon == "my-wantToApply") {
+            <li class="fl  selected">
+              <a class="current-demo" href="@auth.routes.Stylists.wantToApply">@Messages("stylistMag.wantToApply")</a>
+            </li>
+          }
+          @if(subNavInSalon == "my-applyFromSalon") {
+            <li class="fl  selected">
+              <a class="current-demo" href="@auth.routes.Stylists.applyFromSalon">@Messages("stylistMag.countSalonApply")</a>
+            </li>
+          }
+        }
+      }
+      @if(loginUserId.equals(user.id)){
+        <li class="fl  @if(subNavInSalon == "my-changePwd") {selected}">
+          <a class="current-demo" href="@auth.routes.Users.password"> @Messages("user.changePassword")</a>
+        </li>
+        @if(user.userTyp.equals(User.STYLIST)){    
+          <li class="fl  @if(subNavInSalon == "my-changeImage") {selected}">
+            <a class="current-demo" href="@auth.routes.Stylists.updateStylistImage("stylist")">@Messages("stylistMag.changeImage")</a>
+          </li>
+        } else {
+          <li class="fl  @if(subNavInSalon == "my-changeImage") {selected}">
+            <a class="current-demo" href="@auth.routes.Users.changeImage">@Messages("user.changeImage")</a>
+          </li>
+        }    
+      }
+    </ul>
+  </div>
+  @content
+  
 }

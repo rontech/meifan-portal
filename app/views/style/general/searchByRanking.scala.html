@@ -1,316 +1,61 @@
 
 <div class="mT30" id="salon_nvfxjs_title">
-    <script type="text/javascript">
-    function switchmodTag(modtag,modcontent,modk) {
-        for(i=1; i <9; i++) {
-            if (i==modk) {
-                document.getElementById(modtag+i).className="menuOn";
-                document.getElementById(modcontent+i).className="style_ranking_display_block";}
-            else {
-                document.getElementById(modtag+i).className="menuNo";
-                document.getElementById(modcontent+i).className="style_ranking_display_none";}
-            }
-    }
-    </script>
-    <div id="salon_nvfxjs_title">
-            <img src="@routes.Assets.at("images/haircatalog/hair_label/salon_rq_title.jpg")" width="795" height="35">
-    </div>
-    <div id="style_nvfxjs_nr_box">
-        <h2 id="mod1" class="menuOn" onClick="switchmodTag('mod','styleRankingList','1');this.blur();">@Messages("hair.rankingAll")</h2>
-        <h2 id="mod2" class="menuNo" onClick="switchmodTag('mod','styleRankingList','2');this.blur();">@Messages("style.styleLength.super-short")</h2>
-        <h2 id="mod3" class="menuNo" onClick="switchmodTag('mod','styleRankingList','3');this.blur();">@Messages("style.styleLength.short")</h2>
-        <h2 id="mod4" class="menuNo" onClick="switchmodTag('mod','styleRankingList','4');this.blur();">@Messages("style.styleLength.near-shoulder-length")</h2>
-        <h2 id="mod5" class="menuNo" onClick="switchmodTag('mod','styleRankingList','5');this.blur();">@Messages("style.styleLength.shoulder-length")</h2>
-        <h2 id="mod6" class="menuNo" onClick="switchmodTag('mod','styleRankingList','6');this.blur();">@Messages("style.styleLength.mid-length")</h2>
-        <h2 id="mod7" class="menuNo" onClick="switchmodTag('mod','styleRankingList','7');this.blur();">@Messages("style.styleLength.long")</h2>
-        <h2 id="mod8" class="menuNo" onClick="switchmodTag('mod','styleRankingList','8');this.blur();">@Messages("hair.rankingMens")</h2>
-    </div>
-    
-    <div class="style_ranking_display_block" id="styleRankingList1">
-        <div class="mT20 w748 oh">
-            <div class="jscRankList current pr top0 left0">
-            <ul class="cFix rankingList">
-                @for(i <- 0 until (if (Style.findByRankingAndSex("female").length > 5) 5 else Style.findByRankingAndSex("female").length)){
-                    <li class="fl w137 mR15">
-                        <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRankingAndSex("female")(i).stylistId).get.id, Style.findByRankingAndSex("female")(i).id)">
-                            @if(i < 3) {
-                                <h4 class="rankingListHeading icnCrown@i"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            } else {
-                                <h4 class="rankingListHeading icnCrownOther"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            }
-                            
-                            <div>
-                                <p><img src="@routes.Application.getPhoto(Style.findByRankingAndSex("female")(i).stylePic(0).fileObjId)" class="imgFrame w134 h182 msInterMode" alt="@Style.findByRankingAndSex("female")(i).styleName" oncontextmenu="return false;"  width="138px"></p>
-                                <div class="mT2">
-                                    <p class="rankingListInnerAnchor">@Style.findByRankingAndSex("female")(i).styleName</p>
-                                    <div class="mT2">
-                                        <p class="rankingListShop">@Style.findSalonByStyle(Style.findByRankingAndSex("female")(i).stylistId).get.salonName</p>
-                                        <p class="rankingListStylist">@Stylist.findUser(Style.findByRankingAndSex("female")(i).stylistId).nickName</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                }
-            </ul>
-            <div class="mT20">
-                @if(Style.findByRankingAndSex("female").length > 5){
-                    <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("all","female")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
-                }
-            </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="style_ranking_display_none" id="styleRankingList2">
-        <div class="mT20 w748 oh">
-            <div class="jscRankList current pr top0 left0">
-            <ul class="cFix rankingList">
-                @for(i <- 0 until (if (Style.findByRankingAndLengthForF("super-short","female").length > 5) 5 else Style.findByRankingAndLengthForF("super-short","female").length)){
-                    <li class="fl w137 mR15">
-                        <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRankingAndLengthForF("super-short","female")(i).stylistId).get.id, Style.findByRankingAndLengthForF("super-short","female")(i).id)">
-                            @if(i < 3) {
-                                <h4 class="rankingListHeading icnCrown@i"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            } else {
-                                <h4 class="rankingListHeading icnCrownOther"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            }
-                            
-                            <div>
-                                <p><img src="@routes.Application.getPhoto(Style.findByRankingAndLengthForF("super-short","female")(i).stylePic(0).fileObjId)" class="imgFrame w134 h182 msInterMode" alt="@Style.findByRankingAndLengthForF("super-short","female")(i).styleName" oncontextmenu="return false;"  width="138px"></p>
-                                <div class="mT2">
-                                    <p class="rankingListInnerAnchor">@Style.findByRankingAndLengthForF("super-short","female")(i).styleName</p>
-                                    <div class="mT2">
-                                        <p class="rankingListShop">@Style.findSalonByStyle(Style.findByRankingAndLengthForF("super-short","female")(i).stylistId).get.salonName</p>
-                                        <p class="rankingListStylist">@Stylist.findUser(Style.findByRankingAndLengthForF("super-short","female")(i).stylistId).nickName</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                }
-            </ul>
-            <div class="mT20">
-                @if(Style.findByRankingAndLengthForF("super-short","female").length > 5) {
-                    <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("super-short","female")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
-                }
-            </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="style_ranking_display_none" id="styleRankingList3">
-        <div class="mT20 w748 oh">
-            <div class="jscRankList current pr top0 left0">
-            <ul class="cFix rankingList">
-                @for(i <- 0 until (if (Style.findByRankingAndLengthForF("short","female").length > 5) 5 else Style.findByRankingAndLengthForF("short","female").length)){
-                    <li class="fl w137 mR15">
-                        <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRankingAndLengthForF("short","female")(i).stylistId).get.id, Style.findByRankingAndLengthForF("short","female")(i).id)">
-                            @if(i < 3) {
-                                <h4 class="rankingListHeading icnCrown@i"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            } else {
-                                <h4 class="rankingListHeading icnCrownOther"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            }
-                            
-                            <div>
-                                <p><img src="@routes.Application.getPhoto(Style.findByRankingAndLengthForF("short","female")(i).stylePic(0).fileObjId)" class="imgFrame w134 h182 msInterMode" alt="@Style.findByRankingAndLengthForF("short","female")(i).styleName" oncontextmenu="return false;"  width="138px"></p>
-                                <div class="mT2">
-                                    <p class="rankingListInnerAnchor">@Style.findByRankingAndLengthForF("short","female")(i).styleName</p>
-                                    <div class="mT2">
-                                        <p class="rankingListShop">@Style.findSalonByStyle(Style.findByRankingAndLengthForF("short","female")(i).stylistId).get.salonName</p>
-                                        <p class="rankingListStylist">@Stylist.findUser(Style.findByRankingAndLengthForF("short","female")(i).stylistId).nickName</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                }
-            </ul>
-            <div class="mT20">
-                @if(Style.findByRankingAndLengthForF("short","female").length > 5) {
-                    <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("short","female")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
-                }
-            </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="style_ranking_display_none" id="styleRankingList4">
-        <div class="mT20 w748 oh">
-            <div class="jscRankList current pr top0 left0">
-            <ul class="cFix rankingList">
-                @for(i <- 0 until (if (Style.findByRankingAndLengthForF("near-shoulder-length","female").length > 5) 5 else Style.findByRankingAndLengthForF("near-shoulder-length","female").length)){
-                    <li class="fl w137 mR15">
-                        <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRankingAndLengthForF("near-shoulder-length","female")(i).stylistId).get.id, Style.findByRankingAndLengthForF("near-shoulder-length","female")(i).id)">
-                            @if(i < 3) {
-                                <h4 class="rankingListHeading icnCrown@i"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            } else {
-                                <h4 class="rankingListHeading icnCrownOther"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            }
-                            
-                            <div>
-                                <p><img src="@routes.Application.getPhoto(Style.findByRankingAndLengthForF("near-shoulder-length","female")(i).stylePic(0).fileObjId)" class="imgFrame w134 h182 msInterMode" alt="@Style.findByRankingAndLengthForF("near-shoulder-length","female")(i).styleName" oncontextmenu="return false;"  width="138px"></p>
-                                <div class="mT2">
-                                    <p class="rankingListInnerAnchor">@Style.findByRankingAndLengthForF("near-shoulder-length","female")(i).styleName</p>
-                                    <div class="mT2">
-                                        <p class="rankingListShop">@Style.findSalonByStyle(Style.findByRankingAndLengthForF("near-shoulder-length","female")(i).stylistId).get.salonName</p>
-                                        <p class="rankingListStylist">@Stylist.findUser(Style.findByRankingAndLengthForF("near-shoulder-length","female")(i).stylistId).nickName</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                }
-            </ul>
-            <div class="mT20">
-                @if(Style.findByRankingAndLengthForF("near-shoulder-length","female").length > 5) {
-                    <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("near-shoulder-length","female")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
-                }
-            </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="style_ranking_display_none" id="styleRankingList5">
-        <div class="mT20 w748 oh">
-            <div class="jscRankList current pr top0 left0">
-            <ul class="cFix rankingList">
-                @for(i <- 0 until (if (Style.findByRankingAndLengthForF("shoulder-length","female").length > 5) 5 else Style.findByRankingAndLengthForF("shoulder-length","female").length)){
-                    <li class="fl w137 mR15">
-                        <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRankingAndLengthForF("shoulder-length","female")(i).stylistId).get.id, Style.findByRankingAndLengthForF("shoulder-length","female")(i).id)">
-                            @if(i < 3) {
-                                <h4 class="rankingListHeading icnCrown@i"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            } else {
-                                <h4 class="rankingListHeading icnCrownOther"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            }
-                            
-                            <div>
-                                <p><img src="@routes.Application.getPhoto(Style.findByRankingAndLengthForF("shoulder-length","female")(i).stylePic(0).fileObjId)" class="imgFrame w134 h182 msInterMode" alt="@Style.findByRankingAndLengthForF("shoulder-length","female")(i).styleName" oncontextmenu="return false;"  width="138px"></p>
-                                <div class="mT2">
-                                    <p class="rankingListInnerAnchor">@Style.findByRankingAndLengthForF("shoulder-length","female")(i).styleName</p>
-                                    <div class="mT2">
-                                        <p class="rankingListShop">@Style.findSalonByStyle(Style.findByRankingAndLengthForF("shoulder-length","female")(i).stylistId).get.salonName</p>
-                                        <p class="rankingListStylist">@Stylist.findUser(Style.findByRankingAndLengthForF("shoulder-length","female")(i).stylistId).nickName</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                }
-            </ul>
-            <div class="mT20">
-                @if(Style.findByRankingAndLengthForF("shoulder-length","female").length > 5) {
-                    <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("shoulder-length","female")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
-                }
-            </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="style_ranking_display_none" id="styleRankingList6">
-        <div class="mT20 w748 oh">
-            <div class="jscRankList current pr top0 left0">
-            <ul class="cFix rankingList">
-                @for(i <- 0 until (if (Style.findByRankingAndLengthForF("mid-length","female").length > 5) 5 else Style.findByRankingAndLengthForF("mid-length","female").length)){
-                    <li class="fl w137 mR15">
-                        <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRankingAndLengthForF("mid-length","female")(i).stylistId).get.id, Style.findByRankingAndLengthForF("mid-length","female")(i).id)">
-                            @if(i < 3) {
-                                <h4 class="rankingListHeading icnCrown@i"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            } else {
-                                <h4 class="rankingListHeading icnCrownOther"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            }
-                            
-                            <div>
-                                <p><img src="@routes.Application.getPhoto(Style.findByRankingAndLengthForF("mid-length","female")(i).stylePic(0).fileObjId)" class="imgFrame w134 h182 msInterMode" alt="@Style.findByRankingAndLengthForF("mid-length","female")(i).styleName" oncontextmenu="return false;"  width="138px"></p>
-                                <div class="mT2">
-                                    <p class="rankingListInnerAnchor">@Style.findByRankingAndLengthForF("mid-length","female")(i).styleName</p>
-                                    <div class="mT2">
-                                        <p class="rankingListShop">@Style.findSalonByStyle(Style.findByRankingAndLengthForF("mid-length","female")(i).stylistId).get.salonName</p>
-                                        <p class="rankingListStylist">@Stylist.findUser(Style.findByRankingAndLengthForF("mid-length","female")(i).stylistId).nickName</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                }
-            </ul>
-            <div class="mT20">
-                @if(Style.findByRankingAndLengthForF("mid-length","female").length > 5) {
-                    <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("mid-length","female")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
-                }
-            </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="style_ranking_display_none" id="styleRankingList7">
-        <div class="mT20 w748 oh">
-            <div class="jscRankList current pr top0 left0">
-            <ul class="cFix rankingList">
-                @for(i <- 0 until (if (Style.findByRankingAndLengthForF("long","female").length > 5) 5 else Style.findByRankingAndLengthForF("long","female").length)){
-                    <li class="fl w137 mR15">
-                        <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRankingAndLengthForF("long","female")(i).stylistId).get.id, Style.findByRankingAndLengthForF("long","female")(i).id)">
-                            @if(i < 3) {
-                                <h4 class="rankingListHeading icnCrown@i"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            } else {
-                                <h4 class="rankingListHeading icnCrownOther"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            }
-                            
-                            <div>
-                                <p><img src="@routes.Application.getPhoto(Style.findByRankingAndLengthForF("long","female")(i).stylePic(0).fileObjId)" class="imgFrame w134 h182 msInterMode" alt="@Style.findByRankingAndLengthForF("long","female")(i).styleName" oncontextmenu="return false;"  width="138px"></p>
-                                <div class="mT2">
-                                    <p class="rankingListInnerAnchor">@Style.findByRankingAndLengthForF("long","female")(i).styleName</p>
-                                    <div class="mT2">
-                                        <p class="rankingListShop">@Style.findSalonByStyle(Style.findByRankingAndLengthForF("long","female")(i).stylistId).get.salonName</p>
-                                        <p class="rankingListStylist">@Stylist.findUser(Style.findByRankingAndLengthForF("long","female")(i).stylistId).nickName</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                }
-            </ul>
-            <div class="mT20">
-                @if(Style.findByRankingAndLengthForF("long","female").length > 5) {
-                    <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("long","female")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
-                }
-            </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="style_ranking_display_none" id="styleRankingList8">
-        <div class="mT20 w748 oh">
-            <div class="jscRankList current pr top0 left0">
-            <ul class="cFix rankingList">
-                @for(i <- 0 until (if (Style.findByRankingAndSex("male").length > 5) 5 else Style.findByRankingAndSex("male").length)){
-                    <li class="fl w137 mR15">
-                        <a href="@noAuth.routes.Salons.getOneStyle(Style.findSalonByStyle(Style.findByRankingAndSex("male")(i).stylistId).get.id, Style.findByRankingAndSex("male")(i).id)">
-                            @if(i < 3) {
-                                <h4 class="rankingListHeading icnCrown@i"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            } else {
-                                <h4 class="rankingListHeading icnCrownOther"><img src="/assets/images/text_ranking_@i'.png"></h4>
-                            }
-                            
-                            <div>
-                                <p><img src="@routes.Application.getPhoto(Style.findByRankingAndSex("male")(i).stylePic(0).fileObjId)" class="imgFrame w134 h182 msInterMode" alt="@Style.findByRankingAndSex("male")(i).styleName" oncontextmenu="return false;"  width="138px"></p>
-                                <div class="mT2">
-                                    <p class="rankingListInnerAnchor">@Style.findByRankingAndSex("male")(i).styleName</p>
-                                    <div class="mT2">
-                                        <p class="rankingListShop">@Style.findSalonByStyle(Style.findByRankingAndSex("male")(i).stylistId).get.salonName</p>
-                                        <p class="rankingListStylist">@Stylist.findUser(Style.findByRankingAndSex("male")(i).stylistId).nickName</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                }
-            </ul>
-            <div class="mT20">
-                @if(Style.findByRankingAndSex("male").length > 5){
-                    <p class="taR"><a href="@noAuth.routes.Styles.findByRanking("all","male")" class="iS arrowR">@Messages("hair.headingAllMore")</a></p>
-                }
-            </div>
-            </div>
-        </div>
-    </div>
+  <div id="salon_nvfxjs_title">
+      <img src="@routes.Assets.at("images/haircatalog/hair_label/salon_rq_title.jpg")" width="768" height="35">
+  </div>
+  <div id="style_nvfxjs_nr_box">
+    <h2 id="mod1" class="menuOn" onClick="switchmodTag('mod','styleRankingList','1');this.blur();">@Messages("hair.rankingAll")</h2>
+    <h2 id="mod2" class="menuNo" onClick="switchmodTag('mod','styleRankingList','2');this.blur();">@Messages("style.styleLength.super-short")</h2>
+    <h2 id="mod3" class="menuNo" onClick="switchmodTag('mod','styleRankingList','3');this.blur();">@Messages("style.styleLength.short")</h2>
+    <h2 id="mod4" class="menuNo" onClick="switchmodTag('mod','styleRankingList','4');this.blur();">@Messages("style.styleLength.near-shoulder-length")</h2>
+    <h2 id="mod5" class="menuNo" onClick="switchmodTag('mod','styleRankingList','5');this.blur();">@Messages("style.styleLength.shoulder-length")</h2>
+    <h2 id="mod6" class="menuNo" onClick="switchmodTag('mod','styleRankingList','6');this.blur();">@Messages("style.styleLength.mid-length")</h2>
+    <h2 id="mod7" class="menuNo" onClick="switchmodTag('mod','styleRankingList','7');this.blur();">@Messages("style.styleLength.long")</h2>
+    <h2 id="mod8" class="menuNo" onClick="switchmodTag('mod','styleRankingList','8');this.blur();">@Messages("hair.rankingMens")</h2>
+  </div>
+  
+  <div class="style_ranking_display_block" id="styleRankingList1">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndSex("female", 5), 5, "all", "female")
+  </div>
+  
+  <div class="style_ranking_display_none" id="styleRankingList2">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("super-short", "female", 5), 5, "all", "female")
+  </div>
+  
+  <div class="style_ranking_display_none" id="styleRankingList3">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("short", "female", 5), 5, "all", "female")
+  </div>
+  
+  <div class="style_ranking_display_none" id="styleRankingList4">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("near-shoulder-length", "female", 5), 5, "all", "female")
+  </div>
+  
+  <div class="style_ranking_display_none" id="styleRankingList5">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("shoulder-length", "female", 5), 5, "all", "female")
+  </div>
+  
+  <div class="style_ranking_display_none" id="styleRankingList6">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("mid-length", "female", 5), 5, "all", "female")
+  </div>
+  
+  <div class="style_ranking_display_none" id="styleRankingList7">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndLengthForF("long", "female", 5), 5, "all", "female")
+  </div>
+  
+  <div class="style_ranking_display_none" id="styleRankingList8">
+    @views.html.style.component.stylesInRanking(Style.findByRankingAndSex("male", 5), 5, "all", "male")
+   </div>
 </div>
+
+<script type="text/javascript">
+  function switchmodTag(modtag,modcontent,modk) {
+    for(i=1; i <9; i++) {
+      if (i==modk) {
+        document.getElementById(modtag+i).className="menuOn";
+        document.getElementById(modcontent+i).className="style_ranking_display_block";}
+      else {
+        document.getElementById(modtag+i).className="menuNo";
+        document.getElementById(modcontent+i).className="style_ranking_display_none";}
+      }
+  }
+</script>

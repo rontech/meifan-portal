@@ -12,10 +12,10 @@ object ApplicationBuild extends Build {
     //ADD BY YS-HAN 2014-03-20 FOR AUTH
     "jp.t2v" %% "play2-auth"      % "0.11.0",
     "jp.t2v" %% "play2-auth-test" % "0.11.0" % "test",
-    
+
     "org.mindrot" % "jbcrypt" % "0.3m",
-    
-    // Add by wu for mail 
+
+    // Add by wu for mail
     "com.typesafe" %% "play-plugins-mailer" % "2.2.0"
   )
 

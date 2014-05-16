@@ -1,8 +1,8 @@
 @(style: List[Style])
-	<div class="mT30">
-	    <ul class="cFix">
-	    @style.map{sty=>
-	    	@views.html.stylist.styleItem(sty,style.indexOf(sty))
-	        }
-	    </ul>
-	</div>
+  <div class="mT30">
+    <ul class="cFix">
+    @style.map{sty=>
+      @views.html.stylist.styleItem(sty,style.indexOf(sty))
+      }
+    </ul>
+  </div>

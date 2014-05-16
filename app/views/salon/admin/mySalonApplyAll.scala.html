@@ -1,20 +1,22 @@
-@(navInSalon: String = "my-stylists", salon: Salon, stylist: List[Stylist], status: Int = 0)
-@import views._
-@mySalonMain(navInSalon, salon){
-	<div>
-		<ul class="tabInfoTitle">
-			<li class="fl selected">
-				@Messages("salonAdmin.applyStylists")
-			</li>		
-		</ul>
-	</div>
-	<div class="mc mT40">
-		@if(stylist != Nil){
-		<div class="tabcon hide" data-widget="tab-content" style="display: block;">
-   			@views.html.stylist.mySalonStylistGroup(stylist, salon, status)
-        </div>
-        }else{
-        	<span>@Messages("stylist.empty")</span>
-        }
+@(navInSalon: String = "my-stylists", mySalon: Salon, stylist: List[Stylist], status: Int = 0)
+
+@import models.Salon
+
+@views.html.salon.admin.mySalonMain(navInSalon, mySalon){
+  <div>
+    <ul class="tabInfoTitle">
+      <li class="fl selected">
+        @Messages("salonAdmin.applyStylists")
+      </li>        
+    </ul>
+  </div>
+  <div class="mc mT40">
+    @if(stylist != Nil){
+    <div class="tabcon hide" data-widget="tab-content" style="display: block;">
+        @views.html.stylist.mySalonStylistGroup(stylist, mySalon, status)
     </div>
+    }else{
+      <span>@Messages("stylist.empty")</span>
+    }
+  </div>
 }

@@ -1,3 +1,20 @@
+/**
+ * RONTECH CONFIDENTIAL
+ * __________________
+ *
+ *  [2014] - SuZhou Rontech Co.,Ltd.(http://www.sz-rontech.com)
+ *  All Rights Reserved.
+ *
+ * NOTICE:  All information contained herein is, and remains
+ * the property of SuZhou Rontech Co.,Ltd. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to SuZhou Rontech Co.,Ltd.
+ * and its suppliers and may be covered by China and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from SuZhou Rontech Co.,Ltd..
+ */
 package controllers.auth
 
 import java.util.Date
@@ -30,17 +47,14 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
 
   val changePassForm = Form(
     mapping(
-      "user" ->mapping(
+      "user" -> mapping(
         "userId" -> text,
         "oldPassword" -> text)(User.authenticate)(_.map(u => (u.userId, ""))).verifying("Invalid OldPassword", result => result.isDefined),
-        "newPassword" -> tuple(
+      "newPassword" -> tuple(
         "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]{6,16}+$""")),
         "confirm" -> text).verifying(
-        // Add an additional constraint: both passwords must match
-        Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2)
-    ){(user, newPassword) => (user.get, BCrypt.hashpw(newPassword._1, BCrypt.gensalt()))}{user => Some((Option(user._1),("","")))}
-  )
-
+          // Add an additional constraint: both passwords must match
+          Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2)) { (user, newPassword) => (user.get, BCrypt.hashpw(newPassword._1, BCrypt.gensalt())) } { user => Some((Option(user._1), ("", ""))) })
 
   def userForm(id: ObjectId = new ObjectId) = Form(
     mapping(
@@ -50,14 +64,14 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
       "password" -> text,
       "sex" -> text,
       "birthDay" -> optional(date),
-      "address" ->  optional(mapping(
-         "province" -> text,
-         "city" -> optional(text),
-         "region" -> optional(text)){
-          (province,city,region) => Address(province,city,region,None,"NO NEED",None,None,"No NEED")
-      }{
-          address => Some((address.province,address.city,address.region))
-      }),
+      "address" -> optional(mapping(
+        "province" -> text,
+        "city" -> optional(text),
+        "region" -> optional(text)) {
+          (province, city, region) => Address(province, city, region, None, "NO NEED", None, None, "No NEED")
+        } {
+          address => Some((address.province, address.city, address.region))
+        }),
       "userPics" -> text,
       "tel" -> optional(text),
       "email" -> text,
@@ -68,18 +82,17 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
       "socialStatus" -> optional(text),
       "registerTime" -> longNumber,
       "userTyp" -> text,
-      "userBehaviorLevel" ->text,
-      "point" ->number,
-      "activity" ->number,
-      "permission" -> text
-    ) {
+      "userBehaviorLevel" -> text,
+      "point" -> number,
+      "activity" -> number,
+      "permission" -> text) {
         // Binding: Create a User from the mapping result (ignore the second password and the accept field)
-        (id, userId, nickName, password, sex, birthDay, address, userPics, tel, email, optContactMethods, socialStatus, registerTime, userTyp, userBehaviorLevel, point, activity, permission)
-        => User(id, userId, nickName, password,  sex, birthDay, address, new ObjectId(userPics), tel, email, optContactMethods, socialStatus, userTyp, userBehaviorLevel, point, activity, registerTime, permission, true)
+        (id, userId, nickName, password, sex, birthDay, address, userPics, tel, email, optContactMethods, socialStatus, registerTime, userTyp, userBehaviorLevel, point, activity, permission) => User(id, userId, nickName, password, sex, birthDay, address, new ObjectId(userPics), tel, email, optContactMethods, socialStatus, userTyp, userBehaviorLevel, point, activity, registerTime, permission, true)
       } // Unbinding: Create the mapping values from an existing Hacker value
       {
-        user => Some((user.id, user.userId, user.nickName, user.password, user.sex, user.birthDay, user.address, user.userPics.toString, user.tel, user.email, user.optContactMethods, user.socialStatus, user.registerTime,
-        user.userTyp, user.userBehaviorLevel, user.point, user.activity, user.permission))
+        user =>
+          Some((user.id, user.userId, user.nickName, user.password, user.sex, user.birthDay, user.address, user.userPics.toString, user.tel, user.email, user.optContactMethods, user.socialStatus, user.registerTime,
+            user.userTyp, user.userBehaviorLevel, user.point, user.activity, user.permission))
       })
 
   /**
@@ -87,46 +100,42 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
    */
 
   def stylistApplyForm: Form[StylistApply] = Form(
-        mapping("stylist" -> 
-		    mapping(
-		    	"workYears" -> number,
-			    "position" -> list(
-			    	mapping(
-			    		"positionName" -> text,
-			    		"industryName" -> text
-			    	){
-			    		(positionName, industryName) => IndustryAndPosition(new ObjectId, positionName, industryName)
-			    	}{
-			    		industryAndPosition => Some(industryAndPosition.positionName, industryAndPosition.industryName)
-			    	}	
-			    ),
-			    "goodAtImage" -> list(text),
-			    "goodAtStatus" -> list(text),
-			    "goodAtService" -> list(text),
-			    "goodAtUser" -> list(text),
-			    "goodAtAgeGroup" -> list(text),
-			    "myWords" -> text,
-			    "mySpecial" -> text,
-			    "myBoom" -> text,
-			    "myPR" -> text
-			){
-		      (workYears, position, goodAtImage, goodAtStatus, goodAtService,
-		          goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR)
-		      => Stylist(new ObjectId, new ObjectId(), workYears, position, goodAtImage, goodAtStatus,
-		    	   goodAtService, goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR, 
-		           List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), false, false)
-		    }{
-		      stylist => Some(stylist.workYears, stylist.position, 
-		          stylist.goodAtImage, stylist.goodAtStatus, stylist.goodAtService, stylist.goodAtUser,
-		          stylist.goodAtAgeGroup, stylist.myWords, stylist.mySpecial, stylist.myBoom, stylist.myPR)
-		    },
-		    "salonAccountId" -> text
-		    ){
-		      (stylist, salonAccountId) => StylistApply(stylist, salonAccountId)
-		    }{
-		      stylistApply => Some((stylistApply.stylist, stylistApply.salonAccountId))
-		    }
-  )
+    mapping("stylist" ->
+      mapping(
+        "workYears" -> number,
+        "position" -> list(
+          mapping(
+            "positionName" -> text,
+            "industryName" -> text) {
+              (positionName, industryName) => IndustryAndPosition(new ObjectId, positionName, industryName)
+            } {
+              industryAndPosition => Some(industryAndPosition.positionName, industryAndPosition.industryName)
+            }),
+        "goodAtImage" -> list(text),
+        "goodAtStatus" -> list(text),
+        "goodAtService" -> list(text),
+        "goodAtUser" -> list(text),
+        "goodAtAgeGroup" -> list(text),
+        "myWords" -> text,
+        "mySpecial" -> text,
+        "myBoom" -> text,
+        "myPR" -> text) {
+          (workYears, position, goodAtImage, goodAtStatus, goodAtService,
+          goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR) =>
+            Stylist(new ObjectId, new ObjectId(), workYears, position, goodAtImage, goodAtStatus,
+              goodAtService, goodAtUser, goodAtAgeGroup, myWords, mySpecial, myBoom, myPR,
+              List(new OnUsePicture(new ObjectId, "logo", Some(1), None)), false, false)
+        } {
+          stylist =>
+            Some(stylist.workYears, stylist.position,
+              stylist.goodAtImage, stylist.goodAtStatus, stylist.goodAtService, stylist.goodAtUser,
+              stylist.goodAtAgeGroup, stylist.myWords, stylist.mySpecial, stylist.myBoom, stylist.myPR)
+        },
+      "salonAccountId" -> text) {
+        (stylist, salonAccountId) => StylistApply(stylist, salonAccountId)
+      } {
+        stylistApply => Some((stylistApply.stylist, stylistApply.salonAccountId))
+      })
   /**
    * 用户登录验证
    */
@@ -135,14 +144,13 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
       formWithErrors => { Future.successful(BadRequest(views.html.user.login(formWithErrors))) },
       user => gotoLoginSucceeded(user.get.userId))
   }
-  
+
   /**
    * 退出登录
    */
   def logout = Action.async { implicit request =>
     gotoLogoutSucceeded.map(_.flashing(
-      "success" -> "You've been logged out"
-    ))
+      "success" -> "You've been logged out"))
   }
 
   /**
@@ -151,13 +159,13 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   def password = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    Ok(views.html.user.changePassword(Users.changePassForm.fill((user,"")), user, followInfo))
+    Ok(views.html.user.changePassword(Users.changePassForm.fill((user, "")), user, followInfo))
   }
 
   /**
    * 密码修改
    */
-  def changePassword(userId :String) = StackAction(AuthorityKey -> User.isOwner(userId) _) { implicit request =>
+  def changePassword(userId: String) = StackAction(AuthorityKey -> User.isOwner(userId) _) { implicit request =>
     val loginUser = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     Users.changePassForm.bindFromRequest.fold(
@@ -166,9 +174,8 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
         case (user, main) =>
           User.save(user.copy(password = main), WriteConcern.Safe)
           Redirect(routes.Users.logout)
-    })
+      })
   }
-
 
   /**
    * 用户信息更新
@@ -178,7 +185,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
     Users.userForm().bindFromRequest.fold(
       //errors => BadRequest(views.html.user.Infomation(errors, loginUser, followInfo)),
-    errors => BadRequest(Html(errors.toString)),
+      errors => BadRequest(Html(errors.toString)),
       {
         user =>
           User.save(user.copy(id = loginUser.id), WriteConcern.Safe)
@@ -204,13 +211,13 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   def userInfo(userId: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val loginUser = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(loginUser.id)
-    User.findOneByUserId(userId).map{user =>
+    User.findOneByUserId(userId).map { user =>
       val userForm = Users.userForm().fill(user)
       Ok(views.html.user.Infomation(userForm, user, followInfo))
-    }getOrElse{
+    } getOrElse {
       NotFound
     }
-    
+
   }
 
   /**
@@ -219,35 +226,34 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   def myPage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    User.findOneByUserId(user.userId).map{ user =>
-        if((user.userTyp.toUpperCase()).equals("NORMALUSER")) {
-          Ok(views.html.user.myPageRes(user,followInfo))
-        } else {
-          Redirect(controllers.auth.routes.Stylists.myHomePage)
-        }
-      }getOrElse{
-         NotFound
+    User.findOneByUserId(user.userId).map { user =>
+      if ((user.userTyp.toUpperCase()).equals("NORMALUSER")) {
+        Ok(views.html.user.myPageRes(user, followInfo))
+      } else {
+        Redirect(controllers.auth.routes.Stylists.myHomePage)
       }
-    
+    } getOrElse {
+      NotFound
+    }
 
   }
 
   /**
    * 保存图片
    */
-  def saveImg(id :ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _){implicit request =>
+  def saveImg(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     User.save(user.copy(userPics = id), WriteConcern.Safe)
     Redirect(routes.Users.myPage())
   }
-  
+
   /**
    * 更新图片
    */
   def changeImage = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    Ok(views.html.user.changeImg(user,followInfo))
+    Ok(views.html.user.changeImg(user, followInfo))
   }
 
   /**
@@ -256,7 +262,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   def myReservation() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    Ok(views.html.user.myPageRes(user,followInfo))
+    Ok(views.html.user.myPageRes(user, followInfo))
   }
 
   /**
@@ -267,7 +273,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val goodAtStylePara = Stylist.findGoodAtStyle
-    Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara,followInfo))
+    Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara, followInfo))
 
   }
 
@@ -282,29 +288,29 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
     stylistApplyForm.bindFromRequest.fold(
       errors => BadRequest(views.html.user.applyStylist(errors, user, goodAtStylePara, followInfo)),
       {
-        case(stylistApply) => {
+        case (stylistApply) => {
           Stylist.save(stylistApply.stylist.copy(stylistId = user.id))
           Stylist.updateImages(stylistApply.stylist, user.userPics)
-          Salon.findByAccountId(stylistApply.salonAccountId).map{salon=>
+          Salon.findByAccountId(stylistApply.salonAccountId).map { salon =>
             val applyRecord = new SalonStylistApplyRecord(new ObjectId, salon.id, user.id, 1, new Date, 0, None)
             SalonStylistApplyRecord.save(applyRecord)
             Redirect(controllers.auth.routes.Stylists.updateStylistImage("user"))
-          }getOrElse{
-        	  NotFound
+          } getOrElse {
+            NotFound
           }
         }
       })
-    	 
+
   }
-  
+
   def cancelApplyStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-      val user = loggedIn
-      SalonStylistApplyRecord.findOneStylistApRd(user.id).map{record=>
-         SalonStylistApplyRecord.save(record.copy(verifiedResult = 2, verifiedDate = Some(new Date)))
-         Redirect(routes.Users.myPage())
-      }getOrElse{
-         NotFound
-      }
+    val user = loggedIn
+    SalonStylistApplyRecord.findOneStylistApRd(user.id).map { record =>
+      SalonStylistApplyRecord.save(record.copy(verifiedResult = 2, verifiedDate = Some(new Date)))
+      Redirect(routes.Users.myPage())
+    } getOrElse {
+      NotFound
+    }
   }
 
 }

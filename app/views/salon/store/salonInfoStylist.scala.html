@@ -2,52 +2,52 @@
 
 @salonInfoMain(navInSalon = "salon-stylist", salon, navBar, user){
 
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">
 
-    @stylist match {
-        case None => {<h1>Not Found</h1>}
-        case Some(dtl) => {
-            <div class="mT30">
+  @stylist match {
+    case None => {<h1>Not Found</h1>}
+    case Some(dtl) => {
+      <div class="mT30">
 
-                <!--↓ Get stylist's work positons.--> 
-                @dtl.stylistInfo match {
-                    case None => {<h1>Not a Stylist.</h1>}    
-                    case Some(info) => {
-                        <div class="stylePageTileOuter">
-                            <div class="fgPink b fs10">
-                                @info.position.map { p => @Messages("position." + p.positionName) &nbsp; }
-                            </div>
-                            <h2 class="fs16 dibBL">
-                                @dtl.basicInfo.nickName
-                            </h2>
-                       </div>
-                    } 
-                }
-                <!--↑ Get stylist's work positons.--> 
-                
-                <!--↓ Get stylist's self introductions.--> 
-                @views.html.stylist.stylistBasicInfoContent(salon, dtl, styles, latestBlog)
-                <!--↑ Get stylist's self introductions.--> 
-
-                <!--↓ Stylist's Works: All the styles.  -->
-                <div class="mT30">
-                	<div class="yS mainContentsSecondTitleOuter">
-	                    <h3 class="yS mainContentsSecondTitleInner">
-	                        @Messages("stylist.haircatalog", dtl.basicInfo.nickName)
-	                    </h3>
-	                </div>
-                </div>
-                
-                <!-- get all the salons with all the styles.  -->
-                @views.html.style.styleGroup(styles, salon)
-                <!--↑ Stylist's Works: All the styles.  -->
-
-                <!--↓ Stylist's Works: All the styles.  -->
-                @views.html.stylist.pleaseReserveMe(dtl)    
-                <!--↑ Stylist's Works: All the styles.  -->
-
+        <!--↓ Get stylist's work positons.--> 
+        @dtl.stylistInfo match {
+          case None => {<h1>Not a Stylist.</h1>}    
+          case Some(info) => {
+            <div class="stylePageTileOuter">
+              <div class="fgPink b fs10">
+                @info.position.map { p => @Messages("position.positionName." + p.positionName)}
+              </div>
+              <h2 class="fs16 dibBL">
+                @dtl.basicInfo.nickName
+              </h2>
             </div>
+          } 
         }
+        <!--↑ Get stylist's work positons.--> 
+        
+        <!--↓ Get stylist's self introductions.--> 
+        @views.html.stylist.stylistBasicInfoContent(salon, dtl, styles, latestBlog)
+        <!--↑ Get stylist's self introductions.--> 
+
+        <!--↓ Stylist's Works: All the styles.  -->
+        <div class="mT30">
+          <div class="yS mainContentsSecondTitleOuter">
+            <h3 class="yS mainContentsSecondTitleInner">
+              @Messages("stylist.haircatalog", dtl.basicInfo.nickName)
+            </h3>
+          </div>
+        </div>
+        
+        <!-- get all the salons with all the styles.  -->
+        @views.html.style.styleGroup(styles, salon)
+        <!--↑ Stylist's Works: All the styles.  -->
+
+        <!--↓ Stylist's Works: All the styles.  -->
+        @views.html.stylist.pleaseReserveMe(dtl)    
+        <!--↑ Stylist's Works: All the styles.  -->
+
+      </div>
     }
+  }
 }

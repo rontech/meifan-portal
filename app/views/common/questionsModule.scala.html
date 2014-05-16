@@ -1,13 +1,13 @@
 @if(Question.findAll.toList.length > 1) {
  <div id="index_member">
-    	<h3></h3>
-        <div id="index_member_nr">
-        <ul>
-				@for(ques <- Question.findAll.toList) {
-            <li><a href="@noAuth.routes.Questions.getOneQuestion(ques.id)" class="link-green">@ques.questName</a></li>
-				}
-        </ul>
-        </div>
-        <div id="index_member_bottom"></div>
+    <h3></h3>
+    <div id="index_member_nr">
+    <ul>
+        @for(ques <- Question.findAll.toList) {
+      <li><a href="@noAuth.routes.Questions.getOneQuestion(ques.id)" class="link-green">@ques.questName</a></li>
+        }
+    </ul>
+    </div>
+    <div id="index_member_bottom"></div>
  </div>
  }

@@ -1,28 +1,28 @@
 @(infoList : List[Info] = Info.findEstheInfo(6))
 <div id="index_news">
-	<h2><img src="@routes.Assets.at("images/esthe/index_news_title.jpg")" width="165" height="36" /></h2>
-    <div id="index_news_nr">
-		@if(infoList.length > 1) {
-			<dl>
-	        	<dt><a href="@noAuth.routes.Infos.getOneInfo(infoList(0).id)" class="link-green">@infoList(0).title</a></dt>
-	            <dd class="pic"><img src="@routes.Application.getPhoto(infoList(0).infoPics(0).fileObjId)" width="138" height="120" /></dd>
-	            <dd class="txt">
-		            @infoList(0).content.slice(0,60) ...
-	            </dd>
-	            <dd class="more">
-	            	<a href="@noAuth.routes.Infos.getOneInfo(infoList(0).id)">
-	            		<img src="@routes.Assets.at("images/more.jpg")" width="40" height="10">
-	            	</a>
-	            </dd>
-	        </dl>
-	        <ul>
-	        	@if(infoList.length > 2) {
-		        	@for(i <- 2 until infoList.length){
-		        		<li><a href="@noAuth.routes.Infos.getOneInfo(infoList(i).id)">@infoList(i).title</a></li>	
-		        	}
-		        }
-	        </ul>
-		}
-    	
-	</div>
+  <h2><img src="@routes.Assets.at("images/esthe/index_news_title.jpg")" width="165" height="36" /></h2>
+  <div id="index_news_nr">
+    @if(infoList.length > 1) {
+      <dl>
+        <dt><a href="@noAuth.routes.Infos.getOneInfo(infoList(0).id)" class="link-green">@infoList(0).title</a></dt>
+        <dd class="pic"><img src="@routes.Application.getPhoto(infoList(0).infoPics(0).fileObjId)" width="138" height="120" /></dd>
+        <dd class="txt">
+          @infoList(0).content.slice(0,60) ...
+        </dd>
+        <dd class="more">
+          <a href="@noAuth.routes.Infos.getOneInfo(infoList(0).id)">
+            <img src="@routes.Assets.at("images/more.jpg")" width="40" height="10">
+          </a>
+        </dd>
+      </dl>
+      <ul>
+        @if(infoList.length > 2) {
+          @for(i <- 2 until infoList.length){
+            <li><a href="@noAuth.routes.Infos.getOneInfo(infoList(i).id)">@infoList(i).title</a></li>    
+          }
+        }
+      </ul>
+    }
+    
+  </div>
 </div>

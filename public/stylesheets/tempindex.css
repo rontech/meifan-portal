@@ -190,8 +190,6 @@ h1, h2 {
 /* フッター */
 
 .footerwrapper {
-	background:#f6f4f3 url("/CSP/img/top/bg_footerwrapper.gif") top;
-	background-repeat: repeat-x;
 }
 
 .footercontents {
@@ -1210,7 +1208,7 @@ text-align:right;
  * スプライト画像 - 横長画像（b.png）
  ************************************************************/
 
-.bS		{ background-image: url(/assets/images/b.png); background-repeat: no-repeat; background-color: transparent; border: 0; }
+
 
 .viewMore		{ background-position: 0 -60px; display: block; width: 79px; height: 24px; }
 .viewMore:hover		{ background-position: 0 -84px; }
@@ -1264,7 +1262,7 @@ text-align:right;
 ************************************************************/
 /* ボタン */
 
-.btn {
+.btn, .btn1 {
 	display: block;
 	border: 0;
 	padding-left: 4px;
@@ -1272,12 +1270,17 @@ text-align:right;
 	text-decoration: none;
 	font-weight: bold;
 }
-.btn > span {
+a.btn1:link, a.btn1:visited {
+color: #fff;
+}
+.btn > span, .btn1 > span {
 	padding-right: 4px;
 	display: block;
 }
 .btn > span > input,
-.btn > span > span {
+.btn > span > span, 
+.btn1 > span > input,
+.btn1 > span > span {
 	display: block;
 	width: 100%;
 	height: 100%;
@@ -1310,25 +1313,25 @@ text-align:right;
 	color: #FFF;
 }
 .btn1H60 {
-	background: url('/assets/images/btn2.png') no-repeat left -1374px;
+	background: url('/assets/images/btn2.png') no-repeat left 0;
 	line-height: 60px;
 }
 .btn1H60 > span {
-	background: url('/assets/images/btn2.png') no-repeat right -1494px;
+	background: url('/assets/images/btn2.png') no-repeat right -120px;
 }
 .btn1H60 > span > span {
-	background: url('/assets/images/btn2.png') repeat-x 0 -1614px;
+	background: url('/assets/images/btn2.png') repeat-x 0 -240px;
 	color: #FFF;
 	font-size: 15px;
 }
 .btn1H60:hover {
-	background: url('/assets/images/btn2.png') no-repeat left -1434px;
+	background: url('/assets/images/btn2.png') no-repeat left -60px;
 }
 .btn1H60:hover > span {
-	background: url('/assets/images/btn2.png') no-repeat right -1554px;
+	background: url('/assets/images/btn2.png') no-repeat right -180px;
 }
 .btn1H60:hover > span > span {
-	background-position: 0 -1674px;
+	background-position: 0 -300px;
 	color: #FFF;
 }
 
@@ -1355,37 +1358,40 @@ text-align:right;
 	color: #F26F7E;
 }
 .btn2H30 {
-	background: url('/assets/images/btn2.png') no-repeat left -1914px;
+	background: url('/assets/images/btn2.png') no-repeat left -360px;
 	line-height: 30px;
 }
 .btn2H30 > span {
-	background: url('/assets/images/btn2.png') no-repeat right -1974px;
+	background: url('/assets/images/btn2.png') no-repeat right -420px;
 }
 .btn2H30 > span > span {
-	background: url('/assets/images/btn2.png') repeat-x 0 -2034px;
+	background: url('/assets/images/btn2.png') repeat-x 0 -480px;
 	color: #e74557;
 	font-weight:normal;
 }
 .btn2H30:hover {
-	background: url('/assets/images/btn2.png') no-repeat left -1944px;
+	background: url('/assets/images/btn2.png') no-repeat left -390px;
 }
 .btn2H30:hover > span {
-	background: url('/assets/images/btn2.png') no-repeat right -2004px;
+	background: url('/assets/images/btn2.png') no-repeat right -450px;
 }
 .btn2H30:hover > span > span {
-	background-position: 0 -2064px;
+	background-position: 0 -510px;
 	color: #ee7d8a;
 }
+a.btn2H50:visited, a.btn2H30:visited {
+	color: #E53B4E;
+}
 .btn2H32 {
-	background: url('/CSP/img/my/sprites/btn2.png') no-repeat left -300px;
+	background: url('/CSP/img/my/sprites/btn3.png') no-repeat left -300px;
 	line-height: 32px;
 }
 .btn2H32 > span {
-	background: url('/CSP/img/my/sprites/btn2.png') no-repeat right -364px;
+	background: url('/CSP/img/my/sprites/btn3.png') no-repeat right -364px;
 }
 .btn2H32 > span > input,
 .btn2H32 > span > span {
-	background: url('/CSP/img/my/sprites/btn2.png') repeat-x 0 -428px;
+	background: url('/CSP/img/my/sprites/btn3.png') repeat-x 0 -428px;
 	color: #E53B4E;
 }
 .btn2H32 > span > input {
@@ -1403,15 +1409,15 @@ text-align:right;
 	color: #F26F7E;
 }
 .btn2H50 {
-	background: url('/assets/images/btn2.png') no-repeat 0 0;
+	background: url('/assets/images/btn3.png') no-repeat 0 0;
 	line-height: 50px;
 }
 .btn2H50 > span {
-	background: url('/assets/images/btn2.png') no-repeat right -100px;
+	background: url('/assets/images/btn3.png') no-repeat right -100px;
 }
 .btn2H50 > span > input,
 .btn2H50 > span > span {
-	background: url('/assets/images/btn2.png') repeat-x 0 -200px;
+	background: url('/assets/images/btn3.png') repeat-x 0 -200px;
 	color: #E53B4E;
 	font-size: 13px;
 }
@@ -1680,90 +1686,10 @@ height: 37px;
 }
 
 
-.salonInformation {
-background-position: 0 -750px;
-width: 140px;
-height: 35px;
-}
-
-.couponAndMenu {
-background-position: -140px -750px;
-width: 140px;
-height: 35px;
-}
-
-.stylist {
-background-position: -280px -750px;
-width: 85px;
-height: 35px;
-}
-
-.style {
-background-position: -365px -750px;
-width: 85px;
-height: 35px;
-}
-
-.blog {
-background-position: -450px -750px;
-width: 85px;
-height: 35px;
-}
-
-.accessMap {
-background-position: -535px -750px;
-width: 85px;
-height: 35px;
-}
-
-.kuchikomi {
-background-position: -620px -750px;
-width: 90px;
-height: 35px;
-}
 
 
-.salonInformationCurrent {
-background-position: 0 -870px;
-width: 140px;
-height: 37px;
-}
 
-.couponAndMenuCurrent {
-background-position: -140px -870px;
-width: 140px;
-height: 37px;
-}
 
-.stylistCurrent {
-background-position: -280px -870px;
-width: 85px;
-height: 37px;
-}
-
-.styleCurrent {
-background-position: -365px -870px;
-width: 85px;
-height: 37px;
-}
-
-.blogCurrent {
-background-position: -450px -870px;
-width: 85px;
-height: 37px;
-}
-
-.accessMapCurrent {
-background-position: -535px -870px;
-width: 85px;
-height: 37px;
-}
-
-.kuchikomiCurrent {
-background-position: -620px -870px;
-width: 90px;
-height: 37px;
-}
 
 
 .w156 {
@@ -1916,8 +1842,8 @@ margin-right: 180px;
 
 .addIntoMyPage				{ background-position: 0 0; width: 160px; height: 19px; }
 .addIntoMyPage:hover		{ background-position: 0 -24px; }
-.sendToMobile				{ background-position: -180px 0; width: 160px; height: 19px; }
-.sendToMobile:hover			{ background-position: -180px -24px; }
+.sendToMobile				{ background-position: -826px 0; width: 160px; height: 30px; }
+.sendToMobile:hover			{ background-position: -826px -30px; }
 .rsvWithCoupon				{ background-position: -360px 0; width: 105px; height: 20px; }
 .rsvWithCoupon:hover		{ background-position: -360px -20px; }
 
@@ -1968,8 +1894,6 @@ margin-right: 180px;
 .addIntoMySalon:hover		{ background-position: -1320px -144px; }
 .addIntoMyStyle				{ background-position: -1440px -120px; width: 115px; height: 24px; margin:0 5px;}
 .addIntoMyStyle:hover		{ background-position: -1440px -144px; }
-.addIntoMyStylePink			{ background-position: -1220px -760px; width: 145px; height: 32px; margin:0 5px;}
-.addIntoMyStylePink:hover	{ background-position: -1220px -792px; }
 .carouselPrev				{ background-position: -1600px -120px; width: 24px; height: 24px;}
 .carouselPrev:hover			{ background-position: -1600px -144px; }
 .carouselNext				{ background-position: -1634px -120px; width: 24px; height: 24px;}
@@ -1993,8 +1917,8 @@ margin-right: 180px;
 .entryOrderSheet:hover		{ background-position: -1190px -204px; }
 .backSelectDate				{ background-position: -1360px -180px; width:165px; height:24px; }
 .backSelectDate:hover		{ background-position: -1360px -204px; }
-.addIntoMyStylist			{ background-position: -1530px -180px; width: 165px; height: 24px; }
-.addIntoMyStylist:hover		{ background-position: -1530px -204px; }
+.addIntoMyStylist			{ background-position: -645px 0; width: 151px; height: 30px;}
+.addIntoMyStylist:hover		{ background-position: -645px -30px; }
 
 .searchSalon				{ background-position: 0 -250px; width: 73px; height: 21px; }
 .searchSalon:hover			{ background-position: 0 -271px; }
@@ -2028,8 +1952,14 @@ margin-right: 180px;
 .reserveW80H30:hover		{ background-position: -90px -550px; }
 .oNext						{ background-position: -180px -520px; width: 120px; height: 30px; }
 .oNext:hover				{ background-position: -180px -550px; }
-.showDetailW131H30			{ background-position: -310px -520px; width: 131px; height: 30px; }
-.showDetailW131H30:hover	{ background-position: -310px -550px; }
+.showDetailW131H30 { 
+	background-position: 0 -74px;
+ 	width: 131px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px; 
+}
+.showDetailW131H30:hover	{ background-position: 0 -104px; }
 .searchByStation			{ background-position: -450px -520px; width: 150px; height: 30px; }
 .searchByStation:hover		{ background-position: -450px -550px; }
 .noNext						{ background-position: -610px -520px; width: 150px; height: 30px; }
@@ -2066,8 +1996,8 @@ margin-right: 180px;
 .reserveSalon2				{ background-position: -1578px -600px; width: 194px; height: 30px; }
 .reserveSalon2:hover		{ background-position: -1578px -630px; }
 
-.nominatedReserve			{ background-position: 0 -680px; width: 132px; height: 31px; }
-.nominatedReserve:hover		{ background-position: 0 -711px; }
+.nominatedReserve			{ background-position: 0 0; width: 132px; height: 31px; }
+.nominatedReserve:hover		{ background-position: 0 -31px; }
 .nominatedReserveN			{ background-position: -160px -680px; width: 80px; height: 24px; }
 .nominatedReserveN:hover	{ background-position: -160px -704px; }
 .nominatedReserveW115H24	{ background-position: -260px -680px; width: 115px; height: 24px; }

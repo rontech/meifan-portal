@@ -3,57 +3,57 @@
 @import java.text.DateFormat
 <body>
 <div class="w150 mHA">
-    <div class="taC">
-        <a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
-            <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" class="bdImgGray w150 h200">
-        </a>
-    </div>
-    <p class="mT10 taC">@Stylist.findUserName(stylist.stylistId)</p>
-    <div class="bdDotT bdDotB mT5 pT5 fs10">
-        <span class="fgPink">
-      		@stylist.myWords.slice(0,15) ...
-      	</span>
+  <div class="taC">
+    <a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
+      <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" class="bdImgGray w150 h200">
+    </a>
+  </div>
+  <p class="mT10 taC">@Stylist.findUserName(stylist.stylistId)</p>
+  <div class="bdDotT bdDotB mT5 pT5 fs10">
+    <span class="fgPink">
+       @stylist.myWords.slice(0,15) ...
+     </span>
   @*（@stylist.workYears
   @Messages("stylist.workYears")）*@
   [@Messages("stylist.experienceYears", stylist.workYears)] 
-    </div>
+  </div>
 </div>
 <div class="taC mT10">
-	<div class="mB5 bdDotB">
-		<span>@Messages("stylist.applyCreateTime"): </span><span>@DateFormat.getDateInstance().format(SalonStylistApplyRecord.findOneStylistApRd(stylist.stylistId).get.applyDate)</span>
-	</div>
-	<div class="pT5">
-		@*<a href="@auth.routes.Salons.agreeStylistApply(stylist.stylistId)" class="salon-stylist-acceptApply">@Messages("stylist.acceptApply")</a>|*@
-		@*<a href="" class="salon-stylist-acceptApply_@stylist.stylistId" data-stylist="@stylist.stylistId" >@Messages("stylist.acceptApply")</a>*@
-		<a onclick="del('@auth.routes.Salons.agreeStylistApply(stylist.stylistId)','@Messages("stylist.actApply")');" class="buttons applyToStylist">@Messages("stylist.acceptApply")</a>
-		@*<a href="@auth.routes.Salons.rejectStylistApply(stylist.stylistId)" class="salon-stylist-rejectApply">@Messages("stylist.rejectApply")</a>*@
-		<a href="" class="salon-stylist-rejectApply_@stylist.stylistId buttons applyToStylist" data-stylist="@stylist.stylistId" >@Messages("stylist.rejectApply")</a>
-	</div>
+  <div class="mB5 bdDotB">
+    <span>@Messages("stylist.applyCreateTime"): </span><span>@DateFormat.getDateInstance().format(SalonStylistApplyRecord.findOneStylistApRd(stylist.stylistId).get.applyDate)</span>
+  </div>
+  <div class="pT5">
+    @*<a href="@auth.routes.Salons.agreeStylistApply(stylist.stylistId)" class="salon-stylist-acceptApply">@Messages("stylist.acceptApply")</a>|*@
+    @*<a href="" class="salon-stylist-acceptApply_@stylist.stylistId" data-stylist="@stylist.stylistId" >@Messages("stylist.acceptApply")</a>*@
+    <a onclick="del('@auth.routes.Salons.agreeStylistApply(stylist.stylistId)','@Messages("stylist.actApply")');" class="buttons applyToStylist">@Messages("stylist.acceptApply")</a>
+    @*<a href="@auth.routes.Salons.rejectStylistApply(stylist.stylistId)" class="salon-stylist-rejectApply">@Messages("stylist.rejectApply")</a>*@
+    <a href="" class="salon-stylist-rejectApply_@stylist.stylistId buttons applyToStylist" data-stylist="@stylist.stylistId" >@Messages("stylist.rejectApply")</a>
+  </div>
 </div>
-	
+  
 </body>
 
 <script type="text/javascript">
 $('.salon-stylist-acceptApply_@stylist.stylistId').click(function(e) {
-	  e.preventDefault();
-	  stylistId = $(this).data('stylist');
-   	if(!confirm("@Messages("stylist.actApply")")){    
-  	return;
-    }else{
-      @*location.href="@auth.routes.Salons.removeStylist(stylistId)";*@
-      location.href="/mySalon/agreeStylistApply/" + stylistId; 
-    } 
-	});
+   e.preventDefault();
+   stylistId = $(this).data('stylist');
+    if(!confirm("@Messages("stylist.actApply")")){    
+   return;
+  }else{
+   @*location.href="@auth.routes.Salons.removeStylist(stylistId)";*@
+   location.href="/mySalon/agreeStylistApply/" + stylistId; 
+  } 
+  });
 
 $('.salon-stylist-rejectApply_@stylist.stylistId').click(function(e) {
-	  e.preventDefault();
-	  stylistId = $(this).data('stylist');
-   	if(!confirm("@Messages("stylist.rjtApply")")){    
-  	return;
-    }else{
-      @*location.href="@auth.routes.Salons.removeStylist(stylistId)";*@
-      location.href="/mySalon/rejectStylistApply/" + stylistId; 
-    } 
-	});
+   e.preventDefault();
+   stylistId = $(this).data('stylist');
+    if(!confirm("@Messages("stylist.rjtApply")")){    
+   return;
+  }else{
+   @*location.href="@auth.routes.Salons.removeStylist(stylistId)";*@
+   location.href="/mySalon/rejectStylistApply/" + stylistId; 
+  } 
+  });
 
 </script>

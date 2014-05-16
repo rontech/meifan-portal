@@ -1,58 +1,43 @@
 @(styleSearchForm: Form[Style], stylePara: models.StylePara, user: Option[User])
 
-<!--
-    TODO
-    1. Need Structs which contains data for 
-       # search by Ranking of different type: General, Medium, Short, Semi-long, Long, Very-Short, Hair Set, Mature Women, Men 
-           [
-               {"General", [top1, top2, top3]},
-               {"Meduim", [top1, top2, top3]},
-               {"Short", [top1, top2, top3]},
-               ......
-           ]
-       # search for Create Time: The latest Style For women and men
-           [
-               {"Women", [top1, top2, top3...]},
-               {"Men", [top1, top2, top3...]},
-           ]
- 
-
--->
-
 @main(title = Messages("hair.tabName"), nav = "HairCatalog") {
 
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
-    <div>
-        <div class="fl wP80">
-        	<!-- The title of Style. -->
-        	<div class="hcHeader">
-				<div class="pr hcHeaderTopPage">
-					<h2 class="hcHeading offL">@Messages("hair.styleCatalogTitle")</h2>
-					<h3 class="pa right0 bottom0 hcHeadingCaption">@Messages("site.title")</h3>
-				</div>
-			</div>
-            <!-- Style Search By Conditons. -->    
-            @views.html.style.general.styleSearch(styleSearchForm, stylePara)
-            
-            <!-- Style Search By Ranking. -->    
-            @views.html.style.general.searchByRanking()
-
-            <!-- Style Search By Length For Women. -->
-            
-            @views.html.style.general.searchByLengthForF()
-            
-
-            <!-- Style Search By Length For Men. --> 
-             
-            @views.html.style.general.searchByLengthForM()
-            
-
-            <!-- Style Search By Impression. -->    
-            @views.html.style.general.searchByImpression()
-            
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+  <div>
+    <div class="fl wP80">
+      <!-- The title of Style. -->
+      <div class="hcHeader">
+        <div class="pr hcHeaderTopPage">
+          <h2 class="hcHeading offL">@Messages("hair.styleCatalogTitle")</h2>
+          <h3 class="pa right0 bottom0 hcHeadingCaption">@Messages("site.title")</h3>
         </div>
-            <!-- ↓generalContentRightColumn -->
-            @views.html.salon.general.rightColumn(user)
-            <!-- ↑generalContentRightColumn -->
+      </div>
+      <!-- Style Search By Conditons. -->    
+      @views.html.style.general.styleSearch(styleSearchForm, stylePara)
+      
+      <!-- Style Search By Ranking. --> 
+      <div class="mT40 pT40">
+        @views.html.style.general.searchByRanking()
+      </div>   
+
+      <!-- Style Search By Length For Women. -->
+      <div class="mT40">
+        @views.html.style.general.searchByLengthForF()
+      </div>
+
+      <!-- Style Search By Length For Men. --> 
+      <div class="mT40"> 
+        @views.html.style.general.searchByLengthForM()
+      </div>
+
+      <!-- Style Search By Impression. -->
+      <div class="mT40">    
+          @views.html.style.general.searchByImpression()
+      </div>
+      
     </div>
+      <!-- ↓generalContentRightColumn -->
+      @views.html.salon.general.rightColumn(user)
+      <!-- ↑generalContentRightColumn -->
+  </div>
 }

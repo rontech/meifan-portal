@@ -1,36 +1,36 @@
 @(stylist:Stylist, loginUserId:ObjectId, logged: Boolean)
-	<head>
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">
+  <head>
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/stylist/stylist.css")">
 </head>
 <li>
-	<div class="mysalon-stylist hMin399">
-		<div class="mysalon-stylist-search w150 mHA p10">
-                    <div class="taC">
-                        <a href="@noAuth.routes.Users.userPage(User.findOneById(stylist.stylistId).get.userId)">
-                            <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" align="absmiddle" alt="" title="@Stylist.findUserName(stylist.stylistId)" class="bdImgGray w150 h200">
-                        </a>
-                    </div>
-                    <div class="bdDotT mT5 pT5 fs10">
-                        <span class="fgPink">
-                            @stylist.position(0).positionName
-                        </span>
-                        [@stylist.workYears] 
-                    </div>
-            <div class="bdDotT mT5 pT5 fs10 hMin20"> <p> @Stylist.findUserName(stylist.stylistId)</p> </div>
-            <!--Stylist's words-->
-                   <div class="bdDotT mT5 pT5 fs10 hMin35">
-                        @stylist.myWords.slice(0, 20)
-                        @if(stylist.myWords.length > 20) {...}
-                    </div> 
-        </div>
-        <div class="taC mT10 stylistBtn">
-            @if(logged.equals(true) && MyFollow.checkIfFollow(loginUserId,stylist.stylistId)){
-						<a href="@auth.routes.MyFollows.cancelFollow(stylist.stylistId)">@Messages("user.cancelFollow")</a>
-					}else{
-						<a href="javascript:void(0);" onclick="addFollow('@stylist.stylistId','stylist')">@Messages("user.addFollow")</a>
-					}
-            <a class="sendMsg" value="@stylist.stylistId">@Messages("user.sendMsg")</a>
-		</div>
-	</div>
+  <div class="mysalon-stylist hMin399">
+    <div class="mysalon-stylist-search w150 mHA p10">
+          <div class="taC">
+            <a href="@noAuth.routes.Users.userPage(User.findOneById(stylist.stylistId).get.userId)">
+              <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" align="absmiddle" alt="" title="@Stylist.findUserName(stylist.stylistId)" class="bdImgGray w150 h200">
+            </a>
+          </div>
+          <div class="bdDotT mT5 pT5 fs10">
+            <span class="fgPink">
+              @Messages("position.positionName." + stylist.position(0).positionName)
+            </span>
+             [@Messages("stylist.experienceYears", stylist.workYears)]
+          </div>
+      <div class="bdDotT mT5 pT5 fs10 hMin20"> <p> @Stylist.findUserName(stylist.stylistId)</p> </div>
+      <!--Stylist's words-->
+          <div class="bdDotT mT5 pT5 fs10 hMin35">
+            @stylist.myWords.slice(0, 20)
+            @if(stylist.myWords.length > 20) {...}
+          </div> 
+    </div>
+    <div class="taC mT10 stylistBtn">
+      @if(logged.equals(true) && MyFollow.checkIfFollow(loginUserId,stylist.stylistId)){
+            <a href="@auth.routes.MyFollows.cancelFollow(stylist.stylistId)">@Messages("user.cancelFollow")</a>
+          }else{
+            <a href="javascript:void(0);" onclick="addFollow('@stylist.stylistId','stylist')">@Messages("user.addFollow")</a>
+          }
+      <a class="sendMsg" value="@stylist.stylistId">@Messages("user.sendMsg")</a>
+    </div>
+  </div>
 </li>

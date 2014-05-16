@@ -4,557 +4,557 @@
 @import views.html.salon.admin.mySalonInfoManageMain
 
 @mySalonInfoManageMain("my-basicInfo",salon){
-	
+  
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
 
-	<div class="salonRegister">
+  <div class="salonRegister">
 
-		<div class="mT40 pH10">
-			@helper.form(action = auth.routes.Salons.salonbasicUpdate(salon.id),'id -> "salonForm", 'name -> "salonBasic"){
-				
-				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
-				    <tbody>
-				        <input type="hidden" name="salonAccount.accountId" readonly="readonly" value="@salon.salonAccount.accountId">
-				        <input type="hidden" name="salonAccount.password" readonly="readonly" value="@salon.salonAccount.password">
-				        <input type="hidden" name="salonName" readonly="readonly" value="@salon.salonName">
-				        <input type="hidden" name="contactMethod.mainPhone" readonly="readonly" value="@salon.contactMethod.mainPhone">
-				        <input type="hidden" name="contactMethod.contact" readonly="readonly" value="@salon.contactMethod.contact">
-				        <input type="hidden" name="contactMethod.email" readonly="readonly" value="@salon.contactMethod.email">
-				        @inputDate(salonForm("registerDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
-				        <input type="hidden" name="seatNums" readonly="readonly" value="@salon.seatNums.getOrElse(None)">
-						<input type="hidden" name="salonFacilities.canOnlineOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canOnlineOrder).getOrElse(None)">
-						<input type="hidden" name="salonFacilities.canImmediatelyOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canImmediatelyOrder).getOrElse(None)">
-						<input type="hidden" name="salonFacilities.canNominateOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canNominateOrder).getOrElse(None)">
-						<input type="hidden" name="salonFacilities.canCurntDayOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canCurntDayOrder).getOrElse(None)">
-						<input type="hidden" name="salonFacilities.canMaleUse" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canMaleUse).getOrElse(None)">
-						<input type="hidden" name="salonFacilities.isPointAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isPointAvailable).getOrElse(None)">
-						<input type="hidden" name="salonFacilities.isPosAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isPosAvailable).getOrElse(None)">
-						<input type="hidden" name="salonFacilities.isWifiAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isWifiAvailable).getOrElse(None)">
-						<input type="hidden" name="salonFacilities.hasParkingNearby" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.hasParkingNearby).getOrElse(None)">
-						<input type="hidden" name="salonFacilities.parkingDesc" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.parkingDesc).getOrElse(None)">
-						<input type="hidden" name="picDescription.picTitle" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picTitle).getOrElse(None)">
-						<input type="hidden" name="picDescription.picContent" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picContent).getOrElse(None)">
-						<input type="hidden" name="picDescription.picFoot" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picFoot).getOrElse(None)">
-                        @inputText(salonForm("salonAddress.town"), '_label -> None,'_help -> "", 'style -> "display: none")
-                        @inputText(salonForm("salonAddress.longitude"), '_label -> None,'_help -> "",'style -> "display: none")
-                        @inputText(salonForm("salonAddress.latitude"), '_label -> None,'_help -> "",'style -> "display: none")
-                        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	<font class="cR">*</font>@Messages("salon.Abbr")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salonForm("salonNameAbbr"),
-                                        'id ->"salonNameAbbr",
-                                        '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.homepage")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@inputText(salonForm("homepage"), '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	<font class="cR">*</font>@Messages("salon.description")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@textarea(salonForm("salonDescription"),
-                                        'id ->"salonDescription",
-                                        '_label -> None,
-										'maxlength->"100",
-										'rows -> 5,
-                                        'cols -> 40)
-				                </div>
-				            </td>
-				        </tr>				        
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	<font class="cR">*</font>@Messages("salon.address")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@Messages("salon.province"):  <select id="Select1" name = "salonAddress.province" value = "@salon.salonAddress.map(add=>add.province).getOrElse(None)"></select>
-									@Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.salonAddress.map(add=>add.city).getOrElse(None)"></select>
-									@Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.salonAddress.map(add=>add.region).getOrElse(None)" onChange= "searchMap();"></select>
-									<script type="text/javascript">
-										addressInit('Select1', 'Select2', 'Select3');
-									</script>
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	<font class="cR">*</font>@Messages("salon.addrDetail")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@*inputText(salonForm("salonAddress.addrDetail"), '_label -> None)*@			                	
-				                	@input(field = salonForm("salonAddress.addrDetail"),
-                                        'id ->"addrDetail",
-                                        '_label -> None) { (id, name, value, _) =>
-        							<input type="text" name="@name" value="@value" id="addrDetail" onChange= "searchMap();"  maxlength= "50" style="width:350px;"/>
-								}
-								
-				                </div>
-				            </td>
-				        </tr>
-				        <tr height = "425px">
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	@Messages("salon.accessMap")
-				                </div>
-				            </th>
-				            <td>
-				            <div id = "mapContainer" style = "position: relative; width:400px; height:400px;">
-				                <div id="container1" 
-            						style="position: absolute;
-                					margin-top:1px; 
-                					width: 400px; 
-                					height: 400px; 
-                					border: 1px solid gray;
-                					overflow:hidden;">
-        						</div>
-        					</div>
-				            </td>
-				        </tr>
-	
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	<font class="cR">*</font>@Messages("salon.accessMethod")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@textarea(salonForm("salonAddress.accessMethodDesc"),
-                                        'id -> "accessMethodDesc",
-                                        'maxlength->"100",
-										'rows -> 5, 
-										'cols -> 40,
-                                        '_label -> None)
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	<font class="cR">*</font>@Messages("salon.openTime")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                   @input(field = salonForm("workTime.openTime"),
-                                       '_label -> None) { (id, name, value, _) =>
-        							<input class="Wdate" type="text" name="@name" value="@value" id="openTime" onClick="WdatePicker({dateFmt:'HH:mm'})">
-								}
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	<font class="cR">*</font>@Messages("salon.closeTime")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                	@input(field = salonForm("workTime.closeTime"),
-                                        '_label -> None) { (id, name, value, _) =>
-        							<input class="Wdate" type="text" name="@name" value="@value" id="closeTime" onClick="WdatePicker({dateFmt:'HH:mm'})">
-        							}
-				                </div>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222 ">
-				                <!-- -->
-				                <div class="dibBL vaM w154">
-				                   	<font class="cR">*</font>@Messages("salon.establishDate")
-				                </div>
-				            </th>
-				            <td>
-				                <div>
-				                    @input(field = salonForm("establishDate"),
-                                        '_label -> None,
-                                        '_help -> Messages("")) { (id, name, value, _) =>
-        							<input class="Wdate" type="text" name="@name" value="@value" id="establishDate"  onClick="WdatePicker();checkedEstablishDate(); ">
-								    }
-				                </div>
-				            </td>
-				        </tr>				        				        				        
-				    </tbody>
-				</table>
-	            <table cellspacing="0" class="display01">
-				    <tbody>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("user.optContactMethod")
-				                </div>
-				            </th>
-				            <td>
-	            	@input(field = salonForm("salonIndustry"),args = '_label -> None,'style -> "display: none"){(id,name,value,args) =>
-					    @for(i <- 0 to industry.length-1){
-						    @if(salon.salonIndustry.contains(industry(i).industryName)){
-							    <input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
-						    }else{
-							    <input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
-						    }
-					    }
-					}	
-				            </td>
-				        </tr>
-					</tbody>
-				</table>				            
-	            <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-				    <tbody>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("user.optContactMethod")
-				                </div>
-				            </th>
-				            <td>
-				               <div id="optContactMethods">
-            
-					                @repeat(salonForm("optContactMethods"), min = 0) { optContactMethod =>
-					                
-					                    @optContactMethodGroup(optContactMethod)
-					                
-					                }
-					                
-					                @**
-					                 * Keep an hidden block that will be used as template for Javascript copy code
-					                 **@
-					                @optContactMethodGroup(
-					                    salonForm("optContactMethods[x]"),
-					                    className = "optContactMethod_template"
-					                )
-					                
-					                <div class="manage">
-					                    <a class="addOptContactMethod buttons success">@Messages("optContactMethod.AddOptContactMethod")</a>
-					                </div>
-					            
-					            </div>
-				            </td>
-				        </tr>
-					</tbody>
-				</table>
-				
-				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-				    <tbody>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    <font class="cR">*</font>@Messages("salon.restDay")
-				                </div>
-				            </th>
-				            <td>
-                                <div class="restDays">
-                                    @inputRadioGroup(salonForm("restDays.restWay"), options = options("Fixed" -> Messages("restWay.fixed"),"Indefinite" -> Messages("restWay.indefinite")) , '_label -> None, '_help -> Messages(""))
-                                    @if(salon.restDays.map(rest=>rest.restWay.equals("Fixed")).getOrElse(true)){
-                                        <div id="restDays_div">
-                                            @Messages("salon.selectRestDays")
-                                            <input type="checkbox" class="week" name="restDays.restDay1[0]" value="Monday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Monday")}.getOrElse(None)){checked}>@Messages("Monday")
-                                            <input type="checkbox" class="week" name="restDays.restDay1[1]" value="Tuesday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Tuesday")}.getOrElse(None)){checked}>@Messages("Tuesday")
-                                            <input type="checkbox" class="week" name="restDays.restDay1[2]" value="Wednesday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Wednesday")}.getOrElse(None)){checked}>@Messages("Wednesday")
-                                            <input type="checkbox" class="week" name="restDays.restDay1[3]" value="Thursday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Thursday")}.getOrElse(None)){checked}>@Messages("Thursday")
-                                            <input type="checkbox" class="week" name="restDays.restDay1[4]" value="Friday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Friday")}.getOrElse(None)){checked}>@Messages("Friday")
-                                            <input type="checkbox" class="week" name="restDays.restDay1[5]" value="Saturday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Saturday")}.getOrElse(None)){checked}>@Messages("Saturday")
-                                            <input type="checkbox" class="week" name="restDays.restDay1[6]" value="Sunday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Sunday")}.getOrElse(None)){checked}>@Messages("Sunday")
-                                            <span class="help-inline"></span>
-                                        </div>
-                                        <div id="noRestDays_div" style="display:none;">
-                                            @Messages("salon.EnterRestDays")
-                                            <input type="text" name="restDays.restDay2[0]" id="restDay2">
-                                            <span class="help-inline"></span>
-                                        </div>
-                                    }else{
-                                        <div id="restDays_div" style="display:none;">
-                                            @Messages("salon.selectRestDays")
-                                            <input type="checkbox" class="week" name="restDays.restDay1[0]" value="Monday" >@Messages("Monday")
-                                            <input type="checkbox" class="week" name="restDays.restDay1[1]" value="Tuesday" >@Messages("Tuesday")
-                                            <input type="checkbox" class="week" name="restDays.restDay1[2]" value="Wednesday" >@Messages("Wednesday")
-                                            <input type="checkbox" class="week" name="restDays.restDay1[3]" value="Thursday" >@Messages("Thursday")
-                                            <input type="checkbox" class="week" name="restDays.restDay1[4]" value="Friday" >@Messages("Friday")
-                                            <input type="checkbox" class="week" name="restDays.restDay1[5]" value="Saturday" >@Messages("Saturday")
-                                            <input type="checkbox" class="week" name="restDays.restDay1[6]" value="Sunday" >@Messages("Sunday")
-                                            <span class="help-inline"></span>
-                                        </div>
-                                        <div id="noRestDays_div" >
-                                            @Messages("salon.EnterRestDays")
-                                            <input type="text" name="restDays.restDay2[0]" id="restDay2" value="@salon.restDays.map(day=>day.restDay.toList).getOrElse(None)">
-                                            <span class="help-inline"></span>
-                                        </div>
-                                    }
-                                </div>
-				            </td>
-				        </tr>
-					</tbody>
-				</table>	
-				<table cellspacing="0" class="display03">
-				    <tbody>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("salon.pictures")
-				                </div>
-				            </th>
-				            <td>
-			            	<div id="salonPics">
-								<div class="demo">
-					                <div class="logoupload">
-					                    <div class="btnbox">
-					                        @Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
-					                        <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
-					                    </div>
-					                    <div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
-					                    
-					                    <div class="progress-box fl-progress" style="display:none;">
-					                        <div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
-					                        <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
-					                    </div>
-					                    
-					                </div>
-					                <div class="batch-pic">
-					                    <ul>
-					                    @repeat(salonForm("salonPics")) { salonPic =>
-				                    		@pictureGroup(salonPic)
-				                		}
-					                    </ul>
-					                </div>
-					            </div>
+    <div class="mT40 pH10">
+      @helper.form(action = auth.routes.Salons.salonbasicUpdate(salon.id),'id -> "salonForm", 'name -> "salonBasic"){
+        
+        <table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
+          <tbody>
+            <input type="hidden" name="salonAccount.accountId" readonly="readonly" value="@salon.salonAccount.accountId">
+            <input type="hidden" name="salonAccount.password" readonly="readonly" value="@salon.salonAccount.password">
+            <input type="hidden" name="salonName" readonly="readonly" value="@salon.salonName">
+            <input type="hidden" name="contactMethod.mainPhone" readonly="readonly" value="@salon.contactMethod.mainPhone">
+            <input type="hidden" name="contactMethod.contact" readonly="readonly" value="@salon.contactMethod.contact">
+            <input type="hidden" name="contactMethod.email" readonly="readonly" value="@salon.contactMethod.email">
+            @inputDate(salonForm("registerDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
+            <input type="hidden" name="seatNums" readonly="readonly" value="@salon.seatNums.getOrElse(None)">
+            <input type="hidden" name="salonFacilities.canOnlineOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canOnlineOrder).getOrElse(None)">
+            <input type="hidden" name="salonFacilities.canImmediatelyOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canImmediatelyOrder).getOrElse(None)">
+            <input type="hidden" name="salonFacilities.canNominateOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canNominateOrder).getOrElse(None)">
+            <input type="hidden" name="salonFacilities.canCurntDayOrder" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canCurntDayOrder).getOrElse(None)">
+            <input type="hidden" name="salonFacilities.canMaleUse" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.canMaleUse).getOrElse(None)">
+            <input type="hidden" name="salonFacilities.isPointAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isPointAvailable).getOrElse(None)">
+            <input type="hidden" name="salonFacilities.isPosAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isPosAvailable).getOrElse(None)">
+            <input type="hidden" name="salonFacilities.isWifiAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isWifiAvailable).getOrElse(None)">
+            <input type="hidden" name="salonFacilities.hasParkingNearby" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.hasParkingNearby).getOrElse(None)">
+            <input type="hidden" name="salonFacilities.parkingDesc" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.parkingDesc).getOrElse(None)">
+            <input type="hidden" name="picDescription.picTitle" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picTitle).getOrElse(None)">
+            <input type="hidden" name="picDescription.picContent" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picContent).getOrElse(None)">
+            <input type="hidden" name="picDescription.picFoot" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picFoot).getOrElse(None)">
+            @inputText(salonForm("salonAddress.town"), '_label -> None,'_help -> "", 'style -> "display: none")
+            @inputText(salonForm("salonAddress.longitude"), '_label -> None,'_help -> "",'style -> "display: none")
+            @inputText(salonForm("salonAddress.latitude"), '_label -> None,'_help -> "",'style -> "display: none")
+            <tr>
+              <th class="w222 ">
+                <!-- -->
+                <div class="dibBL vaM w154">
+                    <font class="cR">*</font>@Messages("salon.Abbr")
+                </div>
+              </th>
+              <td>
+                <div>
+                  @inputText(salonForm("salonNameAbbr"),
+                    'id ->"salonNameAbbr",
+                    '_label -> None)
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th class="w222 ">
+                <!-- -->
+                <div class="dibBL vaM w154">
+                    @Messages("salon.homepage")
+                </div>
+              </th>
+              <td>
+                <div>
+                  @inputText(salonForm("homepage"), '_label -> None)
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th class="w222 ">
+                <!-- -->
+                <div class="dibBL vaM w154">
+                    <font class="cR">*</font>@Messages("salon.description")
+                </div>
+              </th>
+              <td>
+                <div>
+                  @textarea(salonForm("salonDescription"),
+                    'id ->"salonDescription",
+                    '_label -> None,
+                    'maxlength->"100",
+                    'rows -> 5,
+                    'cols -> 40)
+                </div>
+              </td>
+            </tr>                        
+            <tr>
+              <th class="w222 ">
+                <!-- -->
+                <div class="dibBL vaM w154">
+                    <font class="cR">*</font>@Messages("salon.address")
+                </div>
+              </th>
+              <td>
+                <div>
+                  @Messages("salon.province"):  <select id="Select1" name = "salonAddress.province" value = "@salon.salonAddress.map(add=>add.province).getOrElse(None)"></select>
+                  @Messages("salon.city"):  <select id="Select2" name = "salonAddress.city" value = "@salon.salonAddress.map(add=>add.city).getOrElse(None)"></select>
+                  @Messages("salon.region"):  <select id="Select3" name = "salonAddress.region" value = "@salon.salonAddress.map(add=>add.region).getOrElse(None)" onChange= "searchMap();"></select>
+                  <script type="text/javascript">
+                    addressInit('Select1', 'Select2', 'Select3');
+                  </script>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th class="w222 ">
+                <!-- -->
+                <div class="dibBL vaM w154">
+                    <font class="cR">*</font>@Messages("salon.addrDetail")
+                </div>
+              </th>
+              <td>
+                <div>
+                  @*inputText(salonForm("salonAddress.addrDetail"), '_label -> None)*@                                
+                  @input(field = salonForm("salonAddress.addrDetail"),
+                    'id ->"addrDetail",
+                    '_label -> None) { (id, name, value, _) =>
+                  <input type="text" name="@name" value="@value" id="addrDetail" onChange= "searchMap();"  maxlength= "50" style="width:350px;"/>
+                }
+                
+                </div>
+              </td>
+            </tr>
+            <tr height = "425px">
+              <th class="w222 ">
+                <!-- -->
+                <div class="dibBL vaM w154">
+                    @Messages("salon.accessMap")
+                </div>
+              </th>
+              <td>
+              <div id = "mapContainer" style = "position: relative; width:400px; height:400px;">
+                <div id="container1" 
+                  style="position: absolute;
+                  margin-top:1px; 
+                  width: 400px; 
+                  height: 400px; 
+                  border: 1px solid gray;
+                  overflow:hidden;">
+                </div>
+              </div>
+              </td>
+            </tr>
+  
+            <tr>
+              <th class="w222 ">
+                <!-- -->
+                <div class="dibBL vaM w154">
+                    <font class="cR">*</font>@Messages("salon.accessMethod")
+                </div>
+              </th>
+              <td>
+                <div>
+                  @textarea(salonForm("salonAddress.accessMethodDesc"),
+                    'id -> "accessMethodDesc",
+                    'maxlength->"100",
+                    'rows -> 5, 
+                    'cols -> 40,
+                    '_label -> None)
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th class="w222 ">
+                <!-- -->
+                <div class="dibBL vaM w154">
+                    <font class="cR">*</font>@Messages("salon.openTime")
+                </div>
+              </th>
+              <td>
+                <div>
+                  @input(field = salonForm("workTime.openTime"),
+                    '_label -> None) { (id, name, value, _) =>
+                  <input class="Wdate" type="text" name="@name" value="@value" id="openTime" onClick="WdatePicker({dateFmt:'HH:mm'})">
+                }
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th class="w222 ">
+                <!-- -->
+                <div class="dibBL vaM w154">
+                    <font class="cR">*</font>@Messages("salon.closeTime")
+                </div>
+              </th>
+              <td>
+                <div>
+                  @input(field = salonForm("workTime.closeTime"),
+                    '_label -> None) { (id, name, value, _) =>
+                  <input class="Wdate" type="text" name="@name" value="@value" id="closeTime" onClick="WdatePicker({dateFmt:'HH:mm'})">
+                  }
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th class="w222 ">
+                <!-- -->
+                <div class="dibBL vaM w154">
+                    <font class="cR">*</font>@Messages("salon.establishDate")
+                </div>
+              </th>
+              <td>
+                <div>
+                  @input(field = salonForm("establishDate"),
+                    '_label -> None,
+                    '_help -> Messages("")) { (id, name, value, _) =>
+                  <input class="Wdate" type="text" name="@name" value="@value" id="establishDate"  onClick="WdatePicker();checkedEstablishDate(); ">
+                  }
+                </div>
+              </td>
+            </tr>                                                                        
+          </tbody>
+        </table>
+        <table cellspacing="0" class="display01">
+          <tbody>
+            <tr>
+              <th class="w222">
+                <div class="dibBL vaM w160">
+                  @Messages("user.optContactMethod")
+                </div>
+              </th>
+              <td>
+          @input(field = salonForm("salonIndustry"),args = '_label -> None,'style -> "display: none"){(id,name,value,args) =>
+            @for(i <- 0 to industry.length-1){
+              @if(salon.salonIndustry.contains(industry(i).industryName)){
+                <input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
+              }else{
+                <input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
+              }
+            }
+          }    
+              </td>
+            </tr>
+          </tbody>
+        </table>                            
+        <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+          <tbody>
+            <tr>
+              <th class="w222">
+                <div class="dibBL vaM w160">
+                  @Messages("user.optContactMethod")
+                </div>
+              </th>
+              <td>
+                <div id="optContactMethods">
+      
+                  @repeat(salonForm("optContactMethods"), min = 0) { optContactMethod =>
+                  
+                    @optContactMethodGroup(optContactMethod)
+                  
+                  }
+                  
+                  @**
+                   * Keep an hidden block that will be used as template for Javascript copy code
+                   **@
+                  @optContactMethodGroup(
+                    salonForm("optContactMethods[x]"),
+                    className = "optContactMethod_template"
+                  )
+                  
+                  <div class="manage">
+                    <a class="addOptContactMethod buttons success">@Messages("optContactMethod.AddOptContactMethod")</a>
+                  </div>
+                
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+          <tbody>
+            <tr>
+              <th class="w222">
+                <div class="dibBL vaM w160">
+                  <font class="cR">*</font>@Messages("salon.restDay")
+                </div>
+              </th>
+              <td>
+                <div class="restDays">
+                  @inputRadioGroup(salonForm("restDays.restWay"), options = options("Fixed" -> Messages("restWay.fixed"),"Indefinite" -> Messages("restWay.indefinite")) , '_label -> None, '_help -> Messages(""))
+                  @if(salon.restDays.map(rest=>rest.restWay.equals("Fixed")).getOrElse(true)){
+                    <div id="restDays_div">
+                      @Messages("salon.selectRestDays")
+                      <input type="checkbox" class="week" name="restDays.restDay1[0]" value="Monday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Monday")}.getOrElse(None)){checked}>@Messages("Monday")
+                      <input type="checkbox" class="week" name="restDays.restDay1[1]" value="Tuesday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Tuesday")}.getOrElse(None)){checked}>@Messages("Tuesday")
+                      <input type="checkbox" class="week" name="restDays.restDay1[2]" value="Wednesday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Wednesday")}.getOrElse(None)){checked}>@Messages("Wednesday")
+                      <input type="checkbox" class="week" name="restDays.restDay1[3]" value="Thursday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Thursday")}.getOrElse(None)){checked}>@Messages("Thursday")
+                      <input type="checkbox" class="week" name="restDays.restDay1[4]" value="Friday" @if(salon.restDays.map{day=>day.restDay.toList.contains("Friday")}.getOrElse(None)){checked}>@Messages("Friday")
+                      <input type="checkbox" class="week" name="restDays.restDay1[5]" value="Saturday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Saturday")}.getOrElse(None)){checked}>@Messages("Saturday")
+                      <input type="checkbox" class="week" name="restDays.restDay1[6]" value="Sunday"@if(salon.restDays.map{day=>day.restDay.toList.contains("Sunday")}.getOrElse(None)){checked}>@Messages("Sunday")
+                      <span class="help-inline"></span>
+                    </div>
+                    <div id="noRestDays_div" style="display:none;">
+                      @Messages("salon.EnterRestDays")
+                      <input type="text" name="restDays.restDay2[0]" id="restDay2">
+                      <span class="help-inline"></span>
+                    </div>
+                  }else{
+                    <div id="restDays_div" style="display:none;">
+                      @Messages("salon.selectRestDays")
+                      <input type="checkbox" class="week" name="restDays.restDay1[0]" value="Monday" >@Messages("Monday")
+                      <input type="checkbox" class="week" name="restDays.restDay1[1]" value="Tuesday" >@Messages("Tuesday")
+                      <input type="checkbox" class="week" name="restDays.restDay1[2]" value="Wednesday" >@Messages("Wednesday")
+                      <input type="checkbox" class="week" name="restDays.restDay1[3]" value="Thursday" >@Messages("Thursday")
+                      <input type="checkbox" class="week" name="restDays.restDay1[4]" value="Friday" >@Messages("Friday")
+                      <input type="checkbox" class="week" name="restDays.restDay1[5]" value="Saturday" >@Messages("Saturday")
+                      <input type="checkbox" class="week" name="restDays.restDay1[6]" value="Sunday" >@Messages("Sunday")
+                      <span class="help-inline"></span>
+                    </div>
+                    <div id="noRestDays_div" >
+                      @Messages("salon.EnterRestDays")
+                      <input type="text" name="restDays.restDay2[0]" id="restDay2" value="@salon.restDays.map(day=>day.restDay.toList).getOrElse(None)">
+                      <span class="help-inline"></span>
+                    </div>
+                  }
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>    
+        <table cellspacing="0" class="display03">
+          <tbody>
+            <tr>
+              <th class="w222">
+                <div class="dibBL vaM w160">
+                  @Messages("salon.pictures")
+                </div>
+              </th>
+              <td>
+              <div id="salonPics">
+                <div class="demo">
+                  <div class="logoupload">
+                    <div class="btnbox">
+                      @Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
+                      <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
+                    </div>
+                    <div class="uploadtip">@Messages("onUsePicture.uploadImgSize")<b>@Messages("onUsePicture.WH")</b>@Messages("onUsePicture.size")</div>
+                    
+                    <div class="progress-box fl-progress" style="display:none;">
+                      <div class="progress-num">@Messages("onUsePicture.process")<b>0%</b></div>
+                      <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+                    </div>
+                    
+                  </div>
+                  <div class="batch-pic">
+                    <ul>
+                    @repeat(salonForm("salonPics")) { salonPic =>
+                      @pictureGroup(salonPic)
+                    }
+                    </ul>
+                  </div>
+                </div>
 
-					            @pictureGroup(
-					                salonForm("salonPics[x]"),
-					                className = "salonPic_template"
-					            )
-								
-					            <div class="manage">
-					                 <a class="addSalonPic btn success">@Messages("salon.addPicture")</a>
-					            </div>
-					        </div>
-				            </td>
-				        </tr>
-					</tbody>
-				</table>
-				
-				<div class="btnArea">
-					<input type = "button" class = "buttons" value=@Messages("common.submit") onclick="checksForSalonBasic();">
-			    </div>
-			}
-		</div>
+                @pictureGroup(
+                  salonForm("salonPics[x]"),
+                  className = "salonPic_template"
+                )
+                
+                <div class="manage">
+                   <a class="addSalonPic btn success">@Messages("salon.addPicture")</a>
+                </div>
+              </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div class="btnArea">
+          <input type = "button" class = "buttons" value=@Messages("common.submit") onclick="checksForSalonBasic();">
+        </div>
+      }
+    </div>
 
-	</div>
+  </div>
 }
 
 @views.html.salon.admin.salonSwfupload("")
 @accountField(field: Field, className: String = "account") = {
-    @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
-        <input type="text" name="@name" value="@value"/>
-        <a class="removeAccount buttons danger">@Messages("optContactMethod.Remove")</a>
-    }
+  @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
+    <input type="text" name="@name" value="@value"/>
+    <a class="removeAccount buttons danger">@Messages("optContactMethod.Remove")</a>
+  }
 }
 
 @optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
-    <div class="twipsies well @className">
-        
-        <a class="removeOptContactMethod buttons danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
-        
-        @select(
-        	field("contMethodType"), 
-        	ContMethodType.getAllContMethodTypes,
-        	'_default -> Messages("user.chooseOpt"),
-        	'_label -> Messages("user.contMethodType")
-        )
-        
-        <div class="accounts">
-
-            @repeat(field("accounts"), min = 1) { account =>
-                
-                @accountField(account)
+  <div class="twipsies well @className">
     
-            }
-            
-            @**
-             * Keep an hidden block that will be used as template for Javascript copy code
-             **@
-            @accountField(
-                field("accounts[x]"),
-                className = "account_template"
-            )
-            
-            <div class="clearfix">
-                <div class="input">
-                    <a class="addAccount buttons success">@Messages("optContactMethod.AddNumber")</a>
-                </div>
-            </div>
+    <a class="removeOptContactMethod buttons danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
+    
+    @select(
+      field("contMethodType"), 
+      ContMethodType.getAllContMethodTypes,
+      '_default -> Messages("user.chooseOpt"),
+      '_label -> Messages("user.contMethodType")
+    )
+    
+    <div class="accounts">
+
+      @repeat(field("accounts"), min = 1) { account =>
         
+        @accountField(account)
+  
+      }
+      
+      @**
+       * Keep an hidden block that will be used as template for Javascript copy code
+       **@
+      @accountField(
+        field("accounts[x]"),
+        className = "account_template"
+      )
+      
+      <div class="clearfix">
+        <div class="input">
+          <a class="addAccount buttons success">@Messages("optContactMethod.AddNumber")</a>
         </div>
- 
+      </div>
+    
     </div>
+ 
+  </div>
 }
 
 @pictureGroup(field: Field, className: String = "salonPic") = {
-	<li>
-	<div class="delete-pic"></div>
-		@field("fileObjId").value.map{fileId=>
-			@if(!fileId.equals("")){	
-			<div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileId))'/></div>
-		}
-	}
-    <div class="addstyles-byStylist twipsies well @className">
-        @inputText(
-            field("fileObjId"), 
-			'_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
-        )
-        
-        @select(
-            field ("picUse"), 
-            options = options(
-                "LOGO" -> Messages("salon.picUse.logo"),
-                "Navigate" -> Messages("salon.picUse.Navigate"),
-                "Atmosphere" -> Messages("salon.picUse.Atmosphere"),
-                "SalonCheck" ->  Messages("salon.picUse.SalonCheck")
-            ),
-             '_label -> None,
-             'placeholder -> Messages("salon.picUse"),
-             '_help -> Messages("")
-        )	        
-        @inputText(
-            field("showPriority"), 
-			'_label -> None, 'class -> "imgShowPriority"
-        )
-        @textarea(
-            field("description"),
-            '_label -> None,
-            'rows -> 2, 'cols -> 15, 
-            'placeholder -> Messages("onUserPicture.description"), 'class -> "imagesDescriptionfelid"
-)
-        
-    </div>
-
-    </li>
+  <li>
+  <div class="delete-pic"></div>
+    @field("fileObjId").value.map{fileId=>
+      @if(!fileId.equals("")){    
+      <div class='p-pic'><img src='@routes.Application.getPhoto(new ObjectId(fileId))'/></div>
     }
-    <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>
-	<script src="@routes.Assets.at("javascripts/ajaxfileupload.js")" type="text/javascript"></script>
+  }
+  <div class="addstyles-byStylist twipsies well @className">
+    @inputText(
+      field("fileObjId"), 
+      '_label -> "fileObjId", 'id -> "imageoffileobjid", 'class ->"imageoffileobjid"
+    )
+    
+    @select(
+      field ("picUse"), 
+      options = options(
+        "LOGO" -> Messages("salon.picUse.logo"),
+        "Navigate" -> Messages("salon.picUse.Navigate"),
+        "Atmosphere" -> Messages("salon.picUse.Atmosphere"),
+        "SalonCheck" ->  Messages("salon.picUse.SalonCheck")
+      ),
+       '_label -> None,
+       'placeholder -> Messages("salon.picUse"),
+       '_help -> Messages("")
+    )            
+    @inputText(
+      field("showPriority"), 
+      '_label -> None, 'class -> "imgShowPriority"
+    )
+    @textarea(
+      field("description"),
+      '_label -> None,
+      'rows -> 2, 'cols -> 15, 
+      'placeholder -> Messages("onUserPicture.description"), 'class -> "imagesDescriptionfelid"
+)
+    
+  </div>
+
+  </li>
+  }
+  <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/ajaxfileupload.js")" type="text/javascript"></script>
 
 
-	<script type="text/javascript" src="http://api.map.baidu.com/api?ak=KiGwIB1eqY9B7QkMl7fTxCN5&v=1.5"></script>
-	<script type="text/javascript">
+  <script type="text/javascript" src="http://api.map.baidu.com/api?ak=KiGwIB1eqY9B7QkMl7fTxCN5&v=1.5"></script>
+  <script type="text/javascript">
 
-	var address = document.getElementById("addrDetail").value
+  var address = document.getElementById("addrDetail").value
 if(address == ""){
-	initMap();//创建和初始化地图
+  initMap();//创建和初始化地图
 }else{ 
-	var area = document.getElementById("Select1").value + document.getElementById("Select2").value +
-    document.getElementById("Select3").value + document.getElementById("addrDetail").value ; //得到地区
-    var map = new BMap.Map("container1");//在百度地图容器中创建一个地图
-    var point = new BMap.Point(100, 100);//定义一个中心点坐标
-    map.centerAndZoom(point, 18);//设定地图的中心点和坐标并将地图显示在地图容器中
-    window.map = map;//将map变量存储在全局
-    var ls = new BMap.LocalSearch(map);
-    ls.setSearchCompleteCallback(function(rs) {
-        if (ls.getStatus() == BMAP_STATUS_SUCCESS) {
-            var poi = rs.getPoi(0);
-            if (poi) {
-                createMap(poi.point.lng, poi.point.lat);//创建地图(经度poi.point.lng,纬度poi.point.lat)
-                setMapEvent();//设置地图事件
-                addMapControl();//向地图添加控件
-            }
-        }
-    });
-    ls.search(area);
+  var area = document.getElementById("Select1").value + document.getElementById("Select2").value +
+  document.getElementById("Select3").value + document.getElementById("addrDetail").value ; //得到地区
+  var map = new BMap.Map("container1");//在百度地图容器中创建一个地图
+  var point = new BMap.Point(100, 100);//定义一个中心点坐标
+  map.centerAndZoom(point, 18);//设定地图的中心点和坐标并将地图显示在地图容器中
+  window.map = map;//将map变量存储在全局
+  var ls = new BMap.LocalSearch(map);
+  ls.setSearchCompleteCallback(function(rs) {
+    if (ls.getStatus() == BMAP_STATUS_SUCCESS) {
+      var poi = rs.getPoi(0);
+      if (poi) {
+        createMap(poi.point.lng, poi.point.lat);//创建地图(经度poi.point.lng,纬度poi.point.lat)
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+      }
+    }
+  });
+  ls.search(area);
 }
 //创建和初始化地图函数：
 function initMap() {
-    createMap(120.546059, 31.282186);//创建地图,初始化为苏州创业园
-    setMapEvent();//设置地图事件
-    addMapControl();//向地图添加控件
+  createMap(120.546059, 31.282186);//创建地图,初始化为苏州创业园
+  setMapEvent();//设置地图事件
+  addMapControl();//向地图添加控件
 }
 
 //地图搜索
 function searchMap() {
-    var area = document.getElementById("Select1").value + document.getElementById("Select2").value +
-    document.getElementById("Select3").value + document.getElementById("addrDetail").value ; //得到地区
-    var ls = new BMap.LocalSearch(map);
-    ls.setSearchCompleteCallback(function(rs) {
-        if (ls.getStatus() == BMAP_STATUS_SUCCESS) {
-            var poi = rs.getPoi(0);
-            if (poi) {
-                createMap(poi.point.lng, poi.point.lat);//创建地图(经度poi.point.lng,纬度poi.point.lat)
-                setMapEvent();//设置地图事件
-                addMapControl();//向地图添加控件
-            }
-        }
-    });
-    ls.search(area);
+  var area = document.getElementById("Select1").value + document.getElementById("Select2").value +
+  document.getElementById("Select3").value + document.getElementById("addrDetail").value ; //得到地区
+  var ls = new BMap.LocalSearch(map);
+  ls.setSearchCompleteCallback(function(rs) {
+    if (ls.getStatus() == BMAP_STATUS_SUCCESS) {
+      var poi = rs.getPoi(0);
+      if (poi) {
+        createMap(poi.point.lng, poi.point.lat);//创建地图(经度poi.point.lng,纬度poi.point.lat)
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+      }
+    }
+  });
+  ls.search(area);
 }
 
 //创建地图函数：
 function createMap(x, y) {
-    var map = new BMap.Map("container1");//在百度地图容器中创建一个地图
-    var point = new BMap.Point(x, y);//定义一个中心点坐标
-    map.centerAndZoom(point, 18);//设定地图的中心点和坐标并将地图显示在地图容器中
-    var marker=new BMap.Marker(point); //创建标注
-    map.addOverlay(marker);//将标注添加到地图中
-    window.map = map;//将map变量存储在全局
+  var map = new BMap.Map("container1");//在百度地图容器中创建一个地图
+  var point = new BMap.Point(x, y);//定义一个中心点坐标
+  map.centerAndZoom(point, 18);//设定地图的中心点和坐标并将地图显示在地图容器中
+  var marker=new BMap.Marker(point); //创建标注
+  map.addOverlay(marker);//将标注添加到地图中
+  window.map = map;//将map变量存储在全局
 }
 
 //地图事件设置函数：
 function setMapEvent() {
-    map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
-    map.enableScrollWheelZoom();//启用地图滚轮放大缩小
-    map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
-    map.enableKeyboard();//启用键盘上下左右键移动地图
+  map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+  map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+  map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+  map.enableKeyboard();//启用键盘上下左右键移动地图
 }
 
 //地图控件添加函数：
 function addMapControl() {
-    //向地图中添加缩放控件
-    var ctrl_nav = new BMap.NavigationControl( {
-        anchor : BMAP_ANCHOR_TOP_LEFT,
-        type : BMAP_NAVIGATION_CONTROL_LARGE
-    });
-    map.addControl(ctrl_nav);
-    //向地图中添加缩略图控件
-    var ctrl_ove = new BMap.OverviewMapControl( {
-        anchor : BMAP_ANCHOR_BOTTOM_RIGHT,
-        isOpen : 1
-    });
-    map.addControl(ctrl_ove);
-    //向地图中添加比例尺控件
-    var ctrl_sca = new BMap.ScaleControl( {
-        anchor : BMAP_ANCHOR_BOTTOM_LEFT
-    });
-    map.addControl(ctrl_sca);
+  //向地图中添加缩放控件
+  var ctrl_nav = new BMap.NavigationControl( {
+    anchor : BMAP_ANCHOR_TOP_LEFT,
+    type : BMAP_NAVIGATION_CONTROL_LARGE
+  });
+  map.addControl(ctrl_nav);
+  //向地图中添加缩略图控件
+  var ctrl_ove = new BMap.OverviewMapControl( {
+    anchor : BMAP_ANCHOR_BOTTOM_RIGHT,
+    isOpen : 1
+  });
+  map.addControl(ctrl_ove);
+  //向地图中添加比例尺控件
+  var ctrl_sca = new BMap.ScaleControl( {
+    anchor : BMAP_ANCHOR_BOTTOM_LEFT
+  });
+  map.addControl(ctrl_sca);
 }
 </script>

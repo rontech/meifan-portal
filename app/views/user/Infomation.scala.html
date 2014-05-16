@@ -4,242 +4,242 @@
 @import helper.twitterBootstrap._
 
 @accountField(field: Field, className: String = "account") = {
-    @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
-        <input type="text" name="@name" value="@value"> 
-        <a class="removeAccount buttons danger">@Messages("optContactMethod.Remove")</a>
-    }
+  @input(field, '_label -> Messages("salon.account"), '_class -> className) { (id, name, value, _) =>
+    <input type="text" name="@name" value="@value"> 
+    <a class="removeAccount buttons danger">@Messages("optContactMethod.Remove")</a>
+  }
 }
 
 @optContactMethodGroup(field: Field, className: String = "optContactMethod") = {
-    <div class="twipsies well @className">
-        
-        <a class="removeOptContactMethod buttons danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
-        
-        @select(
-        	field("contMethodType"), 
-        	ContMethodType.getAllContMethodTypes,
-        	'_default -> Messages("user.chooseOpt"),
-        	'_label -> Messages("user.contMethodType")
-        )
-        
-        <div class="accounts">
-
-            @repeat(field("accounts"), min = 1) { account =>
-                
-                @accountField(account)
+  <div class="twipsies well @className">
     
-            }
-            
-            @**
-             * Keep an hidden block that will be used as template for Javascript copy code
-             **@
-            @accountField(
-                field("accounts[x]"),
-                className = "account_template"
-            )
-            
-            <div class="clearfix">
-                <div class="input">
-                    <a class="addAccount buttons success">@Messages("optContactMethod.AddNumber")</a>
-                </div>
-            </div>
+    <a class="removeOptContactMethod buttons danger pull-right">@Messages("optContactMethod.RemoveOptContactMethod")</a>
+    
+    @select(
+      field("contMethodType"), 
+      ContMethodType.getAllContMethodTypes,
+      '_default -> Messages("user.chooseOpt"),
+      '_label -> Messages("user.contMethodType")
+    )
+    
+    <div class="accounts">
+
+      @repeat(field("accounts"), min = 1) { account =>
         
+        @accountField(account)
+  
+      }
+      
+      @**
+       * Keep an hidden block that will be used as template for Javascript copy code
+       **@
+      @accountField(
+        field("accounts[x]"),
+        className = "account_template"
+      )
+      
+      <div class="clearfix">
+        <div class="input">
+          <a class="addAccount buttons success">@Messages("optContactMethod.AddNumber")</a>
         </div>
- 
+      </div>
+    
     </div>
+ 
+  </div>
 }
 
-    @InfoChange("my-basicInfo", user, followInfo, user.id, true)  {
-    	
-    	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
-    	
-		<div class="mT40 pH10">
-			@helper.form(auth.routes.Users.updateInfo(user.userId), 'id -> "userForm", 'name -> "userForm") {
-				
-				<input type="hidden" name="password" value="@user.password">
-                <input type="hidden" name="userPics" value="@user.userPics">
-                <input type="hidden" name="userTyp" value="@user.userTyp">
-                <input type="hidden" name="userBehaviorLevel" value="@user.userBehaviorLevel">
-                <input type="hidden" name="point" value="@user.point">
-                <input type="hidden" name="permission" value="@user.permission">
-                <input type="hidden" name="activity" value="@user.activity">
-                <input type="hidden" name="registerTime" value="@user.registerTime">
+  @InfoChange("my-basicInfo", user, followInfo, user.id, true)  {
+    
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
+    
+    <div class="mT40 pH10">
+      @helper.form(auth.routes.Users.updateInfo(user.userId), 'id -> "userForm", 'name -> "userForm") {
+        
+        <input type="hidden" name="password" value="@user.password">
+        <input type="hidden" name="userPics" value="@user.userPics">
+        <input type="hidden" name="userTyp" value="@user.userTyp">
+        <input type="hidden" name="userBehaviorLevel" value="@user.userBehaviorLevel">
+        <input type="hidden" name="point" value="@user.point">
+        <input type="hidden" name="permission" value="@user.permission">
+        <input type="hidden" name="activity" value="@user.activity">
+        <input type="hidden" name="registerTime" value="@user.registerTime">
 
-				<table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
-				    <tbody>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    <font class="cR">*</font>@Messages("user.name")
-				                </div>
-				            </th>
-				            <td>
-				               @inputText(userForm("userId"),
-                                   '_label -> None,
-                                   'readonly -> "true")
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    <font class="cR">*</font>@Messages("user.nickNm")
-				                </div>
-				            </th>
-				            <td>
-				               @inputText(userForm("nickName"),
-				               	'_label -> None)
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("user.birthDay")
-				                </div>
-				            </th>
-				            <td>
-				               @input(field = userForm("birthDay"),
-                                   '_help -> "",
-                                   '_label -> None) { (id, name, value, _) =>
-        							<input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
-								}
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("user.sex")
-				                </div>
-				            </th>
-				            <td>
-				               @inputRadioGroup(userForm("sex"),
-                                   options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")),
-                                   '_label -> None)
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    <font class="cR">*</font>@Messages("user.email")
-				                </div>
-				            </th>
-				            <td>
-				               @inputText(userForm("email"),
-                                   '_label -> None)
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("user.job")
-				                </div>
-				            </th>
-				            <td>
-				               @inputText(userForm("socialStatus"),'_label -> None, 'class -> "inputField")
-				            </td>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("user.tel")
-				                </div>
-				            </th>
-				            <td>
-				               @inputText(userForm("tel"), 
-				               	'_label -> None, 
-				               	'id -> "phone"	)
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("salon.address")
-				                </div>
-				            </th>
-				            <td class = "inputField mL5">
-				            	@Messages("salon.province"):  <select id="Select1" class="inputField" name = "address.province" value = "@userForm("address.province").value")></select>
-				                @Messages("salon.city"):  <select id="Select2" name = "address.city" value = "@userForm("address.city").value"></select>
-				                @Messages("salon.region"):  <select id="Select3" name = "address.region" value = "@userForm("address.region").value"></select>
-				                <script type="text/javascript">
-				                	addressInit('Select1', 'Select2', 'Select3');
-				                </script>
-				            </td>
-				        </tr>
-				        <tr>
-				            <th class="w222">
-				                <div class="dibBL vaM w160">
-				                    @Messages("user.optContactMethod")
-				                </div>
-				            </th>
-				            <td>
-				               <div id="optContactMethods" class = "inputField">
-            
-					                @repeat(userForm("optContactMethods"), min = 0) { optContactMethod =>
-					                
-					                    @optContactMethodGroup(optContactMethod)
-					                
-					                }
-					                
-					                @**
-					                 * Keep an hidden block that will be used as template for Javascript copy code
-					                 **@
-					                @optContactMethodGroup(
-					                    userForm("optContactMethods[x]"),
-					                    className = "optContactMethod_template"
-					                )
-					                
-					                <div class="manage">
-					                    <a class="addOptContactMethod buttons success">@Messages("optContactMethod.AddOptContactMethod")</a>
-					                </div>
-					            
-					            </div>
-				            </td>
-				        </tr>
-					</tbody>
-				</table>
-				
-				<div class="mT20 txtC">
-					<input type = "button" class = "buttons" value="@Messages("service.update")" onclick="checksForUserRegister();">
-				</div>
-			}
-		</div>
+        <table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
+          <tbody>
+            <tr>
+              <th class="w222">
+                <div class="dibBL vaM w160">
+                  <font class="cR">*</font>@Messages("user.name")
+                </div>
+              </th>
+              <td>
+                @inputText(userForm("userId"),
+                  '_label -> None,
+                  'readonly -> "true")
+              </td>
+            </tr>
+            <tr>
+              <th class="w222">
+                <div class="dibBL vaM w160">
+                  <font class="cR">*</font>@Messages("user.nickNm")
+                </div>
+              </th>
+              <td>
+                @inputText(userForm("nickName"),
+                  '_label -> None)
+              </td>
+            </tr>
+            <tr>
+              <th class="w222">
+                <div class="dibBL vaM w160">
+                  @Messages("user.birthDay")
+                </div>
+              </th>
+              <td>
+                @input(field = userForm("birthDay"),
+                  '_help -> "",
+                  '_label -> None) { (id, name, value, _) =>
+                  <input class="Wdate" type="text" name="@name" value="@value" onClick="WdatePicker() ">
+                }
+              </td>
+            </tr>
+            <tr>
+              <th class="w222">
+                <div class="dibBL vaM w160">
+                  @Messages("user.sex")
+                </div>
+              </th>
+              <td>
+                @inputRadioGroup(userForm("sex"),
+                  options = options("M" -> Messages("user.male"), "F" -> Messages("user.female")),
+                  '_label -> None)
+              </td>
+            </tr>
+            <tr>
+              <th class="w222">
+                <div class="dibBL vaM w160">
+                  <font class="cR">*</font>@Messages("user.email")
+                </div>
+              </th>
+              <td>
+                @inputText(userForm("email"),
+                  '_label -> None)
+              </td>
+            </tr>
+            <tr>
+              <th class="w222">
+                <div class="dibBL vaM w160">
+                  @Messages("user.job")
+                </div>
+              </th>
+              <td>
+                @inputText(userForm("socialStatus"),'_label -> None, 'class -> "inputField")
+              </td>
+            <tr>
+              <th class="w222">
+                <div class="dibBL vaM w160">
+                  @Messages("user.tel")
+                </div>
+              </th>
+              <td>
+                @inputText(userForm("tel"), 
+                  '_label -> None, 
+                  'id -> "phone"    )
+              </td>
+            </tr>
+            <tr>
+              <th class="w222">
+                <div class="dibBL vaM w160">
+                  @Messages("salon.address")
+                </div>
+              </th>
+              <td class = "inputField mL5">
+                @Messages("salon.province"):  <select id="Select1" class="inputField" name = "address.province" value = "@userForm("address.province").value")></select>
+                @Messages("salon.city"):  <select id="Select2" name = "address.city" value = "@userForm("address.city").value"></select>
+                @Messages("salon.region"):  <select id="Select3" name = "address.region" value = "@userForm("address.region").value"></select>
+                <script type="text/javascript">
+                  addressInit('Select1', 'Select2', 'Select3');
+                </script>
+              </td>
+            </tr>
+            <tr>
+              <th class="w222">
+                <div class="dibBL vaM w160">
+                  @Messages("user.optContactMethod")
+                </div>
+              </th>
+              <td>
+                <div id="optContactMethods" class = "inputField">
+      
+                  @repeat(userForm("optContactMethods"), min = 0) { optContactMethod =>
+                  
+                    @optContactMethodGroup(optContactMethod)
+                  
+                  }
+                  
+                  @**
+                   * Keep an hidden block that will be used as template for Javascript copy code
+                   **@
+                  @optContactMethodGroup(
+                    userForm("optContactMethods[x]"),
+                    className = "optContactMethod_template"
+                  )
+                  
+                  <div class="manage">
+                    <a class="addOptContactMethod buttons success">@Messages("optContactMethod.AddOptContactMethod")</a>
+                  </div>
+                
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         
-        <script type="text/javascript" charset="utf-8">
-        
-        $('.removeOptContactMethod').live('click', function(e) {
-            $(this).parents('.optContactMethod').remove()
-            renumber()
+        <div class="mT20 txtC">
+          <input type = "button" class = "buttons" value="@Messages("service.update")" onclick="checksForUserRegister();">
+        </div>
+      }
+    </div>
+    
+    <script type="text/javascript" charset="utf-8">
+    
+    $('.removeOptContactMethod').live('click', function(e) {
+      $(this).parents('.optContactMethod').remove()
+      renumber()
+    })
+    
+    $('.removeAccount').live('click', function(e) {
+      var accounts = $(this).parents('.accounts')
+      $(this).parents('.account').remove()
+      renumber(accounts)
+    })
+    
+    $('.addAccount').live('click', function(e) {
+      var accounts = $(this).parents('.accounts')
+      var template = $('.account_template', accounts)
+      template.before('<div class="clearfix account">' + template.html() + '</div>')
+      renumber(accounts)
+    })
+    
+    $('.addOptContactMethod').live('click', function(e) {
+      var template = $('.optContactMethod_template')
+      template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
+      renumber()
+    })
+    
+    var renumber = function(accounts) {
+      $('.optContactMethod').each(function(i) {
+        $('select', this).each(function() {
+          $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
         })
-        
-        $('.removeAccount').live('click', function(e) {
-            var accounts = $(this).parents('.accounts')
-            $(this).parents('.account').remove()
-            renumber(accounts)
+        $('.account input', this).each(function(j) {
+          $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
+          $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + j + ']'))
         })
-        
-        $('.addAccount').live('click', function(e) {
-            var accounts = $(this).parents('.accounts')
-            var template = $('.account_template', accounts)
-            template.before('<div class="clearfix account">' + template.html() + '</div>')
-            renumber(accounts)
-        })
-        
-        $('.addOptContactMethod').live('click', function(e) {
-            var template = $('.optContactMethod_template')
-            template.before('<div class="twipsies well optContactMethod">' + template.html() + '</div>')
-            renumber()
-        })
-       
-        var renumber = function(accounts) {
-            $('.optContactMethod').each(function(i) {
-                $('select', this).each(function() {
-                    $(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
-                })
-                $('.account input', this).each(function(j) {
-                	$(this).attr('name', $(this).attr('name').replace(/optContactMethods\[.+?\]/g, 'optContactMethods[' + i + ']'))
-                    $(this).attr('name', $(this).attr('name').replace(/accounts\[.+\]/g, 'accounts[' + j + ']'))
-                })
-            })
-        }
-        
-    </script>
+      })
     }
-    <script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>
+    
+  </script>
+  }
+  <script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>

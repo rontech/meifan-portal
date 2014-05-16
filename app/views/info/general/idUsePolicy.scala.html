@@ -2,20 +2,20 @@
 
 
 @main(Messages("site.title")) {
-    <ul>
-    @for(info <- infos) {
-        <li>
-            <a href="#@info.id"><h1>@info.title</h1></a>           
-        </li>
-        }
-        <br/><br/><br/><br/>
-    @for(info <- infos) {
-        <li>
-            <a name="@info.id"><h1>@info.title</h1></a>
-            <br/>
-            <p>@Html(info.content)</p> 
-            <br/><br/><br/>          
-        </li>
+  <ul>
+  @for(info <- infos) {
+    <li>
+      <a href="#@info.id"><h1>@info.title</h1></a>           
+    </li>
     }
-    </ul>
+    <br/><br/><br/><br/>
+  @for(info <- infos) {
+    <li>
+      <a name="@info.id"><h1>@info.title</h1></a>
+      <br/>
+      <p>@Html(info.content)</p> 
+      <br/><br/><br/>          
+    </li>
+  }
+  </ul>
 }

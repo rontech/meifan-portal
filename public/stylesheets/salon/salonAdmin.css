@@ -152,3 +152,46 @@ margin: 5px 25px 5px 5px;
 div.isCan .clearfix label {
 	float: right;
 }
+.picDescriptions .help-inline{
+display:block;
+}
+.hide{
+visibility: hidden; 
+display: none;
+}
+#step1 {
+left: 800px;
+top: 437px;
+z-index: 1005;
+background-color: transparent;
+position: absolute;
+width: 430px;
+height: 280px;
+background: url(/assets/images/swfupload/salonPicstep1.jpg) no-repeat;
+display: inline-block;
+margin-left: 2px;
+}
+#step2 {
+left: 800px;
+top: 557px;
+z-index: 1004;
+background-color: transparent;
+position: absolute;
+width: 430px;
+height: 280px;
+background: url(/assets/images/swfupload/salonPicstep2.jpg) no-repeat;
+display: inline-block;
+margin-left: 2px;
+}
+#step3 {
+left: 800px;
+top: 509px;
+z-index: 1003;
+background-color: transparent;
+position: absolute;
+width: 430px;
+height: 280px;
+background: url(/assets/images/swfupload/salonPicstep3.jpg) no-repeat;
+display: inline-block;
+margin-left: 2px;
+}

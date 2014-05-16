@@ -2,20 +2,23 @@
 
 <dt class="titleBlogPublisher">@Messages("blog.authorTitle")</dt>
 <dd class="list p10 bgDGray2">
-	<div class="taC">
-            <a href="@noAuth.routes.Salons.getOneStylist(salon.id, stylist.stylistId)">
-		<img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" alt="salon.salonName" width = "89px" height = "119px">
-            </a>
-	</div>
-	<p class="fgPink fs10 mT5">@stylist.position.map {position => @position.positionName}</p>
-	<p class="mT5">
-		<a href="@noAuth.routes.Salons.getOneStylist(salon.id, stylist.stylistId)">@User.findOneByUserId(blog.authorId).get.nickName</a>
-	</p>
-	<p class="fs10 mT5">@stylist.myWords</p>
-	<div class="mT5">
-		<a href="@noAuth.routes.Salons.getOneStylist(salon.id, stylist.stylistId)" class="bS db showDetailW131H30 offL mHA">@Messages("blog.moreInfo")</a>
-	</div>
-	<div class="mT5 taC">
-		<a href="#" class="bS db nominatedReserve offL mHA">@Messages("reserve.name")</a>
-	</div>
+  <div class="taC">
+      <a href="@noAuth.routes.Salons.getOneStylist(salon.id, stylist.stylistId)">
+    <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" alt="salon.salonName" width = "89px" height = "119px">
+      </a>
+  </div>
+  <p class="fgPink fs10 mT5">@stylist.position.map {position =>
+      @Messages("position.positionName." + position.positionName)
+    }
+    </p>
+  <p class="mT5">
+    <a href="@noAuth.routes.Salons.getOneStylist(salon.id, stylist.stylistId)">@User.findOneByUserId(blog.authorId).get.nickName</a>
+  </p>
+  <p class="fs10 mT5">@stylist.myWords</p>
+  <div class="mT5">
+    <a href="@noAuth.routes.Salons.getOneStylist(salon.id, stylist.stylistId)" class="bS db showDetailW131H30 mHA">@Messages("blog.moreInfo")</a>
+  </div>
+  <div class="mT5 taC">
+    <a href="#" class="bS db nominatedReserve mHA">@Messages("reserve.name")</a>
+  </div>
 </dd>
