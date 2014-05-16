@@ -40,11 +40,13 @@ import play.api.templates.Html
 
 object Users extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl {
 
+  //login form for user
   val loginForm = Form(mapping(
     "userId" -> text,
     "password" -> text)(User.authenticate)(_.map(u => (u.userId, "")))
     .verifying(Messages("user.loginErr"), result => result.isDefined))
 
+  //change password form for user
   val changePassForm = Form(
     mapping(
       "user" -> mapping(
@@ -56,6 +58,11 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
           // Add an additional constraint: both passwords must match
           Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2)) { (user, newPassword) => (user.get, BCrypt.hashpw(newPassword._1, BCrypt.gensalt())) } { user => Some((Option(user._1), ("", ""))) })
 
+  /**
+   * create a message form for user by ObjectId
+   * @param id the ObjectId of user's record
+   * @return message form for user
+   */
   def userForm(id: ObjectId = new ObjectId) = Form(
     mapping(
       "id" -> ignored(id),
@@ -137,9 +144,9 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
         stylistApply => Some((stylistApply.stylist, stylistApply.salonAccountId))
       })
 
-  /** 用户登录验证
-   *
-   * @return
+  /**
+   * login for user
+   * @return add user to session
    */
   def login = Action.async { implicit request =>
     loginForm.bindFromRequest.fold(
@@ -148,7 +155,8 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * 退出登录
+   * Logout for user
+   * @return remove logged user from session
    */
 
   def logout = Action.async { implicit request =>
@@ -157,7 +165,8 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * 跳转至密码修改页面
+   * Redirect to change password's view with logged user's followed info
+   * @return
    */
   def password = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
@@ -166,7 +175,9 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * 密码修改
+   * Handler the request of user's change password
+   * @param userId logged user's userId
+   * @return Redirect to user's logout
    */
   def changePassword(userId: String) = StackAction(AuthorityKey -> User.isOwner(userId) _) { implicit request =>
     val loginUser = loggedIn
@@ -181,7 +192,9 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * 用户信息更新
+   * Handler the request of user's update information
+   * @param userId logged user's userId
+   * @return
    */
   def updateInfo(userId: String) = StackAction(AuthorityKey -> User.isOwner(userId) _) { implicit request =>
     val loginUser = loggedIn
@@ -198,7 +211,8 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * 登录用户基本信息
+   * Show my information
+   * @return
    */
   def myInfo() = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val user = loggedIn
@@ -208,7 +222,9 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * 其他用户基本信息
+   * Show other user's information
+   * @param userId user's userId
+   * @return
    */
   //TODO
   def userInfo(userId: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
@@ -224,7 +240,8 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * 个人主页
+   * enter in logged user's home page
+   * @return
    */
   def myPage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
@@ -242,7 +259,9 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * 保存图片
+   * Save the ObjectId of user's logo in user's Information
+   * @param id the ObjectId of user's logo in mongodb
+   * @return
    */
   def saveImg(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
@@ -251,7 +270,8 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * 更新图片
+   * Redirect to the view of change logo
+   * @return
    */
   def changeImage = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
@@ -260,7 +280,8 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * 我的预约
+   * Show my reservation
+   * @return
    */
   def myReservation() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
@@ -269,9 +290,9 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * 申请成为技师
+   * Redirect to applying for stylist page
+   * @return
    */
-
   def applyStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
@@ -281,9 +302,9 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * 店长或店铺管理者确认后才录入数据库
+   * Handler the reqest of user's applying stylist
+   * @return
    */
-
   def commitStylistApply = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
@@ -302,10 +323,14 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
             NotFound
           }
         }
-      })
-
+      }
+    )
   }
 
+  /**
+   * Cancel the apply for stylist of logged user
+   * @return
+   */
   def cancelApplyStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     SalonStylistApplyRecord.findOneStylistApRd(user.id).map { record =>
