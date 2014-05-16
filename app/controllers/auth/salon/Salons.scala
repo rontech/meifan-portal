@@ -169,7 +169,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
    * 店铺基本信息显示
    *
    */
-  def salonInfoBasic = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+  def salonInfoBasic = StackAction(AuthorityKey -> authImproveInfo _) { implicit request =>
     val salon = loggedIn
     val industry = Industry.findAll.toList
     Ok(views.html.salon.salonManage.salonInfo("", salon, industry))
@@ -631,6 +631,25 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
+   * 店铺LOGO图片更新
+   */
+  def updateLogoPicture = StackAction(parse.multipartFormData, AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    request.body.file("logo") match {
+      case Some(logo) =>
+        val db = DBDelegate.picDB
+        val gridFs = GridFS(db)
+        val uploadedFile = gridFs.createFile(logo.ref.file)
+        uploadedFile.contentType = logo.contentType.orNull
+        uploadedFile.save()
+        Salon.updateSalonLogo(salon, uploadedFile._id.get)
+        Redirect(auth.routes.Salons.salonLogoPicture)
+      case None => BadRequest("no photo")
+    }
+  }
+
+
+  /**
    * 店铺展示图片上传页面
    */
   def salonShowPicture = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
@@ -639,6 +658,22 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
     val salonPics = salonPicsForm.fill(pictures)
     Ok(views.html.salon.admin.salonShowPicture(salon, salonPics))
   }
+
+  /**
+   * 店铺展示图片更新
+   */
+  def updateShowPicture = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    val industry = Industry.findAll.toList
+    salonPicsForm.bindFromRequest.fold(
+    errors => BadRequest(views.html.salon.salonManage.salonBasic(salonInfoForm.fill(salon), industry, salon)),
+    {
+      salonpictures =>
+        Salon.save(salon.copy(salonPics = salonpictures.salonPics), WriteConcern.Safe)
+        Redirect(auth.routes.Salons.salonShowPicture)
+    })
+  }
+
 
   /**
    * 店铺环境图片上传页面
@@ -651,7 +686,22 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺环境图片上传页面
+   * 店铺环境图片更新
+   */
+  def updateAtmoPicture = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    val industry = Industry.findAll.toList
+    salonPicsForm.bindFromRequest.fold(
+    errors => BadRequest(views.html.salon.salonManage.salonBasic(salonInfoForm.fill(salon), industry, salon)),
+    {
+      salonpictures =>
+        Salon.save(salon.copy(salonPics = salonpictures.salonPics), WriteConcern.Safe)
+        Redirect(auth.routes.Salons.salonAtmoPicture)
+    })
+  }
+
+  /**
+   * 店铺营业执照图片上传页面
    */
   def salonCheckPicture = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -661,9 +711,9 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺图片更新
+   * 店铺营业执照图片更新
    */
-  def updateSalonPics = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+  def updateCheckPicture  = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
     val industry = Industry.findAll.toList
     salonPicsForm.bindFromRequest.fold(
@@ -671,7 +721,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
       {
         salonpictures =>
           Salon.save(salon.copy(salonPics = salonpictures.salonPics), WriteConcern.Safe)
-          Redirect(routes.Salons.checkInfoState)
+          Redirect(auth.routes.Salons.salonCheckPicture)
       })
   }
 
