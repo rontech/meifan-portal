@@ -102,10 +102,10 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
             user.userTyp, user.userBehaviorLevel, user.point, user.activity, user.permission))
       })
 
-  /**
-   * 用户申请技师用表单
+  /** 用户申请技师用表单
+   *
+   * @return
    */
-
   def stylistApplyForm: Form[StylistApply] = Form(
     mapping("stylist" ->
       mapping(
@@ -158,6 +158,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
    * Logout for user
    * @return remove logged user from session
    */
+
   def logout = Action.async { implicit request =>
     gotoLogoutSucceeded.map(_.flashing(
       "success" -> "You've been logged out"))

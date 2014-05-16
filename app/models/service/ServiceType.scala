@@ -22,6 +22,13 @@ import mongoContext._
 import se.radley.plugin.salat.Binders._
 import com.meifannet.framework.db._
 
+/**
+ * 定义服务类别class
+ * @param id
+ * @param industryName 行业名称
+ * @param serviceTypeName 服务类别名
+ * @param description 描述
+ */
 case class ServiceType(
   id: ObjectId = new ObjectId,
   industryName: String,
@@ -34,16 +41,22 @@ object ServiceType extends MeifanNetModelCompanion[ServiceType] {
 
   /**
    * 添加服务类型
+   * @param serviceType 服务类型对象
+   * @return
    */
   def addServiceType(serviceType: ServiceType) = dao.save(serviceType, WriteConcern.Safe)
 
   /**
    * 根据服务类型名获得此服务
+   * @param serviceTypeName 服务类型名
+   * @return
    */
   def findOneByTypeName(serviceTypeName: String): Option[ServiceType] = dao.findOne(MongoDBObject("serviceTypeName" -> serviceTypeName))
 
   /**
    * 根据行业名获取该行业所有服务类型名
+   * @param industryName 行业名
+   * @return
    */
   def findAllServiceType(industryName: String) = dao.find(MongoDBObject("industryName" -> industryName)).toList.map {
     serviceType => serviceType.serviceTypeName
@@ -51,6 +64,8 @@ object ServiceType extends MeifanNetModelCompanion[ServiceType] {
 
   /**
    * 根据行业名获得所有服务类型
+   * @param salonIndustrys
+   * @return
    */
   def findAllServiceTypes(salonIndustrys: List[String]) = {
     var serviceTypes: List[ServiceType] = Nil

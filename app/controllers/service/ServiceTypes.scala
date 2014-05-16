@@ -25,6 +25,11 @@ import play.api.data.Forms._
 import play.api.templates._
 
 object ServiceTypes extends Controller {
+  /**
+   * 定义用于添加服务类别的form
+   * @param id
+   * @return
+   */
   def serviceTypeForm(id: ObjectId = new ObjectId): Form[ServiceType] = Form(
     mapping(
       "id" -> ignored(id),
@@ -32,10 +37,18 @@ object ServiceTypes extends Controller {
       "serviceTypeName" -> nonEmptyText,
       "description" -> text)(ServiceType.apply)(ServiceType.unapply))
 
+  /**
+   * 跳转至添加服务类别的主页面
+   * @return
+   */
   def serviceTypeMain = Action {
     Ok(views.html.service.addServiceType(serviceTypeForm()))
   }
 
+  /**
+   * 添加服务类别动作
+   * @return
+   */
   def addServiceType = Action { implicit request =>
     serviceTypeForm().bindFromRequest.fold(
       errors => BadRequest(views.html.service.addServiceType(errors)),

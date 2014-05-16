@@ -29,6 +29,11 @@ import controllers._
 import jp.t2v.lab.play2.auth._
 
 object Services extends Controller with AuthElement with SalonAuthConfigImpl {
+  /**
+   * 定义服务form,用于服务添加
+   * @param id
+   * @return
+   */
   def serviceForm(id: ObjectId = new ObjectId): Form[Service] = Form(
     mapping(
       "id" -> ignored(id),
@@ -46,6 +51,11 @@ object Services extends Controller with AuthElement with SalonAuthConfigImpl {
         Messages("service.serviceNameNotAvalid"),
         service => !Service.checkServiceIsExist(service.serviceName, service.salonId)))
 
+  /**
+   * 定义用于更新服务的form
+   * @param id
+   * @return
+   */
   def serviceUpdateForm(id: ObjectId = new ObjectId): Form[Service] = Form(
     mapping(
       "id" -> ignored(id),
@@ -60,8 +70,10 @@ object Services extends Controller with AuthElement with SalonAuthConfigImpl {
       } {
         service => Some((service.id, service.serviceName, service.description, service.serviceType, service.salonId.toString(), service.price, service.duration))
       })
+
   /**
    * 添加服务
+   * @return
    */
   def addService = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -76,6 +88,8 @@ object Services extends Controller with AuthElement with SalonAuthConfigImpl {
 
   /**
    * 删除服务
+   * @param id 服务ObjectId
+   * @return
    */
   def deleteService(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -84,7 +98,9 @@ object Services extends Controller with AuthElement with SalonAuthConfigImpl {
   }
 
   /**
-   * 更新服务
+   * 跳转某个服务页面
+   * @param id 服务ObjectId
+   * @return
    */
   def showService(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -98,6 +114,8 @@ object Services extends Controller with AuthElement with SalonAuthConfigImpl {
 
   /**
    * 更新服务动作
+   * @param id 服务ObjectId
+   * @return
    */
   def updateService(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -110,6 +128,10 @@ object Services extends Controller with AuthElement with SalonAuthConfigImpl {
       })
   }
 
+  /**
+   * 跳转至添加服务的页面
+   * @return
+   */
   def serviceMain = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
     val serviceType = ServiceType.findAll.toList.map { serviceType => serviceType.serviceTypeName }
