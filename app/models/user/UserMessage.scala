@@ -24,6 +24,18 @@ import mongoContext._
 import com.mongodb.casbah.WriteConcern
 import com.meifannet.framework.db._
 
+/**
+ * Class for UserMessage
+ * @param id    ObjectId of record in mongodb
+ * @param sender    UserMessage's sender
+ * @param senderNm    sender's name
+ * @param addressee   UserMessage's addressee
+ * @param addresseeNm   addressee's name
+ * @param msgId   Message's ObjectId
+ * @param outBoxStatus    UserMessage's Status
+ * @param inBoxStatus   UserMessage's Status
+ * @param createdTime
+ */
 case class UserMessage(
   id: ObjectId,
   sender: String,
@@ -54,27 +66,72 @@ object UserMessage extends MeifanNetModelCompanion[UserMessage] {
 
   val dao = new MeifanNetDAO[UserMessage](collection = loadCollection()) {}
 
+  /**
+   * Update UserMessage's status to READ
+   * @param userMessage   update userMessage
+   * @return
+   */
   def read(userMessage: UserMessage) = dao.save(userMessage.copy(inBoxStatus = INBOX_READ), WriteConcern.Safe)
 
+  /**
+   * Update UserMessage's status to SENT
+   * @param userMessage   update userMessage
+   * @return
+   */
   def sent(userMessage: UserMessage) = dao.save(userMessage.copy(outBoxStatus = OUTBOX_SENT), WriteConcern.Safe)
 
+  /**
+   * Update UserMessage's status to SAVE
+   * @param userMessage   update userMessage
+   * @return
+   */
   def saved(userMessage: UserMessage) = dao.save(userMessage.copy(outBoxStatus = OUTBOX_SAVE), WriteConcern.Safe)
 
+  /**
+   * Update UserMessage's status to DEL in outBox
+   * @param userMessage   update userMessage
+   * @return
+   */
   def delFromOutBox(userMessage: UserMessage) = dao.save(userMessage.copy(outBoxStatus = OUTBOX_DEL), WriteConcern.Safe)
 
+  /**
+   * Update UserMessage's status to DEL in inBox
+   * @param userMessage   update userMessage
+   * @return
+   */
   def delFromInBox(userMessage: UserMessage) = dao.save(userMessage.copy(inBoxStatus = INBOX_DEL), WriteConcern.Safe)
 
-  def findByQuery(requirement: String, userId: String, page: Int, pageSize: Int) = {
-    val query = getQuery(requirement, userId: String)
+  /**
+   * The common method for finding userMessage according to requirement
+   * @param requirement   types of finding
+   * @param userId    logged user's userId
+   * @param page    page numbers
+   * @param pageSize    numbers of userMessage display in every page
+   * @return list of userMessages
+   */
+  def findByCondition(requirement: String, userId: String, page: Int, pageSize: Int) = {
+    val query = getCondition(requirement, userId: String)
     dao.find(query).sort(MongoDBObject("createdTime" -> -1)).skip((page - 1) * pageSize).limit(pageSize).toList
   }
 
+  /**
+   * The common method for counting userMessage according to requirement
+   * @param requirement   types of counting
+   * @param userId    logged user's userId
+   * @return    number of userMessages witch fit to requirement
+   */
   def countByCondition(requirement: String, userId: String) = {
-    val query = getQuery(requirement, userId: String)
+    val query = getCondition(requirement, userId: String)
     dao.count(query)
   }
 
-  def getQuery(requirement: String, userId: String) = {
+  /**
+   * Get condition by requirement
+   * @param requirement   request e.g. INBOX_UNREAD、OUTBOX_SAVE
+   * @param userId    logged user's userId
+   * @return
+   */
+  def getCondition(requirement: String, userId: String) = {
     requirement match {
       case INBOX_UNREAD => MongoDBObject("addressee" -> userId, "inBoxStatus" -> INBOX_UNREAD)
       case INBOX_ALL => $and(MongoDBObject("addressee" -> userId), "inBoxStatus" $ne INBOX_DEL)
@@ -84,11 +141,19 @@ object UserMessage extends MeifanNetModelCompanion[UserMessage] {
 
   }
 
+  /**
+   * Send message when user followed salon, user, stylist
+   * @param sender    user
+   * @param followId    ObjectId of salon,user or stylist
+   * @param followObjType   type of followed e.g. FOLLOW_STYLIST or FOLLOW_USER
+   * @return
+   */
   def sendFollowMsg(sender: User, followId: ObjectId, followObjType: String) = {
     val letter = followObjType match {
+       //TODO
       case FollowType.FOLLOW_SALON =>
         val salon = Salon.findOneById(followId).get
-        UserMessage(new ObjectId, sender.userId, sender.nickName, "zhenglu", "关雨", new ObjectId("531964e0d4d57d0a43771811"), OUTBOX_SENT, INBOX_UNREAD, new Date)
+        UserMessage(new ObjectId, sender.userId, sender.nickName, "demo01", "demo01", new ObjectId("531964e0d4d57d0a43771811"), OUTBOX_SENT, INBOX_UNREAD, new Date)
       case FollowType.FOLLOW_STYLIST =>
         val stylist = Stylist.findOneByStylistId(followId).get
         val user = Stylist.findUser(stylist.stylistId)
@@ -101,6 +166,11 @@ object UserMessage extends MeifanNetModelCompanion[UserMessage] {
   }
 }
 
+/**
+ * Class for userLetter (for storing message and userMessage between server and client)
+ * @param userMessage   userMessage
+ * @param message   the message of userMessage
+ */
 case class UserLetter(
   userMessage: UserMessage,
   message: Message)
