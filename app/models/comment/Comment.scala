@@ -23,6 +23,12 @@ import se.radley.plugin.salat._
 import mongoContext._
 import com.meifannet.framework.db._
 
+/**
+ * A All Info structs of comment including belows
+ *
+ * @param commentInfo basic info as a comment
+ * @param salonInfo basic info as a salon
+ */
 case class CommentOfSalon(commentInfo: Comment, salonInfo: Option[Salon]) {
   def apply(commentInfo: Comment, salonInfo: Option[Salon]) = new CommentOfSalon(commentInfo, salonInfo)
 }
@@ -58,11 +64,11 @@ case class Comment(
   commentObjType: Int, // 评论类型:  1: 对博客; 2: 对店铺; 3: 回复
   commentObjId: ObjectId,
   content: String,
-  complex: Int,
-  atmosphere: Int,
-  service: Int,
-  skill: Int,
-  price: Int,
+  complex: Int, // 综合分数
+  atmosphere: Int, // 氛围分数
+  service: Int, // 服务态度分数
+  skill: Int, // 技术分数
+  price: Int, //价格分数
   authorId: String,
   createTime: Date = new Date,
   isValid: Boolean)

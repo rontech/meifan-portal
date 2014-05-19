@@ -22,6 +22,14 @@ import se.radley.plugin.salat._
 import mongoContext._
 import com.meifannet.framework.db._
 
+/**
+ * this class is the blogCategory
+ * the category data is stored in master table
+ *
+ * @param id ObjectId of record in mongodb
+ * @param categoryName
+ * @param isValid
+ */
 case class BlogCategory(
   id: ObjectId = new ObjectId,
   categoryName: String,
@@ -30,9 +38,7 @@ case class BlogCategory(
 object BlogCategory extends MeifanNetModelCompanion[BlogCategory] {
   val dao = new MeifanNetDAO[BlogCategory](collection = loadCollection()) {}
 
-  /**
-   * 取得分类
-   */
+  /** get the category stored in master table */
   def getCategory = {
     var list: List[String] = Nil
     val category = dao.find(MongoDBObject("isValid" -> true)).toList
