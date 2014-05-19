@@ -47,7 +47,7 @@ import models.Address
 
 object Salons extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
-  //店铺注册Form
+  //沙龙注册Form
   val salonRegister: Form[Salon] = Form(
     mapping(
       "salonAccount" -> mapping(
@@ -175,7 +175,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         "sortByPriceAsc" -> boolean)(SortByConditions.apply)(SortByConditions.unapply))(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
 
   /**
-   * 店铺注册
+   * 沙龙注册处理
+   * @return
    */
   def register() = Action { implicit request =>
     val industry = Industry.findAll.toList

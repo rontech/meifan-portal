@@ -207,7 +207,7 @@ GET         /mySalon/checkAuth                                              	 co
 
 GET         /salonBasic                                                          controllers.auth.Salons.salonBasic
 GET         /salonDetail                                                         controllers.auth.Salons.salonDetail
-POST        /salonbasicUpdate/:id                                                controllers.auth.Salons.salonbasicUpdate(id:ObjectId)
+POST        /salonbasicUpdate/:id                                                controllers.auth.Salons.salonBasicUpdate(id:ObjectId)
 POST        /salonDetailUpdate/:id                                               controllers.auth.Salons.salonDetailUpdate(id:ObjectId)
 POST        /changeSalonPassword                                                 controllers.auth.Salons.salonChangePassword(accountId : String)
 

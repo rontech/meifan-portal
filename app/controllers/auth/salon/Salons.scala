@@ -39,13 +39,13 @@ import com.meifannet.framework.db._
 
 object Salons extends Controller with LoginLogout with AuthElement with SalonAuthConfigImpl {
 
-  //店铺登录Form
+  //沙龙登录Form
   val salonLoginForm = Form(mapping(
     "salonAccount" -> mapping(
       "accountId" -> nonEmptyText,
       "password" -> text)(SalonAccount.apply)(SalonAccount.unapply))(Salon.loginCheck)(_.map(s => (s.salonAccount))).verifying("Invalid userId or password", result => result.isDefined))
 
-  //密码修改
+  //沙龙密码修改Form
   val changePassword = Form(
     mapping(
       "salonChange" -> mapping(
@@ -58,7 +58,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
           // Add an additional constraint: both passwords must match
           Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2)) { (salonChange, newPassword) => (salonChange.get, BCrypt.hashpw(newPassword._1, BCrypt.gensalt())) } { salonChange => Some((Option(salonChange._1), ("", ""))) })
 
-  //店铺信息管理Form
+  //沙龙信息管理Form
   val salonInfoForm: Form[Salon] = Form(
     mapping(
       "salonAccount" -> mapping(
@@ -135,6 +135,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
       })
 
+  //图片更新Form
   val salonPicsForm: Form[SalonPics] = Form(
     mapping(
       "salonPics" -> list(
@@ -149,7 +150,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
           }))(SalonPics.apply)(SalonPics.unapply))
 
   /**
-   * 店铺登录
+   * 沙龙登录
+   * @return
    */
   def salonLogin = Action.async { implicit request =>
     salonLoginForm.bindFromRequest.fold(
@@ -158,7 +160,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 退出登录
+   * 沙龙退出
+   * @return
    */
   def salonLogout = Action.async { implicit request =>
     gotoLogoutSucceeded.map(_.flashing(
@@ -166,8 +169,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺基本信息显示
-   *
+   * 沙龙情报显示页面
+   * @return
    */
   def salonInfoBasic = StackAction(AuthorityKey -> authImproveInfo _) { implicit request =>
     val salon = loggedIn
@@ -176,7 +179,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 注册信息管理页面
+   * 沙龙注册信息管理页面
+   * @return
    */
   def salonRegister = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -186,7 +190,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 基本信息管理页面
+   *基本信息管理页面
+   * @return
    */
   def salonBasic = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -197,6 +202,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
 
   /**
    * 详细信息管理页面
+   * @return
    */
   def salonDetail = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -206,7 +212,9 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺基详细信息处理
+   * 沙龙详细信息更新
+   * @param id 登录的沙龙id
+   * @return
    */
   def salonDetailUpdate(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -221,9 +229,11 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺基本信息处理
+   * 沙龙基本信息更新
+   * @param id 登录的沙龙id
+   * @return
    */
-  def salonbasicUpdate(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+  def salonBasicUpdate(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
     val industry = Industry.findAll.toList
     salonInfoForm.bindFromRequest.fold(
@@ -236,7 +246,9 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺注册信息处理
+   * 沙龙注册信息更新
+   * @param id
+   * @return
    */
   def salonRegisterUpdate(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -251,7 +263,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 密码修改页面
+   * 沙龙密码修改页面
+   * @return
    */
   def password = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -260,7 +273,9 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 密码修改
+   * 沙龙密码修改处理
+   * @param accountId
+   * @return
    */
   def salonChangePassword(accountId: String) = StackAction(AuthorityKey -> Salon.isOwner(accountId) _) { implicit request =>
     val salon = loggedIn
@@ -274,7 +289,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺Logo更新页面
+   * 沙龙头像(LOGO)更新页面
+   * @return
    */
   def addImage = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -282,7 +298,9 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺图片保存
+   * 沙龙头像(LOGO)更新
+   * @param imgId
+   * @return
    */
   def saveSalonImg(imgId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -291,7 +309,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺图片上传
+   * 沙龙头像上传
+   * @return
    */
   def imageUpload = StackAction(parse.multipartFormData, AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -602,7 +621,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 注册信息完善check页面
+   * 沙龙信息是否完善检查页面
+   * @return
    */
   def checkInfoState = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -614,7 +634,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 无权限时跳转页面
+   * 信息不完善跳转页面
+   * @return
    */
   def checkAuth = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -622,7 +643,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺LOGO上传页面
+   * 沙龙头像上传页面
+   * @return
    */
   def salonLogoPicture = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -631,7 +653,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺LOGO图片更新
+   * 沙龙头像上传
+   * @return
    */
   def updateLogoPicture = StackAction(parse.multipartFormData, AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -650,7 +673,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
 
 
   /**
-   * 店铺展示图片上传页面
+   * 沙龙展示图片上传页面
+   * @return
    */
   def salonShowPicture = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -660,7 +684,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺展示图片更新
+   * 沙龙展示图片更新
+   * @return
    */
   def updateShowPicture = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -676,7 +701,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
 
 
   /**
-   * 店铺环境图片上传页面
+   * 沙龙环境图片上传页面
+   * @return
    */
   def salonAtmoPicture = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -686,7 +712,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺环境图片更新
+   * 沙龙环境图片更新
+   * @return
    */
   def updateAtmoPicture = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -701,7 +728,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺营业执照图片上传页面
+   * 沙龙营业执照图片上传页面
+   * @return
    */
   def salonCheckPicture = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -711,7 +739,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
   }
 
   /**
-   * 店铺营业执照图片更新
+   * 沙龙营业执照更新
+   * @return
    */
   def updateCheckPicture  = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
