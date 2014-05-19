@@ -1,49 +1,49 @@
 @(user: Option[User])
 
 <div id="index_member">
-    <a href="@auth.routes.Users.myPage"><h2></h2></a>
-    <div id="index_member_nr">
-    <p class="ad">
-    @Messages("point.policyCond")</br>
-    <span style="font-size:16px">@Messages("point.policies", "2%")</span>    
-    </p>
-    <p class="fk">
-        @user match {
-                      case None => {@Messages("user.welcome", Messages("user.guestName"))}
-                      case Some(user) => {<a href="@auth.routes.Users.myPage">@Messages("user.welcome", user.nickName)</a>}
-                    }
-        </p>
-        @user match {
-                    case None => {
-                     <p class="hydl">
-                     <a href="@routes.Application.login" class="loginBtn">
-                       <span>@Messages("common.userLogin")</span>
-                     </a>
-                     </p>
-                    }
-                    case Some(user) =>{
-                      <div class="grayPointBodyHead y4S mT8">
-                        <div class="grayPointBody y4S taC">
-                          <p class="fs10 pB5">@Messages("user.availablePoint")</p>
-                        </div>
-                        <div class="usePointBodyBox y4S">
-                          <div class="usePointBody y4S taC">
-                            <p class="b"><span>@user.point</span>@Messages("user.point")</p>
-                          </div>
-                        </div>
-                      </div>
-                    }
-                  }
-    <ul>
-        @user match {
-                    case None => {<li><a href="@routes.Application.register" class="link-green">@Messages("user.pleaseSignUp")</a></li>}
-                    case Some(user) => {<li><a href="@auth.routes.Users.logout" class="link-green">@Messages("user.loginOut")</a></li>}
-                    }
-      <li><a href="#" class="link-green">@Messages("point.scoreRules")</a></li>
-      <li><a href="#" class="link-green">@Messages("point.howToUse")</a></li>
-      <li><a href="#" class="link-green">@Messages("point.promotions")</a></li>
-    </ul>
-    </div>
-    <div id="index_member_bottom"></div>
+  <a href="@auth.routes.Users.myPage"><h2></h2></a>
+  <div id="index_member_nr">
+  <p class="ad">
+  @Messages("point.policyCond")</br>
+  <span style="font-size:16px">@Messages("point.policies", "2%")</span>
+  </p>
+  <p class="fk">
+    @user match {
+      case None => {@Messages("user.welcome", Messages("user.guestName"))}
+      case Some(user) => {<a href="@auth.routes.Users.myPage">@Messages("user.welcome", user.nickName)</a>}
+    }
+  </p>
+  @user match {
+    case None => {
+      <p class="hydl">
+        <a href="@routes.Application.login" class="loginBtn">
+        <span>@Messages("common.userLogin")</span>
+        </a>
+      </p>
+    }
+    case Some(user) =>{
+      <div class="grayPointBodyHead y4S mT8">
+        <div class="grayPointBody y4S taC">
+          <p class="fs10 pB5">@Messages("user.availablePoint")</p>
+        </div>
+        <div class="usePointBodyBox y4S">
+          <div class="usePointBody y4S taC">
+            <p class="b"><span>@user.point</span>@Messages("user.point")</p>
+          </div>
+        </div>
+      </div>
+    }
+  }
+  <ul>
+    @user match {
+      case None => {<li><a href="@routes.Application.register" class="link-green">@Messages("user.pleaseSignUp")</a></li>}
+      case Some(user) => {<li><a href="@auth.routes.Users.logout" class="link-green">@Messages("user.loginOut")</a></li>}
+    }
+    <li><a href="#" class="link-green">@Messages("point.scoreRules")</a></li>
+    <li><a href="#" class="link-green">@Messages("point.howToUse")</a></li>
+    <li><a href="#" class="link-green">@Messages("point.promotions")</a></li>
+  </ul>
   </div>
+  <div id="index_member_bottom"></div>
+</div>
 
