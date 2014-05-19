@@ -207,7 +207,7 @@ GET         /mySalon/checkAuth                                              	 co
 
 GET         /salonBasic                                                          controllers.auth.Salons.salonBasic
 GET         /salonDetail                                                         controllers.auth.Salons.salonDetail
-POST        /salonbasicUpdate/:id                                                controllers.auth.Salons.salonbasicUpdate(id:ObjectId)
+POST        /salonbasicUpdate/:id                                                controllers.auth.Salons.salonBasicUpdate(id:ObjectId)
 POST        /salonDetailUpdate/:id                                               controllers.auth.Salons.salonDetailUpdate(id:ObjectId)
 POST        /changeSalonPassword                                                 controllers.auth.Salons.salonChangePassword(accountId : String)
 
@@ -285,7 +285,11 @@ GET         /s/resetPwd                                                         
 POST        /s/resetPwd                                                          controllers.Mails.resetPasswordOfSalon(uuid : String)
 
 #add salonPics 
-POST        /mySalon/updatepictures                                              controllers.auth.Salons.updateSalonPics
+POST        /mySalon/updateShowPictures                                          controllers.auth.Salons.updateShowPicture
+POST        /mySalon/updateAtomPictures                                          controllers.auth.Salons.updateAtmoPicture
+POST        /mySalon/updateLOGOpictures                                          controllers.auth.Salons.updateLogoPicture
+POST        /mySalon/updateCheckPictures                                         controllers.auth.Salons.updateCheckPicture
+
 
 # Reservation add by sangsang-hu
 GET         /salon/reserve/salonId=:salonId&couponId=:couponId&week=:week        controllers.Reservations.reservShowDate(salonId: ObjectId, couponId: ObjectId, week: Int)

@@ -33,16 +33,35 @@ import org.mindrot.jbcrypt.BCrypt
 import scala.util.matching.Regex
 import com.meifannet.framework.db._
 
-/*
+/**
  * Main Class: Salon.
-*/
+ *
+ * @param id                      ObjectId of salon in mongodb.
+ * @param salonAccount          loginId and password for salon.
+ * @param salonName             use for display.
+ * @param salonNameAbbr
+ * @param salonIndustry        Ref to Master [Industry] table.
+ * @param homepage
+ * @param salonDescription     description for salon.
+ * @param picDescription       description for salonFirstPage.
+ * @param contactMethod        phoneNumber and contact person of salon.
+ * @param optContactMethods   Ref to Master [OptContactMethods] table.
+ * @param establishDate
+ * @param salonAddress
+ * @param workTime             openTime and closeTime for salon.
+ * @param restDays
+ * @param seatNums
+ * @param salonFacilities     Ref to Master [SalonFacilities] table.
+ * @param salonPics            Ref to Master [OnUsePicture] table.
+ * @param registerDate
+ */
 
 case class Salon(
   id: ObjectId = new ObjectId,
   salonAccount: SalonAccount,
   salonName: String,
   salonNameAbbr: Option[String],
-  salonIndustry: List[String], // Ref to Master [Industry] table.           
+  salonIndustry: List[String],
   homepage: Option[String],
   salonDescription: Option[String],
   picDescription: Option[PicDescription],
@@ -61,22 +80,31 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   val dao = new MeifanNetDAO[Salon](collection = loadCollection()) {}
 
-  //// Indexes
-  //  collection.ensureIndex(DBObject("accountId" -> 1), "userId", unique = true)
-
+  /**
+   * 根据accountId查找沙龙
+   * @param salonAccountId accountId是该沙龙的用户名
+   * @return
+   */
   def findByAccountId(salonAccountId: String): Option[Salon] = {
     dao.findOne(MongoDBObject("salonAccount.accountId" -> salonAccountId))
   }
 
   /**
-   *  根据accoutId和邮箱查看是否有该店铺
+   * 根据accoutId和邮箱查看是否有该店铺
+   * @param salonAccountId
+   * @param salonEmail
+   * @return
    */
   def findOneByAccountIdAndEmail(salonAccountId: String, salonEmail: String) = {
     dao.findOne(MongoDBObject("salonAccount.accountId" -> salonAccountId, "contactMethod.email" -> salonEmail))
   }
 
+  /**
+   * 登录时，用户名和密码一致性检查
+   * @param salonAccount
+   * @return
+   */
   def loginCheck(salonAccount: SalonAccount): Option[Salon] = {
-    //        SalonDAO.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId,"salonAccount.password" -> salonAccount.password))
     val salon = dao.findOne(MongoDBObject("salonAccount.accountId" -> salonAccount.accountId))
     if (salon.nonEmpty && BCrypt.checkpw(salonAccount.password, salon.get.salonAccount.password)) {
       return salon
@@ -85,18 +113,38 @@ object Salon extends MeifanNetModelCompanion[Salon] {
     }
   }
 
+  /**
+   * 根据沙龙名称查找沙龙
+   * @param salonName
+   * @return
+   */
   def findOneBySalonName(salonName: String): Option[Salon] = {
     dao.findOne(MongoDBObject("salonName" -> salonName))
   }
 
+  /**
+   * 根据沙龙简称查找沙龙
+   * @param salonNameAbbr
+   * @return
+   */
   def findOneBySalonNameAbbr(salonNameAbbr: String): Option[Salon] = {
     dao.findOne(MongoDBObject("salonNameAbbr" -> salonNameAbbr))
   }
 
+  /**
+   * 根据沙龙邮箱查找沙龙
+   * @param email
+   * @return
+   */
   def findOneByEmail(email: String): Option[Salon] = {
     dao.findOne(MongoDBObject("contactMethod.email" -> email))
   }
 
+  /**
+   * 根据沙龙联系电话查找沙龙
+   * @param phone
+   * @return
+   */
   def findOneByMainPhone(phone: String): Option[Salon] = {
     dao.findOne(MongoDBObject("contactMethod.mainPhone" -> phone))
   }
@@ -161,26 +209,38 @@ object Salon extends MeifanNetModelCompanion[Salon] {
     Service.getLowestPriceOfSrvType(salonId, cutSrvKey)
   }
 
+  /**
+   * 沙龙头像（LOGO）更新
+   * @param salon
+   * @param imgId
+   * @return
+   */
   def updateSalonLogo(salon: Salon, imgId: ObjectId) = {
     dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "LOGO"),
       MongoDBObject("$set" -> (MongoDBObject("salonPics.$.fileObjId" -> imgId))), false, true)
   }
 
   /**
-   * Temp Method for initial sample data in Global.scala.
+   * 初始化数据（Global中沙龙展示图片上传）
+   * @param salon
+   * @param imgIdList
+   * @return
    */
   def updateSalonShow(salon: Salon, imgIdList: List[ObjectId]) = {
 
+    //第三张图片上传调用
     if (imgIdList.length > 2 && !salon.salonPics.isEmpty && salon.salonPics.length > 3) {
       dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate", "salonPics.fileObjId" -> salon.salonPics(3).fileObjId),
         MongoDBObject("$set" -> (MongoDBObject("salonPics.$.fileObjId" -> imgIdList(2)))), false, true)
     }
 
+    //第二张图片上传调用
     if (imgIdList.length > 1 && !salon.salonPics.isEmpty && salon.salonPics.length > 2) {
       dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate", "salonPics.fileObjId" -> salon.salonPics(2).fileObjId),
         MongoDBObject("$set" -> (MongoDBObject("salonPics.$.fileObjId" -> imgIdList(1)))), false, true)
     }
 
+    //第一张图片上传调用
     if (imgIdList.length > 0 && !salon.salonPics.isEmpty && salon.salonPics.length > 1) {
       dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Navigate", "salonPics.fileObjId" -> salon.salonPics(1).fileObjId),
         MongoDBObject("$set" -> (MongoDBObject("salonPics.$.fileObjId" -> imgIdList(0)))), false, true)
@@ -189,20 +249,26 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   }
 
   /**
-   * Temp Method for initial sample data in Global.scala.
+   * 初始化数据（Global中沙龙环境图片上传）
+   * @param salon
+   * @param imgIdList
+   * @return
    */
   def updateSalonAtom(salon: Salon, imgIdList: List[ObjectId]) = {
 
+    //第三张图片上传调用
     if (imgIdList.length > 2 && !salon.salonPics.isEmpty && salon.salonPics.length > 6) {
       dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Atmosphere", "salonPics.fileObjId" -> salon.salonPics(6).fileObjId),
         MongoDBObject("$set" -> (MongoDBObject("salonPics.$.fileObjId" -> imgIdList(2)))), false, true)
     }
 
+    //第二张图片上传调用
     if (imgIdList.length > 1 && !salon.salonPics.isEmpty && salon.salonPics.length > 5) {
       dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Atmosphere", "salonPics.fileObjId" -> salon.salonPics(5).fileObjId),
         MongoDBObject("$set" -> (MongoDBObject("salonPics.$.fileObjId" -> imgIdList(1)))), false, true)
     }
 
+    //第一张图片上传调用
     if (imgIdList.length > 0 && !salon.salonPics.isEmpty && salon.salonPics.length > 4) {
       dao.update(MongoDBObject("_id" -> salon.id, "salonPics.picUse" -> "Atmosphere", "salonPics.fileObjId" -> salon.salonPics(4).fileObjId),
         MongoDBObject("$set" -> (MongoDBObject("salonPics.$.fileObjId" -> imgIdList(0)))), false, true)
@@ -211,7 +277,10 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   }
 
   /**
-   * 查看基本信息是否填写
+   * 沙龙基本信息是否完善检查
+   * 检查字段：沙龙检查、沙龙简介、沙龙休息日、沙龙营业时间、沙龙成立日期、沙龙地址
+   * @param salon
+   * @return
    */
   def checkBasicInfoIsFill(salon: Salon): Boolean = {
     salon.salonNameAbbr.nonEmpty && salon.salonDescription.nonEmpty &&
@@ -220,7 +289,10 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   }
 
   /**
-   * 查看详细基本信息是否填写
+   * 沙龙详细信息是否完善检查
+   * 检查字段:沙龙席位、沙龙描述
+   * @param salon
+   * @return
    */
   def checkDetailIsFill(salon: Salon): Boolean = {
     salon.seatNums.nonEmpty &&
@@ -229,7 +301,10 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   }
 
   /**
-   * 查看是否有店铺图片
+   * 沙龙图片是否完善
+   * 检查字段：沙龙展示图片、沙龙环境图片、沙龙营业执照
+   * @param salon
+   * @return
    */
   def checkImgIsExist(salon: Salon): Boolean = {
     salon.salonPics.exists(a => a.picUse.equals("Navigate")) && salon.salonPics.exists(a => a.picUse.equals("Atmosphere")) &&
@@ -239,6 +314,9 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   /**
    * 权限认证
    * 用于判断accountId是否为当前店铺
+   * @param accountId
+   * @param salon
+   * @return
    */
   def isOwner(accountId: String)(salon: Salon): Future[Boolean] = Future { Salon.findByAccountId(accountId).map(_ == salon).get }
 
@@ -657,7 +735,15 @@ object Salon extends MeifanNetModelCompanion[Salon] {
  -----------------------------*/
 
 /**
- * Embed Structure.
+ * 沙龙地址（内嵌于沙龙主表）
+ * @param province
+ * @param city
+ * @param region
+ * @param town
+ * @param addrDetail
+ * @param longitude
+ * @param latitude
+ * @param accessMethodDesc
  */
 case class Address(
   province: String,
@@ -670,7 +756,17 @@ case class Address(
   accessMethodDesc: String)
 
 /**
- * Embed Structure.
+ * 沙龙功能支持（内嵌于沙龙主表）
+ * @param canOnlineOrder
+ * @param canImmediatelyOrder
+ * @param canNominateOrder
+ * @param canCurntDayOrder
+ * @param canMaleUse
+ * @param isPointAvailable
+ * @param isPosAvailable
+ * @param isWifiAvailable
+ * @param hasParkingNearby
+ * @param parkingDesc
  */
 case class SalonFacilities(
   canOnlineOrder: Boolean,
@@ -689,28 +785,37 @@ object SalonFacilities extends MeifanNetModelCompanion[SalonFacilities] {
 }
 
 /**
- * Embed Structure.
+ * 沙龙营业时间（内嵌于沙龙主表）
+ * @param openTime
+ * @param closeTime
  */
 case class WorkTime(
   openTime: String,
   closeTime: String)
 
 /**
- * Embed Structure.
+ * 沙龙休息日（内嵌于沙龙主表)
+ * @param restWay
+ * @param restDay
  */
 case class RestDay(
   restWay: String,
   restDay: List[String])
 
 /**
- * Embed Structure.
+ * 沙龙登录信息（内嵌于沙龙主表）
+ * @param accountId
+ * @param password
  */
 case class SalonAccount(
   accountId: String,
   password: String)
 
 /**
- * Embed Structure.
+ * 沙龙描述（内嵌于沙龙主表）
+ * @param picTitle
+ * @param picContent
+ * @param picFoot
  */
 case class PicDescription(
   picTitle: String,
@@ -718,12 +823,19 @@ case class PicDescription(
   picFoot: String)
 
 /**
- * Embed Structure.
+ * 沙龙主要联系方式（内嵌于沙龙主表）
+ * @param mainPhone
+ * @param contact
+ * @param email
  */
 case class Contact(
   mainPhone: String,
   contact: String,
   email: String)
 
+/**
+ * 沙龙图片（内嵌于沙龙主表）
+ * @param salonPics
+ */
 case class SalonPics(
   salonPics: List[OnUsePicture])
