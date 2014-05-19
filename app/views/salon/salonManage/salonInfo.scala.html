@@ -67,7 +67,7 @@
         </td>
       </tr>
       <tr>
-        <th class="w120"> @Messages("salon.isPosAvailable") </th>
+        <th class="w120"> @Messages("salon.canPosAvailable") </th>
         <td colspan="3" class="w620">
           @if(salon.salonFacilities.map(fac=>fac.isPosAvailable).getOrElse(None)) {@Messages("salon.posAvailable")} else {@Messages("salon.posNotAvailable")}
         </td>
