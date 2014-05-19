@@ -13,16 +13,17 @@
                       case Some(user) => {<a href="@auth.routes.Users.myPage">@Messages("user.welcome", user.nickName)</a>}
                     }
         </p>
-    <p class="hydl">
-         @user match {
+        @user match {
                     case None => {
+                     <p class="hydl">
                      <a href="@routes.Application.login" class="loginBtn">
                        <span>@Messages("common.userLogin")</span>
-                     </a>  
+                     </a>
+                     </p>
                     }
                     case Some(user) =>{
                       <div class="grayPointBodyHead y4S mT8">
-                          <div class="grayPointBody y4S taC">
+                        <div class="grayPointBody y4S taC">
                           <p class="fs10 pB5">@Messages("user.availablePoint")</p>
                         </div>
                         <div class="usePointBodyBox y4S">
@@ -33,7 +34,6 @@
                       </div>
                     }
                   }
-        </p>
     <ul>
         @user match {
                     case None => {<li><a href="@routes.Application.register" class="link-green">@Messages("user.pleaseSignUp")</a></li>}
