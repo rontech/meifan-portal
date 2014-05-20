@@ -36,34 +36,47 @@ object SalonStylistApplyRecord extends MeifanNetModelCompanion[SalonStylistApply
   val dao = new MeifanNetDAO[SalonStylistApplyRecord](collection = loadCollection()) {}
 
   /**
-   *  根据店铺id查找申请中的技师
+   * 根据店铺id查找申请中的技师
+   * @param salonId
+   * @return List of apply record
    */
   def findApplyingStylist(salonId: ObjectId): List[SalonStylistApplyRecord] = {
     dao.find(MongoDBObject("salonId" -> salonId, "applyType" -> 1, "verifiedResult" -> 0)).toList
   }
 
   /**
-   *  根据技师id查找该申请中的记录
+   * 根据技师id查找该申请中的记录
+   * @param stylistId
+   * @return a apply record
    */
   def findOneStylistApRd(stylistId: ObjectId): Option[SalonStylistApplyRecord] = {
     dao.findOne(MongoDBObject("stylistId" -> stylistId, "applyType" -> 1, "verifiedResult" -> 0))
   }
 
   /**
-   *  根据salonId,stylistId查找某个技师被某店铺邀请的记录
+   * 根据salonId,stylistId查找某个技师被某店铺邀请的记录
+   * @param salonId
+   * @param stylistId
+   * @return a option record
    */
   def findOneSalonApRd(salonId: ObjectId, stylistId: ObjectId): Option[SalonStylistApplyRecord] = {
     dao.findOne(MongoDBObject("salonId" -> salonId, "stylistId" -> stylistId, "applyType" -> 2, "verifiedResult" -> 0))
   }
+
   /**
-   *  根据店铺id查找申请中的技师个数
+   * cost current apply record from stylist in salon
+   * @param salonId
+   * @return
    */
   def applingStylistCount(salonId: ObjectId): Long = {
     dao.count(MongoDBObject("salonId" -> salonId, "applyType" -> 1, "verifiedResult" -> 0))
   }
 
   /**
-   *  查看店铺是否已经申请过此技师
+   * check salon had apply stylist this current
+   * @param salonId
+   * @param stylistId
+   * @return true or false
    */
   def checkSalonApplyStylist(salonId: ObjectId, stylistId: ObjectId): Boolean = {
     val record = dao.findOne(MongoDBObject("salonId" -> salonId, "stylistId" -> stylistId, "verifiedResult" -> 0))
@@ -74,7 +87,9 @@ object SalonStylistApplyRecord extends MeifanNetModelCompanion[SalonStylistApply
   }
 
   /**
-   *  查看技师当前有无申请
+   * check whether stylist had apply, because we limit his apply number
+   * @param stylistId
+   * @return
    */
   def checkStylistApply(stylistId: ObjectId): Boolean = {
     val record = dao.findOne(MongoDBObject("stylistId" -> stylistId, "applyType" -> 1, "verifiedResult" -> 0))
@@ -85,15 +100,17 @@ object SalonStylistApplyRecord extends MeifanNetModelCompanion[SalonStylistApply
   }
 
   /**
-   *  根据技师id查找申请中的店铺
+   * stylist find a apply from salon by stylistId
+   * @param stylistId
+   * @return List of tuple contains salon and apply record id
    */
-  def findApplingSalon(stylistId: ObjectId): List[Salon] = {
-    var salons: List[Salon] = Nil
+  def findApplingSalon(stylistId: ObjectId): List[(Salon, ObjectId)] = {
+    var salons: List[(Salon, ObjectId)] = Nil
     val records = dao.find(MongoDBObject("stylistId" -> stylistId, "applyType" -> 2, "verifiedResult" -> 0)).toList
     records.map { re =>
       val salon = Salon.findOneById(re.salonId)
       salon match {
-        case Some(s) => salons :::= List(s)
+        case Some(s) => salons :::= List((s,re.id))
         case None => None
       }
     }
@@ -101,26 +118,59 @@ object SalonStylistApplyRecord extends MeifanNetModelCompanion[SalonStylistApply
   }
 
   /**
-   *  根据技师id查找申请中的店铺个数
+   * cost my applying numbers by stylistId
+   * @param stylistId
+   * @return
    */
   def applingSalonCount(stylistId: ObjectId): Long = {
     dao.count(MongoDBObject("stylistId" -> stylistId, "applyType" -> 2, "verifiedResult" -> 0))
   }
 
   /**
-   *  同意技师或者店铺申请
+   * 将申请记录的验证结果改为‘1’，为批准状态
+   * 验证日期为当前日期
    */
-  def agreeStylistApply(record: SalonStylistApplyRecord) = {
+  def agreeApply(record: SalonStylistApplyRecord) = {
     dao.update(MongoDBObject("_id" -> record.id), MongoDBObject("$set" -> (MongoDBObject("verifiedResult" -> 1) ++
       MongoDBObject("verifiedDate" -> Option(new Date)))))
   }
 
   /**
-   *  拒绝技师或者店铺申请
+   * 将申请记录的验证结果改为‘2’，为拒绝状态
+   * 验证日期改为当前的日期
+   * @param record - 申请记录
    */
-  def rejectStylistApply(record: SalonStylistApplyRecord) = {
+  def rejectApply(record: SalonStylistApplyRecord) = {
     dao.update(MongoDBObject("_id" -> record.id), MongoDBObject("$set" -> (MongoDBObject("verifiedResult" -> 2) ++
       MongoDBObject("verifiedDate" -> Option(new Date)))))
   }
 
+  /**
+   * 计算店铺邀请技师的个数
+   * @param salonId - 店铺ID
+   * @return 返回总计个数，类型为Long
+   */
+  def costSalonInvited(salonId: ObjectId): Long = {
+    dao.count(MongoDBObject("salonId" -> salonId, "applyType" -> 2, "verifiedResult" -> 0))
+  }
+
+  /**
+   * 店铺根据自己的id查找正在邀请中的记录
+   * @param salonId - 店铺ID
+   * @return 返回申请履历的集合
+   */
+  def findSalonInvited(salonId: ObjectId): List[SalonStylistApplyRecord] = {
+    dao.find(MongoDBObject("salonId" -> salonId, "applyType" -> 2, "verifiedResult" -> 0)).toList
+  }
+
+  /**
+   * 店铺根据申请记录的id取消对某个技师的邀请
+   * verifiedResult -> 3 为取消状态
+   * @param applyRecordId - 申请记录ID
+   * @return Unit
+   */
+  def cancelSalonInvited(applyRecordId: ObjectId) = {
+    dao.update(MongoDBObject("_id" -> applyRecordId), MongoDBObject("$set" -> (MongoDBObject("verifiedResult" -> 3) ++
+      MongoDBObject("verifiedDate" -> Option(new Date)))))
+  }
 }

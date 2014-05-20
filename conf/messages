@@ -262,6 +262,7 @@ salonAdmin.overtimeRsv = 已过期
 salonAdmin.expireRsv = 即将到期
 salonAdmin.remindApply = 申请提示：
 salonAdmin.fromStylistApply = 来自技师申请
+salonAdmin.InvitedStylist = 邀请的技师
 salonAdmin.infoManagement = 信息管理
 salonAdmin.stylistManagement = 技师管理
 salonAdmin.reserveManagement = 预约管理
@@ -282,7 +283,8 @@ salonAdmin.checkState = 我的动态
 salonAdmin.admin = 店铺
 salonAdmin.ApplyOperateResult = 抱歉该申请不存在或已被本人取消，将在
 salonAdmin.ApplyOperateAction = s后自动跳转，点击
-salonAdmin.ApplyOperateGo = 跳转 
+salonAdmin.ApplyOperateGo = 跳转\
+salonAdmin.cancelInvite = 取消邀请
 stylistAdmin.selectField = 选填，不得超过150字
 salonSearchStylist.haveInvite = 当前该技师已处于被您邀请状态，请耐心等待答复
 
@@ -903,6 +905,7 @@ position.positionName.ChiefStylist = 首席发型师
 position.positionName.AdvancedStylist = 高级发型师
 position.positionName.Stylist = 发型师 
 position.positionName.Assistant = 助手
+position.positionName.AdvancedAssistant = 高级助手
 
 #StyleImpression
 style.styleImpression.natural = 自然
