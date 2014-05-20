@@ -42,7 +42,7 @@ import com.meifannet.framework.db._
 object Application extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
   /**
-   * for ajax
+   * Add routes for ajax
    * @return
    */
   def javascriptRoutes = Action { implicit request =>
@@ -52,9 +52,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
       auth.routes.javascript.Stylists.itemIsExist,
       auth.routes.javascript.Salons.itemIsExist,
       noAuth.routes.javascript.Users.checkIsExist,
-      auth.routes.javascript.MyFollows.followedCoupon,
-      auth.routes.javascript.MyFollows.followedBlog,
-      auth.routes.javascript.MyFollows.followedStyle)).as("text/javascript")
+      auth.routes.javascript.MyFollows.followedCoupon)).as("text/javascript")
   }
 
   def index = StackAction { implicit request =>
@@ -78,32 +76,6 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     val industry = Industry.findAll.toList
     Ok(views.html.salon.salonManage.salonRegister(Salons.salonRegister, industry))
   }
-
-  /*def itemIsExist(value:String, key:String, accountId :String) = Action {
-    //Redirect(auth.routes.Users.checkIsExist(value, key))
-    /*val loggedUser = User.findOneByUserId(accountId)
-    val loggedSalon = Salon.findByAccountId(accountId)
-      key match{
-        case ITEM_TYPE_ID =>
-          Ok((User.isExist(value, User.findOneByUserId)||Salon.isExist(value, Salon.findByAccountId)).toString)
-        case ITEM_TYPE_NAME =>
-        if(User.isValid(value, loggedUser, User.findOneByNickNm)){
-          Ok((Salon.isExist(value,Salon.findOneBySalonName)||Salon.isExist(value,Salon.findOneBySalonNameAbbr)).toString)
-        }else{
-          Ok("true")
-        }
-        case ITEM_TYPE_NAME_ABBR =>
-          if(User.isExist(value,User.findOneByNickNm)){
-            Ok("true")
-          }else{
-            Ok((!Salon.isValid(value, loggedSalon, Salon.findOneBySalonName) || !Salon.isValid(value, loggedSalon, Salon.findOneBySalonNameAbbr)).toString)
-          }
-        case ITEM_TYPE_EMAIL =>
-          Ok((!User.isValid(value, loggedUser, User.findOneByEmail)).toString)
-        case ITEM_TYPE_TEL =>
-          Ok((!User.isValid(value, loggedUser, User.findOneByTel)).toString)
-      }*/
-  }*/
 
   def getPhoto(file: ObjectId) = Action {
 
@@ -152,6 +124,10 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     }
   }
 
+  /**
+   * 根据表单中的尺寸对上传的图片文件剪切、保存至数据库，并将图片的ObjectId保存至用户信息表中
+   * @return
+   */
   def changeLogo = Action(parse.multipartFormData) { implicit request =>
     request.body.file("photo").map { photo =>
       imgForm.bindFromRequest.fold(
@@ -229,6 +205,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
 
   }
 
+  //用于存储图片剪切的尺寸
   val imgForm: Form[ImgForCrop] = Form(
     mapping(
       "x1" -> bigDecimal,
