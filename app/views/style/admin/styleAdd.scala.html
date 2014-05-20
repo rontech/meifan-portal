@@ -54,7 +54,7 @@
               <div class="demo">
                 <div class="logoupload">
                   <div class="btnbox">
-                    @Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
+                    @Messages("onUsePicture.selectImge")&nbsp;@Messages("hair.onUsePicture.limit")
                     <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImage")</a>
                   </div>
                   
@@ -373,12 +373,11 @@
       field("showPriority"), 
       '_label -> "showPriority", 'class -> "imgShowPriority"
     )
-    @textarea(
+    @Messages("hair.addStylePicDescription")
+    @select(
       field("description"),
-      'rows -> 2, 'cols -> 15, 
-      'placeholder -> Messages("hair.picturedescription"), 'class -> "imagesDescriptionfelid"
+      options(stylePara.styleDescrption)
     )
-    
   </div>
   }
   <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
@@ -486,7 +485,7 @@
         file_size_limit : "2 MB",// 文件大小限制
         file_types : "*.jpg;*.gif;*.png;*.jpeg;",// 限制文件类型
         file_types_description : "Image Files",// 说明，自己定义
-        file_upload_limit : 5,
+        file_upload_limit : 3,
         file_queue_limit : 0,
         custom_settings : {},
         debug: false,
@@ -552,10 +551,9 @@
           successAction(fileInfo);
         },
         upload_error_handler : function(file, errorCode, message) {
-          alert(file);
-          alert(errorCode);
-          alert(message);
-          alert('上传发生了错误！');
+          if(errorCode == -240) {
+            alert('请按要求上传图片');
+          }
         },
         file_queue_error_handler : function(file, errorCode, message) {
           if(errorCode == -110) {

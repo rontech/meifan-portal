@@ -143,6 +143,18 @@ object Sex extends MeifanNetModelCompanion[Sex] {
 }
 
 /**
+ * The table of styleDescrption
+ */
+case class StyleDescrption(
+  id: ObjectId = new ObjectId,
+  styleDescrption: String,
+  description: String)
+
+object StyleDescrption extends MeifanNetModelCompanion[StyleDescrption] {
+  val dao = new MeifanNetDAO[StyleDescrption](collection = loadCollection()) {}
+}
+
+/**
  * The table of searchByLengthForF
  */
 case class SearchByLengthForF(

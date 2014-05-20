@@ -45,7 +45,8 @@ case class StylePara(
   faceShape: List[String],
   consumerAgeGroup: List[String],
   consumerSex: List[String],
-  consumerSocialStatus: List[String])
+  consumerSocialStatus: List[String],
+  styleDescrption: List[String])
 
 case class StyleAndSalon(
   style: Style,
@@ -461,7 +462,12 @@ object Style extends MeifanNetModelCompanion[Style] {
     paraConsumerSocialStatus.map { para =>
       paraConsumerSocialStatuss :::= List(para.socialStatus)
     }
-    val styleList = new StylePara(paraStyleImpressions, paraServiceTypes, paraStyleLengths, paraStyleColors, paraStyleAmounts, paraStyleQualitys, paraStyleDiameters, paraFaceShapes, paraConsumerAgeGroups, paraConsumerSexs, paraConsumerSocialStatuss)
+    val paraStyleDescrption = StyleDescrption.findAll().toList
+    var paraStyleDescrptions: List[String] = Nil
+    paraStyleDescrption.map { para =>
+      paraStyleDescrptions :::= List(para.styleDescrption)
+    }
+    val styleList = new StylePara(paraStyleImpressions, paraServiceTypes, paraStyleLengths, paraStyleColors, paraStyleAmounts, paraStyleQualitys, paraStyleDiameters, paraFaceShapes, paraConsumerAgeGroups, paraConsumerSexs, paraConsumerSocialStatuss, paraStyleDescrptions)
     styleList
   }
 
