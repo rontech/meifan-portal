@@ -477,7 +477,6 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
    * @param applyRecordId - 申请履历的id
    * @return
    */
-  //TODO 同上
   def rejectStylistApply(applyRecordId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
     val record = SalonStylistApplyRecord.findOneById(applyRecordId)

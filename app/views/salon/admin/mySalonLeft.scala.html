@@ -76,23 +76,26 @@
         <ul class='clearfix'>
            <li>
            </li>
-         </ul>
-         <div class='more'>
+        </ul>
+        <div class='more'>
           <a href="@auth.routes.Salons.myStylist">@Messages("salonAdmin.myStylist")
-          (@SalonAndStylist.countStylistBySalon(salon.id))</a><br />
+            <span id="reviewCount">
+              (@SalonAndStylist.countStylistBySalon(salon.id))
+            </span>
+          </a><br />
+          <a href="@auth.routes.Salons.myInvite">
+            @Messages("salonAdmin.InvitedStylist")
+            <span id="reviewCount">
+              (@SalonStylistApplyRecord.costSalonInvited(salon.id))
+            </span>
+          </a><br />
           <a href="@auth.routes.Salons.checkHoldApply">
           @Messages("salonAdmin.fromStylistApply")
              <span id="reviewCount">
                 (@SalonStylistApplyRecord.applingStylistCount(salon.id))
              </span>
           </a><br />
-           <a href="@auth.routes.Salons.myInvite">
-             @Messages("salonAdmin.InvitedStylist")
-             <span id="reviewCount">
-               (@SalonStylistApplyRecord.costSalonInvited(salon.id))
-             </span>
-           </a>
-          </div>
+        </div>
       </div>
       <!-- 发型管理 -->                                      
       <div class='Mod Users' id='Fellows'>
