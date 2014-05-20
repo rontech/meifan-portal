@@ -56,7 +56,7 @@
               <div class="demo">
                 <div class="logoupload">
                   <div class="btnbox">
-                    @Messages("onUsePicture.selectImge")&nbsp;@Messages("onUsePicture.limit")
+                    @Messages("onUsePicture.selectImge")&nbsp;@Messages("hair.onUsePicture.limit")
                     <a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">@Messages("onUsePicture.selectImge")</a>
                   </div>
                   
@@ -319,12 +319,11 @@
         field("showPriority"), 
         '_label -> None, 'class -> "imgShowPriority"
       )
-      
-      @textarea(
-      field("description"),
-      '_label -> None,
-      'rows -> 2, 'cols -> 15, 
-      'placeholder -> Messages("hair.picturedescription"), 'class -> "imagesDescriptionfelid"
+      @Messages("hair.addStylePicDescription")
+        @select(
+          field("description"),
+          options(stylePara.styleDescrption),
+          '_label -> None,'class -> "imagesDescriptionfelid"
         )
     </div>
   </li>
@@ -416,12 +415,11 @@ $("#filePhoto").change(function() {
         $(this).parent().remove();
       });
     });
-    
   }
 
   var swfImageUpload;
   $(document).ready(function() {
-  
+    
     var settings = {
       flash_url : "@routes.Assets.at("javascripts/swfupload/swfupload.swf")",
       flash9_url : "@routes.Assets.at("javascripts/swfupload/swfupload_fp9.swf")",
@@ -430,7 +428,7 @@ $("#filePhoto").change(function() {
       file_size_limit : "2 MB",// 文件大小限制
       file_types : "*.jpg;*.gif;*.png;*.jpeg;",// 限制文件类型
       file_types_description : "Image Files",// 说明，自己定义
-      file_upload_limit : 5,
+      file_upload_limit : 3,
       file_queue_limit : 0,
       custom_settings : {},
       debug: false,
@@ -450,6 +448,7 @@ $("#filePhoto").change(function() {
       swfupload_load_failed_handler : loadFailed,
       file_queued_handler : fileQueued,
       file_dialog_complete_handler: fileDialogComplete,
+      
       upload_start_handler : function (file) {
         var $picturediv = $('.picture_error_msg');
             if($picturediv.length==1){
@@ -495,10 +494,9 @@ $("#filePhoto").change(function() {
         successAction(fileInfo);
       },
       upload_error_handler : function(file, errorCode, message) {
-        alert(file);
-        alert(errorCode);
-        alert(message);
-        alert('上传发生了错误！');
+        if(errorCode == -240) {
+          alert('请按要求上传图片');
+        }
       },
       file_queue_error_handler : function(file, errorCode, message) {
         if(errorCode == -110) {
