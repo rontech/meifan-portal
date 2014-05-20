@@ -30,6 +30,8 @@ object MyFollows extends Controller with OptionalAuthElement with UserAuthConfig
 
   /**
    * 列表显示关注的沙龙
+   * @param id 用户objectId
+   * @return
    */
   def followedSalon(id: ObjectId) = StackAction { implicit request =>
     val user = User.findOneById(id).get
@@ -43,6 +45,8 @@ object MyFollows extends Controller with OptionalAuthElement with UserAuthConfig
 
   /**
    * 列表显示关注的技师
+   * @param id 用户objectId
+   * @return
    */
   def followedStylist(id: ObjectId) = StackAction { implicit request =>
     val user = User.findOneById(id).get
@@ -56,6 +60,8 @@ object MyFollows extends Controller with OptionalAuthElement with UserAuthConfig
 
   /**
    * 列表显示关注的其他用户
+   * @param id 用户objectId
+   * @return
    */
   def followedUser(id: ObjectId) = StackAction { implicit request =>
     val user = User.findOneById(id).get
@@ -69,6 +75,8 @@ object MyFollows extends Controller with OptionalAuthElement with UserAuthConfig
 
   /**
    * 列表显示的粉丝
+   * @param id 用户objectId
+   * @return
    */
   def followers(id: ObjectId) = StackAction { implicit request =>
     val user = User.findOneById(id).get

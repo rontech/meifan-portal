@@ -30,10 +30,18 @@ object FollowTypes extends Controller {
       "id" -> ignored(id),
       "followTypeName" -> nonEmptyText)(FollowType.apply)(FollowType.unapply))
 
+  /**
+   * 跳转添加新关注类型的页面
+   * @return
+   */
   def followTypeMain = Action {
     Ok(views.html.user.addFollowType(followTypeTypeForm()))
   }
 
+  /**
+   * 添加新关注类型
+   * @return
+   */
   def addFollowType() = Action { implicit request =>
     followTypeTypeForm().bindFromRequest.fold(
       errors => BadRequest(Html(errors.toString)),

@@ -47,11 +47,15 @@ trait SalonAuthConfigImpl extends AuthConfig {
   def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) =
     Future.successful(Redirect(routes.Application.salonLogin).withSession("salon_access_uri" -> request.uri))
 
-  def authorizationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Forbidden("no permission"))
+  def authorizationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Redirect(auth.routes.Salons.checkInfoState))
 
   def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = authority(user)
 
   def isLoggedIn(user: User): Future[Boolean] = Future.successful(true)
+
+  def authImproveInfo(user: User): Future[Boolean] = Future.successful(
+    if(!Salon.checkBasicInfoIsFill(user) || !Salon.checkDetailIsFill(user) || !Salon.checkImgIsExist(user)){false}else{true}
+  )
 
   /*def authorization(permission: Permission)(user : User)(implicit ctx: ExecutionContext) = Future.successful((permission, user.permission) match {
   case ( _, "Administrator") => true

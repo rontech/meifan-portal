@@ -35,6 +35,12 @@ function fileQueued(file) {
 }
 
 function fileDialogComplete() {
+	//限制当前画面图片数量
+	var $file_upload_num = $('.delete-pic');
+    if($file_upload_num.length > 4) {
+      alert('您在这里最多只能添加3张发型图片');
+      this.cancelUpload();
+    }
 	this.startUpload();
 }
 
