@@ -134,17 +134,14 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
       })
 
   /**
-   * 前台店铺发型展示区域及发型详细信息
+   * 前台店铺所有发型展示区域
+   * @param salonId 店铺ID
+   * @return
    */
   def findBySalon(salonId: ObjectId) = StackAction { implicit request =>
     val user = loggedIn
     val salon: Option[Salon] = Salon.findOneById(salonId)
-    val stylists = Style.findStylistBySalonId(salonId)
-    var styles: List[Style] = Nil
-    stylists.map { sty =>
-      var style = Style.findByStylistId(sty.stylistId)
-      styles :::= style
-    }
+    val styles = Salon.getAllStyles(salonId)
     salon match {
       case Some(salon) => {
         Ok(html.salon.store.salonInfoStyleAll(salon = salon, styles = styles, user = user))
@@ -153,15 +150,16 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
     }
   }
 
+  /**
+   * 前台店铺发型展示区域，通过性别区分展示店铺发型
+   * @param salonId 店铺ID
+   * @param sex 性别
+   * @return
+   */
   def findBySalonAndSex(salonId: ObjectId, sex: String) = StackAction { implicit request =>
     val user = loggedIn
     val salon: Option[Salon] = Salon.findOneById(salonId)
-    val stylists = Style.findStylistBySalonId(salonId)
-    var styles: List[Style] = Nil
-    stylists.map { sty =>
-      var style = Style.findByStylistIdAndSex(sty.stylistId, sex)
-      styles :::= style
-    }
+    var styles = Style.findStylesBySalonAndSex(salonId, sex)
     salon match {
       case Some(salon) => {
         Ok(html.salon.store.salonInfoStyleAll(salon = salon, styles = styles, sex = sex, user = user))
@@ -170,6 +168,12 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
     }
   }
 
+  /**
+   * 前台店铺内页单一发型展示区域
+   * @param salonId 店铺ID
+   * @param styleId 发型ID
+   * @return
+   */
   def getStyleInfoOfSalon(salonId: ObjectId, styleId: ObjectId) = StackAction { implicit request =>
     val user = loggedIn
     val salon: Option[Salon] = Salon.findOneById(salonId)
@@ -188,13 +192,20 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
   }
 
   /**
-   * 前台发型检索
+   * 前台发型检索主页面
+   * @return
    */
   def index = StackAction { implicit request =>
     val user = loggedIn
     Ok(html.style.general.overview(styleSearchForm, Style.findParaAll, user))
   }
 
+  /**
+   * 通过发型长度和适合性别检索所有有效发型
+   * @param styleLength 发型长度
+   * @param consumerSex 发型适合性别
+   * @return
+   */
   def findByLength(styleLength: String, consumerSex: String) = StackAction { implicit request =>
     val user = loggedIn
     val styleSearchByLength: Style = Style(new ObjectId, "", new ObjectId, Nil, "", Nil, styleLength,
@@ -204,6 +215,12 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
     Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleAllInfo, Style.findParaAll, user))
   }
 
+  /**
+   * 通过发型风格和适合性别检索发型
+   * @param styleImpression 发型风格
+   * @param consumerSex 发型适合性别
+   * @return
+   */
   def findByImpression(styleImpression: String, consumerSex: String) = StackAction { implicit request =>
     val user = loggedIn
     val styleSearchByImpression: Style = Style(new ObjectId, "", new ObjectId, Nil, styleImpression,
@@ -213,6 +230,10 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
     Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByImpression), styleAllInfo, Style.findParaAll, user))
   }
 
+  /**
+   * 前台发型检索结果展示
+   * @return
+   */
   def styleSearchList = StackAction { implicit request =>
     val user = loggedIn
     styleSearchForm.bindFromRequest.fold(
@@ -226,7 +247,10 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
   }
 
   /**
-   * 前台发型Rangking内页
+   * 通过发型长度和适合性别检索Ranking排行符合要求的有效发型（通过预约次数）
+   * @param styleLength 发型长度
+   * @param consumerSex 发型适合性别
+   * @return
    */
   def findByRanking(styleLength: String, consumerSex: String) = StackAction { implicit request =>
     val user = loggedIn
@@ -234,7 +258,7 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
     if (styleLength.equals("all")) {
       stlAllInfo = Style.findByRankingAndSex(consumerSex)
     } else {
-      stlAllInfo = Style.findByRankingAndLengthForF(styleLength, consumerSex)
+      stlAllInfo = Style.findByRankingAndLenAndSex(styleLength, consumerSex)
     }
     Ok(html.style.general.styleRankingResultPage(styleSearchForm, stlAllInfo, Style.findParaAll, user))
   }

@@ -25,6 +25,9 @@ import com.meifannet.framework.db._
 
 /**
  * The table of styleLength
+ * @param id
+ * @param styleLength
+ * @param description
  */
 case class StyleLength(
   id: ObjectId = new ObjectId,
@@ -37,6 +40,9 @@ object StyleLength extends MeifanNetModelCompanion[StyleLength] {
 
 /**
  * The table of styleColor
+ * @param id
+ * @param styleColor
+ * @param description
  */
 case class StyleColor(
   id: ObjectId = new ObjectId,
@@ -49,6 +55,9 @@ object StyleColor extends MeifanNetModelCompanion[StyleColor] {
 
 /**
  * The table of StyleStyleImpression
+ * @param id
+ * @param styleImpression
+ * @param description
  */
 case class StyleImpression(
   id: ObjectId = new ObjectId,
@@ -61,6 +70,9 @@ object StyleImpression extends MeifanNetModelCompanion[StyleImpression] {
 
 /**
  * The table of styleAmount
+ * @param id
+ * @param styleAmount
+ * @param description
  */
 case class StyleAmount(
   id: ObjectId = new ObjectId,
@@ -73,6 +85,9 @@ object StyleAmount extends MeifanNetModelCompanion[StyleAmount] {
 
 /**
  * The table of styleQuality
+ * @param id
+ * @param styleQuality
+ * @param description
  */
 case class StyleQuality(
   id: ObjectId = new ObjectId,
@@ -85,6 +100,9 @@ object StyleQuality extends MeifanNetModelCompanion[StyleQuality] {
 
 /**
  * The table of styleDiameter
+ * @param id
+ * @param styleDiameter
+ * @param description
  */
 case class StyleDiameter(
   id: ObjectId = new ObjectId,
@@ -97,6 +115,9 @@ object StyleDiameter extends MeifanNetModelCompanion[StyleDiameter] {
 
 /**
  * The table of faceShape
+ * @param id
+ * @param faceShape
+ * @param description
  */
 case class FaceShape(
   id: ObjectId = new ObjectId,
@@ -109,6 +130,9 @@ object FaceShape extends MeifanNetModelCompanion[FaceShape] {
 
 /**
  * The table of socialStatus
+ * @param id
+ * @param socialStatus
+ * @param description
  */
 case class SocialStatus(
   id: ObjectId = new ObjectId,
@@ -121,6 +145,9 @@ object SocialStatus extends MeifanNetModelCompanion[SocialStatus] {
 
 /**
  * The table of ageGroup
+ * @param id
+ * @param ageGroup
+ * @param description
  */
 case class AgeGroup(
   id: ObjectId = new ObjectId,
@@ -133,6 +160,8 @@ object AgeGroup extends MeifanNetModelCompanion[AgeGroup] {
 
 /**
  * The table of sex
+ * @param id
+ * @param sex
  */
 case class Sex(
   id: ObjectId = new ObjectId,
@@ -143,19 +172,27 @@ object Sex extends MeifanNetModelCompanion[Sex] {
 }
 
 /**
- * The table of styleDescrption
+ * The table of stylePicDescription
+ * @param id
+ * @param stylePicDescription
+ * @param description
  */
-case class StyleDescrption(
+case class StylePicDescription(
   id: ObjectId = new ObjectId,
-  styleDescrption: String,
+  stylePicDescription: String,
   description: String)
 
-object StyleDescrption extends MeifanNetModelCompanion[StyleDescrption] {
-  val dao = new MeifanNetDAO[StyleDescrption](collection = loadCollection()) {}
+object StylePicDescription extends MeifanNetModelCompanion[StylePicDescription] {
+  val dao = new MeifanNetDAO[StylePicDescription](collection = loadCollection()) {}
 }
 
 /**
  * The table of searchByLengthForF
+ * @param id
+ * @param sex
+ * @param styleLength
+ * @param stylePic
+ * @param description
  */
 case class SearchByLengthForF(
   id: ObjectId = new ObjectId,
@@ -175,6 +212,11 @@ object SearchByLengthForF extends MeifanNetModelCompanion[SearchByLengthForF] {
 
 /**
  * The table of searchByLengthForM
+ * @param id
+ * @param sex
+ * @param styleLength
+ * @param stylePic
+ * @param description
  */
 case class SearchByLengthForM(
   id: ObjectId = new ObjectId,
@@ -194,6 +236,11 @@ object SearchByLengthForM extends MeifanNetModelCompanion[SearchByLengthForM] {
 
 /**
  * The table of searchByImpression
+ * @param id
+ * @param sex
+ * @param styleImpression
+ * @param stylePic
+ * @param description
  */
 case class SearchByImpression(
   id: ObjectId = new ObjectId,
