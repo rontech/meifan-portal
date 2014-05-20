@@ -13,7 +13,7 @@
     }
     @salon.map{ sa =>
       <ul id="listWrapper">
-        @views.html.stylist.management.salonItem(user, loginUserId, logged, sa, true, true)
+        @views.html.stylist.management.salonItem(user, loginUserId, logged, Tuple2(sa,new ObjectId), true, true)
       </ul>    
     }
   </div>

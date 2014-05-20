@@ -1,0 +1,25 @@
+@(navInSalon: String = "my-stylists", mySalon: Salon, inviteds: List[(Stylist, ObjectId)])
+
+@import models.Salon
+
+@views.html.salon.admin.mySalonMain(navInSalon, mySalon){
+  <div>
+    <ul class="tabInfoTitle">
+      <li class="fl selected">
+      @Messages("salonAdmin.InvitedStylist")
+      </li>
+    </ul>
+  </div>
+  <div class="mc mT40">
+  @if(inviteds != Nil){
+    <div class="tabcon hide" data-widget="tab-content" style="display: block;">
+      @*status == 2: salon '我邀请的技师’的item*@
+
+        <div class="">
+        @views.html.stylist.mySalonStylistGroup(inviteds, mySalon, 2)
+        </div>
+  } else {
+        <span>@Messages("stylist.empty")</span>
+  }
+  </div>
+}

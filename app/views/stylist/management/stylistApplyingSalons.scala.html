@@ -1,4 +1,4 @@
-@(user :User, followInfo:FollowInformation, loginUserId :ObjectId =new ObjectId, logged:Boolean = false, salons: List[Salon], stylist: Stylist)
+@(user :User, followInfo:FollowInformation, loginUserId :ObjectId =new ObjectId, logged:Boolean = false, salons: List[(Salon, ObjectId)], stylist: Stylist)
 
 @import views.html.user._
 

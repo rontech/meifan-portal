@@ -149,7 +149,7 @@ function del(url,msg){
  	if(!confirm(msg)){    
  	  	return;
  	    }else{
- 	      location.href=url; 
+ 	      location.href=url;
  	    } 
 }
 

@@ -65,8 +65,8 @@
              <span>@Messages("salonCheckInfoState.basicInfoMange")</span>
            </a><br />                                                                                                       
          </div>    
-         
-      </div>            
+
+      </div>
       }
       @if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
          Salon.checkImgIsExist(salon)){            
@@ -85,7 +85,13 @@
              <span id="reviewCount">
                 (@SalonStylistApplyRecord.applingStylistCount(salon.id))
              </span>
-          </a>
+          </a><br />
+           <a href="@auth.routes.Salons.myInvite">
+             @Messages("salonAdmin.InvitedStylist")
+             <span id="reviewCount">
+               (@SalonStylistApplyRecord.costSalonInvited(salon.id))
+             </span>
+           </a>
           </div>
       </div>
       <!-- 发型管理 -->                                      
