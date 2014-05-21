@@ -60,18 +60,19 @@ object CommentType extends Enumeration {
 }
 
 case class Comment(
-  id: ObjectId = new ObjectId,
-  commentObjType: Int, // 评论类型:  1: 对博客; 2: 对店铺; 3: 回复
-  commentObjId: ObjectId,
-  content: String,
+  id: ObjectId = new ObjectId, // ObjectId of record in mongodb
+  commentObjType: Int, // 评论对象类型:  暂定 1: 对博客; 2: 对店铺; 3: 回复
+  commentObjId: ObjectId, // 评论对象Id
+  content: String, // 内容
   complex: Int, // 综合分数
   atmosphere: Int, // 氛围分数
   service: Int, // 服务态度分数
   skill: Int, // 技术分数
   price: Int, //价格分数
-  authorId: String,
-  createTime: Date = new Date,
-  isValid: Boolean)
+  authorId: String, // 评论人的Id
+  createTime: Date = new Date, // 评论时间
+  isValid: Boolean // 有效状态
+)
 
 object Comment extends MeifanNetModelCompanion[Comment] {
   val dao = new MeifanNetDAO[Comment](collection = loadCollection()) {}
@@ -81,6 +82,7 @@ object Comment extends MeifanNetModelCompanion[Comment] {
 
   /**
    * 根据评论对象的ObjectId查找评论，包括对这条评论所做的评论。
+   * @param id 评论对象的id
    * TODO 方法名
    */
   var list = List.empty[Comment]
@@ -100,6 +102,7 @@ object Comment extends MeifanNetModelCompanion[Comment] {
   /**
    *  模块化的代码，通过店铺Id找到评论,应该是通过店铺找到coupon，再找到对coupon做的评论
    *  目前是对coupon做的评论，到时候应该对预约做评论
+   *  @param salonId salon的id
    */
   def findBySalon(salonId: ObjectId): List[Comment] = {
     var commentListOfSalon: List[Comment] = Nil
@@ -125,20 +128,58 @@ object Comment extends MeifanNetModelCompanion[Comment] {
     commentListOfSalon.reverse
   }
 
+  /**
+   * Insert data to Comment table
+   *
+   * @param userId
+   * @param content
+   * @param commentObjId
+   * @param commentObjType
+   * @return
+   */
   def addComment(userId: String, content: String, commentObjId: ObjectId, commentObjType: Int) = {
     dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = 0, atmosphere = 0, service = 0, skill = 0, price = 0, authorId = userId, isValid = true))
   }
 
+  /**
+   * 对评论进行回复
+   *
+   * @param userId
+   * @param content
+   * @param commentObjId
+   * @param commentObjType
+   * @return
+   */
   def reply(userId: String, content: String, commentObjId: ObjectId, commentObjType: Int) = {
     dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = 0, atmosphere = 0, service = 0, skill = 0, price = 0, authorId = userId, isValid = true))
   }
 
+  /**
+   * 对coupon做评论，暂定，当预约模块完成后，修改成对预约完成的预约做评论
+   *
+   * @param userId
+   * @param content
+   * @param commentObjId
+   * @param commentObjType
+   * @param complex
+   * @param atmosphere
+   * @param service
+   * @param skill
+   * @param price
+   * @return
+   */
   def addCommentToCoupon(userId: String, content: String, commentObjId: ObjectId, commentObjType: Int, complex: Int, atmosphere: Int, service: Int, skill: Int, price: Int) = {
     dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = complex, atmosphere = atmosphere, service = service, skill = skill, price = price, authorId = userId, isValid = true))
   }
 
   override def findOneById(id: ObjectId): Option[Comment] = dao.findOne(MongoDBObject("_id" -> id))
 
+  /**
+   * delete record from comment table
+   *
+   * @param id key
+   * @return
+   */
   def delete(id: ObjectId) = {
     val comment = findOneById(id).get
     dao.update(MongoDBObject("_id" -> comment.id), MongoDBObject("$set" -> MongoDBObject("isValid" -> false)))
@@ -148,6 +189,7 @@ object Comment extends MeifanNetModelCompanion[Comment] {
    * 查找评论表中最新的num条记录，该方法用于在首页上显示最新的评论。
    * 只是针对店铺中coupon（以后是预约）做的评论
    * 这边的2代表对coupon做的评论
+   * @param num 首页显示评论的数量
    */
   // TODO
   def findCommentForHome(num: Int): List[CommentOfSalon] = {

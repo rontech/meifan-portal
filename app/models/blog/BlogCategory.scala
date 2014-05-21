@@ -27,8 +27,8 @@ import com.meifannet.framework.db._
  * the category data is stored in master table
  *
  * @param id ObjectId of record in mongodb
- * @param categoryName
- * @param isValid
+ * @param categoryName // 分类名
+ * @param isValid // 有效状态
  */
 case class BlogCategory(
   id: ObjectId = new ObjectId,
