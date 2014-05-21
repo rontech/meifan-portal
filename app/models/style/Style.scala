@@ -383,6 +383,12 @@ object Style extends MeifanNetModelCompanion[Style] {
   }
   */
 
+  /**
+   *
+   * @param hottestStyles
+   * @param topN
+   * @return
+   */
   def findTopStylesInSalon(hottestStyles: List[ObjectId], topN: Int = 0): List[Style] = {
     var hotStyles: List[Style] = Nil
     // get all styles of a salon.  
@@ -400,6 +406,10 @@ object Style extends MeifanNetModelCompanion[Style] {
   /**
    * 取得指定店铺的最热发型前N名
    * N = 0, 默认值，为取得所有
+   *
+   * @param sid
+   * @param topN
+   * @return
    */
   def getBestRsvedStylesInSalon(sid: ObjectId, topN: Int = 0): List[Style] = {
     // get the reservation with which we can get the styles be reserved.
@@ -605,8 +615,7 @@ object Style extends MeifanNetModelCompanion[Style] {
    * @return
    */
   def styleToInvalid(id: ObjectId) = {
-    dao.update(MongoDBObject("_id" -> id), MongoDBObject("$set" -> (
-      MongoDBObject("isValid" -> false))))
+    dao.update(MongoDBObject("_id" -> id), MongoDBObject("$set" -> (MongoDBObject("isValid" -> false))))
   }
 
   /**
@@ -637,6 +646,13 @@ object Style extends MeifanNetModelCompanion[Style] {
       MongoDBObject("$set" -> (MongoDBObject("stylePic.$.fileObjId" -> imgId))), false, true)
   }
 
+  /**
+   *
+   * @param value
+   * @param stylistId
+   * @param f
+   * @return
+   */
   def isExist(value: String, stylistId: String, f: (String, String) => Option[Style]) = f(value, stylistId).map(style => true).getOrElse(false)
 
   /**

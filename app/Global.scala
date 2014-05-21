@@ -10,6 +10,11 @@ import scala.concurrent.Future
 
 object Global extends GlobalSettings {
 
+  /**
+   *
+   * @param app
+   * @return
+   */
   override def onStart(app: Application) {
     // Initial Master Data.
     InitialData.insertMaster()
@@ -17,17 +22,34 @@ object Global extends GlobalSettings {
     InitialData.insertSampleData()
   }
 
-  // called when a route is found, but it was not possible to bind the request parameters
+  /**
+   * called when a route is found, but it was not possible to bind the request parameters
+   *
+   * @param request
+   * @param error
+   * @return
+   */
   override def onBadRequest(request: RequestHeader, error: String) = {
     Future.successful(BadRequest("Bad Request: " + error))
   }
 
-  // 500 - internal server error
+  /**
+   * 500 - internal server error
+   *
+   * @param request
+   * @param throwable
+   * @return
+   */
   override def onError(request: RequestHeader, throwable: Throwable) = {
     Future.successful(InternalServerError(views.html.error.onError(throwable)))
   }
 
-  // 404 - page not found error
+  /**
+   * 404 - page not found error
+   *
+   * @param request
+   * @return
+   */
   override def onHandlerNotFound(request: RequestHeader): Future[SimpleResult] = {
     Future.successful(NotFound(views.html.error.onHandlerNotFound(request)))
   }
@@ -36,6 +58,7 @@ object Global extends GlobalSettings {
 /**
  * Initial set of data to be imported
  * in the sample application.
+ *
  */
 object InitialData {
 
@@ -52,31 +75,6 @@ object InitialData {
     // For nowtime, we change the Table Defination frequently....
     // If you have some errors about the DB, try to drop the database [fashion-mongo] which store the site data, and 
     //     the [Picture] db which store all of the pictures the site using.
-
-    //   if(Province.findAll.isEmpty) {
-    //      Seq(
-    //          Province(new ObjectId("5317c0d1d4d57997ce3e6daa"), "江苏省"),
-    //          Province(new ObjectId("5317c0d1d4d57997ce3e6dab"), "Shandong")
-    //      ).foreach(Province.save)
-    //    }
-    //    
-    //    if(City.findAll.isEmpty) {
-    //      Seq(
-    //          City(new ObjectId("5317c0d1d4d57997ce3e6dca"), "Nanjing", "江苏省"),
-    //          City(new ObjectId("5317c0d1d4d57997ce3e6dcb"), "苏州市", "江苏省"),
-    //          City(new ObjectId("5317c0d1d4d57997ce3e6dcc"), "Wuxi", "江苏省"),
-    //          City(new ObjectId("5317c0d1d4d57997ce3e6dcd"), "Jinan", "Shandong"), 
-    //          City(new ObjectId("5317c0d1d4d57997ce3e6dce"), "Qingdao", "Shandong") 
-    //      ).foreach(City.save)
-    //    }
-    //    
-    //    if(Region.findAll.isEmpty) {
-    //      Seq(
-    //          Region(new ObjectId("5317c0d1d4d57997ce3e6dda"), "Xuanwu", "Shandong"),
-    //          Region(new ObjectId("5317c0d1d4d57997ce3e6ddb"), "Gulou", "Nanjing"),
-    //          Region(new ObjectId("5317c0d1d4d57997ce3e6ddc"), "高新区", "Jinan")
-    //      ).foreach(Region.save)
-    //    }    
     if (Industry.findAll.isEmpty) {
       Seq(
         Industry(new ObjectId("5317c0d1d4d57997ce3e6ec1"), "Hairdressing"), // 美发 Hair

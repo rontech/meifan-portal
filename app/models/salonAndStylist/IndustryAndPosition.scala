@@ -42,6 +42,8 @@ object IndustryAndPosition extends MeifanNetModelCompanion[IndustryAndPosition] 
 
 /**
  *
+ * @param id
+ * @param positionName
  */
 case class Position(
   id: ObjectId,

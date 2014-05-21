@@ -7,8 +7,8 @@
           <dt><a href="@noAuth.routes.Salons.getSalon(Salon.findAll.toList(i).id)" class="link-green">@Salon.findAll.toList(i).salonName</a></dt>
           <dd class="pic"><a href="@noAuth.routes.Salons.getSalon(Salon.findAll.toList(i).id)"><img src="@routes.Application.getPhoto(Salon.findAll.toList(i).salonPics(0).fileObjId)" width="80" height="90" /></a></dd>
           <dd class="txt">                        
-            @Salon.findAll.toList(i).salonBriefIntroduction.map(pic=>pic.picContent.slice(0,15))
-            @if(Salon.findAll.toList(i).salonBriefIntroduction.map(pic=>pic.picContent.length > 15)) {...}
+            @Salon.findAll.toList(i).salonIntroduction.map(pic=>pic.picContent.slice(0,15))
+            @if(Salon.findAll.toList(i).salonIntroduction.map(pic=>pic.picContent.length > 15)) {...}
           </dd>
           <dd class="more"><a href="@noAuth.routes.Salons.getSalon(Salon.findAll.toList(i).id)"><img src="@routes.Assets.at("images/more.jpg")" width="40" height="10" /></a></dd>
       </dl>            

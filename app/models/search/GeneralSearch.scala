@@ -36,9 +36,19 @@ object GeneralSrchDiv extends Enumeration {
 /*---------------------------
  - 沙龙检索：检索字段 
  ----------------------------*/
-
 /**
  * salon检索条件字段合成类
+ *
+ * @param keyWord
+ * @param city
+ * @param region
+ * @param salonName
+ * @param salonIndustry
+ * @param serviceType
+ * @param priceRange
+ * @param seatNums
+ * @param salonFacilities
+ * @param sortByConditions
  */
 case class SearchParaForSalon(
   keyWord: Option[String],
@@ -54,6 +64,11 @@ case class SearchParaForSalon(
 
 /**
  * Assistant Class: sort by conditions
+ *
+ * @param selSortKey
+ * @param sortByPopuAsc
+ * @param sortByReviewAsc
+ * @param sortByPriceAsc
  */
 case class SortByConditions(
   selSortKey: String = "price", // 选择的优先排序
@@ -66,6 +81,12 @@ case class SortByConditions(
  * Data struct for General salon search.
  * 用于保存检索条件的数据结构: 保存检索条件，以便实现热门关键字，热门城市等功能.
  * TODO: 暂时只实现: 热门关键字
+ *
+ * @param id
+ * @param atomicKeyword
+ * @param searchDiv
+ * @param hitTimes
+ * @param isValid
  */
 case class HotestKeyword(
   id: ObjectId,
@@ -77,6 +98,11 @@ object HotestKeyword extends HotestKeywordDAO
 trait HotestKeywordDAO extends MeifanNetModelCompanion[HotestKeyword] {
   val dao = new MeifanNetDAO[HotestKeyword](collection = loadCollection()) {}
 
+  /**
+   *
+   * @param keyword
+   * @return
+   */
   def findHotestKeywordsByKW(keyword: String): List[String] = {
     var rst: List[String] = Nil
     // pre process for keyword: process the double byte blank to single byte blank.
@@ -89,7 +115,7 @@ trait HotestKeywordDAO extends MeifanNetModelCompanion[HotestKeyword] {
       val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|") }
       val kwsRegex = kwsAry.mkString.dropRight(1).r
       // fields which search from 
-      var s = dao.find(MongoDBObject("atomicKeyword" -> kwsRegex)).toList.sortBy(_.hitTimes)
+      val s = dao.find(MongoDBObject("atomicKeyword" -> kwsRegex)).toList.sortBy(_.hitTimes)
       if (s.length < 8) s else s.slice(0, 8)
       s.map { key =>
         rst :::= List(key.atomicKeyword)
@@ -101,6 +127,10 @@ trait HotestKeywordDAO extends MeifanNetModelCompanion[HotestKeyword] {
 
   /**
    * Get the hotest top N keywords.
+   *
+   * @param srchDiv
+   * @param topN
+   * @return
    */
   def findTopKeywordsOfDiv(srchDiv: String = "Top", topN: Int = 0): List[String] = {
     val cond = if (srchDiv == GeneralSrchDiv.Top.toString) MongoDBObject.empty else MongoDBObject("searchDiv" -> srchDiv)
@@ -112,6 +142,11 @@ trait HotestKeywordDAO extends MeifanNetModelCompanion[HotestKeyword] {
 
   }
 
+  /**
+   *
+   * @param keyword
+   * @return
+   */
   def addHitTimesBykWs(keyword: String) = {
     val kws = keyword.replace("　", " ")
     if (kws.replace(" ", "").length == 0) {
@@ -132,6 +167,13 @@ trait HotestKeywordDAO extends MeifanNetModelCompanion[HotestKeyword] {
 /**
  * Data struct for General salon search.
  * 沙龙通用检索结果的数据结构: 用于保存检索条件，实现热门关键字，热门城市等功能
+ *
+ * @param salonInfo
+ * @param selectedStyles
+ * @param selectedCoupons
+ * @param priceForCut
+ * @param reviewsStat
+ * @param keywordsHitStrs
  */
 case class SalonGeneralSrchRst(
   salonInfo: Salon, // 沙龙基本情报
@@ -147,6 +189,9 @@ case class SalonGeneralSrchRst(
  *-----------------------------*/
 /**
  * 检索条件: 价格区间
+ *
+ * @param minPrice
+ * @param maxPrice
  */
 case class PriceRange(minPrice: BigDecimal, maxPrice: BigDecimal)
 object PriceRange extends PriceRangeDAO
@@ -156,6 +201,9 @@ trait PriceRangeDAO extends MeifanNetModelCompanion[PriceRange] {
 
 /**
  * 沙龙检索条件: 席位数区间(店铺规模)
+ *
+ * @param minNum
+ * @param maxNum
  */
 case class SeatNums(minNum: Int, maxNum: Int)
 object SeatNums extends SeatNumsDAO

@@ -36,26 +36,25 @@ import com.meifannet.framework.db._
 /**
  * Main Class: Salon.
  *
- * @param id                      ObjectId of salon in mongodb.
- * @param salonAccount          loginId and password for salon.
- * @param salonName             use for display.
- * @param salonNameAbbr
- * @param salonIndustry        Ref to Master [Industry] table.
- * @param homepage
- * @param salonDescription     description for salon.
- * @param salonBriefIntroduction       description for salonFirstPage.
- * @param contactMethod        phoneNumber and contact person of salon.
- * @param optContactMethods   Ref to Master [OptContactMethods] table.
- * @param establishDate
- * @param salonAddress
- * @param workTime             openTime and closeTime for salon.
- * @param restDays
- * @param seatNums
- * @param salonFacilities     Ref to Master [SalonFacilities] table.
- * @param salonPics            Ref to Master [OnUsePicture] table.
- * @param registerDate
+ * @param id ObjectId of salon in mongodb.
+ * @param salonAccount The loginId and password for a salon.
+ * @param salonName The name of a salon, used to display.
+ * @param salonNameAbbr The abbreviation name of a salon, used to display, prior to salonName.
+ * @param salonIndustry Ref to Master [Industry] table.
+ * @param homepage The home address of a salon, optional.
+ * @param salonAppeal An appeal of a salon to show to users, which will be shown at the salon basic info page.
+ * @param salonIntroduction A brief introduction to a salon, which should include the title info, the content and the footer info .
+ * @param contactMethod The primary contact phoneNumber and contact person of a salon.
+ * @param optContactMethods The optional contact method of a salon, which refer to Master [OptContactMethods] table.
+ * @param establishDate The establish Date of a salon.
+ * @param salonAddress The address of a salon.
+ * @param workTime The work time, including th openTime and closeTime for salon.
+ * @param restDays The restDays of a salon.
+ * @param seatNums The seat numbers of a salon.
+ * @param salonFacilities The salon facilities information. Ref to Master [SalonFacilities] table.
+ * @param salonPics Various pictures a salon used. Ref to Master [OnUsePicture] table.
+ * @param registerDate The date a salon register in our site.
  */
-
 case class Salon(
   id: ObjectId = new ObjectId,
   salonAccount: SalonAccount,
@@ -63,8 +62,8 @@ case class Salon(
   salonNameAbbr: Option[String],
   salonIndustry: List[String],
   homepage: Option[String],
-  salonDescription: Option[String],
-  salonBriefIntroduction: Option[BriefIntroduction],
+  salonAppeal: Option[String],
+  salonIntroduction: Option[BriefIntroduction],
   contactMethod: Contact,
   optContactMethods: List[OptContactMethod],
   establishDate: Option[Date],
@@ -151,6 +150,9 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * Get all styles of a salon.
+   *
+   * @param salonId
+   * @return
    */
   def getAllStyles(salonId: ObjectId): List[Style] = {
     var styles: List[Style] = Nil
@@ -167,6 +169,10 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * Get a specified Style from a salon.
+   *
+   * @param salonId
+   * @param styleId
+   * @return
    */
   def getOneStyle(salonId: ObjectId, styleId: ObjectId): Option[Style] = {
     // First of all, check that if the salon is acitve.
@@ -196,6 +202,9 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * Get the stylists count of a salon.
+   *
+   * @param salonId
+   * @return
    */
   def getCountOfStylists(salonId: ObjectId) = {
     SalonAndStylist.findBySalonId(salonId).length
@@ -203,6 +212,9 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * Get the lowest price of CUT of a salon.
+   *
+   * @param salonId
+   * @return
    */
   def getLowestPriceOfCut(salonId: ObjectId): Option[BigDecimal] = {
     val cutSrvKey = "Cut"
@@ -283,7 +295,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    * @return
    */
   def checkBasicInfoIsFill(salon: Salon): Boolean = {
-    salon.salonNameAbbr.nonEmpty && salon.salonDescription.nonEmpty &&
+    salon.salonNameAbbr.nonEmpty && salon.salonAppeal.nonEmpty &&
       salon.restDays.nonEmpty && salon.workTime.nonEmpty && salon.establishDate.ne(None) &&
       salon.salonAddress.map(add => add.addrDetail.nonEmpty).getOrElse(true)
   }
@@ -296,8 +308,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    */
   def checkDetailIsFill(salon: Salon): Boolean = {
     salon.seatNums.nonEmpty &&
-      salon.salonBriefIntroduction.exists(pic => pic.picTitle.nonEmpty) && salon.salonBriefIntroduction.exists(pic => pic.picContent.nonEmpty) &&
-      salon.salonBriefIntroduction.exists(pic => pic.picFoot.nonEmpty)
+      salon.salonIntroduction.exists(pic => pic.picTitle.nonEmpty) && salon.salonIntroduction.exists(pic => pic.picContent.nonEmpty) &&
+      salon.salonIntroduction.exists(pic => pic.picFoot.nonEmpty)
   }
 
   /**
@@ -314,6 +326,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   /**
    * 权限认证
    * 用于判断accountId是否为当前店铺
+   *
    * @param accountId
    * @param salon
    * @return
@@ -325,6 +338,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    --------------------------*/
   /**
    * 前台店铺检索逻辑
+   *
    * @param searchParaForSalon 前台检索条件
    * @return 所有符合条件的店铺
    */
@@ -338,7 +352,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
     // process parameters for salon facilities.
     // if the checkbox in the general search page is checked, use it as a condition; otherwise, not use it. 
-    var faclty = searchParaForSalon.salonFacilities
+    val faclty = searchParaForSalon.salonFacilities
     if (faclty.canCurntDayOrder) {
       srchConds :::= List(commonsDBObject("salonFacilities.canCurntDayOrder" -> faclty.canCurntDayOrder))
     }
@@ -427,7 +441,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
       val selCoupons = Coupon.findValidCouponBySalon(sl.id)
       val rvwStat = Comment.getGoodReviewsRate(sl.id)
       // get the keywords hit strings.
-      var kwsHits: List[String] = getKeywordsHit(sl, targetFields, exactRegex)
+      val kwsHits: List[String] = getKeywordsHit(sl, targetFields, exactRegex)
 
       salonSrchRst :::= List(SalonGeneralSrchRst(salonInfo = sl, selectedStyles = selStyles, selectedCoupons = selCoupons,
         priceForCut = priceOfCut, reviewsStat = rvwStat, keywordsHitStrs = kwsHits))
@@ -439,12 +453,17 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * Get keywords hit result.
+   *
+   * @param sl
+   * @param fields
+   * @param reg
+   * @return
    */
   def getKeywordsHit(sl: Salon, fields: Array[String], reg: Regex): List[String] = {
     var kwsHits: List[String] = Nil
     // when it is searched without keyword, list the .
     if (reg.toString == "") {
-      kwsHits = getSalonPresentationAbbr(sl.salonBriefIntroduction)
+      kwsHits = getSalonPresentationAbbr(sl.salonIntroduction)
     } else {
       kwsHits = getKeywordsHitStrs(sl, fields, reg)
     }
@@ -454,6 +473,10 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * Sort the search result by required order conditions.
+   *
+   * @param orgRst
+   * @param sortConds
+   * @return
    */
   def sortRstByConditions(orgRst: List[SalonGeneralSrchRst], sortConds: SortByConditions): List[SalonGeneralSrchRst] = {
 
@@ -490,6 +513,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    *
+   * @param present
+   * @return
    */
   def getSalonPresentationAbbr(present: Option[BriefIntroduction]): List[String] = {
     var abbrPres: List[String] = Nil
@@ -517,11 +542,11 @@ object Salon extends MeifanNetModelCompanion[Salon] {
     var hit: String = ""
     if(fz.contains("salonName")) hit = dao.find(fz).map {_.salonName}.mkString
     if(fz.contains("salonNameAbbr")) hit = dao.find(fz).map {_.salonNameAbbr.getOrElse("")}.mkString
-    if(fz.contains("salonDescription")) hit = dao.find(fz).map {_.salonDescription.getOrElse("")}.mkString
-    // for a salon valid, it is impossible that field [picDescription] is null.
-    if(fz.contains("picDescription.picTitle")) hit = dao.find(fz).map {_.picDescription.get.picTitle}.mkString
-    if(fz.contains(" escription.picContent")) hit = dao.find(fz).map {_.picDescription.get.picContent}.mkString
-    if(fz.contains("picDescription.picFoot")) hit = dao.find(fz).map {_.picDescription.get.picFoot}.mkString
+    if(fz.contains("salonAppeal")) hit = dao.find(fz).map {_.salonAppeal.getOrElse("")}.mkString
+    // for a salon valid, it is impossible that field [salonIntroduction] is null.
+    if(fz.contains("salonIntroduction.picTitle")) hit = dao.find(fz).map {_.salonIntroduction.get.picTitle}.mkString
+    if(fz.contains(" escription.picContent")) hit = dao.find(fz).map {_.salonIntroduction.get.picContent}.mkString
+    if(fz.contains("salonIntroduction.picFoot")) hit = dao.find(fz).map {_.salonIntroduction.get.picFoot}.mkString
 
     // first hit words, fz's value is a Regex type variable.
     val regx = exactKwds 
@@ -551,6 +576,10 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    * Get the slice of keyword matched fields.
    *   # Check if the fields contains the keyword by fuzzy match, but get the match slice by exact match. #
    *
+   * @param salon
+   * @param targetFields
+   * @param exactKwds
+   * @return
    */
   def getKeywordsHitStrs(salon: Salon, targetFields: Array[String], exactKwds: Regex): List[String] = {
     var fuzzyHits: List[String] = Nil
@@ -562,19 +591,19 @@ object Salon extends MeifanNetModelCompanion[Salon] {
         // TODO can below done with reflection?
         //if(tgtf == "salonName") hit = salon.salonName
         //if(tgtf == "salonNameAbbr") hit = salon.salonNameAbbr.getOrElse("")
-        if (tgtf == "salonDescription") hit = salon.salonDescription.getOrElse("")
-        // for a salon valid, it is impossible that field [picDescription] is null.
-        if (tgtf == "salonBriefIntroduction.picTitle") hit = salon.salonBriefIntroduction.get.picTitle
-        if (tgtf == "salonBriefIntroduction.picContent") hit = salon.salonBriefIntroduction.get.picContent
-        if (tgtf == "salonBriefIntroduction.picFoot") hit = salon.salonBriefIntroduction.get.picFoot
+        if (tgtf == "salonAppeal") hit = salon.salonAppeal.getOrElse("")
+        // for a salon valid, it is impossible that field [salonIntroduction] is null.
+        if (tgtf == "salonIntroduction.picTitle") hit = salon.salonIntroduction.get.picTitle
+        if (tgtf == "salonIntroduction.picContent") hit = salon.salonIntroduction.get.picContent
+        if (tgtf == "salonIntroduction.picFoot") hit = salon.salonIntroduction.get.picFoot
 
         // Use the Regex type method to get the first hit words in the target string.
-        var firstHit = exactKwds.findFirstIn(hit)
+        val firstHit = exactKwds.findFirstIn(hit)
         firstHit match {
           case None => fuzzyHits
           case Some(fstHit) => {
             // get the first hit index by Regex method.
-            var mtch = exactKwds.findAllIn(hit)
+            val mtch = exactKwds.findAllIn(hit)
             // cut out the search rst.
             if (!mtch.isEmpty) {
               var ht: String = ""
@@ -604,14 +633,19 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    * Get the general search target fields.
    */
   def getSrchTargetFields(): Array[String] = {
-    val srchFields = Array("salonName", "salonNameAbbr", "salonDescription",
-      "salonBriefIntroduction.picTitle", "salonBriefIntroduction.picContent", "salonBriefIntroduction.picFoot")
+    val srchFields = Array("salonName", "salonNameAbbr", "salonAppeal",
+      "salonIntroduction.picTitle", "salonIntroduction.picContent", "salonIntroduction.picFoot")
 
     srchFields
   }
 
   /**
    * Make Abbr string for salon's various names and descriptions.
+   *
+   * @param source
+   * @param start
+   * @param end
+   * @return
    */
   def makeAbbrStr(source: String, start: Int, end: Int): String = {
     if (!source.isEmpty && start < end)
@@ -621,7 +655,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   }
 
   /**
-   * Fuzzy search to salon: can search by salon name, salon abbr name, salonDescription, picDescription......
+   * Fuzzy search to salon: can search by salon name, salon abbr name, salonAppeal, salonIntroduction......
    * TODO:
    *     For now, only consider multi-keywords separated by blank,
    *     Not consider the way that deviding keyword into multi-keywords automatically.
@@ -650,7 +684,6 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   */
 
   /**
-   * :
    * Casbah Logical Operators: http://mongodb.github.io/casbah/guide/query_dsl.html
    * for DSL $or/$and/$nor, we can join the conditions into a list:
    *     $or( "price" $lt 5 $gt 1, "promotion" $eq true )
@@ -658,6 +691,10 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    * So, we use this feature to make the search conditions.
    *
    * Make salon general search keyword to fuzzy search conditions.
+   *
+   * @param searchFields
+   * @param kwdsRegex
+   * @return
    */
   def searchByFuzzyConds(searchFields: Array[String], kwdsRegex: Regex): List[commonsDBObject] = {
     var rst: List[commonsDBObject] = Nil
@@ -677,11 +714,14 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   }
 
   /**
-   *
    * For example.
    *     1. f = x => (".*" + x + ".*|")
    *     2. f = x => (x|")
    *     3. ....
+   *
+   * @param keyword
+   * @param f
+   * @return
    */
   def convertKwdsToFuzzyRegex(keyword: String)(f: String => String) = {
     // pre process for keyword: process the double byte blank to single byte blank.
@@ -701,6 +741,9 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 检索某一店铺服务的最低价格
+   *
+   * @param salonId
+   * @return
    */
   def findLowestPriceBySalonId(salonId: ObjectId): BigDecimal = {
     var lowestPrice: BigDecimal = 0

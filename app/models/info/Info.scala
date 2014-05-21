@@ -23,7 +23,18 @@ import se.radley.plugin.salat.Binders._
 import java.util.Date
 import com.meifannet.framework.db._
 
-// 资讯
+/**
+ * 资讯
+ *
+ * @param id
+ * @param title
+ * @param content
+ * @param authorId
+ * @param infoPics
+ * @param createTime
+ * @param infoType
+ * @param isValid
+ */
 case class Info(
   id: ObjectId = new ObjectId,
   title: String,
@@ -41,6 +52,9 @@ object Info extends MeifanNetModelCompanion[Info] {
 
   /**
    * meifan资讯
+   *
+   * @param num
+   * @return
    */
   def findInfoForHome(num: Int): List[Info] = {
     val infoList = dao.find(MongoDBObject("isValid" -> true, "infoType" -> 1)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
@@ -49,6 +63,9 @@ object Info extends MeifanNetModelCompanion[Info] {
 
   /**
    * 整形资讯
+   *
+   * @param num
+   * @return
    */
   def findEstheInfo(num: Int): List[Info] = {
     val infoList = dao.find(MongoDBObject("isValid" -> true, "infoType" -> 2)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
@@ -57,8 +74,10 @@ object Info extends MeifanNetModelCompanion[Info] {
 
   /**
    * 取得ID利用规约
+   * TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
+   *
+   * @return
    */
-  // TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
   def findIdUsePolicyInfo: List[Info] = {
     val infoList = dao.find(MongoDBObject("isValid" -> true, "infoType" -> 3)).sort(MongoDBObject("createTime" -> -1)).toList
     infoList
@@ -66,8 +85,10 @@ object Info extends MeifanNetModelCompanion[Info] {
 
   /**
    * 取得ID利用规约
+   * TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
+   *
+   * @return
    */
-  // TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
   def findUsePolicyInfo: List[Info] = {
     val infoList = dao.find(MongoDBObject("isValid" -> true, "infoType" -> 4)).sort(MongoDBObject("createTime" -> -1)).toList
     infoList
@@ -75,8 +96,10 @@ object Info extends MeifanNetModelCompanion[Info] {
 
   /**
    * 取得ID利用规约
+   * TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
+   *
+   * @return
    */
-  // TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
   def findSecurityPolicyInfo: List[Info] = {
     val infoList = dao.find(MongoDBObject("isValid" -> true, "infoType" -> 5)).sort(MongoDBObject("createTime" -> -1)).toList
     infoList
@@ -84,13 +107,22 @@ object Info extends MeifanNetModelCompanion[Info] {
 
   /**
    * 取得ID利用规约
+   * TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
+   *
+   * @param num
+   * @return
    */
-  // TODO 网站footer信息的表结构可能会调整，暂定数据存在资讯中
   def findAdInfo(num: Int): List[Info] = {
     val infoList = dao.find(MongoDBObject("isValid" -> true, "infoType" -> 6)).sort(MongoDBObject("createTime" -> -1)).limit(num).toList
     infoList
   }
 
+  /**
+   *
+   * @param info
+   * @param imgId
+   * @return
+   */
   def updateInfoImage(info: Info, imgId: ObjectId) = {
     dao.update(MongoDBObject("_id" -> info.id, "infoPics.picUse" -> "logo"),
       MongoDBObject("$set" -> (MongoDBObject("infoPics.$.fileObjId" -> imgId))), false, true)

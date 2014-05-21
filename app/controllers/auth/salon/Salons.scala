@@ -68,8 +68,8 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
       "salonNameAbbr" -> optional(text),
       "salonIndustry" -> list(text),
       "homepage" -> optional(text),
-      "salonDescription" -> optional(text),
-      "salonBriefIntroduction" -> optional(mapping(
+      "salonAppeal" -> optional(text),
+      "salonIntroduction" -> optional(mapping(
         "picTitle" -> text,
         "picContent" -> text,
         "picFoot" -> text)(BriefIntroduction.apply)(BriefIntroduction.unapply)),
@@ -125,13 +125,13 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             salonPics => Some(salonPics.fileObjId.toString(), salonPics.picUse, salonPics.showPriority, salonPics.description)
           }),
       "registerDate" -> date) {
-        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, salonBriefIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
+        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
         workTime, restDay, seatNums, salonFacilities, salonPics, registerDate) =>
-          Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, salonBriefIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
+          Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
             workTime, restDay, seatNums, salonFacilities, salonPics, registerDate)
       } {
         salon =>
-          Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonDescription, salon.salonBriefIntroduction, salon.contactMethod, salon.optContactMethods, salon.establishDate, salon.salonAddress,
+          Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonAppeal, salon.salonIntroduction, salon.contactMethod, salon.optContactMethods, salon.establishDate, salon.salonAddress,
             salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
       })
 
