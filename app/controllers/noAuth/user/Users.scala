@@ -103,7 +103,7 @@ object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl
     val loggedUser = loggedIn
     key match {
       case ITEM_TYPE_ID =>
-        Ok((User.isExist(value, User.findOneByUserId) || Salon.isExist(value, Salon.findByAccountId)).toString)
+        Ok((User.isExist(value, User.findOneByUserId) || Salon.isExist(value, Salon.findOneByAccountId)).toString)
       case ITEM_TYPE_NAME =>
         if (User.isValid(value, loggedUser, User.findOneByNickNm)) {
           Ok((Salon.isExist(value, Salon.findOneBySalonName) || Salon.isExist(value, Salon.findOneBySalonNameAbbr)).toString)

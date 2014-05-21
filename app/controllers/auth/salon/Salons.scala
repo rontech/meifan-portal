@@ -69,10 +69,10 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
       "salonIndustry" -> list(text),
       "homepage" -> optional(text),
       "salonDescription" -> optional(text),
-      "picDescription" -> optional(mapping(
+      "salonBriefIntroduction" -> optional(mapping(
         "picTitle" -> text,
         "picContent" -> text,
-        "picFoot" -> text)(PicDescription.apply)(PicDescription.unapply)),
+        "picFoot" -> text)(BriefIntroduction.apply)(BriefIntroduction.unapply)),
       "contactMethod" -> mapping(
         "mainPhone" -> text,
         "contact" -> text,
@@ -125,13 +125,13 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             salonPics => Some(salonPics.fileObjId.toString(), salonPics.picUse, salonPics.showPriority, salonPics.description)
           }),
       "registerDate" -> date) {
-        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
+        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, salonBriefIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
         workTime, restDay, seatNums, salonFacilities, salonPics, registerDate) =>
-          Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
+          Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, salonBriefIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
             workTime, restDay, seatNums, salonFacilities, salonPics, registerDate)
       } {
         salon =>
-          Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonDescription, salon.picDescription, salon.contactMethod, salon.optContactMethods, salon.establishDate, salon.salonAddress,
+          Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonDescription, salon.salonBriefIntroduction, salon.contactMethod, salon.optContactMethods, salon.establishDate, salon.salonAddress,
             salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
       })
 
@@ -172,7 +172,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
    * 沙龙情报显示页面
    * @return
    */
-  def salonInfoBasic = StackAction(AuthorityKey -> authImproveInfo _) { implicit request =>
+  def salonMainInfo = StackAction(AuthorityKey -> authImproveInfo _) { implicit request =>
     val salon = loggedIn
     val industry = Industry.findAll.toList
     Ok(views.html.salon.salonManage.salonInfo("", salon, industry))

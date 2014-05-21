@@ -32,9 +32,9 @@
             <input type="hidden" name="salonFacilities.isWifiAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isWifiAvailable).getOrElse(None)">
             <input type="hidden" name="salonFacilities.hasParkingNearby" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.hasParkingNearby).getOrElse(None)">
             <input type="hidden" name="salonFacilities.parkingDesc" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.parkingDesc).getOrElse(None)">
-            <input type="hidden" name="picDescription.picTitle" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picTitle).getOrElse(None)">
-            <input type="hidden" name="picDescription.picContent" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picContent).getOrElse(None)">
-            <input type="hidden" name="picDescription.picFoot" readonly="readonly" value="@salon.picDescription.map(pic=>pic.picFoot).getOrElse(None)">
+            <input type="hidden" name="salonBriefIntroduction.picTitle" readonly="readonly" value="@salon.salonBriefIntroduction.map(pic=>pic.picTitle).getOrElse(None)">
+            <input type="hidden" name="salonBriefIntroduction.picContent" readonly="readonly" value="@salon.salonBriefIntroduction.map(pic=>pic.picContent).getOrElse(None)">
+            <input type="hidden" name="salonBriefIntroduction.picFoot" readonly="readonly" value="@salon.salonBriefIntroduction.map(pic=>pic.picFoot).getOrElse(None)">
             @inputText(salonForm("salonAddress.town"), '_label -> None,'_help -> "", 'style -> "display: none")
             @inputText(salonForm("salonAddress.longitude"), '_label -> None,'_help -> "",'style -> "display: none")
             @inputText(salonForm("salonAddress.latitude"), '_label -> None,'_help -> "",'style -> "display: none")

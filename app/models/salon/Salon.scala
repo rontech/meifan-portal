@@ -43,7 +43,7 @@ import com.meifannet.framework.db._
  * @param salonIndustry        Ref to Master [Industry] table.
  * @param homepage
  * @param salonDescription     description for salon.
- * @param picDescription       description for salonFirstPage.
+ * @param salonBriefIntroduction       description for salonFirstPage.
  * @param contactMethod        phoneNumber and contact person of salon.
  * @param optContactMethods   Ref to Master [OptContactMethods] table.
  * @param establishDate
@@ -64,7 +64,7 @@ case class Salon(
   salonIndustry: List[String],
   homepage: Option[String],
   salonDescription: Option[String],
-  picDescription: Option[PicDescription],
+  salonBriefIntroduction: Option[BriefIntroduction],
   contactMethod: Contact,
   optContactMethods: List[OptContactMethod],
   establishDate: Option[Date],
@@ -85,7 +85,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    * @param salonAccountId accountId是该沙龙的用户名
    * @return
    */
-  def findByAccountId(salonAccountId: String): Option[Salon] = {
+  def findOneByAccountId(salonAccountId: String): Option[Salon] = {
     dao.findOne(MongoDBObject("salonAccount.accountId" -> salonAccountId))
   }
 
@@ -296,8 +296,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    */
   def checkDetailIsFill(salon: Salon): Boolean = {
     salon.seatNums.nonEmpty &&
-      salon.picDescription.exists(pic => pic.picTitle.nonEmpty) && salon.picDescription.exists(pic => pic.picContent.nonEmpty) &&
-      salon.picDescription.exists(pic => pic.picFoot.nonEmpty)
+      salon.salonBriefIntroduction.exists(pic => pic.picTitle.nonEmpty) && salon.salonBriefIntroduction.exists(pic => pic.picContent.nonEmpty) &&
+      salon.salonBriefIntroduction.exists(pic => pic.picFoot.nonEmpty)
   }
 
   /**
@@ -318,7 +318,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    * @param salon
    * @return
    */
-  def isOwner(accountId: String)(salon: Salon): Future[Boolean] = Future { Salon.findByAccountId(accountId).map(_ == salon).get }
+  def isOwner(accountId: String)(salon: Salon): Future[Boolean] = Future { Salon.findOneByAccountId(accountId).map(_ == salon).get }
 
   /*--------------------------
    - 沙龙首页: 沙龙通用检索
@@ -444,7 +444,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
     var kwsHits: List[String] = Nil
     // when it is searched without keyword, list the .
     if (reg.toString == "") {
-      kwsHits = getSalonPresentationAbbr(sl.picDescription)
+      kwsHits = getSalonPresentationAbbr(sl.salonBriefIntroduction)
     } else {
       kwsHits = getKeywordsHitStrs(sl, fields, reg)
     }
@@ -491,7 +491,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   /**
    *
    */
-  def getSalonPresentationAbbr(present: Option[PicDescription]): List[String] = {
+  def getSalonPresentationAbbr(present: Option[BriefIntroduction]): List[String] = {
     var abbrPres: List[String] = Nil
     present match {
       case None => abbrPres
@@ -520,7 +520,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
     if(fz.contains("salonDescription")) hit = dao.find(fz).map {_.salonDescription.getOrElse("")}.mkString
     // for a salon valid, it is impossible that field [picDescription] is null.
     if(fz.contains("picDescription.picTitle")) hit = dao.find(fz).map {_.picDescription.get.picTitle}.mkString
-    if(fz.contains("picDescription.picContent")) hit = dao.find(fz).map {_.picDescription.get.picContent}.mkString
+    if(fz.contains(" escription.picContent")) hit = dao.find(fz).map {_.picDescription.get.picContent}.mkString
     if(fz.contains("picDescription.picFoot")) hit = dao.find(fz).map {_.picDescription.get.picFoot}.mkString
 
     // first hit words, fz's value is a Regex type variable.
@@ -564,9 +564,9 @@ object Salon extends MeifanNetModelCompanion[Salon] {
         //if(tgtf == "salonNameAbbr") hit = salon.salonNameAbbr.getOrElse("")
         if (tgtf == "salonDescription") hit = salon.salonDescription.getOrElse("")
         // for a salon valid, it is impossible that field [picDescription] is null.
-        if (tgtf == "picDescription.picTitle") hit = salon.picDescription.get.picTitle
-        if (tgtf == "picDescription.picContent") hit = salon.picDescription.get.picContent
-        if (tgtf == "picDescription.picFoot") hit = salon.picDescription.get.picFoot
+        if (tgtf == "salonBriefIntroduction.picTitle") hit = salon.salonBriefIntroduction.get.picTitle
+        if (tgtf == "salonBriefIntroduction.picContent") hit = salon.salonBriefIntroduction.get.picContent
+        if (tgtf == "salonBriefIntroduction.picFoot") hit = salon.salonBriefIntroduction.get.picFoot
 
         // Use the Regex type method to get the first hit words in the target string.
         var firstHit = exactKwds.findFirstIn(hit)
@@ -605,7 +605,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    */
   def getSrchTargetFields(): Array[String] = {
     val srchFields = Array("salonName", "salonNameAbbr", "salonDescription",
-      "picDescription.picTitle", "picDescription.picContent", "picDescription.picFoot")
+      "salonBriefIntroduction.picTitle", "salonBriefIntroduction.picContent", "salonBriefIntroduction.picFoot")
 
     srchFields
   }
@@ -819,7 +819,7 @@ case class SalonAccount(
  * @param picContent
  * @param picFoot
  */
-case class PicDescription(
+case class BriefIntroduction(
   picTitle: String,
   picContent: String,
   picFoot: String)

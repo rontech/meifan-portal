@@ -180,7 +180,7 @@ GET         /myPage/removeSalon/:salonId                                        
 #-------------------------------------------------
 #Salon Management
 
-GET         /mySalon/salonInfo                                                   controllers.auth.Salons.salonInfoBasic
+GET         /mySalon/salonInfo                                                   controllers.auth.Salons.salonMainInfo
 POST        /mySalon/updateInfo                                                  controllers.auth.Salons.salonRegisterUpdate(salonId: ObjectId)
 GET         /mySalon/updateLogo                                                  controllers.auth.Salons.saveSalonImg(imgId: ObjectId)
 POST        /mySalon/imageUpload                                                 controllers.auth.Salons.imageUpload

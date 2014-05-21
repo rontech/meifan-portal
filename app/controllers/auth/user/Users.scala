@@ -315,7 +315,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
         case (stylistApply) => {
           Stylist.save(stylistApply.stylist.copy(stylistId = user.id))
           Stylist.updateImages(stylistApply.stylist, user.userPics)
-          Salon.findByAccountId(stylistApply.salonAccountId).map { salon =>
+          Salon.findOneByAccountId(stylistApply.salonAccountId).map { salon =>
             val applyRecord = new SalonStylistApplyRecord(new ObjectId, salon.id, user.id, 1, new Date, 0, None)
             SalonStylistApplyRecord.save(applyRecord)
             Redirect(controllers.auth.routes.Stylists.updateStylistImage("user"))
