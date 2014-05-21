@@ -26,7 +26,10 @@ import mongoContext._
 import java.util.Date
 
 /**
- *
+ * the class for position and Industry
+ * @param id
+ * @param positionName
+ * @param industryName
  */
 case class IndustryAndPosition(
   id: ObjectId,

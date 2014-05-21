@@ -22,6 +22,11 @@ import se.radley.plugin.salat.Binders._
 import com.meifannet.framework.db._
 import mongoContext._
 
+/**
+ * 关注类型class定义
+ * @param id mongodb中自动生成的objectId
+ * @param followTypeName 关注类型名
+ */
 case class FollowType(
   id: ObjectId = new ObjectId,
   followTypeName: String)
@@ -37,8 +42,17 @@ object FollowType extends MeifanNetModelCompanion[FollowType] {
 
   val dao = new MeifanNetDAO[FollowType](collection = loadCollection()) {}
 
+  /**
+   * 添加关注类型
+   * @param FollowType 关注对象
+   * @return
+   */
   def addFollowType(FollowType: FollowType) = dao.save(FollowType, WriteConcern.Safe)
 
+  /**
+   * 获取所有关注对象名
+   * @return
+   */
   def getFollowTypeList: List[String] = dao.find(MongoDBObject.empty).toList.map {
     FollowType => FollowType.followTypeName
   }

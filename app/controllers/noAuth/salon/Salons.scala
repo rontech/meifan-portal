@@ -38,7 +38,7 @@ import models.SearchParaForSalon
 import models.WorkTime
 import models.SalonAccount
 import scala.Some
-import models.PicDescription
+import models.BriefIntroduction
 import models.CouponServiceType
 import models.ServiceByType
 import models.Contact
@@ -47,7 +47,7 @@ import models.Address
 
 object Salons extends Controller with OptionalAuthElement with UserAuthConfigImpl {
 
-  //店铺注册Form
+  //沙龙注册Form
   val salonRegister: Form[Salon] = Form(
     mapping(
       "salonAccount" -> mapping(
@@ -64,10 +64,10 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
       "salonIndustry" -> list(text),
       "homepage" -> optional(text),
       "salonDescription" -> optional(text),
-      "picDescription" -> optional(mapping(
+      "salonBriefIntroduction" -> optional(mapping(
         "picTitle" -> text,
         "picContent" -> text,
-        "picFoot" -> text)(PicDescription.apply)(PicDescription.unapply)),
+        "picFoot" -> text)(BriefIntroduction.apply)(BriefIntroduction.unapply)),
       "contactMethod" -> mapping(
         "mainPhone" -> text,
         "contact" -> text,
@@ -120,13 +120,13 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             salonPics => Some(salonPics.fileObjId.toString(), salonPics.picUse, salonPics.showPriority, salonPics.description)
           }),
       "accept" -> checked("")) {
-        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
+        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, salonBriefIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
         workTime, restDays, seatNums, salonFacilities, salonPics, _) =>
-          Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
+          Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, salonBriefIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
             workTime, restDays, seatNums, salonFacilities, salonPics, new Date())
       } {
         salonRegister =>
-          Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.picDescription, salonRegister.contactMethod,
+          Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.salonBriefIntroduction, salonRegister.contactMethod,
             salonRegister.optContactMethods, salonRegister.establishDate, salonRegister.salonAddress,
             salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics, false)
       })
@@ -175,7 +175,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
         "sortByPriceAsc" -> boolean)(SortByConditions.apply)(SortByConditions.unapply))(SearchParaForSalon.apply)(SearchParaForSalon.unapply))
 
   /**
-   * 店铺注册
+   * 沙龙注册处理
+   * @return
    */
   def register() = Action { implicit request =>
     val industry = Industry.findAll.toList
@@ -184,8 +185,7 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
       {
         salonRegister =>
           Salon.save(salonRegister, WriteConcern.Safe)
-          Redirect(auth.routes.
-            Salons.salonLogin)
+          Redirect(auth.routes.Salons.salonLogin)
       })
   }
   /*-------------------------

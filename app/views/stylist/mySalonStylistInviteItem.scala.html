@@ -1,0 +1,42 @@
+@(invited: Tuple2[Stylist, ObjectId])
+
+@import java.text.DateFormat
+  <div class="w150 mHA">
+    <div class="taC">
+      <a href="@noAuth.routes.Stylists.otherHomePage((invited._1).stylistId)">
+        <img src="@routes.Application.getPhoto(invited._1.myPics(0).fileObjId)" class="bdImgGray w150 h200">
+      </a>
+    </div>
+
+    <p class="mT10">
+      <a href="@noAuth.routes.Stylists.otherHomePage(invited._1.stylistId)">
+        <p>@Stylist.findUserName(invited._1.stylistId)</p>
+      </a>
+    </p>
+    <p class="mT10">
+
+    @invited._1.position.map{po=>
+      @Messages(po.industryName)&nbsp;@Messages("position.positionName."+po.positionName)
+    }
+
+    </p>
+    <div class="bdDotT mT5 pT5 fs10">
+      <span class="fgPink">
+
+        @invited._1.myWords.slice(0,15) ...
+
+      </span>
+      @*（@stylist.workYears
+      年）*@
+      [@Messages("stylist.experienceYears", invited._1.workYears)]
+    </div>
+  </div>
+
+  <div class="taC mT10">
+    <div class="mB5 bdDotB">
+      @*<span>@Messages("stylist.applyCreateTime"): </span><span>@DateFormat.getDateInstance().format(SalonStylistApplyRecord.findOneStylistApRd(stylist.stylistId).get.applyDate)</span>*@
+    </div>
+    <div class="pT5">
+      <a onclick="del('@auth.routes.Salons.cancelInviteStylist(invited._2)','@Messages("salonAdmin.cancelInvite")');" class="buttons applyToStylist">@Messages("salonAdmin.cancelInvite")</a>
+    </div>
+  </div>

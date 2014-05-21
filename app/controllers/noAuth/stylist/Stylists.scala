@@ -46,7 +46,10 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
   }*/
 
   /**
-   *  查看技师所属店铺
+   * 查看技师所属店铺，根据传入的技师stylistId
+   * 调用方法查找到所属的店铺
+   * @param stylistId
+   * @return
    */
   def mySalonFromStylist(stylistId: ObjectId) = StackAction { implicit request =>
     val user = User.findOneById(stylistId).get
@@ -65,7 +68,9 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
   }
 
   /**
-   *  查看技师发型
+   * 查看技师的所有发型
+   * @param stylistId - 技师stylistId
+   * @return
    */
   def findStylesByStylist(stylistId: ObjectId) = StackAction { implicit request =>
     val styles = Style.findByStylistId(stylistId)
@@ -81,7 +86,10 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
   }
 
   /**
-   * 后台发型检索
+   * 技师后台发型检索
+   * 根据传入后台的发型检索条件form，查找到满足的所有发型
+   * @param stylistId - 技师stylistId primary key
+   *@return
    */
   def findStylesBySerach(stylistId: ObjectId) = StackAction { implicit request =>
     val user = User.findOneById(stylistId).get
@@ -102,7 +110,10 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
   }
 
   /**
-   * 后台发型基本信息查看
+   * 查看后台的单个发型的详细信息
+   * @param styleId - 发型id
+   * @param stylistId - 技师stylistId
+   * @return
    */
   def getbackstageStyleItem(styleId: ObjectId, stylistId: ObjectId) = StackAction { implicit request =>
     val user = User.findOneById(stylistId).get
@@ -121,6 +132,11 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
 
   }
 
+  /**
+   * 查看他人技师的主页，或者普通用户查看技师的主页
+   * @param stylistId - 技师stylistId
+   * @return
+   */
   def otherHomePage(stylistId: ObjectId) = StackAction { implicit request =>
     val user = User.findOneById(stylistId).get
     /*
@@ -139,19 +155,30 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
 
   }
 
+  /**
+   * 普通用户申请成为技师时，或者技师要申请绑定店铺时
+   * ajax 验证输入店铺账号id，该店铺是否存在
+   * @param salonAccountId
+   * @return YES or NO
+   */
   def checkSalonIsExit(salonAccountId: String) = Action {
     println("salonId " + salonAccountId)
-    Salon.findByAccountId(salonAccountId).map { salon =>
+    Salon.findOneByAccountId(salonAccountId).map { salon =>
       Ok("YES")
     } getOrElse {
       Ok("NO")
     }
   }
 
-  def cutImg = Action {
-    Ok(views.html.stylist.cutImg(""))
-  }
-
+  /**
+   * ajax check
+   * 店铺搜索技师时
+   * 验证技师时否存在
+   * 验证要搜索的技师与其它店铺关系是否为绑定
+   * @param userId
+   * @param salonId
+   * @return
+   */
   def checkStylistIsExist(userId: String, salonId: ObjectId) = Action {
     val user = User.findOneByUserId(userId)
     user match {
@@ -169,7 +196,6 @@ object Stylists extends Controller with OptionalAuthElement with UserAuthConfigI
                 Ok("NO")
               }
             }
-
           }
           case None => Ok("NO")
         }

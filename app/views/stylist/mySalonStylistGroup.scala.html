@@ -1,28 +1,43 @@
-@(stylists: Seq[Stylist], salon: Salon, status: Int)
+@(applies: List[(Stylist, ObjectId)], salon: Salon, status: Int, stylists: List[Stylist] = Nil)
 
 <!-- components to list the hair style. -->
+@*
+status == 0: salon '来自技师申请’的item
+status == 1: salon‘我的技师’的item
+status == 2: salon '我邀请的技师’的item
+*@
+@if(status == 0) {
+  @applies.map{ sty=>
+    <div class="mysalon-stylist">
+    @views.html.stylist.mySalonStylistApyItem(sty, salon)
+    </div>
+  }
+}
 
 @if(status == 1){
-  @stylists.map{sty=>
+  @stylists.map{ stylist=>
   <div class="w164 mHA">
-    <div class="taC">
+    @*<div class="taC">
       @if(stylists.length<=1){
         @stylists.map{st =>
           <p><a href="@noAuth.routes.Salons.getOneStylist(salon.id, st.id)">@Messages("salonAdmin.findAllStylists")</a></p>
         }
       }
-    </div>
+    </div>*@
   </div>
   <div class="mysalon-stylist-group">
-    <div class="mysalon-stylist-@(stylists.indexOf(sty)%4)">
-      @views.html.stylist.mySalonStylistItem(sty, salon)
+    <div class="mysalon-stylist">
+      @views.html.stylist.mySalonStylistItem(stylist, salon)
     </div>
-  </div>    
+  </div>
   }
-}else{
-  @stylists.map{sty=>
-    <div class="mysalon-stylist-@(stylists.indexOf(sty)%4)">
-      @views.html.stylist.mySalonStylistApyItem(sty, salon)
+}
+
+@if(status == 2) {
+  @applies.map{ applyStylist=>
+    <div class="mysalon-stylist">
+      @views.html.stylist.mySalonStylistInviteItem(applyStylist)
     </div>
   }
 }
+

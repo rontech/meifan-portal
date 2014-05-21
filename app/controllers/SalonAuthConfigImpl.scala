@@ -36,10 +36,10 @@ trait SalonAuthConfigImpl extends AuthConfig {
 
   val sessionTimeoutInSeconds = 3600
 
-  def resolveUser(accountId: Id)(implicit ctx: ExecutionContext) = Future.successful(Salon.findByAccountId(accountId))
+  def resolveUser(accountId: Id)(implicit ctx: ExecutionContext) = Future.successful(Salon.findOneByAccountId(accountId))
 
   def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = {
-    val uri = request.session.get("access_uri").getOrElse(auth.routes.Salons.salonInfoBasic.url.toString)
+    val uri = request.session.get("access_uri").getOrElse(auth.routes.Salons.salonMainInfo.url.toString)
     Future.successful(Redirect(uri).withSession(request.session - "salon_access_uri"))
   }
   def logoutSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Redirect(routes.Application.index))
@@ -47,11 +47,15 @@ trait SalonAuthConfigImpl extends AuthConfig {
   def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) =
     Future.successful(Redirect(routes.Application.salonLogin).withSession("salon_access_uri" -> request.uri))
 
-  def authorizationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Forbidden("no permission"))
+  def authorizationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Redirect(auth.routes.Salons.checkInfoState))
 
   def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = authority(user)
 
   def isLoggedIn(user: User): Future[Boolean] = Future.successful(true)
+
+  def authImproveInfo(user: User): Future[Boolean] = Future.successful(
+    if(!Salon.checkBasicInfoIsFill(user) || !Salon.checkDetailIsFill(user) || !Salon.checkImgIsExist(user)){false}else{true}
+  )
 
   /*def authorization(permission: Permission)(user : User)(implicit ctx: ExecutionContext) = Future.successful((permission, user.permission) match {
   case ( _, "Administrator") => true

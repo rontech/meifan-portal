@@ -86,7 +86,6 @@ POST        /userPage/:stylistId/styles                                         
 # TODO >>>>>>>>>>>>>>>>>>>>>
 GET         /userPage/:publicId/HomePage                                         controllers.noAuth.Stylists.otherHomePage(publicId: ObjectId)
 GET         /myPage/checkSalonIsExit/:salonAccountId                             controllers.noAuth.Stylists.checkSalonIsExit(salonAccountId: String)
-GET         /cutImg                                                              controllers.noAuth.Stylists.cutImg
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 # Question
@@ -156,7 +155,7 @@ GET         /myPage/createStyle                                                 
 POST        /myPage/createStyle                                                  controllers.auth.Stylists.newStyleAddByStylist
 GET         /myPage/stylistApplying                                              controllers.auth.Stylists.findStylistApplying
 GET         /myPage/wantToApply                                                  controllers.auth.Stylists.wantToApply
-GET         /myPage/cancelApplying                                               controllers.auth.Stylists.cancelMyApplying
+GET         /myPage/cancelApplying/:applyRecordId                                controllers.auth.Stylists.cancelMyApplying(applyRecordId: ObjectId)
 GET         /myPage/toApplySalon/:salonId                                        controllers.auth.Stylists.toApplySalon(salonId: ObjectId)
 GET         /myPage/salon                                                        controllers.auth.Stylists.findSalonBySalonAccountId
 
@@ -167,8 +166,8 @@ GET         /saveStylistImg/:imgId/:role                                        
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 GET         /myPage/StylistInfo                                                  controllers.auth.Stylists.stylistInfo
 POST        /myPage/updateStylistInfo/:stylistId                                 controllers.auth.Stylists.updateStylistInfo(stylistId: ObjectId)
-GET         /myPage/agreeSalonApply/:salonId                                     controllers.auth.Stylists.agreeSalonApply(salonId: ObjectId)
-GET         /myPage/rejectSalonApply/:salonId                                    controllers.auth.Stylists.rejectSalonApply(salonId: ObjectId)
+GET         /myPage/agreeSalonApply/:applyRecordId                               controllers.auth.Stylists.agreeSalonInvite(applyRecordId: ObjectId)
+GET         /myPage/rejectSalonApply/:applyRecordId                              controllers.auth.Stylists.rejectSalonInvite(applyRecordId: ObjectId)
 GET         /myPage/applyFromSalon/                                              controllers.auth.Stylists.applyFromSalon
 GET         /myPage/removeSalon/:salonId                                         controllers.auth.Stylists.removeSalon(salonId: ObjectId)
 
@@ -181,7 +180,7 @@ GET         /myPage/removeSalon/:salonId                                        
 #-------------------------------------------------
 #Salon Management
 
-GET         /mySalon/salonInfo                                                   controllers.auth.Salons.salonInfoBasic
+GET         /mySalon/salonInfo                                                   controllers.auth.Salons.salonMainInfo
 POST        /mySalon/updateInfo                                                  controllers.auth.Salons.salonRegisterUpdate(salonId: ObjectId)
 GET         /mySalon/updateLogo                                                  controllers.auth.Salons.saveSalonImg(imgId: ObjectId)
 POST        /mySalon/imageUpload                                                 controllers.auth.Salons.imageUpload
@@ -194,20 +193,22 @@ GET         /mySalon/service                                                    
 GET         /mySalon/coupon                                                      controllers.auth.Salons.myCoupon
 GET         /mySalon/menu                                                        controllers.auth.Salons.myMenu
 GET         /mySalon/applyFormStylist                                            controllers.auth.Salons.checkHoldApply
-GET         /mySalon/agreeStylistApply/:stylistId                                controllers.auth.Salons.agreeStylistApply(stylistId: ObjectId)
-GET         /mySalon/rejectStylistApply/:stylistId                               controllers.auth.Salons.rejectStylistApply(stylistId: ObjectId)
+GET         /mySalon/agreeStylistApply/:applyRecordId                            controllers.auth.Salons.agreeStylistApply(applyRecordId: ObjectId)
+GET         /mySalon/rejectStylistApply/:applyRecordId                           controllers.auth.Salons.rejectStylistApply(applyRecordId: ObjectId)
 GET         /mySalon/searchStylistById                                           controllers.auth.Salons.searchStylistById
 GET         /mySalon/checkStylistIsValid/:stylistId                              controllers.auth.Salons.checkStylistIsValid(stylistId: String)
 GET         /mySalon/inviteStylist/:stylistId/                                   controllers.auth.Salons.inviteStylist(stylistId: ObjectId)
 GET         /mySalon/removeStylist/:stylistId                                    controllers.auth.Salons.removeStylist(stylistId: ObjectId)
 GET         /mySalon/replyComment/:commentObjId/:commentObjType                  controllers.auth.Salons.replyBySalon(commentObjId : ObjectId, commentObjType : Int)
+GET         /mySalon/checkInvite                                                 controllers.auth.Salons.myInvite
+GET         /mySalon/cancelInvite/:applyRecordId                                 controllers.auth.Salons.cancelInviteStylist(applyRecordId: ObjectId)
 # TODO
 GET         /mySalon/checkInfoState                                              controllers.auth.Salons.checkInfoState
-GET         /mySalon/checkAuth                                              	 controllers.auth.Salons.checkAuth
+GET         /mySalon/checkAuth                                                   controllers.auth.Salons.checkAuth
 
 GET         /salonBasic                                                          controllers.auth.Salons.salonBasic
 GET         /salonDetail                                                         controllers.auth.Salons.salonDetail
-POST        /salonbasicUpdate/:id                                                controllers.auth.Salons.salonbasicUpdate(id:ObjectId)
+POST        /salonbasicUpdate/:id                                                controllers.auth.Salons.salonBasicUpdate(id:ObjectId)
 POST        /salonDetailUpdate/:id                                               controllers.auth.Salons.salonDetailUpdate(id:ObjectId)
 POST        /changeSalonPassword                                                 controllers.auth.Salons.salonChangePassword(accountId : String)
 
@@ -285,7 +286,11 @@ GET         /s/resetPwd                                                         
 POST        /s/resetPwd                                                          controllers.Mails.resetPasswordOfSalon(uuid : String)
 
 #add salonPics 
-POST        /mySalon/updatepictures                                              controllers.auth.Salons.updateSalonPics
+POST        /mySalon/updateShowPictures                                          controllers.auth.Salons.updateShowPicture
+POST        /mySalon/updateAtomPictures                                          controllers.auth.Salons.updateAtmoPicture
+POST        /mySalon/updateLOGOpictures                                          controllers.auth.Salons.updateLogoPicture
+POST        /mySalon/updateCheckPictures                                         controllers.auth.Salons.updateCheckPicture
+
 
 # Reservation add by sangsang-hu
 GET         /salon/reserve/salonId=:salonId&couponId=:couponId&week=:week        controllers.Reservations.reservShowDate(salonId: ObjectId, couponId: ObjectId, week: Int)

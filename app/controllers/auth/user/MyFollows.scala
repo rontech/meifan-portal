@@ -31,7 +31,9 @@ import java.util.Calendar
 object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
 
   /**
-   * 取消关注
+   * Cancel something that has been followed
+   * @param followedId the object's objectId to be cancelled
+   * @return refresh the current page
    */
   def cancelFollow(followedId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
@@ -40,32 +42,43 @@ object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
   }
 
   /**
-   * 添加关注或收藏
+   * Create a new followed object
+   * @param followId the object's objectId to be followed
+   * @param followObjType the object's type to be followed
+   * @param date the current time of following action
+   * @return
    */
   def addFollow(followId: ObjectId, followObjType: String, date: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     MyFollow.checkIfFollow(user.id, followId) match {
       case false => {
+        // if you have not followed this object, create a new followed object
         MyFollow.create(user.id, followId, followObjType)
+        // if the object you will follow is salon, or stylist, or user, send a message to him while you follow
         if (followObjType == FollowType.FOLLOW_SALON || followObjType == FollowType.FOLLOW_STYLIST || followObjType == FollowType.FOLLOW_USER)
           UserMessage.sendFollowMsg(user, followId, followObjType)
         Ok("false")
       }
       case true =>
+        // if you have followed this object, then do nothing
         Ok("true")
     }
   }
 
   /**
-   * 收藏的优惠劵
+   * Get the user's followed coupons
+   * @param userId user's objectId
+   * @return
    */
   def followedCoupon(userId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
     val loginUser = loggedIn
     val user = User.findOneById(userId).get
+
+    // get the user's all followed information based on the user's objectId
     val followInfo = MyFollow.getAllFollowInfo(userId)
 
-    // 获取当前时间的前7天的日期，用于判断是否为新券还是旧券
-    var beforeSevernDate = Calendar.getInstance()
+    //get 7 days before the current time to judge the coupon is new or old
+    val beforeSevernDate = Calendar.getInstance()
     beforeSevernDate.setTime(new Date())
     beforeSevernDate.add(Calendar.DAY_OF_YEAR, -7)
 
@@ -73,22 +86,30 @@ object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
   }
 
   /**
-   * 收藏的博客
+   * Get the user's followed blog
+   * @param userId user's objectId
+   * @return
    */
   def followedBlog(userId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
     val loginUser = loggedIn
     val user = User.findOneById(userId).get
+
+    // get the user's all followed information based on the user's objectId
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     Ok(views.html.user.followedBlog(user, followInfo, loginUser.id))
   }
 
   /**
-   * 收藏的风格
+   * Get the user's followed style
+   * @param userId user's objectId
+   * @return
    */
   def followedStyle(userId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
     val loginUser = loggedIn
     val user = User.findOneById(userId).get
     val followInfo = MyFollow.getAllFollowInfo(user.id)
+
+    // get the user's all followed information based on the user's objectId
     Ok(views.html.user.followedStyle(user, followInfo, loginUser.id))
   }
 }

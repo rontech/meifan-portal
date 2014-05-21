@@ -23,6 +23,13 @@ import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat.Binders._
 import com.meifannet.framework.db._
 
+/**
+ * Class for Message
+ * @param id    ObjectId of record in mongodb
+ * @param title
+ * @param content
+ * @param createdTime
+ */
 case class Message(
   id: ObjectId,
   title: String,
@@ -32,6 +39,4 @@ case class Message(
 object Message extends MeifanNetModelCompanion[Message] {
 
   val dao = new MeifanNetDAO[Message](collection = loadCollection()) {}
-
-  def findById(id: ObjectId): Option[Message] = dao.findOne(MongoDBObject("_id" -> id))
 }

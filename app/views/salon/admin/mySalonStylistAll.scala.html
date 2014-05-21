@@ -31,8 +31,8 @@
   <div class="mc">
     <span id="stylistSearchResult"></span>
       <div class="tabcon hide" data-widget="tab-content" style="display: block;">
-        
-      @views.html.stylist.mySalonStylistGroup(stylists = stylist, salon = salon, status = 1)
+      @*status == 1: salon‘我的技师’的item*@
+      @views.html.stylist.mySalonStylistGroup(applies = Nil,stylists = stylist, salon = salon, status = 1)
     </div>
   </div>
 }
