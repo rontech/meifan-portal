@@ -25,6 +25,9 @@ import com.meifannet.framework.db._
 
 /**
  * The table of styleLength
+ * @param id ObjectId ObjectId
+ * @param styleLength 发型适合长度
+ * @param description 描述
  */
 case class StyleLength(
   id: ObjectId = new ObjectId,
@@ -37,6 +40,9 @@ object StyleLength extends MeifanNetModelCompanion[StyleLength] {
 
 /**
  * The table of styleColor
+ * @param id ObjectId ObjectId
+ * @param styleColor 发型适合颜色
+ * @param description 描述
  */
 case class StyleColor(
   id: ObjectId = new ObjectId,
@@ -49,6 +55,9 @@ object StyleColor extends MeifanNetModelCompanion[StyleColor] {
 
 /**
  * The table of StyleStyleImpression
+ * @param id ObjectId ObjectId
+ * @param styleImpression 发型适合风格
+ * @param description 描述
  */
 case class StyleImpression(
   id: ObjectId = new ObjectId,
@@ -61,6 +70,9 @@ object StyleImpression extends MeifanNetModelCompanion[StyleImpression] {
 
 /**
  * The table of styleAmount
+ * @param id ObjectId ObjectId
+ * @param styleAmount 发型适合发量
+ * @param description 描述
  */
 case class StyleAmount(
   id: ObjectId = new ObjectId,
@@ -73,6 +85,9 @@ object StyleAmount extends MeifanNetModelCompanion[StyleAmount] {
 
 /**
  * The table of styleQuality
+ * @param id ObjectId
+ * @param styleQuality 发型适合发质
+ * @param description 描述
  */
 case class StyleQuality(
   id: ObjectId = new ObjectId,
@@ -85,6 +100,9 @@ object StyleQuality extends MeifanNetModelCompanion[StyleQuality] {
 
 /**
  * The table of styleDiameter
+ * @param id ObjectId
+ * @param styleDiameter 发型适合直径
+ * @param description 描述
  */
 case class StyleDiameter(
   id: ObjectId = new ObjectId,
@@ -97,6 +115,9 @@ object StyleDiameter extends MeifanNetModelCompanion[StyleDiameter] {
 
 /**
  * The table of faceShape
+ * @param id ObjectId
+ * @param faceShape 发型适合脸型
+ * @param description 描述
  */
 case class FaceShape(
   id: ObjectId = new ObjectId,
@@ -109,6 +130,9 @@ object FaceShape extends MeifanNetModelCompanion[FaceShape] {
 
 /**
  * The table of socialStatus
+ * @param id ObjectId
+ * @param socialStatus 发型适合场合
+ * @param description 描述
  */
 case class SocialStatus(
   id: ObjectId = new ObjectId,
@@ -121,6 +145,9 @@ object SocialStatus extends MeifanNetModelCompanion[SocialStatus] {
 
 /**
  * The table of ageGroup
+ * @param id ObjectId
+ * @param ageGroup 发型适合年龄段
+ * @param description 描述
  */
 case class AgeGroup(
   id: ObjectId = new ObjectId,
@@ -133,6 +160,8 @@ object AgeGroup extends MeifanNetModelCompanion[AgeGroup] {
 
 /**
  * The table of sex
+ * @param id ObjectId
+ * @param sex 发型适合性别
  */
 case class Sex(
   id: ObjectId = new ObjectId,
@@ -143,19 +172,28 @@ object Sex extends MeifanNetModelCompanion[Sex] {
 }
 
 /**
- * The table of styleDescrption
+ * The table of stylePicDescription
+ * @param id ObjectId
+ * @param stylePicDescription 发型图片描述
+ * @param description 描述
  */
-case class StyleDescrption(
+case class StylePicDescription(
   id: ObjectId = new ObjectId,
-  styleDescrption: String,
+  stylePicDescription: String,
   description: String)
 
-object StyleDescrption extends MeifanNetModelCompanion[StyleDescrption] {
-  val dao = new MeifanNetDAO[StyleDescrption](collection = loadCollection()) {}
+object StylePicDescription extends MeifanNetModelCompanion[StylePicDescription] {
+  val dao = new MeifanNetDAO[StylePicDescription](collection = loadCollection()) {}
 }
 
 /**
  * The table of searchByLengthForF
+ * 用于存放发型导航女性长度检索一栏
+ * @param id ObjectId
+ * @param sex 适合性别
+ * @param styleLength 发长
+ * @param stylePic 发型图片
+ * @param description 描述
  */
 case class SearchByLengthForF(
   id: ObjectId = new ObjectId,
@@ -175,6 +213,12 @@ object SearchByLengthForF extends MeifanNetModelCompanion[SearchByLengthForF] {
 
 /**
  * The table of searchByLengthForM
+ * 用于存放发型导航男性长度检索一栏
+ * @param id ObjectId
+ * @param sex 适合性别
+ * @param styleLength 发长
+ * @param stylePic 发型图片
+ * @param description 描述
  */
 case class SearchByLengthForM(
   id: ObjectId = new ObjectId,
@@ -194,6 +238,12 @@ object SearchByLengthForM extends MeifanNetModelCompanion[SearchByLengthForM] {
 
 /**
  * The table of searchByImpression
+ * 用于存放发型导航风格检索一栏
+ * @param id ObjectId
+ * @param sex 适合性别
+ * @param styleImpression 发型适合风格
+ * @param stylePic 发型图片
+ * @param description 描述
  */
 case class SearchByImpression(
   id: ObjectId = new ObjectId,

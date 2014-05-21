@@ -198,12 +198,12 @@ object InitialData {
         AgeGroup(new ObjectId, "fifty-five--", "55以上")).foreach(AgeGroup.save)
     }
     
-    if (StyleDescrption.findAll.isEmpty) {
+    if (StylePicDescription.findAll.isEmpty) {
       Seq(
-        StyleDescrption(new ObjectId, "FRONT", "正面"),
-        StyleDescrption(new ObjectId, "BACK", "背面"),
-        StyleDescrption(new ObjectId, "SIDE", "侧面"),
-        StyleDescrption(new ObjectId, "FASHION", "FASHION")).foreach(StyleDescrption.save)
+        StylePicDescription(new ObjectId, "FRONT", "正面"),
+        StylePicDescription(new ObjectId, "BACK", "背面"),
+        StylePicDescription(new ObjectId, "SIDE", "侧面"),
+        StylePicDescription(new ObjectId, "FASHION", "FASHION")).foreach(StylePicDescription.save)
     }
     
     if (BlogCategory.findAll.isEmpty) {
