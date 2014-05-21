@@ -31,8 +31,15 @@ import play.api.libs.iteratee.Enumerator
 import scala.concurrent.ExecutionContext
 import play.api.i18n.Messages
 import com.meifannet.framework.db._
+
 /**
  * Embed Structure.
+ * 用于保存图片的内嵌表结构: 包括图片id，用途，显示优先级，和描述；
+ *
+ * @param fileObjId 图片Object Id
+ * @param picUse 图片用途
+ * @param showPriority 显示时的优先顺序
+ * @param description 描述
  */
 case class OnUsePicture(
   fileObjId: ObjectId,
@@ -50,11 +57,21 @@ object OnUsePicture extends MeifanNetModelCompanion[OnUsePicture] {
 
 /**
  * Embed Structure.
+ * 备选联系方式
+ *
+ * @param contMethodType 联系方式类型，如QQ, Skype, Mail 等等
+ * @param accounts 联系方式帐号列表
  */
 case class OptContactMethod(
   contMethodType: String,
   accounts: List[String])
 
+/**
+ * 联系方式类型
+ * @param id
+ * @param contMethodTypeName 联系方式类型名
+ * @param description 类型描述
+ */
 case class ContMethodType(
   id: ObjectId = new ObjectId,
   contMethodTypeName: String,
@@ -64,13 +81,21 @@ object ContMethodType extends MeifanNetModelCompanion[ContMethodType] {
 
   val dao = new MeifanNetDAO[ContMethodType](collection = loadCollection()) {}
 
+  /**
+   * 取得所有联系方式的种类
+   * @return
+   */
   def getAllContMethodTypes = dao.find(MongoDBObject.empty).toSeq.map {
     contMethodType => contMethodType.contMethodTypeName -> Messages("ContMethodType.contMethodTypeName." + contMethodType.contMethodTypeName)
   }
 }
 
+
 /**
  * 默认Log
+ *
+ * @param id
+ * @param imgId
  */
 case class DefaultLog(
   id: ObjectId = new ObjectId,
@@ -82,6 +107,10 @@ object DefaultLog extends MeifanNetModelCompanion[DefaultLog] {
 
   /**
    * 保存图片
+   *
+   * @param defaultLog
+   * @param imgId
+   * @return
    */
   def saveLogImg(defaultLog: DefaultLog, imgId: ObjectId) = {
     dao.update(MongoDBObject("_id" -> defaultLog.id), MongoDBObject("$set" -> (MongoDBObject("imgId" -> imgId))), false, true)
@@ -89,6 +118,8 @@ object DefaultLog extends MeifanNetModelCompanion[DefaultLog] {
 
   /**
    * 获取图片的ObjectId
+   *
+   * @return
    */
   def getImgId = dao.find(MongoDBObject.empty).toList.head.imgId
 }

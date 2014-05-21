@@ -63,8 +63,8 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
       "salonNameAbbr" -> optional(text),
       "salonIndustry" -> list(text),
       "homepage" -> optional(text),
-      "salonDescription" -> optional(text),
-      "salonBriefIntroduction" -> optional(mapping(
+      "salonAppeal" -> optional(text),
+      "salonIntroduction" -> optional(mapping(
         "picTitle" -> text,
         "picContent" -> text,
         "picFoot" -> text)(BriefIntroduction.apply)(BriefIntroduction.unapply)),
@@ -120,13 +120,13 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
             salonPics => Some(salonPics.fileObjId.toString(), salonPics.picUse, salonPics.showPriority, salonPics.description)
           }),
       "accept" -> checked("")) {
-        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, salonBriefIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
+        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
         workTime, restDays, seatNums, salonFacilities, salonPics, _) =>
-          Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, salonBriefIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
+          Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
             workTime, restDays, seatNums, salonFacilities, salonPics, new Date())
       } {
         salonRegister =>
-          Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonDescription, salonRegister.salonBriefIntroduction, salonRegister.contactMethod,
+          Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonAppeal, salonRegister.salonIntroduction, salonRegister.contactMethod,
             salonRegister.optContactMethods, salonRegister.establishDate, salonRegister.salonAddress,
             salonRegister.workTime, salonRegister.restDays, salonRegister.seatNums, salonRegister.salonFacilities, salonRegister.salonPics, false)
       })

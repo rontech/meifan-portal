@@ -16,7 +16,7 @@
           <tbody>
             <input type="hidden" name="salonNameAbbr" readonly="readonly" value="@salon.salonNameAbbr">
             <input type="hidden" name="homepage" readonly="readonly" value="@salon.homepage">
-            <input type="hidden" name="salonDescription" readonly="readonly" value="@salon.salonDescription">
+            <input type="hidden" name="salonAppeal" readonly="readonly" value="@salon.salonAppeal">
             <input type="hidden" name="salonAddress.province" readonly="readonly" value="@salon.salonAddress.map(add=>add.province).getOrElse(None)">
             <input type="hidden" name="salonAddress.city" readonly="readonly" value="@salon.salonAddress.map(add=>add.city).getOrElse(None)">
             <input type="hidden" name="salonAddress.region" readonly="readonly" value="@salon.salonAddress.map(add=>add.region).getOrElse(None)">
@@ -40,9 +40,9 @@
             <input type="hidden" name="salonFacilities.isWifiAvailable" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.isWifiAvailable).getOrElse(None)">
             <input type="hidden" name="salonFacilities.hasParkingNearby" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.hasParkingNearby).getOrElse(None)">
             <input type="hidden" name="salonFacilities.parkingDesc" readonly="readonly" value="@salon.salonFacilities.map(fac=>fac.parkingDesc).getOrElse(None)">
-            <input type="hidden" name="salonBriefIntroduction.picTitle" readonly="readonly" value="@salon.salonBriefIntroduction.map(pic=>pic.picTitle).getOrElse(None)">
-            <input type="hidden" name="salonBriefIntroduction.picContent" readonly="readonly" value="@salon.salonBriefIntroduction.map(pic=>pic.picContent).getOrElse(None)">
-            <input type="hidden" name="salonBriefIntroduction.picFoot" readonly="readonly" value="@salon.salonBriefIntroduction.map(pic=>pic.picFoot).getOrElse(None)">
+            <input type="hidden" name="salonIntroduction.picTitle" readonly="readonly" value="@salon.salonIntroduction.map(pic=>pic.picTitle).getOrElse(None)">
+            <input type="hidden" name="salonIntroduction.picContent" readonly="readonly" value="@salon.salonIntroduction.map(pic=>pic.picContent).getOrElse(None)">
+            <input type="hidden" name="salonIntroduction.picFoot" readonly="readonly" value="@salon.salonIntroduction.map(pic=>pic.picFoot).getOrElse(None)">
                       
             @if(salonRegister.hasGlobalErrors){
              <div>

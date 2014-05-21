@@ -27,9 +27,11 @@ import java.util.Date
 
 /**
  * the class for position and Industry
- * @param id
- * @param positionName
- * @param industryName
+ * 行业职位表
+ *  
+ * @param id 
+ * @param positionName 职位名
+ * @param industryName 行业名
  */
 case class IndustryAndPosition(
   id: ObjectId,
@@ -41,7 +43,10 @@ object IndustryAndPosition extends MeifanNetModelCompanion[IndustryAndPosition] 
 }
 
 /**
- *
+ * 职位主表
+ * 
+ * @param id 职位id
+ * @param positionName 职位名称
  */
 case class Position(
   id: ObjectId,
