@@ -23,6 +23,12 @@ import se.radley.plugin.salat._
 import mongoContext._
 import com.meifannet.framework.db._
 
+/**
+ * A All Info structs of comment including belows
+ *
+ * @param commentInfo basic info as a comment
+ * @param salonInfo basic info as a salon
+ */
 case class CommentOfSalon(commentInfo: Comment, salonInfo: Option[Salon]) {
   def apply(commentInfo: Comment, salonInfo: Option[Salon]) = new CommentOfSalon(commentInfo, salonInfo)
 }
@@ -53,9 +59,25 @@ object CommentType extends Enumeration {
   val Replay = Value(3)
 }
 
+/**
+ * Comment class for blog'comment, reservation's commnet and reply
+ *
+ * @param id ObjectId of record in mongodb
+ * @param commentObjType 评论对象类型:  暂定 1: 对博客; 2: 对店铺; 3: 回复
+ * @param commentObjId 评论对象Id
+ * @param content 内容
+ * @param complex 综合分数
+ * @param atmosphere 氛围分数
+ * @param service 服务态度分数
+ * @param skill 技术分数
+ * @param price 价格分数
+ * @param authorId 评论人的userId
+ * @param createTime 评论时间
+ * @param isValid 有效状态
+ */
 case class Comment(
   id: ObjectId = new ObjectId,
-  commentObjType: Int, // 评论类型:  1: 对博客; 2: 对店铺; 3: 回复
+  commentObjType: Int,
   commentObjId: ObjectId,
   content: String,
   complex: Int,
@@ -75,6 +97,7 @@ object Comment extends MeifanNetModelCompanion[Comment] {
 
   /**
    * 根据评论对象的ObjectId查找评论，包括对这条评论所做的评论。
+   * @param id 评论对象的id
    * TODO 方法名
    */
   var list = List.empty[Comment]
@@ -94,6 +117,7 @@ object Comment extends MeifanNetModelCompanion[Comment] {
   /**
    *  模块化的代码，通过店铺Id找到评论,应该是通过店铺找到coupon，再找到对coupon做的评论
    *  目前是对coupon做的评论，到时候应该对预约做评论
+   *  @param salonId salon的id
    */
   def findBySalon(salonId: ObjectId): List[Comment] = {
     var commentListOfSalon: List[Comment] = Nil
@@ -119,20 +143,58 @@ object Comment extends MeifanNetModelCompanion[Comment] {
     commentListOfSalon.reverse
   }
 
+  /**
+   * Insert data to Comment table
+   *
+   * @param userId 评论人的userId
+   * @param content 内容
+   * @param commentObjId 评论对象Id
+   * @param commentObjType 评论对象类型
+   * @return
+   */
   def addComment(userId: String, content: String, commentObjId: ObjectId, commentObjType: Int) = {
     dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = 0, atmosphere = 0, service = 0, skill = 0, price = 0, authorId = userId, isValid = true))
   }
 
+  /**
+   * 对评论进行回复
+   *
+   * @param userId 评论人的userId
+   * @param content 内容
+   * @param commentObjId 评论对象Id
+   * @param commentObjType 评论对象类型
+   * @return
+   */
   def reply(userId: String, content: String, commentObjId: ObjectId, commentObjType: Int) = {
     dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = 0, atmosphere = 0, service = 0, skill = 0, price = 0, authorId = userId, isValid = true))
   }
 
+  /**
+   * 对coupon做评论，暂定，当预约模块完成后，修改成对预约完成的预约做评论
+   *
+   * @param userId 评论人的userId
+   * @param content 内容
+   * @param commentObjId 评论对象Id
+   * @param commentObjType 评论对象类型
+   * @param complex 综合分数
+   * @param atmosphere 氛围分数
+   * @param service 服务态度分数
+   * @param skill 技术分数
+   * @param price 价格分数
+   * @return
+   */
   def addCommentToCoupon(userId: String, content: String, commentObjId: ObjectId, commentObjType: Int, complex: Int, atmosphere: Int, service: Int, skill: Int, price: Int) = {
     dao.save(Comment(commentObjType = commentObjType, commentObjId = commentObjId, content = content, complex = complex, atmosphere = atmosphere, service = service, skill = skill, price = price, authorId = userId, isValid = true))
   }
 
   override def findOneById(id: ObjectId): Option[Comment] = dao.findOne(MongoDBObject("_id" -> id))
 
+  /**
+   * delete record from comment table
+   *
+   * @param id key
+   * @return
+   */
   def delete(id: ObjectId) = {
     val comment = findOneById(id).get
     dao.update(MongoDBObject("_id" -> comment.id), MongoDBObject("$set" -> MongoDBObject("isValid" -> false)))
@@ -142,6 +204,7 @@ object Comment extends MeifanNetModelCompanion[Comment] {
    * 查找评论表中最新的num条记录，该方法用于在首页上显示最新的评论。
    * 只是针对店铺中coupon（以后是预约）做的评论
    * 这边的2代表对coupon做的评论
+   * @param num 首页显示评论的数量
    */
   // TODO
   def findCommentForHome(num: Int): List[CommentOfSalon] = {
