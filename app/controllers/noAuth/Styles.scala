@@ -135,6 +135,7 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
 
   /**
    * 前台店铺所有发型展示区域
+   * 进入店铺内页发型模块时，检索出该店铺所有发型
    * @param salonId 店铺ID
    * @return
    */
@@ -151,7 +152,8 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
   }
 
   /**
-   * 前台店铺发型展示区域，通过性别区分展示店铺发型
+   * 前台店铺所有发型展示区域
+   * 店铺内页发型模块中，依据选择要显示的发型性别显示该店铺发型
    * @param salonId 店铺ID
    * @param sex 性别
    * @return
@@ -170,6 +172,7 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
 
   /**
    * 前台店铺内页单一发型展示区域
+   * 用于获取某一发型的详细信息
    * @param salonId 店铺ID
    * @param styleId 发型ID
    * @return
@@ -208,6 +211,7 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
    */
   def findByLength(styleLength: String, consumerSex: String) = StackAction { implicit request =>
     val user = loggedIn
+    //以长度、性别，初始化一组发型数据，用于检索时缓存检索字段
     val styleSearchByLength: Style = Style(new ObjectId, "", new ObjectId, Nil, "", Nil, styleLength,
       Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
     val styleAllInfo: List[StyleWithAllInfo] = Style.findByLength(styleLength, consumerSex)
@@ -223,6 +227,7 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
    */
   def findByImpression(styleImpression: String, consumerSex: String) = StackAction { implicit request =>
     val user = loggedIn
+    //以风格、性别，初始化一组发型数据，用于检索时缓存检索字段
     val styleSearchByImpression: Style = Style(new ObjectId, "", new ObjectId, Nil, styleImpression,
       Nil, "", Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
     var styleAllInfo: List[StyleWithAllInfo] = Style.findByImpression(styleImpression, consumerSex)
@@ -240,6 +245,7 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
       errors => BadRequest(views.html.index()),
       {
         case (styleSearch) => {
+          //检索所有符合条件的发型
           val styleAllInfo: List[StyleWithAllInfo] = Style.findByPara(styleSearch)
           Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearch), styleAllInfo, Style.findParaAll, user))
         }
@@ -255,6 +261,7 @@ object Styles extends Controller with OptionalAuthElement with UserAuthConfigImp
   def findByRanking(styleLength: String, consumerSex: String) = StackAction { implicit request =>
     val user = loggedIn
     var stlAllInfo: List[StyleWithAllInfo] = Nil
+    //通过页面选择的发型长度字段的值，来进行不同的检索，all为不以长度为检索字段
     if (styleLength.equals("all")) {
       stlAllInfo = Style.findByRankingAndSex(consumerSex)
     } else {

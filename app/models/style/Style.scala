@@ -36,18 +36,18 @@ trait StyleIdUsed {
  *------------------------*/
 /**
  * 发型主表字段整合类
- * @param styleImpression
- * @param serviceType
- * @param styleLength
- * @param styleColor
- * @param styleAmount
- * @param styleQuality
- * @param styleDiameter
- * @param faceShape
- * @param consumerAgeGroup
- * @param consumerSex
- * @param consumerSocialStatus
- * @param stylePicDescription 发型图片描述（用于发型展示）
+ * @param styleImpression 发型风格主表数据
+ * @param serviceType 发型技术类别主表数据
+ * @param styleLength 发型适合长度主表数据
+ * @param styleColor 发型颜色主表数据
+ * @param styleAmount 发量主表数据
+ * @param styleQuality 发质主表数据
+ * @param styleDiameter 头发直径主表数据
+ * @param faceShape 适合脸型主表数据
+ * @param consumerAgeGroup 发型适合年龄段主表数据
+ * @param consumerSex 发型适合性别主表数据
+ * @param consumerSocialStatus 发型适合场合主表数据
+ * @param stylePicDescription 发型图片描述主表数据（用于发型展示）
  */
 case class StylePara(
   styleImpression: List[String],
@@ -74,12 +74,12 @@ case class StyleAndSalon(
 
 /**
  * 发型数据及其他一些表中字段整合类
- * @param style
- * @param salonId
- * @param salonName
- * @param salonNameAbbr
- * @param stylistId
- * @param stylistNickname
+ * @param style 发型数据
+ * @param salonId 店铺ID
+ * @param salonName 店铺名
+ * @param salonNameAbbr 店铺昵称
+ * @param stylistId 技师ID
+ * @param stylistNickname 技师昵称
  */
 case class StyleWithAllInfo(
   style: Style,
@@ -94,24 +94,24 @@ case class StyleWithAllInfo(
  *------------------------*/
 /**
  * 发型主类
- * @param id
- * @param styleName
- * @param stylistId
- * @param stylePic
- * @param styleImpression
- * @param serviceType
- * @param styleLength
- * @param styleColor
- * @param styleAmount
- * @param styleQuality
- * @param styleDiameter
- * @param faceShape
- * @param description
- * @param consumerAgeGroup
- * @param consumerSex
- * @param consumerSocialStatus
- * @param createDate
- * @param isValid
+ * @param id 发型ID
+ * @param styleName 发型名
+ * @param stylistId 该发型的技师ID
+ * @param stylePic 发型图片
+ * @param styleImpression 发型风格
+ * @param serviceType 发型技术类别
+ * @param styleLength 发型适合长度
+ * @param styleColor 发型颜色
+ * @param styleAmount 发量
+ * @param styleQuality 发质
+ * @param styleDiameter 头发直径-粗细
+ * @param faceShape 适合脸型
+ * @param description 发型描述
+ * @param consumerAgeGroup 适合年龄段
+ * @param consumerSex 适合性别
+ * @param consumerSocialStatus 适合场合
+ * @param createDate 发型创建时间
+ * @param isValid 是否有效
  */
 case class Style(
   id: ObjectId = new ObjectId,
@@ -139,8 +139,8 @@ object Style extends MeifanNetModelCompanion[Style] {
 
   /**
    * 通过发型师ID检索该发型师所有发型
-   * @param stylistId
-   * @return
+   * @param stylistId 技师ID
+   * @return 符合条件的所有发型
    */
   def findByStylistId(stylistId: ObjectId): List[Style] = {
     dao.find(DBObject("stylistId" -> stylistId, "isValid" -> true)).toList.sortBy(_.createDate).reverse
@@ -149,7 +149,7 @@ object Style extends MeifanNetModelCompanion[Style] {
   /**
    * 通过styleId判断该发型是否有效
    * @param id 发型ID
-   * @return
+   * @return 符合条件的所有发型
    */
   def findByStyleId(id: ObjectId) = {
     dao.findOne(DBObject("_id" -> id, "isValid" -> true))
@@ -157,9 +157,9 @@ object Style extends MeifanNetModelCompanion[Style] {
 
   /**
    * 通过发型师ID和发型适合性别检索该发型师所有发型
-   * @param stylistId
-   * @param sex
-   * @return List[Style]
+   * @param stylistId 技师ID
+   * @param sex 适合性别
+   * @return List[Style] 符合条件的所有发型
    */
   def findByStylistIdAndSex(stylistId: ObjectId, sex: String): List[Style] = {
     if (sex.equals("all")) {
@@ -171,13 +171,15 @@ object Style extends MeifanNetModelCompanion[Style] {
 
   /**
    * 通过店铺ID检索该店铺所有签约的发型师
-   * @param salonId
-   * @return List[Stylist]
+   * @param salonId 店铺ID
+   * @return List[Stylist] 该店铺所有技师
    */
   def findStylistBySalonId(salonId: ObjectId): List[Stylist] = {
+    //获取店铺绑与技师关系表中该店铺相关的所有有效数据
     val salonAndStylists = SalonAndStylist.findBySalonId(salonId)
     var stylists: List[Stylist] = Nil
     salonAndStylists.map { salonAndStylist =>
+      //通过技师ID获取技师信息
       val stylist = Stylist.findOneByStylistId(salonAndStylist.stylistId)
       stylist match {
         case Some(stylist) => {
@@ -191,13 +193,15 @@ object Style extends MeifanNetModelCompanion[Style] {
 
   /**
    * 通过店铺ID和发型适合性别检索该店铺所有符合条件的发型
-   * @param salonId
-   * @param sex
-   * @return List[Style]
+   * @param salonId 店铺ID
+   * @param sex 适合性别
+   * @return List[Style] 该店铺所有符合性别要求的发型
    */
   def findStylesBySalonAndSex(salonId: ObjectId, sex: String): List[Style] = {
+    //查询该店铺绑定的所有技师
     val stylists = Style.findStylistBySalonId(salonId)
     var styles: List[Style] = Nil
+    //查询每个技师的所有有效发型，并将发型整合
     stylists.map { sty =>
       var style = Style.findByStylistIdAndSex(sty.stylistId, sex)
       styles :::= style
@@ -209,10 +213,10 @@ object Style extends MeifanNetModelCompanion[Style] {
   /**
    * 前台检索逻辑
    * 用于前台导航栏根据性别和长度检索发型
-   * @param styleLength
-   * @param consumerSex
+   * @param styleLength 适合长度
+   * @param consumerSex 适合性别
    * @param limitCnt 检索结果限制数量
-   * @return List[StyleWithAllInfo]
+   * @return List[StyleWithAllInfo] 发型及相关表中数据整合类
    */
   def findByLength(styleLength: String, consumerSex: String, limitCnt: Int = 0): List[StyleWithAllInfo] = {
     val bstLength = dao.find(MongoDBObject("styleLength" -> styleLength, "consumerSex" -> consumerSex, "isValid" -> true)).toList
@@ -225,10 +229,10 @@ object Style extends MeifanNetModelCompanion[Style] {
   /**
    * 前台检索逻辑
    * 用于前台导航栏根据性别和风格检索发型
-   * @param styleImpression
-   * @param consumerSex
+   * @param styleImpression 适合风格
+   * @param consumerSex 适合性别
    * @param limitCnt 检索结果限制数量
-   * @return List[StyleWithAllInfo]
+   * @return List[StyleWithAllInfo] 发型及相关表中数据整合类
    */
   def findByImpression(styleImpression: String, consumerSex: String, limitCnt: Int = 0): List[StyleWithAllInfo] = {
     val bstImp = dao.find(MongoDBObject("styleImpression" -> styleImpression, "consumerSex" -> consumerSex, "isValid" -> true)).toList
@@ -242,7 +246,7 @@ object Style extends MeifanNetModelCompanion[Style] {
    * 前台检索逻辑
    * 前台综合排名检索-按热度
    * @param limitCnt 检索结果限制数量
-   * @return List[StyleWithAllInfo]
+   * @return List[StyleWithAllInfo] 发型及相关表中数据整合类
    */
   def findByRanking(limitCnt: Int = 0): List[StyleWithAllInfo] = {
     // get all reservations with styleId, ignore the data without style.
@@ -255,10 +259,10 @@ object Style extends MeifanNetModelCompanion[Style] {
   /**
    * 前台检索逻辑
    * 前台排名检索-按热度、长度、性别
-   * @param styleLength
-   * @param consumerSex
-   * @param limitCnt
-   * @return List[StyleWithAllInfo]
+   * @param styleLength 发型长度
+   * @param consumerSex 适合性别
+   * @param limitCnt 检索结果限制数量
+   * @return List[StyleWithAllInfo] 发型及相关表中数据整合类
    */
   def findByRankingAndLenAndSex(styleLength: String, consumerSex: String, limitCnt: Int = 0): List[StyleWithAllInfo] = {
     // get all reservations with styleId, ignore the data without style.
@@ -275,7 +279,7 @@ object Style extends MeifanNetModelCompanion[Style] {
    * @param styleIds the sorted list of stylist id
    * @param limitCnt the required cnt of result, Top N.
    * @param filter function to filter the result.
-   * @return List[StyleWithAllInfo]
+   * @return List[StyleWithAllInfo] 发型及相关表中数据整合类
    */
   def getStyleInfoFromRanking(styleIds: List[ObjectId])(limitCnt: Int = 0)(filter: Style => Boolean): List[StyleWithAllInfo] = {
     var styleInfo: List[StyleWithAllInfo] = Nil
@@ -305,9 +309,9 @@ object Style extends MeifanNetModelCompanion[Style] {
   /**
    * 前台检索逻辑
    * 前台排名检索-按热度、性别
-   * @param consumerSex
-   * @param limitCnt
-   * @return
+   * @param consumerSex 适合性别
+   * @param limitCnt 检索结果限制数量
+   * @return List[StyleWithAllInfo] 发型及相关表中数据整合类
    */
   def findByRankingAndSex(consumerSex: String, limitCnt: Int = 0): List[StyleWithAllInfo] = {
     // get all reservations with styleId, ignore the data without style.
@@ -321,7 +325,7 @@ object Style extends MeifanNetModelCompanion[Style] {
   /**
    * 前台检索逻辑
    * ranking分组排序 用于依据预约次数来获得热门发型
-   * @param reservationAll
+   * @param reservationAll 预约结果
    * @return
    */
   /*def sortForRanking(reservationAll: List[Reservation]): List[Style] = {
@@ -411,11 +415,12 @@ object Style extends MeifanNetModelCompanion[Style] {
   /**
    * 前台检索逻辑
    * 前台详细检索 -通过输入的检索条件
-   * @param style
-   * @param limitCnt
-   * @return List[StyleWithAllInfo]
+   * @param style 发型检索条件
+   * @param limitCnt 检索结果限制数量
+   * @return List[StyleWithAllInfo] 发型及相关表中数据整合类
    */
   def findByPara(style: Style, limitCnt: Int = 0): List[StyleWithAllInfo] = {
+    //发型主要检索条件
     var srchConds = commonSrchConds(style)
     val srchedStls = dao.find($and(srchConds)).toList
     val srchStyleIds = srchedStls.map { _.id }
@@ -425,9 +430,9 @@ object Style extends MeifanNetModelCompanion[Style] {
   }
 
   /**
-   * 发型前台输入检索字段整合
-   * @param style
-   * @return List[commonsDBObject]
+   * 发型主要检索条件整合
+   * @param style 发型检索条件
+   * @return List[commonsDBObject] 主要的检索字段整合结果
    */
   def commonSrchConds(style: Style): List[commonsDBObject] = {
     var srchConds: List[commonsDBObject] = Nil
@@ -470,8 +475,8 @@ object Style extends MeifanNetModelCompanion[Style] {
 
   /**
    * 通过发型中的技师ID查询其绑定的店铺
-   * @param stylistId
-   * @return Option[Salon]
+   * @param stylistId 技师ID
+   * @return Option[Salon] 该技师绑定的店铺
    */
   def findSalonByStyle(stylistId: ObjectId): Option[Salon] = {
     val salonAndStylist = SalonAndStylist.findByStylistId(stylistId)
@@ -488,12 +493,14 @@ object Style extends MeifanNetModelCompanion[Style] {
   /**
    * 后台检索逻辑
    * 通过技师ID和检索条件检索该技师的发型
-   * @param style
-   * @param stylistId
-   * @return List[Style]
+   * @param style 发型检索条件
+   * @param stylistId 技师ID
+   * @return List[Style] 符合条件的所有发型
    */
   def findStylesByStylistBack(style: Style, stylistId: ObjectId): List[Style] = {
+    //发型主要检索条件
     var srchConds = commonSrchConds(style)
+    //追加检索条件技师ID
     srchConds :::= List(commonsDBObject("stylistId" -> stylistId))
     dao.find($and(srchConds)).toList.sortBy(_.createDate).reverse
   }
@@ -501,11 +508,12 @@ object Style extends MeifanNetModelCompanion[Style] {
   /**
    * 后台检索逻辑
    * 通过店铺ID和检索条件检索该技师的发型
-   * @param style
-   * @param salonId
-   * @return List[Style]
+   * @param style 发型检索条件
+   * @param salonId 店铺ID
+   * @return List[Style] 符合条件的所有发型
    */
   def findStylesBySalonBack(style: Style, salonId: ObjectId): List[Style] = {
+    //发型主要检索条件
     var srchConds = commonSrchConds(style)
     //利用传过来的stylistId判断后台检索是检索某一发型师的发型，还是检索店铺全部发型师的发型
     val stylists = SalonAndStylist.findBySalonId(salonId)
@@ -521,8 +529,8 @@ object Style extends MeifanNetModelCompanion[Style] {
   }
 
   /**
-   * 获取发型检索字段、图片描述的主表数据
-   * @return
+   * 获取发型检索字段、图片描述的主表数据,并将它们放入整合类StylePara中
+   * @return StylePara
    */
   def findParaAll = {
     //获得相应主表数据
@@ -593,7 +601,7 @@ object Style extends MeifanNetModelCompanion[Style] {
 
   /**
    * 后台发型删除 -将发型无效
-   * @param id
+   * @param id 发型ID
    * @return
    */
   def styleToInvalid(id: ObjectId) = {
@@ -603,8 +611,8 @@ object Style extends MeifanNetModelCompanion[Style] {
 
   /**
    * Global初始化发型表时，图片上传
-   * @param style
-   * @param imgIdList
+   * @param style 该条发型数据
+   * @param imgIdList 初始化数据时，传过来的图片ID的List（含3个参数）
    * @return
    */
   def updateStyleImage(style: Style, imgIdList: List[ObjectId]) = {
@@ -620,8 +628,8 @@ object Style extends MeifanNetModelCompanion[Style] {
 
   /**
    * 发型图片保存
-   * @param style
-   * @param imgId
+   * @param style 该条发型数据
+   * @param imgId 图片ID
    * @return
    */
   def saveStyleImage(style: Style, imgId: ObjectId) = {
@@ -633,8 +641,8 @@ object Style extends MeifanNetModelCompanion[Style] {
 
   /**
    * 通过发型名和技师ID判断该发型是否存在
-   * @param name
-   * @param stylistId
+   * @param name 发型名
+   * @param stylistId 技师ID
    * @return
    */
   def checkStyleIsExist(name: String, stylistId: ObjectId): Boolean = {

@@ -324,7 +324,9 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    - 沙龙首页: 沙龙通用检索
    --------------------------*/
   /**
-   * 前台店铺检索
+   * 前台店铺检索逻辑
+   * @param searchParaForSalon 前台检索条件
+   * @return 所有符合条件的店铺
    */
   def findSalonBySearchPara(searchParaForSalon: SearchParaForSalon) = {
     var salonSrchRst: List[SalonGeneralSrchRst] = Nil
