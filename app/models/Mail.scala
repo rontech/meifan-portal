@@ -45,10 +45,10 @@ object Mail extends MeifanNetModelCompanion[Mail] {
   /**
    * Insert data
    *
-   * @param uuid
-   * @param objId
-   * @param objType
-   * @param endTime
+   * @param uuid 用于生成的链接的唯一性
+   * @param objId 用户指向user或salon表的id这个字段
+   * @param objType 用户区分obj的对象 1代表user 2代表salon
+   * @param endTime 用于记录当前链接的有效时间
    * @return
    */
   def save(uuid: String, objId: ObjectId, objType: Int, endTime: Date) = {

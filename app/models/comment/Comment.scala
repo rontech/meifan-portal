@@ -59,20 +59,35 @@ object CommentType extends Enumeration {
   val Replay = Value(3)
 }
 
+/**
+ * Comment class for blog'comment, reservation's commnet and reply
+ *
+ * @param id ObjectId of record in mongodb
+ * @param commentObjType 评论对象类型:  暂定 1: 对博客; 2: 对店铺; 3: 回复
+ * @param commentObjId 评论对象Id
+ * @param content 内容
+ * @param complex 综合分数
+ * @param atmosphere 氛围分数
+ * @param service 服务态度分数
+ * @param skill 技术分数
+ * @param price 价格分数
+ * @param authorId 评论人的userId
+ * @param createTime 评论时间
+ * @param isValid 有效状态
+ */
 case class Comment(
-  id: ObjectId = new ObjectId, // ObjectId of record in mongodb
-  commentObjType: Int, // 评论对象类型:  暂定 1: 对博客; 2: 对店铺; 3: 回复
-  commentObjId: ObjectId, // 评论对象Id
-  content: String, // 内容
-  complex: Int, // 综合分数
-  atmosphere: Int, // 氛围分数
-  service: Int, // 服务态度分数
-  skill: Int, // 技术分数
-  price: Int, //价格分数
-  authorId: String, // 评论人的Id
-  createTime: Date = new Date, // 评论时间
-  isValid: Boolean // 有效状态
-)
+  id: ObjectId = new ObjectId,
+  commentObjType: Int,
+  commentObjId: ObjectId,
+  content: String,
+  complex: Int,
+  atmosphere: Int,
+  service: Int,
+  skill: Int,
+  price: Int,
+  authorId: String,
+  createTime: Date = new Date,
+  isValid: Boolean)
 
 object Comment extends MeifanNetModelCompanion[Comment] {
   val dao = new MeifanNetDAO[Comment](collection = loadCollection()) {}
@@ -131,10 +146,10 @@ object Comment extends MeifanNetModelCompanion[Comment] {
   /**
    * Insert data to Comment table
    *
-   * @param userId
-   * @param content
-   * @param commentObjId
-   * @param commentObjType
+   * @param userId 评论人的userId
+   * @param content 内容
+   * @param commentObjId 评论对象Id
+   * @param commentObjType 评论对象类型
    * @return
    */
   def addComment(userId: String, content: String, commentObjId: ObjectId, commentObjType: Int) = {
@@ -144,10 +159,10 @@ object Comment extends MeifanNetModelCompanion[Comment] {
   /**
    * 对评论进行回复
    *
-   * @param userId
-   * @param content
-   * @param commentObjId
-   * @param commentObjType
+   * @param userId 评论人的userId
+   * @param content 内容
+   * @param commentObjId 评论对象Id
+   * @param commentObjType 评论对象类型
    * @return
    */
   def reply(userId: String, content: String, commentObjId: ObjectId, commentObjType: Int) = {
@@ -157,15 +172,15 @@ object Comment extends MeifanNetModelCompanion[Comment] {
   /**
    * 对coupon做评论，暂定，当预约模块完成后，修改成对预约完成的预约做评论
    *
-   * @param userId
-   * @param content
-   * @param commentObjId
-   * @param commentObjType
-   * @param complex
-   * @param atmosphere
-   * @param service
-   * @param skill
-   * @param price
+   * @param userId 评论人的userId
+   * @param content 内容
+   * @param commentObjId 评论对象Id
+   * @param commentObjType 评论对象类型
+   * @param complex 综合分数
+   * @param atmosphere 氛围分数
+   * @param service 服务态度分数
+   * @param skill 技术分数
+   * @param price 价格分数
    * @return
    */
   def addCommentToCoupon(userId: String, content: String, commentObjId: ObjectId, commentObjType: Int, complex: Int, atmosphere: Int, service: Int, skill: Int, price: Int) = {
