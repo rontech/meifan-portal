@@ -384,10 +384,12 @@ object Style extends MeifanNetModelCompanion[Style] {
   */
 
   /**
-   *
-   * @param hottestStyles
-   * @param topN
-   * @return
+   * 根据最热发型id的列表中，查找排名前N位的发型信息列表
+   *   应用场景: 从预约表中得到了最热的前N个发型id列表，要求返回具体发型信息。全局搜索，与具体店铺无关。
+   *   
+   * @param hottestStyles 最热发型id列表
+   * @param topN 指定前N
+   * @return 给定id列表的发型信息列表
    */
   def findTopStylesInSalon(hottestStyles: List[ObjectId], topN: Int = 0): List[Style] = {
     var hotStyles: List[Style] = Nil
@@ -404,12 +406,12 @@ object Style extends MeifanNetModelCompanion[Style] {
   }
 
   /**
-   * 取得指定店铺的最热发型前N名
+   * 根据预约情况，取得指定店铺的最热发型前N名
    * N = 0, 默认值，为取得所有
    *
-   * @param sid
-   * @param topN
-   * @return
+   * @param sid 店铺id 
+   * @param topN 前N名
+   * @return 发型列表
    */
   def getBestRsvedStylesInSalon(sid: ObjectId, topN: Int = 0): List[Style] = {
     // get the reservation with which we can get the styles be reserved.

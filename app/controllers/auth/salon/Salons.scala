@@ -247,7 +247,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
 
   /**
    * 沙龙注册信息更新
-   * @param id
+   * @param id 登录的沙龙id
    * @return
    */
   def salonRegisterUpdate(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
@@ -274,7 +274,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
 
   /**
    * 沙龙密码修改处理
-   * @param accountId
+   * @param accountId 登录的沙龙账号
    * @return
    */
   def salonChangePassword(accountId: String) = StackAction(AuthorityKey -> Salon.isOwner(accountId) _) { implicit request =>
@@ -299,7 +299,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
 
   /**
    * 沙龙头像(LOGO)更新
-   * @param imgId
+   * @param imgId 图片上传id(对应mongodb中的图片id)
    * @return
    */
   def saveSalonImg(imgId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
@@ -675,7 +675,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
    */
   def replyBySalon(commentObjId: ObjectId, commentObjType: Int) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
-    auth.Comments.formHuifuComment.bindFromRequest.fold(
+    auth.Comments.formReplyComment.bindFromRequest.fold(
       //处理错误
       errors => BadRequest(views.html.comment.errorMsg("")),
       {

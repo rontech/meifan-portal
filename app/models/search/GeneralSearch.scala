@@ -168,21 +168,21 @@ trait HotestKeywordDAO extends MeifanNetModelCompanion[HotestKeyword] {
  * Data struct for General salon search.
  * 沙龙通用检索结果的数据结构: 用于保存检索条件，实现热门关键字，热门城市等功能
  *
- * @param salonInfo
- * @param selectedStyles
- * @param selectedCoupons
- * @param priceForCut
- * @param reviewsStat
- * @param keywordsHitStrs
+ * @param salonInfo 沙龙基本情报
+ * @param selectedStyles 沙龙发型集合
+ * @param selectedCoupons 沙龙优惠券集合
+ * @param priceForCut 最低剪发价格
+ * @param reviewsStat 店铺评价状况
+ * @param keywordsHitStrs 检索中和关键字匹配的内容拔粹
  */
 case class SalonGeneralSrchRst(
-  salonInfo: Salon, // 沙龙基本情报
-  selectedStyles: List[Style], // 发型集合
-  selectedCoupons: List[Coupon], // 优惠券集合
-  priceForCut: Option[BigDecimal], // 最低剪发价格
-  reviewsStat: ReviewsStat, // 店铺评价状况
-  keywordsHitStrs: List[String] // 检索中和关键字匹配的内容拔粹
-  )
+  salonInfo: Salon, 
+  selectedStyles: List[Style], 
+  selectedCoupons: List[Coupon], 
+  priceForCut: Option[BigDecimal], 
+  reviewsStat: ReviewsStat, 
+  keywordsHitStrs: List[String] 
+)
 
 /*------------------------------
  * 检索字段Master表

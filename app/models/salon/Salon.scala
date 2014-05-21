@@ -90,8 +90,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 根据accoutId和邮箱查看是否有该店铺
-   * @param salonAccountId
-   * @param salonEmail
+   * @param salonAccountId login id
+   * @param salonEmail salon's email
    * @return
    */
   def findOneByAccountIdAndEmail(salonAccountId: String, salonEmail: String) = {
@@ -100,7 +100,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 登录时，用户名和密码一致性检查
-   * @param salonAccount
+   * @param salonAccount salon's accountId and password
    * @return
    */
   def loginCheck(salonAccount: SalonAccount): Option[Salon] = {
@@ -114,7 +114,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 根据沙龙名称查找沙龙
-   * @param salonName
+   *   判断沙龙名称是否被使用时用到该方法
+   * @param salonName salon's name
    * @return
    */
   def findOneBySalonName(salonName: String): Option[Salon] = {
@@ -123,7 +124,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 根据沙龙简称查找沙龙
-   * @param salonNameAbbr
+   *  判断沙龙简称是否被使用时用到该方法
+   * @param salonNameAbbr salon's shortName
    * @return
    */
   def findOneBySalonNameAbbr(salonNameAbbr: String): Option[Salon] = {
@@ -132,7 +134,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 根据沙龙邮箱查找沙龙
-   * @param email
+   *   判断邮箱是否被使用时用到该方法
+   * @param email salon's email
    * @return
    */
   def findOneByEmail(email: String): Option[Salon] = {
@@ -141,7 +144,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 根据沙龙联系电话查找沙龙
-   * @param phone
+   *   判断电话是否被使用时用到该方法
+   * @param phone salon's mainPhone
    * @return
    */
   def findOneByMainPhone(phone: String): Option[Salon] = {
@@ -150,9 +154,10 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * Get all styles of a salon.
+   * 取得指定沙龙的所有发型
    *
-   * @param salonId
-   * @return
+   * @param salonId 沙龙id
+   * @return 发型列表
    */
   def getAllStyles(salonId: ObjectId): List[Style] = {
     var styles: List[Style] = Nil
@@ -169,10 +174,11 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * Get a specified Style from a salon.
+   * 根据指定的店铺id, 发型id 来查找指定的发型
    *
-   * @param salonId
-   * @param styleId
-   * @return
+   * @param salonId 沙龙id
+   * @param styleId 发型id
+   * @return 发型信息
    */
   def getOneStyle(salonId: ObjectId, styleId: ObjectId): Option[Style] = {
     // First of all, check that if the salon is acitve.
@@ -223,8 +229,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 沙龙头像（LOGO）更新
-   * @param salon
-   * @param imgId
+   * @param salon 已登录的沙龙账号
+   * @param imgId 上传图片的id
    * @return
    */
   def updateSalonLogo(salon: Salon, imgId: ObjectId) = {
@@ -234,8 +240,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 初始化数据（Global中沙龙展示图片上传）
-   * @param salon
-   * @param imgIdList
+   * @param salon Global中的沙龙数据
+   * @param imgIdList puclic文件中的图片上传ID
    * @return
    */
   def updateSalonShow(salon: Salon, imgIdList: List[ObjectId]) = {
@@ -291,7 +297,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   /**
    * 沙龙基本信息是否完善检查
    * 检查字段：沙龙检查、沙龙简介、沙龙休息日、沙龙营业时间、沙龙成立日期、沙龙地址
-   * @param salon
+   * @param salon 已登录的沙龙
    * @return
    */
   def checkBasicInfoIsFill(salon: Salon): Boolean = {
@@ -303,7 +309,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   /**
    * 沙龙详细信息是否完善检查
    * 检查字段:沙龙席位、沙龙描述
-   * @param salon
+   * @param salon 已登录的沙龙
    * @return
    */
   def checkDetailIsFill(salon: Salon): Boolean = {
@@ -315,7 +321,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   /**
    * 沙龙图片是否完善
    * 检查字段：沙龙展示图片、沙龙环境图片、沙龙营业执照
-   * @param salon
+   * @param salon 已登录的沙龙
    * @return
    */
   def checkImgIsExist(salon: Salon): Boolean = {
@@ -326,8 +332,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   /**
    * 权限认证
    * 用于判断accountId是否为当前店铺
-   *
-   * @param accountId
+   * @param accountId 已登录沙龙的账号
    * @param salon
    * @return
    */
@@ -453,17 +458,18 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * Get keywords hit result.
+   * 沙龙检索机能: 根据前台检索的关键字(字符数组)，找到沙龙信息中含有该关键字组的文字，并返回上下文字符串。
    *
-   * @param sl
-   * @param fields
-   * @param reg
-   * @return
+   * @param sl 沙龙
+   * @param fields 前台关键字按空格拆分后的字符数组
+   * @param reg 关键字匹配的准则：正则表达式
+   * @return 关键字匹配的内容上下文
    */
   def getKeywordsHit(sl: Salon, fields: Array[String], reg: Regex): List[String] = {
     var kwsHits: List[String] = Nil
     // when it is searched without keyword, list the .
     if (reg.toString == "") {
-      kwsHits = getSalonPresentationAbbr(sl.salonIntroduction)
+      kwsHits = getSalonIntroductionAbbr(sl.salonIntroduction)
     } else {
       kwsHits = getKeywordsHitStrs(sl, fields, reg)
     }
@@ -473,10 +479,11 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * Sort the search result by required order conditions.
+   * 对检索结果进行处理：根据前台点击选择的排序条件和顺序，返回排序后的检索结果（沙龙检索情报）
    *
-   * @param orgRst
-   * @param sortConds
-   * @return
+   * @param orgRst 检索结果
+   * @param sortConds 排序条件
+   * @return 沙龙检索情报结构：包括店铺基本情报，发型，优惠券，最低剪发价格，评价等等
    */
   def sortRstByConditions(orgRst: List[SalonGeneralSrchRst], sortConds: SortByConditions): List[SalonGeneralSrchRst] = {
 
@@ -512,21 +519,21 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   }
 
   /**
-   *
-   * @param present
+   * 取得沙龙简介的缩略：限定标题，内容，结尾分别截取头30个文字
+   * @param intro 
    * @return
    */
-  def getSalonPresentationAbbr(present: Option[BriefIntroduction]): List[String] = {
-    var abbrPres: List[String] = Nil
-    present match {
-      case None => abbrPres
+  def getSalonIntroductionAbbr(intro: Option[BriefIntroduction]): List[String] = {
+    var introAbbr: List[String] = Nil
+    intro match {
+      case None => introAbbr
       case Some(pres) =>
-        abbrPres :::= List(makeAbbrStr(pres.picTitle, 0, 30))
-        abbrPres :::= List(makeAbbrStr(pres.picContent, 0, 30))
-        abbrPres :::= List(makeAbbrStr(pres.picFoot, 0, 30))
+        introAbbr :::= List(makeAbbrStr(pres.picTitle, 0, 30))
+        introAbbr :::= List(makeAbbrStr(pres.picContent, 0, 30))
+        introAbbr :::= List(makeAbbrStr(pres.picFoot, 0, 30))
     }
 
-    abbrPres
+    introAbbr
   }
 
   /**
@@ -575,11 +582,12 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   /**
    * Get the slice of keyword matched fields.
    *   # Check if the fields contains the keyword by fuzzy match, but get the match slice by exact match. #
+   * 根据关键字匹配规则，查找指定字段中匹配的文字，并返回匹配文字的上下文(共30字)
    *
-   * @param salon
-   * @param targetFields
-   * @param exactKwds
-   * @return
+   * @param salon 被检索的沙龙
+   * @param targetFields 指定匹配的目标字段
+   * @param exactKwds 文字匹配规则：正则表达式
+   * @return 匹配的字段上下文
    */
   def getKeywordsHitStrs(salon: Salon, targetFields: Array[String], exactKwds: Regex): List[String] = {
     var fuzzyHits: List[String] = Nil
@@ -640,11 +648,12 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   }
 
   /**
-   * Make Abbr string for salon's various names and descriptions.
+   * Slice a given string to an Abbr string. the given string may be a salon's names or various descriptions.
+   * 根据指定的起始终止值，截取给定字符串
    *
-   * @param source
-   * @param start
-   * @param end
+   * @param source 给定字符串
+   * @param start 截取初始点
+   * @param end 截取终止点
    * @return
    */
   def makeAbbrStr(source: String, start: Int, end: Int): String = {
@@ -691,6 +700,9 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    * So, we use this feature to make the search conditions.
    *
    * Make salon general search keyword to fuzzy search conditions.
+   * 顺次将指定的检索字段和匹配条件（正则表达式）组成 符合casbah规则的检索条件。
+   *   根据casbah文档，检索条件可以是List类型， 之间可以用::符号来组合
+   *     这样我们可以动态决定检索条件的个数
    *
    * @param searchFields
    * @param kwdsRegex
@@ -714,14 +726,17 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   }
 
   /**
+   * 根据前台传递过来的关键字（一个或是多个全角或是半角空格分割），
+   * 组合成正则表达式的检索条件群
+   *   可以根据检索规则f 组成精确查找或是模糊查找
    * For example.
    *     1. f = x => (".*" + x + ".*|")
    *     2. f = x => (x|")
    *     3. ....
    *
-   * @param keyword
-   * @param f
-   * @return
+   * @param keyword 原生检索字符串
+   * @param f 正则表达式格式检索规则
+   * @return List[Regex]
    */
   def convertKwdsToFuzzyRegex(keyword: String)(f: String => String) = {
     // pre process for keyword: process the double byte blank to single byte blank.
@@ -770,9 +785,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    * @param f
    * @return
    */
-  def isValid(value: String,
-    loggedSalon: Salon,
-    f: String => Option[Salon]) = f(value).map(_.id == loggedSalon.id).getOrElse(true)
+  def isValid(value: String, loggedSalon: Salon, f: String => Option[Salon]) = f(value).map(_.id == loggedSalon.id).getOrElse(true)
+
 }
 
 /*----------------------------
@@ -781,14 +795,14 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
 /**
  * 沙龙地址（内嵌于沙龙主表）
- * @param province
- * @param city
- * @param region
- * @param town
- * @param addrDetail
- * @param longitude
- * @param latitude
- * @param accessMethodDesc
+ * @param province 省
+ * @param city 市
+ * @param region 区
+ * @param town 镇
+ * @param addrDetail 详细地址
+ * @param longitude 经度
+ * @param latitude 纬度
+ * @param accessMethodDesc 交通方法
  */
 case class Address(
   province: String,
@@ -802,16 +816,16 @@ case class Address(
 
 /**
  * 沙龙功能支持（内嵌于沙龙主表）
- * @param canOnlineOrder
- * @param canImmediatelyOrder
- * @param canNominateOrder
- * @param canCurntDayOrder
- * @param canMaleUse
- * @param isPointAvailable
- * @param isPosAvailable
- * @param isWifiAvailable
- * @param hasParkingNearby
- * @param parkingDesc
+ * @param canOnlineOrder 网上预约
+ * @param canImmediatelyOrder 即时预约
+ * @param canNominateOrder 指名预约
+ * @param canCurntDayOrder 当日预约
+ * @param canMaleUse 男性可用
+ * @param isPointAvailable 积分加盟
+ * @param isPosAvailable 刷卡
+ * @param isWifiAvailable wifi
+ * @param hasParkingNearby 停车场
+ * @param parkingDesc 停车场描述
  */
 case class SalonFacilities(
   canOnlineOrder: Boolean,
@@ -831,8 +845,8 @@ object SalonFacilities extends MeifanNetModelCompanion[SalonFacilities] {
 
 /**
  * 沙龙营业时间（内嵌于沙龙主表）
- * @param openTime
- * @param closeTime
+ * @param openTime 沙龙营业开始时间
+ * @param closeTime 沙龙营业结束时间
  */
 case class WorkTime(
   openTime: String,
@@ -840,8 +854,8 @@ case class WorkTime(
 
 /**
  * 沙龙休息日（内嵌于沙龙主表)
- * @param restWay
- * @param restDay
+ * @param restWay 休息方式选择
+ * @param restDay 休息日
  */
 case class RestDay(
   restWay: String,
@@ -849,8 +863,8 @@ case class RestDay(
 
 /**
  * 沙龙登录信息（内嵌于沙龙主表）
- * @param accountId
- * @param password
+ * @param accountId 沙龙登录账号
+ * @param password 沙龙登录密码
  */
 case class SalonAccount(
   accountId: String,
@@ -858,9 +872,9 @@ case class SalonAccount(
 
 /**
  * 沙龙描述（内嵌于沙龙主表）
- * @param picTitle
- * @param picContent
- * @param picFoot
+ * @param picTitle 标题
+ * @param picContent 内容
+ * @param picFoot 结束语
  */
 case class BriefIntroduction(
   picTitle: String,
@@ -869,9 +883,9 @@ case class BriefIntroduction(
 
 /**
  * 沙龙主要联系方式（内嵌于沙龙主表）
- * @param mainPhone
- * @param contact
- * @param email
+ * @param mainPhone 沙龙主要联系方式
+ * @param contact 沙龙联系人
+ * @param email 沙龙电子邮箱
  */
 case class Contact(
   mainPhone: String,
@@ -879,8 +893,9 @@ case class Contact(
   email: String)
 
 /**
- * 沙龙图片（内嵌于沙龙主表）
+ * 沙龙图片: 用于沙龙图片上传Form
  * @param salonPics
  */
+// TODO why we need this case class?
 case class SalonPics(
   salonPics: List[OnUsePicture])
