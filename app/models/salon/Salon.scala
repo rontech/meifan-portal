@@ -91,8 +91,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 根据accoutId和邮箱查看是否有该店铺
-   * @param salonAccountId
-   * @param salonEmail
+   * @param salonAccountId login id
+   * @param salonEmail salon's email
    * @return
    */
   def findOneByAccountIdAndEmail(salonAccountId: String, salonEmail: String) = {
@@ -101,7 +101,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 登录时，用户名和密码一致性检查
-   * @param salonAccount
+   * @param salonAccount salon's accountId and password
    * @return
    */
   def loginCheck(salonAccount: SalonAccount): Option[Salon] = {
@@ -115,7 +115,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 根据沙龙名称查找沙龙
-   * @param salonName
+   * @param salonName salon's name
    * @return
    */
   def findOneBySalonName(salonName: String): Option[Salon] = {
@@ -124,7 +124,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 根据沙龙简称查找沙龙
-   * @param salonNameAbbr
+   * @param salonNameAbbr salon's shortName
    * @return
    */
   def findOneBySalonNameAbbr(salonNameAbbr: String): Option[Salon] = {
@@ -133,7 +133,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 根据沙龙邮箱查找沙龙
-   * @param email
+   * @param email salon's email
    * @return
    */
   def findOneByEmail(email: String): Option[Salon] = {
@@ -142,7 +142,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 根据沙龙联系电话查找沙龙
-   * @param phone
+   * @param phone salon's mainPhone
    * @return
    */
   def findOneByMainPhone(phone: String): Option[Salon] = {
@@ -211,8 +211,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 沙龙头像（LOGO）更新
-   * @param salon
-   * @param imgId
+   * @param salon 已登录的沙龙账号
+   * @param imgId 上传图片的id
    * @return
    */
   def updateSalonLogo(salon: Salon, imgId: ObjectId) = {
@@ -222,8 +222,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
   /**
    * 初始化数据（Global中沙龙展示图片上传）
-   * @param salon
-   * @param imgIdList
+   * @param salon Global中的沙龙数据
+   * @param imgIdList puclic文件中的图片上传ID
    * @return
    */
   def updateSalonShow(salon: Salon, imgIdList: List[ObjectId]) = {
@@ -279,7 +279,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   /**
    * 沙龙基本信息是否完善检查
    * 检查字段：沙龙检查、沙龙简介、沙龙休息日、沙龙营业时间、沙龙成立日期、沙龙地址
-   * @param salon
+   * @param salon 已登录的沙龙
    * @return
    */
   def checkBasicInfoIsFill(salon: Salon): Boolean = {
@@ -291,7 +291,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   /**
    * 沙龙详细信息是否完善检查
    * 检查字段:沙龙席位、沙龙描述
-   * @param salon
+   * @param salon 已登录的沙龙
    * @return
    */
   def checkDetailIsFill(salon: Salon): Boolean = {
@@ -303,7 +303,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   /**
    * 沙龙图片是否完善
    * 检查字段：沙龙展示图片、沙龙环境图片、沙龙营业执照
-   * @param salon
+   * @param salon 已登录的沙龙
    * @return
    */
   def checkImgIsExist(salon: Salon): Boolean = {
@@ -314,7 +314,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   /**
    * 权限认证
    * 用于判断accountId是否为当前店铺
-   * @param accountId
+   * @param accountId 已登录沙龙的账号
    * @param salon
    * @return
    */
@@ -738,14 +738,14 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
 /**
  * 沙龙地址（内嵌于沙龙主表）
- * @param province
- * @param city
- * @param region
- * @param town
- * @param addrDetail
- * @param longitude
- * @param latitude
- * @param accessMethodDesc
+ * @param province 省
+ * @param city 市
+ * @param region 区
+ * @param town 镇
+ * @param addrDetail 详细地址
+ * @param longitude 经度
+ * @param latitude 纬度
+ * @param accessMethodDesc 交通方法
  */
 case class Address(
   province: String,
@@ -759,16 +759,16 @@ case class Address(
 
 /**
  * 沙龙功能支持（内嵌于沙龙主表）
- * @param canOnlineOrder
- * @param canImmediatelyOrder
- * @param canNominateOrder
- * @param canCurntDayOrder
- * @param canMaleUse
- * @param isPointAvailable
- * @param isPosAvailable
- * @param isWifiAvailable
- * @param hasParkingNearby
- * @param parkingDesc
+ * @param canOnlineOrder 网上预约
+ * @param canImmediatelyOrder 即时预约
+ * @param canNominateOrder 指名预约
+ * @param canCurntDayOrder 当日预约
+ * @param canMaleUse 男性可用
+ * @param isPointAvailable 积分加盟
+ * @param isPosAvailable 刷卡
+ * @param isWifiAvailable wifi
+ * @param hasParkingNearby 停车场
+ * @param parkingDesc 停车场描述
  */
 case class SalonFacilities(
   canOnlineOrder: Boolean,
@@ -788,8 +788,8 @@ object SalonFacilities extends MeifanNetModelCompanion[SalonFacilities] {
 
 /**
  * 沙龙营业时间（内嵌于沙龙主表）
- * @param openTime
- * @param closeTime
+ * @param openTime 沙龙营业开始时间
+ * @param closeTime 沙龙营业结束时间
  */
 case class WorkTime(
   openTime: String,
@@ -797,8 +797,8 @@ case class WorkTime(
 
 /**
  * 沙龙休息日（内嵌于沙龙主表)
- * @param restWay
- * @param restDay
+ * @param restWay 休息方式选择
+ * @param restDay 休息日
  */
 case class RestDay(
   restWay: String,
@@ -806,8 +806,8 @@ case class RestDay(
 
 /**
  * 沙龙登录信息（内嵌于沙龙主表）
- * @param accountId
- * @param password
+ * @param accountId 沙龙登录账号
+ * @param password 沙龙登录密码
  */
 case class SalonAccount(
   accountId: String,
@@ -815,9 +815,9 @@ case class SalonAccount(
 
 /**
  * 沙龙描述（内嵌于沙龙主表）
- * @param picTitle
- * @param picContent
- * @param picFoot
+ * @param picTitle 标题
+ * @param picContent 内容
+ * @param picFoot 结束语
  */
 case class BriefIntroduction(
   picTitle: String,
@@ -826,9 +826,9 @@ case class BriefIntroduction(
 
 /**
  * 沙龙主要联系方式（内嵌于沙龙主表）
- * @param mainPhone
- * @param contact
- * @param email
+ * @param mainPhone 沙龙主要联系方式
+ * @param contact 沙龙联系人
+ * @param email 沙龙电子邮箱
  */
 case class Contact(
   mainPhone: String,
