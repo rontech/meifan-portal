@@ -240,7 +240,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * enter in logged user's home page
+   * Redirect to logged user's home page
    * @return
    */
   def myPage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
@@ -302,7 +302,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * Handler the reqest of user's applying stylist
+   * Handler the request of user's applying stylist
    * @return
    */
   def commitStylistApply = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>

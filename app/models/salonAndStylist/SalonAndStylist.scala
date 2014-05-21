@@ -25,6 +25,16 @@ import se.radley.plugin.salat.Binders._
 import mongoContext._
 import java.util.Date
 
+/**
+ * the class for salon and stylist relationship
+ * @param id
+ * @param salonId   salon primary key id
+ * @param stylistId stylist primary key stylistId
+ * @param position
+ * @param entryDate
+ * @param leaveDate
+ * @param isValid
+ */
 case class SalonAndStylist(
   id: ObjectId = new ObjectId,
   salonId: ObjectId,
@@ -39,21 +49,28 @@ object SalonAndStylist extends MeifanNetModelCompanion[SalonAndStylist] {
   val dao = new MeifanNetDAO[SalonAndStylist](collection = loadCollection()) {}
 
   /**
-   * 查找已绑定店铺的所有技师记录
+   * check all records which stylist is binding salon
+   * @param salonId
+   * @return
    */
   def findBySalonId(salonId: ObjectId): List[SalonAndStylist] = {
     dao.find(MongoDBObject("salonId" -> salonId, "isValid" -> true)).toList
   }
 
   /**
-   * 查找已绑定店铺的技师关系记录
+   * find stylist relationship record that has binding salon
+   * @param stylistId
+   * @return
    */
   def findByStylistId(stylistId: ObjectId): Option[SalonAndStylist] = {
     dao.findOne(MongoDBObject("stylistId" -> stylistId, "isValid" -> true))
   }
 
   /**
-   * 检查技师与店铺关系是否有效
+   * check stylist and salon relationship is valid
+   * @param salonId
+   * @param stylistId
+   * @return
    */
   def checkSalonAndStylistValid(salonId: ObjectId, stylistId: ObjectId): Boolean = {
     val isValid = dao.findOne(MongoDBObject("salonId" -> salonId, "stylistId" -> stylistId, "isValid" -> true))
@@ -65,10 +82,10 @@ object SalonAndStylist extends MeifanNetModelCompanion[SalonAndStylist] {
 
   /**
    * To Check that if a stylist is active in a salon.
+   * @param salonId
    */
   def getSalonStylistsInfo(salonId: ObjectId): List[StylistDetailInfo] = {
     var stlDtls: List[StylistDetailInfo] = Nil
-
     // TODO check if the salon is active.
 
     // get all the stylists of the specified salon.
@@ -84,7 +101,9 @@ object SalonAndStylist extends MeifanNetModelCompanion[SalonAndStylist] {
   }
 
   /**
-   * To Check that if a stylist is active in a salon.
+   * To check stylist is binding salon
+   * @param salonId
+   * @param stylistId
    */
   def isStylistActive(salonId: ObjectId, stylistId: ObjectId): Boolean = {
     val stls: Option[SalonAndStylist] = dao.findOne(MongoDBObject("salonId" -> salonId, "stylistId" -> stylistId, "isValid" -> true))
@@ -95,7 +114,10 @@ object SalonAndStylist extends MeifanNetModelCompanion[SalonAndStylist] {
   }
 
   /**
-   *  与店铺签约
+   * binging salon
+   * @param salonId
+   * @param stylistId
+   * @return
    */
   def entrySalon(salonId: ObjectId, stylistId: ObjectId) = {
     val stylist = Stylist.findOneByStylistId(stylistId)
@@ -110,7 +132,10 @@ object SalonAndStylist extends MeifanNetModelCompanion[SalonAndStylist] {
   }
 
   /**
-   *  技师与店铺解约
+   * stylist dissolution of contract with salon
+   * @param salonId
+   * @param stylistId
+   * @return
    */
   def leaveSalon(salonId: ObjectId, stylistId: ObjectId) = {
     val salonAndStylist = dao.findOne(MongoDBObject("salonId" -> salonId, "stylistId" -> stylistId, "isValid" -> true))
@@ -123,10 +148,20 @@ object SalonAndStylist extends MeifanNetModelCompanion[SalonAndStylist] {
     }
   }
 
+  /**
+   * cost current stylist in salon numbers
+   * @param salonId
+   * @return
+   */
   def countStylistBySalon(salonId: ObjectId): Long = {
     dao.count(MongoDBObject("salonId" -> salonId, "isValid" -> true))
   }
 
+  /**
+   * get all stylists to a list of salon
+   * @param salonId
+   * @return
+   */
   def getStylistsBySalon(salonId: ObjectId): List[Stylist] = {
     var stylists: List[Stylist] = Nil
     val record = SalonAndStylist.findBySalonId(salonId)

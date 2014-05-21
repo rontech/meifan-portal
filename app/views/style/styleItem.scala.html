@@ -39,13 +39,8 @@
             <img class="thumb fl w85 h91 mR5" src="@routes.Application.getPhoto(stylePic.fileObjId)" alt="">
             <span><img class="fl w85 h91 mR5" src="@routes.Application.getPhoto(stylePic.fileObjId)"></span>
           </a>
-          <!-- <li class="fl w91">
-            <span id="img" style="cursor: pointer;">
-              <img src="@routes.Application.getPhoto(stylePic.fileObjId)" class="bdImgGray" onclick="changePic('img','imgMain')" height="89" width="65" >
-            </span>
-            <div class="iS SV01 offL mHA mT5">
-            </div>
-          </li> -->
+          
+          <div>@stylePic.description</div>
         }
       </ul>
       <div class="mT20 pT10 bdDotT" align="center">
@@ -232,16 +227,6 @@
 
   </div>
 </div>
-<script language="JavaScript">
-  function changePic(img, imgMain) {
-    alert(document.getElementById(imgMain).innerHTML);
-    alert(document.getElementById(img).innerHTML);
-    //document.getElementById(imgMain).innerHTML = document.getElementById(img).innerHTML;
-    document.getElementById(imgMain).innerHTML = <img src="/getPhoto/B004554657_164-219.jpg">
-    alert(document.getElementById(imgMain).innerHTML);
-  }
-
-</script>
 <script type="text/javascript">
       
   $('#carousel').elastislide({

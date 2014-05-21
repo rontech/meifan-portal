@@ -84,41 +84,56 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
       })
 
   /**
-   *  同意salon邀请
+   * 技师同意salon邀请
+   * @param applyRecordId - 邀请记录的id
+   * @return 我的主页
    */
-  def agreeSalonApply(salonId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+  def agreeSalonInvite(applyRecordId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-
-    val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, user.id)
-    record match {
-      case Some(re) => {
-        SalonStylistApplyRecord.agreeStylistApply(re)
-        val stylist = Stylist.findOneByStylistId(re.stylistId)
+    val record = SalonStylistApplyRecord.findOneById(applyRecordId)
+    record.map { re =>
+      if(re.verifiedResult == 0) {
+        //调用同意申请方法
+        SalonStylistApplyRecord.agreeApply(re)
+        //更新技师的有效状态，为有效技师
         Stylist.becomeStylist(user.id)
-        SalonAndStylist.entrySalon(salonId, user.id)
+        //在店铺与技师关系表中绑定两者的关系
+        SalonAndStylist.entrySalon(re.salonId, user.id)
         Redirect(routes.Stylists.myHomePage)
         //Redirect(noAuth.routes.Stylists.mySalon(stylistId))
+      } else {
+        NotFound
       }
-      case None => NotFound
+    } getOrElse {
+      NotFound
     }
   }
 
   /**
-   *  拒绝salon邀请
+   * 技师拒绝salon邀请
+   * @param applyRecordId - 邀请记录的id primary key
+   * @return 重定向到我的主页
    */
-  def rejectSalonApply(salonId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+  def rejectSalonInvite(applyRecordId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    val record = SalonStylistApplyRecord.findOneSalonApRd(salonId, user.id)
-    record match {
-      case Some(re) => {
-        SalonStylistApplyRecord.agreeStylistApply(re)
-        val stylist = Stylist.findOneByStylistId(re.stylistId)
+    val record = SalonStylistApplyRecord.findOneById(applyRecordId)
+    record.map{ re =>
+      if(re.verifiedResult == 0) {
+        //调用拒绝申请方法
+        SalonStylistApplyRecord.rejectApply(re)
         Redirect(routes.Stylists.myHomePage)
-      }
-      case None => NotFound
+      } else NotFound
+    } getOrElse {
+      NotFound
     }
   }
 
+  /**
+   * 技师查看来自店铺的邀请
+   * 根据本人的用户id，在店铺与技师申请履历表中查找到当前所有店铺
+   * 对其邀请
+   * @return
+   */
   def applyFromSalon = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
@@ -132,12 +147,24 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
     }
   }
 
+  /**
+   * 跳转到更新技师信息页面
+   * transfer param
+   * user - 当前登录的用户
+   * followInfo - 关注的信息
+   * user.id - 当前所在页面用户的id
+   * true - 登录flag
+   * sty - 技师
+   * stylistUpdate - 更新技师form
+   * goodAtStylePara - 擅长发型属性的集合
+   * @return 跳转到更新技师信息页面
+   */
   def stylistInfo = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
+    //擅长发型属性的集合
     val goodAtStylePara = Stylist.findGoodAtStyle
     val stylist = Stylist.findOneByStylistId(user.id)
-
     stylist match {
       case Some(sty) => {
         val stylistUpdate = stylistForm.fill(sty)
@@ -147,6 +174,11 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
     }
   }
 
+  /**
+   * 后台更新技师信息处理
+   * @param sid - 技师id
+   * @return 重定向到当前用户的主页
+   */
   def updateStylistInfo(sid: ObjectId) = StackAction(AuthorityKey -> Stylist.isOwner(sid) _) { implicit request =>
     val user = loggedIn
     val sty = Stylist.findOneByStylistId(user.id).get
@@ -161,6 +193,11 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
       })
   }
 
+  /**
+   * 技师与店铺解除关系
+   * @param salonId
+   * @return 我的主页
+   */
   def removeSalon(salonId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
@@ -168,6 +205,11 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
     Redirect(auth.routes.Stylists.myHomePage)
   }
 
+  /**
+   * 跳转至技师更换图片画面
+   * @param roles
+   * @return
+   */
   def updateStylistImage(roles: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
@@ -175,6 +217,11 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
     Ok(views.html.stylist.management.updateStylistImage(user = user, stylist = stylist, followInfo = followInfo, loginUserId = user.id, logged = true, roles = roles))
   }
 
+  /**
+   * 更换头像，图片后台存储
+   * @param role - 更新头像的角色，stylist or user
+   * @return
+   */
   def toUpdateStylistImage(role: String) = Action(parse.multipartFormData) { request =>
     request.body.file("photo") match {
       case Some(photo) =>
@@ -183,12 +230,21 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
         val uploadedFile = gridFs.createFile(photo.ref.file)
         uploadedFile.contentType = photo.contentType.orNull
         uploadedFile.save()
+        //根据存储返回的图片objectId 与 role 调用saveStylistImg
         Redirect(routes.Stylists.saveStylistImg(uploadedFile._id.get, role))
       case None => BadRequest("no photo")
     }
 
   }
 
+  /**
+   * 根据图片的id，角色类型判断，
+   * 如果普通用户，表示用户申请成为技师存储图片后跳转
+   * 如果是技师就定向到技师主页
+   * @param imgId - 图片存储后返回的ObjectId
+   * @param role - 角色类型
+   * @return
+   */
   def saveStylistImg(imgId: ObjectId, role: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
@@ -211,7 +267,9 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
   }
 
   /**
-   *  跳转到技师发型更新页面
+   * 跳转技师后台发型更新页面
+   * @param styleId - 发型id，主键
+   *@return
    */
   def styleUpdateByStylist(styleId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
     implicit request =>
@@ -226,7 +284,8 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
   }
 
   /**
-   *  发型更新后台处理
+   * 技师后台发型更新处理
+   * @return
    */
   def styleUpdateNewByStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
     implicit request =>
@@ -244,7 +303,10 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
   }
 
   /**
-   * 后台发型删除，使之无效即可
+   * 技师后台发型删除，使之无效即可
+   * 根据传入的发型id，调用方法使之无效
+   * @param id - 发型id
+   * @return
    */
   def styleToInvalidByStylist(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
@@ -255,7 +317,17 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
   }
 
   /**
-   *  跳转至技师发型新建页面
+   * 跳转至技师发型新建页面
+   * transfer param
+   * user - 登录的用户
+   * followInfo - 关注的内容
+   * loginUserId - 登录用户的id
+   * logged - 是否登录flag
+   * styleAddForm - 添加发型form
+   * styleParaAll - 发型属性数据
+   * stylists - 当前技师，但要变成list
+   * isStylist - 是否是技师flag
+   * @return 技师后台添加发型
    */
   def styleAddByStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
     //此处为新发型登录
@@ -269,7 +341,8 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
   }
 
   /**
-   *  技师新建发型后台处理
+   * 技师新建发型后台处理
+   * @return 技师后台发型一览
    */
   def newStyleAddByStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
     implicit request =>
@@ -286,6 +359,12 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
         })
   }
 
+  /**
+   * 查看技师本人的当前申请
+   * 根据本人的用户id，到店铺与技师关系表中查找到申请记录
+   * 根据记录中的店铺id找到所对应的salon
+   * @return
+   */
   def findStylistApplying = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
@@ -293,7 +372,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
     record.map { re =>
       val salon = Salon.findOneById(re.salonId)
       salon.map { sa =>
-        Ok(views.html.stylist.management.stylistApplyingItem(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, salon = sa))
+        Ok(views.html.stylist.management.stylistApplyingItem(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, salon = Tuple2(sa, re.id)))
       } getOrElse {
         NotFound
       }
@@ -304,6 +383,10 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
 
   }
 
+  /**
+   * 技师要申请店铺
+   * @return 跳转至技师申请店铺页面
+   */
   def wantToApply = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
@@ -311,6 +394,12 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
     Ok(views.html.stylist.management.stylistApplyPage(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, salon = salon))
   }
 
+  /**
+   * 我的主页
+   * 如果技师当前绑定店铺就跳转到预约画面
+   * 如果关系无效，就跳转至作为普通用户的主页
+   * @return
+   */
   def myHomePage = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
@@ -327,10 +416,15 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
 
   }
 
-  def cancelMyApplying = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+  /**
+   * 取消我的申请
+   * @param applyRecordId - 申请店铺记录的id
+   * @return
+   */
+  def cancelMyApplying(applyRecordId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    val record = SalonStylistApplyRecord.findOneStylistApRd(user.id)
+    val record = SalonStylistApplyRecord.findOneById(applyRecordId)
     record.map { re =>
       SalonStylistApplyRecord.removeById(re.id, WriteConcern.Safe)
       Redirect(routes.Stylists.myHomePage)
@@ -339,6 +433,11 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
     }
   }
 
+  /**
+   * 技师申请店铺，将申请记录插入到记录表中
+   * @param salonId
+   * @return 重定向到我的主页
+   */
   def toApplySalon(salonId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     Salon.findOneById(salonId).map { salon =>
@@ -351,6 +450,11 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
 
   }
 
+  /**
+   * 从form请求中获得输入的店铺accountId，然后获得该店铺
+   * 跳转到申请店铺页面
+   * @return
+   */
   def findSalonBySalonAccountId = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val salonAccountId = request.getQueryString("salonId").get
     val user = loggedIn
@@ -360,6 +464,12 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
 
   }
 
+  /**
+   * ajax查看发型的唯一性
+   * @param value - style id 或其他的主键
+   * @param key - 匹配item类型的值
+   * @return true or false toString
+   */
   def itemIsExist(value: String, key: String) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val stylist = loggedIn
     key match {
