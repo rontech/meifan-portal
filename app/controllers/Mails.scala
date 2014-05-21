@@ -53,7 +53,7 @@ object Mails extends Controller {
   val resetPassOfSalonForm = Form(
     mapping(
       "salonChange" -> mapping(
-        "accountId" -> text)(Salon.findByAccountId)(_.map(s => (s.salonAccount.accountId))),
+        "accountId" -> text)(Salon.findOneByAccountId)(_.map(s => (s.salonAccount.accountId))),
       "newPassword" -> tuple(
         "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]{6,16}+$""")),
         "confirm" -> text).verifying(
