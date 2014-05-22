@@ -1076,5 +1076,8 @@ salonSearchPage.cannotFind = 对不起，找不到
 styleSearch.moreOption = 更多选项
 styleSearch.lessOption = 收起
 
+#meifan
+meifan.changeCity = 切换城市
+
 
 

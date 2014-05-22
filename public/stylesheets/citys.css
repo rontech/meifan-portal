@@ -1,0 +1,37 @@
+.index_bo {
+    width: 990px;
+    margin: 0 auto;
+    text-align: left;
+    overflow: hidden;
+}
+#clist {
+    width: 990px;
+    margin: 0 auto;
+    padding: 0 0 20px;
+    clear: both;
+    overflow: hidden;
+    zoom: 1;
+}
+#clist dt {
+    color: #545454;
+    float: left;
+    width: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    clear: both;
+    font-weight: bold;
+    margin: 0;
+    padding: 3px 0 3px 4px;
+}
+#clist dd {
+    float: left;
+    width: 936px;
+    margin-left: 0;
+    padding: 3px 0;
+}
+#clist dd a {
+    font-size: 12px;
+    margin: 0 10px;
+    white-space: nowrap;
+    color: #0000CC;
+}
