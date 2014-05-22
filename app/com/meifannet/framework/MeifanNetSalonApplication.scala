@@ -15,33 +15,24 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package controllers.noAuth
+package com.meifannet.framework
 
-import play.api.mvc._
-import com.mongodb.casbah.commons.Imports._
-import models._
-import views._
-import com.meifannet.framework.MeifanNetApplication
+import jp.t2v.lab.play2.auth.AuthElement
+import play.api.mvc.Controller
+import jp.t2v.lab.play2.auth.LoginLogout
+import com.meifannet.framework.auth.SalonAuthConfigImpl
+import jp.t2v.lab.play2.auth.OptionalAuthElement
+import jp.t2v.lab.play2.auth.AuthConfig
 
-// TODO
-// should be moved to under the noAuth folder.
-
-object Questions extends MeifanNetApplication {
-
-  /**
-   * Get the required question.
-   */
-  def getOneQuestion(qId: ObjectId) = Action {
-    val quests: List[Question] = Question.findOneById(qId).toList
-    Ok(html.question.general.overview(quests))
-  }
-
-  /**
-   * Get All the questions.
-   */
-  def getAllQuestions() = Action {
-    val quests: List[Question] = Question.findAll().toList
-    Ok(html.question.general.overview(quests))
-  }
-
+/**
+ * Super controller class for salon applications.
+ *
+ * These features are implemented:
+ * <ul>
+ * <li>authorization</li>
+ * <li>authentication</li>
+ * </ul>
+ */
+class MeifanNetSalonApplication extends MeifanNetApplication
+  with LoginLogout with AuthElement with SalonAuthConfigImpl {
 }

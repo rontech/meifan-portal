@@ -38,8 +38,9 @@ import scala.Some
 import models._
 import utils.Const._
 import com.meifannet.framework.db._
+import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 
-object Application extends Controller with OptionalAuthElement with UserAuthConfigImpl {
+object Application extends MeifanNetCustomerOptionalApplication {
 
   /**
    * Add routes for ajax

@@ -31,6 +31,7 @@ import com.mongodb.casbah.WriteConcern
 import play.api.templates.Html
 import java.util.UUID
 import java.util.Date
+import com.meifannet.framework.MeifanNetApplication
 
 /**
  * this object is to reset password of user and salon by sending mail
@@ -38,7 +39,7 @@ import java.util.Date
  * person will get a mail included a link when he passes the verification
  * each link just can reset password one time successfully and works in 30 minutes
  */
-object Mails extends Controller {
+object Mails extends MeifanNetApplication {
 
   /**
    * 用户重置密码form

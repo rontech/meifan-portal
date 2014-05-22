@@ -44,8 +44,9 @@ import models.ServiceByType
 import models.Contact
 import models.OptContactMethod
 import models.Address
+import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 
-object Salons extends Controller with OptionalAuthElement with UserAuthConfigImpl {
+object Salons extends MeifanNetCustomerOptionalApplication {
 
   //沙龙注册Form
   val salonRegister: Form[Salon] = Form(

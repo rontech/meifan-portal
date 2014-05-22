@@ -34,12 +34,13 @@ import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
 import models._
+import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 
 /**
  * this object is major to get blog by different conditions
  * don't need the auth
  */
-object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl {
+object Blogs extends MeifanNetCustomerOptionalApplication {
 
   // Will set timezone according to locale the user selected later if 
   //     we need to make our site as an international size which can 

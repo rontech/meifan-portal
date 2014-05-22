@@ -36,8 +36,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import utils.Tools
 import utils.Const._
 import com.meifannet.framework.db._
+import com.meifannet.framework.MeifanNetSalonApplication
 
-object Salons extends Controller with LoginLogout with AuthElement with SalonAuthConfigImpl {
+object Salons extends MeifanNetSalonApplication {
 
   //沙龙登录Form
   val salonLoginForm = Form(mapping(

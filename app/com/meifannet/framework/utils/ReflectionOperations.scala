@@ -30,9 +30,9 @@ object ReflectionOperations {
    * Private constructor cannot be invoked before 2.11.0-M6.
    */
   def newInstance[T: TypeTag]: T = {
-    val clazz = typeTag[T].mirror reflectClass typeOf[T].typeSymbol.asClass
-    val init = typeOf[T].members find { case m: MethodSymbol => m.isConstructor case _ => false } get
-    val ctor = clazz reflectConstructor init.asMethod
+    val clazz = typeTag[T].mirror.reflectClass(typeOf[T].typeSymbol.asClass)
+    val init = typeOf[T].members.find { case m: MethodSymbol => m.isConstructor case _ => false }.get
+    val ctor = clazz.reflectConstructor(init.asMethod)
     ctor().asInstanceOf[T]
   }
 

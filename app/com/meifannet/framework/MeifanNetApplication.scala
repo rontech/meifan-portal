@@ -15,33 +15,19 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package controllers.noAuth
+package com.meifannet.framework
 
-import play.api.mvc._
-import com.mongodb.casbah.commons.Imports._
-import models._
-import views._
-import com.meifannet.framework.MeifanNetApplication
+import play.api.mvc.Controller
 
-// TODO
-// should be moved to under the noAuth folder.
-
-object Questions extends MeifanNetApplication {
-
-  /**
-   * Get the required question.
-   */
-  def getOneQuestion(qId: ObjectId) = Action {
-    val quests: List[Question] = Question.findOneById(qId).toList
-    Ok(html.question.general.overview(quests))
-  }
-
-  /**
-   * Get All the questions.
-   */
-  def getAllQuestions() = Action {
-    val quests: List[Question] = Question.findAll().toList
-    Ok(html.question.general.overview(quests))
-  }
-
+/**
+ * Top controller class for meifannet.
+ *
+ * These features are to be implemented:
+ * <ul>
+ * <li>logging</li>
+ * <li>session management</li>
+ * <li>caching</li>
+ * </ul>
+ */
+class MeifanNetApplication extends Controller {
 }

@@ -29,8 +29,9 @@ import scala.concurrent._
 import play.api.i18n.Messages
 import jp.t2v.lab.play2.auth._
 import controllers._
+import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 
-object Stylists extends Controller with OptionalAuthElement with UserAuthConfigImpl {
+object Stylists extends MeifanNetCustomerOptionalApplication {
 
   /*def getOneStylist(stylistId: ObjectId) = StackAction{ implicit request =>
   User.findOneByUserId(stylistId).map{user =>

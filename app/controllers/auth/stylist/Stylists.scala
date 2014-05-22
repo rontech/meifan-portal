@@ -38,8 +38,9 @@ import play.api.Routes
 import routes.javascript._
 import utils.Const._
 import com.meifannet.framework.db._
+import com.meifannet.framework.MeifanNetCustomerApplication
 
-object Stylists extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl {
+object Stylists extends MeifanNetCustomerApplication {
 
   val stylistForm: Form[Stylist] = Form(
     mapping(
