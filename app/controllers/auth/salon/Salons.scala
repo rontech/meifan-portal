@@ -68,11 +68,11 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
       "salonNameAbbr" -> optional(text),
       "salonIndustry" -> list(text),
       "homepage" -> optional(text),
-      "salonDescription" -> optional(text),
-      "picDescription" -> optional(mapping(
+      "salonAppeal" -> optional(text),
+      "salonIntroduction" -> optional(mapping(
         "picTitle" -> text,
         "picContent" -> text,
-        "picFoot" -> text)(PicDescription.apply)(PicDescription.unapply)),
+        "picFoot" -> text)(BriefIntroduction.apply)(BriefIntroduction.unapply)),
       "contactMethod" -> mapping(
         "mainPhone" -> text,
         "contact" -> text,
@@ -125,13 +125,13 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
             salonPics => Some(salonPics.fileObjId.toString(), salonPics.picUse, salonPics.showPriority, salonPics.description)
           }),
       "registerDate" -> date) {
-        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
+        (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
         workTime, restDay, seatNums, salonFacilities, salonPics, registerDate) =>
-          Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonDescription, picDescription, contactMethod, optContactMethods, establishDate, salonAddress,
+          Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
             workTime, restDay, seatNums, salonFacilities, salonPics, registerDate)
       } {
         salon =>
-          Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonDescription, salon.picDescription, salon.contactMethod, salon.optContactMethods, salon.establishDate, salon.salonAddress,
+          Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonAppeal, salon.salonIntroduction, salon.contactMethod, salon.optContactMethods, salon.establishDate, salon.salonAddress,
             salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
       })
 
@@ -172,7 +172,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
    * 沙龙情报显示页面
    * @return
    */
-  def salonInfoBasic = StackAction(AuthorityKey -> authImproveInfo _) { implicit request =>
+  def salonMainInfo = StackAction(AuthorityKey -> authImproveInfo _) { implicit request =>
     val salon = loggedIn
     val industry = Industry.findAll.toList
     Ok(views.html.salon.salonManage.salonInfo("", salon, industry))
@@ -247,7 +247,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
 
   /**
    * 沙龙注册信息更新
-   * @param id
+   * @param id 登录的沙龙id
    * @return
    */
   def salonRegisterUpdate(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
@@ -274,7 +274,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
 
   /**
    * 沙龙密码修改处理
-   * @param accountId
+   * @param accountId 登录的沙龙账号
    * @return
    */
   def salonChangePassword(accountId: String) = StackAction(AuthorityKey -> Salon.isOwner(accountId) _) { implicit request =>
@@ -299,7 +299,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
 
   /**
    * 沙龙头像(LOGO)更新
-   * @param imgId
+   * @param imgId 图片上传id(对应mongodb中的图片id)
    * @return
    */
   def saveSalonImg(imgId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
@@ -675,7 +675,7 @@ object Salons extends Controller with LoginLogout with AuthElement with SalonAut
    */
   def replyBySalon(commentObjId: ObjectId, commentObjType: Int) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
-    auth.Comments.formHuifuComment.bindFromRequest.fold(
+    auth.Comments.formReplyComment.bindFromRequest.fold(
       //处理错误
       errors => BadRequest(views.html.comment.errorMsg("")),
       {

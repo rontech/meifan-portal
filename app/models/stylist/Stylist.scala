@@ -180,6 +180,9 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
 
   /**
    * Find a Stylist by its user.id[ObjectId]
+   *
+   * @param stylistId
+   * @return
    */
   def findOneByStylistId(stylistId: ObjectId) = {
     dao.findOne(MongoDBObject("stylistId" -> stylistId))
@@ -187,6 +190,9 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
 
   /**
    * Find a Stylist by its user.id[ObjectId]
+   *
+   * @param stylistId
+   * @return
    */
   override def findOneById(stylistId: ObjectId) = {
     dao.findOne(MongoDBObject("stylistId" -> stylistId))
@@ -194,6 +200,9 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
 
   /**
    * Find a Stylist by its user.id[ObjectId]
+   *
+   * @param userId
+   * @return
    */
   def findOneByUserId(userId: String) = {
     val user = User.findOneByUserId(userId)
@@ -210,6 +219,9 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
    ---------------------------------*/
   /**
    * get a stylist by its stylistId = the user Id.
+   *
+   * @param userObjId
+   * @return
    */
   def findStylistDtlByUserObjId(userObjId: ObjectId): Option[StylistDetailInfo] = {
     // first, check that if the stylist as a basic User is exist.
@@ -236,6 +248,9 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
   /**
    * If, we want to use the user.userId not the user.(objectId)id to find the
    *     stylist detail info, use this method.
+   *
+   * @param uid
+   * @return
    */
   def findStylistDtlByUserId(uid: String): Option[StylistDetailInfo] = {
     val user = User.findOneByUserId(uid)
@@ -276,6 +291,9 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
   /**
    * get the slaon info of a stylist base on the relationship betweeen
    *     the slaon and stylist.
+   *
+   * @param stylistId
+   * @return
    */
   def mySalon(stylistId: ObjectId): Salon = {
     val releation = SalonAndStylist.findByStylistId(stylistId)

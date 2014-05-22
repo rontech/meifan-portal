@@ -459,7 +459,7 @@ object Stylists extends Controller with LoginLogout with AuthElement with UserAu
     val salonAccountId = request.getQueryString("salonId").get
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    val salon = Salon.findByAccountId(salonAccountId)
+    val salon = Salon.findOneByAccountId(salonAccountId)
     Ok(views.html.stylist.management.stylistApplyPage(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, salon = salon))
 
   }

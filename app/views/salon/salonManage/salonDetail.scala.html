@@ -22,7 +22,7 @@
             <input type="hidden" name="contactMethod.email" readonly="readonly" value="@salon.contactMethod.email">
             <input type="hidden" name="salonNameAbbr" readonly="readonly" value="@salon.salonNameAbbr">
             <input type="hidden" name="homepage" readonly="readonly" value="@salon.homepage">
-            <input type="hidden" name="salonDescription" readonly="readonly" value="@salon.salonDescription">
+            <input type="hidden" name="salonAppeal" readonly="readonly" value="@salon.salonAppeal">
             <input type="hidden" name="salonAddress.province" readonly="readonly" value="@salon.salonAddress.map(add=>add.province).getOrElse(None)">
             <input type="hidden" name="salonAddress.city" readonly="readonly" value="@salon.salonAddress.map(add=>add.city).getOrElse(None)">
             <input type="hidden" name="salonAddress.region" readonly="readonly" value="@salon.salonAddress.map(add=>add.region).getOrElse(None)">
@@ -208,8 +208,8 @@
               </th>             
              <td>    
               <div class="picture-show-description inputField">
-                @picDescriptions(
-                  salonForm("picDescription"),
+                @salonIntroductions(
+                  salonForm("salonIntroduction"),
                   className = "salonShowPicsDes"
                   )
                 </div>
@@ -380,8 +380,8 @@
 
   </li>
   }
-@picDescriptions(field: Field, className: String = "salonPicDescription") = {
-  <div class="picDescriptions">
+@salonIntroductions(field: Field, className: String = "") = {
+  <div class="salonIntroductions">
   <div>
     @textarea(
         field("picTitle"),
