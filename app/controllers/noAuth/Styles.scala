@@ -25,7 +25,6 @@ import models._
 import views._
 import java.util.Date
 import jp.t2v.lab.play2.auth._
-import controllers.UserAuthConfigImpl
 import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 
 object Styles extends MeifanNetCustomerOptionalApplication {
