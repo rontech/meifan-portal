@@ -190,21 +190,21 @@ $('#seatNums').focus(function(){
 /**
  * listening the descriptions of picture in salon
  */
-$('#picTitle').focus(function(){
+$('#introHeader').focus(function(){
     this.setAttribute("maxlength",30);
-    $('#picTitle  ~ .help-inline').text("30字以内，该描述将用于沙龙信息描述的标题显示").removeClass("trueMsg").removeClass("errorMsg");
+    $('#introHeader  ~ .help-inline').text("30字以内，该描述将用于沙龙信息描述的标题显示").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedPicTitle()
 });
-$('#picContent').focus(function(){
+$('#introContent').focus(function(){
     this.setAttribute("maxlength",150);
-    $('#picContent  ~ .help-inline').text("150字以内，该描述将用于沙龙信息描述的主要内容显示").removeClass("trueMsg").removeClass("errorMsg");
+    $('#introContent  ~ .help-inline').text("150字以内，该描述将用于沙龙信息描述的主要内容显示").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedPicContent()
 });
-$('#picFoot').focus(function(){
+$('#introFooter').focus(function(){
     this.setAttribute("maxlength",40);
-    $('#picFoot  ~ .help-inline').text("40字以内，该描述将用于沙龙信息描述的标注显示").removeClass("trueMsg").removeClass("errorMsg");
+    $('#introFooter  ~ .help-inline').text("40字以内，该描述将用于沙龙信息描述的标注显示").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
     checkedPicFoot()
 });
@@ -634,27 +634,27 @@ function checkedSeatNums(){
 }
 function checkedPicTitle(){
     //TODO
-    var value=$("#picTitle").val();
+    var value=$("#introHeader").val();
     if (value == ""){
-        $("#picTitle ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
+        $("#introHeader ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
     }else{
-        $("#picTitle ~ .help-inline").text(MESSAGE_OK).removeClass("errorMsg").addClass("trueMsg");
+        $("#introHeader ~ .help-inline").text(MESSAGE_OK).removeClass("errorMsg").addClass("trueMsg");
     }
 }
 function checkedPicContent(){
-    var value=$("#picContent").val();
+    var value=$("#introContent").val();
     if (value == ""){
-        $("#picContent ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
+        $("#introContent ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
     }else{
-        $("#picContent ~ .help-inline").text(MESSAGE_OK).removeClass("errorMsg").addClass("trueMsg");
+        $("#introContent ~ .help-inline").text(MESSAGE_OK).removeClass("errorMsg").addClass("trueMsg");
     }
 }
 function checkedPicFoot(){
-    var value=$("#picFoot").val();
+    var value=$("#introFooter").val();
     if (value == ""){
-        $("#picFoot ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
+        $("#introFooter ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
     }else{
-        $("#picFoot ~ .help-inline").text(MESSAGE_OK).removeClass("errorMsg").addClass("trueMsg");
+        $("#introFooter ~ .help-inline").text(MESSAGE_OK).removeClass("errorMsg").addClass("trueMsg");
     }
 }
 

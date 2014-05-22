@@ -316,8 +316,8 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    */
   def checkDetailIsFill(salon: Salon): Boolean = {
     salon.seatNums.nonEmpty &&
-      salon.salonIntroduction.exists(pic => pic.picTitle.nonEmpty) && salon.salonIntroduction.exists(pic => pic.picContent.nonEmpty) &&
-      salon.salonIntroduction.exists(pic => pic.picFoot.nonEmpty)
+      salon.salonIntroduction.exists(pic => pic.introHeader.nonEmpty) && salon.salonIntroduction.exists(pic => pic.introContent.nonEmpty) &&
+      salon.salonIntroduction.exists(pic => pic.introFooter.nonEmpty)
   }
 
   /**
@@ -530,9 +530,9 @@ object Salon extends MeifanNetModelCompanion[Salon] {
     intro match {
       case None => introAbbr
       case Some(pres) =>
-        introAbbr :::= List(makeAbbrStr(pres.picTitle, 0, 30))
-        introAbbr :::= List(makeAbbrStr(pres.picContent, 0, 30))
-        introAbbr :::= List(makeAbbrStr(pres.picFoot, 0, 30))
+        introAbbr :::= List(makeAbbrStr(pres.introHeader, 0, 30))
+        introAbbr :::= List(makeAbbrStr(pres.introContent, 0, 30))
+        introAbbr :::= List(makeAbbrStr(pres.introFooter, 0, 30))
     }
 
     introAbbr
@@ -594,7 +594,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
   def getSrchTargetFields(): Array[String] = {
     // for a salon valid, it is impossible that field [salonIntroduction] is null.
     val srchFields = Array("salonName", "salonNameAbbr", "salonAppeal",
-      "salonIntroduction.picTitle", "salonIntroduction.picContent", "salonIntroduction.picFoot")
+      "salonIntroduction.introHeader", "salonIntroduction.introContent", "salonIntroduction.introFooter")
 
     srchFields
   }
@@ -796,14 +796,14 @@ case class SalonAccount(
 
 /**
  * 沙龙描述（内嵌于沙龙主表）
- * @param picTitle 标题
- * @param picContent 内容
- * @param picFoot 结束语
+ * @param introHeader 标题
+ * @param introContent 内容
+ * @param introFooter 结束语
  */
 case class BriefIntroduction(
-  picTitle: String,
-  picContent: String,
-  picFoot: String)
+  introHeader: String,
+  introContent: String,
+  introFooter: String)
 
 /**
  * 沙龙主要联系方式（内嵌于沙龙主表）
