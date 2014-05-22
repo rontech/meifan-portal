@@ -32,6 +32,8 @@ import mongoContext._
 import org.mindrot.jbcrypt.BCrypt
 import scala.util.matching.Regex
 import com.meifannet.framework.db._
+import com.meifannet.framework.utils.ReflectionOperations._
+
 
 /**
  * Main Class: Salon.
@@ -536,48 +538,6 @@ object Salon extends MeifanNetModelCompanion[Salon] {
     introAbbr
   }
 
-  /**
-   * Get keywords hit strings.
-   *   Slice
-   */
-  /*
-  def getKeywordsHitStrs1(fuzzyKwds: List[commonsDBObject], exactKwds: Regex): List[String] = {
-   var fuzzyHits: List[String] = Nil
-
-   for(fz <- fuzzyKwds) { 
-    // TODO can below done with reflection?
-    var hit: String = ""
-    if(fz.contains("salonName")) hit = dao.find(fz).map {_.salonName}.mkString
-    if(fz.contains("salonNameAbbr")) hit = dao.find(fz).map {_.salonNameAbbr.getOrElse("")}.mkString
-    if(fz.contains("salonAppeal")) hit = dao.find(fz).map {_.salonAppeal.getOrElse("")}.mkString
-    // for a salon valid, it is impossible that field [salonIntroduction] is null.
-    if(fz.contains("salonIntroduction.picTitle")) hit = dao.find(fz).map {_.salonIntroduction.get.picTitle}.mkString
-    if(fz.contains(" escription.picContent")) hit = dao.find(fz).map {_.salonIntroduction.get.picContent}.mkString
-    if(fz.contains("salonIntroduction.picFoot")) hit = dao.find(fz).map {_.salonIntroduction.get.picFoot}.mkString
-
-    // first hit words, fz's value is a Regex type variable.
-    val regx = exactKwds 
-    var firstHit = regx.findFirstIn(hit)
-    firstHit match {
-     case None => fuzzyHits
-     case Some(fstHit) => {
-      // first hit index.
-      var mtch = regx.findAllIn(hit)
-      // cut out the search rst.
-      if(!mtch.isEmpty) {
-       fuzzyHits :::= List("..." + hit.slice(mtch.start, mtch.start + 30) + "...")
-      }
-      else {
-       fuzzyHits
-      }
-     } 
-    }
-   }
-
-   // println("fuzzyHits" + fuzzyHits)
-   fuzzyHits.toList
-  }
-  */
 
   /**
    * Get the slice of keyword matched fields.
@@ -585,7 +545,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    * 根据关键字匹配规则，查找指定字段中匹配的文字，并返回匹配文字的上下文(共30字)
    *
    * @param salon 被检索的沙龙
-   * @param targetFields 指定匹配的目标字段
+   * @param targetFields 指定匹配的目标字段(将来会从平台管理的设定值中读取)
    * @param exactKwds 文字匹配规则：正则表达式
    * @return 匹配的字段上下文
    */
@@ -593,17 +553,11 @@ object Salon extends MeifanNetModelCompanion[Salon] {
     var fuzzyHits: List[String] = Nil
     for (tgtf <- targetFields) {
       var hit: String = ""
-
       if (exactKwds != "") {
-
-        // TODO can below done with reflection?
-        //if(tgtf == "salonName") hit = salon.salonName
-        //if(tgtf == "salonNameAbbr") hit = salon.salonNameAbbr.getOrElse("")
-        if (tgtf == "salonAppeal") hit = salon.salonAppeal.getOrElse("")
-        // for a salon valid, it is impossible that field [salonIntroduction] is null.
-        if (tgtf == "salonIntroduction.picTitle") hit = salon.salonIntroduction.get.picTitle
-        if (tgtf == "salonIntroduction.picContent") hit = salon.salonIntroduction.get.picContent
-        if (tgtf == "salonIntroduction.picFoot") hit = salon.salonIntroduction.get.picFoot
+        // use scala reflection method to get the value of required field.
+        val fv = getFieldValueOfClass[Salon](salon, tgtf)
+        // TODO should judge the type of fields to see if it is a Option type.
+        hit = fv.toString
 
         // Use the Regex type method to get the first hit words in the target string.
         val firstHit = exactKwds.findFirstIn(hit)
@@ -631,9 +585,6 @@ object Salon extends MeifanNetModelCompanion[Salon] {
       }
     }
 
-    // println("fuzzyKwds = " + fuzzyKwds)
-    // println("exactKwds = " + exactKwds)
-    // println("fuzzyHits = " + fuzzyHits)
     fuzzyHits.toList
   }
 
@@ -641,6 +592,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    * Get the general search target fields.
    */
   def getSrchTargetFields(): Array[String] = {
+    // for a salon valid, it is impossible that field [salonIntroduction] is null.
     val srchFields = Array("salonName", "salonNameAbbr", "salonAppeal",
       "salonIntroduction.picTitle", "salonIntroduction.picContent", "salonIntroduction.picFoot")
 
@@ -663,34 +615,6 @@ object Salon extends MeifanNetModelCompanion[Salon] {
       ""
   }
 
-  /**
-   * Fuzzy search to salon: can search by salon name, salon abbr name, salonAppeal, salonIntroduction......
-   * TODO:
-   *     For now, only consider multi-keywords separated by blank,
-   *     Not consider the way that deviding keyword into multi-keywords automatically.
-   */
-  /*
-  def findSalonByFuzzyConds(keyword: String): List[Salon] = {
-    var rst: List[Salon] = Nil
-    // pre process for keyword: process the double byte blank to single byte blank.
-    val kws = keyword.replace("　"," ")
-    if(kws.replace(" ","").length == 0) {
-      // when keyword is not exist, return Nil.
-      rst
-    } else {
-      // when keyword is exist, convert it to regular expression.
-      val kwsAry = kws.split(" ").map { x => (".*" + x.trim + ".*|")}
-      val kwsRegex =  kwsAry.mkString.dropRight(1).r
-      // fields which search from 
-      val searchFields = getSrchTargetFields() 
-      searchFields.map { sf => 
-        var s = dao.find(MongoDBObject(sf -> kwsRegex)).toList
-        rst :::= s
-      }
-      rst.distinct
-    }
-  }
-  */
 
   /**
    * Casbah Logical Operators: http://mongodb.github.io/casbah/guide/query_dsl.html
