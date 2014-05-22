@@ -65,9 +65,9 @@ object Salons extends Controller with OptionalAuthElement with UserAuthConfigImp
       "homepage" -> optional(text),
       "salonAppeal" -> optional(text),
       "salonIntroduction" -> optional(mapping(
-        "picTitle" -> text,
-        "picContent" -> text,
-        "picFoot" -> text)(BriefIntroduction.apply)(BriefIntroduction.unapply)),
+        "introHeader" -> text,
+        "introContent" -> text,
+        "introFooter" -> text)(BriefIntroduction.apply)(BriefIntroduction.unapply)),
       "contactMethod" -> mapping(
         "mainPhone" -> text,
         "contact" -> text,
