@@ -189,12 +189,22 @@ object Salons extends MeifanNetCustomerOptionalApplication {
           Redirect(auth.routes.Salons.salonLogin)
       })
   }
-  /*-------------------------
-   * The Main Page of All Salon 
-   -------------------------*/
+
+  /**
+   * 跳转沙龙前台检索页面
+   * 从session中获得城市，前面步骤保证必然会存在
+   * 如果找不到城市默认给苏州
+   * @return
+   */
   def index = StackAction { implicit request =>
     val user = loggedIn
-    val searchParaForSalon = new SearchParaForSalon(None, "苏州", "all", List(), "Hairdressing", List(),
+    var myCity = ""
+    request.session.get("myCity").map{ city =>
+      myCity = city
+    }getOrElse {
+      myCity = "苏州"
+    }
+    val searchParaForSalon = new SearchParaForSalon(None, myCity, "all", List(), "Hairdressing", List(),
       PriceRange(0, 1000000), SeatNums(0, 10000),
       SalonFacilities(false, false, false, false, false, false, false, false, false, ""),
       SortByConditions("price", false, false, true))
