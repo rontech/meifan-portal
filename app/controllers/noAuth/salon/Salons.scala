@@ -198,12 +198,8 @@ object Salons extends MeifanNetCustomerOptionalApplication {
    */
   def index = StackAction { implicit request =>
     val user = loggedIn
-    var myCity = ""
-    request.session.get("myCity").map{ city =>
-      myCity = city
-    }getOrElse {
-      myCity = "苏州"
-    }
+    var myCity = request.session.get("myCity").map{ city => city } getOrElse { "苏州" }
+
     val searchParaForSalon = new SearchParaForSalon(None, myCity, "all", List(), "Hairdressing", List(),
       PriceRange(0, 1000000), SeatNums(0, 10000),
       SalonFacilities(false, false, false, false, false, false, false, false, false, ""),

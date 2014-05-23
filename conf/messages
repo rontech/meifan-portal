@@ -16,7 +16,7 @@ common.delete=删除
 common.sreach = 检索
 common.all=全部
 common.backToTop=返回顶部
-common.generalSearch = 搜索
+common.generalSearch = 搜  索
 common.hotSearch = 热门搜索
 common.resetPassword = 找回密码
 common.requiredMsg = 不能为空
@@ -25,6 +25,8 @@ common.deleteMsg = 删除后无法恢复，请确认是否删除？
 common.isValidMsg = 无效后无法恢复，请确认是否无效？
 common.seat = 位
 common.userLogin = 会员登陆
+common.pleaseInputSrchKeyword=请输入您要查找的内容
+
 
 # Index page
 index.mainPage=网站首页
@@ -42,7 +44,6 @@ index.latestBlogs=最新博客
 index.searchByStyle=按发型检索
 index.hotestSalon=最热沙龙
 index.specialCollections=专题特辑
-
 
 
 # Main Page Framework
