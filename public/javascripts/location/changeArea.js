@@ -59,6 +59,18 @@ function cmbAddRadio( cmd, str){
  }
 
 var provinceListAll = [
+  {name:'热门', cityList:[
+    {name:'北京', areaList:[]},
+    {name:'上海', areaList:[]},
+    {name:'广州', areaList:[]},
+    {name:'深圳', areaList:[]},
+    {name:'苏州', areaList:[]},
+    {name:'南京', areaList:[]},
+    {name:'重庆', areaList:[]},
+    {name:'天津', areaList:[]},
+    {name:'武汉', areaList:[]},
+    {name:'成都', areaList:[]}
+  ]},
   {name:'北京', cityList:[
     {name:'北京', areaList:['东城区','西城区','崇文区','宣武区','朝阳区','丰台区','石景山区','海淀区','门头沟区','房山区','通州区','顺义区','昌平区','大兴区','怀柔区','平谷区','密云县','延庆县']}
   ]},
@@ -479,5 +491,9 @@ var provinceListAll = [
     {name:'呼和浩特', areaList:['中西区','湾仔区','东区','南区','油尖旺区','深水埗区','九龙城区','黄大仙区','观塘区','葵青区','荃湾区','屯门区','元朗区','北区','大埔区','沙田区','西贡区','离岛区']}
   ]},
   {name:'澳门', cityList:[
+  ]},
+  {name:'其它', cityList:[
+    {name:'香港', areaList:[]},
+    {name:'澳门', areaList:[]}
   ]}
 ];

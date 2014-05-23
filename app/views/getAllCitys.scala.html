@@ -3,25 +3,20 @@
 @main(Messages("site.title")) {
   <div class="index_bo">
     <dl id="clist">
-      <dt class="dot">热门</dt>
-      <dd class="dot">
-        <a href="javascript:void(0);" onclick="selectCty ( this )">北京</a>
-        <a href="javascript:void(0);" onclick="selectCty ( this )">上海</a>
-        <a href="javascript:void(0);" onclick="selectCty ( this )">广州</a>
-        <a href="javascript:void(0)" onclick="selectCty ( this )">深圳</a>
-        <a href="javascript:void(0)" onclick="selectCty ( this )">成都</a>
-        <a href="javascript:void(0)" onclick="selectCty ( this )">杭州</a>
-        <a href="javascript:void(0)" onclick="selectCty ( this )">南京</a>
-        <a href="javascript:void(0)" onclick="selectCty ( this )">苏州</a>
-        <a href="javascript:void(0)" onclick="selectCty ( this )">天津</a>
-        <a href="javascript:void(0)" onclick="selectCty ( this )">武汉</a>
-        <a href="javascript:void(0)" onclick="selectCty ( this )">重庆</a>
-      </dd>
       <script language="javascript" type="text/javascript">
       $(document).ready(function () {
+      var innerHtml = '';
         for ( var i = 0 ; i < provinceListAll.length ; i ++ ) {
           var provice = provinceListAll[ i ].name;
-          if(provice.indexOf("省") > 0|provice.indexOf("自治区") > 0){
+          var citys = provinceListAll[ i ].cityList ;
+          if(provice == "热门") {                                           //热门城市追加
+            innerHtml = innerHtml+ '<dt class="dot">' + provice + '</dt>' ;
+            innerHtml = innerHtml + '<dd class="dot">';
+            for( var j = 0 ; j < citys.length ; j ++ ) {
+              innerHtml = innerHtml +'<a href="javascript:void(0)" onclick="selectCty ( this )">'+citys[ j ].name+'</a>';
+            }
+            innerHtml = innerHtml+'</dd>';
+          } else if(provice.indexOf("省") > 0|provice.indexOf("自治区") > 0){//省与自治区追加
             if(provice.indexOf("省") > 0) {
               var end = provice.indexOf("省");
               provice = provice.substring(0,end);
@@ -30,26 +25,30 @@
             var end = provice.indexOf("自治区");
             provice = provice.substring(0,end);
             }
-            var citys = provinceListAll[ i ].cityList ;
-            var innerHtml = '<dt>'+provice+'</dt>';
+            innerHtml = innerHtml+ '<dt>'+provice+'</dt>';
             innerHtml = innerHtml + '<dd>';
               for ( var j = 0 ; j < citys.length ; j ++ ) {
                 innerHtml = innerHtml +'<a href="javascript:void(0)" onclick="selectCty ( this )">'+citys[ j ].name+'</a>';
               }
             innerHtml = innerHtml+'</dd>';
-            $ ( '.select_other_city' ).before ( innerHtml ) ;
+
+          } else if(provice == "其它") {                                     //其它地区追加
+            innerHtml = innerHtml+ '<dt class="select_other_city">' + provice + '</dt>' ;
+            innerHtml = innerHtml + '<dd>';
+            for( var j = 0 ; j < citys.length ; j ++ ) {
+              innerHtml = innerHtml +'<a href="javascript:void(0)" onclick="selectCty ( this )">'+citys[ j ].name+'</a>';
+            }
+            innerHtml = innerHtml+'</dd>';
+            $ ( '#clist' ).append( innerHtml ) ;
+            return;
+          } else{
+            //do nothing
           }
+
         }
       })
 
       </script>
-      <dt class="select_other_city">其他</dt>
-      <dd>
-        <a href="javascript:void(0);" onclick="selectCty ( this )">香港</a>
-        <a href="javascript:void(0);" onclick="selectCty ( this )">澳门</a>
-        <a href="javascript:void(0);" onclick="selectCty ( this )">台湾</a>
-        <a href="javascript:void(0);" onclick="selectCty ( this )">钓鱼岛</a>
-      </dd>
     </dl>
   </div>
 
