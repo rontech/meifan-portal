@@ -72,7 +72,7 @@
       <li><input id="keyword" name="keyWord" type="text" value="@searchParaForSalon.keyWord" placeholder="" onblur="hidekeys();" autocomplete="off" class="text" onkeyup="getSuggest(this.value, event);setPosition(getIdOBJ('keyword'));updown(event)" onkeydown="if(getKeyCode(event) == 13)form_submit();">
         <div id="dSuggest" style="display:none;width:17%;" ></div>
       </li>
-      <li><input name="" type="button" onclick="clickSalonSearch();" class="salonSearchBtn" value = @Messages("hair.search")></li>
+      <li><input name="" type="button" onclick="clickSalonSearch();" class="salonSearchBtn" value="@Messages("common.generalSearch")"></li>
     </ul>
     <div id="auto"></div>
     
