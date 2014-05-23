@@ -44,15 +44,22 @@ object ReflectionOperations {
    * @param fieldName Class field name. 需要求值的字段名
    */
   def getFieldValueOfClass[T: ClassTag : TypeTag](inst: T, fieldName: String) = {
-    // obtain the class mirror 
-    val m = runtimeMirror(inst.getClass.getClassLoader) 
-    // obtain the field method Symbol.
-    val ftermsymb = typeOf[T].declaration(newTermName(fieldName)).asTerm
-    // obtain the instance mirror.
-    val im = m.reflect(inst)
-    // obtain the field mirror using the field method Symbol to access the field.
-    val fmirr = im.reflectField(ftermsymb)
-    
-    fmirr.get
+
+    try {
+      // obtain the class mirror 
+      val m = runtimeMirror(inst.getClass.getClassLoader) 
+      // obtain the field method Symbol.
+      val ftermsymb = typeOf[T].declaration(newTermName(fieldName)).asTerm
+      // obtain the instance mirror.
+      val im = m.reflect(inst)
+      // obtain the field mirror using the field method Symbol to access the field.
+      val fmirr = im.reflectField(ftermsymb)
+
+      fmirr.get
+
+    } catch {
+      case ex: Exception => println(ex)
+      ""
+    }
   }
 }

@@ -42,6 +42,8 @@ object GeneralSearch extends MeifanNetCustomerOptionalApplication {
    */
   def getGeneralSearch = StackAction { implicit request =>
     val user = loggedIn
+    val myCity = request.session.get("myCity").map{ city => city } getOrElse { "苏州" }
+
     generalSearchForm.bindFromRequest.fold(
       errors => BadRequest(views.html.index()),
       {
@@ -50,10 +52,11 @@ object GeneralSearch extends MeifanNetCustomerOptionalApplication {
           //Top全部 HairSalon美发沙龙   HairCatalog时尚靓发 NailSalon美甲沙龙 NailCatalog时尚美甲 RelaxSalon休闲保健 EstheSalon整形美容 
           generalSearch._1 match {
             case "Top" => {
+              // TODO
               Ok(views.html.index())
             }
             case "HairSalon" => {
-              val searchParaForSalon = new SearchParaForSalon(Option(generalSearch._2), "苏州", "all", List(), "Hairdressing", List(),
+              val searchParaForSalon = new SearchParaForSalon(Option(generalSearch._2), myCity, "all", List(), "Hairdressing", List(),
                 PriceRange(0, 1000000), SeatNums(0, 10000),
                 SalonFacilities(false, false, false, false, false, false, false, false, false, ""),
                 SortByConditions("price", false, false, true))

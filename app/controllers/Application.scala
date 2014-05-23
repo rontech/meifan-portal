@@ -236,8 +236,8 @@ object Application extends MeifanNetCustomerOptionalApplication {
   def getAllCitys(currentUri: String) = StackAction { implicit request =>
     val user = loggedIn
     currentUri match {
-      case ("city") => Ok(views.html.getAllCitys(user))
-      case _ => Ok(views.html.getAllCitys(user)).withSession("currentUri" -> currentUri)
+      case ("city") => Ok(views.html.common.getAllCitys(user))
+      case _ => Ok(views.html.common.getAllCitys(user)).withSession("currentUri" -> currentUri)
     }
   }
 

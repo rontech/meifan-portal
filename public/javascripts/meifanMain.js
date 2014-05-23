@@ -220,3 +220,18 @@ function selectCty(obj) {
   $('.city_selected').text(city);
   location.href = '/getOneCity/'+city;
 }
+
+/**
+ * Submit the general search form in main page when you click the "hottest keyword" link,
+ *   with the parameter of keyword.
+ * 综合首页，当点击[最热关键字]时，提交最热关键字到相应检索页面。
+ *   比如，选择了[沙龙检索]，再点击最热关键字时，将带着选择的关键字向沙龙检索首页跳转。
+ *
+ * @param kw keyword input in main page search from. 首页选择或者输入的关键字
+ */
+function doGeneralSrchSubmit(kw) {
+  // set the keyword in the form with the hottest keyword link value.
+  $("#srchKeyword").val(kw);
+  // submit the general search form.
+  $("#generalSrchForm").submit();
+}

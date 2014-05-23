@@ -578,7 +578,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
               }
 
               if (!ht.isEmpty)
-                fuzzyHits :::= List(ht)
+                fuzzyHits = fuzzyHits ::: List(ht)
             }
           }
         }
@@ -593,8 +593,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
    */
   def getSrchTargetFields(): Array[String] = {
     // for a salon valid, it is impossible that field [salonIntroduction] is null.
-    val srchFields = Array("salonName", "salonNameAbbr", "salonAppeal",
-      "salonIntroduction.introHeader", "salonIntroduction.introContent", "salonIntroduction.introFooter")
+    val srchFields = Array("salonName", "salonNameAbbr", "salonAppeal", "salonIntroduction")
 
     srchFields
   }
