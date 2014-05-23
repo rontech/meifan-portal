@@ -23,8 +23,9 @@ import se.radley.plugin.salat.Binders._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.templates._
+import com.meifannet.framework.MeifanNetApplication
 
-object FollowTypes extends Controller {
+object FollowTypes extends MeifanNetApplication {
   def followTypeTypeForm(id: ObjectId = new ObjectId): Form[FollowType] = Form(
     mapping(
       "id" -> ignored(id),

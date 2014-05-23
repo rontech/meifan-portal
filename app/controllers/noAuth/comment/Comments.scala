@@ -29,8 +29,9 @@ import com.mongodb.casbah.Imports.ObjectId
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
+import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 
-object Comments extends Controller with OptionalAuthElement with UserAuthConfigImpl {
+object Comments extends MeifanNetCustomerOptionalApplication {
 
   /**
    * get all comment of the given salonId

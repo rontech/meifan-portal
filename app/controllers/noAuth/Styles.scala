@@ -25,9 +25,9 @@ import models._
 import views._
 import java.util.Date
 import jp.t2v.lab.play2.auth._
-import controllers.UserAuthConfigImpl
+import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 
-object Styles extends Controller with OptionalAuthElement with UserAuthConfigImpl {
+object Styles extends MeifanNetCustomerOptionalApplication {
 
   /**
    * 定义一个发型查询数据表单

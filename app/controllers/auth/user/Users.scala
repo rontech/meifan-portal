@@ -37,8 +37,9 @@ import models.StylistApply
 import models.OptContactMethod
 import models.Address
 import play.api.templates.Html
+import com.meifannet.framework.MeifanNetCustomerApplication
 
-object Users extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl {
+object Users extends MeifanNetCustomerApplication {
 
   //login form for user
   val loginForm = Form(mapping(

@@ -40,14 +40,14 @@
             </div>
             <div class="fr w440 mR10">
               <div>
-                <p class="mT10 picTitle">
+                <p class="mT10 introHeader">
                   @if(salon._1.salonIntroduction.nonEmpty){
-                    @salon._1.salonIntroduction.get.picTitle
+                    @salon._1.salonIntroduction.get.introHeader
                   }                                
                 </p>
-                <p class="mT10 pB10 picContent">
+                <p class="mT10 pB10 introContent">
                   @if(salon._1.salonIntroduction.nonEmpty){
-                    @salon._1.salonIntroduction.get.picContent.slice(0, 100) ...
+                    @salon._1.salonIntroduction.get.introContent.slice(0, 100) ...
                   }    
                 </p>
               </div>

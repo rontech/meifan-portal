@@ -29,8 +29,9 @@ import play.api.templates.Html
 import se.radley.plugin.salat.Binders._
 import jp.t2v.lab.play2.auth._
 import controllers._
+import com.meifannet.framework.MeifanNetSalonApplication
 
-object Coupons extends Controller with AuthElement with SalonAuthConfigImpl {
+object Coupons extends MeifanNetSalonApplication {
 
   def couponForm: Form[Coupon] = Form {
     mapping(

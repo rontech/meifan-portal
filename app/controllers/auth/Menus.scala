@@ -27,8 +27,9 @@ import views._
 import play.api.i18n.Messages
 import jp.t2v.lab.play2.auth._
 import controllers._
+import com.meifannet.framework.MeifanNetSalonApplication
 
-object Menus extends Controller with AuthElement with SalonAuthConfigImpl {
+object Menus extends MeifanNetSalonApplication {
 
   def menuForm: Form[Menu] = Form {
     mapping(

@@ -25,8 +25,9 @@ import jp.t2v.lab.play2.stackc._
 import scala.concurrent._
 import ExecutionContext.Implicits.global
 import controllers._
+import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 
-object MyFollows extends Controller with OptionalAuthElement with UserAuthConfigImpl {
+object MyFollows extends MeifanNetCustomerOptionalApplication {
 
   /**
    * 列表显示关注的沙龙

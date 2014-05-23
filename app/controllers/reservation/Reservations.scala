@@ -24,11 +24,11 @@ import play.api.data.Form
 import java.util.Calendar
 import java.util.Date
 import com.mongodb.casbah.commons.Imports._
-
 import models._
 import java.text.SimpleDateFormat
+import com.meifannet.framework.MeifanNetApplication
 
-object Reservations extends Controller {
+object Reservations extends MeifanNetApplication {
   /**
    * 进入到具体的店铺里，某产品的预约或者是更多服务的选择
    */

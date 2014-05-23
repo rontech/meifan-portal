@@ -29,11 +29,12 @@ import com.mongodb.casbah.Imports.ObjectId
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
+import com.meifannet.framework.MeifanNetCustomerApplication
 
 /**
  * this object is to add comment to blog and coupon and delete comment of blog
  */
-object Comments extends Controller with AuthElement with UserAuthConfigImpl {
+object Comments extends MeifanNetCustomerApplication {
 
   /** form of adding comment */
   val formAddComment = Form((

@@ -38,13 +38,10 @@ import scala.Some
 import models._
 import utils.Const._
 import com.meifannet.framework.db._
-import play.api.mvc.Results._
-import play.api.mvc.SimpleResult
-import models.ImgForCrop
-import play.api.mvc.ResponseHeader
-import java.net.{URLEncoder, URLDecoder}
+import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 
-object Application extends Controller with OptionalAuthElement with UserAuthConfigImpl {
+
+object Application extends MeifanNetCustomerOptionalApplication {
 
   /**
    * Add routes for ajax
@@ -276,8 +273,4 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     }
   }
 
-  /*def getAllCitys = StackAction { implicit request =>
-    val user = loggedIn
-    Ok(views.html.getAllCitys(user)).withSession("currentUri" -> routes.Application.index.url.toString)
-  }*/
 }

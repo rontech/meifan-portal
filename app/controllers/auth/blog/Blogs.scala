@@ -32,11 +32,12 @@ import se.radley.plugin.salat.Binders._
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
+import com.meifannet.framework.MeifanNetCustomerApplication
 
 /**
  * this object is to CUD(create,update,delete) blog
  */
-object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
+object Blogs extends MeifanNetCustomerApplication {
 
   /**
    * create a new form to create a blog

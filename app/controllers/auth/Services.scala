@@ -27,8 +27,9 @@ import play.api.data.Forms._
 import play.api.i18n.Messages
 import controllers._
 import jp.t2v.lab.play2.auth._
+import com.meifannet.framework.MeifanNetSalonApplication
 
-object Services extends Controller with AuthElement with SalonAuthConfigImpl {
+object Services extends MeifanNetSalonApplication {
   /**
    * 定义服务form,用于服务添加
    * @param id

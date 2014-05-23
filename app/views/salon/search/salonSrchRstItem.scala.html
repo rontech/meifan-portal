@@ -64,13 +64,13 @@
         <b>
           <strong>
             <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)">
-              @salon.salonInfo.salonIntroduction.map(pic=>pic.picTitle).getOrElse(None)
+              @salon.salonInfo.salonIntroduction.map(pic=>pic.introHeader).getOrElse(None)
             </a>
           </strong>
         </b>
       </p>
       <p class="mT10 pB10">
-      @salon.salonInfo.salonIntroduction.map(pic=>pic.picContent).getOrElse(None).toString.slice(0, 70) ...
+      @salon.salonInfo.salonIntroduction.map(pic=>pic.introContent).getOrElse(None).toString.slice(0, 70) ...
         <a href="@noAuth.routes.Salons.getSalon(salon.salonInfo.id)">@Messages("common.checkFormore") </a>
       </p>
       <div>

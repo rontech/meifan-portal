@@ -35,8 +35,9 @@ import models.OptContactMethod
 import scala.Some
 import models.OptContactMethod
 import scala.Some
+import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 
-object Users extends Controller with OptionalAuthElement with UserAuthConfigImpl {
+object Users extends MeifanNetCustomerOptionalApplication {
 
   /**
    * create a user's register form

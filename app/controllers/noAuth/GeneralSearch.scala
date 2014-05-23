@@ -25,8 +25,9 @@ import jp.t2v.lab.play2.auth._
 import controllers._
 import com.mongodb.casbah.commons.Imports._
 import java.util.Date
+import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 
-object GeneralSearch extends Controller with OptionalAuthElement with UserAuthConfigImpl {
+object GeneralSearch extends MeifanNetCustomerOptionalApplication {
 
   /**
    * 为综合检索添加一个检索数据表单
