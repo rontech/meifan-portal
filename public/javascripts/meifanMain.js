@@ -231,7 +231,13 @@ function selectCty(obj) {
  */
 function doGeneralSrchSubmit(kw) {
   // set the keyword in the form with the hottest keyword link value.
-  $("#srchKeyword").val(kw);
+  // Todo i18n() put the const message outside to the message files.
+  // if the keyword is default message, set it to empty string. 
+  if(kw == "请输入您要查找的内容") 
+    $("#srchKeyword").val("");
+  else 
+    $("#srchKeyword").val(kw);
+
   // submit the general search form.
   $("#generalSrchForm").submit();
 }
