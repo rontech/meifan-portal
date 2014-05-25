@@ -23,7 +23,8 @@
         <input name="keyword" id="srchKeyword" type="text" class="txt" value="@Messages("common.pleaseInputSrchKeyword")"  
           onfocus="if(this.value=='@Messages("common.pleaseInputSrchKeyword")') {this.value=''}" 
           onblur="if(this.value==''){this.value='@Messages("common.pleaseInputSrchKeyword")'}"/>
-        <input type="submit" value="@Messages("common.generalSearch")" class="btn" />
+        <input type="submit" value="@Messages("common.generalSearch")" class="btn"
+          onclick="doGeneralSrchSubmit($('#srchKeyword').val())"/>
       </form>
     </div>
     <!--↓ Hottest Keyword-->
