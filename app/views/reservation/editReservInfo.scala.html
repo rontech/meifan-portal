@@ -8,7 +8,7 @@
     <h3 class="yS reserveTitleInner pL10">@Messages("reservation.showResvInfo")</h3>
   </div>
 
-  @views.html.reservation.showReservItems(reservation, "editInfo")
+  @views.html.reservation.showReservItems(reservation, "editInfo", Reservation.findResvItemsForType(reservation.resvItems))
 
   @helper.form(auth.routes.Reservations.reservConfirmInfo, 'id -> "reservationForm", 'name -> "reservationForm") {
     <div class="yS reserveTitleOuter mT20">

@@ -77,7 +77,7 @@
                     @for(resvInfoItem <- resvInfoItems.resvInfoItemPart) {
                       @if(resvInfoItem.isResvFlg) {
                         <tr>
-                          <td class="openColor"><p class="scheduleR"><a href="@routes.Reservations.reservSelectStylist(resvInfoItem.resvDate.format("yyyy/MM/dd HH:mm").toString)" title="◎" class="reservBS db reserveImmediately offL vaT">
+                          <td class="openColor"><p class="scheduleR"><a href="@routes.Reservations.reservSelectStylist(resvInfoItem.resvDate.format("yyyyMMddHHmm").toString)" title="◎" class="reservBS db reserveImmediately offL vaT">
                             ◎</a></p></td>
                         </tr>
                       } else {

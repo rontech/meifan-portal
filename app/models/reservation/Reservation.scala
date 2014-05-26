@@ -273,8 +273,16 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
    * @param resvItems 预约表中预约内容
    */
   def findResvItemsForType(resvItems: List[ResvItem]): List[ResvItem] = {
-    println("resvItems = " + resvItems)
     resvItems.filter(resvItem => (resvItem.resvType.equals("menu") || resvItem.resvType.equals("service")))
+  }
+  
+  /**
+   * 取得预约内容中的服务id
+   * 用于预约添加服务时检索服务
+   * @param resvItems 预约表中预约内容
+   */
+  def getServiceIdFromResv(resvItems: List[ResvItem]): List[ObjectId] = resvItems.map {
+    resvItem => resvItem.mainResvObjId
   }
   
 }

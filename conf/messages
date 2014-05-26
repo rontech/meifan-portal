@@ -1062,7 +1062,14 @@ reservation.resvCoupon = 预约优惠劵
 reservation.menu = 菜单
 reservation.totalPrice = 合计金额
 reservation.totalPriceMsg = ※如果使用了优惠券，金额为优惠后的价格。
-
+reservation.selectExtraService = 请选择额外的服务
+reservation.resvTimeMsg = ※时间只是预估值，在店铺较忙的时候可能会有一些偏差。
+reservation.next = 下一步
+reservation.price = 金额
+reservation.serviceDuration = 服务时长（预计）
+reservation.couponSelected = 已选择的优惠劵
+reservation.menuSelected = 已选择的菜单
+reservation.serviceSelected = 已选择的服务
 
 
 #salonCheckInfoState
