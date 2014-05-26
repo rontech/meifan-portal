@@ -105,6 +105,146 @@ object Reservations extends MeifanNetApplication {
   }
 
   /**
+   * 添加额外服务到cache中
+   * 用于ajax动态添加
+   * @param id 服务id
+   * @param addFlg 是否为添加flg，如果为true，那么加入cache，否则从cache中去除
+   * @return
+   */
+  def addResvService(id: String, addFlg: String) = Action {
+    println(id + " " + addFlg)
+    var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
+    var resvItems: List[ResvItem] = reservation.resvItems
+    var resvItem: ResvItem = ResvItem("service", new ObjectId(id), 2)
+    println("ssh = " + resvItem)
+    println("resvItems1 = " + resvItems)
+    if (addFlg == "true") {
+      resvItems = resvItems ::: List(resvItem)
+    } else {
+      resvItems = resvItems.filterNot(item => item.mainResvObjId == resvItem.mainResvObjId)
+      println("resvItems2 = " + resvItems)
+    }
+
+    reservation = reservation.copy(resvItems = resvItems)
+    Cache.set("reservation", reservation)
+    println("resvItems3 = " + resvItems)
+    println("reservation = " + reservation)
+    Ok("true")
+  }
+
+  /**
+   * 用于添加额外服务的搜索
+   * @param salonId 沙龙id
+   */
+  def getServicesByCondition(salonId: ObjectId) = Action {
+    implicit request =>
+      import Coupons.conditionForm
+      conditionForm.bindFromRequest.fold(
+      errors => BadRequest(views.html.error.errorMsg(errors)), {
+        serviceType =>
+          var conditions: List[String] = Nil
+          var typebySearchs: List[ServiceType] = Nil
+          var servicesByTypes: List[ServiceByType] = Nil
+          var serviceTypeNames: List[String] = Nil
+          var couponServiceType: CouponServiceType = CouponServiceType(Nil, serviceType.subMenuFlg)
+          val reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
+          var resvItem: ResvItem = reservation.resvItems.head
+
+          for (serviceTypeOne <- serviceType.serviceTypes) {
+            conditions = serviceTypeOne.serviceTypeName :: conditions
+            val serviceType: Option[ServiceType] = ServiceType.findOneByTypeName(serviceTypeOne.serviceTypeName)
+            serviceType match {
+              case Some(s) => typebySearchs = s :: typebySearchs
+              case None => NotFound
+            }
+          }
+
+          couponServiceType = couponServiceType.copy(serviceTypes = typebySearchs)
+
+          if (serviceType.serviceTypes.isEmpty) {
+            serviceTypeNames = Service.getServiceTypeList
+            for (serviceType <- serviceTypeNames) {
+              var servicesByType: ServiceByType = ServiceByType("", Nil)
+              var services: List[Service] = Service.getTypeListBySalonId(salonId, serviceType)
+              if (!services.isEmpty) {
+                val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = services)
+                servicesByTypes = y :: servicesByTypes
+              } else {
+
+              }
+            }
+          } else {
+            for (serviceTypeOne <- serviceType.serviceTypes) {
+              var servicesByType: ServiceByType = ServiceByType("", Nil)
+              var services: List[Service] = Service.getTypeListBySalonId(salonId, serviceTypeOne.serviceTypeName)
+              if (!services.isEmpty) {
+                val y = servicesByType.copy(serviceTypeName = serviceTypeOne.serviceTypeName, serviceItems = services)
+                servicesByTypes = y :: servicesByTypes
+              } else {
+
+              }
+            }
+          }
+          val salon: Option[Salon] = Salon.findOneById(salonId)
+
+          salon match {
+            case Some(s) => {
+              val srvTypes: List[ServiceType] = ServiceType.findAllServiceTypes(s.salonIndustry)
+              Ok(views.html.reservation.addExtraService(s, reservation, resvItem, Coupons.conditionForm.fill(couponServiceType), servicesByTypes, srvTypes))
+            }
+            case None => NotFound
+          }
+      })
+  }
+
+  /**
+   * 取得预约内容中服务总时间和总价格
+   */
+  def getTotalOfServices = Action {
+    implicit request =>
+      var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
+      var serviceDuration: Int = 0
+      var price: BigDecimal = BigDecimal(0)
+
+      for (resvItem <- reservation.resvItems) {
+        if (resvItem.resvType == "coupon") {
+          val coupon: Option[Coupon] = Coupon.findOneById(resvItem.mainResvObjId)
+          coupon match {
+            case Some(c) => {
+              serviceDuration = serviceDuration + c.serviceDuration
+              price = price + c.perferentialPrice
+            }
+            case None => NotFound
+          }
+        } else {
+          if (resvItem.resvType == "menu") {
+            val menu: Option[Menu] = Menu.findOneById(resvItem.mainResvObjId)
+            menu match {
+              case Some(m) => {
+                serviceDuration = serviceDuration + m.serviceDuration
+                price = price + m.originalPrice
+              }
+              case None => NotFound
+            }
+          } else {
+            val service: Option[Service] = Service.findOneById(resvItem.mainResvObjId)
+            service match {
+              case Some(s) => {
+                serviceDuration = serviceDuration + s.duration
+                price = price + s.price
+              }
+              case None => NotFound
+            }
+          }
+        }
+      }
+      reservation = reservation.copy(serviceDuration = serviceDuration, price = price, totalCost = price)
+      Cache.set("reservation", reservation)
+
+      Redirect(routes.Reservations.reservShowDate(reservation.salonId, 0))
+  }
+
+  /**
    * 从优惠劵·菜单画面选择进入预约日期选择
    * @param salonId 沙龙id
    * @param resvType 预约内容类型
@@ -169,7 +309,7 @@ object Reservations extends MeifanNetApplication {
     var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
 
     // 将String类型的格式转化为Date
-    var expectedDate: Date = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(resvDate)
+    var expectedDate: Date = new SimpleDateFormat("yyyyMMddHHmm").parse(resvDate)
     reservation = reservation.copy(expectedDate = expectedDate)
 
     Cache.set("reservation", reservation)

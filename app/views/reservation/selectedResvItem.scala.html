@@ -3,19 +3,19 @@
 <table cellspacing="0" class="wFull bdCell pCell5 mT20">
   <tbody>
     <tr class="bgLGray2">
-      <th colspan="2" class="taC">
+      <th class="taC">
         @if(resvItem.resvType == "coupon") {
-          已选择的优惠劵
+          @Messages("reservation.couponSelected")
         } else {
           @if(resvItem.resvType == "menu") {
-            已选择的菜单
+            @Messages("reservation.menuSelected")
           } else {
-            已选择的服务
+            @Messages("reservation.serviceSelected")
           }
         }
       </th>
-      <th class="w100 taC">金额</th>
-      <th class="w110 taC">服务时长(预计)</th>
+      <th class="w100 taC">@Messages("reservation.price")</th>
+      <th class="w110 taC">@Messages("reservation.serviceDuration")</th>
     </tr>
     @if(resvItem.resvType == "coupon") {
       @Coupon.findOneById(resvItem.mainResvObjId) match {

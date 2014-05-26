@@ -184,7 +184,7 @@ object Reservations extends MeifanNetCustomerApplication {
       val user = loggedIn
 
       reservationForm.bindFromRequest.fold(
-      errors => BadRequest("出错"), {
+      errors => BadRequest(views.html.error.errorMsg(errors)), {
         resv =>
           var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
           reservation = reservation.copy(userPhone = resv.userPhone, userLeaveMsg = resv.userLeaveMsg)

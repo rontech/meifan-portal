@@ -250,13 +250,15 @@ GET         /reservHairView/:id                                                 
 GET         /reservSelectStylist/:resvDate                                       controllers.Reservations.reservSelectStylist(resvDate: String)
 GET         /reservSelectStyle/:id                                               controllers.Reservations.reservSelectStyle(id: ObjectId)
 GET         /addExtraService                                                     controllers.Reservations.reservServicesView(salonId: ObjectId, resvType: String, id: ObjectId)
+GET         /addResvService                                                      controllers.Reservations.addResvService(id: String, resvType: String)
+GET         /findServiceForResv/:salonId                                         controllers.Reservations.getServicesByCondition(salonId: ObjectId)
+GET         /reservSelectDate                                                    controllers.Reservations.getTotalOfServices
 GET         /selectResvStyle/:id                                                 controllers.auth.Reservations.selectResvStyle(id: ObjectId)
 GET         /reservConfirmPwd                                                    controllers.auth.Reservations.reservConfirmPwd
 GET         /reservFinish                                                        controllers.auth.Reservations.reservFinish
 GET         /editReservInfo                                                      controllers.auth.Reservations.editReservInfo
 POST        /reservConfirmInfo                                                   controllers.auth.Reservations.reservConfirmInfo
 GET         /reservSuccess                                                       controllers.auth.Reservations.reservSuccess
-#GET         /salon/:salonId/reserve/schedule/:week                          controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
 # MyFollows
 GET         /javascriptRoutes                                                    controllers.Application.javascriptRoutes

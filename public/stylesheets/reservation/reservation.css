@@ -341,3 +341,7 @@ color: #FF8A90;
 .br {
 border-right: 1px solid #ddd;
 }
+
+.pCell5 th, .pCell5 td {
+padding: 5px;
+}
