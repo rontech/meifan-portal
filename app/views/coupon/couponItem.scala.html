@@ -104,7 +104,7 @@
         <td class="bdWhite bgLLGray2 vaM">
           <div class="pV10 fs12">
             <div>
-              <a href="@routes.Reservations.reservShowDate(coupon.salonId, coupon.id, 0)"
+              <a href="@routes.Reservations.reservSelectDate(coupon.salonId, "coupon", coupon.id, 0)"
               class="btn btn2H50 btnWlines w146 mHA">
                 <span>
                   <span>
@@ -124,8 +124,7 @@
               </a>
             </div>
             <div class="mT8 taC">
-              <a href="#"
-              class="iS arrowR">
+              <a href="@routes.Reservations.reservServicesView(coupon.salonId, "coupon", coupon.id)" class="iS arrowR">
                 <font>
                   <font>
                     @Messages("coupon.addMenu")

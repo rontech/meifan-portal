@@ -19,8 +19,8 @@
               <p class="fl">
                 @for(serviceItem <- menu.serviceItems) {
                   @serviceItem.serviceName
-                  @if(menu.serviceItems.indexOf(serviceItem) !=( (menu.serviceItems).size -1)) {
-                    @Messages( "menu.addMark") 
+                  @if(menu.serviceItems.indexOf(serviceItem) != ((menu.serviceItems).size -1)) {
+                    @Messages("menu.addMark") 
                   }
                 } 
               </p>
@@ -38,7 +38,7 @@
       <td class="bdWhite bgLLGray2 vaM">
         <div class="pV10 fs12">
           <div>
-            <a href="#" class="btn btn2H50 w146 mHA">
+            <a href="@routes.Reservations.reservSelectDate(menu.salonId, "menu", menu.id, 0)" class="btn btn2H50 w146 mHA">
               <span><span>@Messages("menu.appointment")</span></span>
             </a>
           </div>

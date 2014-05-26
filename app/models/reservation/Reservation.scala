@@ -29,7 +29,15 @@ case class ResvItem(
   resvType: String, //coupon: 优惠劵; menu: 菜单; service: 服务
   mainResvObjId: ObjectId,
   resvOrder: Int // 预约明细的主次序
-  )
+)
+  
+/**
+ * 预约内容list的class
+ * 用于预约内容添加额外服务
+ */
+case class ResvGroup(
+  resvItems: List[ResvItem]
+)
 
 case class Reservation(
   id: ObjectId = new ObjectId,
@@ -69,7 +77,9 @@ case class ResvInfoPart(
   isRestFlg: Boolean,
   resvInfoItemPart: List[ResvInfoItemPart])
 
-// 预约表格式
+/**
+ *  预约表格式
+ */ 
 case class ResvSchedule(
   yearsPart: List[YearsPart],
   daysPart: List[DaysPart],
@@ -125,7 +135,7 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
   }
 
   /**
-   * 根据预定时间查找预约信息
+   * 根据预定时间查找符合条件的预约信息的个数
    */
   def findReservationByDate(reservations: List[Reservation], expectedDateStart: Date, expectedDateEnd: Date): Long = {
     reservations.filter(r => (r.expectedDate.before(expectedDateEnd) && r.expectedDate.after(expectedDateStart))).size.toLong
@@ -137,4 +147,60 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
   def findByStatusAndStyleId: List[Reservation] = {
     dao.find(MongoDBObject("status" -> 1)).toList
   }
+  
+
+  /**
+   * 根据预定时间查找符合条件的预约信息的个数
+   * @param salonId 沙龙
+   * @param expectedDate 预约的时间
+   * @return
+   */
+  def findResvByDateAndSalon(salonId: ObjectId, expectedDate: Date): Long = {
+    val resvCount: List[Reservation] = dao.find(MongoDBObject("expectedDate" -> expectedDate, "salonId" -> salonId, "status" -> 0)).toList
+    resvCount.size.toLong
+  }
+  
+  /**
+   * 根据技师和预约时间查找状态为已预约的信息是否存在
+   * @param expectedDate 预约时间
+   * @param userId 预约者
+   */
+  def findReservByDateAndStylist(expectedDate: Date, stylistId: ObjectId): Boolean = {
+    val isExist = dao.findOne(MongoDBObject("expectedDate" -> expectedDate, "stylistId" -> stylistId, "status" -> 0))
+    isExist match {
+      case Some(is) => true
+      case None => false
+    }
+  }
+
+  /**
+   * 根据预约者和预约时间查找状态为已预约的信息是否存在
+   * @param expectedDate 预约时间
+   * @param userId 预约者
+   */
+  def findReservByDateAndUserId(expectedDate: Date, userId: String): Boolean = {
+    println("expectedDate = " + expectedDate + " userId = " + userId)
+    val isExist = dao.findOne(MongoDBObject("expectedDate" -> expectedDate, "userId" -> userId, "status" -> 0))
+    println("isExist = " + isExist)
+    isExist match {
+      case Some(is) => true
+      case None => false
+    }
+  }
+  
+  /**
+   * 查找出用户所有预约信息
+   * @param userId 预约者
+   */
+  def findReservByUserId(userId: String): List[Reservation] = dao.find(MongoDBObject("userId" -> userId)).toList
+  
+  /**
+   * 根据传入的List[ResvItem]查找出类型为除优惠劵外的信息
+   * @param resvItems 预约表中预约内容
+   */
+  def findResvItemsForType(resvItems: List[ResvItem]): List[ResvItem] = {
+    println("resvItems = " + resvItems)
+    resvItems.filter(resvItem => (resvItem.resvType.equals("menu") || resvItem.resvType.equals("service")))
+  }
+  
 }

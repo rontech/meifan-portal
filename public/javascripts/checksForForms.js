@@ -19,6 +19,7 @@ var MESSAGE_NAME_USED = "该名称已被使用，请重新输入"
 var MESSAGE_NICKNAME_USED = "该昵称已被使用，请重新输入"
 var MESSAGE_ID_USED = "该ID已被注册，请重新输入"
 var MESSAGE_CHECK_ERR = "很抱歉！检测失败，请稍候重试"
+var MESSAGE_REQUIRED_CHECK = "该项目必须选择"
 
 
 /**
@@ -214,8 +215,53 @@ $('#picFoot').focus(function(){
 $('#phone').focus(function(){
     $('#phone  ~ .help-inline').text('请输入常用手机号，预约服务使用').removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
-    checkedPhone();
+	checkedUnrequired("phone");
+    checkedPhone("phone");
 });
+/**
+ * 预约联系方式检查
+ */
+$('#userResvPhone').focus(function(){
+    $('#userResvPhone  ~ .help-inline').text('请输入常用手机号，预约服务使用,例如15269845698').removeClass("trueMsg").removeClass("errorMsg");
+}).blur(function(){
+	checkedRequired("userResvPhone");
+    checkedPhone("userResvPhone");
+});
+/**
+ * 来自沙龙问题的检查
+ */
+$('#userLeaveMsg').focus(function(){
+    this.setAttribute("maxlength",200);
+    $('#userLeaveMsg  ~ .help-inline').text("请填写我们需要注意事项,200位字符以内").removeClass("trueMsg").removeClass("errorMsg");
+}).blur(function(){
+	checkedRequired("userLeaveMsg");
+	checkedItemDescription("userLeaveMsg", 0, 200);
+});
+/**
+ * 是否选择來店注意事项的检查
+ */
+$('#confirmFlg').change(function(){
+	checkedRequiredForCB("confirmFlg");
+});
+
+/**
+ * 点击提交时，检查预约表中所有项目是否合理
+ * @returns {Boolean}
+ */
+function checksForReservation(){
+  checkedRequired("userResvPhone");
+  checkedPhone("userResvPhone");
+  checkedRequired("userLeaveMsg");
+  checkedItemDescription("userLeaveMsg", 0, 200);
+  checkedRequiredForCB("confirmFlg");
+
+  var errInput = $('.errorMsg')
+  if (errInput.length != 0 ){
+    return false;
+  }
+  document.reservationForm.submit();
+}
+
 /**
  * listening nickName in user
  */
@@ -658,20 +704,61 @@ function checkedPicFoot(){
     }
 }
 
-function checkedPhone(){
-    var phone = $("#phone").val();
+/**
+ * 手机号码合法检查
+ * @param inputName 文本框id
+ */
+function checkedPhone(inputName){
+    var phone = $("#" + inputName).val();
     var isPhone = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+    
+    if(phone != "") {
+    	if(!isPhone.test(phone)){
+            $('#'+inputName+'  ~ .help-inline').text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
+        }else{
+        	$('#'+inputName+'  ~ .help-inline').text(MESSAGE_OK).removeClass("errorMsg").addClass("trueMsg");
+        }
+    }
+}
 
-    if(phone == ""){
-        $("#phone  ~ .help-inline").text(MESSAGE_OK).removeClass("trueMsg").removeClass("errorMsg");
+/**
+ * 字段非必须检查
+ * @param inputName 文本框id
+ */
+function checkedUnrequired(inputName){
+    var value = $("#" + inputName).val();
+
+    if(value == ""){
+        $('#'+inputName+'  ~ .help-inline').text(MESSAGE_OK).removeClass("trueMsg").removeClass("errorMsg");
         return;
     }
-    if(!isPhone.test(phone)){
-        $("#phone  ~ .help-inline").text(MESSAGE_FORMAT_ERR).removeClass("trueMsg").addClass("errorMsg");
+}
+
+/**
+ * 字段必须的检查
+ * @param inputName 文本框id
+ */
+function checkedRequired(inputName) {
+	var value=$('#'+inputName).val();
+    if (value == ""){
+        $('#'+inputName+'  ~ .help-inline').text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
+        return;
     }else{
-    	$("#phone  ~ .help-inline").text(MESSAGE_OK).removeClass("errorMsg").addClass("trueMsg");
+        $('#'+inputName+'  ~ .help-inline').text(MESSAGE_OK).removeClass("errorMsg").addClass("trueMsg");
     }
+}
+/**
+ * 选择框必须的检查
+ * @param inputName 选择框id
+ */
+function checkedRequiredForCB(inputName){
+    var checked = $("#" + inputName).prop('checked');
+    if (!checked) {
+    	$('#' + inputName + '  ~ .help-inline').text(MESSAGE_REQUIRED_CHECK).removeClass("trueMsg").addClass("errorMsg");
+    }else{
+    	$('#' + inputName + '  ~ .help-inline').text('').removeClass("errorMsg").addClass("trueMsg");
     }
+}
 
 function checksForUserRegister(){
     //当为修改注册信息页面时，用户ID：readonly；
@@ -686,7 +773,8 @@ function checksForUserRegister(){
     }
     checkedEmail();
     checkedNickName();
-    checkedPhone();
+    checkedUnrequired("phone");
+    checkedPhone("phone");
     var errInput = $('.errorMsg')
     if (errInput.length != 0 ){
         return false;
@@ -879,21 +967,20 @@ $('#description').focus(function(){
     this.setAttribute("maxlength",100);
     $('#description  ~ .help-inline').text("请输入描述内容，10~100个字符，最多50个汉字").removeClass("errorMsg").removeClass("trueMsg");
 }).blur(function(){
-    checkedItemDescription()
+	checkedRequired("description");
+    checkedItemDescription("description", 10, 100);
 });
 
-function checkedItemDescription(){
-    var value = $('#description').val();
+function checkedItemDescription(inputName, minlength, maxlength){
+    var value = $('#'+inputName).val();
     var len = value.replace(/[^\x00-\xff]/g, "**").length;
-
-    if (value == ""){
-        $("#description  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
-        return;
-    }
-    if(len < 10 || len > 100) {
-        $("#description  ~ .help-inline").text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
-    } else {
-        $("#description  ~ .help-inline").text("").removeClass("errorMsg").addClass("trueMsg");
+    
+    if(value != "") {
+    	if(len < minlength || len > maxlength) {
+            $('#'+inputName+'  ~ .help-inline').text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
+        } else {
+            $('#'+inputName+'  ~ .help-inline').text("").removeClass("errorMsg").addClass("trueMsg");
+        }
     }
 }
 
@@ -924,7 +1011,8 @@ function checksForCoupon(){
     checkedStartAndEndDate();
     checkedUesConditions();
     checkedPresentTime();
-    checkedItemDescription();
+    checkedRequired("description");
+    checkedItemDescription("description", 10, 100);
 
     var errInput = $('.errorMsg')
     if (errInput.length != 0 ){
@@ -980,7 +1068,8 @@ function checksForMenu(){
         checkedMenuName();
     }
     checkedServiceItem();
-    checkedItemDescription();
+    checkedRequired("description");
+    checkedItemDescription("description", 10, 100);
 
     var errInput = $('.errorMsg')
     if (errInput.length != 0 ){
@@ -1111,7 +1200,8 @@ function checksForStyle(){
     if (!isCreate){
         checkStyleName();
     }
-    checkedItemDescription();
+    checkedRequired("description");
+    checkedItemDescription("description", 10, 100);
 
     $('.picture_error_msg').remove();
 

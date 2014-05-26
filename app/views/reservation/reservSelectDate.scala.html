@@ -1,5 +1,12 @@
 @(salon: Salon, resvSchedule: ResvSchedule, week: Int = 0)
 
+
+<div class="yS reserveTitleOuter mT15">
+  <h3 class="yS reserveTitleInner pL10">@Messages("reservation.selectDateMsg")</h3>
+</div>
+<p class="mT10">
+  <span class="fgBlue b reserveMark">◎</span>@Messages("reservation.selectDateNote")<br>
+</p>
 <div id="jsRsvCdTbl" class="ReserveConditionTable underTabContents">
   <div class="coverTable">
     <div class="whiteTable2">
@@ -10,15 +17,19 @@
               <th rowspan="2" class="timeColor"><span class="iS arrowPagingWeekLOff">@Messages("reservation.beforeWeek")</span></th>
             } else {
               <th rowspan="2" class="timeColor">
-                <a href="@routes.Reservations.reservShowDate(salon.id, salon.id, week-1)" title="@Messages("reservation.beforeWeek")" class="iS arrowPagingWeekL">@Messages("reservation.beforeWeek")</a>
+                <a href="@routes.Reservations.reservShowDate(salon.id, week-1)" title="@Messages("reservation.beforeWeek")" class="iS arrowPagingWeekL">@Messages("reservation.beforeWeek")</a>
               </th>
             }
             @for(yearPart <- resvSchedule.yearsPart) {
-              <th colspan="@yearPart.yearNum" class="monthColor pV10">@yearPart.years</th>
+              @if(yearPart.yearNum <= 1) {
+              	<th colspan="@yearPart.yearNum" class="monthColor pV10"></th>
+              } else {
+              	<th colspan="@yearPart.yearNum" class="monthColor pV10">@yearPart.years</th>
+              }
             }
             @if(week == 0) {
               <th rowspan="2" class="timeColor">
-                <a href="@routes.Reservations.reservShowDate(salon.id, salon.id, week+1)" title="@Messages("reservation.afterWeek")" class="iS arrowPagingWeekR">@Messages("reservation.afterWeek")</a>
+                <a href="@routes.Reservations.reservShowDate(salon.id, week+1)" title="@Messages("reservation.afterWeek")" class="iS arrowPagingWeekR">@Messages("reservation.afterWeek")</a>
               </th>
             } else {
               <th rowspan="2" class="timeColor"><span class="iS arrowPagingWeekROff">@Messages("reservation.afterWeek")</span></th>
@@ -65,11 +76,11 @@
                       @for(resvInfoItem <- resvInfoItems.resvInfoItemPart) {
                         @if(resvInfoItem.isResvFlg) {
                           <tr>
-                            <td class="openColor"><p class="scheduleR"><a href="#" title="◎" class="bS db reserveImmediately offL vaT">◎</a></p></td>
+                            <td class="openColor"><p class="scheduleR"><a href="@routes.Reservations.reservSelectStylist(resvInfoItem.resvDate.format("yyyy/MM/dd HH:mm").toString)" title="◎" class="reservBS db reserveImmediately offL vaT">◎</a></p></td>
                           </tr>
                         } else {
                           <tr>
-                            <td class="closeColor"><p class="scheduleR"><span class="bS db reserveImpossible offL">×</span></p></td>
+                            <td class="closeColor"><p class="scheduleR"><span class="reservBS db reserveImpossible offL">×</span></p></td>
                           </tr>
                         }
                         

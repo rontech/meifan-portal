@@ -1,13 +1,13 @@
-@(navInSalon: String = "salon-basic", salon: Salon, navBar: List[(String, String)] = Nil)(content: Html)
+@(navInSalon: String = "salon-basic", menuTab: String = "two", salon: Salon, navBar: List[(String, String)] = Nil)(content: Html)
 
 
-@main(salon.salonName, "hair-salon", navBar) {
+@main(salon.salonName, "HairSalon", navBar) {
 
 <!-- ↓contents -->
 
     <!-- ↓mainContents -->
     <div id="salonMainContents">
-      @views.html.reservation.reservationTop(salon)
+      @views.html.reservation.reservationTop(salon, menuTab)
 
       <!-- ↓salonInfoBody -->
       <!-- show different body contents according to the NAV tab. -->

@@ -246,10 +246,15 @@ GET         /mySalon/invalidStyle/:styleId                                      
 
 # Reservation
 GET         /reservHairView/:id                                                  controllers.Reservations.reservHairView(id: ObjectId)
-GET         /reservSelectStylist                                                 controllers.Reservations.reservSelectStylist
-POST        /reservConfirmPwd                                                    controllers.Reservations.reservConfirmPwd
-GET         /reservFinish                                                        controllers.Reservations.reservFinish
-GET         /reservConfirmInfo                                                   controllers.Reservations.reservConfirmInfo
+GET         /reservSelectStylist/:resvDate                                       controllers.Reservations.reservSelectStylist(resvDate: String)
+GET         /reservSelectStyle/:id                                               controllers.Reservations.reservSelectStyle(id: ObjectId)
+GET         /addExtraService                                                     controllers.Reservations.reservServicesView(salonId: ObjectId, resvType: String, id: ObjectId)
+GET         /selectResvStyle/:id                                                 controllers.auth.Reservations.selectResvStyle(id: ObjectId)
+GET         /reservConfirmPwd                                                    controllers.auth.Reservations.reservConfirmPwd
+GET         /reservFinish                                                        controllers.auth.Reservations.reservFinish
+GET         /editReservInfo                                                      controllers.auth.Reservations.editReservInfo
+POST        /reservConfirmInfo                                                   controllers.auth.Reservations.reservConfirmInfo
+GET         /reservSuccess                                                       controllers.auth.Reservations.reservSuccess
 #GET         /salon/:salonId/reserve/schedule/:week                          controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
 # MyFollows
@@ -288,8 +293,8 @@ POST        /s/resetPwd                                                         
 POST        /mySalon/updatepictures                                              controllers.auth.Salons.updateSalonPics
 
 # Reservation add by sangsang-hu
-GET         /salon/reserve/salonId=:salonId&couponId=:couponId&week=:week        controllers.Reservations.reservShowDate(salonId: ObjectId, couponId: ObjectId, week: Int)
-GET         /reserve/salonId=:salonId&couponId=:couponId&week=:week              controllers.Reservations.reservSelectDate(salonId: ObjectId, couponId: ObjectId, week: Int)
+GET         /salon/reserve/salonId=:salonId&week=:week                           controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
+GET         /reserve/salonId=:salonId&id=:id&week=:week                          controllers.Reservations.reservSelectDate(salonId: ObjectId, resvType: String, id: ObjectId, week: Int)
 #GET        /salon/:salonId/reserve/schedule/:week                 controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
 #cancel current apply by user(dou)

@@ -1,8 +1,10 @@
-@(salon: Salon, resvSchedule: ResvSchedule, week: Int = 0, navBar: List[(String, String)] = Nil)
+@(salon: Salon, resvSchedule: ResvSchedule, reservation: Reservation, week: Int = 0, navBar: List[(String, String)] = Nil)
 
-@reservationInfoMain(navInSalon = "hair-salon", salon, navBar) {
+@reservationInfoMain(navInSalon = "HairSalon", "two", salon, navBar) {
   
   <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/reservation.css")">
   
-  @*views.reservation.reservSelectDate(salon, resvSchedule, week)*@
+  @views.html.reservation.reservItemsInfo(reservation, "serviceDuration")
+  
+  @views.html.reservation.reservSelectDate(salon, resvSchedule, week)
 }

@@ -27,79 +27,205 @@ import com.mongodb.casbah.commons.Imports._
 
 import models._
 import java.text.SimpleDateFormat
+import play.cache.Cache
+import controllers.auth._
 
 object Reservations extends Controller {
+  
   /**
-   * 进入到具体的店铺里，某产品的预约或者是更多服务的选择
+   * 添加额外服务form
    */
+  def addServicesForm: Form[ResvGroup] = Form {
+    mapping(
+      "resvItems" -> list(
+        mapping(
+          "id" -> text) { (id) => ResvItem("service", new ObjectId(id), 0) } { resvItem => Some((resvItem.mainResvObjId.toString())) })
+    )(ResvGroup.apply)(ResvGroup.unapply)
+  }
+  
+
   def reservHairView(id: ObjectId) = Action {
     Ok(views.html.reservation.reservHairView("hello"))
   }
-
+  
   /**
-   * 选择预约的日程
+   * 进入添加额外服务的画面
+   * @param salonId 沙龙id
+   * @param resvType 预约内容类型
+   * @param id 根据预约内容类型区分是什么id，如resvType为coupon,那么id为优惠劵id
    */
-  def reservSelectDate(salonId: ObjectId, couponId: ObjectId, week: Int) = Action { implicit request =>
-    // 将优惠劵的有关信息存入预约表中
+  def reservServicesView(salonId: ObjectId, resvType: String, id: ObjectId) = Action {
     var resvItems: List[ResvItem] = Nil
-    var resvItem: ResvItem = ResvItem("coupon", couponId, 1)
+    var resvItem: ResvItem = ResvItem("", id, 1)
+    val serviceTypeNames: List[String] = Service.getServiceTypeList
+    var servicesByTypes: List[ServiceByType] = Nil
+    val couponSchDefaultConds: CouponServiceType = CouponServiceType(Nil, Some("1"))
+    
+    if(resvType == "coupon") {
+      resvItem = ResvItem("coupon", id, 1)
+    } else {
+      if(resvType == "menu") {
+        resvItem = ResvItem("menu", id, 1)
+      } else {
+        resvItem = ResvItem("service", id, 1)
+      }
+    }
     resvItems = resvItems ::: List(resvItem)
+    
+    for (serviceType <- serviceTypeNames) {
+      var servicesByType: ServiceByType = ServiceByType("", Nil)
+      // 如果根据服务名查找出来的服务为空，那么不添加到指定列表中
+      var services: List[Service] = Service.getTypeListBySalonId(salonId, serviceType)
+      if (!services.isEmpty) {
+        val y = servicesByType.copy(serviceTypeName = serviceType, serviceItems = services)
+        servicesByTypes = y :: servicesByTypes
+      } else {
 
-    val coupon: Option[Coupon] = Coupon.findOneById(couponId)
-    var serviceDuration: Int = 0
-    var price: BigDecimal = BigDecimal(0)
-    coupon match {
-      case Some(c) => {
-        serviceDuration = c.serviceDuration
-        price = c.perferentialPrice
+      }
+    }
+    
+    var reservation: Reservation = Reservation(new ObjectId, "", salonId, 0, new Date, 0, None, resvItems, None, "", "", BigDecimal(0), 0, BigDecimal(0), new Date, new Date)
+    Cache.set("reservation", reservation)
+    
+    val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
+    
+    salon match {
+      case Some(s) => {
+        val srvTypes: List[ServiceType] = ServiceType.findAllServiceTypes(s.salonIndustry)
+        Ok(views.html.reservation.addExtraService(s, reservation, resvItem, Coupons.conditionForm.fill(couponSchDefaultConds), servicesByTypes, srvTypes))
       }
       case None => NotFound
     }
+    
+  }
+
+  /**
+   * 从优惠劵·菜单画面选择进入预约日期选择
+   * @param salonId 沙龙id
+   * @param resvType 预约内容类型
+   * @param id 根据预约内容类型区分是什么id，如resvType为coupon,那么id为优惠劵id
+   * @param week 从今天开始的第几周显示，如果为0，那么从这周显示
+   */
+  def reservSelectDate(salonId: ObjectId, resvType: String, id: ObjectId, week: Int) = Action { implicit request =>
+    // 将优惠劵的有关信息存入预约表中
+    var resvItems: List[ResvItem] = Nil
+    var resvItem: ResvItem = ResvItem("", id, 1)
+    var serviceDuration: Int = 0
+    var price: BigDecimal = BigDecimal(0)
+    
+    if(resvType == "coupon") {
+      resvItem = ResvItem("coupon", id, 1)
+      val coupon: Option[Coupon] = Coupon.findOneById(id)
+      coupon match {
+        case Some(c) => {
+          serviceDuration = c.serviceDuration
+          price = c.perferentialPrice
+        }
+        case None => NotFound
+      }
+    } else {
+      if(resvType == "menu") {
+        resvItem = ResvItem("menu", id, 1)
+        val menu: Option[Menu] = Menu.findOneById(id)
+        menu match {
+          case Some(m) => {
+            serviceDuration = m.serviceDuration
+            price = m.originalPrice
+          }
+          case None => NotFound
+        }
+      } else {
+        resvItem = ResvItem("service", id, 1)
+        val service: Option[Service] = Service.findOneById(id)
+        service match {
+          case Some(s) => {
+            serviceDuration = s.duration
+            price = s.price
+          }
+          case None => NotFound
+        }        
+      }
+    }
+    
+    resvItems = resvItems ::: List(resvItem)
 
     var reservation: Reservation = Reservation(new ObjectId, "", salonId, 0, new Date, serviceDuration, None, resvItems, None, "", "", price, 0, price, new Date, new Date)
-
-    var session: Session = new Session()
-    request.session + ("reservation" -> "aa")
-
-    println("session -> reservation = " + request.session.get("reservation"))
-
-    Redirect(routes.Reservations.reservShowDate(salonId, couponId, week))
-  }
-
-  /**
-   * 预约密码确认，输入密码预约才有效
-   */
-  def reservConfirmPwd = Action {
-    Ok(views.html.reservation.reservConfirmPwd("h"))
-  }
-
-  /**
-   * 预约最后一步，跳出完成预约的画面
-   */
-  def reservFinish = Action {
-    Ok(views.html.reservation.reservFinish("h"))
-  }
-
-  /**
-   * 预约时确认之前预约的信息
-   */
-  def reservConfirmInfo = Action {
-    Ok(views.html.reservation.reservConfirmInfo("h"))
+   
+    Cache.set("reservation", reservation);
+    Redirect(routes.Reservations.reservShowDate(salonId, week))
   }
 
   /**
    * 预约时进入到指定技师页面
+   * @param resvDate 预约的日时
    */
-  def reservSelectStylist = Action {
-    Ok(views.html.reservation.reservSelectStylist(".."))
+  def reservSelectStylist(resvDate: String) = Action {
+    var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
+    
+    // 将String类型的格式转化为Date
+    var expectedDate: Date = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(resvDate)
+    reservation = reservation.copy(expectedDate = expectedDate)
+    
+    Cache.set("reservation", reservation)
+    
+    // 找出店铺所有技师，将在该时间段已经预约和未预约的区分开
+    val salonAndStylists: List[StylistDetailInfo] = SalonAndStylist.getSalonStylistsInfo(reservation.salonId)
+    
+    var unReservStylists: List[StylistDetailInfo] = Nil
+    var reservStylists: List[StylistDetailInfo] = Nil
+    salonAndStylists.map {salonAndStylist =>
+      salonAndStylist.workInfo match {
+        case Some(wk) => {
+          val isExist: Boolean = Reservation.findReservByDateAndStylist(expectedDate, wk.stylistId)
+	      if(isExist) {
+	        reservStylists = reservStylists ::: List(salonAndStylist)
+	      } else {
+	        unReservStylists = unReservStylists ::: List(salonAndStylist)
+	      }
+        }
+      }
+    }
+    
+    val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
+    
+    salon match {
+      case Some(s) => Ok(views.html.reservation.reservSelectStylistMain(s, reservation, unReservStylists, reservStylists))
+      case None => NotFound
+    }
+  }
+  
+  /**
+   * 根据指定的技师进入相关发型的选择
+   * @param stylistId 指定技师
+   */
+  def reservSelectStyle(stylistId: ObjectId) = Action {
+    var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
+    
+    reservation = reservation.copy(stylistId = Some(stylistId))
+    
+    Cache.set("reservation", reservation)
+    
+    // 得到该技师的所有发型
+    val styles: List[Style] = Style.findByStylistId(stylistId)
+    
+    val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
+    
+    salon match {
+      case Some(s) => Ok(views.html.reservation.reservSelectStyleMain(s, reservation, styles))
+      case None => NotFound
+    }
   }
 
   /**
    * 查看店铺预约日程表
+   * @param salonId 店铺Id
+   * @param week 从今天开始的第几周显示，如果为0，那么从这周显示
    */
-  def reservShowDate(salonId: ObjectId, couponId: ObjectId, week: Int) = Action {
+  def reservShowDate(salonId: ObjectId, week: Int) = Action {
     val salon: Option[Salon] = Salon.findOneById(salonId)
-
+    
+    val reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
+    
     // 查找出该地店铺的所有预约
     val reservations: List[Reservation] = Reservation.findAllReservation(salonId)
 
@@ -124,13 +250,13 @@ object Reservations extends Controller {
           closeTime = s.workTime.map { workTime => workTime.closeTime }.getOrElse("")
         }
 
-        if (s.restDays.map { rest => rest.restDay } == "Fixed") {
+        if (s.restDays.map { rest => rest.restWay }.getOrElse("") == "Fixed") {
           salonRests = s.restDays.map { rest => rest.restDay }.getOrElse(Nil)
         }
       }
       case None => NotFound
     }
-
+    
     // 将monday形式转化为日历中日期数据形式（如星期日为1...）
     var salonRestWeeks: List[Int] = Nil
     for (salonRest <- salonRests) {
@@ -144,7 +270,7 @@ object Reservations extends Controller {
         case "Saturday" => salonRestWeeks = salonRestWeeks ::: List(7)
       }
     }
-
+    
     // 只能显示3周预约表，如果传入的week为2那么将显示超过3周的数据，那么将传入的参数返回为0
     var weekIndex: Int = week
     if (week > 1) {
@@ -188,8 +314,8 @@ object Reservations extends Controller {
       // 添加日期yyyy/MM数据
       if ((startDay.get(Calendar.MONTH) + 1) != month) {
         if (month != 13) {
-          val resvYear1: YearsPart = YearsPart((startDay.get(Calendar.YEAR) + "/" + month), i)
-          val resvYear2: YearsPart = YearsPart(new SimpleDateFormat("yyyy/MM").format(startDay.getTime()), (14 - i))
+          val resvYear1: YearsPart = YearsPart((startDay.get(Calendar.YEAR) + "/" + month), i-1)
+          val resvYear2: YearsPart = YearsPart(new SimpleDateFormat("yyyy/MM").format(startDay.getTime()), (15 - i))
           yearsPart = (yearsPart ::: List(resvYear1)) ::: List(resvYear2)
         }
 
@@ -268,7 +394,7 @@ object Reservations extends Controller {
     resvSchedule = resvSchedule.copy(yearsPart = yearsPart, daysPart = daysPart, timesPart = timesPart, resvInfoPart = resvInfoPart)
 
     salon match {
-      case Some(s) => Ok(views.html.reservation.reservSelectDate(s, resvSchedule, weekIndex))
+      case Some(s) => Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, weekIndex))
       case None => NotFound
     }
   }
