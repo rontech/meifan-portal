@@ -24,14 +24,15 @@ import play.api.data.Form
 import java.util.Calendar
 import java.util.Date
 import com.mongodb.casbah.commons.Imports._
-
 import models._
 import java.text.SimpleDateFormat
 import play.cache.Cache
 import controllers.auth._
 
-object Reservations extends Controller {
   
+import com.meifannet.framework.MeifanNetApplication
+
+object Reservations extends MeifanNetApplication {
   /**
    * 添加额外服务form
    */
@@ -288,6 +289,8 @@ object Reservations extends Controller {
 
     var i: Int = 1
     var month: Int = 13
+    // 用于时间（时：分）只需添加一次的判断
+    var k: Int = 1
 
     // 将以week参数为基础的天数到后14天的数据做出放入数据结构中
     while (startDay.before(endDay) || startDay.equals(endDay)) {
@@ -333,8 +336,8 @@ object Reservations extends Controller {
         resvInfo = resvInfo.copy(isRestFlg = true)
       } else {
         while (open.before(close) || open.equals(close)) {
-          // 添加时间数据
-          if (i == 1) {
+          // 添加时间数据,只需添加一次
+          if (k == 1) {
             var minute = open.get(Calendar.MINUTE).toString
             if (minute.size == 1) {
               minute = minute + "0"
@@ -379,6 +382,8 @@ object Reservations extends Controller {
 
           open.add(Calendar.MINUTE, 30)
         }
+        
+        k = k + 1
 
         resvInfo = resvInfo.copy(resvInfoItemPart = resvInfoItemPart)
       }
@@ -392,7 +397,6 @@ object Reservations extends Controller {
 
     // 将几个数据赋值
     resvSchedule = resvSchedule.copy(yearsPart = yearsPart, daysPart = daysPart, timesPart = timesPart, resvInfoPart = resvInfoPart)
-
     salon match {
       case Some(s) => Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, weekIndex))
       case None => NotFound

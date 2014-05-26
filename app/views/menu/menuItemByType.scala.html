@@ -1,62 +1,62 @@
 @(salon: Salon, serviceByType: ServiceByType)
 
-@if(!serviceByType.serviceItems.isEmpty) { 
-<div class="singleMenuHead mT30 cFix">
-  <p class="b fl">
-    <span>
-      @Messages("ServiceType.serviceTypeName." + serviceByType.serviceTypeName)
-    </span>
-  </p>
-</div>
-<div>
-  <table summary="summary" cellspacing="1" class="wFull bgLGray2 mT10 fs10 couponTable w765">
-    <tbody>
-      @for(service <- serviceByType.serviceItems) {
-        <tr>
-        <td class="w580 bgWhite">
-          <a id="MN00000001062756" name="MN00000001062756">
-            <!-- -->
-          </a>
-          <div class="p10">
-            <div class="">
-              <div class="w560 b fs12 cFix">
-                <p class="fl">
-                  @service.serviceName
-                </p>
-                <p class="fr">
-                  <span class="fs13">
-                    @service.price @Messages("coupon.currency")
-                  </span>
-                </p>
-              </div>
-            </div>
-            <p class="mT5 fgGray fs10">
-              @service.description
-            </p>
-          </div>
-        </td>
-        <td class="bdWhite bgLLGray2 vaM">
-          <div class="pV10 fs12">
-            <div>
-              <a href="@routes.Reservations.reservSelectDate(salon.id, "service", service.id, 0)" class="btn btn2H30 w120 mHA">
-                <span>
-                  <span class="fs12 b">
-                    @Messages("menu.appointment")
-                  </span>
-                </span>
-              </a>
-            </div>
-            <div class="mT5 taC">
-              <a href="#" class="iS arrowR">
-                @Messages("coupon.addMenu")
-              </a>
-            </div>
-          </div>
-        </td>
-        </tr>
-      }
-    </tbody>
-  </table>
-</div>
+@if(!serviceByType.serviceItems.isEmpty) {
+    <div class="singleMenuHead mT30 cFix">
+        <p class="b fl">
+            <span>
+            @Messages("ServiceType.serviceTypeName." + serviceByType.serviceTypeName)
+            </span>
+        </p>
+    </div>
+    <div>
+        <table summary="summary" cellspacing="1" class="wFull bgLGray2 mT10 fs10 couponTable w765">
+            <tbody>
+            @for(service <- serviceByType.serviceItems) {
+                <tr>
+                    <td class="w580 bgWhite">
+                        <a id="MN00000001062756" name="MN00000001062756">
+                                <!-- -->
+                        </a>
+                        <div class="p10">
+                            <div class="">
+                                <div class="w560 b fs12 cFix">
+                                    <p class="fl">
+                                    @service.serviceName
+                                    </p>
+                                    <p class="fr">
+                                        <span class="fs13">
+                                            @service.price @Messages("coupon.currency")
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <p class="mT5 fgGray fs10">
+                            @service.description
+                            </p>
+                        </div>
+                    </td>
+                    <td class="bdWhite bgLLGray2 vaM">
+                        <div class="pV10 fs12">
+                            <div>
+                                <a href="@routes.Reservations.reservSelectDate(salon.id, "service", service.id, 0)" class="btn btn2H30 w120 mHA">
+                                    <span>
+                                        <span class="fs12 b">
+                                        @Messages("menu.appointment")
+                                        </span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="mT5 taC">
+                                <a href="#" class="iS arrowR">
+                                @Messages("coupon.addMenu")
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
 }
 

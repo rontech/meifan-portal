@@ -1,10 +1,10 @@
 @(salon: Salon, reservation: Reservation, unReservStylists: List[StylistDetailInfo], reservStylists: List[StylistDetailInfo], navBar: List[(String, String)] = Nil)
 
 @reservationInfoMain(navInSalon = "HairSalon", "two", salon, navBar) {
-  
-  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/reservation.css")">
-  
-  @views.html.reservation.reservItemsInfo(reservation, "expectedDate")
-  
-  @views.html.reservation.reservSelectStylist(unReservStylists, reservStylists)
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/reservation.css")">
+
+    @views.html.reservation.reservItemsInfo(reservation, "expectedDate")
+
+    @views.html.reservation.reservSelectStylist(unReservStylists, reservStylists)
 }

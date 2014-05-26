@@ -2,7 +2,7 @@
 
       <div class ="Owner">
         <div class="fl pL10 pT10">
-          <a href="@auth.routes.Salons.salonInfoBasic" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"/></a>                                      
+          <a href="@auth.routes.Salons.salonMainInfo" class='Img'><img src="@routes.Application.getPhoto(salon.salonPics(0).fileObjId)"/></a>
           </div>    
         <span class='U'>
           <p class='opts'>
@@ -65,8 +65,8 @@
              <span>@Messages("salonCheckInfoState.basicInfoMange")</span>
            </a><br />                                                                                                       
          </div>    
-         
-      </div>            
+
+      </div>
       }
       @if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
          Salon.checkImgIsExist(salon)){            
@@ -76,17 +76,26 @@
         <ul class='clearfix'>
            <li>
            </li>
-         </ul>
-         <div class='more'>
+        </ul>
+        <div class='more'>
           <a href="@auth.routes.Salons.myStylist">@Messages("salonAdmin.myStylist")
-          (@SalonAndStylist.countStylistBySalon(salon.id))</a><br />
+            <span id="reviewCount">
+              (@SalonAndStylist.countStylistBySalon(salon.id))
+            </span>
+          </a><br />
+          <a href="@auth.routes.Salons.myInvite">
+            @Messages("salonAdmin.InvitedStylist")
+            <span id="reviewCount">
+              (@SalonStylistApplyRecord.costSalonInvited(salon.id))
+            </span>
+          </a><br />
           <a href="@auth.routes.Salons.checkHoldApply">
           @Messages("salonAdmin.fromStylistApply")
              <span id="reviewCount">
                 (@SalonStylistApplyRecord.applingStylistCount(salon.id))
              </span>
-          </a>
-          </div>
+          </a><br />
+        </div>
       </div>
       <!-- 发型管理 -->                                      
       <div class='Mod Users' id='Fellows'>

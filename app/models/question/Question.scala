@@ -23,6 +23,15 @@ import se.radley.plugin.salat.Binders._
 import java.util.Date
 import com.meifannet.framework.db._
 
+/**
+ *
+ * @param id
+ * @param questName
+ * @param questContent
+ * @param questedDate
+ * @param questedNum
+ * @param isValid
+ */
 case class Question(
   id: ObjectId = new ObjectId,
   questName: String,

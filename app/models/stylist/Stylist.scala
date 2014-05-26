@@ -36,6 +36,25 @@ case class StylistDetailInfo(basicInfo: User, stylistInfo: Option[Stylist], work
   def apply(basicinfo: User, stylist: Option[Stylist], work: Option[SalonAndStylist]) = new StylistDetailInfo(basicinfo, stylist, work)
 }
 
+/**
+ * the class for Stylist
+ * @param id
+ * @param stylistId - 技师主键 primary key
+ * @param workYears
+ * @param position
+ * @param goodAtImage
+ * @param goodAtStatus
+ * @param goodAtService
+ * @param goodAtUser
+ * @param goodAtAgeGroup
+ * @param myWords
+ * @param mySpecial
+ * @param myBoom
+ * @param myPR
+ * @param myPics  - my pictures
+ * @param isVerified - when a normal user want to be a stylist, so he's state is Verified is false
+ * @param isValid - when a stylist account write off from meifan.com, it's false
+ */
 case class Stylist(
   id: ObjectId = new ObjectId,
   stylistId: ObjectId,
@@ -54,6 +73,17 @@ case class Stylist(
   isVerified: Boolean,
   isValid: Boolean)
 
+/**
+ * the class for get some attribute from mongo master collections,
+ * then transfer to views
+ * @param position
+ * @param industry
+ * @param goodAtImage
+ * @param goodAtStatus
+ * @param goodAtService
+ * @param goodAtUser
+ * @param goodAtAgeGroup
+ */
 case class GoodAtStyle(
   position: List[String],
   industry: List[String],
@@ -63,6 +93,11 @@ case class GoodAtStyle(
   goodAtUser: List[String],
   goodAtAgeGroup: List[String])
 
+/**
+ * the class for a user to apply stylist
+ * @param stylist - stylist class
+ * @param salonAccountId - the salon accountId
+ */
 case class StylistApply(
   stylist: Stylist,
   salonAccountId: String)
@@ -71,6 +106,12 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
   val dao = new MeifanNetDAO[Stylist](collection = loadCollection()) {}
   loadCollection().ensureIndex(DBObject("stylistId" -> 1), "stylistId", unique = true)
 
+  /**
+   * 查找发型属性的所有主表，
+   * 取主要字段放入对应类型的集合
+   * 最后将所有集合生成一个对象
+   * @return
+   */
   def findGoodAtStyle: GoodAtStyle = {
     val position = Position.findAll().toList
     var positions: List[String] = Nil
@@ -119,12 +160,19 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
   }
 
   /**
-   *
+   * 根据技师的stylistId查找所对应的普通用户的昵称
+   * @param stylistId
+   * @return
    */
   def findUserName(stylistId: ObjectId): String = {
     findUser(stylistId).nickName
   }
 
+  /**
+   * 根据技师的stylistId查找对应的普通用户
+   * @param stylistId
+   * @return
+   */
   def findUser(stylistId: ObjectId): User = {
     // The stylist must as a basic user, so it absolutely exist.
     User.findOneById(stylistId).get
@@ -132,6 +180,9 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
 
   /**
    * Find a Stylist by its user.id[ObjectId]
+   *
+   * @param stylistId
+   * @return
    */
   def findOneByStylistId(stylistId: ObjectId) = {
     dao.findOne(MongoDBObject("stylistId" -> stylistId))
@@ -139,6 +190,9 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
 
   /**
    * Find a Stylist by its user.id[ObjectId]
+   *
+   * @param stylistId
+   * @return
    */
   override def findOneById(stylistId: ObjectId) = {
     dao.findOne(MongoDBObject("stylistId" -> stylistId))
@@ -146,6 +200,9 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
 
   /**
    * Find a Stylist by its user.id[ObjectId]
+   *
+   * @param userId
+   * @return
    */
   def findOneByUserId(userId: String) = {
     val user = User.findOneByUserId(userId)
@@ -162,6 +219,9 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
    ---------------------------------*/
   /**
    * get a stylist by its stylistId = the user Id.
+   *
+   * @param userObjId
+   * @return
    */
   def findStylistDtlByUserObjId(userObjId: ObjectId): Option[StylistDetailInfo] = {
     // first, check that if the stylist as a basic User is exist.
@@ -188,6 +248,9 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
   /**
    * If, we want to use the user.userId not the user.(objectId)id to find the
    *     stylist detail info, use this method.
+   *
+   * @param uid
+   * @return
    */
   def findStylistDtlByUserId(uid: String): Option[StylistDetailInfo] = {
     val user = User.findOneByUserId(uid)
@@ -197,13 +260,20 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
     }
   }
 
+  /**
+   * to update stylist information
+   * @param stylist   the stylist Object
+   * @param stylistId  primary key, copy it and save
+   * @return
+   */
   def updateStylistInfo(stylist: Stylist, stylistId: ObjectId) = {
     dao.save(stylist.copy(stylistId = stylistId))
-
   }
 
   /**
-   *  根据salonId查找这个店铺所有技师
+   * find all stylists in specify salon by salonId
+   * @param salonId
+   * @return
    */
   def findBySalon(salonId: ObjectId): List[Stylist] = {
     var stylists: List[Stylist] = Nil
@@ -221,6 +291,9 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
   /**
    * get the slaon info of a stylist base on the relationship betweeen
    *     the slaon and stylist.
+   *
+   * @param stylistId
+   * @return
    */
   def mySalon(stylistId: ObjectId): Salon = {
     val releation = SalonAndStylist.findByStylistId(stylistId)
@@ -234,22 +307,48 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
     }
   }
 
+  /**
+   * to be a stylist,active he's all relevant status is true
+   * @param stylistId
+   * @return
+   */
   def becomeStylist(stylistId: ObjectId) = {
     dao.update(MongoDBObject("stylistId" -> stylistId), MongoDBObject("$set" -> (MongoDBObject("isVarified" -> true) ++
       MongoDBObject("isValid" -> true))))
   }
 
+  /**
+   * for sample data test to import database in global, but pictures need corresponding stylist
+   * @param stylist
+   * @param imgId picture save and return a objectId
+   * @return
+   */
   def updateImages(stylist: Stylist, imgId: ObjectId) = {
     dao.update(MongoDBObject("stylistId" -> stylist.stylistId, "myPics.picUse" -> "logo"),
       MongoDBObject("$set" -> (MongoDBObject("myPics.$.fileObjId" -> imgId))), false, true)
   }
 
+  /**
+   * cost styles by stylist
+   * @param stylistId
+   * @return
+   */
   def countStyleByStylist(stylistId: ObjectId): Long = {
     Style.count(MongoDBObject("stylistId" -> stylistId, "isValid" -> true))
   }
 
+  /**
+   * check the current account is owner
+   * @param stylistId
+   * @param user the user object
+   * @return
+   */
   def isOwner(stylistId: ObjectId)(user: User): Future[Boolean] = Future { User.findOneById(stylistId).map(_ == user).get }
 
+  /**
+   * find recommend stylists in meifan index pages
+   * @return List of Stylist
+   */
   def findRecommendStylists: List[Stylist] = {
     var stylists: List[Stylist] = Nil
     SalonAndStylist.findAll.toList.map { releation =>

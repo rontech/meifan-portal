@@ -1,31 +1,31 @@
 @(salon: Salon, coupons: List[Coupon])
 
 <div class = "showCoupon mT40">
-<div class="taC fr">
-  <a href="@auth.routes.Coupons.couponMain"
-  class="iS arrowR">
-    <font>
-      <font class="b">
-        @Messages("coupon.createCoupon")
-      </font>
-    </font>
-  </a>
-</div>
-<div class="yS mainContentsSecondTitleOuter">
-  <h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("coupon.titleInSalon", salon.salonName)</h2>
-</div>
+    <div class="taC fr">
+        <a href="@auth.routes.Coupons.couponMain"
+        class="iS arrowR">
+            <font>
+                <font class="b">
+                @Messages("coupon.createCoupon")
+                </font>
+            </font>
+        </a>
+    </div>
+    <div class="yS mainContentsSecondTitleOuter">
+        <h2 class="yS mainContentsSecondTitleInnerForAdmin">@Messages("coupon.titleInSalon", salon.salonName)</h2>
+    </div>
 
-<ol>
-@if(coupons.isEmpty) {
-  <div class="bgAlertMsg mT20">
-    <p class="alertMsg">@Messages("coupon.noCouponSearched")</p>
-  </div>
-} else {
-  @for(coupon <- coupons) {
-    <li class="couponItem">
-      @views.html.coupon.showCouponItem(coupon)
-    </li>
-  }
-}
-</ol>
+    <ol>
+    @if(coupons.isEmpty) {
+        <div class="bgAlertMsg mT20">
+            <p class="alertMsg">@Messages("coupon.noCouponSearched")</p>
+        </div>
+    } else {
+        @for(coupon <- coupons) {
+            <li class="couponItem">
+            @views.html.coupon.showCouponItem(coupon)
+            </li>
+        }
+    }
+    </ol>
 </div>

@@ -31,8 +31,15 @@ import com.mongodb.casbah.WriteConcern
 import play.api.templates.Html
 import java.util.UUID
 import java.util.Date
+import com.meifannet.framework.MeifanNetApplication
 
-object Mails extends Controller {
+/**
+ * this object is to reset password of user and salon by sending mail
+ *
+ * person will get a mail included a link when he passes the verification
+ * each link just can reset password one time successfully and works in 30 minutes
+ */
+object Mails extends MeifanNetApplication {
 
   /**
    * 用户重置密码form
@@ -53,13 +60,16 @@ object Mails extends Controller {
   val resetPassOfSalonForm = Form(
     mapping(
       "salonChange" -> mapping(
-        "accountId" -> text)(Salon.findByAccountId)(_.map(s => (s.salonAccount.accountId))),
+        "accountId" -> text)(Salon.findOneByAccountId)(_.map(s => (s.salonAccount.accountId))),
       "newPassword" -> tuple(
         "main" -> text.verifying(Messages("user.passwordError"), main => main.matches("""^[\w!@#$%&\+\"\:\?\^\&\*\(\)\.\,\;\-\_\[\]\=\`\~\<\>\/\{\}\|\\\'\s_]{6,16}+$""")),
         "confirm" -> text).verifying(
           // Add an additional constraint: both passwords must match
           Messages("user.twicePasswordError"), passwords => passwords._1 == passwords._2)) { (salonChange, newPassword) => (salonChange.get, BCrypt.hashpw(newPassword._1, BCrypt.gensalt())) } { salonChange => Some((Option(salonChange._1), ("", ""))) })
 
+  /**
+   * form to input userId and email when register for user
+   */
   val mailAndUserIdForm = Form(mapping(
     "userId" -> nonEmptyText,
     "email" -> text //TODO 正则表达式
@@ -95,7 +105,6 @@ object Mails extends Controller {
           val mailFrom: String = root.getString("mail.from")
           mail.setFrom(mailFrom)
           val uuid: String = UUID.randomUUID().toString()
-          // 1 代表用户重置密码
           val mailUser = Mail.findOneByObjId(user.get.id)
           val endTime = new Date(System.currentTimeMillis() + 30 * 60 * 1000); //30分钟后过期
           mailUser match {
@@ -136,7 +145,6 @@ object Mails extends Controller {
           val mailFrom: String = root.getString("mail.from")
           mail.setFrom(mailFrom)
           val uuid: String = UUID.randomUUID().toString()
-          // 1 代表用户重置密码
           val mailSalon = Mail.findOneByObjId(salon.get.id)
           val endTime = new Date(System.currentTimeMillis() + 30 * 60 * 1000); //30分钟后过期
           mailSalon match {
@@ -156,6 +164,9 @@ object Mails extends Controller {
 
   /**
    * 跳转至密码重置的页面，新密码和确认密码
+   *
+   * @param uuid
+   * @return
    */
   def password(uuid: String) = Action { implicit request =>
     // 这边需要判断一下，是用户还是店铺，暂时是用户
@@ -176,6 +187,9 @@ object Mails extends Controller {
 
   /**
    * 密码修改
+   *
+   * @param uuid
+   * @return
    */
   def resetPassword(uuid: String) = Action { implicit request =>
     val newUuid: String = UUID.randomUUID().toString()
@@ -188,6 +202,7 @@ object Mails extends Controller {
         case (user, main) =>
           // 一个url只能修改一次密码
           val mail = Mail.findOneByUuid(uuid).get
+          // 当密码修改成功后，原来mail中的那条数据的uuid会更新一下，确保一条链接只能成功修改一次密码
           Mail.save(mail.copy(uuid = newUuid), WriteConcern.Safe)
 
           User.save(user.copy(password = main), WriteConcern.Safe)
@@ -198,6 +213,9 @@ object Mails extends Controller {
 
   /**
    * 跳转至密码重置的页面，新密码和确认密码
+   *
+   * @param uuid
+   * @return
    */
   def passwordOfSalon(uuid: String) = Action { implicit request =>
     // 这边需要判断一下，是用户还是店铺，暂时是用户
@@ -218,6 +236,9 @@ object Mails extends Controller {
 
   /**
    * 沙龙密码修改
+   *
+   * @param uuid
+   * @return
    */
   def resetPasswordOfSalon(uuid: String) = Action { implicit request =>
     val newUuid: String = UUID.randomUUID().toString()
@@ -229,6 +250,7 @@ object Mails extends Controller {
         case (salon, main) =>
           // 一个url只能修改一次密码
           val mail = Mail.findOneByUuid(uuid).get
+          // 当密码修改成功后，原来mail中的那条数据的uuid会更新一下，确保一条链接只能成功修改一次密码
           Mail.save(mail.copy(uuid = newUuid), WriteConcern.Safe)
 
           Salon.save(salon.copy(salonAccount = new SalonAccount(salon.salonAccount.accountId, main)), WriteConcern.Safe)

@@ -27,8 +27,9 @@ import ExecutionContext.Implicits.global
 import controllers._
 import java.util.Date
 import java.util.Calendar
+import com.meifannet.framework.MeifanNetCustomerApplication
 
-object MyFollows extends Controller with AuthElement with UserAuthConfigImpl {
+object MyFollows extends MeifanNetCustomerApplication {
 
   /**
    * Cancel something that has been followed

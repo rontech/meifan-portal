@@ -27,12 +27,13 @@ import com.mongodb.casbah.commons.Imports._
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
+import com.meifannet.framework.MeifanNetCustomerApplication
 
 import models._
 import java.text.SimpleDateFormat
 import play.cache.Cache
 
-object Reservations extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl {
+object Reservations extends MeifanNetCustomerApplication {
 
   /**
    * 预约信息确认form
@@ -148,7 +149,6 @@ object Reservations extends Controller with LoginLogout with AuthElement with Us
    */
   def editReservInfo = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val user = loggedIn
-    println("sangsanghu 2014/05/21 userId = " + user.id)
     var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
     var userInfo: Option[User] = User.findOneById(user.id)
     userInfo match {
@@ -161,7 +161,6 @@ object Reservations extends Controller with LoginLogout with AuthElement with Us
           NotFound
         }
         val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
-        println("sangsanghu 2014/05/21 reservation11 = " + reservation)
         salon match {
           case Some(s) => Ok(views.html.reservation.editReservInfo(s, reservation, reservationForm.fill(reservation), u))
           case None => NotFound
@@ -184,7 +183,6 @@ object Reservations extends Controller with LoginLogout with AuthElement with Us
         var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
         reservation = reservation.copy(userPhone = resv.userPhone, userLeaveMsg = resv.userLeaveMsg)
         Cache.set("reservation", reservation)
-        println("sangsanghu 01111 reservation = " + reservation)
         
         val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
         salon match {

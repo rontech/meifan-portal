@@ -1,46 +1,46 @@
-@(unReservStylists: List[StylistDetailInfo], reservStylists: List[StylistDetailInfo]) 
+@(unReservStylists: List[StylistDetailInfo], reservStylists: List[StylistDetailInfo])
 
 <div class="yS reserveTitleOuter mT15">
-  <h3 class="yS reserveTitleInner pL10">@Messages("reservation.selectStylistMsg")</h3>
+    <h3 class="yS reserveTitleInner pL10">@Messages("reservation.selectStylistMsg")</h3>
 </div>
 
 <div class="pH10">
-  <div class="titleBottom mT10">
-    <p class="fs16 fgBlack b pL5">@Messages("reservation.reservNoStylist")</p>
-  </div>
+    <div class="titleBottom mT10">
+        <p class="fs16 fgBlack b pL5">@Messages("reservation.reservNoStylist")</p>
+    </div>
 </div>
 <div class="mT10 cFix">
-  <div class="mT10 pL15">
-  	<a href="@auth.routes.Reservations.editReservInfo" class="bS db nominatedReserve">@Messages("reservation.reservNoStylist")</a>
-  </div>
+    <div class="mT10 pL15">
+        <a href="@auth.routes.Reservations.editReservInfo" class="bS db nominatedReserve">@Messages("reservation.reservNoStylist")</a>
+    </div>
 </div>
 <div class="fl w100p">
-	@if(!unReservStylists.isEmpty) {
-		<div class="cFix titleBottom mB10 mT20">
-		  <div class="pr">
-		    <p class="fs16 fgBlack b pL5">@Messages("reservation.reservStylist")</p>
-		   </div>
-		 </div>
-		 @unReservStylists.map { unReservStylist =>
-		   <div class="mysalon-stylist hMin399">
-	       @views.html.stylist.stylistItem(Some(unReservStylist), "selectStylist")
-	     </div>
-		 }
-	}
+@if(!unReservStylists.isEmpty) {
+    <div class="cFix titleBottom mB10 mT20">
+        <div class="pr">
+            <p class="fs16 fgBlack b pL5">@Messages("reservation.reservStylist")</p>
+        </div>
+    </div>
+    @unReservStylists.map { unReservStylist =>
+        <div class="mysalon-stylist hMin399">
+            @views.html.stylist.stylistItem(Some(unReservStylist), "selectStylist")
+        </div>
+    }
+}
 </div>
-<div class="fl w100p mT40">	
-	@if(!reservStylists.isEmpty) {
-		<div class="cFix titleBottom mB10 mT20">
-		  <div class="pr">
-		    <p class="fs16 fgBlack b pL5">@Messages("reservation.otherReservStylist")</p>
-		   </div>
-		 </div>
-		 @reservStylists.map { reservStylist =>
-			 <div class="mysalon-stylist hMin399">
-	       @views.html.stylist.stylistItem(Some(reservStylist), "checkStylistDate")
-	     </div>
-		 }
-	}
+<div class="fl w100p mT40">
+@if(!reservStylists.isEmpty) {
+    <div class="cFix titleBottom mB10 mT20">
+        <div class="pr">
+            <p class="fs16 fgBlack b pL5">@Messages("reservation.otherReservStylist")</p>
+        </div>
+    </div>
+    @reservStylists.map { reservStylist =>
+        <div class="mysalon-stylist hMin399">
+            @views.html.stylist.stylistItem(Some(reservStylist), "checkStylistDate")
+        </div>
+    }
+}
 </div>
 
 

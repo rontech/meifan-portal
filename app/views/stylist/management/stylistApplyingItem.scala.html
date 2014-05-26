@@ -1,6 +1,8 @@
-@(user: User, followInfo: FollowInformation, loginUserId: ObjectId, logged: Boolean, salon: Salon)
+@(user: User, followInfo: FollowInformation, loginUserId: ObjectId, logged: Boolean, salon: Tuple2[Salon, ObjectId])
 
+@import play.libs.F._
 @import views.html.user._
+
 
 @InfoChange("my-appling", user, followInfo, loginUserId, logged){
   <div class="mT40">

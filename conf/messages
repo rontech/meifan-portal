@@ -16,7 +16,7 @@ common.delete=删除
 common.sreach = 检索
 common.all=全部
 common.backToTop=返回顶部
-common.generalSearch = 搜索
+common.generalSearch = 搜  索
 common.hotSearch = 热门搜索
 common.resetPassword = 找回密码
 common.requiredMsg = 不能为空
@@ -25,6 +25,8 @@ common.deleteMsg = 删除后无法恢复，请确认是否删除？
 common.isValidMsg = 无效后无法恢复，请确认是否无效？
 common.seat = 位
 common.userLogin = 会员登陆
+common.pleaseInputSrchKeyword=请输入您要查找的内容
+
 
 # Index page
 index.mainPage=网站首页
@@ -42,7 +44,6 @@ index.latestBlogs=最新博客
 index.searchByStyle=按发型检索
 index.hotestSalon=最热沙龙
 index.specialCollections=专题特辑
-
 
 
 # Main Page Framework
@@ -122,23 +123,24 @@ salon.seatNumsMsg={0} 席
 salon.stylistNums=发型师人数
 slaon.stylistNumUnit={0} 人
 slaon.stylistNumUndefined=人数未定义
-salon.canOnlineOrder=可否网上预约
+salon.canOnlineOrder=可网上预约
 salon.canOnlineOrderValue=网上预约OK
-salon.canImmediatelyOrder=可否即时预约
+salon.canImmediatelyOrder=可即时预约
 salon.canImmediatelyOrderValue=即时预约OK
-salon.canNominateOrder=可否指名预约
+salon.canNominateOrder=可指名预约
 salon.canNominateOrderValue=指名预约OK
-salon.canCurntDayOrder=可否当日预约
+salon.canCurntDayOrder=可当日预约
 salon.canCurntDayOrderValue=当日预约OK
-salon.canMaleUse=是否男性可用
+salon.canMaleUse=男性可用
 salon.canMaleUseValue=男性使用OK
-salon.isPointAvailable=是否Point加盟店
+salon.isPointAvailable=Point加盟店
 salon.isPointAvailValue=Point加盟店
-salon.isPosAvailable=可否刷卡
+salon.isPosAvailable=可刷卡
+salon.canPosAvailable=可否刷卡
 salon.posAvailable=可刷卡
 salon.posNotAvailable=不可
-salon.isWifiAvailable=wifi
-salon.hasParkingNearby=附近有无停车场
+salon.isWifiAvailable=免费WiFi
+salon.hasParkingNearby=附近有停车场
 salon.parkingDesc=停车场状况描述
 salon.facilities=可否网上预约
 salon.hasParkingNearByMsg=附近有停车场
@@ -261,6 +263,7 @@ salonAdmin.overtimeRsv = 已过期
 salonAdmin.expireRsv = 即将到期
 salonAdmin.remindApply = 申请提示：
 salonAdmin.fromStylistApply = 来自技师申请
+salonAdmin.InvitedStylist = 邀请的技师
 salonAdmin.infoManagement = 信息管理
 salonAdmin.stylistManagement = 技师管理
 salonAdmin.reserveManagement = 预约管理
@@ -281,7 +284,8 @@ salonAdmin.checkState = 我的动态
 salonAdmin.admin = 店铺
 salonAdmin.ApplyOperateResult = 抱歉该申请不存在或已被本人取消，将在
 salonAdmin.ApplyOperateAction = s后自动跳转，点击
-salonAdmin.ApplyOperateGo = 跳转 
+salonAdmin.ApplyOperateGo = 跳转\
+salonAdmin.cancelInvite = 取消邀请
 stylistAdmin.selectField = 选填，不得超过150字
 salonSearchStylist.haveInvite = 当前该技师已处于被您邀请状态，请耐心等待答复
 
@@ -339,6 +343,8 @@ hair.picturedescription = 填写该发型图片描述
 hair.info = 发型信息
 hair.ranking = Rangking 排行
 hair.searchResultMsg = 个发型满足要求
+hair.addStylePicDescription = 请选择图片描述
+hair.onUsePicture.limit = 最多选择3张图片
 
 # Cosmetic
 cosmetic.salon=美容沙龙
@@ -900,6 +906,7 @@ position.positionName.ChiefStylist = 首席发型师
 position.positionName.AdvancedStylist = 高级发型师
 position.positionName.Stylist = 发型师 
 position.positionName.Assistant = 助手
+position.positionName.AdvancedAssistant = 高级助手
 
 #StyleImpression
 style.styleImpression.natural = 自然
@@ -1123,6 +1130,9 @@ salonSearchPage.cannotFind = 对不起，找不到
 #style search
 styleSearch.moreOption = 更多选项
 styleSearch.lessOption = 收起
+
+#meifan
+meifan.changeCity = 切换城市
 
 
 

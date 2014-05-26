@@ -25,10 +25,16 @@ import java.util.Date
 import com.mongodb.casbah.query.Imports._
 import com.meifannet.framework.db._
 
+/**
+ * 预约内容，用于内嵌在预约表中
+ * @param resvType 预约类型，如coupon: 优惠劵; menu: 菜单; service: 服务
+ * @param mainResvObjId 预约类型id，如果类型为coupon，那么该属性为couponid
+ * @param resvOrder 预约明细的主次序
+ */
 case class ResvItem(
-  resvType: String, //coupon: 优惠劵; menu: 菜单; service: 服务
+  resvType: String,
   mainResvObjId: ObjectId,
-  resvOrder: Int // 预约明细的主次序
+  resvOrder: Int
 )
   
 /**
@@ -39,6 +45,81 @@ case class ResvGroup(
   resvItems: List[ResvItem]
 )
 
+/**
+ * 用于店铺和技师日程表中最上层年/月显示数据
+ * @param years 年/月
+ * @param yearNum 统计对应年月的所占的天数
+ */
+case class YearsPart(
+  years: String, // 年/月
+  yearNum: Int // 不同月份所占的天数
+)
+
+/**
+ * 用于店铺和技师日程表中日（周）的显示数据
+ * @param years 年/月
+ * @param day 天，格式为2位
+ * @param weekDay 星期，这边为Calendar表中的数字形式
+ */
+case class DaysPart(
+   years: String,
+   day: String, // 格式为2位
+   weekDay: Int // 星期，这边为Calendar表中的数字形式
+)
+
+/**
+ * 用于店铺和技师日程表中每天的每个时间的预约情况的显示数据
+ * @param resvDate 预约日程表中的时间，如yyyy-MM-dd HH:mm
+ * @param isResvFlg 是否已预约
+ */
+case class ResvInfoItemPart(
+  resvDate: Date,
+  isResvFlg: Boolean)
+
+/**
+ * 根据每天将每个时间的预约情况，是否休息组合
+ * @param resvDay 预约日期，天
+ * @param isRestFlg 是否为休息日
+ * @param resvInfoItemPart
+ */
+case class ResvInfoPart(
+  resvDay: Int,
+  isRestFlg: Boolean,
+  resvInfoItemPart: List[ResvInfoItemPart])
+
+/**
+ * 预约日程表格式
+ * 用于店铺和技师的日程表
+ * @param yearsPart 年/月
+ * @param daysPart 日（周）
+ * @param timesPart 时间部分，如8:00,8:30...
+ * @param resvInfoPart 预约情况
+ */
+case class ResvSchedule(
+  yearsPart: List[YearsPart],
+  daysPart: List[DaysPart],
+  timesPart: List[String],
+  resvInfoPart: List[ResvInfoPart])
+
+/**
+ * 预约表
+ * @param id
+ * @param userId 预约者
+ * @param salonId 沙龙id
+ * @param status 预约状态
+ * @param expectedDate 预约期望的时间
+ * @param serviceDuration 预约服务总时间
+ * @param stylistId 预约技师，可为空
+ * @param resvItems 预约内容
+ * @param styleId 预约发型，可为空
+ * @param userPhone 预约时所留号码
+ * @param userLeaveMsg 预约留言
+ * @param price 预约价格
+ * @param usedPoint 预约时使用的积分（目前不用）
+ * @param totalCost 预约使用积分后的价格（目前不用）
+ * @param createDate 预约创建时间
+ * @param processDate 预约状态修改时间
+ */
 case class Reservation(
   id: ObjectId = new ObjectId,
   userId: String,
@@ -57,41 +138,15 @@ case class Reservation(
   createDate: Date,
   processDate: Date) extends StyleIdUsed
 
-case class YearsPart(
-  years: String, // 年/月
-  yearNum: Int // 不同月份所占的天数
-  )
-
-case class DaysPart(
-  years: String,
-  day: String, // 格式为2位
-  weekDay: Int // 星期，这边为Calendar表中的数字形式
-  )
-
-case class ResvInfoItemPart(
-  resvDate: Date,
-  isResvFlg: Boolean)
-
-case class ResvInfoPart(
-  resvDay: Int,
-  isRestFlg: Boolean,
-  resvInfoItemPart: List[ResvInfoItemPart])
-
-/**
- *  预约表格式
- */ 
-case class ResvSchedule(
-  yearsPart: List[YearsPart],
-  daysPart: List[DaysPart],
-  timesPart: List[String],
-  resvInfoPart: List[ResvInfoPart])
-
 object Reservation extends MeifanNetModelCompanion[Reservation] {
 
   val dao = new MeifanNetDAO[Reservation](collection = loadCollection()) {}
 
   /**
    * Get the best reserved Styles' reservations in a salon.
+   *
+   * @param salonId
+   * @return
    */
   def findAllReservation(salonId: ObjectId): List[Reservation] = {
     dao.find($and(MongoDBObject("salonId" -> salonId), ("status" $in (0, 1)))).sort(MongoDBObject("expectedDate" -> -1)).toList
@@ -100,6 +155,9 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
   /**
    * Get the best reserved Styles' ObjectId.
    *     Ignore the data without styleId.
+   *
+   * @param topN
+   * @return
    */
   def findBestReservedStyles(topN: Int = 0): List[ObjectId] = {
     val reservs = dao.find($and(("styleId" $exists true), ("status" $in (0, 1)))).sort(
@@ -112,7 +170,12 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
   /**
    * Get the best reserved Styles' ObjectId in a salon.
    *     Ignore the data without styleId.
+   *
+   * @param salonId
+   * @param topN
+   * @return
    */
+
   def findBestReservedStylesInSalon(salonId: ObjectId, topN: Int = 0): List[ObjectId] = {
     val reservs = dao.find($and(MongoDBObject("salonId" -> salonId), ("styleId" $exists true), ("status" $in (0, 1)))).sort(
       MongoDBObject("styleId" -> -1)).toList
@@ -124,6 +187,10 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
   /**
    * Get the best reserved styles' ObjectId from the reservation data.
    * TODO: Can the styleId not None check do in type T or trait?
+   *
+   * @param rsvs
+   * @param topN
+   * @return
    */
   def getBestRsvedStyleIds(rsvs: List[Reservation], topN: Int = 0): List[ObjectId] = {
     // styleId is exists absolutely.
@@ -135,7 +202,12 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
   }
 
   /**
-   * 根据预定时间查找符合条件的预约信息的个数
+   * 根据预定时间查找预约信息
+   * 用于判断日程表中某一时间段预约的总条数
+   * @param reservations 预约
+   * @param expectedDateStart
+   * @param expectedDateEnd
+   * @return
    */
   def findReservationByDate(reservations: List[Reservation], expectedDateStart: Date, expectedDateEnd: Date): Long = {
     reservations.filter(r => (r.expectedDate.before(expectedDateEnd) && r.expectedDate.after(expectedDateStart))).size.toLong
@@ -143,6 +215,8 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
 
   /**
    * 根据状态为1和发型非空检索出符合热门排名的所有预约券
+   *
+   * @return
    */
   def findByStatusAndStyleId: List[Reservation] = {
     dao.find(MongoDBObject("status" -> 1)).toList

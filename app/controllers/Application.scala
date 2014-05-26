@@ -38,11 +38,13 @@ import scala.Some
 import models._
 import utils.Const._
 import com.meifannet.framework.db._
+import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 
-object Application extends Controller with OptionalAuthElement with UserAuthConfigImpl {
+
+object Application extends MeifanNetCustomerOptionalApplication {
 
   /**
-   * for ajax
+   * Add routes for ajax
    * @return
    */
   def javascriptRoutes = Action { implicit request =>
@@ -52,9 +54,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
       auth.routes.javascript.Stylists.itemIsExist,
       auth.routes.javascript.Salons.itemIsExist,
       noAuth.routes.javascript.Users.checkIsExist,
-      auth.routes.javascript.MyFollows.followedCoupon,
-      auth.routes.javascript.MyFollows.followedBlog,
-      auth.routes.javascript.MyFollows.followedStyle)).as("text/javascript")
+      auth.routes.javascript.MyFollows.followedCoupon)).as("text/javascript")
   }
 
   def index = StackAction { implicit request =>
@@ -78,32 +78,6 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     val industry = Industry.findAll.toList
     Ok(views.html.salon.salonManage.salonRegister(Salons.salonRegister, industry))
   }
-
-  /*def itemIsExist(value:String, key:String, accountId :String) = Action {
-    //Redirect(auth.routes.Users.checkIsExist(value, key))
-    /*val loggedUser = User.findOneByUserId(accountId)
-    val loggedSalon = Salon.findByAccountId(accountId)
-      key match{
-        case ITEM_TYPE_ID =>
-          Ok((User.isExist(value, User.findOneByUserId)||Salon.isExist(value, Salon.findByAccountId)).toString)
-        case ITEM_TYPE_NAME =>
-        if(User.isValid(value, loggedUser, User.findOneByNickNm)){
-          Ok((Salon.isExist(value,Salon.findOneBySalonName)||Salon.isExist(value,Salon.findOneBySalonNameAbbr)).toString)
-        }else{
-          Ok("true")
-        }
-        case ITEM_TYPE_NAME_ABBR =>
-          if(User.isExist(value,User.findOneByNickNm)){
-            Ok("true")
-          }else{
-            Ok((!Salon.isValid(value, loggedSalon, Salon.findOneBySalonName) || !Salon.isValid(value, loggedSalon, Salon.findOneBySalonNameAbbr)).toString)
-          }
-        case ITEM_TYPE_EMAIL =>
-          Ok((!User.isValid(value, loggedUser, User.findOneByEmail)).toString)
-        case ITEM_TYPE_TEL =>
-          Ok((!User.isValid(value, loggedUser, User.findOneByTel)).toString)
-      }*/
-  }*/
 
   def getPhoto(file: ObjectId) = Action {
 
@@ -152,6 +126,10 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     }
   }
 
+  /**
+   * 根据表单中的尺寸对上传的图片文件剪切、保存至数据库，并将图片的ObjectId保存至用户信息表中
+   * @return
+   */
   def changeLogo = Action(parse.multipartFormData) { implicit request =>
     request.body.file("photo").map { photo =>
       imgForm.bindFromRequest.fold(
@@ -229,6 +207,7 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
 
   }
 
+  //用于存储图片剪切的尺寸
   val imgForm: Form[ImgForCrop] = Form(
     mapping(
       "x1" -> bigDecimal,
@@ -246,4 +225,52 @@ object Application extends Controller with OptionalAuthElement with UserAuthConf
     }
     Ok(responseTxt)
   }
+
+  /**
+   * 用户选择切换城市后要跳转到所有城市一览的页面
+   * 如果currentUri 的值为city，表示用户在美范网站的首页，无需将所在页面的uri放入session
+   * currentUri不为city，对应为当前访问页面的uri，将其放入缓存
+   * @param currentUri 用户要切换城市时所在的页面uri
+   * @return
+   */
+  def getAllCitys(currentUri: String) = StackAction { implicit request =>
+    val user = loggedIn
+    currentUri match {
+      case ("city") => Ok(views.html.common.getAllCitys(user))
+      case _ => Ok(views.html.common.getAllCitys(user)).withSession("currentUri" -> currentUri)
+    }
+  }
+
+  /**
+   * 用户切换城市选择某个城市的处理
+   * 从session中获取用户选择点击切换城市时页面的uri
+   * 重定向到上述页面，并将选择的城市放入缓存中
+   * @param city 城市名称
+   * @return
+   */
+  def getOneCity(city: String) = Action { implicit request =>
+    var gotoUri = ""
+    request.session.get("currentUri").map{ uri=>
+      gotoUri ="/"+ uri
+      Redirect(gotoUri).withSession("myCity" -> city)
+    }getOrElse{
+      Redirect(routes.Application.index).withSession("myCity" -> city)
+    }
+
+  }
+
+  /**
+   * 第一次次访问美范网站时，前台页面ajax 将城市传送过来
+   * 然后把城市保存在session中
+   * @param city -城市名
+   * @return
+   */
+  def setCityInSession(city: String) = Action {implicit request =>
+    request.session.get("myCity").map{ myCity =>
+      Ok("ok")
+    }getOrElse{
+      Ok("ok").withSession("myCity" -> city)
+    }
+  }
+
 }

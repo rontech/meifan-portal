@@ -40,3 +40,20 @@ width: 501px;
 .w151 {
 width: 151px;
 }
+.bar_left {
+    float: left;
+    word-spacing: 1px;
+    height: 27px;
+    padding: 0 5px;
+    line-height: 32px;
+}
+.bar_left h2 {
+    display: inline;
+    font-weight: 700;
+    font-size: 16px;
+    color: red;
+    float: left;
+}
+#ipconfig a {
+    color: #666;
+}

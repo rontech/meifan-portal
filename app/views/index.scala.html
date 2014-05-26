@@ -8,29 +8,31 @@
   
   <!-- ↓mainContents -->
   <div id="mainContents">
-      <!--↓ General Search Form-->
-      @views.html.common.generalSrchForm(nav = "Top") 
-      <!--↑ General Search Form-->
+
+    <!--↓ General Search Form-->
+    @views.html.common.generalSrchForm(nav = "Top") 
+    <!--↑ General Search Form-->
+
     <div id="banner">
       <ul class="mainImage" id="jsiMainImage">
         <li class="current">
           <a href="@noAuth.routes.Salons.index">
-            <img alt="@Messages("index.hairSalonRsv")" src="@routes.Assets.at("images/mainImg_hair.jpg")" width="760" height="397" />
+            <img alt="@Messages("index.hairSalonRsv")" src="@routes.Assets.at("images/mainImg_hair.jpg")" class="mainRsvImage"/>
           </a>
         </li>
         <li>
           <a href="@noAuth.routes.Styles.index">
-            <img alt="@Messages("index.nailSalonRsv")" src="@routes.Assets.at("images/mainImg_nail.jpg")" width="760" height="397" />
+            <img alt="@Messages("index.nailSalonRsv")" src="@routes.Assets.at("images/mainImg_nail.jpg")" class="mainRsvImage"/>
           </a>
         </li>
         <li>
           <a href="@noAuth.routes.Styles.index">
-            <img alt="@Messages("index.cosmSalonRsv")" src="@routes.Assets.at("images/mainImg_relax.jpg")" width="760" height="397" />
+            <img alt="@Messages("index.cosmSalonRsv")" src="@routes.Assets.at("images/mainImg_relax.jpg")" class="mainRsvImage"/>
           </a>
         </li>
         <li>
           <a href="@noAuth.routes.Styles.index">
-            <img alt="@Messages("index.massageSalonRsv")" src="@routes.Assets.at("images/mainImg_esthe.jpg")" width="760" height="397" />
+            <img alt="@Messages("index.massageSalonRsv")" src="@routes.Assets.at("images/mainImg_esthe.jpg")" class="mainRsvImage"/>
           </a>
         </li>
       </ul>
@@ -63,7 +65,7 @@
       </div>
       
       <!-- ↓整容整形 -->
-       @views.html.estheSalon.cosmeticSurgery()
+      @views.html.estheSalon.cosmeticSurgery()
       <!-- ↑整容整形 -->
     </div>
     

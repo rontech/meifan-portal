@@ -23,8 +23,9 @@ import se.radley.plugin.salat.Binders._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.templates._
+import com.meifannet.framework.MeifanNetApplication
 
-object ServiceTypes extends Controller {
+object ServiceTypes extends MeifanNetApplication {
   /**
    * 定义用于添加服务类别的form
    * @param id

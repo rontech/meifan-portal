@@ -29,9 +29,14 @@ import play.api.templates.Html
 import se.radley.plugin.salat.Binders._
 import jp.t2v.lab.play2.auth._
 import controllers._
+import com.meifannet.framework.MeifanNetSalonApplication
 
-object Coupons extends Controller with AuthElement with SalonAuthConfigImpl {
+object Coupons extends MeifanNetSalonApplication {
 
+  /**
+   * 优惠劵Form
+   * 用于优惠劵创建
+   */
   def couponForm: Form[Coupon] = Form {
     mapping(
       "couponName" -> text,
@@ -58,6 +63,10 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl {
           coupon => coupon.startDate.before(coupon.endDate))
   }
 
+  /**
+   * 优惠劵更新Form
+   * 用于优惠劵更新
+   */
   def couponUpdateForm: Form[Coupon] = Form {
     mapping(
       "couponName" -> text,
@@ -82,6 +91,9 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl {
         coupon => coupon.startDate.before(coupon.endDate))
   }
 
+  /**
+   * 用于优惠劵，菜单等查找
+   */
   def conditionForm: Form[CouponServiceType] = Form {
     mapping(
       "serviceTypes" -> list(
@@ -143,6 +155,8 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl {
 
   /**
    * 进入修改优惠劵画面
+   * @param couponId 优惠劵id
+   * @return
    */
   def editCouponInfo(couponId: ObjectId) = StackAction(AuthorityKey -> Coupon.isOwner(couponId) _) { implicit request =>
     val salon = loggedIn
@@ -157,6 +171,7 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl {
 
   /**
    * 更新优惠劵信息
+   * * @param couponId 优惠劵id
    */
   def updateCoupon(couponId: ObjectId) = StackAction(AuthorityKey -> Coupon.isOwner(couponId) _) { implicit request =>
     val salon = loggedIn
@@ -208,6 +223,7 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl {
 
   /**
    * 无效优惠劵
+   * * @param couponId 优惠劵id
    */
   def invalidCoupon(couponId: ObjectId) = StackAction(AuthorityKey -> Coupon.isOwner(couponId) _) { implicit request =>
     val salon = loggedIn
@@ -227,6 +243,7 @@ object Coupons extends Controller with AuthElement with SalonAuthConfigImpl {
 
   /**
    * 根据查找条件检索出符合的优惠劵
+   * 用于后台优惠劵的查找
    */
   def findCoupons = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn

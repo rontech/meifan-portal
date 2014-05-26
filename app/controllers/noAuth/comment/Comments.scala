@@ -29,11 +29,14 @@ import com.mongodb.casbah.Imports.ObjectId
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
+import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 
-object Comments extends Controller with OptionalAuthElement with UserAuthConfigImpl {
+object Comments extends MeifanNetCustomerOptionalApplication {
 
   /**
-   * 查找店铺下的评论，现在只是对coupon做评论，还没有对预约做评论
+   * get all comment of the given salonId
+   * @param salonId the id of salon
+   * @return
    */
   def findBySalon(salonId: ObjectId) = StackAction { implicit request =>
     val user = loggedIn
@@ -46,6 +49,7 @@ object Comments extends Controller with OptionalAuthElement with UserAuthConfigI
     Ok(views.html.salon.store.salonInfoCommentAll(salon = salon.get, comments = comments, navBar = navBar, user = user))
   }
 
+  /** clear the list of comment */
   def clean() = {
     Comment.list = Nil
   }

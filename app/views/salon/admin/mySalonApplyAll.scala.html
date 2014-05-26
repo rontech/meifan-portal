@@ -1,4 +1,4 @@
-@(navInSalon: String = "my-stylists", mySalon: Salon, stylist: List[Stylist], status: Int = 0)
+@(navInSalon: String = "my-stylists", mySalon: Salon, applies: List[(Stylist, ObjectId)])
 
 @import models.Salon
 
@@ -11,9 +11,10 @@
     </ul>
   </div>
   <div class="mc mT40">
-    @if(stylist != Nil){
+    @if(!applies.isEmpty){
     <div class="tabcon hide" data-widget="tab-content" style="display: block;">
-        @views.html.stylist.mySalonStylistGroup(stylist, mySalon, status)
+      @*status == 0: salon '来自技师申请’的item*@
+      @views.html.stylist.mySalonStylistGroup(applies, mySalon, status = 0)
     </div>
     }else{
       <span>@Messages("stylist.empty")</span>

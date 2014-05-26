@@ -42,6 +42,23 @@ case class BlogOfStylist(userInfo: User, stylistInfo: Stylist, blogListOfStylist
   def apply(userInfo: User, stylistInfo: Stylist, blogListOfStylist: List[Blog]) = new BlogOfStylist(userInfo, stylistInfo, blogListOfStylist)
 }
 
+/**
+ * Blog class ,now only user and stylist can write blog. todo salon write blog
+ *
+ * @param id
+ * @param title 标题
+ * @param content 内容
+ * @param authorId 作者 user's userId
+ * @param createTime 创建时间
+ * @param updateTime 更新时间
+ * @param blogCategory 博客分类
+ * @param blogPics todo is needed? 图片
+ * @param tags 标签
+ * @param isVisible 是否可见
+ * @param pushToSalon 是否推送到店铺,针对技师的选项
+ * @param allowComment 是否允许评论
+ * @param isValid 有效状态
+ */
 case class Blog(
   id: ObjectId = new ObjectId,
   title: String,
@@ -62,6 +79,7 @@ object Blog extends MeifanNetModelCompanion[Blog] {
 
   /**
    * 找到该店铺下面所有发型师的Blog
+   * @param salonId salon的id，key
    */
   def findBySalon(salonId: ObjectId): List[Blog] = {
     var blogList: List[Blog] = Nil
@@ -78,6 +96,7 @@ object Blog extends MeifanNetModelCompanion[Blog] {
 
   /**
    * 查找店铺的最新blog（显示不多于5条）
+   * @param salonId salon的id
    */
   def getNewestBlogsOfSalon(salonId: ObjectId) = {
     if (findBySalon(salonId).size <= 5) {
@@ -89,14 +108,16 @@ object Blog extends MeifanNetModelCompanion[Blog] {
 
   /**
    * 通过该用户的UserId找到该用户的blog
+   * @param userId user的userId
    */
   def getBlogByUserId(userId: String) = {
     dao.find(MongoDBObject("authorId" -> userId, "isValid" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
   }
 
   /**
-   * 权限控制，查看其他用户的blog
+   * 权限控制，查看其他用户的blog,显示可见的blog
    * 通过该用户的UserId找到该用户的blog
+   * @param userId user的userId
    */
   def getOtherBlogByUserId(userId: String) = {
     dao.find(MongoDBObject("authorId" -> userId, "isValid" -> true, "isVisible" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
@@ -104,6 +125,7 @@ object Blog extends MeifanNetModelCompanion[Blog] {
 
   /**
    * 删除指定的blog
+   * @param id key
    */
   def delete(id: ObjectId) = {
     val blog = findOneById(id).get
@@ -112,6 +134,7 @@ object Blog extends MeifanNetModelCompanion[Blog] {
 
   /**
    * 通过User ObjectId 找到该发型师的blog
+   * @param objId user的id
    */
   def getStylistBlogByStylistId(objId: ObjectId) = {
     val user = User.findOneById(objId)
@@ -123,6 +146,7 @@ object Blog extends MeifanNetModelCompanion[Blog] {
 
   /**
    * 通过UserId找到该发型师的blog
+   * @param userId user的userId
    */
   def getStylistBlogByUserId(userId: String) = {
     dao.find(MongoDBObject("authorId" -> userId, "isValid" -> true, "pushToSalon" -> true)).sort(MongoDBObject("createTime" -> -1)).toList
@@ -131,6 +155,7 @@ object Blog extends MeifanNetModelCompanion[Blog] {
   /**
    * 查找blog表中最新的num条blog
    * 这边这是查找发型师的blog，并且他人可见和推送至店铺
+   * @param num 在前台显示的数量
    */
   // TODO
   def findBlogForHome(num: Int): List[BlogOfSalon] = {
@@ -165,6 +190,7 @@ object Blog extends MeifanNetModelCompanion[Blog] {
 
   /**
    * 这边也是通过店铺找到该店铺下技师的blog，这边返回的是一个BlogOfStylist的对象
+   * @param salonId salon的id
    */
   //TODO 上面取的店铺的blog的方法可能需要重构
   def getBlogsOfStylistInSalon(salonId: ObjectId): List[BlogOfStylist] = {

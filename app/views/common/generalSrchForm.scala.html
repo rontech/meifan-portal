@@ -6,10 +6,12 @@
   </div>
   <div id="top_search_hotlist">
     <div id="top_search">
-      <form action="@noAuth.routes.GeneralSearch.getGeneralSearch" method="POST">
+      <form id="generalSrchForm" action="@noAuth.routes.GeneralSearch.getGeneralSearch" method="POST">
         <div id="uboxstyle">
-          <select name="category" id="select">
-            <option value="Top" @if(nav == "Top") {selected="selected"}> @Messages("common.all") </option>
+          <select name="category" id="categorySel">
+            @* For now, set search result to the same page with hair salon. 2014/05/23. *@
+            @*<option value="Top" @if(nav == "Top") {selected="selected"}> @Messages("common.all") </option>*@
+            <option value="HairSalon" @if(nav == "Top") {selected="selected"}> @Messages("common.all") </option>
             <option value="HairSalon" @if(nav == "HairSalon") {selected="selected"}> @Messages("main.hairSalon") </option>
             <option value="HairCatalog" @if(nav == "HairCatalog") {selected="selected"}> @Messages("main.hairCatalog") </option>
             <option value="NailSalon" @if(nav == "NailSalon") {selected="selected"}> @Messages("main.nailSalon") </option>
@@ -18,17 +20,18 @@
             <option value="EstheSalon" @if(nav == "EstheSalon") {selected="selected"}> @Messages("main.estheSalon") </option>
           </select>
         </div>
-        <input name="keyword" type="hidden" id="keyword" value="">
-        <input name="" type="text" class="txt" value="请输入您要查找的内容" 
-          onMouseOver="this.focus()" onfocus="this.select()" onClick="this.value=''" />
-        <input name="" type="submit" value="搜 索" class="btn" />
+        <input name="keyword" id="srchKeyword" type="text" class="txt" value="@Messages("common.pleaseInputSrchKeyword")"  
+          onfocus="if(this.value=='@Messages("common.pleaseInputSrchKeyword")') {this.value=''}" 
+          onblur="if(this.value==''){this.value='@Messages("common.pleaseInputSrchKeyword")'}"/>
+        <input type="submit" value="@Messages("common.generalSearch")" class="btn"
+          onclick="doGeneralSrchSubmit($('#srchKeyword').val())"/>
       </form>
     </div>
     <!--↓ Hottest Keyword-->
     <div id="hotlist">
       @Messages("common.hotSearch"):  
       @for(kw <- HotestKeyword.findTopKeywordsOfDiv(nav, 10)) {
-        <a href="#"> @kw </a>
+        <a href="javascript:void(0)" onclick="doGeneralSrchSubmit('@kw');"> @kw </a>
       }
     </div>
     <!--↑ Hottest Keyword-->

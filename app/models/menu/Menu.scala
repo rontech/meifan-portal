@@ -23,6 +23,19 @@ import mongoContext._
 import java.util.Date
 import com.meifannet.framework.db._
 
+/**
+ * 菜单表
+ * @param id
+ * @param menuName 菜单名
+ * @param description 描述
+ * @param salonId 沙龙id
+ * @param serviceItems 菜单中所包含的服务列表
+ * @param serviceDuration 服务总时长
+ * @param originalPrice 原价
+ * @param createDate 菜单创建日期
+ * @param expireDate 菜单无效日期
+ * @param isValid 菜单是否有效
+ */
 case class Menu(
   id: ObjectId = new ObjectId,
   menuName: String,
@@ -42,43 +55,83 @@ object Menu extends MeifanNetModelCompanion[Menu] {
   // Indexes
   //collection.ensureIndex(DBObject("menuName" -> 1), "menuName", unique = true)
 
+  /**
+   * 保存菜单
+   * @param menu
+   * @return
+   */
   def addMenu(menu: Menu) = dao.save(menu, WriteConcern.Safe)
 
+  /**
+   * 查找所有的菜单
+   * @return
+   */
   def findAllMenus: List[Menu] = dao.find(MongoDBObject.empty).toList
 
   /**
-   *  查找出该沙龙中所有菜单
+   * 查找出该沙龙中所有菜单
+   *
+   * @param salonId 沙龙id
+   * @return
    */
   def findBySalon(salonId: ObjectId): List[Menu] = dao.find(MongoDBObject("salonId" -> salonId)).toList
 
   /**
-   *  查找出该沙龙中所用有效的菜单
+   * 查找出该沙龙中所用有效的菜单
+   *
+   * @param salonId 沙龙id
+   * @return
    */
   def findValidMenusBySalon(salonId: ObjectId): List[Menu] = dao.find(MongoDBObject("salonId" -> salonId, "isValid" -> true)).toList
 
   /**
-   *  查找沙龙中是否已存在该菜单
+   * 查找沙龙中是否已存在该菜单
+   * 用于创建菜单时根据菜单名检查是否已存在该菜单
+   * @param menuName 菜单名称
+   * @param salonId 沙龙id
+   * @return
    */
   def checkMenuIsExist(menuName: String, salonId: ObjectId) = dao.find(DBObject("menuName" -> menuName, "salonId" -> salonId)).hasNext
 
   /**
-   *  查找出该沙龙符合条件的所有菜单
+   * 查找出该沙龙符合条件的所有菜单
+   * 用于后台菜单检索
+   * @param serviceTypes 服务列表
+   * @param salonId 沙龙id
+   * @return
    */
   def findContainConditions(serviceTypes: Seq[String], salonId: ObjectId): List[Menu] = {
     dao.find($and("serviceItems.serviceType" $all serviceTypes, DBObject("salonId" -> salonId))).toList
   }
 
   /**
-   *  查找出该沙龙符合条件的有效的菜单
+   * 查找出该沙龙符合条件的有效的菜单
+   * 用于前台菜单检索
+   * @param serviceTypes 服务列表
+   * @param salonId 沙龙id
+   * @return
    */
   def findValidMenusByConditions(serviceTypes: Seq[String], salonId: ObjectId): List[Menu] = {
     dao.find($and("serviceItems.serviceType" $all serviceTypes, DBObject("salonId" -> salonId, "isValid" -> true))).toList
   }
 
+  /**
+   * 根据服务名查找服务
+   * 
+   * @param menuName 服务名
+   * @return
+   */
   def findByName(menuName: String): List[Menu] = {
     dao.find("menuName" $eq menuName).toList
   }
 
+  /**
+   * 根据服列表和菜单名查找服务条件的菜单
+   * 
+   * @param serviceTypes 服务列表
+   * @param menuName 菜单名
+   * @return
+   */
   def findByConditions(serviceTypes: Seq[String], menuName: String): List[Menu] = {
     dao.find($and("serviceItems.serviceType" $all serviceTypes, "menuName" $eq menuName)).toList
   }

@@ -21,8 +21,9 @@ import play.api.mvc._
 import com.mongodb.casbah.commons.Imports._
 import models._
 import views._
+import com.meifannet.framework.MeifanNetApplication
 
-object Notices extends Controller {
+object Notices extends MeifanNetApplication {
 
   /**
    * Get the required notice.

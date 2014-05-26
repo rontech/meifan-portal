@@ -1,102 +1,106 @@
-@(salon: Salon, reservation: Reservation) 
+@(salon: Salon, reservation: Reservation)
 
 @reservConfirmInfoMain(salon, reservation) {
-	<div class="yS reserveTitleOuter mT20">
-	  <h3 class="yS reserveTitleInner pL10">@Messages("reservation.confirmInfoFinal")</h3>
-	</div>
-	
-	<p class="fgRed b pH10 mT10 fs14">
-		@Messages("reservation.confirmInfoAttn")
-	</p>
-	
-	<table cellspacing="0" class="wFull bdCell fgThNml pCellV5H5 mT10">
-		<tbody>
-			<tr>
-				<th class="w170 bgLGray pb10 pt10">@Messages("reservation.expectedDate")</th>
-				<td colspan="3" class="w580 pl10">
-					<p>
-						@if((reservation.serviceDuration/60) != 0) {
-			      	@(reservation.serviceDuration/60)@Messages("reservation.hour")
-				    }
-				    @if((reservation.serviceDuration%60) != 0) {
-				      @(reservation.serviceDuration%60)@Messages("reservation.minute")
-				    }
-			    </p>
-			    <p>@Messages("reservation.resvDelAttn")</p>
-				</td>
-			</tr>
-			<tr>
-				<th class="w170 bgLGray pb10 pt10">@Messages("reservation.serviceDurationTotal")</th>
-				<td colspan="3" class="pl10">
-					<p>@reservation.expectedDate.format("yyyy/MM/dd HH:mm")</p>
-				</td>
-			</tr>
-			<tr>
-				<th class="w170 bgLGray  pb10 pt10">@Messages("reservation.stylist")</th>
-				<td class="pl10">
-					@reservation.stylistId match {
-						case None => {@Messages("reservation.noStylist")}
-						case Some(sty) => {
-							@Stylist.findUser(sty).nickName
-						}
-					}
-				</td>
-				<th class="w170 bgLGray pb10 pt10">@Messages("reservation.style")</th>
-				<td class="pl10">
-					@reservation.styleId match {
-						case None => {@Messages("reservation.noStyle")}
-						case Some(sty) => {
-							@Style.findOneById(sty) match {
-								case None => {}
-								case Some(style) => {
-									@style.styleName
-								}
-							}
-						}
-					}
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	
-	@views.html.reservation.showReservItems(reservation, "confirmInfo")
-	
-	<table cellspacing="0" class="wFull bdCell fgThNml pCellV5H5 mT10">
-		<tbody>
-		<tr>
-				<th class="w170 bgLGray pb10 pt10">@Messages("reservation.resvAttentionTitle")</th>
-				<td colspan="3" class="w580 pl10">
-					<p class="fgGray">@Messages("reservation.resvAttention")</p>
-				</td>
-			</tr>
-		<tr>
-				<th class="w170 bgLGray pb10 pt10">@Messages("reservation.questionAndAnswerTitle")</th>
-				<td colspan="3" class="w580 pl10">
-					<p class="fgGray">@Messages("reservation.questionFromSalon")</p>
-					<p>@reservation.userLeaveMsg</p>
-				</td>
-			</tr>
-		<tr>
-				<th class="w170 bgLGray pb10 pt10"><span class="b">@Messages("reservation.resvUserId")</span></th>
-				<td class="w276 pl10">
-					<span class="b">
-						@User.findOneByUserId(reservation.userId).get.nickName
-					</span>
-				</td>
-				<th class="w170 bgLGray pb10 pt10"><span class="b">@Messages("reservation.userPhone")</span></th>
-				<td class="pl10">
-					<span class="fr fgOrange dibBL vaM fs10 pL1e txt1e pr10">※</span>
-					<span class="fl b">@reservation.userPhone</span>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<form action="@auth.routes.Reservations.reservFinish" method="get">
-		<div class="submitArea2 mT20 pr">
-			<div>
-		  	<input type="submit" name="doReserveValidate" value="@Messages("reservation.confirmInfo")" class="bS confirmL db mHA pointerCursor" title="@Messages("reservation.confirmInfo")">
-			</div>
-		</div>
-	</form>
-	
-}
+    <div class="yS reserveTitleOuter mT20">
+        <h3 class="yS reserveTitleInner pL10">@Messages("reservation.confirmInfoFinal")</h3>
+    </div>
+
+    <p class="fgRed b pH10 mT10 fs14">
+    @Messages("reservation.confirmInfoAttn")
+    </p>
+
+    <table cellspacing="0" class="wFull bdCell fgThNml pCellV5H5 mT10">
+        <tbody>
+            <tr>
+                <th class="w170 bgLGray pb10 pt10">@Messages("reservation.expectedDate")</th>
+                <td colspan="3" class="w580 pl10">
+                    <p>
+                        @if((reservation.serviceDuration / 60) != 0) {
+                            @(reservation.serviceDuration / 60)@Messages("reservation.hour")
+                        }
+                        @if((reservation.serviceDuration % 60) != 0) {
+                            @(reservation.serviceDuration % 60)@Messages("reservation.minute")
+                        }
+                    </p>
+                    <p>@Messages("reservation.resvDelAttn")</p>
+                </td>
+            </tr>
+            <tr>
+                <th class="w170 bgLGray pb10 pt10">@Messages("reservation.serviceDurationTotal")</th>
+                <td colspan="3" class="pl10">
+                    <p>@reservation.expectedDate.format("yyyy/MM/dd HH:mm")</p>
+                </td>
+            </tr>
+            <tr>
+                <th class="w170 bgLGray  pb10 pt10">@Messages("reservation.stylist")</th>
+                <td class="pl10">
+                @reservation.stylistId match {
+                    case None => {
+                        @Messages("reservation.noStylist")
+                    }
+                    case Some(sty) => {
+                        @Stylist.findUser(sty).nickName
+                    }
+                }
+                </td>
+                <th class="w170 bgLGray pb10 pt10">@Messages("reservation.style")</th>
+                <td class="pl10">
+                @reservation.styleId match {
+                    case None => {
+                        @Messages("reservation.noStyle")
+                    }
+                    case Some(sty) => {
+                        @Style.findOneById(sty) match {
+                            case None => {}
+                            case Some(style) => {
+                                @style.styleName
+                            }
+                        }
+                    }
+                }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    @views.html.reservation.showReservItems(reservation, "confirmInfo")
+
+    <table cellspacing="0" class="wFull bdCell fgThNml pCellV5H5 mT10">
+        <tbody>
+            <tr>
+                <th class="w170 bgLGray pb10 pt10">@Messages("reservation.resvAttentionTitle")</th>
+                <td colspan="3" class="w580 pl10">
+                    <p class="fgGray">@Messages("reservation.resvAttention")</p>
+                </td>
+            </tr>
+            <tr>
+                <th class="w170 bgLGray pb10 pt10">@Messages("reservation.questionAndAnswerTitle")</th>
+                <td colspan="3" class="w580 pl10">
+                    <p class="fgGray">@Messages("reservation.questionFromSalon")</p>
+                    <p>@reservation.userLeaveMsg</p>
+                </td>
+            </tr>
+            <tr>
+                <th class="w170 bgLGray pb10 pt10"><span class="b">@Messages("reservation.resvUserId")</span></th>
+                <td class="w276 pl10">
+                    <span class="b">
+                    @User.findOneByUserId(reservation.userId).get.nickName
+                    </span>
+                </td>
+                <th class="w170 bgLGray pb10 pt10"><span class="b">@Messages("reservation.userPhone")</span></th>
+                <td class="pl10">
+                    <span class="fr fgOrange dibBL vaM fs10 pL1e txt1e pr10">※</span>
+                    <span class="fl b">@reservation.userPhone</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form action="@auth.routes.Reservations.reservFinish" method="get">
+        <div class="submitArea2 mT20 pr">
+            <div>
+                <input type="submit" name="doReserveValidate" value="@Messages("reservation.confirmInfo")" class="bS confirmL db mHA pointerCursor" title="@Messages("reservation.confirmInfo")">
+</div>
+</div>
+</form>
+
+    }

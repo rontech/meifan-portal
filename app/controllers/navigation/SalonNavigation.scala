@@ -21,11 +21,12 @@ import play.api.mvc._
 import play.api.i18n.Messages
 import com.mongodb.casbah.commons.Imports._
 import models._
+import com.meifannet.framework.MeifanNetApplication
 
 /**
  * The Navigation bar shown on a salon plain page.
  */
-object SalonNavigation extends Controller {
+object SalonNavigation extends MeifanNetApplication {
 
   /*-------------------------
    * Common Functions. 

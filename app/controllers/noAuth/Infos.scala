@@ -21,8 +21,9 @@ import play.api.mvc._
 import com.mongodb.casbah.commons.Imports._
 import models._
 import views._
+import com.meifannet.framework.MeifanNetApplication
 
-object Infos extends Controller {
+object Infos extends MeifanNetApplication {
 
   /**
    * Get the required info.

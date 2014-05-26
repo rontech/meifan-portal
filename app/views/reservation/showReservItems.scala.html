@@ -1,146 +1,146 @@
 @(reservation: Reservation, contentType: String)
 
 <table cellspacing="0" class="wFull bdCell fgThNml pCellV5H5 mT10">
-	<tbody>
-		<tr>
-			@for(reservItem <- reservation.resvItems) {
-			@if(reservItem.resvType == "coupon") {
-				<th class="w170 bgLGray b">@Messages("reservation.resvCoupon")</th>
-				@Coupon.findOneById(reservItem.mainResvObjId) match {
-					case None => {}
-					case Some(coupon) => {
-						<td class="w478 p10">
-							<ul class="couponMenuIcons mT5 fs10 cFix">
-								@for(service <- coupon.serviceItems) { 
-                   <li class="couponMenuIcon mB5">
-                   <font>
-                     <font>
-                       @Messages("ServiceType.serviceTypeName." + service.serviceType)
-                     </font>
-                   </font>
-                   </li>
-                  }
-							</ul>
-							<div class="mT5 b fs12 cFix"><p class="pT5">@coupon.couponName</p></div>
-							@if(contentType == "confirmInfo") {
-								<dl class="mT10">
-		              <dt class="di fgPink">
-		                <font>
-		                  <font>
-		                    @Messages("coupon.presentTime")
-		                  </font>
-		                </font>
-		              </dt>
-		              <dd class="di mR10 pR10 fgGray bdLGrayR">
-		                <font>
-		                  <font>
-		                    @coupon.presentTime
-		                  </font>
-		                </font>
-		              </dd>
-		              <dt class="di fgPink">
-		                <font>
-		                  <font>
-		                    @Messages("coupon.useConditions")
-		                  </font>
-		                </font>
-		              </dt>
-		              <dd class="di mR10 pR10 fgGray bdLGrayR">
-		                <font>
-		                  <font>
-		                    @coupon.useConditions
-		                  </font>
-		                </font>
-		              </dd>
-		              <dt class="di fgPink">
-		                <font>
-		                  <font>
-		                    @Messages("coupon.endDate")
-		                  </font>
-		                </font>
-		              </dt>
-		              <dd class="di mR20 fgGray">
-		                <font>
-		                  <font>
-		                    @coupon.endDate.format("yyyy-MM-dd")
-		                  </font>
-		                </font>
-		              </dd>
-		            </dl>
-							}
-						</td>
-						<td class="w80">
-							<div class="dibBL vaM w80 p10">@coupon.perferentialPrice @Messages("coupon.currency")</div>
-						</td>
-					}
-				}
-			}
-		}
-	  @if(!Reservation.findResvItemsForType(reservation.resvItems).isEmpty) {
-	  	<th class="w170 bgLGray b" rowspan="@Reservation.findResvItemsForType(reservation.resvItems).size">@Messages("reservation.menu")</th>
-	  	@for(reservItem <- Reservation.findResvItemsForType(reservation.resvItems)) {
-	  		<td class="w478 p10">
-		  		@if(reservItem.resvType == "menu") {
-		  			@Menu.findOneById(reservItem.mainResvObjId) match {
-		  				case None => {}
-		  				case Some(menu) => {
-		  					<ul class="couponMenuIcons mT5 fs10 cFix">
-									@for(service <- menu.serviceItems) { 
-			                 <li class="couponMenuIcon mB5">
-			                 <font>
-			                   <font>
-			                     @Messages("ServiceType.serviceTypeName." + service.serviceType)
-			                   </font>
-			                 </font>
-			                 </li>
-			                }
-								</ul>
-		  					<div class="mT5 b fs12 cFix">
-		              <p class="fl">
-		                @for(serviceItem <- menu.serviceItems) {
-		                  @serviceItem.serviceName
-		                  @if(menu.serviceItems.indexOf(serviceItem) != ((menu.serviceItems).size -1)) {
-		                    @Messages("menu.addMark") 
-		                  }
-		                } 
-		              </p>
-		            </div>
-		            <td class="w80">
-									<div class="dibBL vaM w80 p10">@menu.originalPrice @Messages("coupon.currency")</div>
-								</td>
-		  				}
-		  			}
-		  		}
-		  		@if(reservItem.resvType == "service") {
-		  			@Service.findOneById(reservItem.mainResvObjId) match {
-		  				case None => {}
-		  				case Some(service) => {
-		            <div class="">
-		              <div class="w560 b fs12 cFix">
-		                <p class="fl">
-		                  @service.serviceName
-		                </p>
-		              </div>
-		            </div>
-		            <p class="mT5 fgGray fs10">
-		              @service.description
-		            </p>
-		            <td class="w80">
-									<div class="dibBL vaM w80 p10">@service.price @Messages("coupon.currency")</div>
-								</td>
-		  				}
-		  			}
-		  		}
-	  		</td>
-	  	}
-	  }
-	</tr>
-	<tr>
-		<th class="w170 bgLGray b">@Messages("reservation.totalPrice")</th>
-		<td class="lh18 p10" colspan="2">
-			<div class="dibBL vaM w295">@reservation.price @Messages("coupon.currency")</div>
-				<p><div class="fgOrange dibBL vaM fs10 pR5 pL1e txt1e w256">@Messages("reservation.totalPriceMsg")</div></p>
-			</td>
-		</tr>
-	</tbody>
+    <tbody>
+        <tr>
+            @for(reservItem <- reservation.resvItems) {
+                @if(reservItem.resvType == "coupon") {
+                    <th class="w170 bgLGray b">@Messages("reservation.resvCoupon")</th>
+                    @Coupon.findOneById(reservItem.mainResvObjId) match {
+                        case None => {}
+                        case Some(coupon) => {
+                            <td class="w478 p10">
+                                <ul class="couponMenuIcons mT5 fs10 cFix">
+                                @for(service <- coupon.serviceItems) {
+                                    <li class="couponMenuIcon mB5">
+                                        <font>
+                                            <font>
+                                            @Messages("ServiceType.serviceTypeName." + service.serviceType)
+                                            </font>
+                                        </font>
+                                    </li>
+                                }
+                                </ul>
+                                <div class="mT5 b fs12 cFix"><p class="pT5">@coupon.couponName</p></div>
+                                @if(contentType == "confirmInfo") {
+                                    <dl class="mT10">
+                                        <dt class="di fgPink">
+                                            <font>
+                                                <font>
+                                                @Messages("coupon.presentTime")
+                                                </font>
+                                            </font>
+                                        </dt>
+                                        <dd class="di mR10 pR10 fgGray bdLGrayR">
+                                            <font>
+                                                <font>
+                                                @coupon.presentTime
+                                                </font>
+                                            </font>
+                                        </dd>
+                                        <dt class="di fgPink">
+                                            <font>
+                                                <font>
+                                                @Messages("coupon.useConditions")
+                                                </font>
+                                            </font>
+                                        </dt>
+                                        <dd class="di mR10 pR10 fgGray bdLGrayR">
+                                            <font>
+                                                <font>
+                                                @coupon.useConditions
+                                                </font>
+                                            </font>
+                                        </dd>
+                                        <dt class="di fgPink">
+                                            <font>
+                                                <font>
+                                                @Messages("coupon.endDate")
+                                                </font>
+                                            </font>
+                                        </dt>
+                                        <dd class="di mR20 fgGray">
+                                            <font>
+                                                <font>
+                                                @coupon.endDate.format("yyyy-MM-dd")
+                                                </font>
+                                            </font>
+                                        </dd>
+                                    </dl>
+                                }
+                            </td>
+                            <td class="w80">
+                                <div class="dibBL vaM w80 p10">@coupon.perferentialPrice @Messages("coupon.currency")</div>
+                            </td>
+                        }
+                    }
+                }
+            }
+            @if(!Reservation.findResvItemsForType(reservation.resvItems).isEmpty) {
+                <th class="w170 bgLGray b" rowspan="@Reservation.findResvItemsForType(reservation.resvItems).size">@Messages("reservation.menu")</th>
+                @for(reservItem <- Reservation.findResvItemsForType(reservation.resvItems)) {
+                    <td class="w478 p10">
+                    @if(reservItem.resvType == "menu") {
+                        @Menu.findOneById(reservItem.mainResvObjId) match {
+                            case None => {}
+                            case Some(menu) => {
+                                <ul class="couponMenuIcons mT5 fs10 cFix">
+                                @for(service <- menu.serviceItems) {
+                                    <li class="couponMenuIcon mB5">
+                                        <font>
+                                            <font>
+                                            @Messages("ServiceType.serviceTypeName." + service.serviceType)
+                                            </font>
+                                        </font>
+                                    </li>
+                                }
+                                </ul>
+                                <div class="mT5 b fs12 cFix">
+                                    <p class="fl">
+                                    @for(serviceItem <- menu.serviceItems) {
+                                        @serviceItem.serviceName
+                                        @if(menu.serviceItems.indexOf(serviceItem) != ((menu.serviceItems).size - 1)) {
+                                            @Messages("menu.addMark")
+                                        }
+                                    }
+                                    </p>
+                                </div>
+                    <td class="w80">
+                        <div class="dibBL vaM w80 p10">@menu.originalPrice @Messages("coupon.currency")</div>
+                    </td>
+                }
+                }
+                }
+                    @if(reservItem.resvType == "service") {
+                        @Service.findOneById(reservItem.mainResvObjId) match {
+                            case None => {}
+                            case Some(service) => {
+                                <div class="">
+                                    <div class="w560 b fs12 cFix">
+                                        <p class="fl">
+                                        @service.serviceName
+                                        </p>
+                                    </div>
+                                </div>
+                                <p class="mT5 fgGray fs10">
+                                @service.description
+                                </p>
+                                <td class="w80">
+                                    <div class="dibBL vaM w80 p10">@service.price @Messages("coupon.currency")</div>
+                                </td>
+                            }
+                        }
+                    }
+                    </td>
+                }
+            }
+        </tr>
+        <tr>
+            <th class="w170 bgLGray b">@Messages("reservation.totalPrice")</th>
+            <td class="lh18 p10" colspan="2">
+                <div class="dibBL vaM w295">@reservation.price @Messages("coupon.currency")</div>
+                <p><div class="fgOrange dibBL vaM fs10 pR5 pL1e txt1e w256">@Messages("reservation.totalPriceMsg")</div></p>
+            </td>
+        </tr>
+    </tbody>
 </table>

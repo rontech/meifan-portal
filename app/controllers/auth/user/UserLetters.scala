@@ -29,8 +29,9 @@ import scala.concurrent._
 import ExecutionContext.Implicits.global
 import play.api.templates.Html
 import controllers._
+import com.meifannet.framework.MeifanNetCustomerApplication
 
-object UserLetters extends Controller with AuthElement with UserAuthConfigImpl {
+object UserLetters extends MeifanNetCustomerApplication {
   val pageSize: Int = 5 //每页显示记录
 
   val userLetterForm: Form[UserLetter] = Form(

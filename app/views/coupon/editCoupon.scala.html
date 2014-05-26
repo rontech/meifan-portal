@@ -4,173 +4,173 @@
 @import helper.twitterBootstrap._
 
 <div>
-  <ul class="tabInfoTitle">
-    <li class="fl selected">
-      @Messages("coupon.updateCouponArea")
-    </li>        
-  </ul>
+    <ul class="tabInfoTitle">
+        <li class="fl selected">
+        @Messages("coupon.updateCouponArea")
+        </li>
+    </ul>
 </div>
 <div class = "mT40">
-@helper.form(auth.routes.Coupons.updateCoupon(coupon.id), 'id -> "couponForm",'name ->"couponForm") {
-  <input type="hidden" name="salonId" value="@salon.id" />
-  @if(couponForm.hasGlobalErrors) { 
-     <div>
-       <p>@couponForm.globalError.get.message<p>
-     </div>
-   }
-   
-   <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
-    <tbody>
-      <tr>
-        <th>
-          <!-- -->
-          <div class="dibBL vaM w154">
-            <font class="cR">*</font>
-              @Messages("coupon.couponName")
-          </div>
-        </th>
-        <td>
-          <div class="inputField">
-            @inputText(couponForm("couponName"),
-              'id ->"couponNameReadOnly",
-              '_label -> None,
-              'readonly ->true)
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <!-- -->
-          <div class="dibBL vaM w154">
-            <font class="cR">*</font>
-              @Messages("coupon.serviceArea")
-          </div>
-        </th>
-        <td>
-          <div class="inputField">
-            @input(field = couponForm("serviceItems"),
-              '_label ->None){(id,name,value,args) =>
-               @for(service <- services) {
-                 <div class="serviceItemArea">
-                   @if(Service.getServiceIdList(coupon.serviceItems).contains(service.id)) {
-                     <input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id" value = "@service.id" checked="checked">@service.serviceName
-                   } else {
-                     <input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id" value = "@service.id">@service.serviceName
-                   }
-                 </div>
-               }
-            }
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <!-- -->
-          <div class="dibBL vaM w154">
-            <font class="cR">*</font>
-              @Messages("coupon.perferentialPrice")
-          </div>
-        </th>
-        <td>
-          <div class="inputField">
-            @inputText(couponForm("perferentialPrice"),
-              '_label -> None,
-              '_help -> "",
-              'id -> "price")
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <!-- -->
-          <div class="dibBL vaM w154">
-            <font class="cR">*</font>
-              @Messages("coupon.startDate")
-          </div>
-        </th>
-        <td>
-          <div class="inputField">
-            @input(field = couponForm("startDate"),
-              '_help -> "",
-              '_label -> None){(id, name, value, _) =>
-              <input class="Wdate" id = "startDate" type="text" name="@name" value="@value" onClick="WdatePicker() " onblur="checkedStartAndEndDate() ">
-            }
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <!-- -->
-          <div class="dibBL vaM w154">
-            <font class="cR">*</font>
-              @Messages("coupon.endDate")
-          </div>
-        </th>
-        <td>
-          <div class="inputField">
-            @input(field = couponForm("endDate"),
-              '_help -> "",
-              '_label -> None){(id, name, value, _) =>
-              <input class="Wdate" id = "endDate" type="text" name="@name" value="@value" onClick="WdatePicker() " onblur="checkedStartAndEndDate() ">
-            }
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <!-- -->
-          <div class="dibBL vaM w154">
-            <font class="cR">*</font>
-              @Messages("coupon.useConditions")
-          </div>
-        </th>
-        <td>
-          <div class="inputField">
-            @textarea(couponForm("useConditions"),
-              '_label -> None)
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <!-- -->
-          <div class="dibBL vaM w154">
-            <font class="cR">*</font>
-              @Messages("coupon.presentTime")
-          </div>
-        </th>
-        <td>
-          <div class="inputField">
-            @textarea(couponForm("presentTime"),
-              '_label -> None)
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <!-- -->
-          <div class="dibBL vaM w154">
-            <font class="cR">*</font>
-              @Messages("coupon.description")
-          </div>
-        </th>
-        <td>
-          <div class="inputField">
-            @textarea(couponForm("description"),
-              '_label -> None,
-              'rows -> 3,
-              'cols -> 40)
-          </div>
-        </td>
-      </tr>
-     </tbody>
-  </table>
-  
-  <div class="btnArea">
-    <input type = "button" class = "buttons" value="@Messages("common.submit")" onclick="checksForCoupon();">
-        
-    <a href="@auth.routes.Salons.myCoupon"><input type = "button" class = "buttons" value="@Messages("common.backUp")"></a>
-  </div>
+@helper.form(auth.routes.Coupons.updateCoupon(coupon.id), 'id -> "couponForm", 'name -> "couponForm") {
+    <input type="hidden" name="salonId" value="@salon.id" />
+    @if(couponForm.hasGlobalErrors) {
+        <div>
+            <p>@couponForm.globalError.get.message<p>
+        </div>
+    }
+
+    <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+        <tbody>
+            <tr>
+                <th>
+                        <!-- -->
+                    <div class="dibBL vaM w154">
+                        <font class="cR">*</font>
+                        @Messages("coupon.couponName")
+                    </div>
+                </th>
+                <td>
+                    <div class="inputField">
+                    @inputText(couponForm("couponName"),
+                        'id -> "couponNameReadOnly",
+                        '_label -> None,
+                        'readonly -> true)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                        <!-- -->
+                    <div class="dibBL vaM w154">
+                        <font class="cR">*</font>
+                        @Messages("coupon.serviceArea")
+                    </div>
+                </th>
+                <td>
+                    <div class="inputField">
+                    @input(field = couponForm("serviceItems"),
+                        '_label -> None) { (id, name, value, args) =>
+                        @for(service <- services) {
+                            <div class="serviceItemArea">
+                            @if(Service.getServiceIdList(coupon.serviceItems).contains(service.id)) {
+                                <input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id" value = "@service.id" checked="checked"> @service.serviceName
+                            } else {
+                                <input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id" value = "@service.id">@service.serviceName
+                                }
+                            </div>
+                        }
+                    }
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                        <!-- -->
+                    <div class="dibBL vaM w154">
+                        <font class="cR">*</font>
+                        @Messages("coupon.perferentialPrice")
+                    </div>
+                </th>
+                <td>
+                    <div class="inputField">
+                    @inputText(couponForm("perferentialPrice"),
+                        '_label -> None,
+                        '_help -> "",
+                        'id -> "price")
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                        <!-- -->
+                    <div class="dibBL vaM w154">
+                        <font class="cR">*</font>
+                        @Messages("coupon.startDate")
+                    </div>
+                </th>
+                <td>
+                    <div class="inputField">
+                    @input(field = couponForm("startDate"),
+                        '_help -> "",
+                        '_label -> None) { (id, name, value, _) =>
+                        <input class="Wdate" id = "startDate" type="text" name="@name" value="@value" onClick="WdatePicker ( ) " onblur="checkedStartAndEndDate ( ) ">
+                    }
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                        <!-- -->
+                    <div class="dibBL vaM w154">
+                        <font class="cR">*</font>
+                        @Messages("coupon.endDate")
+                    </div>
+                </th>
+                <td>
+                    <div class="inputField">
+                    @input(field = couponForm("endDate"),
+                        '_help -> "",
+                        '_label -> None) { (id, name, value, _) =>
+                        <input class="Wdate" id = "endDate" type="text" name="@name" value="@value" onClick="WdatePicker ( ) " onblur="checkedStartAndEndDate ( ) ">
+                    }
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                        <!-- -->
+                    <div class="dibBL vaM w154">
+                        <font class="cR">*</font>
+                        @Messages("coupon.useConditions")
+                    </div>
+                </th>
+                <td>
+                    <div class="inputField">
+                    @textarea(couponForm("useConditions"),
+                        '_label -> None)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                        <!-- -->
+                    <div class="dibBL vaM w154">
+                        <font class="cR">*</font>
+                        @Messages("coupon.presentTime")
+                    </div>
+                </th>
+                <td>
+                    <div class="inputField">
+                    @textarea(couponForm("presentTime"),
+                        '_label -> None)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                        <!-- -->
+                    <div class="dibBL vaM w154">
+                        <font class="cR">*</font>
+                        @Messages("coupon.description")
+                    </div>
+                </th>
+                <td>
+                    <div class="inputField">
+                    @textarea(couponForm("description"),
+                        '_label -> None,
+                        'rows -> 3,
+                        'cols -> 40)
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="btnArea">
+        <input type = "button" class = "buttons" value="@Messages("common.submit")" onclick="checksForCoupon ( ) ;">
+
+        <a href="@auth.routes.Salons.myCoupon"><input type = "button" class = "buttons" value="@Messages("common.backUp")"></a>
+    </div>
 }
 </div>
 

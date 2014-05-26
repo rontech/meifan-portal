@@ -37,8 +37,9 @@ import models.StylistApply
 import models.OptContactMethod
 import models.Address
 import play.api.templates.Html
+import com.meifannet.framework.MeifanNetCustomerApplication
 
-object Users extends Controller with LoginLogout with AuthElement with UserAuthConfigImpl {
+object Users extends MeifanNetCustomerApplication {
 
   //login form for user
   val loginForm = Form(mapping(
@@ -240,7 +241,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * enter in logged user's home page
+   * Redirect to logged user's home page
    * @return
    */
   def myPage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
@@ -303,7 +304,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
   }
 
   /**
-   * Handler the reqest of user's applying stylist
+   * Handler the request of user's applying stylist
    * @return
    */
   def commitStylistApply = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
@@ -316,7 +317,7 @@ object Users extends Controller with LoginLogout with AuthElement with UserAuthC
         case (stylistApply) => {
           Stylist.save(stylistApply.stylist.copy(stylistId = user.id))
           Stylist.updateImages(stylistApply.stylist, user.userPics)
-          Salon.findByAccountId(stylistApply.salonAccountId).map { salon =>
+          Salon.findOneByAccountId(stylistApply.salonAccountId).map { salon =>
             val applyRecord = new SalonStylistApplyRecord(new ObjectId, salon.id, user.id, 1, new Date, 0, None)
             SalonStylistApplyRecord.save(applyRecord)
             Redirect(controllers.auth.routes.Stylists.updateStylistImage("user"))

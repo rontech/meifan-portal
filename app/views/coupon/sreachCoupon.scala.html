@@ -4,42 +4,44 @@
 @import helper._
 
 <div class="mT40 pr" id="sreachConditionArea">
-<p class="narrowDownPanelArrow">◆</p>
-@form(auth.routes.Coupons.findCoupons, 'id -> "salonCouponConditionForm", 'name -> "bt_salonCouponActionForm") {
-  <div style="display:none;">
-    <input type="hidden" name="org.apache.struts.taglib.html.TOKEN" value="25a60a6adbc21e6f516eaa08c0cf87a6">
-  </div>
-  <input type="hidden" name="couponTypeCd" value=""><input type="hidden" name="typeSearch" value="submit">
-  <table summary="coupon" class="wFull bgThNml bdCell pCell10 bgWhite" cellspacing="0">
-    <tbody>
-      <tr>
-        <th class="w100 vaM">@Messages("coupon.menu")</th>
-        <td>
-          <ul class="cFix w560 inputField" id="jsiMenuChecks">
-            @input(field = condtionForm("serviceTypes"), args = '_label ->None){(id,name,value,args) =>
-             @for(serviceType <- serviceTypes) {
-               <li class="fl w112 serviceTypeItem">
-                 @if(condtionForm.get.serviceTypes.contains(serviceType)) {
-                 <input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF" checked ="checked">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
-                 } else {
-                   <input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName", value = "@serviceType.serviceTypeName" class="cbF">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
-                 }
-               </li>
-             }
-           }
-          </ul>
-        </td>
-        <td align="center" valign="middle" rowspan="2" class="w80 bgSBrown inputField">
-          <input type="submit" name="searchT" value="@Messages("coupon.search")" class="searchBtn">
-        </td>
-      </tr>
-      <tr>
-        <th class="w100 vaM">@Messages("coupon.searchOption")</th>
-        <td class="vaM">
-          <input type="checkbox" name="subMenuFlg" value="1" id="menuCategoryEtc" checked="checked" class="cbF"><label for="menuCategoryEtc">@Messages("coupon.searchOptionContent")</label>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  }
+    <p class="narrowDownPanelArrow">◆</p>
+    @form(auth.routes.Coupons.findCoupons, 'id -> "salonCouponConditionForm", 'name -> "bt_salonCouponActionForm") {
+        <div style="display : none ;">
+            <input type="hidden" name="org.apache.struts.taglib.html.TOKEN" value="25a60a6adbc21e6f516eaa08c0cf87a6">
+        </div>
+        <input type="hidden" name="couponTypeCd" value=""> <input type="hidden" name="typeSearch" value="submit">
+        <table summary="coupon" class="wFull bgThNml bdCell pCell10 bgWhite" cellspacing="0">
+            <tbody>
+                <tr>
+                    <th class="w100 vaM">@Messages("coupon.menu")</th>
+                    <td>
+                        <ul class="cFix w560 inputField" id="jsiMenuChecks">
+                        @input(field = condtionForm("serviceTypes"), args = '_label -> None) { (id, name, value, args) =>
+                            @for(serviceType <- serviceTypes) {
+                                <li class="fl w112 serviceTypeItem">
+                                @if(condtionForm.get.serviceTypes.contains(serviceType)) {
+                                    <input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName"
+                                    , value = "@serviceType.serviceTypeName" class="cbF" checked ="checked">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
+                                } else {
+                                    <input type = "checkbox" class="serviceItem" name = "serviceTypes[@serviceTypes.indexOf(serviceType)].serviceTypeName"
+                                    , value = "@serviceType.serviceTypeName" class="cbF">@Messages("ServiceType.serviceTypeName." + serviceType.serviceTypeName)
+                                }
+                                </li>
+                            }
+                        }
+                        </ul>
+                    </td>
+                    <td align="center" valign="middle" rowspan="2" class="w80 bgSBrown inputField">
+                        <input type="submit" name="searchT" value="@Messages("coupon.search")" class="searchBtn">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w100 vaM">@Messages("coupon.searchOption")</th>
+                    <td class="vaM">
+                        <input type="checkbox" name="subMenuFlg" value="1" id="menuCategoryEtc" checked="checked" class="cbF"><label for="menuCategoryEtc">@Messages("coupon.searchOptionContent")</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
 </div>

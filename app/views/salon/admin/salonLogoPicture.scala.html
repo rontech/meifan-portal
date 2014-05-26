@@ -4,7 +4,7 @@
 
 @mySalonPictureMain("my-logoPicture", salon){
   <div id="salonImgLogo" class="mT40">
-    @helper.form(auth.routes.Salons.imageUpload, 'enctype -> "multipart/form-data") {
+    @helper.form(auth.routes.Salons.updateLogoPicture(), 'enctype -> "multipart/form-data") {
     <input type="file" id="filePhoto" name="logo" style="width:50" /> 
     <button type="submit" onclick='return check();'>@Messages("user.changeImage")</button>
     <img src="#" id="target"/>

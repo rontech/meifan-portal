@@ -34,8 +34,13 @@ import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
 import models._
+import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 
-object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl {
+/**
+ * this object is major to get blog by different conditions
+ * don't need the auth
+ */
+object Blogs extends MeifanNetCustomerOptionalApplication {
 
   // Will set timezone according to locale the user selected later if 
   //     we need to make our site as an international size which can 
@@ -49,8 +54,11 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
   ymFormat.setTimeZone(chinaTz)
 
   /**
-   * 取得店铺指定理发师的blogs
-   * Get all the blogs of a required stylist salon.
+   * get all blogs of the stylist in a salon
+   *
+   * @param salonId the id of salon which the stylist is in
+   * @param stylistId the stylistId of the stylist which is required
+   * @return
    */
   def getAllBlogsOfStylist(salonId: ObjectId, stylistId: ObjectId) = StackAction { implicit request =>
     val user = loggedIn
@@ -75,8 +83,11 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
   }
 
   /**
-   * 取得店铺指定年月的所有博客
-   * Get all the blogs of the required month of a salon.
+   * Get all blogs of the required month of a salon
+   *
+   * @param salonId the id of salon
+   * @param month the month which we want to see blogs in it
+   * @return
    */
   def getAllBlogsOfSalonByMonth(salonId: ObjectId, month: String) = StackAction { implicit request =>
     val user = loggedIn
@@ -96,8 +107,13 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
   }
 
   /**
-   * 店铺的单篇博客显示画面:
-   * 除了本篇博客内容外，还需要显示：最新博客列表，按店铺技师分类，按日期分类等数据...
+   * get a required blog of a salon
+   *
+   * besides we will get the newest blogs ,the blogs categoried by stylist and month
+   *
+   * @param salonId the id of salon
+   * @param blogId the id of the given blog
+   * @return
    */
   def getOneBlogOfSalon(salonId: ObjectId, blogId: ObjectId) = StackAction { implicit request =>
     val loginUser = loggedIn
@@ -130,7 +146,11 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
   }
 
   /**
-   * 查找blog的作者
+   * get the author of the blog
+   *
+   * @param salonId the id of salon
+   * @param userId the userId of user
+   * @return
    */
   def getAuthorOfSalonBlog(salonId: ObjectId, userId: String) = Action {
     var stylist = Stylist.findStylistDtlByUserId(userId)
@@ -150,7 +170,10 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
   }
 
   /**
-   * 取得店铺所有的blog
+   * get all blogs of the given salon
+   *
+   * @param salonId the id of salon
+   * @return
    */
   def getAllBlogsOfSalon(salonId: ObjectId) = StackAction { implicit request =>
     val user = loggedIn
@@ -170,7 +193,10 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
   }
 
   /**
-   * 查看用户的blog
+   * get all blogs of the given user
+   *
+   * @param userId the userId of the given user
+   * @return
    */
   def getAllBlogsOfUser(userId: String) = StackAction { implicit request =>
     var blogList: List[Blog] = Nil
@@ -195,8 +221,10 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
   }
 
   /**
-   * 显示某一条blog
-   * 通过blog的id找到blog
+   * get the blog by the given blogId
+   *
+   * @param blogId the id of the given blog
+   * @return
    */
   def getOneBlogById(blogId: ObjectId) = StackAction { implicit request =>
     val blog = Blog.findOneById(blogId)
@@ -226,8 +254,11 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
  * Internal Functions
  *------------------------*/
   /**
-   * 取得沙龙注册日期到当前时间的年月列表，
+   * 取得沙龙注册日期到当前时间的年月列表
    * 作为沙龙博客的年月分类目录
+   *
+   * @param salon the salon objecet
+   * @return
    */
   def getYMCatesOfSalon(salon: Salon) = {
 
@@ -240,6 +271,11 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
   /**
    * 输入参数: 起始日期，终止日期(yyyy/MM/dd)
    * 返回值: 给定期间内的年月列表，形如(yyyyMM)
+   * get a list of month between startTime and endTime
+   *
+   * @param startTime the start of range
+   * @param endTime the end of range
+   * @return
    */
   def getYMCates(startTime: String, endTime: String) = {
 
@@ -265,7 +301,12 @@ object Blogs extends Controller with OptionalAuthElement with UserAuthConfigImpl
   }
 
   /**
-   * 根据一个年月找到blog的更新时间在一个范围内的blog
+   * 根据一个年月找到blog的创建时间在一个范围内的blog
+   * get the blogs by the given salonId and the given month
+   *
+   * @param salonId the id of salon
+   * @param yM the given year and month
+   * @return
    */
   def getBlogBySalonAndYM(salonId: ObjectId, yM: String) = {
     var listBlogYM: List[Blog] = Nil

@@ -29,15 +29,22 @@ import com.mongodb.casbah.Imports.ObjectId
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
+import com.meifannet.framework.MeifanNetCustomerApplication
 
-object Comments extends Controller with AuthElement with UserAuthConfigImpl {
+/**
+ * this object is to add comment to blog and coupon and delete comment of blog
+ */
+object Comments extends MeifanNetCustomerApplication {
 
+  /** form of adding comment */
   val formAddComment = Form((
     "content" -> text))
 
-  val formHuifuComment = Form((
+  /** form of replying comment */
+  val formReplyComment = Form((
     "content" -> text))
 
+  /** form of adding comment to coupon */
   val commentToCouponForm = Form(tuple(
     "complex" -> number,
     "atmosphere" -> number,
@@ -47,7 +54,13 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
     "content" -> text))
 
   /**
-   * 增加评论，后台逻辑
+   * handle to add comment
+   *
+   * the func is major to add comment to blog
+   *
+   * @param commentObjId  the objectId of comment record
+   * @param commentObjType the objectType of comment record
+   * @return
    */
   def addComment(commentObjId: ObjectId, commentObjType: Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
@@ -74,7 +87,13 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
   }
 
   /**
-   * 对coupon做评论
+   * add comment to coupon
+   *
+   * when the reservation func is ok, change this func to add comment to reservation
+   *
+   * @param commentObjId the objectId of comment record
+   * @param commentObjType the objectType of comment record
+   * @return
    */
   def addCommentToCoupon(commentObjId: ObjectId, commentObjType: Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
@@ -96,13 +115,16 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
   }
 
   /**
-   * 博客回复，后台逻辑
+   * reply comment of one blog
+   *
+   * @param commentObjId the objectId of comment record
+   * @param blogId the id of blog
+   * @param commentObjType the objectType of comment record
+   * @return
    */
   def reply(commentObjId: ObjectId, blogId: ObjectId, commentObjType: Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
-    //      val userId = request.session.get("userId").get
-    // TODO
     val user = loggedIn
-    formHuifuComment.bindFromRequest.fold(
+    formReplyComment.bindFromRequest.fold(
       //处理错误
       errors => BadRequest(views.html.comment.errorMsg("")),
       {
@@ -114,18 +136,16 @@ object Comments extends Controller with AuthElement with UserAuthConfigImpl {
   }
 
   /**
-   * blog的作者删除评论
+   * delete comment only the author of blog can
+   *
+   * @param commentId the id of comment record
+   * @param commentObjId the objectId of comment record
+   * @return
    */
   def delete(commentId: ObjectId, commentObjId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     Comment.delete(commentId)
-    //    Redirect(routes.Comments.find(commentedId))
     Redirect(noAuth.routes.Blogs.getOneBlogById(commentObjId))
   }
-
-  /**
-   * 管理员删除后台删除评论
-   */
-  def deleteAdmin() = TODO
 
 }
 

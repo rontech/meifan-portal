@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="@routes.Assets.at("stylesheets/salon/jquery.bigautocomplete.css") type="text/css" />
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonInfo.css")">
 
-
+<script src="@routes.Assets.at("javascripts/jquery.cookie.js")" type="text/javascript"> </script>
 <script src="@routes.Assets.at("javascripts/swfupload/jquery-1.8.2.min.js")" type="text/javascript"></script>
 <script src="@routes.Assets.at("javascripts/jquery-1.7.2.min.js")" type="text/javascript"></script>
 <script src="@routes.Assets.at("javascripts/salonSearch/salonSearch.js")" type="text/javascript"></script>
@@ -72,7 +72,7 @@
       <li><input id="keyword" name="keyWord" type="text" value="@searchParaForSalon.keyWord" placeholder="" onblur="hidekeys();" autocomplete="off" class="text" onkeyup="getSuggest(this.value, event);setPosition(getIdOBJ('keyword'));updown(event)" onkeydown="if(getKeyCode(event) == 13)form_submit();">
         <div id="dSuggest" style="display:none;width:17%;" ></div>
       </li>
-      <li><input name="" type="button" onclick="clickSalonSearch();" class="salonSearchBtn" value = @Messages("hair.search")></li>
+      <li><input name="" type="button" onclick="clickSalonSearch();" class="salonSearchBtn" value="@Messages("common.generalSearch")"></li>
     </ul>
     <div id="auto"></div>
     
@@ -91,7 +91,7 @@
       </div>
       <ul class="place" id="locationTab">
         <li class="active"><a href="javascript:changeArea('getcity_name');" rel="nofollow" method="l_3" class="cur">@Messages("salonSearchPage.region")<span class="iconjt"></span></a></li>
-        <li class=""><a href="javascript:;" rel="nofollow" method="l_6" class="cur">@Messages("salonSearchPage.businessArea")<span class="iconjt"></span></a></li>
+        @*<li class=""><a href="javascript:;" rel="nofollow" method="l_6" class="cur">@Messages("salonSearchPage.businessArea")<span class="iconjt"></span></a></li>*@
       </ul>
     </div>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/location/changeArea.js")"></script>

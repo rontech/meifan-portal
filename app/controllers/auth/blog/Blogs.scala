@@ -32,9 +32,20 @@ import se.radley.plugin.salat.Binders._
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
+import com.meifannet.framework.MeifanNetCustomerApplication
 
-object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
+/**
+ * this object is to CUD(create,update,delete) blog
+ */
+object Blogs extends MeifanNetCustomerApplication {
 
+  /**
+   * create a new form to create a blog
+   *
+   * @param userId the userId of user,authorId
+   * @param id the id of blog
+   * @return
+   */
   def newBlogForm(userId: String, id: ObjectId = new ObjectId) = Form(
     mapping(
       "id" -> ignored(id),
@@ -53,7 +64,10 @@ object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
       })
 
   /**
-   * 把model和mapping，view统一
+   * let a list to string
+   *
+   * @param list the given list to do transform
+   * @return
    */
   def listToString(list: List[String]) = {
     var strs: String = ""
@@ -66,6 +80,13 @@ object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
     strs
   }
 
+  /**
+   * a form to show or update blog
+   *
+   * @param userId the userId of user,authorId
+   * @param id the id of blog
+   * @return
+   */
   def blogForm(userId: String, id: ObjectId = new ObjectId) = Form(
     mapping(
       "id" -> ignored(id),
@@ -85,7 +106,9 @@ object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
       })
 
   /**
-   * 创建blog，跳转
+   * direct to the page of creating a blog
+   *
+   * @return
    */
   def newBlog = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
@@ -95,7 +118,9 @@ object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
   }
 
   /**
-   * 新建blog，后台逻辑
+   * handle to create a blog
+   *
+   * @return
    */
   def writeBlog = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
@@ -112,7 +137,10 @@ object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
   }
 
   /**
-   * 编辑blog
+   * direct to the page of editing the given blog
+   *
+   * @param blogId the id of the blog to be edited
+   * @return
    */
   def editBlog(blogId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
@@ -128,7 +156,10 @@ object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
   }
 
   /**
-   * 编辑blog，后台逻辑
+   * handle to edit the given blog
+   *
+   * @param blogId the id of the blog to be edited
+   * @return
    */
   def modBlog(blogId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
@@ -152,7 +183,10 @@ object Blogs extends Controller with AuthElement with UserAuthConfigImpl {
   }
 
   /**
-   * 用户删除blog
+   * delete the given blog, only the author of the blog can do this func
+   *
+   * @param blogId the id of the blog to be edited
+   * @return
    */
   def deleteBlog(blogId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
