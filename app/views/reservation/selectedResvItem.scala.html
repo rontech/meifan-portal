@@ -1,0 +1,200 @@
+@(resvItem: ResvItem)
+
+<table cellspacing="0" class="wFull bdCell pCell5 mT20">
+  <tbody>
+    <tr class="bgLGray2">
+      <th colspan="2" class="taC">
+        @if(resvItem.resvType == "coupon") {
+          已选择的优惠劵
+        } else {
+          @if(resvItem.resvType == "menu") {
+            已选择的菜单
+          } else {
+            已选择的服务
+          }
+        }
+      </th>
+      <th class="w100 taC">金额</th>
+      <th class="w110 taC">服务时长(预计)</th>
+    </tr>
+    @if(resvItem.resvType == "coupon") {
+      @Coupon.findOneById(resvItem.mainResvObjId) match {
+        case None => {NotFound}
+        case Some(coupon) => {
+          <tr>
+            <td class="w554 bgWhite">
+              <div class="w534 p10">
+                <div class="">
+                  <ul class="couponMenuIcons fs10 cFix">
+                  @for(service <- coupon.serviceItems) {
+                    <li class="couponMenuIcon mB5">
+                      <font>
+                        <font>
+                        @Messages("ServiceType.serviceTypeName." + service.serviceType)
+                        </font>
+                      </font>
+                    </li>
+                  }
+                  </ul>
+                </div>
+                <div class="mT5 b fs12 cFix">
+                  <p class="fl">
+                    <font>
+                      <font>
+                      @coupon.couponName
+                      </font>
+                    </font>
+                  </p>
+                </div>
+              </div>
+              <p class="mT10 fgGray fs10">
+                <font>
+                  <font class="">
+                  @coupon.description
+                  </font>
+                </font>
+              </p>
+              <dl class="mT10">
+                <dt class="di fgPink">
+                  <font>
+                    <font>
+                    @Messages("coupon.presentTime")
+                    </font>
+                  </font>
+                </dt>
+                <dd class="di mR10 pR10 fgGray bdLGrayR">
+                  <font>
+                    <font>
+                    @coupon.presentTime
+                    </font>
+                  </font>
+                </dd>
+                <dt class="di fgPink">
+                  <font>
+                    <font>
+                    @Messages("coupon.useConditions")
+                    </font>
+                  </font>
+                </dt>
+                <dd class="di mR10 pR10 fgGray bdLGrayR">
+                  <font>
+                    <font>
+                    @coupon.useConditions
+                    </font>
+                  </font>
+                </dd>
+                <dt class="di fgPink">
+                  <font>
+                    <font>
+                    @Messages("coupon.endDate")
+                    </font>
+                  </font>
+                </dt>
+                <dd class="di mR20 fgGray">
+                  <font>
+                    <font>
+                    @coupon.endDate.format("yyyy-MM-dd")
+                    </font>
+                  </font>
+                </dd>
+              </dl>
+              </div>
+            </td>
+            <td>
+              @coupon.perferentialPrice @Messages("coupon.currency")
+            </td>
+            <td>
+              @if((coupon.serviceDuration / 60) != 0) {
+                @(coupon.serviceDuration / 60)@Messages("reservation.hour")
+              }
+              @if((coupon.serviceDuration % 60) != 0) {
+                @(coupon.serviceDuration % 60)@Messages("reservation.minute")
+              }
+            </td>
+          </tr>
+        }
+      }
+    } else {
+      @if(resvItem.resvType == "menu") {
+        @Menu.findOneById(resvItem.mainResvObjId) match {
+          case None => {NotFound}
+          case Some(menu) => {
+            <tr>
+              <td class="w580 bgWhite">
+                <div class="w560 p10">
+                  <div class="">
+                    <div class="">
+                      <ul class="couponMenuIcons fs10 cFix">
+                      @for(service <- menu.serviceItems) {
+                        <li class="couponMenuIcon mB5">
+                        @Messages("ServiceType.serviceTypeName." + service.serviceType)
+                        </li>
+                      }
+                      </ul>
+                    </div>
+                    <div class="mT5 b fs12 cFix">
+                      <p class="fl">
+                      @for(serviceItem <- menu.serviceItems) {
+                        @serviceItem.serviceName
+                        @if(menu.serviceItems.indexOf(serviceItem) != ((menu.serviceItems).size - 1)) {
+                          @Messages("menu.addMark")
+                        }
+                      }
+                      </p>
+                    </div>
+                  </div>
+                  <p class="mT10 fgGray fs10">
+				          </p>
+                </div>
+              </td>
+              <td>
+                @menu.originalPrice @Messages("coupon.currency")
+              </td>
+              <td>
+                @if((menu.serviceDuration / 60) != 0) {
+                  @(menu.serviceDuration / 60)@Messages("reservation.hour")
+                }
+                @if((menu.serviceDuration % 60) != 0) {
+                  @(menu.serviceDuration % 60)@Messages("reservation.minute")
+                }
+              </td>
+            </tr>
+          }
+        }
+      } else {
+        @Service.findOneById(resvItem.mainResvObjId) match {
+          case None => {NotFound}
+          case Some(service) => {
+            <tr>
+              <td class="w580 bgWhite">
+                <div class="p10">
+                  <div class="">
+                    <div class="w560 b fs12 cFix">
+                      <p class="fl">
+                      @service.serviceName
+                      </p>
+                    </div>
+                  </div>
+                  <p class="mT5 fgGray fs10">
+                  @service.description
+                  </p>
+                </div>
+              </td>
+              <td>
+                @service.price @Messages("coupon.currency")
+              </td>
+              <td>
+                @if((service.duration / 60) != 0) {
+                  @(service.duration / 60)@Messages("reservation.hour")
+                }
+                @if((service.duration % 60) != 0) {
+                  @(service.duration % 60)@Messages("reservation.minute")
+                }
+              </td>
+            </tr>
+          }
+        }
+      }
+    }
+  </tbody>
+</table>

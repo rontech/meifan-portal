@@ -1,4 +1,4 @@
-@(stylist: Option[StylistDetailInfo])
+@(stylist: Option[StylistDetailInfo], buttonType : String = "")
 
 
 @stylist match {
@@ -40,7 +40,22 @@
       }
     </div>
     <div class="taC mT10">
-      <a href="#" class="bS db nominatedReserve mHA">@Messages("stylist.selectForReserv")</a>
+    	@if(buttonType == "checkStylistDate") {
+    		<a href="#" class="bS db nominatedReserve mHA">@Messages("reservation.checkStylistDate")</a>
+    	} else {
+    		@if(buttonType == "selectStylist") {
+    			@st.workInfo match {
+		        case None => {Not Found}
+		        case Some(wk) => {
+		          <div class="taC">
+		            <a href="@routes.Reservations.reservSelectStyle(wk.stylistId)" class="bS db nominatedReserve mHA">@Messages("stylist.selectForReserv")</a>
+		          </div>
+		        }
+		      }
+    		} else {
+    			<a href="#" class="bS db nominatedReserve mHA">@Messages("stylist.selectForReserv")</a>
+    		}
+    	}
     </div>
   }
 }

@@ -1,0 +1,26 @@
+@(salon: Salon, reservation: Reservation, styles: List[Style])
+
+<div class="yS reserveTitleOuter mT15">
+  <h3 class="yS reserveTitleInner pL10">@Messages("reservation.selectStyleMsg")</h3>
+</div>
+
+<div class="pH10">
+  <div class="titleBottom mT10">
+    <p class="fs16 fgBlack b pL5">@Messages("reservation.reservNoStyle")</p>
+  </div>
+</div>
+<div class="mT10 cFix">
+  <div class="mT10 pL15">
+    <a href="@auth.routes.Reservations.editReservInfo" class="bS db nominatedReserve">@Messages("reservation.reservNoStyle")</a>
+  </div>
+</div>
+<div class="fl w100p">
+@if(!styles.isEmpty) {
+  <div class="cFix titleBottom mB10 mT20">
+    <div class="pr">
+      <p class="fs16 fgBlack b pL5">@Messages("reservation.reservStyle")</p>
+    </div>
+  </div>
+  @views.html.style.styleGroup(styles, salon, "selectResvStyle")
+}
+</div>
