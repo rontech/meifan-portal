@@ -298,8 +298,8 @@ POST        /mySalon/updateCheckPictures                                        
 
 
 # Reservation add by sangsang-hu
-GET         /salon/reserve/salonId=:salonId&week=:week                           controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
-GET         /reserve/salonId=:salonId&id=:id&week=:week                          controllers.Reservations.reservSelectDate(salonId: ObjectId, resvType: String, id: ObjectId, week: Int)
+GET         /salon/reserve/:salonId/:week                           controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
+GET         /reserve/:salonId/:id/:week                          controllers.Reservations.reservSelectDate(salonId: ObjectId, resvType: String, id: ObjectId, week: Int)
 #GET        /salon/:salonId/reserve/schedule/:week                 controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
 
 #cancel current apply by user(dou)
