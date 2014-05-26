@@ -1,30 +1,30 @@
 @(navInSalon: String = "salon-basic", menuTab: String = "two", salon: Salon, navBar: List[(String, String)] = Nil)(content: Html)
 
 
-    @main(salon.salonName, "HairSalon", navBar) {
+  @main(salon.salonName, "HairSalon", navBar) {
 
-        <!-- ↓contents -->
+    <!-- ↓contents -->
 
-        <!-- ↓mainContents -->
-        <div id="salonMainContents">
-            @views.html.reservation.reservationTop(salon, menuTab)
+    <!-- ↓mainContents -->
+    <div id="salonMainContents">
+      @views.html.reservation.reservationTop(salon, menuTab)
 
-                <!-- ↓salonInfoBody -->
-                <!-- show different body contents according to the NAV tab. -->
-            @content
-                <!-- ↑salonInfoBody -->
+        <!-- ↓salonInfoBody -->
+        <!-- show different body contents according to the NAV tab. -->
+      @content
+        <!-- ↑salonInfoBody -->
 
-                <!-- ↓salonInfoFooter  -->
-            @views.html.salon.store.salonInfoFooter(navInSalon, salon)
-                <!-- ↑salonInfoFooter  -->
+        <!-- ↓salonInfoFooter  -->
+      @views.html.salon.store.salonInfoFooter(navInSalon, salon)
+        <!-- ↑salonInfoFooter  -->
 
-        </div>
-        <!-- ↑mainContents -->
+    </div>
+    <!-- ↑mainContents -->
 
-        <!-- ↓sideContents -->
-        @views.html.salon.store.rightColumn(user = None)
-        <!-- ↑sideContents -->
+    <!-- ↓sideContents -->
+    @views.html.salon.store.rightColumn(user = None)
+    <!-- ↑sideContents -->
 
-        <!-- ↑contents -->
+    <!-- ↑contents -->
 
-    }
+  }

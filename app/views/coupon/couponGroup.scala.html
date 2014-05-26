@@ -1,15 +1,15 @@
 @(coupons: Seq[Coupon], beforeSevernDate: java.util.Date)
 
 <ol>
-    @if(coupons.isEmpty) {
-        <div class="bgAlertMsg mT20">
-            <p class="alertMsg">@Messages("coupon.noCouponSearched")</p>
-        </div>
-    } else {
-        @for(coupon <- coupons) {
-            <li class="couponItem">
-            @views.html.coupon.couponItem(coupon, beforeSevernDate)
-            </li>
-        }
+  @if(coupons.isEmpty) {
+    <div class="bgAlertMsg mT20">
+      <p class="alertMsg">@Messages("coupon.noCouponSearched")</p>
+    </div>
+  } else {
+    @for(coupon <- coupons) {
+      <li class="couponItem">
+      @views.html.coupon.couponItem(coupon, beforeSevernDate)
+      </li>
     }
+  }
 </ol>

@@ -2,17 +2,17 @@
 
 @salonInfoMain(navInSalon = "salon-coupon", salon, navBar, user) {
 
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">
 
-    @views.html.coupon.couponSearchGroup(salon, condtionForm, serviceTypes)
+  @views.html.coupon.couponSearchGroup(salon, condtionForm, serviceTypes)
 
-    <!-- Get the Salon with all the coupons.  -->
-    @views.html.coupon.couponComponent(salon, coupons, beforeSevernDate)
+  <!-- Get the Salon with all the coupons.  -->
+  @views.html.coupon.couponComponent(salon, coupons, beforeSevernDate)
 
-    <!-- Get the Salon with all the menus.  -->
-    @views.html.menu.menuGroup(salon, menus)
+  <!-- Get the Salon with all the menus.  -->
+  @views.html.menu.menuGroup(salon, menus)
 
-    <!-- Get the Salon with all the services.  -->
-    @views.html.menu.menuGroupByType(salon, serviceByTypes)
+  <!-- Get the Salon with all the services.  -->
+  @views.html.menu.menuGroupByType(salon, serviceByTypes)
 
 }

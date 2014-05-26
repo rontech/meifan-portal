@@ -1,6 +1,6 @@
 @(salon: Salon, reservation: Reservation, styles: List[Style], navBar: List[(String, String)] = Nil)
 
-@reservationInfoMain(navInSalon = "HairSalon", "two", salon, navBar) {
+  @reservationInfoMain(navInSalon = "HairSalon", "two", salon, navBar) {
 
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/reservation.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
@@ -8,4 +8,4 @@
     @views.html.reservation.reservItemsInfo(reservation, "stylist")
 
     @views.html.reservation.reservSelectStyle(salon, reservation, styles)
-}
+  }

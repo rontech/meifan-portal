@@ -3,35 +3,35 @@
 @import helper.twitterBootstrap._
 
 @main("message") {
-    @views.html.reservation.reservStoreHead()
-    <div id="contents">
+  @views.html.reservation.reservStoreHead()
+  <div id="contents">
 
-        <div class="contentsTitleWrapper mT10">
-            <h2 class="contentsTitleInner">预约密码</h2>
-        </div>
-        <div class="mT10 pH10">
-            <div class="fgRed b mT5">确认本次预约，填写密码</div>
-            <form name="reAuthActionForm" method="get" action="/reservFinish">
-                <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT5">
-                    <tbody>
-                        <tr class="">
-                            <th class="w222"><div class="dibBL vaM w194">密码</div></th>
-                            <td class="vaT">
-                                <div class="vaT"><input type="password" name="password" class="tfF w115" maxlength="20" autocomplete="off"></div>
-                                <input type="text" name="dummy" style="display : none ;"> <p class="taR"><a href="javascript:void(0);" id="pwRemindLink" >
-                                忘记密码</a></p>
-                            </td>
-                        </tr>
-                    </tbody></table>
-                <div class="submitArea mT20">
-                    <div>
-                        <input type="hidden" name="vos" value="">
-                        <input type="hidden" name="mailSPO" value="">
-                    </div>
-                    <p><span class="btn btn2H32 w194 mHA"><span>
-                        <input type="submit" name="doReAuth" value="确认预约"></span></span></p>
-                </div>
-            </form></div>
+    <div class="contentsTitleWrapper mT10">
+      <h2 class="contentsTitleInner">预约密码</h2>
     </div>
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/hairReservation.css")">
+    <div class="mT10 pH10">
+      <div class="fgRed b mT5">确认本次预约，填写密码</div>
+      <form name="reAuthActionForm" method="get" action="/reservFinish">
+        <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT5">
+          <tbody>
+            <tr class="">
+              <th class="w222"><div class="dibBL vaM w194">密码</div></th>
+              <td class="vaT">
+                <div class="vaT"><input type="password" name="password" class="tfF w115" maxlength="20" autocomplete="off"></div>
+                <input type="text" name="dummy" style="display : none ;"> <p class="taR"><a href="javascript:void(0);" id="pwRemindLink" >
+                忘记密码</a></p>
+              </td>
+            </tr>
+          </tbody></table>
+        <div class="submitArea mT20">
+          <div>
+            <input type="hidden" name="vos" value="">
+            <input type="hidden" name="mailSPO" value="">
+          </div>
+          <p><span class="btn btn2H32 w194 mHA"><span>
+            <input type="submit" name="doReAuth" value="确认预约"></span></span></p>
+        </div>
+      </form></div>
+  </div>
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/hairReservation.css")">
 }
