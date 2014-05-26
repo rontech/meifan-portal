@@ -287,7 +287,6 @@ object Users extends MeifanNetCustomerApplication {
   def myReservation() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    println("aa " + Reservation.findReservByUserId(user.userId))
     Ok(views.html.user.myPageRes(user, followInfo))
   }
 
