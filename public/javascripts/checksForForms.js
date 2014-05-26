@@ -1218,3 +1218,27 @@ function checksForStyle() {
   }
   document.styleForm.submit();
 }
+
+/**
+ * 取得服务id，将其值存入cache中
+ * @param inputName 选择框id
+ */
+function getServiceId(inputName) {
+  var value = $('#service' + inputName).val();
+  var addFlg = true;
+  if($('#service' + inputName).prop('checked')) {
+	addFlg = "true";
+  } else {
+	addFlg = "false";
+  }
+
+  jsRoutes.controllers.Reservations.addResvService(value, addFlg).ajax({
+    async: false,
+    cache: false,
+    type: 'POST',
+    success: function (data) {
+    },
+    error: function (err) {
+    }
+  });
+}

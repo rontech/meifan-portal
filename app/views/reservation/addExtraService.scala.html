@@ -3,21 +3,28 @@
 @reservationInfoMain(navInSalon = "HairSalon", "one", salon, navBar) {
 
   <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/reservation.css")">
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">
 
   @views.html.reservation.selectedResvItem(resvItem)
 
   <div class="yS reserveTitleOuter mT20">
-    <h3 class="yS reserveTitleInner pL10">请选择额外的服务</h3>
+    <h3 class="yS reserveTitleInner pL10">@Messages("reservation.selectExtraService")</h3>
   </div>
 
   <div class="cFix fgOrange mT5">
     <ul class="di fl fs10">
-      <li class="mL20">※时间只是预估值，在店铺较忙的时候可能会有一些偏差。</li>
+      <li class="mL20">@Messages("reservation.resvTimeMsg")</li>
     </ul>
   </div>
 
-  @views.html.coupon.couponSearchGroup(salon, condtionForm, serviceTypes)
+  @views.html.reservation.resvServiceSearch(salon, condtionForm, serviceTypes)
 
-  @views.html.reservation.selectServicesGroup(salon, serviceByTypes)
+  @views.html.reservation.selectServicesGroup(salon, reservation, serviceByTypes)
+
+  <div class="mT5 pr submitArea">
+    <a href="@routes.Reservations.getTotalOfServices" class="bS db nominatedReserve mHA" width="200px">
+    @Messages("reservation.next")
+    </a>
+  </div>
 
 }

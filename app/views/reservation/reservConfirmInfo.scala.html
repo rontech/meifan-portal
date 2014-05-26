@@ -63,7 +63,7 @@
     </tbody>
   </table>
 
-  @views.html.reservation.showReservItems(reservation, "confirmInfo")
+  @views.html.reservation.showReservItems(reservation, "confirmInfo", Reservation.findResvItemsForType(reservation.resvItems))
 
   <table cellspacing="0" class="wFull bdCell fgThNml pCellV5H5 mT10">
     <tbody>
