@@ -16,9 +16,11 @@ $(document).ready(function(){
 	setTimeout("getAreaByCity()", 400);
 	setTimeout("fill_region()",600);
 	});
+
 function fill_region(){
 	var value= document.getElementById('fill_region').value;
 	var $region = $('.select_region');
+
 	$region.each(function(i){
 		if($(this).val() == value){
 			$(this).attr("checked",'checked');
@@ -31,16 +33,16 @@ function getAreaByCity(){
 	var cmbArea = document.getElementById('oneLine');
 	var cmbCity = document.getElementById('getcity_name');
 	var city = cmbCity.value;
-	$('#areafield').empty();
+  $('#areafield').empty();
 	$('#unlimitedRegion').attr("checked",'checked');
 	for(var i=0; i<provinceListAll.length; i++)
 	 {
 	   var citys = provinceListAll[i].cityList;
 	   for(var j=0; j<citys.length; j++){
-		if(city == citys[j].name){
-			var areas=citys[j].areaList;
+		 if(city == citys[j].name){
+     var areas=citys[j].areaList;
 			for(var k=0;k<areas.length;k++){
-				var innerHtml = '<li class=""><label title="'+areas[k]+'" onclick="submitForm();" class="select_region"><input datatype="3" dataname="'+areas[k]+'" method="l_3_0_0" areaid="110218" name="region" type="radio" class="select_region" value="'+areas[k]+'" id="lF110218">'+areas[k]+'</label></li>';
+        var innerHtml = '<li class=""><label title="'+areas[k]+'" onclick="submitForm();" class="select_region"><input datatype="3" dataname="'+areas[k]+'" method="l_3_0_0" areaid="110218" name="region" type="radio" class="select_region" value="'+areas[k]+'" id="lF110218">'+areas[k]+'</label></li>';
 				$('#areafield').append(innerHtml);
 			}
 			return;
@@ -60,16 +62,16 @@ function cmbAddRadio( cmd, str){
 
 var provinceListAll = [
   {name:'热门', cityList:[
-    {name:'北京', areaList:[]},
-    {name:'上海', areaList:[]},
-    {name:'广州', areaList:[]},
-    {name:'深圳', areaList:[]},
-    {name:'苏州', areaList:[]},
-    {name:'南京', areaList:[]},
-    {name:'重庆', areaList:[]},
-    {name:'天津', areaList:[]},
-    {name:'武汉', areaList:[]},
-    {name:'成都', areaList:[]}
+    {name:'北京', areaList:['东城区','西城区','崇文区','宣武区','朝阳区','丰台区','石景山区','海淀区','门头沟区','房山区','通州区','顺义区','昌平区','大兴区','怀柔区','平谷区','密云县','延庆县']},
+    {name:'上海', areaList:['黄浦区','卢湾区','徐汇区','长宁区','静安区','普陀区','闸北区','虹口区','杨浦区','闵行区','宝山区','嘉定区','浦东新区','金山区','松江区','青浦区','南汇区','奉贤区','崇明县']},
+    {name:'广州', areaList:['东山区','荔湾区','越秀区','海珠区','天河区','芳村区','白云区','黄埔区','番禺区','花都区','增城市','从化市']},
+    {name:'深圳', areaList:['罗湖区','福田区','南山区','宝安区','龙岗区','盐田区']},
+    {name:'苏州', areaList:['姑苏区','高新区','吴中区','相城区','吴江区','常熟市','张家港市','昆山市','太仓市']},
+    {name:'南京', areaList:['玄武区','秦淮区','建邺区','鼓楼区','浦口区','栖霞区','雨花台区','江宁区','六合区','溧水区','高淳区']},
+    {name:'重庆', areaList:['万州区','涪陵区','渝中区','大渡口区','江北区','沙坪坝区','九龙坡区','南岸区','北碚区','万盛区','双桥区','渝北区','巴南区','黔江区','长寿区']},
+    {name:'天津', areaList:['和平区','河东区','河西区','南开区','河北区','红桥区','塘沽区','汉沽区','大港区','东丽区','西青区','津南区','北辰区','武清区','宝坻区','宁河县','静海县','蓟县']},
+    {name:'武汉', areaList:['江岸区','江汉区','乔口区','汉阳区','武昌区','青山区','洪山区','东西湖区','汉南区','蔡甸区','江夏区','黄陂区','新洲区']},
+    {name:'成都', areaList:['锦江区','青羊区','金牛区','武侯区','成华区','龙泉驿区','青白江区','新都区','温江县','金堂县','双流县','郫　县','大邑县','蒲江县','新津县','都江堰市','彭州市','邛崃市','崇州市']}
   ]},
   {name:'北京', cityList:[
     {name:'北京', areaList:['东城区','西城区','崇文区','宣武区','朝阳区','丰台区','石景山区','海淀区','门头沟区','房山区','通州区','顺义区','昌平区','大兴区','怀柔区','平谷区','密云县','延庆县']}
@@ -79,7 +81,7 @@ var provinceListAll = [
     {name:'县', areaList:['崇明县']}
   ]},
   {name:'天津', cityList:[
-    {name:'天津', areaList:['和平区','河东区','河西区','南开区','河北区','红桥区','塘沽区','汉沽区','大港区','东丽区','西青区','津南区','北辰区','武清区','宝坻区','宁河县','静海县','蓟　县']},
+    {name:'天津', areaList:['和平区','河东区','河西区','南开区','河北区','红桥区','塘沽区','汉沽区','大港区','东丽区','西青区','津南区','北辰区','武清区','宝坻区','宁河县','静海县','蓟县']},
     {name:'县', areaList:['宁河县','静海县','蓟　县']}
   ]},
   {name:'重庆', cityList:[
