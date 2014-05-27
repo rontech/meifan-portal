@@ -108,7 +108,7 @@
                             @for(i <- 0 to (if(Coupon.findValidCouponBySalon(salon._1.id).length > 5) 4 else Coupon.findValidCouponBySalon(salon._1.id).length - 1)) {
                               <div class="couponItem">
                                 <dt class="iS couponTypeSmallCT02 offL CouponMark fl"></dt><dd class="fr b mL10">@Coupon.findValidCouponBySalon(salon._1.id)(i).perferentialPrice</dd>
-                                <dd class="oh pl5"><a href="@noAuth.routes.Salons.getAllCoupons(salon._1.id)">@Coupon.findValidCouponBySalon(salon._1.id)(i).description.slice(0, 30) ...</a></dd>
+                                <dd class="oh pl5"><a href="@noAuth.routes.Salons.getAllCoupons(salon._1.id, "")">@Coupon.findValidCouponBySalon(salon._1.id)(i).description.slice(0, 30) ...</a></dd>
                               </div>
                             }
                           }else{

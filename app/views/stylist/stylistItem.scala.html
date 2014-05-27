@@ -1,8 +1,10 @@
-@(stylist: Option[StylistDetailInfo], buttonType : String = "")
+@(stylist: Option[StylistDetailInfo], buttonType: String = "")
 
 
 @stylist match {
-  case None => { <h1>Not Found</h1> }
+  case None => {
+    <h1>Not Found</h1>
+  }
   case Some(st) => {
     <div class="mysalon-stylist-search w166 mHA p10">
       @st.workInfo match {
@@ -10,7 +12,7 @@
         case Some(wk) => {
           <div class="taC">
             <a href="@noAuth.routes.Salons.getOneStylist(wk.salonId, wk.stylistId)">
-              <img src="@routes.Application.getPhoto(st.stylistInfo.get.myPics(0).fileObjId)"  title=@Messages("stylist.picTitle") alt="@st.basicInfo.nickName" class="bdImgGray w164 h219">
+              <img src="@routes.Application.getPhoto(st.stylistInfo.get.myPics(0).fileObjId)" title=@Messages("stylist.picTitle") alt= "@st.basicInfo.nickName" class="bdImgGray w164 h219">
             </a>
           </div>
         }
@@ -21,41 +23,41 @@
         case Some(sinfo) => {
           <div class="bdDotT mT5 pT5 fs10">
             <span class="fgPink">
-              @sinfo.position.map { ps => @Messages("position.positionName."+ps.positionName) &nbsp;&nbsp; }
+            @sinfo.position.map { ps => @Messages("position.positionName." + ps.positionName) &nbsp;&nbsp;}
             </span>
-            [@Messages("stylist.experienceYears", sinfo.workYears)] 
+            [@Messages("stylist.experienceYears", sinfo.workYears)]
           </div>
         }
       }
-      <div class="bdDotT mT5 pT5 fs10 hMin20"> <p> @st.basicInfo.nickName </p> </div>
+    <div class="bdDotT mT5 pT5 fs10 hMin20"> <p> @st.basicInfo.nickName </p> </div>
       <!--Stylist's words-->
-       @st.stylistInfo match {
+      @st.stylistInfo match {
         case None => {}
         case Some(sinfo) => {
           <div class="bdDotT mT5 pT5 fs10 hMin50">
             @sinfo.myWords.slice(0, 20)
             @if(sinfo.myWords.length > 20) {...}
-          </div> 
+          </div>
         }
       }
     </div>
     <div class="taC mT10">
-    	@if(buttonType == "checkStylistDate") {
-    		<a href="#" class="bS db nominatedReserve mHA">@Messages("reservation.checkStylistDate")</a>
-    	} else {
-    		@if(buttonType == "selectStylist") {
-    			@st.workInfo match {
-		        case None => {Not Found}
-		        case Some(wk) => {
-		          <div class="taC">
-		            <a href="@routes.Reservations.reservSelectStyle(wk.stylistId)" class="bS db nominatedReserve mHA">@Messages("stylist.selectForReserv")</a>
-		          </div>
-		        }
-		      }
-    		} else {
-    			<a href="#" class="bS db nominatedReserve mHA">@Messages("stylist.selectForReserv")</a>
-    		}
-    	}
+    @st.workInfo match {
+      case None => {Not Found}
+      case Some(wk) => {
+        @if(buttonType == "checkStylistDate") {
+          <a href="@routes.Reservations.reservShowDate(wk.salonId, wk.stylistId.toString, 0)" class="bS db nominatedReserve mHA">@Messages("reservation.checkStylistDate")</a>
+        } else {
+          @if(buttonType == "selectStylist") {
+            <div class="taC">
+              <a href="@routes.Reservations.reservSelectStyle("", wk.stylistId)" class="bS db nominatedReserve mHA">@Messages("stylist.selectForReserv")</a>
+            </div>
+          } else {
+            <a href="@noAuth.routes.Salons.getAllCoupons(wk.salonId, wk.stylistId.toString)" class="bS db nominatedReserve mHA">@Messages("stylist.selectForReserv")</a>
+          }
+        }
+      }
+    }
     </div>
   }
 }

@@ -346,11 +346,24 @@ position: relative;
 
 #containerPic a.pics span img {margin:10px auto; width:271px; height:361px;}
 
-#containerPic a.pics:hover span {display:block; position:absolute; top:-10px; z-index:10;}
+#containerPic a.pics:hover span {display:block; position:absolute; top:-10px; left: 0px; z-index:10;}
 
-#containerPic a.pics:active span {display:block; position:absolute; top:-10px; z-index:5;}
+#containerPic a.pics:active span {display:block; position:absolute; top:-10px; left: 0px; z-index:5;}
 
-#containerPic a.pics:focus span {display:block; position:absolute; top:-10px; z-index:5; outline:0;}
+#containerPic a.pics:focus span {display:block; position:absolute; top:-10px; left: 0px; z-index:5; outline:0;}
+
+.picContent {
+width: 90px;
+height: 120px;
+float: left;
+position: static;
+}
+
+.picDescription {
+color: #CC4466;
+font-weight: bold;
+text-align: center;
+}
 /* 发型页面中前后中展示效果  */
 
 a.nominatedReserve {

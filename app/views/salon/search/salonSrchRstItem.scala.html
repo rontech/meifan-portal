@@ -125,7 +125,7 @@
                 <dt class="iS @if(idx == 0) {couponTypeSmallCT02} else {couponTypeSmallCT01} offL CouponMark fl">
                 </dt>
                 <dd class="fl">
-                  <a href="@noAuth.routes.Salons.getAllCoupons(cp.salonId)">
+                  <a href="@noAuth.routes.Salons.getAllCoupons(cp.salonId, "")">
                     @cp.couponName
                   </a>
                 </dd>
@@ -136,7 +136,7 @@
       }
       <br/>
       <p class="taR mTN5">
-        <a class="iS arrowR" href="@noAuth.routes.Salons.getAllCoupons(salon.salonInfo.id)">
+        <a class="iS arrowR" href="@noAuth.routes.Salons.getAllCoupons(salon.salonInfo.id, "")">
           @Messages("coupon.searchForMore")
         </a>
       </p>

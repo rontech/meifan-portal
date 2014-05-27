@@ -120,7 +120,6 @@ object Reservations extends MeifanNetCustomerApplication {
       var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
       // 将预约存入数据库
       Reservation.save(reservation)
-
       // 根据预约的所填写的手机号码，查看是否需要更新会员中的手机号码
       User.updateUserPhone(reservation)
 
@@ -162,10 +161,10 @@ object Reservations extends MeifanNetCustomerApplication {
           u.tel.map {
             t =>
               reservation = reservation.copy(userPhone = t)
-              Cache.set("reservation", reservation)
           } getOrElse {
             NotFound
           }
+          Cache.set("reservation", reservation)
           val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
           salon match {
             case Some(s) => Ok(views.html.reservation.editReservInfo(s, reservation, reservationForm.fill(reservation), u))

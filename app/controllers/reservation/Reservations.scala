@@ -59,7 +59,7 @@ object Reservations extends MeifanNetApplication {
    * @param resvType 预约内容类型
    * @param id 根据预约内容类型区分是什么id，如resvType为coupon,那么id为优惠劵id
    */
-  def reservServicesView(salonId: ObjectId, resvType: String, id: ObjectId) = Action {
+  def reservServicesView(salonId: ObjectId, resvType: String, id: ObjectId, stylistId: String) = Action {
     var resvItems: List[ResvItem] = Nil
     var resvItem: ResvItem = ResvItem("", id, 1)
     val serviceTypeNames: List[String] = Service.getServiceTypeList
@@ -97,7 +97,7 @@ object Reservations extends MeifanNetApplication {
     salon match {
       case Some(s) => {
         val srvTypes: List[ServiceType] = ServiceType.findAllServiceTypes(s.salonIndustry)
-        Ok(views.html.reservation.addExtraService(s, reservation, resvItem, Coupons.conditionForm.fill(couponSchDefaultConds), servicesByTypes, srvTypes))
+        Ok(views.html.reservation.addExtraService(s, reservation, resvItem, Coupons.conditionForm.fill(couponSchDefaultConds), servicesByTypes, srvTypes, stylistId))
       }
       case None => NotFound
     }
@@ -131,7 +131,7 @@ object Reservations extends MeifanNetApplication {
    * 用于添加额外服务的搜索
    * @param salonId 沙龙id
    */
-  def getServicesByCondition(salonId: ObjectId) = Action {
+  def getServicesByCondition(salonId: ObjectId, stylistId: String) = Action {
     implicit request =>
       import Coupons.conditionForm
       conditionForm.bindFromRequest.fold(
@@ -185,7 +185,7 @@ object Reservations extends MeifanNetApplication {
           salon match {
             case Some(s) => {
               val srvTypes: List[ServiceType] = ServiceType.findAllServiceTypes(s.salonIndustry)
-              Ok(views.html.reservation.addExtraService(s, reservation, resvItem, Coupons.conditionForm.fill(couponServiceType), servicesByTypes, srvTypes))
+              Ok(views.html.reservation.addExtraService(s, reservation, resvItem, Coupons.conditionForm.fill(couponServiceType), servicesByTypes, srvTypes, stylistId))
             }
             case None => NotFound
           }
@@ -195,7 +195,7 @@ object Reservations extends MeifanNetApplication {
   /**
    * 取得预约内容中服务总时间和总价格
    */
-  def getTotalOfServices = Action {
+  def getTotalOfServices(stylistId: String) = Action {
     implicit request =>
       var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
       var serviceDuration: Int = 0
@@ -236,9 +236,9 @@ object Reservations extends MeifanNetApplication {
       reservation = reservation.copy(serviceDuration = serviceDuration, price = price, totalCost = price)
       Cache.set("reservation", reservation)
 
-      Redirect(routes.Reservations.reservShowDate(reservation.salonId, 0))
+      Redirect(routes.Reservations.reservShowDate(reservation.salonId, stylistId, 0))
   }
-
+  
   /**
    * 从优惠劵·菜单画面选择进入预约日期选择
    * @param salonId 沙龙id
@@ -246,7 +246,7 @@ object Reservations extends MeifanNetApplication {
    * @param id 根据预约内容类型区分是什么id，如resvType为coupon,那么id为优惠劵id
    * @param week 从今天开始的第几周显示，如果为0，那么从这周显示
    */
-  def reservSelectDate(salonId: ObjectId, resvType: String, id: ObjectId, week: Int) = Action {
+  def reservSelectDate(salonId: ObjectId, resvType: String, id: ObjectId, stylistId: String, week: Int) = Action {
     implicit request =>
     // 将优惠劵的有关信息存入预约表中
       var resvItems: List[ResvItem] = Nil
@@ -293,7 +293,22 @@ object Reservations extends MeifanNetApplication {
       var reservation: Reservation = Reservation(new ObjectId, "", salonId, 0, new Date, serviceDuration, None, resvItems, None, "", "", price, 0, price, new Date, new Date)
 
       Cache.set("reservation", reservation);
-      Redirect(routes.Reservations.reservShowDate(salonId, week))
+      Redirect(routes.Reservations.reservShowDate(salonId, stylistId, week))
+  }
+  
+  /**
+   * 进入店铺中所有技师的画面（可查看各个技师的预约日程）
+   */
+  def showStylistView = Action {
+    var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
+    var resvSchedule: ResvSchedule = ResvSchedule(Nil, Nil, Nil, Nil)
+    
+    val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
+
+    salon match {
+      case Some(s) => Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, None, 0, "resvStylist"))
+      case None => NotFound
+    }
   }
 
   /**
@@ -340,10 +355,14 @@ object Reservations extends MeifanNetApplication {
    * 根据指定的技师进入相关发型的选择
    * @param stylistId 指定技师
    */
-  def reservSelectStyle(stylistId: ObjectId) = Action {
+  def reservSelectStyle(resvDate: String, stylistId: ObjectId) = Action {
     var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
-
     reservation = reservation.copy(stylistId = Some(stylistId))
+    if(resvDate != "") {
+      // 将String类型的格式转化为Date
+	    var expectedDate: Date = new SimpleDateFormat("yyyyMMddHHmm").parse(resvDate)
+	    reservation = reservation.copy(expectedDate = expectedDate)
+    }
 
     Cache.set("reservation", reservation)
 
@@ -361,12 +380,20 @@ object Reservations extends MeifanNetApplication {
   /**
    * 查看店铺预约日程表
    * @param salonId 店铺Id
+   * @param stylistId 技师id，如果为空那么不是通过指名预约进入技师日程表的 
    * @param week 从今天开始的第几周显示，如果为0，那么从这周显示
    */
-  def reservShowDate(salonId: ObjectId, week: Int) = Action {
+  def reservShowDate(salonId: ObjectId, stylistId: String, week: Int) = Action {
     val salon: Option[Salon] = Salon.findOneById(salonId)
 
-    val reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
+    var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
+    if(!stylistId.isEmpty()) {
+      reservation = reservation.copy(stylistId = Some(new ObjectId(stylistId)))
+    } else {
+      reservation = reservation.copy(stylistId = None)
+    }
+    
+    Cache.set("reservation", reservation)
 
     // 查找出该地店铺的所有预约
     val reservations: List[Reservation] = Reservation.findAllReservation(salonId)
@@ -500,6 +527,7 @@ object Reservations extends MeifanNetApplication {
           resvDate.setTime(startDay.getTime())
           resvDate.set(Calendar.HOUR_OF_DAY, open.get(Calendar.HOUR_OF_DAY))
           resvDate.set(Calendar.MINUTE, open.get(Calendar.MINUTE))
+          resvDate.set(Calendar.SECOND, 0)
 
           // 得到营业结束前的前两个的时间段
           var endTime: Calendar = Calendar.getInstance()
@@ -507,22 +535,24 @@ object Reservations extends MeifanNetApplication {
           endTime.set(Calendar.HOUR_OF_DAY, close.get(Calendar.HOUR_OF_DAY))
           endTime.set(Calendar.MINUTE, close.get(Calendar.MINUTE))
           endTime.add(Calendar.MINUTE, -30)
-
-          // 得到当前时间年月日 时分的最大时间和最小时间（根据秒）
-          var expectedDateStart: Calendar = Calendar.getInstance()
-          expectedDateStart.setTime(resvDate.getTime())
-          expectedDateStart.add(Calendar.MINUTE, -1)
-          var expectedDateEnd: Calendar = Calendar.getInstance()
-          expectedDateEnd.setTime(resvDate.getTime())
-          expectedDateEnd.add(Calendar.MINUTE, 1)
-
+          
           var resvInfoItem: ResvInfoItemPart = ResvInfoItemPart(resvDate.getTime(), true)
           if (resvDate.getTime().after(nowDate) && resvDate.getTime().before(endTime.getTime())) {
-            // 判断如果该时间内店铺技术是否已预约满
-            if (Reservation.findReservationByDate(reservations, expectedDateStart.getTime(), expectedDateEnd.getTime()) < stylistNum) {
-              resvInfoItem = resvInfoItem.copy(isResvFlg = true)
+            // 如果stylistId为空那么该日程表为店铺日程表否则技师日程表
+            if(stylistId.isEmpty()) {
+              // 判断如果该时间内店铺技师是否已预约满
+              if (Reservation.findReservationByDate(reservations, resvDate.getTime()) < stylistNum) {
+                resvInfoItem = resvInfoItem.copy(isResvFlg = true)
+              } else {
+                resvInfoItem = resvInfoItem.copy(isResvFlg = false)
+              }
             } else {
-              resvInfoItem = resvInfoItem.copy(isResvFlg = false)
+              // 判断如果该时间内该技师是否已预约满
+              if (Reservation.findReservByDateAndStylist(resvDate.getTime(), new ObjectId(stylistId))) {
+                resvInfoItem = resvInfoItem.copy(isResvFlg = false)
+              } else {
+                resvInfoItem = resvInfoItem.copy(isResvFlg = true)
+              }
             }
           } else {
             resvInfoItem = resvInfoItem.copy(isResvFlg = false)
@@ -547,7 +577,13 @@ object Reservations extends MeifanNetApplication {
     // 将几个数据赋值
     resvSchedule = resvSchedule.copy(yearsPart = yearsPart, daysPart = daysPart, timesPart = timesPart, resvInfoPart = resvInfoPart)
     salon match {
-      case Some(s) => Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, weekIndex))
+      case Some(s) => {
+        if(stylistId == "") {
+          Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, None, weekIndex, "resvSalon"))
+        } else {
+          Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, Some(new ObjectId(stylistId)), weekIndex, "resvStylist"))
+        }
+      }
       case None => NotFound
     }
   }

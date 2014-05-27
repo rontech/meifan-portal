@@ -1,13 +1,23 @@
-@(salon: Salon, resvSchedule: ResvSchedule, week: Int = 0)
+@(salon: Salon, resvSchedule: ResvSchedule, stylistId: String, week: Int = 0)
 
-
-<div class="yS reserveTitleOuter mT15">
-  <h3 class="yS reserveTitleInner pL10">@Messages("reservation.selectDateMsg")</h3>
-</div>
-<p class="mT10">
-  <span class="fgBlue b reserveMark">◎</span>@Messages("reservation.selectDateNote")<br>
-</p>
 <div id="jsRsvCdTbl" class="ReserveConditionTable underTabContents">
+  @if(stylistId != "") {
+    @Stylist.findOneById(new ObjectId(stylistId)) match {
+      case None => {}
+      case Some(sty) => {
+        <div class="pH10 pV5 cFix">
+          <div class="mT5">
+            <p class="fl mR10"><img src="@routes.Application.getPhoto(sty.myPics(0).fileObjId)" class="mT6 w60 h80" oncontextmenu="return false ;"></p>
+            <div class="fl">
+              <p class="fs10 fgLGray2 mT13 cFix">@Messages("reservation.stylist")</p>
+              <p class="fl mR20"><span class="fs14 b">@Stylist.findUserName(sty.stylistId)</span>
+                　@Messages("reservation.resvDateForStylist")</p>
+            </div>
+          </div>
+        </div>
+      }
+    }
+  }
   <div class="coverTable">
     <div class="whiteTable2">
       <table class="innerTable taC nowrap" cellpadding="0" cellspacing="0">
@@ -17,7 +27,7 @@
               <th rowspan="2" class="timeColor"><span class="iS arrowPagingWeekLOff">@Messages("reservation.beforeWeek")</span></th>
             } else {
               <th rowspan="2" class="timeColor">
-                <a href="@routes.Reservations.reservShowDate(salon.id, week - 1)" title="@Messages("reservation.beforeWeek")" class="iS arrowPagingWeekL">@Messages("reservation.beforeWeek")</a>
+                <a href="@routes.Reservations.reservShowDate(salon.id, stylistId, week - 1)" title="@Messages("reservation.beforeWeek")" class="iS arrowPagingWeekL">@Messages("reservation.beforeWeek")</a>
               </th>
             }
             @for(yearPart <- resvSchedule.yearsPart) {
@@ -29,7 +39,7 @@
             }
             @if(week == 0) {
               <th rowspan="2" class="timeColor">
-                <a href="@routes.Reservations.reservShowDate(salon.id, week + 1)" title="@Messages("reservation.afterWeek")" class="iS arrowPagingWeekR">@Messages("reservation.afterWeek")</a>
+                <a href="@routes.Reservations.reservShowDate(salon.id, stylistId, week + 1)" title="@Messages("reservation.afterWeek")" class="iS arrowPagingWeekR">@Messages("reservation.afterWeek")</a>
               </th>
             } else {
               <th rowspan="2" class="timeColor"><span class="iS arrowPagingWeekROff">@Messages("reservation.afterWeek")</span></th>
@@ -77,8 +87,15 @@
                     @for(resvInfoItem <- resvInfoItems.resvInfoItemPart) {
                       @if(resvInfoItem.isResvFlg) {
                         <tr>
-                          <td class="openColor"><p class="scheduleR"><a href="@routes.Reservations.reservSelectStylist(resvInfoItem.resvDate.format("yyyyMMddHHmm").toString)" title="◎" class="reservBS db reserveImmediately offL vaT">
-                            ◎</a></p></td>
+                          <td class="openColor"><p class="scheduleR">
+                          @if(stylistId == "") {
+                            <a href="@routes.Reservations.reservSelectStylist(resvInfoItem.resvDate.format("yyyyMMddHHmm").toString)"
+                            title="◎" class="reservBS db reserveImmediately offL vaT">◎</a>
+                          } else {
+                            <a href="@routes.Reservations.reservSelectStyle(resvInfoItem.resvDate.format("yyyyMMddHHmm").toString, new ObjectId(stylistId))"
+                            title="◎" class="reservBS db reserveImmediately offL vaT">◎</a>
+                          }
+                          </p></td>
                         </tr>
                       } else {
                         <tr>

@@ -203,14 +203,13 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
 
   /**
    * 根据预定时间查找预约信息
-   * 用于判断日程表中某一时间段预约的总条数
-   * @param reservations 预约
-   * @param expectedDateStart
-   * @param expectedDateEnd
+   * 用于判断日程表中某一时间段预约(状态为已预约)的总条数
+   * @param reservations 预约列表
+   * @param expectedDate 预约时间
    * @return
    */
-  def findReservationByDate(reservations: List[Reservation], expectedDateStart: Date, expectedDateEnd: Date): Long = {
-    reservations.filter(r => (r.expectedDate.before(expectedDateEnd) && r.expectedDate.after(expectedDateStart))).size.toLong
+  def findReservationByDate(reservations: List[Reservation], expectedDate: Date): Long = {
+    reservations.filter(r => (r.expectedDate.equals(expectedDate) && r.status.equals(0))).size.toLong
   }
 
   /**
@@ -253,7 +252,6 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
    * @param userId 预约者
    */
   def findReservByDateAndUserId(expectedDate: Date, userId: String): Boolean = {
-    println("expectedDate = " + expectedDate + " userId = " + userId)
     val isExist = dao.findOne(MongoDBObject("expectedDate" -> expectedDate, "userId" -> userId, "status" -> 0))
     println("isExist = " + isExist)
     isExist match {

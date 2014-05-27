@@ -1,0 +1,42 @@
+@(salon: Salon, resvSchedule: ResvSchedule, week: Int = 0, stylistId: Option[ObjectId], resvTab: String)
+
+<div class="yS reserveTitleOuter mT15">
+  <h3 class="yS reserveTitleInner pL10">
+    @if(resvTab == "resvSalon") {
+      @Messages("reservation.selectDateMsg")
+    } else {
+      @stylistId match {
+        case None => {
+          @Messages("reservation.selectStylistMsg")
+        }
+        case Some(sty) => {
+          @Messages("reservation.selectDateMsg")
+        }
+      }
+    }
+  </h3>
+</div>
+<p class="mT10">
+  <span class="fgBlue b reserveMark">◎</span>@Messages("reservation.selectDateNote")<br>
+</p>
+<ul class="calTab cFix mT10">
+  <li class="@if(resvTab == "resvSalon") {current} salonDirect"><a href="@routes.Reservations.reservShowDate(salon.id, "", 0)" class="rsvS">
+    店铺日程情况</a></li>
+  <li class="@if(resvTab == "resvStylist") {current} salonDirect"><a href="@routes.Reservations.showStylistView" class="rsvS">
+    技师日程情况</a></li>
+</ul>
+
+@if(resvTab == "resvSalon") {
+  @views.html.reservation.reservSelectDate(salon, resvSchedule, "", week)
+} else {
+  @stylistId match {
+    case None => {
+      <div class="underTabContents w100p fl">
+      @views.html.reservation.showResvStylist(SalonAndStylist.getSalonStylistsInfo(salon.id))
+      </div>
+    }
+    case Some(sty) => {
+      @views.html.reservation.reservSelectDate(salon, resvSchedule, sty.toString, week)
+    }
+  }
+}

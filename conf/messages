@@ -1070,6 +1070,8 @@ reservation.serviceDuration = 服务时长（预计）
 reservation.couponSelected = 已选择的优惠劵
 reservation.menuSelected = 已选择的菜单
 reservation.serviceSelected = 已选择的服务
+reservation.resvCouponAndMenu = 请选择优惠劵·菜单。
+reservation.resvDateForStylist = 的预约日程
 
 
 #salonCheckInfoState

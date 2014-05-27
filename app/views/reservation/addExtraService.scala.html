@@ -1,8 +1,8 @@
-@(salon: Salon, reservation: Reservation, resvItem: ResvItem, condtionForm: Form[CouponServiceType], serviceByTypes: List[ServiceByType], serviceTypes: List[ServiceType], navBar: List[(String, String)] = Nil)
+@(salon: Salon, reservation: Reservation, resvItem: ResvItem, condtionForm: Form[CouponServiceType],
+	 serviceByTypes: List[ServiceByType], serviceTypes: List[ServiceType], stylistId: String, navBar: List[(String, String)] = Nil)
 
 @reservationInfoMain(navInSalon = "HairSalon", "one", salon, navBar) {
 
-  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/reservation.css")">
   <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">
 
   @views.html.reservation.selectedResvItem(resvItem)
@@ -17,12 +17,12 @@
     </ul>
   </div>
 
-  @views.html.reservation.resvServiceSearch(salon, condtionForm, serviceTypes)
+  @views.html.reservation.resvServiceSearch(salon, condtionForm, serviceTypes, stylistId)
 
   @views.html.reservation.selectServicesGroup(salon, reservation, serviceByTypes)
 
   <div class="mT5 pr submitArea">
-    <a href="@routes.Reservations.getTotalOfServices" class="bS db nominatedReserve mHA" width="200px">
+    <a href="@routes.Reservations.getTotalOfServices(stylistId)" class="bS db nominatedReserve mHA" width="200px">
     @Messages("reservation.next")
     </a>
   </div>

@@ -345,3 +345,39 @@ border-right: 1px solid #ddd;
 .pCell5 th, .pCell5 td {
 padding: 5px;
 }
+
+.calTab {
+position: relative;
+z-index: 10;
+zoom: 1;
+bottom: -2px;
+padding-left: 8px;
+padding-right: 8px;
+}
+
+.calTab li {
+float: left;
+margin-right: 2px;
+}
+
+.calTab .salonDirect a{
+color: #666666 !important;
+text-decoration: none !important;
+background-position: -325px 0;
+outline: 0;
+}
+
+.calTab a {
+display: block;
+width: 185px;
+height: 29px;
+line-height: 29px;
+font-weight: bold;
+text-shadow: -1px -1px 0 #DDDDDD;
+text-align: center;
+}
+
+.calTab .current.salonDirect a {
+color: #5b5a5a !important;
+background-position: -325px -58px;
+}
