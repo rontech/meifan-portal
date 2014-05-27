@@ -1,4 +1,4 @@
-@(coupon: Coupon, beforeSevernDate: java.util.Date)
+@(coupon: Coupon, beforeSevernDate: java.util.Date, stylistId: String = "")
 <div>
   <table summary="summary" cellspacing="1" class="mT2 wFull bgLGray2 fs10 couponTable">
     <tbody>
@@ -99,52 +99,52 @@
               </font>
             </dd>
           </dl>
-</div>
-</td>
-<td class="bdWhite bgLLGray2 vaM">
-  <div class="pV10 fs12">
-    <div>
-      <a href="@routes.Reservations.reservSelectDate(coupon.salonId, "coupon", coupon.id, 0)"
-      class="btn btn2H50 btnWlines w146 mHA">
-        <span>
-          <span>
-            <font>
-              <font>
-              @Messages("coupon.appointment1")
-              </font>
-            </font>
-            <br>
-            <font>
-              <font>
-              @Messages("coupon.appointment2")
-              </font>
-            </font>
-          </span>
-        </span>
-      </a>
-    </div>
-    <div class="mT8 taC">
-      <a href="@routes.Reservations.reservServicesView(coupon.salonId, "coupon", coupon.id)" class="iS arrowR">
-        <font>
-          <font>
-          @Messages("coupon.addMenu")
-          </font>
-        </font>
-      </a>
-    </div>
-    <div class="mT8 taC">
-      <a href="javascript:void(0);" onclick="addFollow ( '   @coupon.id ',' coupon ')"
-      class="iS arrowR">
-        <font>
-          <font>
-          @Messages("user.followThisCoupon")
-          </font>
-        </font>
-      </a>
-    </div>
-  </div>
-</td>
-</tr>
-</tbody>
-</table>
+        </td>
+        <td class="bdWhite bgLLGray2 vaM">
+          <div class="pV10 fs12">
+            <div>
+              <a href="@routes.Reservations.reservSelectDate(coupon.salonId, "coupon", coupon.id, stylistId, 0)"
+              class="btn btn2H50 btnWlines w146 mHA">
+                <span>
+                  <span>
+                    <font>
+                      <font>
+                      @Messages("coupon.appointment1")
+                      </font>
+                    </font>
+                    <br>
+                    <font>
+                      <font>
+                      @Messages("coupon.appointment2")
+                      </font>
+                    </font>
+                  </span>
+                </span>
+              </a>
+            </div>
+            <div class="mT8 taC">
+              <a href="@routes.Reservations.reservServicesView(coupon.salonId, "coupon", coupon.id, stylistId)" class="iS arrowR">
+                <font>
+                  <font>
+                  @Messages("coupon.addMenu")
+                  </font>
+                </font>
+              </a>
+            </div>
+            @if(stylistId == "") {
+              <div class="mT8 taC">
+                <a href="javascript:void(0);" onclick="addFollow ( '  @coupon.id ',' coupon ')" class="iS arrowR">
+                  <font>
+                    <font>
+                    @Messages("user.followThisCoupon")
+                    </font>
+                  </font>
+                </a>
+              </div>
+            }
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

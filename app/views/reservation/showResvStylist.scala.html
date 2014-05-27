@@ -1,0 +1,7 @@
+@(stylists: List[StylistDetailInfo])
+
+@stylists.map { reservStylist =>
+  <div class="mysalon-stylist hMin399">
+    @views.html.stylist.stylistItem(Some(reservStylist), "checkStylistDate")
+  </div>
+}

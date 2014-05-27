@@ -1,0 +1,24 @@
+@(salon: Salon, condtionForm: Form[CouponServiceType], serviceTypes: List[ServiceType], coupons: List[Coupon], menus: List[Menu], serviceByTypes: List[ServiceByType], beforeSevernDate: java.util.Date, stylistId: String, navBar: List[(String, String)] = Nil)
+
+@reservationInfoMain(navInSalon = "HairSalon", "one", salon, navBar) {
+
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">
+
+  <div class="mT20">
+    <div class="yS reserveTitleOuter">
+      <h2 class="yS reserveTitleInner">@Messages("reservation.resvCouponAndMenu")</h2>
+    </div>
+  </div>
+
+  @views.html.coupon.couponSearchGroup(salon, condtionForm, serviceTypes, stylistId)
+
+  <!-- Get the Salon with all the coupons.  -->
+  @views.html.coupon.couponComponent(salon, coupons, beforeSevernDate, stylistId)
+
+  <!-- Get the Salon with all the menus.  -->
+  @views.html.menu.menuGroup(salon, menus, stylistId)
+
+  <!-- Get the Salon with all the services.  -->
+  @views.html.menu.menuGroupByType(salon, serviceByTypes, stylistId)
+
+}

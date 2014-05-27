@@ -55,8 +55,8 @@ GET         /salon/:salonId/stylist/:stlId                                      
 GET         /salon/:salonId/stylists                                             controllers.noAuth.Salons.getAllStylists(salonId: ObjectId)
 GET         /salon/:salonId/stylistFormBlog/:userId                              controllers.noAuth.Blogs.getAuthorOfSalonBlog(salonId: ObjectId, userId: String)
 # Salon.coupon
-GET         /salon/:salonId/coupons                                              controllers.noAuth.Salons.getAllCoupons(salonId: ObjectId)
-POST        /salon/:salonId/coupons/condition                                    controllers.noAuth.Salons.getCouponsByCondition(salonId: ObjectId)
+GET         /salon/:salonId/coupons                                              controllers.noAuth.Salons.getAllCoupons(salonId: ObjectId, stylistId: String)
+POST        /salon/:salonId/coupons/condition                                    controllers.noAuth.Salons.getCouponsByCondition(salonId: ObjectId, stylistId: String)
 # Salon.comment
 GET         /salon/:salonId/comments                                             controllers.noAuth.Comments.findBySalon(salonId: ObjectId)
 # Salon.blog
@@ -248,11 +248,12 @@ GET         /mySalon/invalidStyle/:styleId                                      
 # Reservation
 GET         /reservHairView/:id                                                  controllers.Reservations.reservHairView(id: ObjectId)
 GET         /reservSelectStylist/:resvDate                                       controllers.Reservations.reservSelectStylist(resvDate: String)
-GET         /reservSelectStyle/:id                                               controllers.Reservations.reservSelectStyle(id: ObjectId)
-GET         /addExtraService                                                     controllers.Reservations.reservServicesView(salonId: ObjectId, resvType: String, id: ObjectId)
+GET         /reservSelectStyle/:id                                               controllers.Reservations.reservSelectStyle(resvDate: String, id: ObjectId)
+GET         /addExtraService                                                     controllers.Reservations.reservServicesView(salonId: ObjectId, resvType: String, id: ObjectId, stylistId: String)
 GET         /addResvService                                                      controllers.Reservations.addResvService(id: String, resvType: String)
-GET         /findServiceForResv/:salonId                                         controllers.Reservations.getServicesByCondition(salonId: ObjectId)
-GET         /reservSelectDate                                                    controllers.Reservations.getTotalOfServices
+GET         /findServiceForResv/:salonId                                         controllers.Reservations.getServicesByCondition(salonId: ObjectId, stylistId: String)
+GET         /reservSelectDate                                                    controllers.Reservations.getTotalOfServices(stylistId: String)
+GET         /showResvStylist                                                     controllers.Reservations.showStylistView
 GET         /selectResvStyle/:id                                                 controllers.auth.Reservations.selectResvStyle(id: ObjectId)
 GET         /reservConfirmPwd                                                    controllers.auth.Reservations.reservConfirmPwd
 GET         /reservFinish                                                        controllers.auth.Reservations.reservFinish
@@ -300,9 +301,8 @@ POST        /mySalon/updateCheckPictures                                        
 
 
 # Reservation add by sangsang-hu
-GET         /salon/reserve/:salonId/:week                           controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
-GET         /reserve/:salonId/:id/:week                          controllers.Reservations.reservSelectDate(salonId: ObjectId, resvType: String, id: ObjectId, week: Int)
-#GET        /salon/:salonId/reserve/schedule/:week                 controllers.Reservations.reservShowDate(salonId: ObjectId, week: Int)
+GET         /salon/reserve/:salonId/:week                                        controllers.Reservations.reservShowDate(salonId: ObjectId, stylist: String, week: Int)
+GET         /reserve/:salonId/:id/:week                                          controllers.Reservations.reservSelectDate(salonId: ObjectId, resvType: String, id: ObjectId, stylistId: String, week: Int)
 
 #cancel current apply by user(dou)
 GET         /myPage/cancelApply                                                  controllers.auth.Users.cancelApplyStylist

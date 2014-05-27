@@ -2,8 +2,6 @@
 
 @reservationInfoMain(navInSalon = "HairSalon", "four", salon, navBar) {
 
-  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/reservation.css")">
-
   @if(failType == "userHasResv") {
     <div class="mT50">
       <p class="taC fs24 b fgDGray">@Messages("reservation.failMsg.userHasResv")</p>
@@ -38,7 +36,7 @@
     }
     <div class="w380 fl">
       <p class="mT10 pH20 fgGray">@Messages("reservation.selectOtherDate")</p>
-      <p class="pH20 resvbt"><a href="@routes.Reservations.reservShowDate(salon.id, 0)">@Messages("reservation.selectDate")</p>
+      <p class="pH20 resvbt"><a href="@routes.Reservations.reservShowDate(salon.id, "", 0)">@Messages("reservation.selectDate")</p>
     </div>
   </div>
 
