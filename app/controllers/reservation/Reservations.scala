@@ -115,6 +115,7 @@ object Reservations extends MeifanNetApplication {
     var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
     var resvItems: List[ResvItem] = reservation.resvItems
     var resvItem: ResvItem = ResvItem("service", new ObjectId(id), 2)
+    
     if (addFlg == "true") {
       resvItems = resvItems ::: List(resvItem)
     } else {
