@@ -15,25 +15,25 @@
           <p class="alertMsg">@Messages("service.noDataMsg")</p>
         </div>
       } else {
-        @for(serviceByType <- serviceByTypes) {
+        @for((serviceByType, sti) <- serviceByTypes.zipWithIndex) {
           <tr class="bgLGray ">
             <td colspan="3" height="20">
               <span class="b">@Messages("ServiceType.serviceTypeName." + serviceByType.serviceTypeName)</span>
             </td>
           </tr>
-          @for(service <- serviceByType.serviceItems) {
+          @for((service, sii) <- serviceByType.serviceItems.zipWithIndex) {
             <tr id="jsMenuWrap0" class="">
               <td class="checkboxIndent">
               @if(Reservation.getServiceIdFromResv(reservation.resvItems).contains(service.id)) {
-                <input type="checkbox" name="service" id="service@(serviceByTypes.indexOf(serviceByType) + 1) @serviceByType.serviceItems.indexOf(service)"
-                value="@service.id" class="cbF" onclick="getServiceId ( @(serviceByTypes.indexOf(serviceByType) + 1) @serviceByType.serviceItems.indexOf(service) ) ;" checked="checked">
-                <label for="service@(serviceByTypes.indexOf(serviceByType) + 1) @serviceByType.serviceItems.indexOf(service)">
+                <input type="checkbox" name="service" id="service@(sti + 1)@sii"
+                    value="@service.id" class="cbF" onclick="getServiceId(@(sti + 1)@sii);" checked="checked">
+                <label for="service@(sti + 1)@sii">
                   <span id="jsMenuText">@service.serviceName</span>
                 </label>
               } else {
-                <input type="checkbox" name="service" id="service@(serviceByTypes.indexOf(serviceByType) + 1) @serviceByType.serviceItems.indexOf(service)"
-                value="@service.id" class="cbF" onclick="getServiceId ( @(serviceByTypes.indexOf(serviceByType) + 1) @serviceByType.serviceItems.indexOf(service) ) ;">
-                <label for="service@(serviceByTypes.indexOf(serviceByType) + 1) @serviceByType.serviceItems.indexOf(service)">
+                <input type="checkbox" name="service" id="service@(sti + 1)@sii"
+                    value="@service.id" class="cbF" onclick="getServiceId(@(sti + 1)@sii);">
+                <label for="service@(sti + 1)@sii">
                   <span id="jsMenuText">@service.serviceName</span>
                 </label>
               }

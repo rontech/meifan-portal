@@ -112,23 +112,18 @@ object Reservations extends MeifanNetApplication {
    * @return
    */
   def addResvService(id: String, addFlg: String) = Action {
-    println(id + " " + addFlg)
     var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
     var resvItems: List[ResvItem] = reservation.resvItems
     var resvItem: ResvItem = ResvItem("service", new ObjectId(id), 2)
-    println("ssh = " + resvItem)
-    println("resvItems1 = " + resvItems)
+    
     if (addFlg == "true") {
       resvItems = resvItems ::: List(resvItem)
     } else {
       resvItems = resvItems.filterNot(item => item.mainResvObjId == resvItem.mainResvObjId)
-      println("resvItems2 = " + resvItems)
     }
 
     reservation = reservation.copy(resvItems = resvItems)
     Cache.set("reservation", reservation)
-    println("resvItems3 = " + resvItems)
-    println("reservation = " + reservation)
     Ok("true")
   }
 
