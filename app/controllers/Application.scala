@@ -229,17 +229,13 @@ object Application extends MeifanNetCustomerOptionalApplication {
 
   /**
    * 用户选择切换城市后要跳转到所有城市一览的页面
-   * 如果currentUri 的值为city，表示用户在美范网站的首页，无需将所在页面的uri放入session
-   * currentUri不为city，对应为当前访问页面的uri，将其放入缓存
-   * @param currentUri 用户要切换城市时所在的页面uri
+   * 将点击切换城市时所在的页面uri放置缓存中
    * @return
    */
-  def getAllCitys(currentUri: String) = StackAction { implicit request =>
+  def getAllCitys = StackAction { implicit request =>
     val user = loggedIn
-    currentUri match {
-      case ("city") => Ok(views.html.common.getAllCitys(user))
-      case _ => Ok(views.html.common.getAllCitys(user)).withSession("currentUri" -> currentUri)
-    }
+    val uri = request.headers.get("Referer").getOrElse("")
+    Ok(views.html.common.getAllCitys(user)).withSession("currentUri" -> uri)
   }
 
   /**
@@ -250,10 +246,8 @@ object Application extends MeifanNetCustomerOptionalApplication {
    * @return
    */
   def getOneCity(city: String) = Action { implicit request =>
-    var gotoUri = ""
     request.session.get("currentUri").map{ uri=>
-      gotoUri ="/"+ uri
-      Redirect(gotoUri).withSession("myCity" -> city)
+      Redirect(uri).withSession("myCity" -> city)
     }getOrElse{
       Redirect(routes.Application.index).withSession("myCity" -> city)
     }
