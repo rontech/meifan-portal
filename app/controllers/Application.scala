@@ -39,9 +39,22 @@ import models._
 import utils.Const._
 import com.meifannet.framework.db._
 import com.meifannet.framework.MeifanNetCustomerOptionalApplication
+import play.api.Play.current
 
 
 object Application extends MeifanNetCustomerOptionalApplication {
+
+  /**
+   * JSMessages是一个插件，主要可以实现在play2中向js文件中直接追加翻译messages
+   * 可参考：https://github.com/julienrf/play-jsmessages
+   */
+  // new a JsMessages instance
+  val messages = JsMessages.default
+  
+  // Generates a JavaScript function computing localized messages in the given implicit 'Lang'.
+  val jsMessages = Action { implicit request =>
+    Ok(messages(Some("window.Messages")))
+  }
 
   /**
    * Add routes for ajax

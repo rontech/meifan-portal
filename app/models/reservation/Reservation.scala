@@ -24,6 +24,7 @@ import mongoContext._
 import java.util.Date
 import com.mongodb.casbah.query.Imports._
 import com.meifannet.framework.db._
+import java.text.SimpleDateFormat
 
 /**
  * 预约内容，用于内嵌在预约表中
@@ -229,7 +230,8 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
    * @return
    */
   def findResvByDateAndSalon(salonId: ObjectId, expectedDate: Date): Long = {
-    val resvCount: List[Reservation] = dao.find(MongoDBObject("expectedDate" -> expectedDate, "salonId" -> salonId, "status" -> 0)).toList
+    val formattedDate = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(expectedDate)
+    val resvCount: List[Reservation] = dao.find(MongoDBObject("expectedDate" -> new Date(formattedDate), "salonId" -> salonId, "status" -> 0)).toList
     resvCount.size.toLong
   }
   
@@ -239,9 +241,10 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
    * @param userId 预约者
    */
   def findReservByDateAndStylist(expectedDate: Date, stylistId: ObjectId): Boolean = {
-    val isExist = dao.findOne(MongoDBObject("expectedDate" -> expectedDate, "stylistId" -> stylistId, "status" -> 0))
+    val formattedDate = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(expectedDate)
+    val isExist = dao.findOne(MongoDBObject("expectedDate" -> new Date(formattedDate), "stylistId" -> stylistId, "status" -> 0))
     isExist match {
-      case Some(is) => true
+      case Some(iss) => true
       case None => false
     }
   }
@@ -253,7 +256,6 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
    */
   def findReservByDateAndUserId(expectedDate: Date, userId: String): Boolean = {
     val isExist = dao.findOne(MongoDBObject("expectedDate" -> expectedDate, "userId" -> userId, "status" -> 0))
-    println("isExist = " + isExist)
     isExist match {
       case Some(is) => true
       case None => false
@@ -281,6 +283,15 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
    */
   def getServiceIdFromResv(resvItems: List[ResvItem]): List[ObjectId] = resvItems.map {
     resvItem => resvItem.mainResvObjId
+  }
+  
+  /**
+   * 取得预约内容中的主服务（主次序为1）
+   * 用于预约添加额外服务时服务列表选择中不显示主服务
+   * @param resvItems 预约表中预约内容
+   */
+  def getMainResvItem(resvItems: List[ResvItem]): ResvItem = {
+    resvItems.filter(resvItem => (resvItem.resvOrder == 1)).head
   }
   
 }
