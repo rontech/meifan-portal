@@ -1,4 +1,4 @@
-@(salon: Salon)
+@(salon: Salon, menuTab: String)
 
 <div class="title cFix">
   <div class="cFix">
@@ -8,8 +8,51 @@
   <div class="mT5">
     <h2 class="fs18">@salon.salonName</h2>
     @salon.salonNameAbbr match {
-      case Some(abbr) => {<p class="fs12 dibBL">@abbr</p>}
+      case Some(abbr) => {
+        <p class="fs12 dibBL">@abbr</p>
+      }
       case None => {}
     }
   </div>
+</div>
+
+<div class="step mT20">
+  <ul>
+  @if(menuTab == "two") {
+    <li class="one">@Messages("reservation.menuSelect")</li>
+    <li class="two cur">@Messages("reservation.timeAndStylistSelect")</li>
+    <li class="">@Messages("reservation.userInfoInput")</li>
+    <li class="">@Messages("reservation.confirm")</li>
+    <li class="five">@Messages("reservation.successful")</li>
+  } else {
+    @if(menuTab == "three") {
+      <li class="one one1">@Messages("reservation.menuSelect")</li>
+      <li class="two">@Messages("reservation.timeAndStylistSelect")</li>
+      <li class="two cur">@Messages("reservation.userInfoInput")</li>
+      <li class="">@Messages("reservation.confirm")</li>
+      <li class="five">@Messages("reservation.successful")</li>
+    }
+    @if(menuTab == "four") {
+      <li class="one one1">@Messages("reservation.menuSelect")</li>
+      <li class="two two1">@Messages("reservation.timeAndStylistSelect")</li>
+      <li class="three">@Messages("reservation.userInfoInput")</li>
+      <li class="four cur">@Messages("reservation.confirm")</li>
+      <li class="five">@Messages("reservation.successful")</li>
+    }
+    @if(menuTab == "five") {
+      <li class="one one1">@Messages("reservation.menuSelect")</li>
+      <li class="two two1">@Messages("reservation.timeAndStylistSelect")</li>
+      <li class="three three1">@Messages("reservation.userInfoInput")</li>
+      <li class="four">@Messages("reservation.confirm")</li>
+      <li class="five1 cur">@Messages("reservation.successful")</li>
+    } else {
+      <li class="one cur">@Messages("reservation.menuSelect")</li>
+      <li class="">@Messages("reservation.timeAndStylistSelect")</li>
+      <li class="">@Messages("reservation.userInfoInput")</li>
+      <li class="">@Messages("reservation.confirm")</li>
+      <li class="five">@Messages("reservation.successful")</li>
+    }
+  }
+
+  </ul>
 </div>

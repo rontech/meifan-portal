@@ -1,5 +1,5 @@
 @* menuGroupByType Template File *@
-@(salon: Salon, serviceByTypes: Seq[ServiceByType])
+@(salon: Salon, serviceByTypes: Seq[ServiceByType], stylistId: String = "")
 
 
 <div class="yS mainContentsSecondTitleOuter mT50">
@@ -7,14 +7,14 @@
 </div>
 
 <div class="mT50">
-  @if(serviceByTypes.isEmpty) {
-    <div class="bgAlertMsg mT20">
-      <p class="alertMsg">@Messages("service.noDataMsg")</p>
-    </div>
-  } else {
-    @for(serviceByType <- serviceByTypes) {
-      @views.html.menu.menuItemByType(salon, serviceByType)
-    }
-  
-  }
+	@if(serviceByTypes.isEmpty) {
+	  <div class="bgAlertMsg mT20">
+	    <p class="alertMsg">@Messages("service.noDataMsg")</p>
+	  </div>
+	} else {
+	  @for(serviceByType <- serviceByTypes) {
+	    @views.html.menu.menuItemByType(salon, serviceByType, stylistId)
+	  }
+	
+	}
 </div>

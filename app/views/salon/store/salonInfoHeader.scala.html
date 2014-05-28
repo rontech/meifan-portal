@@ -69,7 +69,7 @@
         <a href="@noAuth.routes.Salons.getSalon(salon.id)" class="bts db offL @if(navInSalon == "salon-basic") {salonInformationCurrent} else {salonInformation}">@Messages("salon.salonBasic")</a>
       </li>
       <li class="fl">
-        <a href="@noAuth.routes.Salons.getAllCoupons(salon.id)" class="bts db @if(navInSalon == "salon-coupon") {couponAndMenuCurrent} else {couponAndMenu} offL">@Messages("salon.couponMenus") </a>
+        <a href="@noAuth.routes.Salons.getAllCoupons(salon.id, "")" class="bts db @if(navInSalon == "salon-coupon") {couponAndMenuCurrent} else {couponAndMenu} offL">@Messages("salon.couponMenus") </a>
       </li>
       <li class="fl">
         <a href="@noAuth.routes.Salons.getAllStylists(salon.id)" class="bts db @if(navInSalon == "salon-stylist") {stylistCurrent} else {stylist} offL">@Messages("salon.stylists")</a>

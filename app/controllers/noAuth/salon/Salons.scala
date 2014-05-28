@@ -348,7 +348,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
   /**
    * Find All the coupons, menus, and services of a salon.
    */
-  def getAllCoupons(salonId: ObjectId) = StackAction { implicit request =>
+  def getAllCoupons(salonId: ObjectId, stylistId: String) = StackAction { implicit request =>
     val user = loggedIn
     val salon: Option[Salon] = Salon.findOneById(salonId)
     salon match {
@@ -380,8 +380,13 @@ object Salons extends MeifanNetCustomerOptionalApplication {
         // Navigation Bar
         var navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.couponMenus"), ""))
         // Jump
-        Ok(views.html.salon.store.salonInfoCouponAll(salon = sl, Coupons.conditionForm.fill(couponSchDefaultConds), serviceTypes = srvTypes, coupons = coupons, menus = menus,
-          serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), navBar = navBar, user = user))
+        if(stylistId == "") {
+          Ok(views.html.salon.store.salonInfoCouponAll(salon = sl, Coupons.conditionForm.fill(couponSchDefaultConds), serviceTypes = srvTypes, coupons = coupons, menus = menus,
+             serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), navBar = navBar, user = user))
+        } else {
+          Ok(views.html.reservation.reservSelectService(sl, Coupons.conditionForm.fill(couponSchDefaultConds), serviceTypes = srvTypes, coupons = coupons, menus = menus,
+             serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), stylistId, navBar = navBar))
+        }
       }
       case None => NotFound
     }
@@ -390,7 +395,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
   /**
    * Find coupons & menus & services by conditions from a salon.
    */
-  def getCouponsByCondition(salonId: ObjectId) = StackAction { implicit request =>
+  def getCouponsByCondition(salonId: ObjectId, stylistId: String) = StackAction { implicit request =>
     val user = loggedIn
     import Coupons.conditionForm
     conditionForm.bindFromRequest.fold(
@@ -461,7 +466,12 @@ object Salons extends MeifanNetCustomerOptionalApplication {
               // Navigation Bar
               var navBar = SalonNavigation.getSalonNavBar(Some(s)) ::: List((Messages("salon.couponMenus"), ""))
               serviceTypes = ServiceType.findAllServiceTypes(s.salonIndustry)
-              Ok(views.html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), navBar, user))
+              // 如果stylistId为空，进入沙龙优惠劵·菜单画面，否则进入预约菜单选择画面
+              if(stylistId.isEmpty()) {
+                Ok(views.html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), navBar, user))
+              } else {
+                Ok(views.html.reservation.reservSelectService(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), stylistId, navBar))
+              }
             }
             case None => NotFound
           }

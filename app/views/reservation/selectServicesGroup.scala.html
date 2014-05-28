@@ -1,0 +1,54 @@
+@(salon: Salon, reservation: Reservation, serviceByTypes: List[ServiceByType], resvType: String = "coupon")
+@import helper._
+@import helper.twitterBootstrap._
+
+<div class="mT50">
+  <table cellspacing="0" id="jsMenuSelect" class="wFull bdCell pCell5 mT15 fgRbrown jscAddMenuSelect">
+    <tbody>
+      <tr class=" bgLGray2">
+        <th class="taC">@Messages("reservation.menu")</th>
+        <th class="w100 taC">@Messages("reservation.price")</th>
+        <th class="w110 taC">@Messages("reservation.serviceDuration")</th>
+      </tr>
+      @if(serviceByTypes.isEmpty) {
+        <div class="bgAlertMsg mT20">
+          <p class="alertMsg">@Messages("service.noDataMsg")</p>
+        </div>
+      } else {
+        @for((serviceByType, sti) <- serviceByTypes.zipWithIndex) {
+          <tr class="bgLGray ">
+            <td colspan="3" height="20">
+              <span class="b">@Messages("ServiceType.serviceTypeName." + serviceByType.serviceTypeName)</span>
+            </td>
+          </tr>
+          @for((service, sii) <- serviceByType.serviceItems.zipWithIndex) {
+          	@if(Reservation.getMainResvItem(reservation.resvItems).mainResvObjId != service.id) {
+	            <tr id="jsMenuWrap0" class="">
+	              <td class="checkboxIndent">
+	              @if(Reservation.getServiceIdFromResv(reservation.resvItems).contains(service.id)) {
+              		<input type="checkbox" name="service" id="service@(sti + 1)@sii"
+	                    value="@service.id" class="cbF" onclick="getServiceId(@(sti + 1)@sii);" checked="checked">
+	                <label for="service@(sti + 1)@sii">
+	                  <span id="jsMenuText">@service.serviceName</span>
+	                </label>
+	              } else {
+	                <input type="checkbox" name="service" id="service@(sti + 1)@sii"
+	                    value="@service.id" class="cbF" onclick="getServiceId(@(sti + 1)@sii);">
+	                <label for="service@(sti + 1)@sii">
+	                  <span id="jsMenuText">@service.serviceName</span>
+	                </label>
+	              }
+	              <td id="jsMenuPrice">@service.price @Messages("coupon.currency")</td>
+	              <td id="jsMenuTime">
+	                @service.duration @Messages("reservation.minute")
+	              </td>
+	            </tr>
+          	}
+          }
+        }
+      }
+    </tbody>
+  </table>
+</div>
+
+<script src="@routes.Assets.at("javascripts/checksForForms.js")" type="text/javascript"></script>

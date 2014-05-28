@@ -31,6 +31,10 @@ import com.meifannet.framework.MeifanNetSalonApplication
 
 object Menus extends MeifanNetSalonApplication {
 
+  /**
+   * 菜单Form
+   * 用于菜单创建
+   */
   def menuForm: Form[Menu] = Form {
     mapping(
       "menuName" -> text,
@@ -47,6 +51,10 @@ object Menus extends MeifanNetSalonApplication {
         menu => !Menu.checkMenuIsExist(menu.menuName, menu.salonId))
   }
 
+  /**
+   * 菜单更新Form
+   * 用于菜单更新
+   */
   def menuUpdateForm: Form[Menu] = Form {
     mapping(
       "menuName" -> text,
@@ -106,6 +114,7 @@ object Menus extends MeifanNetSalonApplication {
 
   /**
    * 进入修改菜单画面
+   * @param menuId 菜单id
    */
   def editMenuInfo(menuId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -119,6 +128,7 @@ object Menus extends MeifanNetSalonApplication {
 
   /**
    * 更新菜单信息
+   * @param menuId 菜单id
    */
   def updateMenu(menuId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -160,6 +170,7 @@ object Menus extends MeifanNetSalonApplication {
 
   /**
    * 无效菜单
+   * @param menuId 菜单id
    */
   def invalidMenu(menuId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
@@ -178,6 +189,7 @@ object Menus extends MeifanNetSalonApplication {
   }
   /**
    * 根据查找条件检索出符合的菜单
+   * 用于后台菜单检索
    */
   def findMenus = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn

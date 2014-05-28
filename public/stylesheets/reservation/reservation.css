@@ -161,3 +161,223 @@ padding-left: 8px;
 background-position: right -461px;
 padding-right: 8px;
 }
+
+.reservBS {
+background-image: url(/assets/images/b.png);
+background-repeat: no-repeat;
+background-color: transparent;
+border: 0;
+}
+
+/* 预约步骤指示区域 ST */
+.step {
+overflow: hidden;
+margin-bottom: 30px;
+height: 25px;
+}
+
+.step li {
+float: left;
+background: url(/assets/images/login/p1.jpg) no-repeat top right #ededed;
+height: 25px;
+line-height: 25px;
+color: #999999;
+padding: 0 48.5px 0 40px;
+font-weight: bold;
+}
+
+.step .one {
+background: url(/assets/images/login/p5.jpg) no-repeat top right #bbbbbb;
+color: #FFF;
+}
+
+.step .one1 {
+background: url(/assets/images/login/p9.jpg) no-repeat top right #bbbbbb;
+color: #FFF;
+}
+
+.step .two {
+background: url(/assets/images/login/p10.jpg) no-repeat top right #bbbbbb;
+color: #FFF;
+}
+
+.step .two1 {
+background: url(/assets/images/login/p9.jpg) no-repeat top right #bbbbbb;
+color: #FFF;
+}
+
+.step .three {
+background: url(/assets/images/login/p5.jpg) no-repeat top right #bbbbbb;
+color: #FFF;
+}
+
+.step .three1 {
+background: url(/assets/images/login/p9.jpg) no-repeat top right #bbbbbb;
+color: #FFF;
+}
+
+.step .four {
+background: url(/assets/images/login/p5.jpg) no-repeat top right #bbbbbb;
+color: #FFF;
+}
+
+.step .four1 {
+background: url(/assets/images/login/p9.jpg) no-repeat top right #bbbbbb;
+}
+
+.step .cur {
+background: url(/assets/images/login/p2.jpg) no-repeat top right #ffe6bc;
+color: #ff6600;
+}
+
+.step .five {
+background: none #ededed;
+}
+
+.step .five1 {
+background: none #ffe6bc;
+}
+
+/* 预约步骤指示区域 END */
+
+.reserveTitleOuter {
+background-position: -3060px top;
+background-repeat: no-repeat;
+background-color: #A6A39B;
+position: relative;
+zoom: 1;
+}
+
+.reserveTitleInner {
+background-position: -3825px bottom;
+background-repeat: no-repeat;
+color: white;
+font-size: 14px;
+padding: 6px 10px;
+}
+
+.reserveMark {
+font-size: 25px;
+vertical-align: middle;	
+}
+
+.titleBottom {
+border-bottom: 2px solid #BFBFBF;
+}
+
+a.nominatedReserve {
+color: #fff;
+line-height: 30px;
+font-weight: bold;
+text-align: center;
+}
+
+.mysalon-stylist {
+float: left;
+}
+
+#pageTopForReserv {
+	width: 765px;
+	margin: auto;
+}
+
+#footerForReserv {
+width: 765px;
+margin: 0 auto;
+clear: both;
+overflow: hidden;
+position: relative;
+padding-bottom: 10px;
+}
+
+#footerLinksForReserv {
+font-size: 10px;
+overflow: hidden;
+position: absolute;
+top: 25px;
+right: 0;
+}
+
+#footerLinksForReserv li {
+float: left;
+border-right: 1px solid #DDD;
+padding-right: 15px;
+margin-left: 15px;
+margin-right: -1px;
+}
+
+.postSalonInfoForReserv {
+left: 200px;
+}
+
+.submitArea2 {
+background-color: #F5F3EF;
+display: block;
+line-height: 20px;
+padding: 10px;
+}
+
+.confirmL { 
+background-position: -148px -52px; 
+width: 150px; 
+height: 50px;
+color: #fff;
+font-size: 15px;
+font-weight: bold; 
+}
+.confirmL:hover {
+background-position: -148px -102px; 
+}
+
+.resvbt {
+text-decoration: underline;
+font-weight: bold;
+}
+
+.resvbt a:hover {
+color: #FF8A90;
+}
+
+.br {
+border-right: 1px solid #ddd;
+}
+
+.pCell5 th, .pCell5 td {
+padding: 5px;
+}
+
+.calTab {
+position: relative;
+z-index: 10;
+zoom: 1;
+bottom: -2px;
+padding-left: 8px;
+padding-right: 8px;
+}
+
+.calTab li {
+float: left;
+margin-right: 2px;
+}
+
+.calTab .salonDirect a{
+color: #666666 !important;
+text-decoration: none !important;
+background-position: -325px 0;
+outline: 0;
+}
+
+.calTab a {
+display: block;
+width: 185px;
+height: 29px;
+line-height: 29px;
+font-weight: bold;
+text-shadow: -1px -1px 0 #DDDDDD;
+text-align: center;
+}
+
+.calTab .current.salonDirect a {
+color: #5b5a5a !important;
+background-position: -325px -58px;
+}

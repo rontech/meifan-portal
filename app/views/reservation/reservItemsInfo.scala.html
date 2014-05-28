@@ -1,0 +1,46 @@
+@* reservItemsInfo Template File *@
+@(reservation: Reservation, displayType: String)
+
+<table cellspacing="0" class="wFull bdCell pCell5 mT20 mB20">
+  <tbody><tr>
+    <th class="w130 fgRbrown bgLGray2 taC">
+      @if(displayType == "serviceDuration") {
+        @Messages("reservation.serviceDurationTotal")
+      } else {
+        @if(displayType == "stylist") {
+          @Messages("reservation.stylist")
+        } else {
+          @Messages("reservation.expectedDate")
+        }
+      }
+
+    </th>
+    <td>
+      <span class="fgRbrown pT5 b">
+      @if(displayType == "serviceDuration") {
+        @if((reservation.serviceDuration / 60) != 0) {
+          @(reservation.serviceDuration / 60)@Messages("reservation.hour")
+        }
+        @if((reservation.serviceDuration % 60) != 0) {
+          @(reservation.serviceDuration % 60)@Messages("reservation.minute")
+        }
+      } else {
+        @if(displayType == "stylist") {
+          @reservation.stylistId match {
+            case None => {
+              @Messages("reservation.noStylist")
+            }
+            case Some(sty) => {
+              @Stylist.findUser(sty).nickName
+            }
+          }
+        } else {
+          @reservation.expectedDate.format("yyyy/MM/dd HH:mm")
+        }
+      }
+
+      </span>
+    </td>
+  </tr>
+  </tbody>
+</table>

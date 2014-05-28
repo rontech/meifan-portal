@@ -1,0 +1,43 @@
+@(salon: Salon, reservation: Reservation, failType: String, navBar: List[(String, String)] = Nil)
+
+@reservationInfoMain(navInSalon = "HairSalon", "four", salon, navBar) {
+
+  @if(failType == "userHasResv") {
+    <div class="mT50">
+      <p class="taC fs24 b fgDGray">@Messages("reservation.failMsg.userHasResv")</p>
+    </div>
+  } else {
+    @if(failType == "stylistHasResved") {
+      <div class="mT50">
+        <p class="taC fs24 b fgDGray">@Messages("reservation.failMsg.stylistHasResved")</p>
+      </div>
+    } else {
+      <div class="mT50">
+        <p class="taC fs24 b fgDGray">@Messages("reservation.failMsg.salonHasResved")</p>
+      </div>
+    }
+  }
+  <div class="fl bdLGray w765 h90 mT40">
+    <div class="bdLGrayB">
+      <p class="m1 bgPink7 pV5 pH20 fs14 b fgWhite">@Messages("reservation.changeResvInfo")</p>
+    </div>
+    @if(failType == "userHasResv") {
+      <div class="fl br w380 h80">
+        <p class="mT10 pH20 fgGray">@Messages("reservation.cancelResv")</p>
+        <p class="pH20 resvbt"><a href="@auth.routes.Users.myReservation">@Messages("user.reservation")</p>
+      </div>
+    } else {
+      @if(failType == "stylistHasResved") {
+        <div class="fl br w380 h80">
+          <p class="mT10 pH20 fgGray">@Messages("reservation.selectOtherStylist")</p>
+          <p class="pH20 resvbt"><a href="@routes.Reservations.reservSelectStylist(reservation.expectedDate.format("yyyy/MM/dd HH:mm").toString)">@Messages("reservation.selectStylist")</a></p>
+        </div>
+      }
+    }
+    <div class="w380 fl">
+      <p class="mT10 pH20 fgGray">@Messages("reservation.selectOtherDate")</p>
+      <p class="pH20 resvbt"><a href="@routes.Reservations.reservShowDate(salon.id, "", 0)">@Messages("reservation.selectDate")</p>
+    </div>
+  </div>
+
+}

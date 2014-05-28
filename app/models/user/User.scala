@@ -196,4 +196,22 @@ object User extends MeifanNetModelCompanion[User] {
     f(value).map(
       user =>
         loggedUser.map(_.id == user.id).getOrElse(false)).getOrElse(true)
+        
+  /**
+   * 根据预约的手机号码判断，如果修改了那么更新会员中手机信息
+   * @param reservation 预约信息
+   */
+  def updateUserPhone(reservation: Reservation) = {
+    val user = findOneByUserId(reservation.userId)
+    user match {
+      case Some(u) => {
+        if(!(u.tel.map(phone => phone == reservation.userPhone).getOrElse(false))) {
+          val newUser = u.copy(tel = Some(reservation.userPhone))
+          User.save(newUser)
+        }
+      }
+      case None => {false}
+    }
+  }
+
 }

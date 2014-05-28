@@ -1029,6 +1029,10 @@ height: 150px;
 width: 349px;
 }
 
+.w478 {
+width: 478px;
+}
+
 .hMin50 {
 min-height: 50px;
 }
@@ -1099,4 +1103,48 @@ background-position: -511px -25px;
 
 .lh34 {
 line-height: 34px;
+}
+
+.fgBlue {
+color: #0000FF;
+}
+
+.w166 {
+width: 166px;
+}
+
+.w170 {
+width: 170px;
+}
+
+.bgThNml th {
+background-color: #EEEBE4;
+}
+
+.fgOrange {
+color: #E46C0A;
+}
+
+.fs24 {
+font-size: 24px;
+}
+
+.bgPink7 {
+background-color: #FF8A90;
+}
+
+.m1 {
+margin: 1px;
+}
+
+.w110 {
+width: 110px;
+}
+
+.w60 {
+width: 60px;
+}
+
+.h80 {
+height: 80px;
 }

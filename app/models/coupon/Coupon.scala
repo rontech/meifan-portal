@@ -26,21 +26,22 @@ import ExecutionContext.Implicits.global
 import com.meifannet.framework.db._
 
 /**
- *
+ * 优惠劵表
+ * 
  * @param id
- * @param couponId
- * @param couponName
- * @param salonId
- * @param serviceItems
- * @param originalPrice
- * @param perferentialPrice
- * @param serviceDuration
- * @param startDate
- * @param endDate
- * @param useConditions
- * @param presentTime
- * @param description
- * @param isValid
+ * @param couponId 优惠劵id
+ * @param couponName 优惠劵名称
+ * @param salonId 沙龙id
+ * @param serviceItems 优惠劵中所包含的服务列表
+ * @param originalPrice 原价
+ * @param perferentialPrice 优惠劵
+ * @param serviceDuration 服务总时长
+ * @param startDate 优惠劵开始时间
+ * @param endDate 优惠劵截至时间
+ * @param useConditions 使用条件
+ * @param presentTime 出示时间，如“在消费前使用”
+ * @param description 描述
+ * @param isValid 该优惠劵是否有效
  */
 case class Coupon(
   id: ObjectId = new ObjectId,
@@ -59,24 +60,15 @@ case class Coupon(
   isValid: Boolean)
 
 /**
- *
- * @param serviceTypes
- * @param subMenuFlg
+ * 用于优惠劵，菜单和服务的检索
+ * 
+ * @param serviceTypes 服务列表
+ * @param subMenuFlg 是否只包含以上条件
  */
 case class CouponServiceType(
   serviceTypes: List[ServiceType],
   subMenuFlg: Option[String])
 
-/**
- *
- * @param couponItem
- * @param salon
- * @param services
- */
-case class CreateCoupon(
-  couponItem: Coupon,
-  salon: Salon,
-  services: List[Service])
 
 object Coupon extends MeifanNetModelCompanion[Coupon] {
 
@@ -86,7 +78,7 @@ object Coupon extends MeifanNetModelCompanion[Coupon] {
   //collection.ensureIndex(DBObject("couponName" -> 1), "couponName", unique = true)
 
   /**
-   *  查找出该沙龙所用优惠劵
+   * 查找出该沙龙所用优惠劵
    *
    * @param salonId
    * @return
@@ -96,7 +88,7 @@ object Coupon extends MeifanNetModelCompanion[Coupon] {
   }
 
   /**
-   *  查找出该沙龙所有有效且没有过期的优惠劵
+   * 查找出该沙龙所有有效且没有过期的优惠劵
    *
    * @param salonId
    * @return
@@ -106,9 +98,9 @@ object Coupon extends MeifanNetModelCompanion[Coupon] {
   }
 
   /**
-   *  查找出该沙龙所有符合条件的有效且没有过期的优惠劵
-   *
-   * @param serviceTypes
+   * 查找出该沙龙所有符合条件的有效且没有过期的优惠劵
+   * 用于前台优惠劵等查找功能
+   * @param serviceTypes 服务列表
    * @param salonId
    * @return
    */
@@ -117,9 +109,9 @@ object Coupon extends MeifanNetModelCompanion[Coupon] {
   }
 
   /**
-   *  查找出该沙龙所用有效且没有过期的优惠劵
-   *
-   * @param serviceTypes
+   * 查找出该沙龙所用有效且没有过期的优惠劵
+   * 用于后台优惠劵等查找功能
+   * @param serviceTypes 服务列表
    * @param salonId
    * @return
    */
@@ -128,15 +120,17 @@ object Coupon extends MeifanNetModelCompanion[Coupon] {
   }
 
   /**
-   *
-   * @param CouponName
+   * 检查该优惠劵是否存在
+   * 用于创建优惠劵时根据优惠劵名判断优惠劵是否已存在
+   * @param CouponName 优惠劵名
    * @param salonId
    * @return
    */
   def checkCouponIsExist(CouponName: String, salonId: ObjectId): Boolean = dao.find(DBObject("couponName" -> CouponName, "salonId" -> salonId)).hasNext
 
   /**
-   *
+   * 判断优惠劵是否属于当前沙龙的
+   * 
    * @param couponId
    * @param salon
    * @return

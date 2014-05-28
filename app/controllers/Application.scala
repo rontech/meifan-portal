@@ -67,7 +67,8 @@ object Application extends MeifanNetCustomerOptionalApplication {
       auth.routes.javascript.Stylists.itemIsExist,
       auth.routes.javascript.Salons.itemIsExist,
       noAuth.routes.javascript.Users.checkIsExist,
-      auth.routes.javascript.MyFollows.followedCoupon)).as("text/javascript")
+      auth.routes.javascript.MyFollows.followedCoupon,
+      routes.javascript.Reservations.addResvService)).as("text/javascript")
   }
 
   def index = StackAction { implicit request =>

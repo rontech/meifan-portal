@@ -1,0 +1,8 @@
+@(salon: Salon, reservation: Reservation, unReservStylists: List[StylistDetailInfo], reservStylists: List[StylistDetailInfo], navBar: List[(String, String)] = Nil)
+
+  @reservationInfoMain(navInSalon = "HairSalon", "two", salon, navBar) {
+
+    @views.html.reservation.reservItemsInfo(reservation, "expectedDate")
+
+    @views.html.reservation.reservSelectStylist(unReservStylists, reservStylists)
+  }
