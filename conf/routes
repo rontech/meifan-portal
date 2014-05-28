@@ -327,3 +327,8 @@ GET         /getAllCitys/:currentUri                                            
 #GET        /getAllCitys                                                         controllers.Application.getAllCitys
 GET         /getOneCity/:city                                                    controllers.Application.getOneCity(city: String)
 GET         /setCityInSession/:city                                              controllers.Application.setCityInSession(city: String)
+
+
+# --- jsMessages routes START
+GET     /messages.js                                                             controllers.Application.jsMessages
+# --- jsMessages routes END
