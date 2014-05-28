@@ -1,11 +1,11 @@
-@(styleSearchForm: Form[Style], styleAndSalon: List[StyleWithAllInfo], stylePara : models.StylePara, user:Option[User])
+@(styleSearchForm: Form[models.portal.style.Style], styleAndSalon: List[models.portal.style.StyleWithAllInfo], stylePara : models.portal.style.StylePara, user:Option[models.portal.user.User])
 
 @main(title = Messages("hair.tabName"), nav = "hair-catalog") {
 
   <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
   <div>
     <div style="float:left;width:80%">
-      <!-- Style Ranking Result Page, SearchList. -->    
+      <!-- models.portal.style.Style Ranking Result Page, SearchList. -->    
       @views.html.style.general.styleRankingList(styleAndSalon)
     </div>
     <div style="">

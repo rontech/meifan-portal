@@ -1,4 +1,4 @@
-@(salon: SalonGeneralSrchRst)
+@(salon: models.portal.search.SalonGeneralSrchRst)
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/generalSearch.css")">
 
@@ -113,7 +113,7 @@
     </ul>
         *@
       </div>
-      <!--↓ Coupons in this Salon.-->
+      <!--↓ models.portal.coupon.Coupons in this models.portal.salon.Salon.-->
       @if(!salon.selectedCoupons.isEmpty) {
         <div class="bdLGrayT mT5">
           <p class="fs10 b fgLGray2 mT10 mL5">
@@ -122,7 +122,7 @@
           <div class="CouponArea p3">
             @for((cp, idx) <- salon.selectedCoupons.zipWithIndex) {
               <dl class="cFix">
-                <dt class="iS @if(idx == 0) {couponTypeSmallCT02} else {couponTypeSmallCT01} offL CouponMark fl">
+                <dt class="iS @if(idx == 0) {couponTypeSmallCT02} else {couponTypeSmallCT01} offL models.portal.coupon.CouponMark fl">
                 </dt>
                 <dd class="fl">
                   <a href="@noAuth.routes.Salons.getAllCoupons(cp.salonId, "")">
@@ -140,7 +140,7 @@
           @Messages("coupon.searchForMore")
         </a>
       </p>
-      <!--↑ Coupons in this Salon.-->
+      <!--↑ models.portal.coupon.Coupons in this models.portal.salon.Salon.-->
     </div>
   </div>
 </li>

@@ -1,8 +1,8 @@
-@(salon: Salon, style: Style, navBar: List[(String, String)] = Nil, user : Option[User])
+@(salon: models.portal.salon.Salon, style: models.portal.style.Style, navBar: List[(String, String)] = Nil, user : Option[models.portal.user.User])
 
 @salonInfoMain(navInSalon = "salon-style", salon, navBar, user) {
 
-  <!-- Get All the Salons with all the styles.  -->
+  <!-- Get All the models.portal.salon.Salons with all the styles.  -->
   @views.html.style.styleItem(style,salon)
 
 }

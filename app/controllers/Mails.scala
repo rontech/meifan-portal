@@ -32,6 +32,9 @@ import play.api.templates.Html
 import java.util.UUID
 import java.util.Date
 import com.meifannet.framework.MeifanNetApplication
+import models.portal.user.User
+import models.portal.salon.{SalonAccount, Salon}
+import models.portal.mail.Mail
 
 /**
  * this object is to reset password of user and salon by sending mail

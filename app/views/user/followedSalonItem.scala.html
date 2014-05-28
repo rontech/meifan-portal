@@ -1,4 +1,5 @@
-@(salon:Salon, loginUserId:ObjectId, logged : Boolean)
+@(salon:models.portal.salon.Salon, loginUserId:ObjectId, logged : Boolean)
+
 <li class="mT20">
   <div class="shopInformationHead ympS">
     <div class="shopInformationBottom ympS">
@@ -15,7 +16,7 @@
                 <p class="fl fgLGray2 b mT2 mR8"> @salon.salonAddress.map(add=>add.accessMethodDesc).getOrElse(None) </p>
               </div>
               <p class="fr">
-                @if(logged.equals(true) && MyFollow.checkIfFollow(loginUserId,salon.id)){
+                @if(logged.equals(true) && models.portal.user.MyFollow.checkIfFollow(loginUserId,salon.id)){
                   <a href="@auth.routes.MyFollows.cancelFollow(salon.id)" class="followBtn">@Messages("user.cancelFollow")</a>
                 }else{
                   <a href="javascript:void(0);" onclick="addFollow('@salon.id','salon')" class="followBtn">@Messages("user.addFollow")</a>
@@ -49,7 +50,7 @@
                 <dt class="fl fgLGray2 b mW65">@Messages("salon.priceCutOnly")</dt>
                 <dd class="fl w100">
                   <div class="mL10">
-                    @Salon.getLowestPriceOfCut(salon.id) match {
+                    @models.portal.salon.Salon.getLowestPriceOfCut(salon.id) match {
                         case None => { @Messages("salon.priceCutOnlyUndefined")}
                         case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
                     }
@@ -62,7 +63,7 @@
                 <dt class="fl fgLGray2 b mW65">@Messages("salon.stylistNums")</dt>
                 <dd class="fl w100">
                   <div class="mL10">
-                    @Messages("slaon.stylistNumUnit", Salon.getCountOfStylists(salon.id))
+                    @Messages("slaon.stylistNumUnit", models.portal.salon.Salon.getCountOfStylists(salon.id))
                   </div>
                 </dd>
                 <dt class="fl fgLGray2 b mW90">@Messages("salon.parkingDesc")</dt>
@@ -82,9 +83,9 @@
                     <div class="CouponAreaCoupon cFix">
                       <div class="CouponAreaInner">
                         <dl class="cFix">
-                        @if(Blog.findBySalon(salon.id).length > 0){
-                          <dd class="fr b mL10">@User.findOneByUserId(Blog.findBySalon(salon.id).head.authorId).get.nickName</dd>
-                          <dd class="oh"><a href="@noAuth.routes.Blogs.getOneBlogOfSalon(salon.id, Blog.findBySalon(salon.id).head.id)">@Blog.findBySalon(salon.id).head.title</a></dd>
+                        @if(models.portal.blog.Blog.findBySalon(salon.id).length > 0){
+                          <dd class="fr b mL10">@models.portal.user.User.findOneByUserId(models.portal.blog.Blog.findBySalon(salon.id).head.authorId).get.nickName</dd>
+                          <dd class="oh"><a href="@noAuth.routes.Blogs.getOneBlogOfSalon(salon.id, models.portal.blog.Blog.findBySalon(salon.id).head.id)">@models.portal.blog.Blog.findBySalon(salon.id).head.title</a></dd>
                         }else{
                           @Messages("blog.salonNoBlog")
                         }
@@ -100,11 +101,11 @@
                     <div class="CouponAreaCoupon cFix">
                       <div class="CouponAreaInner">
                         <dl class="cFix">
-                          @if(Coupon.findValidCouponBySalon(salon.id).length > 0){
-                            @for(i <- 0 to (if(Coupon.findValidCouponBySalon(salon.id).length > 5) 4 else Coupon.findValidCouponBySalon(salon.id).length - 1)) {
+                          @if(models.portal.coupon.Coupon.findValidCouponBySalon(salon.id).length > 0){
+                            @for(i <- 0 to (if(models.portal.coupon.Coupon.findValidCouponBySalon(salon.id).length > 5) 4 else models.portal.coupon.Coupon.findValidCouponBySalon(salon.id).length - 1)) {
                               <div class="couponItem">
-                                <dt class="iS couponTypeSmallCT02 offL CouponMark fl"></dt><dd class="fr b mL10">@Coupon.findValidCouponBySalon(salon.id)(i).perferentialPrice</dd>
-                                <dd class="oh pl5"><a href="@noAuth.routes.Salons.getAllCoupons(salon.id, "")">@Coupon.findValidCouponBySalon(salon.id)(i).description.slice(0, 30) ...</a></dd>
+                                <dt class="iS couponTypeSmallCT02 offL models.portal.coupon.CouponMark fl"></dt><dd class="fr b mL10">@models.portal.coupon.Coupon.findValidCouponBySalon(salon.id)(i).perferentialPrice</dd>
+                                <dd class="oh pl5"><a href="@noAuth.routes.Salons.getAllCoupons(salon.id, "")">@models.portal.coupon.Coupon.findValidCouponBySalon(salon.id)(i).description.slice(0, 30) ...</a></dd>
                               </div>
                             }
                           }else{

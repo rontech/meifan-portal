@@ -34,17 +34,24 @@ import org.mindrot.jbcrypt.BCrypt
 import controllers.auth.Coupons
 import views.html
 import utils.Const._
-import models.SearchParaForSalon
-import models.WorkTime
-import models.SalonAccount
-import scala.Some
-import models.BriefIntroduction
-import models.CouponServiceType
-import models.ServiceByType
-import models.Contact
-import models.OptContactMethod
-import models.Address
-import com.meifannet.framework.MeifanNetCustomerOptionalApplication
+import com.meifannet.portal.MeifanNetCustomerOptionalApplication
+import models.portal.salon._
+import models.portal.common._
+import models.portal.salon.WorkTime
+import models.portal.salon.SalonAccount
+import models.portal.salon.BriefIntroduction
+import models.portal.salon.Contact
+import models.portal.common.OptContactMethod
+import models.portal.common.Address
+import models.portal.search.{SortByConditions, SeatNums, PriceRange, SearchParaForSalon}
+import models.portal.industry.Industry
+import models.portal.relation.SalonAndStylist
+import models.portal.stylist.Stylist
+import models.portal.style.Style
+import models.portal.blog.Blog
+import models.portal.coupon.{CouponServiceType, Coupon}
+import models.portal.menu.Menu
+import models.portal.service.{ServiceByType, Service, ServiceType}
 
 object Salons extends MeifanNetCustomerOptionalApplication {
 

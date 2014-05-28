@@ -15,7 +15,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.question
 
 import com.mongodb.casbah.commons.Imports._
 import mongoContext._

@@ -15,7 +15,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.search
 
 import java.util.Date
 import se.radley.plugin.salat._
@@ -24,6 +24,10 @@ import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.WriteConcern
 import mongoContext._
 import com.meifannet.framework.db._
+import models.portal.salon.{Salon, SalonFacilities}
+import models.portal.review.ReviewsStat
+import models.portal.coupon.Coupon
+import models.portal.style.Style
 
 /**
  * 通用检索区分: 全部|美发沙龙|时尚靓发|美甲沙龙|时尚靓甲|

@@ -22,6 +22,7 @@ import play.api.i18n.Messages
 import com.mongodb.casbah.commons.Imports._
 import models._
 import com.meifannet.framework.MeifanNetApplication
+import models.portal.salon.Salon
 
 /**
  * The Navigation bar shown on a salon plain page.

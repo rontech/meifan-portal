@@ -1,7 +1,7 @@
-@(salon: Salon, stylist: StylistDetailInfo, style: List[Style], blog: Option[Blog])
+@(salon: models.portal.salon.Salon, stylist: models.portal.stylist.StylistDetailInfo, style: List[models.portal.style.Style], blog: Option[models.portal.blog.Blog])
 
 <div class="cFix mT30 pH10">
-  <!-- ST left side info for Stylist picture.-->
+  <!-- ST left side info for models.portal.stylist.Stylist picture.-->
   <div class="fl w224 taC">
     <div>
     <a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistInfo.get.stylistId)">
@@ -22,20 +22,20 @@
     </div>
     <!-- END Follow this stylist. -->
   </div>
-  <!-- END left side info for Stylist picture.-->
+  <!-- END left side info for models.portal.stylist.Stylist picture.-->
 
   <div class="fr w501">
 
-    <!--ST. Stylist's Words. -->
+    <!--ST. models.portal.stylist.Stylist's Words. -->
     <div>
       <dl>
         <dt class="fgPink b fs14"> @stylist.stylistInfo.get.myWords </dt>
         <dd class="mT10"> @stylist.stylistInfo.get.myPR </dd>
       </dl>
     </div>
-    <!--END. Stylist's Words. -->
+    <!--END. models.portal.stylist.Stylist's Words. -->
 
-    <!--ST. Stylist Appeal. -->
+    <!--ST. models.portal.stylist.Stylist Appeal. -->
     @if(stylist.stylistInfo.get.myPics != null) {
       <div class="mT30">
       <ul class="cFix">
@@ -57,9 +57,9 @@
       </ul>
     </div>
     }
-    <!--ST. Stylist Appeal. -->
+    <!--ST. models.portal.stylist.Stylist Appeal. -->
 
-    <!--ST. Stylist Resume. -->
+    <!--ST. models.portal.stylist.Stylist Resume. -->
     <div class="mT30">
       <table cellspacing="0" class="wFull bgThNml bdCell pCell10">
         <tbody>
@@ -86,9 +86,9 @@
         </tbody>
       </table>
     </div>
-    <!--END. Stylist Resume. -->
+    <!--END. models.portal.stylist.Stylist Resume. -->
 
-    <!--ST. Stylist's latest Blog. -->
+    <!--ST. models.portal.stylist.Stylist's latest models.portal.blog.Blog. -->
     @blog match {
       case None => {}
       case Some(blg) => {
@@ -102,16 +102,16 @@
             </p>
           </div>
 
-          <!--ST. Blog item. -->
+          <!--ST. models.portal.blog.Blog item. -->
           <ul>
             @views.html.blog.blogItem(blg, salon)
           </ul>
-          <!--END. Blog item. -->
+          <!--END. models.portal.blog.Blog item. -->
         </div>
 
       }
     }
-    <!--END. Stylist's latest Blog. -->
+    <!--END. models.portal.stylist.Stylist's latest models.portal.blog.Blog. -->
   </div>
 </div>
 

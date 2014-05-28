@@ -15,16 +15,19 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package com.meifannet.framework.auth
+package com.meifannet.portal.auth
 
-import jp.t2v.lab.play2.auth._
 import reflect.{ ClassTag, classTag }
 import play.api.mvc._
 import play.api.mvc.Results._
 import scala.concurrent.{ ExecutionContext, Future }
-import models._
+import models.portal.user
+import models.portal.user._
 import controllers.auth
 import controllers.routes
+import com.meifannet.framework.auth._
+
+
 
 /**
  * trait for the authorization and authentication of customer.
@@ -32,7 +35,7 @@ import controllers.routes
  * @since 1.0
  * @see jp.t2v.lab.play2.auth.AuthConfig
  */
-trait UserAuthConfigImpl extends AuthConfig {
+trait UserAuthConfigImpl extends BaseAuthConfig {
   /**
    * String type is used to identify a user.
    */
@@ -41,7 +44,7 @@ trait UserAuthConfigImpl extends AuthConfig {
   /**
    * Salon is used to represent a user.
    */
-  type User = models.User
+  type User = user.User
 
   /**
    * A type that is defined by every action for authorization.

@@ -1,6 +1,4 @@
-@(navInSalon: String = "my-stylists", mySalon: Salon, applies: List[(Stylist, ObjectId)])
-
-@import models.Salon
+@(navInSalon: String = "my-stylists", mySalon: models.portal.salon.Salon, applies: List[(models.portal.stylist.Stylist, ObjectId)])
 
 @views.html.salon.admin.mySalonMain(navInSalon, mySalon){
   <div>

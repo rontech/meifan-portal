@@ -25,7 +25,10 @@ import models._
 import views._
 import java.util.Date
 import jp.t2v.lab.play2.auth._
-import com.meifannet.framework.MeifanNetCustomerOptionalApplication
+import com.meifannet.portal.MeifanNetCustomerOptionalApplication
+import models.portal.style.{StyleWithAllInfo, Style}
+import models.portal.common.OnUsePicture
+import models.portal.salon.Salon
 
 object Styles extends MeifanNetCustomerOptionalApplication {
 

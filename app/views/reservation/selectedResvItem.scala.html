@@ -1,4 +1,6 @@
-@(resvItem: ResvItem)
+@(resvItem: models.portal.reservation.ResvItem)
+
+@import models.portal.menu.Menu
 
 <table cellspacing="0" class="wFull bdCell pCell5 mT20">
   <tbody>
@@ -18,7 +20,7 @@
       <th class="w110 taC">@Messages("reservation.serviceDuration")</th>
     </tr>
     @if(resvItem.resvType == "coupon") {
-      @Coupon.findOneById(resvItem.mainResvObjId) match {
+      @models.portal.coupon.Coupon.findOneById(resvItem.mainResvObjId) match {
         case None => {NotFound}
         case Some(coupon) => {
           <tr>
@@ -162,7 +164,7 @@
           }
         }
       } else {
-        @Service.findOneById(resvItem.mainResvObjId) match {
+        @models.portal.service.Service.findOneById(resvItem.mainResvObjId) match {
           case None => {NotFound}
           case Some(service) => {
             <tr>

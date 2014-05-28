@@ -22,6 +22,7 @@ import com.mongodb.casbah.commons.Imports._
 import models._
 import views._
 import com.meifannet.framework.MeifanNetApplication
+import models.portal.info.Info
 
 object Infos extends MeifanNetApplication {
 

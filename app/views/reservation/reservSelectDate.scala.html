@@ -1,8 +1,8 @@
-@(salon: Salon, resvSchedule: ResvSchedule, stylistId: String, week: Int = 0)
+@(salon: models.portal.salon.Salon, resvSchedule: models.portal.reservation.ResvSchedule, stylistId: String, week: Int = 0)
 
 <div id="jsRsvCdTbl" class="ReserveConditionTable underTabContents">
   @if(stylistId != "") {
-    @Stylist.findOneById(new ObjectId(stylistId)) match {
+    @models.portal.stylist.Stylist.findOneById(new ObjectId(stylistId)) match {
       case None => {}
       case Some(sty) => {
         <div class="pH10 pV5 cFix">
@@ -10,7 +10,7 @@
             <p class="fl mR10"><img src="@routes.Application.getPhoto(sty.myPics(0).fileObjId)" class="mT6 w60 h80" oncontextmenu="return false ;"></p>
             <div class="fl">
               <p class="fs10 fgLGray2 mT13 cFix">@Messages("reservation.stylist")</p>
-              <p class="fl mR20"><span class="fs14 b">@Stylist.findUserName(sty.stylistId)</span>
+              <p class="fl mR20"><span class="fs14 b">@models.portal.stylist.Stylist.findUserName(sty.stylistId)</span>
                 　@Messages("reservation.resvDateForStylist")</p>
             </div>
           </div>

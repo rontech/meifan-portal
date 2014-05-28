@@ -16,7 +16,7 @@
  * from SuZhou Rontech Co.,Ltd..
  */
 
-package models
+package models.portal.service
 
 import java.util.Date
 import com.mongodb.casbah.Imports._

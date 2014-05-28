@@ -15,13 +15,14 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.relation
 
 import com.mongodb.casbah.commons.Imports._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
 import java.util.Date
 import com.meifannet.framework.db._
+import models.portal.salon.Salon
 
 case class SalonStylistApplyRecord(
   id: ObjectId = new ObjectId,

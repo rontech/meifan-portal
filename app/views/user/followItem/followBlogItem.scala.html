@@ -1,4 +1,4 @@
-@(blog: Blog, loginUserId:ObjectId)
+@(blog: models.portal.blog.Blog, loginUserId:ObjectId)
 
 @import java.text.DateFormat
 
@@ -15,7 +15,7 @@
           <dt class="fl">@Messages("blog.author")</dt>
           <dd class="fl">
             <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(blog.authorId)">
-              @User.findOneByUserId(blog.authorId).get.nickName</a>
+              @models.portal.user.User.findOneByUserId(blog.authorId).get.nickName</a>
             </a>
           </dd>
         </dl>

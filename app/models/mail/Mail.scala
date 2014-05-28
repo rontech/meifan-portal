@@ -15,7 +15,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.mail
 
 import java.util.Date
 import com.mongodb.casbah.Imports._

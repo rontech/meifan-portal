@@ -1,4 +1,5 @@
-@(styles: List[models.Style], isStylist: Boolean, uId: ObjectId = new ObjectId, loginUserId: ObjectId = new ObjectId)
+@(styles: List[models.portal.style.Style], isStylist: Boolean, uId: ObjectId = new ObjectId, loginUserId: ObjectId = new ObjectId)
+
 @import helper._
 
 <div class="styleList">
@@ -37,7 +38,7 @@
           @if(!isStylist) {
             <a href="@noAuth.routes.Stylists.otherHomePage(styles(i).stylistId)">
               <p>
-                <u>@Messages("hair.stylist") : @Stylist.findUser(styles(i).stylistId).nickName</u>
+                <u>@Messages("hair.stylist") : @models.portal.stylist.Stylist.findUser(styles(i).stylistId).nickName</u>
               </p>
             </a>
             @*店铺暂不能对发型进行更新,删除的操作<p>

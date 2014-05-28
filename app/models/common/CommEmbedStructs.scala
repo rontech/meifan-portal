@@ -15,7 +15,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.common
 
 import play.api.Play.current
 import play.api.PlayException
@@ -123,3 +123,29 @@ object DefaultLog extends MeifanNetModelCompanion[DefaultLog] {
    */
   def getImgId = dao.find(MongoDBObject.empty).toList.head.imgId
 }
+
+
+/*----------------------------
+ * Embed Structure of Salon.
+ -----------------------------*/
+
+/**
+ * 地址结构
+ * @param province 省
+ * @param city 市
+ * @param region 区
+ * @param town 镇
+ * @param addrDetail 详细地址
+ * @param longitude 经度
+ * @param latitude 纬度
+ * @param accessMethodDesc 交通方法
+ */
+case class Address(
+  province: String,
+  city: Option[String],
+  region: Option[String],
+  town: Option[String],
+  addrDetail: String,
+  longitude: Option[BigDecimal],
+  latitude: Option[BigDecimal],
+  accessMethodDesc: String)

@@ -15,13 +15,15 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.review
 
 import java.util.Date
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import mongoContext._
 import com.meifannet.framework.db._
+import models.portal.coupon.Coupon
+import models.portal.salon.Salon
 
 /**
  * A All Info structs of comment including belows

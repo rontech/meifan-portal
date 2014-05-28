@@ -1,4 +1,5 @@
-@(salon: Salon, reservation: Reservation, serviceByTypes: List[ServiceByType], resvType: String = "coupon")
+@(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation, serviceByTypes: List[models.portal.service.ServiceByType], resvType: String = "coupon")
+
 @import helper._
 @import helper.twitterBootstrap._
 
@@ -22,10 +23,10 @@
             </td>
           </tr>
           @for((service, sii) <- serviceByType.serviceItems.zipWithIndex) {
-          	@if(Reservation.getMainResvItem(reservation.resvItems).mainResvObjId != service.id) {
+          	@if(models.portal.reservation.Reservation.getMainResvItem(reservation.resvItems).mainResvObjId != service.id) {
 	            <tr id="jsMenuWrap0" class="">
 	              <td class="checkboxIndent">
-	              @if(Reservation.getServiceIdFromResv(reservation.resvItems).contains(service.id)) {
+	              @if(models.portal.reservation.Reservation.getServiceIdFromResv(reservation.resvItems).contains(service.id)) {
               		<input type="checkbox" name="service" id="service@(sti + 1)@sii"
 	                    value="@service.id" class="cbF" onclick="getServiceId(@(sti + 1)@sii);" checked="checked">
 	                <label for="service@(sti + 1)@sii">

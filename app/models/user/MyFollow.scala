@@ -15,13 +15,18 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.user
 
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
 import scala.collection.mutable.ListBuffer
 import com.meifannet.framework.db._
+import models.portal.salon.Salon
+import models.portal.stylist.Stylist
+import models.portal.coupon.Coupon
+import models.portal.blog.Blog
+import models.portal.style.Style
 
 /**
  * 关注class的定义

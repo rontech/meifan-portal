@@ -15,7 +15,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.style
 
 import java.util.Date
 import com.mongodb.casbah.query.Imports._
@@ -26,6 +26,12 @@ import play.api.PlayException
 import models._
 import com.meifannet.framework.db._
 import com.mongodb.casbah.commons.Imports.{ DBObject => commonsDBObject }
+import models.portal.common.OnUsePicture
+import models.portal.relation.SalonAndStylist
+import models.portal.stylist.Stylist
+import models.portal.reservation.Reservation
+import models.portal.salon.Salon
+import models.portal.service.ServiceType
 
 trait StyleIdUsed {
   val styleId: Option[ObjectId]

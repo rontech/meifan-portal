@@ -15,13 +15,17 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.blog
 
 import java.util.Date
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import mongoContext._
 import com.meifannet.framework.db._
+import models.portal.user.User
+import models.portal.stylist.Stylist
+import models.portal.relation.SalonAndStylist
+import models.portal.salon.Salon
 
 /**
  * A All Info structs of blog including belows
@@ -86,7 +90,7 @@ object Blog extends MeifanNetModelCompanion[Blog] {
     val stylistList = Stylist.findBySalon(salonId)
     var blog: List[Blog] = Nil
     stylistList.foreach({ row =>
-      var user = User.findOneById(row.stylistId).get
+      val user = User.findOneById(row.stylistId).get
       blog = Blog.find(DBObject("authorId" -> user.userId, "isValid" -> true, "pushToSalon" -> true)).toList
       if (!blog.isEmpty)
         blogList :::= blog

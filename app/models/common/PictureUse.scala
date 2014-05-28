@@ -15,19 +15,34 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package com.meifannet.framework.db
+package models.portal.common
 
+import play.api.Play.current
+import play.api.PlayException
 import com.novus.salat._
-import com.novus.salat.dao._
-import com.mongodb.casbah.Imports._
+import com.novus.salat.Context
+import com.mongodb.casbah.commons.Imports._
+import mongoContext._
+import se.radley.plugin.salat._
+import se.radley.plugin.salat.Binders._
+import java.util.Date
+import com.meifannet.framework.db._
+
 /**
- * Wrapper for the <code>SalatDAO</code> class.
- * Referring SalatDAO directly is not recommended since we are not sure
- * the continuity of SalatDAO class.
- *
- * @since 1.0
- * @see com.movus.salat.dao.SalatDAO
+ * [Master Table]
+ * 图片的用途主表
+ * @param id 
+ * @param picUseName use purpose of the picture
+ * @param division division of the picture use.
  */
-class MeifanNetDAO[ObjectType <: AnyRef](override val collection: MongoCollection)(implicit mot: Manifest[ObjectType], mid: Manifest[ObjectId], ctx: Context)
-  extends SalatDAO[ObjectType, ObjectId](collection)(mot, mid, ctx) {
+case class PictureUse(
+  id: ObjectId = new ObjectId,
+  picUseName: String,
+  division: Int)
+
+object PictureUse extends MeifanNetModelCompanion[PictureUse] {
+
+  val dao = new MeifanNetDAO[PictureUse](collection = loadCollection()) {}
+
 }
+

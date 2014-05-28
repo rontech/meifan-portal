@@ -15,7 +15,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.industry
 
 import play.api.Play.current
 import play.api.PlayException
@@ -43,20 +43,6 @@ object Industry extends MeifanNetModelCompanion[Industry] {
   def findAllIndustryName = dao.find(MongoDBObject.empty).toList.map {
     industry => industry.industryName
   }
-
-}
-
-/**
- * [Master Table]
- */
-case class PictureUse(
-  id: ObjectId = new ObjectId,
-  picUseName: String,
-  division: Int)
-
-object PictureUse extends MeifanNetModelCompanion[PictureUse] {
-
-  val dao = new MeifanNetDAO[PictureUse](collection = loadCollection()) {}
 
 }
 

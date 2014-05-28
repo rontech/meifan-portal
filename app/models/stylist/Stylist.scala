@@ -15,7 +15,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.stylist
 
 import play.api.Play.current
 import java.util.Date
@@ -26,14 +26,21 @@ import play.api.PlayException
 import scala.concurrent.{ ExecutionContext, Future }
 import ExecutionContext.Implicits.global
 import com.meifannet.framework.db._
+import models.portal.industry.{Industry, Position, IndustryAndPosition}
+import models.portal.common.OnUsePicture
+import models.portal.style._
+import models.portal.service.ServiceType
+import models.portal.user.User
+import models.portal.salon.Salon
+
 /**
  * A All Info structs of stylist including belows
  *   1. basic info as a user.
  *   2. info as a stylist.
  *   3. work info to a salon.
  */
-case class StylistDetailInfo(basicInfo: User, stylistInfo: Option[Stylist], workInfo: Option[SalonAndStylist]) {
-  def apply(basicinfo: User, stylist: Option[Stylist], work: Option[SalonAndStylist]) = new StylistDetailInfo(basicinfo, stylist, work)
+case class StylistDetailInfo(basicInfo: User, stylistInfo: Option[Stylist], workInfo: Option[models.portal.relation.SalonAndStylist]) {
+  def apply(basicinfo: User, stylist: Option[Stylist], work: Option[models.portal.relation.SalonAndStylist]) = new StylistDetailInfo(basicinfo, stylist, work)
 }
 
 /**
@@ -234,7 +241,7 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
         // get the work info.(there is something we should pay attention to avoid errors.
         // NOTICE:  we should find the work info by Stylist table's real ObjectId not the publicId.
         val work = stylist match {
-          case Some(st) => SalonAndStylist.findByStylistId(st.stylistId) // st.stylistId = userObjId
+          case Some(st) => models.portal.relation.SalonAndStylist.findByStylistId(st.stylistId) // st.stylistId = userObjId
           case None => None
         }
 
@@ -277,7 +284,7 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
    */
   def findBySalon(salonId: ObjectId): List[Stylist] = {
     var stylists: List[Stylist] = Nil
-    val applyRe = SalonAndStylist.findBySalonId(salonId)
+    val applyRe = models.portal.relation.SalonAndStylist.findBySalonId(salonId)
     applyRe.map { app =>
       val stylist = dao.findOne(DBObject("stylistId" -> app.stylistId))
       stylist match {
@@ -296,7 +303,7 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
    * @return
    */
   def mySalon(stylistId: ObjectId): Salon = {
-    val releation = SalonAndStylist.findByStylistId(stylistId)
+    val releation = models.portal.relation.SalonAndStylist.findByStylistId(stylistId)
     releation match {
       case Some(re) => {
         val salon = Salon.findOneById(re.salonId)
@@ -351,7 +358,7 @@ object Stylist extends MeifanNetModelCompanion[Stylist] {
    */
   def findRecommendStylists: List[Stylist] = {
     var stylists: List[Stylist] = Nil
-    SalonAndStylist.findAll.toList.map { releation =>
+    models.portal.relation.SalonAndStylist.findAll.toList.map { releation =>
       if (releation.isValid) {
         val stylist = Stylist.findOneByStylistId(releation.stylistId).get
         stylists :::= List(stylist)

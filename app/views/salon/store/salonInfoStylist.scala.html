@@ -1,4 +1,4 @@
-@(salon: Salon, stylist: Option[StylistDetailInfo] = None, styles: List[Style] = Nil, latestBlog: Option[Blog] = None, navBar: List[(String, String)] = Nil, user: Option[User])
+@(salon: models.portal.salon.Salon, stylist: Option[models.portal.stylist.StylistDetailInfo] = None, styles: List[models.portal.style.Style] = Nil, latestBlog: Option[models.portal.blog.Blog] = None, navBar: List[(String, String)] = Nil, user: Option[models.portal.user.User])
 
 @salonInfoMain(navInSalon = "salon-stylist", salon, navBar, user){
 
@@ -12,7 +12,7 @@
 
         <!--↓ Get stylist's work positons.--> 
         @dtl.stylistInfo match {
-          case None => {<h1>Not a Stylist.</h1>}    
+          case None => {<h1>Not a models.portal.stylist.Stylist.</h1>}    
           case Some(info) => {
             <div class="stylePageTileOuter">
               <div class="fgPink b fs10">
@@ -30,7 +30,7 @@
         @views.html.stylist.stylistBasicInfoContent(salon, dtl, styles, latestBlog)
         <!--↑ Get stylist's self introductions.--> 
 
-        <!--↓ Stylist's Works: All the styles.  -->
+        <!--↓ models.portal.stylist.Stylist's Works: All the styles.  -->
         <div class="mT30">
           <div class="yS mainContentsSecondTitleOuter">
             <h3 class="yS mainContentsSecondTitleInner">
@@ -41,11 +41,11 @@
         
         <!-- get all the salons with all the styles.  -->
         @views.html.style.styleGroup(styles, salon)
-        <!--↑ Stylist's Works: All the styles.  -->
+        <!--↑ models.portal.stylist.Stylist's Works: All the styles.  -->
 
-        <!--↓ Stylist's Works: All the styles.  -->
+        <!--↓ models.portal.stylist.Stylist's Works: All the styles.  -->
         @views.html.stylist.pleaseReserveMe(dtl)    
-        <!--↑ Stylist's Works: All the styles.  -->
+        <!--↑ models.portal.stylist.Stylist's Works: All the styles.  -->
 
       </div>
     }

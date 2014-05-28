@@ -1,4 +1,4 @@
-@(styles: Seq[Style] = Nil, salon: Salon, buttonType : String = "")
+@(styles: Seq[models.portal.style.Style] = Nil, salon: models.portal.salon.Salon, buttonType : String = "")
 
 @if(styles.isEmpty){
   <div class="bgAlertMsg mT20">
@@ -28,7 +28,7 @@
 	        </div>
 	      </div>
 	      <div class=""w176 mHA"">
-	        <p class="mT10 lh13 taM">@Messages("hair.stylist") : @Stylist.findUser(style.stylistId).nickName</p>
+	        <p class="mT10 lh13 taM">@Messages("hair.stylist") : @models.portal.stylist.Stylist.findUser(style.stylistId).nickName</p>
 	      </div>
 	      	@if(buttonType == "selectResvStyle") {
 				 		<div class="taC mT10">

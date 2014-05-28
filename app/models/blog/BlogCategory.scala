@@ -15,7 +15,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.blog
 
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._

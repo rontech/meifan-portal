@@ -15,13 +15,16 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package com.meifannet.framework
+package com.meifannet.portal
 
 import play.api.mvc.{Controller, Result}
-import com.meifannet.framework.auth.UserAuthConfigImpl
+import scala.concurrent.Future
 import jp.t2v.lab.play2.auth._
 import jp.t2v.lab.play2.stackc.RequestWithAttributes
-import scala.concurrent.Future
+import com.meifannet.framework.MeifanNetApplication
+import com.meifannet.framework.auth._
+import com.meifannet.portal.auth.UserAuthConfigImpl
+
 
 /**
  * Super controller class for customer applications.

@@ -15,7 +15,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.coupon
 
 import java.util.Date
 import com.mongodb.casbah.query.Imports._
@@ -24,6 +24,8 @@ import se.radley.plugin.salat.Binders._
 import scala.concurrent.{ ExecutionContext, Future }
 import ExecutionContext.Implicits.global
 import com.meifannet.framework.db._
+import models.portal.service.{ServiceType, Service}
+import models.portal.salon.Salon
 
 /**
  * 优惠劵表

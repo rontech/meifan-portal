@@ -15,7 +15,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.common
 
 import java.io.File
 import com.mongodb.casbah.gridfs.GridFS

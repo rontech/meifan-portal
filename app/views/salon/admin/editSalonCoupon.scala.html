@@ -1,4 +1,4 @@
-@(salon: Salon, couponForm: Form[Coupon], services: List[Service], coupon: Coupon)
+@(salon: models.portal.salon.Salon, couponForm: Form[models.portal.coupon.Coupon], services: List[models.portal.service.Service], coupon: models.portal.coupon.Coupon)
 
 @mySalonMain(navInSalon = "my-coupons", salon) {
   
@@ -6,7 +6,7 @@
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">    
   </head>
   
-  <!-- Get the Salon with all the coupons.  -->
+  <!-- Get the models.portal.salon.Salon with all the coupons.  -->
   @views.html.coupon.editCoupon(salon, couponForm, services, coupon)
 
 }

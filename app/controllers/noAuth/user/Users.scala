@@ -31,11 +31,11 @@ import jp.t2v.lab.play2.auth._
 import org.mindrot.jbcrypt.BCrypt
 import controllers._
 import utils.Const._
-import models.OptContactMethod
 import scala.Some
-import models.OptContactMethod
-import scala.Some
-import com.meifannet.framework.MeifanNetCustomerOptionalApplication
+import com.meifannet.portal.MeifanNetCustomerOptionalApplication
+import models.portal.common.{DefaultLog, OptContactMethod}
+import models.portal.user.{LoggedIn, Permission, User}
+import models.portal.salon.Salon
 
 object Users extends MeifanNetCustomerOptionalApplication {
 
@@ -59,7 +59,9 @@ object Users extends MeifanNetCustomerOptionalApplication {
           "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
       "accept" -> checked("You must accept the conditions")) {
         (id, userId, password, nickName, email, optContactMethods, _) =>
-          User(new ObjectId, userId, nickName, BCrypt.hashpw(password._1, BCrypt.gensalt()), "M", None, None, DefaultLog.getImgId, None, email, optContactMethods, None, User.NORMAL_USER, User.HIGH, 20, 0, (new Date()).getTime, Permission.valueOf(LoggedIn), true)
+          User(new ObjectId, userId, nickName, BCrypt.hashpw(password._1, BCrypt.gensalt()), "M", None, None,
+            DefaultLog.getImgId, None, email, optContactMethods, None, User.NORMAL_USER, User.HIGH, 20, 0,
+            (new Date()).getTime, Permission.valueOf(LoggedIn), true)
       } {
         user => Some((user.id, user.userId, (user.password, ""), user.nickName, user.email, user.optContactMethods, false))
       })

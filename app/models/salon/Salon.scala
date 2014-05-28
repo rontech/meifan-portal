@@ -15,7 +15,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.salon
 
 import play.api.Play.current
 import play.api.PlayException
@@ -33,6 +33,13 @@ import org.mindrot.jbcrypt.BCrypt
 import scala.util.matching.Regex
 import com.meifannet.framework.db._
 import com.meifannet.framework.utils.ReflectionOperations._
+import models.portal.common.{OnUsePicture, Address, OptContactMethod}
+import models.portal.style.Style
+import models.portal.search.{SortByConditions, SalonGeneralSrchRst, SearchParaForSalon}
+import models.portal.coupon.Coupon
+import models.portal.review.Comment
+import models.portal.relation.SalonAndStylist
+import models.portal.service.Service
 
 
 /**
@@ -712,30 +719,7 @@ object Salon extends MeifanNetModelCompanion[Salon] {
 
 }
 
-/*----------------------------
- * Embed Structure of Salon.
- -----------------------------*/
 
-/**
- * 沙龙地址（内嵌于沙龙主表）
- * @param province 省
- * @param city 市
- * @param region 区
- * @param town 镇
- * @param addrDetail 详细地址
- * @param longitude 经度
- * @param latitude 纬度
- * @param accessMethodDesc 交通方法
- */
-case class Address(
-  province: String,
-  city: Option[String],
-  region: Option[String],
-  town: Option[String],
-  addrDetail: String,
-  longitude: Option[BigDecimal],
-  latitude: Option[BigDecimal],
-  accessMethodDesc: String)
 
 /**
  * 沙龙功能支持（内嵌于沙龙主表）

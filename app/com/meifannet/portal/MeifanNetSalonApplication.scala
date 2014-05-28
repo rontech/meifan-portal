@@ -15,14 +15,18 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package com.meifannet.framework
+package com.meifannet.portal
 
-import jp.t2v.lab.play2.auth.AuthElement
+import play.api.mvc.{Controller, Result}
+import scala.concurrent.Future
 import play.api.mvc.Controller
-import jp.t2v.lab.play2.auth.LoginLogout
-import com.meifannet.framework.auth.SalonAuthConfigImpl
-import jp.t2v.lab.play2.auth.OptionalAuthElement
 import jp.t2v.lab.play2.auth.AuthConfig
+import jp.t2v.lab.play2.auth.LoginLogout
+import jp.t2v.lab.play2.auth.OptionalAuthElement
+import jp.t2v.lab.play2.auth.AuthElement
+
+import com.meifannet.framework.MeifanNetApplication
+import com.meifannet.portal.auth.SalonAuthConfigImpl
 
 /**
  * Super controller class for salon applications.

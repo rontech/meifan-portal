@@ -31,6 +31,19 @@ import controllers.auth._
 
 
 import com.meifannet.framework.MeifanNetApplication
+import models.portal.reservation._
+import models.portal.service.{ServiceType, Service, ServiceByType}
+import models.portal.coupon.{Coupon, CouponServiceType}
+import models.portal.salon.Salon
+import models.portal.menu.Menu
+import models.portal.relation.SalonAndStylist
+import models.portal.style.Style
+import models.portal.stylist.StylistDetailInfo
+import models.portal.reservation.ResvItem
+import models.portal.reservation.ResvGroup
+import models.portal.coupon.CouponServiceType
+import models.portal.service.ServiceByType
+import models.portal.reservation.ResvSchedule
 
 object Reservations extends MeifanNetApplication {
   /**

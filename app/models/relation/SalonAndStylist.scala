@@ -15,7 +15,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.relation
 
 import play.api.Play.current
 import play.api.PlayException
@@ -24,6 +24,8 @@ import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat.Binders._
 import mongoContext._
 import java.util.Date
+import models.portal.industry.IndustryAndPosition
+import models.portal.stylist.Stylist
 
 /**
  * the class for salon and stylist relationship
@@ -84,8 +86,8 @@ object SalonAndStylist extends MeifanNetModelCompanion[SalonAndStylist] {
    * To Check that if a stylist is active in a salon.
    * @param salonId
    */
-  def getSalonStylistsInfo(salonId: ObjectId): List[StylistDetailInfo] = {
-    var stlDtls: List[StylistDetailInfo] = Nil
+  def getSalonStylistsInfo(salonId: ObjectId): List[models.portal.stylist.StylistDetailInfo] = {
+    var stlDtls: List[models.portal.stylist.StylistDetailInfo] = Nil
     // TODO check if the salon is active.
 
     // get all the stylists of the specified salon.

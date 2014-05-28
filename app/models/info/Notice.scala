@@ -15,19 +15,28 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package com.meifannet.framework
-
-import play.api.mvc.Controller
+package models.portal.info
 
 /**
- * Top controller class for meifannet.
- *
- * These features are to be implemented:
- * <ul>
- * <li>logging</li>
- * <li>session management</li>
- * <li>caching</li>
- * </ul>
+ * Created by YS-HAN on 14/04/16.
  */
-class MeifanNetApplication extends Controller {
+
+import play.api.Play.current
+import java.util.Date
+import se.radley.plugin.salat._
+import se.radley.plugin.salat.Binders._
+import mongoContext._
+import com.meifannet.framework.db._
+
+case class Notice(
+  id: ObjectId,
+  title: String,
+  content: String,
+  author: String,
+  createdTime: Date,
+  isValid: Boolean)
+
+object Notice extends MeifanNetModelCompanion[Notice] {
+
+  val dao = new MeifanNetDAO[Notice](collection = loadCollection()) {}
 }

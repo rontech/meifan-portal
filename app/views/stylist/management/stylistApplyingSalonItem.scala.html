@@ -1,4 +1,4 @@
-@(user: User, loginUserId: ObjectId, logged: Boolean, salon: Tuple2[Salon, ObjectId])
+@(user: models.portal.user.User, loginUserId: ObjectId, logged: Boolean, salon: Tuple2[models.portal.salon.Salon, ObjectId])
 
 <div class="mysalon-stylist-group">
   @views.html.stylist.management.salonItem(user, loginUserId, logged, salon, false)

@@ -1,4 +1,4 @@
-@(stylist: Stylist, salon: Salon)
+@(stylist: models.portal.stylist.Stylist, salon: models.portal.salon.Salon)
 <body>
 <div class="mysalon-stylist-search w150 mHA">
   <div class="taC">
@@ -8,7 +8,7 @@
   </div>
   <p class="mT10">
     <a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
-      <p>@Stylist.findUserName(stylist.stylistId)</p>
+      <p>@models.portal.stylist.Stylist.findUserName(stylist.stylistId)</p>
     </a>
   </p>
   <p class="mT10">

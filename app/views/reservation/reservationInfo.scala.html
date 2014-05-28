@@ -1,4 +1,4 @@
-@(salon: Salon, resvSchedule: ResvSchedule, reservation: Reservation, stylistId: Option[ObjectId], week: Int = 0, resvTab: String, navBar: List[(String, String)] = Nil)
+@(salon: models.portal.salon.Salon, resvSchedule: models.portal.reservation.ResvSchedule, reservation: models.portal.reservation.Reservation, stylistId: Option[ObjectId], week: Int = 0, resvTab: String, navBar: List[(String, String)] = Nil)
 
 @reservationInfoMain(navInSalon = "HairSalon", "two", salon, navBar) {
 

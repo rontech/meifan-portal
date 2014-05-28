@@ -1,4 +1,4 @@
-@(salon: Salon)
+@(salon: models.portal.salon.Salon)
 
 @import views.html.salon.admin.mySalonMain
 
@@ -53,7 +53,7 @@
           @Messages("salonCheckInfoState.basicInfo")
         </td>
         <td>
-          @if(Salon.checkBasicInfoIsFill(salon)){
+          @if(models.portal.salon.Salon.checkBasicInfoIsFill(salon)){
             <b class="iconfont greenfont">
             
             </b>
@@ -67,7 +67,7 @@
           }
         </td>
         <td>
-          @if(Salon.checkBasicInfoIsFill(salon)){
+          @if(models.portal.salon.Salon.checkBasicInfoIsFill(salon)){
             <a href="@auth.routes.Salons.salonBasic">
             @Messages("salonCheckInfoState.check")
             </a>
@@ -83,7 +83,7 @@
           @Messages("salonCheckInfoState.detail")
         </td>
         <td>
-          @if(Salon.checkDetailIsFill(salon)){
+          @if(models.portal.salon.Salon.checkDetailIsFill(salon)){
             <b class="iconfont greenfont">
             
             </b>
@@ -97,7 +97,7 @@
           }
         </td>
         <td>
-          @if(Salon.checkDetailIsFill(salon)){
+          @if(models.portal.salon.Salon.checkDetailIsFill(salon)){
             <a href="@auth.routes.Salons.salonDetail">
             @Messages("salonCheckInfoState.check")
             </a>
@@ -113,7 +113,7 @@
           @Messages("salonCheckInfoState.pictures")
         </td>
         <td>
-          @if(Salon.checkImgIsExist(salon)){
+          @if(models.portal.salon.Salon.checkImgIsExist(salon)){
             <b class="iconfont greenfont">
             
             </b>
@@ -127,7 +127,7 @@
           }
         </td>
         <td>
-          @if(Salon.checkImgIsExist(salon)){
+          @if(models.portal.salon.Salon.checkImgIsExist(salon)){
             <a href="@auth.routes.Salons.salonShowPicture">
             @Messages("salonCheckInfoState.check")
             </a>

@@ -1,5 +1,5 @@
 @* message Template File *@
-@(letter: UserLetter, user: User, followInfo:FollowInformation)
+@(letter: models.portal.user.UserLetter, user: models.portal.user.User, followInfo:models.portal.user.FollowInformation)
 @myRelevantsMain("my-messages", user, followInfo, user.id, true){
   
   <div class="mT40">
@@ -11,8 +11,8 @@
     <div class="msg_dialogue_list msg_dialist_l clearfix " style="z-index: 99;">
       <div class="msg_dialist_box clearfix">
         <div class="msg_dialist_pic">
-          <a href="@noAuth.routes.Users.userPage(User.findOneByNickNm(letter.userMessage.senderNm).get.userId)">
-            <img src="@routes.Application.getPhoto(User.findOneByNickNm(letter.userMessage.senderNm).get.userPics)"
+          <a href="@noAuth.routes.Users.userPage(models.portal.user.User.findOneByNickNm(letter.userMessage.senderNm).get.userId)">
+            <img src="@routes.Application.getPhoto(models.portal.user.User.findOneByNickNm(letter.userMessage.senderNm).get.userPics)"
             alt="@letter.userMessage.senderNm" width="50" height="50">
           </a>
         </div>

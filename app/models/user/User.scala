@@ -15,7 +15,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.user
 
 import java.util.Date
 import com.mongodb.casbah.Imports._
@@ -25,6 +25,8 @@ import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
 import org.mindrot.jbcrypt.BCrypt
 import com.meifannet.framework.db._
+import models.portal.common.{OptContactMethod, Address}
+import models.portal.reservation.Reservation
 
 /**
  * the class for user

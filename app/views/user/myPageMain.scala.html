@@ -1,4 +1,4 @@
-@(navInMyPage: String = "my-reservation", user :User, followInfo :FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false)(content: Html)
+@(navInMyPage: String = "my-reservation", user :models.portal.user.User, followInfo :models.portal.user.FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false)(content: Html)
 
 @main(Messages("site.title")) {
   

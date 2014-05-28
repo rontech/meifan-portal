@@ -15,7 +15,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from SuZhou Rontech Co.,Ltd..
  */
-package models
+package models.portal.reservation
 
 //import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
@@ -25,6 +25,7 @@ import java.util.Date
 import com.mongodb.casbah.query.Imports._
 import com.meifannet.framework.db._
 import java.text.SimpleDateFormat
+import models.portal.style.StyleIdUsed
 
 /**
  * 预约内容，用于内嵌在预约表中
