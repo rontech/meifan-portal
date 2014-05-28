@@ -13,6 +13,8 @@ libraryDependencies ++= Seq(
 // libraryDependencies += "org.mongodb" %% "casbah" % "2.6.3"
 libraryDependencies +="com.novus" %% "salat" % "1.9.5"
 
+libraryDependencies += "org.julienrf" %% "play-jsmessages" % "1.6.1"
+
 play.Project.playScalaSettings
 
 // add by rontech@2014/02/20

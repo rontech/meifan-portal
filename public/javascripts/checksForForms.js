@@ -920,7 +920,8 @@ $('#price').focus(function () {
 
 function checkedPrice() {
   var price = $('#price').val();
-  var isValid = /^(([1-9]+)|([0-9]+\.[0-9]{1,2}))$/;
+  var isValid = /^0$|^([1-9]+[0-9]{0,}(\.[0-9]{1,2})?)$/;
+  // alert(Messages('common.submit')); //FOR TEST
   if (price == "") {
     $("#price  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
   } else {
