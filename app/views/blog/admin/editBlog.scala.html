@@ -1,4 +1,4 @@
-@(formBlog: Form[Blog], list : List[String], user : User, followInfo:FollowInformation, blog : Blog)
+@(formBlog: Form[models.portal.blog.Blog], list : List[String], user : models.portal.user.User, followInfo:models.portal.user.FollowInformation, blog : models.portal.blog.Blog)
 
 @import helper._
 @import views.html.user._
@@ -27,7 +27,7 @@
       @inputText(formBlog("tags"), args = '_label -> Messages("blog.tags"), 'placeholder -> Messages("blog.placeholder"))
       <div class="blogSet"><font>@Messages("blog.blogSet")</font></div>
       @inputRadioGroup(field = formBlog("isVisible").copy(value=formBlog("isVisible").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> Messages("blog.visible"), "false" -> Messages("blog.unVisible")) , '_label -> Messages("blog.isVisible"), '_help -> "")
-      @if(user.userTyp.equals(User.STYLIST)) {
+      @if(user.userTyp.equals(models.portal.user.User.STYLIST)) {
        @inputRadioGroup(field = formBlog("pushToSalon").copy(value=formBlog("pushToSalon").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> Messages("blog.pushToSalon"), "false" -> Messages("blog.notPushToSalon")) , '_label -> Messages("blog.isPushToSalon"), '_help -> "")
       }
       @inputRadioGroup(field = formBlog("allowComment").copy(value=formBlog("allowComment").value.map{Some(_)}.getOrElse(Some("true"))), options = options("true" -> Messages("blog.allowComment"), "false" -> Messages("blog.notAllowComment")) , '_label -> Messages("blog.isAllowComment"), '_help -> "")

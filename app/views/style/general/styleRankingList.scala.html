@@ -1,4 +1,4 @@
-@(styleAndSalon: List[models.StyleWithAllInfo])
+@(styleAndSalon: List[models.portal.style.StyleWithAllInfo])
 @import helper._
 
 <div class="mT40">
@@ -36,7 +36,7 @@
             </div>
             <div class="cFix bdDotT pT10 mT7 ">
               <div class="fl mR10">
-                <img src="@routes.Application.getPhoto(Stylist.findOneByStylistId(styleAndSalon(0).style.stylistId).get.myPics(0).fileObjId)" class="w89">
+                <img src="@routes.Application.getPhoto(models.portal.stylist.Stylist.findOneByStylistId(styleAndSalon(0).style.stylistId).get.myPics(0).fileObjId)" class="w89">
               </div>
               <div class="oh zoom1">
                 <p class="fs10 w397">@styleAndSalon(0).style.description</p>

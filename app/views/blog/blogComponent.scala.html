@@ -1,4 +1,4 @@
-@(blogs: List[Blog] = Nil, salon: Salon, listYM : List[String])
+@(blogs: List[models.portal.blog.Blog] = Nil, salon: models.portal.salon.Salon, listYM : List[String])
 
 <div class="mT30">
   <div class="yS mainContentsSecondTitleOuter">
@@ -7,7 +7,7 @@
 </div>
 <div class="mT20 cFix">
 
-  <!-- Get All the Salons with all the blogs.  -->
+  <!-- Get All the models.portal.salon.Salons with all the blogs.  -->
   @views.html.blog.blogGroup(blogs, salon)
   
   <!-- the right column -->

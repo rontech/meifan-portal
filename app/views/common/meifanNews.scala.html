@@ -1,4 +1,5 @@
-@(infoList : List[Info] = Info.findInfoForHome(6))
+@(infoList : List[models.portal.info.Info] = models.portal.info.Info.findInfoForHome(6))
+
 <div id="index_leis">
   <h2><img src="@routes.Assets.at("images/index_mnews_title.jpg")" width="272" height="36" /></h2>
   <div id="index_leis_nr">

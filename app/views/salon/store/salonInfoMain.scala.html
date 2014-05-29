@@ -1,4 +1,4 @@
-@(navInSalon: String = "salon-basic", salon: Salon, navBar: List[(String, String)] = Nil, user: Option[User])(content: Html)
+@(navInSalon: String = "salon-basic", salon: models.portal.salon.Salon, navBar: List[(String, String)] = Nil, user: Option[models.portal.user.User])(content: Html)
 
 
 <!-- the main page of salon.
@@ -11,7 +11,7 @@
    6. the map of a salon.
 
 TODO
-  1. blog, comment type should be type of Option[Blog], Option[Comment]
+  1. blog, comment type should be type of Option[models.portal.blog.Blog], Option[models.portal.review.Comment]
 
   -->
 

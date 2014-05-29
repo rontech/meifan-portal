@@ -37,9 +37,12 @@ import play.api.data.Forms._
 import scala.Some
 import models._
 import utils.Const._
+import com.meifannet.portal.MeifanNetCustomerOptionalApplication
 import com.meifannet.framework.db._
-import com.meifannet.framework.MeifanNetCustomerOptionalApplication
 import play.api.Play.current
+import models.portal.industry.Industry
+import models.portal.common.{Image, ImgForCrop}
+import models.portal.search.HotestKeyword
 
 
 object Application extends MeifanNetCustomerOptionalApplication {

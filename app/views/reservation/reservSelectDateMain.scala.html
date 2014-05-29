@@ -1,4 +1,4 @@
-@(salon: Salon, resvSchedule: ResvSchedule, week: Int = 0, stylistId: Option[ObjectId], resvTab: String)
+@(salon: models.portal.salon.Salon, resvSchedule: models.portal.reservation.ResvSchedule, week: Int = 0, stylistId: Option[ObjectId], resvTab: String)
 
 <div class="yS reserveTitleOuter mT15">
   <h3 class="yS reserveTitleInner pL10">
@@ -32,7 +32,7 @@
   @stylistId match {
     case None => {
       <div class="underTabContents w100p fl">
-      @views.html.reservation.showResvStylist(SalonAndStylist.getSalonStylistsInfo(salon.id))
+      @views.html.reservation.showResvStylist(models.portal.relation.SalonAndStylist.getSalonStylistsInfo(salon.id))
       </div>
     }
     case Some(sty) => {

@@ -1,4 +1,4 @@
-@(salon: Salon, blog: Blog, stylist : Stylist)
+@(salon: models.portal.salon.Salon, blog: models.portal.blog.Blog, stylist : models.portal.stylist.Stylist)
 
 <dt class="titleBlogPublisher">@Messages("blog.authorTitle")</dt>
 <dd class="list p10 bgDGray2">
@@ -12,7 +12,7 @@
     }
     </p>
   <p class="mT5">
-    <a href="@noAuth.routes.Salons.getOneStylist(salon.id, stylist.stylistId)">@User.findOneByUserId(blog.authorId).get.nickName</a>
+    <a href="@noAuth.routes.Salons.getOneStylist(salon.id, stylist.stylistId)">@models.portal.user.User.findOneByUserId(blog.authorId).get.nickName</a>
   </p>
   <p class="fs10 mT5">@stylist.myWords</p>
   <div class="mT5">

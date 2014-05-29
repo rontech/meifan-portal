@@ -18,14 +18,14 @@
 package controllers.noAuth
 
 import play.api.mvc._
-import models._
 import se.radley.plugin.salat.Binders._
 import jp.t2v.lab.play2.auth._
 import jp.t2v.lab.play2.stackc._
 import scala.concurrent._
 import ExecutionContext.Implicits.global
 import controllers._
-import com.meifannet.framework.MeifanNetCustomerOptionalApplication
+import com.meifannet.portal.MeifanNetCustomerOptionalApplication
+import models.portal.user.{MyFollow, User}
 
 object MyFollows extends MeifanNetCustomerOptionalApplication {
 

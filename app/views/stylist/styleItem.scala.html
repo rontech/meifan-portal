@@ -1,4 +1,4 @@
-@(style: Style, index:Int)
+@(style: models.portal.style.Style, index:Int)
   <li class="@if(index < 2) {fl cFix w240} else {fl cFix w240 mT30}">
       <div class="fl w89">
         <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)">

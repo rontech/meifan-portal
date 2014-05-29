@@ -27,7 +27,10 @@ import views._
 import play.api.i18n.Messages
 import jp.t2v.lab.play2.auth._
 import controllers._
-import com.meifannet.framework.MeifanNetSalonApplication
+import com.meifannet.portal.MeifanNetSalonApplication
+import models.portal.menu.Menu
+import models.portal.service.{ServiceByType, ServiceType, Service}
+import models.portal.coupon.CouponServiceType
 
 object Menus extends MeifanNetSalonApplication {
 

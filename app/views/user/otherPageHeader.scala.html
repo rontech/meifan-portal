@@ -1,4 +1,4 @@
-@(navInMyPage:String = "my-reservation", user :User)
+@(navInMyPage:String = "my-reservation", user :models.portal.user.User)
 
   <!-- ↓mainContents -->
     <!-- <ul class="bS menuBG cFix">
@@ -22,7 +22,7 @@
      
      <div class="sns-tab tab-app">
       <ul>
-        @if(user.userTyp.equals(User.STYLIST)){
+        @if(user.userTyp.equals(models.portal.user.User.STYLIST)){
           <li class="@if(navInMyPage == "my-styles") {selected}">
             <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)" >
               <span>@Messages("stylist.style")</span>

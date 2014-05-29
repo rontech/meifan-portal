@@ -1,4 +1,4 @@
-@(salon: Salon, reservation: Reservation)(content: Html)
+@(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation)(content: Html)
 
 <html>
 
@@ -54,7 +54,7 @@
             <div class="postSalonInfo postSalonInfoForReserv">
               @Messages("main.toSalonOwners")
               <a target="_blank" title="@Messages("main.wantToJoin")" href="@auth.routes.Salons.salonMainInfo"
-              onclick="customLinkLog ( 'Footer Salon Link' ) ;">
+              onclick="customLinkLog ( 'Footer models.portal.salon.Salon Link' ) ;">
               @Messages("main.wantToJoin")
               </a>
             </div>

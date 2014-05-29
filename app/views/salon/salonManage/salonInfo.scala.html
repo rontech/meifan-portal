@@ -1,4 +1,5 @@
-@(navInSalon: String = "my-infomation",salon:Salon,industry: List[Industry])
+@(navInSalon: String = "my-infomation",salon:models.portal.salon.Salon,industry: List[models.portal.industry.Industry])
+
 @import helper._
 @import helper.twitterBootstrap._
 @import views.html.salon.admin._
@@ -88,7 +89,7 @@
       <tr>
         <th class="w120"> @Messages("salon.priceCutOnly") </th>
         <td class="w208 vaT">
-          @Salon.getLowestPriceOfCut(salon.id) match {
+          @models.portal.salon.Salon.getLowestPriceOfCut(salon.id) match {
             case None => { @Messages("salon.priceCutOnlyUndefined")}
             case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
           }
@@ -99,7 +100,7 @@
       <tr>
         <th class="w120"> @Messages("salon.stylistNums") </th>
         <td class="w208 vaT">
-          @Messages("slaon.stylistNumUnit", Salon.getCountOfStylists(salon.id))
+          @Messages("slaon.stylistNumUnit", models.portal.salon.Salon.getCountOfStylists(salon.id))
         </td>
         <th class="w120"> @Messages("salon.parkingDesc") </th>
         <td class="w208 vaT">

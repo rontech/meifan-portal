@@ -1,13 +1,13 @@
-@(searchParaForSalon: SearchParaForSalon, salons: List[SalonGeneralSrchRst])
+@(searchParaForSalon: models.portal.search.SearchParaForSalon, salons: List[models.portal.search.SalonGeneralSrchRst])
 
 <div class="w768 fl">
   
-  <!-- Salon search -->
+  <!-- models.portal.salon.Salon search -->
   <div class="w768 fl">
     @views.html.salon.search.salonSearchForm(searchParaForSalon)
   </div>
   
-  <!-- Salon search result -->
+  <!-- models.portal.salon.Salon search result -->
   <div class="w768 fl">
     @views.html.salon.search.salonSrchRstGroup(salons)
   </div>

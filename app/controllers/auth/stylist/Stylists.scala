@@ -37,8 +37,15 @@ import play.api.data.validation.Constraints._
 import play.api.Routes
 import routes.javascript._
 import utils.Const._
+import com.meifannet.portal.MeifanNetCustomerApplication
+import models.portal.industry.IndustryAndPosition
+import models.portal.common.OnUsePicture
+import models.portal.stylist.Stylist
+import models.portal.relation.{SalonAndStylist, SalonStylistApplyRecord}
+import models.portal.user.{MyFollow, LoggedIn}
+import models.portal.style.Style
+import models.portal.salon.Salon
 import com.meifannet.framework.db._
-import com.meifannet.framework.MeifanNetCustomerApplication
 
 object Stylists extends MeifanNetCustomerApplication {
 

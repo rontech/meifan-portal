@@ -1,17 +1,17 @@
-@(user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
+@(user :models.portal.user.User, followInfo:models.portal.user.FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
       <div class ="Owner">
         <a href="#" class='Img'><img src="@routes.Application.getPhoto(user.userPics)"/></a>
         <span class='myPageA'>
            <a href="@noAuth.routes.Users.userPage(user.userId)" class='Name' title='female'>@user.nickName</a>
           <span class='opts'>
             <img src="@if(user.sex == "F") {@routes.Assets.at("images/user/women.png")" align='middle' title='female'} else {@routes.Assets.at("images/user/men.png")" align='absmiddle' title='man'}"/>
-          @if(MyFollow.checkIfFollow(loginUserId,user.id)){
+          @if(models.portal.user.MyFollow.checkIfFollow(loginUserId,user.id)){
             <a href="@auth.routes.MyFollows.cancelFollow(user.id)">@Messages("user.cancelFollow")</a>
           }else{
-            @if(user.userTyp.equals(User.NORMAL_USER)){
-              <a href="javascript:void(0);" onclick="addFollow('@user.id','@FollowType.FOLLOW_USER')">@Messages("user.addFollow")</a>
+            @if(user.userTyp.equals(models.portal.user.User.NORMAL_USER)){
+              <a href="javascript:void(0);" onclick="addFollow('@user.id','@models.portal.user.FollowType.FOLLOW_USER')">@Messages("user.addFollow")</a>
             }else{
-              <a href="javascript:void(0);" onclick="addFollow('@user.id','@FollowType.FOLLOW_STYLIST')">@Messages("user.addFollow")</a>
+              <a href="javascript:void(0);" onclick="addFollow('@user.id','@models.portal.user.FollowType.FOLLOW_STYLIST')">@Messages("user.addFollow")</a>
             }
           }
           </span>
@@ -25,10 +25,10 @@
         <a class='a2 admin' id="sendMsg" value="@user.id"><span>@Messages("user.sendMsg")</span></a>
         <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(user.userId)" class='a1 blog'><span>@Messages("user.otherBlog")</span></a>
       </div>
-@if(user.userTyp.equals(User.STYLIST)){
+@if(user.userTyp.equals(models.portal.user.User.STYLIST)){
   <!-- 我的沙龙，如果没有则显示来自沙龙的邀请 -->
-  <div class='Mod Users' id='Fans'>
-  @if(SalonAndStylist.findByStylistId(user.id).isEmpty){
+  <div class='Mod models.portal.user.Users' id='Fans'>
+  @if(models.portal.relation.SalonAndStylist.findByStylistId(user.id).isEmpty){
       <strong>@Messages("stylist.salon")</strong>
       <div class='more'>
           <span>@Messages("stylistMag.noSalon")</span>
@@ -39,22 +39,24 @@
       <strong>@Messages("stylist.salon")</strong>
       <div class='more'>
         <a href="@noAuth.routes.Stylists.mySalonFromStylist(user.id)">
-          <img src="@routes.Application.getPhoto(Stylist.mySalon(user.id).salonPics(0).fileObjId)" alt="@Stylist.mySalon(user.id).salonNameAbbr" title="@Stylist.mySalon(user.id).salonNameAbbr" align="absmiddle" class = "SmallPortrait"/>
-          <span>@Stylist.mySalon(user.id).salonName</span>
+          <img src="@routes.Application.getPhoto(models.portal.stylist.Stylist.mySalon(user.id).salonPics(0).fileObjId)"
+               alt="@models.portal.stylist.Stylist.mySalon(user.id).salonNameAbbr"
+               title="@models.portal.stylist.Stylist.mySalon(user.id).salonNameAbbr" align="absmiddle" class = "SmallPortrait"/>
+          <span>@models.portal.stylist.Stylist.mySalon(user.id).salonName</span>
         </a>
       </div>
       }
   </div>
   <!-- 我的发型 -->
-  <div class='Mod Users' id='Fellows'>
+  <div class='Mod models.portal.user.Users' id='Fellows'>
     <strong>@Messages("stylist.style")</strong>
     <div class='more'>
       <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
-        (@Stylist.countStyleByStylist(user.id))</a>
+        (@models.portal.stylist.Stylist.countStyleByStylist(user.id))</a>
     </div>
   </div>
 }
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
         <strong>@Messages("user.other")@Messages("user.followSalon")</strong>
          <ul class='clearfix'>
            @followInfo.followSalon.slice(0,8).map {salon =>
@@ -69,13 +71,16 @@
           <a href="@noAuth.routes.MyFollows.followedSalon(user.id)">@Messages("user.showAllFollow")@followInfo.followSalon.length)</a>
         </div>
       </div>
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
         <strong>@Messages("user.other")@Messages("user.followStylist")</strong>
          <ul class='clearfix'>
            @followInfo.followStylist.slice(0,8).map {stylist =>
              <li>
-                <a href="@noAuth.routes.Users.userPage(User.findOneById(stylist.stylistId).get.userId)">
-                  <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" alt="@Stylist.findUserName(stylist.stylistId)" title="@Stylist.findUserName(stylist.stylistId)" align="absmiddle" class = "SmallPortrait">
+                <a href="@noAuth.routes.Users.userPage(models.portal.user.User.findOneById(stylist.stylistId).get.userId)">
+                  <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)"
+                       alt="@models.portal.stylist.Stylist.findUserName(stylist.stylistId)"
+                       title="@models.portal.stylist.Stylist.findUserName(stylist.stylistId)"
+                       align="absmiddle" class = "SmallPortrait">
                 </a>
              </li>
              }
@@ -84,7 +89,7 @@
           <a href="@noAuth.routes.MyFollows.followedStylist(user.id)">@Messages("user.showAllFollow")@followInfo.followStylist.length)</a>
         </div>
       </div>
-      <div class='Mod Users' id='Fans'>
+      <div class='Mod models.portal.user.Users' id='Fans'>
           <strong>@Messages("user.other")@Messages("user.followUser")</strong>
           <ul class='clearfix'>
            @followInfo.followUser.slice(0,8).map {user =>

@@ -1,5 +1,5 @@
-@* UserInfomation Template File *@
-@(userForm: Form[User], user: User,  followInfo:FollowInformation)
+@* models.portal.user.UserInfomation Template File *@
+@(userForm: Form[models.portal.user.User], user: models.portal.user.User,  followInfo:models.portal.user.FollowInformation)
 @import helper._
 @import helper.twitterBootstrap._
 
@@ -17,7 +17,7 @@
     
     @select(
       field("contMethodType"), 
-      ContMethodType.getAllContMethodTypes,
+      models.portal.common.ContMethodType.getAllContMethodTypes,
       '_default -> Messages("user.chooseOpt"),
       '_label -> Messages("user.contMethodType")
     )

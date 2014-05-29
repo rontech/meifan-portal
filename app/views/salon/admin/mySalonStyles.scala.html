@@ -1,4 +1,4 @@
-@(navInSalon: String = "my-styles", salon: Salon, styles: List[Style], styleSearchForm: Form[models.Style], styleParaAll: models.StylePara, isFirstSearch: Boolean, isStylist: Boolean,stylists: List[models.Stylist])
+@(navInSalon: String = "my-styles", salon: models.portal.salon.Salon, styles: List[models.portal.style.Style], styleSearchForm: Form[models.portal.style.Style], styleParaAll: models.portal.style.StylePara, isFirstSearch: Boolean, isStylist: Boolean,stylists: List[models.portal.stylist.Stylist])
 
 @mySalonMain(navInSalon, salon){
   @*<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">*@

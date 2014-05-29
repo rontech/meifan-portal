@@ -1,4 +1,4 @@
-@(salon: Salon)
+@(salon: models.portal.salon.Salon)
 
       <div class ="Owner">
         <div class="fl pL10 pT10">
@@ -24,17 +24,18 @@
       </div>
 
         <!-- 店铺管理 -->
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
           <strong>@Messages("salonAdmin.mainPage")</strong>                   
           <div class='more'>
-      @if(!Salon.checkBasicInfoIsFill(salon) || !Salon.checkDetailIsFill(salon) ||
-         !Salon.checkImgIsExist(salon)){                   
+      @if(!models.portal.salon.Salon.checkBasicInfoIsFill(salon)
+              || !models.portal.salon.Salon.checkDetailIsFill(salon)
+              || !models.portal.salon.Salon.checkImgIsExist(salon)) {
            <a href="@auth.routes.Salons.checkInfoState">
              <span>@Messages("salonCheckInfoState.createSalon")</span>
            </a><br />
            }
-      @if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
-         Salon.checkImgIsExist(salon)){            
+      @if(models.portal.salon.Salon.checkBasicInfoIsFill(salon) && models.portal.salon.Salon.checkDetailIsFill(salon) &&
+         models.portal.salon.Salon.checkImgIsExist(salon)){            
            <a href="@noAuth.routes.Salons.getSalon(salon.id)">
              <span>@Messages("salon.getInSalon")</span>
            </a><br />                         
@@ -46,9 +47,9 @@
          </div>    
          
       </div>
-      @if(Salon.checkBasicInfoIsFill(salon)){                            
+      @if(models.portal.salon.Salon.checkBasicInfoIsFill(salon)){                            
         <!-- 店铺基本信息管理 -->
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
           <strong>@Messages("salonAdmin.infoManagement")</strong>
           <div class='more'>
            <a href="@auth.routes.Salons.salonRegister">
@@ -58,7 +59,7 @@
          
       </div>
       }else{
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
           <strong>@Messages("salonAdmin.infoManagement")</strong>
           <div class='more'>
            <a href="@auth.routes.Salons.checkAuth">
@@ -68,10 +69,10 @@
 
       </div>
       }
-      @if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
-         Salon.checkImgIsExist(salon)){            
+      @if(models.portal.salon.Salon.checkBasicInfoIsFill(salon) && models.portal.salon.Salon.checkDetailIsFill(salon) &&
+         models.portal.salon.Salon.checkImgIsExist(salon)){            
       <!-- 技师管理 -->
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
         <strong>@Messages("salonAdmin.stylistManagement")</strong>
         <ul class='clearfix'>
            <li>
@@ -80,25 +81,25 @@
         <div class='more'>
           <a href="@auth.routes.Salons.myStylist">@Messages("salonAdmin.myStylist")
             <span id="reviewCount">
-              (@SalonAndStylist.countStylistBySalon(salon.id))
+              (@models.portal.relation.SalonAndStylist.countStylistBySalon(salon.id))
             </span>
           </a><br />
           <a href="@auth.routes.Salons.myInvite">
             @Messages("salonAdmin.InvitedStylist")
             <span id="reviewCount">
-              (@SalonStylistApplyRecord.costSalonInvited(salon.id))
+              (@models.portal.relation.SalonStylistApplyRecord.costSalonInvited(salon.id))
             </span>
           </a><br />
           <a href="@auth.routes.Salons.checkHoldApply">
           @Messages("salonAdmin.fromStylistApply")
              <span id="reviewCount">
-                (@SalonStylistApplyRecord.applingStylistCount(salon.id))
+                (@models.portal.relation.SalonStylistApplyRecord.applingStylistCount(salon.id))
              </span>
           </a><br />
         </div>
       </div>
       <!-- 发型管理 -->                                      
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
         <strong>@Messages("salonAdmin.styleManagement")</strong>
          <ul class='clearfix'>
            <li>
@@ -106,12 +107,12 @@
          </ul>
         <div class='more'>
           <a href="@auth.routes.Salons.getAllStylesBySalon()">@Messages("stylistMag.showAllStyles")
-          (@Salon.getAllStyles(salon.id).length)</a>
+          (@models.portal.salon.Salon.getAllStyles(salon.id).length)</a>
         </div>
       </div>
 
       <!-- 预约管理 -->                        
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
         <strong>@Messages("salonAdmin.reserveManagement")</strong>
          <ul class='clearfix'>
            <li>
@@ -142,7 +143,7 @@
       </div>
 
       <!-- 评论管理 -->                    
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
           <strong>@Messages("salonAdmin.commentManagement")</strong>
           <ul class='clearfix'>
            <li>
@@ -154,7 +155,7 @@
       </div>
 
       <!-- 服务管理 -->                        
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
           <strong>@Messages("salonAdmin.serviceManagement")</strong>
           <ul class='clearfix'>
            <li>
@@ -166,7 +167,7 @@
       </div>
 
       <!-- 优惠券管理 -->                        
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
           <strong>@Messages("salonAdmin.couponManagement")</strong>
           <ul class='clearfix'>
            <li>
@@ -178,7 +179,7 @@
       </div>
 
       <!-- 菜单管理 -->                        
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
           <strong>@Messages("salonAdmin.menuManagement")</strong>
           <ul class='clearfix'>
            <li>
@@ -190,7 +191,7 @@
       </div>
       }else{
       <!-- 技师管理 -->
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
         <strong>@Messages("salonAdmin.stylistManagement")</strong>
         <ul class='clearfix'>
            <li>
@@ -198,17 +199,17 @@
          </ul>
          <div class='more'>
           <a href="@auth.routes.Salons.checkAuth">@Messages("salonAdmin.myStylist")
-          (@SalonAndStylist.countStylistBySalon(salon.id))</a><br />
+          (@models.portal.relation.SalonAndStylist.countStylistBySalon(salon.id))</a><br />
           <a href="@auth.routes.Salons.checkAuth">
           @Messages("salonAdmin.fromStylistApply")
              <span id="reviewCount">
-                (@SalonStylistApplyRecord.applingStylistCount(salon.id))
+                (@models.portal.relation.SalonStylistApplyRecord.applingStylistCount(salon.id))
              </span>
           </a>
           </div>
       </div>
       <!-- 发型管理 -->                                      
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
         <strong>@Messages("salonAdmin.styleManagement")</strong>
          <ul class='clearfix'>
            <li>
@@ -220,7 +221,7 @@
       </div>
 
       <!-- 预约管理 -->                        
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
         <strong>@Messages("salonAdmin.reserveManagement")</strong>
          <ul class='clearfix'>
            <li>
@@ -251,7 +252,7 @@
       </div>
 
       <!-- 评论管理 -->                    
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
           <strong>@Messages("salonAdmin.commentManagement")</strong>
           <ul class='clearfix'>
            <li>
@@ -263,7 +264,7 @@
       </div>
 
       <!-- 服务管理 -->                        
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
           <strong>@Messages("salonAdmin.serviceManagement")</strong>
           <ul class='clearfix'>
            <li>
@@ -275,7 +276,7 @@
       </div>
 
       <!-- 优惠券管理 -->                        
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
           <strong>@Messages("salonAdmin.couponManagement")</strong>
           <ul class='clearfix'>
            <li>
@@ -287,7 +288,7 @@
       </div>
 
       <!-- 菜单管理 -->                        
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
           <strong>@Messages("salonAdmin.menuManagement")</strong>
           <ul class='clearfix'>
            <li>

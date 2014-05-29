@@ -1,5 +1,7 @@
-@(salon: Salon, blog: Blog, newestBlogsOfSalon : List[Blog])
+@(salon: models.portal.salon.Salon, blog: models.portal.blog.Blog, newestBlogsOfSalon : List[models.portal.blog.Blog])
+
 @import java.text.DateFormat
+
 @if(newestBlogsOfSalon.size != 0) { 
   <dt class = "titleBlog mT20" >@Messages("blog.latestBlogForSalon")</dt>
   <dd class="list p10">
@@ -7,7 +9,7 @@
     <div>
       <p class="fs10"><span class="fgPink mR3">●</span > @DateFormat.getDateInstance().format(blog.updateTime) </p>
       <p class="wwbw"><a href="@noAuth.routes.Blogs.getOneBlogOfSalon(salon.id, blog.id)">@blog.title</a></p>
-      <p>@Messages("blog.author")<a href="@noAuth.routes.Blogs.getAuthorOfSalonBlog(salon.id, blog.authorId)">@User.findOneByUserId(blog.authorId).get.nickName</a></p>
+      <p>@Messages("blog.author")<a href="@noAuth.routes.Blogs.getAuthorOfSalonBlog(salon.id, blog.authorId)">@models.portal.user.User.findOneByUserId(blog.authorId).get.nickName</a></p>
     </div>
   }
   </dd>

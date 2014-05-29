@@ -1,4 +1,4 @@
-@(subNavInSalon: String = "my-followSalon", user :User, followInfo:FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)(content: Html)
+@(subNavInSalon: String = "my-followSalon", user :models.portal.user.User, followInfo:models.portal.user.FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)(content: Html)
 
 @myPageMain("my-follows", user, followInfo, loginUserId, logged){
   

@@ -1,4 +1,4 @@
-@(salon: Salon, reservation: Reservation, reservationForm: Form[Reservation], user: User)
+@(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation, reservationForm: Form[models.portal.reservation.Reservation], user: models.portal.user.User)
 @import helper._
 @import helper.twitterBootstrap._
 
@@ -8,7 +8,7 @@
     <h3 class="yS reserveTitleInner pL10">@Messages("reservation.showResvInfo")</h3>
   </div>
 
-  @views.html.reservation.showReservItems(reservation, "editInfo", Reservation.findResvItemsForType(reservation.resvItems))
+  @views.html.reservation.showReservItems(reservation, "editInfo", models.portal.reservation.Reservation.findResvItemsForType(reservation.resvItems))
 
   @helper.form(auth.routes.Reservations.reservConfirmInfo, 'id -> "reservationForm", 'name -> "reservationForm") {
     <div class="yS reserveTitleOuter mT20">

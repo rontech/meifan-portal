@@ -1,4 +1,4 @@
-@(user :User, followInfo :FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false, styleAddForm: Form[models.Style], styleParaAll: models.StylePara, stylists: List[models.Stylist] = Nil, isStylist: Boolean)
+@(user :models.portal.user.User, followInfo :models.portal.user.FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false, styleAddForm: Form[models.portal.style.Style], styleParaAll: models.portal.style.StylePara, stylists: List[models.portal.stylist.Stylist] = Nil, isStylist: Boolean)
 
 @import views.html.user._
 

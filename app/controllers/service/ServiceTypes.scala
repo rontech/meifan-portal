@@ -24,6 +24,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.templates._
 import com.meifannet.framework.MeifanNetApplication
+import models.portal.service.ServiceType
 
 object ServiceTypes extends MeifanNetApplication {
   /**

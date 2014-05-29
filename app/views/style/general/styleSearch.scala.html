@@ -1,6 +1,7 @@
-@(styleSearchForm: Form[Style], stylePara : models.StylePara, stylistId : ObjectId = new ObjectId)
+@(styleSearchForm: Form[models.portal.style.Style], stylePara : models.portal.style.StylePara, stylistId : ObjectId = new ObjectId)
 
 @import helper._
+
 <head>
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanIndex.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/hotelslist_2013.css")">
@@ -34,7 +35,7 @@
               </li>
               @for(i <- 0 to stylePara.styleLength.length-1){
                 <li class="dibBL mR2">
-                  <input type = "radio" class = "cbF StyleLength_item" name = "styleLength" id="lengthCd_HL@i" value = "@stylePara.styleLength(i)">
+                  <input type = "radio" class = "cbF models.portal.style.StyleLength_item" name = "styleLength" id="lengthCd_HL@i" value = "@stylePara.styleLength(i)">
                   <label for="lengthCd_HL@i">@Messages("style.styleLength." + stylePara.styleLength(i))</label>
                 </li>
               }

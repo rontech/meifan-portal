@@ -1,4 +1,5 @@
-@(styleSearchForm: Form[Style], stylePara : models.StylePara, isFirstSearch : Boolean, isStylist: Boolean, stylist: Stylist, stylists: List[models.Stylist] = Nil, stylistIdForAll : ObjectId = new ObjectId)
+@(styleSearchForm: Form[models.portal.style.Style], stylePara : models.portal.style.StylePara, isFirstSearch : Boolean, isStylist: Boolean, stylist: models.portal.stylist.Stylist, stylists: List[models.portal.stylist.Stylist] = Nil, stylistIdForAll : ObjectId = new ObjectId)
+
 @import helper._
 
 <div class = "mT40">
@@ -719,7 +720,7 @@
                   <select name="stylistId">
                     <option value = "@stylistIdForAll">@Messages("common.all")</option>
                     @for(i <- 0 to stylists.length-1){
-                      <option value=@stylists(i).stylistId>@Stylist.findUser(stylists(i).stylistId).nickName</option>
+                      <option value=@stylists(i).stylistId>@models.portal.stylist.Stylist.findUser(stylists(i).stylistId).nickName</option>
                     }
                   </select>
                 }
@@ -1004,9 +1005,9 @@
                 <option value = "@stylistIdForAll" selected="selected">@Messages("common.all")</option>
                 @for(i <- 0 to stylists.length-1){
                   @if(styleSearchForm.get.stylistId.equals(stylists(i).stylistId)){
-                    <option value=@stylists(i).stylistId selected="selected">@Stylist.findUser(stylists(i).stylistId).nickName</option>
+                    <option value=@stylists(i).stylistId selected="selected">@models.portal.stylist.Stylist.findUser(stylists(i).stylistId).nickName</option>
                   }else {
-                    <option value=@stylists(i).stylistId >@Stylist.findUser(stylists(i).stylistId).nickName</option>
+                    <option value=@stylists(i).stylistId >@models.portal.stylist.Stylist.findUser(stylists(i).stylistId).nickName</option>
                   }
                 }
                 </select>

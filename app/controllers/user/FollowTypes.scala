@@ -24,6 +24,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.templates._
 import com.meifannet.framework.MeifanNetApplication
+import models.portal.user.FollowType
 
 object FollowTypes extends MeifanNetApplication {
   def followTypeTypeForm(id: ObjectId = new ObjectId): Form[FollowType] = Form(

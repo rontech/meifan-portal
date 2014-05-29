@@ -1,4 +1,4 @@
-@(letters: List[UserLetter], count: Long, pages: Int, page:Int, user:User, followInfo:FollowInformation)
+@(letters: List[models.portal.user.UserLetter], count: Long, pages: Int, page:Int, user:models.portal.user.User, followInfo:models.portal.user.FollowInformation)
 
 @myRelevantsMain("my-messages", user, followInfo, user.id, true){
   <div class="content-core mT40">
@@ -12,8 +12,8 @@
       <div class="WB_msg_type">
         <div class="msg_list_node S_line2 clearfix">
           <div class="id_avatar">
-            <a href="@noAuth.routes.Users.userPage(User.findOneByNickNm(letter.userMessage.senderNm).get.userId)">
-               <img src="@routes.Application.getPhoto(User.findOneByNickNm(letter.userMessage.senderNm).get.userPics)" alt="@letter.userMessage.senderNm"
+            <a href="@noAuth.routes.Users.userPage(models.portal.user.User.findOneByNickNm(letter.userMessage.senderNm).get.userId)">
+               <img src="@routes.Application.getPhoto(models.portal.user.User.findOneByNickNm(letter.userMessage.senderNm).get.userPics)" alt="@letter.userMessage.senderNm"
                  title="@letter.userMessage.senderNm" align="absmiddle" class = "SmallPortrait" width="50" height="50"/>
             </a>
           </div>

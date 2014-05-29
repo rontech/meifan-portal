@@ -1,9 +1,9 @@
-@(navInMyPage:String = "my-reservation", salon :Salon)
+@(navInMyPage:String = "my-reservation", salon :models.portal.salon.Salon)
 
   <!-- ↓mainContents -->
   <div class="sns-tab tab-app">
     <ul>
-    @if(Salon.checkBasicInfoIsFill(salon)){
+    @if(models.portal.salon.Salon.checkBasicInfoIsFill(salon)){
     <li class="@if(navInMyPage == "my-infomation") {selected}">
       <a href="@auth.routes.Salons.salonRegister" >
         <span>@Messages("salonAdmin.infoManagement")</span>
@@ -16,8 +16,8 @@
       </a>
     </li>       
     }
-    @if(Salon.checkBasicInfoIsFill(salon) && Salon.checkDetailIsFill(salon) &&
-       Salon.checkImgIsExist(salon)){            
+    @if(models.portal.salon.Salon.checkBasicInfoIsFill(salon) && models.portal.salon.Salon.checkDetailIsFill(salon) &&
+       models.portal.salon.Salon.checkImgIsExist(salon)){            
     <li class="@if(navInMyPage == "my-stylists") {selected}">
       <a href="@auth.routes.Salons.myStylist">
         @Messages("salonAdmin.stylistManagement")

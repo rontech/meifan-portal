@@ -1,4 +1,7 @@
-@(reservation: Reservation, contentType: String, ResvItemsForType: List[ResvItem])
+@(reservation: models.portal.reservation.Reservation, contentType: String, ResvItemsForType: List[models.portal.reservation.ResvItem])
+
+@import models.portal.menu.Menu
+@import models.portal.service.Service
 
 <table cellspacing="0" class="wFull bdCell fgThNml pCellV5H5 mT10">
   <tbody>
@@ -6,7 +9,7 @@
       <tr>
       @if(reservItem.resvType == "coupon") {
         <th class="w170 bgLGray b">@Messages("reservation.resvCoupon")</th>
-        @Coupon.findOneById(reservItem.mainResvObjId) match {
+        @models.portal.coupon.Coupon.findOneById(reservItem.mainResvObjId) match {
           case None => {}
           case Some(coupon) => {
             <td class="w478 p10">

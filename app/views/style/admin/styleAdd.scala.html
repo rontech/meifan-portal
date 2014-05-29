@@ -1,4 +1,4 @@
-@(styleAddForm: Form[Style], stylePara : models.StylePara, stylists: List[models.Stylist], isStylist: Boolean)
+@(styleAddForm: Form[models.portal.style.Style], stylePara : models.portal.style.StylePara, stylists: List[models.portal.stylist.Stylist], isStylist: Boolean)
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -269,7 +269,7 @@
       @Messages("hair.stylist")
       <select id="stylistId" name = "stylistId">
         @for(i <- 0 to stylists.length-1) {
-          <option value="@stylists(i).stylistId">@Stylist.findUser(stylists(i).stylistId).nickName</option>
+          <option value="@stylists(i).stylistId">@models.portal.stylist.Stylist.findUser(stylists(i).stylistId).nickName</option>
         }
        </select>
       </div>

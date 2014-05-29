@@ -1,4 +1,4 @@
-@(user :User, followInfo:FollowInformation, isFans: Boolean ,loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
+@(user :models.portal.user.User, followInfo:models.portal.user.FollowInformation, isFans: Boolean ,loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
 
   @if(isFans.equals(true)){
     @myRelevantsMain("my-follows", user, followInfo, loginUserId, logged) {

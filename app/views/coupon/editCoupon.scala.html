@@ -1,4 +1,4 @@
-@(salon: Salon, couponForm: Form[Coupon], services: List[Service], coupon: Coupon)
+@(salon: models.portal.salon.Salon, couponForm: Form[models.portal.coupon.Coupon], services: List[models.portal.service.Service], coupon: models.portal.coupon.Coupon)
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -52,7 +52,7 @@
             '_label -> None) { (id, name, value, args) =>
             @for(service <- services) {
               <div class="serviceItemArea">
-              @if(Service.getServiceIdList(coupon.serviceItems).contains(service.id)) {
+              @if(models.portal.service.Service.getServiceIdList(coupon.serviceItems).contains(service.id)) {
                 <input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id" value = "@service.id" checked="checked"> @service.serviceName
               } else {
                 <input type = "checkbox" class="serviceItem" name = "serviceItems[@services.indexOf(service)].id" value = "@service.id">@service.serviceName

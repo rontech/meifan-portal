@@ -1,4 +1,6 @@
-@(searchParaForSalon: SearchParaForSalon)
+@(searchParaForSalon: models.portal.search.SearchParaForSalon)
+
+@import models.portal.search._
 
 <head>
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanIndex.css")">
@@ -62,7 +64,7 @@
       @*<li>@Messages("industy")</li>
       <li>
         <select name="salonIndustry">
-          @Industry.findAll.toList.map{industry=>
+          @models.portal.industry.Industry.findAll.toList.map{industry=>
             <option value="@industry.industryName">@Messages(industry.industryName)</option>    
           }
         </select>
@@ -112,7 +114,7 @@
       <div class="rBox serviceType_check">
         <div class="notto"><a href="javascript:unlimitServiceType();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
         <ul class="place prices" id="unlimitServiceType_group">
-          @for((e, i) <- ServiceType.findAll.toList.zipWithIndex){
+          @for((e, i) <- models.portal.service.ServiceType.findAll.toList.zipWithIndex){
             @if(i<4){
             <li class="dibBL mR2">
               @if(searchParaForSalon.serviceType.contains(e.serviceTypeName)){
@@ -147,7 +149,7 @@
         <a href="javascript:unlimitSalons();" class="cur" method="b_no">@Messages("salonSearchPage.unlimited")</a>
       </div>
       <ul class="place prver" id="unlimitSalons_group">
-        @for((salon,i) <- Salon.findAll.toList.zipWithIndex){
+        @for((salon,i) <- models.portal.salon.Salon.findAll.toList.zipWithIndex){
           @if(i<4){
             <li class="">
               @if(searchParaForSalon.salonName.contains(salon.salonName)){

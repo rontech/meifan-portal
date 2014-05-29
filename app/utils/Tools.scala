@@ -18,6 +18,7 @@
 package utils
 
 import models._
+import models.portal.salon.RestDay
 
 object Tools {
   /**

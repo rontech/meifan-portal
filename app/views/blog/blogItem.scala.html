@@ -1,4 +1,4 @@
-@(blog: Blog, salon: Salon = null)
+@(blog: models.portal.blog.Blog, salon: models.portal.salon.Salon = null)
 
 @import java.text.DateFormat
 
@@ -20,7 +20,7 @@
           }else{
             <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(blog.authorId)">
           }
-                    @User.findOneByUserId(blog.authorId).get.nickName</a>
+                    @models.portal.user.User.findOneByUserId(blog.authorId).get.nickName</a>
           
           </dd>
         </dl>

@@ -1,4 +1,4 @@
-@(user : User, blogList : List[Blog], followInfo:FollowInformation, loginUserId : ObjectId = new ObjectId, logged:Boolean = false)
+@(user : models.portal.user.User, blogList : List[models.portal.blog.Blog], followInfo:models.portal.user.FollowInformation, loginUserId : ObjectId = new ObjectId, logged:Boolean = false)
 @import views.html.user._
 
   @myActsMain("my-blogs", user, followInfo, loginUserId, logged) {

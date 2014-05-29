@@ -1,4 +1,4 @@
-@(serviceTypeForm: Form[ServiceType])
+@(serviceTypeForm: Form[models.portal.service.ServiceType])
 
 @import helper._
 
@@ -21,7 +21,7 @@
      
      @input(field=serviceTypeForm("industryName"),'_label -> Messages("industy")) { (id, name, value,_) =>
      <select name= "industryName">
-      @Industry.findAllIndustryName.toList.map {industyName =>
+      @models.portal.industry.Industry.findAllIndustryName.toList.map {industyName =>
          <option value= @industyName>@Messages("industry.industryName."+ industyName)</option>
       }
      </select>
