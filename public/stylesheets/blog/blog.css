@@ -12,28 +12,8 @@ padding: 3px;
 width: 187px;
 }
 
-.listCassette {
-margin-top: 20px;
-padding-top: 20px;
-border-top: 1px dotted #999;
-}
-
-.blogCategoryBL10 {
-background-position: -360px 0;
-display: block;
-width: 107px;
-height: 19px;
-text-align: center;
-color: white
-}
-
 .blogS {
 background-color: #7c25ff;
-}
-
-.hMin19 {
-min-height: 19px;
-_height: 19px;
 }
 
 .cFix dl {
@@ -43,10 +23,6 @@ _height: 19px;
 
 .mR70 {
 	margin-right: 70px;
-}
-
-.fs18 {
-font-size: 18px;
 }
 
 .blogCategoryLargeBL10 {
@@ -72,16 +48,4 @@ padding: 3px;
 
 .bgDGray2 {
 background-color: #F8F2EC;
-}
-
-.bgAlertMsg {
-background-color: #F5F3EF;
-padding: 15px;
-text-align: center;
-}
-
-.alertMsg {
-font-size: 16px;
-color: #DD0000;
-font-weight: bold;
 }

@@ -340,7 +340,7 @@ position: relative;
 }
 /* 发型页面中该技师的其他发型展示js效果 */
 /* 发型页面中前后中展示效果 */
-#containerPic {position:relative; width:271px; height:361px; background:#888; margin:10px auto; font-family:verdana, arial, sans-serif; font-size:12px;}
+#containerPic {position:relative; width:271px; height:361px; background:#888; margin:10px auto; font-size:12px;}
 #containerPic a.pics span {display:none; border:0; text-align:center;}
 #containerPic a.pics img.thumb {display:block; border:0;}
 
@@ -371,6 +371,7 @@ color: #fff;
 line-height: 30px;
 font-weight: bold;
 text-align: center;
+width: 135px;
 }
 
 a.addIntoMyStylist, a.sendToMobile {
@@ -394,4 +395,20 @@ background-position: -645px -30px;
 
 a.pics {
 cursor: pointer;
+}
+
+.sendToMobile {
+background-position: -826px 0;
+width: 160px;
+height: 30px;
+}
+
+.sendToMobile:hover {
+background-position: -826px -30px;
+}
+
+.addIntoMyStylist {
+background-position: -826px 0;
+width: 160px;
+height: 30px;
 }

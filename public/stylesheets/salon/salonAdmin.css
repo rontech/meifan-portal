@@ -20,12 +20,6 @@
     display: none;
 }
 
-.alert-message .btn {
-  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
-  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
-}
-
 .btn {
   cursor: pointer;
   display: inline-block;
@@ -56,16 +50,6 @@
   transition: 0.1s linear all;
 }
 
-.btn.success, .alert-message.success {
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#62c462', endColorstr='#57a957', GradientType=0);
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  border-color: #57a957 #57a957 #3d773d;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-}
-.pull-right {
-  float: right;
-}
 form .clearfix {
   margin: 8px 5px;
   zoom: 1;
@@ -100,26 +84,11 @@ form .clearfix.success input:focus, form .clearfix.success textarea:focus {
   -moz-box-shadow: 0 0 6px #9acc9a;
   box-shadow: 0 0 6px #9acc9a;
 }
-.manage {
-    margin-left: 32px;
-    margin-bottom: 20px;
-}
 
 /* clearfix */
-.cFix:after {
-	content: "";
-	display: block;
-	clear: both;
-	height: 0;
-	visibility: hidden;
-}
-.cFix	{ min-height: 1px; _height: 1px; }
-
 .w349	{ width: 349px; }
 
 /* POSITION */
-.fl		{ float: left; }
-.fr		{ float: right; }
 .cb		{ clear: both; }
 
 

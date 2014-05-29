@@ -28,15 +28,6 @@ margin-left: 20px;
 float: left;
 }
 
-.serviceArea {
-border: 1px solid #c1c7c5;
-margin-bottom: 10px;
-}
-
-.menuInfo .serviceArea dl {
-height: auto;
-}
-
 .serviceTypeItem {
 margin: 5px 0;
 }

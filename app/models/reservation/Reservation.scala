@@ -210,7 +210,8 @@ object Reservation extends MeifanNetModelCompanion[Reservation] {
    * @return
    */
   def findReservationByDate(reservations: List[Reservation], expectedDate: Date): Long = {
-    reservations.filter(r => (r.expectedDate.equals(expectedDate) && r.status.equals(0))).size.toLong
+    val formattedDate = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(expectedDate)
+    reservations.filter(r => (r.expectedDate.equals(new Date(formattedDate)) && r.status.equals(0))).size.toLong
   }
 
   /**

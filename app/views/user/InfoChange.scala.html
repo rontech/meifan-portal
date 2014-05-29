@@ -17,7 +17,13 @@
       
       @if(subNavInSalon == "my-salon") {
         <li class="fl  selected">
-          <a class="current-demo" href="@noAuth.routes.Stylists.mySalonFromStylist(user.id)">@Messages("stylistMag.mySalon")</a>
+          <a class="current-demo" href="@noAuth.routes.Stylists.mySalonFromStylist(user.id)">
+						@if(loginUserId.equals(user.id)) {
+							@Messages("stylistMag.mySalon")
+						} else {
+							@Messages("stylist.salon")
+						}
+					</a>
         </li>
       } else {
         @if(subNavInSalon == "my-appling") {

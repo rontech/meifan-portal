@@ -1,18 +1,4 @@
-.mysalon-stylist {
-float: left;
-}
 
-.w166 {
-	width: 166px;
-}
-
-.w164 {
-	width: 164px;
-}
-
-.h219 {
-	height: 219px;
-}
 
 /* the css of blog start*/
 .latestBlogtitle {
@@ -30,28 +16,10 @@ background-color: #7c25ff;
 margin-right: 70px;
 }
 
-.hMin19 {
-min-height: 19px;
-_height: 19px;
-}
-
-.blogCategoryBL10 {
-background-position: -360px 0;
-display: block;
-width: 107px;
-height: 19px;
-text-align: center;
-color: white;
-}
-
 .w557 {
 width: 479px;
 }
 
-.listCassette {
-border: 1px solid #DDDDDD;
-padding: 10px;
-}
 /* the css of blog end*/
 
 .styleItem {
@@ -66,14 +34,11 @@ padding: 10px;
 	min-height: 399px;
 }
 
-.bgAlertMsg {
-background-color: #F5F3EF;
-padding: 15px;
-text-align: center;
+.listCassette {
+border: 1px solid #DDDDDD;
+padding: 10px;
 }
 
-.alertMsg {
-font-size: 16px;
-color: #DD0000;
-font-weight: bold;
+.cl {
+clear: left;
 }
