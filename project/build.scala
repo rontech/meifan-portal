@@ -26,5 +26,5 @@ object ApplicationBuild extends Build {
   val main = play.Project(appName, appVersion, appDependencies).settings(
     routesImport += "se.radley.plugin.salat.Binders._",
     templatesImport += "org.bson.types.ObjectId"
-  ).dependsOn(refFrmwk).aggregate(refFrmwk)
+  ).dependsOn(refFrmwk).aggregate(refFrmwk).dependsOn(refDB).aggregate(refDB)
 }
