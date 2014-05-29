@@ -170,14 +170,6 @@ function GetRelativePath(){
 }
 
 /**
- * 切换当前城市，向服务器请求到所有城市页面中
- * 并把当前所在页面的url，截取相对路径传送到服务器段保存到session中
- */
-function switchCity() {
-  location.href = "/getAllCitys"+GetRelativePath();
-}
-
-/**
  * 调用该js的页面加载后执行，
  * 先判断cookie是否有存放设置的城市，
  * 没有就通过IP获取城市设置到对应的位置，

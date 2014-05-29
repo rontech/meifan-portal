@@ -329,7 +329,7 @@ GET         /getkeyWordsByajax/:wordText                                        
 POST        /generalSearch                                                       controllers.noAuth.GeneralSearch.getGeneralSearch
 
 #getAllCity
-GET         /getAllCitys/:currentUri                                             controllers.Application.getAllCitys(currentUri: String)
+GET         /getAllCitys                                                          controllers.Application.getAllCitys
 
 #GET        /getAllCitys                                                         controllers.Application.getAllCitys
 GET         /getOneCity/:city                                                    controllers.Application.getOneCity(city: String)
