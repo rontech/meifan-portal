@@ -11,10 +11,6 @@ padding-left: 10px;
 padding-right: 10px;
 }
 
-.fs18 {
-font-size: 18px;
-}
-
 .directRsv {
 background-position: -840px -580px;
 width: 90px;
@@ -272,8 +268,26 @@ font-weight: bold;
 text-align: center;
 }
 
-.mysalon-stylist {
-float: left;
+.nominatedReserve {
+background-position: 0 0;
+width: 132px;
+height: 31px;
+}
+
+.reserveImmediately {
+background-position: -1130px -760px;
+width: 35px;
+height: 32px;
+}
+
+.reserveImmediately:hover {
+background-position: -1130px -792px;
+}
+
+.reserveImpossible {
+background-position: -1090px -760px;
+width: 35px;
+height: 32px;
 }
 
 #pageTopForReserv {
@@ -380,4 +394,11 @@ text-align: center;
 .calTab .current.salonDirect a {
 color: #5b5a5a !important;
 background-position: -325px -58px;
+}
+
+.submitArea {
+background-color: #F5F3EF;
+display: block;
+line-height: 20px;
+padding: 10px;
 }

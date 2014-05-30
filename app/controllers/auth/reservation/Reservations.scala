@@ -115,7 +115,6 @@ object Reservations extends MeifanNetCustomerApplication {
 
   /**
    * 如果符合条件那么将该信息存储到预约表中并跳转到预约成功画面
-   * @param reservation 预约的全部内容
    */
   def reservSuccess = StackAction(AuthorityKey -> isLoggedIn _) {
     implicit request =>

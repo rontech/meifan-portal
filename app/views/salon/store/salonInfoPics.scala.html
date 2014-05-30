@@ -43,7 +43,7 @@
           @if(salon.salonPics.size > 0){
             @for(i <- 0 to salon.salonPics.size-1){
               @if(salon.salonPics(i).picUse == "Atmosphere" ){
-                <li class="fl w221 bdGrayR mR20 pR20 atmoPic">
+                <li class="fl bdGrayR mR20 pR20 atmoPic">
                   <div class="taC"><img src="@routes.Application.getPhoto(salon.salonPics(i).fileObjId)" class="bdImgGray"  width="205" height="150"/></div>
                   <p class="fgGray fs10 mT10 taC">@salon.salonPics(i).description</p>    
                 </li>                            

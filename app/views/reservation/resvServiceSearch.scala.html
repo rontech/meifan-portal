@@ -6,10 +6,6 @@
 <div class="mT10 pr" id="couponList">
   <p class="narrowDownPanelArrow">◆</p>
   @form(routes.Reservations.getServicesByCondition(salon.id, stylistId), 'id -> "salonCouponConditionForm", 'name -> "bt_salonCouponActionForm") {
-    <div style="display : none ;">
-      <input type="hidden" name="org.apache.struts.taglib.html.TOKEN" value="25a60a6adbc21e6f516eaa08c0cf87a6">
-    </div>
-    <input type="hidden" name="couponTypeCd" value=""> <input type="hidden" name="typeSearch" value="submit">
     <table summary="coupon" class="wFull bgThNml bdCell pCell10 bgWhite" cellspacing="0">
       <tbody>
         <tr>

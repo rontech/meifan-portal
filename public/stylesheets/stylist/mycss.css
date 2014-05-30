@@ -1,30 +1,9 @@
-.content-link,.content-core{
-	float:left;
-	font-color:red;
-	font-size:16px;
-}
-.content-link{
-	margin:80px 50px 0px 50px;
-}
 .content-core{
 	margin:60px 50px 50px 100px;
-}
-.designerview-main,.designerview-body{
-	float:left;
-}
-.recordview-table{
-	height:500px;
-}
-.designerTask{
-	
 }
 a{ 
 	text-decoration:none
 } 
-.addrecord-table{
-	width:600px;
-	height:600px;	
-}
 .row1{
 			background-color:#FFE7BA;
 		}
@@ -44,19 +23,8 @@ a{
 	font-size:14pt;
 	font-weight:bold;
 }
-.stylist-addstyle-button{
-	float:right;
-	margin-right:30px;
-}
-.stylist-styles-map{
-	clear:right;
-}
 .mysalon-stylist-1{
 	float:left;
-}
-
-.stylist-stylist-group{
-	width:600px;
 }
 
 .stylistUpdateInfo {
