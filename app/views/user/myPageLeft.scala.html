@@ -25,7 +25,7 @@
       </div>
       @if(user.userTyp.equals(models.portal.user.User.STYLIST)){
         <!-- 我的沙龙，如果没有则显示来自沙龙的邀请 -->
-        <div class='Mod models.portal.user.Users' id='Fans'>
+        <div class='Mod Users' id='Fans'>
         @if(models.portal.relation.SalonAndStylist.findByStylistId(user.id).isEmpty){
           <a href="@auth.routes.Stylists.applyFromSalon">
           
@@ -52,7 +52,7 @@
             }
         </div>
         <!-- 我的发型 -->
-        <div class='Mod models.portal.user.Users' id='Fellows'>
+        <div class='Mod Users' id='Fellows'>
           <strong>@Messages("stylistMag.myStyle")</strong>
           <ul class='clearfix'>
              @models.portal.style.Style.findByStylistId(user.id).slice(0,8).map {style =>
@@ -69,7 +69,7 @@
           </div>
         </div>
       }
-      <div class='Mod models.portal.user.Users' id='Fellows'>
+      <div class='Mod Users' id='Fellows'>
         <strong>@Messages("user.followSalon")</strong>
          <ul class='clearfix'>
              @followInfo.followSalon.slice(0,8).map {salon =>
@@ -84,7 +84,7 @@
           <a href="@noAuth.routes.MyFollows.followedSalon(user.id)">@Messages("user.showAllFollow")@followInfo.followSalon.length)</a>
         </div>
       </div>
-      <div class='Mod models.portal.user.Users' id='Fellows'>
+      <div class='Mod Users' id='Fellows'>
         <strong>@Messages("user.followStylist")</strong>
          <ul class='clearfix'>
            @followInfo.followStylist.slice(0,8).map {stylist =>
@@ -101,7 +101,7 @@
           <a href="@noAuth.routes.MyFollows.followedStylist(user.id)">@Messages("user.showAllFollow")@followInfo.followStylist.length)</a>
         </div>
       </div>
-      <div class='Mod models.portal.user.Users' id='Fans'>
+      <div class='Mod Users' id='Fans'>
           <strong>@Messages("user.followUser")</strong>
           <ul class='clearfix'>
            @followInfo.followUser.slice(0,8).map {user =>
@@ -116,7 +116,7 @@
             <a href="@noAuth.routes.MyFollows.followedUser(user.id)">@Messages("user.showAllFollow")@followInfo.followUser.length)</a>
          </div>
       </div>
-      <div class='Mod models.portal.user.Users' id='Fans'>
+      <div class='Mod Users' id='Fans'>
         <strong>@Messages("user.quickNavigation")</strong>
         <ul class='clearfix quickNav'>
           <li><a href="@auth.routes.Users.myReservation">@Messages("user.reservation")</a></li>
