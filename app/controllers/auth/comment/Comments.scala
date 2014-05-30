@@ -29,7 +29,10 @@ import com.mongodb.casbah.Imports.ObjectId
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
-import com.meifannet.framework.MeifanNetCustomerApplication
+import com.meifannet.portal.MeifanNetCustomerApplication
+import models.portal.blog.Blog
+import models.portal.review.Comment
+import models.portal.user.LoggedIn
 
 /**
  * this object is to add comment to blog and coupon and delete comment of blog

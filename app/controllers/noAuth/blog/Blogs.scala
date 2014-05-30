@@ -34,7 +34,12 @@ import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
 import models._
-import com.meifannet.framework.MeifanNetCustomerOptionalApplication
+import com.meifannet.portal.MeifanNetCustomerOptionalApplication
+import models.portal.stylist.Stylist
+import models.portal.salon.Salon
+import models.portal.blog.Blog
+import models.portal.user.{MyFollow, User}
+import models.portal.review.Comment
 
 /**
  * this object is major to get blog by different conditions

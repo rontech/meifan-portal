@@ -1,4 +1,4 @@
-@(salon: Salon)
+@(salon: models.portal.salon.Salon)
   <div class="mT30">
     <div class="yS mainContentsSecondTitleOuter">
     <h2 class="yS mainContentsSecondTitleInner">
@@ -52,7 +52,7 @@
       <tr>
         <th class="w120"> @Messages("salon.priceCutOnly") </th>
         <td class="w208 vaT">
-          @Salon.getLowestPriceOfCut(salon.id) match {
+          @models.portal.salon.Salon.getLowestPriceOfCut(salon.id) match {
             case None => { @Messages("salon.priceCutOnlyUndefined")}
             case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
           }
@@ -63,7 +63,7 @@
       <tr>
         <th class="w120"> @Messages("salon.stylistNums") </th>
         <td class="w208 vaT">
-          @Messages("slaon.stylistNumUnit", Salon.getCountOfStylists(salon.id))
+          @Messages("slaon.stylistNumUnit", models.portal.salon.Salon.getCountOfStylists(salon.id))
         </td>
         <th class="w120"> @Messages("salon.parkingDesc") </th>
         <td class="w208 vaT">

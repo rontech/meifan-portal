@@ -18,7 +18,6 @@
 package controllers.auth
 
 import play.api.mvc._
-import models._
 import views._
 import java.util.Date
 import controllers._
@@ -35,8 +34,24 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import utils.Tools
 import utils.Const._
+import models.portal.salon._
+import models.portal.common.{Address, OnUsePicture, OptContactMethod}
+import models.portal.salon.SalonAccount
+import models.portal.salon.BriefIntroduction
+import models.portal.salon.Contact
+import models.portal.industry.Industry
+import models.portal.review.Comment
+import models.portal.stylist.Stylist
+import models.portal.service.{ServiceType, Service}
+import models.portal.coupon.{CouponServiceType, Coupon}
+import models.portal.menu.Menu
+import models.portal.relation.{SalonAndStylist, SalonStylistApplyRecord}
+import models.portal.user.User
+import models.portal.style.Style
+import com.meifannet.portal.MeifanNetSalonApplication
+
 import com.meifannet.framework.db._
-import com.meifannet.framework.MeifanNetSalonApplication
+
 
 object Salons extends MeifanNetSalonApplication {
 
@@ -832,7 +847,7 @@ object Salons extends MeifanNetSalonApplication {
       case ITEM_TYPE_MENU =>
         Ok(Menu.checkMenuIsExist(value, salon.id).toString)
       case ITEM_TYPE_SERVICE =>
-        Ok(Service.checkServiceIsExist(value, salon.id).toString)
+        Ok(models.portal.service.Service.checkServiceIsExist(value, salon.id).toString)
       case ITEM_TYPE_NAME_ABBR =>
         Ok((User.isExist(value, User.findOneByNickNm) ||
           !Salon.isValid(value, salon, Salon.findOneBySalonName) ||

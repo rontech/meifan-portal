@@ -1,4 +1,4 @@
-@(user :User, followInfo :FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false, stylist: Stylist)
+@(user :models.portal.user.User, followInfo :models.portal.user.FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false, stylist: models.portal.stylist.Stylist)
 
 @import views.html.user._
 
@@ -13,3 +13,4 @@
   
 }
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="@routes.Assets.at("javascripts/jquery.cookie.js")" type="text/javascript"> </script>

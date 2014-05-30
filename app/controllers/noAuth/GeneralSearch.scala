@@ -25,7 +25,10 @@ import jp.t2v.lab.play2.auth._
 import controllers._
 import com.mongodb.casbah.commons.Imports._
 import java.util.Date
-import com.meifannet.framework.MeifanNetCustomerOptionalApplication
+import com.meifannet.portal.MeifanNetCustomerOptionalApplication
+import models.portal.search.{SortByConditions, SeatNums, PriceRange, SearchParaForSalon}
+import models.portal.salon.{Salon, SalonFacilities}
+import models.portal.style.{StyleWithAllInfo, Style}
 
 object GeneralSearch extends MeifanNetCustomerOptionalApplication {
 

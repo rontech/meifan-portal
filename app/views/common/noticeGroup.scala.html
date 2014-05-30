@@ -1,4 +1,5 @@
-@(notices: List[Notice] = Notice.findAll.toList)
+@(notices: List[models.portal.info.Notice] = models.portal.info.Notice.findAll.toList)
+
 <div id="pl">
   <div class="pl_bt">
     <h2><img src="@routes.Assets.at("images/tz_bt.jpg")" width="210" height="36" /></h2>

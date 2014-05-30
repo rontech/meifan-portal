@@ -27,11 +27,15 @@ import com.mongodb.casbah.commons.Imports._
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
-import com.meifannet.framework.MeifanNetCustomerApplication
 
 import models._
 import java.text.SimpleDateFormat
 import play.cache.Cache
+import models.portal.reservation.Reservation
+import com.meifannet.portal.MeifanNetCustomerApplication
+import models.portal.salon.Salon
+import models.portal.relation.SalonAndStylist
+import models.portal.user.User
 
 object Reservations extends MeifanNetCustomerApplication {
 

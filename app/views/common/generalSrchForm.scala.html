@@ -30,7 +30,7 @@
     <!--↓ Hottest Keyword-->
     <div id="hotlist">
       @Messages("common.hotSearch"):  
-      @for(kw <- HotestKeyword.findTopKeywordsOfDiv(nav, 10)) {
+      @for(kw <- models.portal.search.HotestKeyword.findTopKeywordsOfDiv(nav, 10)) {
         <a href="javascript:void(0)" onclick="doGeneralSrchSubmit('@kw');"> @kw </a>
       }
     </div>

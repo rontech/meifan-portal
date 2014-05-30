@@ -1,6 +1,7 @@
-@(applyStylist: Tuple2[Stylist, ObjectId], salon: Salon)
+@(applyStylist: Tuple2[models.portal.stylist.Stylist, ObjectId], salon: models.portal.salon.Salon)
 
 @import java.text.DateFormat
+
 <body>
 <div class="w150 mHA">
   <div class="taC">
@@ -8,7 +9,7 @@
       <img src="@routes.Application.getPhoto(applyStylist._1.myPics(0).fileObjId)" class="bdImgGray w150 h200">
     </a>
   </div>
-  <p class="mT10 taC">@Stylist.findUserName(applyStylist._1.stylistId)</p>
+  <p class="mT10 taC">@models.portal.stylist.Stylist.findUserName(applyStylist._1.stylistId)</p>
   <div class="bdDotT bdDotB mT5 pT5 fs10">
     <span class="fgPink">
       @applyStylist._1.myWords.slice(0,15) ...
@@ -20,7 +21,7 @@
 </div>
 <div class="taC mT10">
   <div class="mB5 bdDotB">
-    <span>@Messages("stylist.applyCreateTime"): </span><span>@DateFormat.getDateInstance().format(SalonStylistApplyRecord.findOneStylistApRd(applyStylist._1.stylistId).get.applyDate)</span>
+    <span>@Messages("stylist.applyCreateTime"): </span><span>@DateFormat.getDateInstance().format(models.portal.relation.SalonStylistApplyRecord.findOneStylistApRd(applyStylist._1.stylistId).get.applyDate)</span>
   </div>
   <div class="pT5">
     @*<a href="@auth.routes.Salons.agreeStylistApply(stylist.stylistId)" class="salon-stylist-acceptApply">@Messages("stylist.acceptApply")</a>|*@

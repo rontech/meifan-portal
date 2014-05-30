@@ -1,4 +1,4 @@
-@(user :User,followInfo:FollowInformation)
+@(user :models.portal.user.User,followInfo:models.portal.user.FollowInformation)
       <div class ="Owner">
         <a href="#" class='Img'><img src="@routes.Application.getPhoto(user.userPics)"/></a>
         <span class='myPageA'>
@@ -11,7 +11,7 @@
         <div class="clear"></div>
         <div class ="sta">
           <a href="@noAuth.routes.MyFollows.followers(user.id)"><font>@Messages("user.myFollowers")<span>(@followInfo.follower.length)</span></font></a>
-          <a href="@auth.routes.UserLetters.messageList("unRead")"><font>@Messages("user.myMessages")<span>(@UserMessage.countByCondition("unRead",user.userId))</span></font></a>
+          <a href="@auth.routes.UserLetters.messageList("unRead")"><font>@Messages("user.myMessages")<span>(@models.portal.user.UserMessage.countByCondition("unRead",user.userId))</span></font></a>
         </div>
       </div>
       <div class='myPoint' id='UserSkills'>
@@ -23,21 +23,21 @@
         <a href="@auth.routes.Users.myInfo" class='a2 admin'><span>@Messages("user.changeInfo")</span></a>
         <a href="@noAuth.routes.Blogs.getAllBlogsOfUser(user.userId)" class='a1 blog'><span>@Messages("user.myBlog")</span></a>
       </div>
-      @if(user.userTyp.equals(User.STYLIST)){
+      @if(user.userTyp.equals(models.portal.user.User.STYLIST)){
         <!-- 我的沙龙，如果没有则显示来自沙龙的邀请 -->
-        <div class='Mod Users' id='Fans'>
-        @if(SalonAndStylist.findByStylistId(user.id).isEmpty){
+        <div class='Mod models.portal.user.Users' id='Fans'>
+        @if(models.portal.relation.SalonAndStylist.findByStylistId(user.id).isEmpty){
           <a href="@auth.routes.Stylists.applyFromSalon">
           
             <strong>@Messages("stylistMag.salonApply")</strong>
             <div class='more'>
-            @if(SalonStylistApplyRecord.checkStylistApply(user.id)){
+            @if(models.portal.relation.SalonStylistApplyRecord.checkStylistApply(user.id)){
               <a href="@auth.routes.Stylists.findStylistApplying">@Messages("stylistMag.myAppling")</a>&nbsp;
             }else{
               <a href="@auth.routes.Stylists.wantToApply">@Messages("stylistMag.wantToApply")</a>&nbsp;
             }
               <a href="@auth.routes.Stylists.applyFromSalon">@Messages("stylistMag.countSalonApply")
-                (@SalonStylistApplyRecord.applingSalonCount(user.id))
+                (@models.portal.relation.SalonStylistApplyRecord.applingSalonCount(user.id))
               </a>
             </div>
             }else{
@@ -45,17 +45,17 @@
             <strong>@Messages("stylistMag.mySalon")</strong>
             <div class='more'>
               <a href="@noAuth.routes.Stylists.mySalonFromStylist(user.id)">
-                <img src="@routes.Application.getPhoto(Stylist.mySalon(user.id).salonPics(0).fileObjId)" alt="@Stylist.mySalon(user.id).salonNameAbbr" title="@Stylist.mySalon(user.id).salonNameAbbr" align="absmiddle" class = "SmallPortrait"/>
-                <span>@Stylist.mySalon(user.id).salonName</span>
+                <img src="@routes.Application.getPhoto(models.portal.stylist.Stylist.mySalon(user.id).salonPics(0).fileObjId)" alt="@models.portal.stylist.Stylist.mySalon(user.id).salonNameAbbr" title="@models.portal.stylist.Stylist.mySalon(user.id).salonNameAbbr" align="absmiddle" class = "SmallPortrait"/>
+                <span>@models.portal.stylist.Stylist.mySalon(user.id).salonName</span>
               </a>
             </div>
             }
         </div>
         <!-- 我的发型 -->
-        <div class='Mod Users' id='Fellows'>
+        <div class='Mod models.portal.user.Users' id='Fellows'>
           <strong>@Messages("stylistMag.myStyle")</strong>
           <ul class='clearfix'>
-             @Style.findByStylistId(user.id).slice(0,8).map {style =>
+             @models.portal.style.Style.findByStylistId(user.id).slice(0,8).map {style =>
                <li>
                  <a href="#">
                   <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)" alt="@style.styleName" title="@style.styleName" align="absmiddle" class = "SmallPortrait">
@@ -65,11 +65,11 @@
           </ul>
           <div class='more'>
             <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
-              (@Stylist.countStyleByStylist(user.id))</a>
+              (@models.portal.stylist.Stylist.countStyleByStylist(user.id))</a>
           </div>
         </div>
       }
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
         <strong>@Messages("user.followSalon")</strong>
          <ul class='clearfix'>
              @followInfo.followSalon.slice(0,8).map {salon =>
@@ -84,13 +84,15 @@
           <a href="@noAuth.routes.MyFollows.followedSalon(user.id)">@Messages("user.showAllFollow")@followInfo.followSalon.length)</a>
         </div>
       </div>
-      <div class='Mod Users' id='Fellows'>
+      <div class='Mod models.portal.user.Users' id='Fellows'>
         <strong>@Messages("user.followStylist")</strong>
          <ul class='clearfix'>
            @followInfo.followStylist.slice(0,8).map {stylist =>
              <li>
-                <a href="@noAuth.routes.Users.userPage(User.findOneById(stylist.stylistId).get.userId)">
-                  <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" alt="@Stylist.findUserName(stylist.stylistId)" title="@Stylist.findUserName(stylist.stylistId)" align="absmiddle" class = "SmallPortrait">
+                <a href="@noAuth.routes.Users.userPage(models.portal.user.User.findOneById(stylist.stylistId).get.userId)">
+                  <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)"
+                       alt="@models.portal.stylist.Stylist.findUserName(stylist.stylistId)"
+                       title="@models.portal.stylist.Stylist.findUserName(stylist.stylistId)" align="absmiddle" class = "SmallPortrait">
                 </a>
              </li>
            }
@@ -99,7 +101,7 @@
           <a href="@noAuth.routes.MyFollows.followedStylist(user.id)">@Messages("user.showAllFollow")@followInfo.followStylist.length)</a>
         </div>
       </div>
-      <div class='Mod Users' id='Fans'>
+      <div class='Mod models.portal.user.Users' id='Fans'>
           <strong>@Messages("user.followUser")</strong>
           <ul class='clearfix'>
            @followInfo.followUser.slice(0,8).map {user =>
@@ -114,7 +116,7 @@
             <a href="@noAuth.routes.MyFollows.followedUser(user.id)">@Messages("user.showAllFollow")@followInfo.followUser.length)</a>
          </div>
       </div>
-      <div class='Mod Users' id='Fans'>
+      <div class='Mod models.portal.user.Users' id='Fans'>
         <strong>@Messages("user.quickNavigation")</strong>
         <ul class='clearfix quickNav'>
           <li><a href="@auth.routes.Users.myReservation">@Messages("user.reservation")</a></li>
@@ -122,9 +124,9 @@
           <li><a href="@auth.routes.MyFollows.followedBlog(user.id)">@Messages("user.collectBlog")</a></li>
           <li><a href="@auth.routes.MyFollows.followedStyle(user.id)">@Messages("user.collectStyle")</a></li>
           <li><a href="@auth.routes.Users.password">@Messages("user.changePassword")</a></li>
-          @if(user.userTyp.equals(User.NORMAL_USER)){
+          @if(user.userTyp.equals(models.portal.user.User.NORMAL_USER)){
           <li>
-            @if(SalonStylistApplyRecord.checkStylistApply(user.id)){
+            @if(models.portal.relation.SalonStylistApplyRecord.checkStylistApply(user.id)){
               <a href="@auth.routes.Users.cancelApplyStylist">@Messages("user.cancelBeStylist")</a>
             }else{
               <a href="@auth.routes.Users.applyStylist">@Messages("user.tobeStylist")</a>

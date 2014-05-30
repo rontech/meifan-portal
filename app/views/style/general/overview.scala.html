@@ -1,36 +1,36 @@
-@(styleSearchForm: Form[Style], stylePara: models.StylePara, user: Option[User])
+@(styleSearchForm: Form[models.portal.style.Style], stylePara: models.portal.style.StylePara, user: Option[models.portal.user.User])
 
 @main(title = Messages("hair.tabName"), nav = "HairCatalog") {
 
   <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
   <div>
     <div class="fl wP80">
-      <!-- The title of Style. -->
+      <!-- The title of models.portal.style.Style. -->
       <div class="hcHeader">
         <div class="pr hcHeaderTopPage">
           <h2 class="hcHeading offL">@Messages("hair.styleCatalogTitle")</h2>
           <h3 class="pa right0 bottom0 hcHeadingCaption">@Messages("site.title")</h3>
         </div>
       </div>
-      <!-- Style Search By Conditons. -->    
+      <!-- models.portal.style.Style Search By Conditons. -->    
       @views.html.style.general.styleSearch(styleSearchForm, stylePara)
       
-      <!-- Style Search By Ranking. --> 
+      <!-- models.portal.style.Style Search By Ranking. --> 
       <div class="mT40 pT40">
         @views.html.style.general.searchByRanking()
       </div>   
 
-      <!-- Style Search By Length For Women. -->
+      <!-- models.portal.style.Style Search By Length For Women. -->
       <div class="mT40">
         @views.html.style.general.searchByLengthForF()
       </div>
 
-      <!-- Style Search By Length For Men. --> 
+      <!-- models.portal.style.Style Search By Length For Men. --> 
       <div class="mT40"> 
         @views.html.style.general.searchByLengthForM()
       </div>
 
-      <!-- Style Search By Impression. -->
+      <!-- models.portal.style.Style Search By Impression. -->
       <div class="mT40">    
           @views.html.style.general.searchByImpression()
       </div>

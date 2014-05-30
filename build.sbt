@@ -1,4 +1,4 @@
-name := "customer-portal"
+name := "portal"
 
 version := "1.0-SNAPSHOT"
 

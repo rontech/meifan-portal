@@ -32,12 +32,14 @@ import org.mindrot.jbcrypt.BCrypt
 import controllers._
 import play.api.data.validation.Constraints._
 import utils.Const._
-import scala.Some
-import models.StylistApply
-import models.OptContactMethod
-import models.Address
 import play.api.templates.Html
-import com.meifannet.framework.MeifanNetCustomerApplication
+import models.portal.user.{LoggedIn, MyFollow, User}
+import models.portal.common.{OnUsePicture, OptContactMethod, Address}
+import models.portal.stylist.{Stylist, StylistApply}
+import models.portal.industry.IndustryAndPosition
+import models.portal.salon.Salon
+import models.portal.relation.SalonStylistApplyRecord
+import com.meifannet.portal.MeifanNetCustomerApplication
 
 object Users extends MeifanNetCustomerApplication {
 

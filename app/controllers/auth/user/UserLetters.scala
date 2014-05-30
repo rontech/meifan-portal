@@ -29,7 +29,9 @@ import scala.concurrent._
 import ExecutionContext.Implicits.global
 import play.api.templates.Html
 import controllers._
-import com.meifannet.framework.MeifanNetCustomerApplication
+import models.portal.user._
+import models.portal.user.UserLetter
+import com.meifannet.portal.MeifanNetCustomerApplication
 
 object UserLetters extends MeifanNetCustomerApplication {
   val pageSize: Int = 5 //每页显示记录
@@ -73,7 +75,7 @@ object UserLetters extends MeifanNetCustomerApplication {
     val user = loggedIn
     val count = UserMessage.countByCondition(requirement, user.userId)
     val unReadMsgs = UserMessage.findByCondition(requirement, user.userId, 1, pageSize)
-    var userMsgs: List[models.UserMessage] = Nil
+    var userMsgs: List[models.portal.user.UserMessage] = Nil
     if (unReadMsgs.isEmpty) {
       val inBoxMsgs = UserMessage.findByCondition(UserMessage.INBOX_ALL, user.userId, 1, pageSize)
       userMsgs = inBoxMsgs

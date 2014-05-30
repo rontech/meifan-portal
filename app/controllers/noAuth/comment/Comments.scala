@@ -29,7 +29,9 @@ import com.mongodb.casbah.Imports.ObjectId
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
-import com.meifannet.framework.MeifanNetCustomerOptionalApplication
+import com.meifannet.portal.MeifanNetCustomerOptionalApplication
+import models.portal.salon.Salon
+import models.portal.review.Comment
 
 object Comments extends MeifanNetCustomerOptionalApplication {
 

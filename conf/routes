@@ -329,8 +329,13 @@ GET         /getkeyWordsByajax/:wordText                                        
 POST        /generalSearch                                                       controllers.noAuth.GeneralSearch.getGeneralSearch
 
 #getAllCity
-GET         /getAllCitys/:currentUri                                             controllers.Application.getAllCitys(currentUri: String)
+GET         /getAllCitys                                                          controllers.Application.getAllCitys
 
 #GET        /getAllCitys                                                         controllers.Application.getAllCitys
 GET         /getOneCity/:city                                                    controllers.Application.getOneCity(city: String)
 GET         /setCityInSession/:city                                              controllers.Application.setCityInSession(city: String)
+
+
+# --- jsMessages routes START
+GET     /messages.js                                                             controllers.Application.jsMessages
+# --- jsMessages routes END

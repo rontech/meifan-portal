@@ -1,4 +1,4 @@
-@(salon: Salon, menuForm: Form[Menu], services: List[Service], menu: Menu)
+@(salon: models.portal.salon.Salon, menuForm: Form[models.portal.menu.Menu], services: List[models.portal.service.Service], menu: models.portal.menu.Menu)
 
 @mySalonMain(navInSalon = "my-menus", salon) {
   
@@ -6,7 +6,7 @@
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/menu.css")">    
   </head>
   
-  <!-- Get the Salon with all the coupons.  -->
+  <!-- Get the models.portal.salon.Salon with all the coupons.  -->
   @views.html.menu.editMenu(salon, menuForm, services, menu)
 
 }

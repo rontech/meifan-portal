@@ -1,4 +1,4 @@
-@(coupon: Coupon, beforeSevernDate: java.util.Date, loginUserId: ObjectId)
+@(coupon: models.portal.coupon.Coupon, beforeSevernDate: java.util.Date, loginUserId: ObjectId)
 
    <script src="@routes.Assets.at("javascripts/jquery-1.5.1.js")" type="text/javascript"></script>
    <script src="@routes.Assets.at("javascripts/comment_dialog.js")" type="text/javascript"> </script>
@@ -139,7 +139,7 @@
               </a>
             </div>
             <div class="mT8 taC">
-              @if(MyFollow.checkIfFollow(loginUserId,coupon.id)){
+              @if(models.portal.user.MyFollow.checkIfFollow(loginUserId,coupon.id)){
                 <a href="@auth.routes.MyFollows.cancelFollow(coupon.id)" class="iS arrowR">
                   <font>
                     @Messages("user.deleteFollow")

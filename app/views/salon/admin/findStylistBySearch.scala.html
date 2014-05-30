@@ -1,4 +1,4 @@
-@(navInSalon: String = "my-stylists", salon: Salon, stylist: Stylist, status: Int)
+@(navInSalon: String = "my-stylists", salon: models.portal.salon.Salon, stylist: models.portal.stylist.Stylist, status: Int)
 
 @mySalonMain("my-stylists", salon){
   <div>
@@ -30,12 +30,12 @@
         <div class="w164 mHA">
         <div class="taC">
           <a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistId)">
-            @*<img src="@routes.Application.getPhoto(User.findOneById(stylist.stylistId).get.userPics)" class="bdImgGray w164 h219" >*@
+            @*<img src="@routes.Application.getPhoto(models.portal.user.User.findOneById(stylist.stylistId).get.userPics)" class="bdImgGray w164 h219" >*@
             <img src="@routes.Application.getPhoto(stylist.myPics(0).fileObjId)" class="bdImgGray w164 h219" >
           </a>
         </div>
         <p class="mT10">
-          <p>@Stylist.findUserName(stylist.stylistId)</p>
+          <p>@models.portal.stylist.Stylist.findUserName(stylist.stylistId)</p>
         </p>
         <div class="bdDotT mT5 pT5 fs10">
           <p class="mT10">
@@ -56,7 +56,7 @@
           <a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv buttons applyToStylist">@Messages("stylist.checkRsv")</a>        
         }
         @if(status == 2){
-          @if(SalonStylistApplyRecord.findOneSalonApRd(salon.id,stylist.stylistId) != None){
+          @if(models.portal.relation.SalonStylistApplyRecord.findOneSalonApRd(salon.id,stylist.stylistId) != None){
             <span class="salon-stylist-reserv buttons applyToStylist">@Messages("salonSearchStylist.haveInvite")</span>    
           }else{
             <a href="@auth.routes.Salons.inviteStylist(stylist.stylistId)" class="salon-stylist-reserv buttons applyToStylist">@Messages("stylist.invite")</a>

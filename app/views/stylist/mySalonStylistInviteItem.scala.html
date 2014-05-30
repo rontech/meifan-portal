@@ -1,4 +1,4 @@
-@(invited: Tuple2[Stylist, ObjectId])
+@(invited: Tuple2[models.portal.stylist.Stylist, ObjectId])
 
 @import java.text.DateFormat
   <div class="w150 mHA">
@@ -10,7 +10,7 @@
 
     <p class="mT10">
       <a href="@noAuth.routes.Stylists.otherHomePage(invited._1.stylistId)">
-        <p>@Stylist.findUserName(invited._1.stylistId)</p>
+        <p>@models.portal.stylist.Stylist.findUserName(invited._1.stylistId)</p>
       </a>
     </p>
     <p class="mT10">
@@ -34,7 +34,7 @@
 
   <div class="taC mT10">
     <div class="mB5 bdDotB">
-      @*<span>@Messages("stylist.applyCreateTime"): </span><span>@DateFormat.getDateInstance().format(SalonStylistApplyRecord.findOneStylistApRd(stylist.stylistId).get.applyDate)</span>*@
+      @*<span>@Messages("stylist.applyCreateTime"): </span><span>@DateFormat.getDateInstance().format(models.portal.relation.SalonStylistApplyRecord.findOneStylistApRd(stylist.stylistId).get.applyDate)</span>*@
     </div>
     <div class="pT5">
       <a onclick="del('@auth.routes.Salons.cancelInviteStylist(invited._2)','@Messages("salonAdmin.cancelInvite")');" class="buttons applyToStylist">@Messages("salonAdmin.cancelInvite")</a>

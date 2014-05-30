@@ -1,4 +1,4 @@
-@(blog : Blog, user : User, commentList : List[Comment], followInfo:FollowInformation, loginUserId : ObjectId = new ObjectId, logged : Boolean = false, blogList : List[Blog] = Nil)
+@(blog : models.portal.blog.Blog, user : models.portal.user.User, commentList : List[models.portal.review.Comment], followInfo:models.portal.user.FollowInformation, loginUserId : ObjectId = new ObjectId, logged : Boolean = false, blogList : List[models.portal.blog.Blog] = Nil)
 
 @import views.html.user._
 

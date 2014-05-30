@@ -1,4 +1,4 @@
-@(followUser:User, loginUserId:ObjectId, logged:Boolean)
+@(followUser:models.portal.user.User, loginUserId:ObjectId, logged:Boolean)
 <li>
   <table class="ostable">
     <tbody>
@@ -10,7 +10,7 @@
         </td>
         @if(followUser.id != loginUserId){
         <td class="opts">
-          @if(logged.equals(true) &&  MyFollow.checkIfFollow(loginUserId,followUser.id)){
+          @if(logged.equals(true) &&  models.portal.user.MyFollow.checkIfFollow(loginUserId,followUser.id)){
             <a href="@auth.routes.MyFollows.cancelFollow(followUser.id)">@Messages("user.cancelFollow")</a>
           }else{
             <a href="javascript:void(0);" onclick="addFollow('@followUser.id','user')">@Messages("user.addFollow")</a>

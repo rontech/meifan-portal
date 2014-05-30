@@ -1,4 +1,4 @@
-@(salon: Salon)
+@(salon: models.portal.salon.Salon)
 
 <div class="faciGrp">
   @if(salon.salonFacilities.map(fac=>fac.canOnlineOrder).getOrElse(false)) {

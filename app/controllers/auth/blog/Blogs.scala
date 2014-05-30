@@ -32,7 +32,9 @@ import se.radley.plugin.salat.Binders._
 import jp.t2v.lab.play2.auth._
 import scala.concurrent.ExecutionContext.Implicits.global
 import controllers._
-import com.meifannet.framework.MeifanNetCustomerApplication
+import com.meifannet.portal.MeifanNetCustomerApplication
+import models.portal.blog.{Blog, BlogCategory}
+import models.portal.user.{LoggedIn, MyFollow}
 
 /**
  * this object is to CUD(create,update,delete) blog

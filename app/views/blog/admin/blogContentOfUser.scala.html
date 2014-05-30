@@ -1,4 +1,4 @@
-@(blog : Blog, user : User, commentList : List[Comment], followInfo:FollowInformation, loginUserId : ObjectId, logged : Boolean, blogList : List[Blog] = Nil)
+@(blog : models.portal.blog.Blog, user : models.portal.user.User, commentList : List[models.portal.review.Comment], followInfo:models.portal.user.FollowInformation, loginUserId : ObjectId, logged : Boolean, blogList : List[models.portal.blog.Blog] = Nil)
 @import views.html.user._
 @import java.text.DateFormat
 
@@ -131,20 +131,20 @@
             <li id="">
   <table class="ostable"><tbody><tr>
   <td class="portrait">
-  @if(User.findOneByUserId(commentList(i-1).authorId).get.id.equals(loginUserId)){
-    <a href="@auth.routes.Users.myPage" target="_blank"><img src="@if(User.findOneByUserId(commentList(i-1).authorId).get.id.getTime.equals(User.findOneByUserId(commentList(i-1).authorId).get.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(User.findOneByUserId(commentList(i-1).authorId).get.userPics)"}" align="absmiddle" alt="" title="" class="SmallPortrait" user=""></a>
+  @if(models.portal.user.User.findOneByUserId(commentList(i-1).authorId).get.id.equals(loginUserId)){
+    <a href="@auth.routes.Users.myPage" target="_blank"><img src="@if(models.portal.user.User.findOneByUserId(commentList(i-1).authorId).get.id.getTime.equals(models.portal.user.User.findOneByUserId(commentList(i-1).authorId).get.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(models.portal.user.User.findOneByUserId(commentList(i-1).authorId).get.userPics)"}" align="absmiddle" alt="" title="" class="SmallPortrait" user=""></a>
   }else{
-    <a href="@noAuth.routes.Users.userPage(commentList(i-1).authorId)" target="_blank"><img src="@if(User.findOneByUserId(commentList(i-1).authorId).get.id.getTime.equals(User.findOneByUserId(commentList(i-1).authorId).get.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(User.findOneByUserId(commentList(i-1).authorId).get.userPics)"}" align="absmiddle" alt="" title="" class="SmallPortrait" user=""></a>
+    <a href="@noAuth.routes.Users.userPage(commentList(i-1).authorId)" target="_blank"><img src="@if(models.portal.user.User.findOneByUserId(commentList(i-1).authorId).get.id.getTime.equals(models.portal.user.User.findOneByUserId(commentList(i-1).authorId).get.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(models.portal.user.User.findOneByUserId(commentList(i-1).authorId).get.userPics)"}" align="absmiddle" alt="" title="" class="SmallPortrait" user=""></a>
   }            
   </td>
   <td class="body">
     <div class="title">
     @*TODO层级关系 --if*@
     @if(commentList(i-1).commentObjType == 3){    
-     <div class="ref"><h4>@Messages("blog.quoteComment",User.findOneByUserId(Comment.findOneById(commentList(i-1).commentObjId).get.authorId).get.nickName)</h4><p>@Comment.findOneById(commentList(i-1).commentObjId).get.content</p></div>      
+     <div class="ref"><h4>@Messages("blog.quoteComment", models.portal.user.User.findOneByUserId(models.portal.review.Comment.findOneById(commentList(i-1).commentObjId).get.authorId).get.nickName)</h4><p>@models.portal.review.Comment.findOneById(commentList(i-1).commentObjId).get.content</p></div>
     }
       @*@Messages("blog.floor",i)：<a href="" target="_blank" name="rpl_278991586" class="user">@commentList(i-1).authorId</a> @Messages("blog.createAt",DateFormat.getDateInstance().format(commentList(i-1).createTime))*@
-      @Messages("blog.floor",i)： @User.findOneByUserId(commentList(i-1).authorId).get.nickName  @Messages("blog.createAt",DateFormat.getDateInstance().format(commentList(i-1).createTime))
+      @Messages("blog.floor",i)： @models.portal.user.User.findOneByUserId(commentList(i-1).authorId).get.nickName  @Messages("blog.createAt",DateFormat.getDateInstance().format(commentList(i-1).createTime))
              @if(loginUserId.equals(user.id)){                      
              <a href="" class="deleteComment" data-comment="@commentList(i-1).id" data-blog="@blog.id">@Messages("common.delete")</a> 
              }
@@ -186,7 +186,7 @@
 <div class="BlogCommentForm">
     <form id="form_comment" action="@auth.routes.Comments.addComment(blog.id,1)" method="GET">
       <div class="comment_portrait">
-        <img src="@if(User.findOneById(loginUserId).equals(None) || User.findOneById(loginUserId).get.id.getTime.equals(User.findOneById(loginUserId).get.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(User.findOneById(loginUserId).get.userPics)"}" align="absmiddle" alt="" title="" class="LargePortrait">            </div>
+        <img src="@if(models.portal.user.User.findOneById(loginUserId).equals(None) || models.portal.user.User.findOneById(loginUserId).get.id.getTime.equals(models.portal.user.User.findOneById(loginUserId).get.userPics.getTime)) {@routes.Assets.at("images/user/portrait.png")"} else {@routes.Application.getPhoto(models.portal.user.User.findOneById(loginUserId).get.userPics)"}" align="absmiddle" alt="" title="" class="LargePortrait">            </div>
       <div class="comment_form">
         <textarea name="content" id="wmd-input" style="width:630px;height:80px;" placeholder=""></textarea>
         <p>

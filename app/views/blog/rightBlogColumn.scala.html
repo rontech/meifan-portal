@@ -1,20 +1,21 @@
-@(salon: Salon, listYM : List[String])
+@(salon: models.portal.salon.Salon, listYM : List[String])
+
 @import controllers.noAuth.Blogs
 
 <dt class="titleBlog">
   @Messages("blog.staff")
 </dt>
 <dd class="list p10">
-  @*@Stylist.findBySalon(salon.id).map { stylist => @if(!Blog.getStylistBlogByUserId(User.findOneById(Stylist.findOneById(stylist.stylistId).get.stylistId).get.userId).isEmpty){
+  @*@models.portal.stylist.Stylist.findBySalon(salon.id).map { stylist => @if(!Blog.getStylistBlogByUserId(models.portal.user.User.findOneById(models.portal.stylist.Stylist.findOneById(stylist.stylistId).get.stylistId).get.userId).isEmpty){
   <p>
     <a href="/salon/@salon.id/blogs/@stylist.stylistId">
-      @User.findOneById(Stylist.findOneById(stylist.stylistId).get.stylistId).get.nickName
-      （@Blog.getStylistBlogByUserId(User.findOneById(Stylist.findOneById(stylist.stylistId).get.stylistId).get.userId).size）
+      @models.portal.user.User.findOneById(models.portal.stylist.Stylist.findOneById(stylist.stylistId).get.stylistId).get.nickName
+      （@models.portal.blog.Blog.getStylistBlogByUserId(models.portal.user.User.findOneById(models.portal.stylist.Stylist.findOneById(stylist.stylistId).get.stylistId).get.userId).size）
     </a>
   </p>
   } }*@
   
-  @Blog.getBlogsOfStylistInSalon(salon.id).map { blogOfStylist => @if(!blogOfStylist.blogListOfStylist.isEmpty){
+  @models.portal.blog.Blog.getBlogsOfStylistInSalon(salon.id).map { blogOfStylist => @if(!blogOfStylist.blogListOfStylist.isEmpty){
      <p>
       <a href="@noAuth.routes.Blogs.getAllBlogsOfStylist(salon.id, blogOfStylist.stylistInfo.stylistId)">
         @blogOfStylist.userInfo.nickName

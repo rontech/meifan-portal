@@ -1,4 +1,4 @@
-@(user: User, followInfo:FollowInformation, loginUserId:ObjectId)
+@(user: models.portal.user.User, followInfo:models.portal.user.FollowInformation, loginUserId:ObjectId)
 
 @myCollectsMain("my-collectStyle", user, followInfo, loginUserId, true){
   <div class="mT40">
@@ -25,7 +25,7 @@
                 @views.html.user.followItem.followStyleItem(style)
                 
                 <p class="txtC">
-                  @if(MyFollow.checkIfFollow(loginUserId,style.id)){
+                  @if(models.portal.user.MyFollow.checkIfFollow(loginUserId,style.id)){
                       <a href="@auth.routes.MyFollows.cancelFollow(style.id)" class="styleBtn">@Messages("user.deleteFollow")</a>
                   }else{
                       <a href="javascript:void(0);" onclick="addFollow('@style.id','style')" class="styleBtn">@Messages("user.addFollow")</a>

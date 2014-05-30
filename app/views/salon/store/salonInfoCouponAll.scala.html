@@ -1,4 +1,4 @@
-@(salon: Salon, condtionForm: Form[CouponServiceType], serviceTypes: List[ServiceType], coupons: List[Coupon], menus: List[Menu], serviceByTypes: List[ServiceByType], beforeSevernDate: java.util.Date, navBar: List[(String, String)] = Nil, user: Option[User])
+@(salon: models.portal.salon.Salon, condtionForm: Form[models.portal.coupon.CouponServiceType], serviceTypes: List[models.portal.service.ServiceType], coupons: List[models.portal.coupon.Coupon], menus: List[models.portal.menu.Menu], serviceByTypes: List[models.portal.service.ServiceByType], beforeSevernDate: java.util.Date, navBar: List[(String, String)] = Nil, user: Option[models.portal.user.User])
 
 @salonInfoMain(navInSalon = "salon-coupon", salon, navBar, user) {
 
@@ -6,13 +6,13 @@
 
   @views.html.coupon.couponSearchGroup(salon, condtionForm, serviceTypes)
 
-  <!-- Get the Salon with all the coupons.  -->
+  <!-- Get the models.portal.salon.Salon with all the coupons.  -->
   @views.html.coupon.couponComponent(salon, coupons, beforeSevernDate)
 
-  <!-- Get the Salon with all the menus.  -->
+  <!-- Get the models.portal.salon.Salon with all the menus.  -->
   @views.html.menu.menuGroup(salon, menus)
 
-  <!-- Get the Salon with all the services.  -->
+  <!-- Get the models.portal.salon.Salon with all the services.  -->
   @views.html.menu.menuGroupByType(salon, serviceByTypes)
 
 }

@@ -1,6 +1,5 @@
-@(navInSalon: String = "my-reservation", mySalon: Salon)(content: Html)
+@(navInSalon: String = "my-reservation", mySalon: models.portal.salon.Salon)(content: Html)
 
-@import models.Salon
 @import controllers._
 
 @main(Messages("site.title")){
@@ -13,6 +12,7 @@
     <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"> </script>
     <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
     <script src="@routes.Assets.at("javascripts/stylist.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/jquery.cookie.js")" type="text/javascript"> </script>
   </head>
 
 <!-- ↓contents -->

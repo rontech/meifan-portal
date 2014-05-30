@@ -1,4 +1,4 @@
-@(style: Style)
+@(style: models.portal.style.Style)
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
 <body>
   <div class="mT40">
@@ -27,9 +27,9 @@
       <tr>
         <th class="w120"> @Messages("hair.stylist") </th>
         <td colspan="3" class="w620">
-          <img src="@routes.Application.getPhoto(Stylist.findOneByStylistId(style.stylistId).get.myPics(0).fileObjId) "height="89" width="65" >
+          <img src="@routes.Application.getPhoto(models.portal.stylist.Stylist.findOneByStylistId(style.stylistId).get.myPics(0).fileObjId) "height="89" width="65" >
           <span class="detail2S hairLittleOn mL5">
-            @Stylist.findUser(style.stylistId).nickName
+            @models.portal.stylist.Stylist.findUser(style.stylistId).nickName
           </span>
         </td>
       </tr>

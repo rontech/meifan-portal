@@ -27,7 +27,8 @@ import ExecutionContext.Implicits.global
 import controllers._
 import java.util.Date
 import java.util.Calendar
-import com.meifannet.framework.MeifanNetCustomerApplication
+import models.portal.user._
+import com.meifannet.portal.MeifanNetCustomerApplication
 
 object MyFollows extends MeifanNetCustomerApplication {
 

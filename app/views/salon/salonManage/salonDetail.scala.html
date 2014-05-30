@@ -1,4 +1,5 @@
-@(salonForm:Form[Salon],industry: List[Industry], salon: Salon)
+@(salonForm:Form[models.portal.salon.Salon],industry: List[models.portal.industry.Industry], salon: models.portal.salon.Salon)
+
 @import helper._
 @import helper.twitterBootstrap._
 @import views.html.salon.admin.mySalonInfoManageMain
@@ -305,7 +306,7 @@
     
     @select(
       field("contMethodType"), 
-      ContMethodType.getAllContMethodTypes,
+      models.portal.common.ContMethodType.getAllContMethodTypes,
       '_default -> Messages("user.chooseOpt"),
       '_label -> Messages("user.contMethodType")
     )

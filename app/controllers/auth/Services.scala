@@ -27,7 +27,8 @@ import play.api.data.Forms._
 import play.api.i18n.Messages
 import controllers._
 import jp.t2v.lab.play2.auth._
-import com.meifannet.framework.MeifanNetSalonApplication
+import com.meifannet.portal.MeifanNetSalonApplication
+import models.portal.service.{ServiceType, Service}
 
 object Services extends MeifanNetSalonApplication {
   /**
