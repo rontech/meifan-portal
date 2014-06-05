@@ -43,8 +43,8 @@
 	    submitForm();
 	}
 
-	function unlimitConsumerSocialStatus(){
-		var checkArray = document.getElementById("unlimitConsumerSocialStatus_group").getElementsByTagName("input");
+	function unlimitConsumerSocialScene(){
+		var checkArray = document.getElementById("unlimitConsumerSocialScene_group").getElementsByTagName("input");
 	    for(var i=0; i<checkArray.length; i++){
 	        if(checkArray[i].type=='checkbox'){
 	            checkArray[i].checked=false;
@@ -143,10 +143,10 @@
 	        }	
 	    }
 
-	    var checkArrayConsumerSocialStatus = document.getElementById("unlimitConsumerSocialStatus_group").getElementsByTagName("input");
-	    for(var i=0; i<checkArrayConsumerSocialStatus.length; i++){
-	        if(checkArrayConsumerSocialStatus[i].type=='checkbox'){
-	        	if(checkArrayConsumerSocialStatus[i].checked == true){
+	    var checkArrayConsumerSocialScene = document.getElementById("unlimitConsumerSocialScene_group").getElementsByTagName("input");
+	    for(var i=0; i<checkArrayConsumerSocialScene.length; i++){
+	        if(checkArrayConsumerSocialScene[i].type=='checkbox'){
+	        	if(checkArrayConsumerSocialScene[i].checked == true){
 	        	showOption();
 	        	return;
 	            }
@@ -240,7 +240,7 @@ $(function() {
 		submitForm();
 	});
 
-	$('.consumerSocialStatus_item').click(function(){
+	$('.consumerSocialScene_item').click(function(){
 		submitForm();
 	});
 

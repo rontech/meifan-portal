@@ -157,9 +157,9 @@
                    @for(i <- 0 to goodAtStylePara.goodAtStatus.length-1){
                      <div class="checkboxArea">
                        @if(stylist.goodAtStatus.contains(goodAtStylePara.goodAtStatus(i))){
-                         <input type = "checkbox" name = "goodAtStatus[@i]" checked="checked" value = "@goodAtStylePara.goodAtStatus(i)">@Messages("style.socialStatus."+goodAtStylePara.goodAtStatus(i))    
+                         <input type = "checkbox" name = "goodAtStatus[@i]" checked="checked" value = "@goodAtStylePara.goodAtStatus(i)">@Messages("style.socialScene."+goodAtStylePara.goodAtStatus(i))
                        }else{
-                         <input type = "checkbox" name = "goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@Messages("style.socialStatus."+goodAtStylePara.goodAtStatus(i))
+                         <input type = "checkbox" name = "goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@Messages("style.socialScene."+goodAtStylePara.goodAtStatus(i))
                        }
                      </div>
                    }

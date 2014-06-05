@@ -187,13 +187,13 @@
         <tr>
           <th class="w120"> 
             <div class="dibBL vaM w154">
-              <font class="cR"></font>@Messages("hair.consumerSocialStatus")
+              <font class="cR"></font>@Messages("hair.consumerSocialScene")
             </div> 
           </th>
           <td colspan="3" class="w620">
-            @input(field = styleAddForm("consumerSocialStatus"),args = '_label ->None){(id,name,value,args) =>
-              @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
-                <input type = "checkbox" class="" name = "consumerSocialStatus[@i]" value = "@stylePara.consumerSocialStatus(i)">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))
+            @input(field = styleAddForm("consumerSocialScene"),args = '_label ->None){(id,name,value,args) =>
+              @for(i <- 0 to stylePara.consumerSocialScene.length-1){
+                <input type = "checkbox" class="" name = "consumerSocialScene[@i]" value = "@stylePara.consumerSocialScene(i)">@Messages("style.socialScene." + stylePara.consumerSocialScene(i))
               }
             }
           </td>
@@ -314,9 +314,9 @@
            <input type = "checkbox" class="" name = "faceShape[@i]" value = "@stylePara.faceShape(i)">@Messages("style.faceShape." + stylePara.faceShape(i))
         }
       }
-      @input(field = styleAddForm("consumerSocialStatus"),args = '_label ->Messages("hair.consumerSocialStatus")){(id,name,value,args) =>
-        @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
-           <input type = "checkbox" class="" name = "consumerSocialStatus[@i]" value = "@stylePara.consumerSocialStatus(i)">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))
+      @input(field = styleAddForm("consumerSocialScene"),args = '_label ->Messages("hair.consumerSocialScene")){(id,name,value,args) =>
+        @for(i <- 0 to stylePara.consumerSocialScene.length-1){
+           <input type = "checkbox" class="" name = "consumerSocialScene[@i]" value = "@stylePara.consumerSocialScene(i)">@Messages("style.socialScene." + stylePara.consumerSocialScene(i))
         }
       }
       @input(field = styleAddForm("consumerSex"),args = '_label ->Messages("hair.consumerSex")){(id,name,value,args) =>
