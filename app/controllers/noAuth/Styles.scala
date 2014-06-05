@@ -48,15 +48,15 @@ object Styles extends MeifanNetCustomerOptionalApplication {
       "faceShape" -> list(text),
       "consumerAgeGroup" -> list(text),
       "consumerSex" -> text,
-      "consumerSocialStatus" -> list(text)) {
-        (stylistId, styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, consumerAgeGroup, consumerSex, consumerSocialStatus) =>
+      "consumerSocialScene" -> list(text)) {
+        (stylistId, styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, consumerAgeGroup, consumerSex, consumerSocialScene) =>
           Style(new ObjectId, "", new ObjectId(stylistId), List(),
-            styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, "", consumerAgeGroup, consumerSex, consumerSocialStatus, new Date, true)
+            styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, "", consumerAgeGroup, consumerSex, consumerSocialScene, new Date, true)
       } {
         style =>
           Some((style.stylistId.toString, style.styleImpression, style.serviceType,
             style.styleLength, style.styleColor, style.styleAmount, style.styleQuality,
-            style.styleDiameter, style.faceShape, style.consumerAgeGroup, style.consumerSex, style.consumerSocialStatus))
+            style.styleDiameter, style.faceShape, style.consumerAgeGroup, style.consumerSex, style.consumerSocialScene))
       })
 
   /**
@@ -86,15 +86,15 @@ object Styles extends MeifanNetCustomerOptionalApplication {
       "description" -> text,
       "consumerAgeGroup" -> list(text),
       "consumerSex" -> text,
-      "consumerSocialStatus" -> list(text)) {
-        (styleName, stylistId, stylePic, styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, description, consumerAgeGroup, consumerSex, consumerSocialStatus) =>
+      "consumerSocialScene" -> list(text)) {
+        (styleName, stylistId, stylePic, styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, description, consumerAgeGroup, consumerSex, consumerSocialScene) =>
           Style(new ObjectId, styleName, new ObjectId(stylistId), stylePic,
-            styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, description, consumerAgeGroup, consumerSex, consumerSocialStatus, new Date, true)
+            styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, description, consumerAgeGroup, consumerSex, consumerSocialScene, new Date, true)
       } {
         style =>
           Some((style.styleName, style.stylistId.toString, style.stylePic, style.styleImpression, style.serviceType,
             style.styleLength, style.styleColor, style.styleAmount, style.styleQuality,
-            style.styleDiameter, style.faceShape, style.description, style.consumerAgeGroup, style.consumerSex, style.consumerSocialStatus))
+            style.styleDiameter, style.faceShape, style.description, style.consumerAgeGroup, style.consumerSex, style.consumerSocialScene))
       })
 
   /**
@@ -125,15 +125,15 @@ object Styles extends MeifanNetCustomerOptionalApplication {
       "description" -> text,
       "consumerAgeGroup" -> list(text),
       "consumerSex" -> text,
-      "consumerSocialStatus" -> list(text)) {
-        (id, styleName, stylistId, stylePic, styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, description, consumerAgeGroup, consumerSex, consumerSocialStatus) =>
+      "consumerSocialScene" -> list(text)) {
+        (id, styleName, stylistId, stylePic, styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, description, consumerAgeGroup, consumerSex, consumerSocialScene) =>
           Style(new ObjectId(id), styleName, new ObjectId(stylistId), stylePic,
-            styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, description, consumerAgeGroup, consumerSex, consumerSocialStatus, new Date, true)
+            styleImpression, serviceType, styleLength, styleColor, styleAmount, styleQuality, styleDiameter, faceShape, description, consumerAgeGroup, consumerSex, consumerSocialScene, new Date, true)
       } {
         style =>
           Some((style.id.toString, style.styleName, style.stylistId.toString, style.stylePic, style.styleImpression, style.serviceType,
             style.styleLength, style.styleColor, style.styleAmount, style.styleQuality,
-            style.styleDiameter, style.faceShape, style.description, style.consumerAgeGroup, style.consumerSex, style.consumerSocialStatus))
+            style.styleDiameter, style.faceShape, style.description, style.consumerAgeGroup, style.consumerSex, style.consumerSocialScene))
       })
 
   /**

@@ -152,7 +152,11 @@ object Salons extends MeifanNetCustomerOptionalApplication {
       "serviceType" -> list(text),
       "priceRange" -> mapping(
         "minPrice" -> bigDecimal,
-        "maxPrice" -> bigDecimal)(PriceRange.apply)(PriceRange.unapply),
+        "maxPrice" -> bigDecimal) {
+        (minPrice, MaxPrice) => PriceRange(new ObjectId, minPrice, MaxPrice, "")
+      } {
+        priceRange => Some(priceRange.minPrice, priceRange.maxPrice)
+      },
       "seatNums" -> mapping(
         "minNum" -> number,
         "maxNum" -> number)(SeatNums.apply)(SeatNums.unapply),
@@ -208,7 +212,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
     var myCity = request.session.get("myCity").map{ city => city } getOrElse { "苏州" }
 
     val searchParaForSalon = new SearchParaForSalon(None, myCity, "all", List(), "Hairdressing", List(),
-      PriceRange(0, 1000000), SeatNums(0, 10000),
+      PriceRange(new ObjectId, 0, 1000000, "Hairdressing"), SeatNums(0, 10000),
       SalonFacilities(false, false, false, false, false, false, false, false, false, ""),
       SortByConditions("price", false, false, true))
     val salons = Salon.findSalonBySearchPara(searchParaForSalon)

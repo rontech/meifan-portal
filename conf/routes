@@ -339,3 +339,7 @@ GET         /setCityInSession/:city                                             
 # --- jsMessages routes START
 GET     /messages.js                                                             controllers.Application.jsMessages
 # --- jsMessages routes END
+
+#Nail
+GET         /nail                                                                controllers.noAuth.Nails.index
+POST        /nail/searchPage                                                          controllers.noAuth.Nails.getNailBySearch
