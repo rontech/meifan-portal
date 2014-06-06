@@ -140,7 +140,7 @@ object Reservations extends MeifanNetCustomerApplication {
   def selectResvStyle(styleId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) {
     implicit request =>
       val user = loggedIn
-
+      println("33333")
       var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
 
       reservation = reservation.copy(styleId = Some(styleId))
@@ -148,6 +148,36 @@ object Reservations extends MeifanNetCustomerApplication {
 
       // 跳转到编辑预约信息方法中
       Redirect(controllers.auth.routes.Reservations.editReservInfo)
+  }
+
+  /**
+   * 将预约时间和技师以及发型存入cache中，并且跳转到信息输入画面
+   * 用于从预约发型路径进入的情况
+   * @param resvDate 预约时间
+   * @param stylistId 预约的技师
+   * @param styleId 预约的发型
+   * @return
+   */
+  def editResvInfoFromStyle(resvDate: String, stylistId: ObjectId, styleId: String) = StackAction(AuthorityKey -> isLoggedIn _) {
+    implicit request =>
+      val user = loggedIn
+      var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
+      reservation = reservation.copy(stylistId = Some(stylistId))
+      if(styleId != "") {
+        reservation = reservation.copy(styleId = Some(new ObjectId(styleId)))
+      } else {
+        reservation = reservation.copy(styleId = None)
+      }
+      if(resvDate != "") {
+        // 将String类型的格式转化为Date
+        var expectedDate: Date = new SimpleDateFormat("yyyyMMddHHmm").parse(resvDate)
+        reservation = reservation.copy(expectedDate = expectedDate)
+      }
+      Cache.set("reservation", reservation)
+
+      // 跳转到编辑预约信息方法中
+      Redirect(controllers.auth.routes.Reservations.editReservInfo)
+
   }
 
   /**

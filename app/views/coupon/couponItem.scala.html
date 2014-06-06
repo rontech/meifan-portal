@@ -1,4 +1,4 @@
-@(coupon: models.portal.coupon.Coupon, beforeSevernDate: java.util.Date, stylistId: String = "")
+@(coupon: models.portal.coupon.Coupon, beforeSevernDate: java.util.Date, stylistId: String = "", styleId: String)
 <div>
   <table summary="summary" cellspacing="1" class="mT2 wFull bgLGray2 fs10 couponTable">
     <tbody>
@@ -103,7 +103,7 @@
         <td class="bdWhite bgLLGray2 vaM">
           <div class="pV10 fs12">
             <div>
-              <a href="@routes.Reservations.reservSelectDate(coupon.salonId, "coupon", coupon.id, stylistId, 0)"
+              <a href="@routes.Reservations.reservSelectDate(coupon.salonId, "coupon", coupon.id, stylistId, styleId, 0)"
               class="btn btn2H50 btnWlines w146 mHA">
                 <span>
                   <span>
@@ -123,7 +123,7 @@
               </a>
             </div>
             <div class="mT8 taC">
-              <a href="@routes.Reservations.reservServicesView(coupon.salonId, "coupon", coupon.id, stylistId)" class="iS arrowR">
+              <a href="@routes.Reservations.reservServicesView(coupon.salonId, "coupon", coupon.id, stylistId, styleId)" class="iS arrowR">
                 <font>
                   <font>
                   @Messages("coupon.addMenu")
