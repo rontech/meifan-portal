@@ -132,7 +132,7 @@
                     @input(field = stylistApplyForm("stylist.goodAtStatus"),
                       '_label -> None) { (id, name, value, args) =>
                       @for(i <- 0 to goodAtStylePara.goodAtStatus.length - 1) {
-                        <input type = "checkbox" name = "stylist.goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@Messages("style.socialStatus." + goodAtStylePara.goodAtStatus(i))
+                        <input type = "checkbox" name = "stylist.goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@Messages("style.socialScene." + goodAtStylePara.goodAtStatus(i))
                         }
                     }
 

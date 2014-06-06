@@ -203,20 +203,20 @@
         </div>
         <!-- 适合场合 -->
         <div class="wBox" id="wbox_s">
-          <p class="style_title">@Messages("hair.consumerSocialStatus")：</p>
+          <p class="style_title">@Messages("hair.consumerSocialScene")：</p>
           <div class="rBox">
-            <div class="notto"><a href="javascript:unlimitConsumerSocialStatus();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
-            <ul id="unlimitConsumerSocialStatus_group">
-              @input(field = styleSearchForm("consumerSocialStatus"), args = '_label -> None){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
+            <div class="notto"><a href="javascript:unlimitConsumerSocialScene();" id="unlimitSeatNum" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
+            <ul id="unlimitConsumerSocialScene_group">
+              @input(field = styleSearchForm("consumerSocialScene"), args = '_label -> None){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.consumerSocialScene.length-1){
                   <li class="dibBL mR2">
-                    @if(styleSearchForm.get.consumerSocialStatus.contains(stylePara.consumerSocialStatus(i))){
-                      <input type = "checkbox" class = "cbF consumerSocialStatus_item" name = "consumerSocialStatus[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialStatus(i)" checked="checked">
+                    @if(styleSearchForm.get.consumerSocialScene.contains(stylePara.consumerSocialScene(i))){
+                      <input type = "checkbox" class = "cbF consumerSocialScene_item" name = "consumerSocialScene[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialScene(i)" checked="checked">
                     }else{
-                      <input type = "checkbox" class = "cbF consumerSocialStatus_item" name = "consumerSocialStatus[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialStatus(i)">
+                      <input type = "checkbox" class = "cbF consumerSocialScene_item" name = "consumerSocialScene[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialScene(i)">
                     }
                     
-                    <label for="hairColorCd_HS@i">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))</label>
+                    <label for="hairColorCd_HS@i">@Messages("style.socialScene." + stylePara.consumerSocialScene(i))</label>
                   </li>
                 }
               }
