@@ -164,14 +164,14 @@
           <tbody>
             <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
             <tr>
-              <th class="w85 vaM taC nowrap">@Messages("hair.consumerSocialStatus")</th>
+              <th class="w85 vaM taC nowrap">@Messages("hair.consumerSocialScene")</th>
               <td colspan="3" style="padding-right: 0 !important;">
               <ul>
-                @input(field = styleSearchForm("consumerSocialStatus"), args = '_label -> None){(id,name,value,args) =>
-                  @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
+                @input(field = styleSearchForm("consumerSocialScene"), args = '_label -> None){(id,name,value,args) =>
+                  @for(i <- 0 to stylePara.consumerSocialScene.length-1){
                     <li class="dibBL mR2">
-                      <input type = "checkbox" class = "cbF" name = "consumerSocialStatus[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialStatus(i)">
-                      <label for="hairColorCd_HS@i">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))</label>
+                      <input type = "checkbox" class = "cbF" name = "consumerSocialScene[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialScene(i)">
+                      <label for="hairColorCd_HS@i">@Messages("style.socialScene." + stylePara.consumerSocialScene(i))</label>
                     </li>
                   }
                 }
@@ -419,19 +419,19 @@
         <tbody>
           <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
           <tr>
-            <th class="w85 vaM taC nowrap">@Messages("hair.consumerSocialStatus")</th>
+            <th class="w85 vaM taC nowrap">@Messages("hair.consumerSocialScene")</th>
             <td colspan="3" style="padding-right: 0 !important;">
             <ul>
-              @input(field = styleSearchForm("consumerSocialStatus"), args = '_label -> None){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
+              @input(field = styleSearchForm("consumerSocialScene"), args = '_label -> None){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.consumerSocialScene.length-1){
                   <li class="dibBL mR2">
-                  @if(styleSearchForm.get.consumerSocialStatus.contains(stylePara.consumerSocialStatus(i))){
-                    <input type = "checkbox" class = "cbF" name = "consumerSocialStatus[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialStatus(i)" checked="checked">
+                  @if(styleSearchForm.get.consumerSocialScene.contains(stylePara.consumerSocialScene(i))){
+                    <input type = "checkbox" class = "cbF" name = "consumerSocialScene[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialScene(i)" checked="checked">
                     
                   }else{
-                    <input type = "checkbox" class = "cbF" name = "consumerSocialStatus[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialStatus(i)">
+                    <input type = "checkbox" class = "cbF" name = "consumerSocialScene[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialScene(i)">
                   }
-                    <label for="hairColorCd_HS@i">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))</label>
+                    <label for="hairColorCd_HS@i">@Messages("style.socialScene." + stylePara.consumerSocialScene(i))</label>
                   </li>
                 }
               }
@@ -655,14 +655,14 @@
           <tbody>
             <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
             <tr>
-              <th class="w85 vaM taC nowrap">@Messages("hair.consumerSocialStatus")</th>
+              <th class="w85 vaM taC nowrap">@Messages("hair.consumerSocialScene")</th>
               <td colspan="3" style="padding-right: 0 !important;">
               <ul>
-                @input(field = styleSearchForm("consumerSocialStatus"), args = '_label -> None){(id,name,value,args) =>
-                  @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
+                @input(field = styleSearchForm("consumerSocialScene"), args = '_label -> None){(id,name,value,args) =>
+                  @for(i <- 0 to stylePara.consumerSocialScene.length-1){
                     <li class="dibBL mR2">
-                      <input type = "checkbox" class = "cbF" name = "consumerSocialStatus[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialStatus(i)">
-                      <label for="hairColorCd_HS@i">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))</label>
+                      <input type = "checkbox" class = "cbF" name = "consumerSocialScene[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialScene(i)">
+                      <label for="hairColorCd_HS@i">@Messages("style.socialScene." + stylePara.consumerSocialScene(i))</label>
                     </li>
                   }
                 }
@@ -926,19 +926,19 @@
         <tbody>
           <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
           <tr>
-            <th class="w85 vaM taC nowrap">@Messages("hair.consumerSocialStatus")</th>
+            <th class="w85 vaM taC nowrap">@Messages("hair.consumerSocialScene")</th>
             <td colspan="3" style="padding-right: 0 !important;">
             <ul>
-              @input(field = styleSearchForm("consumerSocialStatus"), args = '_label -> None){(id,name,value,args) =>
-                @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
+              @input(field = styleSearchForm("consumerSocialScene"), args = '_label -> None){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.consumerSocialScene.length-1){
                   <li class="dibBL mR2">
-                  @if(styleSearchForm.get.consumerSocialStatus.contains(stylePara.consumerSocialStatus(i))){
-                    <input type = "checkbox" class = "cbF" name = "consumerSocialStatus[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialStatus(i)" checked="checked">
+                  @if(styleSearchForm.get.consumerSocialScene.contains(stylePara.consumerSocialScene(i))){
+                    <input type = "checkbox" class = "cbF" name = "consumerSocialScene[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialScene(i)" checked="checked">
                     
                   }else{
-                    <input type = "checkbox" class = "cbF" name = "consumerSocialStatus[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialStatus(i)">
+                    <input type = "checkbox" class = "cbF" name = "consumerSocialScene[@i]" id="hairColorCd_HS@i" value = "@stylePara.consumerSocialScene(i)">
                   }
-                    <label for="hairColorCd_HS@i">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))</label>
+                    <label for="hairColorCd_HS@i">@Messages("style.socialScene." + stylePara.consumerSocialScene(i))</label>
                   </li>
                 }
               }

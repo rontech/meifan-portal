@@ -89,7 +89,7 @@ object Users extends MeifanNetCustomerApplication {
         mapping(
           "contMethodType" -> text,
           "accounts" -> list(text))(OptContactMethod.apply)(OptContactMethod.unapply)),
-      "socialStatus" -> optional(text),
+      "socialScene" -> optional(text),
       "registerTime" -> longNumber,
       "userTyp" -> text,
       "userBehaviorLevel" -> text,
@@ -97,11 +97,11 @@ object Users extends MeifanNetCustomerApplication {
       "activity" -> number,
       "permission" -> text) {
         // Binding: Create a User from the mapping result (ignore the second password and the accept field)
-        (id, userId, nickName, password, sex, birthDay, address, userPics, tel, email, optContactMethods, socialStatus, registerTime, userTyp, userBehaviorLevel, point, activity, permission) => User(id, userId, nickName, password, sex, birthDay, address, new ObjectId(userPics), tel, email, optContactMethods, socialStatus, userTyp, userBehaviorLevel, point, activity, registerTime, permission, true)
+        (id, userId, nickName, password, sex, birthDay, address, userPics, tel, email, optContactMethods, socialScene, registerTime, userTyp, userBehaviorLevel, point, activity, permission) => User(id, userId, nickName, password, sex, birthDay, address, new ObjectId(userPics), tel, email, optContactMethods, socialScene, userTyp, userBehaviorLevel, point, activity, registerTime, permission, true)
       } // Unbinding: Create the mapping values from an existing Hacker value
       {
         user =>
-          Some((user.id, user.userId, user.nickName, user.password, user.sex, user.birthDay, user.address, user.userPics.toString, user.tel, user.email, user.optContactMethods, user.socialStatus, user.registerTime,
+          Some((user.id, user.userId, user.nickName, user.password, user.sex, user.birthDay, user.address, user.userPics.toString, user.tel, user.email, user.optContactMethods, user.socialScene, user.registerTime,
             user.userTyp, user.userBehaviorLevel, user.point, user.activity, user.permission))
       })
 

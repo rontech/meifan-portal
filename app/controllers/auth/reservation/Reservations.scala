@@ -140,7 +140,6 @@ object Reservations extends MeifanNetCustomerApplication {
   def selectResvStyle(styleId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) {
     implicit request =>
       val user = loggedIn
-      println("33333")
       var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
 
       reservation = reservation.copy(styleId = Some(styleId))

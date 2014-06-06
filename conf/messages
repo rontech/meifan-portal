@@ -314,7 +314,7 @@ hair.styleForPerson=推荐人群
 hair.assessFromStylist=造型师评价
 hair.stylistToCollect=收藏该发型师
 hair.welcome=我们期待您的光临
-hair.consumerSocialStatus=适合场合
+hair.consumerSocialScene=适合场合
 hair.consumerSex=适合性别
 hair.consumerAgeGroup=适合年龄
 hair.addStyle = 添加发型
@@ -582,7 +582,7 @@ user.sendMsg=发送留言
 user.otherBlog=他的博客
 user.collectCoupon=收藏的优惠劵
 user.collectBlog=收藏的博客
-user.collectStyle=收藏的风格
+user.collectStyle=收藏的发型
 user.reservation=我的预约
 user.myFollows=我的关注
 user.otherFollows=他的关注
@@ -968,13 +968,13 @@ style.ageGroup.fifty-five-- = 55以上
 style.sex.male = 男
 style.sex.female = 女
 
-#SocialStatus
-style.socialStatus.evening-wear = 晚装
-style.socialStatus.brief = 简约
-style.socialStatus.star = 明星
-style.socialStatus.street = 街拍
-style.socialStatus.T-stage = T台
-style.socialStatus.others = 其它
+#SocialScene
+style.socialScene.evening-wear = 晚装
+style.socialScene.brief = 简约
+style.socialScene.star = 明星
+style.socialScene.street = 街拍
+style.socialScene.T-stage = T台
+style.socialScene.others = 其它
 
 #onUsePicture
 onUserPicture.picTitle=请填写沙龙简介标题，您最多可输入100个字符
