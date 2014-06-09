@@ -1,7 +1,7 @@
-@(salon: models.portal.salon.Salon, coupons: Seq[models.portal.coupon.Coupon], beforeSevernDate: java.util.Date, stylistId: String = "")
+@(salon: models.portal.salon.Salon, coupons: Seq[models.portal.coupon.Coupon], beforeSevernDate: java.util.Date, stylistId: String = "", styleId: String = "")
 
 <div class="yS mainContentsSecondTitleOuter mT50">
   <h2 class="yS mainContentsSecondTitleInner">@Messages("coupon.titleInSalon", salon.salonName)</h2>
 </div>
 
-@views.html.coupon.couponGroup(coupons, beforeSevernDate, stylistId)
+@views.html.coupon.couponGroup(coupons, beforeSevernDate, stylistId, styleId)

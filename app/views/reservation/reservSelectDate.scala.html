@@ -1,23 +1,53 @@
-@(salon: models.portal.salon.Salon, resvSchedule: models.portal.reservation.ResvSchedule, stylistId: String, week: Int = 0)
+@(salon: models.portal.salon.Salon, resvSchedule: models.portal.reservation.ResvSchedule, stylistId: String, styleId: String, week: Int = 0, jumpType: String = "")
 
 <div id="jsRsvCdTbl" class="ReserveConditionTable underTabContents">
-  @if(stylistId != "") {
-    @models.portal.stylist.Stylist.findOneById(new ObjectId(stylistId)) match {
-      case None => {}
-      case Some(sty) => {
-        <div class="pH10 pV5 cFix">
-          <div class="mT5">
-            <p class="fl mR10"><img src="@routes.Application.getPhoto(sty.myPics(0).fileObjId)" class="mT6 w60 h80" oncontextmenu="return false ;"></p>
-            <div class="fl">
-              <p class="fs10 fgLGray2 mT13 cFix">@Messages("reservation.stylist")</p>
-              <p class="fl mR20"><span class="fs14 b">@models.portal.stylist.Stylist.findUserName(sty.stylistId)</span>
-                　@Messages("reservation.resvDateForStylist")</p>
+  <div class="fl">
+    @if(stylistId != "") {
+      @models.portal.stylist.Stylist.findOneById(new ObjectId(stylistId)) match {
+        case None => {not found stylist.}
+        case Some(sty) => {
+          <div class="pH10 pV5 cFix fl mR50">
+            <div class="mT5">
+              <p class="fl mR10"><img src="@routes.Application.getPhoto(sty.myPics(0).fileObjId)" class="mT6 w60 h80" oncontextmenu="return false ;"></p>
+              <div class="fl">
+                <p class="fs10 fgLGray2 mT13 cFix">@Messages("reservation.stylist")</p>
+                <p class="fl mR20">
+                  <span class="fs14 b">@models.portal.stylist.Stylist.findUserName(sty.stylistId)</span>
+                  @Messages("reservation.resvDateForStylist")
+                </p>
+                <p class="fl mT2">
+                  <a href="@routes.Reservations.showStylistView(styleId)" class="iS arrowR">@Messages("reservation.selectOtherStylist")</a>
+                </p>
+                <div class="fgOrange dibBL vaM fs10 pR5 pL1e txt1e w256"><p>@Messages("reservation.cleanStyleMsg")</p></div>
+              </div>
             </div>
           </div>
-        </div>
+        }
       }
     }
-  }
+    @if(styleId != "") {
+      @models.portal.style.Style.findOneById(new ObjectId(styleId)) match {
+        case None => {not found style.}
+        case Some(style) => {
+          <div class="pH10 pV5 cFix fl">
+            <div class="mT5">
+              <p class="fl mR10"><img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)" class="w60 h80 mT6"></p>
+              <div class="fl">
+                <p class="fs10 fgLGray2 mT13 cFix">@Messages("reservation.style")</p>
+                <p class="fl mR20">
+                  <span class="fs14 b">@style.styleName</span>
+                </p>
+                <p class="fl mT2">
+                  <a href="@routes.Reservations.reservSelectStyle("", new ObjectId(stylistId), "selectResvDate")" class="iS arrowR">@Messages("reservation.changeOtherStyle")</a>
+                </p>
+              </div>
+            </div>
+
+          </div>
+        }
+      }
+    }
+  </div>
   <div class="coverTable">
     <div class="whiteTable2">
       <table class="innerTable taC nowrap" cellpadding="0" cellspacing="0">
@@ -27,7 +57,7 @@
               <th rowspan="2" class="timeColor"><span class="iS arrowPagingWeekLOff">@Messages("reservation.beforeWeek")</span></th>
             } else {
               <th rowspan="2" class="timeColor">
-                <a href="@routes.Reservations.reservShowDate(salon.id, stylistId, week - 1)" title="@Messages("reservation.beforeWeek")" class="iS arrowPagingWeekL">@Messages("reservation.beforeWeek")</a>
+                <a href="@routes.Reservations.reservShowDate(salon.id, stylistId, styleId, week - 1, jumpType)" title="@Messages("reservation.beforeWeek")" class="iS arrowPagingWeekL">@Messages("reservation.beforeWeek")</a>
               </th>
             }
             @for(yearPart <- resvSchedule.yearsPart) {
@@ -39,7 +69,7 @@
             }
             @if(week == 0) {
               <th rowspan="2" class="timeColor">
-                <a href="@routes.Reservations.reservShowDate(salon.id, stylistId, week + 1)" title="@Messages("reservation.afterWeek")" class="iS arrowPagingWeekR">@Messages("reservation.afterWeek")</a>
+                <a href="@routes.Reservations.reservShowDate(salon.id, stylistId, styleId, week + 1, jumpType)" title="@Messages("reservation.afterWeek")" class="iS arrowPagingWeekR">@Messages("reservation.afterWeek")</a>
               </th>
             } else {
               <th rowspan="2" class="timeColor"><span class="iS arrowPagingWeekROff">@Messages("reservation.afterWeek")</span></th>
@@ -92,8 +122,15 @@
                             <a href="@routes.Reservations.reservSelectStylist(resvInfoItem.resvDate.format("yyyyMMddHHmm").toString)"
                             title="◎" class="reservBS db reserveImmediately offL vaT">◎</a>
                           } else {
-                            <a href="@routes.Reservations.reservSelectStyle(resvInfoItem.resvDate.format("yyyyMMddHHmm").toString, new ObjectId(stylistId))"
-                            title="◎" class="reservBS db reserveImmediately offL vaT">◎</a>
+                            @if(jumpType == "editResvInfo" || styleId != "") {
+                              <a href="@auth.routes.Reservations.editResvInfoFromStyle(resvInfoItem.resvDate.format("yyyyMMddHHmm").toString, new ObjectId(stylistId), styleId)"
+                              title="◎" class="reservBS db reserveImmediately offL vaT">
+                                ◎</a>
+                            } else {
+                              <a href="@routes.Reservations.reservSelectStyle(resvInfoItem.resvDate.format("yyyyMMddHHmm").toString, new ObjectId(stylistId), "selectResvStyle")"
+                              title="◎" class="reservBS db reserveImmediately offL vaT">
+                                ◎</a>
+                            }
                           }
                           </p></td>
                         </tr>

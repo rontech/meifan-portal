@@ -1,4 +1,4 @@
-@(salon: models.portal.salon.Salon, serviceByType: models.portal.service.ServiceByType, stylistId: String = "")
+@(salon: models.portal.salon.Salon, serviceByType: models.portal.service.ServiceByType, stylistId: String = "", styleId: String)
 
 @if(!serviceByType.serviceItems.isEmpty) {
   <div class="singleMenuHead mT30 cFix">
@@ -38,7 +38,7 @@
           <td class="bdWhite bgLLGray2 vaM">
             <div class="pV10 fs12">
               <div>
-                <a href="@routes.Reservations.reservSelectDate(salon.id, "service", service.id, stylistId, 0)" class="btn btn2H30 w120 mHA">
+                <a href="@routes.Reservations.reservSelectDate(salon.id, "service", service.id, stylistId, styleId, 0)" class="btn btn2H30 w120 mHA">
                   <span>
                     <span class="fs12 b">
                     @Messages("menu.appointment")
@@ -47,7 +47,7 @@
                 </a>
               </div>
               <div class="mT5 taC">
-                <a href="@routes.Reservations.reservServicesView(salon.id, "service", service.id, stylistId)" class="iS arrowR">
+                <a href="@routes.Reservations.reservServicesView(salon.id, "service", service.id, stylistId, styleId)" class="iS arrowR">
                 @Messages("coupon.addMenu")
                 </a>
               </div>

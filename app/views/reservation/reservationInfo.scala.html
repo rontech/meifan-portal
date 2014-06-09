@@ -1,8 +1,8 @@
-@(salon: models.portal.salon.Salon, resvSchedule: models.portal.reservation.ResvSchedule, reservation: models.portal.reservation.Reservation, stylistId: Option[ObjectId], week: Int = 0, resvTab: String, navBar: List[(String, String)] = Nil)
+@(salon: models.portal.salon.Salon, resvSchedule: models.portal.reservation.ResvSchedule, reservation: models.portal.reservation.Reservation, stylistId: Option[ObjectId], styleId: String, week: Int = 0, resvTab: String, jumpType: String, navBar: List[(String, String)] = Nil)
 
 @reservationInfoMain(navInSalon = "HairSalon", "two", salon, navBar) {
 
   @views.html.reservation.reservItemsInfo(reservation, "serviceDuration")
 
-  @views.html.reservation.reservSelectDateMain(salon, resvSchedule, week, stylistId, resvTab)
+  @views.html.reservation.reservSelectDateMain(salon, resvSchedule, week, stylistId, styleId, resvTab, jumpType)
 }

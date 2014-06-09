@@ -1,4 +1,4 @@
-@(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation, styles: List[models.portal.style.Style])
+@(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation, styles: List[models.portal.style.Style], jumpType: String)
 
 <div class="yS reserveTitleOuter mT15">
   <h3 class="yS reserveTitleInner pL10">@Messages("reservation.selectStyleMsg")</h3>
@@ -11,7 +11,18 @@
 </div>
 <div class="mT10 cFix">
   <div class="mT10 pL15">
-    <a href="@auth.routes.Reservations.editReservInfo" class="bS db nominatedReserve">@Messages("reservation.reservNoStyle")</a>
+    @if(jumpType == "selectResvDate") {
+      @reservation.stylistId match {
+        case None => {
+          <a href="@routes.Reservations.reservShowDate(reservation.salonId, "", "", 0, "editResvInfo")" class="bS db nominatedReserve">@Messages("reservation.reservNoStyle")</a>
+        }
+        case Some(styId) => {
+          <a href="@routes.Reservations.reservShowDate(reservation.salonId, styId.toString, "", 0, "editResvInfo")" class="bS db nominatedReserve">@Messages("reservation.reservNoStyle")</a>
+        }
+      }
+    } else {
+      <a href="@auth.routes.Reservations.editReservInfo" class="bS db nominatedReserve">@Messages("reservation.reservNoStyle")</a>
+    }
   </div>
 </div>
 <div class="fl w100p">
@@ -21,6 +32,10 @@
       <p class="fs16 fgBlack b pL5">@Messages("reservation.reservStyle")</p>
     </div>
   </div>
-  @views.html.style.styleGroup(styles, salon, "selectResvStyle")
+  @if(jumpType == "selectResvDate") {
+    @views.html.style.styleGroup(styles, salon, "selectResvDate")
+  } else {
+    @views.html.style.styleGroup(styles, salon, "selectResvStyle")
+  }
 }
 </div>
