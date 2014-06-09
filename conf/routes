@@ -255,6 +255,8 @@ GET         /addResvStyle                                                   cont
 POST        /findServiceForResv/:salonId                                    controllers.Reservations.getServicesByCondition(salonId: ObjectId, stylistId: String, styleId: String)
 GET         /reservSelectDate                                               controllers.Reservations.getTotalOfServices(stylistId: String, styleId: String)
 GET         /showResvStylist                                                controllers.Reservations.showStylistView(styleId: String)
+GET         /editResvInfoFromStyle                                          controllers.Reservations.cleanResvStyle
+GET         /editResvInfoFromStylist                                        controllers.Reservations.cleanResvStylist
 GET         /selectResvStyle/:id                                            controllers.auth.Reservations.selectResvStyle(id: ObjectId)
 GET         /reservConfirmPwd                                               controllers.auth.Reservations.reservConfirmPwd
 GET         /reservFinish                                                   controllers.auth.Reservations.reservFinish
