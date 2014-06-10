@@ -35,7 +35,7 @@ import models.portal.reservation.Reservation
 import com.meifannet.portal.MeifanNetCustomerApplication
 import models.portal.salon.Salon
 import models.portal.relation.SalonAndStylist
-import models.portal.user.User
+import models.portal.user.{MyFollow, User}
 
 object Reservations extends MeifanNetCustomerApplication {
 
@@ -198,5 +198,55 @@ object Reservations extends MeifanNetCustomerApplication {
             case None => NotFound
           }
       })
+  }
+
+  /**
+   * 查看本人处理中的预约
+   * @return
+   */
+  def getReserving(userId : String) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val user = User.findOneByUserId(userId).get
+//    val user = loggedIn
+    val reservingList = Reservation.findResving(userId)
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.myReserving(user, followInfo, reservingList))
+  }
+
+  def showReservationDetailById(reservationId : ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val reservation = Reservation.findOneById(reservationId).get
+    val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
+    val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    salon match {
+      case Some(s) => Ok(views.html.user.reservDetail(s, reservation, user, followInfo))
+      case None => NotFound
+    }
+  }
+
+  def deletingReserv(reservationId : ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val reservation = Reservation.findOneById(reservationId).get
+    val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.deletingReserv(reservation, user, followInfo))
+  }
+
+  def deletedReserv(reservationId : ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    Reservation.delete(reservationId)
+    val reservation = Reservation.findOneById(reservationId).get
+    val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.deletedReserv(reservation, user, followInfo))
+  }
+
+  /**
+   * 查看本人预约履历
+   * @return
+   */
+  def getReservationHistory(userId : String) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val user = User.findOneByUserId(userId).get
+    val reservedList = Reservation.findReservationHistory(userId)
+    val reservingList = Reservation.findResving(userId)
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.myReservationHistory(user, followInfo, reservedList, reservingList))
   }
 }

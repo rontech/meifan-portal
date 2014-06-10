@@ -1,0 +1,16 @@
+@(user: models.portal.user.User,followInfo:models.portal.user.FollowInformation, reservingList : List[models.portal.reservation.Reservation], loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
+
+@myReservationMain("my-reserving", user, followInfo, user.id, true) {
+  <div class="mT40">
+    <div class="skinHeadingWrapper">
+      <h3>处理中的预约</h3>
+    </div>
+    <ul id="listWrapper">
+    @reservingList.map{reservation =>
+      @views.html.user.reservationItem(reservation)
+    }
+    </ul>
+  </div>
+
+}
+e

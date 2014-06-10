@@ -1,0 +1,137 @@
+@(reservation: models.portal.reservation.Reservation, user :models.portal.user.User, followInfo:models.portal.user.FollowInformation)
+
+@myPageMain("my-reservation", user, followInfo, user.id, true) {
+  <div class="shopContentsWrapper">
+    <div class="skinHeadingWrapper"><h3>予約のキャンセル</h3></div>
+    <p class="mT20 pB10">
+      取消以下内容<br>
+      确认你要删除的内容后，你可以按下<span class="b">［取消］</span>按钮来取消本次预约。
+    </p>
+    <table cellspacing="0" class="wFull bdCell fgThNml pCellV5H5 mT10">
+      <tbody>
+        <tr>
+          <th class="w170 bgLGray pb10 pt10">@Messages("reservation.serviceDurationTotal")</th>
+          <td colspan="3" class="w580 pl10">
+            <p>
+              @if((reservation.serviceDuration / 60) != 0) {
+                @(reservation.serviceDuration / 60)@Messages("reservation.hour")
+              }
+              @if((reservation.serviceDuration % 60) != 0) {
+                @(reservation.serviceDuration % 60)@Messages("reservation.minute")
+              }
+            </p>
+            <p>@Messages("reservation.resvDelAttn")</p>
+          </td>
+        </tr>
+        <tr>
+          <th class="w170 bgLGray pb10 pt10">@Messages("reservation.expectedDate")</th>
+          <td colspan="3" class="pl10">
+            <p>@reservation.expectedDate.format("yyyy/MM/dd HH:mm")</p>
+          </td>
+        </tr>
+        <tr>
+          <th class="w170 bgLGray  pb10 pt10">@Messages("reservation.stylist")</th>
+          <td class="pl10">
+          @reservation.stylistId match {
+            case None => {
+              @Messages("reservation.noStylist")
+            }
+            case Some(sty) => {
+              @models.portal.stylist.Stylist.findUser(sty).nickName
+            }
+          }
+          </td>
+          <th class="w170 bgLGray pb10 pt10">@Messages("reservation.style")</th>
+          <td class="pl10">
+          @reservation.styleId match {
+            case None => {
+              @Messages("reservation.noStyle")
+            }
+            case Some(sty) => {
+              @models.portal.style.Style.findOneById(sty) match {
+                case None => {}
+                case Some(style) => {
+                  @style.styleName
+                }
+              }
+            }
+          }
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    @views.html.reservation.showReservItems(reservation, "confirmInfo", models.portal.reservation.Reservation.findResvItemsForType(reservation.resvItems))
+
+    <table cellspacing="0" class="wFull bdCell fgThNml pCellV5H5 mT10">
+      <tbody>
+        <tr>
+          <th class="w170 bgLGray pb10 pt10">@Messages("reservation.resvAttentionTitle")</th>
+          <td colspan="3" class="w580 pl10">
+            <p class="fgGray">@Messages("reservation.resvAttention")</p>
+          </td>
+        </tr>
+        <tr>
+          <th class="w170 bgLGray pb10 pt10">@Messages("reservation.questionAndAnswerTitle")</th>
+          <td colspan="3" class="w580 pl10">
+            <p class="fgGray">@Messages("reservation.questionFromSalon")</p>
+            <p>@reservation.userLeaveMsg</p>
+          </td>
+        </tr>
+        <tr>
+          <th class="w170 bgLGray pb10 pt10"><span class="b">@Messages("reservation.resvUserId")</span></th>
+          <td class="w276 pl10">
+            <span class="b">
+            @models.portal.user.User.findOneByUserId(reservation.userId).get.nickName
+            </span>
+          </td>
+          <th class="w170 bgLGray pb10 pt10"><span class="b">@Messages("reservation.userPhone")</span></th>
+          <td class="pl10">
+            <span class="fr fgOrange dibBL vaM fs10 pL1e txt1e pr10">※</span>
+            <span class="fl b">@reservation.userPhone</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="bgPink p15 mT10">
+      <p class="fgRed b fs18 taC">
+        取消该预约
+      </p>
+      <div class="mHA w345">
+        <p class="pV10">
+          一旦该预约被取消，无法恢复该预约
+          <br>
+          您可以
+          <span class="b">
+            您可以按下
+           ［取消该预约］
+          </span>
+          这个按钮来取消该预约
+        </p>
+      </div>
+      @*<form name="my_reserveCancelActionForm" method="post" action="/CSP/my/reserveCancel/">
+        <div style="display:none;">
+          <input type="hidden" name="org.apache.struts.taglib.html.TOKEN" value="bbe8b7c70ac69854a21d6280acf4e36e">
+        </div>
+        <div class="taC">
+          <div class="w290 cFix mHA">
+            <div class="fl mR10">
+              <a href="https://beauty.hotpepper.jp/CSP/my/reserveStatus/?reserveId=B032396993"
+              title="前の画面に戻る" class="bS returnPreviousPage db offL historyback">
+                前の画面に戻る
+              </a>
+            </div>
+            <div class="fl">
+              <input type="hidden" name="reserveId" value="B032396993">
+              <input type="submit" name="doComplete" value="この予約をキャンセルする" class="bS cancelReserve db offL sbmF"
+              title="この予約をキャンセルする">
+            </div>
+          </div>
+        </div>
+      </form>*@
+      <input type="button" value="返回" onclick="window.history.go(-1)">
+      <a href="@auth.routes.Reservations.deletedReserv(reservation.id)">取消该预约</a>
+    </div>
+  </div>
+
+  }

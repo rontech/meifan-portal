@@ -504,6 +504,7 @@ stylist.actApply = 请确认是否同意！
 stylist.myPictureShow = 展示图片上传
 stylist.picTitle=点击可查看技师资料
 stylist.salonNoStylist= 没有找到您希望的技师！
+stylist.revervation=预约自己的履历
 
 
 
@@ -707,6 +708,8 @@ user.otherCollectCouponsCount=他已收藏{0}个优惠劵
 user.otherCollectStylesCount=他已收藏{0}个风格
 user.notWriteBlog=该用户未添加博客……
 use.followThisSalon=收藏该店铺
+user.reverving=处理中预约
+user.revervationHistory=预约履历
 
 
 user.needfieldworks = 请输入0~100整数
@@ -820,6 +823,10 @@ comment.service = 服务
 comment.skill =  技术
 comment.price = 价格
 comment.noFirst = 您还没有给第一项打分呢！
+comment.noSecond = 您还没有给第二项打分呢！
+comment.noThird = 您还没有给第三项打分呢！
+comment.noFourth = 您还没有给第四项打分呢！
+comment.noFifth = 您还没有给第五项打分呢！
 comment.contentNotNull = 评论内容不能为空
 
 

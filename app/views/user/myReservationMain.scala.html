@@ -1,0 +1,24 @@
+@(subNavInSalon: String = "my-reserving", user :models.portal.user.User, followInfo:models.portal.user.FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)(content: Html)
+
+@import models.portal.relation.SalonAndStylist
+
+@myPageMain("my-reservation", user, followInfo, loginUserId, logged){
+  
+  <div>
+    <ul class="tab-sub">
+      @if(!SalonAndStylist.findByStylistId(user.id).equals(None)){
+        <li class="fl  @if(subNavInSalon == "stylist.revervation") {selected}">
+          <a class="current-demo" href="@auth.routes.Stylists.myHomePage">@Messages("stylist.revervation")</a>
+        </li>
+      }
+      <li class="fl  @if(subNavInSalon == "my-reserving") {selected}">
+        <a class="current-demo" href="@auth.routes.Reservations.getReserving(user.userId)">@Messages("user.reverving")</a>
+      </li>        
+      <li class="fl  @if(subNavInSalon == "my-reservationHistory") {selected}">
+        <a class="current-demo" href="@auth.routes.Reservations.getReservationHistory(user.userId)">@Messages("user.revervationHistory")</a>
+      </li>
+    </ul>
+  </div>
+  @content
+  
+}

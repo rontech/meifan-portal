@@ -1,0 +1,27 @@
+@(user: models.portal.user.User,followInfo:models.portal.user.FollowInformation, reservationHistoryList : List[models.portal.reservation.Reservation], reservingList : List[models.portal.reservation.Reservation], loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
+
+@myHomePage("stylist-reservation", user, followInfo, user.id, true) {
+  <div class="mT40">
+    @if(!reservingList.isEmpty){
+      <div class="skinHeadingWrapper">
+        <h3>处理中的预约</h3>
+      </div>
+    }
+    <ul id="listWrapper">
+      @reservingList.map{reservation =>
+        @views.html.stylist.management.stylistReservingItem(reservation)
+      }
+    </ul>
+    <div class="skinHeadingWrapper">
+      <h3>预约的历史</h3>
+    </div>
+    <ul id="listWrapper">
+      @reservationHistoryList.map{reservation =>
+        @views.html.stylist.management.stylistReservationHistoryItem(reservation)
+      }
+    </ul>
+
+  </div>
+
+}
+e

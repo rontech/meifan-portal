@@ -1,0 +1,90 @@
+@(reservation:models.portal.reservation.Reservation)
+
+@import models.portal.salon.Salon
+
+<li class="mT20">
+  <div class="shopInformationHead ympS">
+    <div class="shopInformationBottom ympS">
+      <div class="shopInformation ympS">
+        <div class="shopContentsInnerReserve cFix">
+          <div class="cFix">
+            <h4 class="shopName fl">
+              <a class="" href="@noAuth.routes.Salons.getSalon(reservation.salonId)" title="@reservation.salonId">
+                @Salon.findOneById(reservation.salonId).map(s => s.salonName)
+              </a>
+            </h4>
+            <div class="fr">
+              <ul class="salonMark taR">
+                <li class="serviceHairSalonN iS dibBL">
+                  <span class="salonMarkListInner">
+                    @Salon.findOneById(reservation.salonId).map(s => s.salonIndustry.map(si=>si))
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="cFix">
+            <p class="fl">
+              来店日時：
+              <span class="b fs14">
+              @reservation.expectedDate.format("yyyy/MM/dd HH:mm")
+              </span>
+            </p>
+            <dl class="reserveMessageHistory cFix">
+              <dt class="fl reserveFix iS">
+                预约确认
+              </dt>
+              <dd class="fl salonsAnswer ">
+                请在预约指定的日期来店
+              </dd>
+            </dl>
+          </div>
+          <div class="tableHistoryWrapper2 dibBL">
+            <table class="tableHistory">
+              <tbody>
+                <tr>
+                  <th class="boxHeadingHistory">
+                    预约金额
+                  </th>
+                  <td class="boxBody b">
+                  @reservation.price
+                  </td>
+                  <th class="boxHeadingHistory">
+                    预约Id
+                  </th>
+                  <td class="boxBody">
+                  @reservation.id
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="detailTxt1">
+            </p>
+          </div>
+          <div class="detailBtn1 dibBL vaB">
+            <ul class="nowrap w171 taR">
+              <li class="dibBL mR6">
+                <a class="mapBtn bS" href="@noAuth.routes.Salons.getMap(reservation.salonId)"
+                title="">
+                  店铺地图
+                </a>
+              </li>
+              <li class="dibBL">
+                <a href="@auth.routes.Reservations.showReservationDetailById(reservation.id)"
+                class="reserveDetail bS">
+                  预约详情
+                </a>
+              </li>
+            </ul>
+            <p class="b mT10">
+              <a href="@auth.routes.Reservations.deletingReserv(reservation.id)"
+              class="crossMark iS">
+                取消该预约
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>
