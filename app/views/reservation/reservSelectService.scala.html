@@ -1,4 +1,5 @@
-@(salon: models.portal.salon.Salon, condtionForm: Form[models.portal.coupon.CouponServiceType], serviceTypes: List[models.portal.service.ServiceType], coupons: List[models.portal.coupon.Coupon], menus: List[models.portal.menu.Menu], serviceByTypes: List[models.portal.service.ServiceByType], beforeSevernDate: java.util.Date, stylistId: String, navBar: List[(String, String)] = Nil)
+@(salon: models.portal.salon.Salon, condtionForm: Form[models.portal.coupon.CouponServiceType], serviceTypes: List[models.portal.service.ServiceType], coupons: List[models.portal.coupon.Coupon], menus: List[models.portal.menu.Menu], serviceByTypes: List[models.portal.service.ServiceByType],
+   beforeSevernDate: java.util.Date, stylistId: String, styleId: String, navBar: List[(String, String)] = Nil)
 
 @reservationInfoMain(navInSalon = "HairSalon", "one", salon, navBar) {
 
@@ -10,15 +11,15 @@
     </div>
   </div>
 
-  @views.html.coupon.couponSearchGroup(salon, condtionForm, serviceTypes, stylistId)
+  @views.html.coupon.couponSearchGroup(salon, condtionForm, serviceTypes, stylistId, styleId)
 
   <!-- Get the models.portal.salon.Salon with all the coupons.  -->
-  @views.html.coupon.couponComponent(salon, coupons, beforeSevernDate, stylistId)
+  @views.html.coupon.couponComponent(salon, coupons, beforeSevernDate, stylistId, styleId)
 
   <!-- Get the models.portal.salon.Salon with all the menus.  -->
-  @views.html.menu.menuGroup(salon, menus, stylistId)
+  @views.html.menu.menuGroup(salon, menus, stylistId, styleId)
 
   <!-- Get the models.portal.salon.Salon with all the services.  -->
-  @views.html.menu.menuGroupByType(salon, serviceByTypes, stylistId)
+  @views.html.menu.menuGroupByType(salon, serviceByTypes, stylistId, styleId)
 
 }

@@ -1,4 +1,4 @@
-@(salon: models.portal.salon.Salon, menus: Seq[models.portal.menu.Menu], stylistId: String = "")
+@(salon: models.portal.salon.Salon, menus: Seq[models.portal.menu.Menu], stylistId: String = "", styleId: String = "")
 
 <div class="yS mainContentsSecondTitleOuter mT50">
   <h2 class="yS mainContentsSecondTitleInner">@Messages("menu.titleInSalon", salon.salonName)</h2>
@@ -11,7 +11,7 @@
   </div>
 } else {
   @for(menu <- menus) {
-    @views.html.menu.menuItem(menu, stylistId)
+    @views.html.menu.menuItem(menu, stylistId, styleId)
   }
 }
 </div>

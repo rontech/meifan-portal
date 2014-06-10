@@ -21,18 +21,6 @@
       <input type = "hidden" class="" name = "id" value = "@style.id">
       <input type = "hidden" class="" name = "stylistId" field = styleUpdateForm("stylistId") value = "@style.stylistId">
     </div>
-    <fieldset class="addOtherStylePic">
-      <legend>@Messages("user.optContactMethod")</legend>
-      <div id="optContactMethods">
-        @**
-         * Keep an hidden block that will be used as template for Javascript copy code
-         **@
-        @stylePicOneGroup(
-          styleUpdateForm("stylePic[x]"),
-          className = "optContactMethod_template"
-        )
-      </div>
-    </fieldset>
     <table cellspacing="0" class="wFull bdCell bgThNml fgThNml vaThT pCellV10H12">
       <tbody>
         <tr>
@@ -227,16 +215,16 @@
         <tr>
           <th class="w120"> 
             <div class="dibBL vaM w154">
-              <font class="cR"></font>@Messages("hair.consumerSocialStatus")
+              <font class="cR"></font>@Messages("hair.consumerSocialScene")
             </div> 
           </th>
           <td colspan="3" class="w620">
-            @input(field = styleUpdateForm("consumerSocialStatus"),args = '_label ->None){(id,name,value,args) =>
-              @for(i <- 0 to stylePara.consumerSocialStatus.length-1){
-                @if(style.consumerSocialStatus.contains(stylePara.consumerSocialStatus(i))){
-                  <input type = "checkbox" class="" name = "consumerSocialStatus[@i]" value = "@stylePara.consumerSocialStatus(i)" checked="checked">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))
+            @input(field = styleUpdateForm("consumerSocialScene"),args = '_label ->None){(id,name,value,args) =>
+              @for(i <- 0 to stylePara.consumerSocialScene.length-1){
+                @if(style.consumerSocialScene.contains(stylePara.consumerSocialScene(i))){
+                  <input type = "checkbox" class="" name = "consumerSocialScene[@i]" value = "@stylePara.consumerSocialScene(i)" checked="checked">@Messages("style.socialScene." + stylePara.consumerSocialScene(i))
                 }else{
-                  <input type = "checkbox" class="" name = "consumerSocialStatus[@i]" value = "@stylePara.consumerSocialStatus(i)">@Messages("style.socialStatus." + stylePara.consumerSocialStatus(i))
+                  <input type = "checkbox" class="" name = "consumerSocialScene[@i]" value = "@stylePara.consumerSocialScene(i)">@Messages("style.socialScene." + stylePara.consumerSocialScene(i))
                 }
               }
             }

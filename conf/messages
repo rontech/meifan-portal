@@ -153,7 +153,6 @@ salon.confirmMessage=请再次输入密码
 salon.desMessage=您最多可以输入100个字符
 salon.desAccesMethod=例：地铁一号线汾湖路站1号出口向西步行500米可达。您最多可以输入100个字符。
 salon.addMessage=请填写详细地址，如：竹园路209号3号楼1805室
-salon.salonLogin=店铺登录
 salon.stylistsList={0}的发型师
 salon.newSalon = 新沙龙用户
 salon.registerMessage1 = 如果您还不是该网站的沙龙会员，再次注册沙龙会员。
@@ -315,7 +314,7 @@ hair.styleForPerson=推荐人群
 hair.assessFromStylist=造型师评价
 hair.stylistToCollect=收藏该发型师
 hair.welcome=我们期待您的光临
-hair.consumerSocialStatus=适合场合
+hair.consumerSocialScene=适合场合
 hair.consumerSex=适合性别
 hair.consumerAgeGroup=适合年龄
 hair.addStyle = 添加发型
@@ -583,7 +582,7 @@ user.sendMsg=发送留言
 user.otherBlog=他的博客
 user.collectCoupon=收藏的优惠劵
 user.collectBlog=收藏的博客
-user.collectStyle=收藏的风格
+user.collectStyle=收藏的发型
 user.reservation=我的预约
 user.myFollows=我的关注
 user.otherFollows=他的关注
@@ -969,13 +968,13 @@ style.ageGroup.fifty-five-- = 55以上
 style.sex.male = 男
 style.sex.female = 女
 
-#SocialStatus
-style.socialStatus.evening-wear = 晚装
-style.socialStatus.brief = 简约
-style.socialStatus.star = 明星
-style.socialStatus.street = 街拍
-style.socialStatus.T-stage = T台
-style.socialStatus.others = 其它
+#SocialScene
+style.socialScene.evening-wear = 晚装
+style.socialScene.brief = 简约
+style.socialScene.star = 明星
+style.socialScene.street = 街拍
+style.socialScene.T-stage = T台
+style.socialScene.others = 其它
 
 #onUsePicture
 onUserPicture.picTitle=请填写沙龙简介标题，您最多可输入100个字符
@@ -1054,7 +1053,7 @@ reservation.failMsg.stylistHasResved = 您所选的技师该时间段被有预�
 reservation.failMsg.salonHasResved = 您所预约的店铺在该时间所有技师已被预约
 reservation.changeResvInfo = 预约变更的场合
 reservation.cancelResv = 您可以取消该时间的预约，然后重新预约。
-reservation.selectOtherStylist = 选择其他技师。
+reservation.selectOtherStylist = 选择其他技师
 reservation.selectOtherDate = 重新选择预约的时间。
 reservation.selectStylist = 选择技师
 reservation.selectDate = 选择时间
@@ -1072,6 +1071,11 @@ reservation.menuSelected = 已选择的菜单
 reservation.serviceSelected = 已选择的服务
 reservation.resvCouponAndMenu = 请选择优惠劵·菜单。
 reservation.resvDateForStylist = 的预约日程
+reservation.resvStyle = 预约此发型
+reservation.resvDateOfSalon = 店铺日程情况
+reservation.resvDateOfStylist = 技师日程情况
+reservation.cleanStyleMsg = ※如果您已预约了发型，那么点此链接后将需要重新选择发型
+reservation.changeOtherStyle = 更换其它发型
 
 
 #salonCheckInfoState
