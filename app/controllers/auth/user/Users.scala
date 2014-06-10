@@ -101,7 +101,7 @@ object Users extends MeifanNetCustomerApplication {
       } // Unbinding: Create the mapping values from an existing Hacker value
       {
         user =>
-          Some((user.id, user.userId, user.nickName, user.password, user.sex, user.birthDay, user.address, user.userPics.toString, user.tel, user.email, user.optContactMethods, user.socialStatus, user.registerTime,
+          Some((user.id, user.userId, user.nickName, user.password, user.sex, user.birthDay, user.address, user.userPics.toString, user.tel, user.email, user.optContactMethods, user.socialScene, user.registerTime,
             user.userTyp, user.userBehaviorLevel, user.point, user.activity, user.permission))
       })
 

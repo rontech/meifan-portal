@@ -140,15 +140,20 @@ object Salons extends MeifanNetSalonApplication {
           } {
             salonPics => Some(salonPics.fileObjId.toString(), salonPics.picUse, salonPics.showPriority, salonPics.description)
           }),
-      "registerDate" -> date) {
+      "registerDate" -> date,
+      "salonStatus" -> mapping(
+        "applyMeifanFlag" -> number,
+        "isValid" -> boolean
+        )(SalonStatus.apply)(SalonStatus.unapply)
+      ) {
         (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
-        workTime, restDay, seatNums, salonFacilities, salonPics, registerDate) =>
+        workTime, restDay, seatNums, salonFacilities, salonPics, registerDate, salonStatus) =>
           Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
-            workTime, restDay, seatNums, salonFacilities, salonPics, registerDate)
+            workTime, restDay, seatNums, salonFacilities, salonPics, registerDate, salonStatus)
       } {
         salon =>
           Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonAppeal, salon.salonIntroduction, salon.contactMethod, salon.optContactMethods, salon.establishDate, salon.salonAddress,
-            salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate))
+            salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate, salon.salonStatus))
       })
 
   //图片更新Form
