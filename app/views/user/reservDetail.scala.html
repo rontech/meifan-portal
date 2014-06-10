@@ -1,7 +1,7 @@
 @(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation, user :models.portal.user.User, followInfo:models.portal.user.FollowInformation)
 
 @myPageMain("my-reservation", user, followInfo, user.id, true) {
-  <p>预约详情</p>
+  <p>@Messages("reservation.detail")</p>
   <table cellspacing="0" class="wFull bdCell fgThNml pCellV5H5 mT10">
     <tbody>
       <tr>
@@ -88,12 +88,12 @@
       </tr>
     </tbody>
   </table>
-  <input type="button" value="返回" onclick="window.history.go(-1)">
+  <input type="button" value=@Messages("common.backUp") onclick="window.history.go(-1)">
   @if(reservation.status == 0 && reservation.userId.equals(user.userId)){
-    <a href="@auth.routes.Reservations.deletingReserv(reservation.id)">取消该预约</a>
+    <a href="@auth.routes.Reservations.deletingReserv(reservation.id)">@Messages("reservation.delete")</a>
   }else{
     <a class="reserveBtn bS" href="#" title="">
-      预约
+      @Messages("reserve.name")
     </a>
   }
 

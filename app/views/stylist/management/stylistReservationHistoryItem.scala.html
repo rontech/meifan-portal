@@ -24,7 +24,7 @@
           <div class="cFix">
             <div class="cFix fl">
               <p class="fl">
-                来店时间
+                @Messages("reservation.expectedDate")
                 <span class="b fs14">
                   @reservation.expectedDate.format("yyyy/MM/dd HH:mm")
                 </span>
@@ -47,7 +47,7 @@
               </dl>*@
             </div>
             <p class="fr pT3">
-              预约号
+              @Messages("reservation.no")
               <br>
               @reservation.id
             </p>
@@ -56,7 +56,7 @@
                 <tbody>
                   <tr>
                     <th class="boxHeadingHistory">
-                      利用的优惠券
+                      @Messages("reservation.usedCoupon")
                     </th>
                     <td class="boxBodyHistory">
                       @*

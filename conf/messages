@@ -1083,6 +1083,18 @@ reservation.resvDateOfSalon = 店铺日程情况
 reservation.resvDateOfStylist = 技师日程情况
 reservation.cleanStyleMsg = ※如果您已预约了发型，那么点此链接后将需要重新选择发型
 reservation.changeOtherStyle = 更换其它发型
+reservation.reserving = 处理中的预约
+reservation.reservHistory = 预约的履历
+reservation.no = 预约号
+reservation.usedCoupon = 利用到的优惠券
+reservation.detail = 预约详情
+reservation.delete = 取消该预约
+reservation.Used = 已到店消费
+reservation.noComing = 未到店铺消费
+reservation.patronage = 谢谢来店消费
+reservation.forwordToNextComing = 期待你的光临
+reservation.userConfirm = 预约确认
+reservation.comingMsg = 请在预约指定的日期来店
 
 
 #salonCheckInfoState

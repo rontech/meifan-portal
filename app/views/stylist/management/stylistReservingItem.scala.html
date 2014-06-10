@@ -23,7 +23,7 @@
           </div>*@
           <div class="cFix">
             <p class="fl">
-              来店日時：
+              @Messages("reservation.expectedDate")
               <span class="b fs14">
               @reservation.expectedDate.format("yyyy/MM/dd HH:mm")
               </span>
@@ -48,7 +48,7 @@
                   @reservation.price
                   </td>*@
                   <th class="boxHeadingHistory">
-                    预约Id
+                    @Messages("reservation.no")
                   </th>
                   <td class="boxBody">
                   @reservation.id
@@ -70,7 +70,7 @@
               <li class="dibBL">
                 <a href="@auth.routes.Reservations.showReservationDetailById(reservation.id)"
                 class="reserveDetail bS">
-                  预约详情
+                @Messages("reservation.detail")
                 </a>
               </li>
             </ul>

@@ -25,17 +25,17 @@
           </div>
           <div class="cFix">
             <p class="fl">
-              来店日時：
+              @Messages("reservation.expectedDate")
               <span class="b fs14">
               @reservation.expectedDate.format("yyyy/MM/dd HH:mm")
               </span>
             </p>
             <dl class="reserveMessageHistory cFix">
               <dt class="fl reserveFix iS">
-                预约确认
+                @Messages("reservation.userConfirm")
               </dt>
               <dd class="fl salonsAnswer ">
-                请在预约指定的日期来店
+                @Messages("reservation.comingMsg")
               </dd>
             </dl>
           </div>
@@ -44,16 +44,16 @@
               <tbody>
                 <tr>
                   <th class="boxHeadingHistory">
-                    预约金额
+                    @Messages("reservation.totalPrice")
                   </th>
                   <td class="boxBody b">
-                  @reservation.price
+                    @reservation.price
                   </td>
                   <th class="boxHeadingHistory">
-                    预约Id
+                    @Messages("reservation.no")
                   </th>
                   <td class="boxBody">
-                  @reservation.id
+                    @reservation.id
                   </td>
                 </tr>
               </tbody>
@@ -66,20 +66,20 @@
               <li class="dibBL mR6">
                 <a class="mapBtn bS" href="@noAuth.routes.Salons.getMap(reservation.salonId)"
                 title="">
-                  店铺地图
+                  @Messages("salon.accessMap")
                 </a>
               </li>
               <li class="dibBL">
                 <a href="@auth.routes.Reservations.showReservationDetailById(reservation.id)"
                 class="reserveDetail bS">
-                  预约详情
+                  @Messages("reservation.detail")
                 </a>
               </li>
             </ul>
             <p class="b mT10">
               <a href="@auth.routes.Reservations.deletingReserv(reservation.id)"
               class="crossMark iS">
-                取消该预约
+                @Messages("reservation.delete")
               </a>
             </p>
           </div>

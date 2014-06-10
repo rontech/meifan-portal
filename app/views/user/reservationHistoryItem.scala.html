@@ -37,7 +37,7 @@
           <div class="cFix">
             <div class="cFix fl">
               <p class="fl">
-                来店时间
+                @Messages("reservation.expectedDate")
                 <span class="b fs14">
                   @reservation.expectedDate.format("yyyy/MM/dd HH:mm")
                 </span>
@@ -45,22 +45,22 @@
               <dl class="reserveMessageHistory cFix">
                 <dt class="fl visitedStore iS">
                   @if(reservation.status==1){
-                    已到店铺消费
+                    @Messages("reservation.Used")
                   }else{
-                    未到店铺消费
+                    @Messages("reservation.noComing")
                   }
                 </dt>
                 <dd class="fl salonsAnswer ">
                   @if(reservation.status==1){
-                    谢谢来店消费
+                    @Messages("reservation.patronage")
                   }else{
-                    没有到店铺消费
+                    @Messages("reservation.forwordToNextComing")
                   }
                 </dd>
               </dl>
             </div>
             <p class="fr pT3">
-              预约号
+              @Messages("reservation.no")
               <br>
               @reservation.id
             </p>
@@ -69,7 +69,7 @@
                 <tbody>
                   <tr>
                     <th class="boxHeadingHistory">
-                      利用的优惠券
+                    @Messages("reservation.usedCoupon")
                     </th>
                     <td class="boxBodyHistory">
                       @*
@@ -80,7 +80,7 @@
                   @if(!reservation.stylistId.equals(None)){
                     <tr>
                       <th class="boxHeadingHistory">
-                        技师
+                        @Messages("reservation.stylist")
                       </th>
                       <td class="boxBodyHistory">
                         <a href="@noAuth.routes.Salons.getOneStylist(reservation.salonId,reservation.stylistId.get)">
@@ -101,7 +101,7 @@
                 <li class="dibBL">
                   <a class="reserveBtn bS" href="#"
                   title="">
-                    预约
+                    @Messages("reserve.name")
                   </a>
                 </li>
                   <!-- -->
@@ -111,14 +111,14 @@
                     class="reviewBtn bS">
                       评论
                     </a>*@
-                    <input type="button" value="评论" onclick="addComment('@reservation.id', '2');">
+                    <input type="button" value=@Messages("comment.comment") onclick="addComment('@reservation.id', '2');">
                   </li>
                 }
                   <!-- -->
                 <li class="dibBL mL6">
                   <a href="@auth.routes.Reservations.showReservationDetailById(reservation.id)"
                   class="reserveDetail bS">
-                    预约详细
+                    @Messages("reservation.detail")
                   </a>
                 </li>
               </ul>

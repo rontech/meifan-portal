@@ -1,10 +1,14 @@
 @(user: models.portal.user.User,followInfo:models.portal.user.FollowInformation, reservationHistoryList : List[models.portal.reservation.Reservation], reservingList : List[models.portal.reservation.Reservation], loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
 
+<head>
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/userReserv.css")">
+</head>
+
 @myHomePage("stylist-reservation", user, followInfo, user.id, true) {
   <div class="mT40">
     @if(!reservingList.isEmpty){
       <div class="skinHeadingWrapper">
-        <h3>处理中的预约</h3>
+        <h3>@Messages("reservation.reserving")</h3>
       </div>
     }
     <ul id="listWrapper">
@@ -13,7 +17,7 @@
       }
     </ul>
     <div class="skinHeadingWrapper">
-      <h3>预约的历史</h3>
+      <h3>@Messages("reservation.reservHistory")</h3>
     </div>
     <ul id="listWrapper">
       @reservationHistoryList.map{reservation =>
