@@ -26,7 +26,7 @@
 @if(comment.commentObjType == 2) {
 <div class="reportHeaderPickup">
   <div class="shopInfo reportPickupTitle cFix">
-    <p class="fl w580 pL25"><span class="b">@models.portal.user.User.findOneByUserId(comment.authorId).get.nickName</span><span class="mL5 fs10 fgGray">（@models.portal.user.User.findOneByUserId(comment.authorId).get.sex/@if(models.portal.user.User.findOneByUserId(comment.authorId).get.birthDay.nonEmpty){@Application.getAge(models.portal.user.User.findOneByUserId(comment.authorId).get.birthDay.get)/}@models.portal.user.User.findOneByUserId(comment.authorId).get.socialStatus）</span></p>
+    <p class="fl w580 pL25"><span class="b">@models.portal.user.User.findOneByUserId(comment.authorId).get.nickName</span><span class="mL5 fs10 fgGray">（@models.portal.user.User.findOneByUserId(comment.authorId).get.sex/@if(models.portal.user.User.findOneByUserId(comment.authorId).get.birthDay.nonEmpty){@Application.getAge(models.portal.user.User.findOneByUserId(comment.authorId).get.birthDay.get)/}@models.portal.user.User.findOneByUserId(comment.authorId).get.socialScene）</span></p>
     <div class="fr mT2">
       <p class="fs10 fgGray">@Messages("comment.passDate") @DateFormat.getDateInstance.format(comment.createTime)</p>
     </div>

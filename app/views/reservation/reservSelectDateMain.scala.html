@@ -1,4 +1,4 @@
-@(salon: models.portal.salon.Salon, resvSchedule: models.portal.reservation.ResvSchedule, week: Int = 0, stylistId: Option[ObjectId], resvTab: String)
+@(salon: models.portal.salon.Salon, resvSchedule: models.portal.reservation.ResvSchedule, week: Int = 0, stylistId: Option[ObjectId], styleId: String, resvTab: String, jumpType: String)
 
 <div class="yS reserveTitleOuter mT15">
   <h3 class="yS reserveTitleInner pL10">
@@ -20,14 +20,14 @@
   <span class="fgBlue b reserveMark">◎</span>@Messages("reservation.selectDateNote")<br>
 </p>
 <ul class="calTab cFix mT10">
-  <li class="@if(resvTab == "resvSalon") {current} salonDirect"><a href="@routes.Reservations.reservShowDate(salon.id, "", 0)" class="rsvS">
-    店铺日程情况</a></li>
-  <li class="@if(resvTab == "resvStylist") {current} salonDirect"><a href="@routes.Reservations.showStylistView" class="rsvS">
-    技师日程情况</a></li>
+  <li class="@if(resvTab == "resvSalon") {current} salonDirect"><a href="@routes.Reservations.reservShowDate(salon.id, "", "", 0, "")" class="rsvS">
+    @Messages("reservation.resvDateOfSalon")</a></li>
+  <li class="@if(resvTab == "resvStylist") {current} salonDirect"><a href="@routes.Reservations.showStylistView(styleId)" class="rsvS">
+    @Messages("reservation.resvDateOfStylist")</a></li>
 </ul>
 
 @if(resvTab == "resvSalon") {
-  @views.html.reservation.reservSelectDate(salon, resvSchedule, "", week)
+  @views.html.reservation.reservSelectDate(salon, resvSchedule, "", "", week)
 } else {
   @stylistId match {
     case None => {
@@ -36,7 +36,7 @@
       </div>
     }
     case Some(sty) => {
-      @views.html.reservation.reservSelectDate(salon, resvSchedule, sty.toString, week)
+      @views.html.reservation.reservSelectDate(salon, resvSchedule, sty.toString, styleId, week, jumpType)
     }
   }
 }

@@ -1,4 +1,4 @@
-@(coupons: Seq[models.portal.coupon.Coupon], beforeSevernDate: java.util.Date, stylistId: String = "")
+@(coupons: Seq[models.portal.coupon.Coupon], beforeSevernDate: java.util.Date, stylistId: String = "", styleId: String)
 
 <ol>
   @if(coupons.isEmpty) {
@@ -8,7 +8,7 @@
   } else {
     @for(coupon <- coupons) {
       <li class="couponItem">
-      @views.html.coupon.couponItem(coupon, beforeSevernDate, stylistId)
+        @views.html.coupon.couponItem(coupon, beforeSevernDate, stylistId, styleId)
       </li>
     }
   }

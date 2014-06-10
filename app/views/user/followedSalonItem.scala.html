@@ -105,7 +105,7 @@
                             @for(i <- 0 to (if(models.portal.coupon.Coupon.findValidCouponBySalon(salon.id).length > 5) 4 else models.portal.coupon.Coupon.findValidCouponBySalon(salon.id).length - 1)) {
                               <div class="couponItem">
                                 <dt class="iS couponTypeSmallCT02 offL models.portal.coupon.CouponMark fl"></dt><dd class="fr b mL10">@models.portal.coupon.Coupon.findValidCouponBySalon(salon.id)(i).perferentialPrice</dd>
-                                <dd class="oh pl5"><a href="@noAuth.routes.Salons.getAllCoupons(salon.id, "")">@models.portal.coupon.Coupon.findValidCouponBySalon(salon.id)(i).description.slice(0, 30) ...</a></dd>
+                                <dd class="oh pl5"><a href="@noAuth.routes.Salons.getAllCoupons(salon.id, "", "", "serviceOfSalon")">@models.portal.coupon.Coupon.findValidCouponBySalon(salon.id)(i).description.slice(0, 30) ...</a></dd>
                               </div>
                             }
                           }else{

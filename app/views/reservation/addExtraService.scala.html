@@ -1,5 +1,5 @@
 @(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation, resvItem: models.portal.reservation.ResvItem, condtionForm: Form[models.portal.coupon.CouponServiceType],
-	 serviceByTypes: List[models.portal.service.ServiceByType], serviceTypes: List[models.portal.service.ServiceType], stylistId: String, navBar: List[(String, String)] = Nil)
+	 serviceByTypes: List[models.portal.service.ServiceByType], serviceTypes: List[models.portal.service.ServiceType], stylistId: String, styleId: String, navBar: List[(String, String)] = Nil)
 
 @reservationInfoMain(navInSalon = "HairSalon", "one", salon, navBar) {
 
@@ -17,12 +17,12 @@
     </ul>
   </div>
 
-  @views.html.reservation.resvServiceSearch(salon, condtionForm, serviceTypes, stylistId)
+  @views.html.reservation.resvServiceSearch(salon, condtionForm, serviceTypes, stylistId, styleId)
 
   @views.html.reservation.selectServicesGroup(salon, reservation, serviceByTypes)
 
   <div class="mT5 pr submitArea">
-    <a href="@routes.Reservations.getTotalOfServices(stylistId)" class="bS db nominatedReserve mHA" width="200px">
+    <a href="@routes.Reservations.getTotalOfServices(stylistId, styleId)" class="bS db nominatedReserve mHA" width="200px">
     @Messages("reservation.next")
     </a>
   </div>
