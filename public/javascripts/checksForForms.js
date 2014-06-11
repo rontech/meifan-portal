@@ -26,7 +26,7 @@ var MESSAGE_REQUIRED_CHECK = "该项目必须选择"
  * listening userId and salonAccountId
  */
 $('#accountId').focus(function () {
-  $('#accountId  ~ .help-inline').text("6~18位，支持以字母为首、数字和下划线（_）组合").removeClass("trueMsg").removeClass("errorMsg");
+  $('#accountId  ~ .help-inline').text("6~18位，以字母为首、字母数字下划线组合").removeClass("trueMsg").removeClass("errorMsg");
   this.setAttribute("maxlength", 18);
 }).blur(function () {
   checkedAccountId();
@@ -35,7 +35,7 @@ $('#accountId').focus(function () {
  * listening password
  */
 $('#password_main').focus(function () {
-  $('#password_main  ~ .help-inline').text("6~16位,支持字母、数字或符号的组合，区分大小写").removeClass("trueMsg").removeClass("errorMsg");
+  $('#password_main  ~ .help-inline').text("6~16位,字母、数字或符号的组合，区分大小写").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function () {
   checkedPassword()
 });

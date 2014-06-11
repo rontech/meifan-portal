@@ -1,4 +1,4 @@
-:focus {
+﻿:focus {
       outline: 0;
     }
     * {
@@ -160,7 +160,7 @@
     }
     .Opts a.a1 {
       background-color: #f09499;
-	  padding: 8px 24px;
+	  padding: 8px 22.51px;
 	  margin-left: 5px;
 	  color: #fff;
     }
