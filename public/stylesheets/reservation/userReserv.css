@@ -1,0 +1,48 @@
+@CHARSET "UTF-8";
+
+.boxHeadingHistory {
+  color: #666;
+  white-space: nowrap;
+  background-color: #E7E5DD;
+  border-bottom: 2px solid #FFFFFF;
+  padding: 7px 5px;
+  margin-right: 10px;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 12px;
+  width: 105px;
+}
+
+.boxBody {
+  padding-left: 10px;
+  border-bottom: 2px solid #FFFFFF;
+  width: 150px;
+}
+
+.reserveMessageHistory {
+  float: left;
+  margin-left: 10px;
+}
+
+.salonsAnswer {
+  margin-top: 2px;
+  margin-left: 5px;
+  color: #D1131D;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.tableHistoryWrapper2 {
+  margin-top: 10px;
+  min-height: 56px;
+  width: 510px;
+  margin-right: 10px;
+}
+
+.detailBtn1 {
+  padding-bottom: 4px;
+}
+
+.mR6 {
+  margin-right: 6px;
+}

@@ -46,6 +46,7 @@ import models.portal.user.{MyFollow, LoggedIn}
 import models.portal.style.Style
 import models.portal.salon.Salon
 import com.meifannet.framework.db._
+import models.portal.reservation.Reservation
 
 object Stylists extends MeifanNetCustomerApplication {
 
@@ -412,14 +413,18 @@ object Stylists extends MeifanNetCustomerApplication {
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val stylist = Stylist.findOneByStylistId(user.id)
+    val reservingList = Reservation.findReservingByStylistId(user.id)
+    val reservationHistoryList = Reservation.findReservationHistoryByStylistId(user.id)
     stylist.map { sty =>
       SalonAndStylist.findByStylistId(sty.stylistId).map { re =>
-        Ok(views.html.stylist.management.myHomePage(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = sty))
+        Ok(views.html.stylist.management.stylistReservation(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, reservingList = reservingList, reservationHistoryList = reservationHistoryList))
       } getOrElse {
-        Ok(views.html.user.myPageRes(user, followInfo))
+//        Ok(views.html.user.myPageRes(user, followInfo))
+        Ok(views.html.user.myReserving(user, followInfo, reservingList))
       }
     } getOrElse {
-      Ok(views.html.user.myPageRes(user, followInfo))
+//      Ok(views.html.user.myPageRes(user, followInfo))
+      Ok(views.html.user.myReserving(user, followInfo, reservingList))
     }
 
   }

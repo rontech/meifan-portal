@@ -212,7 +212,27 @@ object Salons extends MeifanNetCustomerOptionalApplication {
       SalonFacilities(false, false, false, false, false, false, false, false, false, ""),
       SortByConditions("price", false, false, true))
     val salons = Salon.findSalonBySearchPara(searchParaForSalon)
-    Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
+    val nav = "HairSalon"
+    Ok(views.html.salon.general.index(nav = nav, navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
+  }
+
+  /**
+   * 跳转沙龙前台检索页面
+   * 从session中获得城市，前面步骤保证必然会存在
+   * 如果找不到城市默认给苏州
+   * @return
+   */
+  def indexNail = StackAction { implicit request =>
+    val user = loggedIn
+    var myCity = request.session.get("myCity").map{ city => city } getOrElse { "苏州" }
+
+    val searchParaForSalon = new SearchParaForSalon(None, myCity, "all", List(), "Manicures", List(),
+      PriceRange(0, 1000000), SeatNums(0, 10000),
+      SalonFacilities(false, false, false, false, false, false, false, false, false, ""),
+      SortByConditions("price", false, false, true))
+    val salons = Salon.findSalonBySearchPara(searchParaForSalon)
+    val nav = "NailSalon"
+    Ok(views.html.salon.general.index(nav = nav, navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
   }
 
   /*-------------------------
@@ -523,7 +543,13 @@ object Salons extends MeifanNetCustomerOptionalApplication {
       {
         case (salonSearchForm) => {
           val salons = Salon.findSalonBySearchPara(salonSearchForm)
-          Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = salonSearchForm, salons = salons))
+          var nav = ""
+          if(salonSearchForm.salonIndustry.equals("Hairdressing")){
+            nav = "HairSalon"
+          }else if(salonSearchForm.salonIndustry.equals("Manicures")){
+            nav = "NailSalon"
+          }
+          Ok(views.html.salon.general.index(nav = nav, navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = salonSearchForm, salons = salons))
         }
       })
   }

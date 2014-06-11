@@ -1,7 +1,8 @@
-@(user: models.portal.user.User,followInfo:models.portal.user.FollowInformation)
+@(user: models.portal.user.User,followInfo:models.portal.user.FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
 
-@myPageMain(navInMyPage = "my-reservation", user, followInfo, user.id, true) {
+@myReservationMain("my-reserving", user, followInfo, user.id, true) {
   <div class="MMod" id="Logs">
     <p>Wait a few days!</p>
   </div>
+
 }
