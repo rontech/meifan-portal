@@ -191,6 +191,12 @@ object Application extends MeifanNetCustomerOptionalApplication {
     age
   }
 
+  /**
+   * 根据nav找到所对应的行业名
+   *
+   * @param nav 前台的tab
+   * @return
+   */
   def getIndustryByNav(nav : String) = {
     nav match {
       case "HairSalon" =>  "Hairdressing"
