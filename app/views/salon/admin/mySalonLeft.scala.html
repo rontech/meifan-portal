@@ -122,23 +122,16 @@
         </ul>
         <div class='more'>
 
-        <a href="#">@Messages("salonAdmin.needCommentRsv")
+        <a href="@auth.routes.Salons.getAllResvsInProcessing">@Messages("salonAdmin.resvInProcessing")
                 <span id="reviewCount">
-                (0)
+                (@models.portal.reservation.Reservation.findProcessingResvBySalon(salon.id).length)
                 </span>
                 </a><br />
-        <a href="#">@Messages("salonAdmin.overtimeRsv")
+        <a href="@auth.routes.Salons.getAllResvsRecord">@Messages("salonAdmin.resvRecord")
                 <span id="reviewCount">
-                (1)
+                (@models.portal.reservation.Reservation.findAllResvBySalon(salon.id).length)
                 </span>
         </a><br />
-
-        <a href="#">@Messages("salonAdmin.expireRsv")
-                <span id="reviewCount">
-                (0)
-                </span>
-                </a><br />
-
         </div>
       </div>
 

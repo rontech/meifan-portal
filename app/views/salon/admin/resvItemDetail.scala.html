@@ -1,0 +1,16 @@
+@(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation, pageType: String = "my-resvInProcessing")
+
+@mySalonMain("my-reservation",salon){
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/reservation.css")">
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/salonReserv.css")">
+
+  <div>
+    <ul class="tabInfoTitle">
+      <li class="fl selected">
+      @Messages("reservation.detail")
+      </li>
+    </ul>
+  </div>
+  @views.html.reservation.admin.resvInfoDetail(reservation, pageType)
+
+}
