@@ -205,6 +205,11 @@ GET         /mySalon/cancelInvite/:applyRecordId                            cont
 # TODO
 GET         /mySalon/checkInfoState                                         controllers.auth.Salons.checkInfoState
 GET         /mySalon/checkAuth                                              controllers.auth.Salons.checkAuth
+GET         /mySalon/resvsInProcessing                                      controllers.auth.Salons.getAllResvsInProcessing
+GET         /mySalon/resvsRecord                                            controllers.auth.Salons.getAllResvsRecord
+POST        /mySalon/handleReservation                                      controllers.auth.Salons.handleResv
+POST        /mySalon/findResvs                                              controllers.auth.Salons.findResvs
+POST        /mySalon/findResvsRecord                                        controllers.auth.Salons.findResvsRecord
 
 GET         /salonBasic                                                     controllers.auth.Salons.salonBasic
 GET         /salonDetail                                                    controllers.auth.Salons.salonDetail
@@ -264,6 +269,7 @@ GET         /editReservInfo                                                 cont
 GET         /editReservInfoFromStyle                                        controllers.auth.Reservations.editResvInfoFromStyle(resvDate: String, stylistId: ObjectId, styleId: String)
 POST        /reservConfirmInfo                                              controllers.auth.Reservations.reservConfirmInfo
 GET         /reservSuccess                                                  controllers.auth.Reservations.reservSuccess
+POST        /findResvsBySerach                                              controllers.auth.Reservations.findResvsBySerach
 
 # MyFollows
 GET         /javascriptRoutes                                               controllers.Application.javascriptRoutes

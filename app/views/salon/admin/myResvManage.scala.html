@@ -1,0 +1,10 @@
+@(subNavInSalon: String = "my-resvInProcessing", salon: models.portal.salon.Salon, resvSreachForm: Form[models.portal.reservation.ResvSreachCondition],
+  resvStatusList: List[String], reservations: List[models.portal.reservation.Reservation])
+
+@myResvManageMain(subNavInSalon,salon){
+  <!-- 检索区域 -->
+  @views.html.reservation.admin.resvSreachGroup(resvSreachForm, resvStatusList, subNavInSalon)
+
+  @views.html.reservation.admin.salonResvGroup(reservations, subNavInSalon)
+
+}

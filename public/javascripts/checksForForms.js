@@ -1116,7 +1116,19 @@ function checkedServiceName() {
       $("#serviceName  ~ .help-inline").text(MESSAGE_CHECK_ERR).removeClass("trueMsg").addClass("errorMsg");
     }
   });
-}
+
+  /**
+   * 沙龙后台预约全选功能
+   */
+  $('#selectAll').change(function () {
+    alert(11111);
+    /*var resvs = $('.resvId');
+     alert(resvs);
+     for(var i = 0; i < resvs.length; i++) {
+     alert(resvs[i].prop('checked'));
+     resvs[i].attr("checked", true);
+     }*/
+  });
 
 $('#duration').focus(function () {
   $("#duration  ~ .help-inline").text("请输入分钟数").removeClass("trueMsg").removeClass("errorMsg");
@@ -1242,4 +1254,6 @@ function getServiceId(inputName) {
     error: function (err) {
     }
   });
+}
+
 }

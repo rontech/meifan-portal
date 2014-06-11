@@ -29,7 +29,7 @@
       </a>
     </li>
     <li class="@if(navInMyPage == "my-reservation") {selected}">
-      <a href="#">
+      <a href="@auth.routes.Salons.getAllResvsInProcessing">
         @Messages("salonAdmin.reserveManagement")
       </a>
     </li>
