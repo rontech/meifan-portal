@@ -44,7 +44,8 @@ GET         /serviceTypeMain                                                cont
 # Pages Which can be seen by anonymous.
 #-------------------------------------------------
 # Salon
-GET         /salon                                                          controllers.noAuth.Salons.index
+GET         /salon                                                          controllers.noAuth.Salons.index()
+GET         /nail                                                           controllers.noAuth.Salons.indexNail
 GET         /salon/:salonId                                                 controllers.noAuth.Salons.getSalon(salonId: ObjectId)
 # Salon.style
 GET         /salon/:salonId/style/:styId                                    controllers.noAuth.Salons.getOneStyle(salonId: ObjectId, styId: ObjectId)

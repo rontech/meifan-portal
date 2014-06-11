@@ -191,6 +191,16 @@ object Application extends MeifanNetCustomerOptionalApplication {
     age
   }
 
+  def getIndustryByNav(nav : String) = {
+    nav match {
+      case "HairSalon" =>  "Hairdressing"
+      case "NailSalon" =>  "Manicures"
+      case "RelaxSalon" =>  "Healthcare"
+      case "EstheSalon" =>  "Cosmetic"
+      case _ => ""
+    }
+  }
+
   /**
    *  ajax fileupload 输出图片id到页面对应区域
    */
