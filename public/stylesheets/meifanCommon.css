@@ -1394,7 +1394,9 @@ div.skinHeadingWrapper2 {
 .w240	{ width: 240px; }
 .w295	{ width: 295px; }
 .w380	{ width: 380px; }
+.w403	{ width: 403px; }
 .w440	{ width: 440px; }
+.w430	{ width: 430px; }
 .w500	{ width: 500px; }
 .w580	{ width: 580px; }
 .w620	{ width: 620px; }
@@ -1407,6 +1409,8 @@ div.skinHeadingWrapper2 {
 .w176 { width: 176px; }
 .w137 { width: 137px; }
 .w166 { width: 166px; }
+.w345 { width: 345px; }
+.w670 { width: 670px; }
 
 
 .hMin19 {
@@ -1588,6 +1592,7 @@ _height: 19px;
 .bgWhite	{ background-color: #FFFFFF; }
 .bgPink7 { background-color: #FF8A90; }
 .bgPink8    { background-color: #FB615F; }
+.bgPink { background: #F2DCDB !important; }
 
 /* BORDER */
 .bdGray		{ border: 1px solid #DDDDDD; }

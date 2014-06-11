@@ -1025,7 +1025,6 @@ function checksForCoupon() {
 /**
  *checks for menus
  */
-
 $('#menuName').focus(function () {
   this.setAttribute("maxlength", 30)
   $("#menuName  ~ .help-inline").text("请输入4~30个字符，最多15个汉字").removeClass("trueMsg").removeClass("errorMsg");
@@ -1155,10 +1154,6 @@ function checksForService() {
 }
 
 
-/***
- *
- */
-
 $('#styleName').focus(function () {
   this.setAttribute("maxlength", 40)
   $("#styleName  ~ .help-inline").text("请输入4~30个字符，最多15个汉字").removeClass("trueMsg").removeClass("errorMsg");
@@ -1225,7 +1220,9 @@ function checksForStyle() {
  * @param inputName 选择框id
  */
 function getServiceId(inputName) {
+  alert(1111);
   var value = $('#service' + inputName).val();
+  alert(value);
   var addFlg = true;
   if($('#service' + inputName).prop('checked')) {
 	addFlg = "true";

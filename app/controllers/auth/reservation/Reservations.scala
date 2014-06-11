@@ -31,10 +31,13 @@ import controllers._
 import models._
 import java.text.SimpleDateFormat
 import play.cache.Cache
-import models.portal.reservation.Reservation
+import models.portal.reservation._
 import com.meifannet.portal.MeifanNetCustomerApplication
 import models.portal.salon.Salon
 import models.portal.relation.SalonAndStylist
+import models.portal.service.ServiceType
+import com.mongodb.casbah.commons.ValidBSONType.ObjectId
+import com.mongodb.casbah.commons.TypeImports.ObjectId
 import models.portal.user.{MyFollow, User}
 
 object Reservations extends MeifanNetCustomerApplication {
@@ -52,6 +55,32 @@ object Reservations extends MeifanNetCustomerApplication {
     } {
       reservation => Some((reservation.userPhone, reservation.userLeaveMsg, None))
     }
+  }
+
+  /**
+   *
+   * @return
+   */
+  def HandleResvFrom: Form[HandleReservation] = Form {
+    mapping(
+      "handleType" -> text,
+      "reservs" -> list(
+        mapping(
+          "resvId" -> text
+        ){(resvId) => Reservation(new ObjectId(resvId), "", new ObjectId, 0, new Date, 0, None, Nil, None, "", "", BigDecimal(0), 0, BigDecimal(0), new Date, new Date)}
+        {reservation => Some((reservation.id.toString))}
+      )
+    )(HandleReservation.apply)(HandleReservation.unapply)
+  }
+
+
+  /**
+   * 沙龙后台检索
+   */
+  def findResvsBySerach = StackAction(AuthorityKey -> isLoggedIn _) {
+    implicit request =>
+      val user = loggedIn
+      Ok(views.html.reservation.reservConfirmPwd("h"))
   }
 
   /**

@@ -215,6 +215,13 @@ GET         /mySalon/cancelInvite/:applyRecordId                            cont
 # TODO
 GET         /mySalon/checkInfoState                                         controllers.auth.Salons.checkInfoState
 GET         /mySalon/checkAuth                                              controllers.auth.Salons.checkAuth
+GET         /mySalon/resvsInProcessing                                      controllers.auth.Salons.getAllResvsInProcessing
+GET         /mySalon/resvsRecord                                            controllers.auth.Salons.getAllResvsRecord
+GET         /mySalon/handleOneResv                                          controllers.auth.Salons.handleOneResv(handleType: String, resvId: ObjectId)
+GET         /mySalon/showResvDetail                                         controllers.auth.Salons.showResvDetail(resvId: ObjectId, pageType: String)
+POST        /mySalon/handleReservation                                      controllers.auth.Salons.handleResv
+POST        /mySalon/findResvs                                              controllers.auth.Salons.findResvs
+POST        /mySalon/findResvsRecord                                        controllers.auth.Salons.findResvsRecord
 
 GET         /salonBasic                                                     controllers.auth.Salons.salonBasic
 GET         /salonDetail                                                    controllers.auth.Salons.salonDetail
@@ -266,6 +273,9 @@ GET         /addResvStyle                                                   cont
 POST        /findServiceForResv/:salonId                                    controllers.Reservations.getServicesByCondition(salonId: ObjectId, stylistId: String, styleId: String)
 GET         /reservSelectDate                                               controllers.Reservations.getTotalOfServices(stylistId: String, styleId: String)
 GET         /showResvStylist                                                controllers.Reservations.showStylistView(styleId: String)
+GET         /editResvInfoFromStyle                                          controllers.Reservations.cleanResvStyle
+GET         /editResvInfoFromStylist                                        controllers.Reservations.cleanResvStylist
+
 
 GET         /selectResvStyle/:id                                            controllers.auth.Reservations.selectResvStyle(id: ObjectId)
 GET         /reservConfirmPwd                                               controllers.auth.Reservations.reservConfirmPwd
@@ -276,6 +286,7 @@ GET         /editReservInfoFromStyle                                        cont
 
 POST        /reservConfirmInfo                                              controllers.auth.Reservations.reservConfirmInfo
 GET         /reservSuccess                                                  controllers.auth.Reservations.reservSuccess
+POST        /findResvsBySerach                                              controllers.auth.Reservations.findResvsBySerach
 
 # MyFollows
 GET         /javascriptRoutes                                               controllers.Application.javascriptRoutes

@@ -31,16 +31,16 @@
 	        <p class="mT10 lh13 taM">@Messages("hair.stylist") : @models.portal.stylist.Stylist.findUser(style.stylistId).nickName</p>
 	      </div>
 	      	@if(buttonType == "selectResvStyle") {
-              <div class="taC mT10">
-                <a href="@auth.routes.Reservations.selectResvStyle(style.id)" class="bS db nominatedReserve mHA">@Messages("reservation.reservStyle")</a>
-              </div>
+            <div class="taC mT10">
+              <a href="@auth.routes.Reservations.selectResvStyle(style.id)" class="bS db nominatedReserve mHA">@Messages("reservation.resvStyle")</a>
+            </div>
 		    } else {
-              @if(buttonType == "selectResvDate") {
-                <div class="taC mT10">
-                  <a href="@routes.Reservations.reservShowDate(salon.id, style.stylistId.toString, style.id.toString, 0, "editResvInfo")" class="bS db nominatedReserve mHA">@Messages("reservation.reservStyle")</a>
-                </div>
-              }
-            }
+          @if(buttonType == "selectResvDate") {
+            <div class="taC mT10">
+              <a href="@routes.Reservations.reservShowDate(salon.id, style.stylistId.toString, style.id.toString, 0, "editResvInfo")" class="bS db nominatedReserve mHA">@Messages("reservation.resvStyle")</a>
+            </div>
+          }
+        }
 	      </td>
 	    </tr>
 	    </tbody>

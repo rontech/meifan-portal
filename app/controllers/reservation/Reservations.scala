@@ -127,6 +127,36 @@ object Reservations extends MeifanNetApplication {
   }
 
   /**
+   * 清除已经预约的技师和发型
+   * 用于点击不预约技师时，先清技师和发型，以防技师和发型已预约后后退再次点击该按钮，技师和发型信息还保留着
+   * @return
+   */
+  def cleanResvStylist = Action {
+    var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
+
+    reservation = reservation.copy(stylistId = None)
+    Cache.set("reservation", reservation)
+
+    // 跳转到清除发型方法中
+    Redirect(controllers.routes.Reservations.cleanResvStyle)
+  }
+
+  /**
+   * 清除已经预约的发型
+   * 用于点击不预约发型时，先清除发型，以防发型已预约后后退再次点击该按钮，发型信息还保留着
+   * @return
+   */
+  def cleanResvStyle = Action {
+      var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
+
+      reservation = reservation.copy(styleId = None)
+      Cache.set("reservation", reservation)
+
+      // 跳转到编辑预约信息方法中
+      Redirect(controllers.auth.routes.Reservations.editReservInfo)
+  }
+
+  /**
    * 将发型存入cache中，进入选择预约服务画面
    * 用于预约此发型
    * @param salonId 沙龙id
