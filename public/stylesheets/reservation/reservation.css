@@ -405,19 +405,25 @@ line-height: 20px;
 padding: 10px;
 }
 
-/*--预约后台管理--*/
+.w403 {
+width: 475px;
+}
+
 td li {
 list-style: none;
 }
 
 .salonSearchBtn {
-background: url("/assets/images/commonBtn.png");
-font-family: "微软雅黑";
-font-weight: bold;
-border: none;
-line-height: 20px;
-cursor: pointer;
-width: 73px;
-height: 21px;
+    background: url("/assets/images/commonBtn.png");
+    font-family: "微软雅黑";
+    font-weight: bold;
+    border: none;
+    line-height: 20px;
+    cursor: pointer;
+    width: 73px;
+    height: 21px;
 }
-/*--预约后台管理--*/
+
+.salonSearchBtn:hover {
+    background-position: 0 -21px;
+}

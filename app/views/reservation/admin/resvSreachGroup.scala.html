@@ -6,13 +6,13 @@
 <div class="mT40 sreachtabBody">
   @form(if(pageType == "my-resvInProcessing"){auth.routes.Salons.findResvs} else{auth.routes.Salons.findResvsRecord}, 'id -> "resvSreachForm"){
     <div class="skinHeadingWrapper2 mB15 cFix pr">
-      <h3 class="fl skinHeading1 headingSearch offL">预约检索</h3>
+      <h3 class="fl skinHeading1 headingSearch offL">@Messages("reservation.resvSreach")</h3>
     </div>
     <div class="skinTbl1Wrapper">
       <table class="skinTbl1 pCell1" width="100%">
         <tbody>
           <tr>
-            <th class="w85 vaM taC nowrap">预约番号</th>
+            <th class="w85 vaM taC nowrap">@Messages("reservation.no")</th>
             <td colspan="5">
               @inputText(resvSreachForm("resvId"),
                           '_label -> None,
@@ -24,14 +24,14 @@
         <tbody>
           <tr><td colspan="6" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
           <tr>
-            <th class="w85 vaM taC nowrap">预约者</th>
+            <th class="w85 vaM taC nowrap">@Messages("reservation.resvUserId")</th>
             <td colspan="2">
             @inputText(resvSreachForm("nickName"),
               '_label -> None,
               '_help -> "",
               'id -> "nickName")
             </td>
-            <th class="w85 vaM taC nowrap">预留号码</th>
+            <th class="w85 vaM taC nowrap">@Messages("reservation.userPhone")</th>
             <td colspan="2">
             @inputText(resvSreachForm("userTel"),
               '_label -> None,
@@ -43,16 +43,16 @@
         <tbody>
           <tr><td colspan="6" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
           <tr>
-            <th class="w85 vaM taC nowrap">预约时间</th>
+            <th class="w85 vaM taC nowrap">@Messages("reservation.expectedDate")</th>
             <td colspan="5">
-              <span class="fl mR10">从</span>
+              <span class="fl mR10">@Messages("common.from")</span>
               @input(field = resvSreachForm("startExpectedDate"),
                 '_help -> "",
                 '_label -> None,
                 '_class -> "fl") { (id, name, value, _) =>
                 <input class="Wdate" id = "startExpectedDate" type="text" name="@name" value="@value" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm', maxDate:'#F{$dp.$D(\'endExpectedDate\')}'})">
               }
-              <span class="fl mR10 mL10">到</span>
+              <span class="fl mR10 mL10">@Messages("common.to")</span>
               @input(field = resvSreachForm("endExpectedDate"),
                 '_help -> "",
                 '_label -> None) { (id, name, value, _) =>
@@ -65,7 +65,7 @@
           <tbody>
             <tr><td colspan="6" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
             <tr>
-              <th class="w85 vaM taC nowrap">预约状态</th>
+              <th class="w85 vaM taC nowrap">@Messages("reservation.reservStatus")</th>
               <td colspan="5">
               @for((resvStatus, i) <- resvStatusList.zipWithIndex) {
                 <li class="fl w112">
@@ -88,7 +88,7 @@
         }
       </table>
       <div align="center">
-        <input type="submit" class = "salonSearchBtn mT10 mB10" value="检索">
+        <input type="submit" class = "salonSearchBtn mT10 mB10" value="@Messages("common.sreach")">
       </div>
     </div>
   }

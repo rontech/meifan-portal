@@ -44,7 +44,8 @@ GET         /serviceTypeMain                                                cont
 # Pages Which can be seen by anonymous.
 #-------------------------------------------------
 # Salon
-GET         /salon                                                          controllers.noAuth.Salons.index
+GET         /salon                                                          controllers.noAuth.Salons.index()
+GET         /nail                                                           controllers.noAuth.Salons.indexNail
 GET         /salon/:salonId                                                 controllers.noAuth.Salons.getSalon(salonId: ObjectId)
 # Salon.style
 GET         /salon/:salonId/style/:styId                                    controllers.noAuth.Salons.getOneStyle(salonId: ObjectId, styId: ObjectId)
@@ -55,6 +56,7 @@ GET         /salon/:salonId/stylist/:stlId                                  cont
 GET         /salon/:salonId/stylists                                        controllers.noAuth.Salons.getAllStylists(salonId: ObjectId)
 GET         /salon/:salonId/stylistFormBlog/:userId                         controllers.noAuth.Blogs.getAuthorOfSalonBlog(salonId: ObjectId, userId: String)
 # Salon.coupon
+
 GET         /salon/:salonId/coupons                                         controllers.noAuth.Salons.getAllCoupons(salonId: ObjectId, stylistId: String, styleId: String, jumpType: String)
 POST        /salon/:salonId/coupons/condition                               controllers.noAuth.Salons.getCouponsByCondition(salonId: ObjectId, stylistId: String, styleId: String)
 # Salon.comment
@@ -119,6 +121,14 @@ GET         /userPage/followedCoupon                                        cont
 GET         /userPage/followedBlog                                          controllers.auth.MyFollows.followedBlog(id: ObjectId)
 GET         /userPage/followedStyle                                         controllers.auth.MyFollows.followedStyle(id: ObjectId)
 GET         /userPage/info/:userId                                          controllers.auth.Users.userInfo(userId)
+GET         /myPage/myReserving                                             controllers.auth.Reservations.getReserving(userId)
+GET         /myPage/myReservationHistory                                    controllers.auth.Reservations.getReservationHistory(userId)
+GET         /myPage/myReservation/:reservationId                            controllers.auth.Reservations.showReservationDetailById(reservationId : ObjectId)
+GET         /myPage/deletingReserv/:reservationId                           controllers.auth.Reservations.deletingReserv(reservationId : ObjectId)
+GET         /myPage/deletedReserv/:reservationId                            controllers.auth.Reservations.deletedReserv(reservationId : ObjectId)
+
+
+
 
 
 #GET         /sendMessage                                                   controllers.auth.UserLetters.sendMessage
@@ -207,6 +217,8 @@ GET         /mySalon/checkInfoState                                         cont
 GET         /mySalon/checkAuth                                              controllers.auth.Salons.checkAuth
 GET         /mySalon/resvsInProcessing                                      controllers.auth.Salons.getAllResvsInProcessing
 GET         /mySalon/resvsRecord                                            controllers.auth.Salons.getAllResvsRecord
+GET         /mySalon/handleOneResv                                          controllers.auth.Salons.handleOneResv(handleType: String, resvId: ObjectId)
+GET         /mySalon/showResvDetail                                         controllers.auth.Salons.showResvDetail(resvId: ObjectId, pageType: String)
 POST        /mySalon/handleReservation                                      controllers.auth.Salons.handleResv
 POST        /mySalon/findResvs                                              controllers.auth.Salons.findResvs
 POST        /mySalon/findResvsRecord                                        controllers.auth.Salons.findResvsRecord
@@ -253,6 +265,7 @@ GET         /mySalon/invalidStyle/:styleId                                  cont
 # Reservation
 GET         /reservHairView/:id                                             controllers.Reservations.reservHairView(id: ObjectId)
 GET         /reservSelectStylist/:resvDate                                  controllers.Reservations.reservSelectStylist(resvDate: String)
+
 GET         /reservSelectStyle/:id                                          controllers.Reservations.reservSelectStyle(resvDate: String, id: ObjectId, jumpType: String)
 GET         /addExtraService                                                controllers.Reservations.reservServicesView(salonId: ObjectId, resvType: String, id: ObjectId, stylistId: String, styleId: String)
 GET         /addResvService                                                 controllers.Reservations.addResvService(id: String, resvType: String)
@@ -262,11 +275,15 @@ GET         /reservSelectDate                                               cont
 GET         /showResvStylist                                                controllers.Reservations.showStylistView(styleId: String)
 GET         /editResvInfoFromStyle                                          controllers.Reservations.cleanResvStyle
 GET         /editResvInfoFromStylist                                        controllers.Reservations.cleanResvStylist
+
+
 GET         /selectResvStyle/:id                                            controllers.auth.Reservations.selectResvStyle(id: ObjectId)
 GET         /reservConfirmPwd                                               controllers.auth.Reservations.reservConfirmPwd
 GET         /reservFinish                                                   controllers.auth.Reservations.reservFinish
 GET         /editReservInfo                                                 controllers.auth.Reservations.editReservInfo
+
 GET         /editReservInfoFromStyle                                        controllers.auth.Reservations.editResvInfoFromStyle(resvDate: String, stylistId: ObjectId, styleId: String)
+
 POST        /reservConfirmInfo                                              controllers.auth.Reservations.reservConfirmInfo
 GET         /reservSuccess                                                  controllers.auth.Reservations.reservSuccess
 POST        /findResvsBySerach                                              controllers.auth.Reservations.findResvsBySerach
@@ -311,6 +328,7 @@ POST        /mySalon/updateCheckPictures                                    cont
 
 
 # Reservation add by sangsang-hu
+
 GET         /salon/reserve/:salonId/:week                                   controllers.Reservations.reservShowDate(salonId: ObjectId, stylistId: String, styleId: String, week: Int, jumpType: String)
 GET         /reserve/:salonId/:id/:week                                     controllers.Reservations.reservSelectDate(salonId: ObjectId, resvType: String, id: ObjectId, stylistId: String, styleId: String, week: Int)
 

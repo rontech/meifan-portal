@@ -1,0 +1,116 @@
+@(reservation: models.portal.reservation.Reservation, pageType: String = "my-resvInProcessing")
+
+@import models.portal.reservation.Reservation
+
+<!-- 预约号码，时间等信息 -->
+<table cellspacing="0" class="wFull bdCell pCell10 fgThNml pCellV5H5 mT40">
+  <tbody>
+    <tr>
+      <th class="w150 bgLGray pb10 pt10">@Messages("reservation.no")</th>
+      <td colspan="3" class="pl10">
+        <p>
+          @reservation.id
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <th class="w150 bgLGray pb10 pt10">@Messages("reservation.expectedDate")</th>
+      <td colspan="3" class="pl10">
+        <p>@reservation.expectedDate.format("yyyy/MM/dd HH:mm")</p>
+      </td>
+    </tr>
+    <tr>
+      <th class="w150 bgLGray pb10 pt10">@Messages("reservation.serviceDurationTotal")</th>
+      <td colspan="3" class="pl10">
+        <p>
+          @if((reservation.serviceDuration / 60) != 0) {
+            @(reservation.serviceDuration / 60)@Messages("reservation.hour")
+          }
+          @if((reservation.serviceDuration % 60) != 0) {
+            @(reservation.serviceDuration % 60)@Messages("reservation.minute")
+          }
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <th class="w150 bgLGray  pb10 pt10">@Messages("reservation.stylist")</th>
+      <td class="pl10">
+        @reservation.stylistId match {
+          case None => {
+            @Messages("reservation.noStylist")
+          }
+          case Some(sty) => {
+            @models.portal.stylist.Stylist.findUser(sty).nickName
+          }
+        }
+      </td>
+      <th class="w150 bgLGray pb10 pt10">@Messages("reservation.style")</th>
+      <td class="pl10">
+        @reservation.styleId match {
+          case None => {
+            @Messages("reservation.noStyle")
+          }
+          case Some(sty) => {
+            @models.portal.style.Style.findOneById(sty) match {
+              case None => {}
+              case Some(style) => {
+                @style.styleName
+              }
+            }
+          }
+        }
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 预约优惠劵，套餐或者服务信息 -->
+@views.html.reservation.showReservItems(reservation, "confirmInfo", Reservation.findResvItemsForType(reservation.resvItems))
+
+<!-- 预约注意事项，留言信息 -->
+<table cellspacing="0" class="wFull bdCell pCell10 fgThNml pCellV5H5 mT10">
+  <tbody>
+    <tr>
+      <th class="w150 bgLGray pb10 pt10">@Messages("reservation.resvAttentionTitle")</th>
+      <td colspan="3" class="pl10">
+        <p class="fgGray">@Messages("reservation.resvAttention")</p>
+      </td>
+    </tr>
+    <tr>
+      <th class="w150 bgLGray pb10 pt10">@Messages("reservation.questionAndAnswerTitle")</th>
+      <td colspan="3" class="pl10">
+        <p class="fgGray">@Messages("reservation.questionFromSalon")</p>
+        <p>@reservation.userLeaveMsg</p>
+      </td>
+    </tr>
+    <tr>
+      <th class="w150 bgLGray pb10 pt10"><span class="b">@Messages("reservation.resvUserId")</span></th>
+      <td class="w276 pl10">
+        <span class="b">
+        @models.portal.user.User.findOneByUserId(reservation.userId).get.nickName
+        </span>
+      </td>
+      <th class="w150 bgLGray pb10 pt10"><span class="b">@Messages("reservation.userPhone")</span></th>
+      <td class="pl10">
+        <span class="fr fgOrange dibBL vaM fs10 pL1e txt1e pr10">※</span>
+        <span class="fl b">@reservation.userPhone</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+@if(pageType == "my-resvInProcessing") {
+  <div class="bgPink p15 mT10 fl w670">
+    <div class="mHA w345">
+      <p class="pV10 cR fs14">
+        @Messages("reservation.resvHandleMsg")
+      </p>
+    </div>
+    <input type="button" value="@Messages("common.backUp")" onclick="window.history.go(-1)" class="salonSearchBtn mT10 mB10 fl">
+    <a href="@auth.routes.Salons.handleOneResv("-1", reservation.id)" class="handleBtn mT10 mB10">@Messages("reservation.cancelResv")</a>
+    <a href="@auth.routes.Salons.handleOneResv("1", reservation.id)" class="handleBtn mT10 mB10">@Messages("reservation.completeResv")</a>
+    <a href="@auth.routes.Salons.handleOneResv("2", reservation.id)" class="handleBtn mT10 mB10">@Messages("reservation.expireResv")</a>
+  </div>
+} else {
+  <input type="button" value="@Messages("common.backUp")" onclick="window.history.go(-1)" class="salonSearchBtn mT10 mB10">
+}
+

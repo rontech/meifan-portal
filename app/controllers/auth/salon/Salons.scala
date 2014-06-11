@@ -968,5 +968,32 @@ object Salons extends MeifanNetSalonApplication {
     }
     )
   }
+
+  /**
+   * 进入某个预约详细信息页面
+   * @param resvId 预约id
+   * @param pageType 从哪个页面跳转过来的
+   * @return
+   */
+  def showResvDetail(resvId: ObjectId, pageType: String) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    val reservation: Reservation = Reservation.findOneById(resvId).get
+    println("reservation6/11 = " + reservation)
+
+    Ok(views.html.salon.admin.resvItemDetail(salon, reservation, pageType))
+  }
+
+  /**
+   * 根据预约id进行取消，完成，过期预约等操作
+   * 用于沙龙后台进入某个详细预约对其进行操作
+   * @return
+   */
+  def handleOneResv(handleType: String, resvId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    Reservation.handleResv(handleType, resvId)
+
+    Redirect(auth.routes.Salons.getAllResvsInProcessing)
+
+  }
 }
 

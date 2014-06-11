@@ -8,50 +8,53 @@
     @if(subNavInSalon == "my-resvInProcessing") {
       <div class="fr mB10">
         <select name= "handleType" class="vaM">
-          <option value= "-1">取消预约</option>
-          <option value= "1">完成预约</option>
-          <option value= "2">过期预约</option>
+          <option value= "-1">@Messages("reservation.handle.-1")</option>
+          <option value= "1">@Messages("reservation.handle.1")</option>
+          <option value= "2">@Messages("reservation.handle.2")</option>
         </select>
-        <input type="submit" name="searchT" value="执行" class="salonSearchBtn">
+        <input type="submit" name="searchT" value="@Messages("common.handle")" class="salonSearchBtn">
       </div>
     }
     <table cellspacing="0" id="jsMenuSelect" class="wFull bdCell pCell5 mT15 fgRbrown jscAddMenuSelect">
       <tbody>
         <tr class=" bgLGray2">
           @if(subNavInSalon == "my-resvInProcessing") {
-            <th><input type="checkbox" name="selectAllResv" id="selectAll" value="all" class="cbF">全选</th>
+            <th><input type="checkbox" name="selectAllResv" id="selectAll" value="all" class="cbF">@Messages("common.selectAll")</th>
           }
-          <th class="taC">预约番号</th>
-          <th class="taC">预约者</th>
-          <th class="taC">预约时间</th>
-          <th class="taC">预留手机号</th>
-          <th class="taC">预约状态</th>
+          <th class="taC">@Messages("reservation.no")</th>
+          <th class="taC">@Messages("reservation.resvUserId")</th>
+          <th class="taC">@Messages("reservation.expectedDate")</th>
+          <th class="taC">@Messages("reservation.userPhone")</th>
+          <th class="taC">@Messages("reservation.reservStatus")</th>
         </tr>
         @for((processingResv, i) <- processingResvs.zipWithIndex) {
-          <tr class="">
+          <tr class="txtC">
             @if(subNavInSalon == "my-resvInProcessing") {
               <td class="checkboxIndent">
                 <input type="checkbox" name="reservs[@i].resvId" id="@processingResv.id" value="@processingResv.id" class="cbF resvId">
               </td>
             }
-            <td>
+            <td class="txtC">
               <label for="@processingResv.id">
                 <span>@processingResv.id</span>
               </label>
             </td>
-            <td>
+            <td class="txtC">
             @models.portal.user.User.findOneByUserId(processingResv.userId).map(user => user.nickName).getOrElse("not found user")
             </td>
-            <td>
+            <td class="txtC">
               <span class="@if(processingResv.expectedDate.before(new Date())){cR}">
                 @processingResv.expectedDate.format("yyyy-MM-dd HH:ss")
               </span>
             </td>
-            <td>
+            <td class="txtC">
             @processingResv.userPhone
             </td>
-            <td>
-            @Messages("reservation.resvStatus." + processingResv.status)
+            <td class="txtC">
+              @Messages("reservation.resvStatus." + processingResv.status)
+              <p class="mT2">
+                <a href="@auth.routes.Salons.showResvDetail(processingResv.id, subNavInSalon)" class="iS arrowR b">@Messages("reservation.detail")</a>
+              </p>
             </td>
           </tr>
         }
