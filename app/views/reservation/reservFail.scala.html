@@ -1,6 +1,6 @@
-@(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation, failType: String, navBar: List[(String, String)] = Nil)
+@(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation, failType: String, user: Option[models.portal.user.User] = None, navBar: List[(String, String)] = Nil)
 
-@reservationInfoMain(navInSalon = "HairSalon", "four", salon, navBar) {
+@reservationInfoMain(navInSalon = "HairSalon", "four", salon, user, navBar) {
 
   @if(failType == "userHasResv") {
     <div class="mT50">

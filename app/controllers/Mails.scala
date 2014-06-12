@@ -35,6 +35,7 @@ import com.meifannet.framework.MeifanNetApplication
 import models.portal.user.User
 import models.portal.salon.{SalonAccount, Salon}
 import models.portal.mail.Mail
+import com.meifannet.portal.MeifanNetCustomerOptionalApplication
 
 /**
  * this object is to reset password of user and salon by sending mail
@@ -42,7 +43,7 @@ import models.portal.mail.Mail
  * person will get a mail included a link when he passes the verification
  * each link just can reset password one time successfully and works in 30 minutes
  */
-object Mails extends MeifanNetApplication {
+object Mails extends MeifanNetCustomerOptionalApplication {
 
   /**
    * 用户重置密码form
@@ -127,18 +128,20 @@ object Mails extends MeifanNetApplication {
   /**
    * 跳转至密码重置的页面，输入店铺的邮箱和用户名
    */
-  def forgotPasswordOfSalon = Action { implicit request =>
-    Ok(views.html.salon.sendMailForResetPwdOfSalon(mailAndAccountIdForm))
+  def forgotPasswordOfSalon = StackAction { implicit request =>
+    val user = loggedIn
+    Ok(views.html.salon.sendMailForResetPwdOfSalon(mailAndAccountIdForm, user))
   }
 
   /**
    * 发送邮件给salon
    */
   // 代码整合, 方法重构 // TODO
-  def sendMailForResetPwdOfSalon = Action { implicit request =>
+  def sendMailForResetPwdOfSalon = StackAction { implicit request =>
+    val user = loggedIn
 
     Mails.mailAndAccountIdForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.salon.sendMailForResetPwdOfSalon(errors)),
+      errors => BadRequest(views.html.salon.sendMailForResetPwdOfSalon(errors, user)),
       {
         salon =>
           val root: Configuration = Configuration.root()
@@ -220,7 +223,8 @@ object Mails extends MeifanNetApplication {
    * @param uuid
    * @return
    */
-  def passwordOfSalon(uuid: String) = Action { implicit request =>
+  def passwordOfSalon(uuid: String) = StackAction { implicit request =>
+    val user = loggedIn
     // 这边需要判断一下，是用户还是店铺，暂时是用户
     val mail = Mail.findOneByUuid(uuid)
     mail match {
@@ -229,7 +233,7 @@ object Mails extends MeifanNetApplication {
           NotFound
         } else {
           val salon = Salon.findOneById(m.objId).get
-          Ok(views.html.salon.resetPasswordOfSalon(resetPassOfSalonForm.fill((salon, "")), salon.salonAccount.accountId, m.uuid))
+          Ok(views.html.salon.resetPasswordOfSalon(resetPassOfSalonForm.fill((salon, "")), salon.salonAccount.accountId, m.uuid, user))
         }
       }
       case None => NotFound
@@ -243,12 +247,13 @@ object Mails extends MeifanNetApplication {
    * @param uuid
    * @return
    */
-  def resetPasswordOfSalon(uuid: String) = Action { implicit request =>
+  def resetPasswordOfSalon(uuid: String) = StackAction { implicit request =>
+    val user = loggedIn
     val newUuid: String = UUID.randomUUID().toString()
     val mail = Mail.findOneByUuid(uuid).get
     val salon = Salon.findOneById(mail.objId).get
     Mails.resetPassOfSalonForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.salon.resetPasswordOfSalon(errors, salon.salonAccount.accountId, uuid)),
+      errors => BadRequest(views.html.salon.resetPasswordOfSalon(errors, salon.salonAccount.accountId, uuid, user)),
       {
         case (salon, main) =>
           // 一个url只能修改一次密码
@@ -258,7 +263,7 @@ object Mails extends MeifanNetApplication {
 
           Salon.save(salon.copy(salonAccount = new SalonAccount(salon.salonAccount.accountId, main)), WriteConcern.Safe)
           //          Redirect(routes.Application.salonLogin)
-          Ok(views.html.salon.resetPwdResultOfSalon(true, ""))
+          Ok(views.html.salon.resetPwdResultOfSalon(true, "", user))
       })
   }
 }

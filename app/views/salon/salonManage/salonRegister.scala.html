@@ -1,167 +1,119 @@
-@(salonRegister: Form[models.portal.salon.Salon],industry: List[models.portal.industry.Industry])
+@(salonRegister: Form[models.portal.salon.Salon],industry: List[models.portal.industry.Industry], user: Option[models.portal.user.User] = None)
 
 @import helper._
 @import helper.twitterBootstrap._
+@import common.loginAndRegisterMain
 
-@main(Messages("salon.register")){
+@loginAndRegisterMain(Messages("salon.register"), "salonRegister", user){
   
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/salonAdmin.css")">
 
-  <div class="salonRegister">
-    <div class="contentsTitleWrapper">
-      <h2 class="contentsTitleInner">@Messages("salon.register")</h2>
-    </div>
+  @helper.form(noAuth.routes.Salons.register(), 'name ->"salonRegister"){
+    <div class="salonRegister">
+      <div class="registerForm">
+        <h3>@Messages("salon.info")</h3>
+        <div class="item">
+          <span class="label"><b class="cR">*</b>@Messages("salon.id"):</span>
 
-    <div class="mT10 pH10">
-      @helper.form(noAuth.routes.Salons.register(), 'name ->"salonRegister"){
-        <table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
-          <tbody>
-            @if(salonRegister.hasGlobalErrors){
-             <div>
-               @salonRegister.globalError.get.message
-              </div>                            
-            }
-            <tr>
-              <th class="w222">
-                <div class="dibBL vaM w160">
-                  <font class="cR">*</font>@Messages("salon.id")
-                </div>
-              </th>
-              <td>
-                @inputText(salonRegister("salonAccount.accountId"),
-                      '_label -> None,
-                      'id -> "accountId")
-              </td>
-              <td rowspan="10">
-                <div class="mT20 txtC">
-                  <span>@Messages("user.hasUserId")</span><br>
-                  <a href="@auth.routes.Salons.salonLogin"><span>@Messages("user.loginBtn")</span></a>
-                </div>
-              </td>                            
-            </tr>
-            <tr>
-              <th class="w222 ">
-                <!-- -->
-                <div class="dibBL vaM w154">
-                    <font class="cR">*</font>@Messages("salon.password")
-                </div>
-              </th>
-              <td>
-                <div>
-                  @inputPassword(salonRegister("salonAccount.password.main"),'_label -> None,
-                    'id -> "password_main")
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th class="w222 ">
-                <!-- -->
-                <div class="dibBL vaM w154">
-                    <font class="cR">*</font>@Messages("user.confirmPas")
-                </div>
-              </th>
-              <td>
-                <div>
-                  @inputPassword(salonRegister("salonAccount.password.confirm"),
-                    '_label -> None,
-                    'id ->"password_confirm")
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th class="w222 ">
-                <!-- -->
-                <div class="dibBL vaM w154">
-                    <font class="cR">*</font>@Messages("salon.Name")
-                </div>
-              </th>
-              <td>
-                <div>
-                  @inputText(salonRegister("salonName"),
-                    '_label ->  None)
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th class="w222 ">
-                <!-- -->
-                <div class="dibBL vaM w154">
-                    <font class="cR">*</font>@Messages("salon.type")
-                </div>
-              </th>
-              <td>
-                <div>
-                  @input(field = salonRegister("salonIndustry"),
-                    '_label -> None){(id,name,value,args) =>
-                   @for(i <- 0 to industry.length-1){
-                     <input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
-                   }
-                 }
-                </div>
-              </td>
-            </tr>                         
-            <tr>
-              <th class="w222 ">
-                <!-- -->
-                <div class="dibBL vaM w154">
-                    <font class="cR">*</font>@Messages("salon.mainPhone")
-                </div>
-              </th>
-              <td>
-                <div>
-                  @inputText(salonRegister("contactMethod.mainPhone"),
-                    '_label -> None,
-                    'id -> "contact_tel")
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th class="w222 ">
-                <!-- -->
-                <div class="dibBL vaM w154">
-                    <font class="cR">*</font>@Messages("salon.contact")
-                </div>
-              </th>
-              <td>
-                <div>
-                  @inputText(salonRegister("contactMethod.contact"),
-                    '_label -> None,
-                    'id->"contact")
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th class="w222 ">
-                <!-- -->
-                <div class="dibBL vaM w154">
-                    <font class="cR">*</font>@Messages("user.email")
-                </div>
-              </th>
-              <td>
-                <div>
-                  @inputText(salonRegister("contactMethod.email"),
-                    '_label -> None,
-                    'id->"contact_email")
-                </div>
-              </td>
-            </tr>                                                        
-          </tbody>
-        </table>
-        <div class="mT20 txtC">
-        @checkbox(
-          salonRegister("accept"),
-          '_label -> None,
-          '_text -> Messages("user.agreement"),
-          '_showConstraints -> false)
+          <div class="fl item-ifo">
+            @inputText(salonRegister("salonAccount.accountId"),
+              '_label -> None,
+              'id -> "accountId",
+              'class -> "text")
+          </div>
         </div>
-        <div class="mT20 txtC">
+        <div class="item">
+          <span class="label"><b class="cR">*</b>@Messages("salon.password"):</span>
+
+          <div class="fl item-ifo">
+            @inputPassword(salonRegister("salonAccount.password.main"),
+              '_label -> None,
+              'id -> "password_main",
+              'class -> "text")
+          </div>
+        </div>
+        <div class="item">
+          <span class="label"><b class="cR">*</b>@Messages("user.confirmPas"):</span>
+
+          <div class="fl item-ifo">
+            @inputPassword(salonRegister("salonAccount.password.confirm"),
+              '_label -> None,
+              'id ->"password_confirm",
+              'class -> "text")
+          </div>
+        </div>
+        <div class="item">
+          <span class="label"><b class="cR">*</b>@Messages("salon.Name"):</span>
+
+          <div class="fl item-ifo">
+            @inputText(salonRegister("salonName"),
+              '_label ->  None,
+              'class -> "text")
+          </div>
+        </div>
+        <div class="item">
+          <span class="label"><b class="cR">*</b>@Messages("salon.type"):</span>
+
+          <div class="fl item-ifo">
+            @input(field = salonRegister("salonIndustry"),
+              '_label -> None){(id,name,value,args) =>
+              @for(i <- 0 to industry.length-1){
+                <input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName">
+                <span class="salonIndustry">@Messages("industry.industryName."+industry(i).industryName)</span>
+                }
+            }
+          </div>
+        </div>
+        <div class="item">
+          <span class="label"><b class="cR">*</b>@Messages("salon.mainPhone"):</span>
+
+          <div class="fl item-ifo">
+            @inputText(salonRegister("contactMethod.mainPhone"),
+              '_label -> None,
+              'id -> "contact_tel",
+              'class -> "text")
+          </div>
+        </div>
+        <div class="item">
+          <span class="label"><b class="cR">*</b>@Messages("salon.contact"):</span>
+
+          <div class="fl item-ifo">
+            @inputText(salonRegister("contactMethod.contact"),
+              '_label -> None,
+              'id->"contact",
+              'class -> "text")
+          </div>
+        </div>
+        <div class="item">
+          <span class="label"><b class="cR">*</b>@Messages("user.email"):</span>
+
+          <div class="fl item-ifo">
+            @inputText(salonRegister("contactMethod.email"),
+              '_label -> None,
+              'id->"contact_email",
+              'class -> "text")
+          </div>
+        </div>
+        <div class="item item-new">
+          <span class="label">&nbsp;</span>
+
+          <div class="fl item-ifo">
+            @checkbox(
+              salonRegister("accept"),
+              '_label -> None,
+              '_text -> Messages("user.agreement"),
+              '_showConstraints -> false)
+          </div>
+        </div>
+        <div class="item">
+          <span class="label">&nbsp;</span>
           <input type = "hidden" name="salonPics[0].fileObjId" />
           <input type = "hidden" name="salonPics[0].picUse" value="LOGO"/>
-          <input type = "button" class = "buttons" value=@Messages("user.registerBtn") onclick="checksForSalonRegister();"/>
+          <input type = "button" class = "btn-img btn-regist" value=@Messages("user.registerBtn") onclick="checksForSalonRegister();"/>
         </div>
-      }
+      </div>
     </div>
-</div>
+  }
+
 }
 
 <script src="@routes.Assets.at("javascripts/stylist.js")" type="text/javascript"></script>
