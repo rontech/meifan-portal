@@ -420,7 +420,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
              serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), navBar = navBar, user = user))
         } else {
           Ok(views.html.reservation.reservSelectService(sl, Coupons.conditionForm.fill(couponSchDefaultConds), serviceTypes = srvTypes, coupons = coupons, menus = menus,
-            serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), stylistId, styleId,  navBar = navBar))
+            serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), stylistId, styleId, user,  navBar = navBar))
         }
       }
       case None => NotFound
@@ -505,7 +505,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
               if(stylistId.isEmpty()) {
                 Ok(views.html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), navBar, user))
               } else {
-                Ok(views.html.reservation.reservSelectService(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), stylistId, styleId, navBar))
+                Ok(views.html.reservation.reservSelectService(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), stylistId, styleId, user, navBar))
               }
             }
             case None => NotFound

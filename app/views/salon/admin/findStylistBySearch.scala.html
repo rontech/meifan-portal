@@ -53,7 +53,7 @@
       </div>
       <div class="taC mT10">
         @if(status == 1){
-          <a href="@routes.Reservations.reservHairView(stylist.stylistId)" class="salon-stylist-reserv buttons applyToStylist">@Messages("stylist.checkRsv")</a>        
+          <a href="#" class="salon-stylist-reserv buttons applyToStylist">@Messages("stylist.checkRsv")</a>
         }
         @if(status == 2){
           @if(models.portal.relation.SalonStylistApplyRecord.findOneSalonApRd(salon.id,stylist.stylistId) != None){

@@ -1,8 +1,8 @@
-@(mailAndAccountIdForm: Form[Option[models.portal.salon.Salon]])
+@(mailAndAccountIdForm: Form[Option[models.portal.salon.Salon]], user: Option[models.portal.user.User] = None)
 
   @import helper._
 
-  @main(Messages("common.resetPassword")) {
+  @main(Messages("common.resetPassword"), user) {
      <head>
       <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/findPwd.css")">
     </head>

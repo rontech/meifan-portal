@@ -120,7 +120,7 @@ position: absolute;
 	line-height:32px;
 }
 #top_list ul li.sc{
-	background:url(/assets/images/pot01.jpg) no-repeat left;
+	background:url(/assets/images/pot01.png) no-repeat left;
 	padding-left:12px;
 }
 #top_list ul li.sc a{
@@ -2038,3 +2038,54 @@ background-color: #F5F5F5;
 .mysalon-stylist {
 float: left;
 }
+
+#top_list ul li.topBtn {
+padding-left: 0;
+}
+
+/*--用户/沙龙登录--*/
+#loginNav{
+    width:950px;
+    clear:both;
+    overflow:hidden;
+    height:32px;
+    margin-top: 40px;
+    margin-right: auto;
+    margin-left: auto;
+}
+#loginNav ul li{
+    float:right;
+    padding:0 2px;
+}
+#loginNav ul li a{
+    background:url(/assets/images/nav_login_btn_.png) no-repeat 0 1px;
+    width: 130px;
+    height: 32px;
+    line-height: 36px;
+    font-size: 14px;
+    font-family: "微软雅黑";
+    display: block;
+    text-align: center;
+    color: #000;
+    background-size: 130px 32px;
+}
+#loginNav ul li a:hover{
+    background:url(/assets/images/nav_login_btn.png) no-repeat;
+    text-decoration:none;
+    color:#f36d7a;
+    background-size: 130px 32px;
+}
+#loginNav ul li.btn a {
+  background: url(/assets/images/nav_login_btn.png) no-repeat;
+  width: 128px;
+  height: 36px;
+  line-height: 36px;
+  font-size: 14px;
+  font-family: "微软雅黑";
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: #f36d7a;
+  font-weight: normal;
+}
+/*--用户/沙龙登录--*/

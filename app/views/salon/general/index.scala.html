@@ -1,6 +1,6 @@
 @(nav : String, navBar: List[(String, String)], user: Option[models.portal.user.User], searchParaForSalon: models.portal.search.SearchParaForSalon, salons: List[models.portal.search.SalonGeneralSrchRst])
 
-@main(Messages("site.title"), nav, navBar) {
+@main(Messages("site.title"), user, nav, navBar) {
 
   <div id="generalContents">
 

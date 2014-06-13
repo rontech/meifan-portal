@@ -73,7 +73,7 @@ $('#contact_tel').focus(function () {
  */
 $('#salonName').focus(function () {
   this.setAttribute("maxlength", 40);
-  $('#salonName  ~ .help-inline').text("请填写工商局注册的全称。4~40位字符，可由中英文、数字及“_”、“-”、（）组成").removeClass("trueMsg").removeClass("errorMsg");
+  $('#salonName  ~ .help-inline').text("请填写工商局注册的全称").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function () {
   checkedSalonName()
 });
