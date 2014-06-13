@@ -28,6 +28,7 @@ import models._
 import java.text.SimpleDateFormat
 import play.cache.Cache
 import controllers.auth._
+import controllers.noAuth._
 
 
 import com.meifannet.framework.MeifanNetApplication
@@ -46,21 +47,6 @@ import models.portal.service.ServiceByType
 import models.portal.reservation.ResvSchedule
 
 object Reservations extends MeifanNetApplication {
-  /**
-   * 添加额外服务form
-   */
-  def addServicesForm: Form[ResvGroup] = Form {
-    mapping(
-      "resvItems" -> list(
-        mapping(
-          "id" -> text) {
-          (id) => ResvItem("service", new ObjectId(id), 0)
-        } {
-          resvItem => Some((resvItem.mainResvObjId.toString()))
-        })
-    )(ResvGroup.apply)(ResvGroup.unapply)
-  }
-
 
   def reservHairView(id: ObjectId) = Action {
     Ok(views.html.reservation.reservHairView("hello"))
@@ -72,7 +58,7 @@ object Reservations extends MeifanNetApplication {
    * @param resvType 预约内容类型
    * @param id 根据预约内容类型区分是什么id，如resvType为coupon,那么id为优惠劵id
    */
-  def reservServicesView(salonId: ObjectId, resvType: String, id: ObjectId, stylistId: String) = Action {
+  def reservServicesView(salonId: ObjectId, resvType: String, id: ObjectId, stylistId: String, styleId: String) = Action {
     var resvItems: List[ResvItem] = Nil
     var resvItem: ResvItem = ResvItem("", id, 1)
     val serviceTypeNames: List[String] = Service.getServiceTypeList
@@ -110,7 +96,7 @@ object Reservations extends MeifanNetApplication {
     salon match {
       case Some(s) => {
         val srvTypes: List[ServiceType] = ServiceType.findAllServiceTypes(s.salonIndustry)
-        Ok(views.html.reservation.addExtraService(s, reservation, resvItem, Coupons.conditionForm.fill(couponSchDefaultConds), servicesByTypes, srvTypes, stylistId))
+        Ok(views.html.reservation.addExtraService(s, reservation, resvItem, Coupons.conditionForm.fill(couponSchDefaultConds), servicesByTypes, srvTypes, stylistId, styleId))
       }
       case None => NotFound
     }
@@ -141,10 +127,58 @@ object Reservations extends MeifanNetApplication {
   }
 
   /**
+   * 清除已经预约的技师和发型
+   * 用于点击不预约技师时，先清技师和发型，以防技师和发型已预约后后退再次点击该按钮，技师和发型信息还保留着
+   * @return
+   */
+  def cleanResvStylist = Action {
+    var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
+
+    reservation = reservation.copy(stylistId = None)
+    Cache.set("reservation", reservation)
+
+    // 跳转到清除发型方法中
+    Redirect(controllers.routes.Reservations.cleanResvStyle)
+  }
+
+  /**
+   * 清除已经预约的发型
+   * 用于点击不预约发型时，先清除发型，以防发型已预约后后退再次点击该按钮，发型信息还保留着
+   * @return
+   */
+  def cleanResvStyle = Action {
+      var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
+
+      reservation = reservation.copy(styleId = None)
+      Cache.set("reservation", reservation)
+
+      // 跳转到编辑预约信息方法中
+      Redirect(controllers.auth.routes.Reservations.editReservInfo)
+  }
+
+  /**
+   * 将发型存入cache中，进入选择预约服务画面
+   * 用于预约此发型
+   * @param salonId 沙龙id
+   * @param stylistId 技师id
+   * @param styleId 发型id
+   * @return
+   */
+  def addResvStyle(salonId: ObjectId, stylistId: String, styleId: ObjectId) = Action {
+    implicit request =>
+    // 将发型存入cache中
+    Cache.set("styleId", styleId.toString)
+
+    // 跳转到选择预约服务画面
+    //Redirect(noAuth.routes.Salons.getAllCoupons(salonId, stylistId, "reservation"))
+    Ok("aa")
+  }
+
+  /**
    * 用于添加额外服务的搜索
    * @param salonId 沙龙id
    */
-  def getServicesByCondition(salonId: ObjectId, stylistId: String) = Action {
+  def getServicesByCondition(salonId: ObjectId, stylistId: String, styleId: String) = Action {
     implicit request =>
       import Coupons.conditionForm
       conditionForm.bindFromRequest.fold(
@@ -198,7 +232,8 @@ object Reservations extends MeifanNetApplication {
           salon match {
             case Some(s) => {
               val srvTypes: List[ServiceType] = ServiceType.findAllServiceTypes(s.salonIndustry)
-              Ok(views.html.reservation.addExtraService(s, reservation, resvItem, Coupons.conditionForm.fill(couponServiceType), servicesByTypes, srvTypes, stylistId))
+              Ok(views.html.reservation.addExtraService(s, reservation, resvItem, Coupons.conditionForm.fill(couponServiceType),
+                 servicesByTypes, srvTypes, stylistId, styleId))
             }
             case None => NotFound
           }
@@ -208,7 +243,7 @@ object Reservations extends MeifanNetApplication {
   /**
    * 取得预约内容中服务总时间和总价格
    */
-  def getTotalOfServices(stylistId: String) = Action {
+  def getTotalOfServices(stylistId: String, styleId: String) = Action {
     implicit request =>
       var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
       var serviceDuration: Int = 0
@@ -249,7 +284,7 @@ object Reservations extends MeifanNetApplication {
       reservation = reservation.copy(serviceDuration = serviceDuration, price = price, totalCost = price)
       Cache.set("reservation", reservation)
 
-      Redirect(routes.Reservations.reservShowDate(reservation.salonId, stylistId, 0))
+      Redirect(routes.Reservations.reservShowDate(reservation.salonId, stylistId, styleId, 0, ""))
   }
   
   /**
@@ -259,7 +294,7 @@ object Reservations extends MeifanNetApplication {
    * @param id 根据预约内容类型区分是什么id，如resvType为coupon,那么id为优惠劵id
    * @param week 从今天开始的第几周显示，如果为0，那么从这周显示
    */
-  def reservSelectDate(salonId: ObjectId, resvType: String, id: ObjectId, stylistId: String, week: Int) = Action {
+  def reservSelectDate(salonId: ObjectId, resvType: String, id: ObjectId, stylistId: String, styleId: String, week: Int) = Action {
     implicit request =>
     // 将优惠劵的有关信息存入预约表中
       var resvItems: List[ResvItem] = Nil
@@ -305,21 +340,22 @@ object Reservations extends MeifanNetApplication {
 
       var reservation: Reservation = Reservation(new ObjectId, "", salonId, 0, new Date, serviceDuration, None, resvItems, None, "", "", price, 0, price, new Date, new Date)
 
-      Cache.set("reservation", reservation);
-      Redirect(routes.Reservations.reservShowDate(salonId, stylistId, week))
+      Cache.set("reservation", reservation)
+      Redirect(routes.Reservations.reservShowDate(salonId, stylistId, styleId, week, ""))
   }
   
   /**
-   * 进入店铺中所有技师的画面（可查看各个技师的预约日程）
+   * 进入店铺中所有技师的画面（可查看各个技师的预约日程)
+   * @param styleId 发型id，可为空
    */
-  def showStylistView = Action {
+  def showStylistView(styleId: String) = Action {
     var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
     var resvSchedule: ResvSchedule = ResvSchedule(Nil, Nil, Nil, Nil)
     
     val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
 
     salon match {
-      case Some(s) => Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, None, 0, "resvStylist"))
+      case Some(s) => Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, None, styleId, 0, "resvStylist", ""))
       case None => NotFound
     }
   }
@@ -365,10 +401,13 @@ object Reservations extends MeifanNetApplication {
   }
 
   /**
-   * 根据指定的技师进入相关发型的选择
-   * @param stylistId 指定技师
+   * 根据预约的技师进入相关发型的选择
+   * @param resvDate 预约时间，可为空，如果从选择技师画面进入该方法，那么预约时间为空
+   * @param stylistId 技师id
+   * @param jumpType 跳转类型，用于发型选择画面中选择之后的跳转
+   * @return
    */
-  def reservSelectStyle(resvDate: String, stylistId: ObjectId) = Action {
+  def reservSelectStyle(resvDate: String, stylistId: ObjectId, jumpType: String) = Action { implicit request =>
     var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
     reservation = reservation.copy(stylistId = Some(stylistId))
     if(resvDate != "") {
@@ -376,7 +415,6 @@ object Reservations extends MeifanNetApplication {
 	    var expectedDate: Date = new SimpleDateFormat("yyyyMMddHHmm").parse(resvDate)
 	    reservation = reservation.copy(expectedDate = expectedDate)
     }
-
     Cache.set("reservation", reservation)
 
     // 得到该技师的所有发型
@@ -385,7 +423,7 @@ object Reservations extends MeifanNetApplication {
     val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
 
     salon match {
-      case Some(s) => Ok(views.html.reservation.reservSelectStyleMain(s, reservation, styles))
+      case Some(s) => Ok(views.html.reservation.reservSelectStyleMain(s, reservation, styles, jumpType))
       case None => NotFound
     }
   }
@@ -396,7 +434,7 @@ object Reservations extends MeifanNetApplication {
    * @param stylistId 技师id，如果为空那么不是通过指名预约进入技师日程表的 
    * @param week 从今天开始的第几周显示，如果为0，那么从这周显示
    */
-  def reservShowDate(salonId: ObjectId, stylistId: String, week: Int) = Action {
+  def reservShowDate(salonId: ObjectId, stylistId: String, styleId: String, week: Int, jumpType: String) = Action {
     val salon: Option[Salon] = Salon.findOneById(salonId)
 
     var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
@@ -405,7 +443,6 @@ object Reservations extends MeifanNetApplication {
     } else {
       reservation = reservation.copy(stylistId = None)
     }
-    
     Cache.set("reservation", reservation)
 
     // 查找出该地店铺的所有预约
@@ -592,9 +629,9 @@ object Reservations extends MeifanNetApplication {
     salon match {
       case Some(s) => {
         if(stylistId == "") {
-          Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, None, weekIndex, "resvSalon"))
+          Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, None, "", weekIndex, "resvSalon", jumpType))
         } else {
-          Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, Some(new ObjectId(stylistId)), weekIndex, "resvStylist"))
+          Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, Some(new ObjectId(stylistId)), styleId, weekIndex, "resvStylist", jumpType))
         }
       }
       case None => NotFound

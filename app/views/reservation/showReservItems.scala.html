@@ -3,7 +3,7 @@
 @import models.portal.menu.Menu
 @import models.portal.service.Service
 
-<table cellspacing="0" class="wFull bdCell fgThNml pCellV5H5 mT10">
+<table cellspacing="0" class="wFull bdCell pCell10 fgThNml pCellV5H5 mT10">
   <tbody>
     @for(reservItem <- reservation.resvItems) {
       <tr>
@@ -12,7 +12,7 @@
         @models.portal.coupon.Coupon.findOneById(reservItem.mainResvObjId) match {
           case None => {}
           case Some(coupon) => {
-            <td class="w478 p10">
+            <td class="w403 p10">
               <ul class="couponMenuIcons mT5 fs10 cFix">
               @for(service <- coupon.serviceItems) {
                 <li class="couponMenuIcon mB5">
@@ -93,7 +93,7 @@
             @Menu.findOneById(reservItem.mainResvObjId) match {
               case None => {}
               case Some(menu) => {
-                <td class="w478 p10">
+                <td class="w403 p10">
                   <ul class="couponMenuIcons mT5 fs10 cFix">
                   @for(service <- menu.serviceItems) {
                     <li class="couponMenuIcon mB5">
@@ -126,7 +126,7 @@
             @Service.findOneById(reservItem.mainResvObjId) match {
               case None => {}
               case Some(service) => {
-                <td class="w478 p10">
+                <td class="w403 p10">
                   <div class="">
                     <div class="w560 b fs12 cFix">
                       <p class="fl">

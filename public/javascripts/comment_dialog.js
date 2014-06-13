@@ -109,32 +109,32 @@ function create_comment_dialog(commentObjId, commentObjType) {
 //    	var url = @auth.routes.Comments.addCommentToCoupon(commentObjId, commentObjType);
     	$("#myForm").attr("action", url);
     	if(complex == 0) {
-//    		alert("您还没有给第一项打分呢！");
-//    		alert("@Messages('comment.noFirst')");
-//    		<body data-key="${play.configuration.get("comment.noFirst")}">
-    		var key = $('body').data('key');
-    		alert(key);
-    		
+    		alert(Messages("comment.noFirst"));
     		return false;
     	}
     	if(atmosphere == 0) {
-    		alert("您还没有给第二项打分呢！");
+//    		alert("您还没有给第二项打分呢！");
+        alert(Messages("comment.noSecond"));
     		return false;
     	}
     	if(service == 0) {
-    		alert("您还没有给第三项打分呢！");
+//    		alert("您还没有给第三项打分呢！");
+        alert(Messages("comment.noThird"));
     		return false;
     	}
     	if(skill == 0) {
-    		alert("您还没有给第四项打分呢！");
+//    		alert("您还没有给第四项打分呢！");
+        alert(Messages("comment.noFourth"));
     		return false;
     	}
     	if(price == 0) {
-    		alert("您还没有给第五项打分呢！");
+//    		alert("您还没有给第五项打分呢！");
+        alert(Messages("comment.noFifth"));
     		return false;
     	}
     	if($("#content1").val().trim() == "") {
-    		alert("请输入评论的内容");
+//    		alert("请输入评论的内容");
+        alert(Messages("comment.contentNotNull"));
     		return false;
     	}
     

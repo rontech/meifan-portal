@@ -1,4 +1,4 @@
-@(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation, styles: List[models.portal.style.Style], navBar: List[(String, String)] = Nil)
+@(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation, styles: List[models.portal.style.Style], jumpType: String, navBar: List[(String, String)] = Nil)
 
   @reservationInfoMain(navInSalon = "HairSalon", "two", salon, navBar) {
 
@@ -6,5 +6,5 @@
 
     @views.html.reservation.reservItemsInfo(reservation, "stylist")
 
-    @views.html.reservation.reservSelectStyle(salon, reservation, styles)
+    @views.html.reservation.reservSelectStyle(salon, reservation, styles, jumpType)
   }

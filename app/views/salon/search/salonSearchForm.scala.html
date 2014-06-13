@@ -1,4 +1,4 @@
-@(searchParaForSalon: models.portal.search.SearchParaForSalon)
+@(searchParaForSalon: models.portal.search.SearchParaForSalon, nav : String)
 
 @import models.portal.search._
 
@@ -69,7 +69,13 @@
           }
         </select>
       </li>*@
-      <li><input name="salonIndustry" type="hidden" value="Hairdressing"></li>
+      @if(nav.equals("HairSalon")){
+        <li><input name="salonIndustry" type="hidden" value="Hairdressing"></li>
+      }else{
+        @if(nav.equals("NailSalon")){
+          <li><input name="salonIndustry" type="hidden" value="Manicures"></li>
+        }
+      }
       <li>@Messages("salonSearchPage.keyword")</li>
       <li><input id="keyword" name="keyWord" type="text" value="@searchParaForSalon.keyWord" placeholder="" onblur="hidekeys();" autocomplete="off" class="text" onkeyup="getSuggest(this.value, event);setPosition(getIdOBJ('keyword'));updown(event)" onkeydown="if(getKeyCode(event) == 13)form_submit();">
         <div id="dSuggest" style="display:none;width:17%;" ></div>
@@ -149,7 +155,9 @@
         <a href="javascript:unlimitSalons();" class="cur" method="b_no">@Messages("salonSearchPage.unlimited")</a>
       </div>
       <ul class="place prver" id="unlimitSalons_group">
-        @for((salon,i) <- models.portal.salon.Salon.findAll.toList.zipWithIndex){
+        @*
+        @for((salon,i) <- models.portal.salon.Salon.findAll.toList.zipWithIndex){*@
+        @for((salon,i) <- models.portal.search.Brand.findBrandByIndustry(controllers.Application.getIndustryByNav(nav)).zipWithIndex){
           @if(i<4){
             <li class="">
               @if(searchParaForSalon.salonName.contains(salon.salonName)){

@@ -20,7 +20,7 @@
               @Messages("hair.BeCollected")
               </span>
             </a>-->
-            <a href="javascript:void(0);" onclick="addFollow ( ' @style.id ',' style ')" class="fr bS db addIntoMyStylePink mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
+            <a href="javascript:void(0);" onclick="addFollow('@style.id','style')" class="fr bS db addIntoMyStylePink mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
             @Messages("hair.ToCollect")
             </a>
           </p>
@@ -58,7 +58,7 @@
                   @Messages("hair.BeCollected")
                   </span>
                 </a> -->
-                <a href="javascript:void(0);" onclick="addFollow ( ' @style.id ',' style ')" class="bS db addIntoMyStylePink mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
+                <a href="javascript:void(0);" onclick="addFollow('@style.id','style')" class="bS db addIntoMyStylePink mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
                 @Messages("hair.ToCollect")
                 </a>
               </p>
@@ -88,8 +88,8 @@
               </a>
             </div>
             <div class="fr" >
-              <a href="@noAuth.routes.Salons.getAllCoupons(salon.id, style.stylistId.toString)" class="bS db nominatedReserve" width="200px">
-              @Messages("stylist.selectForReserv")
+              <a href="@noAuth.routes.Salons.getAllCoupons(salon.id, style.stylistId.toString, style.id.toString, "reservation")" class="bS db nominatedReserve" width="200px">
+              @Messages("reservation.resvStyle")
               </a>
             </div>
           </div>
@@ -189,14 +189,13 @@
                   </span>
                 </dd>
               }
-
             </dl>
           </div>
         </div>
       </div>
     </div>
       <!-- ↓carousel -->
-    <div class="w785 mT30">
+    <div class="w785 mT70">
       <div class="yS mainContentsSecondTitleOuter" id="jsiCarouselPaging" style="position : relative ;">
         <h2 class="yS mainContentsSecondTitleInner">
         @Messages("hair.styleOfStylist")
@@ -210,8 +209,7 @@
               @if(stylistAll.id != style.id) {
                 <li>
                   <a href="@noAuth.routes.Salons.getOneStyle(salon.id, stylistAll.id)" class="db pr">
-                    <img class="w89" src="@routes.Application.getPhoto(stylistAll.stylePic(0).fileObjId)"
-                    class="bdImgGray">
+                    <img class="w89 bdImgGray" src="@routes.Application.getPhoto(stylistAll.stylePic(0).fileObjId)"/>
                   </a>
                 </li>
               }

@@ -23,7 +23,7 @@
     </div>
     @if(failType == "userHasResv") {
       <div class="fl br w380 h80">
-        <p class="mT10 pH20 fgGray">@Messages("reservation.cancelResv")</p>
+        <p class="mT10 pH20 fgGray">@Messages("reservation.cancelResvMsg")</p>
         <p class="pH20 resvbt"><a href="@auth.routes.Users.myReservation">@Messages("user.reservation")</p>
       </div>
     } else {
@@ -36,7 +36,7 @@
     }
     <div class="w380 fl">
       <p class="mT10 pH20 fgGray">@Messages("reservation.selectOtherDate")</p>
-      <p class="pH20 resvbt"><a href="@routes.Reservations.reservShowDate(salon.id, "", 0)">@Messages("reservation.selectDate")</p>
+      <p class="pH20 resvbt"><a href="@routes.Reservations.reservShowDate(salon.id, "", "", 0, "")">@Messages("reservation.selectDate")</p>
     </div>
   </div>
 

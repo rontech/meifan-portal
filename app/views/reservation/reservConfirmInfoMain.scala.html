@@ -1,4 +1,4 @@
-@(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation)(content: Html)
+@(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation, tabType: String)(content: Html)
 
 <html>
 
@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    @views.html.reservation.reservationTop(salon, "three")
+    @views.html.reservation.reservationTop(salon, tabType)
 
       <!-- ↓salonInfoBody -->
       <!-- show different body contents according to the NAV tab. -->

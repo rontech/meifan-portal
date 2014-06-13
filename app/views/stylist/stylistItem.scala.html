@@ -46,14 +46,14 @@
       case None => {Not Found}
       case Some(wk) => {
         @if(buttonType == "checkStylistDate") {
-          <a href="@routes.Reservations.reservShowDate(wk.salonId, wk.stylistId.toString, 0)" class="bS db nominatedReserve mHA">@Messages("reservation.checkStylistDate")</a>
+          <a href="@routes.Reservations.reservShowDate(wk.salonId, wk.stylistId.toString, "", 0, "")" class="bS db nominatedReserve mHA">@Messages("reservation.checkStylistDate")</a>
         } else {
           @if(buttonType == "selectStylist") {
             <div class="taC">
-              <a href="@routes.Reservations.reservSelectStyle("", wk.stylistId)" class="bS db nominatedReserve mHA">@Messages("stylist.selectForReserv")</a>
+              <a href="@routes.Reservations.reservSelectStyle("", wk.stylistId, "selectResvStyle")" class="bS db nominatedReserve mHA">@Messages("reservation.reservStylist")</a>
             </div>
           } else {
-            <a href="@noAuth.routes.Salons.getAllCoupons(wk.salonId, wk.stylistId.toString)" class="bS db nominatedReserve mHA">@Messages("stylist.selectForReserv")</a>
+            <a href="@noAuth.routes.Salons.getAllCoupons(wk.salonId, wk.stylistId.toString, "", "serviceOfStylist")" class="bS db nominatedReserve mHA">@Messages("stylist.selectForReserv")</a>
           }
         }
       }

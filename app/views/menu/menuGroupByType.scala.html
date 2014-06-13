@@ -1,5 +1,5 @@
 @* menuGroupByType Template File *@
-@(salon: models.portal.salon.Salon, serviceByTypes: Seq[models.portal.service.ServiceByType], stylistId: String = "")
+@(salon: models.portal.salon.Salon, serviceByTypes: Seq[models.portal.service.ServiceByType], stylistId: String = "", styleId: String = "")
 
 
 <div class="yS mainContentsSecondTitleOuter mT50">
@@ -13,7 +13,7 @@
 	  </div>
 	} else {
 	  @for(serviceByType <- serviceByTypes) {
-	    @views.html.menu.menuItemByType(salon, serviceByType, stylistId)
+	    @views.html.menu.menuItemByType(salon, serviceByType, stylistId, styleId)
 	  }
 	
 	}

@@ -216,7 +216,27 @@ object Salons extends MeifanNetCustomerOptionalApplication {
       SalonFacilities(false, false, false, false, false, false, false, false, false, ""),
       SortByConditions("price", false, false, true))
     val salons = Salon.findSalonBySearchPara(searchParaForSalon)
-    Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
+    val nav = "HairSalon"
+    Ok(views.html.salon.general.index(nav = nav, navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
+  }
+
+  /**
+   * 跳转沙龙前台检索页面
+   * 从session中获得城市，前面步骤保证必然会存在
+   * 如果找不到城市默认给苏州
+   * @return
+   */
+  def indexNail = StackAction { implicit request =>
+    val user = loggedIn
+    var myCity = request.session.get("myCity").map{ city => city } getOrElse { "苏州" }
+
+    val searchParaForSalon = new SearchParaForSalon(None, myCity, "all", List(), "Manicures", List(),
+      PriceRange(new ObjectId, 0, 1000000, "Hairdressing"), SeatNums(0, 10000),
+      SalonFacilities(false, false, false, false, false, false, false, false, false, ""),
+      SortByConditions("price", false, false, true))
+    val salons = Salon.findSalonBySearchPara(searchParaForSalon)
+    val nav = "NailSalon"
+    Ok(views.html.salon.general.index(nav = nav, navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
   }
 
   /*-------------------------
@@ -358,8 +378,12 @@ object Salons extends MeifanNetCustomerOptionalApplication {
 
   /**
    * Find All the coupons, menus, and services of a salon.
+   * @param salonId 沙龙id
+   * @param stylistId 技师id，为string形式，可为空
+   * @param jumpType 跳转类型，优惠劵·菜单画面通用，如果类型为reservation，那么跳转到预约选择服务画面，否则为serviceOfSalon,跳转到优惠劵，菜单，服务显示画面
+   * @return
    */
-  def getAllCoupons(salonId: ObjectId, stylistId: String) = StackAction { implicit request =>
+  def getAllCoupons(salonId: ObjectId, stylistId: String, styleId: String, jumpType: String) = StackAction { implicit request =>
     val user = loggedIn
     val salon: Option[Salon] = Salon.findOneById(salonId)
     salon match {
@@ -391,12 +415,12 @@ object Salons extends MeifanNetCustomerOptionalApplication {
         // Navigation Bar
         var navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.couponMenus"), ""))
         // Jump
-        if(stylistId == "") {
+        if(jumpType == "serviceOfSalon") {
           Ok(views.html.salon.store.salonInfoCouponAll(salon = sl, Coupons.conditionForm.fill(couponSchDefaultConds), serviceTypes = srvTypes, coupons = coupons, menus = menus,
              serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), navBar = navBar, user = user))
         } else {
           Ok(views.html.reservation.reservSelectService(sl, Coupons.conditionForm.fill(couponSchDefaultConds), serviceTypes = srvTypes, coupons = coupons, menus = menus,
-             serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), stylistId, navBar = navBar))
+            serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), stylistId, styleId,  navBar = navBar))
         }
       }
       case None => NotFound
@@ -406,7 +430,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
   /**
    * Find coupons & menus & services by conditions from a salon.
    */
-  def getCouponsByCondition(salonId: ObjectId, stylistId: String) = StackAction { implicit request =>
+  def getCouponsByCondition(salonId: ObjectId, stylistId: String, styleId: String) = StackAction { implicit request =>
     val user = loggedIn
     import Coupons.conditionForm
     conditionForm.bindFromRequest.fold(
@@ -481,7 +505,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
               if(stylistId.isEmpty()) {
                 Ok(views.html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), navBar, user))
               } else {
-                Ok(views.html.reservation.reservSelectService(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), stylistId, navBar))
+                Ok(views.html.reservation.reservSelectService(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), stylistId, styleId, navBar))
               }
             }
             case None => NotFound
@@ -523,7 +547,13 @@ object Salons extends MeifanNetCustomerOptionalApplication {
       {
         case (salonSearchForm) => {
           val salons = Salon.findSalonBySearchPara(salonSearchForm)
-          Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = salonSearchForm, salons = salons))
+          var nav = ""
+          if(salonSearchForm.salonIndustry.equals("Hairdressing")){
+            nav = "HairSalon"
+          }else if(salonSearchForm.salonIndustry.equals("Manicures")){
+            nav = "NailSalon"
+          }
+          Ok(views.html.salon.general.index(nav = nav, navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = salonSearchForm, salons = salons))
         }
       })
   }

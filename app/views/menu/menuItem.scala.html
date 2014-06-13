@@ -1,4 +1,4 @@
-@(menu: models.portal.menu.Menu, stylistId: String = "")
+@(menu: models.portal.menu.Menu, stylistId: String = "", styleId: String)
 
 <table summary="summary" cellspacing="1" class="wFull bgLGray2 mT10 fs10 couponTable">
   <tbody>
@@ -38,12 +38,12 @@
       <td class="bdWhite bgLLGray2 vaM">
         <div class="pV10 fs12">
           <div>
-            <a href="@routes.Reservations.reservSelectDate(menu.salonId, "menu", menu.id, stylistId, 0)" class="btn btn2H50 w146 mHA">
+            <a href="@routes.Reservations.reservSelectDate(menu.salonId, "menu", menu.id, stylistId, styleId, 0)" class="btn btn2H50 w146 mHA">
               <span><span>@Messages("menu.appointment")</span></span>
             </a>
           </div>
           <div class="mT5 taC">
-            <a href="@routes.Reservations.reservServicesView(menu.salonId, "menu", menu.id, stylistId)" class="iS arrowR">
+            <a href="@routes.Reservations.reservServicesView(menu.salonId, "menu", menu.id, stylistId, styleId)" class="iS arrowR">
             @Messages("coupon.addMenu")
             </a>
           </div>

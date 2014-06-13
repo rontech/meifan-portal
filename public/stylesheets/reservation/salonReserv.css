@@ -1,0 +1,31 @@
+@CHARSET "UTF-8";
+
+/*--预约后台管理--*/
+.handleBtn {
+    background: url("/assets/images/commonBtn.png") no-repeat;
+    font-family: "微软雅黑";
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    height: 21px;
+    display: block;
+    background-size: 100px 42px;
+    text-align: center;
+    line-height: 21px;
+    float: right;
+    margin-right: 10px;
+}
+
+.handleBtn:hover {
+    background-position: 0 -21px;
+}
+
+.pCell10 th, .pCell10 td {
+    padding: 10px;
+}
+
+.w403 {
+    width: 403px;
+}
+/*--预约后台管理--*/

@@ -1,11 +1,10 @@
-@* couponSearchGroup Template File *@
-@(salon: models.portal.salon.Salon, condtionForm: Form[models.portal.coupon.CouponServiceType], serviceTypes: Seq[models.portal.service.ServiceType], stylistId: String)
+@(salon: models.portal.salon.Salon, condtionForm: Form[models.portal.coupon.CouponServiceType], serviceTypes: Seq[models.portal.service.ServiceType], stylistId: String, styleId: String)
 
 @import helper._
 
 <div class="mT10 pr" id="couponList">
   <p class="narrowDownPanelArrow">◆</p>
-  @form(routes.Reservations.getServicesByCondition(salon.id, stylistId), 'id -> "salonCouponConditionForm", 'name -> "bt_salonCouponActionForm") {
+  @form(routes.Reservations.getServicesByCondition(salon.id, stylistId, styleId), 'id -> "salonCouponConditionForm", 'name -> "bt_salonCouponActionForm") {
     <table summary="coupon" class="wFull bgThNml bdCell pCell10 bgWhite" cellspacing="0">
       <tbody>
         <tr>
