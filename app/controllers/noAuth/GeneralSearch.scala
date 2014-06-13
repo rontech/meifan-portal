@@ -60,7 +60,7 @@ object GeneralSearch extends MeifanNetCustomerOptionalApplication {
             }
             case "HairSalon" => {
               val searchParaForSalon = new SearchParaForSalon(Option(generalSearch._2), myCity, "all", List(), "Hairdressing", List(),
-                PriceRange(0, 1000000), SeatNums(0, 10000),
+                PriceRange(new ObjectId, 0, 1000000, "Hairdressing"), SeatNums(0, 10000),
                 SalonFacilities(false, false, false, false, false, false, false, false, false, ""),
                 SortByConditions("price", false, false, true))
               val salons = Salon.findSalonBySearchPara(searchParaForSalon)

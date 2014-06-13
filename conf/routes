@@ -45,7 +45,7 @@ GET         /serviceTypeMain                                                cont
 #-------------------------------------------------
 # Salon
 GET         /salon                                                          controllers.noAuth.Salons.index()
-GET         /nail                                                           controllers.noAuth.Salons.indexNail
+GET         /nailSalon                                                      controllers.noAuth.Salons.indexNail
 GET         /salon/:salonId                                                 controllers.noAuth.Salons.getSalon(salonId: ObjectId)
 # Salon.style
 GET         /salon/:salonId/style/:styId                                    controllers.noAuth.Salons.getOneStyle(salonId: ObjectId, styId: ObjectId)
@@ -356,7 +356,7 @@ POST        /generalSearch                                                  cont
 #getAllCity
 GET         /getAllCitys                                                    controllers.Application.getAllCitys
 
-#GET        /getAllCitys                                                         controllers.Application.getAllCitys
+#GET        /getAllCitys                                                    controllers.Application.getAllCitys
 GET         /getOneCity/:city                                               controllers.Application.getOneCity(city: String)
 GET         /setCityInSession/:city                                         controllers.Application.setCityInSession(city: String)
 
@@ -364,3 +364,7 @@ GET         /setCityInSession/:city                                         cont
 # --- jsMessages routes START
 GET         /messages.js                                                    controllers.Application.jsMessages
 # --- jsMessages routes END
+
+#Nail
+GET         /nail                                                           controllers.noAuth.Nails.index
+POST        /nail/searchPage                                                controllers.noAuth.Nails.getNailBySearch

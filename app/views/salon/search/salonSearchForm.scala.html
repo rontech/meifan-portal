@@ -199,53 +199,53 @@
           <input name="priceRange.minPrice" class="fill_priceRang_minPrice" type="radio" checked value="0" method="p_4" mark="600">
           <input name="priceRange.maxPrice" class="fill_priceRang_maxPrice" type="radio" checked value="1000000" method="p_4" mark="600">
         </li>
-        @for((price, i) <- PriceRange.findAll.toList.zipWithIndex){
+        @for((price, i) <- PriceRange.findAllPriceRange("Hairdressing").toList.zipWithIndex){
           @if(i<4){
             <li class="">
-              @if(searchParaForSalon.priceRange.minPrice == price.minPrice && searchParaForSalon.priceRange.maxPrice == price.maxPrice){
-                <input name="priceRange.minPrice" class="priceRang_minPrice" type="radio" value="@price.minPrice" method="p_4" mark="600" id="pr4@i" checked>
-                <input name="priceRange.maxPrice" type="radio" value="@price.maxPrice" method="p_4" mark="600" id="pr4@i" style="display:none;" checked>
+              @if(searchParaForSalon.priceRange.minPrice == price._1 && searchParaForSalon.priceRange.maxPrice == price._2){
+                <input name="priceRange.minPrice" class="priceRang_minPrice" type="radio" value="@price._1" method="p_4" mark="600" id="pr4@i" checked>
+                <input name="priceRange.maxPrice" type="radio" value="@price._2" method="p_4" mark="600" id="pr4@i" style="display:none;" checked>
               }else {
-                <input name="priceRange.minPrice" class="priceRang_minPrice" type="radio" value="@price.minPrice" method="p_4" mark="600" id="pr4@i">
-                <input name="priceRange.maxPrice" type="radio" value="@price.maxPrice" method="p_4" mark="600" id="pr4@i" style="display:none;">
+                <input name="priceRange.minPrice" class="priceRang_minPrice" type="radio" value="@price._1" method="p_4" mark="600" id="pr4@i">
+                <input name="priceRange.maxPrice" type="radio" value="@price._2" method="p_4" mark="600" id="pr4@i" style="display:none;">
               }
               <label for="pr4@i" class="">
-              @if(price.maxPrice == 20){
-                @price.maxPrice.toInt
+              @if(price._2 == 20){
+                @price._2.toInt
                 @Messages("salonSearchPage.below")
               }else{
-                @if(price.maxPrice == 100000){
-                  @price.minPrice.toInt
+                @if(price._2 == 100000){
+                  @price._1.toInt
                   @Messages("salonSearchPage.over")
                 }else{
-                  @price.minPrice.toInt
+                  @price._1.toInt
                   -
-                  @price.maxPrice.toInt
+                  @price._2.toInt
                   @Messages("salonSearchPage.rmb")</label>
                 }
               }
             </li>    
           }else{
             <li class="salonPriceRandge_hide hide_li">
-            @if(searchParaForSalon.priceRange.minPrice == price.minPrice && searchParaForSalon.priceRange.maxPrice == price.maxPrice){
-              <input name="priceRange.minPrice" class="priceRang_minPrice" type="radio" value="@price.minPrice" method="p_4" mark="600" id="pr4@i" checked>
-              <input name="priceRange.maxPrice" type="radio" value="@price.maxPrice" method="p_4" mark="600" id="pr4@i" style="display:none;" checked>
+            @if(searchParaForSalon.priceRange.minPrice == price._1 && searchParaForSalon.priceRange.maxPrice == price._2){
+              <input name="priceRange.minPrice" class="priceRang_minPrice" type="radio" value="@price._1" method="p_4" mark="600" id="pr4@i" checked>
+              <input name="priceRange.maxPrice" type="radio" value="@price._2" method="p_4" mark="600" id="pr4@i" style="display:none;" checked>
             }else {
-              <input name="priceRange.minPrice" class="priceRang_minPrice" type="radio" value="@price.minPrice" method="p_4" mark="600" id="pr4@i">
-              <input name="priceRange.maxPrice" type="radio" value="@price.maxPrice" method="p_4" mark="600" id="pr4@i" style="display:none;">
+              <input name="priceRange.minPrice" class="priceRang_minPrice" type="radio" value="@price._1" method="p_4" mark="600" id="pr4@i">
+              <input name="priceRange.maxPrice" type="radio" value="@price._2" method="p_4" mark="600" id="pr4@i" style="display:none;">
             }
             <label for="pr4@i" class="">
-            @if(price.maxPrice == 20){
-              @price.maxPrice.toInt
+            @if(price._2 == 20){
+              @price._2.toInt
               @Messages("salonSearchPage.below")
             }else{
-              @if(price.maxPrice == 100000){
-                @price.minPrice.toInt
+              @if(price._2 == 100000){
+                @price._1.toInt
                 @Messages("salonSearchPage.over")
               }else{
-                @price.minPrice.toInt
+                @price._1.toInt
                 -
-                @price.maxPrice.toInt
+                @price._2.toInt
                 @Messages("salonSearchPage.rmb")</label>
               }
             }
@@ -255,8 +255,8 @@
         }
         <!--自定义价格区间  -->
       <div class="optional salonPriceRandge_hide hide_li" id="optPrice">@Messages("salonSearchPage.manualDefine")
-        @if((!(PriceRange.findAll.toList.contains((searchParaForSalon.priceRange))))
-          && ((searchParaForSalon.priceRange != PriceRange(0,1000000)))){
+        @if((!(PriceRange.findAllPriceRange("Hairdressing").toList.contains((searchParaForSalon.priceRange.minPrice,searchParaForSalon.priceRange.maxPrice))))
+          && (((searchParaForSalon.priceRange.minPrice,searchParaForSalon.priceRange.maxPrice) != (0,1000000)))){
           <input type="text" class="priTxt" method="lowPrice" id="lowPrice" value=@searchParaForSalon.priceRange.minPrice>
           -
           <input type="text" class="priTxt" method="highPrice" id="highPrice" value=@searchParaForSalon.priceRange.maxPrice>
