@@ -14,37 +14,37 @@
     </div>
   }
 
-  @for(style <- styleAndSalon) {
+  @for(styleInfo <- styleAndSalon) {
     <div class="styleContainer">
       <div class="styleResult h240">
-        <a href="@noAuth.routes.Salons.getOneStyle(style.salonId, style.style.id)">
-          <img src="@routes.Application.getPhoto(style.style.stylePic(0).fileObjId)"
-          class="w120 h150" alt="@style.style.styleName">
+        <a href="@noAuth.routes.Salons.getOneStyle(styleInfo.salonId, styleInfo.style.id)">
+          <img src="@routes.Application.getPhoto(styleInfo.style.stylePic(0).fileObjId)"
+          class="w120 h150" alt="@styleInfo.style.styleName">
         </a>
         <div class="layer jscLayer jscFixPng">
           <div class="mT2">
-            <a href="javascript:void(0);" onclick="addFollow('@style.style.id','style')" class="bS db styleCollect mHA">
+            <a href="javascript:void(0);" onclick="addFollow('@styleInfo.style.id','style')" class="bS db styleCollect mHA">
               @Messages("hair.ToCollect")
             </a>                    
           </div>
           <p class="txtC">
-            <a href="@noAuth.routes.Salons.getOneStyle(style.salonId, style.style.id)">
+            <a href="@noAuth.routes.Salons.getOneStyle(styleInfo.salonId, styleInfo.style.id)">
               @Messages("hair.detailInfo")
             </a>
           </p>
         </div>
         <div class="mT2">
-          <a href="@noAuth.routes.Salons.getOneStyle(style.salonId, style.style.id)"
+          <a href="@noAuth.routes.Salons.getOneStyle(styleInfo.salonId, styleInfo.style.id)"
           class="rankingListInnerAnchor">
             <p class="txtC">
-              <span class="photoCaption"> @style. .styleName </span>
+              <span class="photoCaption"> @styleInfo.style.styleName </span>
             </p>
           </a>
         </div>
         <div class="mT2">
             <p class="rankingListShop txtC">
-            <a href="@noAuth.routes.Salons.getSalon(style.style.id)"> 
-              @style.salonName 
+            <a href="@noAuth.routes.Salons.getSalon(styleInfo.style.id)">
+              @styleInfo.salonName
             </a>
             </p>
         </div>

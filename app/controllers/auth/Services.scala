@@ -29,6 +29,7 @@ import controllers._
 import jp.t2v.lab.play2.auth._
 import com.meifannet.portal.MeifanNetSalonApplication
 import models.portal.service.{ServiceType, Service}
+import models.portal.salon.Salon
 
 object Services extends MeifanNetSalonApplication {
   /**
@@ -136,7 +137,8 @@ object Services extends MeifanNetSalonApplication {
    */
   def serviceMain = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
-    val serviceType = ServiceType.findAll.toList.map { serviceType => serviceType.serviceTypeName }
+    val industry=Salon.findIndustryBySalonId(salon.id)
+    val serviceType = ServiceType.findAllServiceType(industry.toString)
     Ok(views.html.salon.admin.createSalonService(salon, serviceForm(), serviceType))
   }
 }
