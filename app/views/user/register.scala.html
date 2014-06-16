@@ -10,7 +10,7 @@
   </head>
   <div class="salonRegister">
     <div>
-    @helper.form(noAuth.routes.Users.register(), 'name -> "userForm") {
+    @helper.form(noAuth.routes.Users.register(), 'name -> "userForm", 'id -> "userRegisterForm") {
       <div class="registerForm">
         <h3>@Messages("user.info")</h3>
         <div class="item">
@@ -85,7 +85,7 @@
         </div>
         <div class="item">
           <span class="label">&nbsp;</span>
-          <input type="button" class="btn-img btn-regist" value="@Messages("user.agreeToRegister")" onclick="checksForUserRegister ( ) ;">
+          <input type="button" class="btn-img btn-regist" value="@Messages("user.agreeToRegister")" onclick="checksForUserRegister();">
         </div>
       </div>
 
