@@ -1,4 +1,5 @@
 @(navInSalon:String = "salon-basic", salon: models.portal.salon.Salon)
+@import models.portal.salon._
 
 <div class="detailHeader cFix pr">
   <div class="detailHeaderShopInfo detail2S cFix">
@@ -71,12 +72,22 @@
       <li class="fl">
         <a href="@noAuth.routes.Salons.getAllCoupons(salon.id, "", "", "serviceOfSalon")" class="bts db @if(navInSalon == "salon-coupon") {couponAndMenuCurrent} else {couponAndMenu} offL">@Messages("salon.couponMenus") </a>
       </li>
-      <li class="fl">
-        <a href="@noAuth.routes.Salons.getAllStylists(salon.id)" class="bts db @if(navInSalon == "salon-stylist") {stylistCurrent} else {stylist} offL">@Messages("salon.stylists")</a>
-      </li>
-      <li class="fl">
-        <a href="@noAuth.routes.Salons.getAllStyles(salon.id)" class="bts db @if(navInSalon == "salon-style") {styleCurrent} else {style} offL">@Messages("salon.styles")</a>
-      </li>
+      @if(Salon.findIndustryBySalonId(salon.id).equals("Hairdressing")) {
+        <li class="fl">
+            <a href="@noAuth.routes.Salons.getAllStylists(salon.id)" class="bts db @if(navInSalon == "salon-stylist") {stylistCurrent} else {stylist} offL">@Messages("salon.stylists")</a>
+        </li>
+        <li class="fl">
+            <a href="@noAuth.routes.Salons.getAllStyles(salon.id)" class="bts db @if(navInSalon == "salon-style") {styleCurrent} else {style} offL">@Messages("salon.styles")</a>
+        </li>
+      }
+      @if(Salon.findIndustryBySalonId(salon.id).equals("Manicures")) {
+          <li class="fl">
+            <a href="@noAuth.routes.Salons.getAllStylists(salon.id)" class="bts db @if(navInSalon == "salon-stylist") {stylistCurrent} else {stylist} offL">@Messages("nailSalon.stylists")</a>
+          </li>
+          <li class="fl">
+            <a href="@noAuth.routes.Salons.getAllStyles(salon.id)" class="bts db @if(navInSalon == "salon-style") {styleCurrent} else {style} offL">@Messages("nailSalon.styles")</a>
+          </li>
+      }
       <li class="fl">
         <a href="@noAuth.routes.Blogs.getAllBlogsOfSalon(salon.id)" class="bts db @if(navInSalon == "salon-blog") {blogCurrent} else {blog} offL">@Messages("salon.blogs")</a>
       </li>

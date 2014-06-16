@@ -1,0 +1,59 @@
+@(nails: Seq[models.portal.nail.Nail] = Nil, salon: models.portal.salon.Salon, buttonType : String = "")
+
+@if(nails.isEmpty){
+  <div class="bgAlertMsg mT20">
+    <p class="alertMsg">@Messages("nail.noNailSearched")</p>
+  </div>
+}else{
+<ol class="fl">
+  @for(nail <- nails) {
+	  <table class="styleItem">
+	    <tbody>
+	    <tr>
+	      <td class="vaT bdGrayR">
+	      <div class="w176 mHA">
+	        <div class="mT10 fs16 taM">
+	        <a href="@noAuth.routes.Salons.getOneStyle(salon.id, nail.id)">
+	          <img src="@routes.Application.getPhoto(nail.stylePic(0).fileObjId)" class="w120 h150" title=@Messages("nail.picTitle")>
+	        </a>
+	        </div>
+	        <p class="mT10 lh13 taM">
+	        <a href="@noAuth.routes.Salons.getOneStyle(salon.id, nail.id)">
+	          <u>@nail.styleName</u>
+	        </a>
+	        </p>
+	      </div>
+	      <div class="w156 mHA">
+	        <div class="bdDotT mT5 pT2">
+	        </div>
+	      </div>
+	      <div class="w176 mHA">
+	        <p class="mT10 lh13 taM">@Messages("nailSalon.stylists") : @models.portal.stylist.Stylist.findUser(nail.stylistId).nickName</p>
+	      </div>
+	      	@if(buttonType == "selectResvStyle") {
+            <div class="taC mT10">
+              <a href="@auth.routes.Reservations.selectResvStyle(nail.id)" class="bS db nominatedReserve mHA">@Messages("reservation.resvStyle")</a>
+            </div>
+		    } else {
+          @if(buttonType == "selectResvDate") {
+            <div class="taC mT10">
+              <a href="@routes.Reservations.reservShowDate(salon.id, nail.stylistId.toString, nail.id.toString, 0, "editResvInfo")" class="bS db nominatedReserve mHA">@Messages("reservation.resvStyle")</a>
+            </div>
+          }
+        }
+	      </td>
+	    </tr>
+	    </tbody>
+	    <tbody>
+	    <tr>
+	      <td colspan="4">
+	      <div class="separateLine">
+	        &nbsp;
+	      </div>
+	      </td>
+	    </tr>
+	    </tbody>
+	  </table>
+ 	}
+</ol>
+}

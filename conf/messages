@@ -396,6 +396,7 @@ service.serviceNameNotAvalid=该服务名已登录
 service.tip = 还没有服务哦，赶快去添加吧！
 
 #ServiceType
+#美发
 ServiceType.serviceTypeName.Cut = 剪
 ServiceType.serviceTypeName.Wash = 洗
 ServiceType.serviceTypeName.Blow = 吹
@@ -405,13 +406,13 @@ ServiceType.serviceTypeName.Perm = 烫
 ServiceType.serviceTypeName.Supple = 柔顺
 ServiceType.serviceTypeName.Other = 其他
 ServiceType.serviceTypeName.setColor = 上色
-
-nail.serviceType.Pen = 笔绘甲
-nail.serviceType.Delineation = 勾绘甲
-nail.serviceType.Airbrush = 喷绘甲
-nail.serviceType.Patch = 贴片甲
-nail.serviceType.Crystal = 水晶甲
-nail.serviceType.Gel = 光疗树脂甲
+#美甲
+ServiceType.serviceTypeName.Pen = 笔绘甲
+ServiceType.serviceTypeName.Delineation = 勾绘甲
+ServiceType.serviceTypeName.Airbrush = 喷绘甲
+ServiceType.serviceTypeName.Patch = 贴片甲
+ServiceType.serviceTypeName.Crystal = 水晶甲
+ServiceType.serviceTypeName.Gel = 光疗树脂甲
 
 # Coupon&Menu
 coupon.titleInSalon = {0} 的优惠券
@@ -939,6 +940,7 @@ position.positionName.Assistant = 助手
 position.positionName.AdvancedAssistant = 高级助手
 
 #StyleImpression
+#美发
 style.styleImpression.natural = 自然
 style.styleImpression.intellectual = 知性
 style.styleImpression.sweet = 甜美
@@ -946,14 +948,14 @@ style.styleImpression.fashion = 时尚
 style.styleImpression.fresh = 清新
 style.styleImpression.gorgeous = 华丽
 style.styleImpression.personality = 个性
-
-nail.styleImpression.natural = 自然
-nail.styleImpression.intellectual = 知性
-nail.styleImpression.sweet = 甜美
-nail.styleImpression.fashion = 时尚
-nail.styleImpression.fresh = 清新
-nail.styleImpression.gorgeous = 华丽
-nail.styleImpression.personality = 个性
+#美甲
+#style.styleImpression.natural = 自然
+#style.styleImpression.intellectual = 知性
+#style.styleImpression.sweet = 甜美
+#style.styleImpression.fashion = 时尚
+#style.styleImpression.fresh = 清新
+#style.styleImpression.gorgeous = 华丽
+#style.styleImpression.personality = 个性
 
 #StyleLength
 style.styleLength.super-short = 超短
@@ -988,28 +990,29 @@ style.faceShape.pointed-face = 尖脸
 style.faceShape.diamond-face = 菱形
 
 #StyleColor
+#美发
 style.styleColor.black = 黑色
 style.styleColor.chocolate = 巧克力色
 style.styleColor.brown = 棕色
 style.styleColor.flax = 亚麻
 style.styleColor.red = 红色
 style.styleColor.alternative = 另类
-
-nail.styleColor.pink = 粉红色
-nail.styleColor.white = 白色
-nail.styleColor.silver = 银色
-nail.styleColor.beige = 浅褐色
-nail.styleColor.gold = 金色
-nail.styleColor.orange = 橙色
-nail.styleColor.brown = 棕色
-nail.styleColor.yellow = 黄色
-nail.styleColor.green = 绿色
-nail.styleColor.blue = 蓝色
-nail.styleColor.purple = 紫色
-nail.styleColor.red = 红色
-nail.styleColor.black = 黑色
-nail.styleColor.clear = 透明
-nail.styleColor.multi = 混合色
+#美甲
+style.styleColor.pink = 粉红色
+style.styleColor.white = 白色
+style.styleColor.silver = 银色
+style.styleColor.beige = 浅褐色
+style.styleColor.gold = 金色
+style.styleColor.orange = 橙色
+#style.styleColor.brown = 棕色
+style.styleColor.yellow = 黄色
+style.styleColor.green = 绿色
+style.styleColor.blue = 蓝色
+style.styleColor.purple = 紫色
+#style.styleColor.red = 红色
+#style.styleColor.black = 黑色
+style.styleColor.clear = 透明
+style.styleColor.multi = 混合色
 
 #AgeGroup
 style.ageGroup.one--fifteen = 1—15
@@ -1024,18 +1027,19 @@ style.sex.male = 男
 style.sex.female = 女
 
 #SocialScene
+#美发
 style.socialScene.evening-wear = 晚装
 style.socialScene.brief = 简约
 style.socialScene.star = 明星
 style.socialScene.street = 街拍
 style.socialScene.T-stage = T台
 style.socialScene.others = 其它
-
-nail.socialScene.office = 办公室
-nail.socialScene.party = 聚会
-nail.socialScene.sport = 运动
-nail.socialScene.date = 约会
-nail.socialScene.bridal = 婚礼
+#美甲
+style.socialScene.office = 办公室
+style.socialScene.party = 聚会
+style.socialScene.sport = 运动
+style.socialScene.date = 约会
+style.socialScene.bridal = 婚礼
 
 #onUsePicture
 onUserPicture.picTitle=请填写沙龙简介标题，您最多可输入100个字符
@@ -1230,16 +1234,18 @@ styleSearch.lessOption = 收起
 meifan.changeCity = 切换城市
 
 #StyleBase
-nail.styleBase.hand = 手
-nail.styleBase.foot = 足
+#美甲
+style.styleBase.hand = 手
+style.styleBase.foot = 足
 
 #StyleMaterial
-nail.styleMaterial.rhinestone = 水钻
-nail.styleMaterial.pearl = 珍珠
-nail.styleMaterial.metal = 金属
-nail.styleMaterial.peucine = 树脂
-nail.styleMaterial.bridal = 玉石
-nail.styleMaterial.fruitSlices = 水果片
+#美甲
+style.styleMaterial.rhinestone = 水钻
+style.styleMaterial.pearl = 珍珠
+style.styleMaterial.metal = 金属
+style.styleMaterial.peucine = 树脂
+style.styleMaterial.bridal = 玉石
+style.styleMaterial.fruitSlices = 水果片
 
 #Nail
 nail.tabName = 时尚美甲
@@ -1255,3 +1261,13 @@ nail.search.socialScene = 适合场合
 nail.ToCollect=收藏此美甲
 nail.BeCollected=此款美甲已收藏
 nail.detailInfo=详细信息
+nail.picTitle=点击可查看美甲信息
+nail.assessFromStylist = 美甲师评价
+nail.selectForReserv = 预约此美甲
+nail.style = 美甲详情
+nail.nailOfStylist = 此技师的其它美甲作品
+
+#Nail Salon
+nailSalon.stylists = 美甲师
+nailSalon.styles = 美甲
+nailSalon.salonStyleTitle = {0}的美甲

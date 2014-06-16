@@ -36,9 +36,6 @@ import utils.Tools
 import utils.Const._
 import models.portal.salon._
 import models.portal.common.{Address, OnUsePicture, OptContactMethod}
-import models.portal.salon.SalonAccount
-import models.portal.salon.BriefIntroduction
-import models.portal.salon.Contact
 import models.portal.industry.Industry
 import models.portal.review.Comment
 import models.portal.stylist.Stylist
@@ -50,8 +47,7 @@ import models.portal.user.User
 import models.portal.style.Style
 import models.portal.reservation.{HandleReservation, ResvSreachCondition, Reservation}
 import com.meifannet.portal.MeifanNetSalonApplication
-
-import com.meifannet.framework.db._
+import com.meifannet.framework.db.DBDelegate
 
 
 object Salons extends MeifanNetSalonApplication {
@@ -145,7 +141,7 @@ object Salons extends MeifanNetSalonApplication {
         (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
         workTime, restDay, seatNums, salonFacilities, salonPics, registerDate) =>
           Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
-            workTime, restDay, seatNums, salonFacilities, salonPics, registerDate)
+            workTime, restDay, seatNums, salonFacilities, salonPics, registerDate,new SalonStatus(1, true))
       } {
         salon =>
           Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonAppeal, salon.salonIntroduction, salon.contactMethod, salon.optContactMethods, salon.establishDate, salon.salonAddress,
