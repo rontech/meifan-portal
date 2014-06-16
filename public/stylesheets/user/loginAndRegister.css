@@ -275,3 +275,7 @@ div.noDisplay {
 .item span.salonIndustry {
   margin-right: 15px;
 }
+
+.registerForm .input {
+  width: 680px;
+}

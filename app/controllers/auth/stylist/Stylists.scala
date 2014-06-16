@@ -40,7 +40,7 @@ import utils.Const._
 import com.meifannet.portal.MeifanNetCustomerApplication
 import models.portal.industry.IndustryAndPosition
 import models.portal.common.OnUsePicture
-import models.portal.stylist.Stylist
+import models.portal.stylist.{GoodAtStyle, Stylist}
 import models.portal.relation.{SalonAndStylist, SalonStylistApplyRecord}
 import models.portal.user.{MyFollow, LoggedIn}
 import models.portal.style.Style
@@ -171,11 +171,18 @@ object Stylists extends MeifanNetCustomerApplication {
   def stylistInfo = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    //擅长发型属性的集合
-    val goodAtStylePara = Stylist.findGoodAtStyle
+
     val stylist = Stylist.findOneByStylistId(user.id)
     stylist match {
       case Some(sty) => {
+        var goodAtStylePara = GoodAtStyle(Nil, Nil, Nil, Nil, Nil, Nil, Nil)
+        //擅长发型属性的集合
+        if(!sty.position.isEmpty) {
+          goodAtStylePara = Stylist.findGoodAtStyle(sty.position.head.industryName)
+        } else {
+          goodAtStylePara = Stylist.findGoodAtStyle("Hairdressing")
+        }
+
         val stylistUpdate = stylistForm.fill(sty)
         Ok(views.html.stylist.management.updateStylistInfo(user, followInfo, user.id, true, sty, stylistUpdate, goodAtStylePara))
       }
@@ -258,7 +265,7 @@ object Stylists extends MeifanNetCustomerApplication {
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val stylist = Stylist.findOneByStylistId(user.id)
-    val goodAtStylePara = Stylist.findGoodAtStyle
+    val goodAtStylePara = Stylist.findGoodAtStyle("Hairdressing")
     stylist match {
       case Some(sty) => {
         Stylist.updateImages(sty, imgId)
