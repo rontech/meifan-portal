@@ -287,7 +287,7 @@ object Stylists extends MeifanNetCustomerApplication {
       val stylist = Stylist.findOneByStylistId(user.id)
       val followInfo = MyFollow.getAllFollowInfo(user.id)
       styleOne match {
-        case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = stylist.get, style = style, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll))
+        case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = stylist.get, style = style, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll("Hairdressing")))
         case None => NotFound
       }
   }
@@ -346,7 +346,7 @@ object Stylists extends MeifanNetCustomerApplication {
       val followInfo = MyFollow.getAllFollowInfo(user.id)
       var stylists: List[Stylist] = Nil
       stylists :::= stylist.toList
-      Ok(views.html.stylist.management.addStyleByStylist(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, stylists = stylists, isStylist = true))
+      Ok(views.html.stylist.management.addStyleByStylist(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll("Hairdressing"), stylists = stylists, isStylist = true))
   }
 
   /**
