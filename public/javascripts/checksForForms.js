@@ -775,7 +775,7 @@ function checksForUserRegister() {
   checkedNickName();
   checkedUnrequired("phone");
   checkedPhone("phone");
-  var errInput = $('.errorMsg')
+  var errInput = $('.errorMsg');
   if (errInput.length != 0) {
     return false;
   }
@@ -1220,9 +1220,7 @@ function checksForStyle() {
  * @param inputName 选择框id
  */
 function getServiceId(inputName) {
-  alert(1111);
   var value = $('#service' + inputName).val();
-  alert(value);
   var addFlg = true;
   if($('#service' + inputName).prop('checked')) {
 	addFlg = "true";

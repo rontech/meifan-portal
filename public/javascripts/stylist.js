@@ -90,7 +90,7 @@ function checkSalonExist(){
 $('#SalonAccountId').focus(function(){
     $('#SalonAccountId').next().text("请输入您所属店铺的店铺ID").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
-	checkSalonAccountId()
+	checkSalonAccountId();
 });
 
 function checkSalonAccountId(){
