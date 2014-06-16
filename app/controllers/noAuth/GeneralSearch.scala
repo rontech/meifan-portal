@@ -70,7 +70,7 @@ object GeneralSearch extends MeifanNetCustomerOptionalApplication {
             case "HairCatalog" => {
               val styleSearch = new Style(new ObjectId, "", new ObjectId, Nil, "all", Nil, "all", Nil, Nil, Nil, Nil, Nil, "", Nil, "all", Nil, new Date, true)
               var styleAndSalons: List[StyleWithAllInfo] = Style.findByPara(styleSearch)
-              Ok(views.html.style.general.styleSearchResultPage(Styles.styleSearchForm.fill(styleSearch), styleAndSalons, Style.findParaAll, user))
+              Ok(views.html.style.general.styleSearchResultPage(Styles.styleSearchForm.fill(styleSearch), styleAndSalons, Style.findParaAll("Hairdressing"), user))
             }
             case "NailSalon" => {
               Ok(views.html.index())

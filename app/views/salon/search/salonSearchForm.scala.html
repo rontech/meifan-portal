@@ -120,7 +120,7 @@
       <div class="rBox serviceType_check">
         <div class="notto"><a href="javascript:unlimitServiceType();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
         <ul class="place prices" id="unlimitServiceType_group">
-          @for((e, i) <- models.portal.service.ServiceType.findAll.toList.zipWithIndex){
+          @for((e, i) <- models.portal.service.ServiceType.findAllServiceTypes(List("Hairdressing")).toList.zipWithIndex){
             @if(i<4){
             <li class="dibBL mR2">
               @if(searchParaForSalon.serviceType.contains(e.serviceTypeName)){

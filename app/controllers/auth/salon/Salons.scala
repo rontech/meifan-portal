@@ -629,7 +629,7 @@ object Salons extends MeifanNetSalonApplication {
       styles :::= Style.findByStylistId(sty.stylistId)
     }
     styles.sortBy(_.createDate).reverse
-    Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true, isStylist = false, stylists = stylists))
+    Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = true, isStylist = false, stylists = stylists))
   }
 
   //TODO 命名同上 难以区分区别
@@ -641,7 +641,7 @@ object Salons extends MeifanNetSalonApplication {
         case (styleSearch) => {
           val stylists = Style.findStylistBySalonId(salon.id)
           val styles = Style.findStylesBySalonBack(styleSearch, salon.id)
-          Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = false, stylists = stylists))
+          Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = false, isStylist = false, stylists = stylists))
         }
       })
   }
@@ -654,7 +654,7 @@ object Salons extends MeifanNetSalonApplication {
     val styleOne: Option[Style] = Style.findOneById(styleId)
     val stylists = SalonAndStylist.getStylistsBySalon(salon.id)
     styleOne match {
-      case Some(style) => Ok(views.html.salon.admin.mySalonStyleUpdate(salon = salon, style = styleOne.get, stylists = stylists, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll))
+      case Some(style) => Ok(views.html.salon.admin.mySalonStyleUpdate(salon = salon, style = styleOne.get, stylists = stylists, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll("Hairdressing")))
       case None => NotFound
     }
   }
@@ -686,7 +686,7 @@ object Salons extends MeifanNetSalonApplication {
   def styleAddBySalon = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
     val stylists = SalonAndStylist.getStylistsBySalon(salon.id)
-    Ok(views.html.salon.admin.mySalonStyleAdd(salon = salon, stylists = stylists, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, isStylist = false))
+    Ok(views.html.salon.admin.mySalonStyleAdd(salon = salon, stylists = stylists, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll("Hairdressing"), isStylist = false))
 
   }
 
