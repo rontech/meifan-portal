@@ -2,7 +2,6 @@ package controllers.noAuth
 
 import com.meifannet.portal.MeifanNetCustomerOptionalApplication
 import models.portal.nail.{Nail, SearchPara}
-import models.portal.search.PriceRange
 import play.api.data._
 import play.api.data.Forms._
 import views._
@@ -32,14 +31,7 @@ object Nails extends MeifanNetCustomerOptionalApplication {
       "styleMaterial" -> list(text),
       "styleBase" -> list(text),
       "styleImpression" -> list(text),
-      "socialScene" -> list(text),
-      "priceRange" -> mapping(
-        "minPrice" -> bigDecimal,
-        "maxPrice" -> bigDecimal) {
-        (minPrice, MaxPrice) => PriceRange(new ObjectId, minPrice, MaxPrice, "")
-      } {
-        priceRange => Some(priceRange.minPrice, priceRange.maxPrice)
-      })(SearchPara.apply)(SearchPara.unapply)
+      "socialScene" -> list(text))(SearchPara.apply)(SearchPara.unapply)
   )
 
   /**
@@ -54,9 +46,8 @@ object Nails extends MeifanNetCustomerOptionalApplication {
       } getOrElse {
         "苏州"
       }
-      val searchParaForNail = new SearchPara(None, myCity, "all", "all", List(), List(), List(), List(), List(), List(),
-        PriceRange(new ObjectId, 0, 1000000, "Manicures"))
-      Ok(views.html.nailCatalog.general.overview(nailSearchForm = searchParaForNail, nailPara = Nail.findParaAll, user = user))
+      val searchParaForNail = new SearchPara(None, myCity, "all", "all", List(), List(), List(), List(), List(), List())
+      Ok(views.html.nailCatalog.general.overview(nailSearchForm = searchParaForNail, nailPara = Nail.findParaAll("Manicures"), user = user))
   }
 
   /**
@@ -71,10 +62,9 @@ object Nails extends MeifanNetCustomerOptionalApplication {
         case (nailSearchForm) => {
           //检索出所有符合条件的美甲，及与之相关的部分店铺信息
           val nailWithAllInfos = Nail.findNailBySearchPara(nailSearchForm)(0)
-          Ok(views.html.nailCatalog.general.nailSearchRstPage(nailSearchForm = nailSearchForm, nailPara = Nail.findParaAll, nailWithAllInfos = nailWithAllInfos, user = user))
+          Ok(views.html.nailCatalog.general.nailSearchRstPage(nailSearchForm = nailSearchForm, nailPara = Nail.findParaAll("Manicures"), nailWithAllInfos = nailWithAllInfos, user = user))
         }
       })
   }
-
 
 }

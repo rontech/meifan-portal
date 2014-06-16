@@ -1,0 +1,8 @@
+@(salon: models.portal.salon.Salon, nail: models.portal.nail.Nail, navBar: List[(String, String)] = Nil, user : Option[models.portal.user.User])
+@import views.html.salon.store._
+@salonInfoMain(navInSalon = "salon-style", salon, navBar, user) {
+
+  <!-- Get All the models.portal.salon.Salons with all the nails.  -->
+  @views.html.nailCatalog.nailItem(nail,salon)
+
+}

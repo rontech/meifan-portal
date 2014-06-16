@@ -13,7 +13,7 @@
 @for(nailWithAllInfo <- nailWithAllInfos) {
 <div class="styleContainer">
     <div class="styleResult h240">
-        <a href="@noAuth.routes.Salons.getOneStyle(nailWithAllInfo.nail.id, nailWithAllInfo.nail.id)">
+        <a href="@noAuth.routes.Salons.getOneStyle(nailWithAllInfo.salonId, nailWithAllInfo.nail.id)">
             <img src="@routes.Application.getPhoto(nailWithAllInfo.nail.stylePic(0).fileObjId)"
                  class="w120 h150" alt="@nailWithAllInfo.nail.styleName">
         </a>
@@ -24,13 +24,13 @@
                 </a>
             </div>
             <p class="txtC">
-                <a href="@noAuth.routes.Salons.getOneStyle(nailWithAllInfo.nail.id, nailWithAllInfo.nail.id)">
+                <a href="@noAuth.routes.Salons.getOneStyle(nailWithAllInfo.salonId, nailWithAllInfo.nail.id)">
                     @Messages("nail.detailInfo")
                 </a>
             </p>
         </div>
         <div class="mT2">
-            <a href="@noAuth.routes.Salons.getOneStyle(nailWithAllInfo.nail.id, nailWithAllInfo.nail.id)"
+            <a href="@noAuth.routes.Salons.getOneStyle(nailWithAllInfo.salonId, nailWithAllInfo.nail.id)"
                class="rankingListInnerAnchor">
                 <p class="txtC">
                     <span class="photoCaption"> @nailWithAllInfo.nail.styleName </span>
