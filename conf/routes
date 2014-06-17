@@ -45,7 +45,7 @@ GET         /serviceTypeMain                                                cont
 #-------------------------------------------------
 # Salon
 GET         /salon                                                          controllers.noAuth.Salons.index()
-GET         /nail                                                           controllers.noAuth.Salons.indexNail
+GET         /nailSalon                                                      controllers.noAuth.Salons.indexNail
 GET         /salon/:salonId                                                 controllers.noAuth.Salons.getSalon(salonId: ObjectId)
 # Salon.style
 GET         /salon/:salonId/style/:styId                                    controllers.noAuth.Salons.getOneStyle(salonId: ObjectId, styId: ObjectId)
@@ -263,7 +263,6 @@ POST        /mySalon/updateStyle/                                           cont
 GET         /mySalon/invalidStyle/:styleId                                  controllers.auth.Salons.styleToInvalidBySalon(styleId: ObjectId)
 
 # Reservation
-GET         /reservHairView/:id                                             controllers.Reservations.reservHairView(id: ObjectId)
 GET         /reservSelectStylist/:resvDate                                  controllers.Reservations.reservSelectStylist(resvDate: String)
 
 GET         /reservSelectStyle/:id                                          controllers.Reservations.reservSelectStyle(resvDate: String, id: ObjectId, jumpType: String)
@@ -278,7 +277,6 @@ GET         /editResvInfoFromStylist                                        cont
 
 
 GET         /selectResvStyle/:id                                            controllers.auth.Reservations.selectResvStyle(id: ObjectId)
-GET         /reservConfirmPwd                                               controllers.auth.Reservations.reservConfirmPwd
 GET         /reservFinish                                                   controllers.auth.Reservations.reservFinish
 GET         /editReservInfo                                                 controllers.auth.Reservations.editReservInfo
 
@@ -286,7 +284,6 @@ GET         /editReservInfoFromStyle                                        cont
 
 POST        /reservConfirmInfo                                              controllers.auth.Reservations.reservConfirmInfo
 GET         /reservSuccess                                                  controllers.auth.Reservations.reservSuccess
-POST        /findResvsBySerach                                              controllers.auth.Reservations.findResvsBySerach
 
 # MyFollows
 GET         /javascriptRoutes                                               controllers.Application.javascriptRoutes
@@ -359,7 +356,7 @@ POST        /generalSearch                                                  cont
 #getAllCity
 GET         /getAllCitys                                                    controllers.Application.getAllCitys
 
-#GET        /getAllCitys                                                         controllers.Application.getAllCitys
+#GET        /getAllCitys                                                    controllers.Application.getAllCitys
 GET         /getOneCity/:city                                               controllers.Application.getOneCity(city: String)
 GET         /setCityInSession/:city                                         controllers.Application.setCityInSession(city: String)
 
@@ -367,3 +364,7 @@ GET         /setCityInSession/:city                                         cont
 # --- jsMessages routes START
 GET         /messages.js                                                    controllers.Application.jsMessages
 # --- jsMessages routes END
+
+#Nail
+GET         /nail                                                           controllers.noAuth.Nails.index
+POST        /nail/searchPage                                                controllers.noAuth.Nails.getNailBySearch

@@ -45,12 +45,9 @@ import models.portal.reservation.ResvGroup
 import models.portal.coupon.CouponServiceType
 import models.portal.service.ServiceByType
 import models.portal.reservation.ResvSchedule
+import com.meifannet.portal.MeifanNetCustomerOptionalApplication
 
-object Reservations extends MeifanNetApplication {
-
-  def reservHairView(id: ObjectId) = Action {
-    Ok(views.html.reservation.reservHairView("hello"))
-  }
+object Reservations extends MeifanNetCustomerOptionalApplication {
 
   /**
    * 进入添加额外服务的画面
@@ -58,7 +55,9 @@ object Reservations extends MeifanNetApplication {
    * @param resvType 预约内容类型
    * @param id 根据预约内容类型区分是什么id，如resvType为coupon,那么id为优惠劵id
    */
-  def reservServicesView(salonId: ObjectId, resvType: String, id: ObjectId, stylistId: String, styleId: String) = Action {
+  def reservServicesView(salonId: ObjectId, resvType: String, id: ObjectId, stylistId: String, styleId: String) = StackAction {
+    implicit request =>
+    val user = loggedIn
     var resvItems: List[ResvItem] = Nil
     var resvItem: ResvItem = ResvItem("", id, 1)
     val serviceTypeNames: List[String] = Service.getServiceTypeList
@@ -96,7 +95,8 @@ object Reservations extends MeifanNetApplication {
     salon match {
       case Some(s) => {
         val srvTypes: List[ServiceType] = ServiceType.findAllServiceTypes(s.salonIndustry)
-        Ok(views.html.reservation.addExtraService(s, reservation, resvItem, Coupons.conditionForm.fill(couponSchDefaultConds), servicesByTypes, srvTypes, stylistId, styleId))
+        Ok(views.html.reservation.addExtraService(s, reservation, resvItem, Coupons.conditionForm.fill(couponSchDefaultConds),
+          servicesByTypes, srvTypes, stylistId, styleId, user))
       }
       case None => NotFound
     }
@@ -178,12 +178,13 @@ object Reservations extends MeifanNetApplication {
    * 用于添加额外服务的搜索
    * @param salonId 沙龙id
    */
-  def getServicesByCondition(salonId: ObjectId, stylistId: String, styleId: String) = Action {
+  def getServicesByCondition(salonId: ObjectId, stylistId: String, styleId: String) = StackAction {
     implicit request =>
       import Coupons.conditionForm
       conditionForm.bindFromRequest.fold(
       errors => BadRequest(views.html.error.errorMsg(errors)), {
         serviceType =>
+          val user = loggedIn
           var conditions: List[String] = Nil
           var typebySearchs: List[ServiceType] = Nil
           var servicesByTypes: List[ServiceByType] = Nil
@@ -233,7 +234,7 @@ object Reservations extends MeifanNetApplication {
             case Some(s) => {
               val srvTypes: List[ServiceType] = ServiceType.findAllServiceTypes(s.salonIndustry)
               Ok(views.html.reservation.addExtraService(s, reservation, resvItem, Coupons.conditionForm.fill(couponServiceType),
-                 servicesByTypes, srvTypes, stylistId, styleId))
+                 servicesByTypes, srvTypes, stylistId, styleId, user))
             }
             case None => NotFound
           }
@@ -348,14 +349,15 @@ object Reservations extends MeifanNetApplication {
    * 进入店铺中所有技师的画面（可查看各个技师的预约日程)
    * @param styleId 发型id，可为空
    */
-  def showStylistView(styleId: String) = Action {
+  def showStylistView(styleId: String) = StackAction { implicit request =>
+    val user = loggedIn
     var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
     var resvSchedule: ResvSchedule = ResvSchedule(Nil, Nil, Nil, Nil)
     
     val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
 
     salon match {
-      case Some(s) => Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, None, styleId, 0, "resvStylist", ""))
+      case Some(s) => Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, None, styleId, 0, "resvStylist", "", user))
       case None => NotFound
     }
   }
@@ -364,7 +366,8 @@ object Reservations extends MeifanNetApplication {
    * 预约时进入到指定技师页面
    * @param resvDate 预约的日时
    */
-  def reservSelectStylist(resvDate: String) = Action {
+  def reservSelectStylist(resvDate: String) = StackAction { implicit request =>
+    val user = loggedIn
     var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
 
     // 将String类型的格式转化为Date
@@ -395,7 +398,7 @@ object Reservations extends MeifanNetApplication {
     val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
 
     salon match {
-      case Some(s) => Ok(views.html.reservation.reservSelectStylistMain(s, reservation, unReservStylists, reservStylists))
+      case Some(s) => Ok(views.html.reservation.reservSelectStylistMain(s, reservation, unReservStylists, reservStylists, user))
       case None => NotFound
     }
   }
@@ -407,7 +410,8 @@ object Reservations extends MeifanNetApplication {
    * @param jumpType 跳转类型，用于发型选择画面中选择之后的跳转
    * @return
    */
-  def reservSelectStyle(resvDate: String, stylistId: ObjectId, jumpType: String) = Action { implicit request =>
+  def reservSelectStyle(resvDate: String, stylistId: ObjectId, jumpType: String) = StackAction { implicit request =>
+    val user = loggedIn
     var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
     reservation = reservation.copy(stylistId = Some(stylistId))
     if(resvDate != "") {
@@ -423,7 +427,7 @@ object Reservations extends MeifanNetApplication {
     val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
 
     salon match {
-      case Some(s) => Ok(views.html.reservation.reservSelectStyleMain(s, reservation, styles, jumpType))
+      case Some(s) => Ok(views.html.reservation.reservSelectStyleMain(s, reservation, styles, jumpType, user))
       case None => NotFound
     }
   }
@@ -434,7 +438,9 @@ object Reservations extends MeifanNetApplication {
    * @param stylistId 技师id，如果为空那么不是通过指名预约进入技师日程表的 
    * @param week 从今天开始的第几周显示，如果为0，那么从这周显示
    */
-  def reservShowDate(salonId: ObjectId, stylistId: String, styleId: String, week: Int, jumpType: String) = Action {
+  def reservShowDate(salonId: ObjectId, stylistId: String, styleId: String, week: Int, jumpType: String) = StackAction {
+    implicit request =>
+    val user = loggedIn
     val salon: Option[Salon] = Salon.findOneById(salonId)
 
     var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
@@ -629,9 +635,9 @@ object Reservations extends MeifanNetApplication {
     salon match {
       case Some(s) => {
         if(stylistId == "") {
-          Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, None, "", weekIndex, "resvSalon", jumpType))
+          Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, None, "", weekIndex, "resvSalon", jumpType, user))
         } else {
-          Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, Some(new ObjectId(stylistId)), styleId, weekIndex, "resvStylist", jumpType))
+          Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, Some(new ObjectId(stylistId)), styleId, weekIndex, "resvStylist", jumpType, user))
         }
       }
       case None => NotFound

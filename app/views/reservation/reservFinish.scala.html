@@ -1,6 +1,6 @@
-@(salon: models.portal.salon.Salon, navBar: List[(String, String)] = Nil)
+@(salon: models.portal.salon.Salon, user: Option[models.portal.user.User] = None, navBar: List[(String, String)] = Nil)
 
-@reservationInfoMain(navInSalon = "HairSalon", "five", salon, navBar) {
+@reservationInfoMain(navInSalon = "HairSalon", "five", salon, user, navBar) {
 
   <div class="reservSuccessMsg">
     <p>@Messages("reservation.resvSuccessful")</p>

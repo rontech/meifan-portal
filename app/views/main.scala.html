@@ -1,4 +1,4 @@
-@(title: String, nav: String = "Top", navBar: List[(String, String)] = Nil)(content: Html)
+@(title: String, user: Option[models.portal.user.User] = None, nav: String = "Top", navBar: List[(String, String)] = Nil)(content: Html)
 
 <!DOCTYPE html>
 <html>
@@ -52,10 +52,20 @@
           </div>
           <div id="top_list">
             <ul>
-              <li> @Messages("main.welcomeToMeifan") </li>
-              <li class="sc">
-                <a href="@auth.routes.Users.myPage"> @Messages("main.myMeifan") </a>
-              </li>
+              @user match {
+                case None => {
+                  <li> @Messages("main.welcomeToMeifan") </li>
+                  <li class="topBtn"><a href="@routes.Application.login">[@Messages("user.loginBtn")]</a></li>
+                  <li class="topBtn"><a href="@routes.Application.register">[@Messages("user.registerBtn")]</a></li>
+                }
+                case Some(user) => {
+                  <li>@Messages("user.welcome", user.nickName)</li>
+                  <li class="topBtn"><a href="@auth.routes.Users.logout" class="link-green">[@Messages("user.loginOut")]</a></li>
+                  <li class="sc">
+                    <a href="@auth.routes.Users.myPage"> @Messages("main.myMeifan") </a>
+                  </li>
+                }
+              }
               <li class="sc">
                 <a onclick="AddFavorite(window.location,document.title)" href="javascript:void(0)">
                   @Messages("main.saveSite")
@@ -79,7 +89,7 @@
                 <a href="@noAuth.routes.Salons.indexNail"> @Messages("main.nailSalon") </a>
               </li>
               <li class="@if(nav == "NailCatalog") {btn}">
-                <a href="@routes.Application.index"> @Messages("main.nailCatalog") </a>
+                <a href="@noAuth.routes.Nails.index"> @Messages("main.nailCatalog") </a>
               </li>
               <li class="@if(nav == "RelaxSalon") {btn}">
                 <a href="@routes.Application.index"> @Messages("main.relaxSalon") </a>

@@ -1,7 +1,7 @@
 @(salon: models.portal.salon.Salon, condtionForm: Form[models.portal.coupon.CouponServiceType], serviceTypes: List[models.portal.service.ServiceType], coupons: List[models.portal.coupon.Coupon], menus: List[models.portal.menu.Menu], serviceByTypes: List[models.portal.service.ServiceByType],
-   beforeSevernDate: java.util.Date, stylistId: String, styleId: String, navBar: List[(String, String)] = Nil)
+   beforeSevernDate: java.util.Date, stylistId: String, styleId: String, user: Option[models.portal.user.User] = None, navBar: List[(String, String)] = Nil)
 
-@reservationInfoMain(navInSalon = "HairSalon", "one", salon, navBar) {
+@reservationInfoMain(navInSalon = "HairSalon", "one", salon, user, navBar) {
 
   <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">
 

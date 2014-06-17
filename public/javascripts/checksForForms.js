@@ -73,7 +73,7 @@ $('#contact_tel').focus(function () {
  */
 $('#salonName').focus(function () {
   this.setAttribute("maxlength", 40);
-  $('#salonName  ~ .help-inline').text("请填写工商局注册的全称。4~40位字符，可由中英文、数字及“_”、“-”、（）组成").removeClass("trueMsg").removeClass("errorMsg");
+  $('#salonName  ~ .help-inline').text("请填写工商局注册的全称").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function () {
   checkedSalonName()
 });
@@ -775,7 +775,7 @@ function checksForUserRegister() {
   checkedNickName();
   checkedUnrequired("phone");
   checkedPhone("phone");
-  var errInput = $('.errorMsg')
+  var errInput = $('.errorMsg');
   if (errInput.length != 0) {
     return false;
   }
@@ -1220,9 +1220,7 @@ function checksForStyle() {
  * @param inputName 选择框id
  */
 function getServiceId(inputName) {
-  alert(1111);
   var value = $('#service' + inputName).val();
-  alert(value);
   var addFlg = true;
   if($('#service' + inputName).prop('checked')) {
 	addFlg = "true";

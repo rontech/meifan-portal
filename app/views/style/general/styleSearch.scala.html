@@ -35,7 +35,7 @@
               </li>
               @for(i <- 0 to stylePara.styleLength.length-1){
                 <li class="dibBL mR2">
-                  <input type = "radio" class = "cbF models.portal.style.StyleLength_item" name = "styleLength" id="lengthCd_HL@i" value = "@stylePara.styleLength(i)">
+                  <input type = "radio" class = "cbF StyleLength_item" name = "styleLength" id="lengthCd_HL@i" value = "@stylePara.styleLength(i)">
                   <label for="lengthCd_HL@i">@Messages("style.styleLength." + stylePara.styleLength(i))</label>
                 </li>
               }

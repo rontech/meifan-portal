@@ -1,0 +1,27 @@
+@(nailSearchForm: models.portal.nail.SearchPara, nailPara: models.portal.nail.StylePara, nailWithAllInfos: List[models.portal.nail.NailWithAllInfo], user:Option[models.portal.user.User])
+
+@main(title = Messages("nail.tabName"), nav = "NailCatalog") {
+
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/nail/nail.css")">
+<div>
+    <div class="fl wP80">
+        <!-- The title of models.portal.nail.Nail. -->
+        <div class="hcHeader">
+            <div class="pr hcHeaderTopPage">
+                <h2 class="hcHeadingTitle offL">@Messages("nail.nailCatalogTitle")</h2>
+                <h3 class="pa right0 bottom0 hcHeadingCaption">@Messages("site.title")</h3>
+            </div>
+        </div>
+        <!-- models.portal.nail.Nail Search By Conditons. -->
+            @views.html.nailCatalog.general.nailSearch(nailSearchForm,nailPara)
+        <!-- models.portal.style.Style Search By Ranking. -->
+        <div class="mT40 pT40">
+            @views.html.nailCatalog.general.nailSearchRstList(nailWithAllInfos)
+        </div>
+    </div>
+    <!-- ↓generalContentRightColumn -->
+    @*@views.html.salon.general.rightColumn(user)*@
+    <!-- ↑generalContentRightColumn -->
+</div>
+}

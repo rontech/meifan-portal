@@ -36,9 +36,6 @@ import utils.Tools
 import utils.Const._
 import models.portal.salon._
 import models.portal.common.{Address, OnUsePicture, OptContactMethod}
-import models.portal.salon.SalonAccount
-import models.portal.salon.BriefIntroduction
-import models.portal.salon.Contact
 import models.portal.industry.Industry
 import models.portal.review.Comment
 import models.portal.stylist.Stylist
@@ -50,8 +47,7 @@ import models.portal.user.User
 import models.portal.style.Style
 import models.portal.reservation.{HandleReservation, ResvSreachCondition, Reservation}
 import com.meifannet.portal.MeifanNetSalonApplication
-
-import com.meifannet.framework.db._
+import com.meifannet.framework.db.DBDelegate
 
 
 object Salons extends MeifanNetSalonApplication {
@@ -145,7 +141,7 @@ object Salons extends MeifanNetSalonApplication {
         (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
         workTime, restDay, seatNums, salonFacilities, salonPics, registerDate) =>
           Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
-            workTime, restDay, seatNums, salonFacilities, salonPics, registerDate)
+            workTime, restDay, seatNums, salonFacilities, salonPics, registerDate,new SalonStatus(1, true))
       } {
         salon =>
           Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonAppeal, salon.salonIntroduction, salon.contactMethod, salon.optContactMethods, salon.establishDate, salon.salonAddress,
@@ -633,7 +629,7 @@ object Salons extends MeifanNetSalonApplication {
       styles :::= Style.findByStylistId(sty.stylistId)
     }
     styles.sortBy(_.createDate).reverse
-    Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true, isStylist = false, stylists = stylists))
+    Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = true, isStylist = false, stylists = stylists))
   }
 
   //TODO 命名同上 难以区分区别
@@ -645,7 +641,7 @@ object Salons extends MeifanNetSalonApplication {
         case (styleSearch) => {
           val stylists = Style.findStylistBySalonId(salon.id)
           val styles = Style.findStylesBySalonBack(styleSearch, salon.id)
-          Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = false, stylists = stylists))
+          Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = false, isStylist = false, stylists = stylists))
         }
       })
   }
@@ -658,7 +654,7 @@ object Salons extends MeifanNetSalonApplication {
     val styleOne: Option[Style] = Style.findOneById(styleId)
     val stylists = SalonAndStylist.getStylistsBySalon(salon.id)
     styleOne match {
-      case Some(style) => Ok(views.html.salon.admin.mySalonStyleUpdate(salon = salon, style = styleOne.get, stylists = stylists, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll))
+      case Some(style) => Ok(views.html.salon.admin.mySalonStyleUpdate(salon = salon, style = styleOne.get, stylists = stylists, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll("Hairdressing")))
       case None => NotFound
     }
   }
@@ -690,7 +686,7 @@ object Salons extends MeifanNetSalonApplication {
   def styleAddBySalon = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
     val stylists = SalonAndStylist.getStylistsBySalon(salon.id)
-    Ok(views.html.salon.admin.mySalonStyleAdd(salon = salon, stylists = stylists, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, isStylist = false))
+    Ok(views.html.salon.admin.mySalonStyleAdd(salon = salon, stylists = stylists, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll("Hairdressing"), isStylist = false))
 
   }
 

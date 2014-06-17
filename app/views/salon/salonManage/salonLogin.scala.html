@@ -1,14 +1,11 @@
-@(salonLogin: Form[Option[models.portal.salon.Salon]])
+@(salonLogin: Form[Option[models.portal.salon.Salon]], user: Option[models.portal.user.User] = None)
 
   @import helper._
+  @import common.loginAndRegisterMain
   
-   @main(title = Messages("salon.salonLogin")) {
+   @loginAndRegisterMain(Messages("salon.salonLogin"), "salonLogin", user) {
      
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/userLogin.css")">
-     
-     <div class="contentsTitleWrapper">
-       <h2 class="contentsTitleInner mT10">@Messages("salon.salonLogin")</h2>
-     </div>
      
      <div class=" w1" id="entry">
        <div class="mc " id="bgDiv">

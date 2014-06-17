@@ -75,24 +75,6 @@ object Reservations extends MeifanNetCustomerApplication {
 
 
   /**
-   * 沙龙后台检索
-   */
-  def findResvsBySerach = StackAction(AuthorityKey -> isLoggedIn _) {
-    implicit request =>
-      val user = loggedIn
-      Ok(views.html.reservation.reservConfirmPwd("h"))
-  }
-
-  /**
-   * 预约密码确认，输入密码预约才有效
-   */
-  def reservConfirmPwd = StackAction(AuthorityKey -> isLoggedIn _) {
-    implicit request =>
-      val user = loggedIn
-      Ok(views.html.reservation.reservConfirmPwd("h"))
-  }
-
-  /**
    * 预约最后一步，跳出完成预约的画面
    */
   def reservFinish = StackAction(AuthorityKey -> isLoggedIn _) {
@@ -107,7 +89,7 @@ object Reservations extends MeifanNetCustomerApplication {
       var userHasResvFlg: Boolean = Reservation.findReservByDateAndUserId(reservation.expectedDate, reservation.userId)
       if (userHasResvFlg) {
         salon match {
-          case Some(s) => Ok(views.html.reservation.reservFail(s, reservation, "userHasResv"))
+          case Some(s) => Ok(views.html.reservation.reservFail(s, reservation, "userHasResv", Some(user)))
           case None => NotFound
         }
       } else {
@@ -117,7 +99,7 @@ object Reservations extends MeifanNetCustomerApplication {
             var stylistHasResvedFlg: Boolean = Reservation.findReservByDateAndStylist(reservation.expectedDate, sty)
             if (stylistHasResvedFlg) {
               salon match {
-                case Some(s) => Ok(views.html.reservation.reservFail(s, reservation, "stylistHasResved"))
+                case Some(s) => Ok(views.html.reservation.reservFail(s, reservation, "stylistHasResved", Some(user)))
                 case None => NotFound
               }
             } else {
@@ -131,7 +113,7 @@ object Reservations extends MeifanNetCustomerApplication {
             val stylistNum: Long = SalonAndStylist.countStylistBySalon(reservation.salonId)
             if (salonHasResvedCount >= stylistNum) {
               salon match {
-                case Some(s) => Ok(views.html.reservation.reservFail(s, reservation, "salonHasResved"))
+                case Some(s) => Ok(views.html.reservation.reservFail(s, reservation, "salonHasResved", Some(user)))
                 case None => NotFound
               }
             } else {
@@ -157,7 +139,7 @@ object Reservations extends MeifanNetCustomerApplication {
 
       val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
       salon match {
-        case Some(s) => Ok(views.html.reservation.reservFinish(s))
+        case Some(s) => Ok(views.html.reservation.reservFinish(s, Some(user)))
         case None => NotFound
       }
   }

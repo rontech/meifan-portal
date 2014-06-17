@@ -304,7 +304,7 @@ object Users extends MeifanNetCustomerApplication {
   def applyStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    val goodAtStylePara = Stylist.findGoodAtStyle
+    val goodAtStylePara = Stylist.findGoodAtStyle("Hairdressing")
     Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara, followInfo))
 
   }
@@ -316,7 +316,7 @@ object Users extends MeifanNetCustomerApplication {
   def commitStylistApply = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    val goodAtStylePara = Stylist.findGoodAtStyle
+    val goodAtStylePara = Stylist.findGoodAtStyle("Hairdressing")
     stylistApplyForm.bindFromRequest.fold(
       errors => BadRequest(views.html.user.applyStylist(errors, user, goodAtStylePara, followInfo)),
       {

@@ -203,7 +203,7 @@ object Styles extends MeifanNetCustomerOptionalApplication {
    */
   def index = StackAction { implicit request =>
     val user = loggedIn
-    Ok(html.style.general.overview(styleSearchForm, Style.findParaAll, user))
+    Ok(html.style.general.overview(styleSearchForm, Style.findParaAll("Hairdressing"), user))
   }
 
   /**
@@ -219,7 +219,7 @@ object Styles extends MeifanNetCustomerOptionalApplication {
       Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
     val styleAllInfo: List[StyleWithAllInfo] = Style.findByLength(styleLength, consumerSex)
 
-    Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleAllInfo, Style.findParaAll, user))
+    Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByLength), styleAllInfo, Style.findParaAll("Hairdressing"), user))
   }
 
   /**
@@ -235,7 +235,7 @@ object Styles extends MeifanNetCustomerOptionalApplication {
       Nil, "", Nil, Nil, Nil, Nil, Nil, "", Nil, consumerSex, Nil, new Date, true)
     var styleAllInfo: List[StyleWithAllInfo] = Style.findByImpression(styleImpression, consumerSex)
 
-    Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByImpression), styleAllInfo, Style.findParaAll, user))
+    Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearchByImpression), styleAllInfo, Style.findParaAll("Hairdressing"), user))
   }
 
   /**
@@ -250,7 +250,7 @@ object Styles extends MeifanNetCustomerOptionalApplication {
         case (styleSearch) => {
           //检索所有符合条件的发型
           val styleAllInfo: List[StyleWithAllInfo] = Style.findByPara(styleSearch)
-          Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearch), styleAllInfo, Style.findParaAll, user))
+          Ok(html.style.general.styleSearchResultPage(styleSearchForm.fill(styleSearch), styleAllInfo, Style.findParaAll("Hairdressing"), user))
         }
       })
   }
@@ -270,7 +270,7 @@ object Styles extends MeifanNetCustomerOptionalApplication {
     } else {
       stlAllInfo = Style.findByRankingAndLenAndSex(styleLength, consumerSex)
     }
-    Ok(html.style.general.styleRankingResultPage(styleSearchForm, stlAllInfo, Style.findParaAll, user))
+    Ok(html.style.general.styleRankingResultPage(styleSearchForm, stlAllInfo, Style.findParaAll("Hairdressing"), user))
   }
 
 }
