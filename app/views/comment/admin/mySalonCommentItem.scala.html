@@ -93,9 +93,9 @@
   <dl class="mT25">
     <dt class="couponMenuTitle fl">@Messages("comment.usedCoupon")</dt>
     <dd class="oh zoom1">
-      <p>@models.portal.coupon.Coupon.findOneById(comment.commentObjId).get.couponName</p>
+      <p>@models.portal.reservation.Reservation.getUsedCouponById(comment.commentObjId)</p>
       <p class="fs10">@Messages("comment.usedServices")
-        @models.portal.coupon.Coupon.findOneById(comment.commentObjId).get.serviceItems.map { service => @service.serviceName}
+        @models.portal.reservation.Reservation.getUsedServiceById(comment.commentObjId).map(service => service.serviceName + "  ")
       </p>
       </dd>
   </dl>

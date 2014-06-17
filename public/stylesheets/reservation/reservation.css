@@ -179,7 +179,7 @@ background: url(/assets/images/login/p1.jpg) no-repeat top right #ededed;
 height: 25px;
 line-height: 25px;
 color: #999999;
-padding: 0 48.5px 0 40px;
+padding: 0 45.3px 0 35px;
 font-weight: bold;
 }
 
@@ -254,8 +254,9 @@ padding: 6px 10px;
 }
 
 .reserveMark {
-font-size: 25px;
-vertical-align: middle;	
+font-size: 30px;
+line-height: 20px;
+vertical-align: bottom;
 }
 
 .titleBottom {
@@ -402,4 +403,27 @@ background-color: #F5F3EF;
 display: block;
 line-height: 20px;
 padding: 10px;
+}
+
+.w403 {
+width: 475px;
+}
+
+td li {
+list-style: none;
+}
+
+.salonSearchBtn {
+    background: url("/assets/images/commonBtn.png");
+    font-family: "微软雅黑";
+    font-weight: bold;
+    border: none;
+    line-height: 20px;
+    cursor: pointer;
+    width: 73px;
+    height: 21px;
+}
+
+.salonSearchBtn:hover {
+    background-position: 0 -21px;
 }

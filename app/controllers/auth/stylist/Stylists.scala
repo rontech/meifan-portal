@@ -40,12 +40,13 @@ import utils.Const._
 import com.meifannet.portal.MeifanNetCustomerApplication
 import models.portal.industry.IndustryAndPosition
 import models.portal.common.OnUsePicture
-import models.portal.stylist.Stylist
+import models.portal.stylist.{GoodAtStyle, Stylist}
 import models.portal.relation.{SalonAndStylist, SalonStylistApplyRecord}
 import models.portal.user.{MyFollow, LoggedIn}
 import models.portal.style.Style
 import models.portal.salon.Salon
 import com.meifannet.framework.db._
+import models.portal.reservation.Reservation
 
 object Stylists extends MeifanNetCustomerApplication {
 
@@ -170,11 +171,18 @@ object Stylists extends MeifanNetCustomerApplication {
   def stylistInfo = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    //擅长发型属性的集合
-    val goodAtStylePara = Stylist.findGoodAtStyle
+
     val stylist = Stylist.findOneByStylistId(user.id)
     stylist match {
       case Some(sty) => {
+        var goodAtStylePara = GoodAtStyle(Nil, Nil, Nil, Nil, Nil, Nil, Nil)
+        //擅长发型属性的集合
+        if(!sty.position.isEmpty) {
+          goodAtStylePara = Stylist.findGoodAtStyle(sty.position.head.industryName)
+        } else {
+          goodAtStylePara = Stylist.findGoodAtStyle("Hairdressing")
+        }
+
         val stylistUpdate = stylistForm.fill(sty)
         Ok(views.html.stylist.management.updateStylistInfo(user, followInfo, user.id, true, sty, stylistUpdate, goodAtStylePara))
       }
@@ -257,7 +265,7 @@ object Stylists extends MeifanNetCustomerApplication {
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val stylist = Stylist.findOneByStylistId(user.id)
-    val goodAtStylePara = Stylist.findGoodAtStyle
+    val goodAtStylePara = Stylist.findGoodAtStyle("Hairdressing")
     stylist match {
       case Some(sty) => {
         Stylist.updateImages(sty, imgId)
@@ -286,7 +294,7 @@ object Stylists extends MeifanNetCustomerApplication {
       val stylist = Stylist.findOneByStylistId(user.id)
       val followInfo = MyFollow.getAllFollowInfo(user.id)
       styleOne match {
-        case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = stylist.get, style = style, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll))
+        case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = stylist.get, style = style, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll("Hairdressing")))
         case None => NotFound
       }
   }
@@ -345,7 +353,7 @@ object Stylists extends MeifanNetCustomerApplication {
       val followInfo = MyFollow.getAllFollowInfo(user.id)
       var stylists: List[Stylist] = Nil
       stylists :::= stylist.toList
-      Ok(views.html.stylist.management.addStyleByStylist(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, stylists = stylists, isStylist = true))
+      Ok(views.html.stylist.management.addStyleByStylist(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll("Hairdressing"), stylists = stylists, isStylist = true))
   }
 
   /**
@@ -412,14 +420,18 @@ object Stylists extends MeifanNetCustomerApplication {
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val stylist = Stylist.findOneByStylistId(user.id)
+    val reservingList = Reservation.findReservingByStylistId(user.id)
+    val reservationHistoryList = Reservation.findReservationHistoryByStylistId(user.id)
     stylist.map { sty =>
       SalonAndStylist.findByStylistId(sty.stylistId).map { re =>
-        Ok(views.html.stylist.management.myHomePage(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = sty))
+        Ok(views.html.stylist.management.stylistReservation(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, reservingList = reservingList, reservationHistoryList = reservationHistoryList))
       } getOrElse {
-        Ok(views.html.user.myPageRes(user, followInfo))
+//        Ok(views.html.user.myPageRes(user, followInfo))
+        Ok(views.html.user.myReserving(user, followInfo, reservingList))
       }
     } getOrElse {
-      Ok(views.html.user.myPageRes(user, followInfo))
+//      Ok(views.html.user.myPageRes(user, followInfo))
+      Ok(views.html.user.myReserving(user, followInfo, reservingList))
     }
 
   }

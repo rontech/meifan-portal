@@ -1,0 +1,139 @@
+@(title: String, nav: String, user: Option[models.portal.user.User] = None)(content: Html)
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title> @title </title>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanIndex.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanCommon.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/loginAndRegister.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+    <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/jquery.cookie.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/jsAddress.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/meifanMain.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/My97DatePicker/WdatePicker.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/follow.js")" type="text/javascript"> </script>
+    <script src="@routes.Assets.at("javascripts/httpError.js")" type="text/javascript"> </script>
+    <script type="text/javascript" src="@routes.Application.javascriptRoutes"> </script>
+      <!-- Require of Messages for JS -->
+    <script type="text/javascript" src="@routes.Application.jsMessages()"></script>
+    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="noodp" />
+    <meta name="robots" content="noydir" />
+    <meta name="description" content="@Messages("site.description")"/>
+    <meta name="keywords" content="@Messages("site.keywords")"/>
+    <meta name="copyright" content="@Messages("site.copyright")"/>
+  </head>
+
+  <body id="pageTop">
+      <!-- ↓header -->
+    <div id="headerWrapper">
+      <div id="header">
+        <h1 id="headSummary"> @Messages("main.headSummary") </h1>
+      </div>
+    </div>
+    <div>
+      <div id="top" class="@if(nav == "salonLogin" || nav == "userLogin") {loginLogo} else {registerLogo}">
+        <a href="@routes.Application.index">
+          <img src="@routes.Assets.at("images/logo.png")" height="45" class="logo" />
+          <b></b>
+        </a>
+        <div id="top_right">
+          <div id="top_list">
+            <ul>
+              @user match {
+                case None => {
+                  <li> @Messages("main.welcomeToMeifan") </li>
+                  <li class="topBtn"><a href="@routes.Application.login">[@Messages("user.loginBtn")]</a></li>
+                  <li class="topBtn"><a href="@routes.Application.register">[@Messages("user.registerBtn")]</a></li>
+                }
+                case Some(user) => {
+                  <li>@Messages("user.welcome", user.nickName)</li>
+                  <li class="topBtn"><a href="@auth.routes.Users.logout" class="link-green">[@Messages("user.loginOut")]</a></li>
+                  <li class="sc">
+                    <a href="@auth.routes.Users.myPage"> @Messages("main.myMeifan") </a>
+                  </li>
+                }
+              }
+              <li class="sc">
+                <a onclick="AddFavorite(window.location,document.title)" href="javascript:void(0)">
+                @Messages("main.saveSite")
+                </a>
+              </li>
+              <li class="sc">
+                <a href="@noAuth.routes.Questions.getAllQuestions()"> @Messages("main.help") </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- ↑header -->
+    <div id="loginNav">
+      @if(nav == "salonRegister" || nav == "userRegister") {
+        <div class="toLogin">@Messages("user.hasUserId")<a href="@if(nav == "salonRegister") {@routes.Application.salonLogin} else {@routes.Application.login}"><span>@Messages("user.loginBtn")</span></a></div>
+      }
+      <ul>
+        <li class="@if(nav == "salonLogin" || nav == "salonRegister") {btn}">
+          <a href="@if(nav == "salonLogin" || nav == "userLogin") {@routes.Application.salonLogin} else {@routes.Application.salonRegister}"> @Messages("salonAdmin.admin") </a>
+        </li>
+        <li class="@if(nav == "userLogin" || nav == "userRegister") {btn}">
+          <a href="@if(nav == "salonLogin" || nav == "userLogin") {@routes.Application.login} else {@routes.Application.register()}"> @Messages("user.userAndStylist")</a>
+        </li>
+      </ul>
+    </div>
+      <!-- ↓wrapper -->
+    <div id="wrapper">
+        <!-- ↓contents -->
+      <div class="cFix">
+          <!-- ↓mainContents -->
+        @content
+          <!-- ↑mainContents -->
+      </div>
+        <!-- ↑contents -->
+    </div>
+      <!-- ↑wrapper -->
+      <!-- ↓footerwrapper -->
+    <div class="footerwrapper">
+        <!-- ↓footermaincontents -->
+      <div class="footermaincontents mT25 cFix">
+          <!-- ↓seoContents -->
+          <!-- ↑seoContents -->
+          <!-- ↓footercontents -->
+        <div class="footercontents">
+            <!-- ↓footer -->
+          <div id="footer" class="cFix">
+            <div id="copyrightnew">
+              <a href="@routes.Application.index" target="_blank">
+                <img src="@routes.Assets.at("images/logo_footer.png")" alt="(C) Rontech Lifestyle Co.,Ltd." />
+                @Messages("main.weAppeal")
+              </a>
+            </div>
+            <div class="postSalonInfo">
+              @Messages("main.toSalonOwners")
+              <a target="_blank" title="@Messages("main.wantToJoin")" href="@auth.routes.Salons.salonMainInfo"
+              onclick="customLinkLog('Footer models.portal.salon.Salon Link');">
+              @Messages("main.wantToJoin")
+              </a>
+            </div>
+            <ul id="footerLinks">
+              <li> <a href="@noAuth.routes.Infos.getIdUsePolicyInfo" id="mterms"> @Messages("main.idUsePolicy") </a> </li>
+              <li> <a href="@noAuth.routes.Infos.getUsePolicyInfo" id="terms"> @Messages("main.usePolicy") </a> </li>
+              <li> <a href="@noAuth.routes.Infos.getSecurityPolicyInfo" id="privacy"> @Messages("main.securityPolicy") </a> </li>
+              <li> <a href="@noAuth.routes.Infos.getContactInfo" id="contact"> @Messages("main.contactUs") </a> </li>
+            </ul>
+          </div>
+            <!-- ↑footer -->
+        </div>
+          <!-- ↑footercontents -->
+      </div>
+        <!-- ↑footermaincontents -->
+    </div>
+      <!-- ↑footerwrapper -->
+  </body>
+
+</html>
+

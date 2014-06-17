@@ -33,6 +33,7 @@ import com.meifannet.portal.MeifanNetCustomerApplication
 import models.portal.blog.Blog
 import models.portal.review.Comment
 import models.portal.user.LoggedIn
+import models.portal.reservation.Reservation
 
 /**
  * this object is to add comment to blog and coupon and delete comment of blog
@@ -106,6 +107,7 @@ object Comments extends MeifanNetCustomerApplication {
       {
         case (complex, atmosphere, service, skill, price, content) =>
           Comment.addCommentToCoupon(user.userId, content, commentObjId, commentObjType, complex, atmosphere, service, skill, price)
+          Reservation.changeReservStatusToCommented(commentObjId)
           if (commentObjType == 2) {
             // TODO 等到预约做好后，由于预约表中有与用户相关的字段，到时候可以跳转
             //              Redirect(auth.routes.MyFollows.followedCoupon(user.id))

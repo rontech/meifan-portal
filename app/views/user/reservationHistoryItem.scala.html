@@ -1,0 +1,131 @@
+@(reservation:models.portal.reservation.Reservation)
+
+@import models.portal.salon.Salon
+@import models.portal.user.User
+
+<script src="@routes.Assets.at("javascripts/jquery-1.5.1.js")" type="text/javascript"></script>
+<script src="@routes.Assets.at("javascripts/comment_dialog.js")" type="text/javascript"> </script>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/comment/comment_dialog.css")" />
+
+<script type="text/javascript">
+  function addComment(commentObjId, commentObjType){
+    create_comment_dialog(commentObjId, commentObjType);
+  }
+</script>
+
+<li class="mT20">
+  <div class="shopInformationHead ympS">
+    <div class="shopInformationBottom ympS">
+      <div class="shopInformation ympS">
+        <div class="shopContentsInnerReserve cFix">
+          <div class="cFix">
+            <h4 class="shopName fl">
+              <a class="" href="@noAuth.routes.Salons.getSalon(reservation.salonId)" title="">
+                @Salon.findOneById(reservation.salonId).map(s => s.salonName)
+              </a>
+            </h4>
+            <div class="fr">
+              <ul class="salonMark taR">
+                <li class="serviceHairSalonN iS dibBL">
+                  <span class="salonMarkListInner">
+                    @Salon.findOneById(reservation.salonId).map(s => s.salonIndustry.map(si=>si))
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="cFix">
+            <div class="cFix fl">
+              <p class="fl">
+                @Messages("reservation.expectedDate")
+                <span class="b fs14">
+                  @reservation.expectedDate.format("yyyy/MM/dd HH:mm")
+                </span>
+              </p>
+              <dl class="reserveMessageHistory cFix">
+                <dt class="fl visitedStore iS">
+                  @if(reservation.status==1){
+                    @Messages("reservation.Used")
+                  }else{
+                    @Messages("reservation.noComing")
+                  }
+                </dt>
+                <dd class="fl salonsAnswer ">
+                  @if(reservation.status==1){
+                    @Messages("reservation.patronage")
+                  }else{
+                    @Messages("reservation.forwordToNextComing")
+                  }
+                </dd>
+              </dl>
+            </div>
+            <p class="fr pT3">
+              @Messages("reservation.no")
+              <br>
+              @reservation.id
+            </p>
+            <div class="tableHistory dibBL">
+              <table cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th class="boxHeadingHistory">
+                    @Messages("reservation.usedCoupon")
+                    </th>
+                    <td class="boxBodyHistory">
+                      @*
+                      @reservation.resvItems.map(resv => resv.mainResvObjId) @reservation.price*@
+                      @views.html.reservation.showReservItems(reservation, "confirmInfo", models.portal.reservation.Reservation.findResvItemsForType(reservation.resvItems))
+                    </td>
+                  </tr>
+                  @if(!reservation.stylistId.equals(None)){
+                    <tr>
+                      <th class="boxHeadingHistory">
+                        @Messages("reservation.stylist")
+                      </th>
+                      <td class="boxBodyHistory">
+                        <a href="@noAuth.routes.Salons.getOneStylist(reservation.salonId,reservation.stylistId.get)">
+                          @User.findOneById(reservation.stylistId.get).map(u=>u.nickName)
+                        </a>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div>
+            <p class="detailTxt2">
+            </p>
+            <div class="detailBtn2">
+              <ul class="nowrap">
+                <li class="dibBL">
+                  <a class="reserveBtn bS" href="#"
+                  title="">
+                    @Messages("reserve.name")
+                  </a>
+                </li>
+                  <!-- -->
+                @if(reservation.status==1){
+                  <li class="dibBL mL6">
+                    @*<a href="https://beauty.hotpepper.jp/CSP/my/reviewPost/input/?reserveId=B031858183"
+                    class="reviewBtn bS">
+                      评论
+                    </a>*@
+                    <input type="button" value=@Messages("comment.comment") onclick="addComment('@reservation.id', '2');">
+                  </li>
+                }
+                  <!-- -->
+                <li class="dibBL mL6">
+                  <a href="@auth.routes.Reservations.showReservationDetailById(reservation.id)"
+                  class="reserveDetail bS">
+                    @Messages("reservation.detail")
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>

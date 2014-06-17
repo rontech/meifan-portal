@@ -31,11 +31,14 @@ import controllers._
 import models._
 import java.text.SimpleDateFormat
 import play.cache.Cache
-import models.portal.reservation.Reservation
+import models.portal.reservation._
 import com.meifannet.portal.MeifanNetCustomerApplication
 import models.portal.salon.Salon
 import models.portal.relation.SalonAndStylist
-import models.portal.user.User
+import models.portal.service.ServiceType
+import com.mongodb.casbah.commons.ValidBSONType.ObjectId
+import com.mongodb.casbah.commons.TypeImports.ObjectId
+import models.portal.user.{MyFollow, User}
 
 object Reservations extends MeifanNetCustomerApplication {
 
@@ -55,13 +58,21 @@ object Reservations extends MeifanNetCustomerApplication {
   }
 
   /**
-   * 预约密码确认，输入密码预约才有效
+   *
+   * @return
    */
-  def reservConfirmPwd = StackAction(AuthorityKey -> isLoggedIn _) {
-    implicit request =>
-      val user = loggedIn
-      Ok(views.html.reservation.reservConfirmPwd("h"))
+  def HandleResvFrom: Form[HandleReservation] = Form {
+    mapping(
+      "handleType" -> text,
+      "reservs" -> list(
+        mapping(
+          "resvId" -> text
+        ){(resvId) => Reservation(new ObjectId(resvId), "", new ObjectId, 0, new Date, 0, None, Nil, None, "", "", BigDecimal(0), 0, BigDecimal(0), new Date, new Date)}
+        {reservation => Some((reservation.id.toString))}
+      )
+    )(HandleReservation.apply)(HandleReservation.unapply)
   }
+
 
   /**
    * 预约最后一步，跳出完成预约的画面
@@ -78,7 +89,7 @@ object Reservations extends MeifanNetCustomerApplication {
       var userHasResvFlg: Boolean = Reservation.findReservByDateAndUserId(reservation.expectedDate, reservation.userId)
       if (userHasResvFlg) {
         salon match {
-          case Some(s) => Ok(views.html.reservation.reservFail(s, reservation, "userHasResv"))
+          case Some(s) => Ok(views.html.reservation.reservFail(s, reservation, "userHasResv", Some(user)))
           case None => NotFound
         }
       } else {
@@ -88,7 +99,7 @@ object Reservations extends MeifanNetCustomerApplication {
             var stylistHasResvedFlg: Boolean = Reservation.findReservByDateAndStylist(reservation.expectedDate, sty)
             if (stylistHasResvedFlg) {
               salon match {
-                case Some(s) => Ok(views.html.reservation.reservFail(s, reservation, "stylistHasResved"))
+                case Some(s) => Ok(views.html.reservation.reservFail(s, reservation, "stylistHasResved", Some(user)))
                 case None => NotFound
               }
             } else {
@@ -102,7 +113,7 @@ object Reservations extends MeifanNetCustomerApplication {
             val stylistNum: Long = SalonAndStylist.countStylistBySalon(reservation.salonId)
             if (salonHasResvedCount >= stylistNum) {
               salon match {
-                case Some(s) => Ok(views.html.reservation.reservFail(s, reservation, "salonHasResved"))
+                case Some(s) => Ok(views.html.reservation.reservFail(s, reservation, "salonHasResved", Some(user)))
                 case None => NotFound
               }
             } else {
@@ -128,7 +139,7 @@ object Reservations extends MeifanNetCustomerApplication {
 
       val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
       salon match {
-        case Some(s) => Ok(views.html.reservation.reservFinish(s))
+        case Some(s) => Ok(views.html.reservation.reservFinish(s, Some(user)))
         case None => NotFound
       }
   }
@@ -227,5 +238,55 @@ object Reservations extends MeifanNetCustomerApplication {
             case None => NotFound
           }
       })
+  }
+
+  /**
+   * 查看本人处理中的预约
+   * @return
+   */
+  def getReserving(userId : String) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val user = User.findOneByUserId(userId).get
+//    val user = loggedIn
+    val reservingList = Reservation.findResving(userId)
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.myReserving(user, followInfo, reservingList))
+  }
+
+  def showReservationDetailById(reservationId : ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val reservation = Reservation.findOneById(reservationId).get
+    val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
+    val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    salon match {
+      case Some(s) => Ok(views.html.user.reservDetail(s, reservation, user, followInfo))
+      case None => NotFound
+    }
+  }
+
+  def deletingReserv(reservationId : ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val reservation = Reservation.findOneById(reservationId).get
+    val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.deletingReserv(reservation, user, followInfo))
+  }
+
+  def deletedReserv(reservationId : ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    Reservation.delete(reservationId)
+    val reservation = Reservation.findOneById(reservationId).get
+    val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.deletedReserv(reservation, user, followInfo))
+  }
+
+  /**
+   * 查看本人预约履历
+   * @return
+   */
+  def getReservationHistory(userId : String) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val user = User.findOneByUserId(userId).get
+    val reservedList = Reservation.findReservationHistory(userId)
+    val reservingList = Reservation.findResving(userId)
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.myReservationHistory(user, followInfo, reservedList, reservingList))
   }
 }

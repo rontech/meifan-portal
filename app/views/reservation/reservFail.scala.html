@@ -1,6 +1,6 @@
-@(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation, failType: String, navBar: List[(String, String)] = Nil)
+@(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation, failType: String, user: Option[models.portal.user.User] = None, navBar: List[(String, String)] = Nil)
 
-@reservationInfoMain(navInSalon = "HairSalon", "four", salon, navBar) {
+@reservationInfoMain(navInSalon = "HairSalon", "four", salon, user, navBar) {
 
   @if(failType == "userHasResv") {
     <div class="mT50">
@@ -23,7 +23,7 @@
     </div>
     @if(failType == "userHasResv") {
       <div class="fl br w380 h80">
-        <p class="mT10 pH20 fgGray">@Messages("reservation.cancelResv")</p>
+        <p class="mT10 pH20 fgGray">@Messages("reservation.cancelResvMsg")</p>
         <p class="pH20 resvbt"><a href="@auth.routes.Users.myReservation">@Messages("user.reservation")</p>
       </div>
     } else {

@@ -36,9 +36,6 @@ import utils.Tools
 import utils.Const._
 import models.portal.salon._
 import models.portal.common.{Address, OnUsePicture, OptContactMethod}
-import models.portal.salon.SalonAccount
-import models.portal.salon.BriefIntroduction
-import models.portal.salon.Contact
 import models.portal.industry.Industry
 import models.portal.review.Comment
 import models.portal.stylist.Stylist
@@ -48,9 +45,9 @@ import models.portal.menu.Menu
 import models.portal.relation.{SalonAndStylist, SalonStylistApplyRecord}
 import models.portal.user.User
 import models.portal.style.Style
+import models.portal.reservation.{HandleReservation, ResvSreachCondition, Reservation}
 import com.meifannet.portal.MeifanNetSalonApplication
-
-import com.meifannet.framework.db._
+import com.meifannet.framework.db.DBDelegate
 
 
 object Salons extends MeifanNetSalonApplication {
@@ -149,8 +146,8 @@ object Salons extends MeifanNetSalonApplication {
         (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
         workTime, restDay, seatNums, salonFacilities, salonPics, registerDate, salonStatus) =>
           Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
-            workTime, restDay, seatNums, salonFacilities, salonPics, registerDate, salonStatus)
-      } {
+          workTime, restDay, seatNums, salonFacilities, salonPics, registerDate,new SalonStatus(1, true))
+        } {
         salon =>
           Some((salon.salonAccount, salon.salonName, salon.salonNameAbbr, salon.salonIndustry, salon.homepage, salon.salonAppeal, salon.salonIntroduction, salon.contactMethod, salon.optContactMethods, salon.establishDate, salon.salonAddress,
             salon.workTime, salon.restDays, salon.seatNums, salon.salonFacilities, salon.salonPics, salon.registerDate, salon.salonStatus))
@@ -169,6 +166,37 @@ object Salons extends MeifanNetSalonApplication {
           } {
             salonPictures => Some(salonPictures.fileObjId.toString(), salonPictures.picUse, salonPictures.showPriority, salonPictures.description)
           }))(SalonPics.apply)(SalonPics.unapply))
+
+  /**
+   * 沙龙后台预约（进行中）管理的检索Form
+   */
+  def ResvSreachForm: Form[ResvSreachCondition] = Form {
+    mapping(
+      "startExpectedDate" -> text,
+      "endExpectedDate" -> text,
+      "resvId" -> text,
+      "nickName" -> text,
+      "userTel" -> text)
+    {
+      (startExpectedDate, endExpectedDate, resvId, nickName, userTel) => ResvSreachCondition(startExpectedDate, endExpectedDate, resvId,
+        nickName, userTel, List("0"))
+    } {
+      resvCondition => Some((resvCondition.startExpectedDate, resvCondition.endExpectedDate, resvCondition.resvId, resvCondition.nickName, resvCondition.userTel))
+    }
+  }
+
+  /**
+   * 沙龙后台预约（履历）管理的检索Form
+   */
+  def ResvRecordSreachForm: Form[ResvSreachCondition] = Form {
+    mapping(
+      "startExpectedDate" -> text,
+      "endExpectedDate" -> text,
+      "resvId" -> text,
+      "nickName" -> text,
+      "userTel" -> text,
+      "resvStatus" -> list(text))(ResvSreachCondition.apply)(ResvSreachCondition.unapply)
+  }
 
   /**
    * 沙龙登录
@@ -606,7 +634,7 @@ object Salons extends MeifanNetSalonApplication {
       styles :::= Style.findByStylistId(sty.stylistId)
     }
     styles.sortBy(_.createDate).reverse
-    Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll, isFirstSearch = true, isStylist = false, stylists = stylists))
+    Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = true, isStylist = false, stylists = stylists))
   }
 
   //TODO 命名同上 难以区分区别
@@ -618,7 +646,7 @@ object Salons extends MeifanNetSalonApplication {
         case (styleSearch) => {
           val stylists = Style.findStylistBySalonId(salon.id)
           val styles = Style.findStylesBySalonBack(styleSearch, salon.id)
-          Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll, isFirstSearch = false, isStylist = false, stylists = stylists))
+          Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = false, isStylist = false, stylists = stylists))
         }
       })
   }
@@ -631,7 +659,7 @@ object Salons extends MeifanNetSalonApplication {
     val styleOne: Option[Style] = Style.findOneById(styleId)
     val stylists = SalonAndStylist.getStylistsBySalon(salon.id)
     styleOne match {
-      case Some(style) => Ok(views.html.salon.admin.mySalonStyleUpdate(salon = salon, style = styleOne.get, stylists = stylists, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll))
+      case Some(style) => Ok(views.html.salon.admin.mySalonStyleUpdate(salon = salon, style = styleOne.get, stylists = stylists, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll("Hairdressing")))
       case None => NotFound
     }
   }
@@ -663,7 +691,7 @@ object Salons extends MeifanNetSalonApplication {
   def styleAddBySalon = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
     val stylists = SalonAndStylist.getStylistsBySalon(salon.id)
-    Ok(views.html.salon.admin.mySalonStyleAdd(salon = salon, stylists = stylists, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll, isStylist = false))
+    Ok(views.html.salon.admin.mySalonStyleAdd(salon = salon, stylists = stylists, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll("Hairdressing"), isStylist = false))
 
   }
 
@@ -858,6 +886,115 @@ object Salons extends MeifanNetSalonApplication {
           !Salon.isValid(value, salon, Salon.findOneBySalonName) ||
           !Salon.isValid(value, salon, Salon.findOneBySalonNameAbbr)).toString)
     }
+  }
+
+  /**
+   * 进入沙龙预约处理中的画面
+   */
+  def getAllResvsInProcessing = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+
+    val resvStatusList: List[String] = List("-1", "0", "1", "2")
+
+    val processingResvs: List[Reservation] = Reservation.findProcessingResvBySalon(salon.id).sortBy(_.expectedDate)
+
+    Ok(views.html.salon.admin.myResvManage("my-resvInProcessing", salon, ResvSreachForm, resvStatusList, processingResvs))
+
+  }
+
+  /**
+   * 进入沙龙预约履历的画面
+   */
+  def getAllResvsRecord = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+
+    val resvStatusList: List[String] = List("-1", "0", "1", "2", "3")
+    val defaultSreachCondition: ResvSreachCondition = ResvSreachCondition("", "", "", "", "", List("-1", "0", "1", "2", "3"))
+
+    val resvRecords: List[Reservation] = Reservation.findAllResvBySalon(salon.id).sortBy(_.expectedDate)
+
+    Ok(views.html.salon.admin.myResvManage("my-resvRecord", salon, ResvRecordSreachForm.fill(defaultSreachCondition), resvStatusList, resvRecords))
+
+  }
+
+  /**
+   * 根据检索条件检索出符合条件的预约信息(处理中预约)
+   * @return
+   */
+  def findResvs = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    ResvSreachForm.bindFromRequest.fold(
+    errors => BadRequest(views.html.error.errorMsg(errors)), {
+      resvCondition =>
+        val resvs: List[Reservation] = Reservation.findResvFromCondition(salon.id, resvCondition).sortBy(_.expectedDate)
+
+        val resvStatusList: List[String] = List("-1", "0", "1", "2")
+        Ok(views.html.salon.admin.myResvManage("my-resvInProcessing", salon, ResvSreachForm.fill(resvCondition), resvStatusList, resvs))
+    }
+    )
+  }
+
+  /**
+   * 根据检索条件检索出符合条件的预约信息(预约履历)
+   * @return
+   */
+  def findResvsRecord = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    ResvRecordSreachForm.bindFromRequest.fold(
+    errors => BadRequest(views.html.error.errorMsg(errors)), {
+      resvCondition =>
+        val resvs: List[Reservation] = Reservation.findResvFromCondition(salon.id, resvCondition).sortBy(_.expectedDate)
+
+        val resvStatusList: List[String] = List("-1", "0", "1", "2", "3")
+        Ok(views.html.salon.admin.myResvManage("my-resvRecord", salon, ResvSreachForm.fill(resvCondition), resvStatusList, resvs))
+    }
+    )
+  }
+
+  /**
+   * 根据传入的handleType对其做取消，完成，过期等修改
+   * @return
+   */
+  def handleResv = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    Reservations.HandleResvFrom.bindFromRequest.fold(
+      errors => BadRequest(views.html.error.errorMsg(errors)), {
+       handleResv =>
+         for(resv <- handleResv.reservs) {
+           Reservation.handleResv(handleResv.handleType, resv.id)
+         }
+
+        Redirect(auth.routes.Salons.getAllResvsInProcessing)
+
+    }
+    )
+  }
+
+  /**
+   * 进入某个预约详细信息页面
+   * @param resvId 预约id
+   * @param pageType 从哪个页面跳转过来的
+   * @return
+   */
+  def showResvDetail(resvId: ObjectId, pageType: String) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    val reservation: Reservation = Reservation.findOneById(resvId).get
+    println("reservation6/11 = " + reservation)
+
+    Ok(views.html.salon.admin.resvItemDetail(salon, reservation, pageType))
+  }
+
+  /**
+   * 根据预约id进行取消，完成，过期预约等操作
+   * 用于沙龙后台进入某个详细预约对其进行操作
+   * @return
+   */
+  def handleOneResv(handleType: String, resvId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    Reservation.handleResv(handleType, resvId)
+
+    Redirect(auth.routes.Salons.getAllResvsInProcessing)
+
   }
 }
 

@@ -1,0 +1,32 @@
+@(reservation: models.portal.reservation.Reservation, user :models.portal.user.User, followInfo:models.portal.user.FollowInformation)
+
+@import models.portal.salon.Salon
+
+@myPageMain("my-reservation", user, followInfo, user.id, true) {
+  <div class="middleContentsInner ympS">
+    <div class="middleContentsInnerHead ympS pT25">
+      <div class="middleContentsInnerBottom ympS">
+        <div class="shopContentsWrapper">
+          <div class="skinHeadingWrapper">
+            <h3>
+              取消预约
+            </h3>
+          </div>
+          <dl class="bgLGray pT30 mT30">
+            <dt class="fs18 taC b pB30">
+              @*06月12日（星期四） 10:00～、Visee　Line（ヴィセ　ライン）の予約をキャンセルしました。*@
+              @reservation.expectedDate.format("yyyy/MM/dd HH:mm") @Salon.findOneById(reservation.salonId).map(s => s.salonName) <p>的预约已取消</p>
+            </dt>
+            <dd class="taC pB30">
+              <a href="@auth.routes.Users.myPage()" title=""
+              class="bS toReserveList db offL mHA">
+                预约一览
+              </a>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  }

@@ -52,6 +52,7 @@ import models.portal.blog.Blog
 import models.portal.coupon.{CouponServiceType, Coupon}
 import models.portal.menu.Menu
 import models.portal.service.{ServiceByType, Service, ServiceType}
+import models.portal.nail.Nail
 
 object Salons extends MeifanNetCustomerOptionalApplication {
 
@@ -131,7 +132,8 @@ object Salons extends MeifanNetCustomerOptionalApplication {
         (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
         workTime, restDays, seatNums, salonFacilities, salonPics, _) =>
           Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
-            workTime, restDays, seatNums, salonFacilities, salonPics, new Date(), new SalonStatus(0,false))
+          workTime, restDays, seatNums, salonFacilities, salonPics, new Date(), new SalonStatus(1, true))
+
       } {
         salonRegister =>
           Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonAppeal, salonRegister.salonIntroduction, salonRegister.contactMethod,
@@ -152,7 +154,11 @@ object Salons extends MeifanNetCustomerOptionalApplication {
       "serviceType" -> list(text),
       "priceRange" -> mapping(
         "minPrice" -> bigDecimal,
-        "maxPrice" -> bigDecimal)(PriceRange.apply)(PriceRange.unapply),
+        "maxPrice" -> bigDecimal) {
+        (minPrice, MaxPrice) => PriceRange(new ObjectId, minPrice, MaxPrice, "")
+      } {
+        priceRange => Some(priceRange.minPrice, priceRange.maxPrice)
+      },
       "seatNums" -> mapping(
         "minNum" -> number,
         "maxNum" -> number)(SeatNums.apply)(SeatNums.unapply),
@@ -208,11 +214,31 @@ object Salons extends MeifanNetCustomerOptionalApplication {
     var myCity = request.session.get("myCity").map{ city => city } getOrElse { "苏州" }
 
     val searchParaForSalon = new SearchParaForSalon(None, myCity, "all", List(), "Hairdressing", List(),
-      PriceRange(0, 1000000), SeatNums(0, 10000),
+      PriceRange(new ObjectId, 0, 1000000, "Hairdressing"), SeatNums(0, 10000),
       SalonFacilities(false, false, false, false, false, false, false, false, false, ""),
       SortByConditions("price", false, false, true))
     val salons = Salon.findSalonBySearchPara(searchParaForSalon)
-    Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
+    val nav = "HairSalon"
+    Ok(views.html.salon.general.index(nav = nav, navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
+  }
+
+  /**
+   * 跳转沙龙前台检索页面
+   * 从session中获得城市，前面步骤保证必然会存在
+   * 如果找不到城市默认给苏州
+   * @return
+   */
+  def indexNail = StackAction { implicit request =>
+    val user = loggedIn
+    var myCity = request.session.get("myCity").map{ city => city } getOrElse { "苏州" }
+
+    val searchParaForSalon = new SearchParaForSalon(None, myCity, "all", List(), "Manicures", List(),
+      PriceRange(new ObjectId, 0, 1000000, "Hairdressing"), SeatNums(0, 10000),
+      SalonFacilities(false, false, false, false, false, false, false, false, false, ""),
+      SortByConditions("price", false, false, true))
+    val salons = Salon.findSalonBySearchPara(searchParaForSalon)
+    val nav = "NailSalon"
+    Ok(views.html.salon.general.index(nav = nav, navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
   }
 
   /*-------------------------
@@ -304,12 +330,22 @@ object Salons extends MeifanNetCustomerOptionalApplication {
     val salon: Option[Salon] = Salon.findOneById(salonId)
     salon match {
       case Some(sl) => {
-        // find styles of all stylists via the relationship between [salon] and [stylist]. 
-        val styles = Salon.getAllStyles(salonId)
-        // navigation bar
-        val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString()))
-        // Jump to stylists page in salon. 
-        Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = styles, navBar = navBar, user = user))
+        Salon.findIndustryBySalonId(salonId) match {
+          case "Hairdressing" => {
+            // find styles of all stylists via the relationship between [salon] and [stylist].
+            val styles = Salon.getAllStyles(salonId)
+            // navigation bar
+            val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString()))
+            // Jump to stylists page in salon.
+            Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = styles, navBar = navBar, user = user))
+          }
+          case "Manicures" => {
+            val nails = Salon.getAllNails(salonId)
+            // navigation bar
+            val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("nailSalon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString()))
+            Ok(views.html.salon.store.nailSalon.salonInfoNailAll(salon = sl, nails = nails, navBar = navBar, user = user))
+          }
+        }
       }
       case None => NotFound
     }
@@ -324,28 +360,57 @@ object Salons extends MeifanNetCustomerOptionalApplication {
     val salon: Option[Salon] = Salon.findOneById(salonId)
     salon match {
       case Some(sl) => {
-        // Second, check if the style is exist.
-        val style: Option[Style] = Style.findOneById(styleId)
-        style match {
-          case Some(st) => {
-            val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString())) :::
-              List((st.styleName.toString(), ""))
-            // Third, we need to check the relationship between slaon and stylist to check if the style is active.
-            if (SalonAndStylist.isStylistActive(salonId, st.stylistId)) {
-              // If style is active, jump to the style show page in salon.
-              Ok(views.html.salon.store.salonInfoStyle(salon = sl, style = st, navBar = navBar, user = user))
-            } else {
-              // If style is not active, show nothing but must in the salon's page.
-              Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar, user = user))
+        Salon.findIndustryBySalonId(salonId) match {
+          case "Hairdressing" => {
+            // Second, check if the style is exist.
+            val style: Option[Style] = Style.findOneById(styleId)
+            style match {
+              case Some(st) => {
+                val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString())) :::
+                  List((st.styleName.toString(), ""))
+                // Third, we need to check the relationship between slaon and stylist to check if the style is active.
+                if (SalonAndStylist.isStylistActive(salonId, st.stylistId)) {
+                  // If style is active, jump to the style show page in salon.
+                  Ok(views.html.salon.store.salonInfoStyle(salon = sl, style = st, navBar = navBar, user = user))
+                } else {
+                  // If style is not active, show nothing but must in the salon's page.
+                  Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar, user = user))
+                }
+              }
+              // If style is not exist, show nothing but must in the salon's page.
+              case None => {
+                val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString()))
+                // TODO should with some message to show to user.
+                Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar, user = user))
+              }
             }
           }
-          // If style is not exist, show nothing but must in the salon's page.
-          case None => {
-            val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("salon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString()))
-            // TODO should with some message to show to user.
-            Ok(views.html.salon.store.salonInfoStyleAll(salon = sl, styles = Nil, navBar = navBar, user = user))
+          case "Manicures" => {
+            // Second, check if the nail is exist.
+            val nail: Option[Nail] = Nail.findOneById(styleId)
+            nail match {
+              case Some(nail) => {
+                val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("nailSalon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString())) :::
+                  List((nail.styleName.toString(), ""))
+                // Third, we need to check the relationship between slaon and stylist to check if the style is active.
+                if (SalonAndStylist.isStylistActive(salonId, nail.stylistId)) {
+                  // If nail is active, jump to the nail show page in salon.
+                  Ok(views.html.salon.store.nailSalon.salonInfoNail(salon = sl, nail = nail, navBar = navBar, user = user))
+                } else {
+                  // If nail is not active, show nothing but must in the salon's page.
+                  Ok(views.html.salon.store.nailSalon.salonInfoNailAll(salon = sl, nails = Nil, navBar = navBar, user = user))
+                }
+              }
+              // If nail is not exist, show nothing but must in the salon's page.
+              case None => {
+                val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("nailSalon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString()))
+                // TODO should with some message to show to user.
+                Ok(views.html.salon.store.nailSalon.salonInfoNailAll(salon = sl, nails = Nil, navBar = navBar, user = user))
+              }
+            }
           }
         }
+
       }
       // TODO: If salon is not active
       case None => NotFound
@@ -396,7 +461,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
              serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), navBar = navBar, user = user))
         } else {
           Ok(views.html.reservation.reservSelectService(sl, Coupons.conditionForm.fill(couponSchDefaultConds), serviceTypes = srvTypes, coupons = coupons, menus = menus,
-            serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), stylistId, styleId,  navBar = navBar))
+            serviceByTypes = servicesByTypes, beforeSevernDate.getTime(), stylistId, styleId, user,  navBar = navBar))
         }
       }
       case None => NotFound
@@ -481,7 +546,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
               if(stylistId.isEmpty()) {
                 Ok(views.html.salon.store.salonInfoCouponAll(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), navBar, user))
               } else {
-                Ok(views.html.reservation.reservSelectService(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), stylistId, styleId, navBar))
+                Ok(views.html.reservation.reservSelectService(s, conditionForm.fill(couponServiceType), serviceTypes, coupons, menus, servicesByTypes, beforeSevernDate.getTime(), stylistId, styleId, user, navBar))
               }
             }
             case None => NotFound
@@ -523,7 +588,13 @@ object Salons extends MeifanNetCustomerOptionalApplication {
       {
         case (salonSearchForm) => {
           val salons = Salon.findSalonBySearchPara(salonSearchForm)
-          Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = salonSearchForm, salons = salons))
+          var nav = ""
+          if(salonSearchForm.salonIndustry.equals("Hairdressing")){
+            nav = "HairSalon"
+          }else if(salonSearchForm.salonIndustry.equals("Manicures")){
+            nav = "NailSalon"
+          }
+          Ok(views.html.salon.general.index(nav = nav, navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = salonSearchForm, salons = salons))
         }
       })
   }

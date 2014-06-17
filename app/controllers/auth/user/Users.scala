@@ -40,6 +40,7 @@ import models.portal.industry.IndustryAndPosition
 import models.portal.salon.Salon
 import models.portal.relation.SalonStylistApplyRecord
 import com.meifannet.portal.MeifanNetCustomerApplication
+import models.portal.reservation.Reservation
 
 object Users extends MeifanNetCustomerApplication {
 
@@ -249,9 +250,11 @@ object Users extends MeifanNetCustomerApplication {
   def myPage() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
+    val reservingList = Reservation.findResving(user.userId)
     User.findOneByUserId(user.userId).map { user =>
       if ((user.userTyp.toUpperCase()).equals("NORMALUSER")) {
-        Ok(views.html.user.myPageRes(user, followInfo))
+//        Ok(views.html.user.myPageRes(user, followInfo))
+        Ok(views.html.user.myReserving(user, followInfo, reservingList))
       } else {
         Redirect(controllers.auth.routes.Stylists.myHomePage)
       }
@@ -289,7 +292,9 @@ object Users extends MeifanNetCustomerApplication {
   def myReservation() = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    Ok(views.html.user.myPageRes(user, followInfo))
+    val reservingList = Reservation.findResving(user.userId)
+    Ok(views.html.user.myReserving(user, followInfo, reservingList))
+//    Ok(views.html.user.myPageRes(user, followInfo))
   }
 
   /**
@@ -299,7 +304,7 @@ object Users extends MeifanNetCustomerApplication {
   def applyStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    val goodAtStylePara = Stylist.findGoodAtStyle
+    val goodAtStylePara = Stylist.findGoodAtStyle("Hairdressing")
     Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara, followInfo))
 
   }
@@ -311,7 +316,7 @@ object Users extends MeifanNetCustomerApplication {
   def commitStylistApply = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    val goodAtStylePara = Stylist.findGoodAtStyle
+    val goodAtStylePara = Stylist.findGoodAtStyle("Hairdressing")
     stylistApplyForm.bindFromRequest.fold(
       errors => BadRequest(views.html.user.applyStylist(errors, user, goodAtStylePara, followInfo)),
       {

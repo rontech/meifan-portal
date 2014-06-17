@@ -1,13 +1,13 @@
-@(navBar: List[(String, String)], user: Option[models.portal.user.User], searchParaForSalon: models.portal.search.SearchParaForSalon, salons: List[models.portal.search.SalonGeneralSrchRst])
+@(nav : String, navBar: List[(String, String)], user: Option[models.portal.user.User], searchParaForSalon: models.portal.search.SearchParaForSalon, salons: List[models.portal.search.SalonGeneralSrchRst])
 
-@main(Messages("site.title"), nav = "HairSalon", navBar) {
+@main(Messages("site.title"), user, nav, navBar) {
 
   <div id="generalContents">
 
     <div class="pT15 cFix">
     <div class="cFix">
       <!-- ↓generalContentTopColumn -->
-      @views.html.salon.general.leftColumn(searchParaForSalon, salons)
+      @views.html.salon.general.leftColumn(searchParaForSalon, salons, nav)
       <!-- ↑generalContentTopColumn -->
       
       <!-- ↓generalContentRightColumn -->

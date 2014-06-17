@@ -120,15 +120,15 @@
                           <td class="openColor"><p class="scheduleR">
                           @if(stylistId == "") {
                             <a href="@routes.Reservations.reservSelectStylist(resvInfoItem.resvDate.format("yyyyMMddHHmm").toString)"
-                            title="◎" class="reservBS db reserveImmediately offL vaT">◎</a>
+                            title="@Messages("reservation.notResved")" class="reservBS db reserveImmediately offL vaT">◎</a>
                           } else {
                             @if(jumpType == "editResvInfo" || styleId != "") {
                               <a href="@auth.routes.Reservations.editResvInfoFromStyle(resvInfoItem.resvDate.format("yyyyMMddHHmm").toString, new ObjectId(stylistId), styleId)"
-                              title="◎" class="reservBS db reserveImmediately offL vaT">
+                              title="@Messages("reservation.notResved")" class="reservBS db reserveImmediately offL vaT">
                                 ◎</a>
                             } else {
                               <a href="@routes.Reservations.reservSelectStyle(resvInfoItem.resvDate.format("yyyyMMddHHmm").toString, new ObjectId(stylistId), "selectResvStyle")"
-                              title="◎" class="reservBS db reserveImmediately offL vaT">
+                              title="@Messages("reservation.notResved")" class="reservBS db reserveImmediately offL vaT">
                                 ◎</a>
                             }
                           }

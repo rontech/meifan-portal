@@ -1,10 +1,10 @@
-@(searchParaForSalon: models.portal.search.SearchParaForSalon, salons: List[models.portal.search.SalonGeneralSrchRst])
+@(searchParaForSalon: models.portal.search.SearchParaForSalon, salons: List[models.portal.search.SalonGeneralSrchRst], nav : String)
 
 <div class="w768 fl">
   
   <!-- models.portal.salon.Salon search -->
   <div class="w768 fl">
-    @views.html.salon.search.salonSearchForm(searchParaForSalon)
+    @views.html.salon.search.salonSearchForm(searchParaForSalon, nav)
   </div>
   
   <!-- models.portal.salon.Salon search result -->

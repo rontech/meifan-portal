@@ -74,7 +74,7 @@
           <div class="cFix mT10">
             <div class="fl w99">
               <a href="@noAuth.routes.Salons.getOneStylist(salon.id, style.stylistId)">
-                <img src="@routes.Application.getPhoto(models.portal.stylist.Stylist.findOneByStylistId(style.stylistId).get.myPics(0).fileObjId)" class="w89">
+                <img src="@routes.Application.getPhoto(models.portal.stylist.Stylist.findOneByStylistId(style.stylistId).get.myPics(0).fileObjId)" class="w89 h119">
               </a>
             </div>
             <div class="fr w318">
@@ -89,7 +89,7 @@
             </div>
             <div class="fr" >
               <a href="@noAuth.routes.Salons.getAllCoupons(salon.id, style.stylistId.toString, style.id.toString, "reservation")" class="bS db nominatedReserve" width="200px">
-              @Messages("reservation.resvStyle")
+              @Messages("style.selectForReserv")
               </a>
             </div>
           </div>

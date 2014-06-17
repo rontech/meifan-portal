@@ -79,21 +79,25 @@ object Application extends MeifanNetCustomerOptionalApplication {
     Ok(views.html.index(user))
   }
 
-  def login() = Action { implicit request =>
-    Ok(views.html.user.login(auth.Users.loginForm))
+  def login() = StackAction { implicit request =>
+    val user = loggedIn
+    Ok(views.html.user.login(auth.Users.loginForm, user))
   }
 
-  def register() = Action {
-    Ok(views.html.user.register(Users.registerForm()))
+  def register() = StackAction { implicit request =>
+    val user = loggedIn
+    Ok(views.html.user.register(Users.registerForm(), user))
   }
 
-  def salonLogin() = Action {
-    Ok(views.html.salon.salonManage.salonLogin(auth.Salons.salonLoginForm))
+  def salonLogin() = StackAction { implicit request =>
+    val user = loggedIn
+    Ok(views.html.salon.salonManage.salonLogin(auth.Salons.salonLoginForm, user))
   }
 
-  def salonRegister() = Action {
+  def salonRegister() = StackAction { implicit request =>
+    val user = loggedIn
     val industry = Industry.findAll.toList
-    Ok(views.html.salon.salonManage.salonRegister(Salons.salonRegister, industry))
+    Ok(views.html.salon.salonManage.salonRegister(Salons.salonRegister, industry, user))
   }
 
   def getPhoto(file: ObjectId) = Action {
@@ -189,6 +193,16 @@ object Application extends MeifanNetCustomerOptionalApplication {
     val time = currentTime - birthdayTime
     val age = time / 1000 / 3600 / 24 / 365
     age
+  }
+
+  def getIndustryByNav(nav : String) = {
+    nav match {
+      case "HairSalon" =>  "Hairdressing"
+      case "NailSalon" =>  "Manicures"
+      case "RelaxSalon" =>  "Healthcare"
+      case "EstheSalon" =>  "Cosmetic"
+      case _ => ""
+    }
   }
 
   /**

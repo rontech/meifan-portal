@@ -1,107 +1,94 @@
-@(userForm: Form[models.portal.user.User])
+@(userForm: Form[models.portal.user.User], user: Option[models.portal.user.User] = None)
 
 @import helper._
 @import helper.twitterBootstrap._
+@import common.loginAndRegisterMain
 
-@main(Messages("site.title")) {
+@loginAndRegisterMain(Messages("site.title"), "userRegister", user) {
   <head>
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/user/user.css")">
   </head>
   <div class="salonRegister">
-    <div class="contentsTitleWrapper">
-      <h2 class="contentsTitleInner">@Messages("user.register")</h2>
-    </div>
+    <div>
+    @helper.form(noAuth.routes.Users.register(), 'name -> "userForm", 'id -> "userRegisterForm") {
+      <div class="registerForm">
+        <h3>@Messages("user.info")</h3>
+        <div class="item">
+          <span class="label"><b class="cR">*</b>@Messages("user.name"):</span>
 
-    <div class="mT10 pH10">
-    @helper.form(noAuth.routes.Users.register(), 'id -> "userForm", 'name -> "userForm") {
-      <table cellspacing="0" class="wFull bdCell pCell10 bgThNml">
-        <tbody>
-          <tr>
-            <th class="w222">
-              <div class="dibBL vaM w160">
-                <font class="cR">*</font>@Messages("user.name")
-              </div>
-            </th>
-            <td>
+          <div class="fl item-ifo">
             @inputText(userForm("userId"),
               '_label -> None,
-              'id -> "accountId")
-            </td>
-            <td rowspan="10">
-              <div class="mT20 txtC">
-                <span>@Messages("user.hasUserId")</span><br>
-                <a href="@auth.routes.Users.login()"><span>@Messages("user.loginBtn")</span></a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th class="w222">
-              <div class="dibBL vaM w160">
-                <font class="cR">*</font>@Messages("user.password")
-              </div>
-            </th>
-            <td>
+              'id -> "accountId",
+              'class -> "text")
+          </div>
+        </div>
+        <div class="item">
+          <span class="label"><b class="cR">*</b>@Messages("user.password"):</span>
+
+          <div class="fl item-ifo">
             @inputPassword(userForm("password.main"),
               '_label -> None,
-              'id -> "password_main")
-            </td>
-          </tr>
-          <tr>
-            <th class="w222">
-              <div class="dibBL vaM w160">
-                <font class="cR">*</font>@Messages("user.confirmPas")
-              </div>
-            </th>
-            <td>
+              'id -> "password_main",
+              'class -> "text")
+          </div>
+        </div>
+        <div class="item">
+          <span class="label"><b class="cR">*</b>@Messages("user.confirmPas"):</span>
+
+          <div class="fl item-ifo">
             @inputPassword(userForm("password.confirm"),
               '_label -> None,
-              'id -> "password_confirm")
-            </td>
-          </tr>
-          <tr>
-            <th class="w222">
-              <div class="dibBL vaM w160">
-                <font class="cR">*</font>@Messages("user.nickNm")
-              </div>
-            </th>
-            <td>
+              'id -> "password_confirm",
+              'class -> "text")
+          </div>
+        </div>
+        <div class="item">
+          <span class="label"><b class="cR">*</b>@Messages("user.nickNm"):</span>
+
+          <div class="fl item-ifo">
             @inputText(userForm("nickName"),
-              '_label -> None,
-              'id -> "nickName")
-            </td>
-          </tr>
-          <tr>
-            <th class="w222">
-              <div class="dibBL vaM w160">
-                <font class="cR">*</font>@Messages("user.email")
-              </div>
-            </th>
-            <td>
+            '_label -> None,
+            'id -> "nickName",
+            'class -> "text")
+          </div>
+        </div>
+        <div class="item">
+          <span class="label"><b class="cR">*</b>@Messages("user.email"):</span>
+
+          <div class="fl item-ifo">
             @inputText(userForm("email"),
-              '_label -> None)
-            </td>
-          </tr>
+              '_label -> None,
+              'class -> "text")
+          </div>
+        </div>
+        @inputText(userForm("optContactMethod"),
+          '_label -> None,
+          'style -> "display: none",
+          '_class -> "noDisplay")
 
-          @inputText(userForm("optContactMethod"),
-            '_label -> None,
-            'style -> "display: none")
+        @inputText(userForm("userPics"),
+          '_label -> None,
+          'style -> "display: none",
+          '_class -> "noDisplay")
 
-          @inputText(userForm("userPics"),
-            '_label -> None,
-            'style -> "display: none")
-        </tbody>
-      </table>
-      <div class="mT20 txtC">
-      @checkbox(
-        userForm("accept"),
-        '_label -> None,
-        '_text -> Messages("user.agreement"),
-        '_showConstraints -> false)
+        <div class="item item-new">
+          <span class="label">&nbsp;</span>
+
+          <div class="fl item-ifo">
+            @checkbox(
+              userForm("accept"),
+              '_label -> None,
+              '_text -> Messages("user.agreement"),
+              '_showConstraints -> false)
+          </div>
+        </div>
+        <div class="item">
+          <span class="label">&nbsp;</span>
+          <input type="button" class="btn-img btn-regist" value="@Messages("user.agreeToRegister")" onclick="checksForUserRegister();">
+        </div>
       </div>
-      <div class="mT20 txtC">
-        <input type="button" class="buttons" value="@Messages("user.agreeToRegister")" onclick="checksForUserRegister ( ) ;">
-        <a href="@routes.Application.index" class="btn">取消</a>
-      </div>
+
     }
     </div>
   </div>

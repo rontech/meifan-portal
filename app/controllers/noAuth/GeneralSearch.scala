@@ -60,16 +60,17 @@ object GeneralSearch extends MeifanNetCustomerOptionalApplication {
             }
             case "HairSalon" => {
               val searchParaForSalon = new SearchParaForSalon(Option(generalSearch._2), myCity, "all", List(), "Hairdressing", List(),
-                PriceRange(0, 1000000), SeatNums(0, 10000),
+                PriceRange(new ObjectId, 0, 1000000, "Hairdressing"), SeatNums(0, 10000),
                 SalonFacilities(false, false, false, false, false, false, false, false, false, ""),
                 SortByConditions("price", false, false, true))
               val salons = Salon.findSalonBySearchPara(searchParaForSalon)
-              Ok(views.html.salon.general.index(navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
+              val nav = "HairSalon"
+              Ok(views.html.salon.general.index(nav = nav, navBar = SalonNavigation.getSalonTopNavBar, user = user, searchParaForSalon = searchParaForSalon, salons = salons))
             }
             case "HairCatalog" => {
               val styleSearch = new Style(new ObjectId, "", new ObjectId, Nil, "all", Nil, "all", Nil, Nil, Nil, Nil, Nil, "", Nil, "all", Nil, new Date, true)
               var styleAndSalons: List[StyleWithAllInfo] = Style.findByPara(styleSearch)
-              Ok(views.html.style.general.styleSearchResultPage(Styles.styleSearchForm.fill(styleSearch), styleAndSalons, Style.findParaAll, user))
+              Ok(views.html.style.general.styleSearchResultPage(Styles.styleSearchForm.fill(styleSearch), styleAndSalons, Style.findParaAll("Hairdressing"), user))
             }
             case "NailSalon" => {
               Ok(views.html.index())
