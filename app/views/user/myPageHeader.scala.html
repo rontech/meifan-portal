@@ -40,6 +40,13 @@
           <span>@Messages("user.myRelevants")</span>
         </a>
       </li>
+      @if(navInMyPage == "applyStylist") {
+        <li class="selected">
+          <a>
+            <span>@Messages("user.tobeStylist")</span>
+          </a>
+        </li>
+      }
     </ul>
   </div>
   <!-- ↑mainContents -->

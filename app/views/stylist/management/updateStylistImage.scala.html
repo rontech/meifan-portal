@@ -3,14 +3,16 @@
 @import helper._
 @import views.html.user._
 
-@myPageMain("updateStylistImage", user, followInfo, loginUserId, logged){
+@myPageMain("applyStylist", user, followInfo, loginUserId, logged){
   @if(roles.equals("user")){
-        <div class="step">
-          <ul>
-            <li class="one cur">@Messages("stylist.writeApplyInfo")</li>
-            <li class="four">@Messages("stylist.uploadApplyImg")</li>
-          </ul>
-        </div>
+    <div class="step mT40">
+      <ul>
+        <li class="one one1">@Messages("stylist.selectSalon")</li>
+        <li class="one">@Messages("stylist.writeApplyInfo")</li>
+        <li class="one cur">@Messages("stylist.uploadApplyImg")</li>
+        <li class="four">@Messages("stylist.toApplyStylistInfo")</li>
+      </ul>
+    </div>
   }
   @helper.form(auth.routes.Stylists.toUpdateStylistImage(roles), 'enctype -> "multipart/form-data") {
     <div class="upMain">
