@@ -126,6 +126,15 @@ function checkSalonAccountId(){
      xhr.send(null);
 }
 
+function checkForSalonAccountForm(){
+  checkSalonAccountId();
+  var errInput = $('.errorMsg');
+  if (errInput.length != 0 ){
+    return false;
+  }
+  document.salonAccountForm.submit();
+}
+
 $('#WorkYears').focus(function(){
     $('#WorkYears  ~ .help-inline').text("工作年数请取整").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function(){
@@ -148,8 +157,8 @@ function checkWorkYears(){
 
 function checkForApplyStylist(){
 	checkWorkYears()
-	checkSalonAccountId()
-	var $indust = $('.IndustryName');
+	//checkSalonAccountId()
+	/*var $indust = $('.IndustryName');
 	$indust.each(function(i){
 		if(i==($indust.length-1)){
 			
@@ -159,9 +168,15 @@ function checkForApplyStylist(){
 			}
 		}
 		
-	});
-	var $Position = $('.PositionName');
-	$Position.each(function(i){
+	});*/
+	var position = $('.PositionName').val();
+  if(position == '') {
+    $('.PositionName').next().text('请选择职位').removeClass("trueMsg").addClass("errorMsg");
+  } else {
+
+  }
+	/*$Position.each(function(i){
+    alert($Position.length)
 		if(i==($Position.length-1)){
 			
 		}else{
@@ -170,7 +185,7 @@ function checkForApplyStylist(){
 			}
 		}
 		
-	});
+	});*/
 	var errInput = $('.errorMsg');
     if (errInput.length != 0 ){
         return false;
