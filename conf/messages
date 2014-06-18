@@ -734,6 +734,7 @@ user.reverving=处理中预约
 user.revervationHistory=预约履历
 user.info = 用户信息
 user.userAndStylist = 普通用户/技师
+user.address = 个人所在地
 
 
 user.needfieldworks = 请输入0~100整数
