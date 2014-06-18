@@ -1272,3 +1272,5 @@ nail.nailOfStylist = 此技师的其它美甲作品
 nailSalon.stylists = 美甲师
 nailSalon.styles = 美甲
 nailSalon.salonStyleTitle = {0}的美甲
+nailSalon.showAllNails = 显示所有美甲
+nailSalon.nailManagement = 美甲管理
