@@ -23,12 +23,12 @@
     )
    </div>   
     }
-    
-@stylistPosition(field: Field, className: String = "optContactMethod") ={
+
+@**stylistPosition(field: Field, className: String = "optContactMethod") ={
   <div class="twipsies well @className">
     <a class="removeOptContactMethod buttons danger pull-right">@Messages("removePositionAndIndusty")</a>
     <div class="industry">
-      @select(
+      select(
         field("industryName"), 
         options = options("Hairdressing"-> Messages("industry.industryName.Hairdressing"),
           "Manicures" -> Messages("industry.industryName.Manicures"),
@@ -63,7 +63,7 @@
     </div>
     <div></div>    
    </div>
-}
+}**@
 
     
 
@@ -102,14 +102,14 @@
             </th>
             <td>
               <div class="inputField"">
-                <div id="optContactMethods>
+                @**<div id="optContactMethods>
                   @repeat(stylistForm("position")){position=>
                     @stylistPosition(position)
-                  }
+                  }**@
                   @**
                      * Keep an hidden block that will be used as template for Javascript copy code
                      **@
-                    @stylistPosition(
+                @**stylistPosition(
                       stylistForm("position[x]"),
                       className = "optContactMethod_template"
                     )
@@ -117,7 +117,10 @@
                     <div class="manage">
                       <a class="addOptContactMethod buttons success">@Messages("addPositionAndIndusty")</a>
                     </div>
-                </div>
+                </div>**@
+                @if(!stylist.position.isEmpty) {
+                  @Messages("position.positionName." + stylist.position.head.positionName)
+                }
               </div>
             </td>
           </tr>

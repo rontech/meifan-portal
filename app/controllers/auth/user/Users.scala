@@ -35,7 +35,7 @@ import utils.Const._
 import play.api.templates.Html
 import models.portal.user.{LoggedIn, MyFollow, User}
 import models.portal.common.{OnUsePicture, OptContactMethod, Address}
-import models.portal.stylist.{Stylist, StylistApply}
+import models.portal.stylist.{Stylist, StylistApply, GoodAtStyle}
 import models.portal.industry.IndustryAndPosition
 import models.portal.salon.Salon
 import models.portal.relation.SalonStylistApplyRecord
@@ -105,6 +105,14 @@ object Users extends MeifanNetCustomerApplication {
           Some((user.id, user.userId, user.nickName, user.password, user.sex, user.birthDay, user.address, user.userPics.toString, user.tel, user.email, user.optContactMethods, user.socialScene, user.registerTime,
             user.userTyp, user.userBehaviorLevel, user.point, user.activity, user.permission))
       })
+
+  /**
+   * 用户申请技师第一步表单（申请某沙龙技师）
+   * @return
+   */
+  def applyForSalonForm = Form(
+    "salonAccountId" -> text
+  )
 
   /** 用户申请技师用表单
    *
@@ -298,15 +306,51 @@ object Users extends MeifanNetCustomerApplication {
   }
 
   /**
+   *
+   * @return
+   */
+  def selectSalonIdForApply = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    Ok(views.html.user.selectSalonForApply(user, followInfo))
+  }
+
+  /**
+   *
+   * @return
+   */
+  def getSalonIdForApply = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+    val user = loggedIn
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+    applyForSalonForm.bindFromRequest.fold(
+      errors => BadRequest(views.html.error.errorMsg(errors)),
+      {
+        applyForSalon =>
+          Redirect(controllers.auth.routes.Users.applyStylist).withSession("salonAccountId" -> applyForSalon)
+      }
+    )
+  }
+
+  /**
    * Redirect to applying for stylist page
    * @return
    */
   def applyStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    val goodAtStylePara = Stylist.findGoodAtStyle("Hairdressing")
-    Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara, followInfo))
-
+    var goodAtStylePara = GoodAtStyle(Nil, Nil, Nil, Nil, Nil, Nil, Nil)
+    session.get("salonAccountId") match {
+      case Some(salonAccountId) => {
+        Salon.findOneByAccountId(salonAccountId).map { salon =>
+          goodAtStylePara = Stylist.findGoodAtStyle(salon.salonIndustry.head)
+          // 跳转画面且清除session中salonAccountId
+          Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara, followInfo, salonAccountId)).withSession(session - "salonAccountId")
+        }
+      } getOrElse {
+        Ok(views.html.user.selectSalonForApply(user, followInfo))
+      }
+      case None => Ok(views.html.user.selectSalonForApply(user, followInfo))
+    }
   }
 
   /**
@@ -318,7 +362,7 @@ object Users extends MeifanNetCustomerApplication {
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val goodAtStylePara = Stylist.findGoodAtStyle("Hairdressing")
     stylistApplyForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.user.applyStylist(errors, user, goodAtStylePara, followInfo)),
+      errors => BadRequest(views.html.user.applyStylist(errors, user, goodAtStylePara, followInfo, "")),
       {
         case (stylistApply) => {
           Stylist.save(stylistApply.stylist.copy(stylistId = user.id))
