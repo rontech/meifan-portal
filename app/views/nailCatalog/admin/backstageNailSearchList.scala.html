@@ -1,0 +1,69 @@
+@(nails: List[models.portal.nail.Nail], isStylist: Boolean, uId: ObjectId = new ObjectId, loginUserId: ObjectId = new ObjectId)
+
+@import helper._
+
+<div class="styleList">
+   @if(nails.isEmpty){
+      <div class="bgAlertMsg mT20">
+      <p class="alertMsg">@Messages("nail.noNailSearched")</p>
+     </div>
+   }else{
+    @for(i <- 0 to nails.length-1){
+      <table class="styleItem">
+      <tbody>
+      <tr>
+        <td class="vaT">
+        <div class="mHA">
+          <div class="mT10 fs16 taM">
+          @if(isStylist){
+            @if(uId == loginUserId){
+              <a href="@auth.routes.Stylists.styleUpdateByStylist(nails(i).id)" >
+                <img src="@routes.Application.getPhoto(nails(i).stylePic(0).fileObjId)" alt="@nails(i).styleName" class="w150 h200" title=@Messages("nailSalon.nailTitle")>
+              </a>
+            }else {
+              <a href="@noAuth.routes.Stylists.getbackstageStyleItem(nails(i).id,nails(i).stylistId)" >
+                <img src="@routes.Application.getPhoto(nails(i).stylePic(0).fileObjId)" alt="@nails(i).styleName" class="w150 h200" title=@Messages("nailSalon.nailTitle")>
+              </a>
+            }
+          }else {
+             <a href="@auth.routes.Salons.getbackstageStyleItem(nails(i).id)">
+              <img src="@routes.Application.getPhoto(nails(i).stylePic(0).fileObjId)" alt="@nails(i).styleName" class="w150 h200" title=@Messages("nailSalon.nailTitle")>
+             </a>
+          }
+          </div>
+          <div class="mT2 txtC">
+            <p><span >@nails(i).styleName</span></p>
+          </div>
+          <div class="txtC">
+          @if(!isStylist) {
+            <a href="@noAuth.routes.Stylists.otherHomePage(nails(i).stylistId)">
+              <p>
+                <u>@Messages("nailSalon.stylists") : @models.portal.stylist.Stylist.findUser(nails(i).stylistId).nickName</u>
+              </p>
+            </a>
+          }else {
+            @if(uId == loginUserId){
+              <p class="styleBtn">
+                <a href="@auth.routes.Stylists.styleUpdateByStylist(nails(i).id)" >@Messages("common.edit")</a>
+                <a onclick="del('@auth.routes.Stylists.styleToInvalidByStylist(nails(i).id)','@Messages("common.deleteMsg")');" >@Messages("common.delete")</a>
+              </p>
+            }
+          }
+          </div>
+        </div>
+        </td>
+      </tr>
+      </tbody>
+      <tbody>
+      <tr>
+        <td colspan="4">
+        <div class="separateLine">
+          &nbsp;
+        </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    }
+    }
+</div>

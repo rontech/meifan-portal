@@ -48,6 +48,7 @@ import models.portal.style.Style
 import models.portal.reservation.{HandleReservation, ResvSreachCondition, Reservation}
 import com.meifannet.portal.MeifanNetSalonApplication
 import com.meifannet.framework.db.DBDelegate
+import models.portal.nail.{SearchPara, Nail}
 
 
 object Salons extends MeifanNetSalonApplication {
@@ -619,31 +620,65 @@ object Salons extends MeifanNetSalonApplication {
   }
 
   /**
-   * 查看店铺所有发型
+   * 后台查看店铺所有发型、美甲
    */
   def getAllStylesBySalon = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
     val stylists = SalonAndStylist.getStylistsBySalon(salon.id)
-    var styles: List[Style] = Nil
-    stylists.map { sty =>
-      styles :::= Style.findByStylistId(sty.stylistId)
+    Salon.findIndustryBySalonId(salon.id) match {
+      case "Hairdressing" => {
+        var styles: List[Style] = Nil
+        stylists.map { sty =>
+          styles :::= Style.findByStylistId(sty.stylistId)
+        }
+        styles.sortBy(_.createDate).reverse
+        Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = true, isStylist = false, stylists = stylists))
+      }
+      case "Manicures" => {
+        var nails: List[Nail] = Nil
+        stylists.map { sty =>
+          nails :::= Nail.findByStylistId(sty.stylistId)
+        }
+        nails.sortBy(_.createDate).reverse
+        val searchParaForNail = new SearchPara(None, "all", "all", "all", List(), List(), List(), List(), List(), List())
+        Ok(html.salon.admin.nailSalon.mySalonNails(salon = salon, nails = nails, nailSearchForm = Nails.nailSearchForm.fill(searchParaForNail), nailParaAll = Nail.findParaAll("Manicures"), isStylist = false, stylists = stylists))
+      }
+      case _ => Ok(views.html.index())
     }
-    styles.sortBy(_.createDate).reverse
-    Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = true, isStylist = false, stylists = stylists))
+
   }
 
-  //TODO 命名同上 难以区分区别
+  /**
+   * 后台查看店铺所有发型、美甲---通过检索条件
+   * @return
+   */
   def getAllStylesListBySalon = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
-    Styles.styleSearchForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.index()),
-      {
-        case (styleSearch) => {
-          val stylists = Style.findStylistBySalonId(salon.id)
-          val styles = Style.findStylesBySalonBack(styleSearch, salon.id)
-          Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = false, isStylist = false, stylists = stylists))
-        }
-      })
+    Salon.findIndustryBySalonId(salon.id) match {
+      case "Hairdressing" => {
+        Styles.styleSearchForm.bindFromRequest.fold(
+        errors => BadRequest(views.html.index()),
+        {
+          case (styleSearch) => {
+            val stylists = Style.findStylistBySalonId(salon.id)
+            val styles = Style.findStylesBySalonBack(styleSearch, salon.id)
+            Ok(html.salon.admin.mySalonStyles(salon = salon, styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = false, isStylist = false, stylists = stylists))
+          }
+        })
+      }
+      case "Manicures" => {
+        Nails.nailSearchForm.bindFromRequest.fold(
+        errors => BadRequest(views.html.index()),
+        {
+          case (nailSearch) => {
+            val stylists = SalonAndStylist.getStylistsBySalon(salon.id)
+            val nails = Nail.findNailsBySalonBack(nailSearch, salon.id)
+            Ok(html.salon.admin.nailSalon.mySalonNails(salon = salon, nails = nails, nailSearchForm = Nails.nailSearchForm.fill(nailSearch), nailParaAll = Nail.findParaAll("Manicures"), isStylist = false, stylists = stylists))
+          }
+        })
+      }
+    }
+
   }
 
   /**

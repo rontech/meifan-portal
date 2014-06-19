@@ -1,0 +1,183 @@
+@(nailSearchForm: Form[models.portal.nail.SearchPara], stylePara : models.portal.nail.StylePara, isStylist: Boolean, stylists: List[models.portal.stylist.Stylist] = Nil, stylistIdForAll : ObjectId = new ObjectId)
+
+@import helper._
+
+<div class = "mT40">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+
+  <div class="sreachtabBody">
+    @form(auth.routes.Salons.getAllStylesListBySalon, 'id -> "nailSearchForm"){
+      <div class="skinHeadingWrapper2 mB15 cFix pr">
+        <h3 class="fl skinHeading1 headingSearch offL">@Messages("nail.search")</h3>
+      </div>
+      <div class="inputHidden">
+          <input type = "hidden" name = "city" value = "">
+          <input type = "hidden" name = "region" value = "">
+      </div>
+      <table class="skinTbl1 pCell1" width="100%">
+        <tbody>
+          <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+          <tr>
+            <th class="w85 vaM taC nowrap">@Messages("nail.search.styleImpression")</th>
+            <td colspan="3" style="padding-right: 0 !important;">
+            <ul>
+              @*<li class="dibBL mR2">
+                <input type="checkbox" class="cbF" name="styleImpression" id="nailColorCd_ALL"  value = "all" checked="checked">
+                <label for="nailColorCd_ALL">@Messages("common.unLimit")</label>
+              </li>*@
+              @for(i <- 0 to stylePara.styleImpression.length-1){
+                <li class="dibBL mR2">
+                @if(nailSearchForm.get.styleImpression.contains(stylePara.styleImpression(i))){
+                  <input type = "checkbox" class = "cbF" name = "styleImpression[@i]" id="nailColorCd_HI@i" value = "@stylePara.styleImpression(i)" checked="checked">
+                }else{
+                  <input type = "checkbox" class = "cbF" name = "styleImpression[@i]" id="nailColorCd_HI@i" value = "@stylePara.styleImpression(i)">
+                }
+                  <label for="nailColorCd_HI@i">@Messages("style.styleImpression." + stylePara.styleImpression(i))</label>
+                </li>
+              }
+            </ul>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+          <tr>
+            <th class="w85 vaM taC nowrap">@Messages("hair.color")</th>
+            <td colspan="3" style="padding-right: 0 !important;">
+            <ul>
+              @input(field = nailSearchForm("styleColor"),args = '_label -> None){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.styleColor.length-1){
+                  <li class="dibBL mR2">
+                  @if(nailSearchForm.get.styleColor.contains(stylePara.styleColor(i))){
+                    <input type = "checkbox" class = "cbF" name = "styleColor[@i]" id="nailColorCd_HC@i" value = "@stylePara.styleColor(i)" checked="checked">
+                  }else{
+                    <input type = "checkbox" class = "cbF" name = "styleColor[@i]" id="nailColorCd_HC@i" value = "@stylePara.styleColor(i)">
+                  }
+                    <label for="nailColorCd_HC@i">@Messages("style.styleColor." + stylePara.styleColor(i))</label>
+                  </li>
+                }
+              }
+            </ul>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+          <tr>
+            <th class="w85 vaM taC nowrap">@Messages("nail.search.serviceType")</th>
+            <td colspan="3" style="padding-right: 0 !important;">
+            <ul>
+              @input(field = nailSearchForm("serviceType"), args = '_label -> None){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.serviceType.length-1){
+                  <li class="dibBL mR2">
+                  @if(nailSearchForm.get.serviceType.contains(stylePara.serviceType(i))){
+                    <input type = "checkbox" class = "cbF" name = "serviceType[@i]" id="nailColorCd_HT@i" value = "@stylePara.serviceType(i)" checked="checked">
+                  }else{
+                    <input type = "checkbox" class = "cbF" name = "serviceType[@i]" id="nailColorCd_HT@i" value = "@stylePara.serviceType(i)">
+                  }
+                    <label for="nailColorCd_HT@i">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))</label>
+                  </li>
+                }
+              }
+            </ul>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+        <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+        <tr>
+          <th class="w85 vaM taC nowrap">@Messages("nail.search.styleBase")</th>
+          <td colspan="3" style="padding-right: 0 !important;">
+              <ul>
+                  @input(field = nailSearchForm("styleBase"), args = '_label -> None){(id,name,value,args) =>
+                  @for(i <- 0 to stylePara.styleBase.length-1){
+                  <li class="dibBL mR2">
+                      @if(nailSearchForm.get.styleBase.contains(stylePara.styleBase(i))){
+                      <input type = "checkbox" class = "cbF" name = "styleBase[@i]" id="nailColorCd_HF@i" value = "@stylePara.styleBase(i)" checked="checked">
+                      }else{
+                      <input type = "checkbox" class = "cbF" name = "styleBase[@i]" id="nailColorCd_HF@i" value = "@stylePara.styleBase(i)">
+                      }
+                      <label for="nailColorCd_HF@i">@Messages("style.styleBase." + stylePara.styleBase(i))</label>
+                  </li>
+                  }
+                  }
+              </ul>
+          </td>
+        </tr>
+        </tbody>
+        <tbody>
+        <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+        <tr>
+          <th class="w85 vaM taC nowrap">@Messages("nail.search.styleMaterial")</th>
+          <td colspan="3" style="padding-right: 0 !important;">
+              <ul>
+                  @input(field = nailSearchForm("styleMaterial"),args = '_label -> None){(id,name,value,args) =>
+                  @for(i <- 0 to stylePara.styleMaterial.length-1){
+                  <li class="dibBL mR2">
+                      @if(nailSearchForm.get.styleMaterial.contains(stylePara.styleMaterial(i))){
+                      <input type = "checkbox" class = "cbF" name = "styleMaterial[@i]" id="nailColorCd_HK@i" value = "@stylePara.styleMaterial(i)" checked="checked">
+                      }else{
+                      <input type = "checkbox" class = "cbF" name = "styleMaterial[@i]" id="nailColorCd_HK@i" value = "@stylePara.styleMaterial(i)">
+                      }
+                      <label for="nailColorCd_HK@i">@Messages("style.styleMaterial." + stylePara.styleMaterial(i))</label>
+                  </li>
+                  }
+                  }
+              </ul>
+          </td>
+        </tr>
+        </tbody>
+        <tbody>
+          <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+          <tr>
+            <th class="w85 vaM taC nowrap">@Messages("nail.search.socialScene")</th>
+            <td colspan="3" style="padding-right: 0 !important;">
+            <ul>
+              @input(field = nailSearchForm("socialScene"), args = '_label -> None){(id,name,value,args) =>
+                @for(i <- 0 to stylePara.socialScene.length-1){
+                  <li class="dibBL mR2">
+                  @if(nailSearchForm.get.socialScene.contains(stylePara.socialScene(i))){
+                    <input type = "checkbox" class = "cbF" name = "socialScene[@i]" id="nailColorCd_HS@i" value = "@stylePara.socialScene(i)" checked="checked">
+                    
+                  }else{
+                    <input type = "checkbox" class = "cbF" name = "socialScene[@i]" id="nailColorCd_HS@i" value = "@stylePara.socialScene(i)">
+                  }
+                    <label for="nailColorCd_HS@i">@Messages("style.socialScene." + stylePara.socialScene(i))</label>
+                  </li>
+                }
+              }
+            </ul>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr><td colspan="4" class="pV1 pH0"><p class="bdTblSprt">&nbsp;</p></td></tr>
+          <tr>
+            <th class="w85 vaM taC nowrap">@Messages("nailSalon.stylists")</th>
+            <td colspan="3" style="padding-right: 0 !important;">
+            <ul>
+              @input(field = nailSearchForm("stylistId"), args = '_label -> None){(id,name,value,args) =>
+                <select name="stylistId">
+                <option value = "@stylistIdForAll" selected="selected">@Messages("common.all")</option>
+                @for(i <- 0 to stylists.length-1){
+                  @if(nailSearchForm.get.stylistId.equals(stylists(i).stylistId.toString)){
+                    <option value=@stylists(i).stylistId selected="selected">@models.portal.stylist.Stylist.findUser(stylists(i).stylistId).nickName</option>
+                  }else {
+                    <option value=@stylists(i).stylistId >@models.portal.stylist.Stylist.findUser(stylists(i).stylistId).nickName</option>
+                  }
+                }
+                </select>
+              }
+            </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div align="center">
+        <input type = "reset" class = "buttons" value=@Messages("common.reset")>
+        <input type="submit" class = "buttons" value=@Messages("nail.search")>
+      </div>
+     }    
+  </div>
+
+</div>

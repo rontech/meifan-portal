@@ -1,0 +1,10 @@
+@(navInSalon: String = "my-styles", salon: models.portal.salon.Salon, nails: List[models.portal.nail.Nail], nailSearchForm: Form[models.portal.nail.SearchPara], nailParaAll: models.portal.nail.StylePara, isStylist: Boolean, stylists: List[models.portal.stylist.Stylist])
+@import views.html.salon.admin._
+@mySalonMain(navInSalon, salon){
+  @views.html.nailCatalog.admin.backstageNailSearch(nailSearchForm, nailParaAll, isStylist, stylists)
+  <hr/>
+@nailSearchForm
+<hr/>
+  @views.html.nailCatalog.admin.backstageNailSearchList(nails, isStylist)
+  
+}
