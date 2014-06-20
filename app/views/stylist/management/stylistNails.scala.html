@@ -1,0 +1,22 @@
+@(user :models.portal.user.User, followInfo:models.portal.user.FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false, nails: List[models.portal.nail.Nail], nailSearchForm: Form[models.portal.nail.SearchPara], stylePara: models.portal.nail.StylePara, isStylist: Boolean)
+
+@import views.html.user._
+
+
+@myPageMain("my-styles",user,followInfo,loginUserId,logged) {
+  
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/salon/mycss.css")">
+
+  
+  @views.html.nailCatalog.admin.backstageNailSearch(nailSearchForm = nailSearchForm, stylePara = stylePara, isStylist = isStylist, stylistId = user.id)
+  <hr/>
+  @if(user.id == loginUserId){
+    <div class="styleBtn bbl">
+      <a href="@auth.routes.Stylists.styleAddByStylist" >@Messages("nail.addNail")</a>
+    </div>
+  }
+  <hr/>
+  @views.html.nailCatalog.admin.backstageNailSearchList(nails, isStylist, user.id, loginUserId)
+  
+}

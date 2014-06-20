@@ -8,6 +8,8 @@
       <p class="alertMsg">@Messages("hair.noStyleSearched")</p>
      </div>
    }else{
+    <span> @styles.length @Messages("hair.searchResultMsg")</span>
+    <br/>
     @for(i <- 0 to styles.length-1){
       <table class="styleItem">
       <tbody>

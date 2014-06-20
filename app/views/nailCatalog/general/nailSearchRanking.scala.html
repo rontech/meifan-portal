@@ -1,1 +1,61 @@
-综合排名
+
+<div class="mT30" id="salon_nvfxjs_title">
+    <div id="salon_nvfxjs_title">
+        <img src="@routes.Assets.at("images/haircatalog/hair_label/salon_rq_title.jpg")" width="768" height="35">
+    </div>
+    <div id="style_nvfxjs_nr_box">
+        <h2 id="mod1" class="menuOn" onClick="switchmodTag('mod','styleRankingList','1');this.blur();">@Messages("nail.rankingAll")</h2>
+        <h2 id="mod2" class="menuNo" onClick="switchmodTag('mod','styleRankingList','2');this.blur();">@Messages("style.styleImpression.natural")</h2>
+        <h2 id="mod3" class="menuNo" onClick="switchmodTag('mod','styleRankingList','3');this.blur();">@Messages("style.styleImpression.intellectual")</h2>
+        <h2 id="mod4" class="menuNo" onClick="switchmodTag('mod','styleRankingList','4');this.blur();">@Messages("style.styleImpression.sweet")</h2>
+        <h2 id="mod5" class="menuNo" onClick="switchmodTag('mod','styleRankingList','5');this.blur();">@Messages("style.styleImpression.fashion")</h2>
+        <h2 id="mod6" class="menuNo" onClick="switchmodTag('mod','styleRankingList','6');this.blur();">@Messages("style.styleImpression.fresh")</h2>
+        <h2 id="mod7" class="menuNo" onClick="switchmodTag('mod','styleRankingList','7');this.blur();">@Messages("style.styleImpression.gorgeous")</h2>
+        <h2 id="mod8" class="menuNo" onClick="switchmodTag('mod','styleRankingList','8');this.blur();">@Messages("style.styleImpression.personality")</h2>
+    </div>
+
+    <div class="style_ranking_display_block" id="styleRankingList1">
+        @views.html.nailCatalog.component.nailsInRanking(models.portal.nail.Nail.findByRanking(5), 5, "all")
+    </div>
+
+    <div class="style_ranking_display_none" id="styleRankingList2">
+        @views.html.nailCatalog.component.nailsInRanking(models.portal.nail.Nail.findByRankingAndImpression("natural", 5), 5, "natural")
+    </div>
+
+    <div class="style_ranking_display_none" id="styleRankingList3">
+        @views.html.nailCatalog.component.nailsInRanking(models.portal.nail.Nail.findByRankingAndImpression("intellectual", 5), 5, "intellectual")
+    </div>
+
+    <div class="style_ranking_display_none" id="styleRankingList4">
+        @views.html.nailCatalog.component.nailsInRanking(models.portal.nail.Nail.findByRankingAndImpression("sweet", 5), 5, "sweet")
+    </div>
+
+    <div class="style_ranking_display_none" id="styleRankingList5">
+        @views.html.nailCatalog.component.nailsInRanking(models.portal.nail.Nail.findByRankingAndImpression("fashion", 5), 5, "fashion")
+    </div>
+
+    <div class="style_ranking_display_none" id="styleRankingList6">
+        @views.html.nailCatalog.component.nailsInRanking(models.portal.nail.Nail.findByRankingAndImpression("fresh", 5), 5, "fresh")
+    </div>
+
+    <div class="style_ranking_display_none" id="styleRankingList7">
+        @views.html.nailCatalog.component.nailsInRanking(models.portal.nail.Nail.findByRankingAndImpression("gorgeous", 5), 5, "gorgeous")
+    </div>
+
+    <div class="style_ranking_display_none" id="styleRankingList8">
+        @views.html.nailCatalog.component.nailsInRanking(models.portal.nail.Nail.findByRankingAndImpression("personality", 5), 5, "personality")
+    </div>
+</div>
+
+<script type="text/javascript">
+    function switchmodTag(modtag,modcontent,modk) {
+        for(i=1; i <9; i++) {
+            if (i==modk) {
+                document.getElementById(modtag+i).className="menuOn";
+                document.getElementById(modcontent+i).className="style_ranking_display_block";}
+            else {
+                document.getElementById(modtag+i).className="menuNo";
+                document.getElementById(modcontent+i).className="style_ranking_display_none";}
+        }
+    }
+</script>

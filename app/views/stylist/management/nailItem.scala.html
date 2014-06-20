@@ -1,0 +1,7 @@
+@(user :models.portal.user.User, followInfo :models.portal.user.FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false, nail: models.portal.nail.Nail)
+
+@import views.html.user._
+
+@myPageMain("styleItem", user, followInfo, loginUserId, logged ){
+  @views.html.nailCatalog.admin.backstageNailItem(nail)
+}
