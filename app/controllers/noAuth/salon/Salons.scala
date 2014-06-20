@@ -247,7 +247,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
    *------------------------*/
   def getSalon(salonId: ObjectId) = StackAction { implicit request =>
     val user = loggedIn
-    val salon: Option[Salon] = Salon.findOneById(salonId)
+    val salon: Option[Salon] = Salon.findOneById(salonId).filter(_.salonStatus.isValid == true)
     salon match {
       case Some(sl) => Ok(views.html.salon.store.salonContent(sl, SalonNavigation.getSalonNavBar(salon), user))
       case _ => NotFound

@@ -34,6 +34,8 @@
             <input type="hidden" name="salonAddress.accessMethodDesc" readonly="readonly" value="@salon.salonAddress.map(add=>add.accessMethodDesc).getOrElse(None)">
             <input type="hidden" name="workTime.openTime" readonly="readonly" value="@salon.workTime.map(time=>time.openTime).getOrElse(None)">
             <input type="hidden" name="workTime.closeTime" readonly="readonly" value="@salon.workTime.map(time=>time.closeTime).getOrElse(None)">
+            <input type="hidden" name="salonStatus.applyMeifanFlag" readonly="readonly" value="@salon.salonStatus.applyMeifanFlag">
+            <input type="hidden" name="salonStatus.isValid" readonly="readonly" value="@salon.salonStatus.isValid">
             @inputDate(salonForm("establishDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))
             @inputDate(salonForm("registerDate"),'_label -> "" ,'style -> "display: none", '_help -> Messages(""))                    
             <tr>
