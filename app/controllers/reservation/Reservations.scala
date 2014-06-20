@@ -45,6 +45,7 @@ import models.portal.reservation.ResvGroup
 import models.portal.coupon.CouponServiceType
 import models.portal.service.ServiceByType
 import models.portal.reservation.ResvSchedule
+import models.portal.nail.Nail
 import com.meifannet.portal.MeifanNetCustomerOptionalApplication
 
 object Reservations extends MeifanNetCustomerOptionalApplication {
@@ -421,13 +422,20 @@ object Reservations extends MeifanNetCustomerOptionalApplication {
     }
     Cache.set("reservation", reservation)
 
-    // 得到该技师的所有发型
-    val styles: List[Style] = Style.findByStylistId(stylistId)
-
     val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
 
     salon match {
-      case Some(s) => Ok(views.html.reservation.reservSelectStyleMain(s, reservation, styles, jumpType, user))
+      case Some(s) => {
+        if(s.salonIndustry.head == "Hairdressing") {
+          // 得到该技师的所有发型
+          val styles: List[Style] = Style.findByStylistId(stylistId)
+          Ok(views.html.reservation.reservSelectStyleMain(s, reservation, styles, jumpType, user))
+        } else {
+          val styles: List[Nail] = Nail.findByStylistId(stylistId)
+          Ok(views.html.reservation.reservSelectNailMain(s, reservation, styles, jumpType, user))
+        }
+
+      }
       case None => NotFound
     }
   }

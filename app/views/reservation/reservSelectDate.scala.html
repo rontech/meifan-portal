@@ -1,5 +1,9 @@
 @(salon: models.portal.salon.Salon, resvSchedule: models.portal.reservation.ResvSchedule, stylistId: String, styleId: String, week: Int = 0, jumpType: String = "")
 
+@import models.portal.style.Style
+@import models.portal.nail.Nail
+@import models.portal.stylist.Stylist
+
 <div id="jsRsvCdTbl" class="ReserveConditionTable underTabContents">
   <div class="fl">
     @if(stylistId != "") {
@@ -25,25 +29,49 @@
         }
       }
     }
-    @if(styleId != "") {
-      @models.portal.style.Style.findOneById(new ObjectId(styleId)) match {
-        case None => {not found style.}
-        case Some(style) => {
-          <div class="pH10 pV5 cFix fl">
-            <div class="mT5">
-              <p class="fl mR10"><img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)" class="w60 h80 mT6"></p>
-              <div class="fl">
-                <p class="fs10 fgLGray2 mT13 cFix">@Messages("reservation.style")</p>
-                <p class="fl mR20">
-                  <span class="fs14 b">@style.styleName</span>
-                </p>
-                <p class="fl mT2">
-                  <a href="@routes.Reservations.reservSelectStyle("", new ObjectId(stylistId), "selectResvDate")" class="iS arrowR">@Messages("reservation.changeOtherStyle")</a>
-                </p>
+    @if(styleId != "" ) {
+      @if(salon.salonIndustry.head == "Hairdressing") {
+        @Style.findOneById(new ObjectId(styleId)) match {
+          case None => {not found style.}
+          case Some(style) => {
+            <div class="pH10 pV5 cFix fl">
+              <div class="mT5">
+                <p class="fl mR10"><img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)" class="w60 h80 mT6"></p>
+                <div class="fl">
+                  <p class="fs10 fgLGray2 mT13 cFix">@Messages("reservation.style")</p>
+                  <p class="fl mR20">
+                    <span class="fs14 b">@style.styleName</span>
+                  </p>
+                  <p class="fl mT2">
+                    <a href="@routes.Reservations.reservSelectStyle("", new ObjectId(stylistId), "selectResvDate")" class="iS arrowR">@Messages("reservation.changeOtherStyle")</a>
+                  </p>
+                </div>
               </div>
-            </div>
 
-          </div>
+            </div>
+          }
+        }
+      } else {
+        @if(salon.salonIndustry.head == "Manicures") {
+          @Nail.findOneById(new ObjectId(styleId)) match {
+            case None => {not found nail.}
+            case Some(nail) => {
+              <div class="pH10 pV5 cFix fl">
+                <div class="mT5">
+                  <p class="fl mR10"><img src="@routes.Application.getPhoto(nail.stylePic(0).fileObjId)" class="w60 h80 mT6"></p>
+                  <div class="fl">
+                    <p class="fs10 fgLGray2 mT13 cFix">@Messages("reservation.nail")</p>
+                    <p class="fl mR20">
+                      <span class="fs14 b">@nail.styleName</span>
+                    </p>
+                    <p class="fl mT2">
+                      <a href="@routes.Reservations.reservSelectStyle("", new ObjectId(stylistId), "selectResvDate")" class="iS arrowR">@Messages("reservation.changeOtherNail")</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            }
+          }
         }
       }
     }
