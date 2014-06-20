@@ -84,7 +84,7 @@ GET         /userPage/:publicId/followedUser                                cont
 GET         /userPage/:publicId/followers                                   controllers.noAuth.MyFollows.followers(publicId:ObjectId)
 GET         /userPage/:stylistId/mySalon                                    controllers.noAuth.Stylists.mySalonFromStylist(stylistId: ObjectId)
 GET         /userPage/:stylistId/styles                                     controllers.noAuth.Stylists.findStylesByStylist(stylistId: ObjectId)
-POST        /userPage/:stylistId/styles                                     controllers.noAuth.Stylists.findStylesBySerach(stylistId: ObjectId)
+POST        /userPage/:stylistId/styles                                     controllers.noAuth.Stylists.findStylesBySearch(stylistId: ObjectId)
 # TODO >>>>>>>>>>>>>>>>>>>>>
 GET         /userPage/:publicId/HomePage                                    controllers.noAuth.Stylists.otherHomePage(publicId: ObjectId)
 GET         /myPage/checkSalonIsExit/:salonAccountId                        controllers.noAuth.Stylists.checkSalonIsExit(salonAccountId: String)
@@ -370,3 +370,4 @@ GET         /messages.js                                                    cont
 #Nail
 GET         /nail                                                           controllers.noAuth.Nails.index
 POST        /nail/searchPage                                                controllers.noAuth.Nails.getNailBySearch
+GET         /nail/rangking/:styleImpression                                 controllers.noAuth.Nails.getNailsByRanking(styleImpression: String)

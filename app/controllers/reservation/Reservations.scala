@@ -87,7 +87,7 @@ object Reservations extends MeifanNetCustomerOptionalApplication {
       }
     }
 
-    var reservation: Reservation = Reservation(new ObjectId, "", salonId, 0, new Date, 0, None, resvItems, None, "", "", BigDecimal(0), 0, BigDecimal(0), new Date, new Date)
+    var reservation: Reservation = Reservation(new ObjectId, "", salonId, "", 0, new Date, 0, None, resvItems, None, "", "", BigDecimal(0), 0, BigDecimal(0), new Date, new Date)
     Cache.set("reservation", reservation)
 
     val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
@@ -339,7 +339,7 @@ object Reservations extends MeifanNetCustomerOptionalApplication {
 
       resvItems = resvItems ::: List(resvItem)
 
-      var reservation: Reservation = Reservation(new ObjectId, "", salonId, 0, new Date, serviceDuration, None, resvItems, None, "", "", price, 0, price, new Date, new Date)
+      var reservation: Reservation = Reservation(new ObjectId, "", salonId, "", 0, new Date, serviceDuration, None, resvItems, None, "", "", price, 0, price, new Date, new Date)
 
       Cache.set("reservation", reservation)
       Redirect(routes.Reservations.reservShowDate(salonId, stylistId, styleId, week, ""))

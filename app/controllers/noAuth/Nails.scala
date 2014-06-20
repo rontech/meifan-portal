@@ -1,7 +1,7 @@
 package controllers.noAuth
 
 import com.meifannet.portal.MeifanNetCustomerOptionalApplication
-import models.portal.nail.{Nail, SearchPara}
+import models.portal.nail.{NailWithAllInfo, Nail, SearchPara}
 import play.api.data._
 import play.api.data.Forms._
 import views._
@@ -10,6 +10,7 @@ import mongoContext._
 import se.radley.plugin.salat.Binders._
 import com.mongodb.casbah.commons.ValidBSONType.ObjectId
 import se.radley.plugin.salat.Binders.ObjectId
+import models.portal.common.OnUsePicture
 
 
 /**
@@ -32,6 +33,37 @@ object Nails extends MeifanNetCustomerOptionalApplication {
       "styleBase" -> list(text),
       "styleImpression" -> list(text),
       "socialScene" -> list(text))(SearchPara.apply)(SearchPara.unapply)
+  )
+
+  /**
+   * 定义一个美甲注册数据表单
+   */
+  val nailInfoForm: Form[Nail] = Form(
+    mapping(
+      "id" -> text,
+      "styleName" -> text,
+      "stylistId" -> text,
+      "serviceType" -> list(text),
+      "styleColor" -> list(text),
+      "styleMaterial" -> list(text),
+      "styleBase" -> list(text),
+      "styleImpression" -> text,
+      "socialScene" -> list(text),
+      "stylePic" ->(list(mapping(
+        "fileObjId" -> text,
+        "picUse" -> text,
+        "showPriority" -> optional(number),
+        "description" -> optional(text)) {
+          (fileObjId, picUse, showPriority, description) => OnUsePicture(new ObjectId(fileObjId), picUse, showPriority, description)
+        } {
+          onUsePicture => Some((onUsePicture.fileObjId.toString, onUsePicture.picUse, onUsePicture.showPriority, onUsePicture.description))
+        })),
+       "description" -> text){
+     (id, styleName, stylistId, serviceType, styleColor, styleMaterial, styleBase, styleImpression, socialScene, stylePic, description)
+     => Nail(new ObjectId(id), styleName, new ObjectId(stylistId), serviceType, styleColor, styleMaterial, styleBase, styleImpression, socialScene, stylePic, description, new Date, true)
+    } {
+      nail => Some(nail.id.toString, nail.styleName, nail.stylistId.toString, nail.serviceType, nail.styleColor, nail.styleMaterial, nail.styleBase, nail.styleImpression, nail.socialScene, nail.stylePic, nail.description)
+    }
   )
 
   /**
@@ -65,6 +97,21 @@ object Nails extends MeifanNetCustomerOptionalApplication {
           Ok(views.html.nailCatalog.general.nailSearchRstPage(nailSearchForm = nailSearchForm, nailPara = Nail.findParaAll("Manicures"), nailWithAllInfos = nailWithAllInfos, user = user))
         }
       })
+  }
+  def getNailsByRanking(styleImpression: String) = StackAction {
+    implicit request =>
+      val user = loggedIn
+      var nailAllInfo: List[NailWithAllInfo] = Nil
+      //通过页面选择的发型长度字段的值，来进行不同的检索，all为不以长度为检索字段
+      println("ssssssssssssssssssssseeeeeeeeeeeeeeeeee="+styleImpression)
+      if (styleImpression.equals("all")) {
+        println("ssssssssssssssssssssssssssssss")
+        nailAllInfo = Nail.findByRanking()
+      } else {
+        nailAllInfo = Nail.findByRankingAndImpression(styleImpression)
+      }
+      println("ssssssssssssssssssssssssssssss11111111111"+nailAllInfo)
+      Ok(html.nailCatalog.general.nailRankingResultPage(nailSearchForm, nailAllInfo, Nail.findParaAll("Manicures"), user))
   }
 
 }

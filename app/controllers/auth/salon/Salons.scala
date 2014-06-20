@@ -740,11 +740,23 @@ object Salons extends MeifanNetSalonApplication {
   /**
    * 后台发型基本信息查看
    */
-  def getbackstageStyleItem(styleId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+  def getbackstageStyleItem(id: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val salon = loggedIn
-    val style = Style.findOneById(styleId)
-    style match {
-      case Some(style) => Ok(views.html.salon.admin.mySalonStyleItem(salon = salon, style = style))
+    Salon.findIndustryBySalonId(salon.id) match {
+      case "Hairdressing" => {
+        val style = Style.findOneById(id)
+        style match {
+          case Some(style) => Ok(views.html.salon.admin.mySalonStyleItem(salon = salon, style = style))
+          case None => NotFound
+        }
+      }
+      case "Manicures" => {
+        val nail = Nail.findOneById(id)
+        nail match {
+          case Some(nail) => Ok(views.html.salon.admin.nailSalon.mySalonNailItem(salon = salon, nail = nail))
+          case None => NotFound
+        }
+      }
       case None => NotFound
     }
   }

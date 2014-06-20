@@ -10,13 +10,13 @@
 
   
   @views.html.style.admin.backstageStyleSearch(styleSearchForm, styleParaAll, isFirstSearch, isStylist, stylist)
-  <br/>
+  <hr/>
   @if(user.id == loginUserId){
     <div class="styleBtn bbl">
       <a href="@auth.routes.Stylists.styleAddByStylist" >@Messages("hair.addStyle")</a>
     </div>
   }
-  <br/>
+  <hr/>
   @views.html.style.admin.backstageStyleSearchList(styles, isStylist, user.id, loginUserId)
   
 }

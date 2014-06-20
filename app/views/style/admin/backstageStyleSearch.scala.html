@@ -7,7 +7,7 @@
 @if(isStylist) {
   @if(isFirstSearch){
     <div class="sreachtabBody">
-    @form(noAuth.routes.Stylists.findStylesBySerach(stylist.stylistId), 'id -> "styleSearchForm"){
+    @form(noAuth.routes.Stylists.findStylesBySearch(stylist.stylistId), 'id -> "styleSearchForm"){
       <input type="hidden" name="stylistId" value =@stylist.stylistId>
       <div class="skinHeadingWrapper2 mB15 cFix pr">
         <h3 class="fl skinHeading1 headingSearch offL">@Messages("hair.search")</h3>
@@ -228,7 +228,7 @@
   </div>
   }else{
   <div class="sreachtabBody">
-    @form(noAuth.routes.Stylists.findStylesBySerach(stylist.stylistId), 'id -> "styleSearchForm"){
+    @form(noAuth.routes.Stylists.findStylesBySearch(stylist.stylistId), 'id -> "styleSearchForm"){
       <input type="hidden" name="stylistId" value =@stylist.stylistId>
       <div class="skinHeadingWrapper2 mB15 cFix pr">
         <h3 class="fl skinHeading1 headingSearch offL">@Messages("hair.search")</h3>

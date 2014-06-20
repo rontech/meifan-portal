@@ -35,6 +35,7 @@ import models.portal.stylist.Stylist
 import models.portal.style.Style
 import models.portal.salon.Salon
 import models.portal.relation.SalonAndStylist
+import models.portal.nail.{SearchPara, Nail}
 
 object Stylists extends MeifanNetCustomerOptionalApplication {
 
@@ -74,45 +75,79 @@ object Stylists extends MeifanNetCustomerOptionalApplication {
   }
 
   /**
-   * 查看技师的所有发型
+   * 查看技师的所有发型/美甲
    * @param stylistId - 技师stylistId
    * @return
    */
   def findStylesByStylist(stylistId: ObjectId) = StackAction { implicit request =>
-    val styles = Style.findByStylistId(stylistId)
     val user = User.findOneById(stylistId).get
     val stylist = Stylist.findOneByStylistId(stylistId).get
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    loggedIn.map { loginUser =>
-      Ok(views.html.stylist.management.stylistStyles(user = user, followInfo = followInfo, loginUserId = loginUser.id, logged = true, stylist = stylist, styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = true, isStylist = true))
-    } getOrElse {
-      Ok(views.html.stylist.management.stylistStyles(user = user, followInfo = followInfo, loginUserId = new ObjectId, logged = false, stylist = stylist, styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = true, isStylist = true))
+    Stylist.findIndustryByStylistId(stylistId) match {
+      case "Hairdressing" => {
+        val styles = Style.findByStylistId(stylistId)
+        loggedIn.map { loginUser =>
+          Ok(views.html.stylist.management.stylistStyles(user = user, followInfo = followInfo, loginUserId = loginUser.id, logged = true, stylist = stylist, styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = true, isStylist = true))
+        } getOrElse {
+          Ok(views.html.stylist.management.stylistStyles(user = user, followInfo = followInfo, loginUserId = new ObjectId, logged = false, stylist = stylist, styles = styles, styleSearchForm = Styles.styleSearchForm, styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = true, isStylist = true))
+        }
+      }
+      case "Manicures" => {
+        val nails = Nail.findByStylistId(stylistId)
+        loggedIn.map { loginUser =>
+          val searchParaForNail = new SearchPara(None, "all", "all", "all", List(), List(), List(), List(), List(), List())
+          Ok(views.html.stylist.management.stylistNails(user = user, followInfo = followInfo, loginUserId = loginUser.id, logged = true,  nails = nails, nailSearchForm = Nails.nailSearchForm.fill(searchParaForNail), stylePara= Nail.findParaAll("Manicures"), isStylist = true))
+        } getOrElse {
+          val searchParaForNail = new SearchPara(None, "all", "all", "all", List(), List(), List(), List(), List(), List())
+          Ok(views.html.stylist.management.stylistNails(user = user, followInfo = followInfo, loginUserId = new ObjectId, logged = false, nails = nails, nailSearchForm = Nails.nailSearchForm.fill(searchParaForNail), stylePara = Nail.findParaAll("Manicures"), isStylist = true))
+        }
+
+      }
     }
+
 
   }
 
   /**
-   * 技师后台发型检索
-   * 根据传入后台的发型检索条件form，查找到满足的所有发型
+   * 技师后台发型、美甲检索
+   * 根据传入后台的检索条件form，查找到满足的所有作品
    * @param stylistId - 技师stylistId primary key
    *@return
    */
-  def findStylesBySerach(stylistId: ObjectId) = StackAction { implicit request =>
+  def findStylesBySearch(stylistId: ObjectId) = StackAction { implicit request =>
     val user = User.findOneById(stylistId).get
     val stylist = Stylist.findOneByStylistId(stylistId)
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    Styles.styleSearchForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.index()),
-      {
-        case (styleSearch) => {
-          val styles = Style.findStylesByStylistBack(styleSearch, stylist.get.stylistId)
-          loggedIn.map { loginUser =>
-            Ok(views.html.stylist.management.stylistStyles(user = user, followInfo = followInfo, loginUserId = loginUser.id, logged = true, stylist = stylist.get, styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = false, isStylist = true))
-          } getOrElse {
-            Ok(views.html.stylist.management.stylistStyles(user = user, followInfo = followInfo, loginUserId = new ObjectId, logged = false, stylist = stylist.get, styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = false, isStylist = true))
+    Stylist.findIndustryByStylistId(stylistId) match {
+      case "Hairdressing" => {
+        Styles.styleSearchForm.bindFromRequest.fold(
+        errors => BadRequest(views.html.index()),
+        {
+          case (styleSearch) => {
+            val styles = Style.findStylesByStylistBack(styleSearch, stylistId)
+            loggedIn.map { loginUser =>
+              Ok(views.html.stylist.management.stylistStyles(user = user, followInfo = followInfo, loginUserId = loginUser.id, logged = true, stylist = stylist.get, styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = false, isStylist = true))
+            } getOrElse {
+              Ok(views.html.stylist.management.stylistStyles(user = user, followInfo = followInfo, loginUserId = new ObjectId, logged = false, stylist = stylist.get, styles = styles, styleSearchForm = Styles.styleSearchForm.fill(styleSearch), styleParaAll = Style.findParaAll("Hairdressing"), isFirstSearch = false, isStylist = true))
+            }
           }
-        }
-      })
+        })
+      }
+      case "Manicures" => {
+        Nails.nailSearchForm.bindFromRequest.fold(
+        errors => BadRequest(views.html.index()),
+        {
+          case (nailSearch) => {
+            val nails = Nail.findNailsByStylistBack(nailSearch, stylistId)
+            loggedIn.map { loginUser =>
+              Ok(views.html.stylist.management.stylistNails(user = user, followInfo = followInfo, loginUserId = loginUser.id, logged = true,  nails = nails, nailSearchForm = Nails.nailSearchForm.fill(nailSearch), stylePara= Nail.findParaAll("Manicures"), isStylist = true))
+            } getOrElse {
+              Ok(views.html.stylist.management.stylistNails(user = user, followInfo = followInfo, loginUserId = new ObjectId, logged = false, nails = nails, nailSearchForm = Nails.nailSearchForm.fill(nailSearch), stylePara = Nail.findParaAll("Manicures"), isStylist = true))
+            }
+          }
+        })
+      }
+    }
   }
 
   /**
@@ -124,18 +159,35 @@ object Stylists extends MeifanNetCustomerOptionalApplication {
   def getbackstageStyleItem(styleId: ObjectId, stylistId: ObjectId) = StackAction { implicit request =>
     val user = User.findOneById(stylistId).get
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    val style = Style.findOneById(styleId)
-    style match {
-      case Some(style) => {
-        loggedIn.map { loginUser =>
-          Ok(views.html.stylist.management.styleItem(user = user, followInfo = followInfo, loginUserId = loginUser.id, logged = true, style = style))
-        } getOrElse {
-          Ok(views.html.stylist.management.styleItem(user = user, followInfo = followInfo, loginUserId = new ObjectId, logged = false, style = style))
+    Stylist.findIndustryByStylistId(stylistId) match {
+      case "Hairdressing" => {
+        val style = Style.findOneById(styleId)
+        style match {
+          case Some(style) => {
+            loggedIn.map { loginUser =>
+              Ok(views.html.stylist.management.styleItem(user = user, followInfo = followInfo, loginUserId = loginUser.id, logged = true, style = style))
+            } getOrElse {
+              Ok(views.html.stylist.management.styleItem(user = user, followInfo = followInfo, loginUserId = new ObjectId, logged = false, style = style))
+            }
+          }
+          case None => NotFound
         }
       }
-      case None => NotFound
-    }
+      case "Manicures" => {
+        val nail = Nail.findOneById(styleId)
+        nail match {
+          case Some(nail) => {
+            loggedIn.map { loginUser =>
+              Ok(views.html.stylist.management.nailItem(user = user, followInfo = followInfo, loginUserId = loginUser.id, logged = true, nail = nail))
+            } getOrElse {
+              Ok(views.html.stylist.management.nailItem(user = user, followInfo = followInfo, loginUserId = new ObjectId, logged = false, nail = nail))
+            }
+          }
+          case None => NotFound
+        }
 
+      }
+    }
   }
 
   /**

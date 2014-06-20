@@ -1271,6 +1271,16 @@ nail.selectForReserv = 预约此美甲
 nail.style = 美甲详情
 nail.nailOfStylist = 此技师的其它美甲作品
 nail.search = 美甲检索
+nail.nailName = 美甲名
+nail.pictures = 美甲图片
+nail.searchRst1 = 共搜索到
+nail.searchRst2 = 个美甲
+nail.addNail = 添加美甲
+nail.nameRequired = 美甲名必须填写
+nail.onUsePicture.limit = 最多选择1张图片
+nail.nailUpdate = 美甲更新
+nail.rankingAll = 综合排名
+nail.info = 美甲信息
 
 #Nail Salon
 nailSalon.stylists = 美甲师

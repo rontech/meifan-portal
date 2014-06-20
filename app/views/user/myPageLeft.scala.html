@@ -1,4 +1,5 @@
 @(user :models.portal.user.User,followInfo:models.portal.user.FollowInformation)
+@import models.portal.stylist._
       <div class ="Owner">
         <a href="#" class='Img'><img src="@routes.Application.getPhoto(user.userPics)"/></a>
         <span class='myPageA'>
@@ -51,22 +52,39 @@
             </div>
             }
         </div>
-        <!-- 我的发型 -->
+        <!-- 我的发型、美甲 -->
         <div class='Mod Users' id='Fellows'>
           <strong>@Messages("stylistMag.myStyle")</strong>
-          <ul class='clearfix'>
-             @models.portal.style.Style.findByStylistId(user.id).slice(0,8).map {style =>
+          @if(Stylist.findIndustryByStylistId(user.id).equals("Hairdressing")){
+            <ul class='clearfix'>
+                @models.portal.style.Style.findByStylistId(user.id).slice(0,8).map {style =>
+                <li>
+                    <a href="@auth.routes.Stylists.styleUpdateByStylist(style.id)">
+                        <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)" alt="@style.styleName" title="@style.styleName" align="absmiddle" class = "SmallPortrait">
+                    </a>
+                </li>
+                }
+            </ul>
+            <div class='more'>
+                <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
+                    (@models.portal.stylist.Stylist.countStyleByStylist(user.id))</a>
+            </div>
+          }
+          @if(Stylist.findIndustryByStylistId(user.id).equals("Manicures")){
+            <ul class='clearfix'>
+             @models.portal.nail.Nail.findByStylistId(user.id).slice(0,8).map {nail =>
                <li>
-                 <a href="#">
-                  <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)" alt="@style.styleName" title="@style.styleName" align="absmiddle" class = "SmallPortrait">
+                 <a href="@auth.routes.Stylists.styleUpdateByStylist(nail.id)">
+                  <img src="@routes.Application.getPhoto(nail.stylePic(0).fileObjId)" alt="@nail.styleName" title="@nail.styleName" align="absmiddle" class = "SmallPortrait">
                 </a>
                </li>
              }
-          </ul>
-          <div class='more'>
-            <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
-              (@models.portal.stylist.Stylist.countStyleByStylist(user.id))</a>
-          </div>
+            </ul>
+            <div class='more'>
+            <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("nailSalon.showAllNails")
+              (@models.portal.nail.Nail.findByStylistId(user.id).length)</a>
+            </div>
+          }
         </div>
       }
       <div class='Mod Users' id='Fellows'>

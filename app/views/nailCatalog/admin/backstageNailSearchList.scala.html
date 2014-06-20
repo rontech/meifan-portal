@@ -8,6 +8,10 @@
       <p class="alertMsg">@Messages("nail.noNailSearched")</p>
      </div>
    }else{
+    @if(nails.nonEmpty) {
+    <span>@Messages("nail.searchRst1") @nails.length @Messages("nail.searchRst2")</span>
+    }
+    <br/>
     @for(i <- 0 to nails.length-1){
       <table class="styleItem">
       <tbody>
@@ -27,7 +31,7 @@
             }
           }else {
              <a href="@auth.routes.Salons.getbackstageStyleItem(nails(i).id)">
-              <img src="@routes.Application.getPhoto(nails(i).stylePic(0).fileObjId)" alt="@nails(i).styleName" class="w150 h200" title=@Messages("nailSalon.nailTitle")>
+               <img src="@routes.Application.getPhoto(nails(i).stylePic(0).fileObjId)" alt="@nails(i).styleName" class="w150 h200" title=@Messages("nailSalon.nailTitle")>
              </a>
           }
           </div>
