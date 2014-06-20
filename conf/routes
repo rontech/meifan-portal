@@ -121,8 +121,8 @@ GET         /userPage/followedCoupon                                        cont
 GET         /userPage/followedBlog                                          controllers.auth.MyFollows.followedBlog(id: ObjectId)
 GET         /userPage/followedStyle                                         controllers.auth.MyFollows.followedStyle(id: ObjectId)
 GET         /userPage/info/:userId                                          controllers.auth.Users.userInfo(userId)
-GET         /myPage/myReserving                                             controllers.auth.Reservations.getReserving(userId)
-GET         /myPage/myReservationHistory                                    controllers.auth.Reservations.getReservationHistory(userId)
+GET         /myPage/myReserving                                             controllers.auth.Reservations.getReserving
+GET         /myPage/myReservationHistory                                    controllers.auth.Reservations.getReservationHistory
 GET         /myPage/myReservation/:reservationId                            controllers.auth.Reservations.showReservationDetailById(reservationId : ObjectId)
 GET         /myPage/deletingReserv/:reservationId                           controllers.auth.Reservations.deletingReserv(reservationId : ObjectId)
 GET         /myPage/deletedReserv/:reservationId                            controllers.auth.Reservations.deletedReserv(reservationId : ObjectId)
@@ -210,6 +210,7 @@ GET         /mySalon/checkStylistIsValid/:stylistId                         cont
 GET         /mySalon/inviteStylist/:stylistId/                              controllers.auth.Salons.inviteStylist(stylistId: ObjectId)
 GET         /mySalon/removeStylist/:stylistId                               controllers.auth.Salons.removeStylist(stylistId: ObjectId)
 GET         /mySalon/replyComment/:commentObjId/:commentObjType             controllers.auth.Salons.replyBySalon(commentObjId : ObjectId, commentObjType : Int)
+GET         /mySalon/complainComment/:commentObjId/:commentObjType          controllers.auth.Salons.complainBySalon(commentObjId : ObjectId, commentObjType : Int)
 GET         /mySalon/checkInvite                                            controllers.auth.Salons.myInvite
 GET         /mySalon/cancelInvite/:applyRecordId                            controllers.auth.Salons.cancelInviteStylist(applyRecordId: ObjectId)
 # TODO

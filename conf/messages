@@ -839,6 +839,7 @@ comment.usedCoupon = 预约时使用的优惠券
 comment.usedServices = [用到的技术]
 comment.reply = {0}的回复
 comment.new = 新评论
+comment.wantToComplain = 我要申诉
 comment.complain = 我要申诉
 comment.complex = 综合
 comment.atmosphere = 氛围

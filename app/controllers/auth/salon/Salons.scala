@@ -730,6 +730,21 @@ object Salons extends MeifanNetSalonApplication {
   }
 
   /**
+   * 店铺向网站管理员申诉
+   */
+  def complainBySalon(commentObjId: ObjectId, commentObjType: Int) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    auth.Comments.formReplyComment.bindFromRequest.fold(
+    //处理错误
+    errors => BadRequest(views.html.comment.errorMsg("")),
+    {
+      case (content) =>
+        Comment.reply(salon.salonAccount.accountId, content, commentObjId, commentObjType)
+        Redirect(auth.routes.Salons.myComment)
+    })
+  }
+
+  /**
    * 沙龙信息是否完善检查页面
    * @return
    */

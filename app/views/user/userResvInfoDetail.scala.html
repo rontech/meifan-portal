@@ -1,0 +1,169 @@
+@(reservation: models.portal.reservation.Reservation, user :models.portal.user.User)
+
+@import models.portal.reservation.Reservation
+@import models.portal.salon.Salon
+
+<!-- 预约号码，时间等信息 -->
+<table cellspacing="0" class="wFull bdCell pCell10 fgThNml pCellV5H5 mT40">
+  <tbody>
+    <tr>
+      <th class="w150 bgLGray pb10 pt10">@Messages("reservation.reservStatus")</th>
+      <td colspan="3" class="pl10">
+
+        @if(reservation.status == 0){
+          <p>您已成功预约，请在指定的时间来店铺</p>
+        }
+        @if(reservation.status == 1 || reservation.status == 3){
+          <p>您已成功消费，谢谢您的光临</p>
+        }
+        @if(reservation.status == -1){
+          <p>预约已取消，期待您的下次预约</p>
+        }
+        @if(reservation.status == 2){
+          <p>预约已过期，期待您的下次预约</p>
+        }
+
+      </td>
+    </tr>
+    <tr>
+      <th class="w150 bgLGray pb10 pt10">@Messages("reservation.no")</th>
+      <td colspan="3" class="pl10">
+        <p>
+          @reservation.id
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <th class="w150 bgLGray pb10 pt10">@Messages("reservation.expectedDate")</th>
+      <td colspan="3" class="pl10">
+        <p>@reservation.expectedDate.format("yyyy/MM/dd HH:mm")</p>
+      </td>
+    </tr>
+    <tr>
+      <th class="w150 bgLGray pb10 pt10">@Messages("salon.info")</th>
+      <td colspan="3" class="pl10">
+        @Salon.findOneById(reservation.salonId) match {
+          case Some(s) =>{
+            <a href="@noAuth.routes.Salons.getSalon(s.id)">@s.salonName</a>
+            <p>
+            @s.salonAddress.map(add=>add.province).getOrElse(None)
+            @s.salonAddress.map(add=>add.city).getOrElse(None)
+            @s.salonAddress.map(add=>add.region).getOrElse(None)
+            @s.salonAddress.map(add=>add.addrDetail).getOrElse(None)<p>
+            <p>@s.contactMethod.mainPhone</p>
+          }
+        }
+      </td>
+    </tr>
+    <tr>
+      <th class="w150 bgLGray pb10 pt10">@Messages("reservation.serviceDurationTotal")</th>
+      <td colspan="3" class="pl10">
+        <p>
+          @if((reservation.serviceDuration / 60) != 0) {
+            @(reservation.serviceDuration / 60)@Messages("reservation.hour")
+          }
+          @if((reservation.serviceDuration % 60) != 0) {
+            @(reservation.serviceDuration % 60)@Messages("reservation.minute")
+          }
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <th class="w150 bgLGray  pb10 pt10">@Messages("reservation.stylist")</th>
+      <td class="pl10">
+        @reservation.stylistId match {
+          case None => {
+            @Messages("reservation.noStylist")
+          }
+          case Some(sty) => {
+            @models.portal.stylist.Stylist.findUser(sty).nickName
+          }
+        }
+      </td>
+      @if(Salon.findOneById(reservation.salonId).get.salonIndustry.head.equals("Hairdressing")){
+        <th class="w150 bgLGray pb10 pt10">@Messages("reservation.style")</th>
+        <td class="pl10">
+          @reservation.styleId match {
+            case None => {
+              @Messages("reservation.noStyle")
+            }
+            case Some(sty) => {
+              @models.portal.style.Style.findOneById(sty) match {
+                case None => {}
+                case Some(style) => {
+                  @style.styleName
+                }
+              }
+            }
+          }
+        </td>
+      }
+      @if(Salon.findOneById(reservation.salonId).get.salonIndustry.head.equals("Manicures")){
+        <th class="w150 bgLGray pb10 pt10">指定的美甲</th>
+        <td class="pl10">
+        @reservation.styleId match {
+          case None => {
+            未指定美甲
+          }
+          case Some(sty) => {
+            @models.portal.nail.Nail.findOneById(sty) match {
+              case None => {}
+              case Some(style) => {
+                @style.styleName
+              }
+            }
+          }
+        }
+        </td>
+      }
+    </tr>
+  </tbody>
+</table>
+
+<!-- 预约优惠劵，套餐或者服务信息 -->
+@views.html.reservation.showReservItems(reservation, "confirmInfo", Reservation.findResvItemsForType(reservation.resvItems))
+
+<!-- 预约注意事项，留言信息 -->
+<table cellspacing="0" class="wFull bdCell pCell10 fgThNml pCellV5H5 mT10">
+  <tbody>
+    <tr>
+      <th class="w150 bgLGray pb10 pt10">@Messages("reservation.resvAttentionTitle")</th>
+      <td colspan="3" class="pl10">
+        <p class="fgGray">@Messages("reservation.resvAttention")</p>
+      </td>
+    </tr>
+    <tr>
+      <th class="w150 bgLGray pb10 pt10">@Messages("reservation.questionAndAnswerTitle")</th>
+      <td colspan="3" class="pl10">
+        <p class="fgGray">@Messages("reservation.questionFromSalon")</p>
+        <p>@reservation.userLeaveMsg</p>
+      </td>
+    </tr>
+    <tr>
+      <th class="w150 bgLGray pb10 pt10"><span class="b">@Messages("reservation.resvUserId")</span></th>
+      <td class="w276 pl10">
+        <span class="b">
+        @models.portal.user.User.findOneByUserId(reservation.userId).get.nickName
+        </span>
+      </td>
+      <th class="w150 bgLGray pb10 pt10"><span class="b">@Messages("reservation.userPhone")</span></th>
+      <td class="pl10">
+        <span class="fr fgOrange dibBL vaM fs10 pL1e txt1e pr10">※</span>
+        <span class="fl b">@reservation.userPhone</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div class="bgPink p15 mT10 fl w670">
+  <input type="button" value="@Messages("common.backUp")" onclick="window.history.go(-1)" class="salonSearchBtn mT10 mB10">
+  @if(reservation.status == 0 && reservation.userId.equals(user.userId)) {
+      <a href="@auth.routes.Reservations.deletingReserv(reservation.id)" style="right: 1px">@Messages("reservation.delete")</a>
+  } else {
+    <a class="reserveBtn bS" href="@noAuth.routes.Salons.getAllCoupons(reservation.salonId, "", "", "reservation")" title="" style="right: 1px">
+    @Messages("reserve.name")
+    </a>
+  }
+</div>
+

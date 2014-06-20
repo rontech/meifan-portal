@@ -240,27 +240,25 @@ object Reservations extends MeifanNetCustomerApplication {
       })
   }
 
+  // TODO the method below -> isOwner
   /**
    * 查看本人处理中的预约
    * @return
    */
-  def getReserving(userId : String) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
-    val user = User.findOneByUserId(userId).get
-//    val user = loggedIn
-    val reservingList = Reservation.findResving(userId)
+  def getReserving = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+//    val user = User.findOneByUserId(userId).get
+    val user = loggedIn
+    val reservingList = Reservation.findResving(user.userId)
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     Ok(views.html.user.myReserving(user, followInfo, reservingList))
   }
 
   def showReservationDetailById(reservationId : ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
     val reservation = Reservation.findOneById(reservationId).get
-    val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
+//    val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
     val user = loggedIn
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    salon match {
-      case Some(s) => Ok(views.html.user.reservDetail(s, reservation, user, followInfo))
-      case None => NotFound
-    }
+    Ok(views.html.user.reservDetailNew(reservation, user, followInfo))
   }
 
   def deletingReserv(reservationId : ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
@@ -282,10 +280,11 @@ object Reservations extends MeifanNetCustomerApplication {
    * 查看本人预约履历
    * @return
    */
-  def getReservationHistory(userId : String) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
-    val user = User.findOneByUserId(userId).get
-    val reservedList = Reservation.findReservationHistory(userId)
-    val reservingList = Reservation.findResving(userId)
+  def getReservationHistory = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val user = loggedIn
+//    val user = User.findOneByUserId(user.userId).get
+    val reservedList = Reservation.findReservationHistory(user.userId)
+    val reservingList = Reservation.findResving(user.userId)
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     Ok(views.html.user.myReservationHistory(user, followInfo, reservedList, reservingList))
   }
