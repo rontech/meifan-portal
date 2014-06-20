@@ -1,5 +1,5 @@
-@(salon: models.portal.salon.Salon, stylist: Option[models.portal.stylist.StylistDetailInfo] = None, styles: List[models.portal.style.Style] = Nil, latestBlog: Option[models.portal.blog.Blog] = None, navBar: List[(String, String)] = Nil, user: Option[models.portal.user.User])
-
+@(salon: models.portal.salon.Salon, stylist: Option[models.portal.stylist.StylistDetailInfo] = None, styles: List[models.portal.style.Style] = Nil, nails: List[models.portal.nail.Nail] = Nil, latestBlog: Option[models.portal.blog.Blog] = None, navBar: List[(String, String)] = Nil, user: Option[models.portal.user.User])
+@import models.portal.salon._
 @salonInfoMain(navInSalon = "salon-stylist", salon, navBar, user){
 
   <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
@@ -28,20 +28,34 @@
         
         <!--↓ Get stylist's self introductions.--> 
         @views.html.stylist.stylistBasicInfoContent(salon, dtl, styles, latestBlog)
-        <!--↑ Get stylist's self introductions.--> 
+        <!--↑ Get stylist's self introductions.-->
 
-        <!--↓ models.portal.stylist.Stylist's Works: All the styles.  -->
-        <div class="mT30">
-          <div class="yS mainContentsSecondTitleOuter">
-            <h3 class="yS mainContentsSecondTitleInner">
-              @Messages("stylist.haircatalog", dtl.basicInfo.nickName)
-            </h3>
+        @if(Salon.findIndustryBySalonId(salon.id).equals("Hairdressing")) {
+          <!--↓ models.portal.stylist.Stylist's Works: All the styles.  -->
+          <div class="mT30">
+              <div class="yS mainContentsSecondTitleOuter">
+                  <h3 class="yS mainContentsSecondTitleInner">
+                      @Messages("stylist.haircatalog", dtl.basicInfo.nickName)
+                  </h3>
+              </div>
           </div>
-        </div>
-        
-        <!-- get all the salons with all the styles.  -->
-        @views.html.style.styleGroup(styles, salon)
-        <!--↑ models.portal.stylist.Stylist's Works: All the styles.  -->
+          <!-- get all the salons with all the styles.  -->
+          @views.html.style.styleGroup(styles, salon)
+          <!--↑ models.portal.stylist.Stylist's Works: All the styles.  -->
+        }
+        @if(Salon.findIndustryBySalonId(salon.id).equals("Manicures")) {
+          <!--↓ models.portal.stylist.Stylist's Works: All the nails.  -->
+          <div class="mT30">
+              <div class="yS mainContentsSecondTitleOuter">
+                  <h3 class="yS mainContentsSecondTitleInner">
+                      @Messages("stylist.nailcatalog", dtl.basicInfo.nickName)
+                  </h3>
+              </div>
+          </div>
+          <!-- get all the salons with all the styles.  -->
+          @views.html.nailCatalog.nailGroup(nails, salon)
+          <!--↑ models.portal.stylist.Stylist's Works: All the nails.  -->
+        }
 
         <!--↓ models.portal.stylist.Stylist's Works: All the styles.  -->
         @views.html.stylist.pleaseReserveMe(dtl)    

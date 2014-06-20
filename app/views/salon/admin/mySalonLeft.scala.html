@@ -1,4 +1,5 @@
 @(salon: models.portal.salon.Salon)
+@import models.portal.salon._
 
       <div class ="Owner">
         <div class="fl pL10 pT10">
@@ -98,18 +99,33 @@
           </a><br />
         </div>
       </div>
-      <!-- 发型管理 -->
-      <div class='Mod Users' id='Fellows'>
-        <strong>@Messages("salonAdmin.styleManagement")</strong>
+      <!-- 作品管理 -->
+      @if(Salon.findIndustryBySalonId(salon.id).equals("Hairdressing")) {
+        <div class='Mod Users' id='Fellows'>
+            <strong>@Messages("salonAdmin.styleManagement")</strong>
+            <ul class='clearfix'>
+                <li>
+                </li>
+            </ul>
+            <div class='more'>
+                <a href="@auth.routes.Salons.getAllStylesBySalon()">@Messages("stylistMag.showAllStyles")
+                    (@models.portal.salon.Salon.getAllStyles(salon.id).length)</a>
+            </div>
+        </div>
+      }
+      @if(Salon.findIndustryBySalonId(salon.id).equals("Manicures")) {
+        <div class='Mod Users' id='Fellows'>
+        <strong>@Messages("nailSalon.nailManagement")</strong>
          <ul class='clearfix'>
            <li>
            </li>
          </ul>
         <div class='more'>
-          <a href="@auth.routes.Salons.getAllStylesBySalon()">@Messages("stylistMag.showAllStyles")
-          (@models.portal.salon.Salon.getAllStyles(salon.id).length)</a>
+          <a href="@auth.routes.Salons.getAllStylesBySalon()">@Messages("nailSalon.showAllNails")
+          (@models.portal.salon.Salon.getAllNails(salon.id).length)</a>
         </div>
-      </div>
+        </div>
+      }
 
       <!-- 预约管理 -->
       <div class='Mod Users' id='Fellows'>

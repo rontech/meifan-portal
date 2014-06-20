@@ -295,18 +295,24 @@ object Salons extends MeifanNetCustomerOptionalApplication {
             // check if the stylist has a work ship with the salon?
             dtl.get.workInfo match {
               case Some(ship) => {
-                // get Styles of a stylist.
-                val styles = Style.findByStylistId(stylistId)
-
                 // get a latest blog of a stylist.
                 val blgs = Blog.getBlogByUserId(dtl.get.basicInfo.userId)
                 val blog = if (blgs.length > 0) Some(blgs.head) else None
-
                 // navigation item
                 val lastNav = List((dtl.get.basicInfo.nickName, ""))
-                Ok(views.html.salon.store.salonInfoStylist(salon = sl, stylist = dtl,
-                  styles = styles, latestBlog = blog, navBar = navBar ::: lastNav, user = user))
-
+                Salon.findIndustryBySalonId(salonId) match {
+                  case "Hairdressing" => {
+                    // get Styles of a stylist.
+                    val styles = Style.findByStylistId(stylistId)
+                    Ok(views.html.salon.store.salonInfoStylist(salon = sl, stylist = dtl,
+                      styles = styles,nails = Nil, latestBlog = blog, navBar = navBar ::: lastNav, user = user))
+                  }
+                  case "Manicures" => {
+                    val nails = Nail.findByStylistId(stylistId)
+                    Ok(views.html.salon.store.salonInfoStylist(salon = sl, stylist = dtl,
+                      styles = Nil, nails = nails, latestBlog = blog, navBar = navBar ::: lastNav, user = user))
+                  }
+                }
               }
               case None => {
                 // if not a worker of a salon. show nothing, for now, Jump to stylists page in salon. 
@@ -404,7 +410,6 @@ object Salons extends MeifanNetCustomerOptionalApplication {
               // If nail is not exist, show nothing but must in the salon's page.
               case None => {
                 val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("nailSalon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString()))
-                // TODO should with some message to show to user.
                 Ok(views.html.salon.store.nailSalon.salonInfoNailAll(salon = sl, nails = Nil, navBar = navBar, user = user))
               }
             }
