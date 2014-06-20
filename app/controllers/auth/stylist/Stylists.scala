@@ -184,6 +184,7 @@ object Stylists extends MeifanNetCustomerApplication {
         }
 
         val stylistUpdate = stylistForm.fill(sty)
+        println("stylist = " + sty)
         Ok(views.html.stylist.management.updateStylistInfo(user, followInfo, user.id, true, sty, stylistUpdate, goodAtStylePara))
       }
       case None => NotFound
@@ -203,7 +204,7 @@ object Stylists extends MeifanNetCustomerApplication {
       errors => BadRequest(views.html.index()),
       {
         case (stylist) => {
-          Stylist.save(stylist.copy(id = sty.id, stylistId = user.id)) //需修改图片更新
+          Stylist.save(stylist.copy(id = sty.id, stylistId = user.id, position = sty.position)) //需修改图片更新
           Redirect(auth.routes.Users.myPage())
         }
       })
@@ -270,7 +271,7 @@ object Stylists extends MeifanNetCustomerApplication {
       case Some(sty) => {
         Stylist.updateImages(sty, imgId)
         if (role.equals("user")) {
-          Ok(views.html.user.applyStylist(controllers.auth.Users.stylistApplyForm, user, goodAtStylePara, followInfo, true))
+          Ok(views.html.user.selectSalonForApply(user, followInfo, true))
         } else if (role.equals("stylist")) {
           Redirect(routes.Stylists.myHomePage)
         } else {

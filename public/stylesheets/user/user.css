@@ -1502,3 +1502,58 @@ min-width: 70px;
 .reserveArea .buttons {
 padding: 5px 15px;
 }
+
+
+.taC {
+text-align: center !important;
+}
+
+.PB30 {
+padding-bottom: 30px;
+}
+
+/*--------申请技师导航条--------*/
+.step {
+  overflow: hidden;
+  margin-bottom: 30px;
+  height: 25px;
+}
+
+.step li {
+  float: left;
+  background: url(/assets/images/login/p1.jpg) no-repeat top right #ededed;
+  height: 25px;
+  line-height: 25px;
+  color: #999999;
+  padding: 0 50px 0 44px;;
+  font-weight: bold;
+}
+
+.step .one {
+  background: url(/assets/images/login/p5.jpg) no-repeat top right #bbbbbb;
+  color: #FFF;
+}
+
+.step .one1 {
+  background: url(/assets/images/login/p9.jpg) no-repeat top right #bbbbbb;
+  color: #FFF;
+}
+
+.step .four {
+  background: none #ededed;
+}
+
+.step .cur {
+  background: url(/assets/images/login/p2.jpg) no-repeat top right #ffe6bc;
+  color: #ff6600;
+}
+
+.step .four1 {
+  background: none #ffe6bc;
+}
+
+#filePhoto, #target {
+  margin-bottom: 10px;
+}
+
+/*--------申请技师导航条--------*/

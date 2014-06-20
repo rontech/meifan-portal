@@ -1,0 +1,74 @@
+@(user: models.portal.user.User, followInfo: models.portal.user.FollowInformation, isCommit: Boolean = false)
+
+@import helper._
+
+@myPageMain(navInMyPage = "applyStylist", user, followInfo, user.id, true) {
+  <div class="mT40">
+    @if(isCommit) {
+      <div class="step">
+        <ul>
+          <li class="one one1">@Messages("stylist.selectSalon")</li>
+          <li class="one one1">@Messages("stylist.writeApplyInfo")</li>
+          <li class="one">@Messages("stylist.uploadApplyImg")</li>
+          <li class="four1 cur">@Messages("stylist.toApplyStylistInfo")</li>
+        </ul>
+      </div>
+      <div id="apply_message">
+        <p>@Messages("user.applyStylistMessage_1") <span id="times">
+          10</span> @Messages("user.applyStylistMessage_2") <a href="javascript:go('')"></a> @Messages("user.applyStylistMessage_3")</p>
+      </div>
+      <script language="javascript" type="text/javascript">
+      var timer = null ;
+      var i = 10 ;
+      timer = window.setInterval ( 'showTimes()', 1000 ) ;
+      setTimeout ( "go()", 10000 ) ;
+      function showTimes ( ) {
+      document.getElementById ( "times" ).innerHTML = i ;
+      i -- ;
+      if ( i == 0 ) {
+      window.clearInterval ( timer ) ;
+      go ( ) ;
+      }
+      }
+      </script>
+    } else {
+      <div class="step">
+        <ul>
+          <li class="one cur">@Messages("stylist.selectSalon")</li>
+          <li class="">@Messages("stylist.writeApplyInfo")</li>
+          <li class="">@Messages("stylist.uploadApplyImg")</li>
+          <li class="four">@Messages("stylist.toApplyStylistInfo")</li>
+        </ul>
+      </div>
+      @form(auth.routes.Users.getSalonIdForApply, 'name -> "salonAccountForm", 'id -> "salonAccountForm"){
+        <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
+          <tbody>
+            <tr>
+              <th class="w222 ">
+                  <!-- -->
+                <div class="dibBL vaM w154">
+                  <font class="cR">*</font>@Messages("salonAccountId")
+                </div>
+              </th>
+              <td>
+                <div class="inputField">
+                  <input name="salonAccountId" id="SalonAccountId">
+                  <span id="applySerchSalonMsg"></span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="btnArea">
+          <input type="button" class = "buttons" onclick="checkForSalonAccountForm();" value="@Messages("stylist.nextStep")">
+        </div>
+      }
+    }
+  </div>
+}
+<script src="@routes.Assets.at("javascripts/stylist.js")" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8">
+  function go ( ) { //定义函数
+  window.location = "/myPage" ; //页面跳转
+  }
+</script>
