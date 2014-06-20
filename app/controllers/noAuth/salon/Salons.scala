@@ -132,7 +132,8 @@ object Salons extends MeifanNetCustomerOptionalApplication {
         (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
         workTime, restDays, seatNums, salonFacilities, salonPics, _) =>
           Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
-            workTime, restDays, seatNums, salonFacilities, salonPics, new Date(), new SalonStatus(1, true))
+          workTime, restDays, seatNums, salonFacilities, salonPics, new Date(), new SalonStatus(0, false))
+
       } {
         salonRegister =>
           Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonAppeal, salonRegister.salonIntroduction, salonRegister.contactMethod,
@@ -246,7 +247,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
    *------------------------*/
   def getSalon(salonId: ObjectId) = StackAction { implicit request =>
     val user = loggedIn
-    val salon: Option[Salon] = Salon.findOneById(salonId)
+    val salon: Option[Salon] = Salon.findOneById(salonId).filter(_.salonStatus.isValid == true)
     salon match {
       case Some(sl) => Ok(views.html.salon.store.salonContent(sl, SalonNavigation.getSalonNavBar(salon), user))
       case _ => NotFound
