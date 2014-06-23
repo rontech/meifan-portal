@@ -1,0 +1,6 @@
+@(navInSalon: String = "my-stylists", salon: models.portal.salon.Salon, nail: models.portal.nail.Nail)
+@import views.html.salon.admin._
+@mySalonMain(navInSalon, salon){
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+  @views.html.nailCatalog.admin.backstageNailItem(nail)
+}

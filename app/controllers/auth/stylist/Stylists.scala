@@ -32,7 +32,7 @@ import com.mongodb.casbah.gridfs.Imports._
 import com.mongodb.casbah.gridfs.GridFS
 import play.api.libs.iteratee.Enumerator
 import controllers._
-import controllers.noAuth.Styles
+import controllers.noAuth.{Nails, Styles}
 import play.api.data.validation.Constraints._
 import play.api.Routes
 import routes.javascript._
@@ -47,6 +47,7 @@ import models.portal.style.Style
 import models.portal.salon.Salon
 import com.meifannet.framework.db._
 import models.portal.reservation.Reservation
+import models.portal.nail.Nail
 
 object Stylists extends MeifanNetCustomerApplication {
 
@@ -184,6 +185,7 @@ object Stylists extends MeifanNetCustomerApplication {
         }
 
         val stylistUpdate = stylistForm.fill(sty)
+        println("stylist = " + sty)
         Ok(views.html.stylist.management.updateStylistInfo(user, followInfo, user.id, true, sty, stylistUpdate, goodAtStylePara))
       }
       case None => NotFound
@@ -203,7 +205,7 @@ object Stylists extends MeifanNetCustomerApplication {
       errors => BadRequest(views.html.index()),
       {
         case (stylist) => {
-          Stylist.save(stylist.copy(id = sty.id, stylistId = user.id)) //需修改图片更新
+          Stylist.save(stylist.copy(id = sty.id, stylistId = user.id, position = sty.position)) //需修改图片更新
           Redirect(auth.routes.Users.myPage())
         }
       })
@@ -270,7 +272,7 @@ object Stylists extends MeifanNetCustomerApplication {
       case Some(sty) => {
         Stylist.updateImages(sty, imgId)
         if (role.equals("user")) {
-          Ok(views.html.user.applyStylist(controllers.auth.Users.stylistApplyForm, user, goodAtStylePara, followInfo, true))
+          Ok(views.html.user.selectSalonForApply(user, followInfo, true))
         } else if (role.equals("stylist")) {
           Redirect(routes.Stylists.myHomePage)
         } else {
@@ -283,57 +285,86 @@ object Stylists extends MeifanNetCustomerApplication {
   }
 
   /**
-   * 跳转技师后台发型更新页面
-   * @param styleId - 发型id，主键
+   * 跳转技师后台发型、美甲更新页面
+   * @param styleId - 发型id/美甲id，主键
    *@return
    */
   def styleUpdateByStylist(styleId: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
     implicit request =>
-      val styleOne: Option[Style] = Style.findOneById(styleId)
       val user = loggedIn
       val stylist = Stylist.findOneByStylistId(user.id)
       val followInfo = MyFollow.getAllFollowInfo(user.id)
-      styleOne match {
-        case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = stylist.get, style = style, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll("Hairdressing")))
-        case None => NotFound
+      Stylist.findIndustryByStylistId(user.id) match {
+        case "Hairdressing" => {
+          val styleOne: Option[Style] = Style.findOneById(styleId)
+          styleOne match {
+            case Some(style) => Ok(views.html.stylist.management.updateStylistStyles(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, stylist = stylist.get, style = style, styleUpdateForm = Styles.styleUpdateForm.fill(style), styleParaAll = Style.findParaAll("Hairdressing")))
+            case None => NotFound
+          }
+        }
+        case "Manicures" => {
+          val nailOne: Option[Nail] = Nail.findOneById(styleId)
+          nailOne match {
+            case Some(nail) => Ok(views.html.stylist.management.updateStylistNails(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, nail = nail, nailInfoForm = Nails.nailInfoForm.fill(nail), stylePara= Nail.findParaAll("Manicures")))
+            case None => NotFound
+          }
+        }
       }
   }
 
   /**
-   * 技师后台发型更新处理
+   * 技师后台发型/美甲更新处理
    * @return
    */
   def styleUpdateNewByStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
     implicit request =>
       val user = loggedIn
-      val stylist = Stylist.findOneByStylistId(user.id)
-      val followInfo = MyFollow.getAllFollowInfo(user.id)
-      Styles.styleUpdateForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.index()),
-        {
-          case (styleUpdateForm) => {
-            Style.save(styleUpdateForm.copy(id = styleUpdateForm.id), WriteConcern.Safe)
-            Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
-          }
-        })
+      Stylist.findIndustryByStylistId(user.id) match {
+        case "Hairdressing" => {
+          Styles.styleUpdateForm.bindFromRequest.fold(
+          errors => BadRequest(views.html.index()),
+          {
+            case (styleUpdateForm) => {
+              Style.save(styleUpdateForm.copy(id = styleUpdateForm.id), WriteConcern.Safe)
+              Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
+            }
+          })
+        }
+        case "Manicures" => {
+          Nails.nailInfoForm.bindFromRequest.fold(
+          errors => BadRequest(views.html.index()),
+          {
+            case (nailInfoForm) => {
+              Nail.save(nailInfoForm.copy(id = nailInfoForm.id), WriteConcern.Safe)
+              Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
+            }
+          })
+        }
+      }
   }
 
   /**
-   * 技师后台发型删除，使之无效即可
-   * 根据传入的发型id，调用方法使之无效
-   * @param id - 发型id
+   * 技师后台发型/美甲删除，使之无效即可
+   * 根据传入的发型id、美甲id，调用方法使之无效
+   * @param id - 发型id/美甲id
    * @return
    */
   def styleToInvalidByStylist(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
-    val stylist = Stylist.findOneByStylistId(user.id)
-    val followInfo = MyFollow.getAllFollowInfo(user.id)
-    Style.styleToInvalid(id)
-    Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
+    Stylist.findIndustryByStylistId(user.id) match {
+      case "Hairdressing" => {
+        Style.styleToInvalid(id)
+        Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
+      }
+      case "Manicures" => {
+        Nail.nailToInvalid(id)
+        Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
+      }
+    }
   }
 
   /**
-   * 跳转至技师发型新建页面
+   * 1.跳转至技师发型新建页面
    * transfer param
    * user - 登录的用户
    * followInfo - 关注的内容
@@ -343,36 +374,60 @@ object Stylists extends MeifanNetCustomerApplication {
    * styleParaAll - 发型属性数据
    * stylists - 当前技师，但要变成list
    * isStylist - 是否是技师flag
+   *
+   * 2.跳转到技师美甲新建页面
+   *
    * @return 技师后台添加发型
    */
   def styleAddByStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
     //此处为新发型登录
     implicit request =>
       val user = loggedIn
-      val stylist = Stylist.findOneByStylistId(user.id)
       val followInfo = MyFollow.getAllFollowInfo(user.id)
-      var stylists: List[Stylist] = Nil
-      stylists :::= stylist.toList
-      Ok(views.html.stylist.management.addStyleByStylist(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll("Hairdressing"), stylists = stylists, isStylist = true))
+      Stylist.findIndustryByStylistId(user.id) match {
+        case "Hairdressing" => {
+          val stylist = Stylist.findOneByStylistId(user.id)
+          var stylists: List[Stylist] = Nil
+          stylists :::= stylist.toList
+          Ok(views.html.stylist.management.addStyleByStylist(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, styleAddForm = Styles.styleAddForm, styleParaAll = Style.findParaAll("Hairdressing"), stylists = stylists, isStylist = true))
+        }
+        case "Manicures" => {
+          Ok(views.html.stylist.management.addNailByStylist(user = user, followInfo = followInfo, loginUserId = user.id, logged = true, nailInfoForm = Nails.nailInfoForm, stylePara = Nail.findParaAll("Manicures")))
+        }
+      }
   }
 
   /**
-   * 技师新建发型后台处理
-   * @return 技师后台发型一览
+   * 技师新建发型、美甲后台处理
+   * @return 技师后台发型、美甲一览
    */
   def newStyleAddByStylist = StackAction(AuthorityKey -> authorization(LoggedIn) _) {
     implicit request =>
       val user = loggedIn
-      val stylist = Stylist.findOneByStylistId(user.id)
       val followInfo = MyFollow.getAllFollowInfo(user.id)
-      Styles.styleAddForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.index()),
-        {
-          case (styleAddForm) => {
-            Style.save(styleAddForm)
-            Redirect(noAuth.routes.Stylists.findStylesByStylist(stylist.get.stylistId))
-          }
-        })
+      Stylist.findIndustryByStylistId(user.id) match {
+        case "Hairdressing" => {
+          Styles.styleAddForm.bindFromRequest.fold(
+          errors => BadRequest(views.html.index()),
+          {
+            case (styleAddForm) => {
+              Style.save(styleAddForm)
+              Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
+            }
+          })
+        }
+        case "Manicures" => {
+          Nails.nailInfoForm.bindFromRequest.fold(
+          errors => BadRequest(views.html.index()),
+          {
+            case (nailInfoForm) => {
+              Nail.save(nailInfoForm)
+              Redirect(noAuth.routes.Stylists.findStylesByStylist(user.id))
+            }
+          })
+        }
+      }
+
   }
 
   /**

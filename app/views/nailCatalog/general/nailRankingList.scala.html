@@ -1,0 +1,92 @@
+@(nailAndSalon: List[models.portal.nail.NailWithAllInfo])
+@import helper._
+
+<div class="mT40">
+  <div class="bgLGray">
+    <p style="font-size: 26px;font-weight: bold">@Messages("hair.ranking")</p>
+  </div>
+  <div>
+    @if(nailAndSalon.length > 0) {
+    <h4 class="rankingListHeading icnCrown0"><p class="b fs18">1@Messages("common.seat")</p></h4>
+    <div class="stylePageTileOuter cFix">
+      <div class="fs16 fl">
+        <img src="@routes.Application.getPhoto(nailAndSalon(0).nail.stylePic(0).fileObjId)" width="220" height="300" />
+      </div>
+      <div class="jscHoverTarget">
+        <div class="">
+          <div class="w660 h75">
+            <div class="">
+               <a href="@noAuth.routes.Salons.getOneStyle(nailAndSalon(0).salonId, nailAndSalon(0).nail.id)" class="rankingListInnerAnchor" >
+                <p class="fs22 b"><span class="photoCaption">@nailAndSalon(0).nail.styleName</span></p>
+               </a>
+            </div>
+            <div class="">
+            </div>
+            <div class="bdGrayL">
+                <div class="sl_show_xy">
+                    <p align="center">
+                      <a href = "javascript:void(0);" onclick="addFollow('@nailAndSalon(0).nail.id','style')" >@Messages("nail.ToCollect")</a>
+                    </p>
+                </div>
+            </div>
+          </div>
+          <div class="bgLGray w700">
+            <div>
+              <h2 class="lhDe">@Messages("nail.info")</h2>
+            </div>
+            <div class="cFix bdDotT pT10 mT7 ">
+              <div class="fl mR10">
+                <img src="@routes.Application.getPhoto(models.portal.stylist.Stylist.findOneByStylistId(nailAndSalon(0).nail.stylistId).get.myPics(0).fileObjId)" class="w89">
+              </div>
+              <div class="oh zoom1">
+                <p class="fs10 w397">@nailAndSalon(0).nail.description</p>
+                <div class="mT5">
+                  <p>@Messages("salon.Name") ： @nailAndSalon(0).salonName</p>
+                  <p>@Messages("nailSalon.stylists") ： @nailAndSalon(0).stylistNickname</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  
+  <div>
+    @if(nailAndSalon.length > 1) {
+    <ul class="cFix rankingList">
+      @for(i <- 1 until nailAndSalon.length){
+        <li class="fl w176 mR15">
+            @if(i < 3) {
+              <h4 class="rankingListHeading icnCrown@i"><p class="b fs18">@(i+1)@Messages("common.seat")</p></h4>
+            } else {
+              <h4 class="rankingListHeading icnCrownOther"><p class="b fs18">@(i+1)@Messages("common.seat")</p></h4>
+            }
+            <div class="styleResult">
+              <a href="@noAuth.routes.Salons.getOneStyle(nailAndSalon(i).salonId, nailAndSalon(i).nail.id)" >
+                <img src="@routes.Application.getPhoto(nailAndSalon(i).nail.stylePic(0).fileObjId)" class="w120 h150" alt="@nailAndSalon(i).nail.styleName" >
+              </a>
+              <div class="layer jscLayer jscFixPng">
+                <div class="sl_show_xx">
+                    <p align="center">
+                      <a href="javascript:void(0);" onclick="addFollow('@nailAndSalon(i).nail.id','style')" >@Messages("nail.ToCollect")</a>
+                    </p>
+                </div>
+                <p><a href="@noAuth.routes.Salons.getOneStyle(nailAndSalon(i).salonId, nailAndSalon(i).nail.id)">@Messages("nail.detailInfo")</a></p>
+              </div>
+              <div class="mT2">
+                <a href="@noAuth.routes.Salons.getOneStyle(nailAndSalon(i).salonId, nailAndSalon(i).nail.id)" class="rankingListInnerAnchor" >
+                  <p><span class="photoCaption">@nailAndSalon(i).nail.styleName</span></p>
+                  <div class="mT2">
+                    <p class="rankingListShop">@nailAndSalon(i).salonName</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+        </li>
+      }
+    </ul>
+    }
+  </div>
+</div>

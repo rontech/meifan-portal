@@ -1,5 +1,8 @@
 @(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation)
 
+@import models.portal.nail.Nail
+@import models.portal.style.Style
+
 @reservConfirmInfoMain(salon, reservation, "four") {
   <div class="yS reserveTitleOuter mT20">
     <h3 class="yS reserveTitleInner pL10">@Messages("reservation.confirmInfoFinal")</h3>
@@ -43,22 +46,41 @@
           }
         }
         </td>
-        <th class="w170 bgLGray pb10 pt10">@Messages("reservation.style")</th>
-        <td class="pl10">
-        @reservation.styleId match {
-          case None => {
-            @Messages("reservation.noStyle")
-          }
-          case Some(sty) => {
-            @models.portal.style.Style.findOneById(sty) match {
-              case None => {}
-              case Some(style) => {
-                @style.styleName
+        @if(salon.salonIndustry.head == "Hairdressing") {
+          <th class="w170 bgLGray pb10 pt10">@Messages("reservation.style")</th>
+          <td class="pl10">
+            @reservation.styleId match {
+              case None => {
+                @Messages("reservation.noStyle")
+              }
+              case Some(sty) => {
+                @Style.findOneById(sty) match {
+                  case None => {}
+                  case Some(style) => {
+                    @style.styleName
+                  }
+                }
+              }
+            }
+          </td>
+        } else {
+          <th class="w170 bgLGray pb10 pt10">@Messages("reservation.nail")</th>
+          <td class="pl10">
+          @reservation.styleId match {
+            case None => {
+              @Messages("reservation.noNail")
+            }
+            case Some(sty) => {
+              @Nail.findOneById(sty) match {
+                case None => {}
+                case Some(style) => {
+                  @style.styleName
+                }
               }
             }
           }
+          </td>
         }
-        </td>
       </tr>
     </tbody>
   </table>

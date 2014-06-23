@@ -1,0 +1,18 @@
+@(user :models.portal.user.User, followInfo :models.portal.user.FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false, nailInfoForm: Form[models.portal.nail.Nail], stylePara: models.portal.nail.StylePara)
+
+@import views.html.user._
+
+@myPageMain("my-styles", user, followInfo, loginUserId, logged ){
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+  
+  <div>
+    <ul class="tabInfoTitle">
+      <li class="fl selected">
+        @Messages("nail.addNail")
+      </li>        
+    </ul>
+  </div>
+  <div class="mT40">
+    @views.html.nailCatalog.admin.nailAdd(nailInfoForm, stylePara, user.id)
+  </div>
+}
