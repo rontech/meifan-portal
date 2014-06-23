@@ -132,7 +132,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
         (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
         workTime, restDays, seatNums, salonFacilities, salonPics, _) =>
           Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
-            workTime, restDays, seatNums, salonFacilities, salonPics, new Date(), new SalonStatus(1, true))
+            workTime, restDays, seatNums, salonFacilities, salonPics, new Date(), new SalonStatus(0, false))
       } {
         salonRegister =>
           Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonAppeal, salonRegister.salonIntroduction, salonRegister.contactMethod,
