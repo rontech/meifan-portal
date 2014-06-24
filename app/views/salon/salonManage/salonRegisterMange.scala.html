@@ -98,20 +98,24 @@
               <th class="w222 ">
                 <!-- -->
                 <div class="dibBL vaM w154">
-                    <font class="cR">*</font>@Messages("salon.type")
+                    @Messages("salon.type")
                 </div>
               </th>
               <td>
                 <div class = "inputField">
                   @input(field = salonRegister("salonIndustry"),args = '_label -> None,'class -> "inputField",'_error -> salonRegister("salonIndustry").error.map(_.withMessage(Messages("salon.industryError")))){(id,name,value,args) =>
+                    <div style="display: none">
                    @for(i <- 0 to industry.length-1){
                      @if(salon.salonIndustry.contains(industry(i).industryName)){
+
                        <input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName" checked="checked">@Messages("industry.industryName."+industry(i).industryName)
                      }else{
                        <input type = "checkbox" class="salonIndustry" name = "salonIndustry[@i]" value = "@industry(i).industryName">@Messages("industry.industryName."+industry(i).industryName)
                      }
                    }
+                    </div>      
                  }
+				  <input type = "text" readonly class="salonIndustry" name = "SalonIndustry" value = "@Messages("industry.industryName."+salon.salonIndustry(0))">
                 </div>
               </td>
             </tr>                        
