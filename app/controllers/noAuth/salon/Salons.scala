@@ -200,7 +200,6 @@ object Salons extends MeifanNetCustomerOptionalApplication {
 
         salonRegister =>
           Salon.save(salonRegister, WriteConcern.Safe)
-        println("This is = "+salonRegister)
           Redirect(auth.routes.Salons.salonLogin)
       })
   }
