@@ -44,7 +44,8 @@
             <input type="hidden" name="salonIntroduction.introHeader" readonly="readonly" value="@salon.salonIntroduction.map(pic=>pic.introHeader).getOrElse(None)">
             <input type="hidden" name="salonIntroduction.introContent" readonly="readonly" value="@salon.salonIntroduction.map(pic=>pic.introContent).getOrElse(None)">
             <input type="hidden" name="salonIntroduction.introFooter" readonly="readonly" value="@salon.salonIntroduction.map(pic=>pic.introFooter).getOrElse(None)">
-                      
+            <input type="hidden" name="salonStatus.applyMeifanFlag" readonly="readonly" value="@salon.salonStatus.applyMeifanFlag">
+
             @if(salonRegister.hasGlobalErrors){
              <div>
                @salonRegister.globalError.get.message
