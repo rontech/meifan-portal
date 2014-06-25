@@ -45,6 +45,7 @@ import models.portal.reservation.ResvGroup
 import models.portal.coupon.CouponServiceType
 import models.portal.service.ServiceByType
 import models.portal.reservation.ResvSchedule
+import models.portal.nail.Nail
 import com.meifannet.portal.MeifanNetCustomerOptionalApplication
 
 object Reservations extends MeifanNetCustomerOptionalApplication {
@@ -87,7 +88,7 @@ object Reservations extends MeifanNetCustomerOptionalApplication {
       }
     }
 
-    var reservation: Reservation = Reservation(new ObjectId, "", salonId, 0, new Date, 0, None, resvItems, None, "", "", BigDecimal(0), 0, BigDecimal(0), new Date, new Date)
+    var reservation: Reservation = Reservation(new ObjectId, "", salonId, "", 0, new Date, 0, None, resvItems, None, "", "", BigDecimal(0), 0, BigDecimal(0), new Date, new Date)
     Cache.set("reservation", reservation)
 
     val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
@@ -339,7 +340,7 @@ object Reservations extends MeifanNetCustomerOptionalApplication {
 
       resvItems = resvItems ::: List(resvItem)
 
-      var reservation: Reservation = Reservation(new ObjectId, "", salonId, 0, new Date, serviceDuration, None, resvItems, None, "", "", price, 0, price, new Date, new Date)
+      var reservation: Reservation = Reservation(new ObjectId, "", salonId, "", 0, new Date, serviceDuration, None, resvItems, None, "", "", price, 0, price, new Date, new Date)
 
       Cache.set("reservation", reservation)
       Redirect(routes.Reservations.reservShowDate(salonId, stylistId, styleId, week, ""))
@@ -421,13 +422,20 @@ object Reservations extends MeifanNetCustomerOptionalApplication {
     }
     Cache.set("reservation", reservation)
 
-    // 得到该技师的所有发型
-    val styles: List[Style] = Style.findByStylistId(stylistId)
-
     val salon: Option[Salon] = Salon.findOneById(reservation.salonId)
 
     salon match {
-      case Some(s) => Ok(views.html.reservation.reservSelectStyleMain(s, reservation, styles, jumpType, user))
+      case Some(s) => {
+        if(s.salonIndustry.head == "Hairdressing") {
+          // 得到该技师的所有发型
+          val styles: List[Style] = Style.findByStylistId(stylistId)
+          Ok(views.html.reservation.reservSelectStyleMain(s, reservation, styles, jumpType, user))
+        } else {
+          val styles: List[Nail] = Nail.findByStylistId(stylistId)
+          Ok(views.html.reservation.reservSelectNailMain(s, reservation, styles, jumpType, user))
+        }
+
+      }
       case None => NotFound
     }
   }

@@ -1,0 +1,116 @@
+@(nail: models.portal.nail.Nail)
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+<body>
+  <div class="mT40">
+    <table cellspacing="0" class="wFull bdCell bgThNml fgThNml vaThT pCellV10H12">
+    <tbody>
+      <tr>
+        <th class="w120"> @Messages("nail.nailName") </th>
+        <td colspan="3" class="w620">
+          <span class="mL5" style="background-color: #CC4466;display: block;color: white;text-align: left;">
+            @nail.styleName
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <th class="w120"> @Messages("nail.pictures") </th>
+        <td colspan="3" class="w620">
+        @nail.stylePic.map {stylePic =>
+          <li class="fl w91" style="list-style:none;">
+            <span>
+              <img src="@routes.Application.getPhoto(stylePic.fileObjId)" height="89" width="65" >
+            </span>
+          </li>    
+        }
+        </td>
+      </tr>
+      <tr>
+        <th class="w120"> @Messages("nailSalon.stylists") </th>
+        <td colspan="3" class="w620">
+          <img src="@routes.Application.getPhoto(models.portal.stylist.Stylist.findOneByStylistId(nail.stylistId).get.myPics(0).fileObjId) "height="89" width="65" >
+          <span class="detail2S hairLittleOn mL5">
+            @models.portal.stylist.Stylist.findUser(nail.stylistId).nickName
+          </span>
+        </td>
+      </tr>
+      <tr>
+          <th class="w120">@Messages("nail.search.styleImpression") </th>
+          <td class="w208 vaT">
+          <span class="detail2S hairLittleOn mL5">
+            @Messages("style.styleImpression." +nail.styleImpression)
+          </span>
+          </td>
+      </tr>
+      <tr>
+        <th class="w120"> @Messages("nail.search.styleColor") </th>
+        <td colspan="3" class="w620">
+          @nail.styleColor.map {color =>
+            <li class="fl w91" style="list-style:none;">
+            <span class="detail2S hairLittleOn mL5">
+              @Messages("style.styleColor." +color)
+            </span>
+            </li>
+          }
+        </td>
+      </tr>
+
+      <tr>
+        <th class="w120"> @Messages("nail.search.serviceType") </th>
+        <td colspan="3" class="w620">
+          @nail.serviceType.map {serviceType =>
+            <li class="fl w91" style="list-style:none;">
+            <span class="detail2S hairLittleOn mL5">
+              @Messages("ServiceType.serviceTypeName." +serviceType)
+            </span>
+            </li>
+          }
+        </td>
+      </tr>
+      <tr>
+        <th class="w120"> @Messages("nail.search.styleBase") </th>
+        <td colspan="3" class="w620">
+          @nail.styleBase.map {styleBase =>
+            <li class="fl w91" style="list-style:none;">
+            <span class="detail2S hairLittleOn mL5">
+              @Messages("style.styleBase." +styleBase)
+            </span>
+            </li>
+          }
+        </td>
+      </tr>
+      <tr>
+        <th class="w120"> @Messages("nail.search.styleMaterial") </th>
+        <td colspan="3" class="w620">
+          @nail.styleMaterial.map {styleMaterial =>
+            <li class="fl w91" style="list-style:none;">
+            <span class=" hairLittleOn mL5">
+              @Messages("style.styleMaterial." +styleMaterial)
+            </span>
+            </li>
+          }
+         </td>
+      </tr>
+      <tr>
+        <th class="w120"> @Messages("nail.search.socialScene") </th>
+        <td colspan="3" class="w620">
+          @nail.socialScene.map {socialScene =>
+            <li class="fl w91" style="list-style:none;">
+            <span class=" hairLittleOn mL5">
+              @Messages("style.socialScene." + socialScene)
+            </span>
+            </li>
+          }
+         </td>
+      </tr>
+      <tr>
+        <th class="w120"> @Messages("nail.assessFromStylist") </th>
+        <td colspan="3" class="w620">
+            <span class="mL5" style="background-color: #CC4466;display: block;color: white;text-align: left;">
+              @nail.description
+            </span>
+         </td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+</body>

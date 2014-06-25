@@ -132,7 +132,11 @@ object Salons extends MeifanNetCustomerOptionalApplication {
         (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
         workTime, restDays, seatNums, salonFacilities, salonPics, _) =>
           Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
-            workTime, restDays, seatNums, salonFacilities, salonPics, new Date(), new SalonStatus(1, true))
+
+
+          workTime, restDays, seatNums, salonFacilities, salonPics, new Date(), new SalonStatus(0, false))
+
+
       } {
         salonRegister =>
           Some(salonRegister.salonAccount, salonRegister.salonName, salonRegister.salonNameAbbr, salonRegister.salonIndustry, salonRegister.homepage, salonRegister.salonAppeal, salonRegister.salonIntroduction, salonRegister.contactMethod,
@@ -196,6 +200,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
     salonRegister.bindFromRequest.fold(
       errors => BadRequest(views.html.salon.salonManage.salonRegister(errors, industry)),
       {
+
         salonRegister =>
           Salon.save(salonRegister, WriteConcern.Safe)
           Redirect(auth.routes.Salons.salonLogin)
@@ -246,7 +251,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
    *------------------------*/
   def getSalon(salonId: ObjectId) = StackAction { implicit request =>
     val user = loggedIn
-    val salon: Option[Salon] = Salon.findOneById(salonId)
+    val salon: Option[Salon] = Salon.findOneById(salonId).filter(_.salonStatus.isValid == true)
     salon match {
       case Some(sl) => Ok(views.html.salon.store.salonContent(sl, SalonNavigation.getSalonNavBar(salon), user))
       case _ => NotFound
@@ -294,18 +299,24 @@ object Salons extends MeifanNetCustomerOptionalApplication {
             // check if the stylist has a work ship with the salon?
             dtl.get.workInfo match {
               case Some(ship) => {
-                // get Styles of a stylist.
-                val styles = Style.findByStylistId(stylistId)
-
                 // get a latest blog of a stylist.
                 val blgs = Blog.getBlogByUserId(dtl.get.basicInfo.userId)
                 val blog = if (blgs.length > 0) Some(blgs.head) else None
-
                 // navigation item
                 val lastNav = List((dtl.get.basicInfo.nickName, ""))
-                Ok(views.html.salon.store.salonInfoStylist(salon = sl, stylist = dtl,
-                  styles = styles, latestBlog = blog, navBar = navBar ::: lastNav, user = user))
-
+                Salon.findIndustryBySalonId(salonId) match {
+                  case "Hairdressing" => {
+                    // get Styles of a stylist.
+                    val styles = Style.findByStylistId(stylistId)
+                    Ok(views.html.salon.store.salonInfoStylist(salon = sl, stylist = dtl,
+                      styles = styles,nails = Nil, latestBlog = blog, navBar = navBar ::: lastNav, user = user))
+                  }
+                  case "Manicures" => {
+                    val nails = Nail.findByStylistId(stylistId)
+                    Ok(views.html.salon.store.salonInfoStylist(salon = sl, stylist = dtl,
+                      styles = Nil, nails = nails, latestBlog = blog, navBar = navBar ::: lastNav, user = user))
+                  }
+                }
               }
               case None => {
                 // if not a worker of a salon. show nothing, for now, Jump to stylists page in salon. 
@@ -403,7 +414,6 @@ object Salons extends MeifanNetCustomerOptionalApplication {
               // If nail is not exist, show nothing but must in the salon's page.
               case None => {
                 val navBar = SalonNavigation.getSalonNavBar(Some(sl)) ::: List((Messages("nailSalon.styles"), noAuth.routes.Salons.getAllStyles(sl.id).toString()))
-                // TODO should with some message to show to user.
                 Ok(views.html.salon.store.nailSalon.salonInfoNailAll(salon = sl, nails = Nil, navBar = navBar, user = user))
               }
             }

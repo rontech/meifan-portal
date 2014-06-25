@@ -50,7 +50,7 @@ object Reservations extends MeifanNetCustomerApplication {
       "userPhone" -> text,
       "userLeaveMsg" -> text,
       "confirmFlg" -> optional(text)) {
-      (userPhone, userLeaveMsg, _) => Reservation(new ObjectId(), "", new ObjectId(), 0, new Date(), 0, None, Nil, None, userPhone, userLeaveMsg,
+      (userPhone, userLeaveMsg, _) => Reservation(new ObjectId(), "", new ObjectId(), "",0, new Date(), 0, None, Nil, None, userPhone, userLeaveMsg,
         BigDecimal(0), 0, BigDecimal(0), new Date(), new Date())
     } {
       reservation => Some((reservation.userPhone, reservation.userLeaveMsg, None))
@@ -67,7 +67,7 @@ object Reservations extends MeifanNetCustomerApplication {
       "reservs" -> list(
         mapping(
           "resvId" -> text
-        ){(resvId) => Reservation(new ObjectId(resvId), "", new ObjectId, 0, new Date, 0, None, Nil, None, "", "", BigDecimal(0), 0, BigDecimal(0), new Date, new Date)}
+        ){(resvId) => Reservation(new ObjectId(resvId), "", new ObjectId, "", 0, new Date, 0, None, Nil, None, "", "", BigDecimal(0), 0, BigDecimal(0), new Date, new Date)}
         {reservation => Some((reservation.id.toString))}
       )
     )(HandleReservation.apply)(HandleReservation.unapply)

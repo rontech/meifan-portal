@@ -112,10 +112,22 @@ width: 85px;
 height: 35px;
 }
 
+.stylist-nail {
+  background-position: -800px 0px;
+  width: 85px;
+  height: 35px;
+}
+
 .style {
 background-position: -365px 0px;
 width: 85px;
 height: 35px;
+}
+
+.nail {
+  background-position: -885px 0px;
+  width: 85px;
+  height: 35px;
 }
 
 .blog {
@@ -148,8 +160,16 @@ background-position: -140px -60px;
 background-position: -280px -60px;
 }
 
+.stylist-nail:hover {
+background-position: -800px -60px;
+}
+
 .style:hover {
 background-position: -365px -60px;
+}
+
+.nail:hover {
+background-position: -885px -60px;
 }
 
 .blog:hover {
@@ -182,8 +202,20 @@ width: 85px;
 height: 37px;
 }
 
+.stylistCurrent-nail {
+background-position: -800px -120px;
+width: 85px;
+height: 37px;
+}
+
 .styleCurrent {
 background-position: -365px -120px;
+width: 85px;
+height: 37px;
+}
+
+.nailCurrent {
+background-position: -885px -120px;
 width: 85px;
 height: 37px;
 }

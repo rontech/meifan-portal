@@ -1,4 +1,5 @@
 @(user :models.portal.user.User, followInfo:models.portal.user.FollowInformation, loginUserId:ObjectId =new ObjectId, logged:Boolean = false)
+@import models.portal.stylist._
       <div class ="Owner">
         <a href="#" class='Img'><img src="@routes.Application.getPhoto(user.userPics)"/></a>
         <span class='myPageA'>
@@ -27,7 +28,7 @@
       </div>
 @if(user.userTyp.equals(models.portal.user.User.STYLIST)){
   <!-- 我的沙龙，如果没有则显示来自沙龙的邀请 -->
-  <div class='Mod models.portal.user.Users' id='Fans'>
+  <div class='Mod Users' id='Fans'>
   @if(models.portal.relation.SalonAndStylist.findByStylistId(user.id).isEmpty){
       <strong>@Messages("stylist.salon")</strong>
       <div class='more'>
@@ -48,12 +49,38 @@
       }
   </div>
   <!-- 我的发型 -->
-  <div class='Mod models.portal.user.Users' id='Fellows'>
+  <div class='Mod Users' id='Fellows'>
     <strong>@Messages("stylist.style")</strong>
-    <div class='more'>
-      <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
-        (@models.portal.stylist.Stylist.countStyleByStylist(user.id))</a>
-    </div>
+    @if(Stylist.findIndustryByStylistId(user.id).equals("Hairdressing")){
+        <ul class='clearfix'>
+          @models.portal.style.Style.findByStylistId(user.id).slice(0,8).map {style =>
+          <li>
+              <a href="@noAuth.routes.Stylists.getbackstageStyleItem(style.id,style.stylistId)">
+                  <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)" alt="@style.styleName" title="@style.styleName" align="absmiddle" class = "SmallPortrait">
+              </a>
+          </li>
+          }
+        </ul>
+        <div class='more'>
+          <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("stylistMag.showAllStyles")
+            (@models.portal.stylist.Stylist.countStyleByStylist(user.id))</a>
+        </div>
+    }
+    @if(Stylist.findIndustryByStylistId(user.id).equals("Manicures")){
+      <ul class='clearfix'>
+          @models.portal.nail.Nail.findByStylistId(user.id).slice(0,8).map {nail =>
+          <li>
+              <a href="@noAuth.routes.Stylists.getbackstageStyleItem(nail.id,nail.stylistId)">
+              <img src="@routes.Application.getPhoto(nail.stylePic(0).fileObjId)" alt="@nail.styleName" title="@nail.styleName" align="absmiddle" class = "SmallPortrait">
+              </a>
+          </li>
+          }
+      </ul>
+      <div class='more'>
+          <a href="@noAuth.routes.Stylists.findStylesByStylist(user.id)">@Messages("nailSalon.showAllNails")
+              (@models.portal.nail.Nail.findByStylistId(user.id).length)</a>
+      </div>
+    }
   </div>
 }
       <div class='Mod models.portal.user.Users' id='Fellows'>

@@ -1,6 +1,9 @@
 @(reservation: models.portal.reservation.Reservation, pageType: String = "my-resvInProcessing")
 
 @import models.portal.reservation.Reservation
+@import models.portal.salon.Salon
+@import models.portal.style.Style
+@import models.portal.nail.Nail
 
 <!-- 预约号码，时间等信息 -->
 <table cellspacing="0" class="wFull bdCell pCell10 fgThNml pCellV5H5 mT40">
@@ -44,22 +47,41 @@
           }
         }
       </td>
-      <th class="w150 bgLGray pb10 pt10">@Messages("reservation.style")</th>
-      <td class="pl10">
-        @reservation.styleId match {
-          case None => {
-            @Messages("reservation.noStyle")
-          }
-          case Some(sty) => {
-            @models.portal.style.Style.findOneById(sty) match {
-              case None => {}
-              case Some(style) => {
-                @style.styleName
+        @if(Salon.findOneById(reservation.salonId).get.salonIndustry.head == "Hairdressing") {
+          <th class="w170 bgLGray pb10 pt10">@Messages("reservation.style")</th>
+          <td class="pl10">
+          @reservation.styleId match {
+            case None => {
+              @Messages("reservation.noStyle")
+            }
+            case Some(sty) => {
+              @Style.findOneById(sty) match {
+                case None => {}
+                case Some(style) => {
+                  @style.styleName
+                }
               }
             }
           }
+          </td>
+          } else {
+          <th class="w170 bgLGray pb10 pt10">@Messages("reservation.nail")</th>
+          <td class="pl10">
+          @reservation.styleId match {
+              case None => {
+                @Messages("reservation.noNail")
+              }
+              case Some(sty) => {
+                @Nail.findOneById(sty) match {
+                  case None => {}
+                  case Some(style) => {
+                    @style.styleName
+                  }
+                }
+              }
+            }
+          </td>
         }
-      </td>
     </tr>
   </tbody>
 </table>
