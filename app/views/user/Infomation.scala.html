@@ -127,6 +127,7 @@
                   '_label -> None)
               </td>
             </tr>
+            @if(!models.portal.stylist.Stylist.findOneByStylistId(userForm.get.id)){
             <tr>
               <th class="w222">
                 <div class="dibBL vaM w160">
@@ -136,6 +137,8 @@
               <td>
                 @inputText(userForm("socialScene"),'_label -> None, 'class -> "inputField")
               </td>
+            </tr>
+            }
             <tr>
               <th class="w222">
                 <div class="dibBL vaM w160">

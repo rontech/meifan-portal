@@ -132,7 +132,10 @@ object Salons extends MeifanNetCustomerOptionalApplication {
         (salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
         workTime, restDays, seatNums, salonFacilities, salonPics, _) =>
           Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
+
+
           workTime, restDays, seatNums, salonFacilities, salonPics, new Date(), new SalonStatus(0, false))
+
 
       } {
         salonRegister =>
@@ -197,6 +200,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
     salonRegister.bindFromRequest.fold(
       errors => BadRequest(views.html.salon.salonManage.salonRegister(errors, industry)),
       {
+
         salonRegister =>
           Salon.save(salonRegister, WriteConcern.Safe)
           Redirect(auth.routes.Salons.salonLogin)
