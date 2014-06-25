@@ -200,6 +200,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
     salonRegister.bindFromRequest.fold(
       errors => BadRequest(views.html.salon.salonManage.salonRegister(errors, industry)),
       {
+
         salonRegister =>
           Salon.save(salonRegister, WriteConcern.Safe)
           Redirect(auth.routes.Salons.salonLogin)
