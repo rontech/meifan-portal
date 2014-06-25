@@ -7,8 +7,9 @@
 		$('input[name="styleImpression"]:eq(0)').attr('checked','checked');
 		submitForm();
 	}
-	
+
 	function unlimitServiceType(){
+        alert()
 		var checkArray = document.getElementById("unlimitServiceType_group").getElementsByTagName("input");
 	    for(var i=0; i<checkArray.length; i++){
 	        if(checkArray[i].type=='checkbox'){

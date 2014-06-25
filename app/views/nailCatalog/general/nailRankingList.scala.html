@@ -25,7 +25,7 @@
             <div class="bdGrayL">
                 <div class="sl_show_xy">
                     <p align="center">
-                      <a href = "javascript:void(0);" onclick="addFollow('@nailAndSalon(0).nail.id','style')" >@Messages("nail.ToCollect")</a>
+                      <a href = "javascript:void(0);" onclick="addFollow('@nailAndSalon(0).nail.id','nail')" >@Messages("nail.ToCollect")</a>
                     </p>
                 </div>
             </div>
@@ -70,7 +70,7 @@
               <div class="layer jscLayer jscFixPng">
                 <div class="sl_show_xx">
                     <p align="center">
-                      <a href="javascript:void(0);" onclick="addFollow('@nailAndSalon(i).nail.id','style')" >@Messages("nail.ToCollect")</a>
+                      <a href="javascript:void(0);" onclick="addFollow('@nailAndSalon(i).nail.id','nail')" >@Messages("nail.ToCollect")</a>
                     </p>
                 </div>
                 <p><a href="@noAuth.routes.Salons.getOneStyle(nailAndSalon(i).salonId, nailAndSalon(i).nail.id)">@Messages("nail.detailInfo")</a></p>

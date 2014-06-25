@@ -103,14 +103,11 @@ object Nails extends MeifanNetCustomerOptionalApplication {
       val user = loggedIn
       var nailAllInfo: List[NailWithAllInfo] = Nil
       //通过页面选择的发型长度字段的值，来进行不同的检索，all为不以长度为检索字段
-      println("ssssssssssssssssssssseeeeeeeeeeeeeeeeee="+styleImpression)
       if (styleImpression.equals("all")) {
-        println("ssssssssssssssssssssssssssssss")
         nailAllInfo = Nail.findByRanking()
       } else {
         nailAllInfo = Nail.findByRankingAndImpression(styleImpression)
       }
-      println("ssssssssssssssssssssssssssssss11111111111"+nailAllInfo)
       Ok(html.nailCatalog.general.nailRankingResultPage(nailSearchForm, nailAllInfo, Nail.findParaAll("Manicures"), user))
   }
 
