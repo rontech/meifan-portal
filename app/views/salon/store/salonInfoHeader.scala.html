@@ -82,10 +82,10 @@
       }
       @if(Salon.findIndustryBySalonId(salon.id).equals("Manicures")) {
           <li class="fl">
-            <a href="@noAuth.routes.Salons.getAllStylists(salon.id)" class="bts db @if(navInSalon == "salon-stylist") {stylistCurrent} else {stylist} offL">@Messages("nailSalon.stylists")</a>
+            <a href="@noAuth.routes.Salons.getAllStylists(salon.id)" class="bts db @if(navInSalon == "salon-stylist") {stylistCurrent-nail} else {stylist-nail} offL">@Messages("nailSalon.stylists")</a>
           </li>
           <li class="fl">
-            <a href="@noAuth.routes.Salons.getAllStyles(salon.id)" class="bts db @if(navInSalon == "salon-style") {styleCurrent} else {style} offL">@Messages("nailSalon.styles")</a>
+            <a href="@noAuth.routes.Salons.getAllStyles(salon.id)" class="bts db @if(navInSalon == "salon-style") {nailCurrent} else {nail} offL">@Messages("nailSalon.styles")</a>
           </li>
       }
       <li class="fl">

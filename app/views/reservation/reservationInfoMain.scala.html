@@ -1,7 +1,7 @@
 @(navInSalon: String = "salon-basic", menuTab: String = "two", salon: models.portal.salon.Salon, user: Option[models.portal.user.User] = None, navBar: List[(String, String)] = Nil)(content: Html)
 
 
-  @main(salon.salonName, user, "HairSalon", navBar) {
+  @main(salon.salonName, user, Messages("main.title." + salon.salonIndustry.head), navBar) {
 		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reservation/reservation.css")">
     <!-- ↓contents -->
 
