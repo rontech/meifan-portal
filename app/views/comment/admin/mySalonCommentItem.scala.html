@@ -105,12 +105,12 @@
   <div class="BlogCommentForm">
     <form id="form_inline_comment" action="@auth.routes.Salons.replyBySalon(comment.id, 3)" method="GET">
      <input type="hidden" id="inline_reply_id" name="reply_id" value="1452044_278889672">
-     <textarea name="content" id="ccom_content_@comment.id" style="width:650px;height:60px;"></textarea><br>
+     <textarea name="content" id="comment_content_@comment.id" style="width:650px;height:60px;"></textarea><br>
      <p style = "height:50px;">
        <span style="float:right;">
-       <input type="submit" value="@Messages("blog.reply")" id="btn_comment" onclick="return replyForm('ccom_content_@comment.id', 'ficmp_msg_@comment.id');" class="blg_submit_btn">
+       <input type="submit" value="@Messages("blog.reply")" id="btn_comment" onclick="return replyForm('comment_content_@comment.id', 'ficmp_comment_msg_@comment.id');" class="blg_submit_btn">
        </span>
-       <span class="NoData" id="ficmp_msg_@comment.id" style="color:#F00"></span>
+       <span class="NoData" id="ficmp_comment_msg_@comment.id" style="color:#F00"></span>
      </p>
     </form>
   </div>
@@ -120,12 +120,12 @@
   <div class="BlogCommentForm">
     <form id="form_inline_comment" action="@auth.routes.Salons.complainBySalon(comment.id, 4)" method="GET">
       <input type="hidden" id="inline_reply_id" name="reply_id" value="1452044_278889672">
-      <textarea name="content" id="ccom_content_@comment.id" style="width:650px;height:60px;"></textarea><br>
+      <textarea name="content" id="complain_content_@comment.id" style="width:650px;height:60px;"></textarea><br>
       <p style = "height:50px;">
         <span style="float:right;">
-          <input type="submit" value="@Messages("comment.complain")" id="btn_comment" onclick="return replyForm('ccom_content_@comment.id', 'ficmp_msg_@comment.id');" class="blg_submit_btn">
+          <input type="submit" value="@Messages("comment.complain")" id="btn_comment" onclick="return replyForm('complain_content_@comment.id', 'ficmp_complain_msg_@comment.id');" class="blg_submit_btn">
         </span>
-        <span class="NoData" id="ficmp_msg_@comment.id" style="color:#F00"></span>
+        <span class="NoData" id="ficmp_complain_msg_@comment.id" style="color:#F00"></span>
       </p>
     </form>
   </div>
