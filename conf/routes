@@ -128,6 +128,7 @@ GET         /myPage/myReservationHistory                                    cont
 GET         /myPage/myReservation/:reservationId                            controllers.auth.Reservations.showReservationDetailById(reservationId : ObjectId)
 GET         /myPage/deletingReserv/:reservationId                           controllers.auth.Reservations.deletingReserv(reservationId : ObjectId)
 GET         /myPage/deletedReserv/:reservationId                            controllers.auth.Reservations.deletedReserv(reservationId : ObjectId)
+GET         /userPage/followedNail                                          controllers.auth.MyFollows.followedNail(id: ObjectId)
 
 
 

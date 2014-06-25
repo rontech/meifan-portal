@@ -1,5 +1,4 @@
 @(nailWithAllInfos: List[models.portal.nail.NailWithAllInfo])
-@*@(nailSearchForm: models.portal.nail.SearchPara, nailPara: models.portal.nail.StylePara, user:Option[models.portal.user.User])*@
 
 <div class="searchResults">
     <span class="styleLength">@nailWithAllInfos.length</span>
@@ -19,7 +18,7 @@
         </a>
         <div class="layer jscLayer jscFixPng">
             <div class="mT2">
-                <a href="javascript:void(0);" onclick="addFollow('@nailWithAllInfo.nail.id','style')" class="bS db styleCollect mHA">
+                <a href="javascript:void(0);" onclick="addFollow('@nailWithAllInfo.nail.id','nail')" class="bS db styleCollect mHA">
                     @Messages("nail.ToCollect")
                 </a>
             </div>
