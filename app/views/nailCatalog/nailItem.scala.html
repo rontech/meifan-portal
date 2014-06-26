@@ -42,14 +42,6 @@
           <div class="jscHoverTarget">
             <div class="jscLayer">
               <p id="mysId01L000544169" style="position : relative ; zoom : 1 ;">
-                  <!-- <a id="mysIdh01L000544169" href="javascript:void(0);" onclick="addFollow('@nail.id','nail')" class="bS db addIntoMyStylePink offL mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
-                @Messages("nail.ToCollect")
-                </a>
-                <a href="" class="btnSaveToMyStyleDone jscRadius3px offL fr mR10">
-                  <span class="btnSaveToMyStyleDoneInner jscRadius3px">
-                  @Messages("nail.BeCollected")
-                  </span>
-                </a> -->
                 <a href="javascript:void(0);" onclick="addFollow('@nail.id','nail')" class="bS db addIntoMyStylePink mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
                 @Messages("nail.ToCollect")
                 </a>
@@ -66,7 +58,7 @@
           <div class="cFix mT10">
             <div class="fl w99">
               <a href="@noAuth.routes.Salons.getOneStylist(salon.id, nail.stylistId)">
-                @*<img src="@routes.Application.getPhoto(models.portal.stylist.Stylist.findOneByStylistId(nail.stylistId).get.myPics(0).fileObjId)" class="w89">*@
+                <img src="@routes.Application.getPhoto(models.portal.stylist.Stylist.findOneByStylistId(nail.stylistId).get.myPics(0).fileObjId)" class="w89">
               </a>
             </div>
             <div class="fr w318">

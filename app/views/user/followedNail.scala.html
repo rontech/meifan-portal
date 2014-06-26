@@ -1,0 +1,41 @@
+@(user: models.portal.user.User, followInfo:models.portal.user.FollowInformation, loginUserId:ObjectId)
+
+@myCollectsMain("my-collectNail", user, followInfo, loginUserId, true){
+  <div class="mT40">
+     @if(followInfo.followNail.isEmpty){
+      <div class="bgAlertMsg">
+        <p class="alertMsg">@Messages("user.noStyleSearched")</p>
+      </div>
+    } else {
+      <div class="yS mainContentsSecondTitleOuter">
+        <h2 class="yS mainContentsSecondTitleInnerForAdmin">
+          @if(loginUserId.equals(user.id)){
+            @Messages("user.myCollectNailsCount", followInfo.followNail.length)
+          } else {
+            @Messages("user.otherCollectNailsCount", followInfo.followNail.length)
+          }
+          
+        </h2>
+      </div>
+      <div class="mT20">
+        @for(nail <- followInfo.followNail){
+          @if(nail.isValid){
+            <li class="styleItem">
+              <div class = "styleResult">
+                @views.html.user.followItem.followNailItem(nail)
+                
+                <p class="txtC">
+                  @if(models.portal.user.MyFollow.checkIfFollow(loginUserId,nail.id)){
+                      <a href="@auth.routes.MyFollows.cancelFollow(nail.id)" class="styleBtn">@Messages("user.deleteFollow")</a>
+                  }else{
+                      <a href="javascript:void(0);" onclick="addFollow('@nail.id','nail')" class="styleBtn">@Messages("user.addFollow")</a>
+                  }
+                </p>
+              </div>
+            </li>
+          }
+        }
+      </div>
+    }
+  </div>
+}

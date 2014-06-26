@@ -103,8 +103,10 @@
 
 <!--服务类型-->
 <div class="wBox salonServiceTypeDIV" id="wbox_s">
+    @if(nailPara.serviceType.length > 4){
     <div class="v-option hide" option="more" onclick="moreExpandValue(this,'salonServiceType_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
     <div class="v-option hide" onclick="lessExpandValue(this,'salonServiceType_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
+    }
     <p class="title">@Messages("nail.search.serviceType")：</p>
     <div class="rBox serviceType_check">
         <div class="notto"><a href="javascript:unlimitServiceType();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
@@ -137,28 +139,30 @@
 
 <!--颜色-->
 <div class="wBox salonServiceTypeDIV" id="wbox_s">
-    <div class="v-option hide" option="more" onclick="moreExpandValue(this,'salonServiceType_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
-    <div class="v-option hide" onclick="lessExpandValue(this,'salonServiceType_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
+    @if(nailPara.styleColor.length > 4){
+    <div class="v-option hide" option="more" onclick="moreExpandValue(this,'styleColor_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
+    <div class="v-option hide" onclick="lessExpandValue(this,'styleColor_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
+    }
     <p class="title">@Messages("nail.search.styleColor")：</p>
     <div class="rBox serviceType_check">
-        <div class="notto"><a href="javascript:unlimitServiceType();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
-        <ul class="place prices" id="unlimitServiceType_group">
+        <div class="notto"><a href="javascript:unlimitSalons();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
+        <ul class="place prices" id="unlimitSalons_group">
             @for(i <- 0 to nailPara.styleColor.length-1){
             @if(i<4){
             <li class="dibBL mR2">
                 @if(nailSearchForm.styleColor.contains(nailPara.styleColor(i))){
-                <input type="checkbox" name="styleColor[@i]" value="@nailPara.styleColor(i)" method="s_5" mark="5" class="serviceType_checkbox" id="color@i" checked>
+                <input type="checkbox" name="styleColor[@i]" value="@nailPara.styleColor(i)" method="s_5" mark="5" class="brand_checkbox" id="color@i" checked>
                 }else {
-                <input type="checkbox" name="styleColor[@i]" value="@nailPara.styleColor(i)" method="s_5" mark="5" class="serviceType_checkbox" id="color@i">
+                <input type="checkbox" name="styleColor[@i]" value="@nailPara.styleColor(i)" method="s_5" mark="5" class="brand_checkbox" id="color@i">
                 }
                 <label for="color@i" class="serviceType_checkbox">@Messages("style.styleColor." + nailPara.styleColor(i))</label>
             </li>
             }else{
-            <li class="salonServiceType_hide hide_li">
+            <li class="styleColor_hide hide_li">
                 @if(nailSearchForm.styleColor.contains(nailPara.styleColor(i))){
-                <input type="checkbox" name="styleColor[@i]" value="@nailPara.styleColor(i)" method="s_5" mark="5" class="serviceType_checkbox" id="color@i" checked>
+                <input type="checkbox" name="styleColor[@i]" value="@nailPara.styleColor(i)" method="s_5" mark="5" class="brand_checkbox" id="color@i" checked>
                 }else {
-                <input type="checkbox" name="styleColor[@i]" value="@nailPara.styleColor(i)" method="s_5" mark="5" class="serviceType_checkbox" id="color@i">
+                <input type="checkbox" name="styleColor[@i]" value="@nailPara.styleColor(i)" method="s_5" mark="5" class="brand_checkbox" id="color@i">
                 }
                 <label for="color@i" class="serviceType_checkbox">@Messages("style.styleColor." + nailPara.styleColor(i))</label>
             </li>
@@ -171,28 +175,30 @@
 
 <!--材质-->
 <div class="wBox salonServiceTypeDIV" id="wbox_s">
-    <div class="v-option hide" option="more" onclick="moreExpandValue(this,'salonServiceType_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
-    <div class="v-option hide" onclick="lessExpandValue(this,'salonServiceType_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
+    @if(nailPara.styleMaterial.length > 4){
+    <div class="v-option hide" option="more" onclick="moreExpandValue(this,'styleMaterial_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
+    <div class="v-option hide" onclick="lessExpandValue(this,'styleMaterial_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
+    }
     <p class="title">@Messages("nail.search.styleMaterial")：</p>
     <div class="rBox serviceType_check">
-        <div class="notto"><a href="javascript:unlimitServiceType();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
-        <ul class="place prices" id="unlimitServiceType_group">
+        <div class="notto"><a href="javascript:unlimitStyleMaterial();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
+        <ul class="place prices" id="unlimitStyleMaterial_group">
             @for(i <- 0 to nailPara.styleMaterial.length-1){
             @if(i<4){
             <li class="dibBL mR2">
                 @if(nailSearchForm.styleMaterial.contains(nailPara.styleMaterial(i))){
-                <input type="checkbox" name="styleMaterial[@i]" value="@nailPara.styleMaterial(i)" method="s_5" mark="5" class="serviceType_checkbox" id="material@i" checked>
+                <input type="checkbox" name="styleMaterial[@i]" value="@nailPara.styleMaterial(i)" method="s_5" mark="5" class="styleMaterial_checkbox" id="material@i" checked>
                 }else {
-                <input type="checkbox" name="styleMaterial[@i]" value="@nailPara.styleMaterial(i)" method="s_5" mark="5" class="serviceType_checkbox" id="material@i">
+                <input type="checkbox" name="styleMaterial[@i]" value="@nailPara.styleMaterial(i)" method="s_5" mark="5" class="styleMaterial_checkbox" id="material@i">
                 }
                 <label for="material@i" class="serviceType_checkbox">@Messages("style.styleMaterial." + nailPara.styleMaterial(i))</label>
             </li>
             }else{
-            <li class="salonServiceType_hide hide_li">
+            <li class="styleMaterial_hide hide_li">
                 @if(nailSearchForm.styleMaterial.contains(nailPara.styleMaterial(i))){
-                <input type="checkbox" name="styleMaterial[@i]" value="@nailPara.styleMaterial(i)" method="s_5" mark="5" class="serviceType_checkbox" id="material@i" checked>
+                <input type="checkbox" name="styleMaterial[@i]" value="@nailPara.styleMaterial(i)" method="s_5" mark="5" class="styleMaterial_checkbox" id="material@i" checked>
                 }else {
-                <input type="checkbox" name="styleMaterial[@i]" value="@nailPara.styleMaterial(i)" method="s_5" mark="5" class="serviceType_checkbox" id="material@i">
+                <input type="checkbox" name="styleMaterial[@i]" value="@nailPara.styleMaterial(i)" method="s_5" mark="5" class="styleMaterial_checkbox" id="material@i">
                 }
                 <label for="material@i" class="serviceType_checkbox">@Messages("style.styleMaterial." + nailPara.styleMaterial(i))</label>
             </li>
@@ -205,28 +211,30 @@
 
 <!--部位-->
 <div class="wBox salonServiceTypeDIV" id="wbox_s">
-    <div class="v-option hide" option="more" onclick="moreExpandValue(this,'salonServiceType_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
-    <div class="v-option hide" onclick="lessExpandValue(this,'salonServiceType_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
+    @if(nailPara.styleBase.length > 4){
+    <div class="v-option hide" option="more" onclick="moreExpandValue(this,'styleBase_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
+    <div class="v-option hide" onclick="lessExpandValue(this,'styleBase_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
+    }
     <p class="title">@Messages("nail.search.styleBase")：</p>
     <div class="rBox serviceType_check">
-        <div class="notto"><a href="javascript:unlimitServiceType();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
-        <ul class="place prices" id="unlimitServiceType_group">
+        <div class="notto"><a href="javascript:unlimitStyleBase();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
+        <ul class="place prices" id="unlimitStyleBase_group">
             @for(i <- 0 to nailPara.styleBase.length-1){
             @if(i<4){
             <li class="dibBL mR2">
                 @if(nailSearchForm.styleBase.contains(nailPara.styleBase(i))){
-                <input type="checkbox" name="styleBase[@i]" value="@nailPara.styleBase(i)" method="s_5" mark="5" class="serviceType_checkbox" id="base@i" checked>
+                <input type="checkbox" name="styleBase[@i]" value="@nailPara.styleBase(i)" method="s_5" mark="5" class="styleBase_checkbox" id="base@i" checked>
                 }else {
-                <input type="checkbox" name="styleBase[@i]" value="@nailPara.styleBase(i)" method="s_5" mark="5" class="serviceType_checkbox" id="base@i">
+                <input type="checkbox" name="styleBase[@i]" value="@nailPara.styleBase(i)" method="s_5" mark="5" class="styleBase_checkbox" id="base@i">
                 }
                 <label for="base@i" class="serviceType_checkbox">@Messages("style.styleBase." + nailPara.styleBase(i))</label>
             </li>
             }else{
-            <li class="salonServiceType_hide hide_li">
+            <li class="styleBase_hide hide_li">
                 @if(nailSearchForm.styleBase.contains(nailPara.styleBase(i))){
-                <input type="checkbox" name="styleBase[@i]" value="@nailPara.styleBase(i)" method="s_5" mark="5" class="serviceType_checkbox" id="base@i" checked>
+                <input type="checkbox" name="styleBase[@i]" value="@nailPara.styleBase(i)" method="s_5" mark="5" class="styleBase_checkbox" id="base@i" checked>
                 }else {
-                <input type="checkbox" name="styleBase[@i]" value="@nailPara.styleBase(i)" method="s_5" mark="5" class="serviceType_checkbox" id="base@i">
+                <input type="checkbox" name="styleBase[@i]" value="@nailPara.styleBase(i)" method="s_5" mark="5" class="styleBase_checkbox" id="base@i">
                 }
                 <label for="base@i" class="serviceType_checkbox">@Messages("style.styleBase." + nailPara.styleBase(i))</label>
             </li>
@@ -239,30 +247,32 @@
 
 <!--风格-->
 <div class="wBox salonServiceTypeDIV" id="wbox_s">
-    <div class="v-option hide" option="more" onclick="moreExpandValue(this,'salonServiceType_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
-    <div class="v-option hide" onclick="lessExpandValue(this,'salonServiceType_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
+    @if(nailPara.styleImpression.length > 4){
+    <div class="v-option hide" option="more" onclick="moreExpandValue(this,'styleImpression_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
+    <div class="v-option hide" onclick="lessExpandValue(this,'styleImpression_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
+    }
     <p class="title">@Messages("nail.search.styleImpression")：</p>
     <div class="rBox serviceType_check">
-        <div class="notto"><a href="javascript:unlimitServiceType();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
-        <ul class="place prices" id="unlimitServiceType_group">
+        <div class="notto"><a href="javascript:unlimitImpression();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
+        <ul class="place prices" id="unlimitImpression_group">
             @for(i <- 0 to nailPara.styleImpression.length-1){
             @if(i<4){
             <li class="dibBL mR2">
                 @if(nailSearchForm.styleImpression.contains(nailPara.styleImpression(i))){
-                <input type="checkbox" name="styleImpression[@i]" value="@nailPara.styleImpression(i)" method="s_5" mark="5" class="serviceType_checkbox" id="impression@i" checked>
+                <input type="checkbox" name="styleImpression[@i]" value="@nailPara.styleImpression(i)" method="s_5" mark="5" class="styleImpression_checkbox" id="impression@i" checked>
                 }else {
-                <input type="checkbox" name="styleImpression[@i]" value="@nailPara.styleImpression(i)" method="s_5" mark="5" class="serviceType_checkbox" id="impression@i">
+                <input type="checkbox" name="styleImpression[@i]" value="@nailPara.styleImpression(i)" method="s_5" mark="5" class="styleImpression_checkbox" id="impression@i">
                 }
-                <label for="impression@i" class="serviceType_checkbox">@Messages("style.styleImpression." + nailPara.styleImpression(i))</label>
+                <label for="impression@i" class="styleImpression_checkbox">@Messages("style.styleImpression." + nailPara.styleImpression(i))</label>
             </li>
             }else{
-            <li class="salonServiceType_hide hide_li">
+            <li class="styleImpression_hide hide_li">
                 @if(nailSearchForm.styleImpression.contains(nailPara.styleImpression(i))){
-                <input type="checkbox" name="styleImpression[@i]" value="@nailPara.styleImpression(i)" method="s_5" mark="5" class="serviceType_checkbox" id="impression@i" checked>
+                <input type="checkbox" name="styleImpression[@i]" value="@nailPara.styleImpression(i)" method="s_5" mark="5" class="styleImpression_checkbox" id="impression@i" checked>
                 }else {
-                <input type="checkbox" name="styleImpression[@i]" value="@nailPara.styleImpression(i)" method="s_5" mark="5" class="serviceType_checkbox" id="impression@i">
+                <input type="checkbox" name="styleImpression[@i]" value="@nailPara.styleImpression(i)" method="s_5" mark="5" class="styleImpression_checkbox" id="impression@i">
                 }
-                <label for="impression@i" class="serviceType_checkbox">@Messages("style.styleImpression." + nailPara.styleImpression(i))</label>
+                <label for="impression@i" class="styleImpression_checkbox">@Messages("style.styleImpression." + nailPara.styleImpression(i))</label>
             </li>
             }
             }
@@ -273,28 +283,30 @@
 
 <!--适合场合-->
 <div class="wBox salonServiceTypeDIV" id="wbox_s">
-    <div class="v-option hide" option="more" onclick="moreExpandValue(this,'salonServiceType_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
-    <div class="v-option hide" onclick="lessExpandValue(this,'salonServiceType_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
+    @if(nailPara.socialScene.length > 4){
+    <div class="v-option hide" option="more" onclick="moreExpandValue(this,'socialScene_hide');" style="display: block;"><span class="o-more unfold">@Messages("common.checkFormore")<b></b></span></div>
+    <div class="v-option hide" onclick="lessExpandValue(this,'socialScene_hide');" style="display: none;"><span class="o-more fold">@Messages("styleSearch.lessOption")<b></b></span></div>
+    }
     <p class="title">@Messages("nail.search.socialScene")：</p>
     <div class="rBox serviceType_check">
-        <div class="notto"><a href="javascript:unlimitServiceType();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
-        <ul class="place prices" id="unlimitServiceType_group">
+        <div class="notto"><a href="javascript:unlimitSocialScene();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
+        <ul class="place prices" id="unlimitSocialScene_group">
             @for(i <- 0 to nailPara.socialScene.length-1){
             @if(i<4){
             <li class="dibBL mR2">
                 @if(nailSearchForm.socialScene.contains(nailPara.socialScene(i))){
-                <input type="checkbox" name="socialScene[@i]" value="@nailPara.socialScene(i)" method="s_5" mark="5" class="serviceType_checkbox" id="scene@i" checked>
+                <input type="checkbox" name="socialScene[@i]" value="@nailPara.socialScene(i)" method="s_5" mark="5" class="socialScene_checkbox" id="scene@i" checked>
                 }else {
-                <input type="checkbox" name="socialScene[@i]" value="@nailPara.socialScene(i)" method="s_5" mark="5" class="serviceType_checkbox" id="scene@i">
+                <input type="checkbox" name="socialScene[@i]" value="@nailPara.socialScene(i)" method="s_5" mark="5" class="socialScene_checkbox" id="scene@i">
                 }
                 <label for="scene@i" class="serviceType_checkbox">@Messages("style.socialScene." + nailPara.socialScene(i))</label>
             </li>
             }else{
-            <li class="salonServiceType_hide hide_li">
+            <li class="socialScene_hide hide_li">
                 @if(nailSearchForm.socialScene.contains(nailPara.socialScene(i))){
-                <input type="checkbox" name="socialScene[@i]" value="@nailPara.socialScene(i)" method="s_5" mark="5" class="serviceType_checkbox" id="scene@i" checked>
+                <input type="checkbox" name="socialScene[@i]" value="@nailPara.socialScene(i)" method="s_5" mark="5" class="socialScene_checkbox" id="scene@i" checked>
                 }else {
-                <input type="checkbox" name="socialScene[@i]" value="@nailPara.socialScene(i)" method="s_5" mark="5" class="serviceType_checkbox" id="scene@i">
+                <input type="checkbox" name="socialScene[@i]" value="@nailPara.socialScene(i)" method="s_5" mark="5" class="socialScene_checkbox" id="scene@i">
                 }
                 <label for="scene@i" class="serviceType_checkbox">@Messages("style.socialScene." + nailPara.socialScene(i))</label>
             </li>
