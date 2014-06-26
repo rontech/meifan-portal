@@ -1,4 +1,4 @@
-@(style: models.portal.style.Style)
+@(nail: models.portal.nail.Nail)
 
   <table class="styleItem">
     <tbody>
@@ -6,13 +6,13 @@
       <td class="vaT">
       <div class="w176 mHA">
         <div class="mT10 fs16 txtC">
-        <a href="@noAuth.routes.Salons.getOneStyle(models.portal.style.Style.findSalonByStylistId(style.stylistId).get.id, style.id)">
-          <img src="@routes.Application.getPhoto(style.stylePic(0).fileObjId)" width="154px" height="205px">
+        <a href="@noAuth.routes.Salons.getOneStyle(models.portal.style.Style.findSalonByStylistId(nail.stylistId).get.id, nail.id)">
+          <img src="@routes.Application.getPhoto(nail.stylePic(0).fileObjId)" width="154px" height="205px">
         </a>
         </div>
         <p class="mT10 lh13 txtC">
-        <a href="@noAuth.routes.Salons.getOneStyle(models.portal.style.Style.findSalonByStylistId(style.stylistId).get.id, style.id)">
-          @style.styleName
+        <a href="@noAuth.routes.Salons.getOneStyle(models.portal.style.Style.findSalonByStylistId(nail.stylistId).get.id, nail.id)">
+          @nail.styleName
         </a>
         </p>
       </div>
