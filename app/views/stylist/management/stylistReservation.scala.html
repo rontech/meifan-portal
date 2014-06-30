@@ -16,9 +16,11 @@
         @views.html.stylist.management.stylistReservingItem(reservation)
       }
     </ul>
-    <div class="skinHeadingWrapper">
-      <h3>@Messages("reservation.reservHistory")</h3>
-    </div>
+    @if(reservationHistoryList.isEmpty){
+      <div class="skinHeadingWrapper">
+        <h3>@Messages("reservation.reservHistory")</h3>
+      </div>
+    }
     <ul id="listWrapper">
       @reservationHistoryList.map{reservation =>
         @views.html.stylist.management.stylistReservationHistoryItem(reservation)

@@ -10,10 +10,10 @@
         <a class="current-demo" href="@auth.routes.Stylists.myHomePage">@Messages("stylist.revervation")</a>
       </li>
       <li class="fl  @if(subNavInSalon == "my-reserving") {selected}">
-        <a class="current-demo" href="@auth.routes.Reservations.getReserving(user.userId)">@Messages("user.reverving")</a>
+        <a class="current-demo" href="@auth.routes.Reservations.getReserving">@Messages("user.reverving")</a>
       </li>
       <li class="fl  @if(subNavInSalon == "my-reservationHistory") {selected}">
-        <a class="current-demo" href="@auth.routes.Reservations.getReservationHistory(user.userId)">@Messages("user.revervationHistory")</a>
+        <a class="current-demo" href="@auth.routes.Reservations.getReservationHistory">@Messages("user.revervationHistory")</a>
       </li>
     </ul>
   </div>
