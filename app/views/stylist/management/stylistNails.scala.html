@@ -17,6 +17,6 @@
     </div>
   }
   <hr/>
-  @views.html.nailCatalog.admin.backstageNailSearchList(nails, isStylist, user.id, loginUserId)
-  
+  @views.html.nailCatalog.admin.backstageNailSearchList(nails = nails,isStylist = isStylist, uId = user.id, loginUserId = loginUserId, serviceType = nailSearchForm.get.serviceType)
+
 }

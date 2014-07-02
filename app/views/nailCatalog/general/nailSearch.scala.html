@@ -14,6 +14,7 @@
     <script src="@routes.Assets.at("javascripts/jquery-1.7.2.min.js")" type="text/javascript"></script>
     <script src="@routes.Assets.at("javascripts/salonSearch/salonSearch.js")" type="text/javascript"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/salonSearch/searchAutoComplete.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/nailSearch/nailSearch.js")"></script>
 
     </head>
 
@@ -109,24 +110,23 @@
     }
     <p class="title">@Messages("nail.search.serviceType")：</p>
     <div class="rBox serviceType_check">
-        <div class="notto"><a href="javascript:unlimitServiceType();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
         <ul class="place prices" id="unlimitServiceType_group">
             @for(i <- 0 to nailPara.serviceType.length-1){
             @if(i<4){
             <li class="dibBL mR2">
-                @if(nailSearchForm.serviceType.contains(nailPara.serviceType(i))){
-                <input type="checkbox" name="serviceType[@i]" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_checkbox" id="star@i" checked>
+                @if(nailSearchForm.serviceType.equals(nailPara.serviceType(i))){
+                <input type="radio" name="serviceType" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_radio" id="star@i" checked>
                 }else {
-                <input type="checkbox" name="serviceType[@i]" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_checkbox" id="star@i">
+                <input type="radio" name="serviceType" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_radio" id="star@i">
                 }
                 <label for="star@i" class="serviceType_checkbox">@Messages("ServiceType.serviceTypeName." + nailPara.serviceType(i))</label>
             </li>
             }else{
             <li class="salonServiceType_hide hide_li">
-                @if(nailSearchForm.serviceType.contains(nailPara.serviceType(i))){
-                <input type="checkbox" name="serviceType[@i]" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_checkbox" id="star@i" checked>
+                @if(nailSearchForm.serviceType.equals(nailPara.serviceType(i))){
+                <input type="radio" name="serviceType" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_radio" id="star@i" checked>
                 }else {
-                <input type="checkbox" name="serviceType[@i]" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_checkbox" id="star@i">
+                <input type="radio" name="serviceType" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_radio" id="star@i">
                 }
                 <label for="star@i" class="serviceType_checkbox">@Messages("ServiceType.serviceTypeName." + nailPara.serviceType(i))</label>
             </li>
@@ -137,6 +137,7 @@
     <div class="clear"></div>
 </div>
 
+@if(nailSearchForm.serviceType.equals("Nail")){
 <!--颜色-->
 <div class="wBox salonServiceTypeDIV" id="wbox_s">
     @if(nailPara.styleColor.length > 4){
@@ -316,7 +317,7 @@
     </div>
     <div class="clear"></div>
 </div>
-
+}
 <!---->
 </div>
 </div>

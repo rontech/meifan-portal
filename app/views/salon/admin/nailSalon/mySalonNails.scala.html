@@ -3,5 +3,5 @@
 @mySalonMain(navInSalon, salon){
   @views.html.nailCatalog.admin.backstageNailSearch(nailSearchForm, nailParaAll, isStylist, stylists)
   <hr/>
-  @views.html.nailCatalog.admin.backstageNailSearchList(nails, isStylist)
+  @views.html.nailCatalog.admin.backstageNailSearchList(nails = nails, isStylist = isStylist, serviceType = nailSearchForm.get.serviceType)
 }
