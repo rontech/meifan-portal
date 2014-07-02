@@ -72,6 +72,10 @@ $(function() {
         submitForm();
     });
 
+    $('.serviceType_radio').click(function(){
+        submitForm();
+    });
+
     $('.brand_checkbox').click(function(){
         submitForm();
     });

@@ -27,13 +27,6 @@ $(function() {
     $('.stylistId_seclect').click(function(){
         submitForm();
     });
-
-    //画面联动，由技术类别的修改显示字段不同
-//    $('.serviceType_seclect').click(function(){
-//        alert("我的 的 b");
-//        changeField();
-//    });
-
 });
 
 function submitForm(){
