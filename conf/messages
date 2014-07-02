@@ -31,6 +31,8 @@ common.from = 从
 common.to = 到
 common.selectAll = 全选
 common.handle = 执行
+common.ToCollect=收藏此
+common.selectForReserv=预约此
 
 
 # Index page
@@ -416,6 +418,11 @@ ServiceType.serviceTypeName.Airbrush = 喷绘甲
 ServiceType.serviceTypeName.Patch = 贴片甲
 ServiceType.serviceTypeName.Crystal = 水晶甲
 ServiceType.serviceTypeName.Gel = 光疗树脂甲
+ServiceType.serviceTypeName.Nail = 美甲
+ServiceType.serviceTypeName.HandCare = 手足护理
+ServiceType.serviceTypeName.Eyelashes = 美睫
+#作品翻译之用
+ServiceType.serviceTypeName. = 作品
 
 # Coupon&Menu
 coupon.titleInSalon = {0} 的优惠券
@@ -1272,38 +1279,50 @@ style.styleMaterial.fruitSlices = 水果片
 #Nail
 nail.tabName = 时尚美甲
 nail.nailCatalogTitle = Nail Catalog  美甲目录
-nail.searchResultMsg = 个美甲满足要求
-nail.noNailSearched = 没有找到您希望的美甲！
+nail.searchResultMsg1 = 个
+nail.searchResultMsg2 = 满足要求
+#nail.noNailSearched = 没有找到您希望的美甲！
+nail.noNailSearched = 没有找到您希望的作品！
 nail.search.serviceType = 技术类别
 nail.search.styleColor = 颜色
 nail.search.styleMaterial = 材质
 nail.search.styleBase = 部位
 nail.search.styleImpression = 风格
 nail.search.socialScene = 适合场合
-nail.ToCollect=收藏此美甲
 nail.BeCollected=此款美甲已收藏
 nail.detailInfo=详细信息
-nail.picTitle=点击可查看美甲信息
-nail.assessFromStylist = 美甲师评价
-nail.selectForReserv = 预约此美甲
-nail.style = 美甲详情
-nail.nailOfStylist = 此技师的其它美甲作品
-nail.search = 美甲检索
-nail.nailName = 美甲名
-nail.pictures = 美甲图片
+#nail.picTitle=点击可查看美甲信息
+nail.picTitle=点击可查看作品信息
+#nail.assessFromStylist = 美甲师评价
+nail.assessFromStylist = 技师评价
+nail.style = 作品详情
+nail.nailOfStylist = 此技师的其它作品
+nail.search = 检索
+#nail.nailName = 美甲名
+nail.nailName = 作品名
+#nail.pictures = 美甲图片
+nail.pictures = 作品图片
 nail.searchRst1 = 共搜索到
-nail.searchRst2 = 个美甲
-nail.addNail = 添加美甲
-nail.nameRequired = 美甲名必须填写
+nail.searchRst2 = 个
+#nail.addNail = 添加美甲
+nail.addNail = 添加作品
+#nail.nameRequired = 美甲名必须填写
+nail.nameRequired = 作品名必须填写
 nail.onUsePicture.limit = 最多选择1张图片
-nail.nailUpdate = 美甲更新
+#nail.nailUpdate = 美甲更新
+nail.nailUpdate = 作品更新
 nail.rankingAll = 综合排名
-nail.info = 美甲信息
+#nail.info = 美甲信息
+nail.info = 作品信息
 
 #Nail Salon
-nailSalon.stylists = 美甲师
+#nailSalon.stylists = 美甲师
+nailSalon.stylists = 技师
 nailSalon.styles = 美甲
-nailSalon.salonStyleTitle = {0}的美甲
-nailSalon.showAllNails = 显示所有美甲
-nailSalon.nailManagement = 美甲管理
-nailSalon.nailTitle = 点击图片可查看美甲详细信息
+nailSalon.salonStyleTitle = {0}的
+#nailSalon.showAllNails = 显示所有美甲
+nailSalon.showAllNails = 显示所有作品
+#nailSalon.nailManagement = 美甲管理
+nailSalon.nailManagement = 作品管理
+#nailSalon.nailTitle = 点击图片可查看美甲详细信息
+nailSalon.nailTitle = 点击图片可查看作品详细信息

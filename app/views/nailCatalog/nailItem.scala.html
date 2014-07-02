@@ -13,7 +13,7 @@
         <div class="jscLayer">
           <p style="position : relative ; zoom : 1 ;">
             <a href="javascript:void(0);" onclick="addFollow('@nail.id','nail')" class="fr bS db addIntoMyStylePink mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
-            @Messages("nail.ToCollect")
+              @Messages("common.ToCollect")@Messages("ServiceType.serviceTypeName."+nail.serviceType)
             </a>
           </p>
         </div>
@@ -43,7 +43,7 @@
             <div class="jscLayer">
               <p id="mysId01L000544169" style="position : relative ; zoom : 1 ;">
                 <a href="javascript:void(0);" onclick="addFollow('@nail.id','nail')" class="bS db addIntoMyStylePink mR10 btnSaveToMyStyle jscBtnSaveToMyStyle">
-                @Messages("nail.ToCollect")
+                @Messages("common.ToCollect")@Messages("ServiceType.serviceTypeName."+nail.serviceType)
                 </a>
               </p>
             </div>
@@ -73,7 +73,7 @@
             </div>
             <div class="fr" >
               <a href="@noAuth.routes.Salons.getAllCoupons(salon.id, nail.stylistId.toString, nail.id.toString, "reservation")" class="bS db nominatedReserve" width="200px">
-              @Messages("nail.selectForReserv")
+              @Messages("common.selectForReserv")@Messages("ServiceType.serviceTypeName."+nail.serviceType)
               </a>
             </div>
           </div>
@@ -87,11 +87,10 @@
                     @Messages("nail.search.serviceType")
                 </dt>
                 <dd class="fl w318">
-                    @nail.serviceType.map { serviceType =>
-                    @Messages("ServiceType.serviceTypeName." + serviceType)
-                    }
+                    @Messages("ServiceType.serviceTypeName." + nail.serviceType)
                 </dd>
             </dl>
+          @if(nail.serviceType.equals("Nail")){
             <dl class="cFix bdDotT mT5 pT5">
                 <dt class="fl w8em fgPink">
                     @Messages("nail.search.styleColor")
@@ -140,6 +139,7 @@
                     }
                 </dd>
             </dl>
+          }
         </div>
       </div>
     </div>

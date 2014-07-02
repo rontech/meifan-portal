@@ -13,6 +13,8 @@
   </div>
 </head>
 
+<script type="text/javascript" src="@routes.Assets.at("javascripts/nailSearch/nailSearch.js")"></script>
+
 <body>
   <div>
   @helper.form(auth.routes.Stylists.newStyleAddByStylist, 'id -> "nailInfoForm",'name -> "styleForm"){
@@ -34,6 +36,20 @@
     </fieldset>
     <table cellspacing="0" class="wFull bdCell bgThNml fgThNml vaThT pCellV10H12">
       <tbody>
+        <tr>
+          <th class="w120">
+          <div class="dibBL vaM w154">
+            <font class="cR"></font>@Messages("nail.search.serviceType")
+          </div>
+          </th>
+          <td colspan="3" class="w620">
+            @input(field = nailInfoForm("serviceType"),args = '_label ->None){(id,name,value,args) =>
+            @for(i <- 0 to stylePara.serviceType.length-1){
+            <input type = "radio" class="" name = "serviceType" onchange="changeField(this.value);" value = "@stylePara.serviceType(i)" @if(stylePara.serviceType(i).equals("Nail")){checked}>@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
+            }
+          }
+          </td>
+        </tr>
         <tr>
           <th class="w120"> 
             <div class="dibBL vaM w154">
@@ -73,7 +89,9 @@
             </div>
           </td>
         </tr>
-        <tr>
+
+
+        <tr id="nail_styleImpression">
           <th class="w120"> 
             <div class="dibBL vaM w154">
               <font class="cR">*</font>@Messages("nail.search.styleImpression")
@@ -87,7 +105,7 @@
             }
           </td>
         </tr>
-        <tr>
+        <tr id="nail_styleColor">
           <th class="w120"> 
             <div class="dibBL vaM w154">
               <font class="cR"></font>@Messages("nail.search.styleColor")
@@ -101,21 +119,8 @@
             }
           </td>
         </tr>
-        <tr>
-          <th class="w120"> 
-            <div class="dibBL vaM w154">
-              <font class="cR"></font>@Messages("nail.search.serviceType")
-            </div> 
-          </th>
-          <td colspan="3" class="w620">
-            @input(field = nailInfoForm("serviceType"),args = '_label ->None){(id,name,value,args) =>
-              @for(i <- 0 to stylePara.serviceType.length-1){
-                <input type = "checkbox" class="" name = "serviceType[@i]"value = "@stylePara.serviceType(i)">@Messages("ServiceType.serviceTypeName." + stylePara.serviceType(i))
-              }
-            }
-          </td>
-        </tr>
-        <tr>
+
+        <tr id="nail_styleBase">
           <th class="w120"> 
             <div class="dibBL vaM w154">
               <font class="cR"></font>@Messages("nail.search.styleBase")
@@ -129,7 +134,7 @@
             }
           </td>
         </tr>
-        <tr>
+        <tr id="nail_styleMaterial">
           <th class="w120"> 
             <div class="dibBL vaM w154">
               <font class="cR"></font>@Messages("nail.search.styleMaterial")
@@ -143,7 +148,7 @@
              }
           </td>
         </tr>
-        <tr>
+        <tr id="nail_socialScene">
           <th class="w120"> 
             <div class="dibBL vaM w154">
               <font class="cR"></font>@Messages("nail.search.socialScene")

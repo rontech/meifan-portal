@@ -647,7 +647,7 @@ object Salons extends MeifanNetSalonApplication {
           nails :::= Nail.findByStylistId(sty.stylistId)
         }
         nails.sortBy(_.createDate).reverse
-        val searchParaForNail = new SearchPara(None, "all", "all", "all", List(), List(), List(), List(), List(), List())
+        val searchParaForNail = new SearchPara(None, "all", "all", "all", "", List(), List(), List(), List(), List())
         Ok(html.salon.admin.nailSalon.mySalonNails(salon = salon, nails = nails, nailSearchForm = Nails.nailSearchForm.fill(searchParaForNail), nailParaAll = Nail.findParaAll("Manicures"), isStylist = false, stylists = stylists))
       }
       case _ => Ok(views.html.index())
