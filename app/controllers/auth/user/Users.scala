@@ -344,7 +344,7 @@ object Users extends MeifanNetCustomerApplication {
         Salon.findOneByAccountId(salonAccountId).map { salon =>
           goodAtStylePara = Stylist.findGoodAtStyle(salon.salonIndustry.head)
           // 跳转画面且清除session中salonAccountId
-          Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara, followInfo, salonAccountId)).withSession(session - "salonAccountId")
+          Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara, followInfo, salon)).withSession(session - "salonAccountId")
         }
       } getOrElse {
         Ok(views.html.user.selectSalonForApply(user, followInfo))
@@ -362,7 +362,7 @@ object Users extends MeifanNetCustomerApplication {
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val goodAtStylePara = Stylist.findGoodAtStyle("Hairdressing")
     stylistApplyForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.user.applyStylist(errors, user, goodAtStylePara, followInfo, "")),
+      errors => BadRequest(Html(errors.toString)),
       {
         case (stylistApply) => {
           Stylist.save(stylistApply.stylist.copy(stylistId = user.id))

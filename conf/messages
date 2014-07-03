@@ -161,7 +161,7 @@ salon.confirmMessage=请再次输入密码
 salon.desMessage=您最多可以输入100个字符
 salon.desAccesMethod=例：地铁一号线汾湖路站1号出口向西步行500米可达。您最多可以输入100个字符。
 salon.addMessage=请填写详细地址，如：竹园路209号3号楼1805室
-salon.stylistsList={0}的发型师
+salon.stylistsList={0}的技师
 salon.newSalon = 新沙龙用户
 salon.registerMessage1 = 如果您还不是该网站的沙龙会员，再次注册沙龙会员。
 salon.registerMessage2 = 我们会核实您注册后提交的申请，尽快为您开通沙龙会员！
@@ -416,6 +416,10 @@ ServiceType.serviceTypeName.Airbrush = 喷绘甲
 ServiceType.serviceTypeName.Patch = 贴片甲
 ServiceType.serviceTypeName.Crystal = 水晶甲
 ServiceType.serviceTypeName.Gel = 光疗树脂甲
+#休闲
+ServiceType.serviceTypeName.Spa = Spa
+ServiceType.serviceTypeName.Footbath = 足浴
+ServiceType.serviceTypeName.Massage = 按摩
 
 # Coupon&Menu
 coupon.titleInSalon = {0} 的优惠券
@@ -1095,6 +1099,7 @@ reservation.minute = 分钟
 reservation.menuSelect = 优惠劵·套餐选择
 reservation.timeAndStylistSelect = 来店时间·技师·发型选择
 reservation.timeAndNailStylistSelect = 来店时间·技师·美甲选择
+reservation.timeAndRelaxStylistSelect = 来店时间·技师·项目选择
 reservation.userInfoInput = 客户信息输入
 reservation.confirm = 确认
 reservation.successful = 预约完成
@@ -1104,9 +1109,11 @@ reservation.expectedDate = 来店日时
 reservation.selectStylistMsg = 请根据需要选择技师
 reservation.selectStyleMsg = 请根据需要选择发型
 reservation.selectNailMsg = 请根据需要选择美甲
+reservation.selectRelaxMsg = 请根据需要选择项目
 reservation.reservNoStyle = 不指定发型
 reservation.reservNoStylist = 不指定技师
 reservation.resvNoNail = 不指定美甲
+reservation.resvNoRelax = 不指定项目
 reservation.reservStylist = 指定技师
 reservation.reservStyle = 指定发型
 reservation.checkStylistDate = 查看技师日程
@@ -1129,8 +1136,10 @@ reservation.stylist = 指定的技师
 reservation.noStylist = 未指定技师
 reservation.style = 指定的发型
 reservation.nail = 指定的美甲
+reservation.relax = 指定的项目
 reservation.noStyle = 未指定发型
 reservation.noNail = 未指定的美甲
+reservation.noRelax = 未指定的项目
 reservation.questionAndAnswerTitle = 来自沙龙的问题和回答
 reservation.resvSuccessful = 预约已完成，谢谢。
 reservation.failMsg.userHasResv = 您已经在该时间已有预约
@@ -1158,11 +1167,13 @@ reservation.resvCouponAndMenu = 请选择优惠劵·套餐。
 reservation.resvDateForStylist = 的预约日程
 reservation.resvStyle = 指定发型
 reservation.resvNail = 指定美甲
+reservation.resvRelax = 指定项目
 reservation.resvDateOfSalon = 店铺日程情况
 reservation.resvDateOfStylist = 技师日程情况
 reservation.cleanStyleMsg = ※如果您已预约了发型，那么点此链接后将需要重新选择发型
 reservation.changeOtherStyle = 更换其它发型
 reservation.changeOtherNail = 更换其它美甲
+reservation.changeOtherRelax = 更换其它项目
 reservation.notResved = 可预约
 reservation.reserving = 处理中的预约
 reservation.reservHistory = 预约的履历
@@ -1307,3 +1318,23 @@ nailSalon.salonStyleTitle = {0}的美甲
 nailSalon.showAllNails = 显示所有美甲
 nailSalon.nailManagement = 美甲管理
 nailSalon.nailTitle = 点击图片可查看美甲详细信息
+
+#Relax Salon
+relaxSalon.stylists = 技师
+relaxSalon.styles = 图片画廊
+relaxSalon.photoManagement = 画廊管理
+relaxSalon.showAllPhotos = 显示所有图片
+relaxSalon.addPhoto = 添加图片
+relaxSalon.salonStyleTitle = {0}的图片
+
+relax.name = 休闲项目名
+relax.pictures = 休闲图片
+relax.nameRequired = 请填写休闲项目名
+relax.description = 描述
+relax.ToCollect=收藏此项目
+relax.assessFromStylist = 技师评价
+relax.selectForReserv = 预约此项目
+relax.style = 项目详情
+
+
+

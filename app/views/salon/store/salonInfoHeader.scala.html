@@ -88,6 +88,14 @@
             <a href="@noAuth.routes.Salons.getAllStyles(salon.id)" class="bts db @if(navInSalon == "salon-style") {nailCurrent} else {nail} offL">@Messages("nailSalon.styles")</a>
           </li>
       }
+      @if(Salon.findIndustryBySalonId(salon.id).equals("Healthcare")) {
+        <li class="fl">
+          <a href="@noAuth.routes.Salons.getAllStylists(salon.id)" class="bts db @if(navInSalon == "salon-stylist") {stylistCurrent-relax} else {stylist-relax} offL">@Messages("relaxSalon.stylists")</a>
+        </li>
+        <li class="fl">
+          <a href="@noAuth.routes.Salons.getAllStyles(salon.id)" class="bts db @if(navInSalon == "salon-style") {relaxCurrent} else {relax} offL">@Messages("relaxSalon.styles")</a>
+        </li>
+      }
       <li class="fl">
         <a href="@noAuth.routes.Blogs.getAllBlogsOfSalon(salon.id)" class="bts db @if(navInSalon == "salon-blog") {blogCurrent} else {blog} offL">@Messages("salon.blogs")</a>
       </li>

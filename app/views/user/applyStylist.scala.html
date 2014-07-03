@@ -1,5 +1,5 @@
 @(stylistApplyForm: Form[models.portal.stylist.StylistApply], user: models.portal.user.User, goodAtStylePara: models.portal.stylist.GoodAtStyle,
-  followInfo: models.portal.user.FollowInformation, salonAccountId: String, isCommit: Boolean = false)
+  followInfo: models.portal.user.FollowInformation, salon: models.portal.salon.Salon)
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -22,7 +22,7 @@
       <div class="row">
         <div class="span14">
         @helper.form(auth.routes.Users.commitStylistApply(), 'id -> "userForm", 'name ->"stylistForm") {
-          <input type="hidden" name="salonAccountId" value="@salonAccountId"/>
+          <input type="hidden" name="salonAccountId" value="@salon.salonAccount.accountId"/>
           <table cellspacing="0" class="wFull bdCell pCell10 bgThNml mT10">
             <tbody>
               <tr>
@@ -51,9 +51,7 @@
                 </th>
                 <td>
                   <div class="inputField">
-                    @Salon.findOneByAccountId(salonAccountId).map { salon =>
-                      @salon.salonName
-                    }
+                    @salon.salonName
                     @*<input name="salonAccountId" id="SalonAccountId">
                     <span id="applySerchSalonMsg">@Messages("salon.register.accountId")</span>*@
                   </div>
@@ -70,18 +68,16 @@
                   <div>
                     <div class = "inputField">
                       @*repeat(stylistApplyForm("stylist.position")) { position =>
-                        @stylistPosition(position)
+                      @stylistPosition(position)
                       }
                       @**
                       * Keep an hidden block that will be used as template for Javascript copy code
                       **@
                       @*stylistPosition(
-                        stylistApplyForm("position[x]"),
-                        className = "optContactMethod_template"
+                      stylistApplyForm("position[x]"),
+                      className = "optContactMethod_template"
                       )*@
-                      @Salon.findOneByAccountId(salonAccountId).map { salon =>
-                        <input type="hidden" name="stylist.position[0].industryName" value="@salon.salonIndustry.head">
-                      }
+                      <input type="hidden" name="stylist.position[0].industryName" value="@salon.salonIndustry.head">
 
                       <select class="PositionName" name="stylist.position[0].positionName" onchange="checkPositionName(this);">
 
@@ -95,12 +91,13 @@
                       <span class="help-block"></span>
 
                       @*<div class="manage">
-                        <a class="addOptContactMethod btn success">@Messages("addPositionAndIndusty")</a>
+                      <a class="addOptContactMethod btn success">@Messages("addPositionAndIndusty")</a>
                       </div>*@
                     </div>
                   </div>
                 </td>
               </tr>
+              @if(!salon.salonIndustry.head.equals("Healthcare")){
               <tr>
                 <th class="w222 ">
                     <!-- -->
@@ -134,10 +131,10 @@
                       <input type = "checkbox" name = "stylist.goodAtStatus[@i]" value = "@goodAtStylePara.goodAtStatus(i)">@Messages("style.socialScene." + goodAtStylePara.goodAtStatus(i))
                       }
                   }
-
                   </div>
                 </td>
               </tr>
+              }
               <tr>
                 <th class="w222 ">
                     <!-- -->
@@ -151,10 +148,10 @@
                     '_label -> None) { (id, name, value, args) =>
                     @for(i <- 0 to goodAtStylePara.goodAtService.length - 1) {
                       <input type = "checkbox" name = "stylist.goodAtService[@i]" value = "@goodAtStylePara.goodAtService(i)"> @Messages("ServiceType.serviceTypeName." + goodAtStylePara.goodAtService(i))
-                      @* @if((i + 1) % 6 == 0) {
-                      <br />
-                      }*@
-                    }
+                        @* @if((i + 1) % 6 == 0) {
+                        <br />
+                        }*@
+                      }
                   }
 
                   </div>
@@ -178,6 +175,7 @@
                   </div>
                 </td>
               </tr>
+              @if(!salon.salonIndustry.head.equals("Healthcare")){
               <tr>
                 <th class="w222 ">
                     <!-- -->
@@ -196,6 +194,7 @@
                   </div>
                 </td>
               </tr>
+              }
               <tr>
                 <th class="w222 ">
                     <!-- -->
@@ -277,9 +276,10 @@
         </div>
         }
       </div>
-    }
+
+    </div>
   </div>
-</div>
+}
 
   @*stylistPosition(field: Field, className: String = "optContactMethod") = {
     <div class="twipsies well @className">
