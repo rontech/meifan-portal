@@ -40,4 +40,6 @@ object Const {
   val ITEM_TYPE_SERVICE = "service"
   //menuName
   val ITEM_TYPE_MENU = "menu"
+  //relaxName
+  val ITEM_TYPE_RELAX = "relax"
 }

@@ -117,7 +117,7 @@ GET         /myPage/letters/:req                                            cont
 GET         /myPage/letter/:id                                              controllers.auth.UserLetters.showMessage(id:ObjectId)
 GET         /myPage/applyStylist                                            controllers.auth.Users.applyStylist
 GET         /myPage/getSalonIdForApply                                      controllers.auth.Users.getSalonIdForApply
-GET         /myPage/selectSalonIdForApply                                      controllers.auth.Users.selectSalonIdForApply
+GET         /myPage/selectSalonIdForApply                                   controllers.auth.Users.selectSalonIdForApply
 POST        /myPage/commitStylistApply                                      controllers.auth.Users.commitStylistApply
 GET         /userPage/followedCoupon                                        controllers.auth.MyFollows.followedCoupon(id: ObjectId)
 GET         /userPage/followedBlog                                          controllers.auth.MyFollows.followedBlog(id: ObjectId)
@@ -373,3 +373,11 @@ GET         /messages.js                                                    cont
 GET         /nail                                                           controllers.noAuth.Nails.index
 POST        /nail/searchPage                                                controllers.noAuth.Nails.getNailBySearch
 GET         /nail/rangking/:styleImpression                                 controllers.noAuth.Nails.getNailsByRanking(styleImpression: String)
+
+#Relax
+GET         /relaxSalon                                                     controllers.noAuth.Salons.indexRelax
+GET         /mySalon/createRelax                                            controllers.auth.Salons.addRelaxBySalon
+POST        /mySalon/createRelax                                            controllers.auth.Salons.insertRelaxBySalon
+GET         /mySalon/editPhoto/:relaxId                                     controllers.auth.Salons.relaxUpdateBySalon(relaxId: ObjectId)
+POST        /relax/updateRelax/:relaxId                                     controllers.auth.Salons.updateRelax(relaxId: ObjectId)
+GET         /mySalon/invalidRelax/:relaxId                                  controllers.auth.Salons.deleteRelaxBySalon(relaxId: ObjectId)

@@ -1,0 +1,12 @@
+@(salon: models.portal.salon.Salon, newRelaxPhotoForm: Form[models.portal.relax.Relax], serviceTypes: List[models.portal.service.ServiceType])
+
+@mySalonMain(navInSalon = "my-photos", salon) {
+  
+  <head>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">    
+  </head>
+  
+  <!-- Get the models.portal.salon.Salon with all the coupons.  -->
+  @views.html.salon.admin.relaxSalon.addRelaxPhotoBySalon(newRelaxPhotoForm, serviceTypes)
+
+}

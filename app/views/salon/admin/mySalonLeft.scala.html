@@ -127,6 +127,20 @@
         </div>
       }
 
+      @if(Salon.findIndustryBySalonId(salon.id).equals("Healthcare")) {
+        <div class='Mod Users' id='Fellows'>
+          <strong>@Messages("relaxSalon.photoManagement")</strong>
+          <ul class='clearfix'>
+            <li>
+            </li>
+          </ul>
+          <div class='more'>
+            <a href="@auth.routes.Salons.getAllStylesBySalon()">@Messages("relaxSalon.showAllPhotos")
+              (@models.portal.relax.Relax.findAllRelaxsBySalon(salon.id).filter(_.isValid == true).length)</a>
+          </div>
+        </div>
+      }
+
       <!-- 预约管理 -->
       <div class='Mod Users' id='Fellows'>
         <strong>@Messages("salonAdmin.reserveManagement")</strong>

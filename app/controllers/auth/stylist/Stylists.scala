@@ -183,9 +183,7 @@ object Stylists extends MeifanNetCustomerApplication {
         } else {
           goodAtStylePara = Stylist.findGoodAtStyle("Hairdressing")
         }
-
         val stylistUpdate = stylistForm.fill(sty)
-        println("stylist = " + sty)
         Ok(views.html.stylist.management.updateStylistInfo(user, followInfo, user.id, true, sty, stylistUpdate, goodAtStylePara))
       }
       case None => NotFound

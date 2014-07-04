@@ -1,0 +1,40 @@
+@(relaxs: List[models.portal.relax.Relax])
+
+@import helper._
+
+  <div class="styleList">
+  @if(relaxs.isEmpty){
+    <div class="bgAlertMsg mT20">
+      <p class="alertMsg">@Messages("relax.noStyleAdded")</p>
+    </div>
+  }else{
+    <span> @relaxs.length @Messages("hair.searchResultMsg")</span>
+    <br/>
+    @for(i <- 0 to relaxs.length-1){
+      <table class="styleItem">
+        <tbody>
+          <tr>
+            <td class="vaT">
+              <div class="mHA">
+                <div class="mT10 fs16 taM">
+                  <a href="@auth.routes.Salons.relaxUpdateBySalon(relaxs(i).id)" >
+                    <img src="@routes.Application.getPhoto(relaxs(i).stylePic(0).fileObjId)" alt="@relaxs(i).styleName" class="w150 h200" title=@Messages("nailSalon.nailTitle")>
+                  </a>
+                </div>
+                <div class="mT2 txtC">
+                  <p><span >@relaxs(i).styleName</span></p>
+                </div>
+                <div class="txtC">
+                  <p class="styleBtn">
+                    <a href="@auth.routes.Salons.relaxUpdateBySalon(relaxs(i).id)" >@Messages("common.edit")</a>
+                    <a onclick="del('@auth.routes.Salons.deleteRelaxBySalon(relaxs(i).id)','@Messages("common.deleteMsg")');" >@Messages("common.delete")</a>
+                  </p>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    }
+  }
+  </div>
