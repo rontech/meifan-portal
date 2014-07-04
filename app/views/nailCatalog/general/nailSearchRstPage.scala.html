@@ -14,10 +14,10 @@
             </div>
         </div>
         <!-- models.portal.nail.Nail Search By Conditons. -->
-            @views.html.nailCatalog.general.nailSearch(nailSearchForm,nailPara)
+            @views.html.nailCatalog.general.nailSearch(nailSearchForm, nailPara)
         <!-- models.portal.style.Style Search By Ranking. -->
         <div class="mT40 pT40">
-            @views.html.nailCatalog.general.nailSearchRstList(nailWithAllInfos)
+            @views.html.nailCatalog.general.nailSearchRstList(nailWithAllInfos, nailSearchForm.serviceType)
         </div>
     </div>
 </div>

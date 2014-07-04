@@ -27,7 +27,7 @@ object Nails extends MeifanNetCustomerOptionalApplication {
       "city" -> text,
       "region" -> text,
       "stylistId" -> text,
-      "serviceType" -> list(text),
+      "serviceType" -> text,
       "styleColor" -> list(text),
       "styleMaterial" -> list(text),
       "styleBase" -> list(text),
@@ -43,7 +43,7 @@ object Nails extends MeifanNetCustomerOptionalApplication {
       "id" -> text,
       "styleName" -> text,
       "stylistId" -> text,
-      "serviceType" -> list(text),
+      "serviceType" -> text,
       "styleColor" -> list(text),
       "styleMaterial" -> list(text),
       "styleBase" -> list(text),
@@ -78,7 +78,7 @@ object Nails extends MeifanNetCustomerOptionalApplication {
       } getOrElse {
         "苏州"
       }
-      val searchParaForNail = new SearchPara(None, myCity, "all", "all", List(), List(), List(), List(), List(), List())
+      val searchParaForNail = new SearchPara(None, myCity, "all", "all", "Nail", List(), List(), List(), List(), List())
       Ok(views.html.nailCatalog.general.overview(nailSearchForm = searchParaForNail, nailPara = Nail.findParaAll("Manicures"), user = user))
   }
 

@@ -13,6 +13,14 @@
         </td>
       </tr>
       <tr>
+        <th class="w120"> @Messages("nail.search.serviceType") </th>
+        <td colspan="3" class="w620">
+            <span class="detail2S hairLittleOn mL5">
+              @Messages("ServiceType.serviceTypeName." +nail.serviceType)
+            </span>
+        </td>
+      </tr>
+      <tr>
         <th class="w120"> @Messages("nail.pictures") </th>
         <td colspan="3" class="w620">
         @nail.stylePic.map {stylePic =>
@@ -33,6 +41,7 @@
           </span>
         </td>
       </tr>
+      @if(nail.serviceType.equals("Nail")){
       <tr>
           <th class="w120">@Messages("nail.search.styleImpression") </th>
           <td class="w208 vaT">
@@ -48,19 +57,6 @@
             <li class="fl w91" style="list-style:none;">
             <span class="detail2S hairLittleOn mL5">
               @Messages("style.styleColor." +color)
-            </span>
-            </li>
-          }
-        </td>
-      </tr>
-
-      <tr>
-        <th class="w120"> @Messages("nail.search.serviceType") </th>
-        <td colspan="3" class="w620">
-          @nail.serviceType.map {serviceType =>
-            <li class="fl w91" style="list-style:none;">
-            <span class="detail2S hairLittleOn mL5">
-              @Messages("ServiceType.serviceTypeName." +serviceType)
             </span>
             </li>
           }
@@ -102,6 +98,7 @@
           }
          </td>
       </tr>
+      }
       <tr>
         <th class="w120"> @Messages("nail.assessFromStylist") </th>
         <td colspan="3" class="w620">

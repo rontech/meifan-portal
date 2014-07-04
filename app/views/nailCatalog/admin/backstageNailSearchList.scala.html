@@ -1,4 +1,4 @@
-@(nails: List[models.portal.nail.Nail], isStylist: Boolean, uId: ObjectId = new ObjectId, loginUserId: ObjectId = new ObjectId)
+@(nails: List[models.portal.nail.Nail], isStylist: Boolean, uId: ObjectId = new ObjectId, loginUserId: ObjectId = new ObjectId, serviceType: String)
 
 @import helper._
 
@@ -9,7 +9,7 @@
      </div>
    }else{
     @if(nails.nonEmpty) {
-    <span>@Messages("nail.searchRst1") @nails.length @Messages("nail.searchRst2")</span>
+    <span>@Messages("nail.searchRst",nails.length)@Messages("ServiceType.serviceTypeName."+serviceType)</span>
     }
     <br/>
     @for(i <- 0 to nails.length-1){

@@ -109,26 +109,25 @@
     }
     <p class="title">@Messages("nail.search.serviceType")：</p>
     <div class="rBox serviceType_check">
-        <div class="notto"><a href="javascript:unlimitServiceType();" class="cur" method="s_no">@Messages("salonSearchPage.unlimited")</a></div>
         <ul class="place prices" id="unlimitServiceType_group">
             @for(i <- 0 to nailPara.serviceType.length-1){
             @if(i<4){
             <li class="dibBL mR2">
-                @if(nailSearchForm.serviceType.contains(nailPara.serviceType(i))){
-                <input type="checkbox" name="serviceType[@i]" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_checkbox" id="star@i" checked>
+                @if(nailSearchForm.serviceType.equals(nailPara.serviceType(i))){
+                <input type="radio" name="serviceType" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_radio" id="star@i" checked>
                 }else {
-                <input type="checkbox" name="serviceType[@i]" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_checkbox" id="star@i">
+                <input type="radio" name="serviceType" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_radio" id="star@i">
                 }
-                <label for="star@i" class="serviceType_checkbox">@Messages("ServiceType.serviceTypeName." + nailPara.serviceType(i))</label>
+                <label for="star@i" class="">@Messages("ServiceType.serviceTypeName." + nailPara.serviceType(i))</label>
             </li>
             }else{
             <li class="salonServiceType_hide hide_li">
-                @if(nailSearchForm.serviceType.contains(nailPara.serviceType(i))){
-                <input type="checkbox" name="serviceType[@i]" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_checkbox" id="star@i" checked>
+                @if(nailSearchForm.serviceType.equals(nailPara.serviceType(i))){
+                <input type="radio" name="serviceType" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_radio" id="star@i" checked>
                 }else {
-                <input type="checkbox" name="serviceType[@i]" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_checkbox" id="star@i">
+                <input type="radio" name="serviceType" value="@nailPara.serviceType(i)" method="s_5" mark="5" class="serviceType_radio" id="star@i">
                 }
-                <label for="star@i" class="serviceType_checkbox">@Messages("ServiceType.serviceTypeName." + nailPara.serviceType(i))</label>
+                <label for="star@i" class="">@Messages("ServiceType.serviceTypeName." + nailPara.serviceType(i))</label>
             </li>
             }
             }
@@ -137,6 +136,7 @@
     <div class="clear"></div>
 </div>
 
+@if(nailSearchForm.serviceType.equals("Nail")){
 <!--颜色-->
 <div class="wBox salonServiceTypeDIV" id="wbox_s">
     @if(nailPara.styleColor.length > 4){
@@ -155,7 +155,7 @@
                 }else {
                 <input type="checkbox" name="styleColor[@i]" value="@nailPara.styleColor(i)" method="s_5" mark="5" class="brand_checkbox" id="color@i">
                 }
-                <label for="color@i" class="serviceType_checkbox">@Messages("style.styleColor." + nailPara.styleColor(i))</label>
+                <label for="color@i" class="">@Messages("style.styleColor." + nailPara.styleColor(i))</label>
             </li>
             }else{
             <li class="styleColor_hide hide_li">
@@ -164,7 +164,7 @@
                 }else {
                 <input type="checkbox" name="styleColor[@i]" value="@nailPara.styleColor(i)" method="s_5" mark="5" class="brand_checkbox" id="color@i">
                 }
-                <label for="color@i" class="serviceType_checkbox">@Messages("style.styleColor." + nailPara.styleColor(i))</label>
+                <label for="color@i" class="">@Messages("style.styleColor." + nailPara.styleColor(i))</label>
             </li>
             }
             }
@@ -191,7 +191,7 @@
                 }else {
                 <input type="checkbox" name="styleMaterial[@i]" value="@nailPara.styleMaterial(i)" method="s_5" mark="5" class="styleMaterial_checkbox" id="material@i">
                 }
-                <label for="material@i" class="serviceType_checkbox">@Messages("style.styleMaterial." + nailPara.styleMaterial(i))</label>
+                <label for="material@i" class="">@Messages("style.styleMaterial." + nailPara.styleMaterial(i))</label>
             </li>
             }else{
             <li class="styleMaterial_hide hide_li">
@@ -200,7 +200,7 @@
                 }else {
                 <input type="checkbox" name="styleMaterial[@i]" value="@nailPara.styleMaterial(i)" method="s_5" mark="5" class="styleMaterial_checkbox" id="material@i">
                 }
-                <label for="material@i" class="serviceType_checkbox">@Messages("style.styleMaterial." + nailPara.styleMaterial(i))</label>
+                <label for="material@i" class="">@Messages("style.styleMaterial." + nailPara.styleMaterial(i))</label>
             </li>
             }
             }
@@ -227,7 +227,7 @@
                 }else {
                 <input type="checkbox" name="styleBase[@i]" value="@nailPara.styleBase(i)" method="s_5" mark="5" class="styleBase_checkbox" id="base@i">
                 }
-                <label for="base@i" class="serviceType_checkbox">@Messages("style.styleBase." + nailPara.styleBase(i))</label>
+                <label for="base@i" class="">@Messages("style.styleBase." + nailPara.styleBase(i))</label>
             </li>
             }else{
             <li class="styleBase_hide hide_li">
@@ -236,7 +236,7 @@
                 }else {
                 <input type="checkbox" name="styleBase[@i]" value="@nailPara.styleBase(i)" method="s_5" mark="5" class="styleBase_checkbox" id="base@i">
                 }
-                <label for="base@i" class="serviceType_checkbox">@Messages("style.styleBase." + nailPara.styleBase(i))</label>
+                <label for="base@i" class="">@Messages("style.styleBase." + nailPara.styleBase(i))</label>
             </li>
             }
             }
@@ -299,7 +299,7 @@
                 }else {
                 <input type="checkbox" name="socialScene[@i]" value="@nailPara.socialScene(i)" method="s_5" mark="5" class="socialScene_checkbox" id="scene@i">
                 }
-                <label for="scene@i" class="serviceType_checkbox">@Messages("style.socialScene." + nailPara.socialScene(i))</label>
+                <label for="scene@i" class="">@Messages("style.socialScene." + nailPara.socialScene(i))</label>
             </li>
             }else{
             <li class="socialScene_hide hide_li">
@@ -308,7 +308,7 @@
                 }else {
                 <input type="checkbox" name="socialScene[@i]" value="@nailPara.socialScene(i)" method="s_5" mark="5" class="socialScene_checkbox" id="scene@i">
                 }
-                <label for="scene@i" class="serviceType_checkbox">@Messages("style.socialScene." + nailPara.socialScene(i))</label>
+                <label for="scene@i" class="">@Messages("style.socialScene." + nailPara.socialScene(i))</label>
             </li>
             }
             }
@@ -316,7 +316,7 @@
     </div>
     <div class="clear"></div>
 </div>
-
+}
 <!---->
 </div>
 </div>
