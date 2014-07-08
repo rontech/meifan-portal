@@ -539,6 +539,7 @@ object Salons extends MeifanNetSalonApplication {
       //当前申请记录的验证结果为‘0’，申请中时
       if(re.verifiedResult == 0) {
         SalonStylistApplyRecord.rejectApply(re)
+        Stylist.delete(re.stylistId)
         Redirect(routes.Salons.myStylist)
       } else {
         Ok(views.html.salon.admin.applyResultPage(salon))

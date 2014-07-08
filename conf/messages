@@ -540,6 +540,7 @@ stylist.myPictureShow = 展示图片上传
 stylist.picTitle=点击可查看技师资料
 stylist.salonNoStylist= 没有找到您希望的技师！
 stylist.revervation=预约自己的履历
+stylist.apply.position = 申请的职位
 
 
 
@@ -960,6 +961,14 @@ position.positionName.AdvancedStylist = 高级发型师
 position.positionName.Stylist = 发型师 
 position.positionName.Assistant = 助手
 position.positionName.AdvancedAssistant = 高级助手
+
+position.positionName.Consultant = 顾问
+position.positionName.AdvancedArtificer = 高级技师
+position.positionName.Artificer = 技师
+
+position.positionName.ChiefManicurist = 美甲总监/主管
+position.positionName.AdvancedManicurist = 高级美甲师
+position.positionName.Manicurist = 美甲师
 
 #StyleImpression
 #美发
