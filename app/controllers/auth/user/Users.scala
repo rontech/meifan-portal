@@ -41,6 +41,7 @@ import models.portal.salon.Salon
 import models.portal.relation.SalonStylistApplyRecord
 import com.meifannet.portal.MeifanNetCustomerApplication
 import models.portal.reservation.Reservation
+import models.portal.stylist.Stylist
 
 object Users extends MeifanNetCustomerApplication {
 
@@ -387,6 +388,7 @@ object Users extends MeifanNetCustomerApplication {
     val user = loggedIn
     SalonStylistApplyRecord.findOneStylistApRd(user.id).map { record =>
       SalonStylistApplyRecord.save(record.copy(verifiedResult = 2, verifiedDate = Some(new Date)))
+      Stylist.delete(user.id)
       Redirect(routes.Users.myPage())
     } getOrElse {
       NotFound

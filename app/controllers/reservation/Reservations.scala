@@ -435,8 +435,12 @@ object Reservations extends MeifanNetCustomerOptionalApplication {
           val styles: List[Nail] = Nail.findByStylistId(stylistId)
           Ok(views.html.reservation.reservSelectNailMain(s, reservation, styles, jumpType, user))
         } else {
-          val styles: List[Relax] = Relax.findAllRelaxsBySalon(s.id)
-          Ok(views.html.reservation.reservSelectRelaxMain(s, reservation, styles, jumpType, user))
+          if(reservation.styleId.isEmpty){
+            val styles: List[Relax] = Relax.findAllRelaxsBySalon(s.id)
+            Ok(views.html.reservation.reservSelectRelaxMain(s, reservation, styles, jumpType, user))
+          }else{
+            Redirect(controllers.auth.routes.Reservations.editReservInfo)
+          }
         }
 
       }
@@ -460,6 +464,11 @@ object Reservations extends MeifanNetCustomerOptionalApplication {
       reservation = reservation.copy(stylistId = Some(new ObjectId(stylistId)))
     } else {
       reservation = reservation.copy(stylistId = None)
+    }
+    if(!styleId.isEmpty()) {
+      reservation = reservation.copy(styleId = Some(new ObjectId(styleId)))
+    } else {
+      reservation = reservation.copy(styleId = None)
     }
     Cache.set("reservation", reservation)
 
