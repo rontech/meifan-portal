@@ -375,7 +375,7 @@ POST        /nail/searchPage                                                cont
 GET         /nail/rangking/:styleImpression                                 controllers.noAuth.Nails.getNailsByRanking(styleImpression: String)
 
 #Relax
-GET         /relaxSalon                                                     controllers.noAuth.Salons.indexRelax
+GET         /relaxSalon                                                     controllers.noAuth.Salons.indexRelax(serviceType:String)
 GET         /mySalon/createRelax                                            controllers.auth.Salons.addRelaxBySalon
 POST        /mySalon/createRelax                                            controllers.auth.Salons.insertRelaxBySalon
 GET         /mySalon/editPhoto/:relaxId                                     controllers.auth.Salons.relaxUpdateBySalon(relaxId: ObjectId)
