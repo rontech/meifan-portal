@@ -92,11 +92,11 @@
                 <a href="@noAuth.routes.Nails.index"> @Messages("main.nailCatalog") </a>
               </li>
               <li class="@if(nav == "RelaxSalon") {btn}">
-                <a href="@noAuth.routes.Salons.indexRelax"> @Messages("main.relaxSalon") </a>
+                <a href="@noAuth.routes.Salons.indexRelax("")"> @Messages("main.relaxSalon") </a>
               </li>
-              <li class="@if(nav == "EstheSalon") {btn}">
+              @*<li class="@if(nav == "EstheSalon") {btn}">
                 <a href="@routes.Application.index"> @Messages("main.estheSalon") </a>
-              </li>
+              </li>*@
             </ul>
           </div>
           <!--↑ the main Tabs of Meifan.-->

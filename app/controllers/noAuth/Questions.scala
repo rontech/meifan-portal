@@ -41,7 +41,7 @@ object Questions extends MeifanNetApplication {
    * Get All the questions.
    */
   def getAllQuestions() = Action {
-    val quests: List[Question] = Question.findAll().toList
+    val quests: List[Question] = Question.findAll().filter(_.isValid == true).toList
     Ok(html.question.general.overview(quests))
   }
 

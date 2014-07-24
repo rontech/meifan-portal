@@ -26,12 +26,12 @@
           </a>
         </li>
         <li>
-          <a href="@noAuth.routes.Salons.indexRelax">
+          <a href="@noAuth.routes.Salons.indexRelax("")">
             <img alt="@Messages("index.cosmSalonRsv")" src="@routes.Assets.at("images/mainImg_relax.jpg")" class="mainRsvImage"/>
           </a>
         </li>
         <li>
-          <a href="@noAuth.routes.Styles.index">
+          <a href="@noAuth.routes.Salons.indexRelax("")">
             <img alt="@Messages("index.massageSalonRsv")" src="@routes.Assets.at("images/mainImg_esthe.jpg")" class="mainRsvImage"/>
           </a>
         </li>
@@ -46,7 +46,7 @@
             <a href="@noAuth.routes.Salons.indexNail">@Messages("index.nailSalonRsv")</a>
           </li>
           <li class="relax_reserve">
-            <a href="@noAuth.routes.Salons.indexRelax">@Messages("index.cosmSalonRsv")</a>
+            <a href="@noAuth.routes.Salons.indexRelax("")">@Messages("index.cosmSalonRsv")</a>
           </li>
           <li class="esthe_reserve">
             <a href="@noAuth.routes.Styles.index">@Messages("index.massageSalonRsv")</a>
@@ -65,7 +65,8 @@
       </div>
       
       <!-- ↓整容整形 -->
-      @views.html.estheSalon.cosmeticSurgery()
+      @*
+      @views.html.estheSalon.cosmeticSurgery()*@
       <!-- ↑整容整形 -->
     </div>
     

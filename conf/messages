@@ -1240,9 +1240,9 @@ salonCheckInfoState.basic=基本信息
 salonCheckInfoState.auth=对不起，您目前没有权限进入，请先完善您的资料
 
 #slaonRelax
-salonRelax.footSpa=足疗按摩
-salonRelax.bodySpa=全身SPA
-salonRelax.sportSpa=瘦身健美
+salonRelax.spa=SPA
+salonRelax.massage=按摩
+salonRelax.footbath=足浴
 salonRelax.yoGa=瑜伽
 
 

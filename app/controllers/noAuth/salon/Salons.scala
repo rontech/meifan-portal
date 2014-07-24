@@ -135,7 +135,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
           Salon(new ObjectId, salonAccount, salonName, salonNameAbbr, salonIndustry, homepage, salonAppeal, salonIntroduction, contactMethod, optContactMethods, establishDate, salonAddress,
 
 
-          workTime, restDays, seatNums, salonFacilities, salonPics, new Date(), new SalonStatus(0, false))
+          workTime, restDays, seatNums, salonFacilities, salonPics, new Date(), new SalonStatus(0, true))
 
 
       } {
@@ -252,11 +252,16 @@ object Salons extends MeifanNetCustomerOptionalApplication {
    * 如果找不到城市默认给苏州
    * @return
    */
-  def indexRelax = StackAction { implicit request =>
+  def indexRelax(serType:String) = StackAction { implicit request =>
     val user = loggedIn
     var myCity = request.session.get("myCity").map{ city => city } getOrElse { "苏州" }
+    var serviceType : List[String] = Nil
+    if(serType.equals(""))
+      serviceType= List()
+    else
+      serviceType = List(serType)
 
-    val searchParaForSalon = new SearchParaForSalon(None, myCity, "all", List(), "Healthcare", List(),
+    val searchParaForSalon = new SearchParaForSalon(None, myCity, "all", List(), "Healthcare", serviceType,
       PriceRange(new ObjectId, 0, 1000000, "Healthcare"), SeatNums(0, 10000),
       SalonFacilities(false, false, false, false, false, false, false, false, false, ""),
       SortByConditions("price", false, false, true))
