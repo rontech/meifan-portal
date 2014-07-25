@@ -1,9 +1,8 @@
-@(nailWithAllInfos: List[models.portal.nail.NailWithAllInfo])
-@*@(nailSearchForm: models.portal.nail.SearchPara, nailPara: models.portal.nail.StylePara, user:Option[models.portal.user.User])*@
+@(nailWithAllInfos: List[models.portal.nail.NailWithAllInfo], serviceType: String)
 
 <div class="searchResults">
     <span class="styleLength">@nailWithAllInfos.length</span>
-    <span>@Messages("nail.searchResultMsg")</span>
+    <span>@Messages("nail.searchResultMsg1")"@Messages("ServiceType.serviceTypeName."+serviceType)"@Messages("nail.searchResultMsg2")</span>
 </div>
 @if(nailWithAllInfos.isEmpty){
 <div class="bgAlertMsg mT20">
@@ -20,7 +19,7 @@
         <div class="layer jscLayer jscFixPng">
             <div class="mT2">
                 <a href="javascript:void(0);" onclick="addFollow('@nailWithAllInfo.nail.id','style')" class="bS db styleCollect mHA">
-                    @Messages("nail.ToCollect")
+                    @Messages("common.ToCollect")@Messages("ServiceType.serviceTypeName." +nailWithAllInfo.nail.serviceType)
                 </a>
             </div>
             <p class="txtC">

@@ -95,10 +95,10 @@ object Stylists extends MeifanNetCustomerOptionalApplication {
       case "Manicures" => {
         val nails = Nail.findByStylistId(stylistId)
         loggedIn.map { loginUser =>
-          val searchParaForNail = new SearchPara(None, "all", "all", "all", List(), List(), List(), List(), List(), List())
+          val searchParaForNail = new SearchPara(None, "all", "all", "all", "", List(), List(), List(), List(), List())
           Ok(views.html.stylist.management.stylistNails(user = user, followInfo = followInfo, loginUserId = loginUser.id, logged = true,  nails = nails, nailSearchForm = Nails.nailSearchForm.fill(searchParaForNail), stylePara= Nail.findParaAll("Manicures"), isStylist = true))
         } getOrElse {
-          val searchParaForNail = new SearchPara(None, "all", "all", "all", List(), List(), List(), List(), List(), List())
+          val searchParaForNail = new SearchPara(None, "all", "all", "all", "", List(), List(), List(), List(), List())
           Ok(views.html.stylist.management.stylistNails(user = user, followInfo = followInfo, loginUserId = new ObjectId, logged = false, nails = nails, nailSearchForm = Nails.nailSearchForm.fill(searchParaForNail), stylePara = Nail.findParaAll("Manicures"), isStylist = true))
         }
 

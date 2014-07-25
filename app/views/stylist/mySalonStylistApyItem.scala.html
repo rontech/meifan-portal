@@ -4,32 +4,38 @@
 
 <body>
 <div class="w150 mHA">
-  <div class="taC">
-    <a href="@noAuth.routes.Stylists.otherHomePage(applyStylist._1.stylistId)">
-      <img src="@routes.Application.getPhoto(applyStylist._1.myPics(0).fileObjId)" class="bdImgGray w150 h200">
-    </a>
-  </div>
-  <p class="mT10 taC">@models.portal.stylist.Stylist.findUserName(applyStylist._1.stylistId)</p>
-  <div class="bdDotT bdDotB mT5 pT5 fs10">
+    <div class="taC">
+        <a href="@noAuth.routes.Stylists.otherHomePage(applyStylist._1.stylistId)">
+            <img src="@routes.Application.getPhoto(applyStylist._1.myPics(0).fileObjId)" class="bdImgGray w150 h200">
+        </a>
+    </div>
+    <p class="mT10 taC">@models.portal.stylist.Stylist.findUserName(applyStylist._1.stylistId)</p>
+
+    <div class="bdDotT bdDotB mT5 pT5 fs10">
     <span class="fgPink">
-      @applyStylist._1.myWords.slice(0,15) ...
+      @applyStylist._1.myWords.slice(0,15) @if(applyStylist._1.myWords.length > 15) {...}
     </span>
-  @*（@stylist.workYears
-  @Messages("stylist.workYears")）*@
-  [@Messages("stylist.experienceYears", applyStylist._1.workYears)]
-  </div>
+        @*（@stylist.workYears
+        @Messages("stylist.workYears")）*@
+        [@Messages("stylist.experienceYears", applyStylist._1.workYears)]
+    </div>
 </div>
+
 <div class="taC mT10">
-  <div class="mB5 bdDotB">
-    <span>@Messages("stylist.applyCreateTime"): </span><span>@DateFormat.getDateInstance().format(models.portal.relation.SalonStylistApplyRecord.findOneStylistApRd(applyStylist._1.stylistId).get.applyDate)</span>
-  </div>
-  <div class="pT5">
-    @*<a href="@auth.routes.Salons.agreeStylistApply(stylist.stylistId)" class="salon-stylist-acceptApply">@Messages("stylist.acceptApply")</a>|*@
-    @*<a href="" class="salon-stylist-acceptApply_@stylist.stylistId" data-stylist="@stylist.stylistId" >@Messages("stylist.acceptApply")</a>*@
-    <a onclick="del('@auth.routes.Salons.agreeStylistApply(applyStylist._2)','@Messages("stylist.actApply")');" class="buttons applyToStylist">@Messages("stylist.acceptApply")</a>
-    @*<a href="@auth.routes.Salons.rejectStylistApply(stylist.stylistId)" class="salon-stylist-rejectApply">@Messages("stylist.rejectApply")</a>*@
-    <a onclick="del('@auth.routes.Salons.rejectStylistApply(applyStylist._2)','@Messages("stylist.rjtApply")');" class="buttons applyToStylist" >@Messages("stylist.rejectApply")</a>
-  </div>
+    <div class="position bdDotB"><span>@Messages("stylist.apply.position"): </span><span>@Messages("position.positionName."+applyStylist._1.position(0).positionName)</span>
+    </div>
+    <div class="mB5 bdDotB">
+        <span>@Messages("stylist.applyCreateTime"): </span><span>@DateFormat.getDateInstance().format(models.portal.relation.SalonStylistApplyRecord.findOneStylistApRd(applyStylist._1.stylistId).get.applyDate)</span>
+    </div>
+    <div class="pT5">
+        @*<a href="@auth.routes.Salons.agreeStylistApply(stylist.stylistId)" class="salon-stylist-acceptApply">@Messages("stylist.acceptApply")</a>|*@
+        @*<a href="" class="salon-stylist-acceptApply_@stylist.stylistId" data-stylist="@stylist.stylistId">@Messages("stylist.acceptApply")</a>*@
+        <a onclick="del('@auth.routes.Salons.agreeStylistApply(applyStylist._2)','@Messages("stylist.actApply")');"
+        class="buttons applyToStylist">@Messages("stylist.acceptApply")</a>
+        @*<a href="@auth.routes.Salons.rejectStylistApply(stylist.stylistId)" class="salon-stylist-rejectApply">@Messages("stylist.rejectApply")</a>*@
+        <a onclick="del('@auth.routes.Salons.rejectStylistApply(applyStylist._2)','@Messages("stylist.rjtApply")');"
+        class="buttons applyToStylist" >@Messages("stylist.rejectApply")</a>
+    </div>
 </div>
-  
+
 </body>

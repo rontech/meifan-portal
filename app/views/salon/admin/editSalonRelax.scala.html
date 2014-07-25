@@ -1,0 +1,11 @@
+@(salon: models.portal.salon.Salon, editRelaxForm: Form[models.portal.relax.Relax], serviceTypes: List[models.portal.service.ServiceType], relax: models.portal.relax.Relax)
+
+@mySalonMain(navInSalon = "my-photos", salon) {
+  
+  <head>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/coupon/coupon.css")">    
+  </head>
+
+  @views.html.salon.admin.relaxSalon.updateRelaxBySalon(editRelaxForm, serviceTypes, relax)
+
+}

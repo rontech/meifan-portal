@@ -32,6 +32,9 @@
           @if(Salon.findIndustryBySalonId(salon.id).equals("Manicures")) {
             @Messages("nailSalon.nailManagement")
           }
+          @if(Salon.findIndustryBySalonId(salon.id).equals("Healthcare")) {
+            @Messages("relaxSalon.photoManagement")
+          }
       </a>
     </li>
     <li class="@if(navInMyPage == "my-reservation") {selected}">

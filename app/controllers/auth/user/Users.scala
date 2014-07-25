@@ -41,6 +41,7 @@ import models.portal.salon.Salon
 import models.portal.relation.SalonStylistApplyRecord
 import com.meifannet.portal.MeifanNetCustomerApplication
 import models.portal.reservation.Reservation
+import models.portal.stylist.Stylist
 
 object Users extends MeifanNetCustomerApplication {
 
@@ -344,7 +345,7 @@ object Users extends MeifanNetCustomerApplication {
         Salon.findOneByAccountId(salonAccountId).map { salon =>
           goodAtStylePara = Stylist.findGoodAtStyle(salon.salonIndustry.head)
           // 跳转画面且清除session中salonAccountId
-          Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara, followInfo, salonAccountId)).withSession(session - "salonAccountId")
+          Ok(views.html.user.applyStylist(stylistApplyForm, user, goodAtStylePara, followInfo, salon)).withSession(session - "salonAccountId")
         }
       } getOrElse {
         Ok(views.html.user.selectSalonForApply(user, followInfo))
@@ -362,7 +363,7 @@ object Users extends MeifanNetCustomerApplication {
     val followInfo = MyFollow.getAllFollowInfo(user.id)
     val goodAtStylePara = Stylist.findGoodAtStyle("Hairdressing")
     stylistApplyForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.user.applyStylist(errors, user, goodAtStylePara, followInfo, "")),
+      errors => BadRequest(Html(errors.toString)),
       {
         case (stylistApply) => {
           Stylist.save(stylistApply.stylist.copy(stylistId = user.id))
@@ -387,6 +388,7 @@ object Users extends MeifanNetCustomerApplication {
     val user = loggedIn
     SalonStylistApplyRecord.findOneStylistApRd(user.id).map { record =>
       SalonStylistApplyRecord.save(record.copy(verifiedResult = 2, verifiedDate = Some(new Date)))
+      Stylist.delete(user.id)
       Redirect(routes.Users.myPage())
     } getOrElse {
       NotFound

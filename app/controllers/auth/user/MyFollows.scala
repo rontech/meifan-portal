@@ -114,4 +114,19 @@ object MyFollows extends MeifanNetCustomerApplication {
     // get the user's all followed information based on the user's objectId
     Ok(views.html.user.followedStyle(user, followInfo, loginUser.id))
   }
+
+  /**
+   * Get the user's followed nail
+   * @param userId user's objectId
+   * @return
+   */
+  def followedNail(userId: ObjectId) = StackAction(AuthorityKey -> User.isFriend(userId) _) { implicit request =>
+    val loginUser = loggedIn
+    val user = User.findOneById(userId).get
+    val followInfo = MyFollow.getAllFollowInfo(user.id)
+
+    // get the user's all followed information based on the user's objectId
+    Ok(views.html.user.followedNail(user, followInfo, loginUser.id))
+  }
+
 }

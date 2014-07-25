@@ -117,17 +117,18 @@ GET         /myPage/letters/:req                                            cont
 GET         /myPage/letter/:id                                              controllers.auth.UserLetters.showMessage(id:ObjectId)
 GET         /myPage/applyStylist                                            controllers.auth.Users.applyStylist
 GET         /myPage/getSalonIdForApply                                      controllers.auth.Users.getSalonIdForApply
-GET         /myPage/selectSalonIdForApply                                      controllers.auth.Users.selectSalonIdForApply
+GET         /myPage/selectSalonIdForApply                                   controllers.auth.Users.selectSalonIdForApply
 POST        /myPage/commitStylistApply                                      controllers.auth.Users.commitStylistApply
 GET         /userPage/followedCoupon                                        controllers.auth.MyFollows.followedCoupon(id: ObjectId)
 GET         /userPage/followedBlog                                          controllers.auth.MyFollows.followedBlog(id: ObjectId)
 GET         /userPage/followedStyle                                         controllers.auth.MyFollows.followedStyle(id: ObjectId)
 GET         /userPage/info/:userId                                          controllers.auth.Users.userInfo(userId)
-GET         /myPage/myReserving                                             controllers.auth.Reservations.getReserving(userId)
-GET         /myPage/myReservationHistory                                    controllers.auth.Reservations.getReservationHistory(userId)
+GET         /myPage/myReserving                                             controllers.auth.Reservations.getReserving
+GET         /myPage/myReservationHistory                                    controllers.auth.Reservations.getReservationHistory
 GET         /myPage/myReservation/:reservationId                            controllers.auth.Reservations.showReservationDetailById(reservationId : ObjectId)
 GET         /myPage/deletingReserv/:reservationId                           controllers.auth.Reservations.deletingReserv(reservationId : ObjectId)
 GET         /myPage/deletedReserv/:reservationId                            controllers.auth.Reservations.deletedReserv(reservationId : ObjectId)
+GET         /userPage/followedNail                                          controllers.auth.MyFollows.followedNail(id: ObjectId)
 
 
 
@@ -212,6 +213,7 @@ GET         /mySalon/checkStylistIsValid/:stylistId                         cont
 GET         /mySalon/inviteStylist/:stylistId/                              controllers.auth.Salons.inviteStylist(stylistId: ObjectId)
 GET         /mySalon/removeStylist/:stylistId                               controllers.auth.Salons.removeStylist(stylistId: ObjectId)
 GET         /mySalon/replyComment/:commentObjId/:commentObjType             controllers.auth.Salons.replyBySalon(commentObjId : ObjectId, commentObjType : Int)
+GET         /mySalon/complainComment/:commentObjId/:commentObjType          controllers.auth.Salons.complainBySalon(commentObjId : ObjectId, commentObjType : Int)
 GET         /mySalon/checkInvite                                            controllers.auth.Salons.myInvite
 GET         /mySalon/cancelInvite/:applyRecordId                            controllers.auth.Salons.cancelInviteStylist(applyRecordId: ObjectId)
 # TODO
@@ -371,3 +373,11 @@ GET         /messages.js                                                    cont
 GET         /nail                                                           controllers.noAuth.Nails.index
 POST        /nail/searchPage                                                controllers.noAuth.Nails.getNailBySearch
 GET         /nail/rangking/:styleImpression                                 controllers.noAuth.Nails.getNailsByRanking(styleImpression: String)
+
+#Relax
+GET         /relaxSalon                                                     controllers.noAuth.Salons.indexRelax(serviceType:String)
+GET         /mySalon/createRelax                                            controllers.auth.Salons.addRelaxBySalon
+POST        /mySalon/createRelax                                            controllers.auth.Salons.insertRelaxBySalon
+GET         /mySalon/editPhoto/:relaxId                                     controllers.auth.Salons.relaxUpdateBySalon(relaxId: ObjectId)
+POST        /relax/updateRelax/:relaxId                                     controllers.auth.Salons.updateRelax(relaxId: ObjectId)
+GET         /mySalon/invalidRelax/:relaxId                                  controllers.auth.Salons.deleteRelaxBySalon(relaxId: ObjectId)

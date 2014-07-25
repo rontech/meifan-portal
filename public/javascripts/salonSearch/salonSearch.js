@@ -72,6 +72,10 @@ $(function() {
         submitForm();
     });
 
+    $('.serviceType_radio').click(function(){
+        submitForm();
+    });
+
     $('.brand_checkbox').click(function(){
         submitForm();
     });
@@ -79,6 +83,22 @@ $(function() {
     $('.condtions_item').click(function(){
         submitForm();
     });
+
+    $('.styleMaterial_checkbox').click(function(){
+        submitForm();
+    })
+
+    $('.styleBase_checkbox').click(function(){
+        submitForm();
+    })
+
+    $('.styleImpression_checkbox').click(function(){
+        submitForm();
+    })
+
+    $('.socialScene_checkbox').click(function(){
+        submitForm();
+    })
 
     // Sort by price.
     $('#price').click(function() {
@@ -143,6 +163,25 @@ function unlimitSalons(){
     submitForm();
 }
 
+function unlimitStyleMaterial(){
+    var checkArray = document.getElementById("unlimitStyleMaterial_group").getElementsByTagName("input");
+    for(var i=0; i<checkArray.length; i++){
+        if(checkArray[i].type=='checkbox'){
+            checkArray[i].checked=false;
+        }
+    }
+    submitForm();
+}
+
+function unlimitStyleBase(){
+    var checkArray = document.getElementById("unlimitStyleBase_group").getElementsByTagName("input");
+    for(var i=0; i<checkArray.length; i++){
+        if(checkArray[i].type=='checkbox'){
+            checkArray[i].checked=false;
+        }
+    }
+    submitForm();
+}
 
 function unlimitServiceType(){
     var checkArray = document.getElementById("unlimitServiceType_group").getElementsByTagName("input");
@@ -150,6 +189,26 @@ function unlimitServiceType(){
         if(checkArray[i].type=='checkbox'){
             checkArray[i].checked=false;
             }
+    }
+    submitForm();
+}
+
+function unlimitImpression(){
+    var checkArray = document.getElementById("unlimitImpression_group").getElementsByTagName("input");
+    for(var i=0; i<checkArray.length; i++){
+        if(checkArray[i].type=='checkbox'){
+            checkArray[i].checked=false;
+        }
+    }
+    submitForm();
+}
+
+function unlimitSocialScene(){
+    var checkArray = document.getElementById("unlimitSocialScene_group").getElementsByTagName("input");
+    for(var i=0; i<checkArray.length; i++){
+        if(checkArray[i].type=='checkbox'){
+            checkArray[i].checked=false;
+        }
     }
     submitForm();
 }

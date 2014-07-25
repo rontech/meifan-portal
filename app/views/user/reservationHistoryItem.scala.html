@@ -44,17 +44,25 @@
               </p>
               <dl class="reserveMessageHistory cFix">
                 <dt class="fl visitedStore iS">
-                  @if(reservation.status==1){
+                  @if(reservation.status==1 || reservation.status==3){
                     @Messages("reservation.Used")
-                  }else{
+                  }
+                  @if(reservation.status == 2 || reservation.status == -1){
                     @Messages("reservation.noComing")
+                  }
+                  @if(reservation.status==0){
+                    已成功预约
                   }
                 </dt>
                 <dd class="fl salonsAnswer ">
-                  @if(reservation.status==1){
+                  @if(reservation.status==1 || reservation.status==3){
                     @Messages("reservation.patronage")
-                  }else{
+                  }
+                  @if(reservation.status == 2 || reservation.status == -1){
                     @Messages("reservation.forwordToNextComing")
+                  }
+                  @if(reservation.status==0){
+                    请在指定的日期来店
                   }
                 </dd>
               </dl>
@@ -64,19 +72,10 @@
               <br>
               @reservation.id
             </p>
+            @views.html.reservation.showReservItems(reservation, "confirmInfo", models.portal.reservation.Reservation.findResvItemsForType(reservation.resvItems))
             <div class="tableHistory dibBL">
               <table cellspacing="0">
                 <tbody>
-                  <tr>
-                    <th class="boxHeadingHistory">
-                    @Messages("reservation.usedCoupon")
-                    </th>
-                    <td class="boxBodyHistory">
-                      @*
-                      @reservation.resvItems.map(resv => resv.mainResvObjId) @reservation.price*@
-                      @views.html.reservation.showReservItems(reservation, "confirmInfo", models.portal.reservation.Reservation.findResvItemsForType(reservation.resvItems))
-                    </td>
-                  </tr>
                   @if(!reservation.stylistId.equals(None)){
                     <tr>
                       <th class="boxHeadingHistory">
@@ -99,19 +98,15 @@
             <div class="detailBtn2">
               <ul class="nowrap">
                 <li class="dibBL">
-                  <a class="reserveBtn bS" href="#"
+                  <a class="reserveBtn bS" href="@noAuth.routes.Salons.getAllCoupons(reservation.salonId, "", "", "reservation")"
                   title="">
                     @Messages("reserve.name")
                   </a>
                 </li>
                   <!-- -->
                 @if(reservation.status==1){
-                  <li class="dibBL mL6">
-                    @*<a href="https://beauty.hotpepper.jp/CSP/my/reviewPost/input/?reserveId=B031858183"
-                    class="reviewBtn bS">
-                      评论
-                    </a>*@
-                    <input type="button" value=@Messages("comment.comment") onclick="addComment('@reservation.id', '2');">
+                  <li class="dibBL">
+                    <a class="reserveBtn bS" onclick="addComment('@reservation.id', '2');">@Messages("comment.comment")</a>
                   </li>
                 }
                   <!-- -->

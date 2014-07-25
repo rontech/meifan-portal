@@ -5,22 +5,6 @@
     <div class="shopInformationBottom ympS">
       <div class="shopInformation ympS">
         <div class="shopContentsInnerReserve cFix">
-          @*<div class="cFix">
-            <h4 class="shopName fl">
-              <a class="" href="@noAuth.routes.Salons.getSalon(reservation.salonId)" title="">
-              @reservation.salonId
-              </a>
-            </h4>
-            <div class="fr">
-              <ul class="salonMark taR">
-                <li class="serviceHairSalonN iS dibBL">
-                  <span class="salonMarkListInner">
-                    ヘアサロン
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>*@
           <div class="cFix">
             <div class="cFix fl">
               <p class="fl">
@@ -29,87 +13,17 @@
                   @reservation.expectedDate.format("yyyy/MM/dd HH:mm")
                 </span>
               </p>
-              @*<dl class="reserveMessageHistory cFix">
-                <dt class="fl visitedStore iS">
-                  @if(reservation.status==1){
-                    已到店铺消费
-                  }else{
-                    未到店铺消费
-                  }
-                </dt>
-                <dd class="fl salonsAnswer ">
-                  @if(reservation.status==1){
-                    谢谢来店消费
-                  }else{
-                    没有到店铺消费
-                  }
-                </dd>
-              </dl>*@
             </div>
             <p class="fr pT3">
               @Messages("reservation.no")
               <br>
               @reservation.id
             </p>
-            <div class="tableHistory dibBL">
-              <table cellspacing="0">
-                <tbody>
-                  <tr>
-                    <th class="boxHeadingHistory">
-                      @Messages("reservation.usedCoupon")
-                    </th>
-                    <td class="boxBodyHistory">
-                      @*
-                      @reservation.resvItems.map(resv => resv.mainResvObjId) @reservation.price*@
-                      @views.html.reservation.showReservItems(reservation, "confirmInfo", models.portal.reservation.Reservation.findResvItemsForType(reservation.resvItems))
-                    </td>
-                  </tr>
-                  @*
-                  @if(!reservation.stylistId.equals(None)){
-                    <tr>
-                      <th class="boxHeadingHistory">
-                        技师
-                      </th>
-                      <td class="boxBodyHistory">
-                        <a href="@noAuth.routes.Salons.getOneStylist(reservation.salonId,reservation.stylistId.get)">
-                          名字
-                        </a>
-                      </td>
-                    </tr>
-                  }*@
-                </tbody>
-              </table>
-            </div>
+            @views.html.reservation.showReservItems(reservation, "confirmInfo", models.portal.reservation.Reservation.findResvItemsForType(reservation.resvItems))
           </div>
           <div>
             <p class="detailTxt2">
             </p>
-            @*<div class="detailBtn2">
-              <ul class="nowrap">
-                <li class="dibBL">
-                  <a class="reserveBtn bS" href="http://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000231733&amp;wak=CPMY400401_button_reserve"
-                  title="">
-                    预约
-                  </a>
-                </li>
-                  <!-- -->
-                @if(reservation.status==1){
-                  <li class="dibBL mL6">
-                    <a href="https://beauty.hotpepper.jp/CSP/my/reviewPost/input/?reserveId=B031858183"
-                    class="reviewBtn bS">
-                      评论
-                    </a>
-                  </li>
-                }
-                  <!-- -->
-                <li class="dibBL mL6">
-                  <a href="https://beauty.hotpepper.jp/CSP/my/reserveStatus/?reserveId=B031858183"
-                  class="reserveDetail bS">
-                    预约详细
-                  </a>
-                </li>
-              </ul>
-            </div>*@
           </div>
         </div>
       </div>

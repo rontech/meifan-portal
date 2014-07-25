@@ -73,6 +73,28 @@
             }
           }
         }
+
+        @if(salon.salonIndustry.head == "Healthcare") {
+          @Nail.findOneById(new ObjectId(styleId)) match {
+            case None => {not found relax.}
+            case Some(relax) => {
+              <div class="pH10 pV5 cFix fl">
+                <div class="mT5">
+                  <p class="fl mR10"><img src="@routes.Application.getPhoto(relax.stylePic(0).fileObjId)" class="w60 h80 mT6"></p>
+                  <div class="fl">
+                    <p class="fs10 fgLGray2 mT13 cFix">@Messages("reservation.relax")</p>
+                    <p class="fl mR20">
+                      <span class="fs14 b">@relax.styleName</span>
+                    </p>
+                    <p class="fl mT2">
+                      <a href="@routes.Reservations.reservSelectStyle("", new ObjectId(stylistId), "selectResvDate")" class="iS arrowR">@Messages("reservation.changeOtherRelax")</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            }
+          }
+        }
       }
     }
   </div>

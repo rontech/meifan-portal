@@ -1,0 +1,35 @@
+@(nail: models.portal.nail.Nail)
+
+  <table class="styleItem">
+    <tbody>
+    <tr>
+      <td class="vaT">
+      <div class="w176 mHA">
+        <div class="mT10 fs16 txtC">
+        <a href="@noAuth.routes.Salons.getOneStyle(models.portal.style.Style.findSalonByStylistId(nail.stylistId).get.id, nail.id)">
+          <img src="@routes.Application.getPhoto(nail.stylePic(0).fileObjId)" width="154px" height="205px">
+        </a>
+        </div>
+        <p class="mT10 lh13 txtC">
+        <a href="@noAuth.routes.Salons.getOneStyle(models.portal.style.Style.findSalonByStylistId(nail.stylistId).get.id, nail.id)">
+          @nail.styleName
+        </a>
+        </p>
+      </div>
+      <div class="w156 mHA">
+        <div class="bdDotT mT10 pT5">
+        </div>
+      </div>
+      </td>
+    </tr>
+    </tbody>
+    <tbody>
+    <tr>
+      <td colspan="4">
+      <div class="separateLine">
+        &nbsp;
+      </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>

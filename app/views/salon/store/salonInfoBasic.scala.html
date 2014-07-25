@@ -1,4 +1,5 @@
 @(salon: models.portal.salon.Salon)
+@import models.portal.salon._
   <div class="mT30">
     <div class="yS mainContentsSecondTitleOuter">
     <h2 class="yS mainContentsSecondTitleInner">
@@ -50,13 +51,25 @@
         </td>
       </tr>
       <tr>
-        <th class="w120"> @Messages("salon.priceCutOnly") </th>
-        <td class="w208 vaT">
-          @models.portal.salon.Salon.getLowestPriceOfCut(salon.id) match {
-            case None => { @Messages("salon.priceCutOnlyUndefined")}
-            case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
-          }
-        </td>
+        @if(Salon.findIndustryBySalonId(salon.id).equals("Hairdressing")) {
+          <th class="w120"> @Messages("salon.priceCutOnly") </th>
+          <td class="w208 vaT">
+              @models.portal.salon.Salon.getLowestPriceOfSalon(salon.id) match {
+              case None => { @Messages("salon.priceCutOnlyUndefined")}
+              case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
+              }
+          </td>
+        }else {
+        @*
+        @if(Salon.findIndustryBySalonId(salon.id).equals("Manicures")) {*@
+          <th class="w120"> @Messages("salon.nailPrice") </th>
+          <td class="w208 vaT">
+              @models.portal.service.Service.getLowestPriceOfSalonBySalonId(salon.id) match {
+              case None => { @Messages("salon.nailPriceUndefined")}
+              case Some(price) => { @Messages("salon.nailPriceMsg", price)}
+              }
+          </td>
+        }
         <th class="w120"> @Messages("salon.seatNums") </th>
         <td class="w208 vaT"> @Messages("salon.seatNumsMsg", salon.seatNums.getOrElse("")) </td>
       </tr>

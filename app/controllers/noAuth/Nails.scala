@@ -27,7 +27,7 @@ object Nails extends MeifanNetCustomerOptionalApplication {
       "city" -> text,
       "region" -> text,
       "stylistId" -> text,
-      "serviceType" -> list(text),
+      "serviceType" -> text,
       "styleColor" -> list(text),
       "styleMaterial" -> list(text),
       "styleBase" -> list(text),
@@ -43,7 +43,7 @@ object Nails extends MeifanNetCustomerOptionalApplication {
       "id" -> text,
       "styleName" -> text,
       "stylistId" -> text,
-      "serviceType" -> list(text),
+      "serviceType" -> text,
       "styleColor" -> list(text),
       "styleMaterial" -> list(text),
       "styleBase" -> list(text),
@@ -78,7 +78,7 @@ object Nails extends MeifanNetCustomerOptionalApplication {
       } getOrElse {
         "苏州"
       }
-      val searchParaForNail = new SearchPara(None, myCity, "all", "all", List(), List(), List(), List(), List(), List())
+      val searchParaForNail = new SearchPara(None, myCity, "all", "all", "Nail", List(), List(), List(), List(), List())
       Ok(views.html.nailCatalog.general.overview(nailSearchForm = searchParaForNail, nailPara = Nail.findParaAll("Manicures"), user = user))
   }
 
@@ -103,14 +103,11 @@ object Nails extends MeifanNetCustomerOptionalApplication {
       val user = loggedIn
       var nailAllInfo: List[NailWithAllInfo] = Nil
       //通过页面选择的发型长度字段的值，来进行不同的检索，all为不以长度为检索字段
-      println("ssssssssssssssssssssseeeeeeeeeeeeeeeeee="+styleImpression)
       if (styleImpression.equals("all")) {
-        println("ssssssssssssssssssssssssssssss")
         nailAllInfo = Nail.findByRanking()
       } else {
         nailAllInfo = Nail.findByRankingAndImpression(styleImpression)
       }
-      println("ssssssssssssssssssssssssssssss11111111111"+nailAllInfo)
       Ok(html.nailCatalog.general.nailRankingResultPage(nailSearchForm, nailAllInfo, Nail.findParaAll("Manicures"), user))
   }
 

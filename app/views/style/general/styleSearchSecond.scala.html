@@ -96,7 +96,7 @@
             <div class="notto">
               <a href="javascript:unlimitServiceType();" class="cur" method="b_no">@Messages("salonSearchPage.unlimited")</a>
             </div>
-            <ul id="unlimitServiceType_group place" style="width: 70%;float: left;">
+            <ul id="unlimitServiceType_group" style="width: 70%;float: left;">
               @input(field = styleSearchForm("serviceType"), args = '_label -> None){(id,name,value,args) =>
                 @for(i <- 0 to stylePara.serviceType.length-1){
                   @if(i < 6){

@@ -31,6 +31,8 @@ common.from = 从
 common.to = 到
 common.selectAll = 全选
 common.handle = 执行
+common.ToCollect=收藏此
+common.selectForReserv=预约此
 
 
 # Index page
@@ -123,9 +125,12 @@ salon.restDays=请选择日期
 salon.priceCutOnly=剪发价格
 salon.priceCutOnlyMsg={0} 元起
 salon.priceCutOnlyUndefined=价格未定义
+salon.nailPrice=参考价格
+salon.nailPriceMsg={0} 元起
+salon.nailPriceUndefined=价格未定义
 salon.seatNums=席位数
 salon.seatNumsMsg={0} 席
-salon.stylistNums=发型师人数
+salon.stylistNums=技师人数
 slaon.stylistNumUnit={0} 人
 slaon.stylistNumUndefined=人数未定义
 salon.canOnlineOrder=可网上预约
@@ -158,7 +163,7 @@ salon.confirmMessage=请再次输入密码
 salon.desMessage=您最多可以输入100个字符
 salon.desAccesMethod=例：地铁一号线汾湖路站1号出口向西步行500米可达。您最多可以输入100个字符。
 salon.addMessage=请填写详细地址，如：竹园路209号3号楼1805室
-salon.stylistsList={0}的发型师
+salon.stylistsList={0}的技师
 salon.newSalon = 新沙龙用户
 salon.registerMessage1 = 如果您还不是该网站的沙龙会员，再次注册沙龙会员。
 salon.registerMessage2 = 我们会核实您注册后提交的申请，尽快为您开通沙龙会员！
@@ -413,6 +418,15 @@ ServiceType.serviceTypeName.Airbrush = 喷绘甲
 ServiceType.serviceTypeName.Patch = 贴片甲
 ServiceType.serviceTypeName.Crystal = 水晶甲
 ServiceType.serviceTypeName.Gel = 光疗树脂甲
+#休闲
+ServiceType.serviceTypeName.Spa = Spa
+ServiceType.serviceTypeName.Footbath = 足浴
+ServiceType.serviceTypeName.Massage = 按摩
+ServiceType.serviceTypeName.Nail = 美甲
+ServiceType.serviceTypeName.HandCare = 手足护理
+ServiceType.serviceTypeName.Eyelashes = 美睫
+#作品翻译之用
+ServiceType.serviceTypeName. = 作品
 
 # Coupon&Menu
 coupon.titleInSalon = {0} 的优惠券
@@ -526,6 +540,7 @@ stylist.myPictureShow = 展示图片上传
 stylist.picTitle=点击可查看技师资料
 stylist.salonNoStylist= 没有找到您希望的技师！
 stylist.revervation=预约自己的履历
+stylist.apply.position = 申请的职位
 
 
 
@@ -608,6 +623,7 @@ user.otherBlog=TA的博客
 user.collectCoupon=收藏的优惠劵
 user.collectBlog=收藏的博客
 user.collectStyle=收藏的发型
+user.collectNail=收藏的美甲
 user.reservation=我的预约
 user.myFollows=我的关注
 user.otherFollows=TA的关注
@@ -721,14 +737,16 @@ user.myFollowStylistsCount=您已关注{0}个技师
 user.myFollowSalonsCount=您已关注{0}个店铺
 user.myCollectBlogsCount=您已收藏{0}条博客
 user.myCollectCouponsCount=您已收藏{0}个优惠劵
-user.myCollectStylesCount=您已收藏{0}个风格
+user.myCollectStylesCount=您已收藏{0}个发型
+user.myCollectNailsCount=您已收藏{0}个美甲
 user.otherFansCount=已有{0}人关注TA
 user.otherFollowUsersCount=TA已关注{0}个美丽达人
 user.otherFollowStylistsCount=TA已关注{0}个技师
 user.otherFollowSalonsCount=TA已关注{0}个店铺
 user.otherCollectBlogsCount=TA已收藏{0}条博客
 user.otherCollectCouponsCount=TA已收藏{0}个优惠劵
-user.otherCollectStylesCount=TA已收藏{0}个风格
+user.otherCollectStylesCount=TA已收藏{0}个发型
+user.otherCollectNailsCount=TA已收藏{0}个美甲
 user.notWriteBlog=该用户未添加博客……
 use.followThisSalon=收藏该店铺
 user.reverving=处理中预约
@@ -842,6 +860,7 @@ comment.usedCoupon = 预约时使用的优惠券
 comment.usedServices = [用到的技术]
 comment.reply = {0}的回复
 comment.new = 新评论
+comment.wantToComplain = 我要申诉
 comment.complain = 我要申诉
 comment.complex = 综合
 comment.atmosphere = 氛围
@@ -942,6 +961,14 @@ position.positionName.AdvancedStylist = 高级发型师
 position.positionName.Stylist = 发型师 
 position.positionName.Assistant = 助手
 position.positionName.AdvancedAssistant = 高级助手
+
+position.positionName.Consultant = 顾问
+position.positionName.AdvancedArtificer = 高级技师
+position.positionName.Artificer = 技师
+
+position.positionName.ChiefManicurist = 美甲总监/主管
+position.positionName.AdvancedManicurist = 高级美甲师
+position.positionName.Manicurist = 美甲师
 
 #StyleImpression
 #美发
@@ -1088,6 +1115,7 @@ reservation.minute = 分钟
 reservation.menuSelect = 优惠劵·套餐选择
 reservation.timeAndStylistSelect = 来店时间·技师·发型选择
 reservation.timeAndNailStylistSelect = 来店时间·技师·美甲选择
+reservation.timeAndRelaxStylistSelect = 来店时间·技师·项目选择
 reservation.userInfoInput = 客户信息输入
 reservation.confirm = 确认
 reservation.successful = 预约完成
@@ -1097,9 +1125,11 @@ reservation.expectedDate = 来店日时
 reservation.selectStylistMsg = 请根据需要选择技师
 reservation.selectStyleMsg = 请根据需要选择发型
 reservation.selectNailMsg = 请根据需要选择美甲
+reservation.selectRelaxMsg = 请根据需要选择项目
 reservation.reservNoStyle = 不指定发型
 reservation.reservNoStylist = 不指定技师
 reservation.resvNoNail = 不指定美甲
+reservation.resvNoRelax = 不指定项目
 reservation.reservStylist = 指定技师
 reservation.reservStyle = 指定发型
 reservation.checkStylistDate = 查看技师日程
@@ -1122,8 +1152,10 @@ reservation.stylist = 指定的技师
 reservation.noStylist = 未指定技师
 reservation.style = 指定的发型
 reservation.nail = 指定的美甲
+reservation.relax = 指定的项目
 reservation.noStyle = 未指定发型
 reservation.noNail = 未指定的美甲
+reservation.noRelax = 未指定的项目
 reservation.questionAndAnswerTitle = 来自沙龙的问题和回答
 reservation.resvSuccessful = 预约已完成，谢谢。
 reservation.failMsg.userHasResv = 您已经在该时间已有预约
@@ -1151,11 +1183,13 @@ reservation.resvCouponAndMenu = 请选择优惠劵·套餐。
 reservation.resvDateForStylist = 的预约日程
 reservation.resvStyle = 指定发型
 reservation.resvNail = 指定美甲
+reservation.resvRelax = 指定项目
 reservation.resvDateOfSalon = 店铺日程情况
 reservation.resvDateOfStylist = 技师日程情况
 reservation.cleanStyleMsg = ※如果您已预约了发型，那么点此链接后将需要重新选择发型
 reservation.changeOtherStyle = 更换其它发型
 reservation.changeOtherNail = 更换其它美甲
+reservation.changeOtherRelax = 更换其它项目
 reservation.notResved = 可预约
 reservation.reserving = 处理中的预约
 reservation.reservHistory = 预约的履历
@@ -1206,9 +1240,9 @@ salonCheckInfoState.basic=基本信息
 salonCheckInfoState.auth=对不起，您目前没有权限进入，请先完善您的资料
 
 #slaonRelax
-salonRelax.footSpa=足疗按摩
-salonRelax.bodySpa=全身SPA
-salonRelax.sportSpa=瘦身健美
+salonRelax.spa=SPA
+salonRelax.massage=按摩
+salonRelax.footbath=足浴
 salonRelax.yoGa=瑜伽
 
 
@@ -1265,38 +1299,72 @@ style.styleMaterial.fruitSlices = 水果片
 #Nail
 nail.tabName = 时尚美甲
 nail.nailCatalogTitle = Nail Catalog  美甲目录
-nail.searchResultMsg = 个美甲满足要求
-nail.noNailSearched = 没有找到您希望的美甲！
+nail.searchResultMsg1 = 个
+nail.searchResultMsg2 = 满足要求
+#nail.noNailSearched = 没有找到您希望的美甲！
+nail.noNailSearched = 没有找到您希望的作品！
 nail.search.serviceType = 技术类别
 nail.search.styleColor = 颜色
 nail.search.styleMaterial = 材质
 nail.search.styleBase = 部位
 nail.search.styleImpression = 风格
 nail.search.socialScene = 适合场合
-nail.ToCollect=收藏此美甲
 nail.BeCollected=此款美甲已收藏
 nail.detailInfo=详细信息
-nail.picTitle=点击可查看美甲信息
-nail.assessFromStylist = 美甲师评价
-nail.selectForReserv = 预约此美甲
-nail.style = 美甲详情
-nail.nailOfStylist = 此技师的其它美甲作品
-nail.search = 美甲检索
-nail.nailName = 美甲名
-nail.pictures = 美甲图片
-nail.searchRst1 = 共搜索到
-nail.searchRst2 = 个美甲
-nail.addNail = 添加美甲
-nail.nameRequired = 美甲名必须填写
+#nail.picTitle=点击可查看美甲信息
+nail.picTitle=点击可查看作品信息
+#nail.assessFromStylist = 美甲师评价
+nail.assessFromStylist = 技师评价
+nail.style = 作品详情
+nail.nailOfStylist = 此技师的其它作品
+nail.search = 检索
+#nail.nailName = 美甲名
+nail.nailName = 作品名
+#nail.pictures = 美甲图片
+nail.pictures = 作品图片
+nail.searchRst = 共搜索到{0}个
+#nail.addNail = 添加美甲
+nail.addNail = 添加作品
+#nail.nameRequired = 美甲名必须填写
+nail.nameRequired = 作品名必须填写
 nail.onUsePicture.limit = 最多选择1张图片
-nail.nailUpdate = 美甲更新
+#nail.nailUpdate = 美甲更新
+nail.nailUpdate = 作品更新
 nail.rankingAll = 综合排名
-nail.info = 美甲信息
+#nail.info = 美甲信息
+nail.info = 作品信息
 
 #Nail Salon
-nailSalon.stylists = 美甲师
+#nailSalon.stylists = 美甲师
+nailSalon.stylists = 技师
 nailSalon.styles = 美甲
-nailSalon.salonStyleTitle = {0}的美甲
-nailSalon.showAllNails = 显示所有美甲
-nailSalon.nailManagement = 美甲管理
-nailSalon.nailTitle = 点击图片可查看美甲详细信息
+
+
+#Relax Salon
+relaxSalon.stylists = 技师
+relaxSalon.styles = 图片画廊
+relaxSalon.photoManagement = 画廊管理
+relaxSalon.showAllPhotos = 显示所有图片
+relaxSalon.addPhoto = 添加图片
+relaxSalon.salonStyleTitle = {0}的图片
+
+relax.name = 休闲项目名
+relax.pictures = 休闲图片
+relax.nameRequired = 请填写休闲项目名
+relax.description = 描述
+relax.ToCollect=收藏此项目
+relax.assessFromStylist = 技师评价
+relax.selectForReserv = 预约此项目
+relax.style = 项目详情
+relax.noStyleAdded = 您还未添加休闲项目
+
+
+
+
+nailSalon.salonStyleTitle = {0}的
+#nailSalon.showAllNails = 显示所有美甲
+nailSalon.showAllNails = 显示所有作品
+#nailSalon.nailManagement = 美甲管理
+nailSalon.nailManagement = 作品管理
+#nailSalon.nailTitle = 点击图片可查看美甲详细信息
+nailSalon.nailTitle = 点击图片可查看作品详细信息

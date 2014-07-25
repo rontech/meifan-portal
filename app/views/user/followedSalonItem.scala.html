@@ -50,7 +50,7 @@
                 <dt class="fl fgLGray2 b mW65">@Messages("salon.priceCutOnly")</dt>
                 <dd class="fl w100">
                   <div class="mL10">
-                    @models.portal.salon.Salon.getLowestPriceOfCut(salon.id) match {
+                    @models.portal.salon.Salon.getLowestPriceOfSalon(salon.id) match {
                         case None => { @Messages("salon.priceCutOnlyUndefined")}
                         case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
                     }
