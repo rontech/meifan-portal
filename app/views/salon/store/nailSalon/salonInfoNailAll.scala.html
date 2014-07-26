@@ -5,10 +5,12 @@
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
 <!-- 分别显示该店铺中所有技术类别的作品-->
 @for(serviceType <- nails.map(_.serviceType).distinct) {
-  <div class="yS mainContentsSecondTitleOuter">
-    <h2 class="yS mainContentsSecondTitleInner">@Messages("nailSalon.salonStyleTitle", salon.salonName)@Messages("ServiceType.serviceTypeName."+serviceType)</h2>
+  <div class="fl wFull mT10">
+    <div class="yS mainContentsSecondTitleOuter">
+      <h2 class="yS mainContentsSecondTitleInner">@Messages("nailSalon.salonStyleTitle", salon.salonName)@Messages("ServiceType.serviceTypeName."+serviceType)</h2>
+    </div>
+    @views.html.nailCatalog.nailGroup(nails.filter(_.serviceType.equals(serviceType)), salon)
   </div>
-  @views.html.nailCatalog.nailGroup(nails.filter(_.serviceType.equals(serviceType)), salon)
 }
 
 }
