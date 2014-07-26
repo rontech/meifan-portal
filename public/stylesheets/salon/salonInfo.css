@@ -137,7 +137,7 @@ height: 35px;
 }
 
 .relax {
-  background-position: -885px 0px;
+  background-position: -970px 0px;
   width: 85px;
   height: 35px;
 }
@@ -182,6 +182,14 @@ background-position: -365px -60px;
 
 .nail:hover {
 background-position: -885px -60px;
+}
+
+.stylist-relax:hover {
+  background-position: -800px -60px;
+}
+
+.relax:hover {
+  background-position: -970px -60px;
 }
 
 .blog:hover {
@@ -239,7 +247,7 @@ height: 37px;
 }
 
 .relaxCurrent {
-  background-position: -885px -120px;
+  background-position: -970px -120px;
   width: 85px;
   height: 37px;
 }

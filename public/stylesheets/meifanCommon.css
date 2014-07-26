@@ -1373,6 +1373,7 @@ div.skinHeadingWrapper2 {
 .w160	{ width: 160px; }
 .w180	{ width: 180px; }
 .w200	{ width: 200px; }
+.w230	{ width: 230px; }
 .w273	{ width: 273px; }
 .w421	{ width: 421px; }
 .w557	{ width: 557px; }
@@ -1411,6 +1412,7 @@ div.skinHeadingWrapper2 {
 .w166 { width: 166px; }
 .w345 { width: 345px; }
 .w670 { width: 670px; }
+.w550 { width: 550px; }
 
 
 .hMin19 {
@@ -1467,6 +1469,7 @@ _height: 19px;
 .mL4	{ margin-left: 4px; }
 .mL5	{ margin-left: 5px; }
 .mL10	{ margin-left: 10px; }
+.mL15	{ margin-left: 15px; }
 .mL20	{ margin-left: 20px; }
 .mL2	{ margin-left: 2px; }
 
