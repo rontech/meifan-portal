@@ -152,7 +152,7 @@
       <ul class="place prver" id="unlimitSalons_group">
         @*
         @for((salon,i) <- models.portal.salon.Salon.findAll.toList.zipWithIndex){*@
-        @for((salon,i) <- models.portal.search.Brand.findBrandByIndustry(controllers.Application.getIndustryByNav(nav)).zipWithIndex){
+        @for((salon,i) <- models.portal.search.Brand.findBrandByIndustry(searchParaForSalon.salonIndustry).zipWithIndex){
           @if(i<4){
             <li class="">
               @if(searchParaForSalon.salonName.contains(salon.salonName)){

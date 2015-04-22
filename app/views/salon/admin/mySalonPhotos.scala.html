@@ -1,0 +1,7 @@
+@(navInSalon: String = "my-photos", salon: models.portal.salon.Salon, relaxs: List[models.portal.relax.Relax])
+
+@mySalonMain(navInSalon, salon){
+  <a href="@auth.routes.Salons.addRelaxBySalon" >@Messages("relaxSalon.addPhoto")</a>
+  <hr/>
+  @views.html.salon.admin.relaxSalon.showAllPhotos(relaxs)
+}

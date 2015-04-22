@@ -2,27 +2,29 @@
 @import helper._
 
 <div class="mT40">
-  <div class="bgLGray">
-    <p style="font-size: 26px;font-weight: bold">@Messages("hair.ranking")</p>
+  <div class="hcHeader">
+    <div class="pr hcHeaderTopPage">
+      <h2 class="headForRanking offL">@Messages("hair.ranking")</h2>
+    </div>
   </div>
   <div>
     @if(styleAndSalon.length > 0) {
     <h4 class="rankingListHeading icnCrown0"><p class="b fs18">1@Messages("common.seat")</p></h4>
     <div class="stylePageTileOuter cFix">
       <div class="fs16 fl">
-        <img src="@routes.Application.getPhoto(styleAndSalon(0).style.stylePic(0).fileObjId)" width="220" height="300" />
+        <img src="@routes.Application.getPhoto(styleAndSalon(0).style.stylePic(0).fileObjId)" width="180" height="240" class="bdGray"/>
       </div>
-      <div class="jscHoverTarget">
+      <div class="jscHoverTarget fl">
         <div class="">
           <div class="w660 h75">
-            <div class="">
+            <div class="fl">
                <a href="@noAuth.routes.Salons.getOneStyle(styleAndSalon(0).salonId, styleAndSalon(0).style.id)" class="rankingListInnerAnchor" >
-                <p class="fs22 b"><span class="photoCaption">@styleAndSalon(0).style.styleName</span></p>
+                <p class="fs18 w230 taC pH20"><span class="photoCaption">@styleAndSalon(0).style.styleName</span></p>
                </a>
             </div>
             <div class="">
             </div>
-            <div class="bdGrayL">
+            <div class="bdGrayL fl taC w240">
                 <div class="sl_show_xy">
                     <p align="center">
                       <a href = "javascript:void(0);" onclick="addFollow('@styleAndSalon(0).style.id','style')" >@Messages("hair.ToCollect")</a>
@@ -30,12 +32,12 @@
                 </div>
             </div>
           </div>
-          <div class="bgLGray w700">
+          <div class="bgLGray w550 h200 fl mL15 mT5">
             <div>
-              <h2 class="lhDe">@Messages("hair.info")</h2>
+              <h2 class="lhDe mT10 mL10">@Messages("hair.info")</h2>
             </div>
             <div class="cFix bdDotT pT10 mT7 ">
-              <div class="fl mR10">
+              <div class="fl pH10">
                 <img src="@routes.Application.getPhoto(models.portal.stylist.Stylist.findOneByStylistId(styleAndSalon(0).style.stylistId).get.myPics(0).fileObjId)" class="w89">
               </div>
               <div class="oh zoom1">
@@ -55,7 +57,7 @@
   
   <div>
     @if(styleAndSalon.length > 1) {
-    <ul class="cFix rankingList">
+    <ul class="cFix rankingList mT40">
       @for(i <- 1 until styleAndSalon.length){
         <li class="fl w176 mR15">
             @if(i < 3) {

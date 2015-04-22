@@ -18,7 +18,7 @@
           <p class="evalPropRight">@Messages("salon.reviewsTotalCnt", salon.reviewsStat.reviewTotalCnt)</p>
           <p class="evalPropRight">@Messages("salon.reviewsRate", (salon.reviewsStat.reviewRate * 100).toInt)</p>
           <p class="evalPropRight salonPrice">
-            @salon.priceForCut match {
+            @salon.lowestPriceOfSalon match {
               case None => { @Messages("salon.priceCutOnlyUndefined")}
               case Some(price) => { @Messages("salon.priceCutOnlyMsg", price)}
             }

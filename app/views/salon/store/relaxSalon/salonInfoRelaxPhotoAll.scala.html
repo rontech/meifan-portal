@@ -1,0 +1,14 @@
+@(salon: models.portal.salon.Salon, relaxPhotos: List[models.portal.relax.Relax], navBar: List[(String, String)] = Nil,  user : Option[models.portal.user.User])
+@import views.html.salon.store._
+@salonInfoMain(navInSalon = "salon-style", salon, navBar, user) {
+  
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
+
+  <div class="yS mainContentsSecondTitleOuter">
+    <h2 class="yS mainContentsSecondTitleInner">@Messages("relaxSalon.salonStyleTitle", salon.salonName)</h2>
+  </div>
+
+  <!-- get all the salons with all the nails.  -->
+  @views.html.salon.store.relaxSalon.relaxGroup(relaxPhotos, salon)
+
+}

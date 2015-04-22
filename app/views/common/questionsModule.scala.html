@@ -1,9 +1,9 @@
-@if(models.portal.question.Question.findAll.toList.length > 1) {
+@if(models.portal.question.Question.findAll.filter(_.isValid == true).toList.length > 1) {
  <div id="index_member">
     <h3></h3>
     <div id="index_member_nr">
     <ul>
-        @for(ques <- models.portal.question.Question.findAll.toList) {
+        @for(ques <- models.portal.question.Question.findAll.filter(_.isValid == true).toList) {
       <li><a href="@noAuth.routes.Questions.getOneQuestion(ques.id)" class="link-green">@ques.questName</a></li>
         }
     </ul>

@@ -118,6 +118,12 @@ height: 35px;
   height: 35px;
 }
 
+.stylist-relax {
+  background-position: -800px 0px;
+  width: 85px;
+  height: 35px;
+}
+
 .style {
 background-position: -365px 0px;
 width: 85px;
@@ -126,6 +132,12 @@ height: 35px;
 
 .nail {
   background-position: -885px 0px;
+  width: 85px;
+  height: 35px;
+}
+
+.relax {
+  background-position: -970px 0px;
   width: 85px;
   height: 35px;
 }
@@ -172,6 +184,14 @@ background-position: -365px -60px;
 background-position: -885px -60px;
 }
 
+.stylist-relax:hover {
+  background-position: -800px -60px;
+}
+
+.relax:hover {
+  background-position: -970px -60px;
+}
+
 .blog:hover {
 background-position: -450px -60px;
 }
@@ -208,6 +228,12 @@ width: 85px;
 height: 37px;
 }
 
+.stylistCurrent-relax {
+  background-position: -800px -120px;
+  width: 85px;
+  height: 37px;
+}
+
 .styleCurrent {
 background-position: -365px -120px;
 width: 85px;
@@ -218,6 +244,12 @@ height: 37px;
 background-position: -885px -120px;
 width: 85px;
 height: 37px;
+}
+
+.relaxCurrent {
+  background-position: -970px -120px;
+  width: 85px;
+  height: 37px;
 }
 
 .blogCurrent {

@@ -46,6 +46,7 @@ import models.portal.coupon.CouponServiceType
 import models.portal.service.ServiceByType
 import models.portal.reservation.ResvSchedule
 import models.portal.nail.Nail
+import models.portal.relax.Relax
 import com.meifannet.portal.MeifanNetCustomerOptionalApplication
 
 object Reservations extends MeifanNetCustomerOptionalApplication {
@@ -430,9 +431,16 @@ object Reservations extends MeifanNetCustomerOptionalApplication {
           // 得到该技师的所有发型
           val styles: List[Style] = Style.findByStylistId(stylistId)
           Ok(views.html.reservation.reservSelectStyleMain(s, reservation, styles, jumpType, user))
-        } else {
+        } else if(s.salonIndustry.head == "Manicures") {
           val styles: List[Nail] = Nail.findByStylistId(stylistId)
           Ok(views.html.reservation.reservSelectNailMain(s, reservation, styles, jumpType, user))
+        } else {
+          if(reservation.styleId.isEmpty){
+            val styles: List[Relax] = Relax.findAllRelaxsBySalon(s.id)
+            Ok(views.html.reservation.reservSelectRelaxMain(s, reservation, styles, jumpType, user))
+          }else{
+            Redirect(controllers.auth.routes.Reservations.editReservInfo)
+          }
         }
 
       }
@@ -456,6 +464,11 @@ object Reservations extends MeifanNetCustomerOptionalApplication {
       reservation = reservation.copy(stylistId = Some(new ObjectId(stylistId)))
     } else {
       reservation = reservation.copy(stylistId = None)
+    }
+    if(!styleId.isEmpty()) {
+      reservation = reservation.copy(styleId = Some(new ObjectId(styleId)))
+    } else {
+      reservation = reservation.copy(styleId = None)
     }
     Cache.set("reservation", reservation)
 

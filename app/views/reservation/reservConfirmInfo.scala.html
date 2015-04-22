@@ -1,6 +1,7 @@
 @(salon: models.portal.salon.Salon, reservation: models.portal.reservation.Reservation)
 
 @import models.portal.nail.Nail
+@import models.portal.relax.Relax
 @import models.portal.style.Style
 
 @reservConfirmInfoMain(salon, reservation, "four") {
@@ -64,6 +65,7 @@
             }
           </td>
         } else {
+          @if(salon.salonIndustry.head == "Manicures") {
           <th class="w170 bgLGray pb10 pt10">@Messages("reservation.nail")</th>
           <td class="pl10">
           @reservation.styleId match {
@@ -80,6 +82,24 @@
             }
           }
           </td>
+          } else{
+            <th class="w170 bgLGray pb10 pt10">@Messages("reservation.relax")</th>
+            <td class="pl10">
+            @reservation.styleId match {
+              case None => {
+                @Messages("reservation.noRelax")
+              }
+              case Some(sty) => {
+                @Relax.findOneById(sty) match {
+                  case None => {}
+                  case Some(style) => {
+                    @style.styleName
+                  }
+                }
+              }
+            }
+            </td>
+          }
         }
       </tr>
     </tbody>

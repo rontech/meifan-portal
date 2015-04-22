@@ -15,7 +15,7 @@
   
   <div class="left01">
     <!-- ↓推荐沙龙 -->
-    @views.html.salon.salonManage.salonRecommend()
+    @views.html.salon.salonManage.salonRecommend(models.portal.salon.Salon.findAll.toList.dropWhile(_.salonStatus.isValid == false))
     <!-- ↑推荐沙龙 -->
     
     <!-- ↓美甲展示 -->

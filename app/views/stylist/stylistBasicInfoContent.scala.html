@@ -4,9 +4,9 @@
   <!-- ST left side info for models.portal.stylist.Stylist picture.-->
   <div class="fl w224 taC">
     <div>
-    <a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistInfo.get.stylistId)">
+    @if(!salon.salonIndustry.head.equals("Healthcare")){<a href="@noAuth.routes.Stylists.otherHomePage(stylist.stylistInfo.get.stylistId)">}
       <img src="@routes.Application.getPhoto(stylist.stylistInfo.get.myPics(0).fileObjId)" alt="@stylist.basicInfo.nickName" class="bdImgGray w164 h219">
-    </a>
+    @if(!salon.salonIndustry.head.equals("Healthcare")){</a>}
     </div>
     <!-- TODO ST Reserve this sytlist. -->
     <div class="mT20 pT10">
@@ -67,14 +67,15 @@
             <th class="w100"> @Messages("stylist.workYears")</th>
             <td>@Messages("stylist.years", stylist.stylistInfo.get.workYears) </td>
           </tr>
-                
-          <tr> <th class="w100">@Messages("stylist.goodAtImage") </th>
-            <td> @stylist.stylistInfo.get.goodAtImage.map{image=>
-              @*
-              @image&nbsp;*@
-              @Messages("style.styleImpression." + image)&nbsp;
-            }</td>
-          </tr>
+          @if(!salon.salonIndustry.head.equals("Healthcare")){
+            <tr> <th class="w100">@Messages("stylist.goodAtImage") </th>
+              <td> @stylist.stylistInfo.get.goodAtImage.map{image=>
+                @*
+                @image&nbsp;*@
+                @Messages("style.styleImpression." + image)&nbsp;
+              }</td>
+            </tr>
+          }
           <tr>
             <th class="w100"> @Messages("stylist.mySpecial") </th>
             <td> @stylist.stylistInfo.get.mySpecial </td>

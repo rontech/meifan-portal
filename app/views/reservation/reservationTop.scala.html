@@ -23,7 +23,11 @@
     @if(salon.salonIndustry.head == "Hairdressing") {
       <li class="two cur">@Messages("reservation.timeAndStylistSelect")</li>
     } else {
+      @if(salon.salonIndustry.head == "Manicures") {
       <li class="two cur">@Messages("reservation.timeAndNailStylistSelect")</li>
+      } else {
+        <li class="two cur">@Messages("reservation.timeAndRelaxStylistSelect")</li>
+      }
     }
     <li class="">@Messages("reservation.userInfoInput")</li>
     <li class="">@Messages("reservation.confirm")</li>
@@ -34,7 +38,11 @@
       @if(salon.salonIndustry.head == "Hairdressing") {
         <li class="two">@Messages("reservation.timeAndStylistSelect")</li>
       } else {
-        <li class="two">@Messages("reservation.timeAndNailStylistSelect")</li>
+        @if(salon.salonIndustry.head == "Manicures") {
+          <li class="two cur">@Messages("reservation.timeAndNailStylistSelect")</li>
+        } else {
+          <li class="two cur">@Messages("reservation.timeAndRelaxStylistSelect")</li>
+        }
       }
       <li class="two cur">@Messages("reservation.userInfoInput")</li>
       <li class="">@Messages("reservation.confirm")</li>
@@ -45,7 +53,11 @@
       @if(salon.salonIndustry.head == "Hairdressing") {
         <li class="two two1">@Messages("reservation.timeAndStylistSelect")</li>
       } else {
-        <li class="two two1">@Messages("reservation.timeAndNailStylistSelect")</li>
+        @if(salon.salonIndustry.head == "Manicures") {
+          <li class="two cur">@Messages("reservation.timeAndNailStylistSelect")</li>
+        } else {
+          <li class="two cur">@Messages("reservation.timeAndRelaxStylistSelect")</li>
+        }
       }
       <li class="three">@Messages("reservation.userInfoInput")</li>
       <li class="four cur">@Messages("reservation.confirm")</li>
@@ -56,7 +68,11 @@
       @if(salon.salonIndustry.head == "Hairdressing") {
         <li class="two two1">@Messages("reservation.timeAndStylistSelect")</li>
       } else {
-        <li class="two two1">@Messages("reservation.timeAndNailStylistSelect")</li>
+        @if(salon.salonIndustry.head == "Manicures") {
+          <li class="two cur">@Messages("reservation.timeAndNailStylistSelect")</li>
+        } else {
+          <li class="two cur">@Messages("reservation.timeAndRelaxStylistSelect")</li>
+        }
       }
       <li class="three three1">@Messages("reservation.userInfoInput")</li>
       <li class="four">@Messages("reservation.confirm")</li>
@@ -66,7 +82,11 @@
       @if(salon.salonIndustry.head == "Hairdressing") {
         <li class="">@Messages("reservation.timeAndStylistSelect")</li>
       } else {
-        <li class="">@Messages("reservation.timeAndNailStylistSelect")</li>
+        @if(salon.salonIndustry.head == "Manicures") {
+          <li class="two cur">@Messages("reservation.timeAndNailStylistSelect")</li>
+        } else {
+          <li class="two cur">@Messages("reservation.timeAndRelaxStylistSelect")</li>
+        }
       }
       <li class="">@Messages("reservation.userInfoInput")</li>
       <li class="">@Messages("reservation.confirm")</li>

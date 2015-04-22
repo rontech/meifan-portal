@@ -49,6 +49,9 @@ import models.portal.reservation.{HandleReservation, ResvSreachCondition, Reserv
 import com.meifannet.portal.MeifanNetSalonApplication
 import com.meifannet.framework.db.DBDelegate
 import models.portal.nail.{SearchPara, Nail}
+import controllers.auth.Relaxs
+import models.portal.relax.Relax
+import play.api.templates.Html
 
 
 object Salons extends MeifanNetSalonApplication {
@@ -536,6 +539,7 @@ object Salons extends MeifanNetSalonApplication {
       //当前申请记录的验证结果为‘0’，申请中时
       if(re.verifiedResult == 0) {
         SalonStylistApplyRecord.rejectApply(re)
+        Stylist.delete(re.stylistId)
         Redirect(routes.Salons.myStylist)
       } else {
         Ok(views.html.salon.admin.applyResultPage(salon))
@@ -650,6 +654,10 @@ object Salons extends MeifanNetSalonApplication {
         val searchParaForNail = new SearchPara(None, "all", "all", "all", "", List(), List(), List(), List(), List())
         Ok(html.salon.admin.nailSalon.mySalonNails(salon = salon, nails = nails, nailSearchForm = Nails.nailSearchForm.fill(searchParaForNail), nailParaAll = Nail.findParaAll("Manicures"), isStylist = false, stylists = stylists))
       }
+      case "Healthcare" => {
+        val relaxPhotos: List[Relax] = Relax.findAllRelaxsBySalon(salon.id).filter(_.isValid == true)
+        Ok(html.salon.admin.mySalonPhotos(salon = salon, relaxs = relaxPhotos))
+      }
       case _ => Ok(views.html.index())
     }
 
@@ -742,6 +750,59 @@ object Salons extends MeifanNetSalonApplication {
           Redirect(routes.Salons.getAllStylesBySalon)
         }
       })
+  }
+
+  /**
+   * 后台创建休闲保健的图片
+   */
+  def addRelaxBySalon = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    val serviceTypes = models.portal.service.ServiceType.findAllServiceTypes(salon.salonIndustry).toList
+    Ok(views.html.salon.admin.createSalonRelaxPhoto(salon, Relaxs.newRelaxPhotoForm(salon.id), serviceTypes))
+  }
+
+  def insertRelaxBySalon = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    Relaxs.newRelaxPhotoForm(salon.id).bindFromRequest.fold(
+    errors => BadRequest(views.html.index()),
+    {
+      case (relaxPhoto) => {
+        Relax.save(relaxPhoto)
+        Redirect(routes.Salons.getAllStylesBySalon)
+      }
+    })
+  }
+
+  /**
+   * 后台修改休闲保健的项目
+   */
+  def relaxUpdateBySalon(relaxId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    val serviceTypes = models.portal.service.ServiceType.findAllServiceTypes(salon.salonIndustry).toList
+    val relax = Relax.findOneById(relaxId)
+    relax.map { relax =>
+      val editRelaxForm = Relaxs.updateRelaxPhotoForm(salon.id).fill(relax)
+      Ok(views.html.salon.admin.editSalonRelax(salon, editRelaxForm, serviceTypes, relax))
+    } getOrElse {
+      NotFound
+    }
+  }
+
+  def updateRelax(relaxId: ObjectId) = StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    val salon = loggedIn
+    Relaxs.updateRelaxPhotoForm(salon.id, relaxId).bindFromRequest.fold(
+      errors => BadRequest(Html(errors.toString)),
+    {
+      relax =>
+        Relax.save(relax, WriteConcern.Safe)
+        Redirect(routes.Salons.getAllStylesBySalon)
+    })
+
+  }
+
+  def deleteRelaxBySalon(relaxId: ObjectId)= StackAction(AuthorityKey -> isLoggedIn _) { implicit request =>
+    Relax.delete(relaxId)
+    Redirect(routes.Salons.getAllStylesBySalon)
   }
 
   /**
@@ -949,6 +1010,8 @@ object Salons extends MeifanNetSalonApplication {
         Ok((User.isExist(value, User.findOneByNickNm) ||
           !Salon.isValid(value, salon, Salon.findOneBySalonName) ||
           !Salon.isValid(value, salon, Salon.findOneBySalonNameAbbr)).toString)
+      case ITEM_TYPE_RELAX =>
+        Ok(models.portal.relax.Relax.checkRelaxIsExist(value, salon.id).toString)
     }
   }
 

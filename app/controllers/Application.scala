@@ -196,22 +196,6 @@ object Application extends MeifanNetCustomerOptionalApplication {
   }
 
   /**
-   * 根据nav找到所对应的行业名
-   *
-   * @param nav 前台的tab
-   * @return
-   */
-  def getIndustryByNav(nav : String) = {
-    nav match {
-      case "HairSalon" =>  "Hairdressing"
-      case "NailSalon" =>  "Manicures"
-      case "RelaxSalon" =>  "Healthcare"
-      case "EstheSalon" =>  "Cosmetic"
-      case _ => ""
-    }
-  }
-
-  /**
    *  ajax fileupload 输出图片id到页面对应区域
    */
   def fileUploadAction = Action(parse.multipartFormData) { implicit request =>

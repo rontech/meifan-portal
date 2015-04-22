@@ -10,6 +10,7 @@ var ITEM_TYPE_STYLE = "style"
 var ITEM_TYPE_COUPON = "coupon"
 var ITEM_TYPE_SERVICE = "service"
 var ITEM_TYPE_MENU = "menu"
+var ITEM_TYPE_RELAX = "relax"
 
 var MESSAGE_OK = ""
 var MESSAGE_REQUIRED = "该项目不能为空"
@@ -1213,6 +1214,68 @@ function checksForStyle() {
     return false;
   }
   document.styleForm.submit();
+}
+
+$('#relaxName').focus(function () {
+    this.setAttribute("maxlength", 40)
+    $("#relaxName  ~ .help-inline").text("请输入4~30个字符，最多15个汉字").removeClass("trueMsg").removeClass("errorMsg");
+}).blur(function () {
+    checkRelaxName()
+});
+
+function checkRelaxName() {
+    var value = $('#relaxName').val();
+    var len = value.replace(/[^\x00-\xff]/g, "**").length;
+    if (value == "") {
+        $("#relaxName  ~ .help-inline").text(MESSAGE_REQUIRED).removeClass("trueMsg").addClass("errorMsg");
+        return;
+    }
+    if (len < 4 || len > 30) {
+        $("#relaxName  ~ .help-inline").text(MESSAGE_LENGTH_ERR).removeClass("trueMsg").addClass("errorMsg");
+        return;
+    }
+    jsRoutes.controllers.auth.Salons.itemIsExist(value, ITEM_TYPE_RELAX).ajax({
+        async: false,
+        cache: false,
+        type: 'POST',
+        success: function (data) {
+            if (data == "false") {
+                $('#relaxName  ~ .help-inline').text('').removeClass("errorMsg").addClass("trueMsg");
+            }
+            else {
+                $('#relaxName  ~ .help-inline').text(MESSAGE_NAME_USED).removeClass("trueMsg").addClass("errorMsg");
+            }
+        },
+        error: function (err) {
+            $('#relaxName  ~ .help-inline').text(MESSAGE_CHECK_ERR).removeClass("trueMsg").addClass("errorMsg");
+        }
+    });
+}
+
+function checksForRelax() {
+    var relaxName = document.getElementsByName("styleName");
+    var isCreate = relaxName[0].getAttribute("readonly");
+    if (!isCreate) {
+        checkRelaxName();
+    }
+    checkedRequired("relaxName");
+    checkedRequired("description");
+    checkedItemDescription("description", 10, 100);
+
+    $('.picture_error_msg').remove();
+
+    var $obj = $('.imageoffileobjid');
+
+    if ($obj.length == 1) {
+        $('.demo').append('<div class="picture_error_msg"><span class="errorMsg">至少选择一张图片</span><div>');
+        return;
+    }
+
+    var errInput = $('.errorMsg')
+    if (errInput.length != 0) {
+        return false;
+    }
+    document.styleForm.submit();
 }
 
 /**
