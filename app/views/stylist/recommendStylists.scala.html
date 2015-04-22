@@ -1,5 +1,6 @@
 <div id="index_tjhs">
   <h2><img src="@routes.Assets.at("images/index_tjhs_title.jpg")" width="255" height="36" /></h2>
+  @if(models.portal.stylist.Stylist.findRecommendStylists.length >0) {
   <div id="index_tjhs_nr">
     <dl>
     <dd class="pic">
@@ -30,4 +31,5 @@
     </dd>
     </dl>
   </div>
+  }
 </div>
