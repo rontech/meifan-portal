@@ -72,12 +72,6 @@ body {
 img {
     max-width:100%;
 }
-h1 {
-    position:absolute;
-    top:10px;
-    left:50%;
-    margin:0 0 0 -63px;
-}
 h1 img {
     max-width:100%;
     width:124px;
@@ -145,13 +139,6 @@ p.home { text-align:center;
 p.home span { background:url(../images/icn_menu_home.png) left no-repeat; padding-left:20px; }
 
 @media screen and (min-width : 780px) {
-    h1 {
-        left:0;
-        margin:0 0 0 10px;
-        top:6px;
-        width:136px;
-        height:35px;
-    }
     h1 img {
         width:136px;
         height:35px;
@@ -220,11 +207,6 @@ p.home span { background:url(../images/icn_menu_home.png) left no-repeat; paddin
         width:1000px;
         margin:0 auto;
         position:relative;
-    }
-    h1 {
-        left:0;
-        margin:0 0 0 0px;
-        top:6px;
     }
     .login_bt{
         margin-right:0;

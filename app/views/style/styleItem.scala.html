@@ -38,8 +38,8 @@
         @style.stylePic.map { stylePic =>
           <div class="picContent">
             <a class="pics">
-              <img class="thumb fl w85 h91 mR5" src="@routes.Application.getPhoto(stylePic.fileObjId)" alt="">
-              <span><img class="fl w85 h91 mR5" src="@routes.Application.getPhoto(stylePic.fileObjId)"></span>
+              <img class="thumb fl w85 mR5" src="@routes.Application.getPhoto(stylePic.fileObjId)" alt="">
+              <span><img class="fl w85 mR5" src="@routes.Application.getPhoto(stylePic.fileObjId)"></span>
             </a>
 
             <div class="picDescription">@stylePic.description</div>
@@ -145,50 +145,58 @@
                 <dt class="fl fgPink w2em">
                 @Messages("hair.styleAmount")
                 </dt>
-                @style.styleAmount.map { styleAmount =>
-                  <dd class="fl">
-                    <span class="detail2S hairLittleOn mL5">
-                      @Messages("style.styleAmount." + styleAmount)
-                    </span>
-                  </dd>
-                }
+                <div class="typeArea">
+                  @style.styleAmount.map { styleAmount =>
+                    <dd class="fl mT3">
+                      <span class="detail2S hairLittleOn mL5">
+                        @Messages("style.styleAmount." + styleAmount)
+                      </span>
+                    </dd>
+                  }
+                </div>
               </dl>
               <dl class="cFix mT5">
                 <dt class="fl fgPink w2em">
                 @Messages("hair.styleQuality")
                 </dt>
-                @style.styleQuality.map { styleQuality =>
-                  <dd class="fl">
-                    <span class="detail2S hairLittleOn mL5">
-                      @Messages("style.styleQuality." + styleQuality)
-                    </span>
-                  </dd>
-                }
+                <div class="typeArea">
+                  @style.styleQuality.map { styleQuality =>
+                    <dd class="fl mT3">
+                      <span class="detail2S hairLittleOn mL5">
+                        @Messages("style.styleQuality." + styleQuality)
+                      </span>
+                    </dd>
+                  }
+                </div>
               </dl>
               <dl class="cFix mT5">
                 <dt class="fl fgPink w2em">
                 @Messages("hair.styleDiameter")
                 </dt>
-                @style.styleDiameter.map { styleDiameter =>
-                  <dd class="fl">
-                    <span class="detail2S hairLittleOn mL5">
-                      @Messages("style.styleDiameter." + styleDiameter)
-                    </span>
-                  </dd>
-                }
+                <div class="typeArea">
+                  @style.styleDiameter.map { styleDiameter =>
+                    <dd class="fl mT3">
+                      <span class="detail2S hairLittleOn mL5">
+                        @Messages("style.styleDiameter." + styleDiameter)
+                      </span>
+                    </dd>
+                  }
+                </div>
               </dl>
             </div>
             <dl class="fr w190 bdGrayL pL15" >
               <dt class="fl fgPink w2em h106">
               @Messages("hair.faceShape")
               </dt>
-              @style.faceShape.map { faceShape =>
-                <dd class="fl">
-                  <span class="detail2S hairLittleOn mL5">
-                    @Messages("style.faceShape." + faceShape)
-                  </span>
-                </dd>
-              }
+              <div class="typeArea">
+                @style.faceShape.map { faceShape =>
+                  <dd class="fl mT3">
+                    <span class="detail2S hairLittleOn mL5">
+                      @Messages("style.faceShape." + faceShape)
+                    </span>
+                  </dd>
+                }
+              </div>
             </dl>
           </div>
         </div>

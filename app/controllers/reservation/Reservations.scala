@@ -457,6 +457,7 @@ object Reservations extends MeifanNetCustomerOptionalApplication {
   def reservShowDate(salonId: ObjectId, stylistId: String, styleId: String, week: Int, jumpType: String) = StackAction {
     implicit request =>
     val user = loggedIn
+    var industry = null
     val salon: Option[Salon] = Salon.findOneById(salonId)
 
     var reservation: Reservation = Cache.getOrElse[Reservation]("reservation", null, 0)
@@ -655,6 +656,8 @@ object Reservations extends MeifanNetCustomerOptionalApplication {
     resvSchedule = resvSchedule.copy(yearsPart = yearsPart, daysPart = daysPart, timesPart = timesPart, resvInfoPart = resvInfoPart)
     salon match {
       case Some(s) => {
+        reservation = reservation.copy(industry = s.salonIndustry.head)
+        Cache.set("reservation", reservation)
         if(stylistId == "") {
           Ok(views.html.reservation.reservationInfo(s, resvSchedule, reservation, None, "", weekIndex, "resvSalon", jumpType, user))
         } else {

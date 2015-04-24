@@ -1557,3 +1557,7 @@ padding-bottom: 30px;
 }
 
 /*--------申请技师导航条--------*/
+
+.SmallPortrait {
+  width: 150px;
+}
