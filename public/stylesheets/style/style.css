@@ -22,6 +22,7 @@ border-bottom: 1px solid #DDDDDD;
 }
 
 .stylePageTileOuter {
+border-bottom: 3px solid #E4E0D9;
 padding: 0 0 8px 10px;
 }
 
@@ -278,4 +279,9 @@ font-weight: bold;
 color: #665555;
 background-color: #E4E0D9;
 padding: 3px 8px;
+}
+
+.typeArea {
+  width: 190px;
+  margin-left: 25px;
 }
