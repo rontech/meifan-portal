@@ -966,11 +966,11 @@ function checkedPresentTime() {
 }
 
 $('#description').focus(function () {
-  this.setAttribute("maxlength", 100);
-  $('#description  ~ .help-inline').text("请输入描述内容，10~100个字符，最多50个汉字").removeClass("errorMsg").removeClass("trueMsg");
+  this.setAttribute("maxlength", 200);
+  $('#description  ~ .help-inline').text("请输入描述内容，10~200个字符，最多100个汉字").removeClass("errorMsg").removeClass("trueMsg");
 }).blur(function () {
   checkedRequired("description");
-  checkedItemDescription("description", 10, 100);
+  checkedItemDescription("description", 10, 200);
 });
 
 function checkedItemDescription(inputName, minlength, maxlength) {
@@ -1197,8 +1197,9 @@ function checksForStyle() {
   if (!isCreate) {
     checkStyleName();
   }
-  checkedRequired("description");
-  checkedItemDescription("description", 10, 100);
+    //重复调用
+//  checkedRequired("description");
+//  checkedItemDescription("description", 10, 200);
 
   $('.picture_error_msg').remove();
 
