@@ -1,6 +1,11 @@
 @(navInMyPage: String = "my-reservation", user :models.portal.user.User, followInfo :models.portal.user.FollowInformation, loginUserId :ObjectId = new ObjectId, logged:Boolean = false)(content: Html)
 
-@main(Messages("site.title"), Some(user)) {
+@main(Messages("site.title"),
+      if(!models.portal.user.User.findOneById(loginUserId).isEmpty) {
+        models.portal.user.User.findOneById(loginUserId)
+      } else {
+        None
+      }){
   
   
   <head>
