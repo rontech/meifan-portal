@@ -64,14 +64,14 @@
           <div class="detailBtn1 dibBL vaB">
             <ul class="nowrap w171 taR">
               <li class="dibBL mR6">
-                <a class="mapBtn bS" href="@noAuth.routes.Salons.getMap(reservation.salonId)"
+                <a class="mapBtn" href="@noAuth.routes.Salons.getMap(reservation.salonId)"
                 title="">
                   @Messages("salon.accessMap")
                 </a>
               </li>
               <li class="dibBL">
                 <a href="@auth.routes.Reservations.showReservationDetailById(reservation.id)"
-                class="reserveDetail bS">
+                class="reserveDetail">
                   @Messages("reservation.detail")
                 </a>
               </li>

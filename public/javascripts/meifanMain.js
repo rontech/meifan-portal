@@ -118,7 +118,7 @@ function toPage(page) {
   var pages = document.getElementById("page").value;
   var i = parseInt(page);
   var current = "currentpage" + pages;
-  window.location = "/recordmain/" + i + "#";
+  window.location = "/myPage/letters/unRead/" + i;
 }
 //下一页
 function toNextPage() {

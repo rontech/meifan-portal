@@ -44,14 +44,17 @@
               </p>
               <dl class="reserveMessageHistory cFix">
                 <dt class="fl visitedStore iS">
-                  @if(reservation.status==1 || reservation.status==3){
+                  @if(reservation.status == 1 || reservation.status == 3){
                     @Messages("reservation.Used")
                   }
-                  @if(reservation.status == 2 || reservation.status == -1){
-                    @Messages("reservation.noComing")
+                  @if(reservation.status == 2){
+                    @Messages("reservation.overDue")
                   }
-                  @if(reservation.status==0){
-                    已成功预约
+                  @if(reservation.status == -1){
+                    @Messages("reservation.cancel")
+                  }
+                  @if(reservation.status == 0){
+                    @Messages("reservation.success")
                   }
                 </dt>
                 <dd class="fl salonsAnswer ">
@@ -62,7 +65,7 @@
                     @Messages("reservation.forwordToNextComing")
                   }
                   @if(reservation.status==0){
-                    请在指定的日期来店
+                    @Messages("reservation.comingMsg")
                   }
                 </dd>
               </dl>
@@ -95,12 +98,12 @@
           <div>
             <p class="detailTxt2">
             </p>
-            <div class="detailBtn2">
+            <div class="detailBtn2 taR pB5 mT5">
               <ul class="nowrap">
                 <li class="dibBL">
                   <a class="reserveBtn bS" href="@noAuth.routes.Salons.getAllCoupons(reservation.salonId, "", "", "reservation")"
                   title="">
-                    @Messages("reserve.name")
+                    @Messages("reserve.again")
                   </a>
                 </li>
                   <!-- -->
