@@ -774,6 +774,11 @@
 .shopInformationHead					{ background-position: -2920px top; background-repeat: no-repeat; padding-top: 6px; display: block; text-decoration: none; }
 .shopInformationBottom				{ background-position: -3620px bottom; background-repeat: no-repeat; padding-bottom: 6px; zoom: 1; }
 .shopInformationMysalon				{ background-position: -2219px top; background-repeat: repeat-y; padding: 4px 0; zoom: 1; }
+.shopInformation {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-size: 5490px 118px;
+}
 
 .netReserveWrapper {
 	min-height: 3px;
@@ -1560,4 +1565,19 @@ padding-bottom: 30px;
 
 .SmallPortrait {
   width: 150px;
+}
+
+.mapbtn, .reserveDetail, .reserveBtn, .toReserveList {
+  background: rgb(240, 148, 153);
+  padding: 3px 10px;
+  color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.247059) 0px 1px 2px;
+}
+
+.shopContentsWrapper {
+  margin-top: 20px;
+}
+
+.boxBodyHistory {
+  padding-left: 10px;
 }

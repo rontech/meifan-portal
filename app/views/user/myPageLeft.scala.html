@@ -12,7 +12,7 @@
         <div class="clear"></div>
         <div class ="sta">
           <a href="@noAuth.routes.MyFollows.followers(user.id)"><font>@Messages("user.myFollowers")<span>(@followInfo.follower.length)</span></font></a>
-          <a href="@auth.routes.UserLetters.messageList("unRead")"><font>@Messages("user.myMessages")<span>(@models.portal.user.UserMessage.countByCondition("unRead",user.userId))</span></font></a>
+          <a href="@auth.routes.UserLetters.messageList("unRead", 1)"><font>@Messages("user.myMessages")<span>(@models.portal.user.UserMessage.countByCondition("unRead",user.userId))</span></font></a>
         </div>
       </div>
       <div class='myPoint' id='UserSkills'>

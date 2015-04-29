@@ -71,13 +71,13 @@ object UserLetters extends MeifanNetCustomerApplication {
       })
   }
 
-  def messageList(requirement: String) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
+  def messageList(requirement: String, page: Int) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>
     val user = loggedIn
     val count = UserMessage.countByCondition(requirement, user.userId)
-    val unReadMsgs = UserMessage.findByCondition(requirement, user.userId, 1, pageSize)
+    val unReadMsgs = UserMessage.findByCondition(requirement, user.userId, page, pageSize)
     var userMsgs: List[models.portal.user.UserMessage] = Nil
     if (unReadMsgs.isEmpty) {
-      val inBoxMsgs = UserMessage.findByCondition(UserMessage.INBOX_ALL, user.userId, 1, pageSize)
+      val inBoxMsgs = UserMessage.findByCondition(UserMessage.INBOX_ALL, user.userId, page, pageSize)
       userMsgs = inBoxMsgs
     } else {
       userMsgs = unReadMsgs
@@ -92,7 +92,7 @@ object UserLetters extends MeifanNetCustomerApplication {
       pages = count.toInt / pageSize + 1
     }
     val followInfo = MyFollow.getAllFollowInfo(user.id)
-    Ok(views.html.user.myMessages(letters, count, pages, 1, user, followInfo))
+    Ok(views.html.user.myMessages(letters, count, pages, page, user, followInfo))
   }
 
   def showMessage(id: ObjectId) = StackAction(AuthorityKey -> authorization(LoggedIn) _) { implicit request =>

@@ -14,7 +14,7 @@
           <div class="id_avatar">
             <a href="@noAuth.routes.Users.userPage(models.portal.user.User.findOneByNickNm(letter.userMessage.senderNm).get.userId)">
                <img src="@routes.Application.getPhoto(models.portal.user.User.findOneByNickNm(letter.userMessage.senderNm).get.userPics)" alt="@letter.userMessage.senderNm"
-                 title="@letter.userMessage.senderNm" align="absmiddle" class = "SmallPortrait" width="50" height="50"/>
+                 title="@letter.userMessage.senderNm" align="absmiddle" width="50" height="50"/>
             </a>
           </div>
           <div class="msg_main">
@@ -34,7 +34,12 @@
     }
     
     <div class="page-limit">
-      <a href="javascript:toUpPage();">上一页</a>
+      @if(page == 1) {
+        @Messages("common.beforePage")
+      } else {
+        <a href="javascript:toUpPage();">@Messages("common.beforePage")</a>
+      }
+
       @for(i <-1 to pages){
         @if(page==i){
           <a href="javascript:toPage(@i);" class="pagelink">@i</a>
@@ -43,7 +48,12 @@
         }
         
       }
-      <a href="javascript:toNextPage();">下一页</a>
+
+      @if(page == pages) {
+        @Messages("common.afterPage")
+      } else {
+        <a href="javascript:toNextPage();">@Messages("common.afterPage")</a>
+      }
     </div>
   </div>
 }

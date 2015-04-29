@@ -1331,14 +1331,14 @@ _height: 30px;
 	line-height: 18px;
 }
 
-	height: 12px;
+	/*height: 12px;
 	border-bottom: 1px solid #959595;
 	background: url(/assets/images/img/bt/icons/icon_heading_bt.png) no-repeat 0 0;
 	padding-left: 24px;
 	padding-bottom: 9px;
 	line-height: 16px;
-	/*display:none;*/    /*ヘアカタログサイト時使用*/
-}
+	*//*display:none;*//*    *//*ヘアカタログサイト時使用*//*
+}*/
 
 div.skinHeadingWrapper2 {
 	height: 12px;
