@@ -1,6 +1,6 @@
 @(nailSearchForm: models.portal.nail.SearchPara, nailPara: models.portal.nail.StylePara, user:Option[models.portal.user.User])
 
-@main(title = Messages("nail.tabName"), nav = "NailCatalog") {
+@main(title = Messages("nail.tabName"), user = user, nav = "NailCatalog") {
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style/style.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/nail/nail.css")">

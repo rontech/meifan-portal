@@ -193,8 +193,8 @@ $('#seatNums').focus(function () {
  * listening the descriptions of picture in salon
  */
 $('#introHeader').focus(function () {
-  this.setAttribute("maxlength", 30);
-  $('#introHeader  ~ .help-inline').text("30字以内，该描述将用于沙龙信息描述的标题显示").removeClass("trueMsg").removeClass("errorMsg");
+  this.setAttribute("maxlength", 20);
+  $('#introHeader  ~ .help-inline').text("20字以内，该描述将用于沙龙信息描述的标题显示").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function () {
   checkedPicTitle()
 });
@@ -205,8 +205,8 @@ $('#introContent').focus(function () {
   checkedPicContent()
 });
 $('#introFooter').focus(function () {
-  this.setAttribute("maxlength", 40);
-  $('#introFooter  ~ .help-inline').text("40字以内，该描述将用于沙龙信息描述的标注显示").removeClass("trueMsg").removeClass("errorMsg");
+  this.setAttribute("maxlength", 100);
+  $('#introFooter  ~ .help-inline').text("100字以内，该描述将用于沙龙信息描述的标注显示").removeClass("trueMsg").removeClass("errorMsg");
 }).blur(function () {
   checkedPicFoot()
 });
@@ -966,11 +966,11 @@ function checkedPresentTime() {
 }
 
 $('#description').focus(function () {
-  this.setAttribute("maxlength", 200);
-  $('#description  ~ .help-inline').text("请输入描述内容，10~200个字符，最多100个汉字").removeClass("errorMsg").removeClass("trueMsg");
+  this.setAttribute("maxlength", 400);
+  $('#description  ~ .help-inline').text("请输入描述内容，10~400个字符，最多200个汉字").removeClass("errorMsg").removeClass("trueMsg");
 }).blur(function () {
   checkedRequired("description");
-  checkedItemDescription("description", 10, 200);
+  checkedItemDescription("description", 10, 400);
 });
 
 function checkedItemDescription(inputName, minlength, maxlength) {
@@ -1014,7 +1014,7 @@ function checksForCoupon() {
   checkedUesConditions();
   checkedPresentTime();
   checkedRequired("description");
-  checkedItemDescription("description", 10, 100);
+  checkedItemDescription("description", 10, 400);
 
   var errInput = $('.errorMsg')
   if (errInput.length != 0) {
@@ -1070,7 +1070,7 @@ function checksForMenu() {
   }
   checkedServiceItem();
   checkedRequired("description");
-  checkedItemDescription("description", 10, 100);
+  checkedItemDescription("description", 10, 400);
 
   var errInput = $('.errorMsg')
   if (errInput.length != 0) {
@@ -1261,7 +1261,7 @@ function checksForRelax() {
     }
     checkedRequired("relaxName");
     checkedRequired("description");
-    checkedItemDescription("description", 10, 100);
+    checkedItemDescription("description", 10, 400);
 
     $('.picture_error_msg').remove();
 
