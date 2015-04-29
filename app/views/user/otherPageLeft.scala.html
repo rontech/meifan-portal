@@ -83,7 +83,7 @@
     }
   </div>
 }
-      <div class='Mod models.portal.user.Users' id='Fellows'>
+      <div class='Mod Users' id='Fellows'>
         <strong>@Messages("user.other")@Messages("user.followSalon")</strong>
          <ul class='clearfix'>
            @followInfo.followSalon.slice(0,8).map {salon =>
@@ -98,7 +98,7 @@
           <a href="@noAuth.routes.MyFollows.followedSalon(user.id)">@Messages("user.showAllFollow")@followInfo.followSalon.length)</a>
         </div>
       </div>
-      <div class='Mod models.portal.user.Users' id='Fellows'>
+      <div class='Mod Users' id='Fellows'>
         <strong>@Messages("user.other")@Messages("user.followStylist")</strong>
          <ul class='clearfix'>
            @followInfo.followStylist.slice(0,8).map {stylist =>
@@ -116,7 +116,7 @@
           <a href="@noAuth.routes.MyFollows.followedStylist(user.id)">@Messages("user.showAllFollow")@followInfo.followStylist.length)</a>
         </div>
       </div>
-      <div class='Mod models.portal.user.Users' id='Fans'>
+      <div class='Mod Users' id='Fans'>
           <strong>@Messages("user.other")@Messages("user.followUser")</strong>
           <ul class='clearfix'>
            @followInfo.followUser.slice(0,8).map {user =>
