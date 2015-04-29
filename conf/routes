@@ -113,7 +113,7 @@ POST        /myPage/updateInfo/:userId                                      cont
 GET         /password                                                       controllers.auth.Users.password
 POST        /changePassword/:userId                                         controllers.auth.Users.changePassword(userId)
 GET         /myPage/myReservation                                           controllers.auth.Users.myReservation
-GET         /myPage/letters/:req                                            controllers.auth.UserLetters.messageList(req:String)
+GET         /myPage/letters/:req/:page                                      controllers.auth.UserLetters.messageList(req:String, page:Int)
 GET         /myPage/letter/:id                                              controllers.auth.UserLetters.showMessage(id:ObjectId)
 GET         /myPage/applyStylist                                            controllers.auth.Users.applyStylist
 GET         /myPage/getSalonIdForApply                                      controllers.auth.Users.getSalonIdForApply

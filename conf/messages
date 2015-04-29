@@ -33,6 +33,8 @@ common.selectAll = 全选
 common.handle = 执行
 common.ToCollect=收藏此
 common.selectForReserv=预约此
+common.beforePage=上一页
+common.afterPage=下一页
 
 
 # Index page
@@ -373,6 +375,7 @@ reserve.name=预约
 reserve.finish=预约完成
 reserve.information=详情查看
 reserve.confirmAndReserve=空位确认・预约
+reserve.again = 再次预约
 
 
 # Service
@@ -702,6 +705,7 @@ user.followedSalon=关注的沙龙
 user.followedStylist=关注的技师
 user.noBlogSearched=没有收藏的博客……
 user.noStyleSearched=没有收藏的发型……
+user.noNailSearched=没有收藏的美甲……
 user.noCouponSearched=没有收藏的优惠券……
 user.applyStylist = 普通会员申请技师
 user.salonBlogTitle = {0} 的最新博客
@@ -1200,6 +1204,9 @@ reservation.detail = 预约详情
 reservation.delete = 取消该预约
 reservation.Used = 已到店消费
 reservation.noComing = 未到店铺消费
+reservation.overDue = 预约已过期
+reservation.cancel = 预约已取消
+reservation.success = 已成功预约
 reservation.patronage = 谢谢来店消费
 reservation.forwordToNextComing = 期待你的光临
 reservation.userConfirm = 预约确认
@@ -1213,6 +1220,8 @@ reservation.resvSreach = 预约检索
 reservation.handle.-1 = 取消预约
 reservation.handle.1 = 完成预约
 reservation.handle.2 = 过期预约
+reservation.ReserveList = 预约一览
+reservation.cancelSuccessful = 的预约已取消
 
 
 
