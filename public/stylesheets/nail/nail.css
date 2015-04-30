@@ -1061,14 +1061,14 @@ a { word-wrap:break-word; }
 
 /* textarea
 ================================================== */
-.text, textarea{
+/*.text, textarea{
     border:1px solid #dfdfdf;
     padding: 8px;
     border-radius: 5px;
 
     -webkit-border-radius: 5px;
 
-}
+}*/
 
 /* login
 ================================================== */

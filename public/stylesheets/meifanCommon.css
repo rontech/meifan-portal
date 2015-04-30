@@ -202,7 +202,7 @@ color: #f36d7a;
 }
 #top_search form select{
 	border:0px;
-	padding-top:2px;
+	padding-top:5px;
 	padding-bottom:2px;
 	float:left;
 	border:none;
@@ -764,7 +764,7 @@ margin: 10px 10px 0 10px;
 
 .postSalonInfo {
 	position: absolute;
-	top: 20px;
+	top: 12px;
 	left: 320px;
 	background: url("/assets/images/icon_postsalon.png") no-repeat left 10px;
 	padding-left: 20px;
@@ -780,7 +780,7 @@ margin: 10px 10px 0 10px;
 	font-size: 10px;
 	overflow: hidden;
 	position: absolute;
-	top: 25px;
+	top: 22px;
 	right: 30px;
 }
 #footerLinks li {
@@ -1973,8 +1973,8 @@ margin-right: 180px;
       color: #000;
     }
     
-.couponTypeSmallCT02{ background-position: -177px -3946px; display: block; width: 23px; height: 18px;}
-.couponTypeSmallCT01{ background-position: -177px -4176px; display: block; width: 23px; height: 13px; }
+.couponTypeSmallCT02{ background-position: -177px -3948px; display: block; width: 23px; height: 18px;}
+.couponTypeSmallCT01{ background-position: -177px -4174px; display: block; width: 23px; height: 18px; }
 
 .upLately			{ background-position: -170px -1500px; width: 30px; height: 13px; margin-left: 5px; }
 /* user */
