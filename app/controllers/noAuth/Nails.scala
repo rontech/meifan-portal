@@ -73,11 +73,7 @@ object Nails extends MeifanNetCustomerOptionalApplication {
   def index = StackAction {
     implicit request =>
       val user = loggedIn
-      var myCity = request.session.get("myCity").map {
-        city => city
-      } getOrElse {
-        "苏州"
-      }
+      var myCity = request.session.get("myCity").map{ city => city } getOrElse { "苏州" }
       val searchParaForNail = new SearchPara(None, myCity, "all", "all", "Nail", List(), List(), List(), List(), List())
       Ok(views.html.nailCatalog.general.overview(nailSearchForm = searchParaForNail, nailPara = Nail.findParaAll("Manicures"), user = user))
   }
