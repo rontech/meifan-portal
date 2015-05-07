@@ -5,6 +5,7 @@
   <script src="@routes.Assets.at("javascripts/slidenav.js")" type="text/javascript"></script>
   <script src="@routes.Assets.at("javascripts/sc.js")" type="text/javascript"></script>
   <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/meifanIndex.css")">
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/indexStyle.css")">
   
   <!-- ↓mainContents -->
   <div id="mainContents">
@@ -13,45 +14,53 @@
     @views.html.common.generalSrchForm(nav = "Top") 
     <!--↑ General Search Form-->
 
-    <div id="banner">
-      <ul class="mainImage" id="jsiMainImage">
-        <li class="current">
-          <a href="@noAuth.routes.Salons.index">
-            <img alt="@Messages("index.hairSalonRsv")" src="@routes.Assets.at("images/mainImg_hair.jpg")" class="mainRsvImage"/>
-          </a>
-        </li>
-        <li>
-          <a href="@noAuth.routes.Salons.indexNail">
-            <img alt="@Messages("index.nailSalonRsv")" src="@routes.Assets.at("images/mainImg_nail.jpg")" class="mainRsvImage"/>
-          </a>
-        </li>
-        <li>
-          <a href="@noAuth.routes.Salons.indexRelax("")">
-            <img alt="@Messages("index.cosmSalonRsv")" src="@routes.Assets.at("images/mainImg_relax.jpg")" class="mainRsvImage"/>
-          </a>
-        </li>
-        <li>
-          <a href="@noAuth.routes.Salons.indexRelax("")">
-            <img alt="@Messages("index.massageSalonRsv")" src="@routes.Assets.at("images/mainImg_esthe.jpg")" class="mainRsvImage"/>
-          </a>
+    <div class="Aflash">
+      <ul class="picUL">
+        <li class="picLI" id="j-focusPic">
+          <div class="picbox j-slider">
+            <span class="j-item"><a href="@noAuth.routes.Salons.index"><img width="990" src="@routes.Assets.at("images/blank.png")" data-src="@routes.Assets.at("images/mainImg_hair.jpg")" /></a></span>
+            <span class="j-item"><a href="@noAuth.routes.Salons.indexNail"><img width="990" src="@routes.Assets.at("images/blank.png")" data-src="@routes.Assets.at("images/mainImg_nail.jpg")" /></a></span>
+            <span class="j-item"><a href="@noAuth.routes.Salons.indexRelax("")"><img width="990" src="@routes.Assets.at("images/blank.png")" data-src="@routes.Assets.at("images/mainImg_relax.jpg")" /></a></span>
+            <span class="j-item"><a href="@noAuth.routes.Styles.index"><img width="990" src="@routes.Assets.at("images/blank.png")" data-src="@routes.Assets.at("images/mainImg_esthe.jpg")" /></a></span>
+          </div>
+
+          <div class="bg j-infobg"></div>
+
+          <div class="info j-info"></div><!--填充内容-->
+
+          <div class="info j-infocontainer" style="display:none;">
+            <div class="infotxt w">
+              <h2 class="title01"><a href="@noAuth.routes.Salons.index">@Messages("index.hairRsv.en")</a></h2>
+              <p class="detail01"><a href="@noAuth.routes.Salons.index">@Messages("index.hairRsv")</a></p>
+            </div>
+            <div class="infotxt w">
+              <h2 class="title01"><a href="@noAuth.routes.Salons.indexNail">@Messages("index.nailRsv.en")</a></h2>
+              <p class="detail01"><a href="@noAuth.routes.Salons.indexNail">@Messages("index.nailRsv")</a></p>
+            </div>
+            <div class="infotxt w">
+              <h2 class="title01"><a href="@noAuth.routes.Salons.indexRelax("")">@Messages("index.relaxationRsv.en")</a></h2>
+              <p class="detail01"><a href="@noAuth.routes.Salons.indexRelax("")">@Messages("index.relaxationRsv")</a></p>
+            </div>
+            <div class="infotxt w">
+              <h2 class="title01"><a href="@noAuth.routes.Styles.index">@Messages("index.estheticRsv.en")</a></h2>
+              <p class="detail01"><a href="@noAuth.routes.Styles.index">@Messages("index.estheticRsv")</a></p>
+            </div>
+
+          </div>
         </li>
       </ul>
-      <div class="imgNaviWrapper">
-      <div class="naviBar" id="jsiNaviBar"></div>
-        <ul class="mainImage_navi" id="jsiImageNavi">
-          <li class="hair_reserve currentNav">
-            <a href="@noAuth.routes.Salons.index">@Messages("index.hairSalonRsv")</a>
-          </li>
-          <li class="nail_reserve">
-            <a href="@noAuth.routes.Salons.indexNail">@Messages("index.nailSalonRsv")</a>
-          </li>
-          <li class="relax_reserve">
-            <a href="@noAuth.routes.Salons.indexRelax("")">@Messages("index.cosmSalonRsv")</a>
-          </li>
-          <li class="esthe_reserve">
-            <a href="@noAuth.routes.Styles.index">@Messages("index.massageSalonRsv")</a>
-          </li>
-        </ul>
+
+      <div class="infobtn" id="j-focusBtns">
+
+
+        <div class="smalpic j-container">
+          <div class="smallbox j-slider">
+            <a class="j-item on" href="@noAuth.routes.Salons.index"><img src="@routes.Assets.at("images/mainImg_hair_small.jpg")"><b></b></a>
+            <a class="j-item" href="@noAuth.routes.Salons.indexNail"><img src="@routes.Assets.at("images/mainImg_nail_small.jpg")"><b></b></a>
+            <a class="j-item" href="@noAuth.routes.Salons.indexRelax("")"><img src="@routes.Assets.at("images/mainImg_relax_small.jpg")"><b></b></a>
+            <a class="j-item" href="@noAuth.routes.Styles.index"><img src="@routes.Assets.at("images/mainImg_esthe_small.jpg")"><b></b></a>
+          </div>
+        </div>
       </div>
     </div>
     
@@ -70,11 +79,13 @@
       <!-- ↑整容整形 -->
     </div>
     
-    <div class="cFix mT34">
+    <!--<div class="cFix mT34">
     <div class="cFix">
     </div>
-    </div>
+    </div>-->
   </div>
   <!-- ↑mainContents -->
+
+  <script src="@routes.Assets.at("javascripts/slide.js")" type="text/javascript"></script>
 
 }

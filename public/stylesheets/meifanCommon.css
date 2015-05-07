@@ -566,7 +566,7 @@ text-align:center;
 #index_member h2{
 	background:url(/assets/images/right_member_title.jpg) no-repeat;
 	width:180px;
-	height:55px;
+	height:54px;
 	clear:both;
 	overflow:hidden;
 }
@@ -787,7 +787,7 @@ margin: 10px 10px 0 10px;
 	float: left;
 	border-right: 1px solid #DDD;
 	padding-right: 15px;
-	*padding-right: 16px;
+	padding-right: 16px;
 	margin-left: 15px;
 	margin-right: -1px;
 }
@@ -1803,7 +1803,8 @@ width: 765px;
 
 .detailHeader {
 	margin-bottom: 20px;
-	background-color: #F7F6EA;
+  border: 1px solid #e6e7e7;
+  border-bottom: none;
 }
 
 .pr {
