@@ -650,7 +650,7 @@ object Salons extends MeifanNetCustomerOptionalApplication {
   /**
    * 店铺前台检索
    */
-  def getSalonBySearch = StackAction { implicit request =>
+  def getSalonBySearch(nav: String) = StackAction { implicit request =>
     val user = loggedIn
     salonSearchForm.bindFromRequest.fold(
       errors => BadRequest(views.html.error.errorMsg(errors)),
