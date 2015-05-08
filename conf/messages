@@ -1,8 +1,8 @@
 # General
-site.welcome=美范网，欢迎您！
+site.welcome=美番网，欢迎您！
 site.intro=中国首家美发美容检索预约平台
 site.powerby=苏州隆泰信息技术有限公司
-site.title=中国首家美发美容检索预约平台｜美范网
+site.title=中国首家美发美容检索预约平台｜美番网
 site.description=中国首家集检索预约功能于一体的美容美发美甲休闲健身平台，美容美发，美甲，美发沙龙，美容院，美发店，休闲，健身，瑜伽，发型，博客，评论 24小时网上预约
 site.keywords=美容美发，美甲，美发沙龙，美容院,美发店，休闲，健身，瑜伽，预约
 site.copyright=Copyright &copy; RONTECH Co., Ltd. All rights reserved.
@@ -47,7 +47,7 @@ index.hairSalonRsv=美发沙龙预约
 index.nailSalonRsv=美甲沙龙预约
 index.cosmSalonRsv=美容院预约
 index.massageSalonRsv=按摩院预约
-index.editoralColl=美范编辑的推荐特辑
+index.editoralColl=美番编辑的推荐特辑
 index.latestComments=最新评论
 index.latestBlogs=最新博客
 index.searchByStyle=按发型检索
@@ -55,11 +55,10 @@ index.hotestSalon=最热沙龙
 index.specialCollections=专题特辑
 index.hairRsv=美发预约
 index.nailRsv=美甲预约
-index.estheticRsv=整形美容预约
 index.relaxationRsv=休闲健身预约
 index.hairRsv.en=Hair Salon
 index.nailRsv.en=Nail Salon
-index.estheticRsv.en=Esthetic Salon
+index.welcome.en=MeiFan
 index.relaxationRsv.en=Relaxation Salon
 
 
@@ -80,9 +79,9 @@ main.toMySalon=我的沙龙
 main.toSalonOwners=店铺入口
 main.help=常见问题
 main.myPage=我的主页
-main.myMeifan = 我的美范
+main.myMeifan = 我的美番
 main.saveSite = 收藏本站
-main.welcomeToMeifan = 您好，欢迎来到美范！
+main.welcomeToMeifan = 您好，欢迎来到美番！
 main.hairMessage = 我们提供最权威最新的时尚美容资讯！
 main.weAppeal=乐享生活 爱美有范
 main.contactUs=联系我们
@@ -230,7 +229,7 @@ salon.mailError=邮箱格式不合法
 salon.salonIdNotAvailable=该店铺ID已被注册，请重新输入
 salon.getInSalon=进入店铺
 salon.phoneError=电话格式不合法，如0512-88888888
-salon.agreement=《美范网店铺协议》
+salon.agreement=《美番网店铺协议》
 salon.passwordError=密码不合法
 salon.registerMange.accountId=店铺ID注册后不能修改
 salon.salonNameMange=店铺名称注册后不能修改
@@ -582,7 +581,7 @@ stylistUploadIMG.h3_1 = 为什么要设置技师形象照？
 stylistUploadIMG.weSupport = 我们支持
 stylistUploadIMG.formatandlimit = 格式的图片文件，且文件小于
 stylistUploadIMG.unsupport_1 = 请勿上传身份证照片。
-stylistUploadIMG.prompt_0 =  为保证在店铺显示，给顾客提供您的服务，美范网会人工审核您所提交的形象照。请上传您本人的形象照片。
+stylistUploadIMG.prompt_0 =  为保证在店铺显示，给顾客提供您的服务，美番网会人工审核您所提交的形象照。请上传您本人的形象照片。
 stylistUploadIMG.prompt_1 = 1.清晰亮丽的形象照能为您吸引更多的顾客，可以
 stylistUploadIMG.strong_0 = 给顾客一个好的印象
 stylistUploadIMG.prompt_2 = 2.您需要上传并设置形象照才能
@@ -704,10 +703,10 @@ user.userLogin = 会员登录
 user.loginMessage = 如果您已经是本网站的会员，请在下面输入用户名和密码登录！
 user.forgetPassword = 忘记密码？
 user.quickNavigation=快速导航
-user.hasUserId = 已有美范账号？
+user.hasUserId = 已有美番账号？
 user.chooseEdit=选填
 user.agreeToRegister=同意协议并注册
-user.agreement=《美范网用户协议》
+user.agreement=《美番网用户协议》
 user.fansOf=的粉丝
 user.followedUser=关注的达人
 user.followedSalon=关注的沙龙
@@ -774,7 +773,7 @@ user.errorWorks = 无效的年数
 user.errorSalonId= 无效的店铺ID
 
 #Mail
-mail.subjectOfResetPwd = 来自美范网的密码重置邮件
+mail.subjectOfResetPwd = 来自美番网的密码重置邮件
 mail.limitInfo = 此链接有效期为半小时，请在半小时内点击链接进行修改，每个链接只能修改一次密码。如果您不需要修改密码，或者您从未点击过“忘记密码”按钮，请忽略本邮件。
 
 #ResetPwd
@@ -890,11 +889,11 @@ comment.contentNotNull = 评论内容不能为空
 
 
 # Point
-point.pointDesc=美范网积分制
-point.policyCond=使用美范网
+point.pointDesc=美番网积分制
+point.policyCond=使用美番网
 point.policies=尽享 {0} 积分！
-point.scoreRules=美范积分规则
-point.howToUse=美范积分使用
+point.scoreRules=美番积分规则
+point.howToUse=美番积分使用
 point.promotions=网站上线积分大酬宾！
 
 
@@ -1287,7 +1286,7 @@ salonSearchPage.sortTips=点击按{0}{1}
 salonSearchPage.sortTipsDef=按{0}{1}
 salonSearchPage.sortAsc=由低到高
 salonSearchPage.sortDesc=由高到低
-salonSearchPage.meifanRecomm = 美范推荐
+salonSearchPage.meifanRecomm = 美番推荐
 salonSearchPage.sortByPopularity = 人气 
 salonSearchPage.sortByPrice = 价格
 salonSearchPage.sortByReview = 评价
