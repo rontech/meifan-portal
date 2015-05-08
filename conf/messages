@@ -53,6 +53,14 @@ index.latestBlogs=最新博客
 index.searchByStyle=按发型检索
 index.hotestSalon=最热沙龙
 index.specialCollections=专题特辑
+index.hairRsv=美发预约
+index.nailRsv=美甲预约
+index.estheticRsv=整形美容预约
+index.relaxationRsv=休闲健身预约
+index.hairRsv.en=Hair Salon
+index.nailRsv.en=Nail Salon
+index.estheticRsv.en=Esthetic Salon
+index.relaxationRsv.en=Relaxation Salon
 
 
 # Main Page Framework
