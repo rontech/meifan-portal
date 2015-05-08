@@ -1,4 +1,4 @@
-@(title: String, user: Option[models.portal.user.User] = None, nav: String = "Top", navBar: List[(String, String)] = Nil)(content: Html)
+@(title: String, user: Option[models.portal.user.User] = None, nav: String = "Top", navBar: List[(String, String)] = Nil, city: String = "")(content: Html)
 
 <!DOCTYPE html>
 <html>
@@ -42,7 +42,7 @@
         <div id="top_right">
           <div class="bar_left">
             <h2 class="city_selected">
-
+                 @city
             </h2>
             <span id="ipconfig">
               <a href="@routes.Application.getAllCitys" target="_self">

@@ -266,8 +266,24 @@ object Application extends MeifanNetCustomerOptionalApplication {
    * @return
    */
   def getOneCity(city: String) = Action { implicit request =>
-    request.session.get("currentUri").map{ uri=>
-      Redirect(uri).withSession("myCity" -> city)
+    var urlBack = ""
+    request.session.get("currentUri").map{ url=> {
+      if (url.contains("/salonsearch?nav=RelaxSalon"))
+        urlBack = url.replace("/salonsearch?nav=RelaxSalon", "/relaxSalon?serviceType=")
+      else if (url.contains("/salonsearch?nav="))
+        urlBack = url.replace("/salonsearch?nav=", "/relaxSalon?serviceType=")
+      else if (url.contains("/salonsearch?nav=NailSalon"))
+        urlBack = url.replace("/salonsearch?nav=NailSalon", "/nailSalon")
+      else if (url.contains("/salonsearch?nav=HairSalon"))
+        urlBack = url.replace("/salonsearch?nav=HairSalon", "/salon")
+      else if (url.contains("/style/searchPage"))
+        urlBack = url.replace("/style/searchPage", "/style")
+      else if (url.contains("/nail/searchPage"))
+        urlBack = url.replace("/nail/searchPage", "/nail")
+      else
+        urlBack = url
+      Redirect(urlBack).withSession("myCity" -> city)
+    }
     }getOrElse{
       Redirect(routes.Application.index).withSession("myCity" -> city)
     }
